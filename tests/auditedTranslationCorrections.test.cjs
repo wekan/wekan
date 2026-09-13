@@ -1886,14 +1886,14 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   const vepsScheduledJobs = {
   "cron-jobs": "Märitud aiganke radod",
   "active-cron-jobs": "Aktivižed märitud aiganke radod",
-  "cron-job-delete-confirm": "Tahod-ik heitta necen märitud aiganke radan?",
-  "cron-job-delete-failed": "Ei voind heitta märitud aiganke radad",
+  "cron-job-delete-confirm": "Tahod-ik heitta necen märitud aiganke radon?",
+  "cron-job-delete-failed": "Ei voind heitta märitud aiganke radod",
   "cron-job-deleted": "Märitud aiganke rad om hüvin heittud",
-  "cron-job-pause-failed": "Ei voind azotada märitud aiganke radad",
+  "cron-job-pause-failed": "Ei voind azotada märitud aiganke radod",
   "cron-job-paused": "Märitud aiganke rad om hüvin azotadud",
-  "cron-job-resume-failed": "Ei voind jatkata märitud aiganke radad",
+  "cron-job-resume-failed": "Ei voind jatkata märitud aiganke radod",
   "cron-job-resumed": "Märitud aiganke rad om hüvin jatktud",
-  "cron-job-start-failed": "Ei voind zavodida märitud aiganke radad",
+  "cron-job-start-failed": "Ei voind zavodida märitud aiganke radod",
   "cron-job-started": "Märitud aiganke rad om hüvin zavoditud"
 };
   for (const [key, value] of Object.entries(vepsScheduledJobs)) {
@@ -1912,5 +1912,7 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['cron-job-started'], /zavoditud$/);
   assert.match(cache['ve-PP']['cron-job-deleted'], /heittud$/);
   assert.match(cache['ve-PP']['cron-job-delete-confirm'], /\?$/);
+  assert.doesNotMatch(Object.values(vepsScheduledJobs).join(' '), /radan|radad/);
+  assert.match(cache['ve-PP']['cron-job-delete-confirm'], /radon/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

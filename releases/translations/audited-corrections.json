@@ -118338,15 +118338,15 @@
     "locale": "ve-PP",
     "key": "cron-job-delete-confirm",
     "before": "Haluatko varmasti poistaa tämän ajastetun työn?",
-    "after": "Tahod-ik heitta necen märitud aiganke radan?",
-    "reason": "Replace Finnish scheduled-job notifications with Veps dictionary action verbs. Preserve assigned-time job meaning, active jobs, deletion confirmation and four distinct success/failure pairs. Composed scheduling terminology and inflection remain low confidence pending fluent review."
+    "after": "Tahod-ik heitta necen märitud aiganke radon?",
+    "reason": "Replace Finnish scheduled-job notifications with Veps dictionary action verbs. Preserve assigned-time job meaning, active jobs, deletion confirmation and four distinct success/failure pairs. Composed scheduling terminology and inflection remain low confidence pending fluent review. Follow-up dictionary review: rad has genitive radon and partitive radod, not radan/radad."
   },
   {
     "locale": "ve-PP",
     "key": "cron-job-delete-failed",
     "before": "Ajastetun työn poistaminen epäonnistui",
-    "after": "Ei voind heitta märitud aiganke radad",
-    "reason": "Replace Finnish scheduled-job notifications with Veps dictionary action verbs. Preserve assigned-time job meaning, active jobs, deletion confirmation and four distinct success/failure pairs. Composed scheduling terminology and inflection remain low confidence pending fluent review."
+    "after": "Ei voind heitta märitud aiganke radod",
+    "reason": "Replace Finnish scheduled-job notifications with Veps dictionary action verbs. Preserve assigned-time job meaning, active jobs, deletion confirmation and four distinct success/failure pairs. Composed scheduling terminology and inflection remain low confidence pending fluent review. Follow-up dictionary review: rad has genitive radon and partitive radod, not radan/radad."
   },
   {
     "locale": "ve-PP",
@@ -118359,8 +118359,8 @@
     "locale": "ve-PP",
     "key": "cron-job-pause-failed",
     "before": "Ajastetun työn keskeyttäminen epäonnistui",
-    "after": "Ei voind azotada märitud aiganke radad",
-    "reason": "Replace Finnish scheduled-job notifications with Veps dictionary action verbs. Preserve assigned-time job meaning, active jobs, deletion confirmation and four distinct success/failure pairs. Composed scheduling terminology and inflection remain low confidence pending fluent review."
+    "after": "Ei voind azotada märitud aiganke radod",
+    "reason": "Replace Finnish scheduled-job notifications with Veps dictionary action verbs. Preserve assigned-time job meaning, active jobs, deletion confirmation and four distinct success/failure pairs. Composed scheduling terminology and inflection remain low confidence pending fluent review. Follow-up dictionary review: rad has genitive radon and partitive radod, not radan/radad."
   },
   {
     "locale": "ve-PP",
@@ -118373,8 +118373,8 @@
     "locale": "ve-PP",
     "key": "cron-job-resume-failed",
     "before": "Ajastetun työn jatkaminen epäonnistui",
-    "after": "Ei voind jatkata märitud aiganke radad",
-    "reason": "Replace Finnish scheduled-job notifications with Veps dictionary action verbs. Preserve assigned-time job meaning, active jobs, deletion confirmation and four distinct success/failure pairs. Composed scheduling terminology and inflection remain low confidence pending fluent review."
+    "after": "Ei voind jatkata märitud aiganke radod",
+    "reason": "Replace Finnish scheduled-job notifications with Veps dictionary action verbs. Preserve assigned-time job meaning, active jobs, deletion confirmation and four distinct success/failure pairs. Composed scheduling terminology and inflection remain low confidence pending fluent review. Follow-up dictionary review: rad has genitive radon and partitive radod, not radan/radad."
   },
   {
     "locale": "ve-PP",
@@ -118387,8 +118387,8 @@
     "locale": "ve-PP",
     "key": "cron-job-start-failed",
     "before": "Aikataulu työn käynnistäminen epäonnistui",
-    "after": "Ei voind zavodida märitud aiganke radad",
-    "reason": "Replace Finnish scheduled-job notifications with Veps dictionary action verbs. Preserve assigned-time job meaning, active jobs, deletion confirmation and four distinct success/failure pairs. Composed scheduling terminology and inflection remain low confidence pending fluent review."
+    "after": "Ei voind zavodida märitud aiganke radod",
+    "reason": "Replace Finnish scheduled-job notifications with Veps dictionary action verbs. Preserve assigned-time job meaning, active jobs, deletion confirmation and four distinct success/failure pairs. Composed scheduling terminology and inflection remain low confidence pending fluent review. Follow-up dictionary review: rad has genitive radon and partitive radod, not radan/radad."
   },
   {
     "locale": "ve-PP",
