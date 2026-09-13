@@ -92118,5 +92118,33 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "Kaled slamik (Hijri; Saudi Arabia, küped)",
     "reason": "Translate Hijri calendar label and restore omitted sighting distinction using küped (observation) attested in Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf; slamik follows attested Islamic adjective and existing Kaled terminology. Hijri and Saudi Arabia retained as proper names; no independently verified Volapük country exonym found in this lookup. Assembled label and sighting terminology low confidence, requiring native-speaker validation. Completion of flagged queue does not validate unflagged/restored translations."
+  },
+  {
+    "locale": "bua",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Литын системэ (үдэр харуулха)",
+    "reason": "Replace Turkish/English calendar wording directly with Buryat, following existing local литэ calendar and Үдэр date terminology and Cyrillic proper-name/genitive conventions. системэ is a technical borrowing; calendar-system date display phrased as showing date. Coptic, Hebrew, Persian and Jalali name renderings are assembled with low confidence, not independently attested in this batch. Native-speaker validation required; structural tests do not prove correct Buryat vocabulary or grammar."
+  },
+  {
+    "locale": "bua",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Джалали (Персиин)",
+    "reason": "Replace Turkish/English calendar wording directly with Buryat, following existing local литэ calendar and Үдэр date terminology and Cyrillic proper-name/genitive conventions. системэ is a technical borrowing; calendar-system date display phrased as showing date. Coptic, Hebrew, Persian and Jalali name renderings are assembled with low confidence, not independently attested in this batch. Native-speaker validation required; structural tests do not prove correct Buryat vocabulary or grammar."
+  },
+  {
+    "locale": "bua",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Коптын литэ",
+    "reason": "Replace Turkish/English calendar wording directly with Buryat, following existing local литэ calendar and Үдэр date terminology and Cyrillic proper-name/genitive conventions. системэ is a technical borrowing; calendar-system date display phrased as showing date. Coptic, Hebrew, Persian and Jalali name renderings are assembled with low confidence, not independently attested in this batch. Native-speaker validation required; structural tests do not prove correct Buryat vocabulary or grammar."
+  },
+  {
+    "locale": "bua",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Еврейн литэ",
+    "reason": "Replace Turkish/English calendar wording directly with Buryat, following existing local литэ calendar and Үдэр date terminology and Cyrillic proper-name/genitive conventions. системэ is a technical borrowing; calendar-system date display phrased as showing date. Coptic, Hebrew, Persian and Jalali name renderings are assembled with low confidence, not independently attested in this batch. Native-speaker validation required; structural tests do not prove correct Buryat vocabulary or grammar."
   }
 ]
