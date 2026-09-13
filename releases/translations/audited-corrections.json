@@ -85608,5 +85608,40 @@
     "before": "Buddhist",
     "after": "ནང་པའི་ལོ་ཐོ།",
     "reason": "Replace English Buddhist label with Tibetan Buddhist calendar description. ནང་པ Buddhist attested in Tibetan-Sanskrit-English dictionary https://mahabodhi.saranagamana.org/studies/texts/language/UMA_Dictionary_May2016.pdf ; ནང་པའི genitive construction attested at https://www.gsungrab.org/etdkst/tibetan/entries/religion.htm ; existing ལོ་ཐོ calendar terminology retained. Complete adapted calendar label remains low confidence and does not assert Buddhist Intl calendar is the Tibetan lunisolar calendar. Other religious and Hijri variants remain pending."
+  },
+  {
+    "locale": "bua",
+    "key": "calendar",
+    "before": "Хуанли",
+    "after": "Литэ",
+    "reason": "Replace English named calendar labels and Mongolian-style Хуанли calendar noun with attested Buryat литэ; retain Dangi/Hijri/Umm al-Qura/Minguo identities. Buryat newspaper calendar labels Бураад литэ and Европын литэ appear at https://burunen.storage.yandexcloud.net/iblock/f30/f30f6193c9ab8a04f4e453d8d339544c/fec11ec226f5a0b161d044ce20e2feaf.pdf . Proper calendar identities retained in Latin script pending supported transliteration. Complete adapted label grammar remains low confidence; setting, religious/country and Hijri variants still need review."
+  },
+  {
+    "locale": "bua",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Dangi литэ",
+    "reason": "Replace English named calendar labels and Mongolian-style Хуанли calendar noun with attested Buryat литэ; retain Dangi/Hijri/Umm al-Qura/Minguo identities. Buryat newspaper calendar labels Бураад литэ and Европын литэ appear at https://burunen.storage.yandexcloud.net/iblock/f30/f30f6193c9ab8a04f4e453d8d339544c/fec11ec226f5a0b161d044ce20e2feaf.pdf . Proper calendar identities retained in Latin script pending supported transliteration. Complete adapted label grammar remains low confidence; setting, religious/country and Hijri variants still need review."
+  },
+  {
+    "locale": "bua",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Hijri литэ",
+    "reason": "Replace English named calendar labels and Mongolian-style Хуанли calendar noun with attested Buryat литэ; retain Dangi/Hijri/Umm al-Qura/Minguo identities. Buryat newspaper calendar labels Бураад литэ and Европын литэ appear at https://burunen.storage.yandexcloud.net/iblock/f30/f30f6193c9ab8a04f4e453d8d339544c/fec11ec226f5a0b161d044ce20e2feaf.pdf . Proper calendar identities retained in Latin script pending supported transliteration. Complete adapted label grammar remains low confidence; setting, religious/country and Hijri variants still need review."
+  },
+  {
+    "locale": "bua",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Hijri литэ (Umm al-Qura)",
+    "reason": "Replace English named calendar labels and Mongolian-style Хуанли calendar noun with attested Buryat литэ; retain Dangi/Hijri/Umm al-Qura/Minguo identities. Buryat newspaper calendar labels Бураад литэ and Европын литэ appear at https://burunen.storage.yandexcloud.net/iblock/f30/f30f6193c9ab8a04f4e453d8d339544c/fec11ec226f5a0b161d044ce20e2feaf.pdf . Proper calendar identities retained in Latin script pending supported transliteration. Complete adapted label grammar remains low confidence; setting, religious/country and Hijri variants still need review."
+  },
+  {
+    "locale": "bua",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Minguo литэ",
+    "reason": "Replace English named calendar labels and Mongolian-style Хуанли calendar noun with attested Buryat литэ; retain Dangi/Hijri/Umm al-Qura/Minguo identities. Buryat newspaper calendar labels Бураад литэ and Европын литэ appear at https://burunen.storage.yandexcloud.net/iblock/f30/f30f6193c9ab8a04f4e453d8d339544c/fec11ec226f5a0b161d044ce20e2feaf.pdf . Proper calendar identities retained in Latin script pending supported transliteration. Complete adapted label grammar remains low confidence; setting, religious/country and Hijri variants still need review."
   }
 ]
