@@ -65091,5 +65091,61 @@
     "before": "L'utilisateur existe déjà",
     "after": "An implijer a zo anezhañ dija",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "user-username-not-found",
+    "before": "Utilisateur '%s' non trouvé.",
+    "after": "N’eo ket bet kavet an anv implijer '%s'.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "username-password-required",
+    "before": "Nom d'utilisateur et mot de passe requis",
+    "after": "Ret eo reiñ un anv implijer hag ur ger-tremen",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "username-too-short",
+    "before": "Le nom d'utilisateur doit comporter au moins 3 caractères",
+    "after": "Ret eo d’an anv implijer bezañ 3 arouezenn da nebeutañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "watching-info",
+    "before": "Vous serez notifié de toute modification dans ce tableau",
+    "after": "Kelaouet e viot eus pep kemm en daolenn-mañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "wipLimitErrorPopup-dialog-pt2",
+    "before": "Veuillez enlever des cartes de cette liste, ou définir une limite WIP plus importante.",
+    "after": "Kasit un nebeud trevelloù er-maez eus ar roll-mañ, pe lakait ur vevenn WIP uheloc’h.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "worker-desc",
+    "before": "Peut seulement déplacer des cartes, s'assigner à une carte et la commenter.",
+    "after": "Gallout a ra dilec’hiañ kartennoù hepken, en em lakaat da vezañ karget eus ur gartenn ha skrivañ evezhiadennoù.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "workspace-settings",
+    "before": "Paramètres de l'espace de travail",
+    "after": "Arventennoù an egor labour",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "workspaceActionsPopup-title",
+    "before": "Paramètres de l'espace de travail",
+    "after": "Arventennoù an egor labour",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
