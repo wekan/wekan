@@ -66918,5 +66918,89 @@
     "before": "Vous ne pouvez pas changer les rôles car il doit y avoir au moins un administrateur.",
     "after": "Ne c’hallit ket kemmañ ar rolloù rak ret eo kaout ur merour da nebeutañ.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "left-of-list",
+    "before": "À gauche de la liste sélectionnée",
+    "after": "A-gleiz d’ar roll diuzet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "link-to-search",
+    "before": "Lien vers cette recherche",
+    "after": "Liamm d’an enklask-mañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "list-delete-pop",
+    "before": "Toutes les actions seront supprimées du fil d'activité et il ne sera plus possible de les récupérer. Cela est irréversible.",
+    "after": "Dilamet e vo an holl oberoù eus ar red oberiantiz ha ne c’hallot ket adkavout ar roll. N’haller ket nullañ an dilemel.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "list-filter-label",
+    "before": "Filtrer la liste par titre",
+    "after": "Silañ ar roll dre ditl",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "list-select-cards",
+    "before": "Sélectionner toutes les cartes de cette liste",
+    "after": "Diuzañ an holl gartennoù er roll-mañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "listImportCardPopup-title",
+    "before": "Importer une carte Trello",
+    "after": "Enporzhiañ ur gartenn Trello",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "listImportCardsTsvPopup-title",
+    "before": "Importer un fichier Excel CSV/TSV",
+    "after": "Enporzhiañ Excel CSV/TSV",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "loading",
+    "before": "Chargement, merci de patienter.",
+    "after": "O kargañ, gortozit mar plij.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "mark-all-as-unread",
+    "before": "Tout marquer comme non lu",
+    "after": "Merkañ pep tra evel anlennet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "max-avatar-filesize",
+    "before": "Taille maximum du fichier de l'avatar en octets :",
+    "after": "Ment vrasañ restr ar skeudennig en eizhbitoù:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "max-upload-filesize",
+    "before": "Taille maximum du fichier à uploader en octets : ",
+    "after": "Ment vrasañ ar restr da enkargañ en eizhbitoù:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "memberMenuPopup-title",
+    "before": "Préférence du participant",
+    "after": "Arventennoù an ezel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
