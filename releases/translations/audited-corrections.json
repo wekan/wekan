@@ -63103,5 +63103,103 @@
     "before": "Republic of China",
     "after": "Ikhalenda yeMinguo",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ay",
+    "key": "calendar",
+    "before": "Aymar aruna: Calendar",
+    "after": "Pachachimpu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ay",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Jalali (Persia)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ay",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Buda pachachimpu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ay",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "China pachachimpu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ay",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Copto pachachimpu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ay",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Dangi pachachimpu (Corea)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ay",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Etiopía Amete Alem pachachimpu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ay",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Etiopía pachachimpu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ay",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Hebreo pachachimpu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ay",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "India markan pachachimpupa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ay",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Hijri pachachimpu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ay",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Hijri pachachimpu (Umm al-Qura)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ay",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Japón pachachimpu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ay",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Minguo pachachimpu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
