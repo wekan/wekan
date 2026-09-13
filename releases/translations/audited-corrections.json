@@ -84418,5 +84418,33 @@
     "before": "faka-iso8601",
     "after": "Tohi māhina fakakelekolia (ngaahi uike ISO 8601)",
     "reason": "Restore Tongan calendar identity and omitted Saudi lunar-sighting/Gregorian ISO week information, retaining Hijri name. Tohi māhina attested at https://www.churchofjesuschrist.org/tools/help/about-member-tools?lang=ton and week vocabulary at https://www.churchofjesuschrist.org/study/manual/youth-activities/service?lang=ton; reuse existing Gregorian adjective. Sighting adaptation and full phrase grammar remain low confidence; tabular astronomical epoch and other unflagged variant details need review."
+  },
+  {
+    "locale": "gv",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Feaillere Dangi",
+    "reason": "Replace English calendar labels with existing Manx Feaillere terminology and preserve Dangi/Hijri/Umm al-Qura/Minguo identifiers. Calendar noun attested in Cregeen at https://corpus.gaelg.im/Dictionary/Cregeen/F and https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/maneng.pdf. Adapted identifier-label grammar remains low confidence; country/religious labels and Hijri epoch/sighting terminology remain pending."
+  },
+  {
+    "locale": "gv",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Feaillere Hijri",
+    "reason": "Replace English calendar labels with existing Manx Feaillere terminology and preserve Dangi/Hijri/Umm al-Qura/Minguo identifiers. Calendar noun attested in Cregeen at https://corpus.gaelg.im/Dictionary/Cregeen/F and https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/maneng.pdf. Adapted identifier-label grammar remains low confidence; country/religious labels and Hijri epoch/sighting terminology remain pending."
+  },
+  {
+    "locale": "gv",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Feaillere Hijri (Umm al-Qura)",
+    "reason": "Replace English calendar labels with existing Manx Feaillere terminology and preserve Dangi/Hijri/Umm al-Qura/Minguo identifiers. Calendar noun attested in Cregeen at https://corpus.gaelg.im/Dictionary/Cregeen/F and https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/maneng.pdf. Adapted identifier-label grammar remains low confidence; country/religious labels and Hijri epoch/sighting terminology remain pending."
+  },
+  {
+    "locale": "gv",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Feaillere Minguo",
+    "reason": "Replace English calendar labels with existing Manx Feaillere terminology and preserve Dangi/Hijri/Umm al-Qura/Minguo identifiers. Calendar noun attested in Cregeen at https://corpus.gaelg.im/Dictionary/Cregeen/F and https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/maneng.pdf. Adapted identifier-label grammar remains low confidence; country/religious labels and Hijri epoch/sighting terminology remain pending."
   }
 ]
