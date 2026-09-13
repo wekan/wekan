@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 14,593 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 1,251 pending review or repair.
-The correction inventory records 16,287 exact before/after values,
+findings: 14,615 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 1,229 pending review or repair.
+The correction inventory records 16,319 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original finding queues remain in Veps (510) and Standard Moroccan
+The largest original finding queues remain in Veps (488) and Standard Moroccan
 Tamazight (595). Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -1098,6 +1098,20 @@ and updates the test dependency:
 and updates maintainer tooling:
 
 **Maintenance scripts** - explicit translation uploads and repository mirrors.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5ff1e475d">Repair Veps card labels and activity notifications</a>. Thanks to xet7.</summary>
+
+Repair 32 labels/messages using Veps dictionary and native MediaWiki evidence,
+resolving 22 original findings. Preserve attachment, label, comment, membership,
+archive, import, restore and card-move contexts and source/destination direction.
+Use dictionary-attested swimming/strip roots for the kanban swimlane metaphor.
+Exact correction, source token, key-order and actual i18next rendering checks
+with production underscore interpolation pass. Kanban metaphors, compounds and
+UI inflections need fluent review. Audit and TODO Later now record 14,615
+corrected findings, 1,229 pending and 16,319 exact correction records.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0cef80395">Repair Veps migration limits and log translations</a>. Thanks to xet7.</summary>
