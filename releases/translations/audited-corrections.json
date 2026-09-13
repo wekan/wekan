@@ -120083,5 +120083,75 @@
     "before": "Arvioitu jäljellä oleva aika",
     "after": "Arvosteldud jänu aig",
     "reason": "Replace Finnish remaining-time label with Veps dictionary arvostelda/jänu/aig, and correct the assigned-to-me shortcut from sinei (to you) to minei (to me). Preserve distinct self-assignment/filter meanings. Low confidence: estimated-time participle composition requires fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "admin-announcement",
+    "before": "Ilmoitus",
+    "after": "Tedotuz",
+    "reason": "Replace Finnish announcement and repository controls with Veps. Use dictionary tedotuz/aktivine and existing Tege/Udišta/system-login wording; MediaWiki Veps supports Sa and sada for upload. Retain the technical repo loan, inflected for Veps. Low confidence: repo inflection and system-wide qualifier composition need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "admin-announcement-active",
+    "before": "Aktiivinen järjestelmänlaajuinen ilmoitus",
+    "after": "Aktivine tedotuz kaiken sisteman täht",
+    "reason": "Replace Finnish announcement and repository controls with Veps. Use dictionary tedotuz/aktivine and existing Tege/Udišta/system-login wording; MediaWiki Veps supports Sa and sada for upload. Retain the technical repo loan, inflected for Veps. Low confidence: repo inflection and system-wide qualifier composition need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "admin-announcement-title",
+    "before": "Ilmoitus ylläpitäjältä",
+    "after": "Administratoran tedotuz",
+    "reason": "Replace Finnish announcement and repository controls with Veps. Use dictionary tedotuz/aktivine and existing Tege/Udišta/system-login wording; MediaWiki Veps supports Sa and sada for upload. Retain the technical repo loan, inflected for Veps. Low confidence: repo inflection and system-wide qualifier composition need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "available-repositories",
+    "before": "Käytettävissä olevat repot",
+    "after": "Kävutandaha joudai repod",
+    "reason": "Replace Finnish announcement and repository controls with Veps. Use dictionary tedotuz/aktivine and existing Tege/Udišta/system-login wording; MediaWiki Veps supports Sa and sada for upload. Retain the technical repo loan, inflected for Veps. Low confidence: repo inflection and system-wide qualifier composition need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "repositories",
+    "before": "Repot",
+    "after": "Repod",
+    "reason": "Replace Finnish announcement and repository controls with Veps. Use dictionary tedotuz/aktivine and existing Tege/Udišta/system-login wording; MediaWiki Veps supports Sa and sada for upload. Retain the technical repo loan, inflected for Veps. Low confidence: repo inflection and system-wide qualifier composition need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "repository-name",
+    "before": "Repo nimi",
+    "after": "Repon nimi",
+    "reason": "Replace Finnish announcement and repository controls with Veps. Use dictionary tedotuz/aktivine and existing Tege/Udišta/system-login wording; MediaWiki Veps supports Sa and sada for upload. Retain the technical repo loan, inflected for Veps. Low confidence: repo inflection and system-wide qualifier composition need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "no-repositories",
+    "before": "Repoja ei löytynyt",
+    "after": "Repoid ei ole löutud",
+    "reason": "Replace Finnish announcement and repository controls with Veps. Use dictionary tedotuz/aktivine and existing Tege/Udišta/system-login wording; MediaWiki Veps supports Sa and sada for upload. Retain the technical repo loan, inflected for Veps. Low confidence: repo inflection and system-wide qualifier composition need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "create-repository",
+    "before": "Luo repo",
+    "after": "Tege repo",
+    "reason": "Replace Finnish announcement and repository controls with Veps. Use dictionary tedotuz/aktivine and existing Tege/Udišta/system-login wording; MediaWiki Veps supports Sa and sada for upload. Retain the technical repo loan, inflected for Veps. Low confidence: repo inflection and system-wide qualifier composition need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "upload-repository",
+    "before": "Uppaa/Päivitä repo",
+    "after": "Sa/Udišta repo",
+    "reason": "Replace Finnish announcement and repository controls with Veps. Use dictionary tedotuz/aktivine and existing Tege/Udišta/system-login wording; MediaWiki Veps supports Sa and sada for upload. Retain the technical repo loan, inflected for Veps. Low confidence: repo inflection and system-wide qualifier composition need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "sign-in-to-upload",
+    "before": "Kirjaudu sisään upataksesi repoja",
+    "after": "Tule sistemaha, miše sada repoid",
+    "reason": "Replace Finnish announcement and repository controls with Veps. Use dictionary tedotuz/aktivine and existing Tege/Udišta/system-login wording; MediaWiki Veps supports Sa and sada for upload. Retain the technical repo loan, inflected for Veps. Low confidence: repo inflection and system-wide qualifier composition need fluent review."
   }
 ]

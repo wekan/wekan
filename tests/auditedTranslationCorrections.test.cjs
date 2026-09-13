@@ -2585,5 +2585,26 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.doesNotMatch(vepsTranslator.t('shortcut-filter-my-assigned-cards'), /sinei/);
   assert.equal(cache['ve-PP']['shortcut-filter-my-cards'], 'Puhtasta minun kartad', 'retain distinct own-card filter');
   assert.equal(cache['ve-PP']['shortcut-assign-self'], 'Märiče ičtaze nügüdläižele kartale', 'retain distinct self-assignment action');
+  const vepsAnnouncementsAndRepositories = {
+  "admin-announcement": "Tedotuz",
+  "admin-announcement-active": "Aktivine tedotuz kaiken sisteman täht",
+  "admin-announcement-title": "Administratoran tedotuz",
+  "available-repositories": "Kävutandaha joudai repod",
+  "repositories": "Repod",
+  "repository-name": "Repon nimi",
+  "no-repositories": "Repoid ei ole löutud",
+  "create-repository": "Tege repo",
+  "upload-repository": "Sa/Udišta repo",
+  "sign-in-to-upload": "Tule sistemaha, miše sada repoid"
+};
+  for (const [key, value] of Object.entries(vepsAnnouncementsAndRepositories)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Ilmoitus|ilmoitus|Aktiivinen|järjestelmänlaajuinen|ylläpitäjältä|Käytettävissä|Repot|Repoja|Luo|Uppaa|Päivitä|Kirjaudu|upataksesi/, key);
+  }
+  assert.match(vepsTranslator.t('admin-announcement-active'), /Aktivine.*kaiken sisteman/);
+  assert.match(vepsTranslator.t('upload-repository'), /^Sa\/Udišta/);
+  assert.match(vepsTranslator.t('sign-in-to-upload'), /^Tule sistemaha.*sada repoid$/);
+  assert.equal(cache['ve-PP'].repository, 'Repo', 'retain the existing technical repository noun');
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
