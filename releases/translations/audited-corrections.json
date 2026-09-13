@@ -118599,5 +118599,68 @@
     "before": "raja",
     "after": "ülimär",
     "reason": "Replace Finnish search errors with Veps using dictionary lugu, kogonaine, olend and järgenduz. Preserve placeholders and distinct number/sort/status/existence/limit/debug meanings; express positive integer explicitly as greater than zero. Technical composition remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-show-lists-on-minicard",
+    "before": "Näytä listat minikortilla",
+    "after": "Ozuta lugetišed minikartal",
+    "reason": "Replace flagged Finnish card sorting/template/bulk-copy or member-permission prose with Veps dictionary and existing terminology. Preserve literal JSON title/description fields, first/second/last examples, minicard placement, settings prohibition and at least one administrator. Composed technical case/morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-sorting-by-number",
+    "before": "Korttien lajittelu numeroiden mukaan",
+    "after": "Kartoiden järgenduz numeran mödhe",
+    "reason": "Replace flagged Finnish card sorting/template/bulk-copy or member-permission prose with Veps dictionary and existing terminology. Preserve literal JSON title/description fields, first/second/last examples, minicard placement, settings prohibition and at least one administrator. Composed technical case/morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-sorting-by-number-on-minicard",
+    "before": "Korttien lajittelu minikortin numeroiden mukaan",
+    "after": "Kartoiden järgenduz numeran mödhe minikartal",
+    "reason": "Replace flagged Finnish card sorting/template/bulk-copy or member-permission prose with Veps dictionary and existing terminology. Preserve literal JSON title/description fields, first/second/last examples, minicard placement, settings prohibition and at least one administrator. Composed technical case/morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "copyChecklistFromTemplate",
+    "before": "Kopioi tarkistuslista - Malli",
+    "after": "Kopirui kodvindlugetiž vilitesespäi",
+    "reason": "Replace flagged Finnish card sorting/template/bulk-copy or member-permission prose with Veps dictionary and existing terminology. Preserve literal JSON title/description fields, first/second/last examples, minicard placement, settings prohibition and at least one administrator. Composed technical case/morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "copyChecklistFromTemplatePopup-title",
+    "before": "Kopioi tarkistuslista - Malli",
+    "after": "Kopirui kodvindlugetiž vilitesespäi",
+    "reason": "Replace flagged Finnish card sorting/template/bulk-copy or member-permission prose with Veps dictionary and existing terminology. Preserve literal JSON title/description fields, first/second/last examples, minicard placement, settings prohibition and at least one administrator. Composed technical case/morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"Ensimmäisen kortin otsikko\", \"description\":\"Ensimmäisen kortin kuvaus\"}, {\"title\":\"Toisen kortin otsikko\",\"description\":\"Toisen kortin kuvaus\"},{\"title\":\"Viimeisen kortin otsikko\",\"description\":\"Viimeisen kortin kuvaus\"} ]",
+    "after": "[{\"title\":\"Ezmäižen kartan pälkirjutez\",\"description\":\"Ezmäižen kartan kuvadand\"},{\"title\":\"Toižen kartan pälkirjutez\",\"description\":\"Toižen kartan kuvadand\"},{\"title\":\"Jäl’gmäižen kartan pälkirjutez\",\"description\":\"Jäl’gmäižen kartan kuvadand\"}]",
+    "reason": "Replace flagged Finnish card sorting/template/bulk-copy or member-permission prose with Veps dictionary and existing terminology. Preserve literal JSON title/description fields, first/second/last examples, minicard placement, settings prohibition and at least one administrator. Composed technical case/morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "copyManyCardsPopup-instructions",
+    "before": "Kohde korttien otsikot ja kuvaukset JSON-muodossa",
+    "after": "Tähtkartoiden pälkirjutesed da kuvadandad neces JSON-formatas",
+    "reason": "Replace flagged Finnish card sorting/template/bulk-copy or member-permission prose with Veps dictionary and existing terminology. Preserve literal JSON title/description fields, first/second/last examples, minicard placement, settings prohibition and at least one administrator. Composed technical case/morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "normal-desc",
+    "before": "Voi nähdä ja muokata kortteja. Ei voi muokata asetuksia.",
+    "after": "Voib nähta da vajehtada kartoid. Ei voi vajehtada sändoid.",
+    "reason": "Replace flagged Finnish card sorting/template/bulk-copy or member-permission prose with Veps dictionary and existing terminology. Preserve literal JSON title/description fields, first/second/last examples, minicard placement, settings prohibition and at least one administrator. Composed technical case/morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "last-admin-desc",
+    "before": "Et voi vaihtaa rooleja koska täytyy olla olemassa ainakin yksi ylläpitäjä.",
+    "after": "Sinä ed voi vajehtada roloid: pidab olda üks administrator libo enamba.",
+    "reason": "Replace flagged Finnish card sorting/template/bulk-copy or member-permission prose with Veps dictionary and existing terminology. Preserve literal JSON title/description fields, first/second/last examples, minicard placement, settings prohibition and at least one administrator. Composed technical case/morphology remains low confidence pending fluent review."
   }
 ]

@@ -2003,5 +2003,31 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(validLimit.getQueryParams().getPredicate('limit'), 10);
   assert.match(cache['ve-PP']['operator-limit-invalid'], /kogonaine/);
   assert.match(cache['ve-PP']['operator-limit-invalid'], /suremb 0/);
+  const vepsCardCopyPermissions = {
+  "card-show-lists-on-minicard": "Ozuta lugetišed minikartal",
+  "card-sorting-by-number": "Kartoiden järgenduz numeran mödhe",
+  "card-sorting-by-number-on-minicard": "Kartoiden järgenduz numeran mödhe minikartal",
+  "copyChecklistFromTemplate": "Kopirui kodvindlugetiž vilitesespäi",
+  "copyChecklistFromTemplatePopup-title": "Kopirui kodvindlugetiž vilitesespäi",
+  "copyManyCardsPopup-format": "[{\"title\":\"Ezmäižen kartan pälkirjutez\",\"description\":\"Ezmäižen kartan kuvadand\"},{\"title\":\"Toižen kartan pälkirjutez\",\"description\":\"Toižen kartan kuvadand\"},{\"title\":\"Jäl’gmäižen kartan pälkirjutez\",\"description\":\"Jäl’gmäižen kartan kuvadand\"}]",
+  "copyManyCardsPopup-instructions": "Tähtkartoiden pälkirjutesed da kuvadandad neces JSON-formatas",
+  "normal-desc": "Voib nähta da vajehtada kartoid. Ei voi vajehtada sändoid.",
+  "last-admin-desc": "Sinä ed voi vajehtada roloid: pidab olda üks administrator libo enamba."
+};
+  for (const [key, value] of Object.entries(vepsCardCopyPermissions)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Näytä listat|Korttien|Kopioi tarkistuslista|Ensimmäisen|Toisen kortin|Viimeisen|Kohde korttien|Voi nähdä|Ei voi muokata|Et voi vaihtaa/, key);
+  }
+  assert.equal(cache['ve-PP']['copyChecklistFromTemplate'], cache['ve-PP']['copyChecklistFromTemplatePopup-title']);
+  const vepsBulkExample = JSON.parse(cache['ve-PP']['copyManyCardsPopup-format']);
+  assert.equal(vepsBulkExample.length, 3);
+  for (const item of vepsBulkExample) assert.deepEqual(Object.keys(item), ['title', 'description']);
+  assert.match(vepsBulkExample[0].title, /^Ezmäižen/);
+  assert.match(vepsBulkExample[1].title, /^Toižen/);
+  assert.match(vepsBulkExample[2].title, /^Jäl’gmäižen/);
+  assert.match(cache['ve-PP']['normal-desc'], /Ei voi vajehtada sändoid/);
+  assert.match(cache['ve-PP']['last-admin-desc'], /üks administrator libo enamba/);
+  assert.match(cache['ve-PP']['card-sorting-by-number-on-minicard'], /minikartal$/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
