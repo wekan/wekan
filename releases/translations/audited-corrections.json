@@ -65434,5 +65434,61 @@
     "before": "__list__/__card__ a un 1er rappel d'échéance [__board__]",
     "after": "__list__/__card__ he deus un degasadenn da soñj kentañ eus an termen [__board__]",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-pastdue",
+    "before": "rappelle que l'échéance (__timeValue__) de __card__  est passée",
+    "after": "degaset da soñj eo tremenet termen (__timeValue__) __card__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-changedListTitle",
+    "before": "a renommé la liste en 1%s",
+    "after": "adenvellet ar roll da %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-checked-item",
+    "before": "a coché %s dans la checklist %s de %s",
+    "after": "merket %s er roll kontroll %s eus %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-checked-item-card",
+    "before": "a coché %s dans la checklist %s",
+    "after": "merket %s er roll kontroll %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-checklist-completed",
+    "before": "a complété la checklist %s de %s",
+    "after": "echuet ar roll kontroll %s eus %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-checklist-uncompleted",
+    "before": "a rendu incomplète la checklist %s de %s",
+    "after": "lakaet ar roll kontroll %s eus %s da vezañ diechu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-checklist-uncompleted-card",
+    "before": "a décoché la checklist %s",
+    "after": "lakaet ar roll kontroll %s da vezañ diechu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-customfield-created",
+    "before": "a créé le champ personnalisé %s",
+    "after": "krouet ar maezienn personelaet %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
