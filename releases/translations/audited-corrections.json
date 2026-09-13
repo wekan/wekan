@@ -88520,5 +88520,47 @@
     "before": "Vérification des avatars du participant du tableau",
     "after": "Kontrolön avataris limanas taba",
     "reason": "Replace French migration-action labels with Volapük using existing software file/list/member/avatar terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests verätükön (correct), jafön (create), kontrolön (check). Preserve all file URLs, missing-list/ID scope, create versus repair actions and member-avatar verification. Keep URL and ID technical abbreviations with Volapük endings. Assembled missing-item phrasing and avatar borrowing remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "due-date",
+    "before": "Date d'échéance",
+    "after": "Tüp",
+    "reason": "Replace French due-date/time labels with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests tüp (due date), vig (week), retön (remain over); reuse existing today/next/current terminology. Preserve due-date concept rather than financial due, today/this-week/next-week distinctions, remaining lockout time and past-due placeholder. Assembled wording remains low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "filter-due-next-week",
+    "before": "Arrive à échéance semaine prochaine",
+    "after": "Tüp in vig sököl",
+    "reason": "Replace French due-date/time labels with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests tüp (due date), vig (week), retön (remain over); reuse existing today/next/current terminology. Preserve due-date concept rather than financial due, today/this-week/next-week distinctions, remaining lockout time and past-due placeholder. Assembled wording remains low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "filter-due-this-week",
+    "before": "Arrive à échéance cette semaine",
+    "after": "Tüp in vig at",
+    "reason": "Replace French due-date/time labels with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests tüp (due date), vig (week), retön (remain over); reuse existing today/next/current terminology. Preserve due-date concept rather than financial due, today/this-week/next-week distinctions, remaining lockout time and past-due placeholder. Assembled wording remains low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "filter-due-today",
+    "before": "Arrive à échéance aujourd'hui",
+    "after": "Tüp adelo",
+    "reason": "Replace French due-date/time labels with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests tüp (due date), vig (week), retön (remain over); reuse existing today/next/current terminology. Preserve due-date concept rather than financial due, today/this-week/next-week distinctions, remaining lockout time and past-due placeholder. Assembled wording remains low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "accounts-lockout-remaining-time",
+    "before": "Temps restant",
+    "after": "Tim retöl",
+    "reason": "Replace French due-date/time labels with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests tüp (due date), vig (week), retön (remain over); reuse existing today/next/current terminology. Preserve due-date concept rather than financial due, today/this-week/next-week distinctions, remaining lockout time and past-due placeholder. Assembled wording remains low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "pastdue",
+    "before": "La date d'échéance %s est passée",
+    "after": "Tüp anuik %s ya epason",
+    "reason": "Replace French due-date/time labels with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests tüp (due date), vig (week), retön (remain over); reuse existing today/next/current terminology. Preserve due-date concept rather than financial due, today/this-week/next-week distinctions, remaining lockout time and past-due placeholder. Assembled wording remains low confidence; native review unavailable."
   }
 ]
