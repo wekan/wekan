@@ -93952,5 +93952,54 @@
     "before": "TLS Unterstützung",
     "after": "TLS lo'meH DuH",
     "reason": "Replace German SMTP descriptions and associated labels with Klingon. Preserve address of the server handling the user email, outbound-mail port, enabling TLS, and username. SMTP/TLS identifiers and technical server borrowing stay recognizable; port is described as the connection number, and address as Quv coordinates. Reuse repaired message, connection, enable and username terminology. Full technical metaphors and software wording are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "error-email-taken",
+    "before": "E-Mail wird schon verwendet",
+    "after": "DaH QIn pat Quvvam lo'lu'taH",
+    "reason": "Replace German account validation and name labels with Klingon. Preserve email/username already in use, existing user, both username and password required, minimum 3 characters while allowing additional characters, and username versus full name. Reuse repaired account/password/address terminology and attested ngutlh character; plural indefinite agreement marks required tokens/characters. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "user-exists",
+    "before": "Der Benutzer existiert bereits",
+    "after": "DaH lo'wI'vam tu'lu'",
+    "reason": "Replace German account validation and name labels with Klingon. Preserve email/username already in use, existing user, both username and password required, minimum 3 characters while allowing additional characters, and username versus full name. Reuse repaired account/password/address terminology and attested ngutlh character; plural indefinite agreement marks required tokens/characters. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "error-username-taken",
+    "before": "Dieser Benutzername ist bereits vergeben",
+    "after": "DaH lo'wI' pongvam lo'lu'taH",
+    "reason": "Replace German account validation and name labels with Klingon. Preserve email/username already in use, existing user, both username and password required, minimum 3 characters while allowing additional characters, and username versus full name. Reuse repaired account/password/address terminology and attested ngutlh character; plural indefinite agreement marks required tokens/characters. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "username-password-required",
+    "before": "Benutzername und Passwort sind erforderlich",
+    "after": "lo'wI' pong pegh mu' je lupoQlu'",
+    "reason": "Replace German account validation and name labels with Klingon. Preserve email/username already in use, existing user, both username and password required, minimum 3 characters while allowing additional characters, and username versus full name. Reuse repaired account/password/address terminology and attested ngutlh character; plural indefinite agreement marks required tokens/characters. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "username-too-short",
+    "before": "Der Benutzername muss mindestens 3 Zeichen lang sein",
+    "after": "lo'wI' pongDaq 3 ngutlhmey lutu'lu'nIS. latlh ngutlhmey chellaH.",
+    "reason": "Replace German account validation and name labels with Klingon. Preserve email/username already in use, existing user, both username and password required, minimum 3 characters while allowing additional characters, and username versus full name. Reuse repaired account/password/address terminology and attested ngutlh character; plural indefinite agreement marks required tokens/characters. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "username",
+    "before": "Benutzername",
+    "after": "lo'wI' pong",
+    "reason": "Replace German account validation and name labels with Klingon. Preserve email/username already in use, existing user, both username and password required, minimum 3 characters while allowing additional characters, and username versus full name. Reuse repaired account/password/address terminology and attested ngutlh character; plural indefinite agreement marks required tokens/characters. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "fullname",
+    "before": "Vollständiger Name",
+    "after": "pong naQ",
+    "reason": "Replace German account validation and name labels with Klingon. Preserve email/username already in use, existing user, both username and password required, minimum 3 characters while allowing additional characters, and username versus full name. Reuse repaired account/password/address terminology and attested ngutlh character; plural indefinite agreement marks required tokens/characters. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
   }
 ]
