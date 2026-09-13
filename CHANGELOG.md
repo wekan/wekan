@@ -80,15 +80,15 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,104 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 740 pending review or repair.
-The correction inventory records 17,223 exact before/after values,
+findings: 15,105 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 739 pending review or repair.
+The correction inventory records 17,224 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
 The largest original finding queues remain in Veps (10) and Standard Moroccan
-Tamazight (594). Silesian database terminology and 17 Tigre
+Tamazight (593). Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
 
@@ -100,11 +100,11 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 123d7a531 (2026-09-14), replacing seven Arabic/French
-Tamazight account labels with matching native-script reference messages.
-One original and six unflagged values are repaired; 594 Tamazight findings
-remain. Aromanian magenta and four Bambara calendar findings remain pending.
-Sakha’s original queue is empty; fluent technical review remains required.
+Latest translation fix is 4cd629494 (2026-09-14), replacing French Tamazight
+notification deletion wording and preserving the all-notifications scope.
+There are 593 Tamazight findings remaining. Read/unread controls and the
+irreversible confirmation remain unresolved; composed wording needs review.
+Aromanian magenta and four Bambara calendar findings remain pending.
 All correction/rendering checks pass; low-confidence wording remains tracked.
 Member assignment popup handlers need separate review for apparent reversed
 operations. The 1,015-suite Node result is historical and predates the latest batches.
@@ -643,6 +643,18 @@ The audit records 749 pending original findings and wider unfinished validation.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4cd629494">Repair Tamazight notification deletion wording</a>. Thanks to xet7.</summary>
+
+Replace the French action with Tamazight while preserving all-notifications
+scope. Reuse existing terminology and reference-supported action/all words.
+All 17,224 correction checks pass; 739 original findings remain overall.
+Composed wording needs fluent regional and technical review. Read/unread
+controls and irreversible confirmation remain unresolved.
+Live browser verification was not run.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/123d7a531">Repair Tamazight core account wording</a>. Thanks to xet7.</summary>
