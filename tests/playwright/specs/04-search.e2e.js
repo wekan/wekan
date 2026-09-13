@@ -178,8 +178,16 @@ test.describe('Search', () => {
       .first();
 
     await expect(labelFilter).toBeVisible({ timeout: 10_000 });
+    await boardPage.evaluate(() => {
+      window._wekanBoardViewBeforeFilter = Blaze.getView(document.querySelector('.board-wrapper'));
+    });
     await labelFilter.click();
-    await boardPage.waitForTimeout(800);
+    await expect.poll(() => new URL(boardPage.url()).searchParams.get('label'))
+      .toBe(labelName);
+    await expect.poll(() => boardPage.evaluate(() =>
+      window._wekanBoardViewBeforeFilter === Blaze.getView(document.querySelector('.board-wrapper')),
+    )).toBe(true);
+    await expect(boardPage.locator('.board-sidebar')).toBeVisible();
 
     // Ensure selected-state indicator is rendered on the clicked label filter.
     await expect(labelFilter.locator('i.fa-check').first()).toBeVisible({ timeout: 10_000 });
@@ -190,6 +198,11 @@ test.describe('Search', () => {
     await expect(boardPage.locator('.js-minicard').filter({ hasText: 'Gamma Card' })).not.toBeVisible({ timeout: 10_000 });
 
     await sp.clearFilters();
+    await expect.poll(() => new URL(boardPage.url()).searchParams.get('label'))
+      .toBeNull();
+    await expect.poll(() => boardPage.evaluate(() =>
+      window._wekanBoardViewBeforeFilter === Blaze.getView(document.querySelector('.board-wrapper')),
+    )).toBe(true);
   });
 
   test('#6629: Board Table view applies the active label filter', async ({ boardPage, board }) => {
