@@ -72329,5 +72329,12 @@
     "before": "Islamic Umm al-Qura",
     "after": "Karenda yeHijri (Umm al-Qura)",
     "reason": "Replace English calendar description using previously verified Shona Karenda terminology and preserve Hijri/Umm al-Qura proper names. Calendar identity matches en.i18n.json; specialized full phrasing still needs native review."
+  },
+  {
+    "locale": "sn",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Karenda yeHijri (Saudi Arabia, kuona kugara kwemwedzi)",
+    "reason": "Restore explicit moon sighting in Saudi Hijri label. Shona kuona kugara kwemwedzi is attested in published discussion of calendar moon observations: https://www.jw.org/sn/Raibhurari/magazini/nharireyomurindi-yekudzidza-june-2022/waizviziva-here-june-2022-2/ . Retain Saudi Arabia proper name; full specialized label needs native review."
   }
 ]
