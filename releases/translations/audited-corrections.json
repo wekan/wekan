@@ -86553,5 +86553,33 @@
     "before": "a décoché la check-list %s",
     "after": "esädunon fiduini kontrolaliseda %s",
     "reason": "Replace French checklist completion/uncompletion activities with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests fimekön (finish/complete), fiduin (completion), sädunön (undo). Reuse kontrolalised checklist compound from repaired labels; translate uncompletion explicitly as undo completion. Perfect forms follow existing activity pattern. Complete grammar and compound remain low confidence pending native review. Preserve all %s tokens in source argument order."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-checked-item",
+    "before": "a coché %s dans la check-list %s de %s",
+    "after": "emäkon eli %s in kontrolalised %s ela %s",
+    "reason": "Replace French checklist checking/unchecking activity messages with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests mäkön (mark) and sädunön (undo). Express checkbox checking as marking, unchecking as undoing marking; avoid dictionary unchecked entry meaning uncontrolled. Reuse kontrolalised compound and local perfect-tense pattern. Derived mäkam, foreign-name articles and complete UI grammar remain low confidence pending native review. Preserve source %s count and argument order."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-unchecked-item",
+    "before": "a décoché %s dans la check-list %s de %s",
+    "after": "esädunon mäkami ela %s in kontrolalised %s ela %s",
+    "reason": "Replace French checklist checking/unchecking activity messages with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests mäkön (mark) and sädunön (undo). Express checkbox checking as marking, unchecking as undoing marking; avoid dictionary unchecked entry meaning uncontrolled. Reuse kontrolalised compound and local perfect-tense pattern. Derived mäkam, foreign-name articles and complete UI grammar remain low confidence pending native review. Preserve source %s count and argument order."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-checked-item-card",
+    "before": "a coché %s dans la check-list %s",
+    "after": "emäkon eli %s in kontrolalised %s",
+    "reason": "Replace French checklist checking/unchecking activity messages with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests mäkön (mark) and sädunön (undo). Express checkbox checking as marking, unchecking as undoing marking; avoid dictionary unchecked entry meaning uncontrolled. Reuse kontrolalised compound and local perfect-tense pattern. Derived mäkam, foreign-name articles and complete UI grammar remain low confidence pending native review. Preserve source %s count and argument order."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-unchecked-item-card",
+    "before": "a décoché %s dans la check-list %s",
+    "after": "esädunon mäkami ela %s in kontrolalised %s",
+    "reason": "Replace French checklist checking/unchecking activity messages with directly assembled Volapük. Dictionary https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests mäkön (mark) and sädunön (undo). Express checkbox checking as marking, unchecking as undoing marking; avoid dictionary unchecked entry meaning uncontrolled. Reuse kontrolalised compound and local perfect-tense pattern. Derived mäkam, foreign-name articles and complete UI grammar remain low confidence pending native review. Preserve source %s count and argument order."
   }
 ]
