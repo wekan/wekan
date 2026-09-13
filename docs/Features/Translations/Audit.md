@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 10,003 |
+| Corrected | 10,018 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 5,843 |
+| Pending review or repair | 5,828 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **10,081** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **10,096** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `349b56826c57acd2dad0a9cc851e93cb1f557879` — fifteen Acehnese filter, search, visibility and home-board messages repaired; **201 Acehnese findings remain**. Case-insensitive search, creator/assignee distinction and the one-board home limit have regression coverage. Grammar and borrowed technical terms remain low confidence. Exact-value, placeholder, JSON example, HTML-tag/entity, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `2d47d8fabdb33a29fe51d6f8caa20bfa0470eaac` — fifteen Acehnese import, mapping, impersonation, filename and invitation messages repaired; **186 Acehnese findings remain**. Exact Trello menu labels and current-user mapping have regression coverage. Grammar and borrowed technical terms remain low confidence. Exact-value, placeholder, JSON example, HTML-tag/entity, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
