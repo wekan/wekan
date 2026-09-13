@@ -18,6 +18,20 @@ const SearchPage = require('../pages/SearchPage');
 const BoardPage = require('../pages/BoardPage');
 
 test.describe('Search', () => {
+  test('Veps overdue search uses the translated predicate and excludes future cards', async ({ boardPage, board, user }) => {
+    db.updateOne('users', { _id: user.id }, { $set: { 'profile.language': 've-PP' } });
+    db.updateOne('cards', { boardId: board.id, title: 'Alpha Card' }, { $set: { dueAt: new Date(Date.now() - 86400000) } });
+    db.updateOne('cards', { boardId: board.id, title: 'Beta Card' }, { $set: { dueAt: new Date(Date.now() + 7 * 86400000) } });
+    await boardPage.reload();
+    await expect(boardPage.locator('html')).toHaveAttribute('lang', 've-PP');
+    const sp = new SearchPage(boardPage);
+    await sp.navigateToGlobalSearch();
+    await sp.globalSearch('märaig:möhäline');
+    await expect.poll(() => sp.globalSearchResultTitles(), { timeout: 20000 }).toContain('Alpha Card');
+    expect(await sp.globalSearchResultTitles()).not.toContain('Beta Card');
+    await expect(boardPage.locator('.global-search-error-messages')).toHaveCount(0);
+  });
+
   test('global search returns cards matching the query and excludes non-matching cards', async ({ boardPage, board }) => {
     const sp = new SearchPage(boardPage);
     await sp.navigateToGlobalSearch();

@@ -35,4 +35,16 @@ for (const [key, operator] of [
   assert.equal(parsed.hasErrors(), false, key);
   assert.equal(parsed.getQueryParams().getPredicate(operator), 'two words', key);
 }
+labels = JSON.parse(read('imports/i18n/data/ve-PP.i18n.json'));
+assert.equal(query('lugetiž:Blocked').getQueryParams().getPredicate('list'), 'Blocked');
+assert.equal(query('lugetiž:"Kodvi"').getQueryParams().getPredicate('list'), 'Kodvi');
+context.now = () => new Date('2026-09-14T00:00:00Z');
+context.formatDate = date => date.toISOString();
+const overdue = query(`${labels['operator-due']}:${labels['predicate-overdue']}`);
+assert.equal(overdue.hasErrors(), false);
+assert.equal(overdue.getQueryParams().getPredicate('dueAt').operator, '$lt');
+assert.equal(overdue.getQueryParams().getPredicate('dueAt').value, '2026-09-14T00:00:00.000Z');
+assert.equal(query(`${labels['operator-due']}:overdue`).hasErrors(), false);
+assert.equal(query(`${labels['operator-due']}:unknown-predicate`).hasErrors(), true);
+assert.equal(query(`${labels['operator-created']}:${labels['predicate-overdue']}`).hasErrors(), true);
 console.log('localizedSearchApostrophes: localized operators, quoted values, ordinary operators and unknown names verified');

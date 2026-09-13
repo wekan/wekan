@@ -2720,5 +2720,17 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(vepsTranslator.t('step-ensure-lost-cards-swimlane'), /kadonu kartoiden ujundšoid.*ku sidä ei ole/);
   assert.notEqual(vepsTranslator.t('lost-cards'), vepsTranslator.t('lost-cards-list'));
   assert.equal(cache['ve-PP']['restore-lost-cards-migration'], 'Endišta kadonu kartad', 'retain existing recovery action');
+  const vepsSearchHelp = {
+  "globalSearch-instructions-description": "Ecindas voib kävutada operatoroid, miše röunatada ecindad. Operatoran nimi da znamoičend kirjutadas erigoittud \":\"-znamal. Ozutesikš operator `lugetiž:Blocked` ecib vaiše kartoid lugetišespäi nimenke *Blocked*. Ku znamoičendas om keskustoid libo eriližid simvoloid, pane se velgznamoihe (ozutesikš `__operator_list__:\"Kodvi\"`).",
+  "globalSearch-instructions-operator-due": "`__operator_due__:<n>` – kartad, miččiden märaig tuleb nügüdläižen aigan jäl’ghe *<n>* päivässai. `__operator_due__:__predicate_overdue__` ozutab kaik kartad, miččiden märaig om männu."
+};
+  for (const [key, value] of Object.entries(vepsSearchHelp)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key, { operator_list: 'lugetiž', operator_due: 'märaig', predicate_overdue: cache['ve-PP']['predicate-overdue'] }), value.replace('__operator_list__', 'lugetiž').replaceAll('__operator_due__', 'märaig').replace('__predicate_overdue__', cache['ve-PP']['predicate-overdue']), key);
+    assert.doesNotMatch(value, /Etsinnät|määritellään|kirjoittamalla|lainausmerkeissä|kortit joilla|eräpäivä|korkeitaan/, key);
+    assert.equal((value.match(/`/g) || []).length % 2, 0, 'balanced code spans');
+  }
+  assert.match(vepsTranslator.t('globalSearch-instructions-description', { operator_list: 'lugetiž' }), /`lugetiž:Blocked`.*keskustoid libo eriližid simvoloid.*`lugetiž:"Kodvi"`/);
+  assert.match(vepsTranslator.t('globalSearch-instructions-operator-due', { operator_due: 'märaig', predicate_overdue: cache['ve-PP']['predicate-overdue'] }), /`märaig:<n>`.*\*<n>\* päivässai.*`märaig:möhäline`.*märaig om männu/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

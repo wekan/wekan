@@ -120412,5 +120412,26 @@
     "before": "Palautetut kohteet",
     "after": "Endištadud azjad",
     "reason": "Replace Finnish recovery/migration step labels with Veps. Reuse existing kadonu kartad, Endištadud and azjad; preserve ensure-if-missing meaning and per-swimlane scope, distinct from recovered-item naming. Low confidence: expanded ensure clauses and case agreement require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-description",
+    "before": "Etsinnät voi sisältää operaattoreita tarkentamaan hakua.  Operaattorit määritellään kirjoittamalla operaattorin nimi ja arvo eroteltuna kaksoispisteellä. Esimerkiksi, operaattori määritelmä `lista:Blokattu` rajoittaisi etsinnät kortteihin listassa nimeltä *Blokattu*.  Jos arvo sisältää välilyöntejä tai erityismerkkejä sen on oltava lainausmerkeissä (esim. `__operator_list__:\"Tarkista nämä\"`).",
+    "after": "Ecindas voib kävutada operatoroid, miše röunatada ecindad. Operatoran nimi da znamoičend kirjutadas erigoittud \":\"-znamal. Ozutesikš operator `lugetiž:Blocked` ecib vaiše kartoid lugetišespäi nimenke *Blocked*. Ku znamoičendas om keskustoid libo eriližid simvoloid, pane se velgznamoihe (ozutesikš `__operator_list__:\"Kodvi\"`).",
+    "reason": "Replace Finnish global-search help with Veps. Preserve colon separation, quoted spaces/special characters, localized list operator, arbitrary example-list title, <n> bound and both due/overdue placeholders. Close the overdue example code span missing in the source. Low confidence: composed operator/date-bound syntax requires fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-operator-due",
+    "before": "`__operator_due__:<n>` - kortit joilla on eräpäivä korkeitaan *<n>* päivän päästä tästä hetkestä.  `__operator_due__:__predicate_overdue__ listaa kaikki kortit joilla eräpäivä meni jo.",
+    "after": "`__operator_due__:<n>` – kartad, miččiden märaig tuleb nügüdläižen aigan jäl’ghe *<n>* päivässai. `__operator_due__:__predicate_overdue__` ozutab kaik kartad, miččiden märaig om männu.",
+    "reason": "Replace Finnish global-search help with Veps. Preserve colon separation, quoted spaces/special characters, localized list operator, arbitrary example-list title, <n> bound and both due/overdue placeholders. Close the overdue example code span missing in the source. Low confidence: composed operator/date-bound syntax requires fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "predicate-overdue",
+    "before": "myöhässä",
+    "after": "möhäline",
+    "reason": "Replace Finnish myöhässä with dictionary-attested Veps möhäline (late/delayed) for the overdue search predicate. Verify the actual Query parser recognizes the localized predicate. Technical deadline adaptation needs fluent review."
   }
 ]

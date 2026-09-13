@@ -494,7 +494,8 @@ export class Query {
                 }
               } else if (
                 operator === OPERATOR_DUE &&
-                value === PREDICATE_OVERDUE
+                (value === PREDICATE_OVERDUE ||
+                  predicateTranslations[OPERATOR_DUE][value] === PREDICATE_OVERDUE)
               ) {
                 value = {
                   operator: '$lt',
