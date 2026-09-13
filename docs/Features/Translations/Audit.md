@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,907 |
+| Corrected | 11,908 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,939 |
+| Pending review or repair | 3,938 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,297** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,298** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `c5d15f039bf31065b22ae3507750dd50ca2447fd` — two Sakha Ethiopic calendar labels repaired using indexed [native country terminology](https://www.yaguo.ru/node/4942), preserving Amete Alem. Full article retrieval timed out; assembled grammar remains low confidence. Exact-value, token, JSON-example, key-order and idempotency checks pass; native-speaker and browser verification remain unavailable.
+Latest translation fix: **2026-09-13**, local commit `9050ceb0b7ba934daa677bad8d85e1a52e63312d` — Quechua Indian national calendar label repaired using [national terminology](https://mapcarta.com/Cerros_de_Amotape_National_Park) and [CLDR calendar terminology](https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/qu.xml). Assembled grammar remains low confidence. Exact-value, token, JSON-example, key-order and idempotency checks pass; native-speaker and browser verification remain unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending because available evidence does not distinguish its wording sufficiently from Polish.
 
