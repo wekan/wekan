@@ -81051,5 +81051,40 @@
     "before": "Paramètres",
     "after": "Jekkal yi",
     "reason": "Replace French general action/settings labels with Wolof using existing Soppi/Tëj/Ubbi/Dëggal/Jekkal terminology and navigation wording. Preserve edit/open/close/back/next/previous/confirm distinctions. Correct local Save/Cancel/Delete/Add/Search/Actions retained. Navigation adaptation remains low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "all-boards",
+    "before": "Tous les tableaux",
+    "after": "Tablo yi yépp",
+    "reason": "Replace French board navigation labels and repair unflagged public-boards construction noun with Wolof tablo terminology. Preserve all versus my versus public boards, board title and home page. Existing Board/Boards retained. Public/home adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "my-boards",
+    "before": "Mes tableaux",
+    "after": "Samay tablo",
+    "reason": "Replace French board navigation labels and repair unflagged public-boards construction noun with Wolof tablo terminology. Preserve all versus my versus public boards, board title and home page. Existing Board/Boards retained. Public/home adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "public-boards",
+    "before": "Tabax yu mbooloo",
+    "after": "Tablo yi ñépp mën a gis",
+    "reason": "Replace French board navigation labels and repair unflagged public-boards construction noun with Wolof tablo terminology. Preserve all versus my versus public boards, board title and home page. Existing Board/Boards retained. Public/home adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "board-title",
+    "before": "Titre du tableau",
+    "after": "Turu tablo bi",
+    "reason": "Replace French board navigation labels and repair unflagged public-boards construction noun with Wolof tablo terminology. Preserve all versus my versus public boards, board title and home page. Existing Board/Boards retained. Public/home adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "home",
+    "before": "Accueil",
+    "after": "Xëtu dalal bi",
+    "reason": "Replace French board navigation labels and repair unflagged public-boards construction noun with Wolof tablo terminology. Preserve all versus my versus public boards, board title and home page. Existing Board/Boards retained. Public/home adaptations and full grammar remain low confidence."
   }
 ]
