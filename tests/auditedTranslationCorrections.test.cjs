@@ -2181,5 +2181,24 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['globalSearch-instructions-operator-sort'], /pane `-` nimen edele/);
   assert.match(vepsTranslator.t('globalSearch-instructions-operator-at', { operator_user_abbrev: '@' }), /`@username`.*`kävutai:<username>`/);
   assert.match(vepsTranslator.t('globalSearch-instructions-operator-limit', { operator_limit: cache['ve-PP']['operator-limit'] }), /suremb 0.*joga lehtpolel/);
+  const vepsMonitoring = {
+  "app-try-reconnect": "Ladi ühtenzoitta udes.",
+  "monitoring-export-failed": "Ei voind tehta tarkištelendan tedoiden irdalevendad",
+  "monitoring-refresh-failed": "Ei voind udištada tarkištelendan tedoid",
+  "attachment-monitoring": "Tartutadud failoiden tarkištelend",
+  "export-monitoring": "Tehta tarkištelendan irdalevend",
+  "refresh-monitoring": "Udišta tarkištelendan tedod",
+  "server-error-troubleshooting": "Oigenda serveran sündutadud viga.\nSnap-panendal kävuta: `sudo snap logs wekan.wekan`\nDocker-panendal kävuta: `sudo docker logs wekan-app`"
+};
+  for (const [key, value] of Object.entries(vepsMonitoring)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Yritä muodostaa|Seurannan|Liitteiden seuranta|Vie seuranta|Päivitä seuranta|Ole hyvä ja lähetä|asennuksessa/, key);
+  }
+  for (const key of ['monitoring-export-failed', 'monitoring-refresh-failed']) assert.match(cache['ve-PP'][key], /^Ei voind/);
+  assert.notEqual(cache['ve-PP']['monitoring-export-failed'], cache['ve-PP']['monitoring-refresh-failed']);
+  assert.match(cache['ve-PP']['app-try-reconnect'], /Ladi.*udes/);
+  assert.deepEqual([...cache['ve-PP']['server-error-troubleshooting'].matchAll(/`([^`]+)`/g)].map(match => match[1]), ['sudo snap logs wekan.wekan', 'sudo docker logs wekan-app']);
+  assert.match(cache['ve-PP']['server-error-troubleshooting'], /serveran sündutadud viga/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

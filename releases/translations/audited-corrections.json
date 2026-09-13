@@ -119068,5 +119068,54 @@
     "before": "`__operator_limit__:<n>` - jossa *<n>* on positiivinen kokonaisluku, joka ilmaisee näytettävien korttien määrän sivua kohden.",
     "after": "`__operator_limit__:<n>` - *<n>* om kogonaine lugu, mi om suremb 0: kartoiden lugumär joga lehtpolel.",
     "reason": "Replace Finnish search instructions using Veps znam, muju, lühetud, vastkarine and lehtpol terminology. Preserve color OR name matching, status choices, positive per-page limit and descending minus prefix. Shorthand uses working localized kävutai operator; close the previously unmatched name emphasis marker. Composed technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "app-try-reconnect",
+    "before": "Yritä muodostaa yhteys uudelleen.",
+    "after": "Ladi ühtenzoitta udes.",
+    "reason": "Replace Finnish monitoring/reconnect/server-error prose with Veps dictionary tarkištelend, udištada, ladida, ühtenzoitta and oigeta. Preserve failed export versus failed refresh, attachment monitoring and exact Snap/Docker commands. Technical composition remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "monitoring-export-failed",
+    "before": "Seurannan vienti epäonnistui",
+    "after": "Ei voind tehta tarkištelendan tedoiden irdalevendad",
+    "reason": "Replace Finnish monitoring/reconnect/server-error prose with Veps dictionary tarkištelend, udištada, ladida, ühtenzoitta and oigeta. Preserve failed export versus failed refresh, attachment monitoring and exact Snap/Docker commands. Technical composition remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "monitoring-refresh-failed",
+    "before": "Seurannan päivittäminen epäonnistui",
+    "after": "Ei voind udištada tarkištelendan tedoid",
+    "reason": "Replace Finnish monitoring/reconnect/server-error prose with Veps dictionary tarkištelend, udištada, ladida, ühtenzoitta and oigeta. Preserve failed export versus failed refresh, attachment monitoring and exact Snap/Docker commands. Technical composition remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "attachment-monitoring",
+    "before": "Liitteiden seuranta",
+    "after": "Tartutadud failoiden tarkištelend",
+    "reason": "Replace Finnish monitoring/reconnect/server-error prose with Veps dictionary tarkištelend, udištada, ladida, ühtenzoitta and oigeta. Preserve failed export versus failed refresh, attachment monitoring and exact Snap/Docker commands. Technical composition remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "export-monitoring",
+    "before": "Vie seuranta",
+    "after": "Tehta tarkištelendan irdalevend",
+    "reason": "Replace Finnish monitoring/reconnect/server-error prose with Veps dictionary tarkištelend, udištada, ladida, ühtenzoitta and oigeta. Preserve failed export versus failed refresh, attachment monitoring and exact Snap/Docker commands. Technical composition remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "refresh-monitoring",
+    "before": "Päivitä seuranta",
+    "after": "Udišta tarkištelendan tedod",
+    "reason": "Replace Finnish monitoring/reconnect/server-error prose with Veps dictionary tarkištelend, udištada, ladida, ühtenzoitta and oigeta. Preserve failed export versus failed refresh, attachment monitoring and exact Snap/Docker commands. Technical composition remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "server-error-troubleshooting",
+    "before": "Ole hyvä ja lähetä palvelimen tekemät lokit.\nSnap asennuksessan, komennolla: `sudo snap logs wekan.wekan`\nDocker asennuksessa, komennolla: `sudo docker logs wekan-app`",
+    "after": "Oigenda serveran sündutadud viga.\nSnap-panendal kävuta: `sudo snap logs wekan.wekan`\nDocker-panendal kävuta: `sudo docker logs wekan-app`",
+    "reason": "Replace Finnish monitoring/reconnect/server-error prose with Veps dictionary tarkištelend, udištada, ladida, ühtenzoitta and oigeta. Preserve failed export versus failed refresh, attachment monitoring and exact Snap/Docker commands. Technical composition remains low confidence pending fluent review."
   }
 ]
