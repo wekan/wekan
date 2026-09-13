@@ -1245,6 +1245,18 @@ for this change.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1a44f6acc">Repair Veps search validation errors and limit operator</a>. Thanks to xet7.</summary>
+
+Replace eight Finnish values, resolving six original findings and two unflagged
+errors. Preserve placeholders and distinct number, sorting, status, existence,
+debug and limit meanings. Runtime rendering and positive/negative production
+Query limit checks pass, along with all 16,943 exact correction records.
+Technical grammar needs fluent review; 905 original findings and restored-value
+validation remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/69582cb2c">Repair Veps user, creator and ended-status search wording</a>. Thanks to xet7.</summary>
 
 Replace ten Finnish values, resolving five original findings and five unflagged
