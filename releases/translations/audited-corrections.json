@@ -113216,5 +113216,194 @@
     "before": "Islamic tabular",
     "after": "Islaman kalendar' (Hijri, tablican abul, tähtaztedoline aiganlugun augotiž)",
     "reason": "Replace English with Veps, preserving tabular civil/astronomical epoch and Saudi moon observation distinctions. Zaiceva/Mullonen (2007), Uz’ venä-vepsläine vajehnik, pp. 104 (rahvahaline), 215 (aiganlugu; uden aiganlugun augotiž), 222 (kudmaine), 243 (tarkištelend), 256 (augotiž), 440 (tablic), and entry астрономический (tähtaztedoline). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://vep.wikipedia.org/wiki/Saudan_Arabii. Low confidence: composed technical labels need fluent terminology review; epoch is expressed as the origin of time reckoning, and kudmaižen is the moon noun’s genitive."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-added",
+    "before": "lisätty %s kohteeseen %s",
+    "after": "Ližatud %s azjale %s",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-archived",
+    "before": "%s siirretty Arkistoon",
+    "after": "%s om sirttud arhivaha",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-attached",
+    "before": "liitetty %s kohteeseen %s",
+    "after": "Tartutadud %s azjale %s",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-created",
+    "before": "luotu %s",
+    "after": "Tehtud %s",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-changedListTitle",
+    "before": "listan nimeksi muutettu %s",
+    "after": "Lugetišen nimi om vajehtadud: %s",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-excluded",
+    "before": "poistettu %s kohteesta %s",
+    "after": "Heittud %s azjaspäi %s",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-imported",
+    "before": "tuotu %s kohteeseen %s lähteestä %s",
+    "after": "Importiruitud %s azjaha %s azjaspäi %s",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-imported-board",
+    "before": "tuotu %s lähteestä %s",
+    "after": "Importiruitud %s azjaspäi %s",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-joined",
+    "before": "liitytty kohteeseen %s",
+    "after": "Ühtni azjaha %s",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-moved",
+    "before": "siirretty %s kohteesta %s kohteeseen %s",
+    "after": "Sirttud %s azjaspäi %s azjaha %s",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-on",
+    "before": "kohteessa %s",
+    "after": "azjal %s",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-removed",
+    "before": "poistettu %s kohteesta %s",
+    "after": "Heittud %s azjaspäi %s",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-sent",
+    "before": "lähetetty %s kohteeseen %s",
+    "after": "Oigetud %s azjale %s",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-unjoined",
+    "before": "peruttu %s liittyminen",
+    "after": "Läksi azjaspäi %s",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list",
+    "before": "Lista",
+    "after": "Lugetiž",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "lists",
+    "before": "Listat",
+    "after": "Lugetišed",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "labels",
+    "before": "Nimilaput",
+    "after": "Znamad",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "label-not-found",
+    "before": "Nimilappua '%s' ei löytynyt.",
+    "after": "Znam '%s' ei ole löutud.",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "label-color-not-found",
+    "before": "Nimilapun väriä %s ei löytynyt.",
+    "after": "Znaman muja %s ei ole löutud.",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-added-label",
+    "before": "lisätty nimilappu '%s' kohteeseen %s",
+    "after": "Ližatud znam '%s' azjale %s",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-removed-label",
+    "before": "poistettu nimilappu '%s' kohteesta %s",
+    "after": "Heittud znam '%s' azjaspäi %s",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-added-label-card",
+    "before": "lisätty nimilappu '%s'",
+    "after": "Ližatud znam '%s'",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-removed-label-card",
+    "before": "poistettu nimilappu '%s'",
+    "after": "Heittud znam '%s'",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-delete-attach",
+    "before": "poistettu liitetiedosto kohteesta %s",
+    "after": "Heittud tartutadud fail azjaspäi %s",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-delete-attach-card",
+    "before": "poistettu liitetiedosto",
+    "after": "Heittud tartutadud fail",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "attachment",
+    "before": "Liitetiedosto",
+    "after": "Tartutadud fail",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "attachments",
+    "before": "Liitetiedostot",
+    "after": "Tartutadud failad",
+    "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
   }
 ]

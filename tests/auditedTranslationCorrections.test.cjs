@@ -392,5 +392,45 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.notEqual(vepsCalendars['calendar-system-islamic-civil'], vepsCalendars['calendar-system-islamic-tbla']);
   assert.match(vepsCalendars['calendar-system-islamic-rgsa'], /Saudan Arabii, kudmaižen tarkištelend/);
   assert.doesNotMatch(vepsCalendars['calendar-system-islamic-rgsa'], /Saudi Arabia|Islamic/);
+  // Related Veps activity labels preserve object/source/destination positions.
+  for (const [key, value] of Object.entries({
+    "activity-added": "Ližatud %s azjale %s",
+    "activity-archived": "%s om sirttud arhivaha",
+    "activity-attached": "Tartutadud %s azjale %s",
+    "activity-created": "Tehtud %s",
+    "activity-changedListTitle": "Lugetišen nimi om vajehtadud: %s",
+    "activity-excluded": "Heittud %s azjaspäi %s",
+    "activity-imported": "Importiruitud %s azjaha %s azjaspäi %s",
+    "activity-imported-board": "Importiruitud %s azjaspäi %s",
+    "activity-joined": "Ühtni azjaha %s",
+    "activity-moved": "Sirttud %s azjaspäi %s azjaha %s",
+    "activity-on": "azjal %s",
+    "activity-removed": "Heittud %s azjaspäi %s",
+    "activity-sent": "Oigetud %s azjale %s",
+    "activity-unjoined": "Läksi azjaspäi %s",
+    "list": "Lugetiž",
+    "lists": "Lugetišed",
+    "labels": "Znamad",
+    "label-not-found": "Znam '%s' ei ole löutud.",
+    "label-color-not-found": "Znaman muja %s ei ole löutud.",
+    "activity-added-label": "Ližatud znam '%s' azjale %s",
+    "activity-removed-label": "Heittud znam '%s' azjaspäi %s",
+    "activity-added-label-card": "Ližatud znam '%s'",
+    "activity-removed-label-card": "Heittud znam '%s'",
+    "activity-delete-attach": "Heittud tartutadud fail azjaspäi %s",
+    "activity-delete-attach-card": "Heittud tartutadud fail",
+    "attachment": "Tartutadud fail",
+    "attachments": "Tartutadud failad"
+})) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.doesNotMatch(cache['ve-PP'][key], /lisätty|siirretty|liitetty|luotu|kohtee|lähteestä|liitytty|peruttu|poistettu|lähetetty|listan nimeksi|Nimilap|Nimilapp|Liitetiedosto|Liitteet/i, key);
+  }
+  const vepsTranslator = require('i18next').createInstance().use(require('i18next-sprintf-postprocessor'));
+  await vepsTranslator.init({ lng: 've-PP', fallbackLng: false, keySeparator: false, resources: { 've-PP': { translation: cache['ve-PP'] } }, postProcess: ['sprintf'] });
+  assert.equal(vepsTranslator.t('activity-moved', { sprintf: ['ITEM', 'SOURCE', 'DESTINATION'] }), 'Sirttud ITEM azjaspäi SOURCE azjaha DESTINATION');
+  assert.equal(vepsTranslator.t('activity-imported', { sprintf: ['ITEM', 'DESTINATION', 'SOURCE'] }), 'Importiruitud ITEM azjaha DESTINATION azjaspäi SOURCE');
+  assert.equal(vepsTranslator.t('activity-removed-label', { sprintf: ['LABEL', 'CARD'] }), "Heittud znam 'LABEL' azjaspäi CARD");
+  assert.notEqual(cache['ve-PP']['activity-joined'], cache['ve-PP']['activity-unjoined']);
+  assert.notEqual(cache['ve-PP']['activity-attached'], cache['ve-PP']['activity-added']);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
