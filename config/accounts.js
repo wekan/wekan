@@ -249,6 +249,7 @@ function showTwoFactorPrompt(step) {
   if (!Meteor.isClient) return;
   const container = document.getElementById('two-factor-code-container');
   if (!container) return;
+  container.hidden = false;
   container.classList.remove('hide');
   const errorDiv = document.getElementById('two-factor-code-error');
   if (errorDiv) {
@@ -270,7 +271,10 @@ function showTwoFactorPrompt(step) {
 function hideTwoFactorPrompt() {
   if (!Meteor.isClient) return;
   const container = document.getElementById('two-factor-code-container');
-  if (container) container.classList.add('hide');
+  if (container) {
+    container.hidden = true;
+    container.classList.add('hide');
+  }
   const errorDiv = document.getElementById('two-factor-code-error');
   if (errorDiv) {
     errorDiv.classList.add('hide');

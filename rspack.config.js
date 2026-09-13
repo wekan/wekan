@@ -57,6 +57,9 @@ module.exports = defineConfig(Meteor => ({
         ? [
             {
               test: /\.css$/i,
+              // Meteor's base config assigns css/auto. Our loaders emit JS;
+              // override the type so their style injection runs in Rspack 2.
+              type: 'javascript/auto',
               use: ['style-loader', 'css-loader'],
             },
           ]
