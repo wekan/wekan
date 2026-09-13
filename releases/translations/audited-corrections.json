@@ -50531,5 +50531,61 @@
     "before": "Fallimenti prima del blocco",
     "after": "Fiaschi prima di u bloccu",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "accounts-lockout-period",
+    "before": "Periodo di blocco (secondi)",
+    "after": "Durata di u bloccu (seconde)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "act-a-dueAt",
+    "before": "scadenza modificata\nQuando: __timeValue__\nDove: __card__\nla scadenza precedente era __timeOldValue__",
+    "after": "hà cambiatu a scadenza à \nQuandu: __timeValue__\nInduve: __card__\n a scadenza precedente era __timeOldValue__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "act-almostdue",
+    "before": "sollecito inviato: la scadenza (__timeValue__) di __card__ è vicina",
+    "after": "hà ramintatu chì a scadenza attuale (__timeValue__) di __card__ s’avvicina",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "act-duenow",
+    "before": "sollecito inviato: la scadenza (__timeValue__) di __card__ è adesso",
+    "after": "hà ramintatu chì a scadenza attuale (__timeValue__) di __card__ hè avà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "act-pastdue",
+    "before": "sollecito inviato: la scadenza (__timeValue__) di __card__ è già passata",
+    "after": "hà ramintatu chì a scadenza attuale (__timeValue__) di __card__ hè passata",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "act-withDue",
+    "before": "sollecito relativo a __list__/__card__ [__board__]",
+    "after": "__list__/__card__ ramintamenti di scadenza [__board__]",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "active-cron-jobs",
+    "before": "Processi pianificati attivi",
+    "after": "Travagli pianificati attivi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "activity-checklist-completed",
+    "before": "%s di %s checklists completate",
+    "after": "hà compiu a lista di cuntrollu %s di %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
