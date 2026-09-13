@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,534 |
+| Corrected | 11,538 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,312 |
+| Pending review or repair | 4,308 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,872** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,876** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `9bf7b657eb51badaaa32d14ee1cf3ccb788c41e4` — 8 French keyboard/checklist/display controls replaced with Wolof. Keyboard-shortcut enabled/disabled actions and list display, check versus uncheck all, mobile/desktop toggle and desktop dragging controls are preserved. Keyboard/handle loanwords and full grammar remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `f25084dad532eb5969f91aeedac5a5c290d857e4` — 4 French clipboard/image messages replaced with Wolof. Temporary copy storage, copying links versus text, paste versus drag/drop and image-only restriction are preserved. Descriptive clipboard/paste terminology and full grammar remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
