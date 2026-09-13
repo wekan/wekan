@@ -90508,5 +90508,40 @@
     "before": "Les informations d'assistance sont réservées aux utilisateurs connectés.",
     "after": "Nuns yufa binons te pro gebans pos nunädam.",
     "reason": "Replace audited French board visibility, card search, username length and support-access wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests privatik (restricted/private), notidik (public access), sukön (search), bepenam (description), nemu (at least). MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses Gebananem and sümbol for software character. Preserve added-members-only editing, private viewing restrictions, public link/search discovery including Google, all search fields, three-character minimum and logged-in-only support. Search-engine paraphrase and assembled software wording remain low confidence pending native review. Express after login explicitly; do not use passive notification wording for logged-in state."
+  },
+  {
+    "locale": "vo",
+    "key": "run-comprehensive-migration-confirm",
+    "before": "Cette opération effectuera une migration complète pour vérifier et corriger l'intégrité des données du tableau. Cela peut prendre quelques instants. Continuer ?",
+    "after": "At odunon migradi stäänik ad kontrolön e verätükön näti nunädas taba. At kanon dulön dü timüls anik. Progedön-li?",
+    "reason": "Replace French migration confirmations, run action and analysis/file-check stages with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests diletön (analyze), timül (moment), dulön (last), progedön (proceed), stäänik (comprehensive), nät (integrity), nüned (computer file), fimükön (attach). Preserve comprehensive integrity check/repair, duration caution, missing/damaged lists, board-file attachment scope and continuation questions. Reuse local Migrads terminology; migration borrowing and assembled software phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "run-fix-missing-lists-migration-confirm",
+    "before": "Cette opération détectera et réparera les listes manquantes ou corrompues dans la structure du tableau. Continuer ?",
+    "after": "At otuvon e overätükon lisedis no dabinöl u dämik in binod taba. Progedön-li?",
+    "reason": "Replace French migration confirmations, run action and analysis/file-check stages with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests diletön (analyze), timül (moment), dulön (last), progedön (proceed), stäänik (comprehensive), nät (integrity), nüned (computer file), fimükön (attach). Preserve comprehensive integrity check/repair, duration caution, missing/damaged lists, board-file attachment scope and continuation questions. Reuse local Migrads terminology; migration borrowing and assembled software phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "step-analyze-board-structure",
+    "before": "Analyser la structure du tableau",
+    "after": "Diletön binodi taba",
+    "reason": "Replace French migration confirmations, run action and analysis/file-check stages with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests diletön (analyze), timül (moment), dulön (last), progedön (proceed), stäänik (comprehensive), nät (integrity), nüned (computer file), fimükön (attach). Preserve comprehensive integrity check/repair, duration caution, missing/damaged lists, board-file attachment scope and continuation questions. Reuse local Migrads terminology; migration borrowing and assembled software phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "step-scan-files",
+    "before": "Vérification des pièces jointes du tableau",
+    "after": "Kontrolön nünedis taba pefimüköl",
+    "reason": "Replace French migration confirmations, run action and analysis/file-check stages with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests diletön (analyze), timül (moment), dulön (last), progedön (proceed), stäänik (comprehensive), nät (integrity), nüned (computer file), fimükön (attach). Preserve comprehensive integrity check/repair, duration caution, missing/damaged lists, board-file attachment scope and continuation questions. Reuse local Migrads terminology; migration borrowing and assembled software phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "run-migration",
+    "before": "Lancer la migration",
+    "after": "Dunön migradi",
+    "reason": "Replace French migration confirmations, run action and analysis/file-check stages with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests diletön (analyze), timül (moment), dulön (last), progedön (proceed), stäänik (comprehensive), nät (integrity), nüned (computer file), fimükön (attach). Preserve comprehensive integrity check/repair, duration caution, missing/damaged lists, board-file attachment scope and continuation questions. Reuse local Migrads terminology; migration borrowing and assembled software phrases remain low confidence pending native review."
   }
 ]
