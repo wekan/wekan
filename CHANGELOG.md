@@ -619,6 +619,25 @@ unverified. Details are in docs/Security/WeKanSec20.md.
 
 </details>
 
+This release fixes the following board-view problems:
+
+**Bug fixes** - Consistent title viewers and assignee dependencies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/457614a2a">Use security-aware title viewers in timeline and Gantt views</a>. Thanks to xet7.</summary>
+
+Render timeline list/card titles, assignee cards, table group headings,
+Bigboard names, original titles and Roadmap headings with the shared viewer.
+DHTMLX Gantt task names use formatted, sanitized Markdown and emoji. Frappe
+and Roadmap SVG labels use escaped viewer text; popups use formatted HTML.
+Honor plain-link and literal-source security settings when charts refresh.
+Import FlowRouter and moment explicitly to fix assignee-view ReferenceErrors.
+Focused Node tests and all Jade template compilation pass. Nine browser
+policy cases were added and syntax-checked; live browser execution remains
+unverified. See docs/Features/BoardViews/Title-Rendering.md.
+
+</details>
+
 This release fixes the following mirror problems:
 
 **Bug fixes** - Missing comment parents and mirror log visibility.
