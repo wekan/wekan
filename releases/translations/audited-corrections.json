@@ -65994,5 +65994,117 @@
     "before": "Tâche planifiée reprise avec succès",
     "after": "Adkroget eo bet gant an trevell steuñviet gant berzh",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "cron-job-start-failed",
+    "before": "Échec du démarrage de la tâche planifiée",
+    "after": "C’hwitet eo loc’hañ an trevell steuñviet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "cron-job-started",
+    "before": "Tâche planifiée démarrée avec succès",
+    "after": "Loc’het eo bet an trevell steuñviet gant berzh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "cron-migration-warnings",
+    "before": "Avertissements de migration",
+    "after": "Kemennadennoù diwall evit treuzkas ar roadennoù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "cron-migrations-resumed",
+    "before": "Migrations reprises avec succès",
+    "after": "Adkroget eo bet gant treuzkas ar roadennoù gant berzh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "cron-migrations-retried",
+    "before": "Migrations échouées réessayées avec succès",
+    "after": "Klasket eo bet en-dro gant berzh an treuzkasoù roadennoù c’hwitet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "cron-no-failed-migrations",
+    "before": "Aucune migration échouée à réessayer",
+    "after": "N’eus treuzkas roadennoù c’hwitet ebet da glask en-dro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "cron-no-paused-migrations",
+    "before": "Aucune migration en pause à reprendre",
+    "after": "N’eus treuzkas roadennoù ehanet ebet da adkregiñ gantañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "cron-resume-paused",
+    "before": "Reprendre les migrations en pause",
+    "after": "Adkregiñ gant an treuzkasoù roadennoù ehanet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "cron-retry-failed",
+    "before": "Réessayer les migrations échouées",
+    "after": "Klask en-dro an treuzkasoù roadennoù c’hwitet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "custom-assetlinks-content",
+    "before": "Contenu assetlinks.json personnalisé (JSON)",
+    "after": "Endalc’had personelaet assetlinks.json (JSON)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "custom-assetlinks-enabled",
+    "before": "Activer assetlinks.json personnalisé",
+    "after": "Gweredekaat assetlinks.json personelaet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "custom-field-delete-pop",
+    "before": "Cette action est irréversible. Elle supprimera ce champ personnalisé de toutes les cartes et détruira son historique.",
+    "after": "N’haller ket nullañ an ober-mañ. Dilamet e vo ar maezienn personelaet-mañ eus an holl gartennoù ha distrujet e vo he istor.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Format (utiliser %{value} pour marquer un emplacement)",
+    "after": "Stumm (implijit %{value} evel merker lec’h)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "custom-field-stringtemplate-separator",
+    "before": "Séparateur (utiliser &#32; ou &nbsp; pour un espace)",
+    "after": "Dispartier (implijit &#32; pe &nbsp; evit ur spas)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "custom-head-link-tags",
+    "before": "Balises lien personnalisées (HTML)",
+    "after": "Balizennoù link personelaet (HTML)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "custom-head-manifest-content",
+    "before": "Contenu du manifeste web personnalisé (JSON)",
+    "after": "Endalc’had personelaet ar manifest web (JSON)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
