@@ -91523,5 +91523,54 @@
     "before": "%s n'est pas un prédicat de debug valide",
     "after": "%s no binon stip pro debug lonöfik",
     "reason": "Replace French search errors with Volapük surrounding prose. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests spetön (expect), getön (receive), dabin (existence), kontrol (check), stip (condition), lonöfik (valid), and num (number). Reviewed config/query-classes.js error tags. Preserve exact %s and __operator__/__value__ tokens, operator expecting a number versus value actually received, existence check versus debug predicate and unknown operator semantics. Operator/debug remain technical borrowings because dictionary dunan denotes a human operator and predikat denotes grammatical predicate; stip is a software predicate paraphrase. Assembled technical wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "clipboard",
+    "before": "Presse-papier ou glisser-déposer",
+    "after": "Mem nelaidüpik pro kopieds u tränön e pladön",
+    "reason": "Replace French clipboard/autocomplete text and inconsistent or mixed-script local clipboard labels with consistent descriptive Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nelaidüpik (temporary), mem (memory), kopied/kopiedön (copy), tränön (drag), pladön (place), fimekön (complete), itjäfidik (automatic), liman (member), yüm (connection), vödem (text). Clipboard paraphrased as temporary memory for copies rather than asserting an unattested compound; drag/drop as drag/place. Preserve distinct card link, link, text and generic copy actions; emoji versus member autocomplete. Emoji remains an international technical borrowing. All assembled software paraphrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "copy-card-link-to-clipboard",
+    "before": "Copier le lien de la carte dans le presse-papier",
+    "after": "Kopiedön yümi kada lü mem nelaidüpik pro kopieds",
+    "reason": "Replace French clipboard/autocomplete text and inconsistent or mixed-script local clipboard labels with consistent descriptive Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nelaidüpik (temporary), mem (memory), kopied/kopiedön (copy), tränön (drag), pladön (place), fimekön (complete), itjäfidik (automatic), liman (member), yüm (connection), vödem (text). Clipboard paraphrased as temporary memory for copies rather than asserting an unattested compound; drag/drop as drag/place. Preserve distinct card link, link, text and generic copy actions; emoji versus member autocomplete. Emoji remains an international technical borrowing. All assembled software paraphrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "copy-link-to-clipboard",
+    "before": "Yümi kopiedön lü klipabод",
+    "after": "Kopiedön yümi lü mem nelaidüpik pro kopieds",
+    "reason": "Replace French clipboard/autocomplete text and inconsistent or mixed-script local clipboard labels with consistent descriptive Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nelaidüpik (temporary), mem (memory), kopied/kopiedön (copy), tränön (drag), pladön (place), fimekön (complete), itjäfidik (automatic), liman (member), yüm (connection), vödem (text). Clipboard paraphrased as temporary memory for copies rather than asserting an unattested compound; drag/drop as drag/place. Preserve distinct card link, link, text and generic copy actions; emoji versus member autocomplete. Emoji remains an international technical borrowing. All assembled software paraphrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "copy-text-to-clipboard",
+    "before": "Copier le texte dans le presse-papier",
+    "after": "Kopiedön vödemi lü mem nelaidüpik pro kopieds",
+    "reason": "Replace French clipboard/autocomplete text and inconsistent or mixed-script local clipboard labels with consistent descriptive Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nelaidüpik (temporary), mem (memory), kopied/kopiedön (copy), tränön (drag), pladön (place), fimekön (complete), itjäfidik (automatic), liman (member), yüm (connection), vödem (text). Clipboard paraphrased as temporary memory for copies rather than asserting an unattested compound; drag/drop as drag/place. Preserve distinct card link, link, text and generic copy actions; emoji versus member autocomplete. Emoji remains an international technical borrowing. All assembled software paraphrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "copy-to-clipboard",
+    "before": "Kopiön al klipot",
+    "after": "Kopiedön lü mem nelaidüpik pro kopieds",
+    "reason": "Replace French clipboard/autocomplete text and inconsistent or mixed-script local clipboard labels with consistent descriptive Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nelaidüpik (temporary), mem (memory), kopied/kopiedön (copy), tränön (drag), pladön (place), fimekön (complete), itjäfidik (automatic), liman (member), yüm (connection), vödem (text). Clipboard paraphrased as temporary memory for copies rather than asserting an unattested compound; drag/drop as drag/place. Preserve distinct card link, link, text and generic copy actions; emoji versus member autocomplete. Emoji remains an international technical borrowing. All assembled software paraphrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "shortcut-autocomplete-emoji",
+    "before": "Auto-complétion des emoji",
+    "after": "Fimekön itjäfidiko emoji",
+    "reason": "Replace French clipboard/autocomplete text and inconsistent or mixed-script local clipboard labels with consistent descriptive Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nelaidüpik (temporary), mem (memory), kopied/kopiedön (copy), tränön (drag), pladön (place), fimekön (complete), itjäfidik (automatic), liman (member), yüm (connection), vödem (text). Clipboard paraphrased as temporary memory for copies rather than asserting an unattested compound; drag/drop as drag/place. Preserve distinct card link, link, text and generic copy actions; emoji versus member autocomplete. Emoji remains an international technical borrowing. All assembled software paraphrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "shortcut-autocomplete-members",
+    "before": "Auto-complétion des participants",
+    "after": "Fimekön itjäfidiko limanis",
+    "reason": "Replace French clipboard/autocomplete text and inconsistent or mixed-script local clipboard labels with consistent descriptive Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nelaidüpik (temporary), mem (memory), kopied/kopiedön (copy), tränön (drag), pladön (place), fimekön (complete), itjäfidik (automatic), liman (member), yüm (connection), vödem (text). Clipboard paraphrased as temporary memory for copies rather than asserting an unattested compound; drag/drop as drag/place. Preserve distinct card link, link, text and generic copy actions; emoji versus member autocomplete. Emoji remains an international technical borrowing. All assembled software paraphrases remain low confidence pending native review."
   }
 ]
