@@ -93119,5 +93119,33 @@
     "before": "hat Label __label__ von Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ entfernt",
     "after": "__board__ raSDaq __swimlane__ HeDaq __list__ tetlhDaq __card__ 'echletHomvo' __label__ per teqlu'pu'",
     "reason": "Replace audited German checklist-addition, attachment-deletion, or label-removal activity with Klingon. Preserve all placeholders and board/swimlane/list/card context, destination -vaD for addition and origin -vo- for removal; distinguish deletion Qaw from removal teq. Reuse existing checklist phrase ghItlhHommey tetlh and repaired attachment/label terms. Full software clauses are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-joinMember",
+    "before": "hat Mitglied __member__ zur Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ hinzugefügt",
+    "after": "__board__ raSDaq __swimlane__ HeDaq __list__ tetlhDaq __card__ 'echletHomvaD __member__ jeSwI' chellu'pu'",
+    "reason": "Replace audited German card membership and checklist-removal activities with Klingon. Preserve board/swimlane/list/card context and distinguish destination -vaD for addition from origin -vo- for removal. Reuse repaired jeSwI member and existing ghItlhHommey tetlh / ghItlhHom checklist terminology. Preserve the source case distinction __checkList__ versus __checklistItem__ exactly. Assembled software clauses are low confidence and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-unjoinMember",
+    "before": "hat Mitglied __member__ von Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ entfernt",
+    "after": "__board__ raSDaq __swimlane__ HeDaq __list__ tetlhDaq __card__ 'echletHomvo' __member__ jeSwI' teqlu'pu'",
+    "reason": "Replace audited German card membership and checklist-removal activities with Klingon. Preserve board/swimlane/list/card context and distinguish destination -vaD for addition from origin -vo- for removal. Reuse repaired jeSwI member and existing ghItlhHommey tetlh / ghItlhHom checklist terminology. Preserve the source case distinction __checkList__ versus __checklistItem__ exactly. Assembled software clauses are low confidence and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-removeChecklist",
+    "before": "hat Checkliste __checklist__ von Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ entfernt",
+    "after": "__board__ raSDaq __swimlane__ HeDaq __list__ tetlhDaq __card__ 'echletHomvo' __checklist__ ghItlhHommey tetlh teqlu'pu'",
+    "reason": "Replace audited German card membership and checklist-removal activities with Klingon. Preserve board/swimlane/list/card context and distinguish destination -vaD for addition from origin -vo- for removal. Reuse repaired jeSwI member and existing ghItlhHommey tetlh / ghItlhHom checklist terminology. Preserve the source case distinction __checkList__ versus __checklistItem__ exactly. Assembled software clauses are low confidence and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-removeChecklistItem",
+    "before": "hat Checklistenposition __checklistItem__ von Checkliste __checkList__ auf der Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ entfernt",
+    "after": "__board__ raSDaq __swimlane__ HeDaq __list__ tetlhDaq __card__ 'echletHomDaq __checkList__ ghItlhHommey tetlhvo' __checklistItem__ ghItlhHom teqlu'pu'",
+    "reason": "Replace audited German card membership and checklist-removal activities with Klingon. Preserve board/swimlane/list/card context and distinguish destination -vaD for addition from origin -vo- for removal. Reuse repaired jeSwI member and existing ghItlhHommey tetlh / ghItlhHom checklist terminology. Preserve the source case distinction __checkList__ versus __checklistItem__ exactly. Assembled software clauses are low confidence and require fluent-speaker validation."
   }
 ]
