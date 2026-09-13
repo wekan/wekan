@@ -77558,5 +77558,61 @@
     "before": "Note : les items de la checklist doivent être séparés par des virgules.",
     "after": "Seetlu: mbiri limu bu seetlu bi dañu leen war a bind ni ay dayo yu wirgil teqale.",
     "reason": "Replace French checklist completion/form/newline instructions with Wolof. Preserve completed versus made incomplete state, add versus edit form closure, one item per line, original ordering and comma-separated input. Reuse locale checklist terminology; general vocabulary reference https://jangawolof.org/dictionary/ . Full grammar, order and comma terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-addBoardMember",
+    "before": "a ajouté le participant __member__ au tableau __board__",
+    "after": "yokk bokkkat __member__ ci tablo __board__",
+    "reason": "Replace French board/card membership labels and actions with Wolof, distinguishing removing membership from deleting a person/account and preserving board versus current-card scope and placeholders. Reuse karta/tablo; bokk participation terminology. Full grammar and member noun terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-removeBoardMember",
+    "before": "a supprimé le participant __member__ du tableau __board__",
+    "after": "dindi bokkkat __member__ ci tablo __board__",
+    "reason": "Replace French board/card membership labels and actions with Wolof, distinguishing removing membership from deleting a person/account and preserving board versus current-card scope and placeholders. Reuse karta/tablo; bokk participation terminology. Full grammar and member noun terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "board_members",
+    "before": "Tous les participants du tableau",
+    "after": "Bokkkati tablo bi yépp",
+    "reason": "Replace French board/card membership labels and actions with Wolof, distinguishing removing membership from deleting a person/account and preserving board versus current-card scope and placeholders. Reuse karta/tablo; bokk participation terminology. Full grammar and member noun terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "card_members",
+    "before": "Tous les participants de la carte actuelle dans ce tableau",
+    "after": "Bokkkati karta bi fi nekk ci tablo bi yépp",
+    "reason": "Replace French board/card membership labels and actions with Wolof, distinguishing removing membership from deleting a person/account and preserving board versus current-card scope and placeholders. Reuse karta/tablo; bokk participation terminology. Full grammar and member noun terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "card-members-title",
+    "before": "Assigner ou supprimer des participants à la carte.",
+    "after": "Yokk walla dindi bokkkati tablo bi ci karta bi.",
+    "reason": "Replace French board/card membership labels and actions with Wolof, distinguishing removing membership from deleting a person/account and preserving board versus current-card scope and placeholders. Reuse karta/tablo; bokk participation terminology. Full grammar and member noun terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "error-board-notAMember",
+    "before": "Vous devez être participant de ce tableau pour faire cela",
+    "after": "War nga bokk ci tablo bii ngir def loolu",
+    "reason": "Replace French board/card membership labels and actions with Wolof, distinguishing removing membership from deleting a person/account and preserving board versus current-card scope and placeholders. Reuse karta/tablo; bokk participation terminology. Full grammar and member noun terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "r-d-remove-all-member",
+    "before": "Supprimer tous les participants",
+    "after": "Dindi bokkkat yépp",
+    "reason": "Replace French board/card membership labels and actions with Wolof, distinguishing removing membership from deleting a person/account and preserving board versus current-card scope and placeholders. Reuse karta/tablo; bokk participation terminology. Full grammar and member noun terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "removeMemberPopup-title",
+    "before": "Supprimer le participant ?",
+    "after": "Dindi bokkkat bi?",
+    "reason": "Replace French board/card membership labels and actions with Wolof, distinguishing removing membership from deleting a person/account and preserving board versus current-card scope and placeholders. Reuse karta/tablo; bokk participation terminology. Full grammar and member noun terminology remain low confidence."
   }
 ]
