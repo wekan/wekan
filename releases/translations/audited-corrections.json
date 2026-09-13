@@ -67996,5 +67996,40 @@
     "before": "Zużycie pamięci Node: zewnętrzna",
     "after": "Użycie pamiyńci Node: zewnyntrznŏ",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "Node_memory_usage_heap_total",
+    "before": "Zużycie pamięci Node: całkowity rozmiar zaalokowanej sterty",
+    "after": "Użycie pamiyńci Node: cołki rozmiar przidzielōnyj sterty",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "Node_memory_usage_heap_used",
+    "before": "Zużycie pamięci Node: faktycznie użyta pamięć",
+    "after": "Użycie pamiyńci Node: faktycznie użyto pamiyńć",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "Node_memory_usage_rss",
+    "before": "Zużycie pamięci Node: rozmiar zestawu rezydentnego",
+    "after": "Użycie pamiyńci Node: rozmiar rezydyntnego zbioru (RSS)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "OS_Loadavg",
+    "before": "Średnie obciążenie systemu",
+    "after": "Przeciynte ôbciōnżynie systymu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "Reactivity_order",
+    "before": "Kolejność reaktywności (METEOR_REACTIVITY_ORDER)",
+    "after": "Porzōndek reaktywności (METEOR_REACTIVITY_ORDER)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
