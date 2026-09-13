@@ -80,15 +80,15 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,114 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 730 pending review or repair.
-The correction inventory records 17,293 exact before/after values,
+findings: 15,116 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 728 pending review or repair.
+The correction inventory records 17,295 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
 The largest original finding queues remain in Veps (10) and Standard Moroccan
-Tamazight (587). Silesian database terminology and 17 Tigre
+Tamazight (585). Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
 Kashmiri reference review 0db69cf6c (2026-09-14) identifies provisional
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is f31ff3c1f (2026-09-14), replacing two French
-Tamazight user-existence messages. Full composed sentences remain low
-confidence pending fluent review; vocabulary is reference-supported.
+Latest translation fix is f0d42d57f (2026-09-14), localizing Tamazight
+Persian calendar wording and the Excel card-export command. The complete
+export phrase and earlier user-existence sentences remain low confidence.
 Greenlandic CLDR-unconfirmed wording and twelve Quechua color wrappers
 still need review, alongside the wider restored and unflagged values.
 Tamazight calendar review dd2aaa19a (2026-09-14) records provisional
@@ -114,7 +114,7 @@ names and unresolved Coptic/tabular/epoch terminology; no values changed. Previo
 Cherokee Hijri labels with exact native-script CLDR variant names. Cherokee’s
 original queue is empty. Compact tabular epoch wording still needs fluent
 technical review. Quechua palette compounds and remaining color wrappers
-remain open. There are 587 Tamazight findings remaining.
+remain open. There are 585 Tamazight findings remaining.
 Silesian reference review (2026-09-14) confirms shared database/file terms
 in native MediaWiki messages; the full raw-file label remains pending.
 No translation value or finding count changed in that review.
@@ -670,6 +670,17 @@ The audit records 749 pending original findings and wider unfinished validation.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f0d42d57f">Localize Tamazight Persian and Excel export wording</a>. Thanks to xet7.</summary>
+
+Use the CLDR Persian language name in the Jalali label. Replace the French
+Excel card-export command with an attested-term composition, preserving the
+existing card noun and product name. The full export phrase remains low
+confidence pending fluent review. All 17,295 correction checks pass; 728
+original findings and wider language validation remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f31ff3c1f">Repair Tamazight user-existence messages</a>. Thanks to xet7.</summary>

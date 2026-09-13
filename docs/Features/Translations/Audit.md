@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,114 |
+| Corrected | 15,116 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 730 |
+| Pending review or repair | 728 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,293** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,295** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `f31ff3c1f` — replaced two French Tamazight user-existence messages with directly composed native wording, preserving the existing/nonexistent distinction. Vocabulary is reference-supported; both complete sentences remain **low confidence** pending fluent review. All **17,293** correction/rendering checks pass. **730** originals remain pending, including **587** Tamazight. Wider restored/unflagged/low-confidence validation, Greenlandic CLDR-unconfirmed terminology and twelve Quechua color wrappers remain open. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `f0d42d57f` — localized the Tamazight Jalali Persian qualifier with CLDR wording and replaced the French Excel card-export label with an attested-term composition, preserving the existing card noun and product name. The complete export phrase and earlier user-existence sentences remain **low confidence** pending fluent review. All **17,295** correction/rendering checks pass. **728** originals remain pending, including **585** Tamazight. Wider restored/unflagged/low-confidence validation, Greenlandic CLDR-unconfirmed terminology and twelve Quechua color wrappers remain open. Live browser verification was not run; no translations were pushed.
 
 **Language validation (2026-09-14), local commit `e4e3aa590`:** Wiktionary’s Veps transitive inflection tables confirm `surenda` (make larger) and `penenda` (make smaller) as second-person singular commands. Their imperative morphology is now reference-supported; screen-zoom usage remains open. The original keyboard findings remain unresolved: searches and the cached dictionary did not establish reliable keyboard-shortcut terminology. Counts are unchanged. References and the remaining scope are recorded per key in the correction ledger.
 
