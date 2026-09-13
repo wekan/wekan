@@ -90151,5 +90151,61 @@
     "before": "Texte traduit",
     "after": "Vödem tradutoda",
     "reason": "Replace French translation-management controls and Esperanto Traduko with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf distinguishes tradutod (translated text) from tradut (act of translating), attests mödot (quantity), vödem (text), lönik (own), nulik (new), votükön (alter), radön (erase). Preserve custom-string scope, count colon and deletion question. Software application of lönik and assembled phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "convertChecklistItemToCardPopup-title",
+    "before": "Convertir en carte",
+    "after": "Votafomön ad kad",
+    "reason": "Replace French card/task/add controls and malformed checklist conversion wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests votafomön (transform), bligäd (task), kad (card), lised (list), lüükön (add), ninädapenäd (label). Preserve card versus subtask conversion and individual add-action objects; reuse existing kontrolalised terminology. Software adaptation and derived donabligäd remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "convertChecklistItemToSubtask-title",
+    "before": "Bligön ad subplänod",
+    "after": "Votafomön ad donabligäd",
+    "reason": "Replace French card/task/add controls and malformed checklist conversion wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests votafomön (transform), bligäd (task), kad (card), lised (list), lüükön (add), ninädapenäd (label). Preserve card versus subtask conversion and individual add-action objects; reuse existing kontrolalised terminology. Software adaptation and derived donabligäd remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "cardType-card",
+    "before": "Carte",
+    "after": "Kad",
+    "reason": "Replace French card/task/add controls and malformed checklist conversion wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests votafomön (transform), bligäd (task), kad (card), lised (list), lüükön (add), ninädapenäd (label). Preserve card versus subtask conversion and individual add-action objects; reuse existing kontrolalised terminology. Software adaptation and derived donabligäd remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "task",
+    "before": "Tâche",
+    "after": "Bligäd",
+    "reason": "Replace French card/task/add controls and malformed checklist conversion wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests votafomön (transform), bligäd (task), kad (card), lised (list), lüükön (add), ninädapenäd (label). Preserve card versus subtask conversion and individual add-action objects; reuse existing kontrolalised terminology. Software adaptation and derived donabligäd remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "add-label",
+    "before": "Ajouter une étiquette",
+    "after": "Lüükön ninädapenädi",
+    "reason": "Replace French card/task/add controls and malformed checklist conversion wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests votafomön (transform), bligäd (task), kad (card), lised (list), lüükön (add), ninädapenäd (label). Preserve card versus subtask conversion and individual add-action objects; reuse existing kontrolalised terminology. Software adaptation and derived donabligäd remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "add-list",
+    "before": "Ajouter une liste",
+    "after": "Lüükön lisedi",
+    "reason": "Replace French card/task/add controls and malformed checklist conversion wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests votafomön (transform), bligäd (task), kad (card), lised (list), lüükön (add), ninädapenäd (label). Preserve card versus subtask conversion and individual add-action objects; reuse existing kontrolalised terminology. Software adaptation and derived donabligäd remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "add-card",
+    "before": "Ajouter une carte",
+    "after": "Lüükön kadi",
+    "reason": "Replace French card/task/add controls and malformed checklist conversion wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests votafomön (transform), bligäd (task), kad (card), lised (list), lüükön (add), ninädapenäd (label). Preserve card versus subtask conversion and individual add-action objects; reuse existing kontrolalised terminology. Software adaptation and derived donabligäd remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "add-checklist",
+    "before": "Ajouter une check-list",
+    "after": "Lüükön kontrolalisedi",
+    "reason": "Replace French card/task/add controls and malformed checklist conversion wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests votafomön (transform), bligäd (task), kad (card), lised (list), lüükön (add), ninädapenäd (label). Preserve card versus subtask conversion and individual add-action objects; reuse existing kontrolalised terminology. Software adaptation and derived donabligäd remain low confidence pending native review."
   }
 ]
