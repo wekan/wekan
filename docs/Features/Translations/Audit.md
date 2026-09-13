@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,703 |
+| Corrected | 12,705 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 177 |
-| Pending review or repair | 3,142 |
+| Pending review or repair | 3,140 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,326** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,330** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `ba42d1014d6a26b2ae5c32d2f80696d72f7fdcc9` — five flagged German subtask/PDF/minicard-sort controls replaced with Klingon; plural indefinite-subject agreement corrected in the destination and both numeric sorting labels. Full software wording is low confidence and needs fluent-speaker validation.
+Latest translation fix: **2026-09-13**, local commit `6c036034726c70e78f477859298e2dfc331ebd29` — four German filter/personal-card controls (two flagged findings) replaced with Klingon, preserving criteria, assignment and ownership. Full software wording is low confidence and needs fluent-speaker validation.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
