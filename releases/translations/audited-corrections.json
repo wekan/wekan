@@ -83473,5 +83473,47 @@
     "before": "Tas de Node : nombre de contexte détachés",
     "after": "Heap bu Node: limu detached contexts",
     "reason": "Replace French heap metric labels with Wolof framing; retain Node/heap/malloc/does_zap_garbage/native contexts/detached contexts API names and executable/physical/available/limit/current-versus-peak distinctions. Memory loanwords and metric sentence grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "Cube-Grid",
+    "before": "Icône d'attente cube filaire",
+    "after": "Màndargau xaar Cube-Grid",
+    "reason": "Replace French with Wolof framing; preserve spinner style names, waiting indicator meaning, MongoDB storage engine rather than ordinary motor and optional authentication token. Technical framing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "Double-Bounce",
+    "before": "Icône d'attente double rebond",
+    "after": "Màndargau xaar Double Bounce",
+    "reason": "Replace French with Wolof framing; preserve spinner style names, waiting indicator meaning, MongoDB storage engine rather than ordinary motor and optional authentication token. Technical framing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "Rotateplane",
+    "before": "Icône d'attente plan rotatif",
+    "after": "Màndargau xaar Rotateplane",
+    "reason": "Replace French with Wolof framing; preserve spinner style names, waiting indicator meaning, MongoDB storage engine rather than ordinary motor and optional authentication token. Technical framing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "Scaleout",
+    "before": "Icône d'attente mise à l'échelle",
+    "after": "Màndargau xaar Scaleout",
+    "reason": "Replace French with Wolof framing; preserve spinner style names, waiting indicator meaning, MongoDB storage engine rather than ordinary motor and optional authentication token. Technical framing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "MongoDB_storage_engine",
+    "before": "Moteur de stockage MongoDB",
+    "after": "Sistemu denc bu MongoDB",
+    "reason": "Replace French with Wolof framing; preserve spinner style names, waiting indicator meaning, MongoDB storage engine rather than ordinary motor and optional authentication token. Technical framing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "webhook-token",
+    "before": "Jeton (optionnel pour l'authentification)",
+    "after": "Token (warul ngir saytu ki dugg)",
+    "reason": "Replace French with Wolof framing; preserve spinner style names, waiting indicator meaning, MongoDB storage engine rather than ordinary motor and optional authentication token. Technical framing and full grammar remain low confidence."
   }
 ]
