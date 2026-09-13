@@ -1192,6 +1192,22 @@ including interruption, retry, attachment navigation and a bounded-heap fixture.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3fedee2b9">Report completed build logs and fix local release preparation</a>. Thanks to xet7.</summary>
+
+Development and release builds print their log path at completion on shell and
+Windows. Local release preparation now makes Meteor's read-only server package
+manifest writable before updating node-gyp, matching the release workflow.
+Linux arm64 development and release builds pass; the prepared release passes
+its startup smoke check and includes Node.js, FerretDB, all eight MongoDB tools
+and the launcher. Thirteen targeted test entries pass, including failure
+handling and read-only manifest repair. Native Windows execution was unavailable.
+Logs: .tools/log/build-dev-bundle/2026-09-14/00-25-50/dev.txt and
+.tools/log/build-release-bundle/2026-09-14/00-28-55/release.txt.
+The optional qemu-aarch64-static binary is absent on this host.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5f8f22f8c">Unify shell and Windows logging directories</a>. Thanks to xet7.</summary>
 
 Logging managed by build.sh and build.bat uses operation/YYYY-MM-DD/HH-MM-SS
