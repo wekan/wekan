@@ -1671,5 +1671,61 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['wip-limit-group-name-placeholder'], /Joukun nimi.*ei ole tarbhine/);
   assert.match(cache['ve-PP']['wip-limit-group-select-swimlane'], /^Valiče ujundšoid$/);
   assert.match(cache['ve-PP']['wip-limit-group-apply-swimlane'], /^Kävuta ujundšoidule$/);
+  const vepsVisibilityRepairs = {
+  "private": "Personaline",
+  "predicate-private": "personaline",
+  "public": "Üleine",
+  "predicate-public": "üleine",
+  "operator-status": "olo",
+  "public-boards": "Üleižed laudad",
+  "board-private-info": "Nece laud linneb <strong>personaline</strong>.",
+  "board-public-info": "Nece laud linneb <strong>üleine</strong>.",
+  "page-maybe-private": "Nece lehtpol’ voib olda personaline. Sinä, voib olda, void kacta sidä, <a href='%s'>tuldes sistemaha</a>.",
+  "private-desc": "Nece laud om personaline. Vaiše laudale ližatud ristitud voiba kacta da vajehtada sidä.",
+  "public-desc": "Nece laud om üleine. Sidä voib kacta jogahine tarkendusenke, da se linneb ozutadud ecindmašinoiš, kut Google. Vaiše laudale ližatud ristitud voiba vajehtada sidä.",
+  "custom-private-desc": "Kävutajan märitud personaližen laudan kuvadand",
+  "custom-public-desc": "Kävutajan märitud üleižen laudan kuvadand",
+  "custom-private-desc-placeholder": "Jäta tühjaks, miše kävutada personaližen laudan kuvadandan sanumata",
+  "custom-public-desc-placeholder": "Jäta tühjaks, miše kävutada üleižen laudan kuvadandan sanumata",
+  "default-on-private-board": "Sanumata personaližel laudal",
+  "default-on-public-board": "Sanumata üleižel laudal",
+  "show-on-private-board": "Ozuta personaližel laudal",
+  "show-on-public-board": "Ozuta üleižel laudal",
+  "globalSearch-instructions-status-private": "`__predicate_private__` - kartad vaiše personaližiš laudoiš",
+  "globalSearch-instructions-status-public": "`__predicate_public__` - kartad vaiše üleižiš laudoiš",
+  "tableVisibilityMode-allowPrivateOnly": "Laudaden nägubuz’: laske vaiše personaližed laudad"
+};
+  for (const [key, value] of Object.entries(vepsVisibilityRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.doesNotMatch(value, /Yksityinen|Julkinen|Tämä taulu|Tämä sivu|kirjautumalla|kortit vain|yksityisillä|julkisilla|Taulujen näkyvyys|Salli vain|Mabodo a|Yo dinaho|ṱhalutshedzo|Litshani hu|Zwo ḓoweleaho|Sumbedzani|tshitshavha|tshiphiri/i, key);
+    if (key !== 'page-maybe-private') assert.equal(vepsTranslator.t(key), value, key);
+  }
+  for (const key of ['board-private-info', 'board-public-info', 'page-maybe-private']) {
+    assert.deepEqual(htmlTags(cache['ve-PP'][key]), htmlTags(english[key]), key);
+  }
+  assert.equal(vepsTranslator.t('page-maybe-private', { sprintf: ['https://on-premise.example/sign-in'] }), "Nece lehtpol’ voib olda personaline. Sinä, voib olda, void kacta sidä, <a href='https://on-premise.example/sign-in'>tuldes sistemaha</a>.");
+  assert.match(cache['ve-PP']['private-desc'], /Vaiše laudale ližatud ristitud voiba kacta da vajehtada/);
+  assert.match(cache['ve-PP']['public-desc'], /jogahine tarkendusenke.*ecindmašinoiš, kut Google.*Vaiše laudale ližatud ristitud voiba vajehtada/);
+  assert.doesNotMatch(cache['ve-PP']['private-desc'], /jogahine tarkendusenke/);
+  assert.match(cache['ve-PP']['globalSearch-instructions-status-private'], /vaiše personaližiš laudoiš/);
+  assert.match(cache['ve-PP']['globalSearch-instructions-status-public'], /vaiše üleižiš laudoiš/);
+  for (const key of ['custom-private-desc-placeholder', 'custom-public-desc-placeholder']) assert.match(cache['ve-PP'][key], /Jäta tühjaks.*kuvadandan sanumata/);
+  assert.notEqual(cache['ve-PP']['predicate-private'], cache['ve-PP']['predicate-public']);
+  // Exercise production Query with the actual repaired locale, rather than a
+  // synthetic predicate map: translated status values must still resolve.
+  const visibilityVm = require('node:vm');
+  const visibilityContext = { TAPi18n: { __: key => cache['ve-PP'][key] || key }, Boards: { colorMap: () => ({}) }, console };
+  visibilityVm.createContext(visibilityContext);
+  visibilityVm.runInContext(fs.readFileSync(path.join(root, 'config/search-const.js'), 'utf8').replace(/export /g, '') + '\n' +
+    fs.readFileSync(path.join(root, 'config/query-classes.js'), 'utf8').replace(/import[\s\S]*?from ['"][^'"]+['"];\s*/g, '').replace(/export /g, '') + '\nthis.Query = Query;', visibilityContext);
+  for (const [key, expected] of [['predicate-private', 'private'], ['predicate-public', 'public']]) {
+    const parsed = new visibilityContext.Query();
+    parsed.buildParams(`${cache['ve-PP']['operator-status']}:${cache['ve-PP'][key]}`);
+    assert.equal(parsed.hasErrors(), false, key);
+    assert.equal(parsed.getQueryParams().getPredicate('status'), expected, key);
+  }
+  const invalidVisibility = new visibilityContext.Query();
+  invalidVisibility.buildParams(`${cache['ve-PP']['operator-status']}:nonexistent-visibility`);
+  assert.equal(invalidVisibility.hasErrors(), true);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

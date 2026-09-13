@@ -117766,5 +117766,159 @@
     "before": "Käytä Uimarata",
     "after": "Kävuta ujundšoidule",
     "reason": "Replace Finnish WIP text and mislabeled group controls with Veps; preserve WIP abbreviation, enable/edit/set/soft/invalid distinctions, maximum task count in this list, strictly higher-than warning, move-out OR higher-limit remediation, optional group name and swimlane selection/application. Lexical references: Zaiceva/Mullonen 2007 dictionary (röun, suremb, enamba, pehmed, lugumär, jouk), https://en.wiktionary.org/wiki/r%C3%B6un (röunad/röuniden); existing native lugetiž, ujundšoid, märitud and ližata conventions retained. Low confidence: composed WIP labels and count/remediation grammar require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "private",
+    "before": "Yksityinen",
+    "after": "Personaline",
+    "reason": "Replace Finnish/Venda and mixed-language visibility messages with Veps, including related unflagged values. Preserve private/public distinctions, added-people-only edit/view restrictions, anyone-with-link public viewing and search-engine discovery, HTML tags/link/%s, optional custom-description fallback, default/show distinctions and localized status predicates. Zaiceva/Mullonen 2007 dictionary: personaline (private), ristit (-un,-uid), nägubuz’, mašin; native üleižen and sanumata usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Google remains a proper name. Low confidence: composed search-engine terminology and visibility grammar/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "predicate-private",
+    "before": "yksityinen",
+    "after": "personaline",
+    "reason": "Replace Finnish/Venda and mixed-language visibility messages with Veps, including related unflagged values. Preserve private/public distinctions, added-people-only edit/view restrictions, anyone-with-link public viewing and search-engine discovery, HTML tags/link/%s, optional custom-description fallback, default/show distinctions and localized status predicates. Zaiceva/Mullonen 2007 dictionary: personaline (private), ristit (-un,-uid), nägubuz’, mašin; native üleižen and sanumata usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Google remains a proper name. Low confidence: composed search-engine terminology and visibility grammar/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "public",
+    "before": "Julkinen",
+    "after": "Üleine",
+    "reason": "Replace Finnish/Venda and mixed-language visibility messages with Veps, including related unflagged values. Preserve private/public distinctions, added-people-only edit/view restrictions, anyone-with-link public viewing and search-engine discovery, HTML tags/link/%s, optional custom-description fallback, default/show distinctions and localized status predicates. Zaiceva/Mullonen 2007 dictionary: personaline (private), ristit (-un,-uid), nägubuz’, mašin; native üleižen and sanumata usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Google remains a proper name. Low confidence: composed search-engine terminology and visibility grammar/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "predicate-public",
+    "before": "julkinen",
+    "after": "üleine",
+    "reason": "Replace Finnish/Venda and mixed-language visibility messages with Veps, including related unflagged values. Preserve private/public distinctions, added-people-only edit/view restrictions, anyone-with-link public viewing and search-engine discovery, HTML tags/link/%s, optional custom-description fallback, default/show distinctions and localized status predicates. Zaiceva/Mullonen 2007 dictionary: personaline (private), ristit (-un,-uid), nägubuz’, mašin; native üleižen and sanumata usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Google remains a proper name. Low confidence: composed search-engine terminology and visibility grammar/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-status",
+    "before": "tilanne",
+    "after": "olo",
+    "reason": "Replace Finnish/Venda and mixed-language visibility messages with Veps, including related unflagged values. Preserve private/public distinctions, added-people-only edit/view restrictions, anyone-with-link public viewing and search-engine discovery, HTML tags/link/%s, optional custom-description fallback, default/show distinctions and localized status predicates. Zaiceva/Mullonen 2007 dictionary: personaline (private), ristit (-un,-uid), nägubuz’, mašin; native üleižen and sanumata usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Google remains a proper name. Low confidence: composed search-engine terminology and visibility grammar/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "public-boards",
+    "before": "Mabodo a tshitshavha",
+    "after": "Üleižed laudad",
+    "reason": "Replace Finnish/Venda and mixed-language visibility messages with Veps, including related unflagged values. Preserve private/public distinctions, added-people-only edit/view restrictions, anyone-with-link public viewing and search-engine discovery, HTML tags/link/%s, optional custom-description fallback, default/show distinctions and localized status predicates. Zaiceva/Mullonen 2007 dictionary: personaline (private), ristit (-un,-uid), nägubuz’, mašin; native üleižen and sanumata usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Google remains a proper name. Low confidence: composed search-engine terminology and visibility grammar/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-private-info",
+    "before": "Tämä taulu tulee olemaan <strong>yksityinen</strong>.",
+    "after": "Nece laud linneb <strong>personaline</strong>.",
+    "reason": "Replace Finnish/Venda and mixed-language visibility messages with Veps, including related unflagged values. Preserve private/public distinctions, added-people-only edit/view restrictions, anyone-with-link public viewing and search-engine discovery, HTML tags/link/%s, optional custom-description fallback, default/show distinctions and localized status predicates. Zaiceva/Mullonen 2007 dictionary: personaline (private), ristit (-un,-uid), nägubuz’, mašin; native üleižen and sanumata usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Google remains a proper name. Low confidence: composed search-engine terminology and visibility grammar/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-public-info",
+    "before": "Tämä taulu tulee olemaan <strong>julkinen</strong>.",
+    "after": "Nece laud linneb <strong>üleine</strong>.",
+    "reason": "Replace Finnish/Venda and mixed-language visibility messages with Veps, including related unflagged values. Preserve private/public distinctions, added-people-only edit/view restrictions, anyone-with-link public viewing and search-engine discovery, HTML tags/link/%s, optional custom-description fallback, default/show distinctions and localized status predicates. Zaiceva/Mullonen 2007 dictionary: personaline (private), ristit (-un,-uid), nägubuz’, mašin; native üleižen and sanumata usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Google remains a proper name. Low confidence: composed search-engine terminology and visibility grammar/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "page-maybe-private",
+    "before": "Tämä sivu voi olla yksityinen. Saatat nähdä sen <a href='%s'>kirjautumalla sisään</a>.",
+    "after": "Nece lehtpol’ voib olda personaline. Sinä, voib olda, void kacta sidä, <a href='%s'>tuldes sistemaha</a>.",
+    "reason": "Replace Finnish/Venda and mixed-language visibility messages with Veps, including related unflagged values. Preserve private/public distinctions, added-people-only edit/view restrictions, anyone-with-link public viewing and search-engine discovery, HTML tags/link/%s, optional custom-description fallback, default/show distinctions and localized status predicates. Zaiceva/Mullonen 2007 dictionary: personaline (private), ristit (-un,-uid), nägubuz’, mašin; native üleižen and sanumata usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Google remains a proper name. Low confidence: composed search-engine terminology and visibility grammar/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "private-desc",
+    "before": "Tämä taulu on yksityinen. Vain taululle lisätyt henkilöt voivat nähdä ja muokata sitä.",
+    "after": "Nece laud om personaline. Vaiše laudale ližatud ristitud voiba kacta da vajehtada sidä.",
+    "reason": "Replace Finnish/Venda and mixed-language visibility messages with Veps, including related unflagged values. Preserve private/public distinctions, added-people-only edit/view restrictions, anyone-with-link public viewing and search-engine discovery, HTML tags/link/%s, optional custom-description fallback, default/show distinctions and localized status predicates. Zaiceva/Mullonen 2007 dictionary: personaline (private), ristit (-un,-uid), nägubuz’, mašin; native üleižen and sanumata usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Google remains a proper name. Low confidence: composed search-engine terminology and visibility grammar/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "public-desc",
+    "before": "Tämä taulu on julkinen. Se näkyy kenelle tahansa jolla on linkki ja näkyy myös hakukoneissa kuten Google. Vain taululle lisätyt henkilöt voivat muokata sitä.",
+    "after": "Nece laud om üleine. Sidä voib kacta jogahine tarkendusenke, da se linneb ozutadud ecindmašinoiš, kut Google. Vaiše laudale ližatud ristitud voiba vajehtada sidä.",
+    "reason": "Replace Finnish/Venda and mixed-language visibility messages with Veps, including related unflagged values. Preserve private/public distinctions, added-people-only edit/view restrictions, anyone-with-link public viewing and search-engine discovery, HTML tags/link/%s, optional custom-description fallback, default/show distinctions and localized status predicates. Zaiceva/Mullonen 2007 dictionary: personaline (private), ristit (-un,-uid), nägubuz’, mašin; native üleižen and sanumata usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Google remains a proper name. Low confidence: composed search-engine terminology and visibility grammar/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-private-desc",
+    "before": "Yo dinaho Yksityinen ṱhalutshedzo",
+    "after": "Kävutajan märitud personaližen laudan kuvadand",
+    "reason": "Replace Finnish/Venda and mixed-language visibility messages with Veps, including related unflagged values. Preserve private/public distinctions, added-people-only edit/view restrictions, anyone-with-link public viewing and search-engine discovery, HTML tags/link/%s, optional custom-description fallback, default/show distinctions and localized status predicates. Zaiceva/Mullonen 2007 dictionary: personaline (private), ristit (-un,-uid), nägubuz’, mašin; native üleižen and sanumata usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Google remains a proper name. Low confidence: composed search-engine terminology and visibility grammar/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-public-desc",
+    "before": "Yo dinaho Julkinen ṱhalutshedzo",
+    "after": "Kävutajan märitud üleižen laudan kuvadand",
+    "reason": "Replace Finnish/Venda and mixed-language visibility messages with Veps, including related unflagged values. Preserve private/public distinctions, added-people-only edit/view restrictions, anyone-with-link public viewing and search-engine discovery, HTML tags/link/%s, optional custom-description fallback, default/show distinctions and localized status predicates. Zaiceva/Mullonen 2007 dictionary: personaline (private), ristit (-un,-uid), nägubuz’, mašin; native üleižen and sanumata usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Google remains a proper name. Low confidence: composed search-engine terminology and visibility grammar/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-private-desc-placeholder",
+    "before": "Litshani hu si na tshithu u itela u shumisa ya sialala Yksityinen ṱhalutshedzo ya bodo",
+    "after": "Jäta tühjaks, miše kävutada personaližen laudan kuvadandan sanumata",
+    "reason": "Replace Finnish/Venda and mixed-language visibility messages with Veps, including related unflagged values. Preserve private/public distinctions, added-people-only edit/view restrictions, anyone-with-link public viewing and search-engine discovery, HTML tags/link/%s, optional custom-description fallback, default/show distinctions and localized status predicates. Zaiceva/Mullonen 2007 dictionary: personaline (private), ristit (-un,-uid), nägubuz’, mašin; native üleižen and sanumata usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Google remains a proper name. Low confidence: composed search-engine terminology and visibility grammar/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-public-desc-placeholder",
+    "before": "Litshani hu si na tshithu u itela u shumisa ya sialala Julkinen ṱhalutshedzo ya bodo",
+    "after": "Jäta tühjaks, miše kävutada üleižen laudan kuvadandan sanumata",
+    "reason": "Replace Finnish/Venda and mixed-language visibility messages with Veps, including related unflagged values. Preserve private/public distinctions, added-people-only edit/view restrictions, anyone-with-link public viewing and search-engine discovery, HTML tags/link/%s, optional custom-description fallback, default/show distinctions and localized status predicates. Zaiceva/Mullonen 2007 dictionary: personaline (private), ristit (-un,-uid), nägubuz’, mašin; native üleižen and sanumata usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Google remains a proper name. Low confidence: composed search-engine terminology and visibility grammar/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "default-on-private-board",
+    "before": "Zwo ḓoweleaho kha bodo ya tshiphiri",
+    "after": "Sanumata personaližel laudal",
+    "reason": "Replace Finnish/Venda and mixed-language visibility messages with Veps, including related unflagged values. Preserve private/public distinctions, added-people-only edit/view restrictions, anyone-with-link public viewing and search-engine discovery, HTML tags/link/%s, optional custom-description fallback, default/show distinctions and localized status predicates. Zaiceva/Mullonen 2007 dictionary: personaline (private), ristit (-un,-uid), nägubuz’, mašin; native üleižen and sanumata usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Google remains a proper name. Low confidence: composed search-engine terminology and visibility grammar/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "default-on-public-board",
+    "before": "Zwo ḓoweleaho kha bodo ya tshitshavha",
+    "after": "Sanumata üleižel laudal",
+    "reason": "Replace Finnish/Venda and mixed-language visibility messages with Veps, including related unflagged values. Preserve private/public distinctions, added-people-only edit/view restrictions, anyone-with-link public viewing and search-engine discovery, HTML tags/link/%s, optional custom-description fallback, default/show distinctions and localized status predicates. Zaiceva/Mullonen 2007 dictionary: personaline (private), ristit (-un,-uid), nägubuz’, mašin; native üleižen and sanumata usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Google remains a proper name. Low confidence: composed search-engine terminology and visibility grammar/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "show-on-private-board",
+    "before": "Sumbedzani kha bodo ya tshiphiri",
+    "after": "Ozuta personaližel laudal",
+    "reason": "Replace Finnish/Venda and mixed-language visibility messages with Veps, including related unflagged values. Preserve private/public distinctions, added-people-only edit/view restrictions, anyone-with-link public viewing and search-engine discovery, HTML tags/link/%s, optional custom-description fallback, default/show distinctions and localized status predicates. Zaiceva/Mullonen 2007 dictionary: personaline (private), ristit (-un,-uid), nägubuz’, mašin; native üleižen and sanumata usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Google remains a proper name. Low confidence: composed search-engine terminology and visibility grammar/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "show-on-public-board",
+    "before": "Sumbedzani kha bodo ya tshitshavha",
+    "after": "Ozuta üleižel laudal",
+    "reason": "Replace Finnish/Venda and mixed-language visibility messages with Veps, including related unflagged values. Preserve private/public distinctions, added-people-only edit/view restrictions, anyone-with-link public viewing and search-engine discovery, HTML tags/link/%s, optional custom-description fallback, default/show distinctions and localized status predicates. Zaiceva/Mullonen 2007 dictionary: personaline (private), ristit (-un,-uid), nägubuz’, mašin; native üleižen and sanumata usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Google remains a proper name. Low confidence: composed search-engine terminology and visibility grammar/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-status-private",
+    "before": "`__predicate_private__` - kortit vain yksityisillä tauluilla",
+    "after": "`__predicate_private__` - kartad vaiše personaližiš laudoiš",
+    "reason": "Replace Finnish/Venda and mixed-language visibility messages with Veps, including related unflagged values. Preserve private/public distinctions, added-people-only edit/view restrictions, anyone-with-link public viewing and search-engine discovery, HTML tags/link/%s, optional custom-description fallback, default/show distinctions and localized status predicates. Zaiceva/Mullonen 2007 dictionary: personaline (private), ristit (-un,-uid), nägubuz’, mašin; native üleižen and sanumata usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Google remains a proper name. Low confidence: composed search-engine terminology and visibility grammar/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-status-public",
+    "before": "`__predicate_public__` - kortit vain julkisilla tauluilla",
+    "after": "`__predicate_public__` - kartad vaiše üleižiš laudoiš",
+    "reason": "Replace Finnish/Venda and mixed-language visibility messages with Veps, including related unflagged values. Preserve private/public distinctions, added-people-only edit/view restrictions, anyone-with-link public viewing and search-engine discovery, HTML tags/link/%s, optional custom-description fallback, default/show distinctions and localized status predicates. Zaiceva/Mullonen 2007 dictionary: personaline (private), ristit (-un,-uid), nägubuz’, mašin; native üleižen and sanumata usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Google remains a proper name. Low confidence: composed search-engine terminology and visibility grammar/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "tableVisibilityMode-allowPrivateOnly",
+    "before": "Taulujen näkyvyys: Salli vain yksityiset taulut",
+    "after": "Laudaden nägubuz’: laske vaiše personaližed laudad",
+    "reason": "Replace Finnish/Venda and mixed-language visibility messages with Veps, including related unflagged values. Preserve private/public distinctions, added-people-only edit/view restrictions, anyone-with-link public viewing and search-engine discovery, HTML tags/link/%s, optional custom-description fallback, default/show distinctions and localized status predicates. Zaiceva/Mullonen 2007 dictionary: personaline (private), ristit (-un,-uid), nägubuz’, mašin; native üleižen and sanumata usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Google remains a proper name. Low confidence: composed search-engine terminology and visibility grammar/case forms require fluent-speaker review."
   }
 ]
