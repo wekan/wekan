@@ -1102,6 +1102,15 @@ no mirroring or publishing commands were executed for this audit.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/56c02baca">Repair Standard Moroccan Tamazight core labels</a>. Thanks to xet7.</summary>
+
+Replace Arabic Title and Language values with IRCAM-attested native Tifinagh.
+Positive vocabulary and negative Arabic-script checks pass with the full exact
+correction ledger. Broader Tamazight translation repairs remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/389dc28e5">Repair Veps user and board not-found diagnostics</a>. Thanks to xet7.</summary>
 
 Replace Finnish seed text with attested Veps vocabulary, preserving quoted
