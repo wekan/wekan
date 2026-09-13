@@ -94106,5 +94106,54 @@
     "before": "Karte exportieren",
     "after": "'echletHom yIngeH",
     "reason": "Replace German/French export controls with Klingon. Preserve inability to export Excel versus the card-export action, fields selected for inclusion in Excel data, board versus card popup titles, and monitoring-data export versus failed export. Reuse repaired ngeH export and field/card/board terminology. Monitoring data is described as data for observing the system. Full software wording and monitoring metaphor are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-activity-notify",
+    "before": "Aktivitätsbenachrichtigung",
+    "after": "ta'meymo' ghuHmoHmeH QIn",
+    "reason": "Replace audited German watching/notification controls and removal activities with Klingon. Preserve administrator disabling board/card watching, updates for watched boards/lists/cards, automatic watching on board creation, any board change notification, and attachment deletion versus checklist removal with source percent placeholders. Reuse repaired alert-message, attachment and checklist terminology; watching is described using bej observe. Full software clauses are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "error-watch-disabled",
+    "before": "Das Beobachten von Boards und Karten wurde vom Administrator deaktiviert",
+    "after": "raSmey 'echletHommey je bejmeH DuH chu'Ha'pu' che'wI'",
+    "reason": "Replace audited German watching/notification controls and removal activities with Klingon. Preserve administrator disabling board/card watching, updates for watched boards/lists/cards, automatic watching on board creation, any board change notification, and attachment deletion versus checklist removal with source percent placeholders. Reuse repaired alert-message, attachment and checklist terminology; watching is described using bej observe. Full software clauses are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "notify-watch",
+    "before": "Benachrichtigungen über alle Boards, Listen oder Karten erhalten, die Sie beobachten",
+    "after": "raSmey tetlhmey 'echletHommey je DabejtaHvIS, choHmeymo' ghuHmoHmeH QInmey tIHev",
+    "reason": "Replace audited German watching/notification controls and removal activities with Klingon. Preserve administrator disabling board/card watching, updates for watched boards/lists/cards, automatic watching on board creation, any board change notification, and attachment deletion versus checklist removal with source percent placeholders. Reuse repaired alert-message, attachment and checklist terminology; watching is described using bej observe. Full software clauses are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "auto-watch",
+    "before": "Neue Boards nach Erstellung automatisch beobachten",
+    "after": "raS chenmoHlu'DI', raSvam DabejchoH",
+    "reason": "Replace audited German watching/notification controls and removal activities with Klingon. Preserve administrator disabling board/card watching, updates for watched boards/lists/cards, automatic watching on board creation, any board change notification, and attachment deletion versus checklist removal with source percent placeholders. Reuse repaired alert-message, attachment and checklist terminology; watching is described using bej observe. Full software clauses are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "watching-info",
+    "before": "Sie werden über alle Änderungen in diesem Board benachrichtigt",
+    "after": "raSvamDaq vay' choHlu'DI', ghuHmoHmeH QIn DaHev",
+    "reason": "Replace audited German watching/notification controls and removal activities with Klingon. Preserve administrator disabling board/card watching, updates for watched boards/lists/cards, automatic watching on board creation, any board change notification, and attachment deletion versus checklist removal with source percent placeholders. Reuse repaired alert-message, attachment and checklist terminology; watching is described using bej observe. Full software clauses are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "activity-delete-attach",
+    "before": "löschte ein Anhang von %s",
+    "after": "rarDoch Qaw'lu'pu' (%s-vo')",
+    "reason": "Replace audited German watching/notification controls and removal activities with Klingon. Preserve administrator disabling board/card watching, updates for watched boards/lists/cards, automatic watching on board creation, any board change notification, and attachment deletion versus checklist removal with source percent placeholders. Reuse repaired alert-message, attachment and checklist terminology; watching is described using bej observe. Full software clauses are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "activity-checklist-removed",
+    "before": "entfernte eine Checkliste von %s",
+    "after": "ghItlhHommey tetlh teqlu'pu' (%s-vo')",
+    "reason": "Replace audited German watching/notification controls and removal activities with Klingon. Preserve administrator disabling board/card watching, updates for watched boards/lists/cards, automatic watching on board creation, any board change notification, and attachment deletion versus checklist removal with source percent placeholders. Reuse repaired alert-message, attachment and checklist terminology; watching is described using bej observe. Full software clauses are assembled, low confidence, and require fluent-speaker validation."
   }
 ]
