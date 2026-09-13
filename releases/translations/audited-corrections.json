@@ -77677,5 +77677,61 @@
     "before": "[ {\"title\": \"Titre de la première carte\", \"description\":\"Description de la première carte\"}, {\"title\":\"Titre de la seconde carte\",\"description\":\"Description de la seconde carte\"},{\"title\":\"Titre de la dernière carte\",\"description\":\"Description de la dernière carte\"} ]",
     "after": "[{\"title\": \"Turu karta bu njëkk bi\", \"description\": \"Leeralu karta bu njëkk bi\"}, {\"title\": \"Turu ñaareelu karta bi\", \"description\": \"Leeralu ñaareelu karta bi\"}, {\"title\": \"Turu karta bu mujj bi\", \"description\": \"Leeralu karta bu mujj bi\"}]",
     "reason": "Replace French copy-template-to-many-cards instructions and JSON prose with Wolof. Preserve template/multiple-destination distinction, title/description concepts, first/second/last order, valid JSON and literal title/description property names. Full grammar and template/destination terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "showChecklistAtMinicard",
+    "before": "Afficher la check-list dans la minicarte",
+    "after": "Wone limu bu seetlu bi ci karta bu ndaw bi",
+    "reason": "Replace French minicard/board visibility and field insertion controls with Wolof, preserving small-card versus full-card location, all-boards page, member avatars and all-cards versus new-cards scope. Describe field as input section; field/member vocabulary and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "show-on-minicard",
+    "before": "Afficher sur la minicarte",
+    "after": "Wone ci karta bu ndaw bi",
+    "reason": "Replace French minicard/board visibility and field insertion controls with Wolof, preserving small-card versus full-card location, all-boards page, member avatars and all-cards versus new-cards scope. Describe field as input section; field/member vocabulary and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "show-list-on-minicard",
+    "before": "Afficher la liste sur la mini-carte",
+    "after": "Wone limu bi ci karta bu ndaw bi",
+    "reason": "Replace French minicard/board visibility and field insertion controls with Wolof, preserving small-card versus full-card location, all-boards page, member avatars and all-cards versus new-cards scope. Describe field as input section; field/member vocabulary and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "show-field-on-card",
+    "before": "Afficher ce champ sur la carte",
+    "after": "Wone wàllu dugal bii ci karta bi",
+    "reason": "Replace French minicard/board visibility and field insertion controls with Wolof, preserving small-card versus full-card location, all-boards page, member avatars and all-cards versus new-cards scope. Describe field as input section; field/member vocabulary and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "show-board_members-avatar",
+    "before": "Afficher les avatars des participants du tableau.",
+    "after": "Wone nataali bokkkati tablo bi",
+    "reason": "Replace French minicard/board visibility and field insertion controls with Wolof, preserving small-card versus full-card location, all-boards page, member avatars and all-cards versus new-cards scope. Describe field as input section; field/member vocabulary and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "show-at-all-boards-page",
+    "before": "Afficher sur la page de tous les tableaux",
+    "after": "Wone ci xëtu tablo yi yépp",
+    "reason": "Replace French minicard/board visibility and field insertion controls with Wolof, preserving small-card versus full-card location, all-boards page, member avatars and all-cards versus new-cards scope. Describe field as input section; field/member vocabulary and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "always-field-on-card",
+    "before": "Ajouter le champ à toutes les cartes",
+    "after": "Yokk wàllu dugal bi ci karta yépp",
+    "reason": "Replace French minicard/board visibility and field insertion controls with Wolof, preserving small-card versus full-card location, all-boards page, member avatars and all-cards versus new-cards scope. Describe field as input section; field/member vocabulary and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "automatically-field-on-card",
+    "before": "Ajouter le champ aux cartes nouvellement créées",
+    "after": "Yokk wàllu dugal bi ci karta yu bees yi",
+    "reason": "Replace French minicard/board visibility and field insertion controls with Wolof, preserving small-card versus full-card location, all-boards page, member avatars and all-cards versus new-cards scope. Describe field as input section; field/member vocabulary and full grammar remain low confidence."
   }
 ]
