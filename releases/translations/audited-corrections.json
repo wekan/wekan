@@ -111053,5 +111053,89 @@
     "before": "`__operator_list__:<title>` - schede nelle liste corrispondenti a *<title>*",
     "after": "`__operator_list__:<title>` - schede inte liste che łe corisponde al *<title>* indicà",
     "reason": "Replace Italian-seeded Venetian search help; preserve query syntax, OR behavior, case insensitivity and negated-field meaning. Correct created-date direction to days ago or less. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-operator-member",
+    "before": "`__operator_member__:<username>` - schede dove *<username>* è un *membro*",
+    "after": "`__operator_member__:<username>` - schede dove *<username>* el xe un *membro*",
+    "reason": "Replace Italian-seeded Venetian search labels; correct modified-date direction, preserve member/assignee union and public/private-only scope, translate checked items as checklist entries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-operator-modified",
+    "before": "`__operator_modified__:<n>` - schede modificate *<n>* giorni fa o prima",
+    "after": "`__operator_modified__:<n>` - schede canbià *<n>* dì fa o manco",
+    "reason": "Replace Italian-seeded Venetian search labels; correct modified-date direction, preserve member/assignee union and public/private-only scope, translate checked items as checklist entries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-operator-status",
+    "before": "`__operator_status__:<status>` - dove *<status>* è uno dei seguenti:",
+    "after": "`__operator_status__:<status>` - *<status>* el xe uno dei seguenti:",
+    "reason": "Replace Italian-seeded Venetian search labels; correct modified-date direction, preserve member/assignee union and public/private-only scope, translate checked items as checklist entries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-operator-swimlane",
+    "before": "`__operator_swimlane__:<title>` - schede in swimlane corrispondenti a *<title>*",
+    "after": "`__operator_swimlane__:<title>` - schede inte corsie che łe corisponde al *<title>* indicà",
+    "reason": "Replace Italian-seeded Venetian search labels; correct modified-date direction, preserve member/assignee union and public/private-only scope, translate checked items as checklist entries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-operator-user",
+    "before": "`__operator_user__:<username>` - schede dove *<username>* è un *membro* oppure *assegnatario*",
+    "after": "`__operator_user__:<username>` - schede dove *<username>* el xe un *membro* o *asegnatario*",
+    "reason": "Replace Italian-seeded Venetian search labels; correct modified-date direction, preserve member/assignee union and public/private-only scope, translate checked items as checklist entries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-status-all",
+    "before": "`__predicate_all__` - tutte le schede archiviate e non archiviate",
+    "after": "`__predicate_all__` - tute łe schede, inte el archivio e fora del archivio",
+    "reason": "Replace Italian-seeded Venetian search labels; correct modified-date direction, preserve member/assignee union and public/private-only scope, translate checked items as checklist entries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-status-ended",
+    "before": "`__predicate_ended__` - schede aventi una data di fine",
+    "after": "`__predicate_ended__` - schede co na data de fine",
+    "reason": "Replace Italian-seeded Venetian search labels; correct modified-date direction, preserve member/assignee union and public/private-only scope, translate checked items as checklist entries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-status-private",
+    "before": "`__predicate_private__` - schede soltanto in bacheche private",
+    "after": "`__predicate_private__` - schede soło inte quadri privài",
+    "reason": "Replace Italian-seeded Venetian search labels; correct modified-date direction, preserve member/assignee union and public/private-only scope, translate checked items as checklist entries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-status-public",
+    "before": "`__predicate_public__` - schede soltanto in bacheche pubbliche",
+    "after": "`__predicate_public__` - schede soło inte quadri pùblici",
+    "reason": "Replace Italian-seeded Venetian search labels; correct modified-date direction, preserve member/assignee union and public/private-only scope, translate checked items as checklist entries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-title",
+    "before": "Cerca in tutte le bacheche",
+    "after": "Serca inte tuti i quadri",
+    "reason": "Replace Italian-seeded Venetian search labels; correct modified-date direction, preserve member/assignee union and public/private-only scope, translate checked items as checklist entries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "has-spenttime-cards",
+    "before": "Ci sono schede con tempo impiegato",
+    "after": "Ghe xe schede co tenpo doparà",
+    "reason": "Replace Italian-seeded Venetian search labels; correct modified-date direction, preserve member/assignee union and public/private-only scope, translate checked items as checklist entries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "hide-checked-items",
+    "before": "Nascondi articoli controllati",
+    "after": "Scondi łe vozi segnà",
+    "reason": "Replace Italian-seeded Venetian search labels; correct modified-date direction, preserve member/assignee union and public/private-only scope, translate checked items as checklist entries. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
