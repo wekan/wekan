@@ -88007,8 +88007,8 @@
     "locale": "vo",
     "key": "accounts-lockout-failure-window",
     "before": "Fenêtre des échecs (secondes)",
-    "after": "Tim pro lepöks (sekuns)",
-    "reason": "Replace French or Esperanto login/lockout wording with Volapük. MediaWiki Volapük source https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json attests nunädön oki for software login; Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nelaidüpo (temporarily), steifül (attempt), sekun (second), lepök (failure). Preserve temporary lock, excessive failed-login cause, later retry and seconds units. Failure-window wording and assembled grammar remain low confidence; native review unavailable."
+    "after": "Vütim pro numam lepökas (sekuns)",
+    "reason": "Repair French account-protection descriptions and clarify the failure-counting time window. Explain brute-force login attacks as testing many passwords rather than literal physical force. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jel/jelön, tatak, bluf, vio, nulükön and vütim; retain existing login/password/settings terminology. Software paraphrase, update adaptation and assembled wording remain low confidence; no native-speaker verification. Failure-window context inspected in server/accounts-lockout-config.js and client/components/settings/peopleBody.jade."
   },
   {
     "locale": "vo",
@@ -89080,5 +89080,26 @@
     "before": "Tous les participants de la carte actuelle dans ce tableau",
     "after": "Limans valik kada nuik su tab at",
     "reason": "Replace audited French board/member and custom-HTML descriptions with Volapük. Preserve add/remove direction, view/edit/member/settings/activity permissions, all-current-card-members scope, and exact <body>/</body> tags and before/after positions. Existing WeKan terminology plus Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf (bepenam, prolidik, lüükön, moükön, votükön). Custom/settings software adaptations and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "accounts-lockout-settings",
+    "before": "Paramètres de protection contre la force brute",
+    "after": "Väls jela ta tataks me blufs letavödas mödik",
+    "reason": "Repair French account-protection descriptions and clarify the failure-counting time window. Explain brute-force login attacks as testing many passwords rather than literal physical force. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jel/jelön, tatak, bluf, vio, nulükön and vütim; retain existing login/password/settings terminology. Software paraphrase, update adaptation and assembled wording remain low confidence; no native-speaker verification. Failure-window context inspected in server/accounts-lockout-config.js and client/components/settings/peopleBody.jade."
+  },
+  {
+    "locale": "vo",
+    "key": "accounts-lockout-info",
+    "before": "Ces paramètres contrôlent comment les tentatives de connexion sont protégés des attaques par force brute.",
+    "after": "Väls at lonons, vio steifüls ad nunädön oki pajelons ta tataks me blufs letavödas mödik.",
+    "reason": "Repair French account-protection descriptions and clarify the failure-counting time window. Explain brute-force login attacks as testing many passwords rather than literal physical force. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jel/jelön, tatak, bluf, vio, nulükön and vütim; retain existing login/password/settings terminology. Software paraphrase, update adaptation and assembled wording remain low confidence; no native-speaker verification. Failure-window context inspected in server/accounts-lockout-config.js and client/components/settings/peopleBody.jade."
+  },
+  {
+    "locale": "vo",
+    "key": "accounts-lockout-settings-updated",
+    "before": "Les paramètres de protection contre la force brute ont été mis à jour",
+    "after": "Väls jela ta tataks me blufs letavödas mödik penulükons",
+    "reason": "Repair French account-protection descriptions and clarify the failure-counting time window. Explain brute-force login attacks as testing many passwords rather than literal physical force. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jel/jelön, tatak, bluf, vio, nulükön and vütim; retain existing login/password/settings terminology. Software paraphrase, update adaptation and assembled wording remain low confidence; no native-speaker verification. Failure-window context inspected in server/accounts-lockout-config.js and client/components/settings/peopleBody.jade."
   }
 ]
