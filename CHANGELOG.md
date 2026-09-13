@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 13,318 corrected, 4,058 restored pre-pull values awaiting
-validation, 178 reviewed and retained, and 2,527 pending review or repair.
-The correction inventory records 14,824 exact before/after values across
+findings: 13,338 corrected, 4,058 restored pre-pull values awaiting
+validation, 178 reviewed and retained, and 2,507 pending review or repair.
+The correction inventory records 14,844 exact before/after values across
 201 locale identifiers, including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired 828 and retained the Cron tool name.
