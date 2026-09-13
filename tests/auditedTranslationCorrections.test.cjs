@@ -311,5 +311,14 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     assert.doesNotMatch(cache['ve-PP'][key], /Takaisin|Valmis|Virhe|Versio|Luo/, key);
   }
   assert.notEqual(cache['ve-PP'].error, cache['ve-PP'].errors);
+  for (const [key, value] of Object.entries({
+    change: 'Vajehta', close: 'Saubata', export: 'Ve', import: 'To',
+    rename: "Anda uz' nimi",
+  })) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.doesNotMatch(cache['ve-PP'][key], /Muokkaa|Sulje|Thumela ngaphandle|Tuo|Nimeä uudelleen/, key);
+  }
+  assert.notEqual(cache['ve-PP'].export, cache['ve-PP'].import);
+  assert.notEqual(cache['ve-PP'].close, cache['ve-PP'].delete);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

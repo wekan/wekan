@@ -112866,5 +112866,40 @@
     "before": "Luo",
     "after": "Tege",
     "reason": "Replace Finnish Veps label with native MediaWiki Veps software terminology (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json); errors plural vigad verified in Veps viga declension (https://kaikki.org/dictionary/Veps/index.html)."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "change",
+    "before": "Muokkaa",
+    "after": "Vajehta",
+    "reason": "Replace Finnish/Zulu seed with native Veps software action: MediaWiki Veps edit/protect_change, collapsible-collapse and window-close prose, export-submit, import-interwiki-submit and rcfilters-savedqueries-rename; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve action distinctions."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "close",
+    "before": "Sulje",
+    "after": "Saubata",
+    "reason": "Replace Finnish/Zulu seed with native Veps software action: MediaWiki Veps edit/protect_change, collapsible-collapse and window-close prose, export-submit, import-interwiki-submit and rcfilters-savedqueries-rename; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve action distinctions."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "export",
+    "before": "Thumela ngaphandle",
+    "after": "Ve",
+    "reason": "Replace Finnish/Zulu seed with native Veps software action: MediaWiki Veps edit/protect_change, collapsible-collapse and window-close prose, export-submit, import-interwiki-submit and rcfilters-savedqueries-rename; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve action distinctions."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "import",
+    "before": "Tuo",
+    "after": "To",
+    "reason": "Replace Finnish/Zulu seed with native Veps software action: MediaWiki Veps edit/protect_change, collapsible-collapse and window-close prose, export-submit, import-interwiki-submit and rcfilters-savedqueries-rename; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve action distinctions."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "rename",
+    "before": "Nimeä uudelleen",
+    "after": "Anda uz' nimi",
+    "reason": "Replace Finnish/Zulu seed with native Veps software action: MediaWiki Veps edit/protect_change, collapsible-collapse and window-close prose, export-submit, import-interwiki-submit and rcfilters-savedqueries-rename; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve action distinctions."
   }
 ]
