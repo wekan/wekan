@@ -64069,5 +64069,75 @@
     "before": "Tous les participants de la carte actuelle dans ce tableau",
     "after": "Holl izili ar gartenn vremanel en daolenn-mañ",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "checklistItemDeletePopup-title",
+    "before": "Supprimer l'élément de la check-list ?",
+    "after": "Dilemel elfenn ar roll kontroll ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "click-to-star",
+    "before": "Cliquez pour ajouter ce tableau aux favoris.",
+    "after": "Klikit evit lakaat an daolenn-mañ er sinedoù.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "click-to-unstar",
+    "before": "Cliquez pour retirer ce tableau des favoris.",
+    "after": "Klikit evit tennañ an daolenn-mañ eus ar sinedoù.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "close-add-checklist-item",
+    "before": "Fermer ajouter un élément du formulaire checklist",
+    "after": "Serriñ ar furmskrid ouzhpennañ un elfenn d’ar roll kontroll",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "close-board-pop",
+    "before": "Vous pouvez restaurer le tableau en cliquant sur le bouton « Archives » depuis le menu en entête.",
+    "after": "Gallout a reot adsevel an daolenn en ur glikañ war ar bouton « Dielloù » e penn an degemer.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "comment-delete",
+    "before": "Êtes-vous sûr de vouloir supprimer le commentaire ?",
+    "after": "Ha sur oc’h e fell deoc’h dilemel an evezhiadenn ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "comprehensive-board-migration",
+    "before": "Migration complète de tableau",
+    "after": "Divroañ klok roadennoù an daolenn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "comprehensive-board-migration-description",
+    "before": "Effectue des vérifications complètes et des corrections pour l'intégrité des données du tableau, y compris l'ordre des listes, les positions des cartes et la structure des couloirs.",
+    "after": "Gwiriadennoù klok ha reizhadurioù a vez graet evit anterinded roadennoù an daolenn, en o zouez urzh ar rolloù, lec’hiadur ar c’hartennoù ha framm an trepasoù.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "confirm-checklist-delete-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer la checklist ?",
+    "after": "Ha sur oc’h e fell deoc’h dilemel ar roll kontroll ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "confirm-checklist-item-delete-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer l'élément de la check-list ?",
+    "after": "Ha sur oc’h e fell deoc’h dilemel elfenn ar roll kontroll ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
