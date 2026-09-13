@@ -52183,5 +52183,61 @@
     "before": "Rimuovere stringa di traduzione personalizzata?",
     "after": "Squassà sta stringa di traduzzione persunalizata?",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "shortcut-filter-my-assigned-cards",
+    "before": "Filtro le carte assegnate",
+    "after": "Filtrà e carte attribuite à mè",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "sign-in-to-upload",
+    "before": "Accedi per caricare i repository",
+    "after": "Cunnettate vi per caricà i ripusitorii",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "skip-to-content",
+    "before": "Vai al contenuto principale",
+    "after": "Andà à u cuntenutu principale",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "smtp-host-description",
+    "before": "L'indirizzo del server SMTP che gestisce le tue email.",
+    "after": "L’indirizzu di u servitore SMTP chì gestisce i vostri email.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "smtp-port-description",
+    "before": "La porta che il tuo server SMTP utilizza per le email in uscita.",
+    "after": "U portu adupratu da u vostru servitore SMTP per l’email in surtita.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "soft-wip-limit",
+    "before": "Limite Work in progress soft",
+    "after": "Limita WIP flessibile",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "sort-boards-custom",
+    "before": "Personalizzato (ordine di trascinamento)",
+    "after": "Persunalizatu (ordine definitu trascinendu)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "sort-desc",
+    "before": "Clicca per ordinare la lista",
+    "after": "Cliccate per urdinà a lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
