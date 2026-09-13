@@ -86161,5 +86161,12 @@
     "before": "Indian national",
     "after": "ᎢᏂᏗᎠ ᎠᏰᎵ ᏅᏙ ᏗᏎᏍᏗ",
     "reason": "Replace English Indian national using Cherokee CLDR Indian calendar display name ᎢᏂᏗᎠ ᎠᏰᎵ and named-calendar wording ᏅᏙ ᏗᏎᏍᏗ in https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/chr.xml . Adapted full label remains low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "chr",
+    "key": "pomodoro-work",
+    "before": "Gohiyuhi",
+    "after": "ᏗᎦᎸᏫᏍᏓᏁᏗ",
+    "reason": "Correct wrong word as well as writing script: Gohiyuhi means respect/loyalty/obedience in indexed Cherokee Nation dictionary https://language.cherokee.org/media/ykahxw4v/oudictionaryeuglutan.pdf (full retrieval failed after redirect). Work Digalvwisdanedi attested https://www.thepeoplespaths.net/Cherokee/CherokeeWordLists/WordList-W.htm ; syllabary ᏗᎦᎸᏫᏍᏓᏁᏗ also attested https://www.cherokeedictionary.net/cnt/0611.html . Pomodoro noun usage remains low confidence without native UI review."
   }
 ]
