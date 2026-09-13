@@ -64081,14 +64081,14 @@
     "locale": "br",
     "key": "click-to-star",
     "before": "Cliquez pour ajouter ce tableau aux favoris.",
-    "after": "Klikit evit lakaat an daolenn-mañ er sinedoù.",
+    "after": "Klikit evit merkañ an daolenn-mañ gant ur steredenn.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
     "locale": "br",
     "key": "click-to-unstar",
     "before": "Cliquez pour retirer ce tableau des favoris.",
-    "after": "Klikit evit tennañ an daolenn-mañ eus ar sinedoù.",
+    "after": "Klikit evit tennañ steredenn an daolenn-mañ.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
@@ -64116,7 +64116,7 @@
     "locale": "br",
     "key": "comprehensive-board-migration",
     "before": "Migration complète de tableau",
-    "after": "Divroañ klok roadennoù an daolenn",
+    "after": "Treuzkas klok roadennoù an daolenn",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   },
   {
