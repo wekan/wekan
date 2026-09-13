@@ -71713,5 +71713,110 @@
     "before": "Penggunaan memori nod: Set saiz residen",
     "after": "Memori Node nyang geungui: ukoran memori nyang na bak RAM (RSS)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Sistem almanak (peuleumah tanggai)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "calendar",
+    "before": "Kalender",
+    "after": "Almanak",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "a-dueAt",
+    "before": "tarikh akhir telah diubah menjadi",
+    "after": "geuubah watee bataih jadi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "a-endAt",
+    "before": "tarikh tamat telah diubah menjadi",
+    "after": "geuubah watee akhé jadi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "a-receivedAt",
+    "before": "tarikh terima telah diubah menjadi",
+    "after": "geuubah watee teurimong jadi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "a-startAt",
+    "before": "tarikh mula telah diubah menjadi",
+    "after": "geuubah watee awai jadi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "accounts-allowUserDelete",
+    "before": "Benarkan pengguna untuk hapuskan akaun mereka sendiri",
+    "after": "Hapus akun ureueng ngui droe keudroe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "accounts-allowUserNameChange",
+    "before": "Benarkan Perubahan Nama Pengguna",
+    "after": "Ubah nan ureueng ngui",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "act-addBoardMember",
+    "before": "rakan __member__ telah ditambah kepada papan __board__",
+    "after": "geutamah anggota __member__ u papan __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "act-addChecklist",
+    "before": "menambah daftar cek __checklist__ ke kartu __card__ pada daftar __list__ pada jalur __swimlane__ dalam papan __board__",
+    "after": "geutamah checklist __checklist__ u kad __card__ bak senarai __list__ bak swimlane __swimlane__ bak papan __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "admin-announcement-active",
+    "before": "Pengumuman Aktif Seluruh Sistem",
+    "after": "Peungumuman nyang aktif bak mandum sistem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "admin-announcement-title",
+    "before": "Pengumuman daripada Pengurusan",
+    "after": "Peungumuman nibak admin",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "automatic-linked-url-schemes",
+    "before": "Skim URL Khas yang seharusnya boleh diklik. Satu URL setiap baris",
+    "after": "Skema URL khusus nyang haroh jeuet geuklik ngon otomatis. Saboh skema URL bak tiep bareh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "checklist-count",
+    "before": "Jumlah item checklist (0/0)",
+    "after": "Jeumeulah item checklist (0/0)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "gcs-key-filename",
+    "before": "Jalur file kunci akun layanan",
+    "after": "Rot fail kunci akun layanan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
