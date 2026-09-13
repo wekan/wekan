@@ -93868,5 +93868,40 @@
     "before": "Ihr Benutzerkonto auf __siteName__ wurde erstellt",
     "after": "__siteName__-Daq SoHvaD account chenmoHlu'pu'",
     "reason": "Replace audited German S3 save confirmation and email test/invitation/account subject messages with Klingon. Preserve save/send completion versus failed sending, sending a test to yourself, inviter as actor and user as recipient, and account creation for the user at the named site. Reuse repaired QIn pat, waHmeH QIn, configuration and account terminology; keep all underscore placeholders exact. Full software/email wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "email-enrollAccount-text",
+    "before": "Hallo __user__,\n\num den Dienst nutzen zu können, klicken Sie bitte auf folgenden Link:\n\n__url__\n\nDanke.",
+    "after": "nuqneH __user__,\n\npat Dalo'choHmeH, bIngDaq rarwI' yIqIp.\n\n__url__\n\nqatlho'.",
+    "reason": "Replace audited German enrollment/password-reset/email-verification bodies and subjects with Klingon. Preserve user/site/URL tokens, six real newline characters and paragraph structure, link-below click instruction, service start versus password reset versus account email verification, greeting and thanks. https://klingonska.org/klo/ordlista-01.html attests apostrophe-ol (verify) and Quv (coordinates); email address and link use descriptive Quv and rarwI metaphors. Full software/email phrasing is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "email-resetPassword-text",
+    "before": "Hallo __user__,\n\num ihr Passwort zurückzusetzen, klicken Sie bitte auf folgenden Link:\n\n__url__\n\nDanke.",
+    "after": "nuqneH __user__,\n\npegh mu'lIj Dacherqa'meH, bIngDaq rarwI' yIqIp.\n\n__url__\n\nqatlho'.",
+    "reason": "Replace audited German enrollment/password-reset/email-verification bodies and subjects with Klingon. Preserve user/site/URL tokens, six real newline characters and paragraph structure, link-below click instruction, service start versus password reset versus account email verification, greeting and thanks. https://klingonska.org/klo/ordlista-01.html attests apostrophe-ol (verify) and Quv (coordinates); email address and link use descriptive Quv and rarwI metaphors. Full software/email phrasing is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "email-verifyEmail-text",
+    "before": "Hallo __user__,\n\num ihre E-Mail-Adresse zu bestätigen, klicken Sie bitte auf folgenden Link:\n\n__url__\n\nDanke.",
+    "after": "nuqneH __user__,\n\naccountlIj QIn pat Quv Da'olmeH, bIngDaq rarwI' yIqIp.\n\n__url__\n\nqatlho'.",
+    "reason": "Replace audited German enrollment/password-reset/email-verification bodies and subjects with Klingon. Preserve user/site/URL tokens, six real newline characters and paragraph structure, link-below click instruction, service start versus password reset versus account email verification, greeting and thanks. https://klingonska.org/klo/ordlista-01.html attests apostrophe-ol (verify) and Quv (coordinates); email address and link use descriptive Quv and rarwI metaphors. Full software/email phrasing is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "email-resetPassword-subject",
+    "before": "Setzten Sie ihr Passwort auf __siteName__ zurück",
+    "after": "__siteName__-Daq pegh mu'lIj yIcherqa'",
+    "reason": "Replace audited German enrollment/password-reset/email-verification bodies and subjects with Klingon. Preserve user/site/URL tokens, six real newline characters and paragraph structure, link-below click instruction, service start versus password reset versus account email verification, greeting and thanks. https://klingonska.org/klo/ordlista-01.html attests apostrophe-ol (verify) and Quv (coordinates); email address and link use descriptive Quv and rarwI metaphors. Full software/email phrasing is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "email-verifyEmail-subject",
+    "before": "Bestätigen Sie ihre E-Mail-Adresse auf __siteName__",
+    "after": "__siteName__-Daq QIn pat QuvlIj yI'ol",
+    "reason": "Replace audited German enrollment/password-reset/email-verification bodies and subjects with Klingon. Preserve user/site/URL tokens, six real newline characters and paragraph structure, link-below click instruction, service start versus password reset versus account email verification, greeting and thanks. https://klingonska.org/klo/ordlista-01.html attests apostrophe-ol (verify) and Quv (coordinates); email address and link use descriptive Quv and rarwI metaphors. Full software/email phrasing is assembled, low confidence, and needs fluent-speaker validation."
   }
 ]
