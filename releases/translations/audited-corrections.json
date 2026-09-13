@@ -91425,5 +91425,75 @@
     "before": "Définir le jour de début de semaine",
     "after": "Lonön deli prima viga",
     "reason": "Replace audited French support, tracking, visibility, label-toggle, description and week-start wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests laidik (permanent), perön (lose), vig (week), del (day), stel (star), löp (top), jafan (creator), liman (member), yuf (help), nun (information), and dakipön (save). Preserve permanent Planning Poker deletion and loss of associated actions, no support info yet, support-page enablement, private-only boards, toggle as add/remove rather than show/hide, multiselection adds labels 1-9, all changes for creator/member cards, unsaved description, starred-board list-top placement and week-start day. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "step-convert-shared-lists",
+    "before": "Convertir les listes partagées",
+    "after": "Votükön lisedis pegeböl fa dils horitätik mödik",
+    "reason": "Replace French retained migration-step labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests diletön (analyze), finükön (conclude), kontrolön (check/make sure), lonöf (validity), nulükön (renew), jonön (show), and votükön (alter). Preserve analyze versus validate versus update versus finalize, shared-list conversion, per-swimlane existence and separate list/card/swimlane recovery. Follow preceding retained recovery labels by paraphrasing restoration as showing again and preserving literal Lost Cards column name. Source server/imports.js documents obsolete workflows removed; no executable migration restored. Horizontal-part swimlane paraphrase, software update adaptation and existing migrad borrowing remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "step-ensure-per-swimlane-lists",
+    "before": "Assurer les listes par couloir",
+    "after": "Kontrolön, das liseds pro dil horitätik alik dabinons",
+    "reason": "Replace French retained migration-step labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests diletön (analyze), finükön (conclude), kontrolön (check/make sure), lonöf (validity), nulükön (renew), jonön (show), and votükön (alter). Preserve analyze versus validate versus update versus finalize, shared-list conversion, per-swimlane existence and separate list/card/swimlane recovery. Follow preceding retained recovery labels by paraphrasing restoration as showing again and preserving literal Lost Cards column name. Source server/imports.js documents obsolete workflows removed; no executable migration restored. Horizontal-part swimlane paraphrase, software update adaptation and existing migrad borrowing remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "step-validate-migration",
+    "before": "Valider la migration",
+    "after": "Kontrolön lonöfi migrada",
+    "reason": "Replace French retained migration-step labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests diletön (analyze), finükön (conclude), kontrolön (check/make sure), lonöf (validity), nulükön (renew), jonön (show), and votükön (alter). Preserve analyze versus validate versus update versus finalize, shared-list conversion, per-swimlane existence and separate list/card/swimlane recovery. Follow preceding retained recovery labels by paraphrasing restoration as showing again and preserving literal Lost Cards column name. Source server/imports.js documents obsolete workflows removed; no executable migration restored. Horizontal-part swimlane paraphrase, software update adaptation and existing migrad borrowing remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "step-analyze-lists",
+    "before": "Analyser les listes",
+    "after": "Diletön lisedis",
+    "reason": "Replace French retained migration-step labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests diletön (analyze), finükön (conclude), kontrolön (check/make sure), lonöf (validity), nulükön (renew), jonön (show), and votükön (alter). Preserve analyze versus validate versus update versus finalize, shared-list conversion, per-swimlane existence and separate list/card/swimlane recovery. Follow preceding retained recovery labels by paraphrasing restoration as showing again and preserving literal Lost Cards column name. Source server/imports.js documents obsolete workflows removed; no executable migration restored. Horizontal-part swimlane paraphrase, software update adaptation and existing migrad borrowing remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "step-update-cards",
+    "before": "Mettre à jour les cartes",
+    "after": "Nulükön kadis",
+    "reason": "Replace French retained migration-step labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests diletön (analyze), finükön (conclude), kontrolön (check/make sure), lonöf (validity), nulükön (renew), jonön (show), and votükön (alter). Preserve analyze versus validate versus update versus finalize, shared-list conversion, per-swimlane existence and separate list/card/swimlane recovery. Follow preceding retained recovery labels by paraphrasing restoration as showing again and preserving literal Lost Cards column name. Source server/imports.js documents obsolete workflows removed; no executable migration restored. Horizontal-part swimlane paraphrase, software update adaptation and existing migrad borrowing remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "step-finalize",
+    "before": "Finaliser",
+    "after": "Finükön",
+    "reason": "Replace French retained migration-step labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests diletön (analyze), finükön (conclude), kontrolön (check/make sure), lonöf (validity), nulükön (renew), jonön (show), and votükön (alter). Preserve analyze versus validate versus update versus finalize, shared-list conversion, per-swimlane existence and separate list/card/swimlane recovery. Follow preceding retained recovery labels by paraphrasing restoration as showing again and preserving literal Lost Cards column name. Source server/imports.js documents obsolete workflows removed; no executable migration restored. Horizontal-part swimlane paraphrase, software update adaptation and existing migrad borrowing remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "step-ensure-lost-cards-swimlane",
+    "before": "Assurer le couloir des cartes perdues",
+    "after": "Kontrolön, das dil horitätik: 'Lost Cards' dabinon",
+    "reason": "Replace French retained migration-step labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests diletön (analyze), finükön (conclude), kontrolön (check/make sure), lonöf (validity), nulükön (renew), jonön (show), and votükön (alter). Preserve analyze versus validate versus update versus finalize, shared-list conversion, per-swimlane existence and separate list/card/swimlane recovery. Follow preceding retained recovery labels by paraphrasing restoration as showing again and preserving literal Lost Cards column name. Source server/imports.js documents obsolete workflows removed; no executable migration restored. Horizontal-part swimlane paraphrase, software update adaptation and existing migrad borrowing remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "step-restore-lists",
+    "before": "Restauration des listes",
+    "after": "Jonön dönu lisedis",
+    "reason": "Replace French retained migration-step labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests diletön (analyze), finükön (conclude), kontrolön (check/make sure), lonöf (validity), nulükön (renew), jonön (show), and votükön (alter). Preserve analyze versus validate versus update versus finalize, shared-list conversion, per-swimlane existence and separate list/card/swimlane recovery. Follow preceding retained recovery labels by paraphrasing restoration as showing again and preserving literal Lost Cards column name. Source server/imports.js documents obsolete workflows removed; no executable migration restored. Horizontal-part swimlane paraphrase, software update adaptation and existing migrad borrowing remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "step-restore-cards",
+    "before": "Restaurer les cartes",
+    "after": "Jonön dönu kadis",
+    "reason": "Replace French retained migration-step labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests diletön (analyze), finükön (conclude), kontrolön (check/make sure), lonöf (validity), nulükön (renew), jonön (show), and votükön (alter). Preserve analyze versus validate versus update versus finalize, shared-list conversion, per-swimlane existence and separate list/card/swimlane recovery. Follow preceding retained recovery labels by paraphrasing restoration as showing again and preserving literal Lost Cards column name. Source server/imports.js documents obsolete workflows removed; no executable migration restored. Horizontal-part swimlane paraphrase, software update adaptation and existing migrad borrowing remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "step-restore-swimlanes",
+    "before": "Restaurer les couloirs",
+    "after": "Jonön dönu dilis horitätik",
+    "reason": "Replace French retained migration-step labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests diletön (analyze), finükön (conclude), kontrolön (check/make sure), lonöf (validity), nulükön (renew), jonön (show), and votükön (alter). Preserve analyze versus validate versus update versus finalize, shared-list conversion, per-swimlane existence and separate list/card/swimlane recovery. Follow preceding retained recovery labels by paraphrasing restoration as showing again and preserving literal Lost Cards column name. Source server/imports.js documents obsolete workflows removed; no executable migration restored. Horizontal-part swimlane paraphrase, software update adaptation and existing migrad borrowing remain low confidence pending native review."
   }
 ]
