@@ -85930,5 +85930,12 @@
     "before": "Kalendar sistem (data görünüşü)",
     "after": "System kalãdôrza (pòkôzywanié datë)",
     "reason": "Replace Turkic seeded calendar-setting label with Kashubian wording. Native system attested in https://naszekaszuby.pl/modules/artykuly/print.php?articleid=179 ; pòkôzywanié attested in indexed official examination materials https://lodz.oke.gov.pl/lodz.oke.gov.pl/wp-content/uploads/2022/10/Matura_Zbior_zadan_Jezyk_kaszubski.pdf ; date vocabulary in https://naszekaszuby.pl/modules/newbb/viewtopic.php?forum=1&order=DESC&topic_id=44&viewmode=flat . Calendar noun established in native museum text. Derived genitives kalãdôrza/datë and assembled grammar remain low confidence, not native-speaker reviewed."
+  },
+  {
+    "locale": "csb",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Nôrodny kalãdôrz (Indie)",
+    "reason": "Replace English Indian national calendar label with Kashubian national adjective Nôrodny attested by Kashubian organization https://kaszebsko.com/zemia-rodno-kaszubski-hymn-narodowy ; India Indie independently labeled Kashubian in https://en.wiktionary.org/wiki/Indie (Trepczyk dictionary reference). Existing kalãdôrz verified from native museum text. Parenthetical country preserves national-calendar origin without guessing its inflection; assembled label remains low confidence, not native-speaker reviewed."
   }
 ]
