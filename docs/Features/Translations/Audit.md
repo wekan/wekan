@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,777 |
+| Corrected | 12,780 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 177 |
-| Pending review or repair | 3,068 |
+| Pending review or repair | 3,065 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,415** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,422** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `15ef356a37c926f14b3136d82259ce914751b933` — five German account-email bodies/subjects replaced with Klingon, preserving distinct actions, placeholders and actual paragraph breaks. Full software wording is low confidence and needs fluent-speaker validation.
+Latest translation fix: **2026-09-13**, local commit `b86fef0276c702a229e729f08ec9955beaa87b68` — seven German SMTP settings descriptions/labels (three flagged findings) replaced with Klingon, preserving host, outbound port, TLS and username distinctions. Full technical wording is low confidence and needs fluent-speaker validation.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
