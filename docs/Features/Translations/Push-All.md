@@ -37,6 +37,11 @@ returns a nonzero exit status when any language failed. An entirely successful
 run prints `None` in the failure list. Invalid JSON, missing keys, empty values
 where the source is nonempty, and altered placeholders are reported as failures.
 
+Every invocation also saves terminal status and errors to
+`.tools/log/push-all-translations_YYYY-MM-DD_HH-MM-SS.txt`, using local time.
+This includes offline dry runs and failed invocations; logging preserves the
+command's exit status. The status log path is printed at startup.
+
 Missing project targets are added using the additive language-relationship API;
 existing project languages are retained. The supported Transifex API cannot create
 an arbitrary new language in its global language catalogue. Unknown codes are
@@ -74,3 +79,6 @@ share one remote target and are reported rather than uploaded twice.
 Aromanian (`rup`) is absent from the current public Transifex catalogue and
 remains a reported registration failure. It must not be mapped to Romanian
 (`ro`), because those are different languages.
+
+Tigre (`tig`) is also absent from the public catalogue and remains a reported
+registration failure. Tigrinya (`ti`) is a different language and cannot replace it.

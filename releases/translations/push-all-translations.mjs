@@ -120,6 +120,21 @@ export async function pushTranslations({ config, languages, request, readContent
 }
 
 async function main() {
+  const stamp = new Date();
+  const pad = value => String(value).padStart(2, '0');
+  const timestamp = `${stamp.getFullYear()}-${pad(stamp.getMonth() + 1)}-${pad(stamp.getDate())}_${pad(stamp.getHours())}-${pad(stamp.getMinutes())}-${pad(stamp.getSeconds())}`;
+  const statusFile = path.join(root, '.tools/log', `push-all-translations_${timestamp}.txt`);
+  fs.mkdirSync(path.dirname(statusFile), { recursive: true });
+  // Append so simultaneous invocations cannot truncate another run's status.
+  fs.appendFileSync(statusFile, '');
+  for (const stream of [process.stdout, process.stderr]) {
+    const write = stream.write.bind(stream);
+    stream.write = (chunk, encoding, callback) => {
+      fs.appendFileSync(statusFile, chunk, typeof encoding === 'string' ? encoding : undefined);
+      return write(chunk, encoding, callback);
+    };
+  }
+  console.log(`[tx] status log: ${statusFile}`);
   const args = process.argv.slice(2);
   if (args.some(arg => !['--dry-run', '--help'].includes(arg))) throw new Error('Usage: push-all-translations.sh [--dry-run]');
   if (args.includes('--help')) {
