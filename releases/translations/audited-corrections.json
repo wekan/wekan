@@ -69410,5 +69410,110 @@
     "before": "Nieprawidłowy limit kart na liście",
     "after": "Niypoprawny limit WIP",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Buddyjski kalyndŏrz",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Chiński kalyndŏrz",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Koptyjski kalyndŏrz",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Kalyndŏrz Dangi (koreański)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Etiopski kalyndŏrz Amete Alem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Etiopski kalyndŏrz",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Hebrajski kalyndŏrz",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Indyjski narodowy kalyndŏrz",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Kalyndŏrz Hijri",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Kalyndŏrz Hijri (tablicowy, cywilnŏ epoka)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Kalyndŏrz Hijri (Arabijŏ Saudyjskŏ, ôbserwacyjŏ miesiōnczka)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Kalyndŏrz Hijri (tablicowy, astrōnōmicznŏ epoka)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Kalyndŏrz Hijri (Umm al-Qura)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Japōński kalyndŏrz",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Kalyndŏrz Minguo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
