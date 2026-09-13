@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 14,922 |
+| Corrected | 14,928 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 922 |
+| Pending review or repair | 916 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,914** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,925** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-13**, local commits `f64d43aec` and `d8b235642` — repaired **11** Veps scheduled-job values, resolving **ten** original findings and **one** unflagged error. Preserve active/scheduled jobs, deletion confirmation and distinct delete/pause/resume/start success/failure notifications. Follow-up dictionary review corrected job-object inflection to **radon/radod**. All **16,914** exact corrections pass runtime rendering, placeholder, JSON, key-order and human-preference checks. The original queue has **922** pending findings, including **181** Veps findings. **Low confidence:** composed scheduling terminology and technical warning/morphology need fluent-speaker review. Restored/unflagged values, wrong-language/script checks, keyboard shortcuts and remaining migration messages remain unfinished. No translations were pushed.
+Latest translation fix: **2026-09-13**, local commit `1fe3558be` — repaired **11** Veps search-operator/instruction values, resolving **six** original findings and **five** unflagged errors. Preserve board/list/swimlane titles, member versus assigned-user roles and all archived/unarchived cards. Actual production Query tests cover five localized operators with quoted multiword values and rejection of spaced operator names; the assignee operator uses single-word **märitud**. All **16,925** exact corrections pass runtime rendering, placeholder, JSON, key-order and human-preference checks. The original queue has **916** pending findings, including **175** Veps findings. **Low confidence:** composed technical case/relative-clause wording and scheduling/migration grammar need fluent-speaker review. Restored/unflagged values, wrong-language/script checks, keyboard shortcuts and remaining migration/search messages remain unfinished. No translations were pushed.
 
 **Build logging update (2026-09-13):** `002e6faa7` groups development/release logs by build type and day while retaining stdout and EVERYTHING run logs. Eight targeted test entries pass. The maintainer reported a successful development build; no full build was rerun for this path change. Translation counts and remaining review work are unchanged.
 
