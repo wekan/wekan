@@ -79273,5 +79273,33 @@
     "before": "mu soppi tool bi ñu jagleel __customField__: __customFieldValue__ ci karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
     "after": "soppi wàllu dugal __customField__ bu ñu def ci soxla: __customFieldValue__ ci karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
     "reason": "Replace French custom-field activity text with Wolof and repair unflagged tool (agricultural field) in act-setCustomField. Reuse wàllu dugal bu ñu def ci soxla. activities.jade confirms field/value/card argument order; unset describes clearing field content rather than deleting the custom field. Preserve all tokens. Computing adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-joined",
+    "before": "a rejoint %s",
+    "after": "bokk ci %s",
+    "reason": "Replace French joining, exclusion, attachment and mention activities with Wolof. activities.jade confirms attachment/card and member/board argument order. Mention uses naming your name adaptation; tudd naming attested in Senegal education terminology https://senprof.education.sn/PROGRAMME%20LECTURE%20POUR%20TOUS/documentation/Terminologies/Terminologie%20wolof%20fusion.pdf . Preserve all placeholders. Mention adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-excluded",
+    "before": "a exclu %s de %s",
+    "after": "génne %s ci %s",
+    "reason": "Replace French joining, exclusion, attachment and mention activities with Wolof. activities.jade confirms attachment/card and member/board argument order. Mention uses naming your name adaptation; tudd naming attested in Senegal education terminology https://senprof.education.sn/PROGRAMME%20LECTURE%20POUR%20TOUS/documentation/Terminologies/Terminologie%20wolof%20fusion.pdf . Preserve all placeholders. Mention adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-attached",
+    "before": "a attaché %s à %s",
+    "after": "takk %s ci %s",
+    "reason": "Replace French joining, exclusion, attachment and mention activities with Wolof. activities.jade confirms attachment/card and member/board argument order. Mention uses naming your name adaptation; tudd naming attested in Senegal education terminology https://senprof.education.sn/PROGRAMME%20LECTURE%20POUR%20TOUS/documentation/Terminologies/Terminologie%20wolof%20fusion.pdf . Preserve all placeholders. Mention adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-atUserComment",
+    "before": "vous a mentionné sur la carte __card__ : __comment__ dans la liste __list__ dans le couloir __swimlane__ dans le tableau __board__",
+    "after": "tudd sa tur ci karta __card__: __comment__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French joining, exclusion, attachment and mention activities with Wolof. activities.jade confirms attachment/card and member/board argument order. Mention uses naming your name adaptation; tudd naming attested in Senegal education terminology https://senprof.education.sn/PROGRAMME%20LECTURE%20POUR%20TOUS/documentation/Terminologies/Terminologie%20wolof%20fusion.pdf . Preserve all placeholders. Mention adaptation and full grammar remain low confidence."
   }
 ]
