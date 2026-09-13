@@ -117675,5 +117675,96 @@
     "before": "Kaikki virheet tyhjennetty onnistuneesti",
     "after": "Kaik vigad oma hüvin heittud",
     "reason": "Replace Finnish migration status text with Veps. Preserve failed-only retries versus paused-only continuation, empty queues, successful action responses, all-error clearing, and errors versus warnings. Existing native migration-paused, migration-successful and migration-resumed values retained. Zaiceva/Mullonen 2007 dictionary: azotada, jatkata/jatktand, satusekaz (-han), viga, varutuz; https://en.wiktionary.org/wiki/to%C5%A1tta confirms past passive tošttud. Low confidence: composed failure-status grammar and plural/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "edit-wip-limit",
+    "before": "Muokkaa WIP-rajaa",
+    "after": "Vajehta WIP-röunad",
+    "reason": "Replace Finnish WIP text and mislabeled group controls with Veps; preserve WIP abbreviation, enable/edit/set/soft/invalid distinctions, maximum task count in this list, strictly higher-than warning, move-out OR higher-limit remediation, optional group name and swimlane selection/application. Lexical references: Zaiceva/Mullonen 2007 dictionary (röun, suremb, enamba, pehmed, lugumär, jouk), https://en.wiktionary.org/wiki/r%C3%B6un (röunad/röuniden); existing native lugetiž, ujundšoid, märitud and ližata conventions retained. Low confidence: composed WIP labels and count/remediation grammar require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "soft-wip-limit",
+    "before": "Pehmeä WIP-raja",
+    "after": "Pehmed WIP-röun",
+    "reason": "Replace Finnish WIP text and mislabeled group controls with Veps; preserve WIP abbreviation, enable/edit/set/soft/invalid distinctions, maximum task count in this list, strictly higher-than warning, move-out OR higher-limit remediation, optional group name and swimlane selection/application. Lexical references: Zaiceva/Mullonen 2007 dictionary (röun, suremb, enamba, pehmed, lugumär, jouk), https://en.wiktionary.org/wiki/r%C3%B6un (röunad/röuniden); existing native lugetiž, ujundšoid, märitud and ližata conventions retained. Low confidence: composed WIP labels and count/remediation grammar require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "enable-wip-limit",
+    "before": "Ota käyttöön WIP-raja",
+    "after": "Avaida WIP-röun",
+    "reason": "Replace Finnish WIP text and mislabeled group controls with Veps; preserve WIP abbreviation, enable/edit/set/soft/invalid distinctions, maximum task count in this list, strictly higher-than warning, move-out OR higher-limit remediation, optional group name and swimlane selection/application. Lexical references: Zaiceva/Mullonen 2007 dictionary (röun, suremb, enamba, pehmed, lugumär, jouk), https://en.wiktionary.org/wiki/r%C3%B6un (röunad/röuniden); existing native lugetiž, ujundšoid, märitud and ližata conventions retained. Low confidence: composed WIP labels and count/remediation grammar require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "set-wip-limit-value",
+    "before": "Aseta tämän listan tehtävien enimmäismäärä",
+    "after": "Pane röun, ku äi tegendoid voib olda neciš lugetišes.",
+    "reason": "Replace Finnish WIP text and mislabeled group controls with Veps; preserve WIP abbreviation, enable/edit/set/soft/invalid distinctions, maximum task count in this list, strictly higher-than warning, move-out OR higher-limit remediation, optional group name and swimlane selection/application. Lexical references: Zaiceva/Mullonen 2007 dictionary (röun, suremb, enamba, pehmed, lugumär, jouk), https://en.wiktionary.org/wiki/r%C3%B6un (röunad/röuniden); existing native lugetiž, ujundšoid, märitud and ližata conventions retained. Low confidence: composed WIP labels and count/remediation grammar require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "setWipLimitPopup-title",
+    "before": "Aseta WIP-raja",
+    "after": "Pane WIP-röun",
+    "reason": "Replace Finnish WIP text and mislabeled group controls with Veps; preserve WIP abbreviation, enable/edit/set/soft/invalid distinctions, maximum task count in this list, strictly higher-than warning, move-out OR higher-limit remediation, optional group name and swimlane selection/application. Lexical references: Zaiceva/Mullonen 2007 dictionary (röun, suremb, enamba, pehmed, lugumär, jouk), https://en.wiktionary.org/wiki/r%C3%B6un (röunad/röuniden); existing native lugetiž, ujundšoid, märitud and ližata conventions retained. Low confidence: composed WIP labels and count/remediation grammar require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "wipLimitErrorPopup-title",
+    "before": "Virheellinen WIP-raja",
+    "after": "Vär WIP-röun",
+    "reason": "Replace Finnish WIP text and mislabeled group controls with Veps; preserve WIP abbreviation, enable/edit/set/soft/invalid distinctions, maximum task count in this list, strictly higher-than warning, move-out OR higher-limit remediation, optional group name and swimlane selection/application. Lexical references: Zaiceva/Mullonen 2007 dictionary (röun, suremb, enamba, pehmed, lugumär, jouk), https://en.wiktionary.org/wiki/r%C3%B6un (röunad/röuniden); existing native lugetiž, ujundšoid, märitud and ližata conventions retained. Low confidence: composed WIP labels and count/remediation grammar require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "wipLimitErrorPopup-dialog-pt1",
+    "before": "Tässä listassa olevien tehtävien määrä on korkeampi kuin asettamasi WIP-raja.",
+    "after": "Necen lugetišen tegendoiden lugumär om enamba ku sinun märitud WIP-röun.",
+    "reason": "Replace Finnish WIP text and mislabeled group controls with Veps; preserve WIP abbreviation, enable/edit/set/soft/invalid distinctions, maximum task count in this list, strictly higher-than warning, move-out OR higher-limit remediation, optional group name and swimlane selection/application. Lexical references: Zaiceva/Mullonen 2007 dictionary (röun, suremb, enamba, pehmed, lugumär, jouk), https://en.wiktionary.org/wiki/r%C3%B6un (röunad/röuniden); existing native lugetiž, ujundšoid, märitud and ližata conventions retained. Low confidence: composed WIP labels and count/remediation grammar require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "wipLimitErrorPopup-dialog-pt2",
+    "before": "Siirrä joitain tehtäviä pois tästä listasta tai määritä korkeampi WIP-raja.",
+    "after": "Sirdä vähä tegendoid neciš lugetišespäi libo pane suremb WIP-röun, ole hüvä.",
+    "reason": "Replace Finnish WIP text and mislabeled group controls with Veps; preserve WIP abbreviation, enable/edit/set/soft/invalid distinctions, maximum task count in this list, strictly higher-than warning, move-out OR higher-limit remediation, optional group name and swimlane selection/application. Lexical references: Zaiceva/Mullonen 2007 dictionary (röun, suremb, enamba, pehmed, lugumär, jouk), https://en.wiktionary.org/wiki/r%C3%B6un (röunad/röuniden); existing native lugetiž, ujundšoid, märitud and ližata conventions retained. Low confidence: composed WIP labels and count/remediation grammar require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "wip-limit-groups",
+    "before": "Ota käyttöön WIP-raja (Lista)",
+    "after": "WIP-röuniden joukud",
+    "reason": "Replace Finnish WIP text and mislabeled group controls with Veps; preserve WIP abbreviation, enable/edit/set/soft/invalid distinctions, maximum task count in this list, strictly higher-than warning, move-out OR higher-limit remediation, optional group name and swimlane selection/application. Lexical references: Zaiceva/Mullonen 2007 dictionary (röun, suremb, enamba, pehmed, lugumär, jouk), https://en.wiktionary.org/wiki/r%C3%B6un (röunad/röuniden); existing native lugetiž, ujundšoid, märitud and ližata conventions retained. Low confidence: composed WIP labels and count/remediation grammar require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "wip-limit-group-name-placeholder",
+    "before": "Nimi (valinnainen)",
+    "after": "Joukun nimi (ei ole tarbhine)",
+    "reason": "Replace Finnish WIP text and mislabeled group controls with Veps; preserve WIP abbreviation, enable/edit/set/soft/invalid distinctions, maximum task count in this list, strictly higher-than warning, move-out OR higher-limit remediation, optional group name and swimlane selection/application. Lexical references: Zaiceva/Mullonen 2007 dictionary (röun, suremb, enamba, pehmed, lugumär, jouk), https://en.wiktionary.org/wiki/r%C3%B6un (röunad/röuniden); existing native lugetiž, ujundšoid, märitud and ližata conventions retained. Low confidence: composed WIP labels and count/remediation grammar require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "wip-limit-group-add",
+    "before": "Lisää Ota käyttöön WIP-raja",
+    "after": "Ližata WIP-röunan jouk",
+    "reason": "Replace Finnish WIP text and mislabeled group controls with Veps; preserve WIP abbreviation, enable/edit/set/soft/invalid distinctions, maximum task count in this list, strictly higher-than warning, move-out OR higher-limit remediation, optional group name and swimlane selection/application. Lexical references: Zaiceva/Mullonen 2007 dictionary (röun, suremb, enamba, pehmed, lugumär, jouk), https://en.wiktionary.org/wiki/r%C3%B6un (röunad/röuniden); existing native lugetiž, ujundšoid, märitud and ližata conventions retained. Low confidence: composed WIP labels and count/remediation grammar require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "wip-limit-group-select-swimlane",
+    "before": "Valitse taulu Uimarata",
+    "after": "Valiče ujundšoid",
+    "reason": "Replace Finnish WIP text and mislabeled group controls with Veps; preserve WIP abbreviation, enable/edit/set/soft/invalid distinctions, maximum task count in this list, strictly higher-than warning, move-out OR higher-limit remediation, optional group name and swimlane selection/application. Lexical references: Zaiceva/Mullonen 2007 dictionary (röun, suremb, enamba, pehmed, lugumär, jouk), https://en.wiktionary.org/wiki/r%C3%B6un (röunad/röuniden); existing native lugetiž, ujundšoid, märitud and ližata conventions retained. Low confidence: composed WIP labels and count/remediation grammar require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "wip-limit-group-apply-swimlane",
+    "before": "Käytä Uimarata",
+    "after": "Kävuta ujundšoidule",
+    "reason": "Replace Finnish WIP text and mislabeled group controls with Veps; preserve WIP abbreviation, enable/edit/set/soft/invalid distinctions, maximum task count in this list, strictly higher-than warning, move-out OR higher-limit remediation, optional group name and swimlane selection/application. Lexical references: Zaiceva/Mullonen 2007 dictionary (röun, suremb, enamba, pehmed, lugumär, jouk), https://en.wiktionary.org/wiki/r%C3%B6un (röunad/röuniden); existing native lugetiž, ujundšoid, märitud and ližata conventions retained. Low confidence: composed WIP labels and count/remediation grammar require fluent-speaker review."
   }
 ]

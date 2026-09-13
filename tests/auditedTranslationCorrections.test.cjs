@@ -1641,5 +1641,35 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(cache['ve-PP']['migration-paused'], 'Migracijad oma hüvin azotadud.');
   assert.equal(cache['ve-PP']['migration-successful'], 'Migracii om hüvin loptud.');
   assert.equal(cache['ve-PP']['migration-resumed'], 'Migracii om jatktud.');
+  const vepsWipLimitRepairs = {
+  "edit-wip-limit": "Vajehta WIP-röunad",
+  "soft-wip-limit": "Pehmed WIP-röun",
+  "enable-wip-limit": "Avaida WIP-röun",
+  "set-wip-limit-value": "Pane röun, ku äi tegendoid voib olda neciš lugetišes.",
+  "setWipLimitPopup-title": "Pane WIP-röun",
+  "wipLimitErrorPopup-title": "Vär WIP-röun",
+  "wipLimitErrorPopup-dialog-pt1": "Necen lugetišen tegendoiden lugumär om enamba ku sinun märitud WIP-röun.",
+  "wipLimitErrorPopup-dialog-pt2": "Sirdä vähä tegendoid neciš lugetišespäi libo pane suremb WIP-röun, ole hüvä.",
+  "wip-limit-groups": "WIP-röuniden joukud",
+  "wip-limit-group-name-placeholder": "Joukun nimi (ei ole tarbhine)",
+  "wip-limit-group-add": "Ližata WIP-röunan jouk",
+  "wip-limit-group-select-swimlane": "Valiče ujundšoid",
+  "wip-limit-group-apply-swimlane": "Kävuta ujundšoidule"
+};
+  for (const [key, value] of Object.entries(vepsWipLimitRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Muokkaa|Pehmeä WIP|Ota käyttöön|WIP-raja|Aseta|Virheellinen|Tässä listassa|tehtävien määrä|korkeampi kuin|Siirrä joitain|määritä korkeampi|valinnainen|Lisää|Valitse taulu|Uimarata|Käytä/i, key);
+  }
+  assert.match(cache['ve-PP']['set-wip-limit-value'], /röun.*ku äi tegendoid voib olda neciš lugetišes/);
+  assert.match(cache['ve-PP']['wipLimitErrorPopup-dialog-pt1'], /lugumär om enamba ku sinun märitud WIP-röun/);
+  assert.doesNotMatch(cache['ve-PP']['wipLimitErrorPopup-dialog-pt1'], /vähemba|libo ühtenmüine/);
+  assert.match(cache['ve-PP']['wipLimitErrorPopup-dialog-pt2'], /lugetišespäi libo pane suremb WIP-röun/);
+  assert.doesNotMatch(cache['ve-PP']['wipLimitErrorPopup-dialog-pt2'], /lugetišehe|pane vähämb/);
+  assert.equal(cache['ve-PP']['soft-wip-limit'], 'Pehmed WIP-röun');
+  assert.equal(cache['ve-PP']['wip-limit-groups'], 'WIP-röuniden joukud');
+  assert.match(cache['ve-PP']['wip-limit-group-name-placeholder'], /Joukun nimi.*ei ole tarbhine/);
+  assert.match(cache['ve-PP']['wip-limit-group-select-swimlane'], /^Valiče ujundšoid$/);
+  assert.match(cache['ve-PP']['wip-limit-group-apply-swimlane'], /^Kävuta ujundšoidule$/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
