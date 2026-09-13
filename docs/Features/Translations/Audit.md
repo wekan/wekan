@@ -12,9 +12,9 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,403** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,416** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `3da5d100f7b6de16b067b7e3f05c26840869b53a` — 7 French card-export controls and field groups replaced with Wolof. PDF/Excel names, people roles, board locations and five date categories are retained; the storage warning refers to available disk space. Technical terminology and full grammar remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `bec90a3fc05e86aa3bb724dbddbe888ff6508beb` — 13 Wolof date/time controls repaired, including literal YYYY/MM/DD format patterns and unrelated custom-field date text. Invalid date/time, no due date and remaining time remain distinct. Full grammar and date-format terminology remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
