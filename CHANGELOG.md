@@ -843,6 +843,37 @@ verification remains in progress.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1e328a98d">Copy rendered template cards without schema failures</a>. Thanks to xet7.</summary>
+
+Rendered cards cache their real ID as __id, which schema validation
+rejects when it reaches a copied document. Exclude that cache from card,
+linked-card and subtask copies, and insert the prepared card document
+without changing the source card's ID, placement, labels or custom fields.
+Capture the template popup's top/bottom position before search-result
+clicks change the Blaze data context. Executable regressions cover
+cross-board children, same-board copies, rejected inserts, linked cards
+and position capture; ten focused Node suites pass. Re-enable the template
+browser regression with unique titles, destination-scoped queries,
+source-placement checks and top-order verification. Fresh compiled
+browser verification remains in progress.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8c96ac84f">Render Multi Board Calendar with explicit module imports</a>. Thanks to xet7.</summary>
+
+The event source used Filter and FlowRouter without importing them,
+throwing Filter is not defined before the calendar could render.
+Import both existing modules. Runtime tests resolve the actual imports
+without global fallbacks and exercise membership scope, filtered cards,
+card URLs, selected calendar views and subscription readiness. They pass.
+The browser month test navigates within the authenticated app and waits
+for its calendar, instead of briefly relying on default list controls.
+Complete matrix verification remains in progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ddb43f09f">Run both checklist selection close controls</a>. Thanks to xet7.</summary>
 
 The outside-click control opened an independent desktop card popup, but
