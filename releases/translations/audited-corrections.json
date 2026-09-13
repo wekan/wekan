@@ -49712,5 +49712,110 @@
     "before": "L'ordinamento di '%s' no ie valido",
     "after": "La sortaziun da '%s' n’è betg valida",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "operator-status-invalid",
+    "before": "'%s' no ie uno stato valido",
+    "after": "'%s' n’è betg in status valid",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "org-sync-members-from-auth",
+    "before": "Sincronizza i membri dal provider di autenccazion",
+    "after": "Sincronisar ils commembers dal purschider d’autentificaziun",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "page-maybe-private",
+    "before": "Questa pagina potrebbe essere privata. Potresti essere in grado di vederla <a href='%s'>facendo il log-in</a>.",
+    "after": "Questa pagina po esser privata. Ti pos eventualmain la guardar cun <a href='%s'>t’annunziar</a>.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "pastdue",
+    "before": "la data di scadenza attuale %s ie scaduta",
+    "after": "Il termin actual %s è passà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "paste-or-dragdrop",
+    "before": "per incollare, o trascina & rilascia il file immagine (mé immagini)",
+    "after": "per encollar, u trair e laschar crudar ina datoteca da maletg qua (mo maletgs)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "pause-migration",
+    "before": "Metti in pausa la migrazion",
+    "after": "Metter la migraziun en pausa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "prefix-with-full-path",
+    "before": "Prefisso cun troi completo",
+    "after": "Agiuntar la via cumpletta sco prefix",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "preview-pdf-not-supported",
+    "before": "Il vostro dispositivo no supporta l'anteprima PDF. In alternativa provate a sciaria sure il file.",
+    "after": "Tes apparat na sustegna betg la prevista da PDF. Emprova da telechargiar la datoteca.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "problems-none-in-progress",
+    "before": "Deguna migrazion o riparazion in corso.",
+    "after": "Naginas migraziuns u reparaturas èn en curs.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "r-edit-rule-trigger-action",
+    "before": "Muda regola (Attivatores/Azion)",
+    "after": "Modifitgar l’activatur/l’acziun",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "r-import-paste",
+    "before": "Incolla qui le regole esportate (JSON o CSV) o i comandi di Trello Butler",
+    "after": "Encollar qua las reglas exportadas (JSON u CSV) u ils cumonds da Trello Butler",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "r-import-trello",
+    "before": "Importa regole da Trello Butler (per quanto possibile)",
+    "after": "Importar reglas da Trello Butler (uschè bain sco pussaivel)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "r-import-unmapped",
+    "before": "Impossibile mappare __count__ riga/e",
+    "after": "Impussibel dad attribuir __count__ lingia(s)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "r-import-workflow-note",
+    "before": "Importa un workflow visuale esportato da n8n o Node-RED. I nodi trigger/azion riconosciuti ie mappati ales regole di WeKan; i nodi no mappati vengono segnalati.",
+    "after": "Importar in process da lavur visual exportà da n8n u Node-RED. Ils nufs d’activatur/acziun reconuschids vegnan attribuids a reglas da WeKan; ils nufs senza attribuziun vegnan annunziads.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "r-items-list",
+    "before": "elemento1,elemento2,elemento3",
+    "after": "element1,element2,element3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
