@@ -92321,5 +92321,19 @@
     "before": "Islamic civil",
     "after": "Kalendala ya Hijri (yowerengera ndi tebulo, tsiku loyambira lachiboma)",
     "reason": "Replace English Islamic civil with direct Chichewa Hijri calendar wording. Reuse existing tabular and starting-date wording from calendar-system-islamic-tbla. https://files.peacecorps.gov/multimedia/audio/languagelessons/malawi/MW_Chichewa_Language_Lessons.pdf attests tebulo (table), but does not validate mathematical-table usage. Civil rendered lachiboma as an administrative/civil convention; this domain-specific choice and assembled phrase are low confidence and need native-speaker validation. No placeholders changed."
+  },
+  {
+    "locale": "tn",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Khalendara ya Hijri (go bala ka lenaneo, letlha la tshimologo la selegae)",
+    "reason": "Replace English Hijri labels with direct Setswana phrasing, keeping table-based calculation and civil versus astronomical starting-date distinctions. Existing Khalendara ya Hijri retained. https://baqonde.usal.es/wp-content/uploads/2023/05/NWU_HS_111-AAA-NUWE-orthography-Eng-Afr-Setsw-1.pdf attests lenaneo for table of figures and selegae in civil law; https://www.gov.za/tn/news/cabinet-statements/pegelo-ya-kopano-ya-kabinete-ya-laboraro-la-bo-30-phatwe-2017-01-sep-2017 attests bolepadinaledi in radio astronomy. Vocabulary attestation does not validate these full phrases or calendar-domain civil usage: low confidence, native-speaker review required."
+  },
+  {
+    "locale": "tn",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Khalendara ya Hijri (go bala ka lenaneo, letlha la tshimologo la bolepadinaledi)",
+    "reason": "Replace English Hijri labels with direct Setswana phrasing, keeping table-based calculation and civil versus astronomical starting-date distinctions. Existing Khalendara ya Hijri retained. https://baqonde.usal.es/wp-content/uploads/2023/05/NWU_HS_111-AAA-NUWE-orthography-Eng-Afr-Setsw-1.pdf attests lenaneo for table of figures and selegae in civil law; https://www.gov.za/tn/news/cabinet-statements/pegelo-ya-kopano-ya-kabinete-ya-laboraro-la-bo-30-phatwe-2017-01-sep-2017 attests bolepadinaledi in radio astronomy. Vocabulary attestation does not validate these full phrases or calendar-domain civil usage: low confidence, native-speaker review required."
   }
 ]
