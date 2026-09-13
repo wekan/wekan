@@ -90270,5 +90270,19 @@
     "before": "Effectue des vérifications complètes et des corrections pour l'intégrité des données du tableau, y compris l'ordre des listes, les positions des cartes et la structure des couloirs.",
     "after": "Dunon kontrolis e verätükamis stäänik tefü nät nunädas taba: sotam lisedas, tops kadas e binod dilas horitätik.",
     "reason": "Replace audited French migration descriptions with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nät (integrity/intactness), dämik (damaged/defective), verätükön (correct), kontrolön (check), binod (structure), sotam (sorting). Preserve board-admin-only permission, individual execution, missing/damaged lists and comprehensive list/card/swimlane scope. Reuse Migrads and Dil horitätik terminology. Migrad borrowing and assembled software wording remain low confidence pending native review. Dictionary directly attests stäänik (comprehensive); enumerate included repairs after a colon."
+  },
+  {
+    "locale": "vo",
+    "key": "admin-people-user-active",
+    "before": "L'utilisateur est activé - Cliquer pour le désactiver",
+    "after": "Geban binon dunik; klikolös ad refudön nunädami",
+    "reason": "Replace audited French active/inactive account tooltips with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests dunik (active), refudön (refuse), dälön (allow); MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses nunädam for login and klikolös for click. peopleBody.jade renders these from userData.loginDisabled, so express deactivation/activation as refusing/allowing login. Preserve opposite actions. Software adaptation and assembled wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "admin-people-user-inactive",
+    "before": "L'utilisateur est désactivé - Cliquer pour l'activer",
+    "after": "Geban no binon dunik; klikolös ad dälön nunädami",
+    "reason": "Replace audited French active/inactive account tooltips with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests dunik (active), refudön (refuse), dälön (allow); MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses nunädam for login and klikolös for click. peopleBody.jade renders these from userData.loginDisabled, so express deactivation/activation as refusing/allowing login. Preserve opposite actions. Software adaptation and assembled wording remain low confidence pending native review."
   }
 ]
