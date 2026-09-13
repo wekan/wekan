@@ -425,11 +425,39 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     assert.equal(cache['ve-PP'][key], value, key);
     assert.doesNotMatch(cache['ve-PP'][key], /lisätty|siirretty|liitetty|luotu|kohtee|lähteestä|liitytty|peruttu|poistettu|lähetetty|listan nimeksi|Nimilap|Nimilapp|Liitetiedosto|Liitteet/i, key);
   }
+  // Veps list controls distinguish directions and empty-only cleanup.
+  for (const [key, value] of Object.entries({
+    "left-of-list": "Valitud lugetišen huralpäi",
+    "right-of-list": "Valitud lugetišen oiktalpäi",
+    "auto-list-width": "Lugetišen avtomatine leveduz’",
+    "sort": "Sortirui",
+    "sort-desc": "Paina, miše sortiruida lugetišt",
+    "list-label-sort": "Sinun käzil tehtud järgestuz",
+    "delete-duplicate-lists": "Heitä lugetišiden dublikatad",
+    "deleteDuplicateListsPopup-title": "Heitä lugetišiden dublikatad",
+    "delete-duplicate-empty-lists-migration": "Heitä tühjiden lugetišiden dublikatad",
+    "step-delete-duplicate-empty-lists": "Heitä tühjiden lugetišiden dublikatad",
+    "error-list-doesNotExist": "Necidä lugetišt ei ole.",
+    "no-results": "Ei ole satusid"
+})) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.doesNotMatch(cache['ve-PP'][key], /Valitun|vasemmalle|oikealle|Automaattinen|leveys|Lajittele|Klikkaa|lajitellaksesi|manuaalinen|järjestys|Poista|kaksoiskappale|tyhjistä|kopiot|ei ole olemassa|Ei tuloksia/, key);
+  }
+  assert.notEqual(cache['ve-PP']['left-of-list'], cache['ve-PP']['right-of-list']);
+  assert.ok(cache['ve-PP']['left-of-list'].endsWith('huralpäi'));
+  assert.ok(cache['ve-PP']['right-of-list'].endsWith('oiktalpäi'));
+  assert.equal(cache['ve-PP']['delete-duplicate-lists'], cache['ve-PP']['deleteDuplicateListsPopup-title']);
+  assert.equal(cache['ve-PP']['delete-duplicate-empty-lists-migration'], cache['ve-PP']['step-delete-duplicate-empty-lists']);
+  assert.match(cache['ve-PP']['delete-duplicate-empty-lists-migration'], /tühjiden/);
+  assert.doesNotMatch(cache['ve-PP']['delete-duplicate-lists'], /tühjiden/);
   const vepsTranslator = require('i18next').createInstance().use(require('i18next-sprintf-postprocessor'));
   await vepsTranslator.init({ lng: 've-PP', fallbackLng: false, keySeparator: false, resources: { 've-PP': { translation: cache['ve-PP'] } }, postProcess: ['sprintf'] });
   assert.equal(vepsTranslator.t('activity-moved', { sprintf: ['ITEM', 'SOURCE', 'DESTINATION'] }), 'Sirttud ITEM azjaspäi SOURCE azjaha DESTINATION');
   assert.equal(vepsTranslator.t('activity-imported', { sprintf: ['ITEM', 'DESTINATION', 'SOURCE'] }), 'Importiruitud ITEM azjaha DESTINATION azjaspäi SOURCE');
   assert.equal(vepsTranslator.t('activity-removed-label', { sprintf: ['LABEL', 'CARD'] }), "Heittud znam 'LABEL' azjaspäi CARD");
+  assert.equal(vepsTranslator.t('left-of-list'), 'Valitud lugetišen huralpäi');
+  assert.equal(vepsTranslator.t('delete-duplicate-empty-lists-migration'), 'Heitä tühjiden lugetišiden dublikatad');
+  assert.equal(vepsTranslator.t('error-list-doesNotExist'), 'Necidä lugetišt ei ole.');
   assert.notEqual(cache['ve-PP']['activity-joined'], cache['ve-PP']['activity-unjoined']);
   assert.notEqual(cache['ve-PP']['activity-attached'], cache['ve-PP']['activity-added']);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);

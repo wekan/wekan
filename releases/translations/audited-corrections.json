@@ -113405,5 +113405,89 @@
     "before": "Liitetiedostot",
     "after": "Tartutadud failad",
     "reason": "Replace Finnish seed/restored text with Veps. Native vocabulary: Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries список (lugetiž), метка (znam), прикреплять (tartutada), импортировать (importiruida), объект (azj), отправлять (oigeta), исключать (heitta), переименовать (vajehtada nimi), присоединиться (ühteta), архив (arhiv). Native MediaWiki vep.json attests ližatud, tehtud, sirttud, heittud, oigetud, fail and znamad. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve placeholder inventory/order and source/destination roles. Low confidence: composed kanban activity grammar, derived import/attachment participles and lugetišed plural need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "left-of-list",
+    "before": "Valitun listan vasemmalle puolelle",
+    "after": "Valitud lugetišen huralpäi",
+    "reason": "Replace Finnish text with Veps list controls. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): список lugetiž (genitive lugetišen, partitive lugetišt), ширина leveduz’, слева huralpäi, справа oiktalpäi, дубликат dublikat, выбирать valita, нажимать painda, пустой tühj. Native MediaWiki vep.json: sortirui, valitud, avtomatine, käzil, järgestuz, dublikatad, Ei ole satusid and Necidä lehtpol’t ei ole. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve empty-only cleanup distinction, selected-list direction and all placeholders. Low confidence: composed UI grammar and derived plural genitive lugetišiden need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "right-of-list",
+    "before": "Valitun listan oikealle puolelle",
+    "after": "Valitud lugetišen oiktalpäi",
+    "reason": "Replace Finnish text with Veps list controls. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): список lugetiž (genitive lugetišen, partitive lugetišt), ширина leveduz’, слева huralpäi, справа oiktalpäi, дубликат dublikat, выбирать valita, нажимать painda, пустой tühj. Native MediaWiki vep.json: sortirui, valitud, avtomatine, käzil, järgestuz, dublikatad, Ei ole satusid and Necidä lehtpol’t ei ole. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve empty-only cleanup distinction, selected-list direction and all placeholders. Low confidence: composed UI grammar and derived plural genitive lugetišiden need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "auto-list-width",
+    "before": "Automaattinen listan leveys",
+    "after": "Lugetišen avtomatine leveduz’",
+    "reason": "Replace Finnish text with Veps list controls. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): список lugetiž (genitive lugetišen, partitive lugetišt), ширина leveduz’, слева huralpäi, справа oiktalpäi, дубликат dublikat, выбирать valita, нажимать painda, пустой tühj. Native MediaWiki vep.json: sortirui, valitud, avtomatine, käzil, järgestuz, dublikatad, Ei ole satusid and Necidä lehtpol’t ei ole. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve empty-only cleanup distinction, selected-list direction and all placeholders. Low confidence: composed UI grammar and derived plural genitive lugetišiden need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "sort",
+    "before": "Lajittele",
+    "after": "Sortirui",
+    "reason": "Replace Finnish text with Veps list controls. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): список lugetiž (genitive lugetišen, partitive lugetišt), ширина leveduz’, слева huralpäi, справа oiktalpäi, дубликат dublikat, выбирать valita, нажимать painda, пустой tühj. Native MediaWiki vep.json: sortirui, valitud, avtomatine, käzil, järgestuz, dublikatad, Ei ole satusid and Necidä lehtpol’t ei ole. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve empty-only cleanup distinction, selected-list direction and all placeholders. Low confidence: composed UI grammar and derived plural genitive lugetišiden need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "sort-desc",
+    "before": "Klikkaa lajitellaksesi listan",
+    "after": "Paina, miše sortiruida lugetišt",
+    "reason": "Replace Finnish text with Veps list controls. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): список lugetiž (genitive lugetišen, partitive lugetišt), ширина leveduz’, слева huralpäi, справа oiktalpäi, дубликат dublikat, выбирать valita, нажимать painda, пустой tühj. Native MediaWiki vep.json: sortirui, valitud, avtomatine, käzil, järgestuz, dublikatad, Ei ole satusid and Necidä lehtpol’t ei ole. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve empty-only cleanup distinction, selected-list direction and all placeholders. Low confidence: composed UI grammar and derived plural genitive lugetišiden need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-label-sort",
+    "before": "Oma manuaalinen järjestys",
+    "after": "Sinun käzil tehtud järgestuz",
+    "reason": "Replace Finnish text with Veps list controls. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): список lugetiž (genitive lugetišen, partitive lugetišt), ширина leveduz’, слева huralpäi, справа oiktalpäi, дубликат dublikat, выбирать valita, нажимать painda, пустой tühj. Native MediaWiki vep.json: sortirui, valitud, avtomatine, käzil, järgestuz, dublikatad, Ei ole satusid and Necidä lehtpol’t ei ole. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve empty-only cleanup distinction, selected-list direction and all placeholders. Low confidence: composed UI grammar and derived plural genitive lugetišiden need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "delete-duplicate-lists",
+    "before": "Poista ylimääräiset lista kopiot",
+    "after": "Heitä lugetišiden dublikatad",
+    "reason": "Replace Finnish text with Veps list controls. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): список lugetiž (genitive lugetišen, partitive lugetišt), ширина leveduz’, слева huralpäi, справа oiktalpäi, дубликат dublikat, выбирать valita, нажимать painda, пустой tühj. Native MediaWiki vep.json: sortirui, valitud, avtomatine, käzil, järgestuz, dublikatad, Ei ole satusid and Necidä lehtpol’t ei ole. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve empty-only cleanup distinction, selected-list direction and all placeholders. Low confidence: composed UI grammar and derived plural genitive lugetišiden need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "deleteDuplicateListsPopup-title",
+    "before": "Poista ylimääräiset lista kopiot",
+    "after": "Heitä lugetišiden dublikatad",
+    "reason": "Replace Finnish text with Veps list controls. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): список lugetiž (genitive lugetišen, partitive lugetišt), ширина leveduz’, слева huralpäi, справа oiktalpäi, дубликат dublikat, выбирать valita, нажимать painda, пустой tühj. Native MediaWiki vep.json: sortirui, valitud, avtomatine, käzil, järgestuz, dublikatad, Ei ole satusid and Necidä lehtpol’t ei ole. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve empty-only cleanup distinction, selected-list direction and all placeholders. Low confidence: composed UI grammar and derived plural genitive lugetišiden need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "delete-duplicate-empty-lists-migration",
+    "before": "Poista kaksoiskappaleet tyhjistä listoista",
+    "after": "Heitä tühjiden lugetišiden dublikatad",
+    "reason": "Replace Finnish text with Veps list controls. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): список lugetiž (genitive lugetišen, partitive lugetišt), ширина leveduz’, слева huralpäi, справа oiktalpäi, дубликат dublikat, выбирать valita, нажимать painda, пустой tühj. Native MediaWiki vep.json: sortirui, valitud, avtomatine, käzil, järgestuz, dublikatad, Ei ole satusid and Necidä lehtpol’t ei ole. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve empty-only cleanup distinction, selected-list direction and all placeholders. Low confidence: composed UI grammar and derived plural genitive lugetišiden need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "step-delete-duplicate-empty-lists",
+    "before": "Poista kaksoiskappaleet tyhjistä listoista",
+    "after": "Heitä tühjiden lugetišiden dublikatad",
+    "reason": "Replace Finnish text with Veps list controls. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): список lugetiž (genitive lugetišen, partitive lugetišt), ширина leveduz’, слева huralpäi, справа oiktalpäi, дубликат dublikat, выбирать valita, нажимать painda, пустой tühj. Native MediaWiki vep.json: sortirui, valitud, avtomatine, käzil, järgestuz, dublikatad, Ei ole satusid and Necidä lehtpol’t ei ole. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve empty-only cleanup distinction, selected-list direction and all placeholders. Low confidence: composed UI grammar and derived plural genitive lugetišiden need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "error-list-doesNotExist",
+    "before": "Tätä listaa ei ole olemassa",
+    "after": "Necidä lugetišt ei ole.",
+    "reason": "Replace Finnish text with Veps list controls. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): список lugetiž (genitive lugetišen, partitive lugetišt), ширина leveduz’, слева huralpäi, справа oiktalpäi, дубликат dublikat, выбирать valita, нажимать painda, пустой tühj. Native MediaWiki vep.json: sortirui, valitud, avtomatine, käzil, järgestuz, dublikatad, Ei ole satusid and Necidä lehtpol’t ei ole. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve empty-only cleanup distinction, selected-list direction and all placeholders. Low confidence: composed UI grammar and derived plural genitive lugetišiden need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "no-results",
+    "before": "Ei tuloksia",
+    "after": "Ei ole satusid",
+    "reason": "Replace Finnish text with Veps list controls. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): список lugetiž (genitive lugetišen, partitive lugetišt), ширина leveduz’, слева huralpäi, справа oiktalpäi, дубликат dublikat, выбирать valita, нажимать painda, пустой tühj. Native MediaWiki vep.json: sortirui, valitud, avtomatine, käzil, järgestuz, dublikatad, Ei ole satusid and Necidä lehtpol’t ei ole. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve empty-only cleanup distinction, selected-list direction and all placeholders. Low confidence: composed UI grammar and derived plural genitive lugetišiden need fluent review."
   }
 ]
