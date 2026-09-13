@@ -52351,5 +52351,61 @@
     "before": "Chiave API di Trello (da https://trello.com/app-key)",
     "after": "Chjave API di Trello (da https://trello.com/app-key)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "trello-api-token",
+    "before": "Token API di Trello (generato manualmente sotto la chiave API)",
+    "after": "Token API di Trello (generatu manualmente sottu à a chjave API)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "trello-import-results",
+    "before": "Risultati dell'importazione",
+    "after": "Risultati di l’impurtazione",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "user-username-not-found",
+    "before": "Username '%s' non trovato.",
+    "after": "Nome d’utilizatore '%s' micca truvatu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "username-too-short",
+    "before": "L'username deve contenere almeno 3 caratteri",
+    "after": "U nome d’utilizatore deve cuntene almenu 3 caratteri",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "version-check-failed",
+    "before": "Non è stato possibile controllare il numero di versione.",
+    "after": "Ùn hè statu pussibule di verificà u numeru di versione.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "vote-delete-pop",
+    "before": "L'eliminazione è permanente. Tutte le azioni associate a questa votazione andranno perse.",
+    "after": "A squassatura hè permanente. Perderete tutte l’azzioni assuciate à stu votu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "vote-public",
+    "before": "Mostrare chi ha votato cosa",
+    "after": "Affissà quale hà vutatu chì",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "webhook-token",
+    "before": "Token (facoltativo per l'autenticazione)",
+    "after": "Token (uzzionale per l’autentificazione)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
