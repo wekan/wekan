@@ -105775,5 +105775,180 @@
     "before": "Ingobo yomlando yebhodi ishejulwe ngempumelelo",
     "after": "U vhulunga bodo ya Kanban ho dzudzanywa nga nḓila yo bvelelaho",
     "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, URL scheme syntax, archive scheduling states and above/below directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "board-archived",
+    "before": "Leli bhodi lihanjiswe kungobo yomlando.",
+    "after": "Bodo iyi ya Kanban yo iswa fhethu ha u vhulunga.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "board-background-image-url",
+    "before": "I-URL yesithombe sangemuva",
+    "after": "URL ya tshifanyiso tsha murahu",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "board-backup-failed",
+    "before": "Yehlulekile ukuhlela ikhophi yasenqolobaneni yebhodi",
+    "after": "U dzudzanya khophi ya tsireledzo ya bodo ya Kanban zwo kundelwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "board-backup-scheduled",
+    "before": "Ukwenza isipele kwebhodi kuhlelelwe ngempumelelo",
+    "after": "Khophi ya tsireledzo ya bodo ya Kanban yo dzudzanywa nga nḓila yo bvelelaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "board-change-background-image",
+    "before": "Shintsha Isithombe Sangemuva",
+    "after": "Shandula tshifanyiso tsha murahu",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "board-cleanup-failed",
+    "before": "Yehlulekile ukuhlela ukuhlanzwa kwebhodi",
+    "after": "U dzudzanya u kunakisa bodo ya Kanban zwo kundelwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "board-cleanup-scheduled",
+    "before": "Ukuhlanzwa kwebhodi kuhlelelwe ngempumelelo",
+    "after": "U kunakisa bodo ya Kanban ho dzudzanywa nga nḓila yo bvelelaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "board-info-on-my-boards",
+    "before": "Zonke Izilungiselelo Zamabhodi",
+    "after": "Nzudzanyo dza bodo dzoṱhe dza Kanban",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "board-private-info",
+    "before": "Leli bhodi kuzoba <strong>private</strong>.",
+    "after": "Bodo iyi ya Kanban i ḓo vha <strong>ya phuraivethe</strong>.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "board-public-info",
+    "before": "Leli bhodi kuzoba <strong>public</strong>.",
+    "after": "Bodo iyi ya Kanban i ḓo vha <strong>ya nnyi na nnyi</strong>.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "board-view-multiboard-cal",
+    "before": "Ikhalenda (Wonke Amabhodi)",
+    "after": "Khalenda ya bodo nnzhi dza Kanban",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "boardCardTitlePopup-title",
+    "before": "Isihlungi Sesihloko Sekhadi",
+    "after": "Tsha u ṱalula dzina ḽa khadi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "boardChangeBackgroundImagePopup-title",
+    "before": "Shintsha Isithombe Sangemuva",
+    "after": "Shandula tshifanyiso tsha murahu",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "boardChangeColorPopup-title",
+    "before": "Shintsha Ingemuva Lebhodi",
+    "after": "Shandula murahu ha bodo ya Kanban",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "boardInfoOnMyBoards-title",
+    "before": "Zonke Izilungiselelo Zamabhodi",
+    "after": "Nzudzanyo dza bodo dzoṱhe dza Kanban",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "boardInfoOnMyBoardsPopup-title",
+    "before": "Zonke Izilungiselelo Zamabhodi",
+    "after": "Nzudzanyo dza bodo dzoṱhe dza Kanban",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "boardMinicardSettingsPopup-title",
+    "before": "Izilungiselelo zekhadi elincane",
+    "after": "Nzudzanyo dza khadi ḽiṱuku",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "boardSubtaskSettingsPopup-title",
+    "before": "Izilungiselelo zemisebenzi engaphansi",
+    "after": "Nzudzanyo dza mishumo miṱuku",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "bucket-example",
+    "before": "Njengokuthi \"Uhlu Lwebhakede\" ngokwesibonelo",
+    "after": "Sa “Mutevhe wa zwine nda ṱoḓa u ita”, sa tsumbo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "card-archived",
+    "before": "Leli khadi lihanjiswe kungobo yomlando.",
+    "after": "Khadi iḽi ḽo iswa fhethu ha u vhulunga.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "card-comments-title",
+    "before": "Leli khadi linamazwana angu-%s.",
+    "after": "Khadi iḽi ḽi na mihumbulo ya %s.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "card-delete-notice",
+    "before": "Ukususa kungunaphakade. Uzolahlekelwa yizo zonke izenzo ezihlobene naleli khadi.",
+    "after": "U susa ndi ha tshoṱhe. Ni ḓo xelelwa nga nyito dzoṱhe dzi elanaho na khadi iḽi.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "card-edit-custom-fields",
+    "before": "Hlela izinkambu zangokwezifiso",
+    "after": "Khwinisa fhethu ha data ho dzudzanywaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "card-labels-title",
+    "before": "Shintsha amalebula ekhadi.",
+    "after": "Shandulani dziḽeibuḽu dza khadi.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "cardCustomFieldsPopup-title",
+    "before": "Hlela izinkambu zangokwezifiso",
+    "after": "Khwinisa fhethu ha data ho dzudzanywaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, strong HTML markup, private/public distinctions and permanent card-action loss. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
