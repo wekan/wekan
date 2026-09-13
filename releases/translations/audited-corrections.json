@@ -67170,5 +67170,89 @@
     "before": "'%s' n'est pas valide pour le tri",
     "after": "Didalvoudek eo an urzhiañ « %s »",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "operator-status-invalid",
+    "before": "'%s' n'est pas un statut valide",
+    "after": "N’eo ket « %s » ur stad talvoudek",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "operator-unknown-error",
+    "before": "'%s' n'est pas un opérateur",
+    "after": "N’eo ket %s un oberataer",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "org-name-not-found",
+    "before": "Organisation '%s' non trouvée.",
+    "after": "N’eo ket bet kavet an aozadur « %s ».",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "org-number",
+    "before": "Le nombre d'organisations est de :",
+    "after": "Setu an niver a aozadurioù: ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "overtime-hours",
+    "before": "Temps supplémentaire (heures)",
+    "after": "Amzer ouzhpenn (eurvezhioù)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "page-maybe-private",
+    "before": "Cette page est peut-être privée. Vous pourrez peut-être la voir en vous <a href='%s'>connectant</a>.",
+    "after": "Prevez eo ar bajenn-mañ marteze. Marteze e c’hallit he gwelet en ur <a href='%s'>gevreañ</a>.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "password-mismatch",
+    "before": "Les mots de passe ne correspondent pas",
+    "after": "Ne glot ket ar gerioù-tremen",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "pastdue",
+    "before": "La date d'échéance %s est passée",
+    "after": "Tremenet eo an eur termen %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "paste-or-dragdrop",
+    "before": "pour coller, ou glissez-déposez une image ici (seulement une image)",
+    "after": "evit pegañ, pe riklañ ha leuskel ur restr skeudenn ennañ (skeudenn hepken)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "poker-delete-pop",
+    "before": "La suppression est définitive. Vous perdrez toutes les actions associées à ce planning poker.",
+    "after": "Peurbad eo an dilemel. Koll a reot an holl oberoù stag ouzh ar Planning Poker-mañ.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "prefix-with-full-path",
+    "before": "Préfixer avec le chemin complet",
+    "after": "Lakaat an treug klok da rakger",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "preview-pdf-not-supported",
+    "before": "Votre périphérique ne supporte pas la prévisualisation de PDF. Essayer plutôt le téléchargement.",
+    "after": "Ne skor ket ho trevnad rakwelet PDF. Klaskit pellgargañ ar restr.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
