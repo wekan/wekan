@@ -85580,5 +85580,26 @@
     "before": "ISO 8601",
     "after": "Gregoriana ལོ་ཐོ། (ISO 8601 བདུན་ཕྲག)",
     "reason": "Replace foreign setting and English calendar labels with Tibetan descriptions using existing ལོ་ཐོ / ཚེས་གྲངས / བདུན་ཕྲག terminology. Preserve Dangi/Hijri/Umm al-Qura/Minguo/ISO identities and restore Gregorian ISO week distinction; retain Gregorian identifier pending stronger transliteration evidence. Tibetan Japanese ཉི་ཧོང supported by Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bo.xml . Complete assembled grammar remains low confidence; religious/country and Hijri variant labels still need review."
+  },
+  {
+    "locale": "bo",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "ཨི་ཐིའོ་པི་ཡའི་ལོ་ཐོ།",
+    "reason": "Replace English Ethiopic/Amete Alem and Indian national calendar labels with Tibetan; preserve Amete Alem identifier and national calendar distinction. Country forms ཨི་ཐིའོ་པི་ཡ (draft unconfirmed) and རྒྱ་གར attested in Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bo.xml . Existing ལོ་ཐོ terminology retained. Complete assembled grammar and draft Ethiopian spelling remain low confidence; religious and Hijri variant labels remain pending."
+  },
+  {
+    "locale": "bo",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "ཨི་ཐིའོ་པི་ཡའི་Amete Alem ལོ་ཐོ།",
+    "reason": "Replace English Ethiopic/Amete Alem and Indian national calendar labels with Tibetan; preserve Amete Alem identifier and national calendar distinction. Country forms ཨི་ཐིའོ་པི་ཡ (draft unconfirmed) and རྒྱ་གར attested in Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bo.xml . Existing ལོ་ཐོ terminology retained. Complete assembled grammar and draft Ethiopian spelling remain low confidence; religious and Hijri variant labels remain pending."
+  },
+  {
+    "locale": "bo",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "རྒྱ་གར་གྱི་རྒྱལ་ཁབ་ལོ་ཐོ།",
+    "reason": "Replace English Ethiopic/Amete Alem and Indian national calendar labels with Tibetan; preserve Amete Alem identifier and national calendar distinction. Country forms ཨི་ཐིའོ་པི་ཡ (draft unconfirmed) and རྒྱ་གར attested in Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bo.xml . Existing ལོ་ཐོ terminology retained. Complete assembled grammar and draft Ethiopian spelling remain low confidence; religious and Hijri variant labels remain pending."
   }
 ]
