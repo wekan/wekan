@@ -82941,5 +82941,68 @@
     "before": "Réparation des IDs manquants",
     "after": "Defaraat ID yi amul",
     "reason": "Replace French with Wolof; preserve overdue time token, possible private-page access with exact HTML link, empty-field wildcard, server log commands, week start and migration step distinctions. Wildcard/ensure/step phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "swimlane-delete-pop",
+    "before": "Toutes les actions vont être supprimées du suivi d'activités et vous ne pourrez plus utiliser ce couloir. Cela est irréversible.",
+    "after": "Dinañu dindi jëf yépp ci limu jëf yi te doo man a delloo yoon wi. Amul neenal.",
+    "reason": "Replace French with Wolof; correct swimlane warning from cannot use to cannot recover with all activity removal/no undo, preserve private-only boards, permanent planning-poker activity loss, support state, orphan-card repair and subtext path/parent distinctions. Visibility/orphan/subtext phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "tableVisibilityMode-allowPrivateOnly",
+    "before": "Visibilité des tableaux: N'autoriser que des tableaux privés",
+    "after": "Feeñug tablo yi: nangu tablo yu sutura rekk",
+    "reason": "Replace French with Wolof; correct swimlane warning from cannot use to cannot recover with all activity removal/no undo, preserve private-only boards, permanent planning-poker activity loss, support state, orphan-card repair and subtext path/parent distinctions. Visibility/orphan/subtext phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "support-info-not-added-yet",
+    "before": "Les informations d'assistance n'ont pas encore été ajoutées",
+    "after": "Yokkaguñu xibaaru ndimbal ba léegi",
+    "reason": "Replace French with Wolof; correct swimlane warning from cannot use to cannot recover with all activity removal/no undo, preserve private-only boards, permanent planning-poker activity loss, support state, orphan-card repair and subtext path/parent distinctions. Visibility/orphan/subtext phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "support-page-enabled",
+    "before": "Page d'assistance activée",
+    "after": "Xëtu ndimbal wi mi ngi dox",
+    "reason": "Replace French with Wolof; correct swimlane warning from cannot use to cannot recover with all activity removal/no undo, preserve private-only boards, permanent planning-poker activity loss, support state, orphan-card repair and subtext path/parent distinctions. Visibility/orphan/subtext phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "poker-delete-pop",
+    "before": "La suppression est définitive. Vous perdrez toutes les actions associées à ce planning poker.",
+    "after": "Far gi day sax. Dina nga ñàkk jëf yépp yi lëkkaloo ak planning poker bii.",
+    "reason": "Replace French with Wolof; correct swimlane warning from cannot use to cannot recover with all activity removal/no undo, preserve private-only boards, permanent planning-poker activity loss, support state, orphan-card repair and subtext path/parent distinctions. Visibility/orphan/subtext phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "deletePokerPopup-title",
+    "before": "Supprimer ce planning poker ?",
+    "after": "Far planning poker bi?",
+    "reason": "Replace French with Wolof; correct swimlane warning from cannot use to cannot recover with all activity removal/no undo, preserve private-only boards, permanent planning-poker activity loss, support state, orphan-card repair and subtext path/parent distinctions. Visibility/orphan/subtext phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "step-fix-orphaned-cards",
+    "before": "Corriger les cartes orphelines",
+    "after": "Defaraat karta yi amul barab bu ñu bokk",
+    "reason": "Replace French with Wolof; correct swimlane warning from cannot use to cannot recover with all activity removal/no undo, preserve private-only boards, permanent planning-poker activity loss, support state, orphan-card repair and subtext path/parent distinctions. Visibility/orphan/subtext phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "subtext-with-full-path",
+    "before": "Sous-titre avec le chemin complet",
+    "after": "Mbind ci suuf ak yoon wi mat",
+    "reason": "Replace French with Wolof; correct swimlane warning from cannot use to cannot recover with all activity removal/no undo, preserve private-only boards, permanent planning-poker activity loss, support state, orphan-card repair and subtext path/parent distinctions. Visibility/orphan/subtext phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "subtext-with-parent",
+    "before": "Sous-titre avec le parent",
+    "after": "Mbind ci suuf ak karta bu mag bi",
+    "reason": "Replace French with Wolof; correct swimlane warning from cannot use to cannot recover with all activity removal/no undo, preserve private-only boards, permanent planning-poker activity loss, support state, orphan-card repair and subtext path/parent distinctions. Visibility/orphan/subtext phrasing and full grammar remain low confidence."
   }
 ]
