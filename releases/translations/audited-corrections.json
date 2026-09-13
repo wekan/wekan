@@ -48893,5 +48893,26 @@
     "before": "Verifica il tuo indirizzo posta eletronica su __siteName__",
     "after": "Verifitgescha tia adressa dad e-mail sin __siteName__",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "email-verifyEmail-text",
+    "before": "Ciao __user__,\n\nPer verificare il tuo cont posta eletronica, clicca sul link seguente:\n\n__url__\n\nGrazie.",
+    "after": "Hallo __user__,\n\nPer verifitgar l’adressa dad e-mail da tes cont, clicca simplamain sin la colliaziun sutvart.\n\n__url__\n\nGrazia.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "enable-vertical-scrollbars",
+    "before": "Ativea le barre di scorrimento verticali",
+    "after": "Activar las barras da defilar verticalas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "enable-wip-limit",
+    "before": "Attiva limite Work In Progress",
+    "after": "Activar la limita WIP",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
