@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,178 |
+| Corrected | 11,186 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,668 |
+| Pending review or repair | 4,660 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,376** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,389** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `ed00dca314949870b714299f4216059d3d6b9d75` — 9 comment controls repaired in Wolof, including unflagged unread/minicard terminology. Unread now refers to unread comments; existing reply wording is retained. Assigned-only scope and search placeholder are preserved. Full grammar and role terminology remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `59084b61ffe35a3ab8d7f670bb1ffd8b881e1cda` — 13 French attachment controls replaced with Wolof. Global/board-only move scopes, filesystem/GridFS/S3 destinations, attachment count and rename actions are retained. Full grammar and computing terminology remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
