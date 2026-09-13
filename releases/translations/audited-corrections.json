@@ -120930,5 +120930,12 @@
     "before": "Kay willaymi: crimsonta",
     "after": "sañi",
     "reason": "Reviewed 2026-09-14: replace unrelated message wrapper around English crimson with directly attested Quechua adjective sañi, whose dictionary gloss includes crimson: https://en.wiktionary.org/wiki/sa%C3%B1i . Entry is polysemous (purple/lilac/light brown/lead-colored also); dialect-specific exact palette hue needs review. Keep red and purple labels distinct. Do not infer plum-color wording from this entry."
+  },
+  {
+    "locale": "kl",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Jalali (persiskisut)",
+    "reason": "Reviewed 2026-09-14: replace Fars qualifier with Greenlandic Persian language name persiskisut, attested in Unicode CLDR kl language-fa: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/kl.xml . CLDR marks this language name unconfirmed. Preserve Jalali proper name; qualifier localization and full calendar technical usage require fluent review."
   }
 ]

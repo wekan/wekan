@@ -125,6 +125,8 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.doesNotMatch(cache.qu['color-crimson'], /Kay willaymi|crimson/);
   assert.notEqual(cache.qu['color-crimson'], cache.qu['color-red']);
   assert.notEqual(cache.qu['color-crimson'], cache.qu['color-purple']);
+  assert.equal(cache.kl['calendar-system-jalali'], 'Jalali (persiskisut)');
+  assert.doesNotMatch(cache.kl['calendar-system-jalali'], /Fars/);
   // Card descriptions use a feminine plural creation form.
   for (const key of ['globalSearch-instructions-operator-creator', 'globalSearch-instructions-operator-created']) {
     assert.match(cache.wa[key], /cåtes askepieyes/);
