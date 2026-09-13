@@ -21,6 +21,8 @@ const root = path.resolve(__dirname, '..');
     assert.equal(localLanguages(config).find(row => row.file === file).code, code);
     assert.ok(!localLanguages(config).some(row => row.code === file));
   }
+  assert.equal(localLanguages(config).find(row => row.file === 'zh-Hans').code, 'zh-Hans');
+  assert.ok(!localLanguages(config).some(row => row.code === 'zh_Hans'), 'Chinese script tags retain the supported hyphen');
   const content = JSON.stringify({ title: 'Title __card__', empty: '' });
   const source = JSON.parse(content);
   assert.doesNotThrow(() => validateTranslation(content, source), 'intentional empty source strings are valid');

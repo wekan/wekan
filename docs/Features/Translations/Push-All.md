@@ -82,3 +82,7 @@ remains a reported registration failure. It must not be mapped to Romanian
 
 Tigre (`tig`) is also absent from the public catalogue and remains a reported
 registration failure. Tigrinya (`ti`) is a different language and cannot replace it.
+
+Simplified Chinese script locale `zh-Hans` uses the same hyphenated Transifex
+code; `zh_Hans` is unsupported. Wolaytta (`wal`) is absent from the public
+catalogue and remains a reported registration failure.
