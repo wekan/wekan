@@ -62221,5 +62221,145 @@
     "before": "Aucun couloir, liste ou carte perdu à restaurer",
     "after": "Cap de corredor, lista o carta perdut de restablir",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "right-of-list",
+    "before": "À droite de la liste sélectionnée",
+    "after": "A drecha de la lista seleccionada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "run-delete-duplicate-empty-lists-migration-confirm",
+    "before": "Cette opération convertira d'abord les listes partagées en listes par couloir, puis supprimera les listes vides qui ont une liste en double avec le même titre contenant des cartes. Seules les listes vides vraiment redondantes seront supprimées. Continuer ?",
+    "after": "Aquesta operacion convertirà primièr las listas partejadas en listas per corredor, puèi suprimirà las listas voidas que son doblons d’una lista del meteis títol que conten de cartas. Solament las listas voidas vertadièrament redundantas seràn suprimidas. Contunhar ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "run-restore-all-archived-migration-confirm",
+    "before": "Cette opération restaurera TOUS les couloirs, listes et cartes archivés, les rendant à nouveau visibles. Les éléments avec des identifiants manquants seront automatiquement corrigés. Cette action ne peut pas être facilement annulée. Continuer ?",
+    "after": "Aquesta operacion restablirà TOTES los corredors, listas e cartas archivats per los rendre tornamai visibles. Los elements amb d’identificants mancants seràn corregits automaticament. Aquesta accion se pòt pas anullar aisidament. Contunhar ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "run-restore-lost-cards-migration-confirm",
+    "before": "Cette opération créera un couloir « Cartes perdues » et restaurera toutes les cartes et listes avec un swimlaneId ou listId manquant. Cela n'affecte que les éléments non archivés. Continuer ?",
+    "after": "Aquesta operacion crearà un corredor « Lost Cards » e restablirà totas las cartas e listas amb un swimlaneId o listId mancant. Aquò concernís solament los elements non archivats. Contunhar ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "search-example",
+    "before": "Écrivez le texte que vous recherchez et appuyez sur Entrée",
+    "after": "Escrivètz lo tèxt de cercar e quichatz sus Entrada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "select-migration",
+    "before": "Sélectionner une migration",
+    "after": "Seleccionar una migracion",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "server-error-troubleshooting",
+    "before": "Merci de soumettre l'erreur générée par le serveur. Pour une installation snap, lancer `sudo snap logs wekan.wekan`. Pour une installation docker, lancer `sudo docker logs wekan-app`",
+    "after": "Mandatz l’error generada pel servidor.\nPer una installacion snap, executatz : `sudo snap logs wekan.wekan`\nPer una installacion Docker, executatz : `sudo docker logs wekan-app`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "set-swimlane-height",
+    "before": "Définir la hauteur du couloir",
+    "after": "Definir la nautor del corredor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "set-swimlane-height-value",
+    "before": "Hauteur du couloir (pixels)",
+    "after": "Nautor del corredor (pixèls)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "set-wip-limit-value",
+    "before": "Définit une limite maximale au nombre de cartes de cette liste",
+    "after": "Definir una limita pel nombre maximal de prètzfaches dins aquesta lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "setSelectionColorPopup-title",
+    "before": "Définir la couleur de sélection",
+    "after": "Definir la color de seleccion",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "setSwimlaneHeightPopup-title",
+    "before": "Définir la hauteur du couloir",
+    "after": "Definir la nautor del corredor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "shortcut-autocomplete-emoji",
+    "before": "Auto-complétion des emoji",
+    "after": "Completar automaticament los emòjis",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "shortcut-autocomplete-members",
+    "before": "Auto-complétion des participants",
+    "after": "Completar automaticament los membres",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "shortcut-filter-my-assigned-cards",
+    "before": "Filtrer mes cartes attribuées",
+    "after": "Filtrar mas cartas assignadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "shortcut-show-shortcuts",
+    "before": "Afficher cette liste de raccourcis",
+    "after": "Mostrar aquesta lista d’acorchis",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "shortcut-toggle-filterbar",
+    "before": "Afficher/Masquer la barre latérale des filtres",
+    "after": "Mostrar/amagar la barra laterala de filtres",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "shortcut-toggle-searchbar",
+    "before": "Afficher/Masquer la barre latérale de recherche",
+    "after": "Mostrar/amagar la barra laterala de recèrca",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "show-at-all-boards-page",
+    "before": "Afficher sur la page de tous les tableaux",
+    "after": "Mostrar sus la pagina de totes los tablèus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "show-card-counter-per-list",
+    "before": "Afficher le nombre de cartes par liste",
+    "after": "Mostrar lo nombre de cartas per lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
