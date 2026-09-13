@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,330 |
+| Corrected | 12,334 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,516 |
+| Pending review or repair | 3,512 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,848** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,858** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `07658b2e6553388e284d30000ab557f7d35a4717` — nine French due-date view/search/reminder messages replaced with Volapük. Preserved permissions, incomplete-versus-overdue scope, time states, inclusive search range and placeholders; assembled temporal/software wording remains low confidence.
+Latest translation fix: **2026-09-13**, local commit `263c227370cfbd98356637d85f0fd9d860d3154a` — ten Volapük time-tracking labels/summaries repaired, including French spent-time/overtime/OS uptime text. Preserved units, edit/presence conditions and totals; software paraphrases and assembled wording remain low confidence.
 
 **Verification:** correction and progress tests pass, covering exact values, placeholders, JSON examples and key order. Native-speaker and browser checks remain outstanding.
 
