@@ -106475,5 +106475,180 @@
     "before": "Susa Inkambu Yangokwezifiso?",
     "after": "Susa fhethu ha data ho dzudzanywaho?",
     "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, default numeric values, technical markup terms and no-undo/deletion-blocking conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "deposit-subtasks-board",
+    "before": "Imisebenzi engaphansi yediphozi kuleli bhodi:",
+    "after": "Isa mishumo miṱuku kha bodo iyi ya Kanban:",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "deposit-subtasks-list",
+    "before": "Uhlu lokufika lwemisebenzi engaphansi efakwe lapha:",
+    "after": "Mutevhe wa u ṱanganedza mishumo miṱuku yo iswaho afha:",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "description-on-minicard",
+    "before": "Incazelo kukhadi elincane",
+    "after": "Ṱhaluso kha khadi ḽiṱuku",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "disambiguateMultiLabelPopup-title",
+    "before": "Disambiguate Isenzo Selebula",
+    "after": "Ṱalusa nyito ya ḽeibuḽu nga nḓila i sa ṱanganisi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "display-authentication-method",
+    "before": "Bonisa Indlela Yokufakazela Ubuqiniso",
+    "after": "Sumbedza nḓila ya u khwaṱhisedza mushumisi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "display-card-creator",
+    "before": "Umdali wekhadi lokubonisa",
+    "after": "Sumbedza musiki wa khadi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "dueCardsViewChange-title",
+    "before": "Ukubuka Kwamakhadi Afanele",
+    "after": "U vhona makhadi a re na ḓuvha ḽa u fhedza",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "dueCardsViewChangePopup-title",
+    "before": "Ukubuka Kwamakhadi Afanele",
+    "after": "U vhona makhadi a re na ḓuvha ḽa u fhedza",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "duenow",
+    "before": "isikhathi samanje esithi %s sinamuhla",
+    "after": "tshifhinga tsha u fhedza tsha zwino %s ndi ṋamusi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "duplicate-board-confirm",
+    "before": "Uqinisekile ukuthi ufuna ukuphinda leli bhodi?",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u ita khophi ya bodo iyi ya Kanban?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "editCardDueDatePopup-title",
+    "before": "Shintsha idethi yamanqamu",
+    "after": "Shandula ḓuvha ḽa u fhedza",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "editCardEndDatePopup-title",
+    "before": "Shintsha idethi yokuphela",
+    "after": "Shandula ḓuvha ḽa u guma",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "editCardReceivedDatePopup-title",
+    "before": "Shintsha idethi eyamukelwe",
+    "after": "Shandula ḓuvha ḽa u ṱanganedza",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "editCardSpentTimePopup-title",
+    "before": "Shintsha isikhathi esichithiwe",
+    "after": "Shandula tshifhinga tsho shumiswaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "editPokerEndDatePopup-title",
+    "before": "Shintsha idethi yokuphela kwevoti le-Planing Poker",
+    "after": "Shandula ḓuvha ḽa u guma ha u vouta ha Planning Poker",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "editTranslationPopup-title",
+    "before": "Hlela iyunithi yezinhlamvu yokuhumusha yangokwezifiso",
+    "after": "Khwinisa maipfi a ṱhalutshedzo ya luambo yo dzudzanywaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "editVoteEndDatePopup-title",
+    "before": "Shintsha idethi yokuphela kwevoti",
+    "after": "Shandula ḓuvha ḽa u guma ha u vouta",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "email-enrollAccount-subject",
+    "before": "I-akhawunti edalelwe wena ku-__siteName__",
+    "after": "Akhaunthu yo sikelwa inwi kha __siteName__",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "email-enrollAccount-text",
+    "before": "Sawubona __user__,\n\nUkuze uqale ukusebenzisa isevisi, mane uchofoze isixhumanisi esingezansi.\n\n__url__\n\nNgiyabonga.",
+    "after": "Ndaa __user__,\n\nU thoma u shumisa tshumelo, kiḽikani ḽinki i re afho fhasi.\n\n__url__\n\nRo livhuwa.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "email-fail",
+    "before": "Ukuthumela i-imeyili kwehlulekile",
+    "after": "U rumela imeiḽi zwo kundelwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "email-fail-text",
+    "before": "Iphutha lokuzama ukuthumela i-imeyili",
+    "after": "Vhukhakhi musi hu tshi lingedzwa u rumela imeiḽi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "email-resetPassword-subject",
+    "before": "Setha kabusha iphasiwedi yakho kokuthi __siteName__",
+    "after": "Vheani hafhu phasiwede yaṋu kha __siteName__",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "email-resetPassword-text",
+    "before": "Sawubona __user__,\n\nUkusetha kabusha iphasiwedi yakho, mane uchofoze isixhumanisi esingezansi.\n\n__url__\n\nNgiyabonga.",
+    "after": "Ndaa __user__,\n\nU vhea hafhu phasiwede yaṋu, kiḽikani ḽinki i re afho fhasi.\n\n__url__\n\nRo livhuwa.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "email-smtp-test-subject",
+    "before": "I-imeyili Yokuhlola ye-SMTP",
+    "after": "Imeiḽi ya u linga SMTP",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "email-smtp-test-text",
+    "before": "Uthumele ngempumelelo i-imeyili",
+    "after": "No rumela imeiḽi nga nḓila yo bvelelaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, Planning Poker/SMTP names and due/end/received/spent-time distinctions. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
