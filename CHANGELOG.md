@@ -816,6 +816,32 @@ against a fresh bundle remains in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3b8436448">Theme calendar controls with Save's existing rules</a>. Thanks to xet7.</summary>
+
+The theme submit-button rules did not match non-submitting calendar
+buttons, leaving them a different color from Save. Include the calendar
+navigation and day controls in the same existing declarations, including
+hover colors and custom accents. Controls retain type="button" so changing
+months or selecting a date does not submit the form. Theme regressions
+pass. A targeted Chromium run with the updated CSS passed Jalali mouse,
+keyboard, time selection and saving; verification of the compiled bundle
+across all browsers remains in progress.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0cf8f1540">Check calendar labels against each browser's supported options</a>. Thanks to xet7.</summary>
+
+Firefox does not implement every Unicode calendar variant offered by
+Chromium. Assert translated labels for supported options and assert the
+absence of unsupported options instead of requiring unavailable calendars.
+All five targeted Firefox calendar-option regressions pass, covering
+Latvian, Romanian, German and Brazilian Portuguese. Full browser matrix
+verification remains in progress.
+
+</details>
+
 **Source and test parity** - preserve current behavior and reject real regressions.
 
 <details>
