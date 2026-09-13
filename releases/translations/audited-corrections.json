@@ -107770,5 +107770,215 @@
     "before": "ukunamathisela, noma ukuhudula bese udedela ifayela lesithombe kuso (isithombe kuphela)",
     "after": "u nambatedza, kana u kokodza na u litsha faela ya tshifanyiso khayo (tshifanyiso fhedzi)",
     "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML link markup, positive-integer limits, muted notifications and original checklist ordering. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "pause-all-migrations",
+    "before": "Misa Isikhashana Konke Ukufuduka",
+    "after": "Imisa u pfulusa hoṱhe lwa tshifhinganyana",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "pause-migration",
+    "before": "Misa Isikhashana Ukufuduka",
+    "after": "Imisa u pfulusa lwa tshifhinganyana",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "poker-delete-pop",
+    "before": "Ukususa kungunaphakade. Uzolahlekelwa yizo zonke izenzo ezihlobene nale poker yokuhlela.",
+    "after": "U susa ndi ha tshoṱhe. Ni ḓo xelelwa nga nyito dzoṱhe dzi elanaho na Planning Poker iyi.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "prefix-with-full-path",
+    "before": "Isiqalo esinomzila ogcwele",
+    "after": "Thomisa nga nḓila yo fhelelaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "r-archived",
+    "before": "Kuhanjiswe kungobo yomlando",
+    "after": "Yo iswa fhethu ha u vhulunga",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "r-board-note",
+    "before": "Qaphela: shiya inkambu ingenalutho ukuze ifane nawo wonke amanani angenzeka.",
+    "after": "Ṱhogomelani: Siyani fhethu ha data hu si na tshithu u elana na ndeme iṅwe na iṅwe.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "r-checklist-note",
+    "before": "Qaphela: izinto zohlu lokuhlola kufanele zibhalwe njengamavelu ahlukaniswe ngokhefana.",
+    "after": "Ṱhogomelani: Zwithu zwa mutevhe wa u sedza zwi fanela u ṅwalwa sa ndeme dzo fhambanywaho nga khoma.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "r-d-uncheck-all",
+    "before": "Susa ukumaka zonke izinto zohlu",
+    "after": "Bvisa luswayo kha zwithu zwoṱhe zwa mutevhe",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "r-new-rule-name",
+    "before": "Isihloko somthetho omusha",
+    "after": "Dzina ḽiswa ḽa mulayo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "r-to-current-datetime",
+    "before": "kuze kube yidethi/isikhathi samanje",
+    "after": "u ya kha ḓuvha/tshifhinga tsha zwino",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "r-unarchive",
+    "before": "Buyisela kusuka kungobo yomlando",
+    "after": "Vhuyedzedza u bva fhethu ha u vhulunga",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "r-unarchived",
+    "before": "Kubuyiselwe kusukela kungobo yomlando",
+    "after": "Yo vhuyedzedzwa u bva fhethu ha u vhulunga",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "r-when-a-card-title-or-description-contains",
+    "before": "Uma isihloko noma incazelo yekhadi inayo",
+    "after": "Musi dzina kana ṱhaluso ya khadi i tshi vha na",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "r-when-a-item",
+    "before": "Lapho into yohlu lokuhlola",
+    "after": "Musi tshithu tsha mutevhe wa u sedza tshi tshi vha",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "r-when-the-item",
+    "before": "Lapho into yohlu lokuhlola",
+    "after": "Musi tshithu tsha mutevhe wa u sedza",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "read-assigned-only",
+    "before": "Ukufunda Kwabelwe Kuphela",
+    "after": "U vhala o avhelwaho fhedzi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "remove-labels-multiselect",
+    "before": "Ukukhetha Okuningi kususa amalebula 1-9",
+    "after": "U nanga zwinzhi hu bvisa dziḽeibuḽu 1-9",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "remove-organization-from-board",
+    "before": "Uqinisekile ukuthi ufuna ukususa le nhlangano kuleli bhodi?",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u bvisa dzangano iḽi kha bodo iyi ya Kanban?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "rescue-card-description",
+    "before": "Bonisa ingxoxo yokuhlenga ngaphambi kokuvala izincazelo zamakhadi ezingalondoloziwe",
+    "after": "Sumbedza fasiṱere ya u tshidza ṱhaluso dza makhadi dzi sa athu vhulungwa phanḓa ha u vala",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "rescue-card-description-dialogue",
+    "before": "Bhala phezu kwencazelo yekhadi lamanje nezinguquko zakho?",
+    "after": "Vhea tshanduko dzaṋu nṱha ha ṱhaluso ya khadi ya zwino?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "restore-all-archived-migration",
+    "before": "Buyisela Konke Okufakwe Kungobo Yomlando",
+    "after": "Vhuyedzedza zwoṱhe zwo vhulungwaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "restore-all-archived-migration-description",
+    "before": "Ibuyisela zonke izindawo zokubhukuda ezifakwe kungobo yomlando, izinhlu, namakhadi. Ilungisa ngokuzenzakalelayo noma iyiphi i-swimlaneId engekho noma i-listId ukuze wenze izinto zibonakale.",
+    "after": "I vhuyedzedza dziḽaini, mitevhe na makhadi zwoṱhe zwo vhulungwaho. I lugisa swimlaneId kana listId i siho nga yoṱhe u ita uri zwithu zwi vhonale.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "right-of-list",
+    "before": "Kwesokudla sohlu olukhethiwe",
+    "after": "Tsha u ḽa ha mutevhe wo nangwaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "roles-status-desc",
+    "before": "Okungenziwa yindima ngayinye yebhodi. Ukufunda kuphela: ilandela amabhokisi angenhla, ngakho ikhombisa lokho okukhethile ngaphambi kokulondoloza.",
+    "after": "Zwine mushumo muṅwe na muṅwe wa bodo ya Kanban wa nga ita. Ndi zwa u vhala fhedzi: zwi tevhela zwibogisi zwo swayiwaho afho nṱha, zwi sumbedza zwine na nanga ni sa athu vhulunga.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "run-comprehensive-migration-confirm",
+    "before": "Lokhu kuzokwenza ukuthutha okuphelele ukuze kuhlolwe futhi kulungiswe ubuqotho bedatha yebhodi. Lokhu kungase kuthathe isikhashana. Qhubeka?",
+    "after": "Izwi zwi ḓo pfulusa nga vhuḓalo u sedza na u lugisa vhungoho ha data ya bodo ya Kanban. Zwi nga dzhia tshifhinganyana. Bvela phanḓa?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "Lokhu kuzobuyekeza ama-URL e-avatar ukuze amalungu ebhodi asebenzise i-backend yesitoreji efanele. Qhubeka?",
+    "after": "Izwi zwi ḓo shandula URL dza zwifanyiso zwa miraḓo ya bodo ya Kanban u shumisa nḓila yo teaho ya u vhulunga. Bvela phanḓa?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "run-fix-missing-lists-migration-confirm",
+    "before": "Lokhu kuzothola futhi kulungise izinhlu ezingekho noma ezonakele esakhiweni sebhodi. Qhubeka?",
+    "after": "Izwi zwi ḓo wana na u lugisa mitevhe i siho kana yo tshinyalaho kha nzudzanyo ya bodo ya Kanban. Bvela phanḓa?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "run-restore-all-archived-migration-confirm",
+    "before": "Lokhu kuzobuyisela ZONKE izindawo zokubhukuda ezifakwe kungobo yomlando, izinhlu, namakhadi, kuzenze zibonakale futhi. Noma yiziphi izinto ezinomazisi abangekho zizolungiswa ngokuzenzakalelayo. Lokhu akukwazi ukuhlehliswa kalula. Qhubeka?",
+    "after": "Izwi zwi ḓo vhuyedzedza dziḽaini, mitevhe na makhadi ZWOṰHE zwo vhulungwaho u zwi ita uri zwi vhonale hafhu. Zwithu zwi si na ID zwi ḓo lugiswa nga zwoṱhe. Izwi a zwi koni u humiselwa murahu nga hu leluwaho. Bvela phanḓa?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "s3-access-key-description",
+    "before": "Ukhiye wokufinyelela we-AWS S3 wokuqinisekisa",
+    "after": "Khiḽi ya u dzhena ya AWS S3 ya u khwaṱhisedza mushumisi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "s3-access-key-placeholder",
+    "before": "Faka ukhiye wokufinyelela we-S3",
+    "after": "Ṅwalani khiḽi ya u dzhena ya S3",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, full restoration scope and difficult-to-undo warnings. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
