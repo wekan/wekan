@@ -92251,5 +92251,19 @@
     "before": "Coptic",
     "after": "Kalender Koptek",
     "reason": "Replace English Coptic calendar label directly with Cornish, following existing Kalender and -ek adjective conventions. Koptek assembled with low confidence; lookup in Akademi dictionary https://www.cornishdictionary.org.uk/sites/default/files/GerlyverPDF_20190723.pdf did not independently attest this form, which does not establish invalidity. Native-speaker vocabulary and full-label validation required."
+  },
+  {
+    "locale": "kw",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Kalender Hijri (tablek, dedhyas dalleth civil)",
+    "reason": "Replace English Hijri variant labels directly with Cornish, retaining existing Kalender Hijri and restoring tabular/civil-versus-astronomical epoch distinctions. Epoch paraphrased as starting date, not era. Akademi dictionary https://www.cornishdictionary.org.uk/sites/default/files/GerlyverPDF_20190723.pdf attests civil adjective; https://en.wiktionary.org/wiki/ster lists steronieth (astronomy), and https://glosbe.com/kw/en/tabla lists tablek. Tabular adjective semantics, noun combinations and full technical phrasing remain low confidence, requiring native-speaker validation."
+  },
+  {
+    "locale": "kw",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Kalender Hijri (tablek, dedhyas dalleth a steronieth)",
+    "reason": "Replace English Hijri variant labels directly with Cornish, retaining existing Kalender Hijri and restoring tabular/civil-versus-astronomical epoch distinctions. Epoch paraphrased as starting date, not era. Akademi dictionary https://www.cornishdictionary.org.uk/sites/default/files/GerlyverPDF_20190723.pdf attests civil adjective; https://en.wiktionary.org/wiki/ster lists steronieth (astronomy), and https://glosbe.com/kw/en/tabla lists tablek. Tabular adjective semantics, noun combinations and full technical phrasing remain low confidence, requiring native-speaker validation."
   }
 ]
