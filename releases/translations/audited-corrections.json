@@ -68829,5 +68829,89 @@
     "before": "Na lewo od zaznaczonej listy",
     "after": "Na lewo ôd zaznaczōnyj listy",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "link-to-search",
+    "before": "Link do tego wyszukiwania",
+    "after": "Link do tygo szukaniŏ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "list-filter-label",
+    "before": "Filtruj listy względem tytułu",
+    "after": "Filtruj listã podug tytułu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "list-label-sort",
+    "before": "Twoja kolejność ustawiona ręcznie",
+    "after": "Twōj rynczny porzōndek",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "list-width-error-message",
+    "before": "Szerokość listy musi być liczbą całkowitą większą niż 270",
+    "after": "Szyrokość listy musi być cołkowitōm liczbōm wiynkszōm jak 270",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "listImportCardPopup-title",
+    "before": "Zaimportuj kartę z Trello",
+    "after": "Zaimportuj kartã ze Trello",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "listImportCardsTsvPopup-title",
+    "before": "Importuj CSV/TSV z Excela",
+    "after": "Importuj Excel CSV/TSV",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "location-detect-done",
+    "before": "Uzupełniono poniżej wykryte szczegóły lokalizacji.",
+    "after": "Niżyj uzupōłniōno wykryte szczegōły lokalizacyje.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "location-detect-from-map",
+    "before": "Wykryj lokalizację z dowolnego łącza do mapy",
+    "after": "Wykryj lokalizacyjã ze dowolnygo linku do mapy",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "map-provider-saved",
+    "before": "Domyślny serwis map zapisany.",
+    "after": "Dōmyślnŏ usługa map zapisanŏ.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "migration-cpu-threshold-description",
+    "before": "Wstrzymaj migrację, gdy użycie CPU przekroczy ten procent (10-90)",
+    "after": "Wstrzimŏj migracyjã, jak użycie CPU przekroczy tyn procynt (10-90)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "migration-pausing",
+    "before": "Wstrzymywanie migracji...",
+    "after": "Wstrzimowanie migracyjōw...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "migration-stopping",
+    "before": "Zatrzymywanie migracji...",
+    "after": "Zatrzimowanie migracyjōw...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
