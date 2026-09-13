@@ -86217,5 +86217,12 @@
     "before": "Coptic",
     "after": "Koptilaš kaleandar",
     "reason": "Replace English Coptic using Northern Sami adjective koptilaš attested in Finnish national library YSO vocabulary, koptilaš girku: https://finto.fi/yso/fi/page/p937 . Calendar kaleandar follows existing documented Sami terminology. Assembled full calendar phrase remains low confidence; adjective evidence does not prove native UI grammar. Evidence is indexed; separate full page retrieval returned HTTP 403."
+  },
+  {
+    "locale": "se",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Hebrea kaleandar",
+    "reason": "Replace English Hebrew with assembled Northern Sami Hebrea kaleandar. Hebrea adapted from official education authority Hebreagiella https://www.udir.no/lk20/fagkoder/fsp6420?lang=nno and indexed dictionary https://giellatekno.uit.no/dicts/dicts/Jouni_A_Vest_nettisanakirja.pdf ; kaleandar follows documented local terminology. Stem adaptation and full calendar phrase remain low confidence, not independently attested or native-speaker verified."
   }
 ]
