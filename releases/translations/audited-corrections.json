@@ -75085,8 +75085,8 @@
     "locale": "wa",
     "key": "watching-info",
     "before": "Vous serez notifié de toute modification dans ce tableau",
-    "after": "Vos rçuvoz ene notifiaedje po tot candjmint di ci tåvlea ci",
-    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+    "after": "Vos rçuvoz on notifiaedje po tot candjmint di ci tåvlea ci",
+    "reason": "Repair French board-name example and unflagged completion/checkbox state labels using existing Walloon terminology; correct notification noun agreement to masculine on. Preserve wishes-list board example and distinguish checked/unchecked from completion. Native fini/marké terms: https://dtw.walon.org/index.php?query=fini and https://dtw.walon.org/index.php?query=marker ; sohaits computing usage in https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Full grammar remains low confidence."
   },
   {
     "locale": "wa",
@@ -77341,5 +77341,40 @@
     "before": "Afficher la méthode d'authentification",
     "after": "Mostrer l' manire d' otintifiaedje",
     "reason": "Replace French authentication method/type/display/default labels with Walloon. Native otintifiaedje computing term appears in historical KDE authentication error/requirement translations: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve authentication rather than reducing it to login; default wording and full grammar remain low confidence. Includes unflagged authentication type."
+  },
+  {
+    "locale": "wa",
+    "key": "bucket-example",
+    "before": "Comme « Liste d'envies  » par exemple",
+    "after": "Come « Djivêye des sohaits » pa egzimpe",
+    "reason": "Repair French board-name example and unflagged completion/checkbox state labels using existing Walloon terminology; correct notification noun agreement to masculine on. Preserve wishes-list board example and distinguish checked/unchecked from completion. Native fini/marké terms: https://dtw.walon.org/index.php?query=fini and https://dtw.walon.org/index.php?query=marker ; sohaits computing usage in https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Full grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "r-completed",
+    "before": "Terminé",
+    "after": "Fini",
+    "reason": "Repair French board-name example and unflagged completion/checkbox state labels using existing Walloon terminology; correct notification noun agreement to masculine on. Preserve wishes-list board example and distinguish checked/unchecked from completion. Native fini/marké terms: https://dtw.walon.org/index.php?query=fini and https://dtw.walon.org/index.php?query=marker ; sohaits computing usage in https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Full grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "completed",
+    "before": "Terminé",
+    "after": "Fini",
+    "reason": "Repair French board-name example and unflagged completion/checkbox state labels using existing Walloon terminology; correct notification noun agreement to masculine on. Preserve wishes-list board example and distinguish checked/unchecked from completion. Native fini/marké terms: https://dtw.walon.org/index.php?query=fini and https://dtw.walon.org/index.php?query=marker ; sohaits computing usage in https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Full grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "r-checked",
+    "before": "Coché",
+    "after": "Marké",
+    "reason": "Repair French board-name example and unflagged completion/checkbox state labels using existing Walloon terminology; correct notification noun agreement to masculine on. Preserve wishes-list board example and distinguish checked/unchecked from completion. Native fini/marké terms: https://dtw.walon.org/index.php?query=fini and https://dtw.walon.org/index.php?query=marker ; sohaits computing usage in https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Full grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "r-unchecked",
+    "before": "Décoché",
+    "after": "Nén marké",
+    "reason": "Repair French board-name example and unflagged completion/checkbox state labels using existing Walloon terminology; correct notification noun agreement to masculine on. Preserve wishes-list board example and distinguish checked/unchecked from completion. Native fini/marké terms: https://dtw.walon.org/index.php?query=fini and https://dtw.walon.org/index.php?query=marker ; sohaits computing usage in https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Full grammar remains low confidence."
   }
 ]
