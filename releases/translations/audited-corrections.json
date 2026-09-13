@@ -92076,5 +92076,26 @@
     "before": "Japanese",
     "after": "Kaled Yapänik",
     "reason": "Replace English Japanese calendar label with existing Volapük Kaled terminology and Yapänik adjective listed under https://en.wiktionary.org/wiki/Yap%C3%A4n; country name also used at https://vo.wikipedia.org/wiki/Yap%C3%A4n. Earlier failed Midgley lookup was not evidence of invalidity. Complete assembled label still needs native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "desktop-mode",
+    "before": "Mode bureau",
+    "after": "Mod ela Desktop",
+    "reason": "Replace French display-mode wording, including two unflagged related labels. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests telefon polovik (mobile phone); votükön follows dictionary-based local change terminology. Mod and Desktop are explicit software borrowings, consistent with local desktop drag-handle wording, not independently dictionary-attested. Preserve switching between both modes; assembled technical phrasing remains low confidence and needs native-speaker review."
+  },
+  {
+    "locale": "vo",
+    "key": "mobile-mode",
+    "before": "Mode mobile",
+    "after": "Mod pro telefon polovik",
+    "reason": "Replace French display-mode wording, including two unflagged related labels. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests telefon polovik (mobile phone); votükön follows dictionary-based local change terminology. Mod and Desktop are explicit software borrowings, consistent with local desktop drag-handle wording, not independently dictionary-attested. Preserve switching between both modes; assembled technical phrasing remains low confidence and needs native-speaker review."
+  },
+  {
+    "locale": "vo",
+    "key": "mobile-desktop-toggle",
+    "before": "Basculer entre le mode mobile et le mode bureau",
+    "after": "Votükön bevü mod pro telefon polovik e mod ela Desktop",
+    "reason": "Replace French display-mode wording, including two unflagged related labels. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests telefon polovik (mobile phone); votükön follows dictionary-based local change terminology. Mod and Desktop are explicit software borrowings, consistent with local desktop drag-handle wording, not independently dictionary-attested. Preserve switching between both modes; assembled technical phrasing remains low confidence and needs native-speaker review."
   }
 ]
