@@ -104865,5 +104865,180 @@
     "before": "Inqwaba yenodi: usayizi wenqwaba isiyonke",
     "after": "Node heap: vhuhulwane hoṱhe ha heap",
     "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, keyboard ranges, permission restrictions and technical Node/MongoDB terms. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "Node_heap_total_heap_size_executable",
+    "before": "Inqwaba yenodi: usayizi wenqwaba ophelele osebenzisekayo",
+    "after": "Node heap: vhuhulwane hoṱhe ha heap vhu shumiseaho sa khoudu",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "Node_heap_total_physical_size",
+    "before": "Inqwaba yenodi: usayizi womzimba ophelele",
+    "after": "Node heap: vhuhulwane hoṱhe ha muhumbulo wa vhukuma",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "Node_heap_used_heap_size",
+    "before": "Inqwaba yenodi: usayizi wenqwaba esetshenzisiwe",
+    "after": "Node heap: vhuhulwane ha heap ho shumiswaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "Node_memory_usage_external",
+    "before": "Ukusetshenziswa kwememori ye-node: yangaphandle",
+    "after": "U shumiswa ha muhumbulo wa Node: wa nnḓa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "Node_memory_usage_heap_total",
+    "before": "Ukusetshenziswa kwememori yenodi: usayizi ophelele wenqwaba eyabiwe",
+    "after": "U shumiswa ha muhumbulo wa Node: vhuhulwane hoṱhe ha heap yo avhelwaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "Node_memory_usage_heap_used",
+    "before": "Ukusetshenziswa kwememori ye-node: inkumbulo yangempela esetshenzisiwe",
+    "after": "U shumiswa ha muhumbulo wa Node: muhumbulo wo shumiswaho zwa vhukuma",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "Node_memory_usage_rss",
+    "before": "Ukusetshenziswa kwememori ye-node: usayizi wokusetha umhlali",
+    "after": "U shumiswa ha muhumbulo wa Node: vhuhulwane ha resident set (RSS)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "OS_Loadavg",
+    "before": "I-OS Yokulayisha Okumaphakathi",
+    "after": "Mutalo wa vhukati wa mushumo wa OS",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "OS_Totalmem",
+    "before": "I-OS Ingqikithi Yenkumbulo",
+    "after": "Muhumbulo woṱhe wa OS",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "Rotateplane",
+    "before": "Rotateplane Linda Spinner",
+    "after": "Tshiga tsha u lindela tshine tsha mona",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "a-dueAt",
+    "before": "isikhathi esimisiwe esizolungiswa",
+    "after": "o shandula tshifhinga tsha u fhedza tsha vha",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "a-endAt",
+    "before": "isikhathi sokuphela esilungisiwe sibe",
+    "after": "o shandula tshifhinga tsha u guma tsha vha",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "a-receivedAt",
+    "before": "okushintshiwe wathola isikhathi ukuba",
+    "after": "o shandula tshifhinga tsha u ṱanganedza tsha vha",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "a-startAt",
+    "before": "isikhathi sokuqala esilungisiwe ukuze sibe",
+    "after": "o shandula tshifhinga tsha u thoma tsha vha",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "above-selected-card",
+    "before": "Ngaphezulu kwekhadi elikhethiwe",
+    "after": "Nṱha ha khadi ḽo nangwaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "above-selected-swimlane",
+    "before": "Ngaphezulu kwe-swimlane ekhethiwe",
+    "after": "Nṱha ha ḽaini ḽo nangwaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "acceptance_of_our_legalNotice",
+    "before": "Ngokuqhubeka, wamukela okwethu",
+    "after": "Nga u bvela phanḓa, ni ṱanganedza yashu",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "accessibility-content",
+    "before": "Okuqukethwe okufinyelelekayo",
+    "after": "Mafhungo a u shumisea kha vhoṱhe",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "accessibility-info-not-added-yet",
+    "before": "Ulwazi lokufinyeleleka alukengezwa okwamanje",
+    "after": "Mafhungo a u shumisea kha vhoṱhe ha athu engedzwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "accessibility-page-enabled",
+    "before": "Ikhasi lokufinyelela linikwe amandla",
+    "after": "Siaṱari ḽa u shumisea kha vhoṱhe ḽo tendelwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "account-created",
+    "before": "I-akhawunti idaliwe! Manje ungangena ngemvume.",
+    "after": "Akhaunthu yo sikiwa! Zwino ni nga dzhena.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "account-creation-failed",
+    "before": "Yehlulekile ukudala i-akhawunti",
+    "after": "U sika akhaunthu zwo kundelwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "account-locked",
+    "before": "I-akhawunti ikhiyiwe okwesikhashana ngenxa yemizamo eminingi ehlulekile yokungena ngemvume. Sicela uzame futhi emuva kwesikhathi.",
+    "after": "Akhaunthu yo valelwa lwa tshifhinganyana nga u kundelwa u dzhena lunzhi. Lingedzani hafhu nga murahu.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "accounts-allowEmailChange",
+    "before": "Vumela Ukuguqulwa Kwe-imeyili",
+    "after": "Tendela u shandula imeiḽi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "accounts-allowUserDelete",
+    "before": "Vumela abasebenzisi ukuthi bazisuse ngokwabo i-akhawunti yabo",
+    "after": "U ḓisusela akhaunthu ya mushumisi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
