@@ -69,4 +69,7 @@ assert.match(timeViewJade, /if isOvertime\n\s+\|.*overtime/,
 assert.match(read('client/components/main/editor.jade'), /template\(name="viewer"\)[\s\S]*?\+markdown/);
 assert.match(read('packages/markdown/src/template-integration.js'), /const forceRawSource = Markdown\.alwaysShowCodeAsText\.get\(\)/);
 
+assert.match(read('client/components/main/editor.js'), /const stripLinks = !!\(setting && setting\.renderLinksAsPlainText\)/);
+assert.match(read('client/components/main/editor.js'), /sanitizeHTML\(content, \{ stripLinks \}\)/);
+
 console.log('timeViewReportAndExport: Time view now reports hours by assignee/card and exports like every other chart view');
