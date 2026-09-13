@@ -84803,5 +84803,68 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "Khalendara ea Hijri (Saudi Arabia, ho bona khoeli)",
     "reason": "Replace English Ethiopic/Amete Alem/Indian national/Saudi Hijri calendar labels with Sesotho, retaining proper names and restoring national and moon-sighting qualifiers. Reuse existing khalendara terminology; khoeli as moon attested at https://wol.jw.org/st/wol/b/r21/lp-su/bi12/66/12 and India at https://www.jw.org/st/laebrari/limakasine/wp20151201/ho-utloisisa-bibele/. Complete assembled grammar and sighting adaptation remain low confidence; Coptic and tabular civil/astronomical epoch labels remain pending."
+  },
+  {
+    "locale": "tn",
+    "key": "calendar",
+    "before": "Tshedimosetso: Calendar",
+    "after": "Khalendara",
+    "reason": "Replace English calendar filler, foreign-language setting and English labels with Setswana; preserve Dangi/Hijri/Umm al-Qura/Minguo names and restore Gregorian ISO week qualifier. Khalendara attested at https://cfp2.jw-cdn.org/a/dd45e9/1/o/yp1_TN.pdf; Japane/China at https://www.jw.org/tn/basupi-ba-ga-jehofa/ditiro/go-gatisa/dibaebele-go-tswa-japane/. Complete assembled grammar and system/display adaptation remain low confidence; remaining religious/country/national and Hijri variant labels need review."
+  },
+  {
+    "locale": "tn",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Tsamaiso ya khalendara (go bontsha letlha)",
+    "reason": "Replace English calendar filler, foreign-language setting and English labels with Setswana; preserve Dangi/Hijri/Umm al-Qura/Minguo names and restore Gregorian ISO week qualifier. Khalendara attested at https://cfp2.jw-cdn.org/a/dd45e9/1/o/yp1_TN.pdf; Japane/China at https://www.jw.org/tn/basupi-ba-ga-jehofa/ditiro/go-gatisa/dibaebele-go-tswa-japane/. Complete assembled grammar and system/display adaptation remain low confidence; remaining religious/country/national and Hijri variant labels need review."
+  },
+  {
+    "locale": "tn",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Khalendara ya China",
+    "reason": "Replace English calendar filler, foreign-language setting and English labels with Setswana; preserve Dangi/Hijri/Umm al-Qura/Minguo names and restore Gregorian ISO week qualifier. Khalendara attested at https://cfp2.jw-cdn.org/a/dd45e9/1/o/yp1_TN.pdf; Japane/China at https://www.jw.org/tn/basupi-ba-ga-jehofa/ditiro/go-gatisa/dibaebele-go-tswa-japane/. Complete assembled grammar and system/display adaptation remain low confidence; remaining religious/country/national and Hijri variant labels need review."
+  },
+  {
+    "locale": "tn",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Khalendara ya Japane",
+    "reason": "Replace English calendar filler, foreign-language setting and English labels with Setswana; preserve Dangi/Hijri/Umm al-Qura/Minguo names and restore Gregorian ISO week qualifier. Khalendara attested at https://cfp2.jw-cdn.org/a/dd45e9/1/o/yp1_TN.pdf; Japane/China at https://www.jw.org/tn/basupi-ba-ga-jehofa/ditiro/go-gatisa/dibaebele-go-tswa-japane/. Complete assembled grammar and system/display adaptation remain low confidence; remaining religious/country/national and Hijri variant labels need review."
+  },
+  {
+    "locale": "tn",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Khalendara ya Dangi",
+    "reason": "Replace English calendar filler, foreign-language setting and English labels with Setswana; preserve Dangi/Hijri/Umm al-Qura/Minguo names and restore Gregorian ISO week qualifier. Khalendara attested at https://cfp2.jw-cdn.org/a/dd45e9/1/o/yp1_TN.pdf; Japane/China at https://www.jw.org/tn/basupi-ba-ga-jehofa/ditiro/go-gatisa/dibaebele-go-tswa-japane/. Complete assembled grammar and system/display adaptation remain low confidence; remaining religious/country/national and Hijri variant labels need review."
+  },
+  {
+    "locale": "tn",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Khalendara ya Hijri",
+    "reason": "Replace English calendar filler, foreign-language setting and English labels with Setswana; preserve Dangi/Hijri/Umm al-Qura/Minguo names and restore Gregorian ISO week qualifier. Khalendara attested at https://cfp2.jw-cdn.org/a/dd45e9/1/o/yp1_TN.pdf; Japane/China at https://www.jw.org/tn/basupi-ba-ga-jehofa/ditiro/go-gatisa/dibaebele-go-tswa-japane/. Complete assembled grammar and system/display adaptation remain low confidence; remaining religious/country/national and Hijri variant labels need review."
+  },
+  {
+    "locale": "tn",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Khalendara ya Hijri (Umm al-Qura)",
+    "reason": "Replace English calendar filler, foreign-language setting and English labels with Setswana; preserve Dangi/Hijri/Umm al-Qura/Minguo names and restore Gregorian ISO week qualifier. Khalendara attested at https://cfp2.jw-cdn.org/a/dd45e9/1/o/yp1_TN.pdf; Japane/China at https://www.jw.org/tn/basupi-ba-ga-jehofa/ditiro/go-gatisa/dibaebele-go-tswa-japane/. Complete assembled grammar and system/display adaptation remain low confidence; remaining religious/country/national and Hijri variant labels need review."
+  },
+  {
+    "locale": "tn",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Khalendara ya Minguo",
+    "reason": "Replace English calendar filler, foreign-language setting and English labels with Setswana; preserve Dangi/Hijri/Umm al-Qura/Minguo names and restore Gregorian ISO week qualifier. Khalendara attested at https://cfp2.jw-cdn.org/a/dd45e9/1/o/yp1_TN.pdf; Japane/China at https://www.jw.org/tn/basupi-ba-ga-jehofa/ditiro/go-gatisa/dibaebele-go-tswa-japane/. Complete assembled grammar and system/display adaptation remain low confidence; remaining religious/country/national and Hijri variant labels need review."
+  },
+  {
+    "locale": "tn",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "Khalendara ya Gregoriana (dibeke tsa ISO 8601)",
+    "reason": "Replace English calendar filler, foreign-language setting and English labels with Setswana; preserve Dangi/Hijri/Umm al-Qura/Minguo names and restore Gregorian ISO week qualifier. Khalendara attested at https://cfp2.jw-cdn.org/a/dd45e9/1/o/yp1_TN.pdf; Japane/China at https://www.jw.org/tn/basupi-ba-ga-jehofa/ditiro/go-gatisa/dibaebele-go-tswa-japane/. Complete assembled grammar and system/display adaptation remain low confidence; remaining religious/country/national and Hijri variant labels need review."
   }
 ]
