@@ -382,5 +382,15 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.doesNotMatch(cache['ve-PP']['send-smtp-test'], /Lähetä|sähköposti|itsellesi/);
   assert.equal(cache['ve-PP'].text, 'Tekst');
   assert.notEqual(cache['ve-PP'].text, 'Teksti');
+  const vepsCalendars = cache['ve-PP'];
+  assert.equal(vepsCalendars['calendar-system-coptic'], "Koptan kalendar'");
+  for (const [key, epoch] of [['calendar-system-islamic-civil', 'rahvahaline aug'], ['calendar-system-islamic-tbla', 'tähtaztedoline aug']]) {
+    assert.match(vepsCalendars[key], /Islaman kalendar'.*Hijri.*tablican abul/);
+    assert.ok(vepsCalendars[key].includes(epoch), `Veps epoch distinction: ${key}`);
+    assert.doesNotMatch(vepsCalendars[key], /Islamic|civil|tabular|astronomical/);
+  }
+  assert.notEqual(vepsCalendars['calendar-system-islamic-civil'], vepsCalendars['calendar-system-islamic-tbla']);
+  assert.match(vepsCalendars['calendar-system-islamic-rgsa'], /Saudan Arabii, kun tarkištelend/);
+  assert.doesNotMatch(vepsCalendars['calendar-system-islamic-rgsa'], /Saudi Arabia|Islamic/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

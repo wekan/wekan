@@ -113188,5 +113188,33 @@
     "before": "Teksti",
     "after": "Tekst",
     "reason": "Replace Finnish Teksti with native Veps Tekst, attested by MediaWiki viewsourceold/viewsourcelink and other source-text messages. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Koptan kalendar'",
+    "reason": "Replace English calendar name with Veps; preserve Hijri tabular/civil/astronomical and Saudi moon-observation distinctions. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries гражданский (rahvahaline), таблица (tablic), наблюдение (tarkištelend), астрономический (tähtaztedoline), начало (aug), месяц/луна (ku), календарь (kalendar’). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://vep.wikipedia.org/wiki/Saudan_Arabii. Low confidence: composed calendar labels, epoch expressed as aug (origin), and adapted Coptic proper name require fluent terminology review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Islaman kalendar' (Hijri, tablican abul, rahvahaline aug)",
+    "reason": "Replace English calendar name with Veps; preserve Hijri tabular/civil/astronomical and Saudi moon-observation distinctions. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries гражданский (rahvahaline), таблица (tablic), наблюдение (tarkištelend), астрономический (tähtaztedoline), начало (aug), месяц/луна (ku), календарь (kalendar’). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://vep.wikipedia.org/wiki/Saudan_Arabii. Low confidence: composed calendar labels, epoch expressed as aug (origin), and adapted Coptic proper name require fluent terminology review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Islaman kalendar' (Hijri, Saudan Arabii, kun tarkištelend)",
+    "reason": "Replace English calendar name with Veps; preserve Hijri tabular/civil/astronomical and Saudi moon-observation distinctions. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries гражданский (rahvahaline), таблица (tablic), наблюдение (tarkištelend), астрономический (tähtaztedoline), начало (aug), месяц/луна (ku), календарь (kalendar’). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://vep.wikipedia.org/wiki/Saudan_Arabii. Low confidence: composed calendar labels, epoch expressed as aug (origin), and adapted Coptic proper name require fluent terminology review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Islaman kalendar' (Hijri, tablican abul, tähtaztedoline aug)",
+    "reason": "Replace English calendar name with Veps; preserve Hijri tabular/civil/astronomical and Saudi moon-observation distinctions. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007), entries гражданский (rahvahaline), таблица (tablic), наблюдение (tarkištelend), астрономический (tähtaztedoline), начало (aug), месяц/луна (ku), календарь (kalendar’). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://vep.wikipedia.org/wiki/Saudan_Arabii. Low confidence: composed calendar labels, epoch expressed as aug (origin), and adapted Coptic proper name require fluent terminology review."
   }
 ]
