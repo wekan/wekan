@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 14,651 |
+| Corrected | 14,670 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 1,193 |
+| Pending review or repair | 1,174 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,388** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,427** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-13**, local commit `6d8c63866` — repaired **two** unflagged Veps activity/notification labels containing Finnish, using native action and dictionary notification vocabulary. All **16,388** exact correction records and actual locale-rendering regressions pass. Previous batch `ad1ebcca9` repaired/refined **32** activity/rule values and resolved **16** original findings, including all malformed `ližadud` participles (`ližatud` is confirmed). **Low confidence:** composed kanban/notification wording and UI inflections need fluent-speaker review. Veps still has **452** pending original findings; the original-category counts remain unchanged by this unflagged batch. Translation repairs remain active, including restored/unflagged and wrong-language/script validation.
+Latest translation fix: **2026-09-13**, local commit `9889016d7` — repaired **39** Veps date controls, rules, activity messages and reminders, resolving **19** original findings. Replace Finnish and Finnish/Venda mixtures using reference date/time/deadline/reminder vocabulary; preserve received/start/due/end meanings, set-or-change rules, old/new times, approaching/current/overdue states and all placeholders. All **16,427** exact correction records and actual underscore/sprintf rendering checks pass. Previous unflagged activity labels were repaired in `6d8c63866`; malformed added participles were repaired in `ad1ebcca9`. **Low confidence:** composed UI phrasing and inflections need fluent-speaker review. Veps has **433** pending original findings. Translation repairs remain active, including restored/unflagged and wrong-language/script validation.
 
 **Build interruption (2026-09-13):** local commit `6cd193879` repairs the Meteor 3.6/Rspack 2 build's undeclared body-parser import using Meteor's existing Express parsers. Seven HTTP/build regressions pass. Meteor 3.6-beta.0/Rspack 2.2 and matching Docker metadata are committed locally (`35082f7d7`), and both previously failing version checks pass. All **1,015** Node suites pass. The actual Meteor bundle build remains under verification: the local beta tool is still starting before compilation. Translation counts and the latest translation commit remain unchanged.
 

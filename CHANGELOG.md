@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 14,651 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 1,193 pending review or repair.
-The correction inventory records 16,388 exact before/after values,
+findings: 14,670 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 1,174 pending review or repair.
+The correction inventory records 16,427 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -1139,6 +1139,21 @@ verification; the local tool is still starting before compilation.
 and updates maintainer tooling:
 
 **Maintenance scripts** - explicit translation uploads and repository mirrors.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9889016d7">Repair Veps date changes and reminders</a>. Thanks to xet7.</summary>
+
+Repair 39 date controls, rules, activity and reminder values, resolving
+19 original findings. Replace Finnish and Finnish/Venda mixtures with
+reference Veps vocabulary. Preserve received/start/due/end distinctions,
+set-or-change conditions, old/new times and reminder states. Actual locale
+underscore/sprintf rendering and negative language checks pass, along with
+all 16,427 exact correction records. Composed UI wording needs further
+fluent-speaker review. There are 14,670 corrected and 1,174 pending original
+findings, including 433 Veps and 595 Standard Moroccan Tamazight findings.
+Restored and unflagged validation remains outstanding; repairs continue.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6d8c63866">Repair Veps activity and notification labels</a>. Thanks to xet7.</summary>
