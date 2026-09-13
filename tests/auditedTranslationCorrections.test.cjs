@@ -2494,5 +2494,10 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     assert.doesNotMatch(value, /Fars|Persian/);
     assert.notEqual(translator.t('calendar-system-jalali'), translator.t('calendar-system-islamic'));
   }
+  const eweCalendar = require('i18next').createInstance();
+  await eweCalendar.init({ lng: 'ee', fallbackLng: false, keySeparator: false, resources: { ee: { translation: cache.ee } } });
+  assert.equal(eweCalendar.t('calendar-system-islamic-civil'), 'islam subɔlawo ƒe sivil kalenda');
+  assert.doesNotMatch(eweCalendar.t('calendar-system-islamic-civil'), /Islamic civil/);
+  assert.notEqual(eweCalendar.t('calendar-system-islamic-civil'), eweCalendar.t('calendar-system-islamic'));
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

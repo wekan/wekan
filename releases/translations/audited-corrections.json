@@ -119838,5 +119838,12 @@
     "before": "Jalali (Fars)",
     "after": "Jalali kalandiriye (perisanikan)",
     "reason": "Replace ambiguous Fars qualifier with locale-specific Persian language name from Unicode CLDR bm.xml language fa, reusing existing calendar noun and retaining Jalali proper name. https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bm.xml Technical calendar-name composition needs native review."
+  },
+  {
+    "locale": "ee",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "islam subɔlawo ƒe sivil kalenda",
+    "reason": "Use Unicode CLDR Ewe calendar type islamic-civil instead of English Islamic civil. The locale-specific civil calendar name distinguishes the civil calendar identifier from other Hijri variants. https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/ee.xml CLDR marks this translation provisional, so native review remains required."
   }
 ]
