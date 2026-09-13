@@ -85524,5 +85524,61 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "Hijri kalandiriye (Arabiya Sawudiya, kalo yeli)",
     "reason": "Replace English national calendar and Saudi Islamic labels with Bambara; restore national distinction, Hijri identity and moon-sighting detail. Ɛndujamana and Arabiya Sawudiya country names attested in https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bm.xml ; jamana ka national construction in indexed https://mooreburkina.com/sites/www.mooreburkina.com/files/pdf-files/Bambara%20Lexicon.pdf (full PDF fetch failed due size); kalo moon attested at https://doniso.eu/dictionnaire-bambara-francais . Assembled national description and derived yeli sighting grammar remain low confidence; religious and tabular epoch labels remain pending."
+  },
+  {
+    "locale": "bo",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "ལོ་ཐོའི་ལམ་ལུགས། (ཚེས་གྲངས་སྟོན་པ།)",
+    "reason": "Replace foreign setting and English calendar labels with Tibetan descriptions using existing ལོ་ཐོ / ཚེས་གྲངས / བདུན་ཕྲག terminology. Preserve Dangi/Hijri/Umm al-Qura/Minguo/ISO identities and restore Gregorian ISO week distinction; retain Gregorian identifier pending stronger transliteration evidence. Tibetan Japanese ཉི་ཧོང supported by Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bo.xml . Complete assembled grammar remains low confidence; religious/country and Hijri variant labels still need review."
+  },
+  {
+    "locale": "bo",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "རྒྱ་ནག་གི་ལོ་ཐོ།",
+    "reason": "Replace foreign setting and English calendar labels with Tibetan descriptions using existing ལོ་ཐོ / ཚེས་གྲངས / བདུན་ཕྲག terminology. Preserve Dangi/Hijri/Umm al-Qura/Minguo/ISO identities and restore Gregorian ISO week distinction; retain Gregorian identifier pending stronger transliteration evidence. Tibetan Japanese ཉི་ཧོང supported by Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bo.xml . Complete assembled grammar remains low confidence; religious/country and Hijri variant labels still need review."
+  },
+  {
+    "locale": "bo",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "ཉི་ཧོང་གི་ལོ་ཐོ།",
+    "reason": "Replace foreign setting and English calendar labels with Tibetan descriptions using existing ལོ་ཐོ / ཚེས་གྲངས / བདུན་ཕྲག terminology. Preserve Dangi/Hijri/Umm al-Qura/Minguo/ISO identities and restore Gregorian ISO week distinction; retain Gregorian identifier pending stronger transliteration evidence. Tibetan Japanese ཉི་ཧོང supported by Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bo.xml . Complete assembled grammar remains low confidence; religious/country and Hijri variant labels still need review."
+  },
+  {
+    "locale": "bo",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Dangi ལོ་ཐོ།",
+    "reason": "Replace foreign setting and English calendar labels with Tibetan descriptions using existing ལོ་ཐོ / ཚེས་གྲངས / བདུན་ཕྲག terminology. Preserve Dangi/Hijri/Umm al-Qura/Minguo/ISO identities and restore Gregorian ISO week distinction; retain Gregorian identifier pending stronger transliteration evidence. Tibetan Japanese ཉི་ཧོང supported by Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bo.xml . Complete assembled grammar remains low confidence; religious/country and Hijri variant labels still need review."
+  },
+  {
+    "locale": "bo",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Hijri ལོ་ཐོ།",
+    "reason": "Replace foreign setting and English calendar labels with Tibetan descriptions using existing ལོ་ཐོ / ཚེས་གྲངས / བདུན་ཕྲག terminology. Preserve Dangi/Hijri/Umm al-Qura/Minguo/ISO identities and restore Gregorian ISO week distinction; retain Gregorian identifier pending stronger transliteration evidence. Tibetan Japanese ཉི་ཧོང supported by Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bo.xml . Complete assembled grammar remains low confidence; religious/country and Hijri variant labels still need review."
+  },
+  {
+    "locale": "bo",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Hijri ལོ་ཐོ། (Umm al-Qura)",
+    "reason": "Replace foreign setting and English calendar labels with Tibetan descriptions using existing ལོ་ཐོ / ཚེས་གྲངས / བདུན་ཕྲག terminology. Preserve Dangi/Hijri/Umm al-Qura/Minguo/ISO identities and restore Gregorian ISO week distinction; retain Gregorian identifier pending stronger transliteration evidence. Tibetan Japanese ཉི་ཧོང supported by Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bo.xml . Complete assembled grammar remains low confidence; religious/country and Hijri variant labels still need review."
+  },
+  {
+    "locale": "bo",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Minguo ལོ་ཐོ།",
+    "reason": "Replace foreign setting and English calendar labels with Tibetan descriptions using existing ལོ་ཐོ / ཚེས་གྲངས / བདུན་ཕྲག terminology. Preserve Dangi/Hijri/Umm al-Qura/Minguo/ISO identities and restore Gregorian ISO week distinction; retain Gregorian identifier pending stronger transliteration evidence. Tibetan Japanese ཉི་ཧོང supported by Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bo.xml . Complete assembled grammar remains low confidence; religious/country and Hijri variant labels still need review."
+  },
+  {
+    "locale": "bo",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "Gregoriana ལོ་ཐོ། (ISO 8601 བདུན་ཕྲག)",
+    "reason": "Replace foreign setting and English calendar labels with Tibetan descriptions using existing ལོ་ཐོ / ཚེས་གྲངས / བདུན་ཕྲག terminology. Preserve Dangi/Hijri/Umm al-Qura/Minguo/ISO identities and restore Gregorian ISO week distinction; retain Gregorian identifier pending stronger transliteration evidence. Tibetan Japanese ཉི་ཧོང supported by Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bo.xml . Complete assembled grammar remains low confidence; religious/country and Hijri variant labels still need review."
   }
 ]
