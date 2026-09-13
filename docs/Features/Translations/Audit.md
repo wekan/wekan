@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,926 |
+| Corrected | 11,927 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,920 |
+| Pending review or repair | 3,919 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,316** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,317** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `4c24a8fa834ec174096235d70acf30636ab5dad3` — Northern Sami Indian national calendar label repaired using documented national/calendar vocabulary and the CLDR country name. Assembled wording remains low confidence. Exact-value, token, JSON-example, key-order and idempotency checks pass; native-speaker and browser verification remain unavailable.
+Latest translation fix: **2026-09-13**, local commit `b135afe465cde9762987731f99014eced981326a` — Northern Sami Coptic calendar label repaired using indexed [national library adjective terminology](https://finto.fi/yso/fi/page/p937). Full page returned HTTP 403; assembled wording remains low confidence. Exact-value, token, JSON-example, key-order and idempotency checks pass; native-speaker and browser verification remain unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending because available evidence does not distinguish its wording sufficiently from Polish.
 
