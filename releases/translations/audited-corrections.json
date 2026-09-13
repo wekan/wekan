@@ -79770,5 +79770,54 @@
     "before": "requis",
     "after": "bi ñu soxla",
     "reason": "Replace French export attachment metadata and disk-space qualifiers with Wolof. Reuse fiise/yeb/Réyaay vocabulary; distinguish uploader from upload time and retain image preview meaning. Free disk space means available space, not gratuit (no price). Existing Xeet file type retained. Preview/space terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "export-card-pdf",
+    "before": "Exporter la carte en PDF",
+    "after": "Génne karta bi ci PDF",
+    "reason": "Replace French card export controls and field-group labels with Wolof, reusing existing Génne export term. Preserve PDF/Excel names, creator/owner/member/assignee roles, board/list/swimlane and all five date categories. Disk-space failure refers to insufficient available storage. Technical adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "export-card-excel",
+    "before": "Exporter la carte vers Excel",
+    "after": "Génne karta bi ci Excel",
+    "reason": "Replace French card export controls and field-group labels with Wolof, reusing existing Génne export term. Preserve PDF/Excel names, creator/owner/member/assignee roles, board/list/swimlane and all five date categories. Disk-space failure refers to insufficient available storage. Technical adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "export-card-excel-fields",
+    "before": "Sélectionnez les champs à inclure dans l'export Excel :",
+    "after": "Tànnal wàll yi ñuy boole ci génneg Excel:",
+    "reason": "Replace French card export controls and field-group labels with Wolof, reusing existing Génne export term. Preserve PDF/Excel names, creator/owner/member/assignee roles, board/list/swimlane and all five date categories. Disk-space failure refers to insufficient available storage. Technical adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "export-card-field-people",
+    "before": "Personnes (Créateur, Propriétaire, Participants, Intervenants)",
+    "after": "Nit ñi (Ki ko sos, Boroom bi, Bokkkat yi, Ñi ñu sas)",
+    "reason": "Replace French card export controls and field-group labels with Wolof, reusing existing Génne export term. Preserve PDF/Excel names, creator/owner/member/assignee roles, board/list/swimlane and all five date categories. Disk-space failure refers to insufficient available storage. Technical adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "export-card-field-board-info",
+    "before": "Informations du tableau (Tableau, Liste, Couloir)",
+    "after": "Xibaari tablo bi (Tablo, Limu, Yoon)",
+    "reason": "Replace French card export controls and field-group labels with Wolof, reusing existing Génne export term. Preserve PDF/Excel names, creator/owner/member/assignee roles, board/list/swimlane and all five date categories. Disk-space failure refers to insufficient available storage. Technical adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "export-card-field-dates",
+    "before": "Dates (Création, Réception, Début, Échéance, Fin)",
+    "after": "Bis yi (Sos, Jot, Tambali, Bi ñu war a jeexal, Jeex)",
+    "reason": "Replace French card export controls and field-group labels with Wolof, reusing existing Génne export term. Preserve PDF/Excel names, creator/owner/member/assignee roles, board/list/swimlane and all five date categories. Disk-space failure refers to insufficient available storage. Technical adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "export-card-excel-no-disk-space",
+    "before": "Impossible d'exporter vers Excel : espace disque insuffisant",
+    "after": "Mëneesul génne ci Excel: barab bu féex ci disk bi doyul",
+    "reason": "Replace French card export controls and field-group labels with Wolof, reusing existing Génne export term. Preserve PDF/Excel names, creator/owner/member/assignee roles, board/list/swimlane and all five date categories. Disk-space failure refers to insufficient available storage. Technical adaptations and full grammar remain low confidence."
   }
 ]
