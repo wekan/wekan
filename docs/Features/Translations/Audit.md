@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,621 |
+| Corrected | 11,629 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,225 |
+| Pending review or repair | 4,217 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,968** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,976** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `60090ccb2a37cad2a961847ffd8d88c16eee6ba5` — Acehnese reactivity-mode framing revised while preserving changeStreams/oplog/polling. Existing reaktivitas technical loan remains low confidence; service-account credentials remain pending dictionary review. Wolof still needs composed-rule/loan/unflagged-value review despite zero original pending flags. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `0628c381efd638f92796135f18834f112463247f` — 8 Turkish/English calendar labels replaced with Waray in wa-RR, whose registry name is Waray-Waray. Proper calendar names and Ethiopian/Japanese/Hijri meanings are preserved. Full grammar remains low confidence. Wolof composed-rule/loan/unflagged review and Acehnese credentials remain outstanding. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
