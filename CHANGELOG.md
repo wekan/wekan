@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 14,911 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 933 pending review or repair.
-The correction inventory records 16,882 exact before/after values,
+findings: 15,015 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 829 pending review or repair.
+The correction inventory records 17,042 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original finding queues remain in Veps (192) and Standard Moroccan
+The largest original finding queues remain in Veps (88) and Standard Moroccan
 Tamazight (595). Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -99,12 +99,11 @@ Transifex: the evidence includes 4,061 pulled changes and 16,020 additional
 local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
-changes are implemented in local commit 02383540a; translation repairs have resumed. Latest translation fix is a0048dafd,
-covering comment labels and localized comment searches;
-progress counts are updated above.
-All correction/rendering checks pass. Latest full Node verification before
-that batch: 1,015 suites, zero failures;
-the final mirror retry adjustment also passes its targeted regression.
+changes are implemented in local commit 02383540a; translation repairs have resumed.
+Latest translation fix is e7b7cc760 (2026-09-14), covering eleven Veps heap
+metric labels and allocation/debug meanings. All correction/rendering checks
+pass; low-confidence technical terminology remains explicitly tracked.
+The 1,015-suite Node result is historical and predates the latest batches.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -1257,6 +1256,18 @@ preparation uses the same reporting. Offline positive and negative fixtures
 verify immediate output, periodic progress and failure propagation; build-menu
 parity and release workflow checks pass. A full Meteor build was not rerun
 for this change.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e7b7cc760">Repair Veps heap metric labels and allocation meanings</a>. Thanks to xet7.</summary>
+
+Replace eleven Finnish heap labels, resolving nine original findings and two
+unflagged errors. Peak malloc allocation is distinct from erroneous memory;
+--zap_code_space indicates debug memory overwriting rather than collection.
+Actual localized rendering and all 17,042 correction regressions pass.
+Technical compounds and inflection need fluent review. The original queue has
+829 pending findings; restored and unflagged values still require validation.
 
 </details>
 
