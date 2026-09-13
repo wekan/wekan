@@ -66834,5 +66834,89 @@
     "before": "Collez ici les données JSON valides",
     "after": "Pegit ho roadennoù JSON talvoudek amañ",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "import-map-members",
+    "before": "Assigner des participants",
+    "after": "Lakaat an izili da glotañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "import-show-user-mapping",
+    "before": "Contrôler l'assignation des participants",
+    "after": "Gwiriañ klotadur an izili",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "importMapMembersAddPopup-title",
+    "before": "Sélectionner le participant",
+    "after": "Diuzañ un ezel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "invalid-file",
+    "before": "Si le nom de fichier est invalide, le téléchargement ou le renommage sera annulé.",
+    "after": "Ma’z eo didalvoudek anv ar restr, e vez nullet an enkargañ pe an adenvel.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "invite-people-error",
+    "before": "Une erreur s'est produite lors de l'envoi de l'invitation à s'enregistrer",
+    "after": "Ur fazi zo bet en ur gas ar bedadenn da enskrivañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "invite-people-success",
+    "before": "Invitation à s'enregistrer envoyée avec succès",
+    "after": "Kaset eo bet ar bedadenn da enskrivañ gant berzh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "keyboard-shortcuts-disabled",
+    "before": "Raccourcis clavier désactivés. Cliquer pour activer.",
+    "after": "Diweredekaet eo ar berradennoù klavier. Klikit evit gweredekaat.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "keyboard-shortcuts-enabled",
+    "before": "Raccourcis clavier activés. Cliquer pour désactiver.",
+    "after": "Gweredekaet eo ar berradennoù klavier. Klikit evit diweredekaat.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "label-color-not-found",
+    "before": "Étiquette de couleur '%s' non trouvée",
+    "after": "N’eo ket bet kavet al liv tikedenn %s.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "label-delete-pop",
+    "before": "Cette action est irréversible. Elle supprimera cette étiquette de toutes les cartes ainsi que l'historique associé.",
+    "after": "N’haller ket nullañ an ober-mañ. Dilamet e vo an dikedenn-mañ eus an holl gartennoù ha distrujet e vo he istor.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "label-not-found",
+    "before": "Étiquette '%s' non trouvée.",
+    "after": "N’eo ket bet kavet an dikedenn « %s ».",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "last-admin-desc",
+    "before": "Vous ne pouvez pas changer les rôles car il doit y avoir au moins un administrateur.",
+    "after": "Ne c’hallit ket kemmañ ar rolloù rak ret eo kaout ur merour da nebeutañ.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
