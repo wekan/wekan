@@ -51511,5 +51511,61 @@
     "before": "Archiviazione Google Cloud.",
     "after": "Arregistramentu Google Cloud.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-notes-1",
+    "before": "È possibile specificare più operatori.",
+    "after": "Si ponu specificà parechji operatori.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-operator-at",
+    "before": "`__operator_user_abbrev__username` - abbreviazione per `user:<username>`",
+    "after": "`__operator_user_abbrev__username` - forma corta di `user:<username>`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "globalSearch-instructions-operator-status",
+    "before": "`__operator_status__:<status>` - dove *<status>* è uno dei seguenti:",
+    "after": "`__operator_status__:<status>` - induve *<status>* hè unu di i valori seguenti:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "gridfs-move-collectionfs-note",
+    "before": "Per rendere visibili allegati e avatar, spostali da CollectionFS a qualsiasi altro Storage.",
+    "after": "Per rende visibili l’allegati è l’avatar, spiazzate li da CollectionFS versu un altru sistema d’arregistramentu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "impersonationReportTitle",
+    "before": "Report impersonificazione",
+    "after": "Raportu di cunnessione cum’è un altru utilizatore",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "import-board-instruction-asana",
+    "before": "Incolla un JSON di esportazione dei task di Asana ({ \"data\": [...] } dall'esportazione Asana o GET /tasks). I task sono raggruppati in sezioni (memberships); i task completati vanno in Fatto.",
+    "after": "Incollate un export JSON di i compiti Asana ({ \"data\": [...] } da l’export Asana o GET /tasks). I compiti sò ragruppati in sezzioni (memberships); i compiti compii vanu in Compiu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "import-board-instruction-csv",
+    "before": "Incolla in Comma Separated Values (CSV) / Tab Separated Values (TSV) .",
+    "after": "Incollate i vostri valori separati da virgule (CSV) / valori separati da tabulazioni (TSV).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "import-csv-placeholder",
+    "before": "Incolla dei dati CSV/TSV validi qui",
+    "after": "Incollate i vostri dati CSV/TSV validi quì",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
