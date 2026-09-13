@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 9,232 |
+| Corrected | 9,240 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 175 |
-| Pending review or repair | 6,615 |
+| Pending review or repair | 6,607 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **9,307** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **9,315** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `ef2091980a20861ba7ba4e70395e1267a8a4823a` — eight Breton validation, worker-permission and workspace findings repaired; **394 Breton findings remain**. Three-character minimum, username token, restricted worker capabilities and WIP remedies are preserved. Specialized terminology and grammatical wording need language review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `e421a52597347f5988f27f2ddbbd02f91b079eda` — eight Breton Node-memory, storage and spinner findings repaired; **386 Breton findings remain**. Heap garbage overwriting, malloc allocation, context counts and size limits remain distinct. Specialized terminology has low confidence and needs language review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
