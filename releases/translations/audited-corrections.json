@@ -49922,5 +49922,110 @@
     "before": "Regione AWS S3 (es. us-east-1)",
     "after": "Regiun AWS S3 (p.ex. us-east-1)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "s3-region-menu-path",
+    "before": "AWS Console → S3 → Buckets → il tuo bucket → Properties → AWS Region.",
+    "after": "AWS Console → S3 → Buckets → tes bucket → Properties → AWS Region.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "s3-secret-key-placeholder",
+    "before": "Inserisci la secret key S3",
+    "after": "Endateschar la clav secreta S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "s3-ssl-enabled-description",
+    "before": "Usa SSL/TLS per le connessioni S3",
+    "after": "Utilisar SSL/TLS per las connexiuns S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "server-error-troubleshooting",
+    "before": "Invia l'fal generato dal server.\nPer un'installazion snap, esegui: `sudo snap logs wekan.wekan`\nPer un'installazion Docker, esegui: `sudo docker logs wekan-app`",
+    "after": "Trametta per plaschair l’errur generada dal server.\nPer in’installaziun snap, exequescha: `sudo snap logs wekan.wekan`\nPer in’installaziun Docker, exequescha: `sudo docker logs wekan-app`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "setWipLimitPopup-title",
+    "before": "Imposta limite Work In Progress",
+    "after": "Definir la limita WIP",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "settingsTranslationPopup-title",
+    "before": "Rimuovere stringa di traduzione personalizzata?",
+    "after": "Stizzar questa stringa da translaziun persunalisada?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "shortcut-close-dialog",
+    "before": "Chiudi finestra di dialogo",
+    "after": "Serrar la fanestra da dialog",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "shortcut-filter-my-assigned-cards",
+    "before": "Filtro le carte assegnate",
+    "after": "Filtrar las cartas attribuidas a mai",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "shortcut-toggle-filterbar",
+    "before": "Apri/chiudi la barra laterale di filtri",
+    "after": "Avrir/serrar la barra laterala da filters",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "shortcut-toggle-searchbar",
+    "before": "Apri/chiudi la barra laterale di richir",
+    "after": "Avrir/serrar la barra laterala da tschertga",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "skip-to-content",
+    "before": "Vai al contenuto principale",
+    "after": "Ir al cuntegn principal",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "soft-wip-limit",
+    "before": "Limite Work in progress soft",
+    "after": "Limita WIP flexibla",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "sort-boards-custom",
+    "before": "Personalizzato (ordine di trascinamento)",
+    "after": "Persunalisà (urden definì cun trair)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "step-ensure-per-swimlane-lists",
+    "before": "Garantisci liste per swimlane",
+    "after": "Garantir glistas per mintga swimlane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "step-fix-attachment-urls",
+    "before": "Correggi URL degli injuntes",
+    "after": "Curreger ils URLs da las agiuntas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
