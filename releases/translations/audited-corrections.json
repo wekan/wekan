@@ -52666,5 +52666,47 @@
     "before": "creato campo personalizzato/a %s ",
     "after": "à creà l ciamp personalisà %s",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "activity-moved",
+    "before": "ha spostato %s da %s a %s",
+    "after": "à spostà %s da %s a %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "activity-set-customfield",
+    "before": "imposta campo personalizzato '%s' a '%s' in %s",
+    "after": "à metù l ciamp personalisà '%s' a '%s' te %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "add-background-image",
+    "before": "Aggiungere immagine di sfondo",
+    "after": "Ajonté n imagine de sfond",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "add-custom-html-before-body-end",
+    "before": "Aggiunti il codice HTML prima di </body> fine",
+    "after": "Ajonté HTML personalisà dan la fin </body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "admin-announcement-active",
+    "before": "Attiva annunci di sistema",
+    "after": "Anunzia ativa per dut l sistem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "allboards.edit-workspace-icon",
+    "before": "Icona dello spazio di lavoro (markdown)",
+    "after": "Icona dl spazie de laur (markdown)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
