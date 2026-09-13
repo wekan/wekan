@@ -82402,5 +82402,68 @@
     "before": "Bonjour __user__,\n\nPour vérifier votre compte courriel, il suffit de cliquer sur le lien ci-dessous.\n\n__url__\n\nMerci.",
     "after": "Nanga def __user__,\n\nNgir saytu imeelu sa kont, bësal lëkkalekaay bi ci suuf rekk.\n\n__url__\n\nJërëjëf.",
     "reason": "Replace French email messages with Wolof; retain delivery success/failure, invalid address, invitation sender, password reset versus email verification, exact site/user/URL tokens and multiline layout. Email/reset terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-heading",
+    "before": "Instructions de recherche",
+    "after": "Ndigal yi ngir seet",
+    "reason": "Replace French with Wolof; restore explicit OR/any versus AND/all conditions (French optional wording was misleading), preserve literal query examples and argument names, case insensitivity, archive defaults and all-status scope. Search/operator technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-notes-1",
+    "before": "Il est possible d'utiliser plusieurs opérateurs.",
+    "after": "Man nga wax ay operatër yu bari.",
+    "reason": "Replace French with Wolof; restore explicit OR/any versus AND/all conditions (French optional wording was misleading), preserve literal query examples and argument names, case insensitivity, archive defaults and all-status scope. Search/operator technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-notes-2",
+    "before": "Les opérateurs similaires deviennent *optionnels*. Les cartes correspondant à n'importe quelle condition sont retournées.\n`__operator_list__:Disponible __operator_list__:Bloquée` retournera les cartes contenues dans la liste *Disponible* ou dans la liste *Bloquée*.",
+    "after": "Operatër yi niroo dañuy boole ak *OR* (walla). Dinañu wone karta yi dëppoo ak benn ci sart yi.\n`__operator_list__:Available __operator_list__:Blocked` dina wone karta yi nekk ci limu bu tudd *Blocked* walla *Available*.",
+    "reason": "Replace French with Wolof; restore explicit OR/any versus AND/all conditions (French optional wording was misleading), preserve literal query examples and argument names, case insensitivity, archive defaults and all-status scope. Search/operator technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-notes-3",
+    "before": "Les opérateurs différents sont *combinés*. Seules les cartes correspondant à tous les critères sont retournées.  `__operator_list__:Disponible __operator_label__:rouge` ne retourne que les cartes dans la liste *Disponible* avec une étiquette *rouge*.",
+    "after": "Operatër yi wuute dañuy boole ak *AND* (ak). Karta yi dëppoo ak operatër yu wuute yépp rekk lañuy wone. `__operator_list__:Available __operator_label__:red` dina wone karta yi nekk ci limu *Available* te am etiket *red* rekk.",
+    "reason": "Replace French with Wolof; restore explicit OR/any versus AND/all conditions (French optional wording was misleading), preserve literal query examples and argument names, case insensitivity, archive defaults and all-status scope. Search/operator technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-notes-4",
+    "before": "Les recherches textuelles ne sont pas sensibles à la casse.",
+    "after": "Seet mbind du wuute diggante araf yu mag ak araf yu ndaw.",
+    "reason": "Replace French with Wolof; restore explicit OR/any versus AND/all conditions (French optional wording was misleading), preserve literal query examples and argument names, case insensitivity, archive defaults and all-status scope. Search/operator technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-notes-5",
+    "before": "Par défaut, les cartes archivées ne sont pas recherchées.",
+    "after": "Bu ñu tànnul beneen, duñu seet karta yi ñu denc ci àrsiw.",
+    "reason": "Replace French with Wolof; restore explicit OR/any versus AND/all conditions (French optional wording was misleading), preserve literal query examples and argument names, case insensitivity, archive defaults and all-status scope. Search/operator technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-operator-status",
+    "before": "`__operator_status__:<état>` - où *<état>* est l'un des choix suivants :",
+    "after": "`__operator_status__:<status>` - *<status>* mooy benn ci lii:",
+    "reason": "Replace French with Wolof; restore explicit OR/any versus AND/all conditions (French optional wording was misleading), preserve literal query examples and argument names, case insensitivity, archive defaults and all-status scope. Search/operator technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-operator-swimlane",
+    "before": "`__operator_swimlane__:<titre>` - cartes dans les couloirs correspondant au *<titre>* spécifié",
+    "after": "`__operator_swimlane__:<title>` - karta yi nekk ci yoon yi dëppoo ak *<title>* bi ñu wax",
+    "reason": "Replace French with Wolof; restore explicit OR/any versus AND/all conditions (French optional wording was misleading), preserve literal query examples and argument names, case insensitivity, archive defaults and all-status scope. Search/operator technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-status-all",
+    "before": "`__predicate_all__` -  toutes les cartes : archivées et non archivées.",
+    "after": "`__predicate_all__` - karta yépp, yi ñu denc ci àrsiw ak yi ñu dencul",
+    "reason": "Replace French with Wolof; restore explicit OR/any versus AND/all conditions (French optional wording was misleading), preserve literal query examples and argument names, case insensitivity, archive defaults and all-status scope. Search/operator technical terminology and full grammar remain low confidence."
   }
 ]
