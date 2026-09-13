@@ -56124,5 +56124,187 @@
     "before": "imposta campo personalizzato '%s' a '%s' in %s",
     "after": "ha mpustato 'o campo personalizzato '%s' a '%s' dint'a %s",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "add-background-image",
+    "before": "Aggiungere immagine di sfondo",
+    "after": "Aggiunge 'n'immaggine 'e sfondo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "add-custom-html-before-body-end",
+    "before": "Aggiunti il codice HTML prima di </body> fine",
+    "after": "Aggiunge HTML personalizzato primma d'a chiusura </body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "admin-announcement-active",
+    "before": "Attiva annunci di sistema",
+    "after": "Annuncio attivo pe tutto 'o sistema",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "admin-announcement-title",
+    "before": "Annunci dell'Amministratore",
+    "after": "Annuncio 'e ll'amministratore",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "allBoardsChangeBackgroundImagePopup-title",
+    "before": "Modificare immagine di sfondo",
+    "after": "Cagna ll'immaggine 'e sfondo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "almostdue",
+    "before": "la data di scadenza attuale %s si sta avvicinando",
+    "after": "'a scadenza attuale %s s'avvicina",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "already-account",
+    "before": "Hai già un account? Accedi",
+    "after": "Tiene già 'n account? Trase",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "attachment-repair-locations",
+    "before": "Ripara le posizioni dei file",
+    "after": "Accuncia 'e pusizzione d'e file",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "attachment-repair-running",
+    "before": "Ricerca e riparazione in corso…",
+    "after": "Sta cercanno e accuncianno…",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "attachment-transfer-limits-invalid-value",
+    "before": "Inserisci un valore limite positivo valido",
+    "after": "Miette 'n valore limite pusitivo valido",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "attachment-transfer-limits-save-failed",
+    "before": "Impossibile salvare i limiti di trasferimento allegati",
+    "after": "Nun s'è pututo sarvà 'e limite 'e trasferimento d'e allegati",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "attachment-transfer-limits-saved",
+    "before": "Limiti di trasferimento allegati salvati.",
+    "after": "Limite 'e trasferimento d'e allegati sarvate.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "auto-list-width",
+    "before": "Larghezza lista automatica ",
+    "after": "Larghezza autumatica d'a lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "avatar-too-big",
+    "before": "L'avatar è troppo grande (__size__ max)",
+    "after": "Ll'avatar è troppo gruosso (__size__ max)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "azure-account-key-menu-path",
+    "before": "Azure Portal → Storage accounts → il tuo account → Security + networking → Access keys → key1 → Show → Key.",
+    "after": "Azure Portal → Storage accounts → 'o tuojo account → Security + networking → Access keys → key1 → Show → Key.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "azure-blob-storage-description",
+    "before": "Archiviazione Microsoft Azure Blob.",
+    "after": "Memorizzazzione Microsoft Azure Blob.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "azure-connection-string-menu-path",
+    "before": "Azure Portal → Storage accounts → il tuo account → Security + networking → Access keys → key1 → Connection string → Show.",
+    "after": "Azure Portal → Storage accounts → 'o tuojo account → Security + networking → Access keys → key1 → Connection string → Show.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "azure-container-description",
+    "before": "Il container blob in cui memorizzare i file.",
+    "after": "'O cuntenitore blob addó sarvà 'e file.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "background-too-big",
+    "before": "L'immagine di sfondo è troppo grande (Massimo {{size}}).",
+    "after": "Ll'immaggine 'e sfondo è troppo grossa (massimo {{size}}).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "below-selected-swimlane",
+    "before": "Sotto la swimlane selezionata",
+    "after": "Sott'a swimlane scigliuta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "board-background-image-url",
+    "before": "URL dell'immagine di sfondo",
+    "after": "URL 'e ll'immaggine 'e sfondo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "board-change-background-image",
+    "before": "Modificare immagine di sfondo",
+    "after": "Cagna ll'immaggine 'e sfondo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "boardChangeBackgroundImagePopup-title",
+    "before": "Modificare immagine di sfondo",
+    "after": "Cagna ll'immaggine 'e sfondo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "board-status-time-summary",
+    "before": "Riepilogo tempo impiegato",
+    "after": "Riepilogo d'o tiempo aduprato",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "calculate-file-counts",
+    "before": "Calcola il numero di file",
+    "after": "Càlcula 'o nummero 'e file",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "calculating-counts",
+    "before": "Calcolo dei conteggi in corso...",
+    "after": "Sta calculanno 'e cunte...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
