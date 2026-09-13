@@ -285,5 +285,9 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     assert.doesNotMatch(cache['ve-PP'][key], /Tiedosto|Seuraava|Edellinen|Päivitä|Lataa|Lähetä|Koko|Tyyppi/, key);
   }
   assert.notEqual(cache['ve-PP'].download, cache['ve-PP'].upload);
+  assert.equal(cache['ve-PP'].notifications, 'Tedotuzed');
+  assert.equal(cache['ve-PP']['delete-all-notifications'], 'Heitä kaik tedotuzed');
+  assert.equal(cache['ve-PP'].description, 'Kirjutuz');
+  assert.doesNotMatch(cache['ve-PP'].notifications + cache['ve-PP']['delete-all-notifications'] + cache['ve-PP'].description, /Ilmoitukset|ilmoitukset|Poista|Kuvaus/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

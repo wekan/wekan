@@ -112726,5 +112726,26 @@
     "before": "Tyyppi",
     "after": "Tip",
     "reason": "Replace Finnish navigation/file labels with native software terms at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: table_pager_next/prev, uploadstash-refresh, export-download, upload-dialog-button-upload, upload-maxfilesize, filetype-banned; Fail is also the native MediaWiki file namespace. Download uses the explicit save-as-file phrase, distinct from upload; omit unrelated reference nouns in standalone labels."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "notifications",
+    "before": "Ilmoitukset",
+    "after": "Tedotuzed",
+    "reason": "Replace Finnish Ilmoitukset/Poista kaikki ilmoitukset/Kuvaus with Veps. Dictionary https://kaikki.org/dictionary/Veps/index.html attests tedotuz (notice/message) and nominative plural tedotuzed. Native software reference https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Heitä imperative and Kirjutuz description. Preserve all-notifications deletion scope; composed deletion wording needs fluent review. Do not replace uncertain comment borrowings without evidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "delete-all-notifications",
+    "before": "Poista kaikki ilmoitukset",
+    "after": "Heitä kaik tedotuzed",
+    "reason": "Replace Finnish Ilmoitukset/Poista kaikki ilmoitukset/Kuvaus with Veps. Dictionary https://kaikki.org/dictionary/Veps/index.html attests tedotuz (notice/message) and nominative plural tedotuzed. Native software reference https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Heitä imperative and Kirjutuz description. Preserve all-notifications deletion scope; composed deletion wording needs fluent review. Do not replace uncertain comment borrowings without evidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "description",
+    "before": "Kuvaus",
+    "after": "Kirjutuz",
+    "reason": "Replace Finnish Ilmoitukset/Poista kaikki ilmoitukset/Kuvaus with Veps. Dictionary https://kaikki.org/dictionary/Veps/index.html attests tedotuz (notice/message) and nominative plural tedotuzed. Native software reference https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Heitä imperative and Kirjutuz description. Preserve all-notifications deletion scope; composed deletion wording needs fluent review. Do not replace uncertain comment borrowings without evidence."
   }
 ]
