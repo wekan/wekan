@@ -69634,5 +69634,75 @@
     "before": "dipindahkan %s dari %s ke %s",
     "after": "geupindah %s nibak %s u %s",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "activity-changedListTitle",
+    "before": "Namakan semula senarai kepada %s",
+    "after": "geuubah nan senarai jadi %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "activity-checklist-added",
+    "before": "daftar periksa ditambahkan ke %s",
+    "after": "geutamah checklist u %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "activity-delete-attach",
+    "before": "lampiran dihapus daripada %s",
+    "after": "geuhapus lampiran nibak %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "activity-excluded",
+    "before": "tidak termasuk %s dari %s",
+    "after": "geuhapus %s nibak %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "activity-imported",
+    "before": "diimpor %s kedalam %s dari %s",
+    "after": "geuimpor %s u %s nibak %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "activity-set-customfield",
+    "before": "setkan ruang khas '%s' kepada '%s' dalam %s",
+    "after": "geuato ruang khusus '%s' jadi '%s' bak %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "activity-unset-customfield",
+    "before": "nyahset ruang khas '%s' dalam %s",
+    "after": "geuhapus nilai ruang khusus '%s' bak %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "add-background-image",
+    "before": "Tambah latar belakang gambar",
+    "after": "Tamah gamba latar likot",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "add-checklist-item",
+    "before": "Tambahkan hal ke daftar periksa",
+    "after": "Tamah item u checklist",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "allBoardsChangeBackgroundImagePopup-title",
+    "before": "Ubah latar belakang gambar",
+    "after": "Ubah gamba latar likot",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
