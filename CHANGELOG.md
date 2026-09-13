@@ -842,6 +842,29 @@ verification remains in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/db6a92336">Fail incomplete database conformance runs</a>. Thanks to xet7.</summary>
+
+A successful comparison of available results could hide a backend that
+never started. Treat missing images, registry-inspection errors, startup
+failures and catalogue failures as failed coverage, while preserving
+explicit skips for CPU-incompatible images and unrequested SAP HANA.
+Check the source-build exit status before accepting an existing binary.
+Executable regressions cover backend failures, successful supported runs,
+comparison failures, missing summaries and stale binaries after a failed
+build. All 19 conformance wiring checks pass; the live matrix is pending.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/FerretDB/commit/93c4e734">Register vet error-handling regressions in test-all</a>. Thanks to xet7.</summary>
+
+The complete FerretDB test runner executes the shell vet regression before
+running vet on either Go module. All five mocked exit-status scenarios
+pass. Live FerretDB verification remains in progress.
+
+</details>
+
 **Source and test parity** - preserve current behavior and reject real regressions.
 
 <details>
