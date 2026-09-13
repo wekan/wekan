@@ -86154,5 +86154,12 @@
     "before": "Hebrew",
     "after": "ཧེ་བྲུ་ཟླ་ཐོ",
     "reason": "Replace English Hebrew label with Dzongkha ཧེ་བྲུ་ཟླ་ཐོ. Hebrew name is attested in language/script/numeral entries and calendar term ཟླ་ཐོ in https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/dz.xml . Assembled full calendar label remains low confidence; component evidence does not verify full phrase or native grammar."
+  },
+  {
+    "locale": "chr",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "ᎢᏂᏗᎠ ᎠᏰᎵ ᏅᏙ ᏗᏎᏍᏗ",
+    "reason": "Replace English Indian national using Cherokee CLDR Indian calendar display name ᎢᏂᏗᎠ ᎠᏰᎵ and named-calendar wording ᏅᏙ ᏗᏎᏍᏗ in https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/chr.xml . Adapted full label remains low confidence; no native-speaker verification."
   }
 ]
