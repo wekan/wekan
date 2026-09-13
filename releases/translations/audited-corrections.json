@@ -91131,5 +91131,54 @@
     "before": "Définit une limite maximale au nombre de cartes de cette liste",
     "after": "Lonön miedi pro mödot muik bligädas in lised at",
     "reason": "Replace French role, invitation, filter and list/migration setting labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests reidön (read), jonidükön (assign), nomik (normal), logädik (visible), votükön (alter), vüd (invitation), sulön (filter), geilot (measured height), lonön (set), mied (limit), mödot (quantity), muik (maximum) and bligäd (task). Source models/lib/boardRoleCapabilities.js and sidebar role menu confirm assigned-card visibility and no editing for read-only roles; preserve normal role separately. Preserve invitation sender/recipient and exact __inviter__, my assigned cards, measured swimlane height, and maximum task count per list. Swimlane horizontal-part paraphrase and existing migrad borrowing remain low confidence, as does assembled software wording pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "restore-lost-cards-migration",
+    "before": "Restaurer les cartes perdues",
+    "after": "Jonön dönu kadis peperöl",
+    "reason": "Replace French legacy recovery-migration strings with Volapük; server/imports.js documents these migrations were removed, so this changes retained translations only, not migration behavior. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests peperöl (lost), fasilo (easily), sädunön (undo), tuvön (find), jonön (show), ragiv (archive), jafön (create), verätükön (correct), and itjäfidik (automatic). Unarchive is paraphrased as undoing archiving; restore lost items as making them visible again. Preserve swimlaneId/listId/IDs technical names, literal Lost Cards recovery-column name, all swimlanes/lists/cards versus cards/lists, non-archived-only scope, automatic missing-ID repairs and difficult-to-undo warning. Nedabinöl and peragivöl are derived software wording; assembled translations remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "restore-all-archived-migration",
+    "before": "Tout restaurer depuis les archives",
+    "after": "Sädunön ragivi valikas",
+    "reason": "Replace French legacy recovery-migration strings with Volapük; server/imports.js documents these migrations were removed, so this changes retained translations only, not migration behavior. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests peperöl (lost), fasilo (easily), sädunön (undo), tuvön (find), jonön (show), ragiv (archive), jafön (create), verätükön (correct), and itjäfidik (automatic). Unarchive is paraphrased as undoing archiving; restore lost items as making them visible again. Preserve swimlaneId/listId/IDs technical names, literal Lost Cards recovery-column name, all swimlanes/lists/cards versus cards/lists, non-archived-only scope, automatic missing-ID repairs and difficult-to-undo warning. Nedabinöl and peragivöl are derived software wording; assembled translations remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "restore-all-archived-migration-description",
+    "before": "Restaure tous les couloirs, listes et cartes archivés. Corrige automatiquement les swimlaneId ou listId manquants pour rendre les éléments visibles.",
+    "after": "Sädunon ragivi dilas horitätik, lisedas e kadas valik. Itjäfidiko verätükon swimlaneId u listId nedabinöl ad jonön notetis.",
+    "reason": "Replace French legacy recovery-migration strings with Volapük; server/imports.js documents these migrations were removed, so this changes retained translations only, not migration behavior. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests peperöl (lost), fasilo (easily), sädunön (undo), tuvön (find), jonön (show), ragiv (archive), jafön (create), verätükön (correct), and itjäfidik (automatic). Unarchive is paraphrased as undoing archiving; restore lost items as making them visible again. Preserve swimlaneId/listId/IDs technical names, literal Lost Cards recovery-column name, all swimlanes/lists/cards versus cards/lists, non-archived-only scope, automatic missing-ID repairs and difficult-to-undo warning. Nedabinöl and peragivöl are derived software wording; assembled translations remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "restore-lost-cards-migration-description",
+    "before": "Recherche et restaure les cartes et listes avec un swimlaneId ou listId manquant. Crée un couloir 'Cartes perdues' pour rendre tous les éléments perdus à nouveau visibles.",
+    "after": "Tuvon e jonon dönu kadis e lisedis ko swimlaneId u listId nedabinöl. Jafon dili horitätik: 'Lost Cards' ad jonön dönu notetis peperöl valik.",
+    "reason": "Replace French legacy recovery-migration strings with Volapük; server/imports.js documents these migrations were removed, so this changes retained translations only, not migration behavior. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests peperöl (lost), fasilo (easily), sädunön (undo), tuvön (find), jonön (show), ragiv (archive), jafön (create), verätükön (correct), and itjäfidik (automatic). Unarchive is paraphrased as undoing archiving; restore lost items as making them visible again. Preserve swimlaneId/listId/IDs technical names, literal Lost Cards recovery-column name, all swimlanes/lists/cards versus cards/lists, non-archived-only scope, automatic missing-ID repairs and difficult-to-undo warning. Nedabinöl and peragivöl are derived software wording; assembled translations remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "restore-lost-cards-nothing-to-restore",
+    "before": "Aucun couloir, liste ou carte perdu à restaurer",
+    "after": "Dils horitätik, liseds u kads peperöl nonik dabinons ad jonön dönu",
+    "reason": "Replace French legacy recovery-migration strings with Volapük; server/imports.js documents these migrations were removed, so this changes retained translations only, not migration behavior. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests peperöl (lost), fasilo (easily), sädunön (undo), tuvön (find), jonön (show), ragiv (archive), jafön (create), verätükön (correct), and itjäfidik (automatic). Unarchive is paraphrased as undoing archiving; restore lost items as making them visible again. Preserve swimlaneId/listId/IDs technical names, literal Lost Cards recovery-column name, all swimlanes/lists/cards versus cards/lists, non-archived-only scope, automatic missing-ID repairs and difficult-to-undo warning. Nedabinöl and peragivöl are derived software wording; assembled translations remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "run-restore-lost-cards-migration-confirm",
+    "before": "Cette opération créera un couloir « Cartes perdues » et restaurera toutes les cartes et listes avec un swimlaneId ou listId manquant. Cela n'affecte que les éléments non archivés. Continuer ?",
+    "after": "At ojafon dili horitätik: 'Lost Cards' e ojonon dönu kadis e lisedis valik ko swimlaneId u listId nedabinöl. At te votükon notetis no peragivöl. Progedön-li?",
+    "reason": "Replace French legacy recovery-migration strings with Volapük; server/imports.js documents these migrations were removed, so this changes retained translations only, not migration behavior. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests peperöl (lost), fasilo (easily), sädunön (undo), tuvön (find), jonön (show), ragiv (archive), jafön (create), verätükön (correct), and itjäfidik (automatic). Unarchive is paraphrased as undoing archiving; restore lost items as making them visible again. Preserve swimlaneId/listId/IDs technical names, literal Lost Cards recovery-column name, all swimlanes/lists/cards versus cards/lists, non-archived-only scope, automatic missing-ID repairs and difficult-to-undo warning. Nedabinöl and peragivöl are derived software wording; assembled translations remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "run-restore-all-archived-migration-confirm",
+    "before": "Cette opération restaurera TOUS les couloirs, listes et cartes archivés, les rendant à nouveau visibles. Les éléments avec des identifiants manquants seront automatiquement corrigés. Cette action ne peut pas être facilement annulée. Continuer ?",
+    "after": "At osädunon ragivi dilas horitätik, lisedas e kadas VALIK, e ojonon onis dönu. Notets ko IDs nedabinöl itjäfidiko peverätükons. No kanoy fasilo sädunön atosi. Progedön-li?",
+    "reason": "Replace French legacy recovery-migration strings with Volapük; server/imports.js documents these migrations were removed, so this changes retained translations only, not migration behavior. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests peperöl (lost), fasilo (easily), sädunön (undo), tuvön (find), jonön (show), ragiv (archive), jafön (create), verätükön (correct), and itjäfidik (automatic). Unarchive is paraphrased as undoing archiving; restore lost items as making them visible again. Preserve swimlaneId/listId/IDs technical names, literal Lost Cards recovery-column name, all swimlanes/lists/cards versus cards/lists, non-archived-only scope, automatic missing-ID repairs and difficult-to-undo warning. Nedabinöl and peragivöl are derived software wording; assembled translations remain low confidence pending native review."
   }
 ]
