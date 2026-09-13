@@ -74940,5 +74940,187 @@
     "before": "Une ligne de texte = un élément de la check-list",
     "after": "Ene roye di tecse = on cayet del djivêye di verifiaedje",
     "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "r-d-move-to-bottom-gen",
+    "before": "Déplacer la carte en bas de sa liste",
+    "after": "Bodjî l' cåte al valeye di si djivêye",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "Déplacer la carte en bas de la liste",
+    "after": "Bodjî l' cåte al valeye del djivêye",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "r-d-move-to-top-gen",
+    "before": "Déplacer la carte en haut de sa liste",
+    "after": "Bodjî l' cåte al copete di si djivêye",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "r-d-move-to-top-spec",
+    "before": "Déplacer la carte en haut de la liste",
+    "after": "Bodjî l' cåte al copete del djivêye",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "r-d-remove-all-member",
+    "before": "Supprimer tous les participants",
+    "after": "Oister tos les mimbes",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "r-remove-all",
+    "before": "Supprimer tous les membres de la carte",
+    "after": "Oister tos les mimbes del cåte",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "r-when-a-card-is-moved",
+    "before": "Quand une carte est déplacée vers une autre liste",
+    "after": "Cwand ene cåte est bodjeye dins ene ôte djivêye",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "r-when-a-item",
+    "before": "Quand un élément de la checklist est",
+    "after": "Cwand on cayet del djivêye di verifiaedje est",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "r-when-the-item",
+    "before": "Quand l'élément de la checklist",
+    "after": "Cwand li cayet del djivêye di verifiaedje",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "r-board-note",
+    "before": "Note : laisser le champ vide pour correspondre à toutes les valeurs possibles.",
+    "after": "Asteme: leyî on tchamp vude po corespondre a totes les valixhances possibes. ",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "r-checklist-note",
+    "before": "Note : les items de la checklist doivent être séparés par des virgules.",
+    "after": "Asteme: les cayets del djivêye di verifiaedje divèt esse sicrîts come des valixhances séparêyes pa des virgules.",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "r-new-rule-name",
+    "before": "Titre de la nouvelle règle",
+    "after": "Tite del novele rîle",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "swimlaneAddPopup-title",
+    "before": "Ajouter un couloir en dessous",
+    "after": "Radjouter on coridôr pa dzo",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "workspace-settings",
+    "before": "Paramètres de l'espace de travail",
+    "after": "Apontiaedjes di l' espåce di bouye",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "workspaceActionsPopup-title",
+    "before": "Paramètres de l'espace de travail",
+    "after": "Apontiaedjes di l' espåce di bouye",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "user-can-not-export-card-to-pdf",
+    "before": "L'utilisateur ne peut pas exporter de carte en PDF",
+    "after": "L' uzeu ni pout nén ebaguer l' cåte viè PDF",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "user-exists",
+    "before": "L'utilisateur existe déjà",
+    "after": "L' uzeu egzistêye dedja",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "user-username-not-found",
+    "before": "Utilisateur '%s' non trouvé.",
+    "after": "Li no d' uzeu '%s' n' a nén stî trové.",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "username-too-short",
+    "before": "Le nom d'utilisateur doit comporter au moins 3 caractères",
+    "after": "Li no d' uzeu doet aveur å moens 3 caracteres",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "wipLimitErrorPopup-dialog-pt2",
+    "before": "Veuillez enlever des cartes de cette liste, ou définir une limite WIP plus importante.",
+    "after": "Bodjîz sacwantès bouyes foû di cisse djivêye ci, ou definixhoz ene limite WIP pus hôte.",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "watching-info",
+    "before": "Vous serez notifié de toute modification dans ce tableau",
+    "after": "Vos rçuvoz ene notifiaedje po tot candjmint di ci tåvlea ci",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "muted-info",
+    "before": "Vous ne serez jamais averti des modifications effectuées dans ce tableau",
+    "after": "Vos n' rçuvoz måy d' notifiaedje po les candjmints di ci tåvlea ci",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "above-selected-card",
+    "before": "Au-dessus de la carte sélectionnée",
+    "after": "Pa dzeu l' cåte tchoezeye",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "above-selected-swimlane",
+    "before": "Au-dessus du couloir sélectionné",
+    "after": "Pa dzeu l' coridôr tchoezi",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "to-create-organizations-contact-admin",
+    "before": "Pour créer des organisations, veuillez contacter l'administrateur.",
+    "after": "Po askepyî des organizåcions, atôtchîz l' manaedjeu.",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "to-create-teams-contact-admin",
+    "before": "Pour créer des équipes, veuillez contacter l'administrateur.",
+    "after": "Po askepyî des ekipes, atôtchîz l' manaedjeu.",
+    "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
   }
 ]
