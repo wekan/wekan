@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,341 |
+| Corrected | 11,348 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,505 |
+| Pending review or repair | 4,498 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,666** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,673** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `6d3042194a04430b972d9bf705391d2dbc8f77ae` — 5 French invitation/access descriptions replaced with Wolof. Invitation tokens and line breaks, public link/search visibility and member-only editing, and private member-only viewing/editing are preserved. Full grammar and technical invitation/link/search terminology remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `98cf839392bf2bb21ace1cf520d7e38f7c71b65a` — 7 French board navigation/search messages replaced with Wolof: drag/drop, starred shortcut, private/public/organization search, automatic domain-based membership and login error. Literal search operators, argument examples and Markdown are preserved. Technical phrasing and full grammar remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
