@@ -82,10 +82,10 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 13,227 corrected, 4,058 restored pre-pull values awaiting
 validation, 178 reviewed and retained, and 2,618 pending review or repair.
-The correction inventory records 14,065 exact before/after values across
+The correction inventory records 14,225 exact before/after values across
 201 locale identifiers, including repairs outside the original findings.
-All 361 originally flagged Klingon findings are repaired. Another 669
-German-identical Klingon values need individual review after 160 further
+All 361 originally flagged Klingon findings are repaired. Another 509
+German-identical Klingon values need individual review after 320 further
 repairs; technical names and
 formats are not presumed wrong. Other substantial queues remain in Venda and regional
 locale files and Tamazight. Silesian database terminology and 17 Tigre
@@ -928,7 +928,8 @@ publications cannot hide it.
 test checks that subscriptions finish switching and failures propagate.
 Regression tests cover fallback precedence, pending choices, board visibility,
 list scoping and publication isolation; the browser test checks shared lists
-in two swimlanes before and after impersonation. Fresh EVERYTHING verification
+in two swimlanes before and after impersonation. The real partial-profile and impersonation browser regression passes in
+Chromium, Firefox and WebKit without retries. Full EVERYTHING verification
 is running against this change.
 
 </details>
@@ -3121,6 +3122,21 @@ key-order, idempotency and newer-translation protection checks pass. Wording is
 low confidence and remains subject to fluent-speaker review. Audit.md and
 TODO Later record 12,956 corrected findings and 2,889 pending, including 271
 Klingon findings.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d51ea2b92">Exclude internal tree refs from local Fossil exports</a>. Thanks to xet7.</summary>
+
+Export branches, tags and remote branches explicitly instead of every Git ref,
+preventing internal checkpoint tree warnings without deleting refs or hiding
+errors. Resolve paths from the script, support filenames with spaces, preserve
+existing repositories and propagate export/import failures. The companion UI
+script and matching Unix/Windows menus are added in <a href="https://github.com/wekan/wekan/commit/35888eedf">the Fossil menu update</a>.
+Positive and negative Git, importer-failure, existing-file and UI path checks
+pass. A real Fossil 2.28 import retains history and the annotated release tag;
+build-menu parity and shell syntax checks pass. Document offline local use in
+[the Fossil guide](docs/DeveloperDocs/Fossil.md).
 
 </details>
 
