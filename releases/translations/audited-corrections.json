@@ -112747,5 +112747,33 @@
     "before": "Kuvaus",
     "after": "Kirjutuz",
     "reason": "Replace Finnish Ilmoitukset/Poista kaikki ilmoitukset/Kuvaus with Veps. Dictionary https://kaikki.org/dictionary/Veps/index.html attests tedotuz (notice/message) and nominative plural tedotuzed. Native software reference https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Heitä imperative and Kirjutuz description. Preserve all-notifications deletion scope; composed deletion wording needs fluent review. Do not replace uncertain comment borrowings without evidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "hours",
+    "before": "tuntia",
+    "after": "časud",
+    "reason": "Replace Finnish time units and lockout-duration text with Veps. Native software reference https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests časud (rcfilters-days-show-hours), minutad (dberr-again), sekundad (timeouterror-text) and piduz' for length/duration. Lockout uses native saubatuz genitive saubatusen. Preserve seconds unit and duration meaning; composed duration label needs fluent review. Preserve existing Veps ZIP warning."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "minutes",
+    "before": "minuuttia",
+    "after": "minutad",
+    "reason": "Replace Finnish time units and lockout-duration text with Veps. Native software reference https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests časud (rcfilters-days-show-hours), minutad (dberr-again), sekundad (timeouterror-text) and piduz' for length/duration. Lockout uses native saubatuz genitive saubatusen. Preserve seconds unit and duration meaning; composed duration label needs fluent review. Preserve existing Veps ZIP warning."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "seconds",
+    "before": "sekuntia",
+    "after": "sekundad",
+    "reason": "Replace Finnish time units and lockout-duration text with Veps. Native software reference https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests časud (rcfilters-days-show-hours), minutad (dberr-again), sekundad (timeouterror-text) and piduz' for length/duration. Lockout uses native saubatuz genitive saubatusen. Preserve seconds unit and duration meaning; composed duration label needs fluent review. Preserve existing Veps ZIP warning."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accounts-lockout-period",
+    "before": "Lukituksen kesto (sekuntia)",
+    "after": "Saubatusen piduz' (sekundad)",
+    "reason": "Replace Finnish time units and lockout-duration text with Veps. Native software reference https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests časud (rcfilters-days-show-hours), minutad (dberr-again), sekundad (timeouterror-text) and piduz' for length/duration. Lockout uses native saubatuz genitive saubatusen. Preserve seconds unit and duration meaning; composed duration label needs fluent review. Preserve existing Veps ZIP warning."
   }
 ]
