@@ -1464,5 +1464,43 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(cache['ve-PP']['org-number'], 'Sebroiden lugu om: ');
   assert.match(cache['ve-PP']['autoAddUsersWithDomainName'], /avtomatižesti domenan nimen mödhe$/);
   assert.match(cache['ve-PP']['team-number'], /Joukuiden lugumär/);
+  const vepsStorageMigrationRepairs = {
+  "move-all-attachments-of-board-to-fs": "Sirdä kaik laudan tartutadud failad failoiden sistemaha",
+  "move-all-attachments-of-board-to-gridfs": "Sirdä kaik laudan tartutadud failad MongoDB GridFS -kaičusehe",
+  "move-all-attachments-of-board-to-s3": "Sirdä kaik laudan tartutadud failad S3 -kaičusehe",
+  "fix-all-file-urls-migration": "Kohenda kaik failoiden URL-adresad",
+  "fix-all-file-urls-migration-description": "Udištab kaik necen laudan tartutadud failoiden URL-adresad oiktan kaičusen sisteman kävutamižen täht da kohendab radmatomad failoiden tarkendused.",
+  "run-fix-all-file-urls-migration-confirm": "Nece udištab kaik necen laudan tartutadud failoiden URL-adresad oiktan kaičusen sisteman kävutamižen täht. Jatkta?",
+  "fix-avatar-urls-migration": "Kohenda avataroiden URL-adresad",
+  "fix-avatar-urls-migration-description": "Udištab laudan ühtnikoiden avataroiden URL-adresad oiktan kaičusen sisteman kävutamižen täht da kohendab radmatomad avataroiden tarkendused.",
+  "run-fix-avatar-urls-migration-confirm": "Nece udištab laudan ühtnikoiden avataroiden URL-adresad oiktan kaičusen sisteman kävutamižen täht. Jatkta?",
+  "step-scan-files": "Kodvidas laudan tartutadud failoid",
+  "step-scan-users": "Kodvidas laudan ühtnikoiden avataroid",
+  "migration-starting": "Zavoditas migracijad...",
+  "migration-pausing": "Azotadas migracijad...",
+  "migration-stopping": "Seižutadas migracijad...",
+  "migration-start-failed": "Migracijoiden zavodamižen viga",
+  "migration-started": "Migracijad oma zavoditud",
+  "migration-not-needed": "Migracijad ei ole tarbhad",
+  "migrations": "Migracijad",
+  "migrations-admin-only": "Vaiše laudan administratorad voiba tehta migracijad",
+  "restore-all-archived-migration": "Endišta kaik arhivaha sirttud azjad"
+};
+  for (const [key, value] of Object.entries(vepsStorageMigrationRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Siirrä kaikki|taulun liitteet|tiedostojärjestelmään|Korjaa kaikki|tiedostojen URL|Päivittää|tiedostoliitteiden|tallennuspalvelinta|rikkinäiset|Jatketaanko|Tarkistetaan|Aloita siirrot|Keskeytetään|Pysäytetään|Siirtojen aloittaminen|Siirrot aloitettu|Ei tarvitse siirtää|Vain taulu|ylläpitäjät|Odota hetki|siirrämme|Palauta kaikki|arkistoidut/i, key);
+  }
+  for (const key of ['move-all-attachments-of-board-to-fs', 'move-all-attachments-of-board-to-gridfs', 'move-all-attachments-of-board-to-s3']) assert.match(cache['ve-PP'][key], /kaik laudan tartutadud failad/);
+  assert.match(cache['ve-PP']['move-all-attachments-of-board-to-fs'], /failoiden sistemaha$/);
+  assert.match(cache['ve-PP']['move-all-attachments-of-board-to-gridfs'], /MongoDB GridFS -kaičusehe$/);
+  assert.match(cache['ve-PP']['move-all-attachments-of-board-to-s3'], /S3 -kaičusehe$/);
+  assert.match(cache['ve-PP']['fix-all-file-urls-migration-description'], /kaik necen laudan.*URL-adresad.*oiktan kaičusen sisteman.*kohendab radmatomad failoiden tarkendused/);
+  assert.match(cache['ve-PP']['fix-avatar-urls-migration-description'], /ühtnikoiden avataroiden.*URL-adresad.*kohendab radmatomad avataroiden tarkendused/);
+  for (const key of ['run-fix-all-file-urls-migration-confirm', 'run-fix-avatar-urls-migration-confirm']) assert.match(cache['ve-PP'][key], /Jatkta\?$/);
+  assert.match(cache['ve-PP']['migrations-admin-only'], /^Vaiše laudan administratorad/);
+  assert.match(cache['ve-PP']['migration-starting'], /^Zavoditas/);
+  assert.match(cache['ve-PP']['migration-pausing'], /^Azotadas/);
+  assert.match(cache['ve-PP']['migration-stopping'], /^Seižutadas/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

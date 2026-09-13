@@ -117241,5 +117241,145 @@
     "before": "Ylläpitäjä",
     "after": "Administrator",
     "reason": "Replace Finnish/Venda organization/team/admin controls with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (team jouk gen joukun part plural joukuid, administrator administrator, community sebr, assignment panend); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests hot’ üks’, ližatud, ozutadud, alemba and Oled-ik. Preserve correct existing organizations Sebrad and org-number Sebroiden lugu om. Keep membership-blocked deletion, irreversible entity deletion versus removal of board assignment, name-already-used errors and domain-name automatic assignment. Search instructions retain exact __operator_org__/__operator_team__, <display name|short name> and *<name>* syntax and board-assigned-to-entity scope. Low confidence: composed organization/assignment grammar and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "move-all-attachments-of-board-to-fs",
+    "before": "Siirrä kaikki taulun liitteet tiedostojärjestelmään",
+    "after": "Sirdä kaik laudan tartutadud failad failoiden sistemaha",
+    "reason": "Replace Finnish board attachment/URL/scan/migration text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (fix kohetta/kohenda, continue jatkata/jatkta, start zavodita, stop seižutada, check kodvda, administrator); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests fail, tarkendus, radmatoi, udištada and Endišta. Reuse reviewed storage terms and preserve board/all-attachment scope, exact MongoDB GridFS/S3/URL backend names, correct storage-backend and broken-reference repair, avatar/member versus file distinctions, confirmation, administrator-only access and start/pause/stop states. Low confidence: composed storage/migration terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "move-all-attachments-of-board-to-gridfs",
+    "before": "Siirrä kaikki taulun liitteet MongoDB GridFS:ään",
+    "after": "Sirdä kaik laudan tartutadud failad MongoDB GridFS -kaičusehe",
+    "reason": "Replace Finnish board attachment/URL/scan/migration text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (fix kohetta/kohenda, continue jatkata/jatkta, start zavodita, stop seižutada, check kodvda, administrator); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests fail, tarkendus, radmatoi, udištada and Endišta. Reuse reviewed storage terms and preserve board/all-attachment scope, exact MongoDB GridFS/S3/URL backend names, correct storage-backend and broken-reference repair, avatar/member versus file distinctions, confirmation, administrator-only access and start/pause/stop states. Low confidence: composed storage/migration terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "move-all-attachments-of-board-to-s3",
+    "before": "Siirrä kaikki taulun liitteet S3:een",
+    "after": "Sirdä kaik laudan tartutadud failad S3 -kaičusehe",
+    "reason": "Replace Finnish board attachment/URL/scan/migration text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (fix kohetta/kohenda, continue jatkata/jatkta, start zavodita, stop seižutada, check kodvda, administrator); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests fail, tarkendus, radmatoi, udištada and Endišta. Reuse reviewed storage terms and preserve board/all-attachment scope, exact MongoDB GridFS/S3/URL backend names, correct storage-backend and broken-reference repair, avatar/member versus file distinctions, confirmation, administrator-only access and start/pause/stop states. Low confidence: composed storage/migration terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "fix-all-file-urls-migration",
+    "before": "Korjaa kaikki tiedostojen URL-osoitteet",
+    "after": "Kohenda kaik failoiden URL-adresad",
+    "reason": "Replace Finnish board attachment/URL/scan/migration text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (fix kohetta/kohenda, continue jatkata/jatkta, start zavodita, stop seižutada, check kodvda, administrator); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests fail, tarkendus, radmatoi, udištada and Endišta. Reuse reviewed storage terms and preserve board/all-attachment scope, exact MongoDB GridFS/S3/URL backend names, correct storage-backend and broken-reference repair, avatar/member versus file distinctions, confirmation, administrator-only access and start/pause/stop states. Low confidence: composed storage/migration terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "fix-all-file-urls-migration-description",
+    "before": "Päivittää kaikkien tällä taululla olevien tiedostoliitteiden URL-osoitteet käyttämään oikeaa tallennuspalvelinta ja korjaa rikkinäiset tiedostoviittaukset.",
+    "after": "Udištab kaik necen laudan tartutadud failoiden URL-adresad oiktan kaičusen sisteman kävutamižen täht da kohendab radmatomad failoiden tarkendused.",
+    "reason": "Replace Finnish board attachment/URL/scan/migration text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (fix kohetta/kohenda, continue jatkata/jatkta, start zavodita, stop seižutada, check kodvda, administrator); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests fail, tarkendus, radmatoi, udištada and Endišta. Reuse reviewed storage terms and preserve board/all-attachment scope, exact MongoDB GridFS/S3/URL backend names, correct storage-backend and broken-reference repair, avatar/member versus file distinctions, confirmation, administrator-only access and start/pause/stop states. Low confidence: composed storage/migration terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "run-fix-all-file-urls-migration-confirm",
+    "before": "Tämä päivittää kaikkien tällä taululla olevien tiedostoliitteiden URL-osoitteet käyttämään oikeaa tallennuspalvelinta. Jatketaanko?",
+    "after": "Nece udištab kaik necen laudan tartutadud failoiden URL-adresad oiktan kaičusen sisteman kävutamižen täht. Jatkta?",
+    "reason": "Replace Finnish board attachment/URL/scan/migration text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (fix kohetta/kohenda, continue jatkata/jatkta, start zavodita, stop seižutada, check kodvda, administrator); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests fail, tarkendus, radmatoi, udištada and Endišta. Reuse reviewed storage terms and preserve board/all-attachment scope, exact MongoDB GridFS/S3/URL backend names, correct storage-backend and broken-reference repair, avatar/member versus file distinctions, confirmation, administrator-only access and start/pause/stop states. Low confidence: composed storage/migration terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "fix-avatar-urls-migration",
+    "before": "Korjaa avatar-URL-osoitteet",
+    "after": "Kohenda avataroiden URL-adresad",
+    "reason": "Replace Finnish board attachment/URL/scan/migration text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (fix kohetta/kohenda, continue jatkata/jatkta, start zavodita, stop seižutada, check kodvda, administrator); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests fail, tarkendus, radmatoi, udištada and Endišta. Reuse reviewed storage terms and preserve board/all-attachment scope, exact MongoDB GridFS/S3/URL backend names, correct storage-backend and broken-reference repair, avatar/member versus file distinctions, confirmation, administrator-only access and start/pause/stop states. Low confidence: composed storage/migration terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "fix-avatar-urls-migration-description",
+    "before": "Päivittää taulun jäsenten avatar-osoitteiden URL-osoitteet oikean tallennustilan käyttämiseksi ja korjaa rikkinäiset avatar-viittaukset.",
+    "after": "Udištab laudan ühtnikoiden avataroiden URL-adresad oiktan kaičusen sisteman kävutamižen täht da kohendab radmatomad avataroiden tarkendused.",
+    "reason": "Replace Finnish board attachment/URL/scan/migration text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (fix kohetta/kohenda, continue jatkata/jatkta, start zavodita, stop seižutada, check kodvda, administrator); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests fail, tarkendus, radmatoi, udištada and Endišta. Reuse reviewed storage terms and preserve board/all-attachment scope, exact MongoDB GridFS/S3/URL backend names, correct storage-backend and broken-reference repair, avatar/member versus file distinctions, confirmation, administrator-only access and start/pause/stop states. Low confidence: composed storage/migration terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "Tämä päivittää taulun jäsenten avatar-URL-osoitteet käyttämään oikeaa tallennustilaa. Jatketaanko?",
+    "after": "Nece udištab laudan ühtnikoiden avataroiden URL-adresad oiktan kaičusen sisteman kävutamižen täht. Jatkta?",
+    "reason": "Replace Finnish board attachment/URL/scan/migration text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (fix kohetta/kohenda, continue jatkata/jatkta, start zavodita, stop seižutada, check kodvda, administrator); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests fail, tarkendus, radmatoi, udištada and Endišta. Reuse reviewed storage terms and preserve board/all-attachment scope, exact MongoDB GridFS/S3/URL backend names, correct storage-backend and broken-reference repair, avatar/member versus file distinctions, confirmation, administrator-only access and start/pause/stop states. Low confidence: composed storage/migration terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "step-scan-files",
+    "before": "Tarkistetaan taulun liitetiedostot",
+    "after": "Kodvidas laudan tartutadud failoid",
+    "reason": "Replace Finnish board attachment/URL/scan/migration text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (fix kohetta/kohenda, continue jatkata/jatkta, start zavodita, stop seižutada, check kodvda, administrator); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests fail, tarkendus, radmatoi, udištada and Endišta. Reuse reviewed storage terms and preserve board/all-attachment scope, exact MongoDB GridFS/S3/URL backend names, correct storage-backend and broken-reference repair, avatar/member versus file distinctions, confirmation, administrator-only access and start/pause/stop states. Low confidence: composed storage/migration terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "step-scan-users",
+    "before": "Tarkistetaan taulun jäsenten avatarit",
+    "after": "Kodvidas laudan ühtnikoiden avataroid",
+    "reason": "Replace Finnish board attachment/URL/scan/migration text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (fix kohetta/kohenda, continue jatkata/jatkta, start zavodita, stop seižutada, check kodvda, administrator); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests fail, tarkendus, radmatoi, udištada and Endišta. Reuse reviewed storage terms and preserve board/all-attachment scope, exact MongoDB GridFS/S3/URL backend names, correct storage-backend and broken-reference repair, avatar/member versus file distinctions, confirmation, administrator-only access and start/pause/stop states. Low confidence: composed storage/migration terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-starting",
+    "before": "Aloita siirrot...",
+    "after": "Zavoditas migracijad...",
+    "reason": "Replace Finnish board attachment/URL/scan/migration text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (fix kohetta/kohenda, continue jatkata/jatkta, start zavodita, stop seižutada, check kodvda, administrator); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests fail, tarkendus, radmatoi, udištada and Endišta. Reuse reviewed storage terms and preserve board/all-attachment scope, exact MongoDB GridFS/S3/URL backend names, correct storage-backend and broken-reference repair, avatar/member versus file distinctions, confirmation, administrator-only access and start/pause/stop states. Low confidence: composed storage/migration terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-pausing",
+    "before": "Keskeytetään siirrot...",
+    "after": "Azotadas migracijad...",
+    "reason": "Replace Finnish board attachment/URL/scan/migration text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (fix kohetta/kohenda, continue jatkata/jatkta, start zavodita, stop seižutada, check kodvda, administrator); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests fail, tarkendus, radmatoi, udištada and Endišta. Reuse reviewed storage terms and preserve board/all-attachment scope, exact MongoDB GridFS/S3/URL backend names, correct storage-backend and broken-reference repair, avatar/member versus file distinctions, confirmation, administrator-only access and start/pause/stop states. Low confidence: composed storage/migration terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-stopping",
+    "before": "Pysäytetään siirrot...",
+    "after": "Seižutadas migracijad...",
+    "reason": "Replace Finnish board attachment/URL/scan/migration text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (fix kohetta/kohenda, continue jatkata/jatkta, start zavodita, stop seižutada, check kodvda, administrator); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests fail, tarkendus, radmatoi, udištada and Endišta. Reuse reviewed storage terms and preserve board/all-attachment scope, exact MongoDB GridFS/S3/URL backend names, correct storage-backend and broken-reference repair, avatar/member versus file distinctions, confirmation, administrator-only access and start/pause/stop states. Low confidence: composed storage/migration terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-start-failed",
+    "before": "Siirtojen aloittaminen epäonnistui",
+    "after": "Migracijoiden zavodamižen viga",
+    "reason": "Replace Finnish board attachment/URL/scan/migration text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (fix kohetta/kohenda, continue jatkata/jatkta, start zavodita, stop seižutada, check kodvda, administrator); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests fail, tarkendus, radmatoi, udištada and Endišta. Reuse reviewed storage terms and preserve board/all-attachment scope, exact MongoDB GridFS/S3/URL backend names, correct storage-backend and broken-reference repair, avatar/member versus file distinctions, confirmation, administrator-only access and start/pause/stop states. Low confidence: composed storage/migration terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-started",
+    "before": "Siirrot aloitettu onnistuneesti",
+    "after": "Migracijad oma zavoditud",
+    "reason": "Replace Finnish board attachment/URL/scan/migration text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (fix kohetta/kohenda, continue jatkata/jatkta, start zavodita, stop seižutada, check kodvda, administrator); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests fail, tarkendus, radmatoi, udištada and Endišta. Reuse reviewed storage terms and preserve board/all-attachment scope, exact MongoDB GridFS/S3/URL backend names, correct storage-backend and broken-reference repair, avatar/member versus file distinctions, confirmation, administrator-only access and start/pause/stop states. Low confidence: composed storage/migration terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-not-needed",
+    "before": "Ei tarvitse siirtää mitään",
+    "after": "Migracijad ei ole tarbhad",
+    "reason": "Replace Finnish board attachment/URL/scan/migration text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (fix kohetta/kohenda, continue jatkata/jatkta, start zavodita, stop seižutada, check kodvda, administrator); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests fail, tarkendus, radmatoi, udištada and Endišta. Reuse reviewed storage terms and preserve board/all-attachment scope, exact MongoDB GridFS/S3/URL backend names, correct storage-backend and broken-reference repair, avatar/member versus file distinctions, confirmation, administrator-only access and start/pause/stop states. Low confidence: composed storage/migration terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migrations",
+    "before": "Siirrot",
+    "after": "Migracijad",
+    "reason": "Replace Finnish board attachment/URL/scan/migration text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (fix kohetta/kohenda, continue jatkata/jatkta, start zavodita, stop seižutada, check kodvda, administrator); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests fail, tarkendus, radmatoi, udištada and Endišta. Reuse reviewed storage terms and preserve board/all-attachment scope, exact MongoDB GridFS/S3/URL backend names, correct storage-backend and broken-reference repair, avatar/member versus file distinctions, confirmation, administrator-only access and start/pause/stop states. Low confidence: composed storage/migration terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migrations-admin-only",
+    "before": "Vain taulu ylläpitäjät voivat suorittaa siirtoja",
+    "after": "Vaiše laudan administratorad voiba tehta migracijad",
+    "reason": "Replace Finnish board attachment/URL/scan/migration text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (fix kohetta/kohenda, continue jatkata/jatkta, start zavodita, stop seižutada, check kodvda, administrator); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests fail, tarkendus, radmatoi, udištada and Endišta. Reuse reviewed storage terms and preserve board/all-attachment scope, exact MongoDB GridFS/S3/URL backend names, correct storage-backend and broken-reference repair, avatar/member versus file distinctions, confirmation, administrator-only access and start/pause/stop states. Low confidence: composed storage/migration terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "restore-all-archived-migration",
+    "before": "Palauta kaikki arkistoidut",
+    "after": "Endišta kaik arhivaha sirttud azjad",
+    "reason": "Replace Finnish board attachment/URL/scan/migration text with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (fix kohetta/kohenda, continue jatkata/jatkta, start zavodita, stop seižutada, check kodvda, administrator); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests fail, tarkendus, radmatoi, udištada and Endišta. Reuse reviewed storage terms and preserve board/all-attachment scope, exact MongoDB GridFS/S3/URL backend names, correct storage-backend and broken-reference repair, avatar/member versus file distinctions, confirmation, administrator-only access and start/pause/stop states. Low confidence: composed storage/migration terminology and inflections require fluent-speaker review."
   }
 ]
