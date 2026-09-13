@@ -103171,5 +103171,61 @@
     "before": "Islamic civil",
     "after": "Khalendara ea Hijri (ho bala ka tafole, letsatsi la qalo la sechaba)",
     "reason": "Replace English calendar name using existing locale calendar terminology. Preserve the Coptic identity and civil epoch distinction. Specialized wording has low confidence and remains open to fluent-speaker review."
+  },
+  {
+    "locale": "rn",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Ikirangamisi c’Ababuda",
+    "reason": "Replace English calendar labels using existing locale terminology. Preserve Buddhist and Coptic identities and distinguish civil from astronomical tabular epochs. Specialized wording is low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "rn",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Ikirangamisi c’Abakopti",
+    "reason": "Replace English calendar labels using existing locale terminology. Preserve Buddhist and Coptic identities and distinguish civil from astronomical tabular epochs. Specialized wording is low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "rn",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Ikirangamisi ca Hijri (imbonerahamwe, intango y’igihe c’abanyagihugu)",
+    "reason": "Replace English calendar labels using existing locale terminology. Preserve Buddhist and Coptic identities and distinguish civil from astronomical tabular epochs. Specialized wording is low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "rn",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Ikirangamisi ca Hijri (imbonerahamwe, intango y’igihe y’inyenyeri)",
+    "reason": "Replace English calendar labels using existing locale terminology. Preserve Buddhist and Coptic identities and distinguish civil from astronomical tabular epochs. Specialized wording is low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "nd",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Ikhalenda yamaBuddha",
+    "reason": "Replace English calendar labels using existing locale terminology. Preserve Buddhist and Coptic identities and distinguish civil from astronomical tabular epochs. Specialized wording is low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "nd",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Ikhalenda yamaCopt",
+    "reason": "Replace English calendar labels using existing locale terminology. Preserve Buddhist and Coptic identities and distinguish civil from astronomical tabular epochs. Specialized wording is low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "nd",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Ikhalenda ye-Hijri (ithebula, isikhathi sokuqala sabantu)",
+    "reason": "Replace English calendar labels using existing locale terminology. Preserve Buddhist and Coptic identities and distinguish civil from astronomical tabular epochs. Specialized wording is low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "nd",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Ikhalenda ye-Hijri (ithebula, isikhathi sokuqala ngokwezinkanyezi)",
+    "reason": "Replace English calendar labels using existing locale terminology. Preserve Buddhist and Coptic identities and distinguish civil from astronomical tabular epochs. Specialized wording is low confidence; fluent-speaker validation outstanding."
   }
 ]
