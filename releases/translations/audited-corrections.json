@@ -105488,5 +105488,117 @@
     "before": "Umsebenzisi akasebenzi - chofoza ukuze wenze kusebenze",
     "after": "Mushumisi ha khou shuma - kiḽikani u mu tendela",
     "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML tags, movement endpoints and active versus inactive user states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "advanced-filter-description",
+    "before": "Isihlungi Esithuthukisiwe sivumela ukubhala iyunithi yezinhlamvu equkethe ama-opharetha alandelayo: == != <= >= && || ( ) Isikhala sisetshenziswa njengesihlukanisi phakathi kwama-Opharetha. Ungakwazi ukuhlunga zonke izinkambu ngokwezifiso ngokuthayipha amagama azo kanye namanani. Isibonelo: Inkundla1 == Inani1. Qaphela: Uma izinkambu noma amanani equkethe izikhala, udinga ukuwahlanganisa zibe izingcaphuno ezizodwa. Isibonelo: 'Inkambu 1' == 'Inani 1'. Ukuze izinhlamvu zokulawula okukodwa (' \\/) zeqiwe, ungasebenzisa \\. Isibonelo: I-Field1 == I\\'m. Futhi ungakwazi ukuhlanganisa izimo eziningi. Isibonelo: F1 == V1 || F1 == V2. Ngokuvamile bonke opharetha bahunyushwa kusukela kwesokunxele kuya kwesokudla. Ungashintsha i-oda ngokubeka amabakaki. Isibonelo: F1 == V1 && ( F2 == V2 || F2 == V3 ). Futhi ungasesha izinkambu zombhalo usebenzisa i-regex: F1 == /Tes.*/i",
+    "after": "U ṱalula ha nṱha hu tendela u ṅwala maipfi a re na ndaela idzi: == != <= >= && || ( ) Tshikhala tshi fhambanya ndaela. Ni nga ṱalula fhethu hoṱhe ha data ho dzudzanywaho nga u ṅwala madzina na ndeme. Sa tsumbo: Field1 == Value1. Ṱhogomelani: Arali fhethu kana ndeme zwi na zwikhala, zwi vheeni vhukati ha zwiga zwa khotheisheni nthihi. Sa tsumbo: 'Field 1' == 'Value 1'. U pfuka zwiga zwa u langa (' \\/), ni nga shumisa \\. Sa tsumbo: Field1 == I\\'m. Ni nga ṱanganya zwiimo zwinzhi. Sa tsumbo: F1 == V1 || F1 == V2. Nga misi ndaela dzi ṱalutshedzwa u bva kha tsha monde u ya kha tsha u ḽa. Ni nga shandula mutevhe nga zwitangeli. Sa tsumbo: F1 == V1 && ( F2 == V2 || F2 == V3 ). Ni nga ṱoḓa fhethu ha maipfi nga regex: F1 == /Tes.*/i",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal advanced-filter syntax, left-to-right evaluation and offline refresh data-loss warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "advanced-filter-label",
+    "before": "Isihlungi Esithuthukisiwe",
+    "after": "U ṱalula ha nṱha",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal advanced-filter syntax, left-to-right evaluation and offline refresh data-loss warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "allBoardsChangeBackgroundImagePopup-title",
+    "before": "Shintsha Isithombe Sangemuva",
+    "after": "Shandula tshifanyiso tsha murahu",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal advanced-filter syntax, left-to-right evaluation and offline refresh data-loss warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "allboards.add-workspace",
+    "before": "Engeza indawo yokusebenza",
+    "after": "Engedza fhethu ha mushumo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal advanced-filter syntax, left-to-right evaluation and offline refresh data-loss warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "allboards.add-workspace-prompt",
+    "before": "Igama lendawo yokusebenza",
+    "after": "Dzina ḽa fhethu ha mushumo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal advanced-filter syntax, left-to-right evaluation and offline refresh data-loss warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "allboards.delete-workspace-confirm",
+    "before": "Uqinisekile ukuthi ufuna ukususa le ndawo yokusebenza?",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u susa fhethu uhu ha mushumo?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal advanced-filter syntax, left-to-right evaluation and offline refresh data-loss warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "allboards.delete-workspace-confirm-check",
+    "before": "Qinisekisa ukususwa kwendawo yokusebenza",
+    "after": "Khwaṱhisedza u susa fhethu ha mushumo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal advanced-filter syntax, left-to-right evaluation and offline refresh data-loss warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "allboards.edit-workspace-icon",
+    "before": "Isithonjana sendawo yokusebenza (umaka phansi)",
+    "after": "Tshiga tsha fhethu ha mushumo (markdown)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal advanced-filter syntax, left-to-right evaluation and offline refresh data-loss warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "allboards.edit-workspace-name",
+    "before": "Igama lendawo yokusebenza",
+    "after": "Dzina ḽa fhethu ha mushumo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal advanced-filter syntax, left-to-right evaluation and offline refresh data-loss warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "allboards.workspace-menu",
+    "before": "Imenyu yendawo yokusebenza",
+    "after": "Menyu wa fhethu ha mushumo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal advanced-filter syntax, left-to-right evaluation and offline refresh data-loss warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "allowNonBoardMembers",
+    "before": "Vumela bonke abasebenzisi abangene ngemvume",
+    "after": "Tendela vhashumisi vhoṱhe vho dzhenaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal advanced-filter syntax, left-to-right evaluation and offline refresh data-loss warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "allowed-avatar-filetypes",
+    "before": "Izinhlobo zamafayela ze-avatar ezivunyelwe:",
+    "after": "Tshaka dza faela dza tshifanyiso tsha mushumisi dzo tendelwaho:",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal advanced-filter syntax, left-to-right evaluation and offline refresh data-loss warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "allowed-upload-filetypes",
+    "before": "Izinhlobo zamafayela ezivunyelwe:",
+    "after": "Tshaka dza faela dzo tendelwaho u rumelwa:",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal advanced-filter syntax, left-to-right evaluation and offline refresh data-loss warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "almostdue",
+    "before": "isikhathi samanje esimisiwe %s siyeza",
+    "after": "tshifhinga tsha u fhedza tsha zwino %s tshi khou sendela",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal advanced-filter syntax, left-to-right evaluation and offline refresh data-loss warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "already-account",
+    "before": "Usuvele unayo i-akhawunti? Ngena ngemvume",
+    "after": "No no vha na akhaunthu? Dzhenani",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal advanced-filter syntax, left-to-right evaluation and offline refresh data-loss warning. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "app-is-offline",
+    "before": "Iyalayisha, sicela ulinde. Ukuvuselela ikhasi kuzodala ukulahleka kwedatha. Uma ukulayisha kungasebenzi, sicela uhlole ukuthi iseva ayimile yini.",
+    "after": "I khou ḽouda, lindelani. U ḽouda siaṱari hafhu zwi ḓo ita uri data i xele. Arali u ḽouda hu sa shumi, sedzani uri seva a yo ngo ima.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal advanced-filter syntax, left-to-right evaluation and offline refresh data-loss warning. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
