@@ -1245,6 +1245,17 @@ for this change.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/fc6c780dc">Repair Veps customization labels and logo direction</a>. Thanks to xet7.</summary>
+
+Replace fifteen original Finnish findings. Correct top-right wording to top
+left; preserve image/link distinctions, technical literals, head/link/meta tags
+and default height 27. All 16,980 exact correction checks and positive/negative
+runtime assertions pass. Technical loans and grammar need fluent review;
+871 original findings and restored-value validation remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8002bb139">Repair Veps board confirmations and Excel disk-space warning</a>. Thanks to xet7.</summary>
 
 Replace seven Finnish values, resolving five original findings and two unflagged
