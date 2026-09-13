@@ -108400,5 +108400,404 @@
     "before": "Izenzo Zomsebenzi Ongaphansi",
     "after": "Nyito dza mushumo muṱuku",
     "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "subtaskDeletePopup-title",
+    "before": "Susa Umsebenzi ongaphansi?",
+    "after": "U susa mushumo muṱuku?",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "subtext-with-full-path",
+    "before": "Umbhalo ongezansi onendlela egcwele",
+    "after": "Maṅwalwa a nga fhasi a re na nḓila yo fhelelaho",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "subtext-with-parent",
+    "before": "Umbhalo ongezansi nomzali",
+    "after": "Maṅwalwa a nga fhasi a re na tshithu tsha mubebi",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "support-info-not-added-yet",
+    "before": "Ulwazi losekelo alukengezwa okwamanje",
+    "after": "Mafhungo a thikhedzo ha athu engedzwa",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "support-info-only-for-logged-in-users",
+    "before": "Ulwazi losekelo olwabasebenzisi abangene ngemvume kuphela.",
+    "after": "Mafhungo a thikhedzo ndi a vhashumisi vho dzhenaho fhedzi.",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "support-page-enabled",
+    "before": "Ikhasi lokusekela linikwe amandla",
+    "after": "Siaṱari ḽa thikhedzo ḽo tendelwa",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "swimlane-archive-suggest",
+    "before": "Kamuva ungakwazi ukubuyisela i-swimlane kusukela kungobo yomlando kokuthi Izilungiselelo Zebhodi.",
+    "after": "Ni nga vhuyedzedza ḽaini nga murahu u bva fhethu ha u vhulunga kha nzudzanyo dza bodo.",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "swimlane-delete-pop",
+    "before": "Zonke izenzo zizosuswa kokuphakelayo komsebenzi futhi ngeke ukwazi ukubuyisela umzila wokubhukuda. Akukho ukuhlehlisa.",
+    "after": "Nyito dzoṱhe dzi ḓo suswa kha mutevhe wa nyito nahone a ni nga koni u vhuyedzedza ḽaini. A zwi koni u humiselwa murahu.",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "swimlane-height-error-message",
+    "before": "Ubude be-Swimlane kufanele kube inombolo ephozithivu",
+    "after": "Vhulapfu ha ḽaini vhu tea u vha nomboro yo fhelelaho i fhiraho zero",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "swimlane-title-not-found",
+    "before": "I-Swimlane '%s' ayitholakalanga.",
+    "after": "Ḽaini '%s' a yo ngo wanala.",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "swimlaneAddPopup-title",
+    "before": "Engeza i-Swimlane ngezansi",
+    "after": "Engedzani ḽaini nga fhasi",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "swimlaneArchivePopup-title",
+    "before": "Faka kungobo yomlando i-Swimlane?",
+    "after": "U vhulunga ḽaini?",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "tableVisibilityMode-allowPrivateOnly",
+    "before": "Ukubonakala kwamabhodi: Vumela amabhodi ayimfihlo kuphela",
+    "after": "U vhonala ha bodo: Tendelani bodo dza tshiphiri fhedzi",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "team-name-not-found",
+    "before": "Ithimba elithi '%s' alitholakalanga.",
+    "after": "Tshigwada '%s' a tsho ngo wanala.",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "text-below-custom-login-logo",
+    "before": "Umbhalo ngezansi Ilogo Yokungena Ngokwezifiso",
+    "after": "Maṅwalwa nga fhasi ha ḽogo ya u dzhena yo dzudzanywaho",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "title-alphabetically",
+    "before": "Isihloko (Ngokwama-alfabhethi)",
+    "after": "Ṱhoho (nga mutevhe wa aḽifabethe)",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "to-create-organizations-contact-admin",
+    "before": "Ukuze udale izinhlangano, sicela uxhumane nomlawuli.",
+    "after": "U itela u sika madzangano, ri humbela ni kwame mulanguli.",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "to-create-teams-contact-admin",
+    "before": "Ukuze udale amaqembu, sicela uxhumane nomlawuli.",
+    "after": "U itela u sika zwigwada, ri humbela ni kwame mulanguli.",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "total-attachments",
+    "before": "Izinanyathiselwa Ingqikithi",
+    "after": "Ṱumetshedzo dzoṱhe",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "tracking-info",
+    "before": "Uzokwaziswa nganoma yiziphi izinguquko kulawo makhadi obandakanyekayo njengomdali noma ilungu.",
+    "after": "Ni ḓo ḓivhadzwa nga tshanduko dzoṱhe kha makhadi ane na vha musiki kana muraḓo wao.",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "translation-number",
+    "before": "Inombolo yeyunithi yezinhlamvu zokuhumusha ngokwezifiso ithi:",
+    "after": "Tshivhalo tsha maṅwalwa a ṱhalutshedzo o dzudzanywaho ndi:",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "unsaved-description",
+    "before": "Unencazelo engalondoloziwe.",
+    "after": "Ni na ṱhaluso i sa athu vhulungwa.",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "upload-repository",
+    "before": "Layisha/Buyekeza Inqolobane",
+    "after": "Rumelani/khwinisani tshivhulungi tsha khoudu",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "user-can-not-export-excel",
+    "before": "Umsebenzisi akakwazi ukuthekelisa i-Excel",
+    "after": "Mushumisi ha koni u rumela nnḓa nga Excel",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "user-exists",
+    "before": "Umsebenzisi usevele ekhona",
+    "after": "Mushumisi o no vha hone",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "user-username-not-found",
+    "before": "Igama lomsebenzisi '%s' alitholakali.",
+    "after": "Dzina ḽa mushumisi '%s' a ḽo ngo wanala.",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "username-password-required",
+    "before": "Igama lomsebenzisi nephasiwedi kuyadingeka",
+    "after": "Dzina ḽa mushumisi na phasiwede zwi a ṱoḓea",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "username-too-short",
+    "before": "Igama lomsebenzisi kufanele okungenani libe nezinhlamvu ezi-3",
+    "after": "Dzina ḽa mushumisi ḽi tea u vha na zwiga zwi si fhasi ha 3",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "vote-delete-pop",
+    "before": "Ukususa kungunaphakade. Uzolahlekelwa yizo zonke izenzo ezihlobene naleli voti.",
+    "after": "U susa ndi ha tshoṱhe. Ni ḓo xelelwa nga nyito dzoṱhe dzi elanaho na iyi vouthu.",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "vote-public",
+    "before": "Bonisa ukuthi ubani ovotele ini",
+    "after": "Sumbedzani uri ndi nnyi o vouthelaho mini",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "warn-list-archived",
+    "before": "isixwayiso: leli khadi lisohlwini olufakwe kungobo yomlando",
+    "after": "tsivhudzo: khadi iyi i kha mutevhe u re fhethu ha u vhulunga",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "watching-info",
+    "before": "Uzokwaziswa nganoma yiluphi ushintsho kuleli bhodi",
+    "after": "Ni ḓo ḓivhadzwa nga tshanduko iṅwe na iṅwe kha bodo iyi",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "webhook-token",
+    "before": "Ithokheni (Inketho Yokuqinisekisa)",
+    "after": "Thokheni (a si khombekhombe kha u khwaṱhisedza vhuṋe)",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "wipLimitErrorPopup-dialog-pt1",
+    "before": "Inani lemisebenzi kulolu hlu lingaphezulu komkhawulo we-WIP owuchazile.",
+    "after": "Tshivhalo tsha mishumo kha mutevhe uyu tshi fhira mukano wa WIP we na vhea.",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "wipLimitErrorPopup-dialog-pt2",
+    "before": "Sicela ukhiphe eminye imisebenzi kulolu hlu, noma usethe umkhawulo we-WIP ophakeme.",
+    "after": "Ri humbela ni pfuluse miṅwe mishumo kha mutevhe uyu, kana ni vhee mukano wa WIP wa nṱha.",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "wipLimitErrorPopup-title",
+    "before": "Umkhawulo we-WIP ongavumelekile",
+    "after": "Mukano wa WIP u sa ṱanganedzei",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "workspace-settings",
+    "before": "Izilungiselelo zendawo yokusebenza",
+    "after": "Nzudzanyo dza fhethu ha mushumo",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "workspaceActionsPopup-title",
+    "before": "Izilungiselelo zendawo yokusebenza",
+    "after": "Nzudzanyo dza fhethu ha mushumo",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "writable-path-description",
+    "before": "Indlela eyisisekelo yohlu lwemibhalo yokugcina ifayela",
+    "after": "Nḓila ya foldara ya mutheo ya u vhulunga faela",
+    "reason": "Replace Zulu-seeded text with Tshivenda; retain irreversible deletion warnings, private-only access, numeric validation and WIP guidance. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "calendar-system",
+    "before": "Kalenderstelsel (datumvertoning)",
+    "after": "Sisiteme ya khalenda (u sumbedza ḓuvha)",
+    "reason": "Replace English calendar labels and unflagged Afrikaans selector text with Tshivenda. Preserve calendar identities and Hijri calculation variants. Low-confidence specialized terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriaans",
+    "after": "Khalenda ya Gregorian",
+    "reason": "Replace English calendar labels and unflagged Afrikaans selector text with Tshivenda. Preserve calendar identities and Hijri calculation variants. Low-confidence specialized terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Persies)",
+    "after": "Khalenda ya Jalali (ya Peresia)",
+    "reason": "Replace English calendar labels and unflagged Afrikaans selector text with Tshivenda. Preserve calendar identities and Hijri calculation variants. Low-confidence specialized terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Khalenda ya Vhubuddha",
+    "reason": "Replace English calendar labels and unflagged Afrikaans selector text with Tshivenda. Preserve calendar identities and Hijri calculation variants. Low-confidence specialized terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Khalenda ya China",
+    "reason": "Replace English calendar labels and unflagged Afrikaans selector text with Tshivenda. Preserve calendar identities and Hijri calculation variants. Low-confidence specialized terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Khalenda ya Coptic",
+    "reason": "Replace English calendar labels and unflagged Afrikaans selector text with Tshivenda. Preserve calendar identities and Hijri calculation variants. Low-confidence specialized terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Khalenda ya Dangi (ya Korea)",
+    "reason": "Replace English calendar labels and unflagged Afrikaans selector text with Tshivenda. Preserve calendar identities and Hijri calculation variants. Low-confidence specialized terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Khalenda ya Ethiopia ya Amete Alem",
+    "reason": "Replace English calendar labels and unflagged Afrikaans selector text with Tshivenda. Preserve calendar identities and Hijri calculation variants. Low-confidence specialized terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Khalenda ya Ethiopia",
+    "reason": "Replace English calendar labels and unflagged Afrikaans selector text with Tshivenda. Preserve calendar identities and Hijri calculation variants. Low-confidence specialized terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Khalenda ya Vhaheberu",
+    "reason": "Replace English calendar labels and unflagged Afrikaans selector text with Tshivenda. Preserve calendar identities and Hijri calculation variants. Low-confidence specialized terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Khalenda ya lushaka ya India",
+    "reason": "Replace English calendar labels and unflagged Afrikaans selector text with Tshivenda. Preserve calendar identities and Hijri calculation variants. Low-confidence specialized terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Khalenda ya Hijri",
+    "reason": "Replace English calendar labels and unflagged Afrikaans selector text with Tshivenda. Preserve calendar identities and Hijri calculation variants. Low-confidence specialized terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Khalenda ya Hijri (ya thebuḽu, u thoma ha tshifhinga tsha tshitshavha)",
+    "reason": "Replace English calendar labels and unflagged Afrikaans selector text with Tshivenda. Preserve calendar identities and Hijri calculation variants. Low-confidence specialized terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Khalenda ya Hijri (Saudi Arabia, u vhona ṅwedzi)",
+    "reason": "Replace English calendar labels and unflagged Afrikaans selector text with Tshivenda. Preserve calendar identities and Hijri calculation variants. Low-confidence specialized terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Khalenda ya Hijri (ya thebuḽu, u thoma ha tshifhinga tsha zwa ṋaledzi)",
+    "reason": "Replace English calendar labels and unflagged Afrikaans selector text with Tshivenda. Preserve calendar identities and Hijri calculation variants. Low-confidence specialized terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Khalenda ya Hijri (Umm al-Qura)",
+    "reason": "Replace English calendar labels and unflagged Afrikaans selector text with Tshivenda. Preserve calendar identities and Hijri calculation variants. Low-confidence specialized terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Khalenda ya Japan",
+    "reason": "Replace English calendar labels and unflagged Afrikaans selector text with Tshivenda. Preserve calendar identities and Hijri calculation variants. Low-confidence specialized terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Khalenda ya Minguo",
+    "reason": "Replace English calendar labels and unflagged Afrikaans selector text with Tshivenda. Preserve calendar identities and Hijri calculation variants. Low-confidence specialized terminology; fluent-speaker validation outstanding."
   }
 ]
