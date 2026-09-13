@@ -87155,5 +87155,54 @@
     "before": "Modèles de tableaux",
     "after": "Rots tabas",
     "reason": "Replace French template-container, copy and template-type labels and malformed save-as-template wording with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests gef (general container), rot (computer template), kopiedön (copy), dakipön (hold); reuse existing save button Dakipön and checked kad/lised/tab/mödik vocabulary. Preserve card/list/board type and many-card destination meaning. Container/save/board software sense adaptations and assembled grammar remain low confidence; no native-speaker validation. Literal JSON examples are outside this batch."
+  },
+  {
+    "locale": "vo",
+    "key": "board-info-on-my-boards",
+    "before": "Paramètres de tous les tableaux",
+    "after": "Väls tabas valik",
+    "reason": "Replace French all-board settings/member/count/page labels with Volapük after inspecting boardInfoOnMyBoardsPopup and people table data source. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests väls ad stad kösömik (default settings), pad (page), men/mens (people), alik (each); reuse checked mödot (quantity), liman, jonön, kad/lised/tab. Preserve all-board/all-member and per-list count scope and people-count trailing separator. Board/page software senses and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "boardInfoOnMyBoards-title",
+    "before": "Paramètres de tous les tableaux",
+    "after": "Väls tabas valik",
+    "reason": "Replace French all-board settings/member/count/page labels with Volapük after inspecting boardInfoOnMyBoardsPopup and people table data source. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests väls ad stad kösömik (default settings), pad (page), men/mens (people), alik (each); reuse checked mödot (quantity), liman, jonön, kad/lised/tab. Preserve all-board/all-member and per-list count scope and people-count trailing separator. Board/page software senses and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "boardInfoOnMyBoardsPopup-title",
+    "before": "Paramètres de tous les tableaux",
+    "after": "Väls tabas valik",
+    "reason": "Replace French all-board settings/member/count/page labels with Volapük after inspecting boardInfoOnMyBoardsPopup and people table data source. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests väls ad stad kösömik (default settings), pad (page), men/mens (people), alik (each); reuse checked mödot (quantity), liman, jonön, kad/lised/tab. Preserve all-board/all-member and per-list count scope and people-count trailing separator. Board/page software senses and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "board_members",
+    "before": "Tous les participants du tableau",
+    "after": "Limans valik taba",
+    "reason": "Replace French all-board settings/member/count/page labels with Volapük after inspecting boardInfoOnMyBoardsPopup and people table data source. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests väls ad stad kösömik (default settings), pad (page), men/mens (people), alik (each); reuse checked mödot (quantity), liman, jonön, kad/lised/tab. Preserve all-board/all-member and per-list count scope and people-count trailing separator. Board/page software senses and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "people-number",
+    "before": "Le nombre d'utilisateurs est de :",
+    "after": "Mödot menas: ",
+    "reason": "Replace French all-board settings/member/count/page labels with Volapük after inspecting boardInfoOnMyBoardsPopup and people table data source. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests väls ad stad kösömik (default settings), pad (page), men/mens (people), alik (each); reuse checked mödot (quantity), liman, jonön, kad/lised/tab. Preserve all-board/all-member and per-list count scope and people-count trailing separator. Board/page software senses and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "show-card-counter-per-list",
+    "before": "Afficher le nombre de cartes par liste",
+    "after": "Jonön mödoti kadas pro lised alik",
+    "reason": "Replace French all-board settings/member/count/page labels with Volapük after inspecting boardInfoOnMyBoardsPopup and people table data source. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests väls ad stad kösömik (default settings), pad (page), men/mens (people), alik (each); reuse checked mödot (quantity), liman, jonön, kad/lised/tab. Preserve all-board/all-member and per-list count scope and people-count trailing separator. Board/page software senses and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "show-at-all-boards-page",
+    "before": "Afficher sur la page de tous les tableaux",
+    "after": "Jonön su pad tabas valik",
+    "reason": "Replace French all-board settings/member/count/page labels with Volapük after inspecting boardInfoOnMyBoardsPopup and people table data source. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests väls ad stad kösömik (default settings), pad (page), men/mens (people), alik (each); reuse checked mödot (quantity), liman, jonön, kad/lised/tab. Preserve all-board/all-member and per-list count scope and people-count trailing separator. Board/page software senses and assembled grammar remain low confidence; no native-speaker validation."
   }
 ]
