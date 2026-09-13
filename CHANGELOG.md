@@ -843,6 +843,20 @@ verification remains in progress.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c1714d26e">Preserve the filter sidebar during query-only navigation</a>. Thanks to xet7.</summary>
+
+Updating label, member or assignee query parameters reran the board route
+and recreated its template, resetting the sidebar to its closed home view.
+Keep the board mounted when only its query changes; render normally when
+opening another board, closing a card or returning from board rules.
+Eight executable route checks cover those boundaries. The browser
+regression checks both filter activation and clearing preserve the board
+instance and synchronize the URL. The unit checks and a targeted browser
+preview pass; fresh compiled matrix verification remains in progress.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/db6a92336">Fail incomplete database conformance runs</a>. Thanks to xet7.</summary>
 
 A successful comparison of available results could hide a backend that
