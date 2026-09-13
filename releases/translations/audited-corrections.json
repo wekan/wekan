@@ -65259,5 +65259,61 @@
     "before": "Utilisation mémoire de Node : taille totale du tas alloué",
     "after": "Implij memor Node : ment ar bern derannet a-bezh",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "Node_memory_usage_heap_used",
+    "before": "Utilisation mémoire de Node : mémoire réellement utilisée",
+    "after": "Implij memor Node : memor implijet e gwirionez",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "Node_memory_usage_rss",
+    "before": "Utilisation mémoire de Node : taille de l'ensemble résident",
+    "after": "Implij memor Node : ment ar memor annezad (RSS)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "OS_Uptime",
+    "before": "OS Durée de fonctionnement",
+    "after": "Amzer abaoe loc’hañ ar reizhiad korvoiñ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "Rotateplane",
+    "before": "Icône d'attente plan rotatif",
+    "after": "Arlun gortoz gant ur blaenenn o treiñ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "Scaleout",
+    "before": "Icône d'attente mise à l'échelle",
+    "after": "Arlun gortoz gant ur ment o kreskiñ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "a-receivedAt",
+    "before": "Date de réception modifiée à",
+    "after": "kemmet an eur degemer da",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "above-selected-card",
+    "before": "Au-dessus de la carte sélectionnée",
+    "after": "A-us d’ar gartenn dibabet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "above-selected-swimlane",
+    "before": "Au-dessus du couloir sélectionné",
+    "after": "A-us d’an trepas dibabet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
