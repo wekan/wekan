@@ -69858,5 +69858,117 @@
     "before": "Panel ini akan jadi  <strong>Publik<strong",
     "after": "Papan nyoe akan jeuet keu <strong>publik</strong>.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "allowNonBoardMembers",
+    "before": "Beri kebenaran kepada semua pengguna yang login",
+    "after": "Peuizin mandum ureueng ngui nyang ka login",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "allowed-avatar-filetypes",
+    "before": "Dibolehkan mengunggah tipe file",
+    "after": "Jenis fail avatar nyang geupeuizin:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "allowed-upload-filetypes",
+    "before": "Dibolehkan mengunggah tipe file",
+    "after": "Jenis fail unggah nyang geupeuizin:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "auto-watch",
+    "before": "Otomatis diawasi saat membuat Panel",
+    "after": "Ngieng papan ngon otomatis watee geupeugot",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "autoAddUsersWithDomainName",
+    "before": "Tambah pengguna dengan nama domain ini secara lalai",
+    "after": "Tamah ureueng ngui ngon nan domain nyoe ngon otomatis",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "board-delete-notice",
+    "before": "Hapus adalah kekal. Anda akan hilang semua senarai, kad dan tindakan yang berkait dengan papan ini.",
+    "after": "Meunyoe geuhapus, hana jeuet geupeuwoe lom. Mandum senarai, kad ngon tindakan nyang na hubongan ngon papan nyoe akan gadeoh.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "board-drag-drop-reorder-or-click-open",
+    "before": "Seret dan lepas untuk menyusun semula ikon papan. Klik pada ikon papan untuk papar.",
+    "after": "Tarék ngon leupah ikon papan keu peususon lom. Klik ikon papan keu buka papan.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "card-archive-pop",
+    "before": "Kad tidak akan kelihatan pada senarai ini setelah diarkib",
+    "after": "Kad hana deuh bak senarai nyoe lheueh geuarsip.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "card-archive-suggest-cancel",
+    "before": "Anda kemudian boleh pulih semua kad ini daripada arkin.",
+    "after": "Droeneueh jeuet peuwoe kad nibak Arsip dudoe.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "card-archived",
+    "before": "Kartu ini telah dipindahkan ke Arsip",
+    "after": "Kad nyoe geupindah u Arsip.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "card-comments-title",
+    "before": "Kartu ini punya %s komentar",
+    "after": "Kad nyoe na %s komen.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "card-delete-notice",
+    "before": "Menghapus sama dengan permanen. Anda akan kehilangan semua aksi yang terhubung ke kartu ini",
+    "after": "Meunyoe geuhapus, hana jeuet geupeuwoe lom. Mandum tindakan nyang na hubongan ngon kad nyoe akan gadeoh.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "card-delete-pop",
+    "before": "Semua aksi akan dihapus dari aktivitas dan anda tidak bisa lagi buka kartu ini",
+    "after": "Mandum tindakan akan geuhapus nibak daftar aktivitas, ngon droeneueh hana jeuet buka lom kad nyoe. Hana undo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "card-delete-suggest-archive",
+    "before": "Kamu bisa memindahkan Kartu ke Arsip untuk menghapusnya dari Papan dan mempertahankan Aktifitas",
+    "after": "Droeneueh jeuet pinah kad u Arsip keu peuhilang nibak papan, tapi aktivitas teutap geukeuneubah.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "card-sorting-by-number",
+    "before": "Kad disusun mengikut nombor",
+    "after": "Peususon kad meunurot lumboi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "card-sorting-by-number-on-minicard",
+    "before": "Kartu disaring dengan nomor pada kartu kecil",
+    "after": "Peususon kad meunurot lumboi bak kad ubit",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
