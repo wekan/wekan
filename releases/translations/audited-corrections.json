@@ -77439,5 +77439,68 @@
     "before": "a supprimé l'étiquette '%s'",
     "after": "far màndarga '%s'",
     "reason": "Replace French card/checklist/label activity wording with Wolof; preserve placement at list top, movement from/to order and %s placeholders. Reuse existing karta/limu/yokk/far terms; vocabulary reference https://jangawolof.org/dictionary/ . Checklist/label/movement terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-checklist-item-added",
+    "before": "a ajouté un élément à la checklist '%s' dans %s",
+    "after": "yokk mbir ci limu bu seetlu '%s' ci %s",
+    "reason": "Replace French checklist action/confirmation/visibility values with Wolof. Distinguish removing a checklist item from removing its entire checklist, preserve %s order and all-versus-finished visibility. Reuse locale limu/yokk/far and vocabulary reference https://jangawolof.org/dictionary/ ; checklist terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-checklist-item-removed",
+    "before": "a supprimé une checklist de '%s' dans %s",
+    "after": "far mbir ci limu bu seetlu '%s' ci %s",
+    "reason": "Replace French checklist action/confirmation/visibility values with Wolof. Distinguish removing a checklist item from removing its entire checklist, preserve %s order and all-versus-finished visibility. Reuse locale limu/yokk/far and vocabulary reference https://jangawolof.org/dictionary/ ; checklist terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-checklist-removed",
+    "before": "a supprimé une checklist de %s",
+    "after": "far limu bu seetlu ci %s",
+    "reason": "Replace French checklist action/confirmation/visibility values with Wolof. Distinguish removing a checklist item from removing its entire checklist, preserve %s order and all-versus-finished visibility. Reuse locale limu/yokk/far and vocabulary reference https://jangawolof.org/dictionary/ ; checklist terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "add-checklist-item",
+    "before": "Ajouter un élément à la checklist",
+    "after": "Yokk mbir ci limu bu seetlu",
+    "reason": "Replace French checklist action/confirmation/visibility values with Wolof. Distinguish removing a checklist item from removing its entire checklist, preserve %s order and all-versus-finished visibility. Reuse locale limu/yokk/far and vocabulary reference https://jangawolof.org/dictionary/ ; checklist terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "checklistItemDeletePopup-title",
+    "before": "Supprimer l'élément de la check-list ?",
+    "after": "Far mbiru limu bu seetlu bi?",
+    "reason": "Replace French checklist action/confirmation/visibility values with Wolof. Distinguish removing a checklist item from removing its entire checklist, preserve %s order and all-versus-finished visibility. Reuse locale limu/yokk/far and vocabulary reference https://jangawolof.org/dictionary/ ; checklist terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "confirm-checklist-delete-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer la checklist ?",
+    "after": "Wóor na la ne bëgg nga far limu bu seetlu bi?",
+    "reason": "Replace French checklist action/confirmation/visibility values with Wolof. Distinguish removing a checklist item from removing its entire checklist, preserve %s order and all-versus-finished visibility. Reuse locale limu/yokk/far and vocabulary reference https://jangawolof.org/dictionary/ ; checklist terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "confirm-checklist-item-delete-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer l'élément de la check-list ?",
+    "after": "Wóor na la ne bëgg nga far mbiru limu bu seetlu bi?",
+    "reason": "Replace French checklist action/confirmation/visibility values with Wolof. Distinguish removing a checklist item from removing its entire checklist, preserve %s order and all-versus-finished visibility. Reuse locale limu/yokk/far and vocabulary reference https://jangawolof.org/dictionary/ ; checklist terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "hide-finished-checklist",
+    "before": "Cacher la check-list terminée",
+    "after": "Nëbb limu bu seetlu bi jeex",
+    "reason": "Replace French checklist action/confirmation/visibility values with Wolof. Distinguish removing a checklist item from removing its entire checklist, preserve %s order and all-versus-finished visibility. Reuse locale limu/yokk/far and vocabulary reference https://jangawolof.org/dictionary/ ; checklist terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "hideAllChecklistItems",
+    "before": "Cacher tous les éléments de la check-list",
+    "after": "Nëbb mbiri limu bu seetlu bi yépp",
+    "reason": "Replace French checklist action/confirmation/visibility values with Wolof. Distinguish removing a checklist item from removing its entire checklist, preserve %s order and all-versus-finished visibility. Reuse locale limu/yokk/far and vocabulary reference https://jangawolof.org/dictionary/ ; checklist terminology and full grammar remain low confidence."
   }
 ]
