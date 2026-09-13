@@ -49278,5 +49278,89 @@
     "before": "Nota: I membri no mappati verrann assegnati all'utent corrente.",
     "after": "Remartga: commembers senza attribuziun vegnan attribuids a l’utilisader actual.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "import-not-wekan-export",
+    "before": "Questo file no ie un'esportazion di WeKan",
+    "after": "Questa datoteca n’è betg in export da WeKan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "import-parts-instruction",
+    "before": "Vengono importate mé le parti sielte. La stessa scelta ie usata durante l'esportazion.",
+    "after": "Mo las parts marcadas vegnan importadas. La medema selecziun vegn utilisada per exportar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "import-show-user-mapping",
+    "before": "Rivedi la mappatura di membri",
+    "after": "Verifitgar l’attribuziun dals commembers",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "import-trello-failed",
+    "before": "Importazion da Trello no riuscita.",
+    "after": "L’import da Trello n’è betg reussì.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "import-trello-parent-workspace",
+    "before": "Colloca gli spazi di lavoro importati sotto",
+    "after": "Plazzar ils spazis da lavur importads sut",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "import-trello-zip-read-failed",
+    "before": "Impossibile leggere il .zip ciaria suto.",
+    "after": "Impussibel da leger la datoteca .zip transferida.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "import-trello-zip-too-many-files",
+    "before": "Il .zip contiene troppi file per essere importato.",
+    "after": "La datoteca .zip cuntegna memia bleras datotecas per importar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "import-trello-zip-unsafe-path",
+    "before": "Il .zip contiene percorsi di file no sicuri ed ie stato rifiutato.",
+    "after": "La datoteca .zip cuntegna vias da datotecas betg segiras ed è vegnida refusada.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "import-user-select",
+    "before": "Scegli l'utent che vuoi venga utilizzato come questo membr",
+    "after": "Tscherna l’utilisader existent che ti vuls utilisar sco quest commember",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "import-wekan-file",
+    "before": "Importa da un file di esportazion .json o .zip:",
+    "after": "Importar d’ina datoteca d’export .json u .zip:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "import-without-mapping-members",
+    "before": "Importa zënza mappare i membri (mappa in seguito)",
+    "after": "Importar senza attribuir ils commembers (attribuir pli tard)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "imported-member-no-account",
+    "before": "Membr importato — nessun cont corrispondente ancora",
+    "after": "Commember importà — anc nagin cont correspundent",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
