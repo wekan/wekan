@@ -257,6 +257,9 @@ test.describe('Fixed-bug regressions', () => {
         )
         .toBe(board.boardId);
       await expect(loggedInPage.locator('.pop-over')).toBeHidden();
+      const instantiated = db.findOne('cards', { boardId: board.boardId, title: createdTitle });
+      const existingFirst = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+      expect(instantiated.sort).toBeLessThan(existingFirst.sort);
       const originalTemplate = db.findOne('cards', { boardId: tplBoard, title: 'My Card Template' });
       expect(originalTemplate).not.toBeNull();
       expect(originalTemplate.listId).toBe(tplList);
