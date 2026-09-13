@@ -75,8 +75,17 @@ function validCache(directory, entry) {
   const stat = fs.statSync(file);
   return stat.isFile() && stat.size === entry.size && stat.mtimeMs === entry.mtimeMs;
 }
+export function resolveFileLinks(text, sourceUrl) {
+  let source;
+  try { source = new URL(sourceUrl); } catch { return text; }
+  if (!['gitlab.com', 'codeberg.org', 'sourceforge.net'].includes(source.hostname)) return text;
+  return String(text || '').replace(/(\]\(\s*)(\/(?:uploads\/|attachments\/|-\/project\/\d+\/uploads\/|p\/wekan\/)[^\s]*)/g, (_, prefix, relative) => {
+    const base = source.hostname === 'gitlab.com' && relative.startsWith('/uploads/') ? 'https://gitlab.com/wekan/wekan' : source.origin;
+    return `${prefix}${base}${relative}`;
+  });
+}
 export function issueFiles(issue) {
-  const texts = [issue.body || '', ...(issue.commentsToMirror || []).map(c => c.body || ''), ...(issue.reviews || []).map(c => c.body || '')];
+  const texts = [resolveFileLinks(issue.body || '', issue.source_url || issue.html_url), ...(issue.commentsToMirror || []).map(c => resolveFileLinks(c.body || '', c.source_url || issue.source_url || c.html_url || issue.html_url)), ...(issue.reviews || []).map(c => resolveFileLinks(c.body || '', issue.source_url || issue.html_url))];
   const urls = new Set();
   // Parse URL parentheses so filenames such as screenshot(1).png survive.
   for (const text of texts) {
@@ -92,7 +101,7 @@ export function issueFiles(issue) {
       try {
         const u = new URL(raw.replace(/&amp;/g, '&'));
         if (u.username || u.password) continue;
-        if ((u.hostname === 'github.com' && /^\/(?:user-attachments\/(?:assets|files)\/|wekan\/wekan\/files\/)/.test(u.pathname)) || /^(?:user-images|private-user-images)\.githubusercontent\.com$/.test(u.hostname) || (u.hostname === 'gitlab.com' && /^\/wekan\/wekan\/(?:-\/)?uploads\//.test(u.pathname)) || (u.hostname === 'codeberg.org' && /^\/attachments\//.test(u.pathname)) || (u.hostname === 'sourceforge.net' && /^\/(?:rest\/)?p\/wekan\/.+\/(?:attachment|attachments)\//.test(u.pathname))) urls.add(u.href);
+        if ((u.hostname === 'github.com' && /^\/(?:user-attachments\/(?:assets|files)\/|wekan\/wekan\/files\/)/.test(u.pathname)) || /^(?:user-images|private-user-images)\.githubusercontent\.com$/.test(u.hostname) || (u.hostname === 'gitlab.com' && /^\/(?:wekan\/wekan\/(?:-\/)?|-\/project\/\d+\/)uploads\//.test(u.pathname)) || (u.hostname === 'codeberg.org' && /^\/attachments\//.test(u.pathname)) || (u.hostname === 'sourceforge.net' && /^\/(?:rest\/)?p\/wekan\/.+\/(?:attachment|attachments)\//.test(u.pathname))) urls.add(u.href);
       } catch { /* Prose is not a file URL. */ }
     }
   }

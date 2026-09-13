@@ -6,7 +6,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { spawnSync, spawn } from 'node:child_process';
 import { pipeline } from 'node:stream/promises';
 import { createHash } from 'node:crypto';
-import { archiveSnapshot, archivedAssets, downloadUrl } from './mirror-archive.mjs';
+import { archiveSnapshot, archivedAssets, downloadUrl, resolveFileLinks } from './mirror-archive.mjs';
 import { forges, loadSettings } from './mirror-settings.mjs';
 
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -14,7 +14,7 @@ const source = 'repos/wekan/wekan';
 const encode = encodeURIComponent;
 export const marker = url => `<!-- wekan-mirror:${url} -->`;
 export const provenance = item => `Mirrored from ${item.html_url}.\nOriginal author: ${item.user?.login || item.author?.login || 'unknown'}; created: ${item.created_at || 'unknown'}.${item.milestone ? `\nMilestone: [${item.milestone.title}](${item.milestone.html_url}).` : ''}${item.assignees?.length ? `\nSource assignees: ${item.assignees.map(a => `[${a.login}](${a.html_url})`).join(', ')}.` : ''}`;
-export const body = item => `${marker(item.html_url)}\n\n${item.body || ''}\n\n---\n${provenance(item)}`;
+export const body = item => `${marker(item.html_url)}\n\n${resolveFileLinks(item.body || '', item.source_url || item.html_url)}\n\n---\n${provenance(item)}`;
 export const safeSegment = text => {
   if (!text) throw new Error('Empty release path');
   // Keep a readable prefix and a hash: different unsafe names cannot collide.
@@ -230,7 +230,7 @@ async function sourceComments(adapter, item, pull) {
       for (const note of discussion.notes) if (!ids.has(note.id)) { comments.push({ ...note, discussion_id: discussion.id }); ids.add(note.id); }
     }
   }
-  return comments.map(c => ({ ...c, html_url: mirroredUrl(c.body) || c.html_url || `${item.web_url || item.html_url}#note_${c.id}`, user: { ...c.author || c.user, login: c.author?.username || c.user?.login }, path: c.position?.new_path || c.path, line: c.position?.new_line || c.line }));
+  return comments.map(c => ({ ...c, source_url: c.html_url || `${item.web_url || item.html_url}#note_${c.id}`, html_url: mirroredUrl(c.body) || c.html_url || `${item.web_url || item.html_url}#note_${c.id}`, user: { ...c.author || c.user, login: c.author?.username || c.user?.login }, path: c.position?.new_path || c.path, line: c.position?.new_line || c.line }));
 }
 const commentBody = c => `${marker(c.html_url)}\n\n${c.review_state ? `Source review: ${c.review_state}.\n\n` : ''}${c.path ? `Review comment at ${c.path}${c.line ? `:${c.line}` : ''}:\n\n` : ''}${body(c)}`;
 

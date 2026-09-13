@@ -138,7 +138,9 @@ mirrors still attempt supported data; the overall launcher returns failure.
 GitLab reads issues, merge requests and their notes, milestones, labels and
 release links; Codeberg reads issues, pull requests, review comments, labels,
 milestones and release attachments. Native raw metadata is retained alongside
-normalized fields. Existing mirror markers retain original identities when data
+normalized fields. Native relative attachment links resolve to the original
+forge in destination Markdown and local file discovery, including GitLab project
+upload paths. Existing mirror markers retain original identities when data
 passes through another forge. Native destination URLs also match these identities,
 preventing a copy from being imported back as a new issue in its original forge.
 GitHub can receive linked issues, comments, labels, milestones and native releases;

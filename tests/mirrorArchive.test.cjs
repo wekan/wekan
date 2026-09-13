@@ -155,6 +155,17 @@ const hash = text => createHash('sha256').update(text).digest('hex');
     assert.ok(f.records.some(r => r[0] === 'failed' && /Invalid file entry/.test(r[1])));
     assert.ok(fs.existsSync(path.join(f.issueDir, 'issue.json')));
   });
+  await test('native relative file links resolve to their original forge without fetching arbitrary websites', () => {
+    const source = 'https://gitlab.com/wekan/wekan/-/issues/7';
+    const text = '![file](/uploads/hash/file(1).png) [new](/-/project/123/uploads/hash/new.zip) [web](https://example.com/no.zip)';
+    const files = m.issueFiles({ source_url: source, html_url: 'https://github.com/wekan/wekan/issues/123', body: text });
+    assert.equal(files.length, 2);
+    assert.ok(files.some(f => f.source === 'https://gitlab.com/wekan/wekan/uploads/hash/file(1).png'));
+    assert.ok(files.some(f => f.source === 'https://gitlab.com/-/project/123/uploads/hash/new.zip'));
+    assert.match(m.resolveFileLinks(text, source), /\]\(https:\/\/gitlab\.com\/wekan\/wekan\/uploads/);
+    assert.equal(m.resolveFileLinks(text, 'https://example.com/no'), text);
+    assert.equal(m.issueFiles({ body: '[web](https://example.com/no.zip)' }).length, 0);
+  });
   await test('switching source isolates numeric IDs and retirement; native assets can omit API size', async () => {
     const f = fixture(); await m.archiveSnapshot(f.snapshot, f.options);
     const original = read(f.issueDir, 'issue.json');
