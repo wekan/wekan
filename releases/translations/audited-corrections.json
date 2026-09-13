@@ -86098,5 +86098,33 @@
     "before": "Republic of China",
     "after": "Minguo ཟླ་ཐོ",
     "reason": "Replace English calendar descriptors with Dzongkha ཟླ་ཐོ, exact calendar term in https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/dz.xml . Preserve proper source names Dangi/Minguo without inventing transliterations. Assembled named-calendar phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "dz",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "རྒྱ་ནག་གི་ཟླ་ཐོ",
+    "reason": "Replace English country calendar labels with Dzongkha country names CN/JP/ET and calendar term ཟླ་ཐོ from https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/dz.xml . Preserve proper variant Amete Alem. Assembled possessive calendar grammar is low confidence; full labels not separately attested or native-speaker verified."
+  },
+  {
+    "locale": "dz",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "ཇ་པཱན་གྱི་ཟླ་ཐོ",
+    "reason": "Replace English country calendar labels with Dzongkha country names CN/JP/ET and calendar term ཟླ་ཐོ from https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/dz.xml . Preserve proper variant Amete Alem. Assembled possessive calendar grammar is low confidence; full labels not separately attested or native-speaker verified."
+  },
+  {
+    "locale": "dz",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "ཨི་ཐི་ཡོ་པི་ཡ་གི་ཟླ་ཐོ",
+    "reason": "Replace English country calendar labels with Dzongkha country names CN/JP/ET and calendar term ཟླ་ཐོ from https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/dz.xml . Preserve proper variant Amete Alem. Assembled possessive calendar grammar is low confidence; full labels not separately attested or native-speaker verified."
+  },
+  {
+    "locale": "dz",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "ཨི་ཐི་ཡོ་པི་ཡ་གི་ཟླ་ཐོ (Amete Alem)",
+    "reason": "Replace English country calendar labels with Dzongkha country names CN/JP/ET and calendar term ཟླ་ཐོ from https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/dz.xml . Preserve proper variant Amete Alem. Assembled possessive calendar grammar is low confidence; full labels not separately attested or native-speaker verified."
   }
 ]
