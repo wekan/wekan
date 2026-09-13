@@ -84341,5 +84341,40 @@
     "before": "ISO 8601",
     "after": "iVolanivula Gregoriana (macawa ni ISO 8601)",
     "reason": "Replace foreign-language setting and English calendar labels with Fijian, preserving proper calendar identities and national/ISO week qualifiers. iVolanivula vakaIperiu attested at https://www.jw.org/fj/ka-e-vakarautaki/ivolatabu/nwt/ikuri-b/iperiu-ivolanivula-ivolatabu/; country/religion terms attested at https://www.jw.org/fj/ka-e-vakarautaki/ivola/ivolaniyabaki-2016/idonisia/ivakamacala-lekaleka/ and https://www.jw.org/fj/ka-e-vakarautaki/mekesini/g201310/digovi-vuravura/. Complete adapted label grammar remains low confidence; remaining Coptic/Ethiopic/Dangi and Hijri epoch/sighting labels need review."
+  },
+  {
+    "locale": "fj",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "iVolanivula Dangi",
+    "reason": "Replace English calendar labels with Fijian iVolanivula terminology, preserve Dangi/Amete Alem/Gregorian identities and restore Saudi Hijri lunar sighting qualifier. Iciopea attested at https://www.jw.org/fj/ivakadinadina-i-jiova/veitaratara-mai/iciopea/; iVolanivula attested at https://www.jw.org/fj/ka-e-vakarautaki/ivolatabu/nwt/ikuri-b/iperiu-ivolanivula-ivolatabu/. Moon-sighting adaptation and full phrase grammar remain low confidence; Coptic and tabular civil/astronomical epoch terminology remain pending."
+  },
+  {
+    "locale": "fj",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "iVolanivula Amete Alem ni Iciopea",
+    "reason": "Replace English calendar labels with Fijian iVolanivula terminology, preserve Dangi/Amete Alem/Gregorian identities and restore Saudi Hijri lunar sighting qualifier. Iciopea attested at https://www.jw.org/fj/ivakadinadina-i-jiova/veitaratara-mai/iciopea/; iVolanivula attested at https://www.jw.org/fj/ka-e-vakarautaki/ivolatabu/nwt/ikuri-b/iperiu-ivolanivula-ivolatabu/. Moon-sighting adaptation and full phrase grammar remain low confidence; Coptic and tabular civil/astronomical epoch terminology remain pending."
+  },
+  {
+    "locale": "fj",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "iVolanivula ni Iciopea",
+    "reason": "Replace English calendar labels with Fijian iVolanivula terminology, preserve Dangi/Amete Alem/Gregorian identities and restore Saudi Hijri lunar sighting qualifier. Iciopea attested at https://www.jw.org/fj/ivakadinadina-i-jiova/veitaratara-mai/iciopea/; iVolanivula attested at https://www.jw.org/fj/ka-e-vakarautaki/ivolatabu/nwt/ikuri-b/iperiu-ivolanivula-ivolatabu/. Moon-sighting adaptation and full phrase grammar remain low confidence; Coptic and tabular civil/astronomical epoch terminology remain pending."
+  },
+  {
+    "locale": "fj",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "iVolanivula Hijri (Saudi Arabia, raici ni vula)",
+    "reason": "Replace English calendar labels with Fijian iVolanivula terminology, preserve Dangi/Amete Alem/Gregorian identities and restore Saudi Hijri lunar sighting qualifier. Iciopea attested at https://www.jw.org/fj/ivakadinadina-i-jiova/veitaratara-mai/iciopea/; iVolanivula attested at https://www.jw.org/fj/ka-e-vakarautaki/ivolatabu/nwt/ikuri-b/iperiu-ivolanivula-ivolatabu/. Moon-sighting adaptation and full phrase grammar remain low confidence; Coptic and tabular civil/astronomical epoch terminology remain pending."
+  },
+  {
+    "locale": "fj",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "iVolanivula Gregoriana",
+    "reason": "Replace English calendar labels with Fijian iVolanivula terminology, preserve Dangi/Amete Alem/Gregorian identities and restore Saudi Hijri lunar sighting qualifier. Iciopea attested at https://www.jw.org/fj/ivakadinadina-i-jiova/veitaratara-mai/iciopea/; iVolanivula attested at https://www.jw.org/fj/ka-e-vakarautaki/ivolatabu/nwt/ikuri-b/iperiu-ivolanivula-ivolatabu/. Moon-sighting adaptation and full phrase grammar remain low confidence; Coptic and tabular civil/astronomical epoch terminology remain pending."
   }
 ]
