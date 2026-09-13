@@ -120468,5 +120468,12 @@
     "before": "Kirjoita zoomaus taso (50-300%):",
     "after": "Kirjuta kartmär (50-300%):",
     "reason": "Replace Finnish zoom-scale terminology using Zaiceva/Mullonen kartmär (scale) and existing Veps Kirjuta (write). Preserve the exact 50-300% range and prompt punctuation. Low confidence: dictionary scale is attested for maps; screen-zoom adaptation and prompt inflection need fluent technical review."
+  },
+  {
+    "locale": "to",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "tohi māhina fakamohameti -fakatēpile",
+    "reason": "Replace English calendar label with exact Unicode CLDR Tongan islamic-tbla display name from https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/to.xml (2026-09-14). Low confidence: CLDR marks this non-core label draft=unconfirmed; it identifies the tabular algorithm but omits the source astronomical-epoch wording. Fluent review and an explicit epoch qualifier remain required. Preserve the islamic-tbla calendar mapping and distinguish the existing civil and sighting variants."
   }
 ]
