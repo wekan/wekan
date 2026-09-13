@@ -61,3 +61,30 @@ for (const id of ['admin', 'impersonated-member']) {
 assert.match(fs.readFileSync('server/imports.js', 'utf8'), /import '\/server\/publications\/userBoardView'/);
 assert.match(fs.readFileSync('client/00-startup.js', 'utf8'), /Meteor\.subscribe\('userBoardView'\)/);
 console.log('boardViewMissingProfile6691: fallback, scoping, defaults and private publication passed');
+
+(async () => {
+  const serverSource = fs.readFileSync('server/models/users.js', 'utf8');
+  const method = serverSource.slice(serverSource.indexOf('  async impersonate(userId) {'), serverSource.indexOf('  async isImpersonated(userId) {'));
+  let finishSwitch;
+  const switched = new Promise(resolve => { finishSwitch = resolve; });
+  const calls = [];
+  const methods = vm.runInNewContext(`({${method}})`, {
+    check: () => {}, Match: { Any: {}, test: value => typeof value === 'string' },
+    Meteor: { Error: class extends Error { constructor(code, message) { super(message); this.error = code; } } },
+    ReactiveCache: { getUser: async () => ({ _id: 'member' }), getCurrentUser: async () => ({ _id: 'admin', isAdmin: true }) },
+    ImpersonatedUsers: { insertAsync: async () => { calls.push('record'); } },
+  });
+  let returned = false;
+  const result = methods.impersonate.call({ setUserId: id => { calls.push(id); return switched; } }, 'member').then(() => { returned = true; });
+  // Let the real async method reach setUserId, but leave its promise pending.
+  for (let index = 0; index < 10; index++) await Promise.resolve();
+  assert.deepEqual(calls, ['record', 'member']);
+  assert.equal(returned, false, 'method must not return before subscriptions finish switching');
+  finishSwitch();
+  await result;
+  assert.equal(returned, true);
+  await assert.rejects(methods.impersonate.call({}, ''), /user id is required/);
+  await assert.rejects(methods.impersonate.call({ setUserId: async () => { throw Error('switch failed'); } }, 'member'), /switch failed/,
+    'subscription-switch failures propagate to the client');
+  console.log('boardViewMissingProfile6691: impersonation awaits the Meteor 3 subscription transition');
+})().catch(error => { console.error(error); process.exitCode = 1; });

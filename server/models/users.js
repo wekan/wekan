@@ -1747,7 +1747,9 @@ Meteor.methods({
       userId,
       reason: 'clickedImpersonate',
     });
-    this.setUserId(userId);
+    // Meteor 3 restarts subscriptions asynchronously. Finish that transition
+    // before the client switches its identity and subscribes again (#6691).
+    await this.setUserId(userId);
   },
 
   async isImpersonated(userId) {
