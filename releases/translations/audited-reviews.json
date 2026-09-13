@@ -1066,5 +1066,11 @@
     "key": "r-items-list",
     "value": "elemento1,elemento2,elemento3",
     "reason": "Restore original Aragonese elemento examples: identical Romance spelling did not justify replacing them with English item examples. Three numbered comma-separated native elements are preserved. Supersedes the mistaken correction inventory row; the regression introduced by item1 is repaired, not hidden. Aragonario uses elemento in native definitions: https://aragonario.aragon.es/words/1372614/."
+  },
+  {
+    "locale": "co",
+    "key": "Reactivity_order",
+    "value": "Ordine di reattività (METEOR_REACTIVITY_ORDER)",
+    "reason": "Retain existing Corsican wording: reattività occurs in Corsican Assembly proceedings and native Corsican business prose; ordine di is also compatible with Corsican. Shared Italian spelling alone is insufficient evidence of wrong language. Preserve METEOR_REACTIVITY_ORDER. Sources: https://www.isula.corsica/file/247459/ and https://hestiasecurite.corsica/co/lintrapresa"
   }
 ]
