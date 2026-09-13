@@ -698,5 +698,45 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(vepsTranslator.t('act-addSubtask', checklistSlots), /SUBTASK kartale CARD/);
   assert.match(cache['ve-PP']['checklist-count'], /\(0\/0\)$/);
   assert.equal(cache['ve-PP']['checklist-count-on-minicard'], cache['ve-PP']['checklist-count'] + ' minikartal');
+  const vepsCustomFieldRepairs = {
+  "act-createCustomField": "Tehtud kävutajan märitadud pöud __customField__ laudal __board__",
+  "act-deleteCustomField": "Heittud kävutajan märitadud pöud __customField__ laudal __board__",
+  "act-setCustomField": "Vajehtadud kävutajan märitadud pöud __customField__: __customFieldValue__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "card-edit-custom-fields": "Vajehta kävutajan märitadud pöudoid",
+  "custom-field-delete-pop": "Ei sa pördutada. Nece heitäb necen kävutajan märitadud pöudon kaikiš kartoišpäi da heitäb sen istorijan.",
+  "custom-field-checkbox": "Valičuznellik",
+  "custom-field-date": "Päivmär",
+  "date": "Päivmär",
+  "custom-field-dropdown": "Valičuzlugetiž",
+  "custom-field-dropdown-none": "(ei nimidä)",
+  "custom-field-dropdown-options": "Lugetišen valičused",
+  "custom-field-dropdown-options-placeholder": "Paina Enter, miše ližata enamba valičusid",
+  "custom-field-dropdown-unknown": "(tundmatoi)",
+  "custom-field-dropdownMultiSelect": "Valičuzlugetiž (äjiden valičuz)",
+  "custom-field-number": "Lugu",
+  "custom-field-text": "Tekst",
+  "custom-fields": "Kävutajan märitadud pöudod",
+  "filter-custom-fields-label": "Puhtasta kävutajan märitadud pöudoiden mödhe",
+  "filter-no-custom-fields": "Ei ole kävutajan märitadud pöudoid",
+  "custom-field-stringtemplate": "Simvolrivin šablon",
+  "custom-field-stringtemplate-format": "Format (kävuta %{value} sijaznamaks)",
+  "custom-field-stringtemplate-separator": "Jagoznam (kävuta &#32; libo &nbsp; keskustan täht)",
+  "custom-field-stringtemplate-item-placeholder": "Paina Enter, miše ližata enamba kohtoid"
+};
+  const customFieldSlots = { ...activitySlots, customField: 'FIELD', customFieldValue: 'VALUE' };
+  for (const [key, value] of Object.entries(vepsCustomFieldRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key, customFieldSlots), value.replace(/__([A-Za-z]+)__/g, (_, name) => customFieldSlots[name]), key);
+    assert.doesNotMatch(value, /mukautet|kentän|kenttää|kenttiä|Muokkaa|poisti|muokkasi|kortill|uimarad|taulull|Päivämäärä|Pudotusvalikko|lisätäksesi|vaihtoehtoja|tuntematon|Merkkijono|Muoto|Erotin|välilyöntinä|u nanga|%\{arvo\}/, key);
+  }
+  assert.match(vepsTranslator.t('act-setCustomField', customFieldSlots), /FIELD: VALUE kartal CARD lugetišes LIST ujundšoidul SWIMLANE laudal BOARD$/);
+  assert.match(cache['ve-PP']['custom-field-delete-pop'], /^Ei sa pördutada\..*kaikiš kartoišpäi.*heitäb sen istorijan\.$/);
+  assert.match(cache['ve-PP']['custom-field-dropdownMultiSelect'], /äjiden valičuz/);
+  assert.notEqual(cache['ve-PP']['custom-field-dropdown-none'], cache['ve-PP']['custom-field-dropdown-unknown']);
+  assert.equal(cache['ve-PP']['custom-field-date'], cache['ve-PP'].date);
+  assert.equal(cache['ve-PP']['custom-field-number'], cache['ve-PP'].number);
+  assert.equal(cache['ve-PP']['custom-field-text'], cache['ve-PP'].text);
+  assert.match(vepsTranslator.t('custom-field-stringtemplate-format'), /%\{value\}/);
+  assert.deepEqual(entities(cache['ve-PP']['custom-field-stringtemplate-separator']), entities(english['custom-field-stringtemplate-separator']));
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

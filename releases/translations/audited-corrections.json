@@ -114378,5 +114378,166 @@
     "before": "tehty ei valmistuneeksi tarkistuslista __checklist__ kortilla __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
     "after": "Kodvindlugetiž __checklist__ om märitadud kut lopmatoi kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
     "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-createCustomField",
+    "before": "loi mukautetun kentän __customField__ taululla __board__",
+    "after": "Tehtud kävutajan märitadud pöud __customField__ laudal __board__",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-deleteCustomField",
+    "before": "poisti mukautetun kentän __customField__ taululla __board__",
+    "after": "Heittud kävutajan märitadud pöud __customField__ laudal __board__",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-setCustomField",
+    "before": "muokkasi mukautettua kenttää __customField__: __customFieldValue__ kortilla __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
+    "after": "Vajehtadud kävutajan märitadud pöud __customField__: __customFieldValue__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-edit-custom-fields",
+    "before": "Muokkaa mukautettuja kenttiä",
+    "after": "Vajehta kävutajan märitadud pöudoid",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-field-delete-pop",
+    "before": "Tätä ei voi peruuttaa. Tämä poistaa tämän mukautetun kentän kaikista korteista ja poistaa sen historian.",
+    "after": "Ei sa pördutada. Nece heitäb necen kävutajan märitadud pöudon kaikiš kartoišpäi da heitäb sen istorijan.",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-field-checkbox",
+    "before": "Valintaruutu",
+    "after": "Valičuznellik",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-field-date",
+    "before": "Päivämäärä",
+    "after": "Päivmär",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "date",
+    "before": "Päivämäärä",
+    "after": "Päivmär",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-field-dropdown",
+    "before": "Pudotusvalikko",
+    "after": "Valičuzlugetiž",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-field-dropdown-none",
+    "before": "(ei mitään)",
+    "after": "(ei nimidä)",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-field-dropdown-options",
+    "before": "Listan vaihtoehdot",
+    "after": "Lugetišen valičused",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-field-dropdown-options-placeholder",
+    "before": "Paina Enter lisätäksesi lisää vaihtoehtoja",
+    "after": "Paina Enter, miše ližata enamba valičusid",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-field-dropdown-unknown",
+    "before": "(tuntematon)",
+    "after": "(tundmatoi)",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-field-dropdownMultiSelect",
+    "before": "Dropdown (u nanga hunzhi)",
+    "after": "Valičuzlugetiž (äjiden valičuz)",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-field-number",
+    "before": "Numero",
+    "after": "Lugu",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-field-text",
+    "before": "Teksti",
+    "after": "Tekst",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-fields",
+    "before": "Mukautetut kentät",
+    "after": "Kävutajan märitadud pöudod",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-custom-fields-label",
+    "before": "Suodata mukautettu kenttä",
+    "after": "Puhtasta kävutajan märitadud pöudoiden mödhe",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-no-custom-fields",
+    "before": "Ei mukautettuja kenttiä",
+    "after": "Ei ole kävutajan märitadud pöudoid",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-field-stringtemplate",
+    "before": "Merkkijono malli",
+    "after": "Simvolrivin šablon",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Muoto (käytä %{arvo} paikanpitäjänä)",
+    "after": "Format (kävuta %{value} sijaznamaks)",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-field-stringtemplate-separator",
+    "before": "Erotin (käytä &#32; tai &nbsp; välilyöntinä)",
+    "after": "Jagoznam (kävuta &#32; libo &nbsp; keskustan täht)",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "before": "Paina Enter lisätäksesi lisää kohtia",
+    "after": "Paina Enter, miše ližata enamba kohtoid",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
   }
 ]
