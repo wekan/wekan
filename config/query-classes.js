@@ -304,11 +304,11 @@ export class Query {
     }
 
     const reOperator1 = new RegExp(
-      '^((?<operator>[\\p{Letter}\\p{Mark}]+):|(?<abbrev>[#@]))(?<value>[\\p{Letter}\\p{Mark}]+)(\\s+|$)',
+      '^((?<operator>[\\p{Letter}\\p{Mark}\\x27\\u2019]+):|(?<abbrev>[#@]))(?<value>[\\p{Letter}\\p{Mark}]+)(\\s+|$)',
       'iu',
     );
     const reOperator2 = new RegExp(
-      '^((?<operator>[\\p{Letter}\\p{Mark}]+):|(?<abbrev>[#@]))(?<quote>["\']*)(?<value>.*?)\\k<quote>(\\s+|$)',
+      '^((?<operator>[\\p{Letter}\\p{Mark}\\x27\\u2019]+):|(?<abbrev>[#@]))(?<quote>["\']*)(?<value>.*?)\\k<quote>(\\s+|$)',
       'iu',
     );
     const reText = new RegExp('^(?<text>\\S+)(\\s+|$)', 'u');
