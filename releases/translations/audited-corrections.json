@@ -64475,5 +64475,75 @@
     "before": "`__predicate_private__` - uniquement les cartes qui sont dans un tableau privé.",
     "after": "`__predicate_private__` - kartennoù en taolennoù prevez hepken",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "globalSearch-instructions-status-public",
+    "before": "`__predicate_public__` - uniquement les cartes qui sont dans un tableau public.",
+    "after": "`__predicate_public__` - kartennoù en taolennoù foran hepken",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "hide-finished-checklist",
+    "before": "Cacher la check-list terminée",
+    "after": "Kuzhat ar roll kontroll echuet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "hideAllChecklistItems",
+    "before": "Cacher tous les éléments de la check-list",
+    "after": "Kuzhat holl elfennoù ar roll kontroll",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "hideCheckedChecklistItems",
+    "before": "Cacher les éléments cochés de la check-list",
+    "after": "Kuzhat elfennoù merket ar roll kontroll",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "import-board-instruction-about-errors",
+    "before": "Si une erreur survient en important le tableau, il se peut que l'import ait fonctionné, et que le tableau se trouve sur la page \"Tous les tableaux\".",
+    "after": "Ma c’hoarvez fazioù pa enporzhiit un daolenn, e c’hall an enporzhiañ bezañ deuet a-benn memes tra, hag e c’hall an daolenn bezañ war bajenn an holl daolennoù.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "import-board-instruction-wekan",
+    "before": "Dans votre tableau, allez dans 'Menu', puis 'Exporter un tableau', et copier le texte du fichier téléchargé.",
+    "after": "En ho taolenn, kit da « Lañser », ha goude da « Ezporzhiañ an daolenn », ha kopiit an destenn er restr pellgarget.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "import-board-zip",
+    "before": "Ajouter un fichier .zip qui contient les fichiers JSON du tableau et les noms de sous-répertoires avec les pièces jointes",
+    "after": "Ouzhpennañ ur restr .zip gant restroù JSON an taolennoù hag is-kavlec’hioù gant anvioù an taolennoù hag ar stagadennoù enno",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "import-members-map",
+    "before": "Le tableau que vous venez d'importer contient des participants. Veuillez assigner les participants que vous souhaitez importer à vos utilisateurs.",
+    "after": "Izili zo en ho taolenn enporzhiet. Lakit an izili a fell deoc’h enporzhiañ da glotañ gant hoc’h implijerien",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "import-members-map-note",
+    "before": "Note: les participants ne concordant pas seront assignés à l'utilisateur courant.",
+    "after": "Notenn : roet e vo an izili hep kenglotadur d’an implijer bremanel.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "import-user-select",
+    "before": "Sélectionnez l'utilisateur existant que vous voulez associer à ce participant",
+    "after": "Dibabit an implijer a zo anezhañ dija a fell deoc’h implijout evel an ezel-mañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
