@@ -18,18 +18,26 @@ template(name="timelineView")
       .timeline-lists
         each timelineLists
           .timeline-list
-            h2.timeline-list-title {{this.title}}
+            .timeline-list-title
+              +viewer
+                = this.title
             each this.cards
               .timeline-card
                 if this.archived
                   span.timeline-card-badge {{_ 'archived'}}
-                h3.timeline-card-title {{this.title}}
+                .timeline-card-title
+                  +viewer
+                    = this.title
                 if this.description
-                  p.timeline-card-description {{this.descriptionSnippet}}
+                  .timeline-card-description
+                    +viewer
+                      = this.descriptionSnippet
                 if this.labelNames.length
                   p.timeline-card-labels
                     each this.labelNames
-                      span.timeline-card-label {{this}}
+                      span.timeline-card-label
+                        +viewer
+                          = this
                 if this.memberNames.length
                   p.timeline-card-members
                     | {{_ 'members'}}:

@@ -36,7 +36,7 @@ for (const [name, source] of [['Frappe Gantt', frappe], ['DHTMLX Gantt', dhtmlx]
   assert.match(source, /card-end/, `${name} labels the End row with the real translation key`);
 }
 assert.match(frappe, /function popupDetailsHtml\(task\)/, 'Frappe Gantt renders all four dates into its click popup');
-assert.match(frappe, /popup\(\{ task, set_details \}\)/);
+assert.match(frappe, /popup\(\{ task, set_title, set_details \}\)/);
 assert.match(dhtmlx, /function tooltipHtml\(task\)/, 'DHTMLX Gantt renders all four dates into its hover tooltip');
 assert.match(dhtmlx, /gantt\.templates\.tooltip_text = /);
 

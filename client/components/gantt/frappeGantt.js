@@ -1,3 +1,4 @@
+import { titleViewerHtml, titleViewerSvgText } from '/client/lib/titleViewer';
 import { formatDateForDisplay, dateDisplayPreferences } from '/client/lib/dateDisplay';
 import { Template } from 'meteor/templating';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
@@ -74,7 +75,8 @@ export function cardsToTasks(cards) {
       const overdue = card.dueAt && !card.endAt && toISODate(card.dueAt) < today;
       return {
         id: card._id,
-        name: card.title || card._id,
+        name: titleViewerSvgText(card.title || card._id),
+        _titleHtml: titleViewerHtml(card.title || card._id),
         start,
         end,
         progress: card.endAt ? 100 : 0,
@@ -211,7 +213,8 @@ Template.frappeGanttView.onRendered(function() {
         // Frappe Gantt's normally-used features (README "Key Features":
         // "Customizable Views").
         view_mode_select: true,
-        popup({ task, set_details }) {
+        popup({ task, set_title, set_details }) {
+          set_title(task._titleHtml);
           set_details(popupDetailsHtml(task));
         },
         on_click(task) {

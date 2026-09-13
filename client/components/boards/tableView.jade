@@ -57,7 +57,9 @@ template(name="tableView")
           each row in rows
             if row.isGroupHeader
               tr.table-view-swimlane-group
-                th(colspan="11" scope="rowgroup")= row.swimlaneTitle
+                th(colspan="11" scope="rowgroup")
+                  +viewer
+                    = row.swimlaneTitle
             else
               tr
               td.table-view-cell-edit

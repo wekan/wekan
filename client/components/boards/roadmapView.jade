@@ -10,7 +10,10 @@ template(name="roadmapView")
       if hasGroups
         each groups
           .roadmap-row
-            h3.roadmap-row-heading {{label}} ({{cards.length}})
+            .roadmap-row-heading
+              +viewer
+                = label
+              |  ({{cards.length}})
             .js-roadmap-gantt-container.roadmap-gantt-container(data-group-key="{{key}}")
       else
         p.roadmap-empty {{_ 'roadmap-no-cards'}}

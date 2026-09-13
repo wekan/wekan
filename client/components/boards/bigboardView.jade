@@ -12,7 +12,9 @@ template(name="bigboardView")
       each bigboardBoards
         .bigboard-board(data-board-id="{{_id}}")
           h2.bigboard-board-title
-            a.bigboard-board-link(href="{{pathFor 'board' id=_id slug=slug}}") {{title}}
+            a.bigboard-board-link(href="{{pathFor 'board' id=_id slug=slug}}")
+              +viewer
+                = title
           .bigboard-board-lists
             +listsGroup(this)
     else

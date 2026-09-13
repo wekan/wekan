@@ -12,7 +12,9 @@ template(name="groupByAssigneeView")
               each cards
                 li.group-by-assignee-card
                   a.group-by-assignee-card-link(href="{{ cardUrl cardId }}")
-                    span.group-by-assignee-card-title {{ title }}
+                    span.group-by-assignee-card-title
+                      +viewer
+                        = title
                     if dueAt
                       span.group-by-assignee-card-due {{ formatDueAt dueAt }}
                     if isOvertime

@@ -1,3 +1,4 @@
+import { titleViewerHtml } from '/client/lib/titleViewer';
 import { formatDateForDisplay, dateDisplayPreferences } from '/client/lib/dateDisplay';
 import { Template } from 'meteor/templating';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
@@ -68,7 +69,7 @@ function cardsToTasks(cards) {
       const overdue = card.dueAt && !card.endAt && new Date(card.dueAt) < today;
       return {
         id: card._id,
-        text: card.title || card._id,
+        text: titleViewerHtml(card.title || card._id),
         start_date: start,
         duration: durationDays,
         progress: card.endAt ? 1 : 0,

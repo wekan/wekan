@@ -127,6 +127,8 @@ Template.roadmapView.onRendered(function() {
   // of once for the whole board.
   templateInstance.autorun(() => {
     const groups = templateInstance.groups.get();
+    // Chart rendering afterFlush is nonreactive; observe policies here.
+    ReactiveCache.getCurrentSetting();
     Tracker.afterFlush(() => {
       if (templateInstance.view.isDestroyed) return;
       const board = Utils.getCurrentBoard();
@@ -150,7 +152,8 @@ Template.roadmapView.onRendered(function() {
             readonly_dates: readonly,
             readonly_progress: true,
             view_mode_select: false,
-            popup({ task, set_details }) {
+            popup({ task, set_title, set_details }) {
+              set_title(task._titleHtml);
               set_details(popupDetailsHtml(task));
             },
             on_click(task) {

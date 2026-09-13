@@ -40,7 +40,9 @@ template(name="originalPositionsView")
                 .original-position-item-header
                   i.fa(class="{{getEntityTypeIcon entityType}}")
                   span.entity-type {{getEntityTypeLabel entityType}}
-                  span.entity-name {{getEntityDisplayName this}}
+                  span.entity-name
+                    +viewer
+                      | {{getEntityDisplayName this}}
                   span.entity-id ({{entityId}})
                 .original-position-item-details
                   .original-position-description
@@ -48,7 +50,8 @@ template(name="originalPositionsView")
                   if originalTitle
                     .original-title
                       strong Original title:
-                      |  {{originalTitle}}
+                      +viewer
+                        = originalTitle
                   .original-position-date
                     small.text-muted Created: {{formatDate createdAt}}
             else
