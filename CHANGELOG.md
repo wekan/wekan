@@ -1245,6 +1245,18 @@ for this change.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/68a54ec5b">Repair Veps date-search, period and case wording</a>. Thanks to xet7.</summary>
+
+Replace twelve Finnish values, resolving four original findings and eight
+unflagged errors. Preserve date bounds, signed integers, period placeholders
+and case insensitivity. Production Query sort/invalid-operand tests and runtime
+period interpolation pass, along with all 17,002 exact correction records.
+Technical grammar needs fluent review; 859 original findings and restored-value
+validation remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/53775ffba">Repair Veps OS and memory metric labels</a>. Thanks to xet7.</summary>
 
 Replace ten Finnish values, resolving eight original findings and two unflagged
