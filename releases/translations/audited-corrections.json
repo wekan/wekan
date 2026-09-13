@@ -53548,5 +53548,54 @@
     "before": "Islamic Umm al-Qura",
     "after": "Calindar Hijri (Umm al-Qura)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "accounts-allowEmailChange",
+    "before": "Permetti modifica dell'email",
+    "after": "Permiti alãxeari a email-lui",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "accounts-allowUserDelete",
+    "before": "Permetti agli utenti di cancellare il loro profilo",
+    "after": "Ufilisitorlu poati s-ashtardzã contul a lui",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "accounts-allowUserNameChange",
+    "before": "Consenti la modifica del nome utente",
+    "after": "Alãxeari a numãljei di ufilisitor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "accounts-lockout-all-users-unlocked",
+    "before": "Tutti gli utenti bloccati sono stati sbloccati",
+    "after": "Tuts ufilisitorlji blocats furã deblocats",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "before": "Vuoi davvero sbloccare tutti gli utenti bloccati?",
+    "after": "Esht sigur cã vrei s-deblochezi tuts ufilisitorlji blocats?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "accounts-lockout-no-locked-users",
+    "before": "Al momento non ci sono utenti bloccati",
+    "after": "Tora nu ari ufilisitori blocats",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "accounts-lockout-show-locked-users",
+    "before": "Mostra solo gli utenti bloccati",
+    "after": "Aratã mash ufilisitorlji blocats",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
