@@ -85706,5 +85706,47 @@
     "before": "Japanese",
     "after": "Kalender Japan",
     "reason": "Replace English calendar labels using existing Cornish Kalender and country names China/Japan from https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/kw.xml (draft unconfirmed). Assembled calendar wording remains low confidence; not native-speaker validated."
+  },
+  {
+    "locale": "kw",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Kevreyth kalender (displetyans dedhyas)",
+    "reason": "Replace foreign/English calendar wording with Cornish kalender, kevreyth, displetyans, dedhyas and Buddhist adjective Bouddiek documented in Akademi Kernewek SWF dictionary https://www.cornishdictionary.org.uk/sites/default/files/GerlyverPDF_20190723.pdf . Keep named calendar identities Dangi/Hijri/Umm al-Qura/Minguo; assembled grammar and untranslated proper-name renderings remain low confidence, not native-speaker verified."
+  },
+  {
+    "locale": "kw",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Kalender Bouddiek",
+    "reason": "Replace foreign/English calendar wording with Cornish kalender, kevreyth, displetyans, dedhyas and Buddhist adjective Bouddiek documented in Akademi Kernewek SWF dictionary https://www.cornishdictionary.org.uk/sites/default/files/GerlyverPDF_20190723.pdf . Keep named calendar identities Dangi/Hijri/Umm al-Qura/Minguo; assembled grammar and untranslated proper-name renderings remain low confidence, not native-speaker verified."
+  },
+  {
+    "locale": "kw",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Kalender Dangi",
+    "reason": "Replace foreign/English calendar wording with Cornish kalender, kevreyth, displetyans, dedhyas and Buddhist adjective Bouddiek documented in Akademi Kernewek SWF dictionary https://www.cornishdictionary.org.uk/sites/default/files/GerlyverPDF_20190723.pdf . Keep named calendar identities Dangi/Hijri/Umm al-Qura/Minguo; assembled grammar and untranslated proper-name renderings remain low confidence, not native-speaker verified."
+  },
+  {
+    "locale": "kw",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Kalender Hijri",
+    "reason": "Replace foreign/English calendar wording with Cornish kalender, kevreyth, displetyans, dedhyas and Buddhist adjective Bouddiek documented in Akademi Kernewek SWF dictionary https://www.cornishdictionary.org.uk/sites/default/files/GerlyverPDF_20190723.pdf . Keep named calendar identities Dangi/Hijri/Umm al-Qura/Minguo; assembled grammar and untranslated proper-name renderings remain low confidence, not native-speaker verified."
+  },
+  {
+    "locale": "kw",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Kalender Hijri (Umm al-Qura)",
+    "reason": "Replace foreign/English calendar wording with Cornish kalender, kevreyth, displetyans, dedhyas and Buddhist adjective Bouddiek documented in Akademi Kernewek SWF dictionary https://www.cornishdictionary.org.uk/sites/default/files/GerlyverPDF_20190723.pdf . Keep named calendar identities Dangi/Hijri/Umm al-Qura/Minguo; assembled grammar and untranslated proper-name renderings remain low confidence, not native-speaker verified."
+  },
+  {
+    "locale": "kw",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Kalender Minguo",
+    "reason": "Replace foreign/English calendar wording with Cornish kalender, kevreyth, displetyans, dedhyas and Buddhist adjective Bouddiek documented in Akademi Kernewek SWF dictionary https://www.cornishdictionary.org.uk/sites/default/files/GerlyverPDF_20190723.pdf . Keep named calendar identities Dangi/Hijri/Umm al-Qura/Minguo; assembled grammar and untranslated proper-name renderings remain low confidence, not native-speaker verified."
   }
 ]
