@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 10,250 |
+| Corrected | 10,262 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 5,596 |
+| Pending review or repair | 5,584 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **10,335** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **10,347** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `48ad0bae627879447d71fa150417a9d5bc7c24a3` — Shona astronomical Hijri label translated, retaining table calculation and astronomical starting date; **1 flagged Shona civil-epoch finding remains**. Source is recorded with the correction; specialized grammar and table terminology remain low confidence. Exact-value, placeholder, JSON example, HTML-tag/entity, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `d7f5d685f1341a0e90e629d805dd38eb14c9302a` — twelve Samoan calendar findings repaired using existing terminology and published Hebrew/country-name references; **5 flagged Samoan findings remain**. Sources are recorded with corrections; specialized grammar still needs native review. Exact-value, placeholder, JSON example, HTML-tag/entity, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
