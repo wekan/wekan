@@ -75647,5 +75647,159 @@
     "before": "Fermer éditer un élément du formulaire checklist",
     "after": "Clôre li formulaire po candjî on cayet del djivêye di verifiaedje",
     "reason": "Replace audited French search/control wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Keep OR/AND distinction, executable examples, due predicates and every member notification placeholder exact; preserve removal scope. Full grammar and specialized search terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-a-dueAt",
+    "before": "Echéance modifiée à\nQuand: __timeValue__\nOù: __card__\n L'échéance précédente était __timeOldValue__",
+    "after": "a candjî l' eure limite po \nCwand: __timeValue__\nWice: __card__\n l' eure limite di dvant esteut __timeOldValue__",
+    "reason": "Replace audited French date/activity/accessibility controls with Walloon using existing native vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve due approaching/now/past states, old/new time tokens, field-value argument order and permission-limited due-card view. Full grammar and specialized date/accessibility terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "a-receivedAt",
+    "before": "Date de réception modifiée à",
+    "after": "a candjî l' eure di rçuvaedje po esse",
+    "reason": "Replace audited French date/activity/accessibility controls with Walloon using existing native vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve due approaching/now/past states, old/new time tokens, field-value argument order and permission-limited due-card view. Full grammar and specialized date/accessibility terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-a-endAt",
+    "before": "Modification de la date de fin de __timeOldValue__ à __timeValue__",
+    "after": "a candjî l' eure di fén po __timeValue__ di (__timeOldValue__)",
+    "reason": "Replace audited French date/activity/accessibility controls with Walloon using existing native vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve due approaching/now/past states, old/new time tokens, field-value argument order and permission-limited due-card view. Full grammar and specialized date/accessibility terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-a-receivedAt",
+    "before": "Modification de la date de réception de __timeOldValue__ à __timeValue__",
+    "after": "a candjî l' eure di rçuvaedje po __timeValue__ di (__timeOldValue__)",
+    "reason": "Replace audited French date/activity/accessibility controls with Walloon using existing native vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve due approaching/now/past states, old/new time tokens, field-value argument order and permission-limited due-card view. Full grammar and specialized date/accessibility terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-a-startAt",
+    "before": "Modification de la date de début de __timeOldValue__ à __timeValue__",
+    "after": "a candjî l' eure di cmince po __timeValue__ di (__timeOldValue__)",
+    "reason": "Replace audited French date/activity/accessibility controls with Walloon using existing native vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve due approaching/now/past states, old/new time tokens, field-value argument order and permission-limited due-card view. Full grammar and specialized date/accessibility terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-almostdue",
+    "before": "rappelle que l'échéance (__timeValue__) de __card__ approche",
+    "after": "a rapelé ki l' eure limite do moumint (__timeValue__) di __card__ si raprotche",
+    "reason": "Replace audited French date/activity/accessibility controls with Walloon using existing native vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve due approaching/now/past states, old/new time tokens, field-value argument order and permission-limited due-card view. Full grammar and specialized date/accessibility terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-duenow",
+    "before": "rappelle que l'échéance (__timeValue__) de __card__ est maintenant",
+    "after": "a rapelé ki l' eure limite do moumint (__timeValue__) di __card__ est asteure",
+    "reason": "Replace audited French date/activity/accessibility controls with Walloon using existing native vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve due approaching/now/past states, old/new time tokens, field-value argument order and permission-limited due-card view. Full grammar and specialized date/accessibility terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-pastdue",
+    "before": "rappelle que l'échéance (__timeValue__) de __card__  est passée",
+    "after": "a rapelé ki l' eure limite do moumint (__timeValue__) di __card__ est passêye",
+    "reason": "Replace audited French date/activity/accessibility controls with Walloon using existing native vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve due approaching/now/past states, old/new time tokens, field-value argument order and permission-limited due-card view. Full grammar and specialized date/accessibility terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-newDue",
+    "before": "__list__/__card__ a un 1er rappel d'échéance [__board__]",
+    "after": "__list__/__card__ a l' prumî rapel di date limite [__board__]",
+    "reason": "Replace audited French date/activity/accessibility controls with Walloon using existing native vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve due approaching/now/past states, old/new time tokens, field-value argument order and permission-limited due-card view. Full grammar and specialized date/accessibility terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-changedListTitle",
+    "before": "a renommé la liste en 1%s",
+    "after": "a rilomé l' djivêye po %s",
+    "reason": "Replace audited French date/activity/accessibility controls with Walloon using existing native vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve due approaching/now/past states, old/new time tokens, field-value argument order and permission-limited due-card view. Full grammar and specialized date/accessibility terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-customfield-created",
+    "before": "a créé le champ personnalisé %s",
+    "after": "a askepyî l' tchamp da vosse %s",
+    "reason": "Replace audited French date/activity/accessibility controls with Walloon using existing native vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve due approaching/now/past states, old/new time tokens, field-value argument order and permission-limited due-card view. Full grammar and specialized date/accessibility terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-set-customfield",
+    "before": "a défini le champ personnalisé '%s' à '%s' dans %s",
+    "after": "a defini l' tchamp da vosse '%s' a '%s' dins %s",
+    "reason": "Replace audited French date/activity/accessibility controls with Walloon using existing native vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve due approaching/now/past states, old/new time tokens, field-value argument order and permission-limited due-card view. Full grammar and specialized date/accessibility terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-unset-customfield",
+    "before": "a effacé le champ personnalisé '%s' dans %s",
+    "after": "a oisté l' valixhance do tchamp da vosse '%s' dins %s",
+    "reason": "Replace audited French date/activity/accessibility controls with Walloon using existing native vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve due approaching/now/past states, old/new time tokens, field-value argument order and permission-limited due-card view. Full grammar and specialized date/accessibility terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "add-organizations-label",
+    "before": "Les organisations ajoutées sont affichées ci-dessous :",
+    "after": "Les organizåcions radjoutêyes sont mostrêyes pa dzo:",
+    "reason": "Replace audited French date/activity/accessibility controls with Walloon using existing native vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve due approaching/now/past states, old/new time tokens, field-value argument order and permission-limited due-card view. Full grammar and specialized date/accessibility terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "add-teams-label",
+    "before": "Les équipes ajoutées sont affichées ci-dessous :",
+    "after": "Les ekipes radjoutêyes sont mostrêyes pa dzo:",
+    "reason": "Replace audited French date/activity/accessibility controls with Walloon using existing native vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve due approaching/now/past states, old/new time tokens, field-value argument order and permission-limited due-card view. Full grammar and specialized date/accessibility terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "addMemberPopup-title",
+    "before": "Assigner des participants",
+    "after": "Radjouter des mimbes",
+    "reason": "Replace audited French date/activity/accessibility controls with Walloon using existing native vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve due approaching/now/past states, old/new time tokens, field-value argument order and permission-limited due-card view. Full grammar and specialized date/accessibility terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "admin-announcement-title",
+    "before": "Annonce de l'administrateur",
+    "after": "Anonce do manaedjeu",
+    "reason": "Replace audited French date/activity/accessibility controls with Walloon using existing native vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve due approaching/now/past states, old/new time tokens, field-value argument order and permission-limited due-card view. Full grammar and specialized date/accessibility terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "accessibility-info-not-added-yet",
+    "before": "L'information d'accessibilité n'a pas encore été ajoutée",
+    "after": "Les informåcions d' accessibilité n' ont nén co stî radjoutêyes",
+    "reason": "Replace audited French date/activity/accessibility controls with Walloon using existing native vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve due approaching/now/past states, old/new time tokens, field-value argument order and permission-limited due-card view. Full grammar and specialized date/accessibility terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "accessibility-page-enabled",
+    "before": "Page d'accessibilité activée",
+    "after": "Pådje d' accessibilité alumêye",
+    "reason": "Replace audited French date/activity/accessibility controls with Walloon using existing native vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve due approaching/now/past states, old/new time tokens, field-value argument order and permission-limited due-card view. Full grammar and specialized date/accessibility terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "acceptance_of_our_legalNotice",
+    "before": "En continuant, vous acceptez nos",
+    "after": "Tot continouwant, vos acceptez nosse",
+    "reason": "Replace audited French date/activity/accessibility controls with Walloon using existing native vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve due approaching/now/past states, old/new time tokens, field-value argument order and permission-limited due-card view. Full grammar and specialized date/accessibility terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "dueCardsViewChange-choice-all-description",
+    "before": "Visualise toutes les cartes incomplètes avec une date *échue* pour lesquelles l'utilisateur possède les droits",
+    "after": "Mostere totes les cåtes nén fineyes avou ene date *limite* des tåvleas ki l' uzeu a l' droet di vey.",
+    "reason": "Replace audited French date/activity/accessibility controls with Walloon using existing native vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve due approaching/now/past states, old/new time tokens, field-value argument order and permission-limited due-card view. Full grammar and specialized date/accessibility terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Sistinme di calindrî (håynaedje des dates)",
+    "reason": "Replace audited French date/activity/accessibility controls with Walloon using existing native vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve due approaching/now/past states, old/new time tokens, field-value argument order and permission-limited due-card view. Full grammar and specialized date/accessibility terminology remain low confidence."
   }
 ]
