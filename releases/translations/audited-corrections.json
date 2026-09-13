@@ -83221,5 +83221,103 @@
     "before": "ISO-8601 Calendar",
     "after": "Kalandriye Gregoriyee (ayu-bés yu ISO 8601)",
     "reason": "Replace Turkish/English calendar labels with Wolof framing and retain proper calendar names Dangi/Amete Alem/Umm al-Qura/Minguo; restore Gregorian ISO 8601 week meaning. Calendar loanword and complete grammar remain low confidence; other epoch/religion/adjective labels remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "star-board-title",
+    "before": "Cliquer pour ajouter ce tableau aux favoris. Il sera affiché en tête de votre liste de tableaux.",
+    "after": "Bësal ngir màndargaal tablo bii ak biddiiw. Dina feeñ ci kaw sa limu tablo yi.",
+    "reason": "Replace French with Wolof; preserve starred ordering, migration scan scopes, logged-in-only support, archive visibility/recovery path, custom login logo text, admin organization creation, Excel restriction, existing user, minimum 3 characters, WIP recovery alternatives and worker-only capabilities. Recovery/role phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "step-analyze-board-structure",
+    "before": "Analyser la structure du tableau",
+    "after": "Saytu tëralinu tablo bi",
+    "reason": "Replace French with Wolof; preserve starred ordering, migration scan scopes, logged-in-only support, archive visibility/recovery path, custom login logo text, admin organization creation, Excel restriction, existing user, minimum 3 characters, WIP recovery alternatives and worker-only capabilities. Recovery/role phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "step-scan-files",
+    "before": "Vérification des pièces jointes du tableau",
+    "after": "Mi ngi saytu fiise yi ñu takkal ci tablo bi",
+    "reason": "Replace French with Wolof; preserve starred ordering, migration scan scopes, logged-in-only support, archive visibility/recovery path, custom login logo text, admin organization creation, Excel restriction, existing user, minimum 3 characters, WIP recovery alternatives and worker-only capabilities. Recovery/role phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "step-scan-users",
+    "before": "Vérification des avatars du participant du tableau",
+    "after": "Mi ngi saytu avatar yu bokkkat yi ci tablo bi",
+    "reason": "Replace French with Wolof; preserve starred ordering, migration scan scopes, logged-in-only support, archive visibility/recovery path, custom login logo text, admin organization creation, Excel restriction, existing user, minimum 3 characters, WIP recovery alternatives and worker-only capabilities. Recovery/role phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "support-info-only-for-logged-in-users",
+    "before": "Les informations d'assistance sont réservées aux utilisateurs connectés.",
+    "after": "Xibaaru ndimbal ngir jëfandikukat yi dugg rekk la.",
+    "reason": "Replace French with Wolof; preserve starred ordering, migration scan scopes, logged-in-only support, archive visibility/recovery path, custom login logo text, admin organization creation, Excel restriction, existing user, minimum 3 characters, WIP recovery alternatives and worker-only capabilities. Recovery/role phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "swimlane-archive-pop",
+    "before": "Le couloir ne sera pas visible sur le tableau après archivage.",
+    "after": "Yoon wi du feeñ ci tablo bi bu ñu ko denc ci àrsiw.",
+    "reason": "Replace French with Wolof; preserve starred ordering, migration scan scopes, logged-in-only support, archive visibility/recovery path, custom login logo text, admin organization creation, Excel restriction, existing user, minimum 3 characters, WIP recovery alternatives and worker-only capabilities. Recovery/role phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "swimlane-archive-suggest",
+    "before": "Vous pourrez plus tard restaurer le couloir depuis les archives dans les paramètres du tableau.",
+    "after": "Man nga delloo yoon wi ci ginnaaw jóge ci Àrsiw ci Jekkal yi ci tablo bi.",
+    "reason": "Replace French with Wolof; preserve starred ordering, migration scan scopes, logged-in-only support, archive visibility/recovery path, custom login logo text, admin organization creation, Excel restriction, existing user, minimum 3 characters, WIP recovery alternatives and worker-only capabilities. Recovery/role phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "text-below-custom-login-logo",
+    "before": "Texte sous le logo de connexion personnalisé",
+    "after": "Mbind ci suufu logo bu dugg bu ñu def ci soxla",
+    "reason": "Replace French with Wolof; preserve starred ordering, migration scan scopes, logged-in-only support, archive visibility/recovery path, custom login logo text, admin organization creation, Excel restriction, existing user, minimum 3 characters, WIP recovery alternatives and worker-only capabilities. Recovery/role phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "to-create-organizations-contact-admin",
+    "before": "Pour créer des organisations, veuillez contacter l'administrateur.",
+    "after": "Ngir sos ay kureel, waxal ak saytukat bi.",
+    "reason": "Replace French with Wolof; preserve starred ordering, migration scan scopes, logged-in-only support, archive visibility/recovery path, custom login logo text, admin organization creation, Excel restriction, existing user, minimum 3 characters, WIP recovery alternatives and worker-only capabilities. Recovery/role phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "user-can-not-export-excel",
+    "before": "L'utilisateur ne peut pas exporter vers Excel",
+    "after": "Jëfandikukat bi manul a génne Excel",
+    "reason": "Replace French with Wolof; preserve starred ordering, migration scan scopes, logged-in-only support, archive visibility/recovery path, custom login logo text, admin organization creation, Excel restriction, existing user, minimum 3 characters, WIP recovery alternatives and worker-only capabilities. Recovery/role phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "user-exists",
+    "before": "L'utilisateur existe déjà",
+    "after": "Jëfandikukat bi am na ba noppi",
+    "reason": "Replace French with Wolof; preserve starred ordering, migration scan scopes, logged-in-only support, archive visibility/recovery path, custom login logo text, admin organization creation, Excel restriction, existing user, minimum 3 characters, WIP recovery alternatives and worker-only capabilities. Recovery/role phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "username-too-short",
+    "before": "Le nom d'utilisateur doit comporter au moins 3 caractères",
+    "after": "Turu jëfandikukat bi war na am lu tollu ci 3 araf walla lu ëpp",
+    "reason": "Replace French with Wolof; preserve starred ordering, migration scan scopes, logged-in-only support, archive visibility/recovery path, custom login logo text, admin organization creation, Excel restriction, existing user, minimum 3 characters, WIP recovery alternatives and worker-only capabilities. Recovery/role phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "wipLimitErrorPopup-dialog-pt2",
+    "before": "Veuillez enlever des cartes de cette liste, ou définir une limite WIP plus importante.",
+    "after": "Yóbbu ay liggéey génne leen ci limu bii, walla jekkal kemu WIP bu gën a kawe.",
+    "reason": "Replace French with Wolof; preserve starred ordering, migration scan scopes, logged-in-only support, archive visibility/recovery path, custom login logo text, admin organization creation, Excel restriction, existing user, minimum 3 characters, WIP recovery alternatives and worker-only capabilities. Recovery/role phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "worker-desc",
+    "before": "Peut seulement déplacer des cartes, s'assigner à une carte et la commenter.",
+    "after": "Yóbbu karta yi, sas sa bopp ci karta ak wax ci karta rekk la man.",
+    "reason": "Replace French with Wolof; preserve starred ordering, migration scan scopes, logged-in-only support, archive visibility/recovery path, custom login logo text, admin organization creation, Excel restriction, existing user, minimum 3 characters, WIP recovery alternatives and worker-only capabilities. Recovery/role phrasing and full grammar remain low confidence."
   }
 ]
