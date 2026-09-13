@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,558 |
+| Corrected | 12,561 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,288 |
+| Pending review or repair | 3,285 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,132** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,135** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `c6df6966128eb10bd61e575eaebc203e6e48a8ee` — eleven remaining Volapük Node memory-statistic labels repaired, preserving technical metric distinctions. Dictionary-based software phrasing and technical borrowings need native-speaker review.
+Latest translation fix: **2026-09-13**, local commit `04f0ca10508537d284563693e4dc6b45ae7270de` — three Volapük Ethiopian and Indian calendar labels repaired with dictionary-attested vocabulary. Amete Alem variant preserved; full phrases still need native-speaker review.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
