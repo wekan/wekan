@@ -4,21 +4,21 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,097 |
+| Corrected | 15,098 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 747 |
+| Pending review or repair | 746 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,210** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,211** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `bc84ca78b` — replaced **two** Finnish zoom-scale values, resolving **one** original finding and **one** unflagged label. Preserve the exact **50-300%** range and prompt punctuation. All **17,210** exact correction/rendering checks pass, including placeholders, JSON, key order and human preference. The original queue has **747** pending findings, including **10** Veps findings. **Low confidence:** the dictionary map-scale term’s adaptation to screen zoom and prompt inflection need fluent technical review; the previously repaired zoom directions also need fluent review. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `de0d3d821` — replaced the English Tongan tabular Hijri calendar label with the exact non-core Unicode CLDR display name. All **17,211** exact correction/rendering checks pass, preserving variant distinctions and placeholders. The original queue has **746** pending findings; the original Tongan English-label finding is replaced. **Low confidence / unfinished:** CLDR marks the value unconfirmed and its label omits the source astronomical-epoch qualifier. Explicit epoch wording and fluent review remain required, so the Tongan calendar translation is not considered fully finished. Sardinian `magenta` remains pending because searches did not establish language-specific evidence. Live browser verification was not run; no translations were pushed.
 
 **Language validation (2026-09-14), local commit `e4e3aa590`:** Wiktionary’s Veps transitive inflection tables confirm `surenda` (make larger) and `penenda` (make smaller) as second-person singular commands. Their imperative morphology is now reference-supported; screen-zoom usage remains open. The original keyboard findings remain unresolved: searches and the cached dictionary did not establish reliable keyboard-shortcut terminology. Counts are unchanged. References and the remaining scope are recorded per key in the correction ledger.
 
-**Remaining validation:** all restored/unflagged values and low-confidence replacements remain open. Detailed per-key caveats are retained in the correction ledger and source commits. These include Veps composed UI, card, notification, calendar, timing, file/archive, metric and legal terminology/inflection; Neapolitan technical checklist usage; Fulah/Bambara calendar composition; and CLDR-provisional Ewe civil-calendar wording. Field sums, parent-card terminology, keyboard shortcuts, remaining migration/search messages and other calendar variants need further language research. Wrong-language/script and fluent-speaker checks remain unfinished.
+**Remaining validation:** all restored/unflagged values and low-confidence replacements remain open. Detailed per-key caveats are retained in the correction ledger and source commits. These include Veps composed UI, card, notification, calendar, timing, file/archive, metric and legal terminology/inflection; Neapolitan technical checklist usage; Fulah/Bambara calendar composition; and CLDR-provisional Ewe civil-calendar and Tongan tabular-calendar wording (including the missing astronomical-epoch qualifier). Field sums, parent-card terminology, keyboard shortcuts, remaining migration/search messages and other calendar variants need further language research. Wrong-language/script and fluent-speaker checks remain unfinished.
 
 **Security interruption (2026-09-14):** `c1246d720` reviews both saved `.tools/wekansec20` alerts and hardens exact archive-host checks and shell-free mirror dispatch, including direct Windows Node execution. All 25 focused mirror test entries pass; native Windows and remote CodeQL rescanning remain unverified. Translation counts and remaining validation are unchanged.
 

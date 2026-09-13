@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,097 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 747 pending review or repair.
-The correction inventory records 17,210 exact before/after values,
+findings: 15,098 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 746 pending review or repair.
+The correction inventory records 17,211 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -100,8 +100,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is bc84ca78b (2026-09-14), replacing the Finnish zoom
-scale label and percentage prompt while preserving the 50-300% range. The original Neapolitan queue is empty. All correction/rendering checks
+Latest translation fix is de0d3d821 (2026-09-14), replacing the English Tongan
+tabular Hijri label with provisional CLDR wording. Explicit astronomical-epoch
+wording and fluent review remain required. The original Neapolitan queue is empty. All correction/rendering checks
 pass; low-confidence technical terminology remains explicitly tracked.
 Member assignment popup handlers need separate review for apparent reversed
 operations. The 1,015-suite Node result is historical and predates the latest batches.
@@ -640,6 +641,18 @@ The audit records 749 pending original findings and wider unfinished validation.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/de0d3d821">Use provisional CLDR Tongan tabular Hijri wording</a>. Thanks to xet7.</summary>
+
+Replace the English display name with the exact non-core Tongan CLDR label,
+distinct from existing civil and sighting variants. All 17,211 correction checks
+pass. CLDR marks this name unconfirmed, and an explicit astronomical-epoch
+qualifier still needs language research and fluent review. This is a provisional
+repair, not completed linguistic validation. Original pending findings total 746.
+Live browser verification was not run.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e4e3aa590">Validate Veps zoom imperative morphology</a>. Thanks to xet7.</summary>
