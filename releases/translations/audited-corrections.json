@@ -120692,5 +120692,89 @@
     "before": "Erreur",
     "after": "ⵜⴰⵣⴳⵍⵜ",
     "reason": "Reviewed 2026-09-14: replace Arabic/French with exact native Standard Moroccan Tamazight wording in matching MediaWiki error message, English meaning confirmed: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/en.json . Preserve unrelated correct translations."
+  },
+  {
+    "locale": "zgh",
+    "key": "change-password",
+    "before": "تغيير كلمة المرور",
+    "after": "ⵙⵏⴼⵍ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with native Standard Moroccan Tamazight UI terminology from matching MediaWiki changepassword message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Date and History use distinct temporal/history nouns; login/logout and password labels reuse established local native terminology. Other valid translations remain unchanged."
+  },
+  {
+    "locale": "zgh",
+    "key": "changePasswordPopup-title",
+    "before": "تغيير كلمة المرور",
+    "after": "ⵙⵏⴼⵍ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with native Standard Moroccan Tamazight UI terminology from matching MediaWiki changepassword message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Date and History use distinct temporal/history nouns; login/logout and password labels reuse established local native terminology. Other valid translations remain unchanged."
+  },
+  {
+    "locale": "zgh",
+    "key": "date",
+    "before": "تاريخ",
+    "after": "ⴰⵙⴰⴽⵓⴷ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with native Standard Moroccan Tamazight UI terminology from matching MediaWiki listfiles_date message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Date and History use distinct temporal/history nouns; login/logout and password labels reuse established local native terminology. Other valid translations remain unchanged."
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-field-date",
+    "before": "تاريخ",
+    "after": "ⴰⵙⴰⴽⵓⴷ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with native Standard Moroccan Tamazight UI terminology from matching MediaWiki listfiles_date message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Date and History use distinct temporal/history nouns; login/logout and password labels reuse established local native terminology. Other valid translations remain unchanged."
+  },
+  {
+    "locale": "zgh",
+    "key": "history",
+    "before": "تاريخ",
+    "after": "ⴰⵎⵣⵔⵓⵢ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with native Standard Moroccan Tamazight UI terminology from matching MediaWiki history_short message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Date and History use distinct temporal/history nouns; login/logout and password labels reuse established local native terminology. Other valid translations remain unchanged."
+  },
+  {
+    "locale": "zgh",
+    "key": "log-in",
+    "before": "تسجيل الدخول",
+    "after": "ⴽⵛⵎ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with native Standard Moroccan Tamazight UI terminology from matching MediaWiki login message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Date and History use distinct temporal/history nouns; login/logout and password labels reuse established local native terminology. Other valid translations remain unchanged."
+  },
+  {
+    "locale": "zgh",
+    "key": "loginPopup-title",
+    "before": "تسجيل الدخول",
+    "after": "ⴽⵛⵎ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with native Standard Moroccan Tamazight UI terminology from matching MediaWiki login message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Date and History use distinct temporal/history nouns; login/logout and password labels reuse established local native terminology. Other valid translations remain unchanged."
+  },
+  {
+    "locale": "zgh",
+    "key": "log-out",
+    "before": "تسجيل الخروج",
+    "after": "ⴼⴼⵖ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with native Standard Moroccan Tamazight UI terminology from matching MediaWiki logout message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Date and History use distinct temporal/history nouns; login/logout and password labels reuse established local native terminology. Other valid translations remain unchanged."
+  },
+  {
+    "locale": "zgh",
+    "key": "smtp-username",
+    "before": "اسم المستخدم",
+    "after": "ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with native Standard Moroccan Tamazight UI terminology from matching MediaWiki userlogin-yourname message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Date and History use distinct temporal/history nouns; login/logout and password labels reuse established local native terminology. Other valid translations remain unchanged."
+  },
+  {
+    "locale": "zgh",
+    "key": "smtp-password",
+    "before": "كلمة المرور",
+    "after": "ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with native Standard Moroccan Tamazight UI terminology from matching MediaWiki userlogin-yourpassword message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Date and History use distinct temporal/history nouns; login/logout and password labels reuse established local native terminology. Other valid translations remain unchanged."
+  },
+  {
+    "locale": "zgh",
+    "key": "move-progress-cancel",
+    "before": "إلغاء",
+    "after": "ⵙⵙⵔ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with native Standard Moroccan Tamazight UI terminology from matching MediaWiki cancel message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Date and History use distinct temporal/history nouns; login/logout and password labels reuse established local native terminology. Other valid translations remain unchanged."
+  },
+  {
+    "locale": "zgh",
+    "key": "searchElementPopup-title",
+    "before": "بحث",
+    "after": "ⴰⵔⵣⵣⵓ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with native Standard Moroccan Tamazight UI terminology from matching MediaWiki search message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Date and History use distinct temporal/history nouns; login/logout and password labels reuse established local native terminology. Other valid translations remain unchanged."
   }
 ]
