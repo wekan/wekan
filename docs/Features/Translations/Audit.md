@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,149 |
+| Corrected | 11,152 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,697 |
+| Pending review or repair | 4,694 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,321** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,325** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `1544b4a0a0ec1eb11e74a57d2c7ba6307b6d5b12` — 5 French date-change activities replaced with Wolof. Source confirms date then card arguments; wording now preserves that meaning and distinguishes received/start/due/end dates and previous due time. Full grammar and date terminology remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `a974398a68e9255c5a72eccce39bf18913553fb3` — 4 custom-field activity messages repaired in Wolof, including an unflagged agricultural-field term. Field/value/card argument order is preserved; clearing a value stays distinct from deleting a field. Computing terminology and full grammar remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
