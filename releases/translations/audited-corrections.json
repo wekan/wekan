@@ -59785,5 +59785,89 @@
     "before": "`__predicate_private__` - uniquement les cartes qui sont dans un tableau privé.",
     "after": "`__predicate_private__` - cartas solament dins los tablèus privats",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "globalSearch-instructions-status-public",
+    "before": "`__predicate_public__` - uniquement les cartes qui sont dans un tableau public.",
+    "after": "`__predicate_public__` - cartas solament dins los tablèus publics",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "hide-finished-checklist",
+    "before": "Cacher la check-list terminée",
+    "after": "Amagar la lista de contraròtle completada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "hideAllChecklistItems",
+    "before": "Cacher tous les éléments de la check-list",
+    "after": "Amagar totes los elements de la lista de contraròtle",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "hideCheckedChecklistItems",
+    "before": "Cacher les éléments cochés de la check-list",
+    "after": "Amagar los elements marcats de la lista de contraròtle",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "import-board-zip",
+    "before": "Ajouter un fichier .zip qui contient les fichiers JSON du tableau et les noms de sous-répertoires avec les pièces jointes",
+    "after": "Apondre un fichièr .zip amb de fichièrs JSON de tablèus e de sosrepertòris amb lo nom del tablèu que contenon las pèças juntas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "import-members-map-note",
+    "before": "Note: les participants ne concordant pas seront attribués à l'utilisateur courant.",
+    "after": "Nòta : los membres sens correspondéncia seràn assignats a l’utilizaire actual.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "import-user-select",
+    "before": "Sélectionnez l'utilisateur existant que vous voulez associer à ce participant",
+    "after": "Seleccionatz l’utilizaire existent que volètz utilizar coma aqueste membre",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "import-usernames",
+    "before": "Importer les noms d'utilisateurs",
+    "after": "Importar los noms d’utilizaires",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "invalid-credentials",
+    "before": "Nom d'utilisateur ou mot de passe invalide",
+    "after": "Nom d’utilizaire o senhal invalid",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "leave-board-pop",
+    "before": "Êtes-vous sur de vouloir quitter __boardTitle__ ? Vous ne serez plus associé aux cartes de ce tableau.",
+    "after": "Volètz vertadièrament quitar __boardTitle__ ? Seretz levat de totas las cartas d’aqueste tablèu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "list-archive-cards-pop",
+    "before": "Cela supprimera du tableau toutes les cartes de cette liste. Pour voir les cartes archivées et les renvoyer vers le tableau, cliquez sur « Menu » puis « Archives ».",
+    "after": "Aquò levarà totas las cartas d’aquesta lista del tablèu. Per veire las cartas dins los archius e las tornar al tablèu, clicatz sus « Menú » > « Archius ».",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "list-archive-pop",
+    "before": "La liste ne sera pas visible sur le tableau après archivage.",
+    "after": "La lista serà pas visibla sul tablèu après l’archivatge.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
