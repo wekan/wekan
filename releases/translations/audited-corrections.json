@@ -112950,5 +112950,54 @@
     "before": "Ei virheitä joita näyttää",
     "after": "Ei ole vigoid ozutamižen täht",
     "reason": "Replace Finnish seed with Veps. Native software attests puhtastim/puhtastimed, rename Anda uz' nimi, vajehtamine and email-počtan adres; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Dictionary laskta imperative laske and viga plural-partitive vigoid: https://kaikki.org/dictionary/Veps/index.html. LOW CONFIDENCE: composed permission and no-errors phrase grammar needs fluent review; Username Change follows source meaning without adding permission."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "uploading",
+    "before": "Upataan",
+    "after": "Samine",
+    "reason": "Replace Finnish Veps upload/email seed with native software terminology from MediaWiki Veps uploaderror, uploadstash, upload-permitted, upload-maxfilesize, upload-dialog-button-done and mailerror; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve upload/error/completed distinction and byte unit (baitad in uploadstash-file-too-large). LOW CONFIDENCE: composed allowed-filetypes and byte-unit inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "uploading-files",
+    "before": "Tiedostojen lisäys",
+    "after": "Failoiden samine",
+    "reason": "Replace Finnish Veps upload/email seed with native software terminology from MediaWiki Veps uploaderror, uploadstash, upload-permitted, upload-maxfilesize, upload-dialog-button-done and mailerror; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve upload/error/completed distinction and byte unit (baitad in uploadstash-file-too-large). LOW CONFIDENCE: composed allowed-filetypes and byte-unit inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "upload-failed",
+    "before": "Tiedostojen lisäys epäonnistui",
+    "after": "Samižen viga",
+    "reason": "Replace Finnish Veps upload/email seed with native software terminology from MediaWiki Veps uploaderror, uploadstash, upload-permitted, upload-maxfilesize, upload-dialog-button-done and mailerror; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve upload/error/completed distinction and byte unit (baitad in uploadstash-file-too-large). LOW CONFIDENCE: composed allowed-filetypes and byte-unit inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "upload-completed",
+    "before": "Tiedostojen lisäys valmis",
+    "after": "Samine om vaumiž",
+    "reason": "Replace Finnish Veps upload/email seed with native software terminology from MediaWiki Veps uploaderror, uploadstash, upload-permitted, upload-maxfilesize, upload-dialog-button-done and mailerror; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve upload/error/completed distinction and byte unit (baitad in uploadstash-file-too-large). LOW CONFIDENCE: composed allowed-filetypes and byte-unit inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "allowed-upload-filetypes",
+    "before": "Sallitut tiedostotyypit:",
+    "after": "Lasktud sadud failoiden tipad:",
+    "reason": "Replace Finnish Veps upload/email seed with native software terminology from MediaWiki Veps uploaderror, uploadstash, upload-permitted, upload-maxfilesize, upload-dialog-button-done and mailerror; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve upload/error/completed distinction and byte unit (baitad in uploadstash-file-too-large). LOW CONFIDENCE: composed allowed-filetypes and byte-unit inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "max-upload-filesize",
+    "before": "Maksimi tiedostokoko bytes:",
+    "after": "Maksimaline sadud failan suruz’ baitoiš:",
+    "reason": "Replace Finnish Veps upload/email seed with native software terminology from MediaWiki Veps uploaderror, uploadstash, upload-permitted, upload-maxfilesize, upload-dialog-button-done and mailerror; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve upload/error/completed distinction and byte unit (baitad in uploadstash-file-too-large). LOW CONFIDENCE: composed allowed-filetypes and byte-unit inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "email-fail",
+    "before": "Sähköpostin lähettäminen epäonnistui",
+    "after": "Email-kirjeižen oigendamižen viga",
+    "reason": "Replace Finnish Veps upload/email seed with native software terminology from MediaWiki Veps uploaderror, uploadstash, upload-permitted, upload-maxfilesize, upload-dialog-button-done and mailerror; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve upload/error/completed distinction and byte unit (baitad in uploadstash-file-too-large). LOW CONFIDENCE: composed allowed-filetypes and byte-unit inflection need fluent review."
   }
 ]

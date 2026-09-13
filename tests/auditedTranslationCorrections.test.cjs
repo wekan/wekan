@@ -331,5 +331,17 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     'accounts-allowEmailChange', 'shortcut-clear-filters', 'filter', 'cron-no-errors']) {
     assert.doesNotMatch(cache['ve-PP'][key], /Salli|uudelleennimeä|käyttäjätunn|sähköposti|suodatt|Suodata|virheitä|näyttää/, key);
   }
+  for (const [key, value] of Object.entries({
+    uploading: 'Samine', 'uploading-files': 'Failoiden samine',
+    'upload-failed': 'Samižen viga', 'upload-completed': 'Samine om vaumiž',
+    'allowed-upload-filetypes': 'Lasktud sadud failoiden tipad:',
+    'max-upload-filesize': 'Maksimaline sadud failan suruz’ baitoiš:',
+    'email-fail': 'Email-kirjeižen oigendamižen viga',
+  })) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.doesNotMatch(cache['ve-PP'][key], /Upataan|Tiedostojen|lisäys|epäonnistui|valmis|Sallitut|tiedostotyy|Maksimi|tiedostokoko|Sähköpostin|lähettäminen/, key);
+  }
+  assert.notEqual(cache['ve-PP']['upload-failed'], cache['ve-PP']['upload-completed']);
+  assert.match(cache['ve-PP']['max-upload-filesize'], /baitoiš/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
