@@ -991,6 +991,19 @@ fresh compiled server in all three browsers. Verification is in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d8c3a3bb5">Wait for replacement cookies when switching browser test users</a>. Thanks to xet7.</summary>
+
+A reloaded browser fixture briefly has no user while retrieving its
+replacement cookie. Wait for the requested user, instead of treating that
+empty state as permission to start another login during navigation.
+Six executable fixture scenarios now cover initial resume, existing users,
+explicit login, nested base paths and switching users. They pass, along
+with the existing session and navigation guards. Fresh live verification
+is in progress.
+
+</details>
+
 **Source and test parity** - preserve current behavior and reject real regressions.
 
 <details>
