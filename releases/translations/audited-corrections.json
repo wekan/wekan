@@ -80127,5 +80127,40 @@
     "before": "Filtrer mes cartes assignées",
     "after": "Fëltar karta yi ñu ma sas",
     "reason": "Replace French filter controls with Wolof using existing Fëltar terminology. Preserve card-or-list scope, today/this-week/next-week due conditions, absent custom fields, archived lists and my assigned cards. Week/due adaptations and full grammar remain low confidence; advanced-filter syntax description remains pending."
+  },
+  {
+    "locale": "wo",
+    "key": "hide-list-on-minicard",
+    "before": "Masquer la liste sur la mini-carte",
+    "after": "Nëbb limu bi ci karta bu ndaw bi",
+    "reason": "Replace French card-display and week-of-year controls with Wolof. Preserve hiding list on minicard, per-list card count and more-than threshold, parent card display and literal ISO 8601. Reuse existing karta bu mag parent and Wone/Nëbb terminology. Full grammar and week/threshold adaptations remain low confidence; drag-handle label left pending."
+  },
+  {
+    "locale": "wo",
+    "key": "show-card-counter-per-list",
+    "before": "Afficher le nombre de cartes par liste",
+    "after": "Wone limu karta yi ci limu bu nekk",
+    "reason": "Replace French card-display and week-of-year controls with Wolof. Preserve hiding list on minicard, per-list card count and more-than threshold, parent card display and literal ISO 8601. Reuse existing karta bu mag parent and Wone/Nëbb terminology. Full grammar and week/threshold adaptations remain low confidence; drag-handle label left pending."
+  },
+  {
+    "locale": "wo",
+    "key": "show-cards-minimum-count",
+    "before": "Afficher le nombre de cartes si la liste en contient plus de",
+    "after": "Wone limu karta yi su limu bi am karta yu ëpp",
+    "reason": "Replace French card-display and week-of-year controls with Wolof. Preserve hiding list on minicard, per-list card count and more-than threshold, parent card display and literal ISO 8601. Reuse existing karta bu mag parent and Wone/Nëbb terminology. Full grammar and week/threshold adaptations remain low confidence; drag-handle label left pending."
+  },
+  {
+    "locale": "wo",
+    "key": "show-parent-in-minicard",
+    "before": "Voir la carte parente dans la mini-carte :",
+    "after": "Wone karta bu mag bi ci karta bu ndaw bi:",
+    "reason": "Replace French card-display and week-of-year controls with Wolof. Preserve hiding list on minicard, per-list card count and more-than threshold, parent card display and literal ISO 8601. Reuse existing karta bu mag parent and Wone/Nëbb terminology. Full grammar and week/threshold adaptations remain low confidence; drag-handle label left pending."
+  },
+  {
+    "locale": "wo",
+    "key": "show-week-of-year",
+    "before": "Afficher la semaine de l'année (ISO 8601)",
+    "after": "Wone ayu-bés bi ci at mi (ISO 8601)",
+    "reason": "Replace French card-display and week-of-year controls with Wolof. Preserve hiding list on minicard, per-list card count and more-than threshold, parent card display and literal ISO 8601. Reuse existing karta bu mag parent and Wone/Nëbb terminology. Full grammar and week/threshold adaptations remain low confidence; drag-handle label left pending."
   }
 ]
