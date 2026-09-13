@@ -71475,5 +71475,103 @@
     "before": "Anda memiliki deskripsi yang belum disimpan.",
     "after": "Droeneueh na deskripsi nyang gohlom geukeuneubah.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "user-can-not-export-card-to-pdf",
+    "before": "Pengguna tidak boleh eksport  kad kepada PDF",
+    "after": "Ureueng ngui hana jeuet ekspor kad u PDF",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "user-can-not-export-excel",
+    "before": "Pengguna tidak boleh eksport Exce",
+    "after": "Ureueng ngui hana jeuet ekspor Excel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "vote-delete-pop",
+    "before": "Hapus adalah kekal. Anda akan hilang semua tindakan yang berkaitan dengan undian ini.",
+    "after": "Meunyoe geuhapus, hana jeuet geupeuwoe lom. Mandum tindakan nyang na hubongan ngon voting nyoe akan gadeoh.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "warn-list-archived",
+    "before": "Amaran: Kad ini berada dalam senarai dalam Arkib",
+    "after": "Peuingat: Kad nyoe na bak senarai lam Arsip",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "watching-info",
+    "before": "Anda akan diberitahu semua perubahan di panel ini",
+    "after": "Droeneueh akan geubri notifikasi peue mantong perubahan bak papan nyoe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "webhook-token",
+    "before": "Token (pilihan untuk pengesahan)",
+    "after": "Token (hana wajib, keu autentikasi)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "what-to-do",
+    "before": "Apa yang mau Anda lakukan?",
+    "after": "Peue nyang droeneueh keuneuk peubuet?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "wipLimitErrorPopup-dialog-pt1",
+    "before": "Bilangan tindakan dalam senarai in adalah lebih besar daripada had WIP yang ada telah tentukan",
+    "after": "Jeumeulah tugas bak senarai nyoe leubeh nibak bataih WIP nyang droeneueh ka atô.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "wipLimitErrorPopup-dialog-pt2",
+    "before": "Sila pindahkan beberapa tugas dalam senarai ini, atau tetapkan had WIP yang lebih tinggi",
+    "after": "Neupinah ladom tugas u luwa senarai nyoe, atawa atô bataih WIP nyang leubeh rayek.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "worker-desc",
+    "before": "hanya boleh pindah kad, tugaskan diri sendiri pada kad dan komen",
+    "after": "Jeuet pinah kad, bri tugas bak kad u droe keudroe ngon komen mantong.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "addmore-detail",
+    "before": "Tambahkan deskripsi yang lebih rinci",
+    "after": "Tamah deskripsi nyang leubeh rinci",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "allboards.edit-workspace-icon",
+    "before": "Ikon ruang-kerja (markdown)",
+    "after": "Ikon teumpat buet (markdown)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "anonymize-export-users",
+    "before": "Anonimkan pengguna ekspor",
+    "after": "Peusom identitas ureueng ngui lam ekspor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "start-day-of-week",
+    "before": "Tetapkan hari dimulai dalam minggu",
+    "after": "Atô uroe awai minggu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

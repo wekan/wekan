@@ -68,5 +68,7 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   }
   assert.match(cache.ace['shortcut-assign-self'], /Bri tugas/, 'assigning oneself is distinct from joining');
   assert.doesNotMatch(cache.ace['shortcut-add-self'], /Bri tugas/);
+  assert.match(cache.ace['wipLimitErrorPopup-dialog-pt2'], /u luwa senarai/, 'move excess tasks out of the list');
+  assert.match(cache.ace['user-can-not-export-excel'], /Excel$/, 'preserve the export format name');
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
