@@ -86819,5 +86819,33 @@
     "before": "Corriger les URL des pièces jointes",
     "after": "Verätükam URLs fimükotas",
     "reason": "Replace French notification deletion, card/checklist addition and attachment action labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nunäd (notification, PDF page704), radön (erase), valik (all), lüükön (add), kad (card), don (bottom), löp (top), lised (list), notet (written item), verätükön (correct). Reuse previously recorded low-confidence kontrolalised and fimükot compounds/derivations for consistency. Full software phrases remain low confidence pending native review. Preserve top/bottom contrast, all-notifications scope and source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "accounts-lockout-user-locked",
+    "before": "L'utilisateur est verrouillé",
+    "after": "Geban pefäilököl",
+    "reason": "Replace French account-lock status and filtering labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fäilökön (lock), mailökön (unlock), klikön (click; dictionary physical/tongue sense), jonön (show), te (only); use existing geban computer-user stem. Preserve locked versus unlock and only-locked-users scope. Applying physical lock/click vocabulary to accounts, passive participle and complete phrases remain low confidence pending native review. Preserve source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "accounts-lockout-click-to-unlock",
+    "before": "Cliquer pour déverrouiller cet utilisateur",
+    "after": "Klikön ad mailökön gebani at",
+    "reason": "Replace French account-lock status and filtering labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fäilökön (lock), mailökön (unlock), klikön (click; dictionary physical/tongue sense), jonön (show), te (only); use existing geban computer-user stem. Preserve locked versus unlock and only-locked-users scope. Applying physical lock/click vocabulary to accounts, passive participle and complete phrases remain low confidence pending native review. Preserve source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "accounts-lockout-show-locked-users",
+    "before": "Afficher les utilisateurs verrouillés seulement",
+    "after": "Jonön te gebanis pefäilököl",
+    "reason": "Replace French account-lock status and filtering labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fäilökön (lock), mailökön (unlock), klikön (click; dictionary physical/tongue sense), jonön (show), te (only); use existing geban computer-user stem. Preserve locked versus unlock and only-locked-users scope. Applying physical lock/click vocabulary to accounts, passive participle and complete phrases remain low confidence pending native review. Preserve source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "admin-people-filter-locked",
+    "before": "Utilisateurs verrouillés seulement",
+    "after": "Te gebans pefäilököl",
+    "reason": "Replace French account-lock status and filtering labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fäilökön (lock), mailökön (unlock), klikön (click; dictionary physical/tongue sense), jonön (show), te (only); use existing geban computer-user stem. Preserve locked versus unlock and only-locked-users scope. Applying physical lock/click vocabulary to accounts, passive participle and complete phrases remain low confidence pending native review. Preserve source tokens."
   }
 ]
