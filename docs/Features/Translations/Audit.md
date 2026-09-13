@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,898 |
+| Corrected | 11,899 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,948 |
+| Pending review or repair | 3,947 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,287** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,288** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `c649eff63db9a509069e010f7e8273548d4bcb00` — Fulah calendar setting replaced foreign seeded text using [indexed native Pulaar vocabulary](https://pulaar.org/page/85/?order=name&page=1&q=glossary%2Fj&sort=asc). Display rendering and assembled grammar remain low confidence; religious calendar names, Indian national and Hijri variants remain pending. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; native-speaker and live browser verification are unavailable.
+Latest translation fix: **2026-09-13**, local commit `05666a6413ebda7879ce56c6a85c89756b216ca8` — Fulah Hebrew calendar label repaired using Yahuud-en from indexed [native Pulaar usage](https://binndipulaar.com/2019/07/13/quraan-e-%C9%97emngal-pulaar/). Assembled calendar grammar remains low confidence; other religious calendar names, Indian national and Hijri variants remain pending. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; native-speaker and live browser verification are unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
