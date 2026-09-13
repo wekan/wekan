@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,053 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 791 pending review or repair.
-The correction inventory records 17,118 exact before/after values,
+findings: 15,055 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 789 pending review or repair.
+The correction inventory records 17,120 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -100,8 +100,8 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 655066430 (2026-09-14), covering four Veps
-action-choice values. The original Neapolitan queue is empty. All correction/rendering checks
+Latest translation fix is 99cea5fb4 (2026-09-14), covering Fulah and Bambara
+Jalali qualifiers. The original Neapolitan queue is empty. All correction/rendering checks
 pass; low-confidence technical terminology remains explicitly tracked.
 Member assignment popup handlers need separate review for apparent reversed
 operations. The 1,015-suite Node result is historical and predates the latest batches.
@@ -579,9 +579,22 @@ the Markdown commit as the template.
 Neapolitan rule-item labels and examples use dictionary-attested terminology.
 Calendar, list and time labels reuse existing wording. Multiple-board calendars,
 current-time actions and comma-separated examples retain their distinctions.
+Fulah and Bambara Persian calendar qualifiers use Unicode locale terminology.
 The audit records verified repairs and remaining language reviews.
 
 This release adds the following translation improvements:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/99cea5fb4">Localize Persian calendar qualifiers in Fulah and Bambara</a>. Thanks to xet7.</summary>
+
+Use Unicode CLDR Persian language names with existing calendar nouns,
+preserving Jalali identity and distinction from Hijri. Actual locale rendering
+and all 17,120 correction checks pass, including tokens, JSON, key order and
+newer correct translations. Calendar-name composition needs native review;
+live browser checks were not run. The original queue has 789 pending findings,
+including five each in Fulah and Bambara. Wider validation remains unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/655066430">Repair Veps multi-selection action choice translations</a>. Thanks to xet7.</summary>
