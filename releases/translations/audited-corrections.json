@@ -89766,5 +89766,47 @@
     "before": "Par défaut, les cartes archivées ne sont pas recherchées.",
     "after": "Ma väls kösömik, kads in ragiv no pasukons.",
     "reason": "Repair French search-help prose and translated angle-bracket identifiers in Volapük. Preserve exact backtick operator examples and angle tokens, name/color alternative, created/modified within N days, positive whole-number per-page limit, status choice/end-date existence, case-insensitive text and default archive exclusion. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests brefükam (abbreviation), valodanum, positik and distidön (distinguish); existing search/card/date/archive vocabulary. Software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-description",
+    "before": "Les recherches peuvent inclure des opérateurs pour affiner le résultat. Les opérateurs sont précisés en écrivant l'opérateur suivi d'une valeur séparé par un deux-point. Par exemple, une spécification comme `liste:Bloqué` limiterait le résultat aux cartes qui contiennent une liste appelée *Bloqué*. Si la valeur contient des espaces ou des caractères spéciaux, elle doit être entourée d'apostrophes (par ex. `__operator_list__:\"À valider\"`).",
+    "after": "Suks kanons keninädön miedis ad miedükön suki. Nems miedas suka e völads papenons peteilöl me mal \":\". Samo, `list:Blocked` miedükon suki ad kads in lised labü nem *Blocked*. If völad ninädon spadis u malis patik, muton binön vü saitamalüls (samo `__operator_list__:\"To Review\"`).",
+    "reason": "Repair French search-combination/syntax explanations in Volapük, describing operators as search constraints. Preserve exact code examples, colon delimiter and quoted values, similar-operator OR/any versus differing-operator AND/all, positive/negative integer day periods and descending-sort leading minus. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests stip (condition), saitamalül (quotation mark) and negatik; use literal colon rather than anatomical krasum. Software constraint/descending-order paraphrases and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-notes-1",
+    "before": "Il est possible d'utiliser plusieurs opérateurs.",
+    "after": "Mieds suka mödik kanons palonön.",
+    "reason": "Repair French search-combination/syntax explanations in Volapük, describing operators as search constraints. Preserve exact code examples, colon delimiter and quoted values, similar-operator OR/any versus differing-operator AND/all, positive/negative integer day periods and descending-sort leading minus. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests stip (condition), saitamalül (quotation mark) and negatik; use literal colon rather than anatomical krasum. Software constraint/descending-order paraphrases and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-notes-2",
+    "before": "Les opérateurs similaires deviennent *optionnels*. Les cartes correspondant à n'importe quelle condition sont retournées.\n`__operator_list__:Disponible __operator_list__:Bloquée` retournera les cartes contenues dans la liste *Disponible* ou dans la liste *Bloquée*.",
+    "after": "Mieds suka sümik payümons me *OR* (u). Kads, kels baiädons bai stip seimik, pojonons.\n`__operator_list__:Available __operator_list__:Blocked` jonon kadis in lised seimik labü nem *Blocked* u *Available*.",
+    "reason": "Repair French search-combination/syntax explanations in Volapük, describing operators as search constraints. Preserve exact code examples, colon delimiter and quoted values, similar-operator OR/any versus differing-operator AND/all, positive/negative integer day periods and descending-sort leading minus. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests stip (condition), saitamalül (quotation mark) and negatik; use literal colon rather than anatomical krasum. Software constraint/descending-order paraphrases and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-notes-3",
+    "before": "Les opérateurs différents sont *combinés*. Seules les cartes correspondant à tous les critères sont retournées.  `__operator_list__:Disponible __operator_label__:rouge` ne retourne que les cartes dans la liste *Disponible* avec une étiquette *rouge*.",
+    "after": "Mieds suka votik payümons me *AND* (e). Te kads, kels baiädons bai mieds suka votik valik, pojonons. `__operator_list__:Available __operator_label__:red` jonon te kadis in lised *Available* labü ninädapenäd *red*.",
+    "reason": "Repair French search-combination/syntax explanations in Volapük, describing operators as search constraints. Preserve exact code examples, colon delimiter and quoted values, similar-operator OR/any versus differing-operator AND/all, positive/negative integer day periods and descending-sort leading minus. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests stip (condition), saitamalül (quotation mark) and negatik; use literal colon rather than anatomical krasum. Software constraint/descending-order paraphrases and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-notes-3-2",
+    "before": "Les durées en jours peuvent être précisées soit par un entier positif ou négatif soit en utilisant `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` ou `__predicate_year__` pour la période courante.",
+    "after": "Dels kanons palonön as valodanum positik u negatik, u me `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` u `__predicate_year__` pro tim nuik.",
+    "reason": "Repair French search-combination/syntax explanations in Volapük, describing operators as search constraints. Preserve exact code examples, colon delimiter and quoted values, similar-operator OR/any versus differing-operator AND/all, positive/negative integer day periods and descending-sort leading minus. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests stip (condition), saitamalül (quotation mark) and negatik; use literal colon rather than anatomical krasum. Software constraint/descending-order paraphrases and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "globalSearch-instructions-operator-sort",
+    "before": "`__operator_sort__:<tri>` - où *<tri>* est une méthode parmi `__predicate_due__`, `__predicate_created__` ou `__predicate_modified__`.  Pour un tri descendant, préfixez la méthode par `-`.",
+    "after": "`__operator_sort__:<sort-name>` - *<sort-name>* binon bal se `__predicate_due__`, `__predicate_created__` u `__predicate_modified__`. Pro sotam de gretikum lü smalikum, pladolös `-` fo nem sotama.",
+    "reason": "Repair French search-combination/syntax explanations in Volapük, describing operators as search constraints. Preserve exact code examples, colon delimiter and quoted values, similar-operator OR/any versus differing-operator AND/all, positive/negative integer day periods and descending-sort leading minus. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests stip (condition), saitamalül (quotation mark) and negatik; use literal colon rather than anatomical krasum. Software constraint/descending-order paraphrases and assembled wording remain low confidence; no native-speaker verification."
   }
 ]
