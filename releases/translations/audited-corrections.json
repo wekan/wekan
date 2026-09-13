@@ -85916,5 +85916,12 @@
     "before": "Japanese",
     "after": "Japóńsczi kalãdôrz",
     "reason": "Replace Polish week filler with Kashubian Tidzéń, independently attested in author-published https://www.fopke.pl/media/tunefiles/piosenki-dla-dzieci/Tidze%C5%84_wk%C3%B3%C5%82_-_bd.pdf . Japanese adjective Japóńsczi follows Kashubian Language Council resolution https://rjk.org.pl/resolutions/uchwaly-2007/ . Calendar noun already verified from native museum text; assembled Japanese calendar label remains low confidence, not native-speaker reviewed."
+  },
+  {
+    "locale": "csb",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Persczi kalãdôrz Jalali",
+    "reason": "Replace foreign Fars descriptor with Kashubian Persian adjective persczi attested in https://csb.wiktionary.org/wiki/Prz%C3%A9dn%C3%B4_starna and https://kaikki.org/plwiktionary/j%C4%99zyk%20kaszubski/pos-adj/nowi--pi%C4%85ti.html ; calendar noun kalãdôrz verified from native museum text. Preserve Jalali identity. Assembled calendar phrase remains low confidence, not native-speaker reviewed."
   }
 ]
