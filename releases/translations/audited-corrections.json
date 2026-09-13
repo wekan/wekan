@@ -84215,5 +84215,40 @@
     "before": "ISO 8601",
     "after": "ʻAlemanaka Gregoriana (nā pule ISO 8601)",
     "reason": "Replace foreign-language calendar setting and English labels with Hawaiian; restore calendar identity, Minguo name and Gregorian ISO weeks. Reuse local ʻalemanaka/date/week vocabulary, supported by https://hilo.hawaii.edu/wehe/?tag=time; country adjectives checked in https://manoa.hawaii.edu/aplpj/wp-content/uploads/sites/120/2020/06/APLPJ_21.2_Gramberg.pdf. Proper calendar names retained; full phrase grammar remains low confidence. Remaining religious and Hijri epoch/sighting terminology requires further review."
+  },
+  {
+    "locale": "haw",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "ʻAlemanaka Jalali (Peresia)",
+    "reason": "Replace foreign-language and English calendar labels with Hawaiian, retaining Jalali/Amete Alem identifiers and Indian national qualifier. Peresia/Aitiopa attested at https://ebible.org/haw1868/EST01.htm and https://ebible.org/study/content/texts/haw1868/IS18.html; Hebera at https://bridwell.omeka.net/exhibits/show/harrison/worldvernacular/hawaiian; ʻĪnia at https://en.wiktionary.org/wiki/%CA%BB%C4%AAnia. These attest individual terms, not modern complete-label grammar, which remains low confidence. Religious loanwords and Hijri epoch/sighting labels remain pending."
+  },
+  {
+    "locale": "haw",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "ʻAlemanaka Amete Alem o Aitiopa",
+    "reason": "Replace foreign-language and English calendar labels with Hawaiian, retaining Jalali/Amete Alem identifiers and Indian national qualifier. Peresia/Aitiopa attested at https://ebible.org/haw1868/EST01.htm and https://ebible.org/study/content/texts/haw1868/IS18.html; Hebera at https://bridwell.omeka.net/exhibits/show/harrison/worldvernacular/hawaiian; ʻĪnia at https://en.wiktionary.org/wiki/%CA%BB%C4%AAnia. These attest individual terms, not modern complete-label grammar, which remains low confidence. Religious loanwords and Hijri epoch/sighting labels remain pending."
+  },
+  {
+    "locale": "haw",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "ʻAlemanaka o Aitiopa",
+    "reason": "Replace foreign-language and English calendar labels with Hawaiian, retaining Jalali/Amete Alem identifiers and Indian national qualifier. Peresia/Aitiopa attested at https://ebible.org/haw1868/EST01.htm and https://ebible.org/study/content/texts/haw1868/IS18.html; Hebera at https://bridwell.omeka.net/exhibits/show/harrison/worldvernacular/hawaiian; ʻĪnia at https://en.wiktionary.org/wiki/%CA%BB%C4%AAnia. These attest individual terms, not modern complete-label grammar, which remains low confidence. Religious loanwords and Hijri epoch/sighting labels remain pending."
+  },
+  {
+    "locale": "haw",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "ʻAlemanaka Hebera",
+    "reason": "Replace foreign-language and English calendar labels with Hawaiian, retaining Jalali/Amete Alem identifiers and Indian national qualifier. Peresia/Aitiopa attested at https://ebible.org/haw1868/EST01.htm and https://ebible.org/study/content/texts/haw1868/IS18.html; Hebera at https://bridwell.omeka.net/exhibits/show/harrison/worldvernacular/hawaiian; ʻĪnia at https://en.wiktionary.org/wiki/%CA%BB%C4%AAnia. These attest individual terms, not modern complete-label grammar, which remains low confidence. Religious loanwords and Hijri epoch/sighting labels remain pending."
+  },
+  {
+    "locale": "haw",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "ʻAlemanaka aupuni o ʻĪnia",
+    "reason": "Replace foreign-language and English calendar labels with Hawaiian, retaining Jalali/Amete Alem identifiers and Indian national qualifier. Peresia/Aitiopa attested at https://ebible.org/haw1868/EST01.htm and https://ebible.org/study/content/texts/haw1868/IS18.html; Hebera at https://bridwell.omeka.net/exhibits/show/harrison/worldvernacular/hawaiian; ʻĪnia at https://en.wiktionary.org/wiki/%CA%BB%C4%AAnia. These attest individual terms, not modern complete-label grammar, which remains low confidence. Religious loanwords and Hijri epoch/sighting labels remain pending."
   }
 ]
