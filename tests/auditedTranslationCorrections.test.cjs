@@ -366,5 +366,14 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['avatar-too-big'], /maksimaline __size__/);
   assert.match(cache['ve-PP']['max-avatar-filesize'], /baitoiš/);
   assert.notEqual(cache['ve-PP']['upload-avatar'], cache['ve-PP']['uploaded-avatar']);
+  for (const key of ['email-enrollAccount-subject', 'email-resetPassword-subject', 'email-verifyEmail-subject']) {
+    assert.match(cache['ve-PP'][key], /saital __siteName__$/, key);
+    assert.doesNotMatch(cache['ve-PP'][key], /Sinulle|luotu|palveluun|Nollaa|salasanasi|palvelussa|Khwathisedzani|ḓiresi|imeiḽi/, key);
+  }
+  assert.match(cache['ve-PP']['email-resetPassword-subject'], /^Tege ičeleiž uz' peitsana/);
+  assert.match(cache['ve-PP']['email-verifyEmail-subject'], /^Vahvištoita/);
+  assert.equal(cache['ve-PP']['email-invite'], 'Kucu email-počtan abul');
+  assert.equal(cache['ve-PP']['email-smtp-test-text'], 'Sinä oled oigenu email-kirjeižen hüvin');
+  assert.doesNotMatch(cache['ve-PP']['email-invite'] + cache['ve-PP']['email-smtp-test-text'], /Kutsu|sähköpost|Olet|onnistuneesti|lähettänyt/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

@@ -113125,5 +113125,40 @@
     "before": "Sallitut profiilikuva tiedostotyypit:",
     "after": "Lasktud kävutajan kuvan failoiden tipad:",
     "reason": "Replace Finnish Veps avatar controls with composed native user-image wording. MediaWiki Veps attests kävutajan, Vajehta, upload Sa, sadud, confirmation Tozi-ik sinä tahtoid, heitta, lujas/sur', maksimaline failan suruz', lasktud/tipad and baitad; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Veps kuva image genitive kuvan and partitive kuvad verified in dictionary: https://kaikki.org/dictionary/Veps/index.html. LOW CONFIDENCE: composed avatar/user-image phrases and byte-unit inflection need fluent review. Preserve __size__ token and maximum/type/confirmation meanings."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "email-enrollAccount-subject",
+    "before": "Sinulle on luotu tili palveluun __siteName__",
+    "after": "Sinei om tehtud kävutajan lehtpol' saital __siteName__",
+    "reason": "Replace Finnish/Venda Veps account/email text with native vocabulary. MediaWiki Veps attests accountcreated, kävutajan lehtpol', sinei, resetpass Tege uz' peitsana, confirmemail Vahvištoita email-počtan adres and email-počtan abul; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Dictionary kucta invite imperative kucu and oigeta send active participle oigenu: https://kaikki.org/dictionary/Veps/index.html (direct Wiktionary requests failed). LOW CONFIDENCE: composed account/site subjects and SMTP success grammar need fluent review. Reset means create a new personal password, not delete it. Preserve __siteName__ and addressed user."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "email-resetPassword-subject",
+    "before": "Nollaa salasanasi palvelussa __siteName__",
+    "after": "Tege ičeleiž uz' peitsana saital __siteName__",
+    "reason": "Replace Finnish/Venda Veps account/email text with native vocabulary. MediaWiki Veps attests accountcreated, kävutajan lehtpol', sinei, resetpass Tege uz' peitsana, confirmemail Vahvištoita email-počtan adres and email-počtan abul; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Dictionary kucta invite imperative kucu and oigeta send active participle oigenu: https://kaikki.org/dictionary/Veps/index.html (direct Wiktionary requests failed). LOW CONFIDENCE: composed account/site subjects and SMTP success grammar need fluent review. Reset means create a new personal password, not delete it. Preserve __siteName__ and addressed user."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "email-verifyEmail-subject",
+    "before": "Khwathisedzani ḓiresi ya imeiḽi kha __siteName__",
+    "after": "Vahvištoita ičeiž email-počtan adres saital __siteName__",
+    "reason": "Replace Finnish/Venda Veps account/email text with native vocabulary. MediaWiki Veps attests accountcreated, kävutajan lehtpol', sinei, resetpass Tege uz' peitsana, confirmemail Vahvištoita email-počtan adres and email-počtan abul; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Dictionary kucta invite imperative kucu and oigeta send active participle oigenu: https://kaikki.org/dictionary/Veps/index.html (direct Wiktionary requests failed). LOW CONFIDENCE: composed account/site subjects and SMTP success grammar need fluent review. Reset means create a new personal password, not delete it. Preserve __siteName__ and addressed user."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "email-invite",
+    "before": "Kutsu sähköpostilla",
+    "after": "Kucu email-počtan abul",
+    "reason": "Replace Finnish/Venda Veps account/email text with native vocabulary. MediaWiki Veps attests accountcreated, kävutajan lehtpol', sinei, resetpass Tege uz' peitsana, confirmemail Vahvištoita email-počtan adres and email-počtan abul; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Dictionary kucta invite imperative kucu and oigeta send active participle oigenu: https://kaikki.org/dictionary/Veps/index.html (direct Wiktionary requests failed). LOW CONFIDENCE: composed account/site subjects and SMTP success grammar need fluent review. Reset means create a new personal password, not delete it. Preserve __siteName__ and addressed user."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "email-smtp-test-text",
+    "before": "Olet onnistuneesti lähettänyt sähköpostin",
+    "after": "Sinä oled oigenu email-kirjeižen hüvin",
+    "reason": "Replace Finnish/Venda Veps account/email text with native vocabulary. MediaWiki Veps attests accountcreated, kävutajan lehtpol', sinei, resetpass Tege uz' peitsana, confirmemail Vahvištoita email-počtan adres and email-počtan abul; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Dictionary kucta invite imperative kucu and oigeta send active participle oigenu: https://kaikki.org/dictionary/Veps/index.html (direct Wiktionary requests failed). LOW CONFIDENCE: composed account/site subjects and SMTP success grammar need fluent review. Reset means create a new personal password, not delete it. Preserve __siteName__ and addressed user."
   }
 ]
