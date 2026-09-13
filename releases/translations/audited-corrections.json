@@ -74317,5 +74317,117 @@
     "before": "Moteur de stockage MongoDB",
     "after": "Moteur di stockaedje MongoDB",
     "reason": "Replace audited French export/upload/file controls with Walloon, preserving Excel/CSV/TSV/MongoDB names, byte units and field groups. Export vocabulary from authored KDE Walloon translation: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po ; existing file and clipboard vocabulary reused. Full grammar and specialized received/owner/assignment field terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "act-importCard",
+    "before": "a importé la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a abagué l' cåte __card__ el djivêye __list__ do coridôr __swimlane__ do tåvlea __board__",
+    "reason": "Replace audited French import/mapping controls with Walloon using existing Abaguer terminology, also attested in authored KDE translation https://raw.githubusercontent.com/KDE/calligra/master/po/wa/calligra_shape_spreadsheet.po . Preserve Trello/WeKan quoted menu labels, JSON/ZIP names, positional placeholders and unmapped-member fallback to current user. Full grammar and mapping terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-importList",
+    "before": "a importé la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a abagué l' djivêye __list__ el coridôr __swimlane__ do tåvlea __board__",
+    "reason": "Replace audited French import/mapping controls with Walloon using existing Abaguer terminology, also attested in authored KDE translation https://raw.githubusercontent.com/KDE/calligra/master/po/wa/calligra_shape_spreadsheet.po . Preserve Trello/WeKan quoted menu labels, JSON/ZIP names, positional placeholders and unmapped-member fallback to current user. Full grammar and mapping terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-imported",
+    "before": "a importé %s vers %s depuis %s",
+    "after": "a abagué %s dins %s di %s",
+    "reason": "Replace audited French import/mapping controls with Walloon using existing Abaguer terminology, also attested in authored KDE translation https://raw.githubusercontent.com/KDE/calligra/master/po/wa/calligra_shape_spreadsheet.po . Preserve Trello/WeKan quoted menu labels, JSON/ZIP names, positional placeholders and unmapped-member fallback to current user. Full grammar and mapping terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "import-board-instruction-about-errors",
+    "before": "Si une erreur survient en important le tableau, il se peut que l'import ait fonctionné, et que le tableau se trouve sur la page \"Tous les tableaux\".",
+    "after": "Si vos avoz des arokes å moumint d' abaguer on tåvlea, l' abagaedje pout tot l' minme aveur reüssi, eyet l' tåvlea esse sol pådje Tos les tåvleas.",
+    "reason": "Replace audited French import/mapping controls with Walloon using existing Abaguer terminology, also attested in authored KDE translation https://raw.githubusercontent.com/KDE/calligra/master/po/wa/calligra_shape_spreadsheet.po . Preserve Trello/WeKan quoted menu labels, JSON/ZIP names, positional placeholders and unmapped-member fallback to current user. Full grammar and mapping terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "import-board-instruction-trello",
+    "before": "Dans votre tableau Trello, allez sur 'Menu', puis sur 'Plus', 'Imprimer et exporter', 'Exporter en JSON' et copiez le texte du résultat",
+    "after": "Dins vosse tåvlea Trello, alez a 'Menu', poy 'More', 'Print and Export', 'Export JSON', et copyîz l' tecse di rtrové.",
+    "reason": "Replace audited French import/mapping controls with Walloon using existing Abaguer terminology, also attested in authored KDE translation https://raw.githubusercontent.com/KDE/calligra/master/po/wa/calligra_shape_spreadsheet.po . Preserve Trello/WeKan quoted menu labels, JSON/ZIP names, positional placeholders and unmapped-member fallback to current user. Full grammar and mapping terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "import-board-instruction-wekan",
+    "before": "Dans votre tableau, allez dans 'Menu', puis 'Exporter un tableau', et copier le texte du fichier téléchargé.",
+    "after": "Dins vosse tåvlea, alez a 'Menu', poy 'Export board', et copyîz l' tecse do fitchî aberweté.",
+    "reason": "Replace audited French import/mapping controls with Walloon using existing Abaguer terminology, also attested in authored KDE translation https://raw.githubusercontent.com/KDE/calligra/master/po/wa/calligra_shape_spreadsheet.po . Preserve Trello/WeKan quoted menu labels, JSON/ZIP names, positional placeholders and unmapped-member fallback to current user. Full grammar and mapping terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "import-board-zip",
+    "before": "Ajouter un fichier .zip qui contient les fichiers JSON du tableau et les noms de sous-répertoires avec les pièces jointes",
+    "after": "Radjouter on fitchî .zip avou des fitchîs JSON di tåvleas et des dzo-ridants do no do tåvlea avou les pîces djondowes",
+    "reason": "Replace audited French import/mapping controls with Walloon using existing Abaguer terminology, also attested in authored KDE translation https://raw.githubusercontent.com/KDE/calligra/master/po/wa/calligra_shape_spreadsheet.po . Preserve Trello/WeKan quoted menu labels, JSON/ZIP names, positional placeholders and unmapped-member fallback to current user. Full grammar and mapping terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "import-members-map",
+    "before": "Le tableau que vous venez d'importer contient des participants. Veuillez assigner les participants que vous souhaitez importer à vos utilisateurs.",
+    "after": "Vosse tåvlea abagué a des mimbes. Raloyîz les mimbes ki vos voloz abaguer a vos uzeus",
+    "reason": "Replace audited French import/mapping controls with Walloon using existing Abaguer terminology, also attested in authored KDE translation https://raw.githubusercontent.com/KDE/calligra/master/po/wa/calligra_shape_spreadsheet.po . Preserve Trello/WeKan quoted menu labels, JSON/ZIP names, positional placeholders and unmapped-member fallback to current user. Full grammar and mapping terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "import-members-map-note",
+    "before": "Note: les participants ne concordant pas seront assignés à l'utilisateur courant.",
+    "after": "Asteme: les mimbes nén raloyîs seront dinés a l' uzeu do moumint.",
+    "reason": "Replace audited French import/mapping controls with Walloon using existing Abaguer terminology, also attested in authored KDE translation https://raw.githubusercontent.com/KDE/calligra/master/po/wa/calligra_shape_spreadsheet.po . Preserve Trello/WeKan quoted menu labels, JSON/ZIP names, positional placeholders and unmapped-member fallback to current user. Full grammar and mapping terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "import-user-select",
+    "before": "Sélectionnez l'utilisateur existant que vous voulez associer à ce participant",
+    "after": "Tchoezi l' uzeu egzistant ki vos voloz eployî po ci mimbe ci",
+    "reason": "Replace audited French import/mapping controls with Walloon using existing Abaguer terminology, also attested in authored KDE translation https://raw.githubusercontent.com/KDE/calligra/master/po/wa/calligra_shape_spreadsheet.po . Preserve Trello/WeKan quoted menu labels, JSON/ZIP names, positional placeholders and unmapped-member fallback to current user. Full grammar and mapping terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "import-usernames",
+    "before": "Importer les noms d'utilisateurs",
+    "after": "Abaguer les nos d' uzeus",
+    "reason": "Replace audited French import/mapping controls with Walloon using existing Abaguer terminology, also attested in authored KDE translation https://raw.githubusercontent.com/KDE/calligra/master/po/wa/calligra_shape_spreadsheet.po . Preserve Trello/WeKan quoted menu labels, JSON/ZIP names, positional placeholders and unmapped-member fallback to current user. Full grammar and mapping terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "map-to-existing-user-none",
+    "before": "Il n'y a pas encore d'autres membres réels sur ce tableau. Cherchez ci-dessus pour trouver n'importe quel utilisateur.",
+    "after": "I gn a nén co d' ôtes vrais mimbes so ci tåvlea ci. Cweri pa dzeu po trover tot l' minme ké uzeu.",
+    "reason": "Replace audited French import/mapping controls with Walloon using existing Abaguer terminology, also attested in authored KDE translation https://raw.githubusercontent.com/KDE/calligra/master/po/wa/calligra_shape_spreadsheet.po . Preserve Trello/WeKan quoted menu labels, JSON/ZIP names, positional placeholders and unmapped-member fallback to current user. Full grammar and mapping terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "import-json-placeholder",
+    "before": "Collez ici les données JSON valides",
+    "after": "Aclaper vos valåbes dnêyes JSON cial",
+    "reason": "Replace audited French import/mapping controls with Walloon using existing Abaguer terminology, also attested in authored KDE translation https://raw.githubusercontent.com/KDE/calligra/master/po/wa/calligra_shape_spreadsheet.po . Preserve Trello/WeKan quoted menu labels, JSON/ZIP names, positional placeholders and unmapped-member fallback to current user. Full grammar and mapping terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "import-map-members",
+    "before": "Assigner des participants",
+    "after": "Raloyî les mimbes ås uzeus",
+    "reason": "Replace audited French import/mapping controls with Walloon using existing Abaguer terminology, also attested in authored KDE translation https://raw.githubusercontent.com/KDE/calligra/master/po/wa/calligra_shape_spreadsheet.po . Preserve Trello/WeKan quoted menu labels, JSON/ZIP names, positional placeholders and unmapped-member fallback to current user. Full grammar and mapping terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "import-show-user-mapping",
+    "before": "Contrôler l'assignation des participants",
+    "after": "Riviziter les raloyaedjes des mimbes ås uzeus",
+    "reason": "Replace audited French import/mapping controls with Walloon using existing Abaguer terminology, also attested in authored KDE translation https://raw.githubusercontent.com/KDE/calligra/master/po/wa/calligra_shape_spreadsheet.po . Preserve Trello/WeKan quoted menu labels, JSON/ZIP names, positional placeholders and unmapped-member fallback to current user. Full grammar and mapping terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "importMapMembersAddPopup-title",
+    "before": "Sélectionner le participant",
+    "after": "Tchoezi on mimbe",
+    "reason": "Replace audited French import/mapping controls with Walloon using existing Abaguer terminology, also attested in authored KDE translation https://raw.githubusercontent.com/KDE/calligra/master/po/wa/calligra_shape_spreadsheet.po . Preserve Trello/WeKan quoted menu labels, JSON/ZIP names, positional placeholders and unmapped-member fallback to current user. Full grammar and mapping terminology remain low confidence."
   }
 ]
