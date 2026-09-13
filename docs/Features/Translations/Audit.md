@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 8,285 |
+| Corrected | 8,286 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 175 |
-| Pending review or repair | 7,562 |
+| Pending review or repair | 7,561 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **8,358** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **8,359** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `a7ce595e671d703b5633030fc09056ffefd17af0` — seventeen Moroccan Arabic calendar and import findings repaired; **1 finding remains**, advanced-filter instructions. Tamazight import text was replaced and omitted plain-list behavior restored. Examples, menu names and calendar distinctions are preserved. Specialized wording needs native-speaker review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `ad62218ff81350fa25fa0b4e73423c1522c72b70` — Moroccan Arabic advanced-filter instructions translated; **no flagged Moroccan Arabic findings remain**. Operators, quoted examples, escapes and regex are preserved exactly. Technical wording needs native-speaker review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
