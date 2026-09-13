@@ -85342,5 +85342,54 @@
     "before": "ISO 8601",
     "after": "Ikhalenda ye-Gregoriana (amaviki e-ISO 8601)",
     "reason": "Replace English national calendar/Saudi Islamic labels and bare ISO identifier with Northern Ndebele descriptions, preserving India/Saudi Arabia/Hijri identities and national, moon-sighting and Gregorian ISO week distinctions. Existing Ikhalenda/Iviki terminology retained. Moon inyanga and calendar discussion attested at https://www.jw.org/nd/izinto-ezikhona/omagazini/inqabayokulinda-efundwayo-kajune-2022/ubukwazi-yini-june-2022-2/ . Country spelling, national descriptor, derived week plural and assembled grammar remain low confidence; Buddhist, Coptic and tabular epochs still need review."
+  },
+  {
+    "locale": "rn",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Uburyo bw’ikirangamisi (kwerekana itariki)",
+    "reason": "Replace foreign setting and English calendar labels with Rundi; preserve Dangi/Hijri/Umm al-Qura/Minguo/ISO identities and restore Gregorian ISO week detail. Exact Ikirangamisi c’Abayuda attested at https://www.jw.org/run/ivyasohowe/bibiliya/nwt/inyongera-ya-b/ikirangamisi-cabayuda-co-mu-bihe-vya-bibiliya/ ; indwi week vocabulary at https://www.jw.org/run/ivyasohowe/ibinyamakuru/be-maso-no4-2016-myandagaro/akamenyero-niwumireko/ . Existing Itariki terminology retained. Complete assembled setting/other grammar remains low confidence; religious/country/tabular variant labels remain pending."
+  },
+  {
+    "locale": "rn",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Ikirangamisi c’Abayuda",
+    "reason": "Replace foreign setting and English calendar labels with Rundi; preserve Dangi/Hijri/Umm al-Qura/Minguo/ISO identities and restore Gregorian ISO week detail. Exact Ikirangamisi c’Abayuda attested at https://www.jw.org/run/ivyasohowe/bibiliya/nwt/inyongera-ya-b/ikirangamisi-cabayuda-co-mu-bihe-vya-bibiliya/ ; indwi week vocabulary at https://www.jw.org/run/ivyasohowe/ibinyamakuru/be-maso-no4-2016-myandagaro/akamenyero-niwumireko/ . Existing Itariki terminology retained. Complete assembled setting/other grammar remains low confidence; religious/country/tabular variant labels remain pending."
+  },
+  {
+    "locale": "rn",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Ikirangamisi ca Dangi",
+    "reason": "Replace foreign setting and English calendar labels with Rundi; preserve Dangi/Hijri/Umm al-Qura/Minguo/ISO identities and restore Gregorian ISO week detail. Exact Ikirangamisi c’Abayuda attested at https://www.jw.org/run/ivyasohowe/bibiliya/nwt/inyongera-ya-b/ikirangamisi-cabayuda-co-mu-bihe-vya-bibiliya/ ; indwi week vocabulary at https://www.jw.org/run/ivyasohowe/ibinyamakuru/be-maso-no4-2016-myandagaro/akamenyero-niwumireko/ . Existing Itariki terminology retained. Complete assembled setting/other grammar remains low confidence; religious/country/tabular variant labels remain pending."
+  },
+  {
+    "locale": "rn",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Ikirangamisi ca Hijri",
+    "reason": "Replace foreign setting and English calendar labels with Rundi; preserve Dangi/Hijri/Umm al-Qura/Minguo/ISO identities and restore Gregorian ISO week detail. Exact Ikirangamisi c’Abayuda attested at https://www.jw.org/run/ivyasohowe/bibiliya/nwt/inyongera-ya-b/ikirangamisi-cabayuda-co-mu-bihe-vya-bibiliya/ ; indwi week vocabulary at https://www.jw.org/run/ivyasohowe/ibinyamakuru/be-maso-no4-2016-myandagaro/akamenyero-niwumireko/ . Existing Itariki terminology retained. Complete assembled setting/other grammar remains low confidence; religious/country/tabular variant labels remain pending."
+  },
+  {
+    "locale": "rn",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Ikirangamisi ca Hijri (Umm al-Qura)",
+    "reason": "Replace foreign setting and English calendar labels with Rundi; preserve Dangi/Hijri/Umm al-Qura/Minguo/ISO identities and restore Gregorian ISO week detail. Exact Ikirangamisi c’Abayuda attested at https://www.jw.org/run/ivyasohowe/bibiliya/nwt/inyongera-ya-b/ikirangamisi-cabayuda-co-mu-bihe-vya-bibiliya/ ; indwi week vocabulary at https://www.jw.org/run/ivyasohowe/ibinyamakuru/be-maso-no4-2016-myandagaro/akamenyero-niwumireko/ . Existing Itariki terminology retained. Complete assembled setting/other grammar remains low confidence; religious/country/tabular variant labels remain pending."
+  },
+  {
+    "locale": "rn",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Ikirangamisi ca Minguo",
+    "reason": "Replace foreign setting and English calendar labels with Rundi; preserve Dangi/Hijri/Umm al-Qura/Minguo/ISO identities and restore Gregorian ISO week detail. Exact Ikirangamisi c’Abayuda attested at https://www.jw.org/run/ivyasohowe/bibiliya/nwt/inyongera-ya-b/ikirangamisi-cabayuda-co-mu-bihe-vya-bibiliya/ ; indwi week vocabulary at https://www.jw.org/run/ivyasohowe/ibinyamakuru/be-maso-no4-2016-myandagaro/akamenyero-niwumireko/ . Existing Itariki terminology retained. Complete assembled setting/other grammar remains low confidence; religious/country/tabular variant labels remain pending."
+  },
+  {
+    "locale": "rn",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "Ikirangamisi ca Gregoriana (indwi za ISO 8601)",
+    "reason": "Replace foreign setting and English calendar labels with Rundi; preserve Dangi/Hijri/Umm al-Qura/Minguo/ISO identities and restore Gregorian ISO week detail. Exact Ikirangamisi c’Abayuda attested at https://www.jw.org/run/ivyasohowe/bibiliya/nwt/inyongera-ya-b/ikirangamisi-cabayuda-co-mu-bihe-vya-bibiliya/ ; indwi week vocabulary at https://www.jw.org/run/ivyasohowe/ibinyamakuru/be-maso-no4-2016-myandagaro/akamenyero-niwumireko/ . Existing Itariki terminology retained. Complete assembled setting/other grammar remains low confidence; religious/country/tabular variant labels remain pending."
   }
 ]
