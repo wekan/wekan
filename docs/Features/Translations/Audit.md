@@ -12,9 +12,9 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,643** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,645** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `18e508eda65ea52aa02d6388fd8298481587b76f` — 4 French selection label/member/color controls replaced with Wolof. Selected-item scope and label removal shortcuts 1-9 remain intact. Selection/color terminology and full grammar remain low confidence; clipboard controls remain pending. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `b7cae334c9e7cad45c07cd559f4c00857f0b9dd4` — reviewed the selection-color title against its UI template and clarified selected-item scope; replaced 2 French choose/unset color controls with Wolof. Existing Done is retained. Full grammar remains low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
