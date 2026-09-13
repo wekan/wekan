@@ -71951,5 +71951,26 @@
     "before": "File database MongoDB 3 mentah",
     "after": "Fail pangkalan data MongoDB 3 meuntah",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "copy-card-link-to-clipboard",
+    "before": "Salin capaian kad ke papan klip",
+    "after": "Salén tautan kad u clipboard",
+    "reason": "Replace Malay clipboard wording using Acehnese salén (copy) and u (to); technical nouns are borrowed and remain subject to native review. Copy verb supported by Bahasa Aceh, morphology section: https://repository.bbg.ac.id/bitstream/514/1/Bahasa_Aceh.pdf and government grammar https://repositori.kemendikdasmen.go.id/2352/1/BAHASA%20ACEH.pdf."
+  },
+  {
+    "locale": "ace",
+    "key": "copy-link-to-clipboard",
+    "before": "Salin capaian ke papan klip",
+    "after": "Salén tautan u clipboard",
+    "reason": "Replace Malay clipboard wording using Acehnese salén (copy) and u (to); technical nouns are borrowed and remain subject to native review. Copy verb supported by Bahasa Aceh, morphology section: https://repository.bbg.ac.id/bitstream/514/1/Bahasa_Aceh.pdf and government grammar https://repositori.kemendikdasmen.go.id/2352/1/BAHASA%20ACEH.pdf."
+  },
+  {
+    "locale": "ace",
+    "key": "copy-text-to-clipboard",
+    "before": "Salin teks ke papan klip",
+    "after": "Salén teks u clipboard",
+    "reason": "Replace Malay clipboard wording using Acehnese salén (copy) and u (to); technical nouns are borrowed and remain subject to native review. Copy verb supported by Bahasa Aceh, morphology section: https://repository.bbg.ac.id/bitstream/514/1/Bahasa_Aceh.pdf and government grammar https://repositori.kemendikdasmen.go.id/2352/1/BAHASA%20ACEH.pdf."
   }
 ]
