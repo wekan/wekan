@@ -81625,5 +81625,40 @@
     "before": "Êtes-vous sûr de vouloir dupliquer ce tableau ?",
     "after": "Ndax wóor na la ne bëgg nga sotti tablo bii?",
     "reason": "Replace French with Wolof using existing card/board/member/organization terminology; preserve confirmation scope, removal from every card, notification and exact placeholders. Invitation and complete sentence grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "email-invite-register-text",
+    "before": "Cher/Chère __user__,\n\n__inviter__ vous invite à le rejoindre sur le tableau kanban pour collaborer.\n\nVeuillez suivre le lien ci-dessous :\n__url__\n\nVotre code d'invitation est : __icode__\n\nMerci.",
+    "after": "__user__ mi ñu bëgg,\n\n__inviter__ dafa lay sàkku nga bokk ci tablo kanban ngir liggéeyandoo.\n\nToppal lëkkalekaay bi ci suuf:\n__url__\n\nTe sa kodu woote mooy: __icode__\n\nJërëjëf.",
+    "reason": "Replace French with Wolof; preserve invitation tokens and line breaks, public link/search visibility and member-only editing, private member-only viewing/editing. Greeting/thanks checked against https://jangawolof.org/essential-wolof-phrases-for-everyday-communication/; full grammar and invitation/link/search technical terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "email-invite-text",
+    "before": "Cher/Chère __user__,\n\n__inviter__ vous invite à rejoindre le tableau \"__board__\" pour collaborer.\n\nVeuillez suivre le lien ci-dessous :\n\n__url__\n\nMerci.",
+    "after": "__user__ mi ñu bëgg,\n\n__inviter__ dafa lay sàkku nga bokk ci tablo \"__board__\" ngir liggéeyandoo.\n\nToppal lëkkalekaay bi ci suuf:\n\n__url__\n\nJërëjëf.",
+    "reason": "Replace French with Wolof; preserve invitation tokens and line breaks, public link/search visibility and member-only editing, private member-only viewing/editing. Greeting/thanks checked against https://jangawolof.org/essential-wolof-phrases-for-everyday-communication/; full grammar and invitation/link/search technical terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "push-invite-text",
+    "before": "Cher/Chère __user__,\n\n__inviter__ vous invite à rejoindre le tableau \"__board__\" pour collaborer.\n\nVeuillez suivre le lien ci-dessous :\n\n__url__\n\nMerci.",
+    "after": "__user__ mi ñu bëgg,\n\n__inviter__ dafa lay sàkku nga bokk ci tablo \"__board__\" ngir liggéeyandoo.\n\nToppal lëkkalekaay bi ci suuf:\n\n__url__\n\nJërëjëf.",
+    "reason": "Replace French with Wolof; preserve invitation tokens and line breaks, public link/search visibility and member-only editing, private member-only viewing/editing. Greeting/thanks checked against https://jangawolof.org/essential-wolof-phrases-for-everyday-communication/; full grammar and invitation/link/search technical terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "private-desc",
+    "before": "Ce tableau est privé. Seuls les membres peuvent y accéder et le modifier.",
+    "after": "Tablo bii sutura la. Ñi ñu yokk ci tablo bi rekk a ko man a gis ak soppi.",
+    "reason": "Replace French with Wolof; preserve invitation tokens and line breaks, public link/search visibility and member-only editing, private member-only viewing/editing. Greeting/thanks checked against https://jangawolof.org/essential-wolof-phrases-for-everyday-communication/; full grammar and invitation/link/search technical terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "public-desc",
+    "before": "Ce tableau est public. Il est accessible par toutes les personnes disposant du lien et apparaîtra dans les résultats des moteurs de recherche tels que Google. Seuls les membres peuvent le modifier.",
+    "after": "Ñépp a man a gis tablo bii. Ku am lëkkalekaay bi man na ko gis, te dina feeñ ci jumtukaayi seet yu mel ni Google. Ñi ñu yokk ci tablo bi rekk a ko man a soppi.",
+    "reason": "Replace French with Wolof; preserve invitation tokens and line breaks, public link/search visibility and member-only editing, private member-only viewing/editing. Greeting/thanks checked against https://jangawolof.org/essential-wolof-phrases-for-everyday-communication/; full grammar and invitation/link/search technical terminology remain low confidence."
   }
 ]
