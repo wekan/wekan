@@ -1966,7 +1966,7 @@
   "Node_heap_heap_size_limit": "Heap Node: limite di dimenscion dell'heap",
   "Node_heap_malloced_memory": "Heap Node: memoria atribuida (malloc)",
   "Node_heap_peak_malloced_memory": "Heap Node: massim de memoria atribuida (malloc)",
-  "Node_heap_does_zap_garbage": "Heap Node: does zap garbage",
+  "Node_heap_does_zap_garbage": "Heap Node: soverscrive la memoria no plù adorada cun n model de bits",
   "Node_heap_number_of_native_contexts": "Heap Node: numer de contesc nativi",
   "Node_heap_number_of_detached_contexts": "Heap Node: numer de contesc destaché",
   "Node_memory_usage_rss": "Memoria adorada da Node: grandeza de la memoria residenta (RSS)",

@@ -53429,5 +53429,12 @@
     "before": "Republic of China",
     "after": "Calendèr Minguo",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Heap Node: does zap garbage",
+    "after": "Heap Node: soverscrive la memoria no plù adorada cun n model de bits",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
