@@ -72203,5 +72203,61 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "Kalendala ya Hijri (Saudi Arabia, kuona mwezi)",
     "reason": "Replace English calendar wording and restore explicit moon sighting. Kuona mwezi attested in Malawi publisher Al-Haqq March 2023, page 6: https://alhaqq-malawi.org/wp-content/uploads/2023/03/Al-Haqq-March-2023.pdf . Retain Saudi Arabia proper name; full specialized label grammar remains subject to native review."
+  },
+  {
+    "locale": "sn",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Maitiro ekarenda (kuratidza zuva)",
+    "reason": "Replace Azerbaijani/English calendar wording and remove untranslated Calendar plus meta-text from calendar label. Shona Karenda yechiHebheru attested in https://www.jw.org/sn/Raibhurari/bhaibheri/nwt/mashoko-ekuwedzera-b/karenda-yechihebheru-yemubhaibheri/ ; Ethiopia country name in https://www.jw.org/sn/zvapupu-zvajehovha/kuratidzwa-zvinoitwa-pabheteri/ethiopia/ . Preserve Amete Alem name; full specialized grammar needs native review."
+  },
+  {
+    "locale": "sn",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Karenda yechiHebheru",
+    "reason": "Replace Azerbaijani/English calendar wording and remove untranslated Calendar plus meta-text from calendar label. Shona Karenda yechiHebheru attested in https://www.jw.org/sn/Raibhurari/bhaibheri/nwt/mashoko-ekuwedzera-b/karenda-yechihebheru-yemubhaibheri/ ; Ethiopia country name in https://www.jw.org/sn/zvapupu-zvajehovha/kuratidzwa-zvinoitwa-pabheteri/ethiopia/ . Preserve Amete Alem name; full specialized grammar needs native review."
+  },
+  {
+    "locale": "sn",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Karenda yeEthiopia",
+    "reason": "Replace Azerbaijani/English calendar wording and remove untranslated Calendar plus meta-text from calendar label. Shona Karenda yechiHebheru attested in https://www.jw.org/sn/Raibhurari/bhaibheri/nwt/mashoko-ekuwedzera-b/karenda-yechihebheru-yemubhaibheri/ ; Ethiopia country name in https://www.jw.org/sn/zvapupu-zvajehovha/kuratidzwa-zvinoitwa-pabheteri/ethiopia/ . Preserve Amete Alem name; full specialized grammar needs native review."
+  },
+  {
+    "locale": "sn",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Karenda yeEthiopia Amete Alem",
+    "reason": "Replace Azerbaijani/English calendar wording and remove untranslated Calendar plus meta-text from calendar label. Shona Karenda yechiHebheru attested in https://www.jw.org/sn/Raibhurari/bhaibheri/nwt/mashoko-ekuwedzera-b/karenda-yechihebheru-yemubhaibheri/ ; Ethiopia country name in https://www.jw.org/sn/zvapupu-zvajehovha/kuratidzwa-zvinoitwa-pabheteri/ethiopia/ . Preserve Amete Alem name; full specialized grammar needs native review."
+  },
+  {
+    "locale": "sn",
+    "key": "calendar",
+    "before": "Mashoko echiShona: Calendar",
+    "after": "Karenda",
+    "reason": "Replace Azerbaijani/English calendar wording and remove untranslated Calendar plus meta-text from calendar label. Shona Karenda yechiHebheru attested in https://www.jw.org/sn/Raibhurari/bhaibheri/nwt/mashoko-ekuwedzera-b/karenda-yechihebheru-yemubhaibheri/ ; Ethiopia country name in https://www.jw.org/sn/zvapupu-zvajehovha/kuratidzwa-zvinoitwa-pabheteri/ethiopia/ . Preserve Amete Alem name; full specialized grammar needs native review."
+  },
+  {
+    "locale": "sn",
+    "key": "calendar-previous-month-label",
+    "before": "yapfuura Month",
+    "after": "Mwedzi wakapfuura",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sn",
+    "key": "calendar-next-month-label",
+    "before": "inotevera Month",
+    "after": "Mwedzi unotevera",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "sn",
+    "key": "gantt",
+    "before": "Mashoko echiShona: Gantt",
+    "after": "Gantt",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
