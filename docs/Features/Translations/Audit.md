@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,233 |
+| Corrected | 12,237 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,613 |
+| Pending review or repair | 3,609 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,701** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,705** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `01eed293281d74d046ee1b25c1635a85db99238b` — twelve French subtask strings repaired in Volapük using existing terminology and [Midgley task/compound vocabulary](https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf). Preserved hierarchy, confirmation, export category, deposit destinations and tokens; subtask compound and assembled wording remain low confidence.
+Latest translation fix: **2026-09-13**, local commit `e3b8a6ad92c3d941f4300757cd1c0c9648b97da2` — four French login-logo/shortcut settings repaired in Volapük using existing terminology and [Midgley vocabulary](https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf). Preserved image/link URLs, below-logo text and enabled/click-to-disable behavior; symbol adaptation and assembled wording remain low confidence.
 
 **Verification:** exact values, placeholders, JSON examples, key order and progress-update checks pass. Native-speaker and browser verification remain unavailable.
 
