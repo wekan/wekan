@@ -86056,5 +86056,12 @@
     "before": "Republic of China",
     "after": "Minguo халандаара",
     "reason": "Replace English descriptors with Sakha calendar wording халандаара, following existing locale and https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/sah.xml named calendar constructions. Preserve Dangi/Minguo as source proper identifiers without inventing transliterations. Assembled phrases are low confidence; searches did not establish these exact full labels; no native-speaker verification."
+  },
+  {
+    "locale": "sah",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Ииндийэ национальнай халандаара",
+    "reason": "Replace English Indian national with assembled Sakha Ииндийэ национальнай халандаара. Indexed native newspaper https://namlib.ru/wp-content/uploads/2024/08/7289115-28.06.2001.pdf attests Ииндийэ and национальнай; separate full PDF fetch timed out, not full-document validation. Country also appears in indexed https://t.me/s/biikige . Calendar construction follows https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/sah.xml . Low-confidence assembled grammar; no native-speaker verification."
   }
 ]
