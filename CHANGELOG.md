@@ -1192,6 +1192,18 @@ including interruption, retry, attachment navigation and a bounded-heap fixture.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5f8f22f8c">Unify shell and Windows logging directories</a>. Thanks to xet7.</summary>
+
+Logging managed by build.sh and build.bat uses operation/YYYY-MM-DD/HH-MM-SS
+beneath .tools/log, honoring WEKAN_LOG_ROOT and preserving parent test-run logs.
+Builds, dev servers, individual tests and full matrices reserve separate runs;
+same-second starts receive numeric suffixes. Windows build commands stream to
+stdout and their selected log. Twelve targeted test entries pass; native
+Windows execution and full Meteor builds were not rerun for this change.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0fdda91de">Separate build logs by build type, date and time</a>. Thanks to xet7.</summary>
 
 Development bundles stream to stdout and
