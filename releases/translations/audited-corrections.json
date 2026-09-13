@@ -86252,5 +86252,54 @@
     "before": "Sélectionner le participant",
     "after": "Välön limani",
     "reason": "Replace French field/member-selection wording with Volapük. Dictionary attests jafön (create), fel (general field), votükön (alter), välön (choose), liman (member): https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary . Infinitive labels and accusative objects assembled directly; software-field sense and complete UI phrasing remain low confidence pending native review. Preserve source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "memory-usage",
+    "before": "Utilisation de la mémoire",
+    "after": "Geb mema",
+    "reason": "Replace French report/memory/workspace labels with directly assembled Volapük. https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests mem (memory), geb (use), nunod (report), ragiv (computer file), tefü (concerning), lüükön (add), vob (work), spad (space), votükön (alter). Workspace compound vobaspad, inflections and complete software phrases remain low confidence pending native review; retain source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "filesReportTitle",
+    "before": "Rapports sur les fichiers",
+    "after": "Nunod tefü ragivs",
+    "reason": "Replace French report/memory/workspace labels with directly assembled Volapük. https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests mem (memory), geb (use), nunod (report), ragiv (computer file), tefü (concerning), lüükön (add), vob (work), spad (space), votükön (alter). Workspace compound vobaspad, inflections and complete software phrases remain low confidence pending native review; retain source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "addWorkspacePopup-title",
+    "before": "Ajouter un espace de travail",
+    "after": "Lüükön vobaspadi",
+    "reason": "Replace French report/memory/workspace labels with directly assembled Volapük. https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests mem (memory), geb (use), nunod (report), ragiv (computer file), tefü (concerning), lüükön (add), vob (work), spad (space), votükön (alter). Workspace compound vobaspad, inflections and complete software phrases remain low confidence pending native review; retain source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "allboards.add-workspace",
+    "before": "Ajouter un espace de travail",
+    "after": "Lüükön vobaspadi",
+    "reason": "Replace French report/memory/workspace labels with directly assembled Volapük. https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests mem (memory), geb (use), nunod (report), ragiv (computer file), tefü (concerning), lüükön (add), vob (work), spad (space), votükön (alter). Workspace compound vobaspad, inflections and complete software phrases remain low confidence pending native review; retain source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "allboards.add-workspace-prompt",
+    "before": "Nom de l'espace de travail",
+    "after": "Nem vobaspada",
+    "reason": "Replace French report/memory/workspace labels with directly assembled Volapük. https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests mem (memory), geb (use), nunod (report), ragiv (computer file), tefü (concerning), lüükön (add), vob (work), spad (space), votükön (alter). Workspace compound vobaspad, inflections and complete software phrases remain low confidence pending native review; retain source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "allboards.edit-workspace-name",
+    "before": "Nom de l'espace de travail",
+    "after": "Nem vobaspada",
+    "reason": "Replace French report/memory/workspace labels with directly assembled Volapük. https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests mem (memory), geb (use), nunod (report), ragiv (computer file), tefü (concerning), lüükön (add), vob (work), spad (space), votükön (alter). Workspace compound vobaspad, inflections and complete software phrases remain low confidence pending native review; retain source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "allboards.edit-workspace",
+    "before": "Modifier l'espace de travail",
+    "after": "Votükön vobaspadi",
+    "reason": "Replace French report/memory/workspace labels with directly assembled Volapük. https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary attests mem (memory), geb (use), nunod (report), ragiv (computer file), tefü (concerning), lüükön (add), vob (work), spad (space), votükön (alter). Workspace compound vobaspad, inflections and complete software phrases remain low confidence pending native review; retain source tokens."
   }
 ]
