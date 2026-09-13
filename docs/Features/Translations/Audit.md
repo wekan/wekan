@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,327 |
+| Corrected | 11,329 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,519 |
+| Pending review or repair | 4,517 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,652** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,654** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `286897ff91ca4ba9d7e293431132303c1849e8c0` — 7 French scheduled-job/error controls replaced with Wolof. Add/start/resume actions, success/failure and clearing all errors remain distinct. Scheduling terminology and full grammar remain low confidence; migration controls remain pending. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `dc527edae5e7525693142ab44d22101b3b10328a` — 2 French loading/import messages replaced with Wolof. The refresh data-loss warning, server check and possible successful import despite errors with All Boards recovery are preserved. Technical loanwords and full grammar remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
