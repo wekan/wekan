@@ -60492,5 +60492,89 @@
     "before": "Tas de Node : taille totale du tas exécutable",
     "after": "Heap Node : talha totala del heap executable",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Tas de Node : Utilise l'option does_zap_garbage",
+    "after": "Heap Node : subrescriu la memòria escartada amb un modèl de bits",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "Node_heap_total_physical_size",
+    "before": "Tas de Node : taille totale physique",
+    "after": "Heap Node : talha fisica totala",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "Node_heap_used_heap_size",
+    "before": "Tas de Node : taille du tas utilisé",
+    "after": "Heap Node : talha del heap utilizada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "Node_memory_usage_external",
+    "before": "Utilisation mémoire de Node: externe",
+    "after": "Utilizacion de memòria de Node : extèrna",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "Node_memory_usage_heap_total",
+    "before": "Utilisation mémoire de Node : taille totale du tas alloué",
+    "after": "Utilizacion de memòria de Node : talha totala del heap alocat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "Node_memory_usage_heap_used",
+    "before": "Utilisation mémoire de Node : mémoire réellement utilisée",
+    "after": "Utilizacion de memòria de Node : memòria efectivament utilizada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "Node_memory_usage_rss",
+    "before": "Utilisation mémoire de Node : taille de l'ensemble résident",
+    "after": "Utilizacion de memòria de Node : talha de l’ensemble resident (RSS)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "OS_Uptime",
+    "before": "OS Durée de fonctionnement",
+    "after": "Durada de foncionament del sistèma operatiu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "Rotateplane",
+    "before": "Icône d'attente plan rotatif",
+    "after": "Indicador d’espèra Rotateplane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "Scaleout",
+    "before": "Icône d'attente mise à l'échelle",
+    "after": "Indicador d’espèra Scaleout",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "a-receivedAt",
+    "before": "Date de réception modifiée à",
+    "after": "a modificat la data de recepcion per",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "above-selected-card",
+    "before": "Au-dessus de la carte sélectionnée",
+    "after": "Al dessús de la carta seleccionada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
