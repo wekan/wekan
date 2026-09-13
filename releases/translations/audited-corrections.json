@@ -68668,5 +68668,89 @@
     "before": "Brak niestandardowych pól",
     "after": "Niy ma włŏsnych pōl",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "fix-avatar-urls-migration",
+    "before": "Napraw adresy URL awatarów",
+    "after": "Napraw adresy URL awatarōw",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "font-default",
+    "before": "Domyślny (bez własnego fontu)",
+    "after": "Dōmyślny (bez włŏsnego fontu)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "gcs-credentials",
+    "before": "Poświadczenia konta usługi (JSON)",
+    "after": "Dane uwierzytelniyniŏ kōnta usługi (JSON)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "gcs-key-filename",
+    "before": "Ścieżka pliku klucza konta usługi",
+    "after": "Drōga do pliku klucza kōnta usługi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "gcs-key-filename-description",
+    "before": "Opcjonalnie: ścieżka do pliku klucza JSON konta usługi na serwerze.",
+    "after": "Ôpcyjōnalnie: drōga do pliku klucza JSON kōnta usługi na serwerze.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "gcs-project-id-description",
+    "before": "ID twojego projektu Google Cloud.",
+    "after": "ID twojigo projektu Google Cloud.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "gcs-project-id-menu-path",
+    "before": "Google Cloud Console → selektor projektu u góry → ID twojego projektu (Cloud overview → Dashboard → Project info → Project ID).",
+    "after": "Google Cloud Console → wybōr projektu na wiyrchu → ID twojigo projektu (Cloud overview → Dashboard → Project info → Project ID).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "globalSearch-instructions-operator-comment",
+    "before": "`__operator_comment__:<text>` - karty z komentarzem zawierającym *<text>*.",
+    "after": "`__operator_comment__:<text>` - karty z kōmyntŏrzym, kery zawiyrŏ *<text>*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "globalSearch-instructions-operator-list",
+    "before": "`__operator_list__:<title>` - karty na listach pasujących do klucza *<title>*",
+    "after": "`__operator_list__:<title>` - karty we listach ze wskŏzanym tytułym *<title>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "globalSearch-instructions-operator-number",
+    "before": "`__operator_number__:<number>` - karty, których numer karty to *<number>*",
+    "after": "`__operator_number__:<number>` - karty, kerych numer je *<number>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "globalSearch-instructions-operator-swimlane",
+    "before": "`__operator_swimlane__:<title>` - karty na ścieżkach pasujących do klucza *<title>*",
+    "after": "`__operator_swimlane__:<title>` - karty we torach ze wskŏzanym tytułym *<title>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "globalSearch-instructions-operators",
+    "before": "Dostępne klucze wyszukiwania:",
+    "after": "Dostympne ôperatōry:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
