@@ -55109,5 +55109,75 @@
     "before": "Selezione multipla attiva",
     "after": "Selectsia multiplã easti activã",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "newTranslationPopup-title",
+    "before": "Nuova stringa di traduzione personalizzata",
+    "after": "Stringã noauã di traducere personalizatã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "no-archived-cards",
+    "before": "Non ci sono schede nell'archivio.",
+    "after": "Nu ari cãrtsã tu Arhivã.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "no-archived-lists",
+    "before": "Non ci sono liste nell'archivio.",
+    "after": "Nu ari listi tu Arhivã.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "no-archived-swimlanes",
+    "before": "Non ci sono swimlane nell'archivio.",
+    "after": "Nu ari culoari tu Arhivã.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "not-accepted-yet",
+    "before": "Invitato non ancora accettato",
+    "after": "Invitatsia nu fu acceptatã încã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "notify-watch",
+    "before": "Ricevi aggiornamenti per tutte le bacheche, liste o schede che stai seguendo",
+    "after": "Primeshti actualizãri ti tabelili, listili icã cãrtsãli tsi urmãreshti",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "now-activities-of-all-boards-are-hidden",
+    "before": "Ora tutte le attività di tutte le bacheche sono nascoste",
+    "after": "Tora tuti activitãtsli di tuti tabelili suntu ascumti",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "operator-debug-invalid",
+    "before": "%s non è un valido predicato di debug",
+    "after": "%s nu easti un predicat di debug valid",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "operator-has-invalid",
+    "before": "%s non è un controllo di esistenza valido",
+    "after": "%s nu easti un control di existentsã valid",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "operator-limit-invalid",
+    "before": "%s non è un limite valido.  Il limite dovrebbe essere un numero intero positivo.",
+    "after": "%s nu easti unã limitã validã. Limita lipsea s-hibã un numir întreg pozitiv.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
