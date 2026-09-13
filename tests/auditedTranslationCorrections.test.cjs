@@ -43,6 +43,13 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     assert.match(cache.zgh[key], /ⵓⵔ ⵉⵍⵍⴰ/);
   }
   assert.doesNotMatch(cache.zgh['label-create'], /[\u0600-\u06ff]/);
+  assert.equal(cache.zgh['export-card-attachment-filename'], 'ⵉⵙⵎ ⵏ ⵓⴼⴰⵢⵍⵓ');
+  assert.match(cache.zgh['activity-added-label'], /'%s' ⵉ %s$/);
+  assert.match(cache.zgh['activity-removed-label'], /'%s' ⵙⴳ %s$/);
+  for (const key of ['activity-added-label', 'activity-added-label-card', 'activity-removed-label', 'activity-removed-label-card']) {
+    assert.doesNotMatch(cache.zgh[key], /ajouté|supprimé|étiquette/);
+    assert.match(cache.zgh[key], /ⴰⵔⵛⵓⵎ '%s'/);
+  }
   // Exact native UI references replace French without normalizing valid Latin-script Tamazight.
   assert.equal(cache.zgh.help, 'ⵜⵉⵡⵉⵙⵉ');
   assert.equal(cache.zgh.next, 'ⵉⵏⴹⴼⵔ');

@@ -120963,8 +120963,8 @@
     "locale": "zgh",
     "key": "export-card-attachment-filename",
     "before": "Nom du fichier",
-    "after": "ⵉⵙⵎ ⵏ ⵓⴼⴰⵍⵢⵓ",
-    "reason": "Replace wrong-language French/Arabic label with exact native Standard Moroccan Tamazight MediaWiki redirect-file wording: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Match the English interface meaning; file/template/preview and watch commands reuse established native UI terms. No proper names, placeholders or valid existing Tamazight alternatives are replaced."
+    "after": "ⵉⵙⵎ ⵏ ⵓⴼⴰⵢⵍⵓ",
+    "reason": "Refine the earlier French-to-native filename repair using exact MediaWiki upload-form-label-usage-filename wording. This spells the file noun consistently with file-anchor-link, imgfile and the broader native messages; redirect-file used a different letter ordering. Preserve original French before value and do not alter valid independent translations. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   },
   {
     "locale": "zgh",
@@ -121161,5 +121161,33 @@
     "before": "لا توجد نتائج",
     "after": "ⵓⵔ ⵍⵍⵉⵏⵜ ⵜⵢⴰⴼⵓⵜⵉⵏ",
     "reason": "Native negative-results main clause directly attested in search-nonefound; removes only the query-matching qualifier because English says generic No results. Keeps native feminine plural negative agreement, adds no network/failure reason. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-added-label",
+    "before": "a ajouté l'étiquette '%s' à %s",
+    "after": "ⵉⵔⵏⴰ ⴰⵔⵛⵓⵎ '%s' ⵉ %s",
+    "reason": "LOW CONFIDENCE composed label activity: singular tag noun from tag-list-wrapper; direction i (to) and sg (from) attested in recentchanges-page-added-to-category/recentchanges-page-removed-from-category. Active deletion verb ikks is attested in logentry-delete-delete; active addition irna is derived from native rnu/add and its attested passive addition form, not directly verified as an add-activity clause. Preserve first %s as label and second, where present, as destination/source card; do not substitute imperative commands. Active addition inflection, default masculine actor form and complete kanban clauses need fluent review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-added-label-card",
+    "before": "a ajouté l'étiquette '%s'",
+    "after": "ⵉⵔⵏⴰ ⴰⵔⵛⵓⵎ '%s'",
+    "reason": "LOW CONFIDENCE composed label activity: singular tag noun from tag-list-wrapper; direction i (to) and sg (from) attested in recentchanges-page-added-to-category/recentchanges-page-removed-from-category. Active deletion verb ikks is attested in logentry-delete-delete; active addition irna is derived from native rnu/add and its attested passive addition form, not directly verified as an add-activity clause. Preserve first %s as label and second, where present, as destination/source card; do not substitute imperative commands. Active addition inflection, default masculine actor form and complete kanban clauses need fluent review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-removed-label",
+    "before": "a supprimé l'étiquette '%s' de %s",
+    "after": "ⵉⴽⴽⵙ ⴰⵔⵛⵓⵎ '%s' ⵙⴳ %s",
+    "reason": "LOW CONFIDENCE composed label activity: singular tag noun from tag-list-wrapper; direction i (to) and sg (from) attested in recentchanges-page-added-to-category/recentchanges-page-removed-from-category. Active deletion verb ikks is attested in logentry-delete-delete; active addition irna is derived from native rnu/add and its attested passive addition form, not directly verified as an add-activity clause. Preserve first %s as label and second, where present, as destination/source card; do not substitute imperative commands. Active addition inflection, default masculine actor form and complete kanban clauses need fluent review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-removed-label-card",
+    "before": "a supprimé l'étiquette '%s'",
+    "after": "ⵉⴽⴽⵙ ⴰⵔⵛⵓⵎ '%s'",
+    "reason": "LOW CONFIDENCE composed label activity: singular tag noun from tag-list-wrapper; direction i (to) and sg (from) attested in recentchanges-page-added-to-category/recentchanges-page-removed-from-category. Active deletion verb ikks is attested in logentry-delete-delete; active addition irna is derived from native rnu/add and its attested passive addition form, not directly verified as an add-activity clause. Preserve first %s as label and second, where present, as destination/source card; do not substitute imperative commands. Active addition inflection, default masculine actor form and complete kanban clauses need fluent review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
