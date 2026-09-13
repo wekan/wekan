@@ -92503,5 +92503,54 @@
     "before": "Zurück zu den Einstellungen",
     "after": "chermeH De'Daq yIchegh",
     "reason": "Replace German settings labels with direct Klingon, using chermeH De' (data for setting up/configuring) consistently. Includes unflagged generic settings labels for consistency. Existing vumDaq workspace, raS board, yejHaq organization and De' data terms retained. https://klingonska.org/academic/canfield-2010-machine_translation_of_klingon.pdf attests cher establish and pol save; this supports vocabulary, not full software-domain phrases. Assembled noun/purpose constructions and existing specialized nouns are low confidence and require fluent-speaker validation. S3 retained exactly; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "card-settings",
+    "before": "Karten-Einstellungen",
+    "after": "'echletHom chermeH De'",
+    "reason": "Replace German card/attachment settings and related attachment labels with direct Klingon using existing locale terms: card 'echletHom (cards), attachment rarDoch (export-board-without-attachments), and configuration chermeH De'. Storage described as De' polmeH pat (system for storing data), minicard as small card. Generic attachment/predicate/add labels included for consistency beyond flagged findings. These software noun compounds and full constructions have low confidence and need fluent-speaker validation; no source tokens changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "minicard-settings",
+    "before": "Minikarte-Einstellungen",
+    "after": "'echletHom mach chermeH De'",
+    "reason": "Replace German card/attachment settings and related attachment labels with direct Klingon using existing locale terms: card 'echletHom (cards), attachment rarDoch (export-board-without-attachments), and configuration chermeH De'. Storage described as De' polmeH pat (system for storing data), minicard as small card. Generic attachment/predicate/add labels included for consistency beyond flagged findings. These software noun compounds and full constructions have low confidence and need fluent-speaker validation; no source tokens changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "attachment-settings",
+    "before": "Anhangeinstellungen",
+    "after": "rarDoch chermeH De'",
+    "reason": "Replace German card/attachment settings and related attachment labels with direct Klingon using existing locale terms: card 'echletHom (cards), attachment rarDoch (export-board-without-attachments), and configuration chermeH De'. Storage described as De' polmeH pat (system for storing data), minicard as small card. Generic attachment/predicate/add labels included for consistency beyond flagged findings. These software noun compounds and full constructions have low confidence and need fluent-speaker validation; no source tokens changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "attachment-storage-settings",
+    "before": "Speichereinstellungen",
+    "after": "De' polmeH pat chermeH De'",
+    "reason": "Replace German card/attachment settings and related attachment labels with direct Klingon using existing locale terms: card 'echletHom (cards), attachment rarDoch (export-board-without-attachments), and configuration chermeH De'. Storage described as De' polmeH pat (system for storing data), minicard as small card. Generic attachment/predicate/add labels included for consistency beyond flagged findings. These software noun compounds and full constructions have low confidence and need fluent-speaker validation; no source tokens changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "attachment",
+    "before": "Anhang",
+    "after": "rarDoch",
+    "reason": "Replace German card/attachment settings and related attachment labels with direct Klingon using existing locale terms: card 'echletHom (cards), attachment rarDoch (export-board-without-attachments), and configuration chermeH De'. Storage described as De' polmeH pat (system for storing data), minicard as small card. Generic attachment/predicate/add labels included for consistency beyond flagged findings. These software noun compounds and full constructions have low confidence and need fluent-speaker validation; no source tokens changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "predicate-attachment",
+    "before": "Anhang",
+    "after": "rarDoch",
+    "reason": "Replace German card/attachment settings and related attachment labels with direct Klingon using existing locale terms: card 'echletHom (cards), attachment rarDoch (export-board-without-attachments), and configuration chermeH De'. Storage described as De' polmeH pat (system for storing data), minicard as small card. Generic attachment/predicate/add labels included for consistency beyond flagged findings. These software noun compounds and full constructions have low confidence and need fluent-speaker validation; no source tokens changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "add-attachment",
+    "before": "Datei anhängen",
+    "after": "rarDoch yIchel",
+    "reason": "Replace German card/attachment settings and related attachment labels with direct Klingon using existing locale terms: card 'echletHom (cards), attachment rarDoch (export-board-without-attachments), and configuration chermeH De'. Storage described as De' polmeH pat (system for storing data), minicard as small card. Generic attachment/predicate/add labels included for consistency beyond flagged findings. These software noun compounds and full constructions have low confidence and need fluent-speaker validation; no source tokens changed."
   }
 ]
