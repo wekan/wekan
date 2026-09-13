@@ -76606,5 +76606,96 @@
     "before": "Le nombre d'équipes est de :",
     "after": "Li nombe d' ekipes est: ",
     "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Jalali (persan)",
+    "reason": "Replace audited English calendar labels with Walloon, preserving Dangi/Amete Alem/Hijri/Umm al-Qura/Minguo names. Calindrî attested in native publisher https://lirantoele.walon.org/aurtchives/Rantoele44_etire.pdf and author https://lucyin.walon.org/livreye/lahaye.html . Specialized religious/country adjectives remain low confidence and require further terminology review; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Calindrî boudisse",
+    "reason": "Replace audited English calendar labels with Walloon, preserving Dangi/Amete Alem/Hijri/Umm al-Qura/Minguo names. Calindrî attested in native publisher https://lirantoele.walon.org/aurtchives/Rantoele44_etire.pdf and author https://lucyin.walon.org/livreye/lahaye.html . Specialized religious/country adjectives remain low confidence and require further terminology review; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Calindrî chinwès",
+    "reason": "Replace audited English calendar labels with Walloon, preserving Dangi/Amete Alem/Hijri/Umm al-Qura/Minguo names. Calindrî attested in native publisher https://lirantoele.walon.org/aurtchives/Rantoele44_etire.pdf and author https://lucyin.walon.org/livreye/lahaye.html . Specialized religious/country adjectives remain low confidence and require further terminology review; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Calindrî copte",
+    "reason": "Replace audited English calendar labels with Walloon, preserving Dangi/Amete Alem/Hijri/Umm al-Qura/Minguo names. Calindrî attested in native publisher https://lirantoele.walon.org/aurtchives/Rantoele44_etire.pdf and author https://lucyin.walon.org/livreye/lahaye.html . Specialized religious/country adjectives remain low confidence and require further terminology review; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Calindrî Dangi (Coreye)",
+    "reason": "Replace audited English calendar labels with Walloon, preserving Dangi/Amete Alem/Hijri/Umm al-Qura/Minguo names. Calindrî attested in native publisher https://lirantoele.walon.org/aurtchives/Rantoele44_etire.pdf and author https://lucyin.walon.org/livreye/lahaye.html . Specialized religious/country adjectives remain low confidence and require further terminology review; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Calindrî etiopike Amete Alem",
+    "reason": "Replace audited English calendar labels with Walloon, preserving Dangi/Amete Alem/Hijri/Umm al-Qura/Minguo names. Calindrî attested in native publisher https://lirantoele.walon.org/aurtchives/Rantoele44_etire.pdf and author https://lucyin.walon.org/livreye/lahaye.html . Specialized religious/country adjectives remain low confidence and require further terminology review; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Calindrî etiopike",
+    "reason": "Replace audited English calendar labels with Walloon, preserving Dangi/Amete Alem/Hijri/Umm al-Qura/Minguo names. Calindrî attested in native publisher https://lirantoele.walon.org/aurtchives/Rantoele44_etire.pdf and author https://lucyin.walon.org/livreye/lahaye.html . Specialized religious/country adjectives remain low confidence and require further terminology review; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Calindrî ebreu",
+    "reason": "Replace audited English calendar labels with Walloon, preserving Dangi/Amete Alem/Hijri/Umm al-Qura/Minguo names. Calindrî attested in native publisher https://lirantoele.walon.org/aurtchives/Rantoele44_etire.pdf and author https://lucyin.walon.org/livreye/lahaye.html . Specialized religious/country adjectives remain low confidence and require further terminology review; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Calindrî nåcionål di l' Inde",
+    "reason": "Replace audited English calendar labels with Walloon, preserving Dangi/Amete Alem/Hijri/Umm al-Qura/Minguo names. Calindrî attested in native publisher https://lirantoele.walon.org/aurtchives/Rantoele44_etire.pdf and author https://lucyin.walon.org/livreye/lahaye.html . Specialized religious/country adjectives remain low confidence and require further terminology review; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Calindrî Hijri",
+    "reason": "Replace audited English calendar labels with Walloon, preserving Dangi/Amete Alem/Hijri/Umm al-Qura/Minguo names. Calindrî attested in native publisher https://lirantoele.walon.org/aurtchives/Rantoele44_etire.pdf and author https://lucyin.walon.org/livreye/lahaye.html . Specialized religious/country adjectives remain low confidence and require further terminology review; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Calindrî Hijri (Umm al-Qura)",
+    "reason": "Replace audited English calendar labels with Walloon, preserving Dangi/Amete Alem/Hijri/Umm al-Qura/Minguo names. Calindrî attested in native publisher https://lirantoele.walon.org/aurtchives/Rantoele44_etire.pdf and author https://lucyin.walon.org/livreye/lahaye.html . Specialized religious/country adjectives remain low confidence and require further terminology review; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Calindrî djaponès",
+    "reason": "Replace audited English calendar labels with Walloon, preserving Dangi/Amete Alem/Hijri/Umm al-Qura/Minguo names. Calindrî attested in native publisher https://lirantoele.walon.org/aurtchives/Rantoele44_etire.pdf and author https://lucyin.walon.org/livreye/lahaye.html . Specialized religious/country adjectives remain low confidence and require further terminology review; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Calindrî Minguo",
+    "reason": "Replace audited English calendar labels with Walloon, preserving Dangi/Amete Alem/Hijri/Umm al-Qura/Minguo names. Calindrî attested in native publisher https://lirantoele.walon.org/aurtchives/Rantoele44_etire.pdf and author https://lucyin.walon.org/livreye/lahaye.html . Specialized religious/country adjectives remain low confidence and require further terminology review; source tokens preserved."
   }
 ]
