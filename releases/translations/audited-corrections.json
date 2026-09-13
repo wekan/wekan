@@ -74429,5 +74429,145 @@
     "before": "Sélectionner le participant",
     "after": "Tchoezi on mimbe",
     "reason": "Replace audited French import/mapping controls with Walloon using existing Abaguer terminology, also attested in authored KDE translation https://raw.githubusercontent.com/KDE/calligra/master/po/wa/calligra_shape_spreadsheet.po . Preserve Trello/WeKan quoted menu labels, JSON/ZIP names, positional placeholders and unmapped-member fallback to current user. Full grammar and mapping terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "shortcut-add-self",
+    "before": "S'ajouter à la carte courante",
+    "after": "Si radjouter al cåte do moumint",
+    "reason": "Replace audited French shortcuts/display controls with Walloon, using existing native terminology and authored computing vocabulary https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve zoom range, enabled/disabled action inversion and distinction between joining and assigning oneself. Full grammar and autocomplete terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "shortcut-assign-self",
+    "before": "Affecter cette carte à vous-même",
+    "after": "Si diner l' cåte do moumint",
+    "reason": "Replace audited French shortcuts/display controls with Walloon, using existing native terminology and authored computing vocabulary https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve zoom range, enabled/disabled action inversion and distinction between joining and assigning oneself. Full grammar and autocomplete terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "shortcut-toggle-sidebar",
+    "before": "Afficher/Masquer la barre latérale du tableau",
+    "after": "Mostrer ou catchî l' båre di costé do tåvlea",
+    "reason": "Replace audited French shortcuts/display controls with Walloon, using existing native terminology and authored computing vocabulary https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve zoom range, enabled/disabled action inversion and distinction between joining and assigning oneself. Full grammar and autocomplete terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "shortcut-toggle-filterbar",
+    "before": "Afficher/Masquer la barre latérale des filtres",
+    "after": "Mostrer ou catchî l' båre di costé do passaedje",
+    "reason": "Replace audited French shortcuts/display controls with Walloon, using existing native terminology and authored computing vocabulary https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve zoom range, enabled/disabled action inversion and distinction between joining and assigning oneself. Full grammar and autocomplete terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "shortcut-toggle-searchbar",
+    "before": "Afficher/Masquer la barre latérale de recherche",
+    "after": "Mostrer ou catchî l' båre di costé do cweraedje",
+    "reason": "Replace audited French shortcuts/display controls with Walloon, using existing native terminology and authored computing vocabulary https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve zoom range, enabled/disabled action inversion and distinction between joining and assigning oneself. Full grammar and autocomplete terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "shortcut-close-dialog",
+    "before": "Fermer la boîte de dialogue",
+    "after": "Clôre li divize",
+    "reason": "Replace audited French shortcuts/display controls with Walloon, using existing native terminology and authored computing vocabulary https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve zoom range, enabled/disabled action inversion and distinction between joining and assigning oneself. Full grammar and autocomplete terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "shortcut-show-shortcuts",
+    "before": "Afficher cette liste de raccourcis",
+    "after": "Mostrer cisse djivêye di rascourtis ci",
+    "reason": "Replace audited French shortcuts/display controls with Walloon, using existing native terminology and authored computing vocabulary https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve zoom range, enabled/disabled action inversion and distinction between joining and assigning oneself. Full grammar and autocomplete terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "shortcut-filter-my-assigned-cards",
+    "before": "Filtrer mes cartes assignées",
+    "after": "Passer sol cåtes ki m' sont dinêyes",
+    "reason": "Replace audited French shortcuts/display controls with Walloon, using existing native terminology and authored computing vocabulary https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve zoom range, enabled/disabled action inversion and distinction between joining and assigning oneself. Full grammar and autocomplete terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "shortcut-autocomplete-emoji",
+    "before": "Auto-complétion des emoji",
+    "after": "Rimplixhaedje otomatike des emoji",
+    "reason": "Replace audited French shortcuts/display controls with Walloon, using existing native terminology and authored computing vocabulary https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve zoom range, enabled/disabled action inversion and distinction between joining and assigning oneself. Full grammar and autocomplete terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "shortcut-autocomplete-members",
+    "before": "Auto-complétion des participants",
+    "after": "Rimplixhaedje otomatike des mimbes",
+    "reason": "Replace audited French shortcuts/display controls with Walloon, using existing native terminology and authored computing vocabulary https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve zoom range, enabled/disabled action inversion and distinction between joining and assigning oneself. Full grammar and autocomplete terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "keyboard-shortcuts-disabled",
+    "before": "Raccourcis clavier désactivés. Cliquer pour activer.",
+    "after": "Les rascourtis di taprece sont distinnous. Clitchîz po les alumer.",
+    "reason": "Replace audited French shortcuts/display controls with Walloon, using existing native terminology and authored computing vocabulary https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve zoom range, enabled/disabled action inversion and distinction between joining and assigning oneself. Full grammar and autocomplete terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "keyboard-shortcuts-enabled",
+    "before": "Raccourcis clavier activés. Cliquer pour désactiver.",
+    "after": "Les rascourtis di taprece sont alumés. Clitchîz po les distinde.",
+    "reason": "Replace audited French shortcuts/display controls with Walloon, using existing native terminology and authored computing vocabulary https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve zoom range, enabled/disabled action inversion and distinction between joining and assigning oneself. Full grammar and autocomplete terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "enter-zoom-level",
+    "before": "Entrer le niveau d'agrandissement (50-300%) :",
+    "after": "Taper li livea di zoom (50-300%):",
+    "reason": "Replace audited French shortcuts/display controls with Walloon, using existing native terminology and authored computing vocabulary https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve zoom range, enabled/disabled action inversion and distinction between joining and assigning oneself. Full grammar and autocomplete terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "hide-minicard-label-text",
+    "before": "Cacher l'étiquette de la mini-carte",
+    "after": "Catchî l' tecse des etikètes del minicåte",
+    "reason": "Replace audited French shortcuts/display controls with Walloon, using existing native terminology and authored computing vocabulary https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve zoom range, enabled/disabled action inversion and distinction between joining and assigning oneself. Full grammar and autocomplete terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "show-at-all-boards-page",
+    "before": "Afficher sur la page de tous les tableaux",
+    "after": "Mostrer sol pådje Tos les tåvleas",
+    "reason": "Replace audited French shortcuts/display controls with Walloon, using existing native terminology and authored computing vocabulary https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve zoom range, enabled/disabled action inversion and distinction between joining and assigning oneself. Full grammar and autocomplete terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "show-desktop-drag-handles",
+    "before": "Voir les poignées de déplacement du bureau",
+    "after": "Mostrer les pougnêyes di haetchaedje do scribanne",
+    "reason": "Replace audited French shortcuts/display controls with Walloon, using existing native terminology and authored computing vocabulary https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve zoom range, enabled/disabled action inversion and distinction between joining and assigning oneself. Full grammar and autocomplete terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "show-parent-in-minicard",
+    "before": "Voir la carte parente dans la mini-carte :",
+    "after": "Mostrer l' cåte parint sol minicåte:",
+    "reason": "Replace audited French shortcuts/display controls with Walloon, using existing native terminology and authored computing vocabulary https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve zoom range, enabled/disabled action inversion and distinction between joining and assigning oneself. Full grammar and autocomplete terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "show-subtasks-field",
+    "before": "Afficher le champ des sous-tâches",
+    "after": "Mostrer l' tchamp des sos-bouyes",
+    "reason": "Replace audited French shortcuts/display controls with Walloon, using existing native terminology and authored computing vocabulary https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve zoom range, enabled/disabled action inversion and distinction between joining and assigning oneself. Full grammar and autocomplete terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "showSum-field-on-list",
+    "before": "Afficher le total des champs en haut de liste",
+    "after": "Mostrer l' some des tchamps al copete del djivêye",
+    "reason": "Replace audited French shortcuts/display controls with Walloon, using existing native terminology and authored computing vocabulary https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve zoom range, enabled/disabled action inversion and distinction between joining and assigning oneself. Full grammar and autocomplete terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "mobile-desktop-toggle",
+    "before": "Basculer entre le mode mobile et le mode bureau",
+    "after": "Passer do môde mobile å môde scribanne ou å rvier",
+    "reason": "Replace audited French shortcuts/display controls with Walloon, using existing native terminology and authored computing vocabulary https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve zoom range, enabled/disabled action inversion and distinction between joining and assigning oneself. Full grammar and autocomplete terminology remain low confidence; source tokens retained."
   }
 ]
