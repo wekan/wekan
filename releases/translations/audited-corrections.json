@@ -78300,5 +78300,54 @@
     "before": "a supprimé une pièce jointe de %s",
     "after": "far takkaay ci %s",
     "reason": "Replace French attachment controls/activity with Wolof using existing takkaay/yokk/far terminology. Preserve attachment deletion versus movement to S3, source %s scope and singular/plural controls. Full grammar and storage-movement terminology remain low confidence; includes unflagged attachment headings."
+  },
+  {
+    "locale": "wo",
+    "key": "list-move-cards",
+    "before": "Déplacer toutes les cartes de cette liste",
+    "after": "Yóbbu karta yi yépp ci limu bii",
+    "reason": "Replace French list/card controls with Wolof; preserve movement of all cards in the list, comment count placeholder, attachment/custom-field editing, list display on full versus small card and card number sorting. Full grammar, custom-field and number-sorting wording remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "card-comments-title",
+    "before": "Cette carte a %s commentaires.",
+    "after": "Karta bii am na %s xalaat.",
+    "reason": "Replace French list/card controls with Wolof; preserve movement of all cards in the list, comment count placeholder, attachment/custom-field editing, list display on full versus small card and card number sorting. Full grammar, custom-field and number-sorting wording remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "card-edit-attachments",
+    "before": "Modifier les pièces jointes",
+    "after": "Soppi takkaay yi",
+    "reason": "Replace French list/card controls with Wolof; preserve movement of all cards in the list, comment count placeholder, attachment/custom-field editing, list display on full versus small card and card number sorting. Full grammar, custom-field and number-sorting wording remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "card-edit-custom-fields",
+    "before": "Éditer les champs personnalisés",
+    "after": "Soppi wàlli dugal yu ñu solal",
+    "reason": "Replace French list/card controls with Wolof; preserve movement of all cards in the list, comment count placeholder, attachment/custom-field editing, list display on full versus small card and card number sorting. Full grammar, custom-field and number-sorting wording remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "card-show-lists",
+    "before": "Afficher les listes sur la carte",
+    "after": "Wone limu yi ci karta bi",
+    "reason": "Replace French list/card controls with Wolof; preserve movement of all cards in the list, comment count placeholder, attachment/custom-field editing, list display on full versus small card and card number sorting. Full grammar, custom-field and number-sorting wording remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "card-show-lists-on-minicard",
+    "before": "Afficher les listes sur la mini-carte",
+    "after": "Wone limu yi ci karta bu ndaw bi",
+    "reason": "Replace French list/card controls with Wolof; preserve movement of all cards in the list, comment count placeholder, attachment/custom-field editing, list display on full versus small card and card number sorting. Full grammar, custom-field and number-sorting wording remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "card-sorting-by-number-on-minicard",
+    "before": "Tri numérique des cartes sur la mini-carte",
+    "after": "Toftale karta yi ci nimero bi ci karta bu ndaw bi",
+    "reason": "Replace French list/card controls with Wolof; preserve movement of all cards in the list, comment count placeholder, attachment/custom-field editing, list display on full versus small card and card number sorting. Full grammar, custom-field and number-sorting wording remain low confidence."
   }
 ]
