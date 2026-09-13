@@ -517,10 +517,11 @@ test.describe('Cards – operations', () => {
     const labelId = `linked-label-${Date.now()}`;
     const customFieldId = `linked-field-${Date.now()}`;
     db.updateOne('boards', { _id: source.boardId }, {
-      $set: { labels: [{ _id: labelId, name: 'Source Label', color: 'green' }] },
+      $set: { labels: [{ _id: labelId, name: 'Source Label', color: 'green' }],
+        allowsStickers: true, allowsLocation: true },
     });
     db.updateOne('boards', { _id: board.boardId }, {
-      $set: { allowsCustomFieldsOnMinicard: true },
+      $set: { allowsCustomFieldsOnMinicard: true, allowsStickers: true, allowsLocation: true },
     });
     db.insertOne('customFields', {
       _id: customFieldId,

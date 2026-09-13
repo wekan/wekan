@@ -63,37 +63,17 @@ test.describe('My Cards, filter & sort', () => {
     const sp = new SearchPage(boardPage);
     await sp.openFilterSidebar();
 
-    // sidebarFilters.jade: first .js-toggle-assignee-filter = "No Assignee" filter,
-    // subsequent ones = per board member. Our board has 1 member (the owner).
-    // The second filter element targets the current user.
-    const allAssigneeFilters = boardPage.locator('.js-toggle-assignee-filter');
-    const filterCount = await allAssigneeFilters.count();
-
-    if (filterCount >= 2) {
-      // Click the second filter (index 1) = the user's filter
-      const userFilter = allAssigneeFilters.nth(1);
-      await userFilter.click();
-      // Give the reactive filter time to apply (mini-mongo + Blaze re-render)
-      await boardPage.waitForTimeout(1_500);
-
-      // Alpha Card (assigned to user) should remain visible after filter.
-      // If the filter excludes it (field mismatch with seeded data), fall back to
-      // verifying the board sidebar is still present (no crash).
-      const bp = new BoardPage(boardPage);
-      const alphaVisible = await bp.minicard(board.listIds[0], 'Alpha Card')
-        .isVisible()
-        .catch(() => false);
-      if (!alphaVisible) {
-        // Filter may be using a different field than what we seeded;
-        // verify the board didn't crash by checking the sidebar is still open.
-        await expect(boardPage.locator('.board-sidebar')).toBeVisible({ timeout: 5_000 });
-      } else {
-        await expect(bp.minicard(board.listIds[0], 'Alpha Card')).toBeVisible({ timeout: 5_000 });
-      }
-    } else {
-      // Assignee filter for members not rendered — just confirm sidebar opened
-      await expect(boardPage.locator('.board-sidebar')).toBeVisible();
-    }
+    const userFilter = boardPage.locator(
+      `.js-toggle-assignee-filter[data-filter-id="${user.id}"]`,
+    );
+    await expect(userFilter).toBeVisible();
+    await userFilter.click();
+    await expect(userFilter.locator('i.fa-check')).toBeVisible();
+    const bp = new BoardPage(boardPage);
+    await expect(bp.minicard(board.listIds[0], 'Alpha Card')).toBeVisible();
+    await expect(boardPage.locator('.js-minicard').filter({ hasText: 'Beta Card' })).toBeHidden();
+    await expect(boardPage.locator('.js-minicard').filter({ hasText: 'Gamma Card' })).toBeHidden();
+    await expect(boardPage.locator('.board-sidebar')).toBeVisible();
   });
 
   test('sorting cards by date does not crash and reorders list', async ({ boardPage, board }) => {

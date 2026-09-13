@@ -110,4 +110,37 @@ test('Escape still does what it did', () => {
     'and this change did not have to touch its options');
 });
 
+// Execute the actual handler against the event state produced when a reactive
+// rerender detaches the clicked filter row before document receives its click.
+test('detached filter rows retain their original inside-click path', () => {
+  const vm = require('node:vm');
+  const start = filters.indexOf('  instance._closeOnOutsideClick = evt => {');
+  const end = filters.indexOf('\n  };', start) + 5;
+  const handler = filters.slice(start, end);
+  let closed = 0;
+  let open = true;
+  let inside = false;
+  const context = {
+    instance: {},
+    OUTSIDE_CLICK_KEEPS_OPEN: '.board-sidebar,.pop-over,.js-open-filter-view',
+    getSidebarInstance: () => ({ isOpen: () => open, hide: () => { closed += 1; } }),
+    $: () => ({ closest: () => ({ length: inside ? 1 : 0 }) }),
+  };
+  vm.runInNewContext(handler, context);
+  const click = context.instance._closeOnOutsideClick;
+  const element = { nodeType: 1, matches: selector => selector.includes('.board-sidebar') };
+  click({ button: 0, target: {}, originalEvent: { composedPath: () => [{ nodeType: 3 }, element] } });
+  assert.equal(closed, 0, 'a detached row inside the sidebar must keep it open');
+  click({ button: 0, target: {}, originalEvent: { composedPath: () => [] } });
+  assert.equal(closed, 1, 'a real outside click must still close it');
+  inside = true;
+  click({ button: 0, target: {} });
+  assert.equal(closed, 1, 'connected inside clicks work without composedPath');
+  inside = false;
+  click({ button: 2, target: {} });
+  open = false;
+  click({ button: 0, target: {} });
+  assert.equal(closed, 1, 'right clicks and a closed sidebar have no effect');
+});
+
 console.log(`\nfilterSidebarOutsideClick: ${passed} tests passed`);

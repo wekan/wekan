@@ -145,14 +145,14 @@ test.describe('Admin – user management', () => {
   test('login page sign-in link is visible and accessible', async ({ page }) => {
     await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'networkidle' });
     // The sign-in form or button must be present
-    const form = page.locator('form, [type="submit"], button.primary').first();
+    const form = page.locator('#at-field-username_and_email').locator('xpath=ancestor::form');
     await expect(form).toBeVisible({ timeout: 10_000 });
   });
 
   test('login page renders correctly on a fresh load', async ({ page }) => {
     await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'networkidle' });
-    const usernameInput = page.locator('[name="username"], input[type="text"]').first();
-    const passwordInput = page.locator('[name="password"], input[type="password"]').first();
+    const usernameInput = page.locator('#at-field-username_and_email');
+    const passwordInput = page.locator('#at-field-password');
 
     await expect(usernameInput).toBeVisible({ timeout: 10_000 });
     await expect(passwordInput).toBeVisible({ timeout: 10_000 });

@@ -52,7 +52,7 @@ test.describe('Attachments & links', () => {
     expect(count).toBeGreaterThanOrEqual(1);
   });
 
-  test('the attachment overlay has one isolated document preview surface', async ({
+  test('the attachment overlay provides native PDF and isolated Office previews', async ({
     boardPage,
     board,
   }) => {
@@ -63,11 +63,16 @@ test.describe('Attachments & links', () => {
     await bp.clickCard(listA, 'Alpha Card');
     await cp.waitForOpen();
 
-    const viewer = boardPage.locator('#document-gif-viewer');
-    await expect(viewer).toHaveCount(1);
-    await expect(viewer).toHaveClass(/hidden/);
-    await expect(viewer.locator('iframe, object, embed')).toHaveCount(0);
-    await expect(viewer.locator('.document-page-text')).toHaveCount(1);
+    const pdf = boardPage.locator('#pdf-viewer');
+    await expect(pdf).toHaveCount(1);
+    await expect(pdf).toHaveAttribute('type', 'application/pdf');
+    await expect(pdf).toBeHidden();
+    await expect(pdf.locator('.pdf-preview-error')).toHaveCount(1);
+    const office = boardPage.locator('#office-viewer');
+    await expect(office).toHaveCount(1);
+    await expect(office).toBeHidden();
+    await expect(office.locator('iframe, object, embed')).toHaveCount(0);
+    await expect(boardPage.locator('#document-gif-viewer')).toHaveCount(0);
   });
 
   test('stored HTML is forced to a safe download on the original Meteor-Files route', async ({

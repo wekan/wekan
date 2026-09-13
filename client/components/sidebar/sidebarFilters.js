@@ -52,6 +52,12 @@ Template.filterSidebar.onRendered(function () {
     const sidebar = getSidebarInstance();
     if (!sidebar || !sidebar.isOpen || !sidebar.isOpen()) return;
     if ($(evt.target).closest(OUTSIDE_CLICK_KEEPS_OPEN).length > 0) return;
+    // A reactive filter update can detach its clicked row before this event
+    // reaches document. The native propagation path retains the original
+    // sidebar ancestors even when closest() can no longer find them.
+    const eventPath = evt.originalEvent?.composedPath?.() || [];
+    if (eventPath.some(node => node.nodeType === 1 &&
+      node.matches(OUTSIDE_CLICK_KEEPS_OPEN))) return;
     sidebar.hide();
   };
 
