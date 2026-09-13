@@ -67086,5 +67086,89 @@
     "before": "Impossible de voir les commentaires.",
     "after": "Ne c’haller ket gwelet an evezhiadennoù.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "no-parent",
+    "before": "Ne pas afficher le parent",
+    "after": "Na ziskouez ket ar gartenn c’henidik",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "normal-assigned-only",
+    "before": "Assigné uniquement Normal",
+    "after": "Normal war ar c’hartennoù deverket hepken",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "not-accepted-yet",
+    "before": "L'invitation n'a pas encore été acceptée",
+    "after": "N’eo ket bet degemeret ar bedadenn c’hoazh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "notify-participate",
+    "before": "Recevoir les mises à jour de toutes les cartes auxquelles vous participez en tant que créateur ou que participant",
+    "after": "Degemer hizivadurioù evit pep kartenn ma kemerit perzh evel krouer pe ezel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "notify-watch",
+    "before": "Recevoir les mises à jour de tous les tableaux, listes ou cartes que vous suivez",
+    "after": "Degemer hizivadurioù evit pep taolenn, roll pe kartenn a heuilhit",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "now-activities-of-all-boards-are-hidden",
+    "before": "Les activités de tous les tableaux seront dorénavant cachées",
+    "after": "Kuzhet eo bremañ holl oberiantizoù an holl daolennoù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "oidc-button-text",
+    "before": "Personnaliser le texte du bouton OIDC",
+    "after": "Personelaat testenn ar bouton OIDC",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "operator-debug-invalid",
+    "before": "%s n'est pas un prédicat de debug valide",
+    "after": "N’eo ket %s ur predikad diveugañ talvoudek",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "operator-has-invalid",
+    "before": "%s n'est pas un test valide d'existence",
+    "after": "N’eo ket %s ur gwiriadenn bezañs talvoudek",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "operator-limit-invalid",
+    "before": "%s n'est pas une limite valide. La limite doit être un entier positif.",
+    "after": "N’eo ket %s ur vevenn talvoudek. Ret eo d’ar vevenn bezañ un niver anterin pozitivel.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "operator-number-expected",
+    "before": "L'opérateur __operator__ n'attend pas '__value__' mais un nombre",
+    "after": "Gortoz a rae an oberataer __operator__ un niver; resevet en deus « __value__ »",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "operator-sort-invalid",
+    "before": "'%s' n'est pas valide pour le tri",
+    "after": "Didalvoudek eo an urzhiañ « %s »",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
