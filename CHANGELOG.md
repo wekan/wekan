@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 14,754 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 1,090 pending review or repair.
-The correction inventory records 16,544 exact before/after values,
+findings: 14,764 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 1,080 pending review or repair.
+The correction inventory records 16,567 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original finding queues remain in Veps (349) and Standard Moroccan
+The largest original finding queues remain in Veps (339) and Standard Moroccan
 Tamazight (595). Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -99,8 +99,8 @@ Transifex: the evidence includes 4,061 pulled changes and 16,020 additional
 local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
-changes are implemented in local commit 02383540a; translation repairs have resumed. Latest translation fix is 99f4f8f49,
-covering display counts and swimlane height validation; progress counts are updated above.
+changes are implemented in local commit 02383540a; translation repairs have resumed. Latest translation fix is 40f27e1fd,
+covering placement, filtering, sidebars and labels; progress counts are updated above.
 All correction/rendering checks pass. Latest full Node verification before
 that batch: 1,015 suites, zero failures;
 the final mirror retry adjustment also passes its targeted regression.
@@ -1165,6 +1165,22 @@ verification; the local tool is still starting before compilation.
 and updates maintainer tooling:
 
 **Maintenance scripts** - explicit translation uploads and repository mirrors.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/40f27e1fd">Repair Veps placement, filters and sidebar controls</a>. Thanks to xet7.</summary>
+
+Replace 23 Finnish/Venda values, including 13 related unflagged controls. Preserve
+card versus swimlane placement above/below, card-or-list filtering, separate
+member/assignee/creator filters, field-name display, show/hide toggles and search
+across board titles, descriptions and custom fields. Correct Veps core labels
+remain unchanged.
+
+All 16,567 exact corrections and positive/negative runtime rendering checks pass.
+The audit now has 14,764 corrected and 1,080 pending original findings, including
+339 Veps findings. Composed sidebar terminology and inflections need
+fluent-speaker review. Restored/unflagged review and browser checks remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/99f4f8f49">Repair Veps display counts and height validation</a>. Thanks to xet7.</summary>
