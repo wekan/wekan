@@ -86133,5 +86133,19 @@
     "before": "Buddhist",
     "after": "ནང་པའི་ཟླ་ཐོ",
     "reason": "Replace English Buddhist with Dzongkha ནང་པའི་ཟླ་ཐོ. Indexed official English-Dzongkha Dictionary 2023 gives Buddhist ནང་པ and Buddhism ནང་པའི་ཆོས་ལུགས: https://www.dzongkha.gov.bt/uploads/files/publications/Eng-Dzo_Dictionary_2023_3ead53caad0798894c3908a9aedceb84.pdf . Calendar ཟླ་ཐོ from https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/dz.xml . Assembled calendar phrase remains low confidence; indexed lexical evidence is not native-speaker validation."
+  },
+  {
+    "locale": "dz",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Hijri ཟླ་ཐོ",
+    "reason": "Replace English Islamic descriptors using source calendar identifier Hijri and Dzongkha calendar term ཟླ་ཐོ from https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/dz.xml . Preserve Umm al-Qura proper identifier. Do not treat ambiguous Muslim/Kashmir dictionary term as an attested calendar name. Assembled labels remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "dz",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Hijri ཟླ་ཐོ (Umm al-Qura)",
+    "reason": "Replace English Islamic descriptors using source calendar identifier Hijri and Dzongkha calendar term ཟླ་ཐོ from https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/dz.xml . Preserve Umm al-Qura proper identifier. Do not treat ambiguous Muslim/Kashmir dictionary term as an attested calendar name. Assembled labels remain low confidence; no native-speaker validation."
   }
 ]
