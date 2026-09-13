@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 14,481 |
+| Corrected | 14,482 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 1,363 |
+| Pending review or repair | 1,362 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,023** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,024** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-13**, local commit `3d8f20733` — repaired all six flagged Tibetan calendar findings and two related Gregorian/ISO labels. Hijri variants preserve civil/astronomical epoch and lunar-sighting distinctions. All **16,023** exact correction records and vocabulary checks pass. Technical composition/transliterations have low confidence; Member Settings UI coverage is syntax-checked, browser execution pending. Veps has 616 flagged findings remaining; wider wrong-language Veps/Acehnese and Uzbek Arabic repairs remain outstanding.
+Latest translation fix: **2026-09-13**, local commit `48e6eef90` — replaced the English Kashmiri civil-calendar label with the exact localized Unicode CLDR name. All **16,024** correction records and vocabulary checks pass. Two Kashmiri Hijri findings remain. Tibetan calendar repairs (`3d8f20733`) need fluent review of technical composition/transliterations and browser execution. Wider wrong-language Veps/Acehnese and Uzbek Arabic repairs remain outstanding.
 
 **Language workflow (2026-09-13):** all 245 popup locales are wired and country-then-language flags are checked (`8549b6c4c`). Browser preference ordering, legacy/script aliases, delayed saved profiles and no automatic profile writes pass runtime checks (`1666a2012`, `37ae64fa8`); actual browser execution remains pending. Uzbek Arabic (`uz-AR`) still contains Latin core labels and needs repair.
 

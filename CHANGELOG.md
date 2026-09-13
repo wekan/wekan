@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 14,481 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 1,363 pending review or repair.
+findings: 14,482 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 1,362 pending review or repair.
 The correction inventory records 16,007 exact before/after values across
 201 locale identifiers, including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
@@ -1098,6 +1098,15 @@ Bitbucket was tried during development and is now disabled because of
 Unauthorized errors. Repository paths remain resolved from the script's
 checkout. Syntax validation does not contact or certify remote mirrors;
 no mirroring or publishing commands were executed for this audit.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/48e6eef90">Use localized Kashmiri civil calendar name</a>. Thanks to xet7.</summary>
+
+Replace the English seed with the exact Unicode CLDR Kashmiri display name.
+Positive/negative vocabulary checks preserve the distinction from general Hijri.
+Two Kashmiri calendar findings remain under review.
 
 </details>
 
