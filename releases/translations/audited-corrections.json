@@ -119117,5 +119117,47 @@
     "before": "Ole hyvä ja lähetä palvelimen tekemät lokit.\nSnap asennuksessan, komennolla: `sudo snap logs wekan.wekan`\nDocker asennuksessa, komennolla: `sudo docker logs wekan-app`",
     "after": "Oigenda serveran sündutadud viga.\nSnap-panendal kävuta: `sudo snap logs wekan.wekan`\nDocker-panendal kävuta: `sudo docker logs wekan-app`",
     "reason": "Replace Finnish monitoring/reconnect/server-error prose with Veps dictionary tarkištelend, udištada, ladida, ühtenzoitta and oigeta. Preserve failed export versus failed refresh, attachment monitoring and exact Snap/Docker commands. Technical composition remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "click-to-star",
+    "before": "Klikkaa merkataksesi tämä taulu tähdellä.",
+    "after": "Painda, miše znamoita nece laud tähthanke.",
+    "reason": "Replace flagged Finnish starring/automatic-width text with Veps dictionary tähtaz (genitive tähthan), painda and ülähän, preserving existing avtomatine leveduz terminology. Preserve star versus unstar, starred boards at top and enabled versus disabled actions. Composed morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "click-to-unstar",
+    "before": "Klikkaa poistaaksesi tähtimerkintä taululta.",
+    "after": "Painda, miše heitta necen laudan tähthan znam.",
+    "reason": "Replace flagged Finnish starring/automatic-width text with Veps dictionary tähtaz (genitive tähthan), painda and ülähän, preserving existing avtomatine leveduz terminology. Preserve star versus unstar, starred boards at top and enabled versus disabled actions. Composed morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "star-board-title",
+    "before": "Klikkaa merkataksesi taulu tähdellä. Se tulee näkymään ylimpänä taululistallasi.",
+    "after": "Painda, miše znamoita nece laud tähthanke. Nece laud nägub sinun laudoiden lugetišen ülähän.",
+    "reason": "Replace flagged Finnish starring/automatic-width text with Veps dictionary tähtaz (genitive tähthan), painda and ülähän, preserving existing avtomatine leveduz terminology. Preserve star versus unstar, starred boards at top and enabled versus disabled actions. Composed morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "starred-boards-description",
+    "before": "Tähdellä merkatut taulut näkyvät ylimpänä taululistallasi.",
+    "after": "Tähthanke znamoitud laudad näguba sinun laudoiden lugetišen ülähän.",
+    "reason": "Replace flagged Finnish starring/automatic-width text with Veps dictionary tähtaz (genitive tähthan), painda and ülähän, preserving existing avtomatine leveduz terminology. Preserve star versus unstar, starred boards at top and enabled versus disabled actions. Composed morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "click-to-enable-auto-width",
+    "before": "Automaattinen listan leveys ei ole käytössä. Klikkaa ottaaksesi käyttöön.",
+    "after": "Lugetišen avtomatine leveduz’ om sammutadud. Painda pälepanendaks.",
+    "reason": "Replace flagged Finnish starring/automatic-width text with Veps dictionary tähtaz (genitive tähthan), painda and ülähän, preserving existing avtomatine leveduz terminology. Preserve star versus unstar, starred boards at top and enabled versus disabled actions. Composed morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "click-to-disable-auto-width",
+    "before": "Automaattinen listan leveys käytössä. Klikkaa poistaaksesi käytöstä.",
+    "after": "Lugetišen avtomatine leveduz’ om päl. Painda sammutandaks.",
+    "reason": "Replace flagged Finnish starring/automatic-width text with Veps dictionary tähtaz (genitive tähthan), painda and ülähän, preserving existing avtomatine leveduz terminology. Preserve star versus unstar, starred boards at top and enabled versus disabled actions. Composed morphology remains low confidence pending fluent review."
   }
 ]

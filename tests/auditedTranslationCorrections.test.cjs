@@ -2200,5 +2200,22 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['app-try-reconnect'], /Ladi.*udes/);
   assert.deepEqual([...cache['ve-PP']['server-error-troubleshooting'].matchAll(/`([^`]+)`/g)].map(match => match[1]), ['sudo snap logs wekan.wekan', 'sudo docker logs wekan-app']);
   assert.match(cache['ve-PP']['server-error-troubleshooting'], /serveran sündutadud viga/);
+  const vepsStarWidth = {
+  "click-to-star": "Painda, miše znamoita nece laud tähthanke.",
+  "click-to-unstar": "Painda, miše heitta necen laudan tähthan znam.",
+  "star-board-title": "Painda, miše znamoita nece laud tähthanke. Nece laud nägub sinun laudoiden lugetišen ülähän.",
+  "starred-boards-description": "Tähthanke znamoitud laudad näguba sinun laudoiden lugetišen ülähän.",
+  "click-to-enable-auto-width": "Lugetišen avtomatine leveduz’ om sammutadud. Painda pälepanendaks.",
+  "click-to-disable-auto-width": "Lugetišen avtomatine leveduz’ om päl. Painda sammutandaks."
+};
+  for (const [key, value] of Object.entries(vepsStarWidth)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Klikkaa|Tähdellä merkatut|taululistallasi|Automaattinen listan|käytössä|ottaa.*käyttöön/, key);
+  }
+  assert.match(cache['ve-PP']['click-to-enable-auto-width'], /om sammutadud.*pälepanendaks/);
+  assert.match(cache['ve-PP']['click-to-disable-auto-width'], /om päl.*sammutandaks/);
+  assert.notEqual(cache['ve-PP']['click-to-star'], cache['ve-PP']['click-to-unstar']);
+  for (const key of ['star-board-title', 'starred-boards-description']) assert.match(cache['ve-PP'][key], /lugetišen ülähän/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
