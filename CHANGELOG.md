@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 14,509 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 1,335 pending review or repair.
-The correction inventory records 16,129 exact before/after values,
+findings: 14,515 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 1,329 pending review or repair.
+The correction inventory records 16,136 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -1110,6 +1110,17 @@ addition and full upload after support becomes available, then later uploads
 without duplicate registration. Each run refreshes project membership;
 previous failure reports never exclude languages. Document code mapping
 changes when Transifex uses a different identifier. No remote writes ran.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e6b39cc68">Repair Veps rename permissions and filter controls</a>. Thanks to xet7.</summary>
+
+Replace seven Finnish labels with native software vocabulary and dictionary
+forms, resolving six original findings. Preserve permission actions, the
+Username Change source meaning and clearing all filters. Low confidence:
+composed permission and no-errors grammar needs fluent review. Vocabulary,
+rejected Finnish and full correction inventory checks pass.
 
 </details>
 
