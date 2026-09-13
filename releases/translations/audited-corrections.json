@@ -72427,5 +72427,19 @@
     "before": "Republic of China",
     "after": "Kalena Minguo",
     "reason": "Replace Azerbaijani/English calendar wording using existing Samoan Kalena terminology, translating country descriptions and preserving proper calendar names. Published Samoan sources: https://www.jw.org/sm/lomiga-ma-isi-mea/tusi-paia/nwt/faaopoopoga-e/kalena-faa-eperu-tusi-paia/ (Hebrew calendar), https://wol.jw.org/sm/wol/d/r173/lp-sm/1994323 (Initia/Saina/Iapani/Korea), https://wol.jw.org/sgn-WS/wol/d/r555/lp-sms/1001060427 (written Samoan Peresia/Aitiope). Full specialized label grammar remains subject to native review."
+  },
+  {
+    "locale": "sm",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Kalena faa-Puta",
+    "reason": "Replace English description with Samoan Kalena faa-Puta; published faa-Puta usage https://wol.jw.org/sm/wol/d/r173/lp-sm/1101989303 . Full calendar-label phrasing needs native review."
+  },
+  {
+    "locale": "sm",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Kalena faa-Coptic",
+    "reason": "Replace English description with Samoan Kalena faa-Coptic; published faa-Coptic usage https://www.jw.org/sm/lomiga-ma-isi-mea/mekasini/wp20130201/evagelia-a-iuta/ . Full calendar-label phrasing needs native review."
   }
 ]
