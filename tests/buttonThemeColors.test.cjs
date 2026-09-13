@@ -103,4 +103,21 @@ check('the Change Password button is themed like the Save button beside it', () 
     'Change Password still renders the useraccounts form');
 });
 
+check('calendar controls share every theme submit rule without becoming submit buttons', () => {
+  const css = read('client/components/boards/boardColors.css').replace(/\/\*[\s\S]*?\*\//g, '');
+  const submitRules = [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)]
+    .filter(rule => /button\[type=(?:submit|"submit"|'submit')\]\.primary/.test(rule[1]));
+  assert.ok(submitRules.length > 15, 'all existing theme submit rules are checked');
+  for (const rule of submitRules) {
+    assert.ok(rule[1].includes('.selected-calendar-picker button.primary'),
+      'calendar navigation and days must share the same declarations as Save');
+  }
+  const custom = read('client/components/main/customTheme.css');
+  assert.match(custom, /\.has-custom-theme-color button\[type=submit\]\.primary,\s*\.has-custom-theme-color \.selected-calendar-picker button\.primary,/);
+  const jade = read('client/components/forms/calendarDateInput.jade');
+  for (const button of jade.split('\n').filter(line => /button\.primary\.js-calendar-/.test(line))) {
+    assert.ok(button.includes('type="button"'), 'date navigation must never submit the form');
+  }
+});
+
 console.log(`\n${passed} passed`);

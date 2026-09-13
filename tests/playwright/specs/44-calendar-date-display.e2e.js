@@ -81,16 +81,23 @@ test('Jalali mouse and keyboard selection saves the same native instant in an En
   const movedBounds = await popup.boundingBox();
   expect(movedBounds.x).toBeCloseTo(originalBounds.x - 60, 0);
   await expect(popup).toBeVisible();
-  // Compare controls in the same idle state; the drag may end over a button.
+  // Compare controls in the same idle state: Save receives initial focus,
+  // and the drag may end over a calendar button.
   await page.mouse.move(0, 0);
+  await popup.locator('.js-submit-date').evaluate(button => button.blur());
   const buttonStyles = await popup.evaluate(el => {
     const save = getComputedStyle(el.querySelector('.js-submit-date'));
-    return [...el.querySelectorAll('.selected-calendar-heading button, .js-calendar-day')].every(button => {
+    return [...el.querySelectorAll('.selected-calendar-heading button, .js-calendar-day')].map(button => {
       const style = getComputedStyle(button);
-      return style.backgroundColor === save.backgroundColor && style.color === save.color;
-    });
+      return {
+        control: button.className, focused: button === document.activeElement,
+        hovered: button.matches(':hover'),
+        color: style.color, background: style.backgroundColor,
+        saveColor: save.color, saveBackground: save.backgroundColor,
+      };
+    }).filter(style => style.background !== style.saveBackground || style.color !== style.saveColor);
   });
-  expect(buttonStyles).toBe(true);
+  expect(buttonStyles).toEqual([]);
   const firstDay = popup.locator('.js-calendar-day[data-date="2026-03-21"]');
   await firstDay.focus();
   await expect(firstDay).toBeFocused();

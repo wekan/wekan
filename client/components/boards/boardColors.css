@@ -321,7 +321,19 @@
   .board-color-strongcyan,
   .board-color-limegreen,
   .board-color-corteza
-) .sidebar .sidebar-content .sidebar-btn {
+) .sidebar .sidebar-content .sidebar-btn,
+:is(
+  .board-color-nephritis,
+  .board-color-pomegranate,
+  .board-color-belize,
+  .board-color-wisteria,
+  .board-color-midnight,
+  .board-color-pumpkin,
+  .board-color-moderatepink,
+  .board-color-strongcyan,
+  .board-color-limegreen,
+  .board-color-corteza
+) .selected-calendar-picker button.primary {
   background-color: var(--board-theme-dark);
   border-radius: 7px;
 }
@@ -686,7 +698,8 @@ THEME - Dark
 }
 .board-color-dark button[type=submit].primary,
 .board-color-dark input[type=submit].primary,
-.board-color-dark .sidebar .sidebar-content .sidebar-btn {
+.board-color-dark .sidebar .sidebar-content .sidebar-btn,
+.board-color-dark .selected-calendar-picker button.primary {
   background-color: #233241;
   border-radius: 7px;
 }
@@ -900,7 +913,8 @@ THEME - Relax
 }
 .board-color-relax button[type=submit].primary,
 .board-color-relax input[type=submit].primary,
-.board-color-relax .sidebar .sidebar-content .sidebar-btn {
+.board-color-relax .sidebar .sidebar-content .sidebar-btn,
+.board-color-relax .selected-calendar-picker button.primary {
   background-color: #1f8b4e;
   border-radius: 7px;
 }
@@ -1268,7 +1282,8 @@ THEME - Apple Glass Pastel
 .board-color-appleglasspastel input[type=submit].primary,
 .board-color-appleglasspastel button.primary,
 .board-color-appleglasspastel input.primary,
-.board-color-appleglasspastel .sidebar .sidebar-content .sidebar-btn {
+.board-color-appleglasspastel .sidebar .sidebar-content .sidebar-btn,
+.board-color-appleglasspastel .selected-calendar-picker button.primary {
   background: #2563eb;
   border: 0;
   border-radius: 999px;
@@ -1279,7 +1294,8 @@ THEME - Apple Glass Pastel
 .board-color-appleglasspastel button[type="submit"].primary:hover,
 .board-color-appleglasspastel input[type="submit"].primary:hover,
 .board-color-appleglasspastel button.primary:hover,
-.board-color-appleglasspastel input.primary:hover {
+.board-color-appleglasspastel input.primary:hover,
+.board-color-appleglasspastel .selected-calendar-picker button.primary:hover {
   background: #1d4ed8;
   color: #fff;
 }
@@ -1536,7 +1552,8 @@ THEME - Clear Blue
   color: rgba(0,0,0,0.6);
 }
 .board-color-clearblue button[type=submit].primary,
-.board-color-clearblue input[type=submit].primary {
+.board-color-clearblue input[type=submit].primary,
+.board-color-clearblue .selected-calendar-picker button.primary {
   box-shadow: none;
   background-color: rgba(255,255,255,0.5);
   color: rgba(0,0,0,0.55);
@@ -1544,7 +1561,8 @@ THEME - Clear Blue
   border: 0;
 }
 .board-color-clearblue button[type="submit"].primary:hover,
-.board-color-clearblue input[type="submit"].primary:hover {
+.board-color-clearblue input[type="submit"].primary:hover,
+.board-color-clearblue .selected-calendar-picker button.primary:hover {
   background-color: rgba(255,255,255,0.7);
   color: rgba(0,0,0,0.8);
   box-shadow: 0 1px 2px rgba(0,0,0,0.2);
@@ -1685,7 +1703,8 @@ THEME - Natural
 }
 .board-color-natural button[type=submit].primary,
 .board-color-natural input[type=submit].primary,
-.board-color-natural .sidebar .sidebar-content .sidebar-btn {
+.board-color-natural .sidebar .sidebar-content .sidebar-btn,
+.board-color-natural .selected-calendar-picker button.primary {
   background-color: #475146;
   border-radius: 7px;
 }
@@ -1807,7 +1826,8 @@ THEME - Modern
 }
 .board-color-modern button[type=submit].primary,
 .board-color-modern input[type=submit].primary,
-.board-color-modern .sidebar .sidebar-content .sidebar-btn {
+.board-color-modern .sidebar .sidebar-content .sidebar-btn,
+.board-color-modern .selected-calendar-picker button.primary {
   background-color: #226693;
   border-radius: 7px;
 }
@@ -2108,7 +2128,8 @@ THEME - Modern Dark
 }
 .board-color-moderndark button[type=submit].primary,
 .board-color-moderndark input[type=submit].primary,
-.board-color-moderndark .sidebar .sidebar-content .sidebar-btn {
+.board-color-moderndark .sidebar .sidebar-content .sidebar-btn,
+.board-color-moderndark .selected-calendar-picker button.primary {
   background-color: #222;
   border-radius: 7px;
 }
@@ -2184,7 +2205,8 @@ THEME - Modern Dark
   opacity: 0.6;
 }
 .board-color-moderndark button[type=submit].primary,
-.board-color-moderndark .board-color-modern input[type=submit].primary {
+.board-color-moderndark .board-color-modern input[type=submit].primary,
+.board-color-moderndark .selected-calendar-picker button.primary {
   background-color: #777;
   border-radius: 7px;
 }
@@ -2610,7 +2632,8 @@ THEME - Exodark
 }
 .board-color-exodark button[type=submit].primary,
 .board-color-exodark input[type=submit].primary,
-.board-color-exodark .sidebar .sidebar-content .sidebar-btn {
+.board-color-exodark .sidebar .sidebar-content .sidebar-btn,
+.board-color-exodark .selected-calendar-picker button.primary {
   background-color: #1b1b1b;
   border-radius: 7px;
 }
@@ -3106,7 +3129,8 @@ THEME - Clean Dark
 }
 
 .board-color-cleandark button[type=submit].primary,
-.board-color-cleandark input[type=submit].primary {
+.board-color-cleandark input[type=submit].primary,
+.board-color-cleandark .selected-calendar-picker button.primary {
   font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
   line-height: calc(24px * var(--wekan-ui-font-scale, 1));
@@ -3848,7 +3872,8 @@ THEME - Clean Light
 }
 
 .board-color-cleanlight button[type=submit].primary,
-.board-color-cleanlight input[type=submit].primary {
+.board-color-cleanlight input[type=submit].primary,
+.board-color-cleanlight .selected-calendar-picker button.primary {
   font-size: calc(16px * var(--wekan-ui-font-scale, 1));
   font-weight: 400;
   line-height: calc(24px * var(--wekan-ui-font-scale, 1));
@@ -4584,7 +4609,8 @@ docs/Features/Page/Theme.md
   color: rgba(0,0,0,0.6);
 }
 .board-color-cleargreen button[type=submit].primary,
-.board-color-cleargreen input[type=submit].primary {
+.board-color-cleargreen input[type=submit].primary,
+.board-color-cleargreen .selected-calendar-picker button.primary {
   box-shadow: none;
   background-color: rgba(255,255,255,0.5);
   color: rgba(0,0,0,0.55);
@@ -4592,7 +4618,8 @@ docs/Features/Page/Theme.md
   border: 0;
 }
 .board-color-cleargreen button[type="submit"].primary:hover,
-.board-color-cleargreen input[type="submit"].primary:hover {
+.board-color-cleargreen input[type="submit"].primary:hover,
+.board-color-cleargreen .selected-calendar-picker button.primary:hover {
   background-color: rgba(255,255,255,0.7);
   color: rgba(0,0,0,0.8);
   box-shadow: 0 1px 2px rgba(0,0,0,0.2);
@@ -4878,7 +4905,8 @@ docs/Features/Page/Theme.md
   color: rgba(0,0,0,0.6);
 }
 .board-color-clearorange button[type=submit].primary,
-.board-color-clearorange input[type=submit].primary {
+.board-color-clearorange input[type=submit].primary,
+.board-color-clearorange .selected-calendar-picker button.primary {
   box-shadow: none;
   background-color: rgba(255,255,255,0.5);
   color: rgba(0,0,0,0.55);
@@ -4886,7 +4914,8 @@ docs/Features/Page/Theme.md
   border: 0;
 }
 .board-color-clearorange button[type="submit"].primary:hover,
-.board-color-clearorange input[type="submit"].primary:hover {
+.board-color-clearorange input[type="submit"].primary:hover,
+.board-color-clearorange .selected-calendar-picker button.primary:hover {
   background-color: rgba(255,255,255,0.7);
   color: rgba(0,0,0,0.8);
   box-shadow: 0 1px 2px rgba(0,0,0,0.2);
@@ -5172,7 +5201,8 @@ docs/Features/Page/Theme.md
   color: rgba(0,0,0,0.6);
 }
 .board-color-clearpink button[type=submit].primary,
-.board-color-clearpink input[type=submit].primary {
+.board-color-clearpink input[type=submit].primary,
+.board-color-clearpink .selected-calendar-picker button.primary {
   box-shadow: none;
   background-color: rgba(255,255,255,0.5);
   color: rgba(0,0,0,0.55);
@@ -5180,7 +5210,8 @@ docs/Features/Page/Theme.md
   border: 0;
 }
 .board-color-clearpink button[type="submit"].primary:hover,
-.board-color-clearpink input[type="submit"].primary:hover {
+.board-color-clearpink input[type="submit"].primary:hover,
+.board-color-clearpink .selected-calendar-picker button.primary:hover {
   background-color: rgba(255,255,255,0.7);
   color: rgba(0,0,0,0.8);
   box-shadow: 0 1px 2px rgba(0,0,0,0.2);
@@ -5466,7 +5497,8 @@ docs/Features/Page/Theme.md
   color: rgba(0,0,0,0.6);
 }
 .board-color-clearpurple button[type=submit].primary,
-.board-color-clearpurple input[type=submit].primary {
+.board-color-clearpurple input[type=submit].primary,
+.board-color-clearpurple .selected-calendar-picker button.primary {
   box-shadow: none;
   background-color: rgba(255,255,255,0.5);
   color: rgba(0,0,0,0.55);
@@ -5474,7 +5506,8 @@ docs/Features/Page/Theme.md
   border: 0;
 }
 .board-color-clearpurple button[type="submit"].primary:hover,
-.board-color-clearpurple input[type="submit"].primary:hover {
+.board-color-clearpurple input[type="submit"].primary:hover,
+.board-color-clearpurple .selected-calendar-picker button.primary:hover {
   background-color: rgba(255,255,255,0.7);
   color: rgba(0,0,0,0.8);
   box-shadow: 0 1px 2px rgba(0,0,0,0.2);
@@ -5760,7 +5793,8 @@ docs/Features/Page/Theme.md
   color: rgba(0,0,0,0.6);
 }
 .board-color-clearred button[type=submit].primary,
-.board-color-clearred input[type=submit].primary {
+.board-color-clearred input[type=submit].primary,
+.board-color-clearred .selected-calendar-picker button.primary {
   box-shadow: none;
   background-color: rgba(255,255,255,0.5);
   color: rgba(0,0,0,0.55);
@@ -5768,7 +5802,8 @@ docs/Features/Page/Theme.md
   border: 0;
 }
 .board-color-clearred button[type="submit"].primary:hover,
-.board-color-clearred input[type="submit"].primary:hover {
+.board-color-clearred input[type="submit"].primary:hover,
+.board-color-clearred .selected-calendar-picker button.primary:hover {
   background-color: rgba(255,255,255,0.7);
   color: rgba(0,0,0,0.8);
   box-shadow: 0 1px 2px rgba(0,0,0,0.2);

@@ -12,6 +12,7 @@
 }
 
 .has-custom-theme-color button[type=submit].primary,
+.has-custom-theme-color .selected-calendar-picker button.primary,
 .has-custom-theme-color input[type=submit].primary,
 .has-custom-theme-color .sidebar .sidebar-content .sidebar-btn {
   background-color: var(--theme-accent) !important;
