@@ -64419,5 +64419,61 @@
     "before": "Détecte et répare les listes manquantes ou corrompues dans la structure du tableau.",
     "after": "Dinoiñ ha reizhañ a ra ar rolloù a vank pe a zo breinet e framm an daolenn.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<nom>` - cartes *assignées* à l'utilisateur *<nom>*",
+    "after": "`__operator_assignee__:<username>` - kartennoù ma’z eo *<username>* un den *karget* anezho",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "globalSearch-instructions-operator-board",
+    "before": "`__operator_board__:<titre>` - cartes dont le tableau correspond à *<titre>*",
+    "after": "`__operator_board__:<title>` - kartennoù en taolennoù a glot gant an *<title>* spisaet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "globalSearch-instructions-operator-creator",
+    "before": "`__operator_creator__:<utilisateur>` - cartes dont le créateur est *<utilisateur>*",
+    "after": "`__operator_creator__:<username>` - kartennoù ma’z eo *<username>* krouer ar gartenn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "globalSearch-instructions-operator-member",
+    "before": "`__operator_member__:<nom>` - cartes pour lesquelles l'utilisateur *<nom>* est *participant*",
+    "after": "`__operator_member__:<username>` - kartennoù ma’z eo *<username>* un *ezel*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "globalSearch-instructions-operator-org",
+    "before": "`__operator_org__:<display name|short name>` - cartes appartenant à un tableau assigné à l'organisation *<name>*",
+    "after": "`__operator_org__:<display name|short name>` - kartennoù en un daolenn roet d’an aozadur *<name>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "globalSearch-instructions-operator-team",
+    "before": "`__operator_team__:<display name|short name>` - cartes appartenant à un tableau assigné à l'équipe *<name>*",
+    "after": "`__operator_team__:<display name|short name>` - kartennoù en un daolenn roet d’ar skipailh *<name>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "globalSearch-instructions-operator-user",
+    "before": "`__operator_user__:<nom>` - cartes où l'utilisateur <nom> est *assigné* ou est un *participant*.",
+    "after": "`__operator_user__:<username>` - kartennoù ma’z eo *<username>* un *ezel* pe un den *karget* anezho",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "globalSearch-instructions-status-private",
+    "before": "`__predicate_private__` - uniquement les cartes qui sont dans un tableau privé.",
+    "after": "`__predicate_private__` - kartennoù en taolennoù prevez hepken",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
