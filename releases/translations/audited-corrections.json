@@ -119215,5 +119215,82 @@
     "before": "Seurataan",
     "after": "Kaceluz om päl",
     "reason": "Replace Finnish legal-notice/notification wording with Veps dictionary hökkähtada (native MediaWiki consent phrase), juridine, homaičuz and sada. Preserve combined consent sentence, never-notified state, creator OR member and watching subscriptions. Reuse existing kaceluz technical term. Legal argument case and composed notification morphology remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Node_heap_total_heap_size",
+    "before": "Node keko: keon kokonaiskoko",
+    "after": "Node mušton kogo: kogon kaik suruz’",
+    "reason": "Replace Finnish with Veps heap metric wording. Dictionary: kogo, suruz’, mušt, erigoitta, jagada and röun; reuse maksimaline. Node V8 definitions: peak malloc allocation is not erroneous memory; does_zap_garbage reports --zap_code_space, not garbage collection. Low confidence: technical compounds and inflection (kodan, fizikaline, nativkontekstoiden) need fluent review. https://nodejs.org/api/v8.html#v8getheapstatistics"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Node_heap_total_heap_size_executable",
+    "before": "Node keko: suoritettava keon kokonaiskoko",
+    "after": "Node mušton kogo: kodan täht erigoittud kogon suruz’",
+    "reason": "Replace Finnish with Veps heap metric wording. Dictionary: kogo, suruz’, mušt, erigoitta, jagada and röun; reuse maksimaline. Node V8 definitions: peak malloc allocation is not erroneous memory; does_zap_garbage reports --zap_code_space, not garbage collection. Low confidence: technical compounds and inflection (kodan, fizikaline, nativkontekstoiden) need fluent review. https://nodejs.org/api/v8.html#v8getheapstatistics"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Node_heap_total_physical_size",
+    "before": "Node keko: fyysinen kokonaiskoko",
+    "after": "Node mušton kogo: kaik fizikaline suruz’",
+    "reason": "Replace Finnish with Veps heap metric wording. Dictionary: kogo, suruz’, mušt, erigoitta, jagada and röun; reuse maksimaline. Node V8 definitions: peak malloc allocation is not erroneous memory; does_zap_garbage reports --zap_code_space, not garbage collection. Low confidence: technical compounds and inflection (kodan, fizikaline, nativkontekstoiden) need fluent review. https://nodejs.org/api/v8.html#v8getheapstatistics"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Node_heap_total_available_size",
+    "before": "Node keko: käytettävissä oleva koko",
+    "after": "Node mušton kogo: kävutandaha joudai suruz’",
+    "reason": "Replace Finnish with Veps heap metric wording. Dictionary: kogo, suruz’, mušt, erigoitta, jagada and röun; reuse maksimaline. Node V8 definitions: peak malloc allocation is not erroneous memory; does_zap_garbage reports --zap_code_space, not garbage collection. Low confidence: technical compounds and inflection (kodan, fizikaline, nativkontekstoiden) need fluent review. https://nodejs.org/api/v8.html#v8getheapstatistics"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Node_heap_used_heap_size",
+    "before": "Node keko: käytetty keon koko",
+    "after": "Node mušton kogo: kävutadud kogon suruz’",
+    "reason": "Replace Finnish with Veps heap metric wording. Dictionary: kogo, suruz’, mušt, erigoitta, jagada and röun; reuse maksimaline. Node V8 definitions: peak malloc allocation is not erroneous memory; does_zap_garbage reports --zap_code_space, not garbage collection. Low confidence: technical compounds and inflection (kodan, fizikaline, nativkontekstoiden) need fluent review. https://nodejs.org/api/v8.html#v8getheapstatistics"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Node_heap_heap_size_limit",
+    "before": "Node keko: keon kokorajoitus",
+    "after": "Node mušton kogo: kogon suruden röun",
+    "reason": "Replace Finnish with Veps heap metric wording. Dictionary: kogo, suruz’, mušt, erigoitta, jagada and röun; reuse maksimaline. Node V8 definitions: peak malloc allocation is not erroneous memory; does_zap_garbage reports --zap_code_space, not garbage collection. Low confidence: technical compounds and inflection (kodan, fizikaline, nativkontekstoiden) need fluent review. https://nodejs.org/api/v8.html#v8getheapstatistics"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Node_heap_malloced_memory",
+    "before": "Node keko: malloc muisti",
+    "after": "Node mušton kogo: malloc-jagatud mušt",
+    "reason": "Replace Finnish with Veps heap metric wording. Dictionary: kogo, suruz’, mušt, erigoitta, jagada and röun; reuse maksimaline. Node V8 definitions: peak malloc allocation is not erroneous memory; does_zap_garbage reports --zap_code_space, not garbage collection. Low confidence: technical compounds and inflection (kodan, fizikaline, nativkontekstoiden) need fluent review. https://nodejs.org/api/v8.html#v8getheapstatistics"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Node keko: virheellisen malloc muistin huippu",
+    "after": "Node mušton kogo: malloc-mušton maksimaline mär",
+    "reason": "Replace Finnish with Veps heap metric wording. Dictionary: kogo, suruz’, mušt, erigoitta, jagada and röun; reuse maksimaline. Node V8 definitions: peak malloc allocation is not erroneous memory; does_zap_garbage reports --zap_code_space, not garbage collection. Low confidence: technical compounds and inflection (kodan, fizikaline, nativkontekstoiden) need fluent review. https://nodejs.org/api/v8.html#v8getheapstatistics"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Node keko: kerää roskat",
+    "after": "Node mušton kogo: --zap_code_space om päl (0/1)",
+    "reason": "Replace Finnish with Veps heap metric wording. Dictionary: kogo, suruz’, mušt, erigoitta, jagada and röun; reuse maksimaline. Node V8 definitions: peak malloc allocation is not erroneous memory; does_zap_garbage reports --zap_code_space, not garbage collection. Low confidence: technical compounds and inflection (kodan, fizikaline, nativkontekstoiden) need fluent review. https://nodejs.org/api/v8.html#v8getheapstatistics"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Node_heap_number_of_native_contexts",
+    "before": "Node keko: natiivikontekstien lukumäärä",
+    "after": "Node mušton kogo: nativkontekstoiden lugumär",
+    "reason": "Replace Finnish with Veps heap metric wording. Dictionary: kogo, suruz’, mušt, erigoitta, jagada and röun; reuse maksimaline. Node V8 definitions: peak malloc allocation is not erroneous memory; does_zap_garbage reports --zap_code_space, not garbage collection. Low confidence: technical compounds and inflection (kodan, fizikaline, nativkontekstoiden) need fluent review. https://nodejs.org/api/v8.html#v8getheapstatistics"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Node_heap_number_of_detached_contexts",
+    "before": "Node keko: irrotettujen kontekstien määrä",
+    "after": "Node mušton kogo: erigoittud kontekstoiden lugumär",
+    "reason": "Replace Finnish with Veps heap metric wording. Dictionary: kogo, suruz’, mušt, erigoitta, jagada and röun; reuse maksimaline. Node V8 definitions: peak malloc allocation is not erroneous memory; does_zap_garbage reports --zap_code_space, not garbage collection. Low confidence: technical compounds and inflection (kodan, fizikaline, nativkontekstoiden) need fluent review. https://nodejs.org/api/v8.html#v8getheapstatistics"
   }
 ]

@@ -2238,5 +2238,29 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['notify-watch'], /laudoiš, lugetišiš libo kartoiš.*kacelusen päle/);
   assert.match(cache['ve-PP']['auto-watch'], /avtomatižesti.*tegendan aigan/);
   assert.notEqual(cache['ve-PP']['watch'], cache['ve-PP']['watching']);
+  const vepsHeapMetrics = {
+  "Node_heap_total_heap_size": "Node mušton kogo: kogon kaik suruz’",
+  "Node_heap_total_heap_size_executable": "Node mušton kogo: kodan täht erigoittud kogon suruz’",
+  "Node_heap_total_physical_size": "Node mušton kogo: kaik fizikaline suruz’",
+  "Node_heap_total_available_size": "Node mušton kogo: kävutandaha joudai suruz’",
+  "Node_heap_used_heap_size": "Node mušton kogo: kävutadud kogon suruz’",
+  "Node_heap_heap_size_limit": "Node mušton kogo: kogon suruden röun",
+  "Node_heap_malloced_memory": "Node mušton kogo: malloc-jagatud mušt",
+  "Node_heap_peak_malloced_memory": "Node mušton kogo: malloc-mušton maksimaline mär",
+  "Node_heap_does_zap_garbage": "Node mušton kogo: --zap_code_space om päl (0/1)",
+  "Node_heap_number_of_native_contexts": "Node mušton kogo: nativkontekstoiden lugumär",
+  "Node_heap_number_of_detached_contexts": "Node mušton kogo: erigoittud kontekstoiden lugumär"
+};
+  for (const [key, value] of Object.entries(vepsHeapMetrics)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /keko|keon|kokonaiskoko|käytettävissä|käytetty|kokorajoitus|virheellisen|kerää roskat|lukumäärä|irrotettujen/, key);
+  }
+  assert.match(vepsTranslator.t('Node_heap_peak_malloced_memory'), /malloc-mušton maksimaline mär/);
+  assert.notEqual(vepsTranslator.t('Node_heap_peak_malloced_memory'), vepsTranslator.t('Node_heap_malloced_memory'));
+  assert.equal(vepsTranslator.t('Node_heap_does_zap_garbage'), 'Node mušton kogo: --zap_code_space om päl (0/1)');
+  assert.notEqual(vepsTranslator.t('Node_heap_total_heap_size'), vepsTranslator.t('Node_heap_total_heap_size_executable'));
+  assert.notEqual(vepsTranslator.t('Node_heap_total_available_size'), vepsTranslator.t('Node_heap_used_heap_size'));
+  assert.match(vepsTranslator.t('Node_heap_number_of_detached_contexts'), /erigoittud kontekstoiden lugumär/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
