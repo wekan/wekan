@@ -63019,5 +63019,89 @@
     "before": "Republic of China",
     "after": "Kalendari ya Minguo",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "xh",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Ikhalenda yamaBhuda",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "xh",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Ikhalenda yamaTshayina",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "xh",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Ikhalenda yamaCopt",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "xh",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Ikhalenda yeDangi (yaseKorea)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "xh",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Ikhalenda yaseTopiya yeAmete Alem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "xh",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Ikhalenda yaseTopiya",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "xh",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Ikhalenda yamaHebhere",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "xh",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Ikhalenda yesizwe yaseIndiya",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "xh",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Ikhalenda yeHijri",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "xh",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Ikhalenda yeHijri (Umm al-Qura)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "xh",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Ikhalenda yamaJapan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "xh",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Ikhalenda yeMinguo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
