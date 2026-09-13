@@ -93511,5 +93511,54 @@
     "before": "Zugewiesene Teams werden darunter angezeigt:",
     "after": "bIngDaq luchellu'bogh ghommey lu'anglu':",
     "reason": "Replace audited German label and added-team/organization display controls with Klingon. Preserve change versus removal, all-label scope, minicard field-label scope, and below-display position. The activity template passes label text first and cardLink second: keep that percent-token order, with card destination/origin in parentheses. Reuse per, field, yejHaq and ghom terminology; lu-anglu marks plural indefinite objects. Full software phrasing is assembled, low confidence, and requires fluent-speaker validation. Both adding and displaying use plural-object agreement, following https://www.kli.org/duolingo/use-unknown-subjects/."
+  },
+  {
+    "locale": "tlh",
+    "key": "card-members-title",
+    "before": "Der Karte Board-Mitglieder hinzufügen oder entfernen.",
+    "after": "'echletHomvaD raS jeSwI'pu' tIchel pagh 'echletHomvo' tIteq.",
+    "reason": "Replace audited German card membership/comment-count controls and organization/team/account deletion warnings with Klingon. Preserve add/remove alternatives, dynamic comment count, certainty question, inability to restore the original state after the action, and deletion blocked when a participating user exists. Use descriptive original-state restoration rather than ambiguous ta-Ha (accomplish wrongly). Reuse repaired jeSwI, QInHom, yejHaq, ghom and account borrowing. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "card-comments-title",
+    "before": "Diese Karte hat %s Kommentar(e).",
+    "after": "'echletHomvam QInHommey mI': %s.",
+    "reason": "Replace audited German card membership/comment-count controls and organization/team/account deletion warnings with Klingon. Preserve add/remove alternatives, dynamic comment count, certainty question, inability to restore the original state after the action, and deletion blocked when a participating user exists. Use descriptive original-state restoration rather than ambiguous ta-Ha (accomplish wrongly). Reuse repaired jeSwI, QInHom, yejHaq, ghom and account borrowing. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "delete-org-confirm-popup",
+    "before": "Sind Sie sicher, daß Sie diese Organisation löschen wollen? Es gibt keine Möglichkeit, das rückgängig zu machen.",
+    "after": "yejHaqvam DaQaw' DaneHbej'a'? Qu'vam ta'lu'DI', ghu' wa'DIch cheghmoHlaH pagh.",
+    "reason": "Replace audited German card membership/comment-count controls and organization/team/account deletion warnings with Klingon. Preserve add/remove alternatives, dynamic comment count, certainty question, inability to restore the original state after the action, and deletion blocked when a participating user exists. Use descriptive original-state restoration rather than ambiguous ta-Ha (accomplish wrongly). Reuse repaired jeSwI, QInHom, yejHaq, ghom and account borrowing. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "delete-team-confirm-popup",
+    "before": "Sind Sie sicher, daß Sie dieses Team löschen wollen? Es gibt keine Möglichkeit, das rückgängig zu machen.",
+    "after": "ghomvam DaQaw' DaneHbej'a'? Qu'vam ta'lu'DI', ghu' wa'DIch cheghmoHlaH pagh.",
+    "reason": "Replace audited German card membership/comment-count controls and organization/team/account deletion warnings with Klingon. Preserve add/remove alternatives, dynamic comment count, certainty question, inability to restore the original state after the action, and deletion blocked when a participating user exists. Use descriptive original-state restoration rather than ambiguous ta-Ha (accomplish wrongly). Reuse repaired jeSwI, QInHom, yejHaq, ghom and account borrowing. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "delete-user-confirm-popup",
+    "before": "Möchten Sie dieses Benutzerkonto wirklich löschen? Die Aktion kann nicht rückgängig gemacht werden.",
+    "after": "accountvam DaQaw' DaneHbej'a'? Qu'vam ta'lu'DI', ghu' wa'DIch cheghmoHlaH pagh.",
+    "reason": "Replace audited German card membership/comment-count controls and organization/team/account deletion warnings with Klingon. Preserve add/remove alternatives, dynamic comment count, certainty question, inability to restore the original state after the action, and deletion blocked when a participating user exists. Use descriptive original-state restoration rather than ambiguous ta-Ha (accomplish wrongly). Reuse repaired jeSwI, QInHom, yejHaq, ghom and account borrowing. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "delete-org-warning-message",
+    "before": "Diese Organisation kann nicht gelöscht werden, da wenigstens ein Nutzer dazu gehört.",
+    "after": "yejHaqvamDaq jeSbogh lo'wI' tu'lu'; vaj yejHaqvam DaQaw'laHbe'.",
+    "reason": "Replace audited German card membership/comment-count controls and organization/team/account deletion warnings with Klingon. Preserve add/remove alternatives, dynamic comment count, certainty question, inability to restore the original state after the action, and deletion blocked when a participating user exists. Use descriptive original-state restoration rather than ambiguous ta-Ha (accomplish wrongly). Reuse repaired jeSwI, QInHom, yejHaq, ghom and account borrowing. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "delete-team-warning-message",
+    "before": "Dieses Team kann nicht gelöscht werden, da wenigstens ein Nutzer dazu gehört.",
+    "after": "ghomvamDaq jeSbogh lo'wI' tu'lu'; vaj ghomvam DaQaw'laHbe'.",
+    "reason": "Replace audited German card membership/comment-count controls and organization/team/account deletion warnings with Klingon. Preserve add/remove alternatives, dynamic comment count, certainty question, inability to restore the original state after the action, and deletion blocked when a participating user exists. Use descriptive original-state restoration rather than ambiguous ta-Ha (accomplish wrongly). Reuse repaired jeSwI, QInHom, yejHaq, ghom and account borrowing. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
   }
 ]
