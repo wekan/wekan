@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,243 |
+| Corrected | 12,249 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,603 |
+| Pending review or repair | 3,597 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,720** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,726** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `6960d838bc06ab1e6088db25f242db83b710bb7f` — eleven Volapük migration labels/instructions repaired, including French progress text and physical-step terminology. Preserved status distinctions and the wait/latest-board-structure instruction; migration borrowing and assembled wording remain low confidence.
+Latest translation fix: **2026-09-13**, local commit `bbec32d4749cde298ce2e65e8a827ad08c58dbbb` — six French board/member and custom-HTML descriptions replaced with Volapük. Preserved permissions, membership scope/direction and exact body tags/placement; assembled wording remains low confidence.
 
 **Verification:** correction and progress tests pass, covering exact values, placeholders, JSON examples and key order. Native-speaker and browser checks remain outstanding.
 
