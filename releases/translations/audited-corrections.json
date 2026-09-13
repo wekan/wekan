@@ -112166,5 +112166,26 @@
     "before": "Islamic civil",
     "after": "اِسلٲمی اِجتمٲیی کیلنڑَر",
     "reason": "Replace English Islamic civil with exact Kashmiri Islamic civil calendar display name attested in Unicode CLDR 47 ks, calendar-islamic-civil: https://www.unicode.org/cldr/charts/47/summary/ks.html . Official localized name distinguishes the civil variant; other Hijri variants remain pending."
+  },
+  {
+    "locale": "sah",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Коптик халандаара",
+    "reason": "Replace English/Turkic calendar seed with native calendar wording. Unicode CLDR sah attests халандаара; Wikidata Q36155 indexes Sakha Коптик тыла and Q9168 indexes Sakha Перс тыла and Veps Persijan kelʹ. Preserve Jalali proper name. Composed calendar names require fluent review."
+  },
+  {
+    "locale": "sah",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Jalali халандаара (Перс)",
+    "reason": "Replace English/Turkic calendar seed with native calendar wording. Unicode CLDR sah attests халандаара; Wikidata Q36155 indexes Sakha Коптик тыла and Q9168 indexes Sakha Перс тыла and Veps Persijan kelʹ. Preserve Jalali proper name. Composed calendar names require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Jalali (Persijan kalendar')",
+    "reason": "Replace English/Turkic calendar seed with native calendar wording. Unicode CLDR sah attests халандаара; Wikidata Q36155 indexes Sakha Коптик тыла and Q9168 indexes Sakha Перс тыла and Veps Persijan kelʹ. Preserve Jalali proper name. Composed calendar names require fluent review."
   }
 ]
