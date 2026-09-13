@@ -92265,5 +92265,19 @@
     "before": "Islamic tabular",
     "after": "Kalender Hijri (tablek, dedhyas dalleth a steronieth)",
     "reason": "Replace English Hijri variant labels directly with Cornish, retaining existing Kalender Hijri and restoring tabular/civil-versus-astronomical epoch distinctions. Epoch paraphrased as starting date, not era. Akademi dictionary https://www.cornishdictionary.org.uk/sites/default/files/GerlyverPDF_20190723.pdf attests civil adjective; https://en.wiktionary.org/wiki/ster lists steronieth (astronomy), and https://glosbe.com/kw/en/tabla lists tablek. Tabular adjective semantics, noun combinations and full technical phrasing remain low confidence, requiring native-speaker validation."
+  },
+  {
+    "locale": "sc",
+    "key": "board-view-burndown",
+    "before": "Burndown",
+    "after": "Traballu chi abarrat (Burndown)",
+    "reason": "Localize chart labels directly into Sardinian using existing Traballu work, chi abarrat remaining, and acabbadu completed vocabulary. Preserve standard Burndown/Burnup chart identifiers in parentheses for recognition. Source chartPlaceholderViews.jade maps both labels to their respective charts. Assembled labels remain low confidence and need native-speaker validation; no correct human translation overwritten."
+  },
+  {
+    "locale": "sc",
+    "key": "board-view-burnup",
+    "before": "Burnup",
+    "after": "Traballu acabbadu (Burnup)",
+    "reason": "Localize chart labels directly into Sardinian using existing Traballu work, chi abarrat remaining, and acabbadu completed vocabulary. Preserve standard Burndown/Burnup chart identifiers in parentheses for recognition. Source chartPlaceholderViews.jade maps both labels to their respective charts. Assembled labels remain low confidence and need native-speaker validation; no correct human translation overwritten."
   }
 ]
