@@ -50027,5 +50027,110 @@
     "before": "Correggi URL degli injuntes",
     "after": "Curreger ils URLs da las agiuntas",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "step-fix-avatar-urls",
+    "before": "Correggi URL degli avatar",
+    "after": "Curreger ils URLs dals avatars",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "step-fix-file-urls",
+    "before": "Correzione degli URL di file",
+    "after": "Correcziun dals URLs da datotecas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "storage-distribution",
+    "before": "Distribuzione dello storage",
+    "after": "Distribuziun da la memorisaziun",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "submit-on-enter",
+    "before": "Salva gli editor cun Enter",
+    "after": "Trametter il cuntegn dals editurs cun Enter",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "subtext-with-full-path",
+    "before": "Sottotesto cun troi completo",
+    "after": "Text supplementar cun la via cumpletta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "subtext-with-parent",
+    "before": "Sotto-testo cun genitores",
+    "after": "Text supplementar cun l’element surordinà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "support-page-enabled",
+    "before": "Pagina di supporto ativeata",
+    "after": "Pagina da sustegn activada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "swimlane-title-not-found",
+    "before": "Swimlane '%s' no trovata.",
+    "after": "Swimlane '%s' betg chattada.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "team-sync-members-from-auth",
+    "before": "Sincronizza i membri dal provider di autenccazion",
+    "after": "Sincronisar ils commembers dal purschider d’autentificaziun",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "text-below-custom-login-logo",
+    "before": "Testo sotto il logo personalizzato per il login",
+    "after": "Text sut il logo d’annunzia persunalisà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "theme-default",
+    "before": "Predefinito (deguna personalizzazion)",
+    "after": "Standard (senza surscriver)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "title-alphabetically",
+    "before": "Titul (ordine alfabetico)",
+    "after": "Titel (en urden alfabetic)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "translation-number",
+    "before": "Il numero di stringhe di traduzione personalizzate è:",
+    "after": "Il dumber da stringas da translaziun persunalisadas è:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "trello-api-credentials-required",
+    "before": "Inserisci sia la chiave API sia il token di Trello.",
+    "after": "Endatescha per plaschair tant la clav API sco il token da Trello.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "trello-api-key",
+    "before": "Chiave API di Trello (da https://trello.com/app-key)",
+    "after": "Clav API da Trello (da https://trello.com/app-key)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
