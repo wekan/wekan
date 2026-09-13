@@ -88716,5 +88716,26 @@
     "before": "Dates (Création, Réception, Début, Échéance, Fin)",
     "after": "Däts (Jafam, Getam, Prim, Tüp, Fin)",
     "reason": "Replace French import prompts/export-date label with Volapük using existing date/data terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nüseitön (insert), getön (receive), prim (start), tüp (due date). Preserve valid data, here/your instruction, exact CSV/TSV/JSON formats and created/received/start/due/end date inventory. Insert-to-paste software adaptation is low confidence, without claiming an attested clipboard-specific term; assembled wording needs native review."
+  },
+  {
+    "locale": "vo",
+    "key": "shortcut-close-dialog",
+    "before": "Fermer la boîte de dialogue",
+    "after": "Färmükön telspikoti",
+    "reason": "Replace French keyboard shortcut/dialog labels with Volapük. Primary MediaWiki Volapük source https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses telspikot for software dialog and klav: Enter for Enter key. Reuse existing close/show/add/item terminology. Preserve dialog close, this shortcut-list display and Enter-to-add-more action. Klavabüd (keyboard command) compound and assembled wording remain low confidence; no claim of attested shortcut term or native review."
+  },
+  {
+    "locale": "vo",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "before": "Appuyez sur Entrée pour ajouter plus d'éléments",
+    "after": "Gebolös klavi: Enter ad lüükön notetis pluik",
+    "reason": "Replace French keyboard shortcut/dialog labels with Volapük. Primary MediaWiki Volapük source https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses telspikot for software dialog and klav: Enter for Enter key. Reuse existing close/show/add/item terminology. Preserve dialog close, this shortcut-list display and Enter-to-add-more action. Klavabüd (keyboard command) compound and assembled wording remain low confidence; no claim of attested shortcut term or native review."
+  },
+  {
+    "locale": "vo",
+    "key": "shortcut-show-shortcuts",
+    "before": "Afficher cette liste de raccourcis",
+    "after": "Jonön lisedi at klavabüdas",
+    "reason": "Replace French keyboard shortcut/dialog labels with Volapük. Primary MediaWiki Volapük source https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses telspikot for software dialog and klav: Enter for Enter key. Reuse existing close/show/add/item terminology. Preserve dialog close, this shortcut-list display and Enter-to-add-more action. Klavabüd (keyboard command) compound and assembled wording remain low confidence; no claim of attested shortcut term or native review."
   }
 ]
