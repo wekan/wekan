@@ -112222,5 +112222,19 @@
     "before": "Taulua '%s' ei löytynyt.",
     "after": "Laud '%s' ei ole löutud.",
     "reason": "Replace Finnish not-found diagnostic with Veps kävutai user (MediaWiki namespace), genitive kävutajan, nimi name and laud board (Kaikki Veps), ei ole negative existential and dictionary löutud passive past participle of löuta find. Preserve quoted %s. Composed diagnostic wording needs fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "title",
+    "before": "عنوان",
+    "after": "ⴰⵣⵡⵍ",
+    "reason": "Replace Arabic core label with Standard Moroccan Tamazight in Tifinagh. IRCAM dictionary publication 177 attests ⴰⵣⵡⵍ titre; IRCAM native site and MOOC attest ⵜⵓⵜⵍⴰⵢⵜ langue. https://biblio.ircam.ma/pmb/uploads/publications/177.pdf https://mooc.ircam.ma/ . These Arabic values are not correct-language human translations for zgh."
+  },
+  {
+    "locale": "zgh",
+    "key": "language",
+    "before": "لغة",
+    "after": "ⵜⵓⵜⵍⴰⵢⵜ",
+    "reason": "Replace Arabic core label with Standard Moroccan Tamazight in Tifinagh. IRCAM dictionary publication 177 attests ⴰⵣⵡⵍ titre; IRCAM native site and MOOC attest ⵜⵓⵜⵍⴰⵢⵜ langue. https://biblio.ircam.ma/pmb/uploads/publications/177.pdf https://mooc.ircam.ma/ . These Arabic values are not correct-language human translations for zgh."
   }
 ]

@@ -168,6 +168,9 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(cache.ks['calendar-system-islamic-civil'], 'اِسلٲمی اِجتمٲیی کیلنڑَر');
   assert.notEqual(cache.ks['calendar-system-islamic-civil'], cache.ks['calendar-system-islamic']);
   assert.doesNotMatch(cache.ks['calendar-system-islamic-civil'], /Islamic civil/);
+  assert.equal(cache.zgh.title, 'ⴰⵣⵡⵍ');
+  assert.equal(cache.zgh.language, 'ⵜⵓⵜⵍⴰⵢⵜ');
+  assert.doesNotMatch(cache.zgh.title + cache.zgh.language, /[\u0600-\u06ff]/);
   const tibetanCalendar = cache.bo;
   for (const suffix of ['gregorian','jalali','coptic','hebrew','islamic-civil','islamic-rgsa','islamic-tbla','iso8601']) {
     assert.match(tibetanCalendar[`calendar-system-${suffix}`], /ལོ་ཐོ/);
