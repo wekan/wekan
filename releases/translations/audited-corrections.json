@@ -51791,5 +51791,61 @@
     "before": "Archiviazione MongoDB GridFS",
     "after": "Arregistramentu MongoDB GridFS",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "monitoring-export-failed",
+    "before": "Impossibile esportare i dati di monitoraggio",
+    "after": "Ùn hè statu pussibule d’espurtà i dati di surviglianza",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "monitoring-refresh-failed",
+    "before": "Impossibile aggiornare i dati di monitoraggio",
+    "after": "Ùn hè statu pussibule d’aghjurnà i dati di surviglianza",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "move-progress-file",
+    "before": "Documento in trasferimento",
+    "after": "Schedariu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "move-storage-all",
+    "before": "Tutti gli storage abilitati in lettura",
+    "after": "Tutti i sistemi d’arregistramentu cù lettura attivata",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "multi-selection-off",
+    "before": "Disattiva la selezione multipla",
+    "after": "Disattivà a selezzione multipla",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "multi-selection-on",
+    "before": "Selezione multipla attiva",
+    "after": "A selezzione multipla hè attivata",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "no-repositories",
+    "before": "Nessun repository trovato",
+    "after": "Nisun ripusitoriu truvatu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "no-shared-templates",
+    "before": "Nessun template condiviso",
+    "after": "Nisun mudellu spartutu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
