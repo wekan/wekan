@@ -68752,5 +68752,82 @@
     "before": "Dostępne klucze wyszukiwania:",
     "after": "Dostympne ôperatōry:",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "globalSearch-instructions-status-ended",
+    "before": "`__predicate_ended__` - karty z podanym terminem zakończenia",
+    "after": "`__predicate_ended__` - karty z datōm skōńczeniŏ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "globalSearchViewChange-title",
+    "before": "Widok wyszukiwania globalnego",
+    "after": "Widok globalnygo szukaniŏ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "globalSearchViewChangePopup-title",
+    "before": "Widok wyszukiwania globalnego",
+    "after": "Widok globalnygo szukaniŏ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "has-overtime-cards",
+    "before": "Ma karty z wykazanymi nadgodzinami",
+    "after": "Mŏ karty z nadgodzinami",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "has-spenttime-cards",
+    "before": "Ma karty z wykazanym czasem pracy",
+    "after": "Mŏ karty ze zapisanym czasym",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "import-attachments-zip",
+    "before": "ZIP z załącznikami Trello (opcjonalnie, z Trello Card Attachments Downloader)",
+    "after": "ZIP z przidŏwkami Trello (ôpcyjōnalnie, ze Trello Card Attachments Downloader)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "import-dependencies-done",
+    "before": "Zaimportowano __imported__ wiersz(y), __unmatched__ niedopasowanych",
+    "after": "Zaimportowano __imported__ linij, __unmatched__ niydopasowanych",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "invalid-domain",
+    "before": "Nieprawidłowa domena. Użyj domeny takiej jak example.com (bez @ ani spacji).",
+    "after": "Niypoprawnŏ dōmyna. Użyj dōmyny takij jak example.com (bez @ i spacyj).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "keyboard-shortcuts-disabled",
+    "before": "Skróty klawiszowe wyłączone. Kliknij, aby włączyć.",
+    "after": "Skrōty klawiszowe wyłōnczōne. Kliknij, coby załōnczyć.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "keyboard-shortcuts-enabled",
+    "before": "Skróty klawiszowe włączone. Kliknij, aby wyłączyć.",
+    "after": "Skrōty klawiszowe załōnczōne. Kliknij, coby wyłōnczyć.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "left-of-list",
+    "before": "Na lewo od zaznaczonej listy",
+    "after": "Na lewo ôd zaznaczōnyj listy",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
