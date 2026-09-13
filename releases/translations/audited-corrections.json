@@ -58840,5 +58840,124 @@
     "before": "Republic of China",
     "after": "Kalandrie Minguo",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bi",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Sistem blong kalenda (soem deit)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bi",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Kalenda Jalali (blong Persia)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bi",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Kalenda blong ol Budis",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bi",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Kalenda blong Jaena",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bi",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Kalenda blong ol Kopt",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bi",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Kalenda Dangi (blong Korea)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bi",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Kalenda Amete Alem blong Itiopia",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bi",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Kalenda blong Itiopia",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bi",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Kalenda blong ol Hibru",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bi",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Nasonal kalenda blong India",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bi",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Kalenda Hijri",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bi",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Kalenda Hijri (yusum tebol, stat taem blong sivil kaonting)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bi",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Kalenda Hijri (Saudi Arabia, luk niufala mun)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bi",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Kalenda Hijri (yusum tebol, stat taem blong kaonting folem astronomi)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bi",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Kalenda Hijri (Umm al-Qura)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bi",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Kalenda blong Japan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "bi",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Kalenda Minguo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
