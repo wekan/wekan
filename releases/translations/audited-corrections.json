@@ -87855,5 +87855,26 @@
     "before": "`__operator_comment__:<texte>` - cartes dont le commentaire contient *<texte>*.",
     "after": "`__operator_comment__:<text>` - kads ko noet, kel ninädon *<text>*.",
     "reason": "Replace French board/list/creator/member/comment search help with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests jafan (creator/maker), ninädön (contain), baiädön bai (correspond to); reuse checked card/list/board/user/member/comment vocabulary. Preserve underscore operator tokens, exact English angle-bracket example identifiers and Markdown code/emphasis. Preserve matching-title, creator, member and containing-comment meanings. Software senses and assembled relative-clause grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "operator-limit-invalid",
+    "before": "%s n'est pas une limite valide. La limite doit être un entier positif.",
+    "after": "%s no binon mied lonöfik. Mied muton binön valodanum positik.",
+    "reason": "Replace French search-validation warning with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests valodanum (whole number), positik (mathematically positive), mied (limit), sotam (sorting), and stad (status). Preserve numeric constraint and source placeholder. Assembled warning grammar remains low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "operator-sort-invalid",
+    "before": "'%s' n'est pas valide pour le tri",
+    "after": "Sotam tefü '%s' no lonöfon",
+    "reason": "Replace French search-validation warning with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests valodanum (whole number), positik (mathematically positive), mied (limit), sotam (sorting), and stad (status). Preserve numeric constraint and source placeholder. Assembled warning grammar remains low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "operator-status-invalid",
+    "before": "'%s' n'est pas un statut valide",
+    "after": "'%s' no binon stad lonöfik",
+    "reason": "Replace French search-validation warning with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests valodanum (whole number), positik (mathematically positive), mied (limit), sotam (sorting), and stad (status). Preserve numeric constraint and source placeholder. Assembled warning grammar remains low confidence; native review unavailable."
   }
 ]
