@@ -77416,8 +77416,8 @@
     "locale": "wo",
     "key": "activity-moved",
     "before": "a déplacé %s de %s vers %s",
-    "after": "tëral %s jóge ci %s dem ci %s",
-    "reason": "Replace French card/checklist/label activity wording with Wolof; preserve placement at list top, movement from/to order and %s placeholders. Reuse existing karta/limu/yokk/far terms; vocabulary reference https://jangawolof.org/dictionary/ . Checklist/label/movement terminology and full grammar remain low confidence."
+    "after": "yóbbu %s jóge ci %s dem ci %s",
+    "reason": "Review earlier Wolof replacements: replace dress-derived custom-field wording with made-for-needs description and replace enact/arrange-derived moved verb with yóbbu (carry/transfer). Preserve %s source/destination order. Dictionary comparison https://jangawolof.org/dictionary/ ; full grammar and custom-field description remain low confidence."
   },
   {
     "locale": "wo",
@@ -77941,8 +77941,8 @@
     "locale": "wo",
     "key": "filter-custom-fields-label",
     "before": "Filtrer par champs personnalisés",
-    "after": "Fëltar ci wàlli dugal yu ñu solal",
-    "reason": "Replace French filter-control labels with Wolof using existing Fëltar terminology. Preserve date/list title/card title/label/member/assignee/creator/custom-field criteria and advanced versus other filters. Date/custom-field/advanced wording and full grammar remain low confidence."
+    "after": "Fëltar ci wàlli dugal yu ñu def ci soxla",
+    "reason": "Review earlier Wolof replacements: replace dress-derived custom-field wording with made-for-needs description and replace enact/arrange-derived moved verb with yóbbu (carry/transfer). Preserve %s source/destination order. Dictionary comparison https://jangawolof.org/dictionary/ ; full grammar and custom-field description remain low confidence."
   },
   {
     "locale": "wo",
@@ -78326,8 +78326,8 @@
     "locale": "wo",
     "key": "card-edit-custom-fields",
     "before": "Éditer les champs personnalisés",
-    "after": "Soppi wàlli dugal yu ñu solal",
-    "reason": "Replace French list/card controls with Wolof; preserve movement of all cards in the list, comment count placeholder, attachment/custom-field editing, list display on full versus small card and card number sorting. Full grammar, custom-field and number-sorting wording remain low confidence."
+    "after": "Soppi wàlli dugal yu ñu def ci soxla",
+    "reason": "Review earlier Wolof replacements: replace dress-derived custom-field wording with made-for-needs description and replace enact/arrange-derived moved verb with yóbbu (carry/transfer). Preserve %s source/destination order. Dictionary comparison https://jangawolof.org/dictionary/ ; full grammar and custom-field description remain low confidence."
   },
   {
     "locale": "wo",
