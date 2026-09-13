@@ -50132,5 +50132,110 @@
     "before": "Chiave API di Trello (da https://trello.com/app-key)",
     "after": "Clav API da Trello (da https://trello.com/app-key)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "trello-api-token",
+    "before": "Token API di Trello (generato manualmente sotto la chiave API)",
+    "after": "Token API da Trello (generà manualmain sut la clav API)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "trello-import-results",
+    "before": "Risultati dell'importazion",
+    "after": "Resultats da l’import",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "trello-list-workspaces",
+    "before": "Elenca gli spazi di lavoro di Trello",
+    "after": "Enumerar ils spazis da lavur da Trello",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "upload-background",
+    "before": "Ciaria su immagine di sfondo",
+    "after": "Transferir in maletg da fund",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "upload-failed",
+    "before": "Ciaria sumento no riuscito",
+    "after": "Transferiment betg reussì",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "upload-repository",
+    "before": "Ciaria su/Aggiorna repository",
+    "after": "Transferir/actualisar il repositari",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "uploading-files",
+    "before": "Ciaria sumento file in corso",
+    "after": "Transferiment da datotecas en curs",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "user-can-not-export-excel",
+    "before": "L'utent no può effettuare l'esportazion in Excel",
+    "after": "L’utilisader na po betg exportar en Excel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "user-username-not-found",
+    "before": "Username '%s' no trovato.",
+    "after": "Num d’utilisader '%s' betg chattà.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "userAnonymizePopup-title",
+    "before": "Anoimizza gli utenc in importazion",
+    "after": "Anonimisar il cont",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "username-too-short",
+    "before": "L'username deve contenere almeno 3 caratteri",
+    "after": "Il num d’utilisader sto cuntegnair almain 3 caracters",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "version-check-failed",
+    "before": "No ie stato possibile controllare il numero di versione.",
+    "after": "I n’è betg stà pussaivel da verifitgar il numer da versiun.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "wipLimitErrorPopup-title",
+    "before": "Limite Work In Progress no valido",
+    "after": "Limita WIP betg valida",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Chalender Hijri (Arabia Saudita, observaziun da la glina)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Chalender Hijri (tabellar, epoca astronomica)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
