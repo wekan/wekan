@@ -91229,5 +91229,47 @@
     "before": "Merci de soumettre l'erreur générée par le serveur. Pour une installation snap, lancer `sudo snap logs wekan.wekan`. Pour une installation docker, lancer `sudo docker logs wekan-app`",
     "after": "Begö, sedolös pöli pejaföl fa dünädian.\nPro stitam snap, dunolös: `sudo snap logs wekan.wekan`\nPro stitam Docker, dunolös: `sudo docker logs wekan-app`",
     "reason": "Replace French SMTP/troubleshooting values and Esperanto SMTP username with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ladet (address), guvön (administer), stitön (install), sedön (send), dunön (do) and pöl (error); MediaWiki Volapük and existing local terminology attest dünädian (computer server), geban (user), nem (name) and pened leäktronik (email). Port remains a technical borrowing, not translated as harbor. Preserve SMTP/TLS, server address, outgoing email port, TLS enablement and both exact sudo diagnostic commands, snap versus Docker and two actual source line breaks. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "rescue-card-description",
+    "before": "Afficher le dialogue de sauvegarde avant de fermer les descriptions de carte  en cours de modification",
+    "after": "Jonön telspikoti dakipama bü färmükam pro bepenams kadas no pedakipöl",
+    "reason": "Replace French description-recovery, input and multiselection help with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nosükön (cancel), dränön (press), pladön (place), pla (instead of), bepenam (description), dakipön (save), nuik (current), fomät (format), and votanemükön (rename); MediaWiki uses löpükön (upload), telspikot (dialog), sukön (search) and klav: Enter. CardDetails source confirms edited description replaces saved description only after confirmation. Preserve unsaved-description-before-close scope, edited-versus-current replacement, label numbers 1-9, invalid filename causing upload/rename cancellation, Enter name and exact %{value}. Pladamal is an assembled placeholder adaptation; assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "rescue-card-description-dialogue",
+    "before": "Réécrire la description de la carte courante avec vos changements ?",
+    "after": "Pladön bepenami olik pevotüköl pla bepenam nuik kada?",
+    "reason": "Replace French description-recovery, input and multiselection help with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nosükön (cancel), dränön (press), pladön (place), pla (instead of), bepenam (description), dakipön (save), nuik (current), fomät (format), and votanemükön (rename); MediaWiki uses löpükön (upload), telspikot (dialog), sukön (search) and klav: Enter. CardDetails source confirms edited description replaces saved description only after confirmation. Preserve unsaved-description-before-close scope, edited-versus-current replacement, label numbers 1-9, invalid filename causing upload/rename cancellation, Enter name and exact %{value}. Pladamal is an assembled placeholder adaptation; assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "remove-labels-multiselect",
+    "before": "La multi-sélection supprime les étiquettes 1-9",
+    "after": "Väl mödik moükon ninädapenädis 1-9",
+    "reason": "Replace French description-recovery, input and multiselection help with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nosükön (cancel), dränön (press), pladön (place), pla (instead of), bepenam (description), dakipön (save), nuik (current), fomät (format), and votanemükön (rename); MediaWiki uses löpükön (upload), telspikot (dialog), sukön (search) and klav: Enter. CardDetails source confirms edited description replaces saved description only after confirmation. Preserve unsaved-description-before-close scope, edited-versus-current replacement, label numbers 1-9, invalid filename causing upload/rename cancellation, Enter name and exact %{value}. Pladamal is an assembled placeholder adaptation; assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "invalid-file",
+    "before": "Si le nom de fichier est invalide, le téléchargement ou le renommage sera annulé.",
+    "after": "If nem nüneda no lonöfon, löpükam u votanemükam panosükon.",
+    "reason": "Replace French description-recovery, input and multiselection help with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nosükön (cancel), dränön (press), pladön (place), pla (instead of), bepenam (description), dakipön (save), nuik (current), fomät (format), and votanemükön (rename); MediaWiki uses löpükön (upload), telspikot (dialog), sukön (search) and klav: Enter. CardDetails source confirms edited description replaces saved description only after confirmation. Preserve unsaved-description-before-close scope, edited-versus-current replacement, label numbers 1-9, invalid filename causing upload/rename cancellation, Enter name and exact %{value}. Pladamal is an assembled placeholder adaptation; assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "search-example",
+    "before": "Écrivez le texte que vous recherchez et appuyez sur Entrée",
+    "after": "Penolös vödemi, keli sukol, e dränolös klavi: Enter",
+    "reason": "Replace French description-recovery, input and multiselection help with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nosükön (cancel), dränön (press), pladön (place), pla (instead of), bepenam (description), dakipön (save), nuik (current), fomät (format), and votanemükön (rename); MediaWiki uses löpükön (upload), telspikot (dialog), sukön (search) and klav: Enter. CardDetails source confirms edited description replaces saved description only after confirmation. Preserve unsaved-description-before-close scope, edited-versus-current replacement, label numbers 1-9, invalid filename causing upload/rename cancellation, Enter name and exact %{value}. Pladamal is an assembled placeholder adaptation; assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Format (utiliser %{value} pour marquer un emplacement)",
+    "after": "Fomät (gebolös %{value} äs pladamal)",
+    "reason": "Replace French description-recovery, input and multiselection help with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nosükön (cancel), dränön (press), pladön (place), pla (instead of), bepenam (description), dakipön (save), nuik (current), fomät (format), and votanemükön (rename); MediaWiki uses löpükön (upload), telspikot (dialog), sukön (search) and klav: Enter. CardDetails source confirms edited description replaces saved description only after confirmation. Preserve unsaved-description-before-close scope, edited-versus-current replacement, label numbers 1-9, invalid filename causing upload/rename cancellation, Enter name and exact %{value}. Pladamal is an assembled placeholder adaptation; assembled software wording remains low confidence pending native review."
   }
 ]
