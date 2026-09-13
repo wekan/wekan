@@ -106,7 +106,9 @@ Latest translation fix is 114c5d992 (2026-09-14), repairing the unflagged
 Quechua crimson wrapper; twelve color wrappers and exact-hue review remain. Composed headings
 need fluent review.
 Tamazight calendar review dd2aaa19a (2026-09-14) records provisional
-Islamic naming and missing variant terminology; no values changed. Previous fix e07d2be5f replaced two English
+Islamic naming and missing variant terminology; no values changed.
+Manx calendar review 669be8895 (2026-09-14) records missing CLDR display
+names and unresolved Coptic/tabular/epoch terminology; no values changed. Previous fix e07d2be5f replaced two English
 Cherokee Hijri labels with exact native-script CLDR variant names. Cherokee’s
 original queue is empty. Compact tabular epoch wording still needs fluent
 technical review. Quechua palette compounds and remaining color wrappers
@@ -649,6 +651,16 @@ The audit records 749 pending original findings and wider unfinished validation.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/669be8895">Record Manx calendar terminology review</a>. Thanks to xet7.</summary>
+
+Record missing CLDR display names and unresolved Coptic/tabular/epoch terms.
+Keep composed sighting wording under review. No values changed; all 17,276
+correction checks pass. Three Manx originals and wider linguistic validation
+remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/114c5d992">Repair Quechua crimson wording</a>. Thanks to xet7.</summary>
