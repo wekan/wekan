@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 14,555 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 1,289 pending review or repair.
-The correction inventory records 16,213 exact before/after values,
+findings: 14,574 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 1,270 pending review or repair.
+The correction inventory records 16,233 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -99,7 +99,7 @@ Transifex: the evidence includes 4,061 pulled changes and 16,020 additional
 local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested mirror-menu interruption is completed; translation repairs have
-resumed with 12 Veps list-control fixes in local commit 198f7a0f5. Latest full Node verification: 1,011 suites, zero failures;
+resumed with Veps list and attachment/storage fixes; latest local fix dbf214bda. Latest full Node verification: 1,011 suites, zero failures;
 the final mirror retry adjustment also passes its targeted regression.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
@@ -1096,6 +1096,19 @@ and updates the test dependency:
 and updates maintainer tooling:
 
 **Maintenance scripts** - explicit translation uploads and repository mirrors.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dbf214bda">Repair Veps attachment storage and irreversible deletion messages</a>. Thanks to xet7.</summary>
+
+Replace 20 Finnish values with dictionary-backed Veps, resolving 19 original
+findings. Preserve filesystem, MongoDB GridFS and S3 destinations, single/all
+attachment scope, AWS/MinIO identifiers, save outcomes and permanent deletion
+with no undo. Use native Sirdä for file transfer. Exact correction, source token,
+key-order and actual i18next rendering regressions pass. Composed technical
+terminology and UI grammar need fluent review. Audit progress records
+14,574 corrected findings, 1,270 pending and 16,233 exact repair records.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/198f7a0f5">Repair Veps list positions, sorting and duplicate cleanup</a>. Thanks to xet7.</summary>
