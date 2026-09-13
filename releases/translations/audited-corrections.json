@@ -85944,5 +85944,33 @@
     "before": "Gregoriana",
     "after": "Gregorijansczi kalãdôrz",
     "reason": "Replace non-Kashubian Gregorian label with dictionary-attested gregorijansczi kalãdôrz, indexed in https://glosbe.com/csb/it/gregorijansczi%20kal%C3%A3d%C3%B4rz and https://glosbe.com/tr/csb/gregoryen%20takvim . Capitalize initial label character. Dictionary-source confidence limited; not native-speaker reviewed. Outside original flagged audit."
+  },
+  {
+    "locale": "ff",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Haatumeere Dangi",
+    "reason": "Replace English calendar labels with Fulah Haatumeere; specific calendar usage Haatumeere Lislaam directly attested in Pulaar article https://www.boolumbal.org/GANNDE-KESE-Jaa%C9%93ngal-waktuuji-Njuulu-Muslim-Pro-yaltii-e-%C9%97emngal-Pulaar_a18834.html . General dictionary Haatumeere also means chart/grid, so calendar usage relies on article context. Preserve Dangi/Umm al-Qura/Minguo identities. Assembled labels and proper-name forms remain low confidence, not native-speaker verified."
+  },
+  {
+    "locale": "ff",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Haatumeere Lislaam",
+    "reason": "Replace English calendar labels with Fulah Haatumeere; specific calendar usage Haatumeere Lislaam directly attested in Pulaar article https://www.boolumbal.org/GANNDE-KESE-Jaa%C9%93ngal-waktuuji-Njuulu-Muslim-Pro-yaltii-e-%C9%97emngal-Pulaar_a18834.html . General dictionary Haatumeere also means chart/grid, so calendar usage relies on article context. Preserve Dangi/Umm al-Qura/Minguo identities. Assembled labels and proper-name forms remain low confidence, not native-speaker verified."
+  },
+  {
+    "locale": "ff",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Haatumeere Lislaam (Umm al-Qura)",
+    "reason": "Replace English calendar labels with Fulah Haatumeere; specific calendar usage Haatumeere Lislaam directly attested in Pulaar article https://www.boolumbal.org/GANNDE-KESE-Jaa%C9%93ngal-waktuuji-Njuulu-Muslim-Pro-yaltii-e-%C9%97emngal-Pulaar_a18834.html . General dictionary Haatumeere also means chart/grid, so calendar usage relies on article context. Preserve Dangi/Umm al-Qura/Minguo identities. Assembled labels and proper-name forms remain low confidence, not native-speaker verified."
+  },
+  {
+    "locale": "ff",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Haatumeere Minguo",
+    "reason": "Replace English calendar labels with Fulah Haatumeere; specific calendar usage Haatumeere Lislaam directly attested in Pulaar article https://www.boolumbal.org/GANNDE-KESE-Jaa%C9%93ngal-waktuuji-Njuulu-Muslim-Pro-yaltii-e-%C9%97emngal-Pulaar_a18834.html . General dictionary Haatumeere also means chart/grid, so calendar usage relies on article context. Preserve Dangi/Umm al-Qura/Minguo identities. Assembled labels and proper-name forms remain low confidence, not native-speaker verified."
   }
 ]
