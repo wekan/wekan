@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 14,574 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 1,270 pending review or repair.
-The correction inventory records 16,233 exact before/after values,
+findings: 14,581 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 1,263 pending review or repair.
+The correction inventory records 16,251 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -99,8 +99,8 @@ Transifex: the evidence includes 4,061 pulled changes and 16,020 additional
 local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
-changes are implemented in local commit 02383540a; translation repairs resume next. Latest translation
-fix remains dbf214bda; counts are unchanged. Latest full Node verification: 1,014 suites, zero failures;
+changes are implemented in local commit 02383540a; translation repairs have resumed with SMTP/S3 fixes. Latest translation
+fix is 5cf370063; progress counts are updated above. Latest full Node verification: 1,014 suites, zero failures;
 the final mirror retry adjustment also passes its targeted regression.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
@@ -1098,6 +1098,19 @@ and updates the test dependency:
 and updates maintainer tooling:
 
 **Maintenance scripts** - explicit translation uploads and repository mirrors.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5cf370063">Repair Veps SMTP and S3 network settings translations</a>. Thanks to xet7.</summary>
+
+Replace 18 Finnish labels/descriptions with dictionary-backed Veps, resolving
+seven original findings. Preserve protocol identifiers, secret credentials,
+storage distinctions and literal region code us-east-1; repair STMP to SMTP.
+Exact correction, source token, key-order and actual i18next rendering checks
+pass. Network loans, authentication terminology and UI grammar need fluent review.
+Audit progress records 14,581 corrected findings, 1,263 pending and 16,251 exact
+repair records. Translation repairs have resumed after the mirror interruption.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/dbf214bda">Repair Veps attachment storage and irreversible deletion messages</a>. Thanks to xet7.</summary>
