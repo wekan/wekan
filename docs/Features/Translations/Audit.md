@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,573 |
+| Corrected | 12,574 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,273 |
+| Pending review or repair | 3,272 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,153** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,154** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `22d2f5fe936a9ca1dc1508b903abe4c3f0ec942b` — four Volapük Hijri calendar labels repaired, restoring tabular and civil/astronomical epoch distinctions and preserving proper variant names. Assembled labels need native-speaker validation.
+Latest translation fix: **2026-09-13**, local commit `9866ec1098f89c66128ed5ad2d642cb9da507241` — Volapük Japanese calendar label repaired using the attested Yapänik adjective. Earlier unsuccessful dictionary lookup resolved with another reference; full label needs native-speaker validation.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
