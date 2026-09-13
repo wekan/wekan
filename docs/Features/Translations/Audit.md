@@ -16,6 +16,8 @@ Fixes address wrong-language text, terminology, warnings, placeholders, JSON exa
 
 Latest translation fix: **2026-09-13**, local commit `595bdd256ad8fd524dbf740ac055b644602f6fce` — reviewed 2 earlier Walloon search corrections and fixed feminine plural card-creation agreement, with positive/negative regression assertions. Pending totals are unchanged because these revise existing replacements. Sources are recorded with corrections; surrounding vocabulary and full grammar remain low confidence. Exact-value, placeholder, JSON example, HTML-tag/entity, key-order and idempotency checks pass; live browser verification is unavailable.
 
+**Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
+
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
 [Detailed evidence](Audit-Evidence.md) preserves the original categorized tables. Run `node releases/translations/audit-progress.mjs` for current totals; add `--locale <tag>` for remaining language findings.
