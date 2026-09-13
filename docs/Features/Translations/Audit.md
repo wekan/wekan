@@ -4,17 +4,19 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,072 |
+| Corrected | 15,073 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 772 |
+| Pending review or repair | 771 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,169** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,171** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `3409b28fd` — repaired **four** Veps device-mode/PDF-preview controls, resolving **two** original findings and **two** unflagged Finnish values. Preserve distinct mobile/desktop modes, their toggle, the alternative download action and the existing download label. All **17,169** exact corrections pass runtime rendering, placeholder, JSON, key-order and human-preference checks. The original queue has **772** pending findings, including **35** Veps findings. Parent-card terminology and other calendar variants still require language research. **Low confidence:** Veps mobile-device compounds and PDF-preview inflection, Veps repository inflection and system-wide announcement qualifier, Veps estimated-time participle composition, Veps drag-instruction icon inflection and desktop drag-handle compounds, Veps composed subworkspace and technical icon terminology, Veps subtask-destination/matching-card grammar, mention adaptation, wildcard grammar and navigation-bar terminology need fluent review. CLDR marks the Ewe civil-calendar name provisional; native review is required. Fulah/Bambara calendar-name composition, Veps popup-title grammar, Neapolitan technical checklist usage, Veps view-name grammar, collapse adaptation, base-folder terminology, cancellation grammar, unread participle inflection, composed notification/metric/warning/confirmation/presence/logical grammar, home-header/button terminology, scheduling syntax, backup/archive inflection, heap compounds and legal argument case need fluent-speaker review. Restored/unflagged values, wrong-language/script checks, keyboard shortcuts and remaining migration/search messages remain unfinished. Live browser verification was not run for this batch. No translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `a526d323c` — repaired **two** Veps spent-time labels, resolving **one** original finding and **one** unflagged Finnish value. Preserve the distinction between boards containing tracked-time cards and the hours field. All **17,171** exact corrections pass runtime rendering, placeholder, JSON, key-order and human-preference checks. The original queue has **771** pending findings, including **34** Veps findings. Live browser verification was not run; no translations were pushed.
+
+**Remaining validation:** all restored/unflagged values and low-confidence replacements remain open. Detailed per-key caveats are retained in the correction ledger and source commits. These include Veps composed UI, card, notification, calendar, timing, file/archive, metric and legal terminology/inflection; Neapolitan technical checklist usage; Fulah/Bambara calendar composition; and CLDR-provisional Ewe civil-calendar wording. Field sums, parent-card terminology, keyboard shortcuts, remaining migration/search messages and other calendar variants need further language research. Wrong-language/script and fluent-speaker checks remain unfinished.
 
 **Security interruption (2026-09-14):** `c1246d720` reviews both saved `.tools/wekansec20` alerts and hardens exact archive-host checks and shell-free mirror dispatch, including direct Windows Node execution. All 25 focused mirror test entries pass; native Windows and remote CodeQL rescanning remain unverified. Translation counts and remaining validation are unchanged.
 
