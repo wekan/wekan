@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,093 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 751 pending review or repair.
-The correction inventory records 17,202 exact before/after values,
+findings: 15,095 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 749 pending review or repair.
+The correction inventory records 17,205 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original finding queues remain in Veps (14) and Standard Moroccan
+The largest original finding queues remain in Veps (12) and Standard Moroccan
 Tamazight (595). Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -100,8 +100,8 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 8931f9d02 (2026-09-14), covering four Veps recovery
-and migration-step labels. The original Neapolitan queue is empty. All correction/rendering checks
+Latest translation fix is 6b0bf168e (2026-09-14), covering three Veps search
+values and recognition of translated overdue predicates. The original Neapolitan queue is empty. All correction/rendering checks
 pass; low-confidence technical terminology remains explicitly tracked.
 Member assignment popup handlers need separate review for apparent reversed
 operations. The 1,015-suite Node result is historical and predates the latest batches.
@@ -616,6 +616,24 @@ preserve checkpoints when a parent fetch fails. Reuse the existing rate-limited
 API client. Print the mirror log path after sync/check menu commands, including
 failures, and at shell command exit, preserving the exit status. Offline disk
 collection, checkpoint, menu and launcher tests pass; no live remote sync was run.
+
+</details>
+
+This release fixes the following localized search problem:
+
+**Bug fixes** - Translated overdue search predicates and Veps help.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6b0bf168e">Recognize translated overdue predicates and repair Veps search help</a>. Thanks to xet7.</summary>
+
+Use the existing translated predicate map for due-date overdue searches,
+retaining the English alias and rejecting unknown or inappropriate predicates.
+Repair two Finnish help explanations and an unflagged Finnish overdue keyword
+in Veps. Preserve placeholders, examples, quoted names and date bounds.
+All 17,205 correction checks and actual Query regressions pass. A browser
+regression is added and syntax-checked; live execution remains pending.
+Composed grammar and the overdue terminology adaptation need fluent review.
+The audit records 749 pending original findings and wider unfinished validation.
 
 </details>
 
