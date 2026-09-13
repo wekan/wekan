@@ -52071,5 +52071,61 @@
     "before": "Inserisci l'access key S3",
     "after": "Inserite a chjave d’accessu S3",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "s3-bucket-menu-path",
+    "before": "AWS Console → S3 → Buckets → il nome del tuo bucket (o Create bucket → Bucket name).",
+    "after": "AWS Console → S3 → Buckets → u nome di u vostru bucket (o Create bucket → Bucket name).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "s3-connection-failed",
+    "before": "Connessione S3 non riuscita",
+    "after": "Cunnessione S3 fiascata",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "s3-disabled",
+    "before": "Storage S3/MinIO disabilitato",
+    "after": "Arregistramentu S3/MinIO disattivatu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "s3-endpoint-description",
+    "before": "URL dell'endpoint S3 (es. s3.amazonaws.com o minio.example.com)",
+    "after": "URL di u puntu d’accessu S3 (per esempiu s3.amazonaws.com o minio.example.com)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "s3-port-description",
+    "before": "Numero di porta dell'endpoint S3",
+    "after": "Numeru di portu di u puntu d’accessu S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "s3-region-description",
+    "before": "Regione AWS S3 (es. us-east-1)",
+    "after": "Regione AWS S3 (per esempiu us-east-1)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "s3-region-menu-path",
+    "before": "AWS Console → S3 → Buckets → il tuo bucket → Properties → AWS Region.",
+    "after": "AWS Console → S3 → Buckets → u vostru bucket → Properties → AWS Region.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "s3-secret-key-description",
+    "before": "Secret key AWS S3 per l'autenticazione",
+    "after": "Chjave secreta AWS S3 per l’autentificazione",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
