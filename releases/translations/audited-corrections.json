@@ -91922,5 +91922,26 @@
     "before": "Utilisation mémoire de Node : taille totale du tas alloué",
     "after": "Geb mema ela Node: gretot valodik ela heap pejonidüköl",
     "reason": "Replace French Node memory-statistic wording after checking informationBody.jade and https://nodejs.org/api/v8.html. Retain technical heap, malloc, does_zap_garbage, RSS and native/detached context terms as borrowings, preserving metric distinctions. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gebidik (available); existing dictionary-based local terminology supplies size, quantity, maximum, use and assignment. Physical size paraphrased as memory actually used, consistent with Node documentation. Context borrowing, executable derivation and assembled technical phrasing remain low confidence and need native-speaker review."
+  },
+  {
+    "locale": "vo",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Kaled Lätiopänik",
+    "reason": "Replace English calendar labels with Volapük calendar and country adjectives. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests Lätiopänik (Ethiopian), Lindänik (of India), and netik (national); follow existing Kaled calendar terminology. Preserve the Amete Alem variant name as a proper name. Vocabulary attestation does not validate the full assembled phrase; native-speaker review remains outstanding."
+  },
+  {
+    "locale": "vo",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Kaled Lätiopänik (Amete Alem)",
+    "reason": "Replace English calendar labels with Volapük calendar and country adjectives. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests Lätiopänik (Ethiopian), Lindänik (of India), and netik (national); follow existing Kaled calendar terminology. Preserve the Amete Alem variant name as a proper name. Vocabulary attestation does not validate the full assembled phrase; native-speaker review remains outstanding."
+  },
+  {
+    "locale": "vo",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Kaled netik Lindänik",
+    "reason": "Replace English calendar labels with Volapük calendar and country adjectives. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests Lätiopänik (Ethiopian), Lindänik (of India), and netik (national); follow existing Kaled calendar terminology. Preserve the Amete Alem variant name as a proper name. Vocabulary attestation does not validate the full assembled phrase; native-speaker review remains outstanding."
   }
 ]
