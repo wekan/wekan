@@ -105320,5 +105320,173 @@
     "before": "kukhishiwe ku-%s kusuka ku-%s",
     "after": "o bvisa %s kha %s",
     "reason": "Replace Zulu-seeded activity prose directly with Tshivenda. Preserve source token inventory, due-soon/now/past distinctions and checklist completion states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-imported",
+    "before": "kungeniswe %s ku-%s kusuka ku-%s",
+    "after": "o dzhenisa %s kha %s u bva kha %s",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML tags, movement endpoints and active versus inactive user states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-imported-board",
+    "before": "kungeniswe %s kusuka ku-%s",
+    "after": "o dzhenisa %s u bva kha %s",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML tags, movement endpoints and active versus inactive user states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-moved",
+    "before": "kuhanjiswe u-%s kusuka ku-%s kuya ku-%s",
+    "after": "o pfulusa %s u bva kha %s u ya kha %s",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML tags, movement endpoints and active versus inactive user states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-receivedDate",
+    "before": "idethi eyamukelwe okuhlelwe ngayo ku-%s ka-%s",
+    "after": "o shandula ḓuvha ḽa u ṱanganedza ḽa vha %s ḽa %s",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML tags, movement endpoints and active versus inactive user states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-removed-label",
+    "before": "ilebula isusiwe '%s' kokuthi %s",
+    "after": "o susa ḽeibuḽu '%s' kha %s",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML tags, movement endpoints and active versus inactive user states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-set-customfield",
+    "before": "setha inkambu yangokwezifiso ethi '%s' ibe ngu-'%s' kokuthi %s",
+    "after": "o vhea fhethu ha data ho dzudzanywaho '%s' ha vha '%s' kha %s",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML tags, movement endpoints and active versus inactive user states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-startDate",
+    "before": "idethi yokuqala ehleliwe yaba ngu-%s ka-%s",
+    "after": "o shandula ḓuvha ḽa u thoma ḽa vha %s ḽa %s",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML tags, movement endpoints and active versus inactive user states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "activity-unset-customfield",
+    "before": "ungamisi inkambu yangokwezifiso '%s' kokuthi %s",
+    "after": "o bvisa ndeme kha fhethu ha data ho dzudzanywaho '%s' kha %s",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML tags, movement endpoints and active versus inactive user states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "add-background-image",
+    "before": "Engeza isithombe sangemuva",
+    "after": "Engedza tshifanyiso tsha murahu",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML tags, movement endpoints and active versus inactive user states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "add-cron-job",
+    "before": "Engeza Umsebenzi Ohleliwe",
+    "after": "Engedza mushumo wo dzudzanywaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML tags, movement endpoints and active versus inactive user states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "add-cron-job-placeholder",
+    "before": "Engeza umsebenzi Ohleliwe Womsebenzi uyeza maduze",
+    "after": "U engedza mushumo wo dzudzanywaho hu ḓo vha hone hu si kale",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML tags, movement endpoints and active versus inactive user states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "add-custom-html-after-body-start",
+    "before": "Engeza i-HTML yangokwezifiso ngemva kokuqala kwe-<body>",
+    "after": "Engedza HTML yo dzudzanywaho nga murahu ha mathomo a <body>",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML tags, movement endpoints and active versus inactive user states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "add-custom-html-before-body-end",
+    "before": "Engeza i-HTML yangokwezifiso ngaphambi kokuthi </body> ekupheleni",
+    "after": "Engedza HTML yo dzudzanywaho phanḓa ha magumo a </body>",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML tags, movement endpoints and active versus inactive user states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "add-organizations-label",
+    "before": "Izinhlangano ezingeziwe ziboniswa ngezansi:",
+    "after": "Madzangano o engedzwaho a sumbedzwa afho fhasi:",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML tags, movement endpoints and active versus inactive user states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "add-subtask",
+    "before": "Engeza Umsebenzi ongaphansi",
+    "after": "Engedza mushumo muṱuku",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML tags, movement endpoints and active versus inactive user states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "add-teams-label",
+    "before": "Amaqembu angeziwe aboniswa ngezansi:",
+    "after": "Zwigwada zwo engedzwaho zwi sumbedzwa afho fhasi:",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML tags, movement endpoints and active versus inactive user states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "add-template-container",
+    "before": "Engeza Isitsha Sesifanekiso",
+    "after": "Engedza tshifaredzi tsha themphuḽeithi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML tags, movement endpoints and active versus inactive user states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "addWorkspacePopup-title",
+    "before": "Engeza indawo yokusebenza",
+    "after": "Engedza fhethu ha mushumo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML tags, movement endpoints and active versus inactive user states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "addmore-detail",
+    "before": "Engeza incazelo enemininingwane eyengeziwe",
+    "after": "Engedza ṱhaluso yo ṱanḓavhuwaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML tags, movement endpoints and active versus inactive user states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "admin-announcement-active",
+    "before": "Isimemezelo Esisebenza Ngohlelo Olubanzi",
+    "after": "Nḓivhadzo i shumaho kha sisiteme yoṱhe",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML tags, movement endpoints and active versus inactive user states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "admin-announcement-title",
+    "before": "Isimemezelo esivela kumlawuli",
+    "after": "Nḓivhadzo ya mulanguli",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML tags, movement endpoints and active versus inactive user states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "admin-people-filter-locked",
+    "before": "Abasebenzisi Abakhiyiwe Kuphela",
+    "after": "Vhashumisi vho valelwaho fhedzi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML tags, movement endpoints and active versus inactive user states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "admin-people-user-active",
+    "before": "Umsebenzisi uyasebenza - chofoza ukuze uvale",
+    "after": "Mushumisi u khou shuma - kiḽikani u mu dzima",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML tags, movement endpoints and active versus inactive user states. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "admin-people-user-inactive",
+    "before": "Umsebenzisi akasebenzi - chofoza ukuze wenze kusebenze",
+    "after": "Mushumisi ha khou shuma - kiḽikani u mu tendela",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, HTML tags, movement endpoints and active versus inactive user states. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
