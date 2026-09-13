@@ -106825,5 +106825,180 @@
     "before": "Khetha izinkambu ozozifaka ekuthekeni kwe-Excel:",
     "after": "Nangani fhethu ha data ha u katela kha u bvisa Excel:",
     "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, email line breaks, format names, zoom bounds and authorization requirements. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "export-card-excel-no-disk-space",
+    "before": "Ayikwazi ukuthekelisa ku-Excel: asikho isikhala esanele sediski samahhala",
+    "after": "A zwi koni u bvisa Excel: a hu na tshikhala tsho eḓanaho kha disiki",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "export-card-field-dates",
+    "before": "Amadethi (Okudaliwe, Okwamukelwe, Okuqala, Okufanele, Okuphela Ngayo)",
+    "after": "Maḓuvha (ḽa u sika, u ṱanganedza, u thoma, u fhedza, u guma)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "export-card-field-people",
+    "before": "Abantu (Umdali, Umnikazi, Amalungu, Ababelwe)",
+    "after": "Vhathu (musiki, muṋe, miraḓo, vho avhelwaho mushumo)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "export-select-what-to-include",
+    "before": "Khetha okufanele kufakwe:",
+    "after": "Nangani zwine zwa ḓo katelwa:",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "export-swimlane",
+    "before": "Thumela ngaphandle umzila",
+    "after": "Bvisa ḽaini",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "exportChecklistPopup-title",
+    "before": "Thumela ngaphandle uhlu lokuhlola",
+    "after": "Bvisa mutevhe wa u sedza",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "exportSwimlanePopup-title",
+    "before": "Thumela ngaphandle umzila",
+    "after": "Bvisa ḽaini",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "filesystem-path-description",
+    "before": "Indlela eyisisekelo yokugcina ifayela",
+    "after": "Nḓila ya u thoma ya u vhulunga faela",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "filesystem-size",
+    "before": "Usayizi wesistimu yefayela",
+    "after": "Vhuhulwane ha sisiteme ya faela",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "filesystem-storage",
+    "before": "Isitoreji sesistimu yefayela",
+    "after": "U vhulunga kha sisiteme ya faela",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "filter-card-title-label",
+    "before": "Hlunga ngesihloko sekhadi",
+    "after": "Ṱalula nga dzina ḽa khadi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "filter-custom-fields-label",
+    "before": "Hlunga ngezinkambu zangokwezifiso",
+    "after": "Ṱalula nga fhethu ha data ho dzudzanywaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "filter-no-custom-fields",
+    "before": "Azikho Izinkambu Ngokwezifiso",
+    "after": "A hu na fhethu ha data ho dzudzanywaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "filter-show-archive",
+    "before": "Bonisa uhlu olufakwe kungobo yomlando",
+    "after": "Sumbedza mitevhe yo vhulungwaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "fix-all-file-urls-migration",
+    "before": "Lungisa Wonke Ama-URL Efayela",
+    "after": "Lugisa URL dzoṱhe dza faela",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "fix-all-file-urls-migration-description",
+    "before": "Ibuyekeza wonke ama-URL ananyathiselwe ifayela kuleli bhodi ukuze asebenzise isipele esilungile sesitoreji futhi alungise izithenjwa zefayela eziphukile.",
+    "after": "I shandula URL dzoṱhe dza ṱumetshedzo dza faela kha bodo iyi ya Kanban u shumisa nḓila yo teaho ya u vhulunga, ya lugisa zwine zwa sumba kha faela zwo tshinyalaho.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "fix-avatar-urls-migration-description",
+    "before": "Ibuyekeza ama-URL e-avatar ukuze amalungu ebhodi asebenzise i-backend yesitoreji efanele futhi alungise izithenjwa eziphukile ze-avatar.",
+    "after": "I shandula URL dza zwifanyiso zwa miraḓo ya bodo ya Kanban u shumisa nḓila yo teaho ya u vhulunga, ya lugisa zwine zwa sumba kha zwifanyiso zwo tshinyalaho.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "fix-missing-lists-migration-description",
+    "before": "Ithola futhi ilungise uhlu olulahlekile noma olonakele esakhiweni sebhodi.",
+    "after": "I wana na u lugisa mitevhe i siho kana yo tshinyalaho kha nzudzanyo ya bodo ya Kanban.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-notes-1",
+    "before": "Ama-opharetha amaningi angacaciswa.",
+    "after": "Ni nga ṅwala ndaela nnzhi.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-notes-3-2",
+    "before": "Izinsuku zingacaciswa njengenombolo ephozithivu noma enegethivu noma kusetshenziswa okuthi `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` noma `__predicate_year__` esikhathini samanje.",
+    "after": "Maḓuvha a nga ṅwalwa sa nomboro yo fhelelaho i re nṱha kana fhasi ha zero, kana nga `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` kana `__predicate_year__` kha tshifhinga tsha zwino.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-notes-4",
+    "before": "Ukusesha umbhalo akuzwakali.",
+    "after": "U ṱoḓa maipfi a hu sedzi vhuhulwane ha maḽeḓere.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-operator-at",
+    "before": "`__operator_user_abbrev__username` - ​​isifinyezo sokuthi `user:<username>`",
+    "after": "`__operator_user_abbrev__username` - nḓila pfufhi ya `user:<username>`",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-operator-hash",
+    "before": "`__operator_label_abbrev__<name|color>` - ​​isifinyezo sokuthi `__operator_label__:<color>` noma `__operator_label__:<name>`",
+    "after": "`__operator_label_abbrev__<name|color>` - nḓila pfufhi ya `__operator_label__:<color>` kana `__operator_label__:<name>`",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-operator-limit",
+    "before": "`__operator_limit__:<n>` - ​​lapho *<n>* iyinani eliphelele elibonisa inombolo yamakhadi azoboniswa ekhasini ngalinye.",
+    "after": "`__operator_limit__:<n>` - hune *<n>* ya vha nomboro yo fhelelaho i re nṱha ha zero i sumbedzaho tshivhalo tsha makhadi a u sumbedza kha siaṱari ḽiṅwe na ḽiṅwe.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "globalSearch-instructions-operator-sort",
+    "before": "`__operator_sort__:<sort-name>` - ​​lapho *<sort-name>* ingenye ye-`__predicate_due__`, `__predicate_created__` noma `__predicate_modified__`.  Ukuze uthole uhlobo olwehlayo, beka `-` ngaphambi kwegama lokuhlunga.",
+    "after": "`__operator_sort__:<sort-name>` - hune *<sort-name>* ya vha iṅwe ya `__predicate_due__`, `__predicate_created__` kana `__predicate_modified__`. U dzudzanya u bva nṱha u ya fhasi, vheani `-` phanḓa ha dzina ḽa u dzudzanya.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal search examples, positive/negative number meanings and export field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
