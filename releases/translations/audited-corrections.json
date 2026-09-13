@@ -58721,5 +58721,124 @@
     "before": "Islamic Umm al-Qura",
     "after": "ہِجری کیلنڑَر (اُم القُریٰ)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mg",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Rafitra kalandrie (fampisehoana daty)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mg",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Kalandrie Jalali (persiana)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mg",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Kalandrie bodista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mg",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Kalandrie sinoa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mg",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Kalandrie kopta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mg",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Kalandrie Dangi (koreana)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mg",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Kalandrie etiopiana Amete Alem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mg",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Kalandrie etiopiana",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mg",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Kalandrie hebreo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mg",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Kalandrie nasionalin’i India",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mg",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Kalandrie Hijri",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mg",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Kalandrie Hijri (araka ny tabilao, fiandohana sivily)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mg",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Kalandrie Hijri (Arabia Saodita, fahitana ny volana)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mg",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Kalandrie Hijri (araka ny tabilao, fiandohana astronomika)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mg",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Kalandrie Hijri (Umm al-Qura)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mg",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Kalandrie japoney",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mg",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Kalandrie Minguo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
