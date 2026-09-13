@@ -68031,5 +68031,54 @@
     "before": "Kolejność reaktywności (METEOR_REACTIVITY_ORDER)",
     "after": "Porzōndek reaktywności (METEOR_REACTIVITY_ORDER)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "a-dueAt",
+    "before": "zmienił datę wykonania na",
+    "after": "zmiyniōł termin na",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "acceptance_of_our_legalNotice",
+    "before": "Kontynuując, akceptujesz naszą",
+    "after": "Jak idziesz dalij, akceptujesz naszŏ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "legalNotice",
+    "before": "informację prawną",
+    "after": "informacyjŏ prawnŏ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "accounts-allowEmailChange",
+    "before": "Zezwól na zmianę adresu email",
+    "after": "Przizwōl na zmianã adresu email",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "accounts-lockout-failure-window",
+    "before": "Okno niepowodzeń (sekundy)",
+    "after": "Ôkno niyudanych prōb (sekundy)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "accounts-lockout-failures-before",
+    "before": "Liczba niepowodzeń przed zablokowaniem",
+    "after": "Wielość niyudanych prōb przed blokadōm",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "act-activity-notify",
+    "before": "Powiadomienie o aktywności",
+    "after": "Powiadōmiynie ô aktywności",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
