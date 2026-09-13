@@ -121084,5 +121084,19 @@
     "before": "Échec de la création du compte",
     "after": "ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⵓⵙⴽⴽⵉⵔ ⵏ ⵓⵎⵉⴹⴰⵏ",
     "reason": "Replace French with the native Standard Moroccan Tamazight MediaWiki createaccounterror clause (Could not create account), removing only the colon and its upstream error-detail placeholder because the WeKan source has no detail placeholder. Preserve failed-account-creation semantics. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "create-account",
+    "before": "Créer un compte",
+    "after": "ⵙⵏⵓⵍⴼⵓ ⴰⵎⵉⴹⴰⵏ",
+    "reason": "Replace French with the exact native Standard Moroccan Tamazight MediaWiki createacct-another-submit Create account command. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "error-user-notCreated",
+    "before": "Cet utilisateur n'a pas encore été créé",
+    "after": "ⴰⵏⵙⵙⵎⵔⵙ ⴰⴷ ⵓⵔ ⵉⵜⵜⵡⴰⵙⵏⴼⵍⵓⵍ",
+    "reason": "Replace French with a direct native composition. MediaWiki nocookiesfornew attests the negative passive creation clause; login-userblocked attests the user noun with ad (this). Preserve not-created semantics separately from nonexistent and duplicate-user errors. Do not import cookie-specific reasons or browser instructions. LOW CONFIDENCE: changing the subject from account to this user requires fluent review of the complete sentence. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
