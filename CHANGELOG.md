@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,099 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 745 pending review or repair.
-The correction inventory records 17,212 exact before/after values,
+findings: 15,100 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 744 pending review or repair.
+The correction inventory records 17,213 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -100,9 +100,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is bceecefb8 (2026-09-14), replacing the English Sakha
-civil Hijri label with both qualifiers. Two Sakha variants and fluent technical
-review of composed terminology remain required. The original Neapolitan queue is empty. All correction/rendering checks
+Latest translation fix is 36f57a4b7 (2026-09-14), replacing the English Sakha
+tabular Hijri label with both qualifiers. The sighting variant and fluent
+technical review of composed terminology remain required. The original Neapolitan queue is empty. All correction/rendering checks
 pass; low-confidence technical terminology remains explicitly tracked.
 Member assignment popup handlers need separate review for apparent reversed
 operations. The 1,015-suite Node result is historical and predates the latest batches.
@@ -641,6 +641,18 @@ The audit records 749 pending original findings and wider unfinished validation.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/36f57a4b7">Repair Sakha astronomical-epoch calendar wording</a>. Thanks to xet7.</summary>
+
+Replace English using native astronomy wording and existing table/calendar-era
+terms. Preserve tabular and astronomical-epoch qualifiers, distinct from civil.
+All 17,213 correction checks pass. CLDR’s Islamic base is provisional, and noun
+composition/era-to-epoch adaptation need fluent technical review. The sighting
+variant remains unresolved. Original pending findings total 744; live browser
+verification was not run.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bceecefb8">Repair Sakha civil Hijri calendar wording</a>. Thanks to xet7.</summary>

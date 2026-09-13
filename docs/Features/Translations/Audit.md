@@ -4,21 +4,21 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,099 |
+| Corrected | 15,100 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 745 |
+| Pending review or repair | 744 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,212** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,213** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `bceecefb8` — replaced the English Sakha civil Hijri calendar label, preserving tabular and civil-epoch qualifiers with CLDR/native-reference terms. All **17,212** exact correction/rendering checks pass. The original queue has **745** pending findings, including **two** Sakha calendar variants. **Low confidence:** phrase composition and the era-to-calendar-epoch adaptation need fluent technical review; CLDR’s Islamic base is provisional. Sighting and astronomical-epoch variants remain unresolved. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `36f57a4b7` — replaced the English Sakha tabular Hijri calendar label, preserving table and astronomical-epoch qualifiers using native-reference astronomy wording and existing CLDR terms. All **17,213** exact correction/rendering checks pass. The original queue has **744** pending findings, including **one** Sakha sighting-calendar finding. **Low confidence:** astronomy/era noun composition and era-to-calendar-epoch adaptation need fluent technical review; CLDR’s Islamic base is provisional. The sighting variant remains unresolved. Live browser verification was not run; no translations were pushed.
 
 **Language validation (2026-09-14), local commit `e4e3aa590`:** Wiktionary’s Veps transitive inflection tables confirm `surenda` (make larger) and `penenda` (make smaller) as second-person singular commands. Their imperative morphology is now reference-supported; screen-zoom usage remains open. The original keyboard findings remain unresolved: searches and the cached dictionary did not establish reliable keyboard-shortcut terminology. Counts are unchanged. References and the remaining scope are recorded per key in the correction ledger.
 
-**Remaining validation:** all restored/unflagged values and low-confidence replacements remain open. Detailed per-key caveats are retained in the correction ledger and source commits. These include Veps composed UI, card, notification, calendar, timing, file/archive, metric and legal terminology/inflection; Neapolitan technical checklist usage; Fulah/Bambara calendar composition; and CLDR-provisional Ewe civil-calendar and Tongan tabular-calendar/astronomical-epoch phrase composition, and Sakha civil-calendar/era-to-epoch composition. Field sums, parent-card terminology, keyboard shortcuts, remaining migration/search messages and other calendar variants need further language research. Wrong-language/script and fluent-speaker checks remain unfinished.
+**Remaining validation:** all restored/unflagged values and low-confidence replacements remain open. Detailed per-key caveats are retained in the correction ledger and source commits. These include Veps composed UI, card, notification, calendar, timing, file/archive, metric and legal terminology/inflection; Neapolitan technical checklist usage; Fulah/Bambara calendar composition; and CLDR-provisional Ewe civil-calendar and Tongan tabular-calendar/astronomical-epoch phrase composition, and Sakha civil/astronomical-calendar/era-to-epoch composition. Field sums, parent-card terminology, keyboard shortcuts, remaining migration/search messages and other calendar variants need further language research. Wrong-language/script and fluent-speaker checks remain unfinished.
 
 **Security interruption (2026-09-14):** `c1246d720` reviews both saved `.tools/wekansec20` alerts and hardens exact archive-host checks and shell-free mirror dispatch, including direct Windows Node execution. All 25 focused mirror test entries pass; native Windows and remote CodeQL rescanning remain unverified. Translation counts and remaining validation are unchanged.
 
