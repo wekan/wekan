@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,576 |
+| Corrected | 12,577 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,270 |
+| Pending review or repair | 3,269 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,158** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,159** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `3d3468ad368c9f1f588477965fe35ad4829bd796` — Volapük advanced-filter help translated and doubled escape characters repaired. Operators, examples and regex preserved; assembled prose needs native-speaker review.
+Latest translation fix: **2026-09-13**, local commit `d7168ebc6e5cc26425337cb4c766957b94ff82eb` — Volapük vertical-scrollbar option repaired using descriptive dictionary-based wording. GUI adaptation remains low confidence and needs native-speaker review.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
