@@ -84124,5 +84124,19 @@
     "before": "ISO 8601",
     "after": "Gregoriana pachachimpu (ISO 8601 simananaka)",
     "reason": "Replace Turkish date-display setting with Aymara using existing pachachimpu terminology and restore Gregorian calendar/ISO 8601 weeks omitted from local label. Complete grammar remains low confidence; Hijri epoch/sighting labels remain pending."
+  },
+  {
+    "locale": "sm",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Kalena Hijri (fa’atatau i siata, aso amata fa’ale-malo)",
+    "reason": "Replace English with Samoan using existing Hijri tabular/starting-date terminology; preserve civil epoch rather than astronomical epoch and restore Gregorian ISO weeks omitted from local label. Civil-epoch adaptation and complete grammar remain low confidence."
+  },
+  {
+    "locale": "sm",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "Kalena Gregoriana (vaiaso ISO 8601)",
+    "reason": "Replace English with Samoan using existing Hijri tabular/starting-date terminology; preserve civil epoch rather than astronomical epoch and restore Gregorian ISO weeks omitted from local label. Civil-epoch adaptation and complete grammar remain low confidence."
   }
 ]
