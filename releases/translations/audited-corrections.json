@@ -87918,5 +87918,54 @@
     "before": "L'utilisateur a été déverrouillé avec succès",
     "after": "Geban pemailökon plöpo",
     "reason": "Replace French account self-deletion/unlock interface wording with Volapük. Use existing software account/user terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf mailökön (unlock), with existing fäilökön (lock). Preserve all-users scope, self-deletion permission and confirmation meaning. Assembled wording and software lock adaptation remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "accounts-lockout-known-users",
+    "before": "Paramètres pour les utilisateurs connus (utilisateur existant, mot de passe incorrect)",
+    "after": "Väls pro gebans sevädik (gebananem verätik, letavöd neverätik)",
+    "reason": "Replace French login-lockout labels with Volapük. Use existing username/password/settings terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf steifül (attempt), sevädik/nesevädik (known/unknown), mailökön (unlock), stad (status). Preserve correct-username/wrong-password distinction, absent username and failure-before-lockout ordering. Assembled wording and software lock adaptation remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "accounts-lockout-unknown-users",
+    "before": "Paramètres pour les utilisateurs inconnus (utilisateur inexistant)",
+    "after": "Väls pro gebans nesevädik (gebananem no dabinöl)",
+    "reason": "Replace French login-lockout labels with Volapük. Use existing username/password/settings terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf steifül (attempt), sevädik/nesevädik (known/unknown), mailökön (unlock), stad (status). Preserve correct-username/wrong-password distinction, absent username and failure-before-lockout ordering. Assembled wording and software lock adaptation remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "accounts-lockout-locked-users",
+    "before": "Utilisateurs verrouillés",
+    "after": "Gebans pefäilököl",
+    "reason": "Replace French login-lockout labels with Volapük. Use existing username/password/settings terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf steifül (attempt), sevädik/nesevädik (known/unknown), mailökön (unlock), stad (status). Preserve correct-username/wrong-password distinction, absent username and failure-before-lockout ordering. Assembled wording and software lock adaptation remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "accounts-lockout-failed-attempts",
+    "before": "Tentatives en échec",
+    "after": "Steifüls no peplöpöl",
+    "reason": "Replace French login-lockout labels with Volapük. Use existing username/password/settings terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf steifül (attempt), sevädik/nesevädik (known/unknown), mailökön (unlock), stad (status). Preserve correct-username/wrong-password distinction, absent username and failure-before-lockout ordering. Assembled wording and software lock adaptation remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "accounts-lockout-failures-before",
+    "before": "Échecs avant verrouillage",
+    "after": "Lepöks bü fäilökam",
+    "reason": "Replace French login-lockout labels with Volapük. Use existing username/password/settings terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf steifül (attempt), sevädik/nesevädik (known/unknown), mailökön (unlock), stad (status). Preserve correct-username/wrong-password distinction, absent username and failure-before-lockout ordering. Assembled wording and software lock adaptation remain low confidence; native review unavailable. Dictionary explicitly attests lepök (failure); avoid financial failam."
+  },
+  {
+    "locale": "vo",
+    "key": "accounts-lockout-status",
+    "before": "Statut",
+    "after": "Stad",
+    "reason": "Replace French login-lockout labels with Volapük. Use existing username/password/settings terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf steifül (attempt), sevädik/nesevädik (known/unknown), mailökön (unlock), stad (status). Preserve correct-username/wrong-password distinction, absent username and failure-before-lockout ordering. Assembled wording and software lock adaptation remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "accounts-lockout-unlock-all",
+    "before": "Tout déverrouiller",
+    "after": "Mailökön valikis",
+    "reason": "Replace French login-lockout labels with Volapük. Use existing username/password/settings terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf steifül (attempt), sevädik/nesevädik (known/unknown), mailökön (unlock), stad (status). Preserve correct-username/wrong-password distinction, absent username and failure-before-lockout ordering. Assembled wording and software lock adaptation remain low confidence; native review unavailable."
   }
 ]
