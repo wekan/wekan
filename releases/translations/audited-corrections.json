@@ -53842,5 +53842,54 @@
     "before": "Caro __user__,\n\n__inviter__ ti ha invitato ad unirti alla bacheca \"__board__\" per collaborare.\n\nPer favore clicca sul link seguente:\n\n__url__\n\nGrazie.",
     "after": "Dragã __user__,\\n\\n__inviter__ ti invitã s-intri tu tabela \"__board__\" ti colaborari.\\n\\nTi pãrãcãlsescu s-urmeadzi ligãtura di ma njos:\\n\\n__url__\\n\\nHaristo.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "globalSearch-instructions-notes-5",
+    "before": "Per impostazione predefinita le schede archiviate non sono incluse nella ricerca.",
+    "after": "Di ahurhitã, cãrtsãli arhivati nu s-cautã.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "globalSearch-instructions-operator-limit",
+    "before": "`__operator_limit__:<n>` - dove *<n>* è un numero intero positivo che esprime il numero delle schede da visualizzare per pagina.",
+    "after": "`__operator_limit__:<n>` - iu *<n>* easti un numir întreg pozitiv tsi aratã numirlu di cãrtsã ti afishari pi paginã.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "globalSearch-instructions-operator-sort",
+    "before": "`__operator_sort__:<sort-name>` - dove *<sort-name>* è uno dei `__predicate_due__`, `__predicate_created__` oppure `__predicate_modified__`.  Per un ordine discendente, aggiungi un `-` davanti al nome.",
+    "after": "`__operator_sort__:<sort-name>` - iu *<sort-name>* easti un di `__predicate_due__`, `__predicate_created__` icã `__predicate_modified__`. Ti arãndari descendentã, puni un `-` ninti a numãljei di arãndari.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "hideAllChecklistItems",
+    "before": "Nascondi gli elementi della lista di controllo",
+    "after": "Ascundi tuti elementili di lista di control",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "hideCheckedChecklistItems",
+    "before": "Nascondi gli elementi della lista di controllo selezionati",
+    "after": "Ascundi elementili bifati di lista di control",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "just-invited",
+    "before": "Sei stato appena invitato a questa bacheca",
+    "after": "Fushi apoa invitat la aesta tabelã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "leave-board-pop",
+    "before": "Sei sicuro di voler abbandonare __boardTitle__? Sarai rimosso da tutte le schede in questa bacheca.",
+    "after": "Esht sigur cã vrei s-lashi __boardTitle__? Va s-hii scos di tuti cãrtsãli di aesta tabelã.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
