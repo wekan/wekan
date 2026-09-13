@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 10,869 |
+| Corrected | 10,890 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,977 |
+| Pending review or repair | 4,956 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **10,957** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **10,978** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `fe809d070b8acef81e786309b3a518c9fe0c50a4` — 13 basic calendar labels translated into Walloon, retaining calendar names; **74 flagged Walloon findings remain**, including three specialized Hijri variants. Native calendar vocabulary sources are recorded with the corrections; religious/country adjectives remain low confidence and need further review. Exact-value, placeholder, JSON example, HTML-tag/entity, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `355febf8c0188e356847f7f159e6850f997bd564` — 21 French layout/upload/control values replaced with Walloon, retaining vertical direction, label ranges, multi-selection behavior and WIP threshold; **53 flagged Walloon findings remain**. Sources are recorded with the corrections; full grammar and specialized path/authentication terminology remain low confidence. Exact-value, placeholder, JSON example, HTML-tag/entity, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
