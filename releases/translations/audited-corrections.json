@@ -77894,5 +77894,75 @@
     "before": "Jël limu baax yi ci karto waajur",
     "after": "Jël etiketi karta bu mag bi",
     "reason": "Normalize Wolof label terminology to existing etiket across controls and earlier activity repairs. Correct no-label wrong letter meaning, hide-label-text missing text distinction and inheritance wrong good-list meaning. Preserve source tokens and parent-card label scope. Parent-card description and full grammar remain low confidence; includes unflagged values and earlier revisions."
+  },
+  {
+    "locale": "wo",
+    "key": "filter-dates-label",
+    "before": "Filtrer par date",
+    "after": "Fëltar ci bis",
+    "reason": "Replace French filter-control labels with Wolof using existing Fëltar terminology. Preserve date/list title/card title/label/member/assignee/creator/custom-field criteria and advanced versus other filters. Date/custom-field/advanced wording and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "list-filter-label",
+    "before": "Filtrer la liste par titre",
+    "after": "Fëltar limu bi ci tur",
+    "reason": "Replace French filter-control labels with Wolof using existing Fëltar terminology. Preserve date/list title/card title/label/member/assignee/creator/custom-field criteria and advanced versus other filters. Date/custom-field/advanced wording and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "filter-labels-label",
+    "before": "Filtrer par étiquette",
+    "after": "Fëltar ci etiket",
+    "reason": "Replace French filter-control labels with Wolof using existing Fëltar terminology. Preserve date/list title/card title/label/member/assignee/creator/custom-field criteria and advanced versus other filters. Date/custom-field/advanced wording and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "filter-member-label",
+    "before": "Filtrer par participant",
+    "after": "Fëltar ci bokkkat",
+    "reason": "Replace French filter-control labels with Wolof using existing Fëltar terminology. Preserve date/list title/card title/label/member/assignee/creator/custom-field criteria and advanced versus other filters. Date/custom-field/advanced wording and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "filter-assignee-label",
+    "before": "Filtrer par personne assignée",
+    "after": "Fëltar ci ki ñu sas",
+    "reason": "Replace French filter-control labels with Wolof using existing Fëltar terminology. Preserve date/list title/card title/label/member/assignee/creator/custom-field criteria and advanced versus other filters. Date/custom-field/advanced wording and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "filter-creator-label",
+    "before": "Filtrer par personne Créateur",
+    "after": "Fëltar ci ki sos",
+    "reason": "Replace French filter-control labels with Wolof using existing Fëltar terminology. Preserve date/list title/card title/label/member/assignee/creator/custom-field criteria and advanced versus other filters. Date/custom-field/advanced wording and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "filter-custom-fields-label",
+    "before": "Filtrer par champs personnalisés",
+    "after": "Fëltar ci wàlli dugal yu ñu solal",
+    "reason": "Replace French filter-control labels with Wolof using existing Fëltar terminology. Preserve date/list title/card title/label/member/assignee/creator/custom-field criteria and advanced versus other filters. Date/custom-field/advanced wording and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "other-filters-label",
+    "before": "Autres filtres",
+    "after": "Yeneen fëltar yi",
+    "reason": "Replace French filter-control labels with Wolof using existing Fëltar terminology. Preserve date/list title/card title/label/member/assignee/creator/custom-field criteria and advanced versus other filters. Date/custom-field/advanced wording and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "advanced-filter-label",
+    "before": "Filtre avancé",
+    "after": "Fëltar bu xóot",
+    "reason": "Replace French filter-control labels with Wolof using existing Fëltar terminology. Preserve date/list title/card title/label/member/assignee/creator/custom-field criteria and advanced versus other filters. Date/custom-field/advanced wording and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "filter-card-title-label",
+    "before": "Filtrer par titre de carte",
+    "after": "Fëltar ci turu karta bi",
+    "reason": "Replace French filter-control labels with Wolof using existing Fëltar terminology. Preserve date/list title/card title/label/member/assignee/creator/custom-field criteria and advanced versus other filters. Date/custom-field/advanced wording and full grammar remain low confidence."
   }
 ]
