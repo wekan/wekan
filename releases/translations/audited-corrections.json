@@ -86021,5 +86021,12 @@
     "before": "Indian national",
     "after": "Haatumeere leydi (Enndo)",
     "reason": "Replace English Indian national label with Fulah calendar terminology. National noun constructions use leydi in Fulfulde English index pp.126–127: https://www.mooreburkina.com/sites/www.mooreburkina.com/files/pdf-files/03%20Fulfulde%20-%20Index%20(anglais).pdf ; Enndo is India in https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/ff.xml . Haatumeere follows attested Pulaar Islamic calendar usage already recorded. Assembled national calendar grammar is low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "kw",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Kalender gregorek",
+    "reason": "Replace foreign Gregoriana with Cornish Kalender gregorek. Kalender follows the previously recorded Akademi SWF dictionary; gregorek is the calendar adjective in https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/kw.xml (Kalans gregorek, draft=unconfirmed). Adapted phrase remains low confidence, without native-speaker verification."
   }
 ]
