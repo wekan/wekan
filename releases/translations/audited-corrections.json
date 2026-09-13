@@ -120587,5 +120587,26 @@
     "before": "Kay willaymi: whiteta",
     "after": "yuraq",
     "reason": "Repair unflagged English color wrapped in unrelated Quechua message prose. Quechua adjective directly attested at https://en.wiktionary.org/wiki/yuraq; review 2026-09-14. Use standalone lowercase color word, preserving color distinction. Broader locale and two original calendar findings remain unresolved; dictionary gloss does not prove whole-locale fluency."
+  },
+  {
+    "locale": "qu",
+    "key": "color-blue",
+    "before": "Kay willaymi: blueta",
+    "after": "anqas",
+    "reason": "Replace unflagged English color wrapped in unrelated prose with a directly attested Quechua adjective: https://en.wiktionary.org/wiki/anqas. Review 2026-09-14. Use standalone lowercase word. qillu also covers orange in the dictionary; do not collapse the distinct orange UI label without additional terminology research. Regional orthography and broader palette usage remain open."
+  },
+  {
+    "locale": "qu",
+    "key": "color-green",
+    "before": "Kay willaymi: greenta",
+    "after": "q'umir",
+    "reason": "Replace unflagged English color wrapped in unrelated prose with a directly attested Quechua adjective: https://en.wiktionary.org/wiki/q%27umir. Review 2026-09-14. Use standalone lowercase word. qillu also covers orange in the dictionary; do not collapse the distinct orange UI label without additional terminology research. Regional orthography and broader palette usage remain open."
+  },
+  {
+    "locale": "qu",
+    "key": "color-yellow",
+    "before": "Kay willaymi: yellowta",
+    "after": "q'illu",
+    "reason": "Replace unflagged English color wrapped in unrelated prose with a directly attested Quechua adjective: https://en.wiktionary.org/wiki/q%27illu. Review 2026-09-14. Use standalone lowercase word. qillu also covers orange in the dictionary; do not collapse the distinct orange UI label without additional terminology research. Regional orthography and broader palette usage remain open."
   }
 ]
