@@ -112026,5 +112026,26 @@
     "before": "Napsauta avataksesi tämän käyttäjän lukituksen",
     "after": "Paina, miše avaida nece kävutai",
     "reason": "Replace Finnish-seeded Veps board/user controls. Dictionary attests laud/board (genitive laudan), nimi/name or title, painda/push button (imperative paina), avaita/unlock (imperative avaida), nece/this; https://kaikki.org/dictionary/Veps/ . Kävutai/user is attested in Veps MediaWiki. Composed username and purpose-clause wording has low confidence and requires fluent-speaker review. Existing shared Nimi remains unchanged."
+  },
+  {
+    "locale": "ace",
+    "key": "gcs-credentials",
+    "before": "Kredensial akun layanan (JSON)",
+    "after": "Kredensial keu akun peulayanan (JSON)",
+    "reason": "Replace Indonesian layanan in Acehnese GCS account wording with attested peulayanan/service; keu is existing native for/to wording. Sources: https://ppid.pidiekab.go.id/news/post/pj-bupati-pidie-resmikan-program-peurumoh-rsud-tas-beureunuen and https://www.wordproject.org/bibles/ace/28/2.htm . Keep literal Google Cloud navigation labels and JSON. Composed technical terminology is low confidence; wider mixed Acehnese wording still needs review."
+  },
+  {
+    "locale": "ace",
+    "key": "gcs-credentials-description",
+    "before": "Hawa: tempel kunci JSON akun layanan. Peukoseng keu guna file kunci atawa kredensial default.",
+    "after": "Hawa: tempel kunci JSON akun peulayanan. Peukoseng keu guna file kunci atawa kredensial default.",
+    "reason": "Replace Indonesian layanan in Acehnese GCS account wording with attested peulayanan/service; keu is existing native for/to wording. Sources: https://ppid.pidiekab.go.id/news/post/pj-bupati-pidie-resmikan-program-peurumoh-rsud-tas-beureunuen and https://www.wordproject.org/bibles/ace/28/2.htm . Keep literal Google Cloud navigation labels and JSON. Composed technical terminology is low confidence; wider mixed Acehnese wording still needs review."
+  },
+  {
+    "locale": "ace",
+    "key": "gcs-credentials-menu-path",
+    "before": "Google Cloud Console → IAM & Admin → Service accounts → akun layanan droeneueh → Keys → Add key → Create new key → JSON → Create (geuunggah file). Tempel isi jih keunoe, atawa simpan file dan atur jalur jih di ateuh.",
+    "after": "Google Cloud Console → IAM & Admin → Service accounts → akun peulayanan droeneueh → Keys → Add key → Create new key → JSON → Create (geuunggah file). Tempel isi jih keunoe, atawa simpan file dan atur jalur jih di ateuh.",
+    "reason": "Replace Indonesian layanan in Acehnese GCS account wording with attested peulayanan/service; keu is existing native for/to wording. Sources: https://ppid.pidiekab.go.id/news/post/pj-bupati-pidie-resmikan-program-peurumoh-rsud-tas-beureunuen and https://www.wordproject.org/bibles/ace/28/2.htm . Keep literal Google Cloud navigation labels and JSON. Composed technical terminology is low confidence; wider mixed Acehnese wording still needs review."
   }
 ]

@@ -137,5 +137,10 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.doesNotMatch(veps.username, /Käyttäjätunnus/);
   assert.match(veps['accounts-lockout-click-to-unlock'], /avaida nece kävutai$/);
   assert.equal(veps.name, 'Nimi', 'valid shared vocabulary is preserved');
+  for (const key of ['gcs-credentials', 'gcs-credentials-description', 'gcs-credentials-menu-path']) {
+    assert.match(cache.ace[key], /akun peulayanan/);
+    assert.doesNotMatch(cache.ace[key], /akun layanan/);
+  }
+  assert.ok(cache.ace['gcs-credentials-menu-path'].includes('Service accounts'));
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
