@@ -12,9 +12,9 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,277** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,278** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `a8d509397827589dbce057c531722a6070178285` — Kashubian Indian national calendar label repaired using [national adjective usage](https://kaszebsko.com/zemia-rodno-kaszubski-hymn-narodowy) and the dictionary-backed India name Indie. Assembled wording remains low confidence; other calendar findings remain pending. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; native-speaker and live browser verification are unavailable.
+Latest translation fix: **2026-09-13**, local commit `bd7dcb724f53819bc9511fd4c7625d6490383967` — unflagged Kashubian Gregorian label repaired using indexed [dictionary wording](https://glosbe.com/csb/it/gregorijansczi%20kal%C3%A3d%C3%B4rz). Dictionary confidence is limited; original pending counts are unchanged. Religious/country and Hijri-variant findings still need review. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; native-speaker and live browser verification are unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
