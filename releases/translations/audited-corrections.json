@@ -79098,5 +79098,47 @@
     "before": "Ajouter une description plus détaillée",
     "after": "Yokk melokaan bu gën a leeral",
     "reason": "Replace French star/unstar board controls, starred-board heading, comment deletion confirmation and description prompt with Wolof. Preserve opposite star actions and reuse existing xalaat/Melokaan. Senegal education Wolof primer attests biddiiw for star: https://senprof.education.sn/PROGRAMME%20LECTURE%20POUR%20TOUS/documentation/CI/Manuels%20de%20classe%20CI/Manuel%20de%20classe%20wolof%20CI_Complet.pdf . Computing adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "admin-people-filter-locked",
+    "before": "Utilisateurs verrouillés seulement",
+    "after": "Jëfandikukat yi ñu tëj seen kont rekk",
+    "reason": "Replace French account-state filters and activation/deactivation tooltips with Wolof. Express functional account state rather than energetic human activity, keep locked-only filter distinct and preserve opposite click actions. Reuse kont/jëfandikukat; taxawal stop attested in Peace Corps Wolof trainee manual (https://publish.illinois.edu/wolof201fall14/files/2014/08/NEW_WOLOF_BOOK.pdf). Full grammar and account-state adaptation remain low confidence; failed suqali search not treated as activation evidence."
+  },
+  {
+    "locale": "wo",
+    "key": "admin-people-filter-active",
+    "before": "Actif",
+    "after": "Kont bi dafay dox",
+    "reason": "Replace French account-state filters and activation/deactivation tooltips with Wolof. Express functional account state rather than energetic human activity, keep locked-only filter distinct and preserve opposite click actions. Reuse kont/jëfandikukat; taxawal stop attested in Peace Corps Wolof trainee manual (https://publish.illinois.edu/wolof201fall14/files/2014/08/NEW_WOLOF_BOOK.pdf). Full grammar and account-state adaptation remain low confidence; failed suqali search not treated as activation evidence."
+  },
+  {
+    "locale": "wo",
+    "key": "admin-people-filter-inactive",
+    "before": "Désactivé",
+    "after": "Kont bi doxul",
+    "reason": "Replace French account-state filters and activation/deactivation tooltips with Wolof. Express functional account state rather than energetic human activity, keep locked-only filter distinct and preserve opposite click actions. Reuse kont/jëfandikukat; taxawal stop attested in Peace Corps Wolof trainee manual (https://publish.illinois.edu/wolof201fall14/files/2014/08/NEW_WOLOF_BOOK.pdf). Full grammar and account-state adaptation remain low confidence; failed suqali search not treated as activation evidence."
+  },
+  {
+    "locale": "wo",
+    "key": "admin-people-active-status",
+    "before": "Statut actif",
+    "after": "Anamu doxinu kont bi",
+    "reason": "Replace French account-state filters and activation/deactivation tooltips with Wolof. Express functional account state rather than energetic human activity, keep locked-only filter distinct and preserve opposite click actions. Reuse kont/jëfandikukat; taxawal stop attested in Peace Corps Wolof trainee manual (https://publish.illinois.edu/wolof201fall14/files/2014/08/NEW_WOLOF_BOOK.pdf). Full grammar and account-state adaptation remain low confidence; failed suqali search not treated as activation evidence."
+  },
+  {
+    "locale": "wo",
+    "key": "admin-people-user-active",
+    "before": "L'utilisateur est activé - Cliquer pour le désactiver",
+    "after": "Kontu jëfandikukat bi dafay dox - bësal ngir taxawal ko",
+    "reason": "Replace French account-state filters and activation/deactivation tooltips with Wolof. Express functional account state rather than energetic human activity, keep locked-only filter distinct and preserve opposite click actions. Reuse kont/jëfandikukat; taxawal stop attested in Peace Corps Wolof trainee manual (https://publish.illinois.edu/wolof201fall14/files/2014/08/NEW_WOLOF_BOOK.pdf). Full grammar and account-state adaptation remain low confidence; failed suqali search not treated as activation evidence."
+  },
+  {
+    "locale": "wo",
+    "key": "admin-people-user-inactive",
+    "before": "L'utilisateur est désactivé - Cliquer pour l'activer",
+    "after": "Kontu jëfandikukat bi doxul - bësal ngir def ko mu dox",
+    "reason": "Replace French account-state filters and activation/deactivation tooltips with Wolof. Express functional account state rather than energetic human activity, keep locked-only filter distinct and preserve opposite click actions. Reuse kont/jëfandikukat; taxawal stop attested in Peace Corps Wolof trainee manual (https://publish.illinois.edu/wolof201fall14/files/2014/08/NEW_WOLOF_BOOK.pdf). Full grammar and account-state adaptation remain low confidence; failed suqali search not treated as activation evidence."
   }
 ]
