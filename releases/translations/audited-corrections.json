@@ -76431,5 +76431,180 @@
     "before": "Le nombre d'organisations est de :",
     "after": "Li nombe d' organizåcions est: ",
     "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "page-maybe-private",
+    "before": "Cette page est peut-être privée. Vous pourrez peut-être la voir en vous <a href='%s'>connectant</a>.",
+    "after": "Cisse pådje ci pout esse privêye. Vos pôrîz poleur l' vey tot <a href='%s'>vos elodjant</a>.",
+    "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "preview-pdf-not-supported",
+    "before": "Votre périphérique ne supporte pas la prévisualisation de PDF. Essayer plutôt le téléchargement.",
+    "after": "Vosse aparey ni sopoirte nén l' avizucaedje di PDF. Sayîz d' aberweter l' fitchî.",
+    "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "read-assigned-only",
+    "before": "Lecture uniquement pour les cartes assignées",
+    "after": "Lére seulmint, cåtes dinêyes seulmint",
+    "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "right-of-list",
+    "before": "À droite de la liste sélectionnée",
+    "after": "A droete del djivêye tchoezeye",
+    "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "search-example",
+    "before": "Écrivez le texte que vous recherchez et appuyez sur Entrée",
+    "after": "Scrîre li tecse ki vos cweroz et tchôkî so Enter",
+    "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "send-smtp-test",
+    "before": "Envoyer un mail de test à vous-même",
+    "after": "S' evoyî èn emile di saye",
+    "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "server-error-troubleshooting",
+    "before": "Merci de soumettre l'erreur générée par le serveur. Pour une installation snap, lancer `sudo snap logs wekan.wekan`. Pour une installation docker, lancer `sudo docker logs wekan-app`",
+    "after": "Evoyîz l' aroke produite på sierveu.\nPo ene instalåcion snap, enondoz: `sudo snap logs wekan.wekan`\nPo ene instalåcion Docker, enondoz: `sudo docker logs wekan-app`",
+    "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "set-swimlane-height",
+    "before": "Définir la hauteur du couloir",
+    "after": "Defini l' hôteur do coridôr",
+    "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "set-swimlane-height-value",
+    "before": "Hauteur du couloir (pixels)",
+    "after": "Hôteur do coridôr (picsels)",
+    "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "setSwimlaneHeightPopup-title",
+    "before": "Définir la hauteur du couloir",
+    "after": "Defini l' hôteur do coridôr",
+    "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "set-wip-limit-value",
+    "before": "Définit une limite maximale au nombre de cartes de cette liste",
+    "after": "Defini ene limite pol nombe macsimal di bouyes dins cisse djivêye ci",
+    "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "setSelectionColorPopup-title",
+    "before": "Définir la couleur de sélection",
+    "after": "Defini l' coleur del tchuze",
+    "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "smtp-host-description",
+    "before": "L'adresse du serveur SMTP qui gère vos mails.",
+    "after": "L' adresse do sierveu SMTP ki s' ocupe di vos emiles.",
+    "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "smtp-port-description",
+    "before": "Le port des mails sortants du serveur SMTP.",
+    "after": "Li poirt ki vosse sierveu SMTP eploye po les emiles ki s' evoyèt.",
+    "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "smtp-tls-description",
+    "before": "Activer la gestion de TLS sur le serveur SMTP",
+    "after": "Alumer li sopoirt TLS po l' sierveu SMTP",
+    "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "sort-desc",
+    "before": "Cliquez pour trier la liste",
+    "after": "Clitchîz po rinde li djivêye",
+    "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "support-info-not-added-yet",
+    "before": "Les informations d'assistance n'ont pas encore été ajoutées",
+    "after": "Les informåcions di sopoirt n' ont nén co stî radjoutêyes",
+    "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "support-page-enabled",
+    "before": "Page d'assistance activée",
+    "after": "Pådje di sopoirt alumêye",
+    "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "swimlane-height-error-message",
+    "before": "La hauteur du couloir doit être un entier positif",
+    "after": "Li hôteur do coridôr doet esse on nombe etîr pozitif",
+    "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "tableVisibilityMode-allowPrivateOnly",
+    "before": "Visibilité des tableaux: N'autoriser que des tableaux privés",
+    "after": "Veyåvisté des tåvleas: permete seulmint des tåvleas privés",
+    "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "rescue-card-description",
+    "before": "Afficher le dialogue de sauvegarde avant de fermer les descriptions de carte  en cours de modification",
+    "after": "Mostrer li divize di rascapåjhe divant di clôre des discrijhaedjes di cåtes nén schapés",
+    "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "operator-debug-invalid",
+    "before": "%s n'est pas un prédicat de debug valide",
+    "after": "%s n' est nén on predicat di disbugaedje valåbe",
+    "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "operator-has-invalid",
+    "before": "%s n'est pas un test valide d'existence",
+    "after": "%s n' est nén on verifiaedje d' egzistance valåbe",
+    "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "memory-usage",
+    "before": "Utilisation de la mémoire",
+    "after": "Eployaedje del memwere",
+    "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "team-number",
+    "before": "Le nombre d'équipes est de :",
+    "after": "Li nombe d' ekipes est: ",
+    "reason": "Replace audited French support/SMTP/layout controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Retain literal snap/Docker commands, HTML login link, positive-integer height, private-board restriction and SMTP/TLS identifiers. Full grammar and specialized support/layout terminology remain low confidence; source tokens preserved."
   }
 ]
