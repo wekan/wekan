@@ -6,7 +6,7 @@ echo "Note1: If you use other locale than en_US.UTF-8 , you need to additionally
 echo "       with 'sudo dpkg-reconfigure locales' , so that MongoDB works correctly."
 echo "       You can still use any other locale as your main locale."
 echo "Note2: Console output is also logged to <logs>/wekan-log.log"
-echo "Note3: Build logs use .tools/log/build-<type>/YYYY-MM-DD/; tests use dated run directories."
+echo "Note3: Build logs use .tools/log/build-<type>/YYYY-MM-DD/HH-MM-SS/; tests use dated run directories."
 echo "       .tools/log/ inside this repository. The path is printed when a run"
 echo "       starts."
 echo "Note4: Two build directories, and they are not the same thing:"
@@ -357,15 +357,29 @@ function build_stage(){
 # Used by menu option 2 and auto-invoked by option 9 when .build is missing.
 # Also clears the rspack dev-build caches (_build and node_modules/.cache) so the
 # next `meteor run` recompiles from scratch instead of serving stale modules.
-# Daily build logs append subsequent runs, preserving their dated start/end markers.
+# Each build gets its own time directory; only stages of that run append.
 function build_log(){
 	local type="$1" name="$2" dir
 	case "$type/$name" in
 		build-dev-bundle/dev|build-release-bundle/release) ;;
 		*) echo "ERROR: unknown build log type: $type/$name" >&2; return 1 ;;
 	esac
-	dir="${WEKAN_LOG_ROOT:-.tools/log}/$type/$(date '+%Y-%m-%d')"
-	mkdir -p "$dir" || return $?
+	local day="${WEKAN_LOG_ROOT:-.tools/log}/$type/$(date '+%Y-%m-%d')"
+	mkdir -p "$day" || return $?
+	dir="$day/$(date '+%H-%M-%S')"
+	# Atomic reservation prevents simultaneous or same-second builds sharing a log.
+	if ! mkdir "$dir" 2>/dev/null; then
+		local suffix=1 candidate
+		while :; do
+			candidate="$dir-$suffix"
+			if mkdir "$candidate" 2>/dev/null; then dir="$candidate"; break; fi
+			if [ ! -d "$candidate" ]; then
+				echo "ERROR: cannot create build log directory: $candidate" >&2
+				return 1
+			fi
+			suffix=$((suffix + 1))
+		done
+	fi
 	printf '%s/%s.txt' "$(cd "$dir" && pwd)" "$name"
 }
 

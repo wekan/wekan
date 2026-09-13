@@ -8,7 +8,7 @@ const root = path.resolve(__dirname, '..');
 const source = fs.readFileSync(path.join(root, 'build.sh'), 'utf8');
 const start = source.indexOf('function build_log(){');
 const helper = source.slice(start, source.indexOf('\n}\n', start) + 3);
-test('development and release logs use daily type directories and preserve earlier output', () => {
+test('development and release logs use dated time directories and preserve earlier output', () => {
   const base = fs.mkdtempSync(path.join(root, '.tools/tmp/build-log-paths-'));
   try {
     const result = spawnSync('bash', ['-c', helper + '\nfor pair in "build-dev-bundle dev" "build-release-bundle release"; do set -- $pair; file=$(build_log "$1" "$2") || exit $?; echo "$file"; echo first | tee -a "$file"; echo second | tee -a "$file"; done'], { env: { ...process.env, WEKAN_LOG_ROOT: base }, encoding: 'utf8' });
@@ -16,9 +16,13 @@ test('development and release logs use daily type directories and preserve earli
     for (const [type, name] of [['build-dev-bundle', 'dev'], ['build-release-bundle', 'release']]) {
       const day = fs.readdirSync(path.join(base, type))[0];
       assert.match(day, /^\d{4}-\d{2}-\d{2}$/);
-      assert.equal(fs.readFileSync(path.join(base, type, day, name + '.txt'), 'utf8'), 'first\nsecond\n');
+      const time = fs.readdirSync(path.join(base, type, day))[0];
+      assert.match(time, /^\d{2}-\d{2}-\d{2}(?:-\d+)?$/);
+      assert.equal(fs.readFileSync(path.join(base, type, day, time, name + '.txt'), 'utf8'), 'first\nsecond\n');
     }
     assert.match(result.stdout, /first\nsecond/);
+    const repeated = spawnSync('bash', ['-c', helper + '\nfirst=$(build_log build-dev-bundle dev); second=$(build_log build-dev-bundle dev); test "$first" != "$second"'], { env: { ...process.env, WEKAN_LOG_ROOT: base }, encoding: 'utf8' });
+    assert.equal(repeated.status, 0, 'repeat builds must have distinct paths');
     const invalid = spawnSync('bash', ['-c', helper + '\nbuild_log ../escape wrong'], { env: { ...process.env, WEKAN_LOG_ROOT: base }, encoding: 'utf8' });
     assert.notEqual(invalid.status, 0);
     assert.match(invalid.stderr, /unknown build log type/);
