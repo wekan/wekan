@@ -86777,5 +86777,47 @@
     "before": "Restauré depuis les archives",
     "after": "Ragivam pesädunon",
     "reason": "Replace French archive/restore labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ragiv (archive), ragivam (archiving), topätükön (move between places), kad (card), sädunön (undo). Render restore-from-archive as undo archiving to avoid repair/health-only restore senses. Retain move-to versus restore-from contrast and source %s. Passive forms and complete software phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "delete-all-notifications",
+    "before": "Supprimer toutes les notifications",
+    "after": "Radön nunädis valik",
+    "reason": "Replace French notification deletion, card/checklist addition and attachment action labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nunäd (notification, PDF page704), radön (erase), valik (all), lüükön (add), kad (card), don (bottom), löp (top), lised (list), notet (written item), verätükön (correct). Reuse previously recorded low-confidence kontrolalised and fimükot compounds/derivations for consistency. Full software phrases remain low confidence pending native review. Preserve top/bottom contrast, all-notifications scope and source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "add-card-to-bottom-of-list",
+    "before": "Ajouter la carte en bas de la liste",
+    "after": "Lüükön kadi lü don liseda",
+    "reason": "Replace French notification deletion, card/checklist addition and attachment action labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nunäd (notification, PDF page704), radön (erase), valik (all), lüükön (add), kad (card), don (bottom), löp (top), lised (list), notet (written item), verätükön (correct). Reuse previously recorded low-confidence kontrolalised and fimükot compounds/derivations for consistency. Full software phrases remain low confidence pending native review. Preserve top/bottom contrast, all-notifications scope and source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "add-card-to-top-of-list",
+    "before": "Ajouter la carte en haut de la liste",
+    "after": "Lüükön kadi lü löp liseda",
+    "reason": "Replace French notification deletion, card/checklist addition and attachment action labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nunäd (notification, PDF page704), radön (erase), valik (all), lüükön (add), kad (card), don (bottom), löp (top), lised (list), notet (written item), verätükön (correct). Reuse previously recorded low-confidence kontrolalised and fimükot compounds/derivations for consistency. Full software phrases remain low confidence pending native review. Preserve top/bottom contrast, all-notifications scope and source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "add-checklist-item",
+    "before": "Ajouter un élément à la check-list",
+    "after": "Lüükön noteti lü kontrolalised",
+    "reason": "Replace French notification deletion, card/checklist addition and attachment action labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nunäd (notification, PDF page704), radön (erase), valik (all), lüükön (add), kad (card), don (bottom), löp (top), lised (list), notet (written item), verätükön (correct). Reuse previously recorded low-confidence kontrolalised and fimükot compounds/derivations for consistency. Full software phrases remain low confidence pending native review. Preserve top/bottom contrast, all-notifications scope and source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "attachmentDeletePopup-title",
+    "before": "Supprimer la pièce jointe ?",
+    "after": "Radön fimükoti?",
+    "reason": "Replace French notification deletion, card/checklist addition and attachment action labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nunäd (notification, PDF page704), radön (erase), valik (all), lüükön (add), kad (card), don (bottom), löp (top), lised (list), notet (written item), verätükön (correct). Reuse previously recorded low-confidence kontrolalised and fimükot compounds/derivations for consistency. Full software phrases remain low confidence pending native review. Preserve top/bottom contrast, all-notifications scope and source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "step-fix-attachment-urls",
+    "before": "Corriger les URL des pièces jointes",
+    "after": "Verätükam URLs fimükotas",
+    "reason": "Replace French notification deletion, card/checklist addition and attachment action labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nunäd (notification, PDF page704), radön (erase), valik (all), lüükön (add), kad (card), don (bottom), löp (top), lised (list), notet (written item), verätükön (correct). Reuse previously recorded low-confidence kontrolalised and fimükot compounds/derivations for consistency. Full software phrases remain low confidence pending native review. Preserve top/bottom contrast, all-notifications scope and source tokens."
   }
 ]
