@@ -85937,5 +85937,12 @@
     "before": "Indian national",
     "after": "Nôrodny kalãdôrz (Indie)",
     "reason": "Replace English Indian national calendar label with Kashubian national adjective Nôrodny attested by Kashubian organization https://kaszebsko.com/zemia-rodno-kaszubski-hymn-narodowy ; India Indie independently labeled Kashubian in https://en.wiktionary.org/wiki/Indie (Trepczyk dictionary reference). Existing kalãdôrz verified from native museum text. Parenthetical country preserves national-calendar origin without guessing its inflection; assembled label remains low confidence, not native-speaker reviewed."
+  },
+  {
+    "locale": "csb",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Gregorijansczi kalãdôrz",
+    "reason": "Replace non-Kashubian Gregorian label with dictionary-attested gregorijansczi kalãdôrz, indexed in https://glosbe.com/csb/it/gregorijansczi%20kal%C3%A3d%C3%B4rz and https://glosbe.com/tr/csb/gregoryen%20takvim . Capitalize initial label character. Dictionary-source confidence limited; not native-speaker reviewed. Outside original flagged audit."
   }
 ]
