@@ -93560,5 +93560,33 @@
     "before": "Dieses Team kann nicht gelöscht werden, da wenigstens ein Nutzer dazu gehört.",
     "after": "ghomvamDaq jeSbogh lo'wI' tu'lu'; vaj ghomvam DaQaw'laHbe'.",
     "reason": "Replace audited German card membership/comment-count controls and organization/team/account deletion warnings with Klingon. Preserve add/remove alternatives, dynamic comment count, certainty question, inability to restore the original state after the action, and deletion blocked when a participating user exists. Use descriptive original-state restoration rather than ambiguous ta-Ha (accomplish wrongly). Reuse repaired jeSwI, QInHom, yejHaq, ghom and account borrowing. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "attachment-delete-pop",
+    "before": "Das Löschen eines Anhangs kann nicht rückgängig gemacht werden.",
+    "after": "rarDoch Qaw'lu'DI', reH taH ghu'vam. Qu'vam ta'lu'DI', ghu' wa'DIch cheghmoHlaH pagh.",
+    "reason": "Replace German/French permanent-deletion warnings with Klingon. Preserve attachment deletion permanence and inability to restore the original state; label removal from every card and destruction of its history; loss of all actions on this card; and confirmation before deleting all notification messages. Reuse repaired attachment/label/card/notification terms and descriptive undo wording. Full software phrasing is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "label-delete-pop",
+    "before": "Aktion kann nicht rückgängig gemacht werden. Das Label wird von allen Karten entfernt und seine Historie gelöscht.",
+    "after": "Qu'vam ta'lu'DI', ghu' wa'DIch cheghmoHlaH pagh. Hoch 'echletHommeyvo' pervam teqlu'; qunDaj Qaw'lu'.",
+    "reason": "Replace German/French permanent-deletion warnings with Klingon. Preserve attachment deletion permanence and inability to restore the original state; label removal from every card and destruction of its history; loss of all actions on this card; and confirmation before deleting all notification messages. Reuse repaired attachment/label/card/notification terms and descriptive undo wording. Full software phrasing is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "card-delete-notice",
+    "before": "Löschen kann nicht rückgängig gemacht werden. Alle Aktionen, die dieser Karte zugeordnet sind, werden ebenfalls gelöscht.",
+    "after": "Qaw'lu'DI', reH taH ghu'vam. 'echletHomvamDaq Hoch ta'mey DachIl.",
+    "reason": "Replace German/French permanent-deletion warnings with Klingon. Preserve attachment deletion permanence and inability to restore the original state; label removal from every card and destruction of its history; loss of all actions on this card; and confirmation before deleting all notification messages. Reuse repaired attachment/label/card/notification terms and descriptive undo wording. Full software phrasing is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "delete-all-notifications-confirm",
+    "before": "Êtes-vous sûr de vouloir supprimer toutes les notifications ? Cette action est irréversible.",
+    "after": "ghuHmoHmeH Hoch QInmey DaQaw' DaneHbej'a'? Qu'vam ta'lu'DI', ghu' wa'DIch cheghmoHlaH pagh.",
+    "reason": "Replace German/French permanent-deletion warnings with Klingon. Preserve attachment deletion permanence and inability to restore the original state; label removal from every card and destruction of its history; loss of all actions on this card; and confirmation before deleting all notification messages. Reuse repaired attachment/label/card/notification terms and descriptive undo wording. Full software phrasing is assembled, low confidence, and needs fluent-speaker validation."
   }
 ]
