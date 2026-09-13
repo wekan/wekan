@@ -83410,5 +83410,68 @@
     "before": "Tas de Node : taille totale du tas",
     "after": "Heap bu Node: réyaayu heap bi yépp",
     "reason": "Replace French memory metric labels with Wolof framing; preserve Node, heap, RSS/resident-set technical names and external/allocated-total/actually-used distinctions rather than translating heap as ordinary pile. Memory loanword and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "Node_heap_total_heap_size_executable",
+    "before": "Tas de Node : taille totale du tas exécutable",
+    "after": "Heap bu Node: réyaayu heap bi man a dox yépp",
+    "reason": "Replace French heap metric labels with Wolof framing; retain Node/heap/malloc/does_zap_garbage/native contexts/detached contexts API names and executable/physical/available/limit/current-versus-peak distinctions. Memory loanwords and metric sentence grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "Node_heap_total_physical_size",
+    "before": "Tas de Node : taille totale physique",
+    "after": "Heap bu Node: réyaayu memwaar fizik bi yépp",
+    "reason": "Replace French heap metric labels with Wolof framing; retain Node/heap/malloc/does_zap_garbage/native contexts/detached contexts API names and executable/physical/available/limit/current-versus-peak distinctions. Memory loanwords and metric sentence grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "Node_heap_total_available_size",
+    "before": "Tas de Node : taille totale disponible",
+    "after": "Heap bu Node: réyaayu memwaar bi des ngir jëfandikoo yépp",
+    "reason": "Replace French heap metric labels with Wolof framing; retain Node/heap/malloc/does_zap_garbage/native contexts/detached contexts API names and executable/physical/available/limit/current-versus-peak distinctions. Memory loanwords and metric sentence grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "Node_heap_heap_size_limit",
+    "before": "Tas de Node : limite de taille du tas",
+    "after": "Heap bu Node: kemu réyaayu heap bi",
+    "reason": "Replace French heap metric labels with Wolof framing; retain Node/heap/malloc/does_zap_garbage/native contexts/detached contexts API names and executable/physical/available/limit/current-versus-peak distinctions. Memory loanwords and metric sentence grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "Node_heap_malloced_memory",
+    "before": "Tas de Node : mémoire allouée par malloc",
+    "after": "Heap bu Node: memwaar bi malloc jagleel",
+    "reason": "Replace French heap metric labels with Wolof framing; retain Node/heap/malloc/does_zap_garbage/native contexts/detached contexts API names and executable/physical/available/limit/current-versus-peak distinctions. Memory loanwords and metric sentence grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Tas de Node : mémoire maximale allouée par malloc",
+    "after": "Heap bu Node: memwaar bi malloc jagleel bi gën a bari",
+    "reason": "Replace French heap metric labels with Wolof framing; retain Node/heap/malloc/does_zap_garbage/native contexts/detached contexts API names and executable/physical/available/limit/current-versus-peak distinctions. Memory loanwords and metric sentence grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Tas de Node : Utilise l'option does_zap_garbage",
+    "after": "Heap bu Node: jëfandikoo tànneef does_zap_garbage",
+    "reason": "Replace French heap metric labels with Wolof framing; retain Node/heap/malloc/does_zap_garbage/native contexts/detached contexts API names and executable/physical/available/limit/current-versus-peak distinctions. Memory loanwords and metric sentence grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "Node_heap_number_of_native_contexts",
+    "before": "Tas de Node : nombre de contexte natifs",
+    "after": "Heap bu Node: limu native contexts",
+    "reason": "Replace French heap metric labels with Wolof framing; retain Node/heap/malloc/does_zap_garbage/native contexts/detached contexts API names and executable/physical/available/limit/current-versus-peak distinctions. Memory loanwords and metric sentence grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "Node_heap_number_of_detached_contexts",
+    "before": "Tas de Node : nombre de contexte détachés",
+    "after": "Heap bu Node: limu detached contexts",
+    "reason": "Replace French heap metric labels with Wolof framing; retain Node/heap/malloc/does_zap_garbage/native contexts/detached contexts API names and executable/physical/available/limit/current-versus-peak distinctions. Memory loanwords and metric sentence grammar remain low confidence."
   }
 ]
