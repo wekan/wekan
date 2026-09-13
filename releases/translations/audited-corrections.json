@@ -89535,5 +89535,40 @@
     "before": "Si une erreur survient en important le tableau, il se peut que l'import ait fonctionné, et que le tableau se trouve sur la page \"Tous les tableaux\".",
     "after": "If pöls jenons dü nüveigam taba, nüveigam sotimo nog plöpon, e tab binon su pad: «Tabs valik».",
     "reason": "Repair French imported-member mapping text, defective import/member terminology, and Esperanto All Boards destination. Describe mapping as linking imported members to existing users; preserve skip-now/map-later, unmapped-current-user fallback, desired member selection, review action and possible successful import despite errors. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf and existing WeKan terms (yümön connect, liman member, geban user, nüveigön import); import.jade confirms mapping controls/fallback-note context. Software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "export-card-excel-no-disk-space",
+    "before": "Impossible d'exporter vers Excel : espace disque insuffisant",
+    "after": "Seveigön lü Excel binon nemögik: spad livik su disk no binon saidik",
+    "reason": "Repair French export/import instructions and Esperanto menu/export labels. Preserve insufficient-free-disk-space error, downloaded-file copy action and ordered navigation; WeKan instruction uses the exact repaired local menu/export labels, while Trello navigation names stay as supplied by the English source. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests feapladön (computer download) and existing copy/export/file vocabulary; https://www.xn--volapk-7ya.com/volapuk-vifik-04.html attests saidik. Descriptive menu adaptation, borrowed computer disk term and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "menu",
+    "before": "Menuo",
+    "after": "Lised välas",
+    "reason": "Repair French export/import instructions and Esperanto menu/export labels. Preserve insufficient-free-disk-space error, downloaded-file copy action and ordered navigation; WeKan instruction uses the exact repaired local menu/export labels, while Trello navigation names stay as supplied by the English source. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests feapladön (computer download) and existing copy/export/file vocabulary; https://www.xn--volapk-7ya.com/volapuk-vifik-04.html attests saidik. Descriptive menu adaptation, borrowed computer disk term and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "export-board",
+    "before": "Bodi ekavön",
+    "after": "Seveigön tabi",
+    "reason": "Repair French export/import instructions and Esperanto menu/export labels. Preserve insufficient-free-disk-space error, downloaded-file copy action and ordered navigation; WeKan instruction uses the exact repaired local menu/export labels, while Trello navigation names stay as supplied by the English source. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests feapladön (computer download) and existing copy/export/file vocabulary; https://www.xn--volapk-7ya.com/volapuk-vifik-04.html attests saidik. Descriptive menu adaptation, borrowed computer disk term and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "import-board-instruction-wekan",
+    "before": "Dans votre tableau, allez dans 'Menu', puis 'Exporter un tableau', et copier le texte du fichier téléchargé.",
+    "after": "Su tab olik, maifükolös «Lised välas», täno «Seveigön tabi», e kopiedolös vödemi in nüned pefeapladöl.",
+    "reason": "Repair French export/import instructions and Esperanto menu/export labels. Preserve insufficient-free-disk-space error, downloaded-file copy action and ordered navigation; WeKan instruction uses the exact repaired local menu/export labels, while Trello navigation names stay as supplied by the English source. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests feapladön (computer download) and existing copy/export/file vocabulary; https://www.xn--volapk-7ya.com/volapuk-vifik-04.html attests saidik. Descriptive menu adaptation, borrowed computer disk term and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "import-board-instruction-trello",
+    "before": "Dans votre tableau Trello, allez sur 'Menu', puis sur 'Plus', 'Imprimer et exporter', 'Exporter en JSON' et copiez le texte du résultat",
+    "after": "Su tab olik Trello, maifükolös «Menu», täno «More», «Print and Export», «Export JSON», e kopiedolös vödemi pegetöl.",
+    "reason": "Repair French export/import instructions and Esperanto menu/export labels. Preserve insufficient-free-disk-space error, downloaded-file copy action and ordered navigation; WeKan instruction uses the exact repaired local menu/export labels, while Trello navigation names stay as supplied by the English source. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests feapladön (computer download) and existing copy/export/file vocabulary; https://www.xn--volapk-7ya.com/volapuk-vifik-04.html attests saidik. Descriptive menu adaptation, borrowed computer disk term and assembled wording remain low confidence; no native-speaker verification."
   }
 ]
