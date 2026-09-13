@@ -1113,9 +1113,9 @@ without release metadata become explicitly synthetic releases. Offline menu,
 API, archive, retry, settings and platform regressions pass. The full Node run
 passes 1,011 suites with zero failures. Native relative attachment links are
 resolved against their original forge
-([083a28c4f](https://github.com/wekan/wekan/commit/083a28c4f)); local archive
+([preserve native attachment links](https://github.com/wekan/wekan/commit/083a28c4f)); local archive
 failures still allow every destination to attempt supported data
-([63f41589d](https://github.com/wekan/wekan/commit/63f41589d)), with the final
+([continue after archive failures](https://github.com/wekan/wekan/commit/63f41589d)), with the final
 retry regression also passing. Design and commands
 are documented in releases/mirror.md. No live synchronization was run.
 
