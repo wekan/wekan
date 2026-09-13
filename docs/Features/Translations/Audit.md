@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,566 |
+| Corrected | 12,569 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,280 |
+| Pending review or repair | 3,277 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,140** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,149** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `8fe98ec4f8bd393dd4a5fdfb7b356849f853d2a6` — three Volapük Buddhist, Coptic and Minguo calendar labels repaired with dictionary-supported vocabulary and the source proper name. Full labels need native-speaker validation.
+Latest translation fix: **2026-09-13**, local commit `4b75fe8dfa93c52eb1bc70d56c4675fbe321b157` — nine Volapük recovery and repository strings repaired, including six unflagged related values. Repository borrowing and orphan metaphor remain low confidence; native-speaker review required.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
