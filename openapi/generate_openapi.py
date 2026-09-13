@@ -618,6 +618,34 @@ class SchemaProperty(object):
                                 except TypeError:
                                     return None
 
+                                # Meteor modules also import schema constants via
+                                # const { NAME } = require('/imports/lib/module').
+                                # Resolve only static module paths and declarations;
+                                # never execute imported JavaScript.
+                                if (elem.type == 'VariableDeclarator' and
+                                    elem.id.type == 'ObjectPattern' and
+                                    elem.init and elem.init.type == 'CallExpression' and
+                                    elem.init.callee.name == 'require' and
+                                    len(elem.init.arguments) == 1 and
+                                    elem.init.arguments[0].type == 'Literal'):
+                                    for prop in elem.id.properties:
+                                        if prop.value.name != match:
+                                            continue
+                                        module = elem.init.arguments[0].value
+                                        if not isinstance(module, str) or not module.startswith(('/', '.')):
+                                            return None
+                                        if module.startswith('/'):
+                                            script_dir = os.path.dirname(os.path.realpath(__file__))
+                                            module_path = os.path.join(script_dir, '..', module.lstrip('/'))
+                                        else:
+                                            module_path = os.path.join(os.path.dirname(context.path), module)
+                                        module_path = os.path.abspath(module_path)
+                                        if not module_path.endswith('.js'):
+                                            module_path += '.js'
+                                        if module_path not in imports:
+                                            imports[module_path] = parse_file(module_path)
+                                        return find_variable(imports[module_path].program.body, prop.key.name)
+
                                 if (elem.type == 'VariableDeclarator' and
                                    elem.id.name == match):
                                     return elem
@@ -956,7 +984,7 @@ class Schemas(object):
 def downlevel_js(data):
     '''Rewrite a few ES2020+ constructs that the (unmaintained, ES2017-era)
     esprima Python parser cannot handle into equivalent older forms, so the AST
-    can still be extracted. Replacements are length-neutral per line and never
+    can still be extracted. Most replacements are length-neutral and never
     add or remove newlines, so reported line numbers stay accurate for JSDoc and
     route matching.
 
@@ -974,6 +1002,9 @@ def downlevel_js(data):
     the whole Boards API - was missing from the generated wekan.yml until the
     rewrite below was added (tests/openapiParsesEveryRouteFile.test.cjs).
     '''
+    # Property escapes only affect runtime regexp matching, not schema ASTs.
+    # Esprima predates them; keep regexp syntax parseable without executing it.
+    data = re.sub(r'\\[pP]\{[^}\n]+\}', '.', data)
     data = data.replace('?.(', '  (')
     data = data.replace('?.[', '  [')
     data = data.replace('?.', ' .')

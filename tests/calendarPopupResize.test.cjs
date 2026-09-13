@@ -58,6 +58,8 @@ const moveEvent = { ...event, target: title };
 events['pointerdown .header'](moveEvent, tpl);
 events['pointermove .header']({ ...moveEvent, clientX: 700, clientY: 700 }, tpl);
 assert.equal(element.style.left, '340px');
+assert.equal(element.style['inset-inline-start'], 'auto', 'logical anchor must not constrain physical dragging');
+assert.equal(element.style['inset-inline-end'], 'auto', 'RTL anchor must also be cleared before dragging');
 assert.equal(element.style.top, '112px');
 events['pointermove .header']({ ...moveEvent, pointerId: 3, clientX: 100 }, tpl);
 assert.equal(element.style.left, '340px', 'unrelated pointers cannot move the popup');

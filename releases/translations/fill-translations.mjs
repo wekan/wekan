@@ -82,9 +82,27 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // needs a different word. Keep those exceptions per locale; putting them in the
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
+  // Locale-specific shared vocabulary, not exemptions for English prose.
+  da: new Set(['color-orange', 'computer', 'export-card-attachment-type', 'team',
+    'type', 'Database', 'layout', 'teams', 'links-heading', 'stats-scope',
+    'support', 'supportPopup-title', 'start', 'stop', 'log']),
+  ro: new Set(['card']),
+  'ro-RO': new Set(['card']),
+  rup: new Set(['color-indigo', 'color-magenta']),
+  lld: new Set(['move-progress-file']),
+  nap: new Set(['move-progress-file']),
+  gl: new Set(['predicate-selector']),
   bs: new Set(['server']),
   sq: new Set(['color-indigo', 'color-magenta', 'email', 'normal', 'private']),
 };
+
+// Exact reviewed shared terms must not be offered for machine filling again.
+// Matching a key alone is insufficient: require the reviewed value to equal
+// the current English source. Ordinary translated prose is never exempted.
+const reviewedSourceTerms = new Set((readJson(
+  'releases/translations/audited-reviews.json',
+) || []).filter(row => row.value === en[row.key])
+  .map(row => `${row.locale}:${row.key}`));
 
 // Values that intentionally stay identical in every language are complete, not
 // placeholders that a translator can or should change. Keep this exact: a
@@ -99,7 +117,7 @@ const isInvariantSource = value => {
   return /^(Meteor|Node|MongoDB.*|OAuth2|LDAP|CAS|GridFS|Arial|Gantt|Frappe Gantt|DHTMLX Gantt|S3.*|CollectionFS|Google Cloud Storage\.?|Azure Blob.*|Meteor-Files|Microsoft Azure Blob Storage\.?|MongoDB Compact|Bytes|URL|Logo|Cron|OS|Platform|USA|Asia|OK|Planning Poker|API|Bigboard|Google|GitHub|Facebook|X \(Twitter\)|Meteor Developer|Weibo|Meetup)$/.test(value);
 };
 const isInvariantForLocale = (code, key) =>
-  isInvariantSource(en[key]) || Boolean(LOCALE_INVARIANTS[code]?.has(key));
+  isInvariantSource(en[key]) || Boolean(LOCALE_INVARIANTS[code]?.has(key)) || reviewedSourceTerms.has(`${code}:${key}`);
 
 function langFile(code) { return path.join(DATA_DIR, `${code}.i18n.json`); }
 
@@ -170,7 +188,7 @@ if (mode === '--apply') {
   for (const [k, v] of Object.entries(t)) {
     if (!(k in en)) { ignored++; continue; }              // not a real key
     if (typeof v !== 'string' || !v.trim() || v === en[k]) { ignored++; continue; }
-    if (!isPlaceholder(j, k)) { skippedHuman++; continue; } // never overwrite a human translation
+    if (!isPlaceholder(j, k) || isInvariantForLocale(code, k)) { skippedHuman++; continue; } // never overwrite a human translation
     j[k] = v; filled++;
   }
   writeOrdered(langFile(code), j);

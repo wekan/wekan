@@ -1060,5 +1060,11 @@
     "key": "computer",
     "value": "Computer",
     "reason": "Retained as a valid Sardinian technical borrowing. https://sc.wikipedia.org/wiki/Computer uses computer in actual Sardinian article prose (Unu computer), alongside elaboradore and carculadore. Matching English alone does not make this existing translation wrong; capitalization suits the standalone UI label."
+  },
+  {
+    "locale": "an",
+    "key": "r-items-list",
+    "value": "elemento1,elemento2,elemento3",
+    "reason": "Restore original Aragonese elemento examples: identical Romance spelling did not justify replacing them with English item examples. Three numbered comma-separated native elements are preserved. Supersedes the mistaken correction inventory row; the regression introduced by item1 is repaired, not hidden. Aragonario uses elemento in native definitions: https://aragonario.aragon.es/words/1372614/."
   }
 ]

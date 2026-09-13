@@ -321,7 +321,8 @@ assert.equal(data['r-email-vars-hint'], 'Etiquetas disponibles: {card}, {cardLin
 assert.match(data['r-import-unmapped'], /correspondencia de __count__ linia\(s\)/);
 assert.equal(data['r-import-workflow'], 'Importar fluxo de treballo visual');
 assert.equal(data['r-items-check'], 'elementos d’a lista de comprobación');
-assert.equal(data['r-items-list'], 'item1,item2,item3');
+// Shared native elemento was wrongly replaced with English item during auditing.
+assert.equal(data['r-items-list'], 'elemento1,elemento2,elemento3');
 assert.equal(data['r-of-checklist'], data['r-d-check-of-list']);
 assert.equal(data['r-schedule-weekday'], 'Cada día de lunes a viernes');
 assert.equal(data['r-w-label-added'], 'S’adhibe qualsiquier etiqueta');

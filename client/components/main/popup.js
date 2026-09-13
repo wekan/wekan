@@ -31,6 +31,9 @@ Popup.template.events({
     evt.preventDefault(); evt.stopPropagation();
     const left = Math.max(12, Math.min(window.innerWidth - drag.width - 12, drag.left + evt.clientX - drag.x));
     const top = Math.max(12, Math.min(window.innerHeight - drag.height - 12, drag.top + evt.clientY - drag.y));
+    // Dragging uses physical pointer coordinates in either text direction.
+    drag.element.style.setProperty('inset-inline-start', 'auto', 'important');
+    drag.element.style.setProperty('inset-inline-end', 'auto', 'important');
     drag.element.style.setProperty('left', `${left}px`, 'important');
     drag.element.style.setProperty('top', `${top}px`, 'important');
   },

@@ -59,12 +59,24 @@ test('the generated spec parses as YAML (python3 + PyYAML, when available)', () 
   assert.strictEqual(gen.status, 0, `generator failed: ${gen.stderr.slice(0, 500)}`);
   fs.writeFileSync(yml, gen.stdout);
   assert.ok(!/unknown type object/.test(gen.stderr), 'no "unknown type object" warnings');
+  const { CALENDAR_SYSTEM_IDS } = require('../imports/lib/calendarSystems');
   const check = spawnSync('python3', ['-c', [
     'import sys, yaml',
     `d = yaml.safe_load(open(${JSON.stringify(yml)}))`,
     "p = d['paths']['/api/boards/{board}/charts/{chartKey}/exportPDF']['get']['parameters']",
     "ck = [x for x in p if x['name'] == 'chartKey'][0]",
     "assert 'controlChart' in ck['description'] and 'time' in ck['description'], ck",
+    'def calendar_fields(value):',
+    '    if isinstance(value, dict):',
+    "        if 'calendarSystem' in value: yield value['calendarSystem']",
+    '        for child in value.values(): yield from calendar_fields(child)',
+    '    elif isinstance(value, list):',
+    '        for child in value: yield from calendar_fields(child)',
+    'fields = list(calendar_fields(d))',
+    'assert fields, "calendar schema was silently skipped"',
+    `expected = ${JSON.stringify(CALENDAR_SYSTEM_IDS)}`,
+    'assert all(field.get("enum") == expected for field in fields), fields',
+    'assert "gregory" not in expected and "persian" not in expected',
     "print('ok', len(d['paths']))",
   ].join('\n')], { encoding: 'utf8' });
   assert.strictEqual(check.status, 0, `generated wekan.yml does not parse: ${check.stderr.slice(0, 600)}`);

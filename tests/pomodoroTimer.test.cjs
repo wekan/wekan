@@ -175,7 +175,8 @@ for (const f of locales) {
 
   for (const k of newKeys) {
     assert.ok(k in locale, `${f}: missing new key "${k}"`);
-    assert.notEqual(locale[k], en[k],
+    // The reviewed Galician method name is intentionally Pomodoro.
+    if (!(f === 'gl.i18n.json' && k === 'pomodoro')) assert.notEqual(locale[k], en[k],
       `${f}: "${k}" must be a real translation, not left equal to English`);
     assert.deepEqual(tokensOf(locale[k]), tokensOf(en[k]),
       `${f}: "${k}" placeholder inventory must match English exactly`);

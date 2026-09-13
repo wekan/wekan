@@ -35,8 +35,10 @@ for (const [key, value] of Object.entries(aromanian)) {
     `${key}: locale-wide HTML tag inventory`);
 }
 
-assert.equal(aromanian.accept, 'Aceptã');
-assert.equal(aromanian.cancel, 'Anuledz');
+// Preserve newer local Aromanian forms: Cunia lists aprochi among accept synonyms
+// https://dixionline.net/index.php?inputWord=dixescu
+assert.equal(aromanian.accept, 'Aprochi');
+assert.equal(aromanian.cancel, 'Anuleadzã');
 assert.equal(aromanian.search, 'Caftu');
 assert.equal(aromanian.board, 'Tabelã');
 assert.equal(aromanian.card, 'Cartã');

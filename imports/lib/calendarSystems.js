@@ -2,15 +2,18 @@
 
 // Unicode calendar identifiers implemented by Intl. Keep the existing profile
 // names for Gregorian and Jalali so saved preferences remain compatible.
-const CALENDAR_SYSTEMS = [
-  { value: 'gregorian', intl: 'gregory' },
-  { value: 'jalali', intl: 'persian' },
-  ...['buddhist', 'chinese', 'coptic', 'dangi', 'ethioaa', 'ethiopic',
-    'hebrew', 'indian', 'islamic', 'islamic-civil', 'islamic-rgsa',
-    'islamic-tbla', 'islamic-umalqura', 'iso8601', 'japanese', 'roc']
-    .map(value => ({ value, intl: value })),
-].map(system => ({ ...system, labelKey: `calendar-system-${system.value}` }));
-const CALENDAR_SYSTEM_IDS = CALENDAR_SYSTEMS.map(system => system.value);
+// Keep identifiers as a static array so API schema extraction can resolve
+// the same allowed values that runtime validation uses.
+const CALENDAR_SYSTEM_IDS = [
+  'gregorian', 'jalali', 'buddhist', 'chinese', 'coptic', 'dangi',
+  'ethioaa', 'ethiopic', 'hebrew', 'indian', 'islamic', 'islamic-civil',
+  'islamic-rgsa', 'islamic-tbla', 'islamic-umalqura', 'iso8601', 'japanese', 'roc',
+];
+const CALENDAR_SYSTEMS = CALENDAR_SYSTEM_IDS.map(value => ({
+  value,
+  intl: value === 'gregorian' ? 'gregory' : value === 'jalali' ? 'persian' : value,
+  labelKey: `calendar-system-${value}`,
+}));
 
 function supportsCalendar(calendar) {
   try {

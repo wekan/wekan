@@ -440,7 +440,7 @@
 .pop-over:has(.edit-date) {
   position: fixed;
   top: 12px !important;
-  left: max(12px, calc(50vw - 200px)) !important;
+  inset-inline-start: max(12px, calc(50% - 200px)) !important;
   box-sizing: border-box;
   width: min(400px, calc(100vw - 24px)) !important;
   height: auto !important;
@@ -516,7 +516,7 @@
 .pop-over:has(.edit-date) > .js-date-popup-resize {
   display: block;
   position: absolute;
-  right: 0;
+  inset-inline-end: 0;
   bottom: 0;
   z-index: 20;
   width: 20px;
@@ -529,6 +529,11 @@
   color: inherit;
   cursor: nwse-resize;
   touch-action: none;
+}
+/* The requested resize grip stays at the physical bottom-right in RTL too. */
+html[dir='rtl'] .pop-over:has(.edit-date) > .js-date-popup-resize {
+  inset-inline-start: 0;
+  inset-inline-end: auto;
 }
 .pop-over:has(.edit-date) > .js-date-popup-resize:focus-visible {
   outline: 2px solid currentColor;

@@ -8,7 +8,8 @@ assert.equal(result.status, 0, result.stderr);
 assert.equal(result.stdout, '{}\n');
 const locale = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/da.i18n.json'), 'utf8'));
 assert.equal(locale.status, 'Tilstand');
-assert.equal(locale.Database, 'Datalager');
+// Database is the valid Danish noun (Den Danske Ordbog), not an English gap.
+assert.equal(locale.Database, 'Database');
 assert.equal(locale.backup, 'Sikkerhedskopi');
 assert.match(locale['office-report-desc'], /IPv4.*IPv6/);
 assert.match(locale['api-no-calls'], /REST API.*WITH_API=true/);

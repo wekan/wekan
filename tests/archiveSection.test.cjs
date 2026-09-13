@@ -98,13 +98,13 @@ test('and each tile says when it was archived', () => {
   const at = js.indexOf('archivedAtText() {');
   assert.notStrictEqual(at, -1, 'the helper exists');
   const body = js.slice(at, js.indexOf('\n  },', at));
-  assert.ok(/formatDateByUserPreference\(this\.archivedAt\)/.test(body),
-    "in the reader's own date format");
+  assert.ok(/formatDateForDisplay\(this\.archivedAt\)/.test(body),
+    "in the reader's selected calendar and date format");
   // `archivedAt` was added after boards existed, so an older archived board has
   // none - and a missing date must not render as "Invalid Date".
   assert.ok(/if \(!this\.archivedAt\) return/.test(body),
     'a board archived before the field existed shows a dash, not Invalid Date');
-  assert.ok(/from '\/imports\/lib\/dateUtils'/.test(js),
+  assert.ok(/import \{ formatDateForDisplay \} from '\/client\/lib\/dateDisplay'/.test(js),
     'and the formatter is imported, or the helper throws at render');
 });
 

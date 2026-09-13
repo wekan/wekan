@@ -2311,7 +2311,7 @@
   "backup-restore-select-first": "Selecciona primeiro un backup da lista.",
   "backup-restore-confirm": "Restaurar o backup seleccionado? Os anexos/avatares escríbense no sistema de ficheiros e os datos na base de datos segundo o modo escollido.",
   "gcs-project-id": "ID do proxecto",
-  "gcs-bucket": "Bucket",
+  "gcs-bucket": "Depósito",
   "gcs-key-filename": "Ruta do ficheiro de clave da conta de servizo",
   "gcs-key-filename-description": "Opcional: ruta a un ficheiro de clave JSON de conta de servizo no servidor.",
   "gcs-credentials": "Credenciais da conta de servizo (JSON)",

@@ -45620,13 +45620,6 @@
   },
   {
     "locale": "an",
-    "key": "r-items-list",
-    "before": "elemento1,elemento2,elemento3",
-    "after": "item1,item2,item3",
-    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
-  },
-  {
-    "locale": "an",
     "key": "r-of-checklist",
     "before": "de la lista de verificación",
     "after": "d’a lista de comprobación",
@@ -94806,5 +94799,12 @@
     "before": "Bitte kontaktieren Sie den Administrator um Teams anlegen zu lassen.",
     "after": "ghommey DachenmoHmeH, che'wI' yIrI'.",
     "reason": "Replace German account activation, last-administrator and team-creation messages. Reviewed peopleBody.jade active-status branches and sidebar.jade last-admin role popup. Preserve activated/deactivated states and opposite click actions, required administrator before role change, and administrator contact for creating teams. Reuse existing che'wI', patlhmey, ghom and corresponding organization contact wording. Borrowed account and complete software phrases are low confidence and need fluent-speaker validation; source tokens preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "gcs-bucket",
+    "before": "Bucket",
+    "after": "Depósito",
+    "reason": "Replace remaining English storage Bucket with Depósito, matching the already reviewed gl-ES terminology. Specific node-suite repair; preserve existing other Galician translations and source tokens. Broader translation audit remains paused."
   }
 ]
