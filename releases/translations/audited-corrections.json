@@ -91978,5 +91978,68 @@
     "before": "Republic of China",
     "after": "Kaled Minguo",
     "reason": "Replace English calendar label using existing Volapük Kaled terminology. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests budik (Buddhist adjective) and koptan (Copt); Coptic phrased as calendar of the Copts with plural genitive koptanas. Minguo preserved as the proper calendar name from English source. Assembled labels require native-speaker validation; vocabulary attestation alone is not phrase validation."
+  },
+  {
+    "locale": "vo",
+    "key": "step-fix-orphaned-cards",
+    "before": "Corriger les cartes orphelines",
+    "after": "Verätükön kadis nenpalöl",
+    "reason": "Replace French legacy recovery/repository wording, including related unflagged values. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nenpalön (be an orphan) and gebidik (available); other verbs follow dictionary-based local correct/create/find/update terminology and MediaWiki Volapük login/upload usage. Repo/Repos is a technical borrowing, not independently dictionary-attested; orphan participle is a software metaphor. Assembled wording remains low confidence and needs native-speaker review. No removed legacy migration functionality restored."
+  },
+  {
+    "locale": "vo",
+    "key": "available-repositories",
+    "before": "Dépôts disponibles",
+    "after": "Repos gebidik",
+    "reason": "Replace French legacy recovery/repository wording, including related unflagged values. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nenpalön (be an orphan) and gebidik (available); other verbs follow dictionary-based local correct/create/find/update terminology and MediaWiki Volapük login/upload usage. Repo/Repos is a technical borrowing, not independently dictionary-attested; orphan participle is a software metaphor. Assembled wording remains low confidence and needs native-speaker review. No removed legacy migration functionality restored."
+  },
+  {
+    "locale": "vo",
+    "key": "repositories",
+    "before": "Dépôts",
+    "after": "Repos",
+    "reason": "Replace French legacy recovery/repository wording, including related unflagged values. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nenpalön (be an orphan) and gebidik (available); other verbs follow dictionary-based local correct/create/find/update terminology and MediaWiki Volapük login/upload usage. Repo/Repos is a technical borrowing, not independently dictionary-attested; orphan participle is a software metaphor. Assembled wording remains low confidence and needs native-speaker review. No removed legacy migration functionality restored."
+  },
+  {
+    "locale": "vo",
+    "key": "repository",
+    "before": "Dépôt",
+    "after": "Repo",
+    "reason": "Replace French legacy recovery/repository wording, including related unflagged values. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nenpalön (be an orphan) and gebidik (available); other verbs follow dictionary-based local correct/create/find/update terminology and MediaWiki Volapük login/upload usage. Repo/Repos is a technical borrowing, not independently dictionary-attested; orphan participle is a software metaphor. Assembled wording remains low confidence and needs native-speaker review. No removed legacy migration functionality restored."
+  },
+  {
+    "locale": "vo",
+    "key": "repository-name",
+    "before": "Nom du dépôt",
+    "after": "Nem ela Repo",
+    "reason": "Replace French legacy recovery/repository wording, including related unflagged values. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nenpalön (be an orphan) and gebidik (available); other verbs follow dictionary-based local correct/create/find/update terminology and MediaWiki Volapük login/upload usage. Repo/Repos is a technical borrowing, not independently dictionary-attested; orphan participle is a software metaphor. Assembled wording remains low confidence and needs native-speaker review. No removed legacy migration functionality restored."
+  },
+  {
+    "locale": "vo",
+    "key": "no-repositories",
+    "before": "Aucun dépôt trouvé",
+    "after": "Repos nonik petuvons",
+    "reason": "Replace French legacy recovery/repository wording, including related unflagged values. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nenpalön (be an orphan) and gebidik (available); other verbs follow dictionary-based local correct/create/find/update terminology and MediaWiki Volapük login/upload usage. Repo/Repos is a technical borrowing, not independently dictionary-attested; orphan participle is a software metaphor. Assembled wording remains low confidence and needs native-speaker review. No removed legacy migration functionality restored."
+  },
+  {
+    "locale": "vo",
+    "key": "create-repository",
+    "before": "Créer un dépôt",
+    "after": "Jafön Repo",
+    "reason": "Replace French legacy recovery/repository wording, including related unflagged values. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nenpalön (be an orphan) and gebidik (available); other verbs follow dictionary-based local correct/create/find/update terminology and MediaWiki Volapük login/upload usage. Repo/Repos is a technical borrowing, not independently dictionary-attested; orphan participle is a software metaphor. Assembled wording remains low confidence and needs native-speaker review. No removed legacy migration functionality restored."
+  },
+  {
+    "locale": "vo",
+    "key": "upload-repository",
+    "before": "Téléverser/Mettre à jour le dépôt",
+    "after": "Löpükön/Nulükön Repo",
+    "reason": "Replace French legacy recovery/repository wording, including related unflagged values. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nenpalön (be an orphan) and gebidik (available); other verbs follow dictionary-based local correct/create/find/update terminology and MediaWiki Volapük login/upload usage. Repo/Repos is a technical borrowing, not independently dictionary-attested; orphan participle is a software metaphor. Assembled wording remains low confidence and needs native-speaker review. No removed legacy migration functionality restored."
+  },
+  {
+    "locale": "vo",
+    "key": "sign-in-to-upload",
+    "before": "Connectez-vous pour téléverser des dépôts",
+    "after": "Nunädön oki ad löpükön Repos",
+    "reason": "Replace French legacy recovery/repository wording, including related unflagged values. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nenpalön (be an orphan) and gebidik (available); other verbs follow dictionary-based local correct/create/find/update terminology and MediaWiki Volapük login/upload usage. Repo/Repos is a technical borrowing, not independently dictionary-attested; orphan participle is a software metaphor. Assembled wording remains low confidence and needs native-speaker review. No removed legacy migration functionality restored."
   }
 ]
