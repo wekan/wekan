@@ -111487,5 +111487,110 @@
     "before": "Seleziona tutti gli item di una lista",
     "after": "Segna tute łe vozi de na lista",
     "reason": "Replace Italian-seeded Venetian validation/help values; preserve positive-integer limit, login-link HTML, blank-field wildcard and image-only restriction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "r-d-uncheck-all",
+    "before": "Deseleziona tutti gli items di una lista",
+    "after": "Cava el segno da tute łe vozi de na lista",
+    "reason": "Replace Italian-seeded Venetian rules and shortcuts; preserve uncheck action, comma-separated example, maximum task limit and current-user assigned-card filter. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "r-items-list",
+    "before": "elemento1,elemento2,elemento3",
+    "after": "voze1,voze2,voze3",
+    "reason": "Replace Italian-seeded Venetian rules and shortcuts; preserve uncheck action, comma-separated example, maximum task limit and current-user assigned-card filter. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "r-unarchived",
+    "before": "Ripristinato/a dall'archivio",
+    "after": "Rimesso dal archivio",
+    "reason": "Replace Italian-seeded Venetian rules and shortcuts; preserve uncheck action, comma-separated example, maximum task limit and current-user assigned-card filter. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "r-when-a-label-is",
+    "before": "Quando un'etichetta viene",
+    "after": "Co na eticheta ła vien",
+    "reason": "Replace Italian-seeded Venetian rules and shortcuts; preserve uncheck action, comma-separated example, maximum task limit and current-user assigned-card filter. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "remove-background-image",
+    "before": "Rimuovere immagine di sfondo",
+    "after": "Cava ła imàjine de sfondo",
+    "reason": "Replace Italian-seeded Venetian rules and shortcuts; preserve uncheck action, comma-separated example, maximum task limit and current-user assigned-card filter. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "remove-cover",
+    "before": "Rimuovere immagine di copertina da minicard",
+    "after": "Cava ła imàjine de covertina da ła scheda picenina",
+    "reason": "Replace Italian-seeded Venetian rules and shortcuts; preserve uncheck action, comma-separated example, maximum task limit and current-user assigned-card filter. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "search-example",
+    "before": "Scrivere il testo da ricercare e premere Invio",
+    "after": "Scrivi el testo da sercar e struca Invio",
+    "reason": "Replace Italian-seeded Venetian rules and shortcuts; preserve uncheck action, comma-separated example, maximum task limit and current-user assigned-card filter. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "send-smtp-test",
+    "before": "Invia un'email di test a te stesso",
+    "after": "Manda na email de prova a ti stesso",
+    "reason": "Replace Italian-seeded Venetian rules and shortcuts; preserve uncheck action, comma-separated example, maximum task limit and current-user assigned-card filter. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "set-wip-limit-value",
+    "before": "Seleziona un limite per il massimo numero di attività in questa lista",
+    "after": "Inposta un łimite par el nùmaro màsimo de conpiti inte sta lista",
+    "reason": "Replace Italian-seeded Venetian rules and shortcuts; preserve uncheck action, comma-separated example, maximum task limit and current-user assigned-card filter. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "setWipLimitPopup-title",
+    "before": "Imposta limite Work In Progress",
+    "after": "Inposta el łimite WIP",
+    "reason": "Replace Italian-seeded Venetian rules and shortcuts; preserve uncheck action, comma-separated example, maximum task limit and current-user assigned-card filter. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "settingsTranslationPopup-title",
+    "before": "Rimuovere stringa di traduzione personalizzata?",
+    "after": "Scancełar sta stringa de tradusion personałizà?",
+    "reason": "Replace Italian-seeded Venetian rules and shortcuts; preserve uncheck action, comma-separated example, maximum task limit and current-user assigned-card filter. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "shortcut-close-dialog",
+    "before": "Chiudi finestra di dialogo",
+    "after": "Sera ła finestra de diàlogo",
+    "reason": "Replace Italian-seeded Venetian rules and shortcuts; preserve uncheck action, comma-separated example, maximum task limit and current-user assigned-card filter. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "shortcut-filter-my-assigned-cards",
+    "before": "Filtro le carte assegnate",
+    "after": "Filtra łe schede asegnà a mi",
+    "reason": "Replace Italian-seeded Venetian rules and shortcuts; preserve uncheck action, comma-separated example, maximum task limit and current-user assigned-card filter. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "shortcut-show-shortcuts",
+    "before": "Apri questa lista di scorciatoie",
+    "after": "Verzi sta lista de scurtatoie",
+    "reason": "Replace Italian-seeded Venetian rules and shortcuts; preserve uncheck action, comma-separated example, maximum task limit and current-user assigned-card filter. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "shortcut-toggle-filterbar",
+    "before": "Apri/chiudi la barra laterale dei filtri",
+    "after": "Verzi o sera ła bara łaterałe dei filtri",
+    "reason": "Replace Italian-seeded Venetian rules and shortcuts; preserve uncheck action, comma-separated example, maximum task limit and current-user assigned-card filter. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
