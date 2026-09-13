@@ -1298,7 +1298,7 @@ function run_all_tests(){
 		local DBPATH="../mongodb-test-$TEST_DB_PORT"
 		mkdir -p "$DBPATH"
 		echo "==> Starting MongoDB (Meteor's mongod) on :$TEST_DB_PORT, dbpath $DBPATH."
-		{ echo "===== mongod :$TEST_DB_PORT - started $(date '+%Y-%m-%d %H:%M:%S %Z') ====="; "$MONGOD_BIN" --port "$TEST_DB_PORT" --dbpath "$DBPATH" --bind_ip 127.0.0.1 --nounixsocket; } > "$RUN_LOGDIR/wekan-test-mongod.log" 2>&1 &
+		{ echo "===== mongod :$TEST_DB_PORT - started $(date '+%Y-%m-%d %H:%M:%S %Z') ====="; exec "$MONGOD_BIN" --port "$TEST_DB_PORT" --dbpath "$DBPATH" --bind_ip 127.0.0.1 --nounixsocket; } > "$RUN_LOGDIR/wekan-test-mongod.log" 2>&1 &
 		MONGOD_PID=$!
 		local db_ready=0
 		for i in $(seq 1 60); do
@@ -1347,7 +1347,7 @@ function run_all_tests(){
 	  MONGO_URL="$TEST_MONGO_URL" ROOT_URL="http://localhost:3000" PORT=3000 \
 	  WRITABLE_PATH="$WRITABLE_ABS" WITH_API=true RICHER_CARD_COMMENT_EDITOR=false \
 	  DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" \
-	  NODE_OPTIONS="$TEST_NODE_OPTIONS" "$NODE_BIN" "$BUNDLE_DIR/main.js"; } >> "$RUN_LOGDIR/wekan-test-server.log" 2>&1 &
+	  NODE_OPTIONS="$TEST_NODE_OPTIONS" exec "$NODE_BIN" "$BUNDLE_DIR/main.js"; } >> "$RUN_LOGDIR/wekan-test-server.log" 2>&1 &
 	TEST_SERVER_PID=$!
 
 	SERVER_READY=0
