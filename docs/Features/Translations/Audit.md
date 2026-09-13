@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 14,705 |
+| Corrected | 14,723 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 1,139 |
+| Pending review or repair | 1,121 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,484** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,510** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-13**, local commit `3018d5c4b` — repaired/refined **39** Veps list/card/field/checklist/archive values (**36** new records, **three** refinements), resolving **30** original findings. Preserve top/bottom and current/selected-list rules, checked/all/completed items, archive recovery, activity history and irreversible deletion. Navigation instructions match translated menu/archive headings. The dictionary distinguishes document-item `koht` from belly `koht`; correct three earlier plural stems while retaining their original before records. All **16,484** exact corrections and positive/negative actual rendering checks pass. **Low confidence:** composed kanban wording and UI inflections need fluent-speaker review. Veps has **398** pending original findings. Translation repairs remain active, including restored/unflagged and wrong-language/script validation.
+Latest translation fix: **2026-09-13**, local commit `834beb172` — repaired/refined **43** Veps role/member/assignee/selection and related values (**26** new records, **17** refinements), resolving **18** original findings. Preserve read/comment/normal permissions, assigned-only current-user visibility, board/card scopes, add versus assign, all-card member removal plus notification and numeric selection ranges. The reference table confirms passive `märitud`; all malformed `märitadud` occurrences are corrected while retaining original before records. All **16,510** exact corrections and actual positive/negative placeholder rendering checks pass. **Low confidence:** composed role/UI wording and inflections need fluent-speaker review. Veps has **380** pending original findings. Translation repairs remain active, including restored/unflagged and wrong-language/script validation.
 
 **Build interruption (2026-09-13):** local commit `6cd193879` repairs the Meteor 3.6/Rspack 2 build's undeclared body-parser import using Meteor's existing Express parsers. Seven HTTP/build regressions pass. Meteor 3.6-beta.0/Rspack 2.2 and matching Docker metadata are committed locally (`35082f7d7`), and both previously failing version checks pass. All **1,015** Node suites pass. The actual Meteor bundle build remains under verification: the local beta tool is still starting before compilation. Translation counts and the latest translation commit remain unchanged.
 
