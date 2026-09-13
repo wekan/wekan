@@ -69774,5 +69774,89 @@
     "before": "Pindah lampiran ke GridFS",
     "after": "Pinah lampiran u GridFS",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "app-is-offline",
+    "before": "Memuat, sila tunggu. Memuat-semula laman ini akan mengakibatkan kehilangan data. Jika proses memuat tidak berjaya, sila pastikan komputer pelayan berfungsi",
+    "after": "Teungoh geumuat, neupreh. Meunyoe geumuat ulang laman, data akan gadeoh. Meunyoe hana jeuet geumuat, neuperiksa server bek ka piyoh.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "app-try-reconnect",
+    "before": "Mencuba untuk sambung semula",
+    "after": "Neucuba peusambong lom.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "attachment-delete-pop",
+    "before": "Menghapus lampiran bersifat permanen. Tidak bisa dipulihkan.",
+    "after": "Meunyoe geuhapus lampiran, hana jeuet geupeuwoe lom. Hana undo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "attachment-storage-configuration",
+    "before": "Konfigurasi Storan Lampiran",
+    "after": "Peuatô teumpat keuneubah lampiran",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "automatically-field-on-card",
+    "before": "tambah ruang pada kad baru",
+    "after": "Tamah ruang u kad baro",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "badge-attachment-on-minicard",
+    "before": "Menghitung lampiran pada kartu kecil",
+    "after": "Jumlah lampiran bak kad ubit",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "board-archived",
+    "before": "Kartu ini telah dipindahkan ke Arsip",
+    "after": "Papan nyoe geupindah u Arsip.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "board-background-image-url",
+    "before": "Latar belakang gambar URL",
+    "after": "URL gamba latar likot",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "board-change-background-image",
+    "before": "Ubah latar belakang gambar",
+    "after": "Ubah gamba latar likot",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "boardChangeBackgroundImagePopup-title",
+    "before": "Ubah latar belakang gambar",
+    "after": "Ubah gamba latar likot",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "board-private-info",
+    "before": "Panel ini akan jadi  <strong>Pribadi<strong>",
+    "after": "Papan nyoe akan jeuet keu <strong>pribadi</strong>.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "board-public-info",
+    "before": "Panel ini akan jadi  <strong>Publik<strong",
+    "after": "Papan nyoe akan jeuet keu <strong>publik</strong>.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]

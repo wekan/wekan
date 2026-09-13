@@ -34,5 +34,11 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache.as['ldap-test-connection-error'], /বিফল/);
   assert.doesNotMatch(cache.as['ldap-test-connection-error'], /[\u0c00-\u0c7f]/);
   assert.doesNotMatch(cache.mk['text-contains-trigger-description'], /创/);
+  // These messages render as HTML; a second opening tag leaves following UI bold.
+  const htmlTags = value => value.match(/<\/?[A-Za-z][^>]*>/g) || [];
+  for (const key of ['board-private-info', 'board-public-info', 'add-custom-html-after-body-start', 'add-custom-html-before-body-end']) {
+    assert.deepEqual(htmlTags(cache.ace[key]), htmlTags(english[key]), `Acehnese HTML: ${key}`);
+  }
+  assert.notDeepEqual(htmlTags('<strong>publik<strong'), htmlTags(english['board-public-info']));
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
