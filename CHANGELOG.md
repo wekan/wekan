@@ -1181,6 +1181,29 @@ and updates maintainer tooling:
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7af015a56">Save GitHub mirror data directly to disk and resume after interruption</a>. Thanks to xet7.</summary>
+
+Issues, pulls, comments, reviews and releases are saved as they arrive. Persistent
+page and destination checkpoints resume interrupted synchronization and avoid
+holding all source bodies in RAM. Partial inventories preserve unfetched items.
+Verification: 38 targeted Node tests and four Chromium/Firefox offline tests pass,
+including interruption, retry, attachment navigation and a bounded-heap fixture.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/df4c049d5">Show dependency resolver commands and captured build output</a>. Thanks to xet7.</summary>
+
+Builds print Node module resolution and captured subprocess stdout/stderr to the
+terminal and build log. Preserve command status and callback results. The preceding
+<a href="https://github.com/wekan/wekan/commit/915971a89">build diagnostics change</a>
+adds npm verbose output, foreground lifecycle scripts and Meteor profiling.
+Verification: 10 targeted build test entries pass. A full Meteor build was not
+rerun for these output changes.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9aae0ee30">Show immediate build stages and progress during quiet commands</a>. Thanks to xet7.</summary>
 
 The development bundle build announces dependency/cache removal, Meteor npm
