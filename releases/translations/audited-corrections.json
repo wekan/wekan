@@ -86203,5 +86203,12 @@
     "before": "Indian national",
     "after": "རྒྱལ་ཁབ་ཀྱི་ཟླ་ཐོ (རྒྱ་གར)",
     "reason": "Replace English Indian national using national adjective རྒྱལ་ཁབ་ཀྱི from indexed official pocket dictionary https://www.dzongkha.gov.bt/uploads/files/publications/English-Dzongkha_Pocket_Dictionary_fcbe977ea0f17fa3c90a8cd9a0b6c4f1.pdf and CLDR calendar/country terminology https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/dz.xml . Assembled label remains low confidence without native-speaker verification."
+  },
+  {
+    "locale": "se",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Nationála kaleandar (India)",
+    "reason": "Replace English Indian national with Northern Sami Nationála kaleandar (India). Nationála and kaleandar documented in https://kaikki.org/frwiktionary/Same%20du%20Nord/categories-other/fU/Lemmes%20en%20same%20du%20Nord/index.html ; India in https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/se.xml . Assembled full label remains low confidence; separate full phrase not attested or native-speaker verified."
   }
 ]
