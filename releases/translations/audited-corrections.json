@@ -113160,5 +113160,12 @@
     "before": "Olet onnistuneesti lähettänyt sähköpostin",
     "after": "Sinä oled oigenu email-kirjeižen hüvin",
     "reason": "Replace Finnish/Venda Veps account/email text with native vocabulary. MediaWiki Veps attests accountcreated, kävutajan lehtpol', sinei, resetpass Tege uz' peitsana, confirmemail Vahvištoita email-počtan adres and email-počtan abul; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Dictionary kucta invite imperative kucu and oigeta send active participle oigenu: https://kaikki.org/dictionary/Veps/index.html (direct Wiktionary requests failed). LOW CONFIDENCE: composed account/site subjects and SMTP success grammar need fluent review. Reset means create a new personal password, not delete it. Preserve __siteName__ and addressed user."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "exportChartPopup-title",
+    "before": "Thumela ngaphandle",
+    "after": "Ve",
+    "reason": "Replace the unflagged Zulu chart-export title with native Veps Ve, matching the repaired export label and MediaWiki Veps export-submit terminology."
   }
 ]

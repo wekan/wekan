@@ -78,6 +78,9 @@ test('the popup has a title in every locale, taken from that locale\'s existing 
     const json = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
     assert.strictEqual(json['exportChartPopup-title'], json.export, f);
   }
+  const veps = JSON.parse(read('imports/i18n/data/ve-PP.i18n.json'));
+  assert.strictEqual(veps['exportChartPopup-title'], 'Ve', 'native Veps export command');
+  assert.notStrictEqual(veps['exportChartPopup-title'], 'Thumela ngaphandle', 'Zulu cannot seed the Veps popup');
 });
 
 test('Frappe Gantt gets translated view modes and re-translates its Today/Mode chrome', () => {
