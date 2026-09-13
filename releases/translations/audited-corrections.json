@@ -78636,5 +78636,33 @@
     "before": "a ajouté l'élément __checklistItem__ à la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
     "after": "yokk mbir __checklistItem__ ci limu bu seetlu __checklist__ ci karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
     "reason": "Replace French checklist addition/removal and checklist-item addition activity with Wolof. Distinguish checklist versus item and preserve all source placeholders, including exact case. Existing Wolof item-removal wording retained. Checklist terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-checkedItem",
+    "before": "a coché __checklistItem__ de la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "màndargaal __checklistItem__ ci limu bu seetlu __checklist__ ci karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French checklist state activity with Wolof. Distinguish marking/unmarking an item from completing/making incomplete an entire checklist, preserving every card/list/swimlane/board/item placeholder. Marking terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-uncheckedItem",
+    "before": "a décoché __checklistItem__ de la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "dindi màndarga bi ci __checklistItem__ ci limu bu seetlu __checklist__ ci karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French checklist state activity with Wolof. Distinguish marking/unmarking an item from completing/making incomplete an entire checklist, preserving every card/list/swimlane/board/item placeholder. Marking terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-completeChecklist",
+    "before": "a complété la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "jeexal limu bu seetlu __checklist__ ci karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French checklist state activity with Wolof. Distinguish marking/unmarking an item from completing/making incomplete an entire checklist, preserving every card/list/swimlane/board/item placeholder. Marking terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-uncompleteChecklist",
+    "before": "a rendu incomplet la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "defaat limu bu seetlu __checklist__ ni lu jeexul ci karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French checklist state activity with Wolof. Distinguish marking/unmarking an item from completing/making incomplete an entire checklist, preserving every card/list/swimlane/board/item placeholder. Marking terminology and full grammar remain low confidence."
   }
 ]
