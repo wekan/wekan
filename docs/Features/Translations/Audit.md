@@ -14,7 +14,7 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,057** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `08c920930051dd1afc39c1b0d8c090ac7d61b387` — 3 incomplete English Hijri variant labels replaced with Walloon, retaining tabular/sighting and civil/astronomical epoch distinctions. Walloon has no remaining original flagged values, but its replacements still require language validation; specialized calendar vocabulary and full grammar remain low confidence. Exact-value, placeholder, JSON example, HTML-tag/entity, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `595bdd256ad8fd524dbf740ac055b644602f6fce` — reviewed 2 earlier Walloon search corrections and fixed feminine plural card-creation agreement, with positive/negative regression assertions. Pending totals are unchanged because these revise existing replacements. Sources are recorded with corrections; surrounding vocabulary and full grammar remain low confidence. Exact-value, placeholder, JSON example, HTML-tag/entity, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
