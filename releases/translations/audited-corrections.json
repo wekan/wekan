@@ -90802,5 +90802,33 @@
     "before": "Réessayer les migrations échouées",
     "after": "Steifülön dönu ad dunön migradis no eplöpöl",
     "reason": "Replace audited French scheduled-job/migration status and action text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fövön (continue/resume, transitive), paudön (pause, intransitive), disinön (schedule), nuned (warning), steifülön (try), plöpön (succeed), benosek (success). Preserve start versus resume, failed versus successful operations, no eligible failed/paused migrations and clearing all errors. Express retry success as successful retry initiation rather than completed migration success; use active paudöl because pause is intransitive. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"Titre de la première carte\", \"description\":\"Description de la première carte\"}, {\"title\":\"Titre de la seconde carte\",\"description\":\"Description de la seconde carte\"},{\"title\":\"Titre de la dernière carte\",\"description\":\"Description de la dernière carte\"} ]",
+    "after": "[ {\"title\": \"Tiäd kada balid\", \"description\":\"Bepenam kada balid\"}, {\"title\":\"Tiäd kada telid\",\"description\":\"Bepenam kada telid\"},{\"title\":\"Tiäd kada lätik\",\"description\":\"Bepenam kada lätik\"} ]",
+    "reason": "Replace audited French copy-many-cards JSON example/instruction and creation-date sort labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests lätik (last), nulik (new), vönedik (old), balido (firstly), tiäd (title), bepenam (description). Keep literal title/description property names and three valid JSON objects; translate only example values, preserving first/second/last card identity. Preserve destination titles/descriptions and opposite newest/oldest-first creation-date sorting. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "copyManyCardsPopup-instructions",
+    "before": "Titres et descriptions des cartes de destination dans ce format JSON",
+    "after": "Tiäds e bepenams kadas zeila in fomät JSON at",
+    "reason": "Replace audited French copy-many-cards JSON example/instruction and creation-date sort labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests lätik (last), nulik (new), vönedik (old), balido (firstly), tiäd (title), bepenam (description). Keep literal title/description property names and three valid JSON objects; translate only example values, preserving first/second/last card identity. Preserve destination titles/descriptions and opposite newest/oldest-first creation-date sorting. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "created-at-newest-first",
+    "before": "Date de création (Plus récentes en premier)",
+    "after": "Dät jafama (nuliküns balido)",
+    "reason": "Replace audited French copy-many-cards JSON example/instruction and creation-date sort labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests lätik (last), nulik (new), vönedik (old), balido (firstly), tiäd (title), bepenam (description). Keep literal title/description property names and three valid JSON objects; translate only example values, preserving first/second/last card identity. Preserve destination titles/descriptions and opposite newest/oldest-first creation-date sorting. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "created-at-oldest-first",
+    "before": "Date de création (Plus anciennes en premier)",
+    "after": "Dät jafama (vönediküns balido)",
+    "reason": "Replace audited French copy-many-cards JSON example/instruction and creation-date sort labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests lätik (last), nulik (new), vönedik (old), balido (firstly), tiäd (title), bepenam (description). Keep literal title/description property names and three valid JSON objects; translate only example values, preserving first/second/last card identity. Preserve destination titles/descriptions and opposite newest/oldest-first creation-date sorting. Assembled software wording remains low confidence pending native review."
   }
 ]
