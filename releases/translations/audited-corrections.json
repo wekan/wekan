@@ -86210,5 +86210,12 @@
     "before": "Indian national",
     "after": "Nationála kaleandar (India)",
     "reason": "Replace English Indian national with Northern Sami Nationála kaleandar (India). Nationála and kaleandar documented in https://kaikki.org/frwiktionary/Same%20du%20Nord/categories-other/fU/Lemmes%20en%20same%20du%20Nord/index.html ; India in https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/se.xml . Assembled full label remains low confidence; separate full phrase not attested or native-speaker verified."
+  },
+  {
+    "locale": "se",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Koptilaš kaleandar",
+    "reason": "Replace English Coptic using Northern Sami adjective koptilaš attested in Finnish national library YSO vocabulary, koptilaš girku: https://finto.fi/yso/fi/page/p937 . Calendar kaleandar follows existing documented Sami terminology. Assembled full calendar phrase remains low confidence; adjective evidence does not prove native UI grammar. Evidence is indexed; separate full page retrieval returned HTTP 403."
   }
 ]
