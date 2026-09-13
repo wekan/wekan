@@ -51735,5 +51735,61 @@
     "before": "Impossibile riprendere la migrazione",
     "after": "Ùn hè statu pussibule di ripiglià a migrazione",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "migration-start-failed",
+    "before": "Impossibile avviare le migrazioni",
+    "after": "Ùn hè statu pussibule d’avvià e migrazioni",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "migration-stop-confirm",
+    "before": "Sei sicuro di voler arrestare tutte le migrazioni?",
+    "after": "Site sicuru di vulè piantà tutte e migrazioni?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "migration-stop-failed",
+    "before": "Impossibile arrestare le migrazioni",
+    "after": "Ùn hè statu pussibule di piantà e migrazioni",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "migration-warning-text",
+    "before": "Non chiudere il browser durante la migrazione. Il processo continuerà in background ma potrebbe richiedere più tempo per completarsi.",
+    "after": "Ùn chjudite micca u vostru navigatore durante a migrazione. U prucessu cuntinuerà in fondu ma pò piglià più tempu per compie si.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "mobile-desktop-toggle",
+    "before": "Alterna tra modalità mobile e desktop",
+    "after": "Passà trà u modu mobile è u modu desktop",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "mongodb-compact-running",
+    "before": "Compact in esecuzione, potrebbe richiedere diversi minuti...",
+    "after": "Esecuzione di compact in corsu; pò piglià parechji minuti...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "mongodb-compact-success",
+    "before": "Compact completato. Collection compattate:",
+    "after": "compact compiu. Cullezzioni cumpattate:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "mongodb-gridfs-storage",
+    "before": "Archiviazione MongoDB GridFS",
+    "after": "Arregistramentu MongoDB GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
