@@ -68332,5 +68332,89 @@
     "before": "Starzenie kart (wygaszanie starych kart)",
     "after": "Starzynie kart (przigŏszanie starych kart)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "card-aging-days",
+    "before": "Wygaszanie po dniach (3 poziomy):",
+    "after": "Przigŏszanie po dniach (3 poziōmy):",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "card-aging-tier1",
+    "before": "Poziom 1 (lekkie wygaszenie) po tylu dniach bezczynności",
+    "after": "Poziōm 1 (lekkie przigŏszynie) po tylu dniach bez aktywności",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "card-aging-tier2",
+    "before": "Poziom 2 (średnie wygaszenie) po tylu dniach bezczynności",
+    "after": "Poziōm 2 (przeciynte przigŏszynie) po tylu dniach bez aktywności",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "card-aging-tier3",
+    "before": "Poziom 3 (mocne wygaszenie) po tylu dniach bezczynności",
+    "after": "Poziōm 3 (mocne przigŏszynie) po tylu dniach bez aktywności",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "card-sorting-by-number",
+    "before": "Sortowanie kart wg numeru",
+    "after": "Sortowanie kart podug numeru",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "card-sorting-by-number-on-minicard",
+    "before": "Sortowanie kart wg numeru na miniaturach kart",
+    "after": "Sortowanie kart podug numeru na minikarcie",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "checklist-count",
+    "before": "Liczba pozycji checklisty (0/0)",
+    "after": "Wielość elymyntōw listy kōntrolnyj (0/0)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "checklist-count-on-minicard",
+    "before": "Liczba pozycji checklisty (0/0) na minikarcie",
+    "after": "Wielość elymyntōw listy kōntrolnyj (0/0) na minikarcie",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "checklistItemDeletePopup-title",
+    "before": "Usunąć pozycję checklisty?",
+    "after": "Wyciepać elymynt listy kōntrolnyj?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "click-to-disable-auto-width",
+    "before": "Automatyczna szerokość listy włączona. Kliknij, aby wyłączyć.",
+    "after": "Automatycznŏ szyrokość listy załōnczōnŏ. Kliknij, coby wyłōnczyć.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "click-to-enable-auto-width",
+    "before": "Automatyczna szerokość listy wyłączona. Kliknij, aby włączyć.",
+    "after": "Automatycznŏ szyrokość listy wyłōnczōnŏ. Kliknij, coby załōnczyć.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "click-to-star-page",
+    "before": "Kliknij, aby oznaczyć tę stronę gwiazdką.",
+    "after": "Kliknij, coby ôznaczyć tã strōnã gwiŏzdkōm.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
