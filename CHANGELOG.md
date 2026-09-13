@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,105 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 739 pending review or repair.
-The correction inventory records 17,230 exact before/after values,
+The correction inventory records 17,232 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -100,11 +100,11 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 158f18152 (2026-09-14), repairing three more
-unflagged Quechua blue/green/yellow labels using dictionary-attested words.
-Six repaired basic colors remain distinct. Other color wrappers, orange/shade
-terminology and two original calendar variants need review. There are 593
-Tamazight findings remaining. Wider language validation remains open.
+Latest translation fix is 89c0eb466 (2026-09-14), repairing unflagged Quechua
+gray/purple labels using dictionary-attested color adjectives. Remaining
+color wrappers, orange/shade distinctions, silver’s metal-to-color adaptation
+and two original calendar variants need review. There are 593 Tamazight
+findings remaining. Wider language validation remains open.
 All correction/rendering checks pass.
 Member assignment popup handlers need separate review for apparent reversed
 operations. The 1,015-suite Node result is historical and predates the latest batches.
@@ -643,6 +643,17 @@ The audit records 749 pending original findings and wider unfinished validation.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/89c0eb466">Repair Quechua gray and purple wording</a>. Thanks to xet7.</summary>
+
+Replace English color names wrapped in unrelated prose with attested Quechua
+adjectives. Preserve gray/purple distinctions from blue. All 17,232 correction
+checks pass. Two unflagged repairs leave 739 original findings pending.
+Silver’s metal-to-color adaptation and remaining palette wording need review.
+Live browser verification was not run.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/158f18152">Repair more Quechua basic color wording</a>. Thanks to xet7.</summary>
