@@ -93903,5 +93903,54 @@
     "before": "Bestätigen Sie ihre E-Mail-Adresse auf __siteName__",
     "after": "__siteName__-Daq QIn pat QuvlIj yI'ol",
     "reason": "Replace audited German enrollment/password-reset/email-verification bodies and subjects with Klingon. Preserve user/site/URL tokens, six real newline characters and paragraph structure, link-below click instruction, service start versus password reset versus account email verification, greeting and thanks. https://klingonska.org/klo/ordlista-01.html attests apostrophe-ol (verify) and Quv (coordinates); email address and link use descriptive Quv and rarwI metaphors. Full software/email phrasing is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "smtp-host-description",
+    "before": "Die Adresse Ihres SMTP-Servers für ausgehende E-Mails.",
+    "after": "QInmeylIj vu'bogh SMTP server Quv.",
+    "reason": "Replace German SMTP descriptions and associated labels with Klingon. Preserve address of the server handling the user email, outbound-mail port, enabling TLS, and username. SMTP/TLS identifiers and technical server borrowing stay recognizable; port is described as the connection number, and address as Quv coordinates. Reuse repaired message, connection, enable and username terminology. Full technical metaphors and software wording are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "smtp-port-description",
+    "before": "Der Port Ihres SMTP-Servers für ausgehende E-Mails.",
+    "after": "QInmey ngeHmeH SMTP serverlIj rarmeH mI'.",
+    "reason": "Replace German SMTP descriptions and associated labels with Klingon. Preserve address of the server handling the user email, outbound-mail port, enabling TLS, and username. SMTP/TLS identifiers and technical server borrowing stay recognizable; port is described as the connection number, and address as Quv coordinates. Reuse repaired message, connection, enable and username terminology. Full technical metaphors and software wording are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "smtp-tls-description",
+    "before": "Aktiviere TLS Unterstützung für SMTP Server",
+    "after": "SMTP servervaD TLS yIchu'.",
+    "reason": "Replace German SMTP descriptions and associated labels with Klingon. Preserve address of the server handling the user email, outbound-mail port, enabling TLS, and username. SMTP/TLS identifiers and technical server borrowing stay recognizable; port is described as the connection number, and address as Quv coordinates. Reuse repaired message, connection, enable and username terminology. Full technical metaphors and software wording are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "smtp-host",
+    "before": "SMTP-Server",
+    "after": "SMTP server",
+    "reason": "Replace German SMTP descriptions and associated labels with Klingon. Preserve address of the server handling the user email, outbound-mail port, enabling TLS, and username. SMTP/TLS identifiers and technical server borrowing stay recognizable; port is described as the connection number, and address as Quv coordinates. Reuse repaired message, connection, enable and username terminology. Full technical metaphors and software wording are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "smtp-port",
+    "before": "SMTP-Port",
+    "after": "SMTP rarmeH mI'",
+    "reason": "Replace German SMTP descriptions and associated labels with Klingon. Preserve address of the server handling the user email, outbound-mail port, enabling TLS, and username. SMTP/TLS identifiers and technical server borrowing stay recognizable; port is described as the connection number, and address as Quv coordinates. Reuse repaired message, connection, enable and username terminology. Full technical metaphors and software wording are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "smtp-username",
+    "before": "Benutzername",
+    "after": "lo'wI' pong",
+    "reason": "Replace German SMTP descriptions and associated labels with Klingon. Preserve address of the server handling the user email, outbound-mail port, enabling TLS, and username. SMTP/TLS identifiers and technical server borrowing stay recognizable; port is described as the connection number, and address as Quv coordinates. Reuse repaired message, connection, enable and username terminology. Full technical metaphors and software wording are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "smtp-tls",
+    "before": "TLS Unterstützung",
+    "after": "TLS lo'meH DuH",
+    "reason": "Replace German SMTP descriptions and associated labels with Klingon. Preserve address of the server handling the user email, outbound-mail port, enabling TLS, and username. SMTP/TLS identifiers and technical server borrowing stay recognizable; port is described as the connection number, and address as Quv coordinates. Reuse repaired message, connection, enable and username terminology. Full technical metaphors and software wording are assembled, low confidence, and require fluent-speaker validation."
   }
 ]
