@@ -110171,5 +110171,110 @@
     "before": "Contenuti di accessibilità",
     "after": "Contenuto de acesibiłità",
     "reason": "Replace Italian-seeded Venetian date, display and role values; preserve positive-integer validation, keyboard range, worker-only capabilities and Node/MongoDB identities. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "accessibility-info-not-added-yet",
+    "before": "Le informazioni sull'accessibilità non sono ancora state aggiunte ",
+    "after": "Łe informasion de acesibiłità no łe xe ancora stà zontà",
+    "reason": "Replace Italian-seeded accessibility, lockout and due-reminder messages with Venetian; preserve timing units, old/new values and approaching/current/past deadlines. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "accessibility-page-enabled",
+    "before": "Pagina accessibilità abilitata",
+    "after": "Pàjina de acesibiłità ativà",
+    "reason": "Replace Italian-seeded accessibility, lockout and due-reminder messages with Venetian; preserve timing units, old/new values and approaching/current/past deadlines. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "accounts-lockout-click-to-unlock",
+    "before": "Clicca per sbloccare questo utente",
+    "after": "Clica par sblocar sto utente",
+    "reason": "Replace Italian-seeded accessibility, lockout and due-reminder messages with Venetian; preserve timing units, old/new values and approaching/current/past deadlines. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "accounts-lockout-confirm-unlock",
+    "before": "Sei sicuro di voler sbloccare questo utente?",
+    "after": "Sito seguro de vołer sblocar sto utente?",
+    "reason": "Replace Italian-seeded accessibility, lockout and due-reminder messages with Venetian; preserve timing units, old/new values and approaching/current/past deadlines. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "accounts-lockout-failure-window",
+    "before": "Finestra di errore (secondi)",
+    "after": "Intervało par contar i tentativi falìi (secondi)",
+    "reason": "Replace Italian-seeded accessibility, lockout and due-reminder messages with Venetian; preserve timing units, old/new values and approaching/current/past deadlines. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "accounts-lockout-failures-before",
+    "before": "Fallimenti prima del blocco",
+    "after": "Tentativi falìi prima del bloco",
+    "reason": "Replace Italian-seeded accessibility, lockout and due-reminder messages with Venetian; preserve timing units, old/new values and approaching/current/past deadlines. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "accounts-lockout-period",
+    "before": "Periodo di blocco (secondi)",
+    "after": "Durada del bloco (secondi)",
+    "reason": "Replace Italian-seeded accessibility, lockout and due-reminder messages with Venetian; preserve timing units, old/new values and approaching/current/past deadlines. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "accounts-lockout-user-unlocked",
+    "before": "L'utente è stato sbloccato con successo",
+    "after": "El utente el xe stà sblocà co suceso",
+    "reason": "Replace Italian-seeded accessibility, lockout and due-reminder messages with Venetian; preserve timing units, old/new values and approaching/current/past deadlines. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-a-endAt",
+    "before": "orario finale modificato in __timeValue__ (precedentemente: __timeOldValue__)",
+    "after": "canbià el orario de fine a __timeValue__ da (__timeOldValue__)",
+    "reason": "Replace Italian-seeded accessibility, lockout and due-reminder messages with Venetian; preserve timing units, old/new values and approaching/current/past deadlines. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-a-receivedAt",
+    "before": "orario di ricezione modificato in __timeValue__ (precedentemente: __timeOldValue__)",
+    "after": "canbià el orario de ricevimento a __timeValue__ da (__timeOldValue__)",
+    "reason": "Replace Italian-seeded accessibility, lockout and due-reminder messages with Venetian; preserve timing units, old/new values and approaching/current/past deadlines. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-a-startAt",
+    "before": "orario iniziale modificato in __timeValue__ (precedentemente: __timeOldValue__)",
+    "after": "canbià el orario de inisio a __timeValue__ da (__timeOldValue__)",
+    "reason": "Replace Italian-seeded accessibility, lockout and due-reminder messages with Venetian; preserve timing units, old/new values and approaching/current/past deadlines. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-almostdue",
+    "before": "sollecito inviato: la scadenza (__timeValue__) di __card__ è vicina",
+    "after": "ricordà che ła scadensa corente (__timeValue__) de __card__ ła xe vizina",
+    "reason": "Replace Italian-seeded accessibility, lockout and due-reminder messages with Venetian; preserve timing units, old/new values and approaching/current/past deadlines. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-duenow",
+    "before": "sollecito inviato: la scadenza (__timeValue__) di __card__ è adesso",
+    "after": "ricordà che ła scadensa corente (__timeValue__) de __card__ ła xe deso",
+    "reason": "Replace Italian-seeded accessibility, lockout and due-reminder messages with Venetian; preserve timing units, old/new values and approaching/current/past deadlines. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-pastdue",
+    "before": "sollecito inviato: la scadenza (__timeValue__) di __card__ è già passata",
+    "after": "ricordà che ła scadensa corente (__timeValue__) de __card__ ła xe pasà",
+    "reason": "Replace Italian-seeded accessibility, lockout and due-reminder messages with Venetian; preserve timing units, old/new values and approaching/current/past deadlines. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-withDue",
+    "before": "sollecito relativo a __list__/__card__ [__board__]",
+    "after": "__list__/__card__ promemoria de scadensa [__board__]",
+    "reason": "Replace Italian-seeded accessibility, lockout and due-reminder messages with Venetian; preserve timing units, old/new values and approaching/current/past deadlines. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
