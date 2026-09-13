@@ -58511,5 +58511,33 @@
     "before": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A space is used as a separator between the Operators. You can filter for all Custom Fields by typing their names and values. For Example: Field1 == Value1. Note: If fields or values contains spaces, you need to encapsulate them into single quotes. For Example: 'Field 1' == 'Value 1'. For single control characters (' \\\\/) to be skipped, you can use \\\\. For example: Field1 == I\\\\'m. Also you can combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally all operators are interpreted from left to right. You can change the order by placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also you can search text fields using regex: F1 == /Tes.*/i",
     "after": "الفلتر المتقدم كيخليك تكتب نص فيه هاد العمليات: == != <= >= && || ( ) خاص مسافة بين العمليات. تقدر تفلتر جميع الخانات المخصصة بكتابة السميات والقيم ديالها. مثلا: Field1 == Value1. إلا كانو فالسميات ولا القيم مسافات، خاصك تحطهم بين علامات اقتباس مفردة. مثلا: 'Field 1' == 'Value 1'. باش تهرّب حروف التحكم (' \\\\/)، تقدر تستعمل \\\\. مثلا: Field1 == I\\\\'m. تقدر حتى تجمع شروط كثيرة. مثلا: F1 == V1 || F1 == V2. فعادة العمليات كتتقرا من اليسار لليمين. تقدر تبدل الترتيب باستعمال الأقواس. مثلا: F1 == V1 && ( F2 == V2 || F2 == V3 ). تقدر حتى تقلب فالخانات النصية باستعمال regex: F1 == /Tes.*/i",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mai",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "हिजरी पंचांग (सऊदी अरब, चान देखबाक आधार पर)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "mai",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "हिजरी पंचांग (सारणी अनुसार, खगोलीय आरम्भ काल)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "kok",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "हिजरी पंचांग (सौदी अरेबिया, चंद्र दिसपाच्या आधारान)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "kok",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "हिजरी पंचांग (तक्ट्या प्रमाणें, खगोलशास्त्रीय सुरवातीचो काळ)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
