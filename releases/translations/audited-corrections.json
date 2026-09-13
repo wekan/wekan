@@ -88961,5 +88961,82 @@
     "before": "Migration terminée avec succès",
     "after": "Migrad pefimekon plöpo",
     "reason": "Replace French migration status with Volapük; preserve starting/pausing/no-need/success distinctions. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests paudön (intransitive), zesüdik and fimekön; https://volapuk.evertype.com/volapuk-vifik-05.html attests primön. Retain existing software migration stem migrad, not dictionary-attested; assembled wording and software borrowing remain low confidence."
+  },
+  {
+    "locale": "vo",
+    "key": "migration-stopping",
+    "before": "Arrêt des migrations...",
+    "after": "Migrads stopons...",
+    "reason": "Repair French migration labels and progress instructions, and replace physical steps with figurative tridäds. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests stopön, proged, fimekön, pat, stebedön, binod, nuik and tridäd (figurative step). Preserve board/latest-structure/wait instruction and status distinctions; existing software migrad stem and assembled wording remain low confidence. No native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "migration-needed",
+    "before": "Migration requise",
+    "after": "Migrad binon zesüdik",
+    "reason": "Repair French migration labels and progress instructions, and replace physical steps with figurative tridäds. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests stopön, proged, fimekön, pat, stebedön, binod, nuik and tridäd (figurative step). Preserve board/latest-structure/wait instruction and status distinctions; existing software migrad stem and assembled wording remain low confidence. No native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "migration-complete",
+    "before": "Terminé",
+    "after": "Pefimeköl",
+    "reason": "Repair French migration labels and progress instructions, and replace physical steps with figurative tridäds. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests stopön, proged, fimekön, pat, stebedön, binod, nuik and tridäd (figurative step). Preserve board/latest-structure/wait instruction and status distinctions; existing software migrad stem and assembled wording remain low confidence. No native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "migration-running",
+    "before": "En cours ...",
+    "after": "Nu progedon...",
+    "reason": "Repair French migration labels and progress instructions, and replace physical steps with figurative tridäds. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests stopön, proged, fimekön, pat, stebedön, binod, nuik and tridäd (figurative step). Preserve board/latest-structure/wait instruction and status distinctions; existing software migrad stem and assembled wording remain low confidence. No native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "migration-failed",
+    "before": "Migration en échec",
+    "after": "Migrad no eplöpon",
+    "reason": "Repair French migration labels and progress instructions, and replace physical steps with figurative tridäds. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests stopön, proged, fimekön, pat, stebedön, binod, nuik and tridäd (figurative step). Preserve board/latest-structure/wait instruction and status distinctions; existing software migrad stem and assembled wording remain low confidence. No native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "migration-progress-title",
+    "before": "Migration du tableau en cours",
+    "after": "Proged migrada taba",
+    "reason": "Repair French migration labels and progress instructions, and replace physical steps with figurative tridäds. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests stopön, proged, fimekön, pat, stebedön, binod, nuik and tridäd (figurative step). Preserve board/latest-structure/wait instruction and status distinctions; existing software migrad stem and assembled wording remain low confidence. No native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "migration-progress-current-step",
+    "before": "Étape courante",
+    "after": "Tridäd nuik",
+    "reason": "Repair French migration labels and progress instructions, and replace physical steps with figurative tridäds. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests stopön, proged, fimekön, pat, stebedön, binod, nuik and tridäd (figurative step). Preserve board/latest-structure/wait instruction and status distinctions; existing software migrad stem and assembled wording remain low confidence. No native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "migration-progress-status",
+    "before": "Statut",
+    "after": "Stad",
+    "reason": "Repair French migration labels and progress instructions, and replace physical steps with figurative tridäds. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests stopön, proged, fimekön, pat, stebedön, binod, nuik and tridäd (figurative step). Preserve board/latest-structure/wait instruction and status distinctions; existing software migrad stem and assembled wording remain low confidence. No native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "migration-progress-details",
+    "before": "Détails",
+    "after": "Pats",
+    "reason": "Repair French migration labels and progress instructions, and replace physical steps with figurative tridäds. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests stopön, proged, fimekön, pat, stebedön, binod, nuik and tridäd (figurative step). Preserve board/latest-structure/wait instruction and status distinctions; existing software migrad stem and assembled wording remain low confidence. No native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "migration-progress-note",
+    "before": "Veuillez patienter pendant la migration de votre tableau vers la dernière structure...",
+    "after": "Begö! Stebedolös dü votükam taba olik ad binod nulikün...",
+    "reason": "Repair French migration labels and progress instructions, and replace physical steps with figurative tridäds. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests stopön, proged, fimekön, pat, stebedön, binod, nuik and tridäd (figurative step). Preserve board/latest-structure/wait instruction and status distinctions; existing software migrad stem and assembled wording remain low confidence. No native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "migration-steps",
+    "before": "Migradasteps",
+    "after": "Tridäds migrada",
+    "reason": "Repair French migration labels and progress instructions, and replace physical steps with figurative tridäds. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests stopön, proged, fimekön, pat, stebedön, binod, nuik and tridäd (figurative step). Preserve board/latest-structure/wait instruction and status distinctions; existing software migrad stem and assembled wording remain low confidence. No native-speaker validation."
   }
 ]
