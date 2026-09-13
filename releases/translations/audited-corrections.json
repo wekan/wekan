@@ -110836,5 +110836,110 @@
     "before": "Ciao __user__,\n\nPer verificare il tuo account email, clicca sul link seguente:\n\n__url__\n\nGrazie.",
     "after": "Ciao __user__,\n\nPar verificar ła email del to conto, clica el łigamento qua soto.\n\n__url__\n\nGrasie.",
     "reason": "Replace Italian-seeded Venetian mail and date messages; preserve reset/verify/enroll distinctions, URL/user/site placeholders and email line breaks. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "enable-vertical-scrollbars",
+    "before": "Abilita le barre di scorrimento verticali",
+    "after": "Ativa łe bare de scorimento verticałi",
+    "reason": "Replace Italian-seeded Venetian validation and access labels; preserve CSV/TSV separator meanings, malformed/schema distinction, authorization denial and uniqueness errors. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "enable-wip-limit",
+    "before": "Attiva limite Work In Progress",
+    "after": "Ativa el łimite WIP",
+    "reason": "Replace Italian-seeded Venetian validation and access labels; preserve CSV/TSV separator meanings, malformed/schema distinction, authorization denial and uniqueness errors. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "error-csv-schema",
+    "before": "Il tuo file CSV (Comma Separated Values) / TSV (Tab Separated Values) non contiene le giuste informazioni nel formato corretto",
+    "after": "El to CSV (vałori separài da vìrgołe) / TSV (vałori separài da tabułasion) no el gà łe informasion giuste inte el formato giusto",
+    "reason": "Replace Italian-seeded Venetian validation and access labels; preserve CSV/TSV separator meanings, malformed/schema distinction, authorization denial and uniqueness errors. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "error-email-taken",
+    "before": "L'email è già stata presa",
+    "after": "Ła email ła xe dezà doparà",
+    "reason": "Replace Italian-seeded Venetian validation and access labels; preserve CSV/TSV separator meanings, malformed/schema distinction, authorization denial and uniqueness errors. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "error-invitation-code-not-exist",
+    "before": "Il codice d'invito non esiste",
+    "after": "El còdaze de invito no el esiste",
+    "reason": "Replace Italian-seeded Venetian validation and access labels; preserve CSV/TSV separator meanings, malformed/schema distinction, authorization denial and uniqueness errors. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "error-json-malformed",
+    "before": "Il testo non è in un formato JSON valido",
+    "after": "El to testo no el xe JSON vàłido",
+    "reason": "Replace Italian-seeded Venetian validation and access labels; preserve CSV/TSV separator meanings, malformed/schema distinction, authorization denial and uniqueness errors. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "error-json-schema",
+    "before": "Il tuo file JSON non contiene le giuste informazioni nel formato corretto",
+    "after": "I to dati JSON no i gà łe informasion giuste inte el formato giusto",
+    "reason": "Replace Italian-seeded Venetian validation and access labels; preserve CSV/TSV separator meanings, malformed/schema distinction, authorization denial and uniqueness errors. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "error-ldap-login",
+    "before": "C'è stato un errore mentre provavi ad effettuare il login",
+    "after": "Ghe xe stà un eror tentando de far el acesso",
+    "reason": "Replace Italian-seeded Venetian validation and access labels; preserve CSV/TSV separator meanings, malformed/schema distinction, authorization denial and uniqueness errors. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "error-notAuthorized",
+    "before": "Non sei autorizzato ad accedere a questa pagina.",
+    "after": "No te gà el permesso de védar sta pàjina.",
+    "reason": "Replace Italian-seeded Venetian validation and access labels; preserve CSV/TSV separator meanings, malformed/schema distinction, authorization denial and uniqueness errors. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "error-orgname-taken",
+    "before": "Il nome di questa organizzazione è già stato scelto",
+    "after": "Sto nome de organisasion el xe dezà doparà",
+    "reason": "Replace Italian-seeded Venetian validation and access labels; preserve CSV/TSV separator meanings, malformed/schema distinction, authorization denial and uniqueness errors. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "error-teamname-taken",
+    "before": "Il nome di questo team è già stato preso",
+    "after": "Sto nome de grupo el xe dezà doparà",
+    "reason": "Replace Italian-seeded Venetian validation and access labels; preserve CSV/TSV separator meanings, malformed/schema distinction, authorization denial and uniqueness errors. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "error-user-notAllowSelf",
+    "before": "Non puoi invitare te stesso",
+    "after": "No te pol invitarte da ti",
+    "reason": "Replace Italian-seeded Venetian validation and access labels; preserve CSV/TSV separator meanings, malformed/schema distinction, authorization denial and uniqueness errors. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "error-user-notCreated",
+    "before": "L'utente non è stato creato",
+    "after": "Sto utente no el xe stà creà",
+    "reason": "Replace Italian-seeded Venetian validation and access labels; preserve CSV/TSV separator meanings, malformed/schema distinction, authorization denial and uniqueness errors. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "error-username-taken",
+    "before": "Questo username è già utilizzato",
+    "after": "Sto nome utente el xe dezà doparà",
+    "reason": "Replace Italian-seeded Venetian validation and access labels; preserve CSV/TSV separator meanings, malformed/schema distinction, authorization denial and uniqueness errors. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "filter-assignee-label",
+    "before": "Filtra secondo l'assegnatario",
+    "after": "Filtra par asegnatario",
+    "reason": "Replace Italian-seeded Venetian validation and access labels; preserve CSV/TSV separator meanings, malformed/schema distinction, authorization denial and uniqueness errors. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
