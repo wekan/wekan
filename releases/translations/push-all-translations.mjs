@@ -119,6 +119,55 @@ export async function pushTranslations({ config, languages, request, readContent
   return { succeeded, failures };
 }
 
+export async function languageSupportReport({ request, languages, result }) {
+  const catalogue = new Map();
+  const visited = new Set();
+  try {
+    let url = '/languages';
+    while (url) {
+      if (visited.has(url)) throw new Error('Repeated catalogue pagination link');
+      visited.add(url);
+      const page = await request('GET', url);
+      if (!Array.isArray(page.data)) throw new Error('Invalid language catalogue response');
+      for (const item of page.data) {
+        const code = item.attributes?.code || item.id?.replace(/^l:/, '');
+        if (!code) throw new Error('Catalogue language has no code');
+        catalogue.set(code, { code, name: item.attributes?.name || code });
+      }
+      url = page.links?.next || null;
+    }
+  } catch (error) {
+    return { catalogueError: error.message, supportedFailures: [], unsupported: [], additional: [] };
+  }
+  const localCodes = new Set([...languages.map(item => item.code), ...result.succeeded.map(item => item.code)]);
+  return {
+    catalogueError: null,
+    supportedFailures: result.failures.filter(item => catalogue.has(item.code)),
+    unsupported: languages.filter(item => !catalogue.has(item.code) && !result.succeeded.some(done => done.code === item.code)),
+    additional: [...catalogue.values()].filter(item => !localCodes.has(item.code)).sort((a, b) => a.code.localeCompare(b.code)),
+  };
+}
+
+export function printUploadSummary(result, log = console.log) {
+  const section = (title, rows, format) => {
+    log(`[tx] ${title}:`);
+    if (!rows.length) log('  None');
+    for (const row of rows) log(`  ${format(row)}`);
+  };
+  log(`\n[tx] ${result.succeeded.length} uploaded; ${result.failures.length} failed`);
+  section('Languages successfully pushed', result.succeeded, row => `${row.code}\t${row.file}${row.source ? '\t(source)' : ''}`);
+  section('Languages whose uploads did not work', result.failures, row => `${row.code}\t${row.file}\t${row.reason}`);
+  const support = result.languageSupport;
+  if (support.catalogueError) log(`[tx] Language support could not be verified: ${support.catalogueError}; no languages classified as unsupported`);
+  else {
+    section('Supported languages whose uploads can be retried after fixing the reported error', support.supportedFailures, row => `${row.code}\t${row.file}\t${row.reason}`);
+    section('Local languages absent from the Transifex catalogue', support.unsupported, row => `${row.code}\t${row.file}\tCatalogue support must be requested`);
+    section('Additional supported targets; local translations and locale mappings must be prepared before upload', support.additional, row => `${row.code}\t${row.name}`);
+  }
+  log('[tx] Missing supported project languages are added automatically. The tx CLI cannot create unsupported global catalogue languages.');
+  log('[tx] Request catalogue support with the language name, ISO/BCP47 code, aliases and authoritative Unicode plural rules: https://help.transifex.com/en/articles/6208588-how-do-i-add-a-new-language');
+}
+
 async function main() {
   const stamp = new Date();
   const pad = value => String(value).padStart(2, '0');
@@ -165,21 +214,19 @@ async function main() {
   }
   const token = readToken();
   if (!token) throw new Error('Set TX_TOKEN or configure ~/.transifexrc before uploading');
-  const result = await pushTranslations({ config, languages,
-    request: async (method, url, body) => {
+  const request = async (method, url, body) => {
       try { return await api(token, method, url, body); }
       catch (error) { error.message = error.message.replaceAll(token, '[redacted]'); throw error; }
-    },
+    };
+  const result = await pushTranslations({ config, languages, request,
     readContent: filename => fs.readFileSync(filename, 'utf8'),
   });
+  result.languageSupport = await languageSupportReport({ request, languages, result });
   const safeResult = JSON.parse(JSON.stringify(result).replaceAll(token, '[redacted]'));
   const logDir = path.join(root, '.tools/log', `translations-push-${new Date().toISOString().replace(/[:.]/g, '-')}`);
   fs.mkdirSync(logDir, { recursive: true });
   fs.writeFileSync(path.join(logDir, 'report.json'), `${JSON.stringify(safeResult, null, 2)}\n`);
-  console.log(`\n[tx] ${result.succeeded.length} uploaded; ${result.failures.length} failed`);
-  console.log('[tx] Languages whose uploads did not work:');
-  if (!safeResult.failures.length) console.log('  None');
-  for (const failure of safeResult.failures) console.log(`  ${failure.code}\t${failure.file}\t${failure.reason}`);
+  printUploadSummary(safeResult);
   console.log(`[tx] report: ${logDir}/report.json`);
   if (result.failures.length) process.exitCode = 1;
 }

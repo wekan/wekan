@@ -5,7 +5,7 @@ const path = require('node:path');
 const cp = require('node:child_process');
 const root = path.resolve(__dirname, '..');
 (async () => {
-  const { pushTranslations, uploadFile, validateTranslation } = await import('../releases/translations/push-all-translations.mjs');
+  const { pushTranslations, uploadFile, validateTranslation, languageSupportReport, printUploadSummary } = await import('../releases/translations/push-all-translations.mjs');
   const { readConfig, localLanguages, api } = await import('../releases/translations/sync-transifex-languages.mjs');
   const config = readConfig();
   assert.equal(config.sourceLanguage, 'en');
@@ -69,6 +69,28 @@ const root = path.resolve(__dirname, '..');
   const none = await pushTranslations({ config, languages: [{ file: 'fi', code: 'fi_FI' }], request: async () => { throw Error('source failure'); }, readContent: () => content, sleep: async () => {}, log() {} });
   assert.equal(none.failures.length, 2, 'source failure reports every unpushed language');
   await assert.rejects(uploadFile({ request: async () => ({ data: { id: 'pending', attributes: { status: 'pending' } } }), resource: 'r', content, source: true, maxPolls: 2, sleep: async () => {} }), /polling limit/);
+  const support = await languageSupportReport({ languages: [{file:'tig',code:'tig'}, {file:'ar',code:'ar'}], result,
+    request: async (method, url) => {
+      assert.equal(method, 'GET', 'support discovery is read-only');
+      if (url === '/languages') return { data: [{ id:'l:ar', attributes:{name:'Arabic'} }], links:{next:'/catalogue2'} };
+      assert.equal(url, '/catalogue2');
+      return { data: [{ id:'l:extra', attributes:{code:'extra',name:'Additional language'} }] };
+    } });
+  assert.deepEqual(support.supportedFailures.map(row => row.code), ['ar']);
+  assert.deepEqual(support.unsupported.map(row => row.code), ['tig']);
+  assert.deepEqual(support.additional, [{code:'extra',name:'Additional language'}]);
+  const summary = [];
+  printUploadSummary({...result, languageSupport:support}, line => summary.push(line));
+  assert.ok(summary.some(line => line.includes('Languages successfully pushed')));
+  assert.ok(summary.some(line => line.includes('Parser failure')));
+  assert.ok(summary.some(line => line.includes('Catalogue support must be requested')));
+  assert.ok(summary.some(line => line.includes('local translations and locale mappings must be prepared')));
+  assert.ok(summary.some(line => line.includes('tx CLI cannot create unsupported')));
+  const unknownSupport = await languageSupportReport({ languages:[],result,request:async () => { throw Error('Catalogue unavailable'); } });
+  assert.equal(unknownSupport.catalogueError, 'Catalogue unavailable');
+  assert.deepEqual(unknownSupport.unsupported, [], 'listing failure is not proof of unsupported languages');
+  const cyclic = await languageSupportReport({languages:[],result,request:async () => ({data:[],links:{next:'/languages'}})});
+  assert.match(cyclic.catalogueError, /Repeated catalogue/);
   const originalFetch = global.fetch;
   let network = 0;
   global.fetch = async () => { network++; throw Error('unexpected network'); };

@@ -86,3 +86,19 @@ registration failure. Tigrinya (`ti`) is a different language and cannot replace
 Simplified Chinese script locale `zh-Hans` uses the same hyphenated Transifex
 code; `zh_Hans` is unsupported. Wolaytta (`wal`) is absent from the public
 catalogue and remains a reported registration failure.
+
+The final status lists successful source/target uploads and every failed upload
+with its reason. It then reads the complete paginated global language catalogue
+to distinguish supported failed targets from unsupported local codes, and lists
+additional supported targets that have no mapped local translation yet. Those
+additional targets require local translation files, registry entries and explicit
+mappings before they can be uploaded. Discovery never adds these targets itself.
+If catalogue discovery fails, support remains unknown; a network or permission
+failure is never reported as proof that a language is unsupported. These details
+are saved in both the text log and `report.json`.
+
+There is no documented `tx` CLI command to create a global catalogue language.
+Supported languages can be added to a project, which this script already tries.
+For an unsupported language, [request support from Transifex](https://help.transifex.com/en/articles/6208588-how-do-i-add-a-new-language)
+with its name, ISO/BCP47 code, aliases and authoritative Unicode plural rules.
+The maintainer submits that request; the script prints the instructions.
