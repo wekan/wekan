@@ -117920,5 +117920,68 @@
     "before": "Taulujen näkyvyys: Salli vain yksityiset taulut",
     "after": "Laudaden nägubuz’: laske vaiše personaližed laudad",
     "reason": "Replace Finnish/Venda and mixed-language visibility messages with Veps, including related unflagged values. Preserve private/public distinctions, added-people-only edit/view restrictions, anyone-with-link public viewing and search-engine discovery, HTML tags/link/%s, optional custom-description fallback, default/show distinctions and localized status predicates. Zaiceva/Mullonen 2007 dictionary: personaline (private), ristit (-un,-uid), nägubuz’, mašin; native üleižen and sanumata usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Google remains a proper name. Low confidence: composed search-engine terminology and visibility grammar/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-delete-notice",
+    "before": "Poistaminen on lopullista. Menetät kaikki tähän korttiin liitetyt toimet.",
+    "after": "Heitämine om igäks. Kaik necen kartan tegendad linneba heittud.",
+    "reason": "Replace Finnish destructive confirmation/warning text with Veps. Preserve irreversible deletion, activity/history loss, inability to reopen cards or restore board contents, and specific checklist/item/subtask targets. Native confirmation framing and terms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json and the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; existing correct Veps deletion and activity values supply consistent terminology. Low confidence: composed board-content and definite-object case grammar needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-delete-pop",
+    "before": "Kaikki toimet poistetaan toimintasyötteestä, etkä pysty avata korttia uudelleen. Tätä ei voi peruuttaa.",
+    "after": "Kaik tegendad linneba heittud tegendoiden lugetišespäi, da sinä ed voi möst avaita kartad. Necidä tegendad ei sa pördutada.",
+    "reason": "Replace Finnish destructive confirmation/warning text with Veps. Preserve irreversible deletion, activity/history loss, inability to reopen cards or restore board contents, and specific checklist/item/subtask targets. Native confirmation framing and terms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json and the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; existing correct Veps deletion and activity values supply consistent terminology. Low confidence: composed board-content and definite-object case grammar needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "label-delete-pop",
+    "before": "Tätä ei voi peruuttaa. Tämä poistaa tämän nimilapun kaikista korteista ja tuhoaa sen historian.",
+    "after": "Ei sa pördutada. Nece heitäb necen znaman kaikiš kartoišpäi da heitäb sen istorijan.",
+    "reason": "Replace Finnish destructive confirmation/warning text with Veps. Preserve irreversible deletion, activity/history loss, inability to reopen cards or restore board contents, and specific checklist/item/subtask targets. Native confirmation framing and terms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json and the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; existing correct Veps deletion and activity values supply consistent terminology. Low confidence: composed board-content and definite-object case grammar needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "delete-board-confirm-popup",
+    "before": "Kaikki listat, kortit, nimilaput ja toimet poistetaan ja et pysty palauttamaan taulun sisältöä. Tätä ei voi peruuttaa.",
+    "after": "Kaik lugetišed, kartad, znamad da tegendad linneba heittud, da sinä ed voi endištada laudan kontentad. Necidä tegendad ei sa pördutada.",
+    "reason": "Replace Finnish destructive confirmation/warning text with Veps. Preserve irreversible deletion, activity/history loss, inability to reopen cards or restore board contents, and specific checklist/item/subtask targets. Native confirmation framing and terms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json and the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; existing correct Veps deletion and activity values supply consistent terminology. Low confidence: composed board-content and definite-object case grammar needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "delete-user-confirm-popup",
+    "before": "Haluatko varmasti poistaa tämän käyttäjätilin? Tätä ei voi peruuttaa.",
+    "after": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta necen akkauntan? Necidä ei sa pördutada.",
+    "reason": "Replace Finnish destructive confirmation/warning text with Veps. Preserve irreversible deletion, activity/history loss, inability to reopen cards or restore board contents, and specific checklist/item/subtask targets. Native confirmation framing and terms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json and the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; existing correct Veps deletion and activity values supply consistent terminology. Low confidence: composed board-content and definite-object case grammar needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "comment-delete",
+    "before": "Haluatko varmasti poistaa kommentin?",
+    "after": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta necen sel’genzoitusen?",
+    "reason": "Replace Finnish destructive confirmation/warning text with Veps. Preserve irreversible deletion, activity/history loss, inability to reopen cards or restore board contents, and specific checklist/item/subtask targets. Native confirmation framing and terms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json and the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; existing correct Veps deletion and activity values supply consistent terminology. Low confidence: composed board-content and definite-object case grammar needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "confirm-checklist-delete-popup",
+    "before": "Haluatko varmasti poistaa tarkistuslistan?",
+    "after": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta necen kodvindlugetišen?",
+    "reason": "Replace Finnish destructive confirmation/warning text with Veps. Preserve irreversible deletion, activity/history loss, inability to reopen cards or restore board contents, and specific checklist/item/subtask targets. Native confirmation framing and terms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json and the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; existing correct Veps deletion and activity values supply consistent terminology. Low confidence: composed board-content and definite-object case grammar needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "confirm-checklist-item-delete-popup",
+    "before": "Haluatko varmasti poistaa tarkistuslistan kohdan?",
+    "after": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta necen kodvindlugetišen kohtan?",
+    "reason": "Replace Finnish destructive confirmation/warning text with Veps. Preserve irreversible deletion, activity/history loss, inability to reopen cards or restore board contents, and specific checklist/item/subtask targets. Native confirmation framing and terms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json and the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; existing correct Veps deletion and activity values supply consistent terminology. Low confidence: composed board-content and definite-object case grammar needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "confirm-subtask-delete-popup",
+    "before": "Haluatko varmasti poistaa alitehtävän?",
+    "after": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta necen alategendan?",
+    "reason": "Replace Finnish destructive confirmation/warning text with Veps. Preserve irreversible deletion, activity/history loss, inability to reopen cards or restore board contents, and specific checklist/item/subtask targets. Native confirmation framing and terms follow https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json and the 2007 Zaiceva/Mullonen dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; existing correct Veps deletion and activity values supply consistent terminology. Low confidence: composed board-content and definite-object case grammar needs fluent-speaker review."
   }
 ]

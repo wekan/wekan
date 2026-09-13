@@ -1727,5 +1727,32 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   const invalidVisibility = new visibilityContext.Query();
   invalidVisibility.buildParams(`${cache['ve-PP']['operator-status']}:nonexistent-visibility`);
   assert.equal(invalidVisibility.hasErrors(), true);
+  const vepsDeletionRepairs = {
+  "card-delete-notice": "Heitämine om igäks. Kaik necen kartan tegendad linneba heittud.",
+  "card-delete-pop": "Kaik tegendad linneba heittud tegendoiden lugetišespäi, da sinä ed voi möst avaita kartad. Necidä tegendad ei sa pördutada.",
+  "label-delete-pop": "Ei sa pördutada. Nece heitäb necen znaman kaikiš kartoišpäi da heitäb sen istorijan.",
+  "delete-board-confirm-popup": "Kaik lugetišed, kartad, znamad da tegendad linneba heittud, da sinä ed voi endištada laudan kontentad. Necidä tegendad ei sa pördutada.",
+  "delete-user-confirm-popup": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta necen akkauntan? Necidä ei sa pördutada.",
+  "comment-delete": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta necen sel’genzoitusen?",
+  "confirm-checklist-delete-popup": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta necen kodvindlugetišen?",
+  "confirm-checklist-item-delete-popup": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta necen kodvindlugetišen kohtan?",
+  "confirm-subtask-delete-popup": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta necen alategendan?"
+};
+  for (const [key, value] of Object.entries(vepsDeletionRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Haluatko|varmasti|poistaa|Poistaminen|lopullista|Menetät|toimintasyötteestä|pysty|peruuttaa|Tämä poistaa|tuhoaa|käyttäjätilin|tarkistuslistan|alitehtävän/, key);
+  }
+  for (const key of ['card-delete-pop', 'label-delete-pop', 'delete-board-confirm-popup', 'delete-user-confirm-popup']) assert.match(cache['ve-PP'][key], /ei sa pördutada/i, key);
+  assert.match(cache['ve-PP']['card-delete-notice'], /igäks.*Kaik necen kartan tegendad linneba heittud/);
+  assert.match(cache['ve-PP']['card-delete-pop'], /tegendoiden lugetišespäi.*ed voi möst avaita kartad/);
+  assert.match(cache['ve-PP']['label-delete-pop'], /kaikiš kartoišpäi.*sen istorijan/);
+  assert.match(cache['ve-PP']['delete-board-confirm-popup'], /Kaik lugetišed, kartad, znamad da tegendad.*ed voi endištada laudan kontentad/);
+  assert.match(cache['ve-PP']['confirm-checklist-item-delete-popup'], /kodvindlugetišen kohtan/);
+  assert.doesNotMatch(cache['ve-PP']['confirm-checklist-delete-popup'], /kohtan/);
+  assert.match(cache['ve-PP']['confirm-subtask-delete-popup'], /alategendan/);
+  assert.doesNotMatch(cache['ve-PP']['confirm-subtask-delete-popup'], /kodvindlugetišen/);
+  assert.match(cache['ve-PP']['comment-delete'], /sel’genzoitusen/);
+  assert.notEqual(cache['ve-PP']['card-delete-pop'], cache['ve-PP']['card-archive-pop']);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
