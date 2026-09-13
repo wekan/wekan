@@ -1048,5 +1048,11 @@
     "key": "email-smtp-test-subject",
     "value": "SMTP Test-E-Mail",
     "reason": "Retain the technical acronym SMTP and the valid Luxembourgish compound Test-E-Mail; shared technical vocabulary is not wrong-language prose."
+  },
+  {
+    "locale": "szl",
+    "key": "DDP_transport",
+    "value": "Transport DDP (DDP_TRANSPORT)",
+    "reason": "Transport is shared Silesian technical vocabulary; DDP and DDP_TRANSPORT are code identifiers. Retain this correct technical label rather than treating shared Polish spelling as proof of a wrong language."
   }
 ]

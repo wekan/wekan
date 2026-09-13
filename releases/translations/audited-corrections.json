@@ -67926,5 +67926,19 @@
     "before": "Kalendarz",
     "after": "Kalyndŏrz",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "Node_heap_malloced_memory",
+    "before": "Sterta Node: zaalokowana pamięć (malloc)",
+    "after": "Sterta Node: przidzielōnŏ pamiyńć (malloc)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Sterta Node: szczytowa zaalokowana pamięć (malloc)",
+    "after": "Sterta Node: nojwiynkszŏ przidzielōnŏ pamiyńć (malloc)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
