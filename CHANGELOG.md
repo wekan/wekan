@@ -1219,6 +1219,17 @@ for this change.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/782cd2fc7">Repair Veps migration controls and status labels</a>. Thanks to xet7.</summary>
+
+Replace eleven additional unflagged Finnish translations with Veps. Preserve
+separate pause, resume and stop actions and consistent status/detail labels.
+All 16,893 exact correction records and positive/negative runtime checks pass.
+Composed technical wording remains low confidence pending fluent-speaker review.
+The original audit still has 933 pending findings; repairs remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a0048dafd">Repair Veps comment labels and searches</a>. Thanks to xet7.</summary>
 
 Repair 11 values, resolving three original findings and eight unflagged errors.
