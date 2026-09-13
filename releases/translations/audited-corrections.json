@@ -72196,5 +72196,12 @@
     "before": "Islamic tabular",
     "after": "Kalendala ya Hijri (yowerengera ndi tebulo, tsiku loyambira potsatira sayansi ya zakuthambo)",
     "reason": "Replace English calendar label while preserving table computation and astronomical starting date. Sayansi ya zakuthambo (astronomy) is attested in https://www.jw.org/ny/laibulale/magazini/galamukani-na5-2016-october/mmene-aristotle-ankaonera-zinthu-zakuthambo/ . Direct specialized phrasing is low confidence and needs native review."
+  },
+  {
+    "locale": "ny",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Kalendala ya Hijri (Saudi Arabia, kuona mwezi)",
+    "reason": "Replace English calendar wording and restore explicit moon sighting. Kuona mwezi attested in Malawi publisher Al-Haqq March 2023, page 6: https://alhaqq-malawi.org/wp-content/uploads/2023/03/Al-Haqq-March-2023.pdf . Retain Saudi Arabia proper name; full specialized label grammar remains subject to native review."
   }
 ]
