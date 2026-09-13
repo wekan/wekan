@@ -1417,5 +1417,52 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['card-templates-swimlane'], /^Kartoiden/);
   assert.match(cache['ve-PP']['list-templates-swimlane'], /^Lugetižiden/);
   assert.match(cache['ve-PP']['board-templates-swimlane'], /^Laudoiden/);
+  const vepsOrganizationRepairs = {
+  "autoAddUsersWithDomainName": "Ližada kävutajid avtomatižesti domenan nimen mödhe",
+  "delete-org-warning-message": "Ei sa heitta necidä sebrad: hot’ üks’ kävutai om sen ühtnik.",
+  "delete-team-warning-message": "Ei sa heitta necidä joukud: hot’ üks’ kävutai om sen ühtnik.",
+  "add-organizations-label": "Ližatud sebrad oma ozutadud alemba:",
+  "add-teams-label": "Ližatud joukud oma ozutadud alemba:",
+  "delete-org-confirm-popup": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta necidä sebrad? Necidä ei sa pördutada.",
+  "delete-team-confirm-popup": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta necidä joukud? Necidä ei sa pördutada.",
+  "error-orgname-taken": "Necen sebran nimi om jo kävutuses",
+  "error-teamname-taken": "Necen joukun nimi om jo kävutuses",
+  "remove-organization-from-board": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta necen sebran necile laudale panendad?",
+  "remove-team-from-table": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta necen joukun necile laudale panendad?",
+  "globalSearch-instructions-operator-org": "`__operator_org__:<display name|short name>` - kartad laudal, kudamb om märitud sebrale *<name>*",
+  "globalSearch-instructions-operator-team": "`__operator_team__:<display name|short name>` - kartad laudal, kudamb om märitud joukule *<name>*",
+  "team-number": "Joukuiden lugumär om: ",
+  "newOrgPopup-title": "Uz’ sebr",
+  "newTeamPopup-title": "Uz’ jouk",
+  "add-organizations": "Ližada sebroid",
+  "add-teams": "Ližada joukuid",
+  "team": "Jouk",
+  "teams": "Joukud",
+  "admin-people-filter-team": "Jouk:",
+  "admin-people-filter-all-teams": "Kaik joukud",
+  "admin": "Administrator"
+};
+  const organizationSlots = { operator_org: 'org', operator_team: 'team' };
+  for (const [key, value] of Object.entries(vepsOrganizationRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key, organizationSlots), value.replace(/__([A-Za-z_]+)__/g, (_, name) => organizationSlots[name]), key);
+    assert.doesNotMatch(value, /Lisää automaattisesti|verkkotunnuksen|Ei voi poistaa|organisaatio|tiimi|käyttäjä kuuluu|Lisätyt|tässä alla|Haluatko varmasti|peruuttaa|on jo käytössä|kortit jotka|kuuluvat taululle|valittu tiimille|määrä on|Uusi organisaatio|Uusi tiimi|Tiimit|Tshigwada|Zwigwada|Ylläpitäjä/i, key);
+  }
+  for (const key of ['delete-org-warning-message', 'delete-team-warning-message']) assert.match(cache['ve-PP'][key], /Ei sa heitta.*hot’ üks’ kävutai om sen ühtnik/);
+  for (const key of ['delete-org-confirm-popup', 'delete-team-confirm-popup']) assert.match(cache['ve-PP'][key], /ei sa pördutada/);
+  for (const key of ['remove-organization-from-board', 'remove-team-from-table']) {
+    assert.match(cache['ve-PP'][key], /necile laudale panendad/);
+    assert.doesNotMatch(cache['ve-PP'][key], /ei sa pördutada/);
+  }
+  assert.match(cache['ve-PP']['globalSearch-instructions-operator-org'], /laudal, kudamb om märitud sebrale/);
+  assert.match(cache['ve-PP']['globalSearch-instructions-operator-team'], /laudal, kudamb om märitud joukule/);
+  for (const key of ['globalSearch-instructions-operator-org', 'globalSearch-instructions-operator-team']) {
+    assert.ok(cache['ve-PP'][key].includes('<display name|short name>'));
+    assert.ok(cache['ve-PP'][key].includes('*<name>*'));
+  }
+  assert.equal(cache['ve-PP'].organizations, 'Sebrad');
+  assert.equal(cache['ve-PP']['org-number'], 'Sebroiden lugu om: ');
+  assert.match(cache['ve-PP']['autoAddUsersWithDomainName'], /avtomatižesti domenan nimen mödhe$/);
+  assert.match(cache['ve-PP']['team-number'], /Joukuiden lugumär/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

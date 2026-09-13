@@ -117080,5 +117080,166 @@
     "before": "Palvelin",
     "after": "Server",
     "reason": "Replace Finnish/Venda template, window, admin and loading text with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (template vilitez, copy kopiruida, close saubata/sauptab, window ikun, loss kadotuz, refresh udištamine); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Jäta, kaikuččen, ičeze, iknas, server, varasta and Kaiče. Preserve each clicked card's own open window versus off-mode closing the previous card, all administrator permissions, loading refresh-causes-data-loss warning and server-running check; distinguish card/list/board templates, add versus save and many-card copying. Low confidence: composed technical grammar and container loan require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "autoAddUsersWithDomainName",
+    "before": "Lisää automaattisesti käyttäjiä verkkotunnuksen nimellä",
+    "after": "Ližada kävutajid avtomatižesti domenan nimen mödhe",
+    "reason": "Replace Finnish/Venda organization/team/admin controls with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (team jouk gen joukun part plural joukuid, administrator administrator, community sebr, assignment panend); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests hot’ üks’, ližatud, ozutadud, alemba and Oled-ik. Preserve correct existing organizations Sebrad and org-number Sebroiden lugu om. Keep membership-blocked deletion, irreversible entity deletion versus removal of board assignment, name-already-used errors and domain-name automatic assignment. Search instructions retain exact __operator_org__/__operator_team__, <display name|short name> and *<name>* syntax and board-assigned-to-entity scope. Low confidence: composed organization/assignment grammar and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "delete-org-warning-message",
+    "before": "Ei voi poistaa tätä organisaatiota, ainakin yksi käyttäjä kuuluu siihen",
+    "after": "Ei sa heitta necidä sebrad: hot’ üks’ kävutai om sen ühtnik.",
+    "reason": "Replace Finnish/Venda organization/team/admin controls with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (team jouk gen joukun part plural joukuid, administrator administrator, community sebr, assignment panend); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests hot’ üks’, ližatud, ozutadud, alemba and Oled-ik. Preserve correct existing organizations Sebrad and org-number Sebroiden lugu om. Keep membership-blocked deletion, irreversible entity deletion versus removal of board assignment, name-already-used errors and domain-name automatic assignment. Search instructions retain exact __operator_org__/__operator_team__, <display name|short name> and *<name>* syntax and board-assigned-to-entity scope. Low confidence: composed organization/assignment grammar and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "delete-team-warning-message",
+    "before": "Ei voi poistaa tätä tiimiä, ainakin yksi käyttäjä kuuluu siihen",
+    "after": "Ei sa heitta necidä joukud: hot’ üks’ kävutai om sen ühtnik.",
+    "reason": "Replace Finnish/Venda organization/team/admin controls with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (team jouk gen joukun part plural joukuid, administrator administrator, community sebr, assignment panend); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests hot’ üks’, ližatud, ozutadud, alemba and Oled-ik. Preserve correct existing organizations Sebrad and org-number Sebroiden lugu om. Keep membership-blocked deletion, irreversible entity deletion versus removal of board assignment, name-already-used errors and domain-name automatic assignment. Search instructions retain exact __operator_org__/__operator_team__, <display name|short name> and *<name>* syntax and board-assigned-to-entity scope. Low confidence: composed organization/assignment grammar and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-organizations-label",
+    "before": "Lisätyt organisaatiot näkyy tässä alla:",
+    "after": "Ližatud sebrad oma ozutadud alemba:",
+    "reason": "Replace Finnish/Venda organization/team/admin controls with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (team jouk gen joukun part plural joukuid, administrator administrator, community sebr, assignment panend); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests hot’ üks’, ližatud, ozutadud, alemba and Oled-ik. Preserve correct existing organizations Sebrad and org-number Sebroiden lugu om. Keep membership-blocked deletion, irreversible entity deletion versus removal of board assignment, name-already-used errors and domain-name automatic assignment. Search instructions retain exact __operator_org__/__operator_team__, <display name|short name> and *<name>* syntax and board-assigned-to-entity scope. Low confidence: composed organization/assignment grammar and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-teams-label",
+    "before": "Lisätyt tiimit näkyy tässä alla:",
+    "after": "Ližatud joukud oma ozutadud alemba:",
+    "reason": "Replace Finnish/Venda organization/team/admin controls with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (team jouk gen joukun part plural joukuid, administrator administrator, community sebr, assignment panend); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests hot’ üks’, ližatud, ozutadud, alemba and Oled-ik. Preserve correct existing organizations Sebrad and org-number Sebroiden lugu om. Keep membership-blocked deletion, irreversible entity deletion versus removal of board assignment, name-already-used errors and domain-name automatic assignment. Search instructions retain exact __operator_org__/__operator_team__, <display name|short name> and *<name>* syntax and board-assigned-to-entity scope. Low confidence: composed organization/assignment grammar and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "delete-org-confirm-popup",
+    "before": "Haluatko varmasti poistaa tämän organisaation? Tätä ei voi peruuttaa.",
+    "after": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta necidä sebrad? Necidä ei sa pördutada.",
+    "reason": "Replace Finnish/Venda organization/team/admin controls with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (team jouk gen joukun part plural joukuid, administrator administrator, community sebr, assignment panend); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests hot’ üks’, ližatud, ozutadud, alemba and Oled-ik. Preserve correct existing organizations Sebrad and org-number Sebroiden lugu om. Keep membership-blocked deletion, irreversible entity deletion versus removal of board assignment, name-already-used errors and domain-name automatic assignment. Search instructions retain exact __operator_org__/__operator_team__, <display name|short name> and *<name>* syntax and board-assigned-to-entity scope. Low confidence: composed organization/assignment grammar and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "delete-team-confirm-popup",
+    "before": "Haluatko varmasti poistaa tämän tiimin? Tätä ei voi peruuttaa.",
+    "after": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta necidä joukud? Necidä ei sa pördutada.",
+    "reason": "Replace Finnish/Venda organization/team/admin controls with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (team jouk gen joukun part plural joukuid, administrator administrator, community sebr, assignment panend); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests hot’ üks’, ližatud, ozutadud, alemba and Oled-ik. Preserve correct existing organizations Sebrad and org-number Sebroiden lugu om. Keep membership-blocked deletion, irreversible entity deletion versus removal of board assignment, name-already-used errors and domain-name automatic assignment. Search instructions retain exact __operator_org__/__operator_team__, <display name|short name> and *<name>* syntax and board-assigned-to-entity scope. Low confidence: composed organization/assignment grammar and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "error-orgname-taken",
+    "before": "Tämä organisaation nimi on jo käytössä",
+    "after": "Necen sebran nimi om jo kävutuses",
+    "reason": "Replace Finnish/Venda organization/team/admin controls with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (team jouk gen joukun part plural joukuid, administrator administrator, community sebr, assignment panend); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests hot’ üks’, ližatud, ozutadud, alemba and Oled-ik. Preserve correct existing organizations Sebrad and org-number Sebroiden lugu om. Keep membership-blocked deletion, irreversible entity deletion versus removal of board assignment, name-already-used errors and domain-name automatic assignment. Search instructions retain exact __operator_org__/__operator_team__, <display name|short name> and *<name>* syntax and board-assigned-to-entity scope. Low confidence: composed organization/assignment grammar and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "error-teamname-taken",
+    "before": "Tämä tiimin nimi on jo käytössä",
+    "after": "Necen joukun nimi om jo kävutuses",
+    "reason": "Replace Finnish/Venda organization/team/admin controls with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (team jouk gen joukun part plural joukuid, administrator administrator, community sebr, assignment panend); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests hot’ üks’, ližatud, ozutadud, alemba and Oled-ik. Preserve correct existing organizations Sebrad and org-number Sebroiden lugu om. Keep membership-blocked deletion, irreversible entity deletion versus removal of board assignment, name-already-used errors and domain-name automatic assignment. Search instructions retain exact __operator_org__/__operator_team__, <display name|short name> and *<name>* syntax and board-assigned-to-entity scope. Low confidence: composed organization/assignment grammar and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "remove-organization-from-board",
+    "before": "Haluatko varmasti poistaa tämän organisaation tältä taululta ?",
+    "after": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta necen sebran necile laudale panendad?",
+    "reason": "Replace Finnish/Venda organization/team/admin controls with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (team jouk gen joukun part plural joukuid, administrator administrator, community sebr, assignment panend); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests hot’ üks’, ližatud, ozutadud, alemba and Oled-ik. Preserve correct existing organizations Sebrad and org-number Sebroiden lugu om. Keep membership-blocked deletion, irreversible entity deletion versus removal of board assignment, name-already-used errors and domain-name automatic assignment. Search instructions retain exact __operator_org__/__operator_team__, <display name|short name> and *<name>* syntax and board-assigned-to-entity scope. Low confidence: composed organization/assignment grammar and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "remove-team-from-table",
+    "before": "Haluatko varmasti poistaa tämän tiimin taululta?",
+    "after": "Oled-ik sinä tozi mugošt mel’t, miše tahtoid heitta necen joukun necile laudale panendad?",
+    "reason": "Replace Finnish/Venda organization/team/admin controls with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (team jouk gen joukun part plural joukuid, administrator administrator, community sebr, assignment panend); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests hot’ üks’, ližatud, ozutadud, alemba and Oled-ik. Preserve correct existing organizations Sebrad and org-number Sebroiden lugu om. Keep membership-blocked deletion, irreversible entity deletion versus removal of board assignment, name-already-used errors and domain-name automatic assignment. Search instructions retain exact __operator_org__/__operator_team__, <display name|short name> and *<name>* syntax and board-assigned-to-entity scope. Low confidence: composed organization/assignment grammar and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-operator-org",
+    "before": "`__operator_org__:<display name|short name>` - kortit jotka kuuluvat taululle jotka on valittu organisaatiolle *<name>*",
+    "after": "`__operator_org__:<display name|short name>` - kartad laudal, kudamb om märitud sebrale *<name>*",
+    "reason": "Replace Finnish/Venda organization/team/admin controls with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (team jouk gen joukun part plural joukuid, administrator administrator, community sebr, assignment panend); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests hot’ üks’, ližatud, ozutadud, alemba and Oled-ik. Preserve correct existing organizations Sebrad and org-number Sebroiden lugu om. Keep membership-blocked deletion, irreversible entity deletion versus removal of board assignment, name-already-used errors and domain-name automatic assignment. Search instructions retain exact __operator_org__/__operator_team__, <display name|short name> and *<name>* syntax and board-assigned-to-entity scope. Low confidence: composed organization/assignment grammar and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-operator-team",
+    "before": "`__operator_team__:<display name|short name>` - kortit jotka kuuluvat taululle joka on valittu tiimille *<name>*",
+    "after": "`__operator_team__:<display name|short name>` - kartad laudal, kudamb om märitud joukule *<name>*",
+    "reason": "Replace Finnish/Venda organization/team/admin controls with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (team jouk gen joukun part plural joukuid, administrator administrator, community sebr, assignment panend); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests hot’ üks’, ližatud, ozutadud, alemba and Oled-ik. Preserve correct existing organizations Sebrad and org-number Sebroiden lugu om. Keep membership-blocked deletion, irreversible entity deletion versus removal of board assignment, name-already-used errors and domain-name automatic assignment. Search instructions retain exact __operator_org__/__operator_team__, <display name|short name> and *<name>* syntax and board-assigned-to-entity scope. Low confidence: composed organization/assignment grammar and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "team-number",
+    "before": "Tiimien määrä on:",
+    "after": "Joukuiden lugumär om: ",
+    "reason": "Replace Finnish/Venda organization/team/admin controls with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (team jouk gen joukun part plural joukuid, administrator administrator, community sebr, assignment panend); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests hot’ üks’, ližatud, ozutadud, alemba and Oled-ik. Preserve correct existing organizations Sebrad and org-number Sebroiden lugu om. Keep membership-blocked deletion, irreversible entity deletion versus removal of board assignment, name-already-used errors and domain-name automatic assignment. Search instructions retain exact __operator_org__/__operator_team__, <display name|short name> and *<name>* syntax and board-assigned-to-entity scope. Low confidence: composed organization/assignment grammar and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "newOrgPopup-title",
+    "before": "Uusi organisaatio",
+    "after": "Uz’ sebr",
+    "reason": "Replace Finnish/Venda organization/team/admin controls with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (team jouk gen joukun part plural joukuid, administrator administrator, community sebr, assignment panend); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests hot’ üks’, ližatud, ozutadud, alemba and Oled-ik. Preserve correct existing organizations Sebrad and org-number Sebroiden lugu om. Keep membership-blocked deletion, irreversible entity deletion versus removal of board assignment, name-already-used errors and domain-name automatic assignment. Search instructions retain exact __operator_org__/__operator_team__, <display name|short name> and *<name>* syntax and board-assigned-to-entity scope. Low confidence: composed organization/assignment grammar and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "newTeamPopup-title",
+    "before": "Uusi tiimi",
+    "after": "Uz’ jouk",
+    "reason": "Replace Finnish/Venda organization/team/admin controls with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (team jouk gen joukun part plural joukuid, administrator administrator, community sebr, assignment panend); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests hot’ üks’, ližatud, ozutadud, alemba and Oled-ik. Preserve correct existing organizations Sebrad and org-number Sebroiden lugu om. Keep membership-blocked deletion, irreversible entity deletion versus removal of board assignment, name-already-used errors and domain-name automatic assignment. Search instructions retain exact __operator_org__/__operator_team__, <display name|short name> and *<name>* syntax and board-assigned-to-entity scope. Low confidence: composed organization/assignment grammar and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-organizations",
+    "before": "Lisää organisaatioita",
+    "after": "Ližada sebroid",
+    "reason": "Replace Finnish/Venda organization/team/admin controls with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (team jouk gen joukun part plural joukuid, administrator administrator, community sebr, assignment panend); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests hot’ üks’, ližatud, ozutadud, alemba and Oled-ik. Preserve correct existing organizations Sebrad and org-number Sebroiden lugu om. Keep membership-blocked deletion, irreversible entity deletion versus removal of board assignment, name-already-used errors and domain-name automatic assignment. Search instructions retain exact __operator_org__/__operator_team__, <display name|short name> and *<name>* syntax and board-assigned-to-entity scope. Low confidence: composed organization/assignment grammar and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-teams",
+    "before": "Lisää tiimejä",
+    "after": "Ližada joukuid",
+    "reason": "Replace Finnish/Venda organization/team/admin controls with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (team jouk gen joukun part plural joukuid, administrator administrator, community sebr, assignment panend); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests hot’ üks’, ližatud, ozutadud, alemba and Oled-ik. Preserve correct existing organizations Sebrad and org-number Sebroiden lugu om. Keep membership-blocked deletion, irreversible entity deletion versus removal of board assignment, name-already-used errors and domain-name automatic assignment. Search instructions retain exact __operator_org__/__operator_team__, <display name|short name> and *<name>* syntax and board-assigned-to-entity scope. Low confidence: composed organization/assignment grammar and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "team",
+    "before": "Tiimi",
+    "after": "Jouk",
+    "reason": "Replace Finnish/Venda organization/team/admin controls with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (team jouk gen joukun part plural joukuid, administrator administrator, community sebr, assignment panend); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests hot’ üks’, ližatud, ozutadud, alemba and Oled-ik. Preserve correct existing organizations Sebrad and org-number Sebroiden lugu om. Keep membership-blocked deletion, irreversible entity deletion versus removal of board assignment, name-already-used errors and domain-name automatic assignment. Search instructions retain exact __operator_org__/__operator_team__, <display name|short name> and *<name>* syntax and board-assigned-to-entity scope. Low confidence: composed organization/assignment grammar and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "teams",
+    "before": "Tiimit",
+    "after": "Joukud",
+    "reason": "Replace Finnish/Venda organization/team/admin controls with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (team jouk gen joukun part plural joukuid, administrator administrator, community sebr, assignment panend); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests hot’ üks’, ližatud, ozutadud, alemba and Oled-ik. Preserve correct existing organizations Sebrad and org-number Sebroiden lugu om. Keep membership-blocked deletion, irreversible entity deletion versus removal of board assignment, name-already-used errors and domain-name automatic assignment. Search instructions retain exact __operator_org__/__operator_team__, <display name|short name> and *<name>* syntax and board-assigned-to-entity scope. Low confidence: composed organization/assignment grammar and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "admin-people-filter-team",
+    "before": "Tshigwada:",
+    "after": "Jouk:",
+    "reason": "Replace Finnish/Venda organization/team/admin controls with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (team jouk gen joukun part plural joukuid, administrator administrator, community sebr, assignment panend); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests hot’ üks’, ližatud, ozutadud, alemba and Oled-ik. Preserve correct existing organizations Sebrad and org-number Sebroiden lugu om. Keep membership-blocked deletion, irreversible entity deletion versus removal of board assignment, name-already-used errors and domain-name automatic assignment. Search instructions retain exact __operator_org__/__operator_team__, <display name|short name> and *<name>* syntax and board-assigned-to-entity scope. Low confidence: composed organization/assignment grammar and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "admin-people-filter-all-teams",
+    "before": "Zwigwada Zwoṱhe",
+    "after": "Kaik joukud",
+    "reason": "Replace Finnish/Venda organization/team/admin controls with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (team jouk gen joukun part plural joukuid, administrator administrator, community sebr, assignment panend); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests hot’ üks’, ližatud, ozutadud, alemba and Oled-ik. Preserve correct existing organizations Sebrad and org-number Sebroiden lugu om. Keep membership-blocked deletion, irreversible entity deletion versus removal of board assignment, name-already-used errors and domain-name automatic assignment. Search instructions retain exact __operator_org__/__operator_team__, <display name|short name> and *<name>* syntax and board-assigned-to-entity scope. Low confidence: composed organization/assignment grammar and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "admin",
+    "before": "Ylläpitäjä",
+    "after": "Administrator",
+    "reason": "Replace Finnish/Venda organization/team/admin controls with Veps, including related unflagged labels. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (team jouk gen joukun part plural joukuid, administrator administrator, community sebr, assignment panend); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests hot’ üks’, ližatud, ozutadud, alemba and Oled-ik. Preserve correct existing organizations Sebrad and org-number Sebroiden lugu om. Keep membership-blocked deletion, irreversible entity deletion versus removal of board assignment, name-already-used errors and domain-name automatic assignment. Search instructions retain exact __operator_org__/__operator_team__, <display name|short name> and *<name>* syntax and board-assigned-to-entity scope. Low confidence: composed organization/assignment grammar and inflections require fluent-speaker review."
   }
 ]
