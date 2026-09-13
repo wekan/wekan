@@ -54458,5 +54458,61 @@
     "before": "Premi Invio per aggiungere più elementi",
     "after": "Apasã Enter ti s-adãvghi ma multi elementi",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "custom-help-link-url",
+    "before": "Link URL di aiuto personalizzato",
+    "after": "URL di ligãturã personalizatã ti agiutor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "custom-login-logo-image-url",
+    "before": "URL dell'immagine del logo personalizzato per il login",
+    "after": "URL di imaghinã a logo-lui personalizat ti intrari",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "custom-login-logo-link-url",
+    "before": "Link dell'immagine del logo personalizzato per il login",
+    "after": "URL di ligãturã a logo-lui personalizat ti intrari",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "custom-product-name",
+    "before": "Nome prodotto personalizzato",
+    "after": "Numã personalizatã di produs",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "custom-top-left-corner-logo-height",
+    "before": "Altezza del logo personalizzato nell'angolo superiore sinistro. Default: 27",
+    "after": "Înãltsimea a logo-lui personalizat tu coltul di sus di stãnga. Di ahurhitã: 27",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "custom-top-left-corner-logo-image-url",
+    "before": "URL dell'immagine del logo personalizzato nell'angolo superiore sinistro",
+    "after": "URL di imaghinã a logo-lui personalizat tu coltul di sus di stãnga",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "custom-top-left-corner-logo-link-url",
+    "before": "URL del link del logo personalizzato nell'angolo superiore sinistro",
+    "after": "URL di ligãturã a logo-lui personalizat tu coltul di sus di stãnga",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "default-authentication-method",
+    "before": "Metodo di autenticazione predefinito",
+    "after": "Metodã di autentificari di ahurhitã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
