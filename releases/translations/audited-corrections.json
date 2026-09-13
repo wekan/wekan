@@ -64615,5 +64615,75 @@
     "before": "Déplacer toutes les cartes de cette liste",
     "after": "Dilec’hiañ holl gartennoù ar roll-mañ",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "migration-progress-note",
+    "before": "Veuillez patienter pendant la migration de votre tableau vers la dernière structure...",
+    "after": "Gortozit mar plij e-pad ma treuzkasomp ho taolenn d’ar framm nevesañ…",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "migration-progress-title",
+    "before": "Migration du tableau en cours",
+    "after": "O treuzkas roadennoù an daolenn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "migrations-admin-only",
+    "before": "Seuls les administrateurs du tableau peuvent exécuter les migrations",
+    "after": "Merourien an daolenn hepken a c’hall seveniñ an treuzkasoù roadennoù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "migrations-description",
+    "before": "Exécute les vérifications d'intégrité des données et les réparations pour ce tableau. Chaque migration peut être exécutée individuellement.",
+    "after": "Seveniñ gwiriadennoù anterinded ha reizhadurioù evit roadennoù an daolenn-mañ. Pep treuzkas roadennoù a c’hall bezañ sevenet e-unan.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "minicard-settings",
+    "before": "Paramètres de la minicarte",
+    "after": "Arventennoù ar gartenn vihan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "move-all-attachments-of-board-to-fs",
+    "before": "Déplacer toutes les pièces jointes du tableau vers le système de fichier",
+    "after": "Dilec’hiañ holl stagadennoù an daolenn d’ar reizhiad restroù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "move-all-attachments-of-board-to-gridfs",
+    "before": "Déplacer toutes les pièces jointes du tableau vers GridFS",
+    "after": "Dilec’hiañ holl stagadennoù an daolenn da GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "move-all-attachments-of-board-to-s3",
+    "before": "Déplacer toutes les pièces jointes du tableau vers S3",
+    "after": "Dilec’hiañ holl stagadennoù an daolenn da S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "move-all-attachments-to-fs",
+    "before": "Déplacer toutes les pièces jointes vers le système de fichier",
+    "after": "Dilec’hiañ an holl stagadennoù d’ar reizhiad restroù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "move-all-attachments-to-gridfs",
+    "before": "Déplacer toutes les pièces jointes vers GridFS",
+    "after": "Dilec’hiañ an holl stagadennoù da GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
