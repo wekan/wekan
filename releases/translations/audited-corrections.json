@@ -120776,5 +120776,82 @@
     "before": "بحث",
     "after": "ⴰⵔⵣⵣⵓ",
     "reason": "Reviewed 2026-09-14: replace Arabic with native Standard Moroccan Tamazight UI terminology from matching MediaWiki search message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Date and History use distinct temporal/history nouns; login/logout and password labels reuse established local native terminology. Other valid translations remain unchanged."
+  },
+  {
+    "locale": "zgh",
+    "key": "board-view-collapse",
+    "before": "انهيار",
+    "after": "ⵙⵎⵓⵏ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with exact native Standard Moroccan Tamazight UI term from matching MediaWiki collapsible-collapse message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Collapse refers to hiding expanded UI content, not physical collapse. Rename and More popup headings remain consistent with their controls; unrelated valid translations preserved."
+  },
+  {
+    "locale": "zgh",
+    "key": "collapse",
+    "before": "انهيار",
+    "after": "ⵙⵎⵓⵏ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with exact native Standard Moroccan Tamazight UI term from matching MediaWiki collapsible-collapse message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Collapse refers to hiding expanded UI content, not physical collapse. Rename and More popup headings remain consistent with their controls; unrelated valid translations preserved."
+  },
+  {
+    "locale": "zgh",
+    "key": "card-comments-more",
+    "before": "المزيد",
+    "after": "ⵓⴳⴳⴰⵔ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with exact native Standard Moroccan Tamazight UI term from matching MediaWiki cactions message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Collapse refers to hiding expanded UI content, not physical collapse. Rename and More popup headings remain consistent with their controls; unrelated valid translations preserved."
+  },
+  {
+    "locale": "zgh",
+    "key": "cardMorePopup-title",
+    "before": "المزيد",
+    "after": "ⵓⴳⴳⴰⵔ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with exact native Standard Moroccan Tamazight UI term from matching MediaWiki cactions message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Collapse refers to hiding expanded UI content, not physical collapse. Rename and More popup headings remain consistent with their controls; unrelated valid translations preserved."
+  },
+  {
+    "locale": "zgh",
+    "key": "listMorePopup-title",
+    "before": "المزيد",
+    "after": "ⵓⴳⴳⴰⵔ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with exact native Standard Moroccan Tamazight UI term from matching MediaWiki cactions message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Collapse refers to hiding expanded UI content, not physical collapse. Rename and More popup headings remain consistent with their controls; unrelated valid translations preserved."
+  },
+  {
+    "locale": "zgh",
+    "key": "comment",
+    "before": "تعليق",
+    "after": "ⴰⵖⴼⴰⵡⴰⵍ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with exact native Standard Moroccan Tamazight UI term from matching MediaWiki filehist-comment message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Collapse refers to hiding expanded UI content, not physical collapse. Rename and More popup headings remain consistent with their controls; unrelated valid translations preserved."
+  },
+  {
+    "locale": "zgh",
+    "key": "rename",
+    "before": "إعادة التسمية",
+    "after": "ⴰⵍⵙ ⵉ ⵉⵙⵎ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with exact native Standard Moroccan Tamazight UI term from matching MediaWiki rcfilters-savedqueries-rename message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Collapse refers to hiding expanded UI content, not physical collapse. Rename and More popup headings remain consistent with their controls; unrelated valid translations preserved."
+  },
+  {
+    "locale": "zgh",
+    "key": "attachmentRenamePopup-title",
+    "before": "إعادة التسمية",
+    "after": "ⴰⵍⵙ ⵉ ⵉⵙⵎ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with exact native Standard Moroccan Tamazight UI term from matching MediaWiki rcfilters-savedqueries-rename message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Collapse refers to hiding expanded UI content, not physical collapse. Rename and More popup headings remain consistent with their controls; unrelated valid translations preserved."
+  },
+  {
+    "locale": "zgh",
+    "key": "current",
+    "before": "الحالي",
+    "after": "ⴰⵎⵉⵔⴰⵏ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with exact native Standard Moroccan Tamazight UI term from matching MediaWiki filehist-current message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Collapse refers to hiding expanded UI content, not physical collapse. Rename and More popup headings remain consistent with their controls; unrelated valid translations preserved."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-add",
+    "before": "أضف",
+    "after": "ⵔⵏⵓ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with exact native Standard Moroccan Tamazight UI term from matching MediaWiki apisandbox-add-multi message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Collapse refers to hiding expanded UI content, not physical collapse. Rename and More popup headings remain consistent with their controls; unrelated valid translations preserved."
+  },
+  {
+    "locale": "zgh",
+    "key": "delete-all",
+    "before": "حذف الكل",
+    "after": "ⴽⴽⵙ ⵎⴰⵕⵕⴰ",
+    "reason": "Reviewed 2026-09-14: replace Arabic with exact native Standard Moroccan Tamazight UI term from matching MediaWiki filehist-deleteall message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Collapse refers to hiding expanded UI content, not physical collapse. Rename and More popup headings remain consistent with their controls; unrelated valid translations preserved."
   }
 ]
