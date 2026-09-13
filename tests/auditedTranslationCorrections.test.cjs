@@ -154,5 +154,15 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     assert.doesNotMatch(cache.ace[key], /akun layanan/);
   }
   assert.ok(cache.ace['gcs-credentials-menu-path'].includes('Service accounts'));
+  const tibetanCalendar = cache.bo;
+  for (const suffix of ['gregorian','jalali','coptic','hebrew','islamic-civil','islamic-rgsa','islamic-tbla','iso8601']) {
+    assert.match(tibetanCalendar[`calendar-system-${suffix}`], /ལོ་ཐོ/);
+    assert.doesNotMatch(tibetanCalendar[`calendar-system-${suffix}`], /Gregoriana|Fars|Islamic civil|Islamic tabular|Saudi Arabia|^Coptic$|^Hebrew$/);
+  }
+  assert.match(tibetanCalendar['calendar-system-islamic-civil'], /རེའུ་མིག.*སྤྱི་སྤྱོད/);
+  assert.match(tibetanCalendar['calendar-system-islamic-tbla'], /རེའུ་མིག.*སྐར་དཔྱད/);
+  assert.notEqual(tibetanCalendar['calendar-system-islamic-civil'], tibetanCalendar['calendar-system-islamic-tbla']);
+  assert.match(tibetanCalendar['calendar-system-islamic-rgsa'], /སཽ་དྷི་ཨ་རཱ་བི་ཡ.*ཟླ་བ་མཐོང/);
+  assert.match(tibetanCalendar['calendar-system-iso8601'], /ISO 8601.*བདུན་ཕྲག/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

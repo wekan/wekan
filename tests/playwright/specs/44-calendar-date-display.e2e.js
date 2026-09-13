@@ -304,6 +304,7 @@ for (const language of ['ro', 'ro-RO']) {
 }
 
 for (const [language, sighting, tabular] of [
+  ['bo', 'Hijri ལོ་ཐོ། (སཽ་དྷི་ཨ་རཱ་བི་ཡ། ཟླ་བ་མཐོང་བ་ལྟར།)', 'Hijri ལོ་ཐོ། (རེའུ་མིག་ལྟར། སྐར་དཔྱད་རིག་པའི་རྩིས་འགོའི་དུས་ཚེས།)'],
   ['de', 'Hidschri-Kalender (Saudi-Arabien, Mondsichtung)', 'Hidschri-Kalender (tabellarisch, astronomische Epoche)'],
   ['pt-BR', 'Calendário islâmico (Arábia Saudita, observação da Lua)', 'Calendário islâmico (tabular, época astronômica)'],
 ]) {

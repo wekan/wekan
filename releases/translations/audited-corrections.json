@@ -85571,8 +85571,8 @@
     "locale": "bo",
     "key": "calendar-system-iso8601",
     "before": "ISO 8601",
-    "after": "Gregoriana ལོ་ཐོ། (ISO 8601 བདུན་ཕྲག)",
-    "reason": "Replace foreign setting and English calendar labels with Tibetan descriptions using existing ལོ་ཐོ / ཚེས་གྲངས / བདུན་ཕྲག terminology. Preserve Dangi/Hijri/Umm al-Qura/Minguo/ISO identities and restore Gregorian ISO week distinction; retain Gregorian identifier pending stronger transliteration evidence. Tibetan Japanese ཉི་ཧོང supported by Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bo.xml . Complete assembled grammar remains low confidence; religious/country and Hijri variant labels still need review."
+    "after": "གྲེ་གོ་རི་ཡན་ལོ་ཐོ། (ISO 8601 བདུན་ཕྲག)",
+    "reason": "Replace English/Turkic/Italian calendar seed with Tibetan calendar wording. Preserve proper name Hijri/Jalali and ISO 8601; distinguish tabular civil and astronomical epochs and lunar sighting. Attested table vocabulary: NYU Tibetan social studies glossary; astronomy: Emory Tibetan Science Initiative; Saudi Arabia: Unicode CLDR bo. Direct composition/transliterations have low confidence and need fluent review; CLDR calendar key names are inherited identifiers, not Tibetan translations."
   },
   {
     "locale": "bo",
@@ -112110,5 +112110,54 @@
     "before": "Otsikko (Aakkosjärjestyksessä)",
     "after": "Nimi (kirjamišt)",
     "reason": "Replace Finnish Otsikko (Aakkosjärjestyksessä) with Veps nimi title and kirjamišt alphabet, attested Kaikki/Wiktionary. Low-confidence compact UI wording: parenthetical alphabet indicates alphabetical sorting; fluent review needed."
+  },
+  {
+    "locale": "bo",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "གྲེ་གོ་རི་ཡན་ལོ་ཐོ།",
+    "reason": "Replace English/Turkic/Italian calendar seed with Tibetan calendar wording. Preserve proper name Hijri/Jalali and ISO 8601; distinguish tabular civil and astronomical epochs and lunar sighting. Attested table vocabulary: NYU Tibetan social studies glossary; astronomy: Emory Tibetan Science Initiative; Saudi Arabia: Unicode CLDR bo. Direct composition/transliterations have low confidence and need fluent review; CLDR calendar key names are inherited identifiers, not Tibetan translations."
+  },
+  {
+    "locale": "bo",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Jalali ལོ་ཐོ། (པར་སིག)",
+    "reason": "Replace English/Turkic/Italian calendar seed with Tibetan calendar wording. Preserve proper name Hijri/Jalali and ISO 8601; distinguish tabular civil and astronomical epochs and lunar sighting. Attested table vocabulary: NYU Tibetan social studies glossary; astronomy: Emory Tibetan Science Initiative; Saudi Arabia: Unicode CLDR bo. Direct composition/transliterations have low confidence and need fluent review; CLDR calendar key names are inherited identifiers, not Tibetan translations."
+  },
+  {
+    "locale": "bo",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "ཀོཔ་ཏིཀ་ལོ་ཐོ།",
+    "reason": "Replace English/Turkic/Italian calendar seed with Tibetan calendar wording. Preserve proper name Hijri/Jalali and ISO 8601; distinguish tabular civil and astronomical epochs and lunar sighting. Attested table vocabulary: NYU Tibetan social studies glossary; astronomy: Emory Tibetan Science Initiative; Saudi Arabia: Unicode CLDR bo. Direct composition/transliterations have low confidence and need fluent review; CLDR calendar key names are inherited identifiers, not Tibetan translations."
+  },
+  {
+    "locale": "bo",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "ཧེ་བྲུ་ལོ་ཐོ།",
+    "reason": "Replace English/Turkic/Italian calendar seed with Tibetan calendar wording. Preserve proper name Hijri/Jalali and ISO 8601; distinguish tabular civil and astronomical epochs and lunar sighting. Attested table vocabulary: NYU Tibetan social studies glossary; astronomy: Emory Tibetan Science Initiative; Saudi Arabia: Unicode CLDR bo. Direct composition/transliterations have low confidence and need fluent review; CLDR calendar key names are inherited identifiers, not Tibetan translations."
+  },
+  {
+    "locale": "bo",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Hijri ལོ་ཐོ། (རེའུ་མིག་ལྟར། སྤྱི་སྤྱོད་རྩིས་འགོའི་དུས་ཚེས།)",
+    "reason": "Replace English/Turkic/Italian calendar seed with Tibetan calendar wording. Preserve proper name Hijri/Jalali and ISO 8601; distinguish tabular civil and astronomical epochs and lunar sighting. Attested table vocabulary: NYU Tibetan social studies glossary; astronomy: Emory Tibetan Science Initiative; Saudi Arabia: Unicode CLDR bo. Direct composition/transliterations have low confidence and need fluent review; CLDR calendar key names are inherited identifiers, not Tibetan translations."
+  },
+  {
+    "locale": "bo",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Hijri ལོ་ཐོ། (སཽ་དྷི་ཨ་རཱ་བི་ཡ། ཟླ་བ་མཐོང་བ་ལྟར།)",
+    "reason": "Replace English/Turkic/Italian calendar seed with Tibetan calendar wording. Preserve proper name Hijri/Jalali and ISO 8601; distinguish tabular civil and astronomical epochs and lunar sighting. Attested table vocabulary: NYU Tibetan social studies glossary; astronomy: Emory Tibetan Science Initiative; Saudi Arabia: Unicode CLDR bo. Direct composition/transliterations have low confidence and need fluent review; CLDR calendar key names are inherited identifiers, not Tibetan translations."
+  },
+  {
+    "locale": "bo",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Hijri ལོ་ཐོ། (རེའུ་མིག་ལྟར། སྐར་དཔྱད་རིག་པའི་རྩིས་འགོའི་དུས་ཚེས།)",
+    "reason": "Replace English/Turkic/Italian calendar seed with Tibetan calendar wording. Preserve proper name Hijri/Jalali and ISO 8601; distinguish tabular civil and astronomical epochs and lunar sighting. Attested table vocabulary: NYU Tibetan social studies glossary; astronomy: Emory Tibetan Science Initiative; Saudi Arabia: Unicode CLDR bo. Direct composition/transliterations have low confidence and need fluent review; CLDR calendar key names are inherited identifiers, not Tibetan translations."
   }
 ]
