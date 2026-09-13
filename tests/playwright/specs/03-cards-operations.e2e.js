@@ -113,10 +113,11 @@ test.describe('Cards – operations', () => {
     await boardPage.setViewportSize({ width: 1600, height: 900 });
     const bp = new BoardPage(boardPage);
     await bp.clickCard(board.listIds[0], 'Alpha Card');
-    await boardPage.waitForSelector('#viewer-overlay', { state: 'attached' });
+    await boardPage.waitForSelector('#pdf-viewer', { state: 'attached' });
+    await expect(boardPage.locator('#viewer-overlay')).toBeHidden();
     const dimensions = await boardPage.evaluate(() => {
       const overlay = document.querySelector('#viewer-overlay');
-      const pdf = document.querySelector('#document-gif-viewer');
+      const pdf = document.querySelector('#pdf-viewer');
       overlay.classList.remove('hidden');
       pdf.classList.remove('hidden');
       const result = {
@@ -129,6 +130,7 @@ test.describe('Cards – operations', () => {
     });
     expect(dimensions.overlayWidth).toBeGreaterThanOrEqual(1500);
     expect(dimensions.pdfWidth).toBeGreaterThanOrEqual(1200);
+    await expect(boardPage.locator('#viewer-overlay')).toBeHidden();
   });
 
   // --- Archive / Unarchive ---

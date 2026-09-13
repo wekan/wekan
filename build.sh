@@ -571,7 +571,8 @@ function run_playwright_docker(){
 	docker_exec run --rm --init --ipc=host --network host \
 		--label org.wekan.test-run=everything \
 		--user "$(id -u):$(id -g)" \
-		-e HOME=/tmp \
+		-e HOME=/repo/.tools/tmp \
+		-e TMPDIR=/repo/.tools/tmp \
 		-e WEKAN_BASE_URL="${WEKAN_BASE_URL:-http://127.0.0.1:3000}" \
 		-e WEKAN_MONGO_URL="${WEKAN_MONGO_URL:-mongodb://127.0.0.1:3001/meteor}" \
 		-e WEKAN_PLAYWRIGHT_ALL=1 \
@@ -610,7 +611,8 @@ function run_node_e2e_docker(){
 	docker_exec run --rm --init --ipc=host --network host \
 		--label org.wekan.test-run=everything \
 		--user "$(id -u):$(id -g)" \
-		-e HOME=/tmp \
+		-e HOME=/repo/.tools/tmp \
+		-e TMPDIR=/repo/.tools/tmp \
 		-e NODE_OPTIONS="${NODE_OPTIONS:-}" \
 		-e WEKAN_BASE_URL="${WEKAN_BASE_URL:-http://127.0.0.1:3000}" \
 		-e WEKAN_MONGO_URL="${WEKAN_MONGO_URL:-mongodb://127.0.0.1:3001/meteor}" \
@@ -700,8 +702,9 @@ function set_playwright_browser_path(){
 
 function ensure_playwright_test_dependencies(){
 	local pwdir="$WEKAN_DIR/tests/playwright"
-	if [ ! -x "$pwdir/node_modules/.bin/playwright" ]; then
-		echo "Installing Playwright test dependencies under tests/playwright/node_modules."
+	if [ ! -x "$pwdir/node_modules/.bin/playwright" ] ||
+		! ( cd "$pwdir" && meteor npm ls --depth=0 ) >/dev/null 2>&1; then
+		echo "Installing current Playwright test dependencies under tests/playwright/node_modules."
 		( cd "$pwdir" && meteor npm install ) || return 1
 	fi
 }

@@ -81,7 +81,7 @@ const DDP_CONNECT_TIMEOUT_MS = Number(process.env.E2E_DDP_CONNECT_TIMEOUT_MS) ||
 const LOGIN_TIMEOUT_MS = Number(process.env.E2E_LOGIN_TIMEOUT_MS) || 30000;
 const SUITE_TIMEOUT_MS = Number(process.env.E2E_SUITE_TIMEOUT_MS) || 10 * 60 * 1000;
 const RUN_ID = `${Date.now()}-${crypto.randomBytes(3).toString('hex')}`;
-const ARTIFACT_DIR = process.env.E2E_ARTIFACT_DIR || `/tmp/wekan-list-regressions-${RUN_ID}`;
+const ARTIFACT_DIR = process.env.E2E_ARTIFACT_DIR || path.resolve(__dirname, '../../.tools/tmp', `wekan-list-regressions-${RUN_ID}`);
 
 const TEST_USER_ID = `e2e-user-${RUN_ID}`;
 const TEST_USERNAME = `e2e_${RUN_ID}`;
