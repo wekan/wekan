@@ -67912,5 +67912,19 @@
     "before": "Islamic Umm al-Qura",
     "after": "Deiziadur Hijri (Umm al-Qura)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Kalyndŏrz (pokazowanie daty)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "calendar",
+    "before": "Kalendarz",
+    "after": "Kalyndŏrz",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
