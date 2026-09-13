@@ -120902,5 +120902,12 @@
     "before": "Paramètres de l'utilisateur",
     "after": "ⵉⵙⵎⵏⵢⵉⴼⵏ ⵏ ⵓⵏⵙⵙⵎⵔⵙ",
     "reason": "Reviewed 2026-09-14: replace French User Settings using native preference terminology ⵉⵙⵎⵏⵢⵉⴼⵏ from MediaWiki mypreferences and established user genitive ⵏ ⵓⵏⵙⵙⵎⵔⵙ from userlogin-yourname: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE composed heading and preference-to-settings terminology adaptation require fluent UI review; full phrase is not directly attested."
+  },
+  {
+    "locale": "zgh",
+    "key": "upload",
+    "before": "Télécharger",
+    "after": "ⵙⴽⵜⵔ ⴰⴼⴰⵢⵍⵓ",
+    "reason": "Reviewed 2026-09-14: replace French upload label with exact native Standard Moroccan Tamazight Upload file command from MediaWiki upload: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Explicit file noun fits file-upload control and distinguishes upload from download. Not a full-locale fluent validation."
   }
 ]

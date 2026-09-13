@@ -37,6 +37,9 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.notEqual(cache.zgh.help, 'Aide');
   assert.notEqual(cache.zgh.next, 'Suivant');
   assert.equal(cache.zgh.cancel, 'Sefsex');
+  assert.equal(cache.zgh.upload, 'ⵙⴽⵜⵔ ⴰⴼⴰⵢⵍⵓ');
+  assert.notEqual(cache.zgh.upload, cache.zgh.download);
+  assert.notEqual(cache.zgh.upload, 'Télécharger');
   assert.equal(cache.zgh['settingsUserPopup-title'], 'ⵉⵙⵎⵏⵢⵉⴼⵏ ⵏ ⵓⵏⵙⵙⵎⵔⵙ');
   assert.doesNotMatch(cache.zgh['settingsUserPopup-title'], /Paramètres|utilisateur/);
   assert.equal(cache.zgh['accounts-allowUserNameChange'], 'ⵙⵏⴼⵍ ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ');
