@@ -55242,5 +55242,75 @@
     "before": "Il vostro dispositivo non supporta l'anteprima PDF. In alternativa provate a scaricare il file.",
     "after": "Dispozitivlu a tãu nu suportã previzualizarea PDF. Probeadzã s-discãrtsi fisierlu.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "r-board-note",
+    "before": "Nota: Lascia un campo vuoto per abbinare ogni possibile valore.",
+    "after": "Notã: lashã cãmpul gol ti s-corespundã la cathi valoari posibilã.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "r-d-check-all",
+    "before": "Seleziona tutti gli item di una lista",
+    "after": "Bifeadzã tuti elementili di unã listã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "r-d-uncheck-all",
+    "before": "Deseleziona tutti gli items di una lista",
+    "after": "Scoati bifa di tuti elementili di unã listã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "r-items-list",
+    "before": "elemento1,elemento2,elemento3",
+    "after": "element1,element2,element3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "r-unarchived",
+    "before": "Ripristinato/a dall'archivio",
+    "after": "Adus napoi di Arhivã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "r-when-a-label-is",
+    "before": "Quando un'etichetta viene",
+    "after": "Cãndu unã etichetã easti",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "remove-cover",
+    "before": "Rimuovere immagine di copertina da minicard",
+    "after": "Scoati imaghina di cupertã di minicartã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "search-example",
+    "before": "Scrivere il testo da ricercare e premere Invio",
+    "after": "Scrii textul tsi cauti shi apasã Enter",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "send-smtp-test",
+    "before": "Invia un'email di test a te stesso",
+    "after": "Trimiti un email di probã la tini",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "set-wip-limit-value",
+    "before": "Seleziona un limite per il massimo numero di attività in questa lista",
+    "after": "Puni unã limitã ti numirlu maxim di lucrãri tu aesta listã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
