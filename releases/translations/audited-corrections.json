@@ -90592,5 +90592,26 @@
     "before": "Cette opération mettra à jour les URL des avatars des participants du tableau pour utiliser le bon backend de stockage. Continuer ?",
     "after": "At onulükon URLis avataras limanas taba ad gebön siti verätik kipedama. Progedön-li?",
     "reason": "Replace audited French file/avatar migration descriptions and confirmations with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kiped (storage), sit (system), jon (reference), dämik (damaged), nulükön (renew), nüned (computer file), liman (member). Preserve all board attachment URLs versus board-member avatar URLs, correct storage system, broken references in descriptions only, and continuation questions. URL and avatar remain technical borrowings; storage-backend paraphrase and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "map-to-existing-user-desc",
+    "before": "Choisissez l'utilisateur réel que ce membre (virtuel) importé est en réalité. Ses cartes, commentaires et activités passent à cet utilisateur. Cherchez pour trouver n'importe qui ; un utilisateur qui n'est pas encore sur ce tableau est ajouté avec le rôle propre du membre importé, si bien que la correspondance ne peut jamais accorder plus de droits que l'import n'en a donnés.",
+    "after": "Välolös gebani jenöfik, kel binon liman at penüveigöl (virtualik). Kads, noets e dunots ona potopätükons lü geban at. Sukolös ad tuvön gebani alik; geban no nog su tab at palüükon ko rol lönik limana penüveigöl. Sekü atos yümam neai kanon givön dälis pluik ka nüveigam.",
+    "reason": "Replace audited French imported-member mapping, automatic domain membership and assignee-toggle descriptions with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jenöfik (real), domen (domain), itjäfidik (automatic), däl (permission), jonidükön (assign), sädunön (undo), leod (order). Preserve imported member identity and card/comment/activity reassignment, search for any user, adding a new board member with the imported role and never granting additional permissions. Toggle retains assignment/removal, 1-9 and board-addition order. Existing rol and adapted virtualik remain technical borrowings; assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "autoAddUsersWithDomainName",
+    "before": "Ajouter automatiquement les utilisateurs avec le nom de domaine",
+    "after": "Lüükön gebanis itjäfidiko ko nem domena",
+    "reason": "Replace audited French imported-member mapping, automatic domain membership and assignee-toggle descriptions with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jenöfik (real), domen (domain), itjäfidik (automatic), däl (permission), jonidükön (assign), sädunön (undo), leod (order). Preserve imported member identity and card/comment/activity reassignment, search for any user, adding a new board member with the imported role and never granting additional permissions. Toggle retains assignment/removal, 1-9 and board-addition order. Existing rol and adapted virtualik remain technical borrowings; assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "toggle-assignees",
+    "before": "Changer les intervenants 1-9 sur une carte (par ordre d'ajout au tableau)",
+    "after": "Jonidükön u sädunön jonidükami gebanas 1-9 lü kad (bai leod lüükama lü tab).",
+    "reason": "Replace audited French imported-member mapping, automatic domain membership and assignee-toggle descriptions with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jenöfik (real), domen (domain), itjäfidik (automatic), däl (permission), jonidükön (assign), sädunön (undo), leod (order). Preserve imported member identity and card/comment/activity reassignment, search for any user, adding a new board member with the imported role and never granting additional permissions. Toggle retains assignment/removal, 1-9 and board-addition order. Existing rol and adapted virtualik remain technical borrowings; assembled software wording remains low confidence pending native review."
   }
 ]
