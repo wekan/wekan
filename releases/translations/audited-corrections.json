@@ -103227,5 +103227,75 @@
     "before": "Islamic tabular",
     "after": "Ikhalenda ye-Hijri (ithebula, isikhathi sokuqala ngokwezinkanyezi)",
     "reason": "Replace English calendar labels using existing locale terminology. Preserve Buddhist and Coptic identities and distinguish civil from astronomical tabular epochs. Specialized wording is low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ss",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Likhalenda lemaBuddha",
+    "reason": "Replace English calendar labels using existing locale terminology. Preserve calendar identity and civil versus astronomical tabular epoch distinctions. Specialized wording is low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ss",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Likhalenda lemaCopt",
+    "reason": "Replace English calendar labels using existing locale terminology. Preserve calendar identity and civil versus astronomical tabular epoch distinctions. Specialized wording is low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ss",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Likhalenda le-Hijri (lithebula, sikhatsi sekucala sebantfu)",
+    "reason": "Replace English calendar labels using existing locale terminology. Preserve calendar identity and civil versus astronomical tabular epoch distinctions. Specialized wording is low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ss",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Likhalenda le-Hijri (lithebula, sikhatsi sekucala ngekwetinkhanyeti)",
+    "reason": "Replace English calendar labels using existing locale terminology. Preserve calendar identity and civil versus astronomical tabular epoch distinctions. Specialized wording is low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "nso",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Khalentara ya Bakopti",
+    "reason": "Replace English calendar labels using existing locale terminology. Preserve calendar identity and civil versus astronomical tabular epoch distinctions. Specialized wording is low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "nso",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Khalentara ya Hijri (tafola, nako ya mathomo ya setšhaba)",
+    "reason": "Replace English calendar labels using existing locale terminology. Preserve calendar identity and civil versus astronomical tabular epoch distinctions. Specialized wording is low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "nso",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Khalentara ya Hijri (tafola, nako ya mathomo ya thutadinaledi)",
+    "reason": "Replace English calendar labels using existing locale terminology. Preserve calendar identity and civil versus astronomical tabular epoch distinctions. Specialized wording is low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ts",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Khalendara ya Vakopti",
+    "reason": "Replace English calendar labels using existing locale terminology. Preserve calendar identity and civil versus astronomical tabular epoch distinctions. Specialized wording is low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ts",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Khalendara ya Hijri (tafula, nkarhi wo sungula wa vaaki)",
+    "reason": "Replace English calendar labels using existing locale terminology. Preserve calendar identity and civil versus astronomical tabular epoch distinctions. Specialized wording is low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ts",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Khalendara ya Hijri (tafula, nkarhi wo sungula hi tinyeleti)",
+    "reason": "Replace English calendar labels using existing locale terminology. Preserve calendar identity and civil versus astronomical tabular epoch distinctions. Specialized wording is low confidence; fluent-speaker validation outstanding."
   }
 ]
