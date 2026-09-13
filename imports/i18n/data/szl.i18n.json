@@ -1966,7 +1966,7 @@
   "Node_heap_heap_size_limit": "Sterta Node: limit rozmiaru sterty",
   "Node_heap_malloced_memory": "Sterta Node: przidzielōnŏ pamiyńć (malloc)",
   "Node_heap_peak_malloced_memory": "Sterta Node: nojwiynkszŏ przidzielōnŏ pamiyńć (malloc)",
-  "Node_heap_does_zap_garbage": "Sterta Node: czyszczenie śmieci (zap garbage)",
+  "Node_heap_does_zap_garbage": "Sterta Node: nadpisanie niyużywanyj pamiyńci bitowym wzorym (zap garbage)",
   "Node_heap_number_of_native_contexts": "Sterta Node: wielość natywnych kōntekstōw",
   "Node_heap_number_of_detached_contexts": "Sterta Node: wielość ôdłōnczōnych kōntekstōw",
   "Node_memory_usage_rss": "Użycie pamiyńci Node: rozmiar rezydyntnego zbioru (RSS)",

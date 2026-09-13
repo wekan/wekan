@@ -69515,5 +69515,12 @@
     "before": "Republic of China",
     "after": "Kalyndŏrz Minguo",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Sterta Node: czyszczenie śmieci (zap garbage)",
+    "after": "Sterta Node: nadpisanie niyużywanyj pamiyńci bitowym wzorym (zap garbage)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
