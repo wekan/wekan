@@ -121119,5 +121119,47 @@
     "before": "Nom d'utilisateur et mot de passe requis",
     "after": "ⵉⵍⵍⴰ ⴼⵍⵍⴰⴽ ⴰⴷ ⵜⴼⴽⴷ ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ ⴷ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ",
     "reason": "LOW CONFIDENCE composed username/password-required message: adapts the native noemailcreate obligation-to-provide clause with userlogin-yourname and userlogin-yourpassword nouns, joined with native and (ⴷ). Removes email-specific validity qualifier; adds no failure reason. Complete clause/object coordination needs fluent review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "user-username-not-found",
+    "before": "Utilisateur '%s' non trouvé.",
+    "after": "ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ '%s' ⵓⵔ ⵉⵍⵍⴰ.",
+    "reason": "LOW CONFIDENCE composed missing-username error: native userlogin-yourname noun with masculine negative-existence clause from passwordreset-nosuchcaller; retains English %s and identifies a username rather than changing the subject to a user. Complete named-subject clause and lookup usage need fluent review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "label-not-found",
+    "before": "Étiquette '%s' non trouvée.",
+    "after": "ⴰⵔⵛⵓⵎ '%s' ⵓⵔ ⵉⵍⵍⴰ.",
+    "reason": "LOW CONFIDENCE composed missing-label error: singular tag noun from tag-list-wrapper with masculine negative-existence clause from passwordreset-nosuchcaller. Preserves named label %s. Kanban label/tag usage and full clause need fluent review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "label-color-not-found",
+    "before": "Étiquette de couleur '%s' non trouvée",
+    "after": "ⴰⴽⵍⵓ ⵏ ⵓⵔⵛⵓⵎ %s ⵓⵔ ⵉⵍⵍⴰ.",
+    "reason": "LOW CONFIDENCE composed missing-label-color error: color noun based on rcfilters-highlightmenu-title (bound uklu), tag noun from tag-list-wrapper and masculine negative-existence clause from passwordreset-nosuchcaller. Keeps %s associated with color, not the label name. Free-state color/bound-state tag morphology and complete technical phrase need fluent review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "labels",
+    "before": "علامات",
+    "after": "ⵉⵔⵛⵓⵎⵏ",
+    "reason": "Native plural tag noun directly attested in tag-filter and tag-list-wrapper; replaces Arabic label text. No upstream wiki syntax or unrelated placeholders imported. Label/tag application to kanban needs wider fluent terminology review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "label-create",
+    "before": "إنشاء علامة",
+    "after": "ⵙⵏⵓⵍⴼⵓ ⴰⵔⵛⵓⵎ",
+    "reason": "LOW CONFIDENCE composed create-label command: native createaccount command verb plus singular tag noun from tag-list-wrapper. Replaces Arabic; full kanban command usage needs fluent review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "no-results",
+    "before": "لا توجد نتائج",
+    "after": "ⵓⵔ ⵍⵍⵉⵏⵜ ⵜⵢⴰⴼⵓⵜⵉⵏ",
+    "reason": "Native negative-results main clause directly attested in search-nonefound; removes only the query-matching qualifier because English says generic No results. Keeps native feminine plural negative agreement, adds no network/failure reason. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
