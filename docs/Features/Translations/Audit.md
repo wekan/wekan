@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,910 |
+| Corrected | 11,914 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,936 |
+| Pending review or repair | 3,932 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,300** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,304** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `d934cac4adc484adcfe9328047899a26bc79221f` — Dzongkha Dangi and Minguo labels repaired using [CLDR calendar terminology](https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/dz.xml), preserving proper names. Assembled wording remains low confidence. Exact-value, token, JSON-example, key-order and idempotency checks pass; native-speaker and browser verification remain unavailable.
+Latest translation fix: **2026-09-13**, local commit `c270bdb2c78065a688464bfc46d73844bb8fd484` — four Dzongkha Chinese, Japanese and Ethiopic calendar labels repaired using [CLDR country and calendar terminology](https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/dz.xml), preserving Amete Alem. Assembled grammar remains low confidence. Exact-value, token, JSON-example, key-order and idempotency checks pass; native-speaker and browser verification remain unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending because available evidence does not distinguish its wording sufficiently from Polish.
 
