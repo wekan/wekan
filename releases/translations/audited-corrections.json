@@ -55753,5 +55753,61 @@
     "before": "Islamic Umm al-Qura",
     "after": "Calannàrio Hijri (Umm al-Qura)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "activity-added-label",
+    "before": "ha aggiunto l'etichetta  '%s' a %s",
+    "after": "ha aggiunto ll'etichetta '%s' a %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "activity-checklist-added",
+    "before": "ha aggiunto una checklist a %s",
+    "after": "ha aggiunto 'na lista 'e cuntrollo a %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "activity-checklist-item-added",
+    "before": "Aggiunto l'elemento checklist a '%s' in %s",
+    "after": "ha aggiunto 'n elemento d'a lista 'e cuntrollo a '%s' dint'a %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "activity-checklist-removed",
+    "before": "È stata rimossa una checklist da%s",
+    "after": "ha levato 'na lista 'e cuntrollo da %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "activity-delete-attach",
+    "before": "rimosso un allegato da %s",
+    "after": "ha scancellato 'n allegato da %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "activity-removed-label",
+    "before": "ha rimosso l'etichetta '%s' da %s",
+    "after": "ha levato ll'etichetta '%s' da %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "activity-removed-label-card",
+    "before": "L' etichetta '%s' è stata rimossa.",
+    "after": "ha levato ll'etichetta '%s'",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "activity-subtask-added",
+    "before": "aggiunto il sottocompito a 1%s",
+    "after": "ha aggiunto 'na sottoattività a %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
