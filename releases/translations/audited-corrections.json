@@ -80617,5 +80617,33 @@
     "before": "Êtes-vous sûr de vouloir supprimer cette traduction personnalisée ? Cela est irréversible.",
     "after": "Ndax wóor na la ne bëgg nga far mbind mu tekki mii ñu def ci soxla? Mëneesul delloo jëf jii.",
     "reason": "Replace French custom-translation controls with Wolof. Tekki translation attested in native Wolof Wiktionary https://wo.wiktionary.org/wiki/tekki ; preserve custom string/count/new/edit/delete distinctions and no undo. Full custom-string phrasing and grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "username",
+    "before": "Nom d'utilisateur",
+    "after": "Turu jëfandikukat bi",
+    "reason": "Replace French username/password labels and validation messages with Wolof. Reuse existing turu jëfandikukat and baatu jall terminology in repaired account protection strings. Preserve both credentials required and plural password mismatch meanings. Full grammar and credential terminology remain low confidence; login-logo controls remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "password",
+    "before": "Mot de passe",
+    "after": "Baatu jall",
+    "reason": "Replace French username/password labels and validation messages with Wolof. Reuse existing turu jëfandikukat and baatu jall terminology in repaired account protection strings. Preserve both credentials required and plural password mismatch meanings. Full grammar and credential terminology remain low confidence; login-logo controls remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "username-password-required",
+    "before": "Nom d'utilisateur et mot de passe requis",
+    "after": "Turu jëfandikukat bi ak baatu jall bi dañu leen soxla",
+    "reason": "Replace French username/password labels and validation messages with Wolof. Reuse existing turu jëfandikukat and baatu jall terminology in repaired account protection strings. Preserve both credentials required and plural password mismatch meanings. Full grammar and credential terminology remain low confidence; login-logo controls remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "password-mismatch",
+    "before": "Les mots de passe ne correspondent pas",
+    "after": "Baatu jall yi bokkul",
+    "reason": "Replace French username/password labels and validation messages with Wolof. Reuse existing turu jëfandikukat and baatu jall terminology in repaired account protection strings. Preserve both credentials required and plural password mismatch meanings. Full grammar and credential terminology remain low confidence; login-logo controls remain pending."
   }
 ]
