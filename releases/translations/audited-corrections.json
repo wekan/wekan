@@ -85391,5 +85391,40 @@
     "before": "ISO 8601",
     "after": "Ikirangamisi ca Gregoriana (indwi za ISO 8601)",
     "reason": "Replace foreign setting and English calendar labels with Rundi; preserve Dangi/Hijri/Umm al-Qura/Minguo/ISO identities and restore Gregorian ISO week detail. Exact Ikirangamisi c’Abayuda attested at https://www.jw.org/run/ivyasohowe/bibiliya/nwt/inyongera-ya-b/ikirangamisi-cabayuda-co-mu-bihe-vya-bibiliya/ ; indwi week vocabulary at https://www.jw.org/run/ivyasohowe/ibinyamakuru/be-maso-no4-2016-myandagaro/akamenyero-niwumireko/ . Existing Itariki terminology retained. Complete assembled setting/other grammar remains low confidence; religious/country/tabular variant labels remain pending."
+  },
+  {
+    "locale": "rn",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Ikirangamisi ca Jalali (c’Ubuperesi)",
+    "reason": "Replace English country calendar labels and foreign Fars wording with Rundi, preserving Jalali/Amete Alem identities. Ubushinwa/Ubuyapani attested at https://wol.jw.org/run/wol/d/r82/lp-ru/2019482 ; Ubuperesi at https://www.jw.org/run/ivyasohowe/ibinyamakuru/wp20150501/bibiliya-ivyacukuwe/ ; Etiyopiya at https://www.jw.org/run/ivyabona-vya-yehova/Adrese/etiyopiya/ . Existing and published Ikirangamisi terminology retained. Complete assembled grammar remains low confidence; religious/national and Hijri variants remain pending."
+  },
+  {
+    "locale": "rn",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Ikirangamisi c’Ubushinwa",
+    "reason": "Replace English country calendar labels and foreign Fars wording with Rundi, preserving Jalali/Amete Alem identities. Ubushinwa/Ubuyapani attested at https://wol.jw.org/run/wol/d/r82/lp-ru/2019482 ; Ubuperesi at https://www.jw.org/run/ivyasohowe/ibinyamakuru/wp20150501/bibiliya-ivyacukuwe/ ; Etiyopiya at https://www.jw.org/run/ivyabona-vya-yehova/Adrese/etiyopiya/ . Existing and published Ikirangamisi terminology retained. Complete assembled grammar remains low confidence; religious/national and Hijri variants remain pending."
+  },
+  {
+    "locale": "rn",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Ikirangamisi c’Ubuyapani",
+    "reason": "Replace English country calendar labels and foreign Fars wording with Rundi, preserving Jalali/Amete Alem identities. Ubushinwa/Ubuyapani attested at https://wol.jw.org/run/wol/d/r82/lp-ru/2019482 ; Ubuperesi at https://www.jw.org/run/ivyasohowe/ibinyamakuru/wp20150501/bibiliya-ivyacukuwe/ ; Etiyopiya at https://www.jw.org/run/ivyabona-vya-yehova/Adrese/etiyopiya/ . Existing and published Ikirangamisi terminology retained. Complete assembled grammar remains low confidence; religious/national and Hijri variants remain pending."
+  },
+  {
+    "locale": "rn",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Ikirangamisi ca Etiyopiya",
+    "reason": "Replace English country calendar labels and foreign Fars wording with Rundi, preserving Jalali/Amete Alem identities. Ubushinwa/Ubuyapani attested at https://wol.jw.org/run/wol/d/r82/lp-ru/2019482 ; Ubuperesi at https://www.jw.org/run/ivyasohowe/ibinyamakuru/wp20150501/bibiliya-ivyacukuwe/ ; Etiyopiya at https://www.jw.org/run/ivyabona-vya-yehova/Adrese/etiyopiya/ . Existing and published Ikirangamisi terminology retained. Complete assembled grammar remains low confidence; religious/national and Hijri variants remain pending."
+  },
+  {
+    "locale": "rn",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Ikirangamisi ca Amete Alem ca Etiyopiya",
+    "reason": "Replace English country calendar labels and foreign Fars wording with Rundi, preserving Jalali/Amete Alem identities. Ubushinwa/Ubuyapani attested at https://wol.jw.org/run/wol/d/r82/lp-ru/2019482 ; Ubuperesi at https://www.jw.org/run/ivyasohowe/ibinyamakuru/wp20150501/bibiliya-ivyacukuwe/ ; Etiyopiya at https://www.jw.org/run/ivyabona-vya-yehova/Adrese/etiyopiya/ . Existing and published Ikirangamisi terminology retained. Complete assembled grammar remains low confidence; religious/national and Hijri variants remain pending."
   }
 ]
