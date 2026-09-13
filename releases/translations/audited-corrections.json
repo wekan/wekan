@@ -81268,5 +81268,61 @@
     "before": "A des couloirs",
     "after": "Am na yoon yi",
     "reason": "Replace French swimlane sizing/search controls with Wolof and align mixed height-error noun with Yoon. Preserve pixels, positive integer requirement, list versus swimlane search placeholders, no archived swimlanes and has-swimlanes condition. Height adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "card-templates-swimlane",
+    "before": "Modèles de cartes",
+    "after": "Royukaay yu karta",
+    "reason": "Replace French template/list-import/list-sort labels with Wolof using established royukaay/Dugal/Toftal terminology. Preserve card/list/board template distinctions, literal Excel CSV/TSV and left/right of selected list. Existing Lu ëpp reused for More. Full grammar and relative-location adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "list-templates-swimlane",
+    "before": "Modèles de listes",
+    "after": "Royukaay yu limu",
+    "reason": "Replace French template/list-import/list-sort labels with Wolof using established royukaay/Dugal/Toftal terminology. Preserve card/list/board template distinctions, literal Excel CSV/TSV and left/right of selected list. Existing Lu ëpp reused for More. Full grammar and relative-location adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "board-templates-swimlane",
+    "before": "Modèles de tableaux",
+    "after": "Royukaay yu tablo",
+    "reason": "Replace French template/list-import/list-sort labels with Wolof using established royukaay/Dugal/Toftal terminology. Preserve card/list/board template distinctions, literal Excel CSV/TSV and left/right of selected list. Existing Lu ëpp reused for More. Full grammar and relative-location adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "listImportCardsTsvPopup-title",
+    "before": "Importer un fichier Excel CSV/TSV",
+    "after": "Dugal Excel CSV/TSV",
+    "reason": "Replace French template/list-import/list-sort labels with Wolof using established royukaay/Dugal/Toftal terminology. Preserve card/list/board template distinctions, literal Excel CSV/TSV and left/right of selected list. Existing Lu ëpp reused for More. Full grammar and relative-location adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "listMorePopup-title",
+    "before": "Plus",
+    "after": "Lu ëpp",
+    "reason": "Replace French template/list-import/list-sort labels with Wolof using established royukaay/Dugal/Toftal terminology. Preserve card/list/board template distinctions, literal Excel CSV/TSV and left/right of selected list. Existing Lu ëpp reused for More. Full grammar and relative-location adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "list-sort-by",
+    "before": "Trier la liste par:",
+    "after": "Toftal limu bi ci:",
+    "reason": "Replace French template/list-import/list-sort labels with Wolof using established royukaay/Dugal/Toftal terminology. Preserve card/list/board template distinctions, literal Excel CSV/TSV and left/right of selected list. Existing Lu ëpp reused for More. Full grammar and relative-location adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "left-of-list",
+    "before": "À gauche de la liste sélectionnée",
+    "after": "Ci càmmooñu limu bi ñu tànn",
+    "reason": "Replace French template/list-import/list-sort labels with Wolof using established royukaay/Dugal/Toftal terminology. Preserve card/list/board template distinctions, literal Excel CSV/TSV and left/right of selected list. Existing Lu ëpp reused for More. Full grammar and relative-location adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "right-of-list",
+    "before": "À droite de la liste sélectionnée",
+    "after": "Ci ndeyjooru limu bi ñu tànn",
+    "reason": "Replace French template/list-import/list-sort labels with Wolof using established royukaay/Dugal/Toftal terminology. Preserve card/list/board template distinctions, literal Excel CSV/TSV and left/right of selected list. Existing Lu ëpp reused for More. Full grammar and relative-location adaptations remain low confidence."
   }
 ]
