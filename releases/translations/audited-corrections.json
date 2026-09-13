@@ -58049,5 +58049,124 @@
     "before": "Islamic tabular",
     "after": "ହିଜରୀ ପଞ୍ଜିକା (ସାରଣୀ ଅନୁସାରେ, ଜ୍ୟୋତିର୍ବିଜ୍ଞାନୀୟ ଆରମ୍ଭ କାଳ)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "yi",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "קאַלענדאַר־סיסטעם (דאַטע־ווײַזונג)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "yi",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "דזשאַלאַלי־קאַלענדאַר (פּערסיש)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "yi",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "בודיסטישער קאַלענדאַר",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "yi",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "כינעזישער קאַלענדאַר",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "yi",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "קאָפּטישער קאַלענדאַר",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "yi",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "דאַנגי־קאַלענדאַר (קאָרעיִש)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "yi",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "עטיאָפּישער אַמעטע־אַלעם־קאַלענדאַר",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "yi",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "עטיאָפּישער קאַלענדאַר",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "yi",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "ייִדישער קאַלענדאַר",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "yi",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "אינדיעס נאַציאָנאַלער קאַלענדאַר",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "yi",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "הידזשרי־קאַלענדאַר",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "yi",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "הידזשרי־קאַלענדאַר (טאַבעלאַריש, ציווילער אָנהייב־צײַטפּונקט)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "yi",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "הידזשרי־קאַלענדאַר (סאַודישע אַראַביע, לויטן זען די לבנה)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "yi",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "הידזשרי־קאַלענדאַר (טאַבעלאַריש, אַסטראָנאָמישער אָנהייב־צײַטפּונקט)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "yi",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "הידזשרי־קאַלענדאַר (אום אַל־קוראַ)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "yi",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "יאַפּאַנישער קאַלענדאַר",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "yi",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "מינגואָ־קאַלענדאַר",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
