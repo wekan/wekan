@@ -93308,5 +93308,96 @@
     "before": "Meine Karten",
     "after": "'echletHommeywIj",
     "reason": "Replace German filter-status, personal assignment filter, filter clearing, and My Cards label with Klingon. Reuse repaired wIv selection terminology; preserve this-board context, click-to-edit instruction, cards assigned to me via the descriptive given-to-me nob construction, clearing criteria rather than deleting cards, and first-person possession. Full software wording and assignment metaphor are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "attachments",
+    "before": "Anhänge",
+    "after": "rarDochmey",
+    "reason": "Replace German attachment storage controls with Klingon, reusing repaired rarDoch and storage-configuration wording. Preserve singular attachment versus all attachments versus all attachments of the board, destination filesystem/GridFS/S3, minicard count, and deletion question. filesystem is retained as a technical storage-backend borrowing to distinguish it from GridFS and S3. Full software wording and compound inflection are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "attachmentDeletePopup-title",
+    "before": "Anhang löschen?",
+    "after": "rarDoch Qaw'lu''a'?",
+    "reason": "Replace German attachment storage controls with Klingon, reusing repaired rarDoch and storage-configuration wording. Preserve singular attachment versus all attachments versus all attachments of the board, destination filesystem/GridFS/S3, minicard count, and deletion question. filesystem is retained as a technical storage-backend borrowing to distinguish it from GridFS and S3. Full software wording and compound inflection are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "attachment-storage-configuration",
+    "before": "Konfiguration des Anhangspeichers",
+    "after": "rarDochmey polmeH pat chermeH De'",
+    "reason": "Replace German attachment storage controls with Klingon, reusing repaired rarDoch and storage-configuration wording. Preserve singular attachment versus all attachments versus all attachments of the board, destination filesystem/GridFS/S3, minicard count, and deletion question. filesystem is retained as a technical storage-backend borrowing to distinguish it from GridFS and S3. Full software wording and compound inflection are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "badge-attachment-on-minicard",
+    "before": "Anzahl der Anhänge auf Minikarte",
+    "after": "'echletHom machDaq rarDochmey mI'",
+    "reason": "Replace German attachment storage controls with Klingon, reusing repaired rarDoch and storage-configuration wording. Preserve singular attachment versus all attachments versus all attachments of the board, destination filesystem/GridFS/S3, minicard count, and deletion question. filesystem is retained as a technical storage-backend borrowing to distinguish it from GridFS and S3. Full software wording and compound inflection are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "attachment-move-storage-fs",
+    "before": "Verschiebe den Anhang zum Dateisystem",
+    "after": "filesystem-vaD rarDoch yIvIHmoH",
+    "reason": "Replace German attachment storage controls with Klingon, reusing repaired rarDoch and storage-configuration wording. Preserve singular attachment versus all attachments versus all attachments of the board, destination filesystem/GridFS/S3, minicard count, and deletion question. filesystem is retained as a technical storage-backend borrowing to distinguish it from GridFS and S3. Full software wording and compound inflection are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "move-all-attachments-of-board-to-fs",
+    "before": "Verschiebe alle Anhänge des Boards zum Dateisystem",
+    "after": "filesystem-vaD raSDaq Hoch rarDochmey tIvIHmoH",
+    "reason": "Replace German attachment storage controls with Klingon, reusing repaired rarDoch and storage-configuration wording. Preserve singular attachment versus all attachments versus all attachments of the board, destination filesystem/GridFS/S3, minicard count, and deletion question. filesystem is retained as a technical storage-backend borrowing to distinguish it from GridFS and S3. Full software wording and compound inflection are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "move-all-attachments-to-fs",
+    "before": "Verschiebe alle Anhänge zum Dateisystem",
+    "after": "filesystem-vaD Hoch rarDochmey tIvIHmoH",
+    "reason": "Replace German attachment storage controls with Klingon, reusing repaired rarDoch and storage-configuration wording. Preserve singular attachment versus all attachments versus all attachments of the board, destination filesystem/GridFS/S3, minicard count, and deletion question. filesystem is retained as a technical storage-backend borrowing to distinguish it from GridFS and S3. Full software wording and compound inflection are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "attachment-move-storage-gridfs",
+    "before": "Verschiebe den Anhang zu GridFS",
+    "after": "GridFS-vaD rarDoch yIvIHmoH",
+    "reason": "Replace German attachment storage controls with Klingon, reusing repaired rarDoch and storage-configuration wording. Preserve singular attachment versus all attachments versus all attachments of the board, destination filesystem/GridFS/S3, minicard count, and deletion question. filesystem is retained as a technical storage-backend borrowing to distinguish it from GridFS and S3. Full software wording and compound inflection are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "move-all-attachments-of-board-to-gridfs",
+    "before": "Verschiebe alle Anhänge des Boards zu GridFS",
+    "after": "GridFS-vaD raSDaq Hoch rarDochmey tIvIHmoH",
+    "reason": "Replace German attachment storage controls with Klingon, reusing repaired rarDoch and storage-configuration wording. Preserve singular attachment versus all attachments versus all attachments of the board, destination filesystem/GridFS/S3, minicard count, and deletion question. filesystem is retained as a technical storage-backend borrowing to distinguish it from GridFS and S3. Full software wording and compound inflection are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "move-all-attachments-to-gridfs",
+    "before": "Verschiebe alle Anhänge zu GridFS",
+    "after": "GridFS-vaD Hoch rarDochmey tIvIHmoH",
+    "reason": "Replace German attachment storage controls with Klingon, reusing repaired rarDoch and storage-configuration wording. Preserve singular attachment versus all attachments versus all attachments of the board, destination filesystem/GridFS/S3, minicard count, and deletion question. filesystem is retained as a technical storage-backend borrowing to distinguish it from GridFS and S3. Full software wording and compound inflection are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "attachment-move-storage-s3",
+    "before": "Verschiebe Anhang nach S3",
+    "after": "S3-vaD rarDoch yIvIHmoH",
+    "reason": "Replace German attachment storage controls with Klingon, reusing repaired rarDoch and storage-configuration wording. Preserve singular attachment versus all attachments versus all attachments of the board, destination filesystem/GridFS/S3, minicard count, and deletion question. filesystem is retained as a technical storage-backend borrowing to distinguish it from GridFS and S3. Full software wording and compound inflection are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "move-all-attachments-of-board-to-s3",
+    "before": "Verschiebe alle Anhänge des Boards nach S3",
+    "after": "S3-vaD raSDaq Hoch rarDochmey tIvIHmoH",
+    "reason": "Replace German attachment storage controls with Klingon, reusing repaired rarDoch and storage-configuration wording. Preserve singular attachment versus all attachments versus all attachments of the board, destination filesystem/GridFS/S3, minicard count, and deletion question. filesystem is retained as a technical storage-backend borrowing to distinguish it from GridFS and S3. Full software wording and compound inflection are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "move-all-attachments-to-s3",
+    "before": "Verschiebe alle Anhänge nach S3",
+    "after": "S3-vaD Hoch rarDochmey tIvIHmoH",
+    "reason": "Replace German attachment storage controls with Klingon, reusing repaired rarDoch and storage-configuration wording. Preserve singular attachment versus all attachments versus all attachments of the board, destination filesystem/GridFS/S3, minicard count, and deletion question. filesystem is retained as a technical storage-backend borrowing to distinguish it from GridFS and S3. Full software wording and compound inflection are assembled, low confidence, and need fluent-speaker validation."
   }
 ]
