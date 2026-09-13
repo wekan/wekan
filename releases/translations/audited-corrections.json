@@ -81786,5 +81786,26 @@
     "before": "Mets à jour les URLs d'avatar des participants du tableau pour utiliser le bon gestionnaire de stockage et corriger les références défaillantes d'avatar ",
     "after": "Yeesal URL yu avatar yi ci bokkkat yi ci tablo bi ngir jëfandikoo sistemu denc bi jub te defaraat lëkkalekaay yu avatar yi yàqu.",
     "reason": "Replace French with Wolof; retain comprehensive integrity repair and wait, all attachment URLs versus member avatar URLs, correct storage backend and broken reference repairs. Storage/reference technical phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "run-restore-lost-cards-migration-confirm",
+    "before": "Cette opération créera un couloir « Cartes perdues » et restaurera toutes les cartes et listes avec un swimlaneId ou listId manquant. Cela n'affecte que les éléments non archivés. Continuer ?",
+    "after": "Lii dina sos yoon «Karta yi réer» te delloo karta yépp ak limu yépp yi amul swimlaneId walla listId. Mbir yi ñu dencul ci àrsiw rekk laay soppi. Wéy?",
+    "reason": "Replace French with Wolof; preserve missing swimlaneId/listId, non-archived-only lost-card repair, all archived types with automatic missing-ID repair and difficult undo, shared-list conversion before deleting only redundant empty lists with a same-title populated duplicate. Recovery terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "run-restore-all-archived-migration-confirm",
+    "before": "Cette opération restaurera TOUS les couloirs, listes et cartes archivés, les rendant à nouveau visibles. Les éléments avec des identifiants manquants seront automatiquement corrigés. Cette action ne peut pas être facilement annulée. Continuer ?",
+    "after": "Lii dina delloo YOON YÉPP, LIMU YÉPP AK KARTA YÉPP yi ñu denc ci àrsiw, ngir ñu feeñaat. Mbir yépp yi amul ID dinañu leen defaraat ci boppam. Du yomb a neenal jëf jii. Wéy?",
+    "reason": "Replace French with Wolof; preserve missing swimlaneId/listId, non-archived-only lost-card repair, all archived types with automatic missing-ID repair and difficult undo, shared-list conversion before deleting only redundant empty lists with a same-title populated duplicate. Recovery terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "run-delete-duplicate-empty-lists-migration-confirm",
+    "before": "Cette opération convertira d'abord les listes partagées en listes par couloir, puis supprimera les listes vides qui ont une liste en double avec le même titre contenant des cartes. Seules les listes vides vraiment redondantes seront supprimées. Continuer ?",
+    "after": "Lii dina njëkk a soppi limu yi ñu bokk ngir am limu bu yoon bu nekk, ba noppi far limu yu neen yi am beneen limu bu am benn tur bi te am ay karta. Limu yu neen yi dul soxla dëgg rekk lañuy dindi. Wéy?",
+    "reason": "Replace French with Wolof; preserve missing swimlaneId/listId, non-archived-only lost-card repair, all archived types with automatic missing-ID repair and difficult undo, shared-list conversion before deleting only redundant empty lists with a same-title populated duplicate. Recovery terminology and full grammar remain low confidence."
   }
 ]
