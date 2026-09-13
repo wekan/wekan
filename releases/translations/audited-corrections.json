@@ -114987,5 +114987,152 @@
     "before": "muistutti nykyisen eräajan (__timeValue__) kortilla __card__ olevan nyt",
     "after": "Johtuti: kartan __card__ nügüdläine märaig (__timeValue__) om nügüd'",
     "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "due-today",
+    "before": "Erääntyy tänään",
+    "after": "Märaig tämbei",
+    "reason": "Replace Finnish/Venda date-filter wording or incorrect received/past terminology using Veps dictionary deadline/day/week/remaining/permission vocabulary and native MediaWiki UI references. Dictionary attests täl nedalil (this week), tulijal nedalil (next week), homen (tomorrow), jänu/jänuded (remaining), männu (past) and laskend (permission). Preserve countdown number, five export date types and incomplete-card/board-permission conditions. Composed UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "due-days-left",
+    "before": "maḓuvha a %s o sala",
+    "after": "%s päiväd oma jänuded",
+    "reason": "Replace Finnish/Venda date-filter wording or incorrect received/past terminology using Veps dictionary deadline/day/week/remaining/permission vocabulary and native MediaWiki UI references. Dictionary attests täl nedalil (this week), tulijal nedalil (next week), homen (tomorrow), jänu/jänuded (remaining), männu (past) and laskend (permission). Preserve countdown number, five export date types and incomplete-card/board-permission conditions. Composed UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "due-days-overdue",
+    "before": "maḓuvha a %s o fhira",
+    "after": "%s päiväd märaigan jäl'ghe",
+    "reason": "Replace Finnish/Venda date-filter wording or incorrect received/past terminology using Veps dictionary deadline/day/week/remaining/permission vocabulary and native MediaWiki UI references. Dictionary attests täl nedalil (this week), tulijal nedalil (next week), homen (tomorrow), jänu/jänuded (remaining), männu (past) and laskend (permission). Preserve countdown number, five export date types and incomplete-card/board-permission conditions. Composed UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "export-card-field-dates",
+    "before": "Päivät (Luotu, Vastaanotettu, Alkaa, Eräpäivä, Loppuu)",
+    "after": "Päivmärad (Tehtud, Sadud, Augotiž, Märaig, Lop)",
+    "reason": "Replace Finnish/Venda date-filter wording or incorrect received/past terminology using Veps dictionary deadline/day/week/remaining/permission vocabulary and native MediaWiki UI references. Dictionary attests täl nedalil (this week), tulijal nedalil (next week), homen (tomorrow), jänu/jänuded (remaining), männu (past) and laskend (permission). Preserve countdown number, five export date types and incomplete-card/board-permission conditions. Composed UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-no-due-date",
+    "before": "Ei eräpäivää",
+    "after": "Ei ole märaigan päivmärad",
+    "reason": "Replace Finnish/Venda date-filter wording or incorrect received/past terminology using Veps dictionary deadline/day/week/remaining/permission vocabulary and native MediaWiki UI references. Dictionary attests täl nedalil (this week), tulijal nedalil (next week), homen (tomorrow), jänu/jänuded (remaining), männu (past) and laskend (permission). Preserve countdown number, five export date types and incomplete-card/board-permission conditions. Composed UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-overdue",
+    "before": "Myöhässä",
+    "after": "Märaig om männu",
+    "reason": "Replace Finnish/Venda date-filter wording or incorrect received/past terminology using Veps dictionary deadline/day/week/remaining/permission vocabulary and native MediaWiki UI references. Dictionary attests täl nedalil (this week), tulijal nedalil (next week), homen (tomorrow), jänu/jänuded (remaining), männu (past) and laskend (permission). Preserve countdown number, five export date types and incomplete-card/board-permission conditions. Composed UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-due-today",
+    "before": "Erääntyy tänään",
+    "after": "Märaig tämbei",
+    "reason": "Replace Finnish/Venda date-filter wording or incorrect received/past terminology using Veps dictionary deadline/day/week/remaining/permission vocabulary and native MediaWiki UI references. Dictionary attests täl nedalil (this week), tulijal nedalil (next week), homen (tomorrow), jänu/jänuded (remaining), männu (past) and laskend (permission). Preserve countdown number, five export date types and incomplete-card/board-permission conditions. Composed UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-due-this-week",
+    "before": "Erääntyy tällä viikolla",
+    "after": "Märaig täl nedalil",
+    "reason": "Replace Finnish/Venda date-filter wording or incorrect received/past terminology using Veps dictionary deadline/day/week/remaining/permission vocabulary and native MediaWiki UI references. Dictionary attests täl nedalil (this week), tulijal nedalil (next week), homen (tomorrow), jänu/jänuded (remaining), männu (past) and laskend (permission). Preserve countdown number, five export date types and incomplete-card/board-permission conditions. Composed UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-due-next-week",
+    "before": "Erääntyy ensi viikolla",
+    "after": "Märaig tulijal nedalil",
+    "reason": "Replace Finnish/Venda date-filter wording or incorrect received/past terminology using Veps dictionary deadline/day/week/remaining/permission vocabulary and native MediaWiki UI references. Dictionary attests täl nedalil (this week), tulijal nedalil (next week), homen (tomorrow), jänu/jänuded (remaining), männu (past) and laskend (permission). Preserve countdown number, five export date types and incomplete-card/board-permission conditions. Composed UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-due-tomorrow",
+    "before": "Erääntyy huomenna",
+    "after": "Märaig homen",
+    "reason": "Replace Finnish/Venda date-filter wording or incorrect received/past terminology using Veps dictionary deadline/day/week/remaining/permission vocabulary and native MediaWiki UI references. Dictionary attests täl nedalil (this week), tulijal nedalil (next week), homen (tomorrow), jänu/jänuded (remaining), männu (past) and laskend (permission). Preserve countdown number, five export date types and incomplete-card/board-permission conditions. Composed UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-w-set-received-now",
+    "before": "Pane sanundan päiväluk nügüdeks",
+    "after": "Pane sadud päivmär nügüd'",
+    "reason": "Replace Finnish/Venda date-filter wording or incorrect received/past terminology using Veps dictionary deadline/day/week/remaining/permission vocabulary and native MediaWiki UI references. Dictionary attests täl nedalil (this week), tulijal nedalil (next week), homen (tomorrow), jänu/jänuded (remaining), männu (past) and laskend (permission). Preserve countdown number, five export date types and incomplete-card/board-permission conditions. Composed UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-due-overdue",
+    "before": "om mänenu",
+    "after": "om männu",
+    "reason": "Replace Finnish/Venda date-filter wording or incorrect received/past terminology using Veps dictionary deadline/day/week/remaining/permission vocabulary and native MediaWiki UI references. Dictionary attests täl nedalil (this week), tulijal nedalil (next week), homen (tomorrow), jänu/jänuded (remaining), männu (past) and laskend (permission). Preserve countdown number, five export date types and incomplete-card/board-permission conditions. Composed UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "start-day-of-week",
+    "before": "Aseta viikon alkamispäivä",
+    "after": "Pane nedalin augotišen päiv",
+    "reason": "Replace Finnish/Venda date-filter wording or incorrect received/past terminology using Veps dictionary deadline/day/week/remaining/permission vocabulary and native MediaWiki UI references. Dictionary attests täl nedalil (this week), tulijal nedalil (next week), homen (tomorrow), jänu/jänuded (remaining), männu (past) and laskend (permission). Preserve countdown number, five export date types and incomplete-card/board-permission conditions. Composed UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "myCardsSortChange-choice-dueat",
+    "before": "Eräpäivän mukaan",
+    "after": "Märaigan päivmäran mödhe",
+    "reason": "Replace Finnish/Venda date-filter wording or incorrect received/past terminology using Veps dictionary deadline/day/week/remaining/permission vocabulary and native MediaWiki UI references. Dictionary attests täl nedalil (this week), tulijal nedalil (next week), homen (tomorrow), jänu/jänuded (remaining), männu (past) and laskend (permission). Preserve countdown number, five export date types and incomplete-card/board-permission conditions. Composed UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "dueCards-title",
+    "before": "Eräpäivä kortit",
+    "after": "Märaiganke kartad",
+    "reason": "Replace Finnish/Venda date-filter wording or incorrect received/past terminology using Veps dictionary deadline/day/week/remaining/permission vocabulary and native MediaWiki UI references. Dictionary attests täl nedalil (this week), tulijal nedalil (next week), homen (tomorrow), jänu/jänuded (remaining), männu (past) and laskend (permission). Preserve countdown number, five export date types and incomplete-card/board-permission conditions. Composed UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "dueCardsViewChange-title",
+    "before": "Eräpäivä kortit näkymä",
+    "after": "Märaiganke kartoiden kacund",
+    "reason": "Replace Finnish/Venda date-filter wording or incorrect received/past terminology using Veps dictionary deadline/day/week/remaining/permission vocabulary and native MediaWiki UI references. Dictionary attests täl nedalil (this week), tulijal nedalil (next week), homen (tomorrow), jänu/jänuded (remaining), männu (past) and laskend (permission). Preserve countdown number, five export date types and incomplete-card/board-permission conditions. Composed UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "dueCardsViewChangePopup-title",
+    "before": "Eräpäivä kortit näkymä",
+    "after": "Märaiganke kartoiden kacund",
+    "reason": "Replace Finnish/Venda date-filter wording or incorrect received/past terminology using Veps dictionary deadline/day/week/remaining/permission vocabulary and native MediaWiki UI references. Dictionary attests täl nedalil (this week), tulijal nedalil (next week), homen (tomorrow), jänu/jänuded (remaining), männu (past) and laskend (permission). Preserve countdown number, five export date types and incomplete-card/board-permission conditions. Composed UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "dueCardsViewChange-choice-all",
+    "before": "Kaikki käyttäjät",
+    "after": "Kaik kävutajad",
+    "reason": "Replace Finnish/Venda date-filter wording or incorrect received/past terminology using Veps dictionary deadline/day/week/remaining/permission vocabulary and native MediaWiki UI references. Dictionary attests täl nedalil (this week), tulijal nedalil (next week), homen (tomorrow), jänu/jänuded (remaining), männu (past) and laskend (permission). Preserve countdown number, five export date types and incomplete-card/board-permission conditions. Composed UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "dueCardsViewChange-choice-all-description",
+    "before": "Näyttää kaikki keskeneräiset kortit joilla on *eräpäivä* tauluilta joihin käyttäjällä on oikeudet.",
+    "after": "Ozutab kaik kartad, miččid ei ole loptud da kudambil om *märaigan päivmär*, laudoilpäi, kudambiden täht kävutajale om laskend.",
+    "reason": "Replace Finnish/Venda date-filter wording or incorrect received/past terminology using Veps dictionary deadline/day/week/remaining/permission vocabulary and native MediaWiki UI references. Dictionary attests täl nedalil (this week), tulijal nedalil (next week), homen (tomorrow), jänu/jänuded (remaining), männu (past) and laskend (permission). Preserve countdown number, five export date types and incomplete-card/board-permission conditions. Composed UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "dueCards-noResults-title",
+    "before": "Erääntyviä kortteja ei löytynyt",
+    "after": "Ei ole märaiganke kartoid",
+    "reason": "Replace Finnish/Venda date-filter wording or incorrect received/past terminology using Veps dictionary deadline/day/week/remaining/permission vocabulary and native MediaWiki UI references. Dictionary attests täl nedalil (this week), tulijal nedalil (next week), homen (tomorrow), jänu/jänuded (remaining), männu (past) and laskend (permission). Preserve countdown number, five export date types and incomplete-card/board-permission conditions. Composed UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "dueCards-noResults-description",
+    "before": "Sinulla ei ole tällä hetkellä yhtään erääntyvää korttia.",
+    "after": "Sinai ei ole nügüd' märaiganke kartoid.",
+    "reason": "Replace Finnish/Venda date-filter wording or incorrect received/past terminology using Veps dictionary deadline/day/week/remaining/permission vocabulary and native MediaWiki UI references. Dictionary attests täl nedalil (this week), tulijal nedalil (next week), homen (tomorrow), jänu/jänuded (remaining), männu (past) and laskend (permission). Preserve countdown number, five export date types and incomplete-card/board-permission conditions. Composed UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
   }
 ]

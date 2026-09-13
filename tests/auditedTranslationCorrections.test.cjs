@@ -846,6 +846,43 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(vepsTranslator.t('duenow', { sprintf: ['TIME'] }), /TIME om tämbei$/);
   assert.match(vepsTranslator.t('act-newDue', dateSlots), /ezmäine märaigan johtutez/);
   assert.notEqual(cache['ve-PP']['a-dueAt'], cache['ve-PP']['a-receivedAt']);
+  const vepsDateFilterRepairs = {
+  "due-today": "Märaig tämbei",
+  "due-days-left": "%s päiväd oma jänuded",
+  "due-days-overdue": "%s päiväd märaigan jäl'ghe",
+  "export-card-field-dates": "Päivmärad (Tehtud, Sadud, Augotiž, Märaig, Lop)",
+  "filter-no-due-date": "Ei ole märaigan päivmärad",
+  "filter-overdue": "Märaig om männu",
+  "filter-due-today": "Märaig tämbei",
+  "filter-due-this-week": "Märaig täl nedalil",
+  "filter-due-next-week": "Märaig tulijal nedalil",
+  "filter-due-tomorrow": "Märaig homen",
+  "r-w-set-received-now": "Pane sadud päivmär nügüd'",
+  "r-due-overdue": "om männu",
+  "start-day-of-week": "Pane nedalin augotišen päiv",
+  "myCardsSortChange-choice-dueat": "Märaigan päivmäran mödhe",
+  "dueCards-title": "Märaiganke kartad",
+  "dueCardsViewChange-title": "Märaiganke kartoiden kacund",
+  "dueCardsViewChangePopup-title": "Märaiganke kartoiden kacund",
+  "dueCardsViewChange-choice-all": "Kaik kävutajad",
+  "dueCardsViewChange-choice-all-description": "Ozutab kaik kartad, miččid ei ole loptud da kudambil om *märaigan päivmär*, laudoilpäi, kudambiden täht kävutajale om laskend.",
+  "dueCards-noResults-title": "Ei ole märaiganke kartoid",
+  "dueCards-noResults-description": "Sinai ei ole nügüd' märaiganke kartoid."
+};
+  for (const [key, value] of Object.entries(vepsDateFilterRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Eräänt|eräpäiv|tänään|huomenna|tällä viikolla|ensi viikolla|Myöhässä|Aseta|alkamispäiv|vastaanotettu|sanundan|mänenu|Kaikki käyttäjät|Näyttää|keskeneräiset|oikeudet|kortteja|maḓuvha|o sala|o fhira/i, key);
+  }
+  assert.equal(vepsTranslator.t('due-days-left', { sprintf: [3] }), '3 päiväd oma jänuded');
+  assert.equal(vepsTranslator.t('due-days-overdue', { sprintf: [2] }), "2 päiväd märaigan jäl'ghe");
+  assert.equal(cache['ve-PP']['due-today'], cache['ve-PP']['filter-due-today']);
+  assert.match(cache['ve-PP']['filter-due-this-week'], /täl nedalil$/);
+  assert.match(cache['ve-PP']['filter-due-next-week'], /tulijal nedalil$/);
+  assert.match(cache['ve-PP']['filter-due-tomorrow'], /homen$/);
+  assert.match(cache['ve-PP']['dueCardsViewChange-choice-all-description'], /kaik kartad.*ei ole loptud.*\*märaigan päivmär\*.*laudoilpäi.*kävutajale om laskend/);
+  assert.equal(cache['ve-PP']['dueCardsViewChange-title'], cache['ve-PP']['dueCardsViewChangePopup-title']);
+  assert.match(cache['ve-PP']['export-card-field-dates'], /Tehtud, Sadud, Augotiž, Märaig, Lop/);
   assert.equal(vepsTranslator.t('activity'), 'Tegendad');
   assert.equal(vepsTranslator.t('act-activity-notify'), 'Tegendoiden tedotuz');
   for (const key of ['activity', 'act-activity-notify']) {
