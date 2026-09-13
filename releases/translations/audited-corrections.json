@@ -51329,5 +51329,75 @@
     "before": "Attiva limite Work In Progress",
     "after": "Attivà a limita WIP",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "enter-zoom-level",
+    "before": "Inserisci il livello di zoom (50-300%):",
+    "after": "Inserite u livellu di zoom (50-300%):",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "error-email-taken",
+    "before": "L'email è già stata presa",
+    "after": "St’indirizzu email hè digià adupratu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "error-invitation-code-not-exist",
+    "before": "Il codice d'invito non esiste",
+    "after": "U codice d’invitu ùn esiste micca",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "error-json-malformed",
+    "before": "Il testo non è in un formato JSON valido",
+    "after": "U vostru testu ùn hè micca JSON validu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "error-ldap-login",
+    "before": "C'è stato un errore mentre provavi ad effettuare il login",
+    "after": "Un errore hè accadutu durante u tentativu di cunnessione",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "error-notAuthorized",
+    "before": "Non sei autorizzato ad accedere a questa pagina.",
+    "after": "Ùn site micca auturizatu à vede sta pagina.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "error-user-notAllowSelf",
+    "before": "Non puoi invitare te stesso",
+    "after": "Ùn vi pudete micca invità voi stessu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "expand-checklist",
+    "before": "Espandi la lista di controllo",
+    "after": "Spiegà a lista di cuntrollu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "export-card-field-dates",
+    "before": "Date (Creazione, Ricezione, Inizio, Scadenza, Fine)",
+    "after": "Date (Creazione, Ricezzione, Principiu, Scadenza, Fine)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "export-card-field-people",
+    "before": "Persone (Creatore, Proprietario, Membri, Assegnatari)",
+    "after": "Persone (Creatore, Pruprietariu, Membri, Risponsabili)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
