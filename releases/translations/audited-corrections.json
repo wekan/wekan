@@ -64349,5 +64349,75 @@
     "before": "Vous devez être participant de ce tableau pour faire cela",
     "after": "Ret eo deoc’h bezañ ezel eus an daolenn-mañ evit ober kement-se",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "error-board-notAdmin",
+    "before": "Vous devez être administrateur de ce tableau pour faire cela",
+    "after": "Ret eo deoc’h bezañ merour an daolenn-mañ evit ober kement-se",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "error-ldap-login",
+    "before": "Une erreur s'est produite lors de la tentative de connexion",
+    "after": "Ur fazi a zo c’hoarvezet e-pad an taol kennaskañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "error-user-doesNotExist",
+    "before": "Cet utilisateur n'existe pas",
+    "after": "N’eus ket eus an implijer-mañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "error-user-notCreated",
+    "before": "Cet utilisateur n'a pas encore été créé",
+    "after": "N’eo ket krouet an implijer-mañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "error-username-taken",
+    "before": "Ce nom d'utilisateur est déjà utilisé",
+    "after": "Implijet eo an anv implijer-mañ dija",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "export-card-field-board-info",
+    "before": "Informations du tableau (Tableau, Liste, Couloir)",
+    "after": "Titouroù an daolenn (Taolenn, Roll, Trepas)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "filter-on-desc",
+    "before": "Vous êtes en train de filtrer les cartes sur ce tableau. Cliquez ici pour modifier les filtres.",
+    "after": "O silañ kartennoù an daolenn-mañ emaoc’h. Klikit amañ evit kemmañ ar sil.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "fix-all-file-urls-migration-description",
+    "before": "Met à jour toutes les URL des pièces jointes de ce tableau pour utiliser le bon backend de stockage et corrige les références de fichiers cassées.",
+    "after": "Hizivaat a ra holl URLoù stagadennoù restroù an daolenn-mañ evit implijout ar reizhiad stokañ reizh ha reizhañ daveoù restroù torret.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "fix-avatar-urls-migration-description",
+    "before": "Mets à jour les URLs d'avatar des participants du tableau pour utiliser le bon gestionnaire de stockage et corriger les références défaillantes d'avatar ",
+    "after": "Hizivaat a ra URLoù avatarioù izili an daolenn evit implijout ar reizhiad stokañ reizh ha reizhañ daveoù avatarioù torret.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "fix-missing-lists-migration-description",
+    "before": "Détecte et répare les listes manquantes ou corrompues dans la structure du tableau.",
+    "after": "Dinoiñ ha reizhañ a ra ar rolloù a vank pe a zo breinet e framm an daolenn.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
