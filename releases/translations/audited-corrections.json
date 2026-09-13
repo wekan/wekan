@@ -52407,5 +52407,61 @@
     "before": "Token (facoltativo per l'autenticazione)",
     "after": "Token (uzzionale per l’autentificazione)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "wipLimitErrorPopup-dialog-pt1",
+    "before": "Il numero di compiti in questa lista è maggiore del limite di work in progress che hai definito in precedenza.",
+    "after": "U numeru di compiti in sta lista hè più altu chè a limita WIP chì avete definitu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "wipLimitErrorPopup-title",
+    "before": "Limite Work In Progress non valido",
+    "after": "Limita WIP micca valida",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Calendariu buddistu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Calendariu chinese",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Calendariu coptu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Calendariu Dangi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Calendariu etiopicu Amete Alem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Calendariu etiopicu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
