@@ -1102,6 +1102,15 @@ no mirroring or publishing commands were executed for this audit.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e6aed7a8c">Fix Russian Russia translation upload identifier</a>. Thanks to xet7.</summary>
+
+Use supported ru_RU for the local ru-RU locale and report its alias instead of
+uploading twice. Offline upload and loader checks pass. Aromanian remains a
+reported unsupported catalogue language; no remote uploads were run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1666a2012">Match browser languages when no member language is saved</a>. Thanks to xet7.</summary>
 
 Check browser preferences in order, including standard tags for legacy Veps,
