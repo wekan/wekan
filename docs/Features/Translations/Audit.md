@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,031 |
+| Corrected | 15,038 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 813 |
+| Pending review or repair | 806 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,070** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,077** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commits `2879c1321` and `3ab93c555` — repaired **twelve** Veps presence/Boolean search values, resolving **four** original findings and **eight** unflagged errors. Preserve all eight presence fields, negative due-date searches, ANY versus ALL conditions and single-word keywords. Actual Query tests cover positive/negative fields, invalid-field rejection and example grouping; no database-result or live browser verification was run. All **17,070** exact corrections pass runtime rendering, placeholder, JSON, key-order and human-preference checks. The original queue has **813** pending findings, including **72** Veps findings. **Low confidence:** composed logical/presence grammar, scheduling syntax, backup/archive inflection, heap technical compounds and legal argument case need fluent-speaker review. Restored/unflagged values, wrong-language/script checks, keyboard shortcuts and remaining migration/search messages remain unfinished. No translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `d41db1a2c` — repaired **seven** Veps clipboard/unsaved-description values, resolving **seven** original findings. Native MediaWiki Veps attests **tedokaičusehe**; preserve the existing correct **Kopirui buferha** value. Keep image-only pasting, the unsaved condition before closing and replacement with user changes. All **17,077** exact corrections pass runtime rendering, placeholder, JSON, key-order and human-preference checks. The original queue has **806** pending findings, including **65** Veps findings. **Low confidence:** composed confirmation/presence/logical grammar, scheduling syntax, backup/archive inflection, heap technical compounds and legal argument case need fluent-speaker review. Restored/unflagged values, wrong-language/script checks, keyboard shortcuts and remaining migration/search messages remain unfinished. Live browser verification was not run. No translations were pushed.
 
 **Build logging update (2026-09-14):** `5f8f22f8c` unifies build.sh/build.bat logger directories; `3fedee2b9` prints completion log paths and fixes read-only server manifests in local release preparation. Linux arm64 development and release builds and release startup smoke check pass; 13 targeted test entries pass. Native Windows execution was unavailable. Translation counts and remaining review work are unchanged; translation repairs remain unfinished.
 
