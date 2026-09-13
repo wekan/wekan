@@ -1245,6 +1245,17 @@ for this change.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e71dd2d4f">Repair Veps starring and automatic-width tooltips</a>. Thanks to xet7.</summary>
+
+Replace six original Finnish findings. Preserve star/unstar actions, starred
+boards at the top of the list and opposite automatic-width enable/disable
+controls. All 17,023 exact correction checks and positive/negative runtime
+assertions pass. Technical grammar needs fluent review; 844 original findings
+and restored-value validation remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c2a8c9b2e">Repair Veps monitoring and server-error instructions</a>. Thanks to xet7.</summary>
 
 Replace seven Finnish values, resolving four original findings and three
