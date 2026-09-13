@@ -63719,5 +63719,75 @@
     "before": "a supprimé une pièce jointe de %s",
     "after": "dilamet ur stagadenn eus %s",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-delete-attach-card",
+    "before": "a supprimé une pièce jointe",
+    "after": "dilamet ur stagadenn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-moved",
+    "before": "a déplacé %s de %s vers %s",
+    "after": "dilec’hiet %s eus %s da %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-removed-label",
+    "before": "a supprimé l'étiquette '%s' de %s",
+    "after": "tennet an dikedenn '%s' eus %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-removed-label-card",
+    "before": "a supprimé l'étiquette '%s'",
+    "after": "tennet an dikedenn '%s'",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-subtask-added",
+    "before": "a ajouté une sous-tâche à %s",
+    "after": "ouzhpennet un is-trevell da %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "add-background-image",
+    "before": "Ajouter une image de fond",
+    "after": "Ouzhpennañ ur skeudenn drekleur",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "add-card-to-bottom-of-list",
+    "before": "Ajouter la carte en bas de la liste",
+    "after": "Ouzhpennañ ur gartenn e traoñ ar roll",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "add-card-to-top-of-list",
+    "before": "Ajouter la carte en haut de la liste",
+    "after": "Ouzhpennañ ur gartenn e krec’h ar roll",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "add-checklist-item",
+    "before": "Ajouter un élément à la checklist",
+    "after": "Ouzhpennañ un elfenn d’ar roll kontroll",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "add-cover",
+    "before": "Ajouter la vignette sur la mini-carte",
+    "after": "Ouzhpennañ ur skeudenn golo d’ar gartenn vihan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
