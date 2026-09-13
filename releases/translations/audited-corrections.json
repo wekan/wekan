@@ -60870,5 +60870,75 @@
     "before": "Schémas d'URL personnalisés qui devraient être automatiquement cliquables. Un schéma d'URL par ligne",
     "after": "Esquèmas d’URL personalizats que devon venir automaticament clicables. Un esquèma d’URL per linha",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "avatar-too-big",
+    "before": "La taille du fichier de l'avatar est trop importante (__size__ au maximum)",
+    "after": "L’avatar es tròp grand (__size__ al maximum)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "badge-attachment-on-minicard",
+    "before": "Compteur de pièces jointes sur la mini-carte",
+    "after": "Nombre de pèças juntas sus la minicarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "below-selected-card",
+    "before": "En dessous de la carte sélectionnée",
+    "after": "En dejós de la carta seleccionada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "below-selected-swimlane",
+    "before": "En dessous du couloir sélectionné",
+    "after": "En dejós del corredor seleccionat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "boardCardTitlePopup-title",
+    "before": "Filtre par titre de carte",
+    "after": "Filtre pel títol de la carta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "bucket-example",
+    "before": "Comme « Liste d'envies  » par exemple",
+    "after": "Per exemple, « Lista de desirs »",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Calendièr Jalali (persan)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "card-archive-pop",
+    "before": "La carte ne sera plus visible dans cette liste après archivage.",
+    "after": "La carta serà pas mai visibla dins aquesta lista après l’archivatge.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "card-archive-suggest-cancel",
+    "before": "Vous pouvez, plus tard, restaurer une carte depuis les archives.",
+    "after": "Poiretz restaurar la carta pus tard dempuèi los archius.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "card-show-lists",
+    "before": "Afficher les listes sur la carte",
+    "after": "Afichar las listas sus la carta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
