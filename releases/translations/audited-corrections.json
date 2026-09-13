@@ -88821,5 +88821,89 @@
     "before": "Afficher le nombre de cartes si la liste en contient plus de",
     "after": "Jonön mödoti kadas, üf lised ninädon mödikumi ka",
     "reason": "Replace French card visibility settings with Volapük using existing card/count/field terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf bligäd (task), löpik (higher), dona- subordinate compounds, vig (week). Express hierarchical parent as higher card, avoiding biological pal. Preserve minicard parent display, subtext context, subtask field, ISO 8601 week and strict more-than count threshold. Hierarchy/task compounds and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-subtask-added",
+    "before": "a ajouté une sous-tâche à %s",
+    "after": "elüükon donabligädi lü %s",
+    "reason": "Replace French subtask interface text with Volapük consistent with show-subtasks-field. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests bligäd (task), dona- subordinate compounds; reuse existing add/settings/delete/action/move vocabulary. Preserve subtask hierarchy, deletion confirmation, export category, named board placeholder, deposit board and destination list. Donabligäd compound, destination phrasing and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "add-subtask",
+    "before": "Ajouter une sous-tâche",
+    "after": "Lüükön donabligädi",
+    "reason": "Replace French subtask interface text with Volapük consistent with show-subtasks-field. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests bligäd (task), dona- subordinate compounds; reuse existing add/settings/delete/action/move vocabulary. Preserve subtask hierarchy, deletion confirmation, export category, named board placeholder, deposit board and destination list. Donabligäd compound, destination phrasing and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "subtasks",
+    "before": "Sous-tâches",
+    "after": "Donabligäds",
+    "reason": "Replace French subtask interface text with Volapük consistent with show-subtasks-field. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests bligäd (task), dona- subordinate compounds; reuse existing add/settings/delete/action/move vocabulary. Preserve subtask hierarchy, deletion confirmation, export category, named board placeholder, deposit board and destination list. Donabligäd compound, destination phrasing and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "confirm-subtask-delete-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer la sous-tâche ?",
+    "after": "Fümol-li, das vilol radön donabligädi?",
+    "reason": "Replace French subtask interface text with Volapük consistent with show-subtasks-field. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests bligäd (task), dona- subordinate compounds; reuse existing add/settings/delete/action/move vocabulary. Preserve subtask hierarchy, deletion confirmation, export category, named board placeholder, deposit board and destination list. Donabligäd compound, destination phrasing and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "subtaskDeletePopup-title",
+    "before": "Supprimer la sous-tâche ?",
+    "after": "Radön donabligädi?",
+    "reason": "Replace French subtask interface text with Volapük consistent with show-subtasks-field. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests bligäd (task), dona- subordinate compounds; reuse existing add/settings/delete/action/move vocabulary. Preserve subtask hierarchy, deletion confirmation, export category, named board placeholder, deposit board and destination list. Donabligäd compound, destination phrasing and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "export-card-subtasks",
+    "before": "Sous-tâches",
+    "after": "Donabligäds",
+    "reason": "Replace French subtask interface text with Volapük consistent with show-subtasks-field. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests bligäd (task), dona- subordinate compounds; reuse existing add/settings/delete/action/move vocabulary. Preserve subtask hierarchy, deletion confirmation, export category, named board placeholder, deposit board and destination list. Donabligäd compound, destination phrasing and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "default-subtasks-board",
+    "before": "Sous-tâches du tableau __board__",
+    "after": "Donabligäds pro tab: __board__",
+    "reason": "Replace French subtask interface text with Volapük consistent with show-subtasks-field. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests bligäd (task), dona- subordinate compounds; reuse existing add/settings/delete/action/move vocabulary. Preserve subtask hierarchy, deletion confirmation, export category, named board placeholder, deposit board and destination list. Donabligäd compound, destination phrasing and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "subtask-settings",
+    "before": "Paramètres des sous-tâches",
+    "after": "Väls donabligädas",
+    "reason": "Replace French subtask interface text with Volapük consistent with show-subtasks-field. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests bligäd (task), dona- subordinate compounds; reuse existing add/settings/delete/action/move vocabulary. Preserve subtask hierarchy, deletion confirmation, export category, named board placeholder, deposit board and destination list. Donabligäd compound, destination phrasing and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "boardSubtaskSettingsPopup-title",
+    "before": "Paramètres des sous-tâches",
+    "after": "Väls donabligädas",
+    "reason": "Replace French subtask interface text with Volapük consistent with show-subtasks-field. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests bligäd (task), dona- subordinate compounds; reuse existing add/settings/delete/action/move vocabulary. Preserve subtask hierarchy, deletion confirmation, export category, named board placeholder, deposit board and destination list. Donabligäd compound, destination phrasing and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "deposit-subtasks-board",
+    "before": "Déposer des sous-tâches dans ce tableau :",
+    "after": "Topätükön donabligädis lü tab at:",
+    "reason": "Replace French subtask interface text with Volapük consistent with show-subtasks-field. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests bligäd (task), dona- subordinate compounds; reuse existing add/settings/delete/action/move vocabulary. Preserve subtask hierarchy, deletion confirmation, export category, named board placeholder, deposit board and destination list. Donabligäd compound, destination phrasing and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "deposit-subtasks-list",
+    "before": "Liste de destination pour les sous-tâches déposées ici :",
+    "after": "Lised zeila pro donabligäds is patopätüköl:",
+    "reason": "Replace French subtask interface text with Volapük consistent with show-subtasks-field. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests bligäd (task), dona- subordinate compounds; reuse existing add/settings/delete/action/move vocabulary. Preserve subtask hierarchy, deletion confirmation, export category, named board placeholder, deposit board and destination list. Donabligäd compound, destination phrasing and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "subtaskActionsPopup-title",
+    "before": "Action de la sous-tâche",
+    "after": "Dunots donabligäda",
+    "reason": "Replace French subtask interface text with Volapük consistent with show-subtasks-field. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests bligäd (task), dona- subordinate compounds; reuse existing add/settings/delete/action/move vocabulary. Preserve subtask hierarchy, deletion confirmation, export category, named board placeholder, deposit board and destination list. Donabligäd compound, destination phrasing and assembled grammar remain low confidence; native review unavailable."
   }
 ]
