@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,052 |
+| Corrected | 12,060 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,794 |
+| Pending review or repair | 3,786 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,475** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,487** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `f3b8377d2e4429bde9f30312ea91be69a2eba909` — eight French background-image, minicard-cover and colour-selection labels replaced with Volapük using [Midgley dictionary vocabulary](https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf). Preserved board-background versus minicard-cover scope and choose/set actions. Cover/board software senses and assembled grammar remain low confidence. Exact-value, token, JSON-example, key-order and idempotency checks pass; native-speaker and browser verification remain unavailable.
+Latest translation fix: **2026-09-13**, local commit `2a34de3a70531615683e20bfce9780bc8671f0cd` — twelve French organization labels and warnings replaced with Volapük using [Midgley dictionary vocabulary](https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf), distinguishing an organization entity from the act of organizing. Preserved lookup tokens, count separator and no-undo wording. Software sense and assembled grammar remain low confidence. Exact-value, token, JSON-example, key-order and idempotency checks pass; native-speaker and browser verification remain unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending because available evidence does not distinguish its wording sufficiently from Polish.
 
