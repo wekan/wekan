@@ -48984,5 +48984,110 @@
     "before": "Questo username ie già utilizzato",
     "after": "Quest num d’utilisader vegn gia utilisà",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "export-card-excel-fields",
+    "before": "Siel i campi da includere nell'esportazion Excel:",
+    "after": "Tscherna ils champs da includer en l’export dad Excel:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "export-card-excel-no-disk-space",
+    "before": "Impossibile esportare in Excel: spazio su disco insufficiente",
+    "after": "Impussibel dad exportar en Excel: betg avunda spazi liber sin il disc",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "export-card-field-dates",
+    "before": "Date (Creazion, Ricezione, Inizio, Scadenza, Fine)",
+    "after": "Datas (Creaziun, Recepziun, Cumenzament, Scadenza, Fin)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "export-card-field-people",
+    "before": "Persone (Creatores, Proprietario, Membri, Assegnatari)",
+    "after": "Persunas (Creatur, Possessur, Commembers, Persunas responsablas)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "filesystem-disabled",
+    "before": "Storage su filesystem disativeato",
+    "after": "Memorisaziun en il sistem da datotecas deactivada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "filesystem-enabled",
+    "before": "Storage su filesystem ativeato",
+    "after": "Memorisaziun en il sistem da datotecas activada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "filter-assignee-label",
+    "before": "Filtra secondo l'assegnatario",
+    "after": "Filtrar tenor la persuna responsabla",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "filter-custom-fields-label",
+    "before": "Filtra secondo campi personalizzati",
+    "after": "Filtrar tenor champs persunalisads",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "filter-invisible-filenames",
+    "before": "Mé nomi di file cun caratteri invisibili",
+    "after": "Mo nums da datotecas cun caracters invisibels",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "filter-labels-label",
+    "before": "Filtra secondo l'eticheta",
+    "after": "Filtrar tenor l’etichetta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "filter-no-custom-fields",
+    "before": "Nessun campo personalizzato",
+    "after": "Nagins champs persunalisads",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "fix-all-file-urls-migration",
+    "before": "Correggi duc gli URL di file",
+    "after": "Curreger tut ils URLs da datotecas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "fix-avatar-urls-migration",
+    "before": "Correggi URL degli avatar",
+    "after": "Curreger ils URLs dals avatars",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "font-default",
+    "before": "Predefinito (nessun font personalizzato)",
+    "after": "Standard (naginas scrittiras persunalisadas)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "gcs-credentials",
+    "before": "Credenziali dell'cont di servizio (JSON)",
+    "after": "Datas d’access dal cont da servetsch (JSON)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
