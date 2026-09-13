@@ -1100,6 +1100,19 @@ and updates maintainer tooling:
 **Maintenance scripts** - explicit translation uploads and repository mirrors.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/113208d77">Repair Veps S3 credentials and connection outcomes</a>. Thanks to xet7.</summary>
+
+Replace 11 Finnish settings values with dictionary-backed Veps, resolving two
+original findings. Distinguish access keys from secret credentials, successful
+and failed connections, and object-storage buckets. Preserve AWS S3, MongoDB
+GridFS and both endpoint URL examples. Exact correction, source token, key-order
+and actual i18next rendering checks pass. Composed authentication terminology,
+technical loans and inflection need fluent review. Audit progress records
+14,583 corrected findings, 1,261 pending and 16,262 exact repair records.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5cf370063">Repair Veps SMTP and S3 network settings translations</a>. Thanks to xet7.</summary>
 
 Replace 18 Finnish labels/descriptions with dictionary-backed Veps, resolving

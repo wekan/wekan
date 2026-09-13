@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 14,581 |
+| Corrected | 14,583 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 1,263 |
+| Pending review or repair | 1,261 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,251** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,262** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-13**, local commit `5cf370063` — repaired **18** Finnish Veps SMTP/S3 network settings values, resolving **seven** original findings. Preserve SMTP, TLS, SSL/TLS, AWS S3, MinIO, secret credentials and literal region code `us-east-1`; repair the `STMP` typo. Dictionary and native MediaWiki evidence is recorded per key. All **16,251** correction records, placeholders, key order and actual i18next rendering checks pass. **Low confidence:** network loan words, authentication terminology and UI grammar need fluent review, alongside earlier list/storage/calendar/account wording. Veps has **522** pending original findings. Translation repairs have resumed; broader wrong-language/script and restored-value validation remain outstanding.
+Latest translation fix: **2026-09-13**, local commit `113208d77` — repaired **11** Finnish Veps S3/GridFS settings values, resolving **two** original findings. Distinguish access keys from secret keys, successful and failed connections, and object-storage buckets; preserve AWS S3, MongoDB GridFS and both endpoint URL examples. Dictionary and native MediaWiki evidence is recorded per key. All **16,262** correction records, placeholders, key order and actual i18next rendering checks pass. **Low confidence:** composed authentication terminology, technical bucket/endpoint loans and inflection need fluent review, alongside earlier network/list/storage/calendar/account wording. Veps has **520** pending original findings. Translation repairs continue; broader wrong-language/script and restored-value validation remain outstanding.
 
 **Mirror interruption completed (2026-09-13):** local commit `02383540a` adds organization management, destination namespaces, host/organization/repository archives, linked comment attachments/webpage HTML, static HTML/CSV indexes and rate limits for all forges with tokenless public GitHub reads. Full Node verification: **1,014 suites, zero failures**; final targeted checks and Chromium/Firefox static checks pass. WebKit is unavailable locally (ICU 74/Docker). Translation repairs subsequently resumed; current counts and latest fix are above.
 
