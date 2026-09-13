@@ -64923,5 +64923,61 @@
     "before": "Supprimer cette traduction personnalisée ?",
     "after": "Dilemel ar steudad treiñ personelaet-mañ ?",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "settingsUserPopup-title",
+    "before": "Paramètres de l'utilisateur",
+    "after": "Arventennoù an implijer",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "shortcut-add-self",
+    "before": "S'ajouter à la carte courante",
+    "after": "En em ouzhpennañ d’ar gartenn vremanel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "shortcut-toggle-sidebar",
+    "before": "Afficher/Masquer la barre latérale du tableau",
+    "after": "Diskouez/kuzhat barrenn gostez an daolenn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "show-board_members-avatar",
+    "before": "Afficher les avatars des participants du tableau.",
+    "after": "Diskouez avatarioù izili an daolenn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "showChecklistAtMinicard",
+    "before": "Afficher la check-list dans la minicarte",
+    "after": "Diskouez ar roll kontroll er gartenn vihan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "star-board-title",
+    "before": "Cliquer pour ajouter ce tableau aux favoris. Il sera affiché en tête de votre liste de tableaux.",
+    "after": "Klikit evit merkañ an daolenn-mañ gant ur steredenn. Diskouezet e vo e krec’h ho roll taolennoù.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "step-analyze-board-structure",
+    "before": "Analyser la structure du tableau",
+    "after": "Dielfennañ framm an daolenn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "step-delete-duplicate-empty-lists",
+    "before": "Supprimer les listes vides en doublon ? ",
+    "after": "Dilemel ar rolloù goullo e doubl",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
