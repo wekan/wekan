@@ -79000,5 +79000,40 @@
     "before": "a complété la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
     "after": "jeexal limu bu seetlu __checklist__ ci karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
     "reason": "Replace French move/swimlane/checklist activity messages with Wolof, reusing existing terminology and the corrected checklist-completion activity. Preserve source versus destination list/swimlane/board placeholders. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "archive-board-confirm",
+    "before": "Êtes-vous sûr de vouloir archiver ce tableau ?",
+    "after": "Ndax wóor na la ne bëgg nga yóbbu tablo bii ci àrsiw bi?",
+    "reason": "Replace French archive confirmation, permanent deletion warnings and attachment storage destinations with Wolof. Reuse existing takkaay, fiise, Yóbbu and Mëneesul delloo jëf jii; preserve GridFS and all board content loss. Permanence phrasing, filesystem adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "attachment-delete-pop",
+    "before": "La suppression d'une pièce jointe est définitive. Cela est irréversible.",
+    "after": "Far takkaay bi dafay sax. Mëneesul delloo jëf jii.",
+    "reason": "Replace French archive confirmation, permanent deletion warnings and attachment storage destinations with Wolof. Reuse existing takkaay, fiise, Yóbbu and Mëneesul delloo jëf jii; preserve GridFS and all board content loss. Permanence phrasing, filesystem adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "attachment-move-storage-fs",
+    "before": "Déplacer la pièce jointe vers le système de fichier",
+    "after": "Yóbbu takkaay bi ci sistemu fiise yi",
+    "reason": "Replace French archive confirmation, permanent deletion warnings and attachment storage destinations with Wolof. Reuse existing takkaay, fiise, Yóbbu and Mëneesul delloo jëf jii; preserve GridFS and all board content loss. Permanence phrasing, filesystem adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "attachment-move-storage-gridfs",
+    "before": "Déplacer la pièce jointe vers GridFS",
+    "after": "Yóbbu takkaay bi ci GridFS",
+    "reason": "Replace French archive confirmation, permanent deletion warnings and attachment storage destinations with Wolof. Reuse existing takkaay, fiise, Yóbbu and Mëneesul delloo jëf jii; preserve GridFS and all board content loss. Permanence phrasing, filesystem adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "board-delete-notice",
+    "before": "La suppression est définitive. Vous perdrez toutes les listes, cartes et actions associées à ce tableau.",
+    "after": "Far gi dafay sax. Dinga ñàkk limu yi, karta yi ak jëf yi yépp yu bokk ci tablo bii.",
+    "reason": "Replace French archive confirmation, permanent deletion warnings and attachment storage destinations with Wolof. Reuse existing takkaay, fiise, Yóbbu and Mëneesul delloo jëf jii; preserve GridFS and all board content loss. Permanence phrasing, filesystem adaptation and full grammar remain low confidence."
   }
 ]
