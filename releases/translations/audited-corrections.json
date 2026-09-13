@@ -77201,5 +77201,75 @@
     "before": "Schémas d'URL personnalisés qui devraient être automatiquement cliquables. Un schéma d'URL par ligne",
     "after": "Schêmas d' URL da vosse ki dvrént esse otomaticmint clitchåves. On schêma d' URL pa roye",
     "reason": "Replace French advanced-filter and clickable URL-scheme instructions with Walloon. Preserve exact source operators, field/value examples, quoting, backslashes, left-to-right evaluation, grouping and regex example; preserve one URL scheme per line. Reuse existing locale computing vocabulary. Full grammar and specialized filter terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "Node_heap_malloced_memory",
+    "before": "Tas de Node : mémoire allouée par malloc",
+    "after": "Heap di Node: memwere dispårti pa malloc",
+    "reason": "Replace French memory diagnostics with Walloon, preserving allocated/used/available/limit/peak distinctions and malloc. Keep technical heap loan. does_zap_garbage indicates --zap_code_space activation, not garbage collection activation: https://nodejs.org/api/v8.html#v8getheapstatistics . Native memwere/dispårtixhaedje vocabulary in historical KDE translations: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Full grammar and technical loans remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Tas de Node : mémoire maximale allouée par malloc",
+    "after": "Heap di Node: pus grande memwere dispårti pa malloc",
+    "reason": "Replace French memory diagnostics with Walloon, preserving allocated/used/available/limit/peak distinctions and malloc. Keep technical heap loan. does_zap_garbage indicates --zap_code_space activation, not garbage collection activation: https://nodejs.org/api/v8.html#v8getheapstatistics . Native memwere/dispårtixhaedje vocabulary in historical KDE translations: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Full grammar and technical loans remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Tas de Node : Utilise l'option does_zap_garbage",
+    "after": "Heap di Node: li tchuze --zap_code_space est en alaedje",
+    "reason": "Replace French memory diagnostics with Walloon, preserving allocated/used/available/limit/peak distinctions and malloc. Keep technical heap loan. does_zap_garbage indicates --zap_code_space activation, not garbage collection activation: https://nodejs.org/api/v8.html#v8getheapstatistics . Native memwere/dispårtixhaedje vocabulary in historical KDE translations: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Full grammar and technical loans remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "Node_heap_used_heap_size",
+    "before": "Tas de Node : taille du tas utilisé",
+    "after": "Heap di Node: grandeu do heap eployî",
+    "reason": "Replace French memory diagnostics with Walloon, preserving allocated/used/available/limit/peak distinctions and malloc. Keep technical heap loan. does_zap_garbage indicates --zap_code_space activation, not garbage collection activation: https://nodejs.org/api/v8.html#v8getheapstatistics . Native memwere/dispårtixhaedje vocabulary in historical KDE translations: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Full grammar and technical loans remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "Node_heap_total_heap_size",
+    "before": "Tas de Node : taille totale du tas",
+    "after": "Heap di Node: grandeu totale do heap",
+    "reason": "Replace French memory diagnostics with Walloon, preserving allocated/used/available/limit/peak distinctions and malloc. Keep technical heap loan. does_zap_garbage indicates --zap_code_space activation, not garbage collection activation: https://nodejs.org/api/v8.html#v8getheapstatistics . Native memwere/dispårtixhaedje vocabulary in historical KDE translations: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Full grammar and technical loans remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "Node_heap_total_available_size",
+    "before": "Tas de Node : taille totale disponible",
+    "after": "Heap di Node: grandeu totale co disponibe",
+    "reason": "Replace French memory diagnostics with Walloon, preserving allocated/used/available/limit/peak distinctions and malloc. Keep technical heap loan. does_zap_garbage indicates --zap_code_space activation, not garbage collection activation: https://nodejs.org/api/v8.html#v8getheapstatistics . Native memwere/dispårtixhaedje vocabulary in historical KDE translations: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Full grammar and technical loans remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "Node_heap_heap_size_limit",
+    "before": "Tas de Node : limite de taille du tas",
+    "after": "Heap di Node: limite di grandeu do heap",
+    "reason": "Replace French memory diagnostics with Walloon, preserving allocated/used/available/limit/peak distinctions and malloc. Keep technical heap loan. does_zap_garbage indicates --zap_code_space activation, not garbage collection activation: https://nodejs.org/api/v8.html#v8getheapstatistics . Native memwere/dispårtixhaedje vocabulary in historical KDE translations: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Full grammar and technical loans remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "Node_memory_usage_heap_total",
+    "before": "Utilisation mémoire de Node : taille totale du tas alloué",
+    "after": "Memwere eployeye pa Node: grandeu totale do heap dispårti",
+    "reason": "Replace French memory diagnostics with Walloon, preserving allocated/used/available/limit/peak distinctions and malloc. Keep technical heap loan. does_zap_garbage indicates --zap_code_space activation, not garbage collection activation: https://nodejs.org/api/v8.html#v8getheapstatistics . Native memwere/dispårtixhaedje vocabulary in historical KDE translations: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Full grammar and technical loans remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "Node_memory_usage_heap_used",
+    "before": "Utilisation mémoire de Node : mémoire réellement utilisée",
+    "after": "Memwere eployeye pa Node: memwere eployeye po do bon",
+    "reason": "Replace French memory diagnostics with Walloon, preserving allocated/used/available/limit/peak distinctions and malloc. Keep technical heap loan. does_zap_garbage indicates --zap_code_space activation, not garbage collection activation: https://nodejs.org/api/v8.html#v8getheapstatistics . Native memwere/dispårtixhaedje vocabulary in historical KDE translations: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Full grammar and technical loans remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "Node_memory_usage_external",
+    "before": "Utilisation mémoire de Node: externe",
+    "after": "Memwere eployeye pa Node: memwere esterne",
+    "reason": "Replace French memory diagnostics with Walloon, preserving allocated/used/available/limit/peak distinctions and malloc. Keep technical heap loan. does_zap_garbage indicates --zap_code_space activation, not garbage collection activation: https://nodejs.org/api/v8.html#v8getheapstatistics . Native memwere/dispårtixhaedje vocabulary in historical KDE translations: https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Full grammar and technical loans remain low confidence."
   }
 ]
