@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,119 |
+| Corrected | 15,122 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 725 |
+| Pending review or repair | 722 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,303** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,309** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `e335ef034` — replaced French Tamazight password confirmation/recovery labels with directly attested native MediaWiki wording, and composed the username/password-required error from attested terms. The complete required-credentials clause remains **low confidence** pending fluent review. Two repairs were outside the original queue; one original is resolved. All **17,303** correction/rendering checks pass. **725** originals remain pending, including **582** Tamazight. Wider restored/unflagged/low-confidence validation, earlier number/user/export compositions, Greenlandic CLDR-unconfirmed terminology and twelve Quechua color wrappers remain open. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `1d4ad977d` — replaced Arabic Tamazight label/create-label/no-results text and French username/label/color lookup errors. Native tag terms and the negative-results clause are directly attested; full composed lookup/create-label phrases and color/tag morphology remain **low confidence** pending fluent review. Three repairs were outside the original queue; three originals are resolved. All **17,309** correction/rendering checks pass. **722** originals remain pending, including **579** Tamazight. Wider restored/unflagged/low-confidence validation, credential and earlier number/user/export compositions, Greenlandic CLDR-unconfirmed terminology and twelve Quechua color wrappers remain open. Live browser verification was not run; no translations were pushed.
 
 **Language validation (2026-09-14), local commit `e4e3aa590`:** Wiktionary’s Veps transitive inflection tables confirm `surenda` (make larger) and `penenda` (make smaller) as second-person singular commands. Their imperative morphology is now reference-supported; screen-zoom usage remains open. The original keyboard findings remain unresolved: searches and the cached dictionary did not establish reliable keyboard-shortcut terminology. Counts are unchanged. References and the remaining scope are recorded per key in the correction ledger.
 

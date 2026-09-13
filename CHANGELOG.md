@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,119 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 725 pending review or repair.
-The correction inventory records 17,303 exact before/after values,
+findings: 15,122 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 722 pending review or repair.
+The correction inventory records 17,309 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (582) and
+The largest original queues are Standard Moroccan Tamazight (579) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,10 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is e335ef034 (2026-09-14), replacing French
-Tamazight password confirmation/recovery labels and the required-credentials
-error. The complete credential clause and earlier number/user/export wording
-remain low confidence; two repaired labels were outside the original queue.
+Latest translation fix is 1d4ad977d (2026-09-14), replacing French lookup
+errors and Arabic label/search text. Composed errors/create-label wording,
+color/tag morphology, credentials and earlier number/user/export wording
+remain low confidence; three repaired values were outside the original queue.
 Greenlandic CLDR-unconfirmed wording and twelve Quechua color wrappers
 still need review, alongside the wider restored and unflagged values.
 Tamazight calendar review dd2aaa19a (2026-09-14) records provisional
@@ -115,7 +115,7 @@ names and unresolved Coptic/tabular/epoch terminology; no values changed. Previo
 Cherokee Hijri labels with exact native-script CLDR variant names. Cherokee’s
 original queue is empty. Compact tabular epoch wording still needs fluent
 technical review. Quechua palette compounds and remaining color wrappers
-remain open. There are 582 Tamazight findings remaining.
+remain open. There are 579 Tamazight findings remaining.
 Silesian reference review (2026-09-14) confirms shared database/file terms
 in native MediaWiki messages; the full raw-file label remains pending.
 No translation value or finding count changed in that review.
@@ -752,6 +752,20 @@ The audit records 749 pending original findings and wider unfinished validation.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1d4ad977d">Repair Tamazight label/search text and lookup errors</a>. Thanks to xet7.</summary>
+
+Replace Arabic label/create-label/no-results text and French username,
+label and label-color lookup errors. Use native tag terminology and the
+attested negative-results clause; composed errors/create-label usage and
+color/tag morphology remain low confidence pending fluent review. Preserve
+percent placeholders and keep missing-color and missing-label meanings
+distinct. Three original findings and three unflagged values are repaired.
+All 17,309 correction/rendering checks pass. The original queue has 722
+pending findings; wider language validation and live UI remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e335ef034">Repair Tamazight password confirmation and recovery text</a>. Thanks to xet7.</summary>
