@@ -52463,5 +52463,68 @@
     "before": "Ethiopic",
     "after": "Calendariu etiopicu",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Calendariu ebraicu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Calendariu naziunale indianu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Calendariu Hijri",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Calendariu Hijri (tabulare, epuca civile)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Calendariu Hijri (Arabia Saudita, osservazione di a luna)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Calendariu Hijri (tabulare, epuca astrunomica)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Calendariu Hijri (Umm al-Qura)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Calendariu giappunese",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Calendariu Minguo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
