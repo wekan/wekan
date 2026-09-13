@@ -83767,5 +83767,12 @@
     "before": "Indian national",
     "after": "Kalandriye bu réewum India",
     "reason": "Replace bare English calendar labels with Wolof calendar framing; retain Jalali/Farsi, Buddha and Indian national meaning. Coptic/Hebrew names remain English loans pending stronger native terminology evidence; country/religion spellings and full grammar remain low confidence. Zero original flags does not certify terminology complete."
+  },
+  {
+    "locale": "ace",
+    "key": "Reactivity_mode",
+    "before": "Mode reaktivitas (changeStreams / oplog / polling)",
+    "after": "Cara reaktivitas (changeStreams / oplog / polling)",
+    "reason": "Replace Indonesian mode framing with Acehnese cara while preserving changeStreams/oplog/polling and existing reaktivitas technical loan. Loan acceptability remains low confidence; service-account credentials require dictionary review and remain pending."
   }
 ]

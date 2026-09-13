@@ -1114,7 +1114,7 @@
   "Database_commit": "Commit database",
   "FerretDB_version": "Versi FerretDB",
   "FerretDB_commit": "Commit FerretDB",
-  "Reactivity_mode": "Mode reaktivitas (changeStreams / oplog / polling)",
+  "Reactivity_mode": "Cara reaktivitas (changeStreams / oplog / polling)",
   "Reactivity_order": "Urôt reaktivitas (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "Transpor DDP (DDP_TRANSPORT)",
   "MongoDB_version": "Versi kompatibel MongoDB",
