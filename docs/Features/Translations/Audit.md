@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,853 |
+| Corrected | 12,854 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 177 |
-| Pending review or repair | 2,992 |
+| Pending review or repair | 2,991 |
 | Total tracked | 20,081 |
 
 **In progress.** Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,522** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,531** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-13**, local commit `8a1c22bf1dd937d708f6a89901930d78d84f2a5f` — four German monitoring/refresh messages replaced with Klingon (one flagged finding). Software wording needs fluent-speaker validation.
+Latest translation fix: **2026-09-13**, local commit `db6080e2c7fd39199f0759295f91c442c55353dd` — nine foreign-language upload/download/loading messages replaced with Klingon (one flagged finding). Transfer states preserved; software wording needs fluent-speaker validation.
 
 **Verification:** correction and progress tests pass; fluent-speaker and browser checks remain outstanding.
 
