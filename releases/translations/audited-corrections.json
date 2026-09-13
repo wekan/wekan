@@ -59869,5 +59869,89 @@
     "before": "La liste ne sera pas visible sur le tableau après archivage.",
     "after": "La lista serà pas visibla sul tablèu après l’archivatge.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "list-archive-suggest",
+    "before": "Vous pourrez plus tard restaurer la liste depuis les archives dans les paramètres du tableau.",
+    "after": "Poiretz restaurar la lista pus tard dempuèi los archius dins los paramètres del tablèu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "list-delete-suggest-archive",
+    "before": "Vous pouvez archiver une liste pour l'enlever du tableau tout en conservant son activité.",
+    "after": "Podètz desplaçar una lista dins los archius per la levar del tablèu e conservar son activitat.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "migration-progress-note",
+    "before": "Veuillez patienter pendant la migration de votre tableau vers la dernière structure...",
+    "after": "Esperatz pendent la migracion de vòstre tablèu cap a l’estructura mai recenta...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "migration-progress-title",
+    "before": "Migration du tableau en cours",
+    "after": "Migracion del tablèu en cors",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "migrations-admin-only",
+    "before": "Seuls les administrateurs du tableau peuvent exécuter les migrations",
+    "after": "Solament los administradors del tablèu pòdon executar las migracions",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "migrations-description",
+    "before": "Exécute les vérifications d'intégrité des données et les réparations pour ce tableau. Chaque migration peut être exécutée individuellement.",
+    "after": "Executar las verificacions d’integritat de las donadas e las reparacions d’aqueste tablèu. Cada migracion se pòt executar individualament.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "minicard-settings",
+    "before": "Paramètres de la mini-carte",
+    "after": "Paramètres de las minicartas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "move-all-attachments-of-board-to-fs",
+    "before": "Déplacer toutes les pièces jointes du tableau vers le système de fichier",
+    "after": "Desplaçar totas las pèças juntas del tablèu cap al sistèma de fichièrs",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "move-all-attachments-of-board-to-gridfs",
+    "before": "Déplacer toutes les pièces jointes du tableau vers GridFS",
+    "after": "Desplaçar totas las pèças juntas del tablèu cap a GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "move-all-attachments-of-board-to-s3",
+    "before": "Déplacer toutes les pièces jointes du tableau vers S3",
+    "after": "Desplaçar totas las pèças juntas del tablèu cap a S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "move-all-attachments-to-fs",
+    "before": "Déplacer toutes les pièces jointes vers le système de fichier",
+    "after": "Desplaçar totas las pèças juntas cap al sistèma de fichièrs",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "move-all-attachments-to-gridfs",
+    "before": "Déplacer toutes les pièces jointes vers GridFS",
+    "after": "Desplaçar totas las pèças juntas cap a GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
