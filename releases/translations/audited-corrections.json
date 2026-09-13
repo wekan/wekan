@@ -94183,5 +94183,54 @@
     "before": "entferne benutzerdefiniertes Feld '%s' in %s",
     "after": "'%s' De' 'ay' cherbogh lo'wI' De' teqlu'pu' (%s-Daq)",
     "reason": "Replace audited German checklist-item and custom-field activities with Klingon. activities.jade passes checklist/field name before cardLink; preserve percent-token order and destination/origin/card context. Preserve field creation versus unsetting its data, matching the models/cards.js customFields $unset activity hook rather than implying global field deletion. Reuse existing checklist and repaired customized-field terminology. Full software phrases and noun chains are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "activity-startDate",
+    "before": "hat Startdatum zu %s geändert auf %s",
+    "after": "taghmeH jaj choHlu'pu': %s (%s 'echletHom)",
+    "reason": "Replace audited German date activities with Klingon. activities.jade supplies the formatted date first and cardLink second; preserve that role and order rather than interpreting the second value as an old date. Distinguish start day, receipt day, required-completion day (due), and ending day via descriptive jaj phrases. Full software/date compounds are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "activity-receivedDate",
+    "before": "hat Empfangsdatum zu %s geändert auf %s",
+    "after": "HevmeH jaj choHlu'pu': %s (%s 'echletHom)",
+    "reason": "Replace audited German date activities with Klingon. activities.jade supplies the formatted date first and cardLink second; preserve that role and order rather than interpreting the second value as an old date. Distinguish start day, receipt day, required-completion day (due), and ending day via descriptive jaj phrases. Full software/date compounds are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "activity-dueDate",
+    "before": "hat Fälligkeitsdatum zu %s geändert auf %s",
+    "after": "rInmoHnISmeH jaj choHlu'pu': %s (%s 'echletHom)",
+    "reason": "Replace audited German date activities with Klingon. activities.jade supplies the formatted date first and cardLink second; preserve that role and order rather than interpreting the second value as an old date. Distinguish start day, receipt day, required-completion day (due), and ending day via descriptive jaj phrases. Full software/date compounds are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "activity-endDate",
+    "before": "hat Enddatum zu %s geändert auf %s",
+    "after": "rInmeH jaj choHlu'pu': %s (%s 'echletHom)",
+    "reason": "Replace audited German date activities with Klingon. activities.jade supplies the formatted date first and cardLink second; preserve that role and order rather than interpreting the second value as an old date. Distinguish start day, receipt day, required-completion day (due), and ending day via descriptive jaj phrases. Full software/date compounds are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "date-format-yyyy-mm-dd",
+    "before": "JJJJ-MM-TT",
+    "after": "YYYY-MM-DD",
+    "reason": "Restore exact source date-format notation YYYY/MM/DD components; German JJJJ/TT components are not the source format identifiers. These are technical format labels, not English prose."
+  },
+  {
+    "locale": "tlh",
+    "key": "date-format-dd-mm-yyyy",
+    "before": "TT-MM-JJJJ",
+    "after": "DD-MM-YYYY",
+    "reason": "Restore exact source date-format notation YYYY/MM/DD components; German JJJJ/TT components are not the source format identifiers. These are technical format labels, not English prose."
+  },
+  {
+    "locale": "tlh",
+    "key": "date-format-mm-dd-yyyy",
+    "before": "MM-TT-JJJJ",
+    "after": "MM-DD-YYYY",
+    "reason": "Restore exact source date-format notation YYYY/MM/DD components; German JJJJ/TT components are not the source format identifiers. These are technical format labels, not English prose."
   }
 ]
