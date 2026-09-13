@@ -87204,5 +87204,68 @@
     "before": "Afficher sur la page de tous les tableaux",
     "after": "Jonön su pad tabas valik",
     "reason": "Replace French all-board settings/member/count/page labels with Volapük after inspecting boardInfoOnMyBoardsPopup and people table data source. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests väls ad stad kösömik (default settings), pad (page), men/mens (people), alik (each); reuse checked mödot (quantity), liman, jonön, kad/lised/tab. Preserve all-board/all-member and per-list count scope and people-count trailing separator. Board/page software senses and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "attachment-move-storage-fs",
+    "before": "Déplacer la pièce jointe vers le système de fichier",
+    "after": "Topätükön fimükoti lü sit nünedas",
+    "reason": "Replace French attachment-storage move labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests topätükön (move an object from place to place), nüned (computer file), sit (system); reuse checked fimükön-derived fimükot attachment term. Preserve filesystem/GridFS/S3 destinations exactly, singular attachment versus all attachments and board-specific scope. Assembled sit nünedas filesystem phrase, attachment derivative, board software sense and grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "move-all-attachments-of-board-to-fs",
+    "before": "Déplacer toutes les pièces jointes du tableau vers le système de fichier",
+    "after": "Topätükön fimükotis valik taba lü sit nünedas",
+    "reason": "Replace French attachment-storage move labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests topätükön (move an object from place to place), nüned (computer file), sit (system); reuse checked fimükön-derived fimükot attachment term. Preserve filesystem/GridFS/S3 destinations exactly, singular attachment versus all attachments and board-specific scope. Assembled sit nünedas filesystem phrase, attachment derivative, board software sense and grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "move-all-attachments-to-fs",
+    "before": "Déplacer toutes les pièces jointes vers le système de fichier",
+    "after": "Topätükön fimükotis valik lü sit nünedas",
+    "reason": "Replace French attachment-storage move labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests topätükön (move an object from place to place), nüned (computer file), sit (system); reuse checked fimükön-derived fimükot attachment term. Preserve filesystem/GridFS/S3 destinations exactly, singular attachment versus all attachments and board-specific scope. Assembled sit nünedas filesystem phrase, attachment derivative, board software sense and grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "attachment-move-storage-gridfs",
+    "before": "Déplacer la pièce jointe vers GridFS",
+    "after": "Topätükön fimükoti lü GridFS",
+    "reason": "Replace French attachment-storage move labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests topätükön (move an object from place to place), nüned (computer file), sit (system); reuse checked fimükön-derived fimükot attachment term. Preserve filesystem/GridFS/S3 destinations exactly, singular attachment versus all attachments and board-specific scope. Assembled sit nünedas filesystem phrase, attachment derivative, board software sense and grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "move-all-attachments-of-board-to-gridfs",
+    "before": "Déplacer toutes les pièces jointes du tableau vers GridFS",
+    "after": "Topätükön fimükotis valik taba lü GridFS",
+    "reason": "Replace French attachment-storage move labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests topätükön (move an object from place to place), nüned (computer file), sit (system); reuse checked fimükön-derived fimükot attachment term. Preserve filesystem/GridFS/S3 destinations exactly, singular attachment versus all attachments and board-specific scope. Assembled sit nünedas filesystem phrase, attachment derivative, board software sense and grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "move-all-attachments-to-gridfs",
+    "before": "Déplacer toutes les pièces jointes vers GridFS",
+    "after": "Topätükön fimükotis valik lü GridFS",
+    "reason": "Replace French attachment-storage move labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests topätükön (move an object from place to place), nüned (computer file), sit (system); reuse checked fimükön-derived fimükot attachment term. Preserve filesystem/GridFS/S3 destinations exactly, singular attachment versus all attachments and board-specific scope. Assembled sit nünedas filesystem phrase, attachment derivative, board software sense and grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "attachment-move-storage-s3",
+    "before": "Déplacer la pièce jointe vers S3",
+    "after": "Topätükön fimükoti lü S3",
+    "reason": "Replace French attachment-storage move labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests topätükön (move an object from place to place), nüned (computer file), sit (system); reuse checked fimükön-derived fimükot attachment term. Preserve filesystem/GridFS/S3 destinations exactly, singular attachment versus all attachments and board-specific scope. Assembled sit nünedas filesystem phrase, attachment derivative, board software sense and grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "move-all-attachments-of-board-to-s3",
+    "before": "Déplacer toutes les pièces jointes du tableau vers S3",
+    "after": "Topätükön fimükotis valik taba lü S3",
+    "reason": "Replace French attachment-storage move labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests topätükön (move an object from place to place), nüned (computer file), sit (system); reuse checked fimükön-derived fimükot attachment term. Preserve filesystem/GridFS/S3 destinations exactly, singular attachment versus all attachments and board-specific scope. Assembled sit nünedas filesystem phrase, attachment derivative, board software sense and grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "move-all-attachments-to-s3",
+    "before": "Déplacer toutes les pièces jointes vers S3",
+    "after": "Topätükön fimükotis valik lü S3",
+    "reason": "Replace French attachment-storage move labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests topätükön (move an object from place to place), nüned (computer file), sit (system); reuse checked fimükön-derived fimükot attachment term. Preserve filesystem/GridFS/S3 destinations exactly, singular attachment versus all attachments and board-specific scope. Assembled sit nünedas filesystem phrase, attachment derivative, board software sense and grammar remain low confidence; no native-speaker validation."
   }
 ]
