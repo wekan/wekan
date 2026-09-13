@@ -77397,5 +77397,47 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "Calindrî Hijri (Arabeye Sawoudite, obsèrvåcion del lune)",
     "reason": "Replace incomplete English Hijri variant labels with Walloon, retaining tabular versus sighting and civil versus astronomical epoch distinctions. Reuse existing calindrî; astronomy attested at https://dtw.walon.org/index.php?query=astronomeye . Specialized epoch/civil/country/sighting vocabulary and full grammar remain low confidence; these are replacements, not native-language certification."
+  },
+  {
+    "locale": "wo",
+    "key": "add-card-to-top-of-list",
+    "before": "Ajouter la carte en haut de la liste",
+    "after": "Yokk karta bi ci kaw limu bi",
+    "reason": "Replace French card/checklist/label activity wording with Wolof; preserve placement at list top, movement from/to order and %s placeholders. Reuse existing karta/limu/yokk/far terms; vocabulary reference https://jangawolof.org/dictionary/ . Checklist/label/movement terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-checklist-added",
+    "before": "a ajouté une checklist à %s",
+    "after": "yokk limu bu seetlu ci %s",
+    "reason": "Replace French card/checklist/label activity wording with Wolof; preserve placement at list top, movement from/to order and %s placeholders. Reuse existing karta/limu/yokk/far terms; vocabulary reference https://jangawolof.org/dictionary/ . Checklist/label/movement terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-moved",
+    "before": "a déplacé %s de %s vers %s",
+    "after": "tëral %s jóge ci %s dem ci %s",
+    "reason": "Replace French card/checklist/label activity wording with Wolof; preserve placement at list top, movement from/to order and %s placeholders. Reuse existing karta/limu/yokk/far terms; vocabulary reference https://jangawolof.org/dictionary/ . Checklist/label/movement terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-added-label",
+    "before": "a ajouté l'étiquette '%s' à %s",
+    "after": "yokk màndarga '%s' ci %s",
+    "reason": "Replace French card/checklist/label activity wording with Wolof; preserve placement at list top, movement from/to order and %s placeholders. Reuse existing karta/limu/yokk/far terms; vocabulary reference https://jangawolof.org/dictionary/ . Checklist/label/movement terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-added-label-card",
+    "before": "a ajouté l'étiquette '%s'",
+    "after": "yokk màndarga '%s'",
+    "reason": "Replace French card/checklist/label activity wording with Wolof; preserve placement at list top, movement from/to order and %s placeholders. Reuse existing karta/limu/yokk/far terms; vocabulary reference https://jangawolof.org/dictionary/ . Checklist/label/movement terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-removed-label-card",
+    "before": "a supprimé l'étiquette '%s'",
+    "after": "far màndarga '%s'",
+    "reason": "Replace French card/checklist/label activity wording with Wolof; preserve placement at list top, movement from/to order and %s placeholders. Reuse existing karta/limu/yokk/far terms; vocabulary reference https://jangawolof.org/dictionary/ . Checklist/label/movement terminology and full grammar remain low confidence."
   }
 ]
