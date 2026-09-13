@@ -112159,5 +112159,12 @@
     "before": "Islamic tabular",
     "after": "Hijri ལོ་ཐོ། (རེའུ་མིག་ལྟར། སྐར་དཔྱད་རིག་པའི་རྩིས་འགོའི་དུས་ཚེས།)",
     "reason": "Replace English/Turkic/Italian calendar seed with Tibetan calendar wording. Preserve proper name Hijri/Jalali and ISO 8601; distinguish tabular civil and astronomical epochs and lunar sighting. Attested table vocabulary: NYU Tibetan social studies glossary; astronomy: Emory Tibetan Science Initiative; Saudi Arabia: Unicode CLDR bo. Direct composition/transliterations have low confidence and need fluent review; CLDR calendar key names are inherited identifiers, not Tibetan translations."
+  },
+  {
+    "locale": "ks",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "اِسلٲمی اِجتمٲیی کیلنڑَر",
+    "reason": "Replace English Islamic civil with exact Kashmiri Islamic civil calendar display name attested in Unicode CLDR 47 ks, calendar-islamic-civil: https://www.unicode.org/cldr/charts/47/summary/ks.html . Official localized name distinguishes the civil variant; other Hijri variants remain pending."
   }
 ]
