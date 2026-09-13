@@ -52708,5 +52708,47 @@
     "before": "Icona dello spazio di lavoro (markdown)",
     "after": "Icona dl spazie de laur (markdown)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "almostdue",
+    "before": "la data di scadenza attuale %s si sta avvicinando",
+    "after": "La scadenza atuala %s se avijina",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "auto-list-width",
+    "before": "Larghezza lista automatica ",
+    "after": "Largeza automatica dla lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "azure-container-description",
+    "before": "Il container blob in cui memorizzare i file.",
+    "after": "L container blob per memorisé i files.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "board-background-image-url",
+    "before": "URL dell'immagine di sfondo",
+    "after": "URL dl imagine de sfond",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "board-status-time-summary",
+    "before": "Riepilogo tempo impiegato",
+    "after": "Resum dl temp adorà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "calculate-file-counts",
+    "before": "Calcola il numero di file",
+    "after": "Calcolé l numer de files",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
