@@ -89479,5 +89479,61 @@
     "before": "`__operator_swimlane__:<titre>` - cartes dans les couloirs correspondant au *<titre>* spécifié",
     "after": "`__operator_swimlane__:<title>` - kads in dils horitätik, kels baiädons bai *<title>* pelonöl",
     "reason": "Repair French swimlane controls, archive/delete warnings, Excel board-info group and search help in Volapük. Preserve above/below/selected placement, invisibility-after-archive and later-restore behavior, permanent action removal/no undo, strict positive-integer height, and exact <title> search syntax. Use px as international pixel unit. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests geilot (measured height), valodanum (whole number), positik, löpü and donü; existing descriptive horizontal-part and archive terminology. Software adaptations and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "import-without-mapping-members",
+    "before": "Importön nen matükön leladis (matükön pö tim posik)",
+    "after": "Nüveigön nen yümön limanis ko gebans (yümön poso)",
+    "reason": "Repair French imported-member mapping text, defective import/member terminology, and Esperanto All Boards destination. Describe mapping as linking imported members to existing users; preserve skip-now/map-later, unmapped-current-user fallback, desired member selection, review action and possible successful import despite errors. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf and existing WeKan terms (yümön connect, liman member, geban user, nüveigön import); import.jade confirms mapping controls/fallback-note context. Software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "import-map-members",
+    "before": "Faire correspondre les participants",
+    "after": "Yümön limanis ko gebans",
+    "reason": "Repair French imported-member mapping text, defective import/member terminology, and Esperanto All Boards destination. Describe mapping as linking imported members to existing users; preserve skip-now/map-later, unmapped-current-user fallback, desired member selection, review action and possible successful import despite errors. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf and existing WeKan terms (yümön connect, liman member, geban user, nüveigön import); import.jade confirms mapping controls/fallback-note context. Software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "import-members-map",
+    "before": "Le tableau que vous venez d'importer contient des participants. Veuillez faire correspondre les participants que vous souhaitez importer à vos utilisateurs.",
+    "after": "Tab olik penüveigöl labon limanis. Begö! Yümolös limanis, kelis vilol nüveigön, ko gebans olik.",
+    "reason": "Repair French imported-member mapping text, defective import/member terminology, and Esperanto All Boards destination. Describe mapping as linking imported members to existing users; preserve skip-now/map-later, unmapped-current-user fallback, desired member selection, review action and possible successful import despite errors. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf and existing WeKan terms (yümön connect, liman member, geban user, nüveigön import); import.jade confirms mapping controls/fallback-note context. Software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "import-members-map-note",
+    "before": "Note: les participants ne concordant pas seront attribués à l'utilisateur courant.",
+    "after": "Noet: Limans no peyümöl poyümons ko geban nuik.",
+    "reason": "Repair French imported-member mapping text, defective import/member terminology, and Esperanto All Boards destination. Describe mapping as linking imported members to existing users; preserve skip-now/map-later, unmapped-current-user fallback, desired member selection, review action and possible successful import despite errors. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf and existing WeKan terms (yümön connect, liman member, geban user, nüveigön import); import.jade confirms mapping controls/fallback-note context. Software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "import-show-user-mapping",
+    "before": "Contrôler l'assignation des participants",
+    "after": "Kontrolön yümis limanas ko gebans",
+    "reason": "Repair French imported-member mapping text, defective import/member terminology, and Esperanto All Boards destination. Describe mapping as linking imported members to existing users; preserve skip-now/map-later, unmapped-current-user fallback, desired member selection, review action and possible successful import despite errors. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf and existing WeKan terms (yümön connect, liman member, geban user, nüveigön import); import.jade confirms mapping controls/fallback-note context. Software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "import-user-select",
+    "before": "Sélectionnez l'utilisateur existant que vous voulez associer à ce participant",
+    "after": "Välön gebani olik ya dabinöl, keli vilol gebön as liman at",
+    "reason": "Repair French imported-member mapping text, defective import/member terminology, and Esperanto All Boards destination. Describe mapping as linking imported members to existing users; preserve skip-now/map-later, unmapped-current-user fallback, desired member selection, review action and possible successful import despite errors. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf and existing WeKan terms (yümön connect, liman member, geban user, nüveigön import); import.jade confirms mapping controls/fallback-note context. Software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "all-boards",
+    "before": "Ĉiuj tabuloj",
+    "after": "Tabs valik",
+    "reason": "Repair French imported-member mapping text, defective import/member terminology, and Esperanto All Boards destination. Describe mapping as linking imported members to existing users; preserve skip-now/map-later, unmapped-current-user fallback, desired member selection, review action and possible successful import despite errors. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf and existing WeKan terms (yümön connect, liman member, geban user, nüveigön import); import.jade confirms mapping controls/fallback-note context. Software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "import-board-instruction-about-errors",
+    "before": "Si une erreur survient en important le tableau, il se peut que l'import ait fonctionné, et que le tableau se trouve sur la page \"Tous les tableaux\".",
+    "after": "If pöls jenons dü nüveigam taba, nüveigam sotimo nog plöpon, e tab binon su pad: «Tabs valik».",
+    "reason": "Repair French imported-member mapping text, defective import/member terminology, and Esperanto All Boards destination. Describe mapping as linking imported members to existing users; preserve skip-now/map-later, unmapped-current-user fallback, desired member selection, review action and possible successful import despite errors. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf and existing WeKan terms (yümön connect, liman member, geban user, nüveigön import); import.jade confirms mapping controls/fallback-note context. Software adaptations and assembled wording remain low confidence; no native-speaker verification."
   }
 ]
