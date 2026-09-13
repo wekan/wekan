@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 14,470 |
+| Corrected | 14,472 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 1,374 |
+| Pending review or repair | 1,372 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **15,995** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **15,997** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-13**, local commit `4a06f2abd` — replaced four Finnish-seeded Veps existence/creation errors and week display text with dictionary-based Veps; positive/negative regressions pass, including missing-versus-uncreated users and ISO 8601. Composed technical wording is low confidence and needs fluent-speaker review. Previous `643cabc3c` repaired locked-user messages. The 620 remaining original Veps findings, specialized shades and restored/unflagged values remain outstanding.
+Latest translation fix: **2026-09-13**, local commit `462f3bb78` — replaced English Chinese/Japanese calendar labels with Veps **Kitain kalendar'** and **Japonijan kalendar'**, using dictionary-attested genitives; positive/negative regressions pass. Composed terminology requires fluent-speaker review. Previous `4a06f2abd` repaired existence/creation errors and week display. The 618 remaining original Veps findings, specialized shades and restored/unflagged values remain outstanding.
 
 **Verification (2026-09-13):** **1,002 Node suites, zero failures**; the original 19 failures are resolved. The first complete EVERYTHING run passes all four stages: Meteor (**527**), import (**10**), Node E2E (**10**), three browsers, **103** conformance cases on each of SQLite/PostgreSQL/MySQL/MariaDB and FerretDB unit/vet/integration. Separate URL-prefix preference/logout/invalid-cookie checks pass in all browsers. Two WebKit retries exposed refresh readiness and competing template autofocus; both are repaired, and the refresh check passes ten repetitions without retries. #6691 partial-profile/impersonation regression passes in all three browsers without retries. Fresh EVERYTHING verification is running; an added Fossil script required menu registration, now fixed and checked. Fluent-speaker checks remain outstanding; translation repairs have resumed.
 
