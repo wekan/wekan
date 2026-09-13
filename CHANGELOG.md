@@ -80,11 +80,11 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 12,866 corrected, 4,058 restored pre-pull values awaiting
-validation, 178 reviewed and retained, and 2,979 pending review or repair.
-The correction inventory records 13,544 exact before/after values across
+findings: 12,956 corrected, 4,058 restored pre-pull values awaiting
+validation, 178 reviewed and retained, and 2,889 pending review or repair.
+The correction inventory records 13,634 exact before/after values across
 201 locale identifiers, including repairs outside the original findings.
-Klingon still has 361 pending flagged findings; review and repairs are
+Klingon has 271 pending flagged findings after 90 new repairs; review and repairs are
 underway. Other substantial queues remain in Venda and regional
 locale files and Tamazight. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
@@ -104,9 +104,10 @@ Calendar/date-popup, OAuth2, correction/review, progress and mocked upload
 checks pass. Sardinian magenta remains an explicit language-review item;
 the completeness guard permits only that exact known pending value.
 
-Browser calendar regressions, including RTL popup placement and dragging,
-remain registered and syntax-checked; live Meteor, identity-provider and
-browser validation remains outstanding. Mirror-script syntax passes; no
+The first complete EVERYTHING run passed Meteor, Node, import, Node E2E,
+all three browsers, four database conformance runs and FerretDB tests.
+Fresh verification including #6691 is running. Live external identity-provider
+validation and fluent-speaker translation review remain outstanding. Mirror-script syntax passes; no
 remote mirror or translation upload was executed.
 
 </details>
