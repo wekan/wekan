@@ -1194,5 +1194,81 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.ok(cache['ve-PP']['toggle-labels'].includes(`${cache['ve-PP']['multi-selection']} ližab znamad 1-9`));
   assert.match(cache['ve-PP']['multi-selection-on'], /om aktivine$/);
   assert.match(cache['ve-PP']['multi-selection-off'], /^Saubata/);
+  const vepsRuleFragmentRepairs = {
+  "r-rule": "Sänd",
+  "r-add-action": "Ližada tegend",
+  "r-add-rule": "Ližada sänd",
+  "r-delete-rule": "Heitä sänd",
+  "r-action": "Tegend",
+  "r-when-a-card": "Konz kart",
+  "r-is": "om",
+  "r-is-moved": "om sirttud",
+  "r-added-to": "Ližatud sijaha",
+  "r-removed-from": "Heittud sijašpäi",
+  "r-the-board": "laud",
+  "r-list": "lugetiž",
+  "r-moved-to": "Sirttud sijaha",
+  "r-moved-from": "Sirttud sijašpäi",
+  "r-archived": "Sirttud arhivaha",
+  "r-unarchived": "Endištadud arhivaspäi",
+  "r-a-card": "kart",
+  "r-when-a-label-is": "Konz znam om",
+  "r-when-the-label": "Konz znam",
+  "r-list-name": "lugetišen nimi",
+  "r-when-a-member": "Konz ühtnik om",
+  "r-when-the-member": "Konz ühtnik",
+  "r-when-a-assignee": "Konz märitud kävutai om",
+  "r-when-the-assignee": "Konz märitud kävutai",
+  "r-when-a-attach": "Konz tartutadud fail",
+  "r-when-a-checklist": "Konz kodvindlugetiž om",
+  "r-when-the-checklist": "Konz kodvindlugetiž",
+  "r-completed": "Loptud",
+  "r-made-incomplete": "Tehtud kut lopmatoi",
+  "r-when-a-item": "Konz kodvindlugetišen koht om",
+  "r-when-the-item": "Konz kodvindlugetišen koht",
+  "r-move-card-to": "Sirdä kart sijaha",
+  "r-its-list": "sen lugetiž",
+  "r-archive": "Sirdä arhivaha",
+  "r-unarchive": "Endišta arhivaspäi",
+  "r-card": "kart",
+  "r-add": "Ližada",
+  "r-remove": "Heitä",
+  "r-label": "znam",
+  "r-member": "ühtnik",
+  "r-item": "koht",
+  "r-d-archive": "Sirdä kart arhivaha",
+  "r-d-unarchive": "Endišta kart arhivaspäi",
+  "r-d-add-label": "Ližada znam",
+  "r-d-remove-label": "Heitä znam",
+  "r-create-card": "Tege uz’ kart",
+  "r-in-list": "lugetišes",
+  "r-d-add-member": "Ližada ühtnik",
+  "r-d-remove-member": "Heitä ühtnik",
+  "r-d-remove-all-member": "Heitä kaik ühtnikad",
+  "r-with-items": "kohtidenke",
+  "r-items-list": "koht1,koht2,koht3",
+  "r-add-swimlane": "Ližada ujundšoid",
+  "r-checklist-note": "Homaičuz: kodvindlugetišen kohtid pidab kirjutada katkimel erigoittud znamoičendoine."
+};
+  for (const [key, value] of Object.entries(vepsRuleFragmentRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Sääntö|Lisää|Poista|toimi|Kun kortti|on siirretty|Lisätty kohteeseen|Poistettu kohteesta|Siirretty|Palautettu|kortti|nimilappu|listan nimi|Kun jäsen|Kun käyttäjä|Käsittelijä|liitetiedosto|tarkistuslista|Valmistunut|Tehty ei|Siirrä|sen lista|Palauta|Luo uusi|kohteiden kanssa|kohde1|pilkulla eroteltuina/i, key);
+  }
+  const joinRule = (...keys) => keys.map(key => vepsTranslator.t(key)).join(' ');
+  assert.equal(joinRule('r-when-a-member', 'r-added-to', 'r-a-card'), 'Konz ühtnik om Ližatud sijaha kart');
+  assert.equal(joinRule('r-when-a-assignee', 'r-removed-from', 'r-a-card'), 'Konz märitud kävutai om Heittud sijašpäi kart');
+  assert.equal(joinRule('r-when-a-item', 'r-checked'), 'Konz kodvindlugetišen koht om Znamoitud');
+  assert.equal(joinRule('r-when-a-checklist', 'r-completed'), 'Konz kodvindlugetiž om Loptud');
+  assert.equal(joinRule('r-when-a-checklist', 'r-made-incomplete'), 'Konz kodvindlugetiž om Tehtud kut lopmatoi');
+  assert.match(cache['ve-PP']['r-moved-to'], /sijaha$/);
+  assert.match(cache['ve-PP']['r-moved-from'], /sijašpäi$/);
+  assert.match(cache['ve-PP']['r-d-archive'], /arhivaha$/);
+  assert.match(cache['ve-PP']['r-d-unarchive'], /arhivaspäi$/);
+  assert.doesNotMatch(cache['ve-PP']['r-completed'], /lopmatoi/);
+  assert.match(cache['ve-PP']['r-d-remove-all-member'], /kaik ühtnikad$/);
+  assert.equal(cache['ve-PP']['r-items-list'].split(',').length, 3);
+  assert.equal(cache['ve-PP']['r-items-list'], 'koht1,koht2,koht3');
+  assert.match(cache['ve-PP']['r-checklist-note'], /katkimel erigoittud/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

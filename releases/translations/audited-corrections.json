@@ -116205,5 +116205,383 @@
     "before": "Vala ukukhetha okuningi",
     "after": "Saubata äi valičuz",
     "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review. Keep multi-selection header and on/off/member actions consistent with keyboard help."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-rule",
+    "before": "Sääntö",
+    "after": "Sänd",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-add-action",
+    "before": "Lisää toimi",
+    "after": "Ližada tegend",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-add-rule",
+    "before": "Lisää sääntö",
+    "after": "Ližada sänd",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-delete-rule",
+    "before": "Poista sääntö",
+    "after": "Heitä sänd",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-action",
+    "before": "Toimi",
+    "after": "Tegend",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-when-a-card",
+    "before": "Kun kortti",
+    "after": "Konz kart",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-is",
+    "before": "on",
+    "after": "om",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-is-moved",
+    "before": "on siirretty",
+    "after": "om sirttud",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-added-to",
+    "before": "Lisätty kohteeseen",
+    "after": "Ližatud sijaha",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-removed-from",
+    "before": "Poistettu kohteesta",
+    "after": "Heittud sijašpäi",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-the-board",
+    "before": "taulu",
+    "after": "laud",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-list",
+    "before": "lista",
+    "after": "lugetiž",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-moved-to",
+    "before": "Siirretty kohteeseen",
+    "after": "Sirttud sijaha",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-moved-from",
+    "before": "Siirretty kohteesta",
+    "after": "Sirttud sijašpäi",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-archived",
+    "before": "Siirretty Arkistoon",
+    "after": "Sirttud arhivaha",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-unarchived",
+    "before": "Palautettu Arkistosta",
+    "after": "Endištadud arhivaspäi",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-a-card",
+    "before": "kortti",
+    "after": "kart",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-when-a-label-is",
+    "before": "Kun nimilappu on",
+    "after": "Konz znam om",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-when-the-label",
+    "before": "Kun nimilappu on",
+    "after": "Konz znam",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-list-name",
+    "before": "listan nimi",
+    "after": "lugetišen nimi",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-when-a-member",
+    "before": "Kun jäsen on",
+    "after": "Konz ühtnik om",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-when-the-member",
+    "before": "Kun käyttäjä",
+    "after": "Konz ühtnik",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-when-a-assignee",
+    "before": "Käsittelijä jäsen on",
+    "after": "Konz märitud kävutai om",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-when-the-assignee",
+    "before": "Käsittelijä käyttäjä",
+    "after": "Konz märitud kävutai",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-when-a-attach",
+    "before": "Kun liitetiedosto",
+    "after": "Konz tartutadud fail",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-when-a-checklist",
+    "before": "Kun tarkistuslista on",
+    "after": "Konz kodvindlugetiž om",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-when-the-checklist",
+    "before": "Kun tarkistuslista",
+    "after": "Konz kodvindlugetiž",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-completed",
+    "before": "Valmistunut",
+    "after": "Loptud",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-made-incomplete",
+    "before": "Tehty ei valmistuneeksi",
+    "after": "Tehtud kut lopmatoi",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-when-a-item",
+    "before": "Kun tarkistuslistan kohta on",
+    "after": "Konz kodvindlugetišen koht om",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-when-the-item",
+    "before": "Kun tarkistuslistan kohta",
+    "after": "Konz kodvindlugetišen koht",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-move-card-to",
+    "before": "Siirrä kortti kohteeseen",
+    "after": "Sirdä kart sijaha",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-its-list",
+    "before": "sen lista",
+    "after": "sen lugetiž",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-archive",
+    "before": "Siirrä Arkistoon",
+    "after": "Sirdä arhivaha",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-unarchive",
+    "before": "Palauta Arkistosta",
+    "after": "Endišta arhivaspäi",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-card",
+    "before": "kortti",
+    "after": "kart",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-add",
+    "before": "Lisää",
+    "after": "Ližada",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-remove",
+    "before": "Poista",
+    "after": "Heitä",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-label",
+    "before": "nimilappu",
+    "after": "znam",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-member",
+    "before": "jäsen",
+    "after": "ühtnik",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-item",
+    "before": "kohta",
+    "after": "koht",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-d-archive",
+    "before": "Siirrä kortti Arkistoon",
+    "after": "Sirdä kart arhivaha",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-d-unarchive",
+    "before": "Palauta kortti Arkistosta",
+    "after": "Endišta kart arhivaspäi",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-d-add-label",
+    "before": "Lisää nimilappu",
+    "after": "Ližada znam",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-d-remove-label",
+    "before": "Poista nimilappu",
+    "after": "Heitä znam",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-create-card",
+    "before": "Luo uusi kortti",
+    "after": "Tege uz’ kart",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-in-list",
+    "before": "listassa",
+    "after": "lugetišes",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-d-add-member",
+    "before": "Lisää jäsen",
+    "after": "Ližada ühtnik",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-d-remove-member",
+    "before": "Poista jäsen",
+    "after": "Heitä ühtnik",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-d-remove-all-member",
+    "before": "Poista kaikki jäsenet",
+    "after": "Heitä kaik ühtnikad",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-with-items",
+    "before": "kohteiden kanssa",
+    "after": "kohtidenke",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-items-list",
+    "before": "kohde1,kohde2,kohde3",
+    "after": "koht1,koht2,koht3",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-add-swimlane",
+    "before": "Lisää uimarata",
+    "after": "Ližada ujundšoid",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-checklist-note",
+    "before": "Huom: tarkistuslistan kohteet täytyy kirjoittaa pilkulla eroteltuina.",
+    "after": "Homaičuz: kodvindlugetišen kohtid pidab kirjutada katkimel erigoittud znamoičendoine.",
+    "reason": "Replace Finnish rule-building labels and fragments with Veps. Primary references: Zaiceva/Mullonen 2007 Russian–Veps dictionary http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf (rule sänd, action tego, place sija, list lugetiž, document item koht, comma katkim); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests om, Heitä, Ližada/ližatud, sirttud, heittud, Endišta, Tege. Use previously reviewed kanban terms and unfinished lopmatoi. Keep trigger sentence fragments, member/assignee distinctions, added/removed and source/destination directions, archive/restore, completed/incomplete opposites, comma-separated three-item examples and all-member scope. Low confidence: composed UI grammar and derived participles require fluent-speaker review."
   }
 ]
