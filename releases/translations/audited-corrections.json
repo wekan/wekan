@@ -94001,5 +94001,61 @@
     "before": "Vollständiger Name",
     "after": "pong naQ",
     "reason": "Replace German account validation and name labels with Klingon. Preserve email/username already in use, existing user, both username and password required, minimum 3 characters while allowing additional characters, and username versus full name. Reuse repaired account/password/address terminology and attested ngutlh character; plural indefinite agreement marks required tokens/characters. Full software wording is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "add-card-to-bottom-of-list",
+    "before": "Karte am Ende der Liste hinzufügen",
+    "after": "tetlh bIngDaq 'echletHom yIchel",
+    "reason": "Replace audited German add/remove controls with Klingon. Preserve card placement at list top versus bottom, checklist-item addition, adding/removing the minicard cover image, scheduled-job addition, and confirmation before removing this organization/team from this board. Use teq removal rather than Qaw deletion. Reuse repaired terms; scheduled job is a task with execution time and cover image a velmeH mIllogh descriptive compound. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "add-card-to-top-of-list",
+    "before": "Karte am Anfang der Liste hinzufügen",
+    "after": "tetlh DungDaq 'echletHom yIchel",
+    "reason": "Replace audited German add/remove controls with Klingon. Preserve card placement at list top versus bottom, checklist-item addition, adding/removing the minicard cover image, scheduled-job addition, and confirmation before removing this organization/team from this board. Use teq removal rather than Qaw deletion. Reuse repaired terms; scheduled job is a task with execution time and cover image a velmeH mIllogh descriptive compound. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "add-checklist-item",
+    "before": "Einen Eintrag zur Checkliste hinzufügen",
+    "after": "ghItlhHommey tetlhvaD ghItlhHom yIchel",
+    "reason": "Replace audited German add/remove controls with Klingon. Preserve card placement at list top versus bottom, checklist-item addition, adding/removing the minicard cover image, scheduled-job addition, and confirmation before removing this organization/team from this board. Use teq removal rather than Qaw deletion. Reuse repaired terms; scheduled job is a task with execution time and cover image a velmeH mIllogh descriptive compound. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "add-cover",
+    "before": "Cover Bild zu Minikarte hinzufügen",
+    "after": "'echletHom machvaD velmeH mIllogh yIchel",
+    "reason": "Replace audited German add/remove controls with Klingon. Preserve card placement at list top versus bottom, checklist-item addition, adding/removing the minicard cover image, scheduled-job addition, and confirmation before removing this organization/team from this board. Use teq removal rather than Qaw deletion. Reuse repaired terms; scheduled job is a task with execution time and cover image a velmeH mIllogh descriptive compound. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "remove-cover",
+    "before": "Entferne Cover Bild von Minikarte",
+    "after": "'echletHom machvo' velmeH mIllogh yIteq",
+    "reason": "Replace audited German add/remove controls with Klingon. Preserve card placement at list top versus bottom, checklist-item addition, adding/removing the minicard cover image, scheduled-job addition, and confirmation before removing this organization/team from this board. Use teq removal rather than Qaw deletion. Reuse repaired terms; scheduled job is a task with execution time and cover image a velmeH mIllogh descriptive compound. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "add-cron-job",
+    "before": "Geplante Aufgabe hinzufügen",
+    "after": "ta'meH poH ghajbogh Qu' yIchel",
+    "reason": "Replace audited German add/remove controls with Klingon. Preserve card placement at list top versus bottom, checklist-item addition, adding/removing the minicard cover image, scheduled-job addition, and confirmation before removing this organization/team from this board. Use teq removal rather than Qaw deletion. Reuse repaired terms; scheduled job is a task with execution time and cover image a velmeH mIllogh descriptive compound. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "remove-organization-from-board",
+    "before": "Sicher, dass du die Organisation von diesem Board entfernen willst?",
+    "after": "raSvamvo' yejHaqvam Dateq DaneHbej'a'?",
+    "reason": "Replace audited German add/remove controls with Klingon. Preserve card placement at list top versus bottom, checklist-item addition, adding/removing the minicard cover image, scheduled-job addition, and confirmation before removing this organization/team from this board. Use teq removal rather than Qaw deletion. Reuse repaired terms; scheduled job is a task with execution time and cover image a velmeH mIllogh descriptive compound. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "remove-team-from-table",
+    "before": "Sind Sie sicher, das Sie dieses Team vom Board entfernen möchten?",
+    "after": "raSvamvo' ghomvam Dateq DaneHbej'a'?",
+    "reason": "Replace audited German add/remove controls with Klingon. Preserve card placement at list top versus bottom, checklist-item addition, adding/removing the minicard cover image, scheduled-job addition, and confirmation before removing this organization/team from this board. Use teq removal rather than Qaw deletion. Reuse repaired terms; scheduled job is a task with execution time and cover image a velmeH mIllogh descriptive compound. Full software wording is assembled, low confidence, and requires fluent-speaker validation."
   }
 ]
