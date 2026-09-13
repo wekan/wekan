@@ -89311,5 +89311,96 @@
     "before": "Apliki Svimalün",
     "after": "Gebükön pro dil horitätik",
     "reason": "Repair swimlane labels/activity messages and replace Svimalün consistently with descriptive dil horitätik (horizontal part). Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests horitätik (horizontal), dil (part), lün (spectacles), and existing create/add/remove/mark/complete/move/archive/import/export vocabulary. Preserve source placeholders, entity identities, old/new movement directions, completed/undo-mark/undo-completion distinctions and field/label actions. Descriptive software terminology and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-addComment",
+    "before": "a commenté la carte __card__ : __comment__ dans la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "elüükon noeti su kad __card__: __comment__ in lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair French/Esperanto card comment, attachment, label, subtask and checklist activities; correct voice-derived swimlane terminology and deletion/remove distinction. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests mäniotön (mention), noet (textual remark), radön (erase), moükön (remove), and existing vocabulary. Preserve all placeholders and their entities, second-person mention, comment text, full card/list/swimlane/board locations and add/remove/delete semantics. Horizontal-section/subtask/attachment software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-editComment",
+    "before": "a édité le commentaire de la carte __card__ : __comment__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "evotükon noeti su kad __card__: __comment__ in lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair French/Esperanto card comment, attachment, label, subtask and checklist activities; correct voice-derived swimlane terminology and deletion/remove distinction. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests mäniotön (mention), noet (textual remark), radön (erase), moükön (remove), and existing vocabulary. Preserve all placeholders and their entities, second-person mention, comment text, full card/list/swimlane/board locations and add/remove/delete semantics. Horizontal-section/subtask/attachment software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-deleteComment",
+    "before": "a supprimé le commentaire de la carte __card__ : __comment__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "eradon noeti su kad __card__: __comment__ in lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair French/Esperanto card comment, attachment, label, subtask and checklist activities; correct voice-derived swimlane terminology and deletion/remove distinction. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests mäniotön (mention), noet (textual remark), radön (erase), moükön (remove), and existing vocabulary. Preserve all placeholders and their entities, second-person mention, comment text, full card/list/swimlane/board locations and add/remove/delete semantics. Horizontal-section/subtask/attachment software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-atUserComment",
+    "before": "vous a mentionné sur la carte __card__ : __comment__ dans la liste __list__ dans le couloir __swimlane__ dans le tableau __board__",
+    "after": "emänioton oli su kad __card__: __comment__ in lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair French/Esperanto card comment, attachment, label, subtask and checklist activities; correct voice-derived swimlane terminology and deletion/remove distinction. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests mäniotön (mention), noet (textual remark), radön (erase), moükön (remove), and existing vocabulary. Preserve all placeholders and their entities, second-person mention, comment text, full card/list/swimlane/board locations and add/remove/delete semantics. Horizontal-section/subtask/attachment software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-deleteCard",
+    "before": "emoükon kadi __card__ de lised __list__ pö svimavög __swimlane__ pö tab __board__",
+    "after": "eradon kadi __card__ de lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair French/Esperanto card comment, attachment, label, subtask and checklist activities; correct voice-derived swimlane terminology and deletion/remove distinction. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests mäniotön (mention), noet (textual remark), radön (erase), moükön (remove), and existing vocabulary. Preserve all placeholders and their entities, second-person mention, comment text, full card/list/swimlane/board locations and add/remove/delete semantics. Horizontal-section/subtask/attachment software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-removeSwimlane",
+    "before": "emoükon svimavögi __swimlane__ pö tab __board__",
+    "after": "eradon dili horitätik __swimlane__ su tab __board__",
+    "reason": "Repair French/Esperanto card comment, attachment, label, subtask and checklist activities; correct voice-derived swimlane terminology and deletion/remove distinction. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests mäniotön (mention), noet (textual remark), radön (erase), moükön (remove), and existing vocabulary. Preserve all placeholders and their entities, second-person mention, comment text, full card/list/swimlane/board locations and add/remove/delete semantics. Horizontal-section/subtask/attachment software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-addAttachment",
+    "before": "aldonita alligitecon __attachment__ al karto __card__ en la listo __list__ en la naĝotubo __swimlane__ en la tabulo __board__",
+    "after": "elüükon fimükoti __attachment__ lü kad __card__ in lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair French/Esperanto card comment, attachment, label, subtask and checklist activities; correct voice-derived swimlane terminology and deletion/remove distinction. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests mäniotön (mention), noet (textual remark), radön (erase), moükön (remove), and existing vocabulary. Preserve all placeholders and their entities, second-person mention, comment text, full card/list/swimlane/board locations and add/remove/delete semantics. Horizontal-section/subtask/attachment software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-deleteAttachment",
+    "before": "forigita alligitecon __attachment__ al karto __card__ en la listo __list__ en la naĝotubo __swimlane__ en la tabulo __board__",
+    "after": "eradon fimükoti __attachment__ su kad __card__ in lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair French/Esperanto card comment, attachment, label, subtask and checklist activities; correct voice-derived swimlane terminology and deletion/remove distinction. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests mäniotön (mention), noet (textual remark), radön (erase), moükön (remove), and existing vocabulary. Preserve all placeholders and their entities, second-person mention, comment text, full card/list/swimlane/board locations and add/remove/delete semantics. Horizontal-section/subtask/attachment software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-addSubtask",
+    "before": "aldonita subtaskon __subtask__ al karto __card__ en la listo __list__ en la naĝotubo __swimlane__ en la tabulo __board__",
+    "after": "elüükon donabligädi __subtask__ lü kad __card__ in lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair French/Esperanto card comment, attachment, label, subtask and checklist activities; correct voice-derived swimlane terminology and deletion/remove distinction. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests mäniotön (mention), noet (textual remark), radön (erase), moükön (remove), and existing vocabulary. Preserve all placeholders and their entities, second-person mention, comment text, full card/list/swimlane/board locations and add/remove/delete semantics. Horizontal-section/subtask/attachment software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-removeLabel",
+    "before": "Forigita etikedo __label__ de karto __card__ en la listo __list__ en la naĝotubo __swimlane__ en la tabulo __board__",
+    "after": "emoükon ninädapenädi __label__ de kad __card__ in lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair French/Esperanto card comment, attachment, label, subtask and checklist activities; correct voice-derived swimlane terminology and deletion/remove distinction. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests mäniotön (mention), noet (textual remark), radön (erase), moükön (remove), and existing vocabulary. Preserve all placeholders and their entities, second-person mention, comment text, full card/list/swimlane/board locations and add/remove/delete semantics. Horizontal-section/subtask/attachment software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-removedLabel",
+    "before": "Forigita etikedo __label__ de karto __card__ en la listo __list__ en la naĝotubo __swimlane__ en la tabulo __board__",
+    "after": "emoükon ninädapenädi __label__ de kad __card__ in lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair French/Esperanto card comment, attachment, label, subtask and checklist activities; correct voice-derived swimlane terminology and deletion/remove distinction. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests mäniotön (mention), noet (textual remark), radön (erase), moükön (remove), and existing vocabulary. Preserve all placeholders and their entities, second-person mention, comment text, full card/list/swimlane/board locations and add/remove/delete semantics. Horizontal-section/subtask/attachment software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-addChecklist",
+    "before": "aldonita kontrololiston __checklist__ al karto __card__ en la listo __list__ en la naĝotubo __swimlane__ en la tabulo __board__",
+    "after": "elüükon kontrolalisedi __checklist__ lü kad __card__ in lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair French/Esperanto card comment, attachment, label, subtask and checklist activities; correct voice-derived swimlane terminology and deletion/remove distinction. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests mäniotön (mention), noet (textual remark), radön (erase), moükön (remove), and existing vocabulary. Preserve all placeholders and their entities, second-person mention, comment text, full card/list/swimlane/board locations and add/remove/delete semantics. Horizontal-section/subtask/attachment software adaptations and assembled wording remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "act-addChecklistItem",
+    "before": "aldonita kontrolliston __checklistItem__ al kontrololisto __checklist__ en la karto __card__ en la listo __list__ en la naĝotubo __swimlane__ en la tabulo __board__",
+    "after": "elüükon noteti __checklistItem__ lü kontrolalised __checklist__ su kad __card__ in lised __list__ in dil horitätik __swimlane__ su tab __board__",
+    "reason": "Repair French/Esperanto card comment, attachment, label, subtask and checklist activities; correct voice-derived swimlane terminology and deletion/remove distinction. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests mäniotön (mention), noet (textual remark), radön (erase), moükön (remove), and existing vocabulary. Preserve all placeholders and their entities, second-person mention, comment text, full card/list/swimlane/board locations and add/remove/delete semantics. Horizontal-section/subtask/attachment software adaptations and assembled wording remain low confidence; no native-speaker verification."
   }
 ]
