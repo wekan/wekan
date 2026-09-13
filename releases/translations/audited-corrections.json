@@ -87876,5 +87876,47 @@
     "before": "'%s' n'est pas un statut valide",
     "after": "'%s' no binon stad lonöfik",
     "reason": "Replace French search-validation warning with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests valodanum (whole number), positik (mathematically positive), mied (limit), sotam (sorting), and stad (status). Preserve numeric constraint and source placeholder. Assembled warning grammar remains low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "accounts-allowUserDelete",
+    "before": "Autoriser les utilisateurs à supprimer leur compte",
+    "after": "Dälön gebanes ad radön kali okas",
+    "reason": "Replace French account self-deletion/unlock interface wording with Volapük. Use existing software account/user terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf mailökön (unlock), with existing fäilökön (lock). Preserve all-users scope, self-deletion permission and confirmation meaning. Assembled wording and software lock adaptation remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "accounts-lockout-all-users-unlocked",
+    "before": "Tous les utilisateurs bloqués ont été déverrouillés",
+    "after": "Gebans valik pefäilököl pemailökons",
+    "reason": "Replace French account self-deletion/unlock interface wording with Volapük. Use existing software account/user terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf mailökön (unlock), with existing fäilökön (lock). Preserve all-users scope, self-deletion permission and confirmation meaning. Assembled wording and software lock adaptation remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "accounts-lockout-confirm-unlock",
+    "before": "Êtes-vous sûr de vouloir déverrouiller cet utilisateur ?",
+    "after": "Fümol-li, das vilol mailökön gebani at?",
+    "reason": "Replace French account self-deletion/unlock interface wording with Volapük. Use existing software account/user terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf mailökön (unlock), with existing fäilökön (lock). Preserve all-users scope, self-deletion permission and confirmation meaning. Assembled wording and software lock adaptation remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "before": "Êtes-vous sûr de vouloir déverrouiller tous les utilisateurs verrouillés ?",
+    "after": "Fümol-li, das vilol mailökön gebanis valik pefäilököl?",
+    "reason": "Replace French account self-deletion/unlock interface wording with Volapük. Use existing software account/user terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf mailökön (unlock), with existing fäilökön (lock). Preserve all-users scope, self-deletion permission and confirmation meaning. Assembled wording and software lock adaptation remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "accounts-lockout-no-locked-users",
+    "before": "Il n'y a actuellement aucun utilisateur verrouillé",
+    "after": "Nu geban nonik binon pefäilököl",
+    "reason": "Replace French account self-deletion/unlock interface wording with Volapük. Use existing software account/user terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf mailökön (unlock), with existing fäilökön (lock). Preserve all-users scope, self-deletion permission and confirmation meaning. Assembled wording and software lock adaptation remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "accounts-lockout-user-unlocked",
+    "before": "L'utilisateur a été déverrouillé avec succès",
+    "after": "Geban pemailökon plöpo",
+    "reason": "Replace French account self-deletion/unlock interface wording with Volapük. Use existing software account/user terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf mailökön (unlock), with existing fäilökön (lock). Preserve all-users scope, self-deletion permission and confirmation meaning. Assembled wording and software lock adaptation remain low confidence; native review unavailable."
   }
 ]
