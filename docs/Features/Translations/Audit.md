@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 7,260 |
+| Explicitly corrected | 7,270 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 175 |
-| Pending review or repair | 8,587 |
+| Pending review or repair | 8,577 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **7,333 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
+Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **7,343 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
 
-Latest fix: [f57dbab25](https://github.com/wekan/wekan/commit/f57dbab258e11c4daff3910cbae33e21f76ad282), **2026-09-13** — eight Corsican email-template and WIP values repaired; **172 Corsican findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
+Latest fix: [78c018f23](https://github.com/wekan/wekan/commit/78c018f2347b3148ee69d45b6b370296b3a0da09), **2026-09-13** — ten Corsican validation/export values repaired; **162 Corsican findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors predated that pull in a [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983). Other ultimate origins remain unverified.
 
