@@ -77376,5 +77376,26 @@
     "before": "Décoché",
     "after": "Nén marké",
     "reason": "Repair French board-name example and unflagged completion/checkbox state labels using existing Walloon terminology; correct notification noun agreement to masculine on. Preserve wishes-list board example and distinguish checked/unchecked from completion. Native fini/marké terms: https://dtw.walon.org/index.php?query=fini and https://dtw.walon.org/index.php?query=marker ; sohaits computing usage in https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Full grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Calindrî Hijri (pa tåves, epoke civile)",
+    "reason": "Replace incomplete English Hijri variant labels with Walloon, retaining tabular versus sighting and civil versus astronomical epoch distinctions. Reuse existing calindrî; astronomy attested at https://dtw.walon.org/index.php?query=astronomeye . Specialized epoch/civil/country/sighting vocabulary and full grammar remain low confidence; these are replacements, not native-language certification."
+  },
+  {
+    "locale": "wa",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Calindrî Hijri (pa tåves, epoke d' astronomeye)",
+    "reason": "Replace incomplete English Hijri variant labels with Walloon, retaining tabular versus sighting and civil versus astronomical epoch distinctions. Reuse existing calindrî; astronomy attested at https://dtw.walon.org/index.php?query=astronomeye . Specialized epoch/civil/country/sighting vocabulary and full grammar remain low confidence; these are replacements, not native-language certification."
+  },
+  {
+    "locale": "wa",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Calindrî Hijri (Arabeye Sawoudite, obsèrvåcion del lune)",
+    "reason": "Replace incomplete English Hijri variant labels with Walloon, retaining tabular versus sighting and civil versus astronomical epoch distinctions. Reuse existing calindrî; astronomy attested at https://dtw.walon.org/index.php?query=astronomeye . Specialized epoch/civil/country/sighting vocabulary and full grammar remain low confidence; these are replacements, not native-language certification."
   }
 ]
