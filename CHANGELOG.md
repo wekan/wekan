@@ -684,6 +684,138 @@ review; the full roadmap implementation remains unfinished.
 
 and fixes the following regression failures:
 
+**Test runner** - cleanup stops abandoned tests while preserving its launcher.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cb9b689a6">Protect launcher ancestors during EVERYTHING cleanup</a>. Thanks to xet7.</summary>
+
+A shell launching the test runner can include the entire test command in
+its arguments. The old process search treated that parent as an abandoned
+run and terminated it before any stage started. Exclude the current run's
+ancestors before expanding the previous test process trees. The regression
+executes the actual cleanup with a synthetic process tree: launcher
+ancestors receive no signals, while an unrelated abandoned test is stopped.
+Build-script syntax and parity checks pass. The restarted EVERYTHING run
+passed the floating-promises guard and is preparing a fresh Meteor bundle;
+full matrix verification remains in progress.
+
+</details>
+
+**Browser regressions** - use current dependencies and preserve filter controls.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9e0f75f5a">Refresh browser test dependencies and attachment selectors</a>. Thanks to xet7.</summary>
+
+Validate installed test dependencies against their package manifest before
+running Playwright. An existing executable alone could leave an older
+Playwright version in use after an update. Cached valid installations are
+reused; missing or stale installations are refreshed, and installation
+failures propagate. Container temporary files and Node E2E artifacts now
+use the repository's ignored .tools/tmp directory. The attachment viewport
+regression targets the restored native PDF viewer. Dependency refresh,
+Docker routing, shell syntax and build-script parity checks pass; the full
+browser rerun remains in progress.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/51a7f1289">Keep reactive filter clicks inside the sidebar</a>. Thanks to xet7.</summary>
+
+A filter click can replace its row before the document outside-click
+handler runs. Consult the original event propagation path so the detached
+row retains its sidebar ancestry. Actual outside clicks still close the
+panel; inside clicks, right clicks and closed sidebars remain unaffected.
+The executable handler regression passes. Browser regressions assert the
+selected assignee and excluded cards, enable the linked-card fixture's
+sticker and location settings, target the real sign-in fields instead of
+the hidden two-factor form, and check the restored PDF and Office viewers.
+Browser verification against a newly built bundle remains in progress.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/FerretDB/commit/b7d3dde8">Propagate FerretDB vet failures</a>. Thanks to xet7.</summary>
+
+FerretDB's test runner previously discarded package-discovery and vet
+errors. Fail the stage when either module fails, keep scratch packages
+excluded, and still check the integration module after a main-module
+failure. Five shell regressions cover successful vet, failures in either
+module, failed discovery and empty package lists. They pass; the complete
+FerretDB suite remains in progress.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9c7c14d3f">Use actual selected-calendar month ranges</a>. Thanks to xet7.</summary>
+
+The built-in FullCalendar month duration ignored the selected calendar's
+visible range, displaying Gregorian month boundaries with converted day
+labels. Use duration-free custom grid and list views with real calendar
+month boundaries and shared previous/next navigation. Day and week views
+retain their existing intervals. Unit regressions cover Jalali boundaries,
+grid/list selection and native week navigation; browser checks cover exact
+month boundaries and both month view navigation controls. Browser rerun
+against the fresh bundle remains in progress.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1d3c9b5cc">Exercise visible date controls in browser regressions</a>. Thanks to xet7.</summary>
+
+Calendar tests select dates with year, month and day buttons instead of
+trying to type into the hidden native value field. Popup checks require
+the directly visible calendar and the hour/minute dropdowns. Fresh-load
+sign-in checks target the actual username field instead of a hidden
+two-factor input. Browser verification remains in progress.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/39b3be22e">Seed enabled card section defaults</a>. Thanks to xet7.</summary>
+
+Direct MongoDB browser fixtures bypass schema defaults, hiding stickers,
+locations, dependencies and voting controls that normal boards enable.
+Include their enabled defaults so these regressions exercise the real
+controls. Browser verification remains in progress.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c667aab27">Share browser dependency validation and timer defaults</a>. Thanks to xet7.</summary>
+
+Node E2E, Playwright Docker runs and browser installation share the
+manifest validation helper. Browser fixtures also seed the enabled timer,
+text-note and comment-count settings applied to real boards. Dependency,
+Docker routing, syntax and build-script parity checks pass; full matrix
+verification remains in progress.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/71b77aeda">Align selected-calendar month grids with the weekday start</a>. Thanks to xet7.</summary>
+
+FullCalendar inferred non-Gregorian month lengths as day ranges and could
+place the first date under the wrong weekday. Align the displayed grid to
+whole weeks without changing the calendar month's actual boundaries.
+Regression coverage exercises 29-, 30- and 31-day months with Sunday,
+Monday and Saturday starts, verifies input dates remain unchanged, and
+checks the Jalali first day beneath its correct weekday column. The unit
+checks pass; browser verification remains in progress.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/37043149f">Apply selected month views to the multi-board calendar</a>. Thanks to xet7.</summary>
+
+Single-board and multi-board calendars both honor the custom selected-
+calendar initial view, avoiding a later Gregorian initial-view override.
+Their shared browser regression checks grid and list navigation, exact
+month boundaries and weekday placement. Calendar documentation explains
+the month-grid behavior and its regression coverage. Browser verification
+against a fresh bundle remains in progress.
+
+</details>
+
 **Source and test parity** - preserve current behavior and reject real regressions.
 
 <details>

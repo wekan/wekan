@@ -16,7 +16,7 @@ Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calenda
 
 Latest translation fix: **2026-09-13**, local commit `8ae15efffb1101970ff2bc04f5f628c1c072c307` — restored native Aragonese numbered examples after a mistaken English replacement and localized the Galician storage label. Reviewed shared terms are protected during filling; broader repairs remain paused.
 
-**Verification:** final full Node run on 2026-09-13: **987 suites, zero failures**. The 19 initially reported failures are resolved; reviewed shared terms and the exact pending Sardinian color review remain protected. Browser regressions are syntax-checked; fluent-speaker and live browser checks remain outstanding.
+**Verification:** final full Node run on 2026-09-13: **987 suites, zero failures**. The 19 initially reported failures are resolved; reviewed shared terms and the exact pending Sardinian color review remain protected. The initial EVERYTHING run also passed **988 Node suites**, **527 Meteor server tests** and **10 import regressions**. Live browser verification is in progress; fluent-speaker checks remain outstanding. Broader translation repairs remain paused.
 
 **Unresolved reviews:** Silesian database terminology and 17 Tigre calendar findings need language-specific validation.
 
