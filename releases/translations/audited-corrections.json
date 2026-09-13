@@ -71972,5 +71972,47 @@
     "before": "Salin teks ke papan klip",
     "after": "Salén teks u clipboard",
     "reason": "Replace Malay clipboard wording using Acehnese salén (copy) and u (to); technical nouns are borrowed and remain subject to native review. Copy verb supported by Bahasa Aceh, morphology section: https://repository.bbg.ac.id/bitstream/514/1/Bahasa_Aceh.pdf and government grammar https://repositori.kemendikdasmen.go.id/2352/1/BAHASA%20ACEH.pdf."
+  },
+  {
+    "locale": "om",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Sirna dhaha baraa (agarsiisa guyyaa)",
+    "reason": "Replace foreign calendar wording using existing Oromo Dhaha Baraa terminology; country names supported by Oromo educational and government texts: https://education.mn.gov/mdeprod/idcplg?IdcService=GET_FILE&Rendition=primary&RevisionSelectionMethod=latestReleased&dDocName=MDE085563 . Correct ISO label typo; full grammar remains subject to native review."
+  },
+  {
+    "locale": "om",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Dhaha Baraa Chaayinaa",
+    "reason": "Replace foreign calendar wording using existing Oromo Dhaha Baraa terminology; country names supported by Oromo educational and government texts: https://education.mn.gov/mdeprod/idcplg?IdcService=GET_FILE&Rendition=primary&RevisionSelectionMethod=latestReleased&dDocName=MDE085563 . Correct ISO label typo; full grammar remains subject to native review."
+  },
+  {
+    "locale": "om",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Dhaha Baraa Dangi (Kooriyaa)",
+    "reason": "Replace foreign calendar wording using existing Oromo Dhaha Baraa terminology; country names supported by Oromo educational and government texts: https://education.mn.gov/mdeprod/idcplg?IdcService=GET_FILE&Rendition=primary&RevisionSelectionMethod=latestReleased&dDocName=MDE085563 . Correct ISO label typo; full grammar remains subject to native review."
+  },
+  {
+    "locale": "om",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Dhaha Baraa Biyya Indiyaa",
+    "reason": "Replace foreign calendar wording using existing Oromo Dhaha Baraa terminology; country names supported by Oromo educational and government texts: https://education.mn.gov/mdeprod/idcplg?IdcService=GET_FILE&Rendition=primary&RevisionSelectionMethod=latestReleased&dDocName=MDE085563 . Correct ISO label typo; full grammar remains subject to native review."
+  },
+  {
+    "locale": "om",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Dhaha Baraa Jaappaan",
+    "reason": "Replace foreign calendar wording using existing Oromo Dhaha Baraa terminology; country names supported by Oromo educational and government texts: https://education.mn.gov/mdeprod/idcplg?IdcService=GET_FILE&Rendition=primary&RevisionSelectionMethod=latestReleased&dDocName=MDE085563 . Correct ISO label typo; full grammar remains subject to native review."
+  },
+  {
+    "locale": "om",
+    "key": "calendar-system-iso8601",
+    "before": "Dhaba Baraa ISO-8601",
+    "after": "Dhaha Baraa ISO-8601",
+    "reason": "Replace foreign calendar wording using existing Oromo Dhaha Baraa terminology; country names supported by Oromo educational and government texts: https://education.mn.gov/mdeprod/idcplg?IdcService=GET_FILE&Rendition=primary&RevisionSelectionMethod=latestReleased&dDocName=MDE085563 . Correct ISO label typo; full grammar remains subject to native review."
   }
 ]
