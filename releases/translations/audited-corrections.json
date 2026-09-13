@@ -64685,5 +64685,75 @@
     "before": "Déplacer toutes les pièces jointes vers GridFS",
     "after": "Dilec’hiañ an holl stagadennoù da GridFS",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "move-all-attachments-to-s3",
+    "before": "Déplacer toutes les pièces jointes vers S3",
+    "after": "Dilec’hiañ an holl stagadennoù da S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "muted-info",
+    "before": "Vous ne serez jamais averti des modifications effectuées dans ce tableau",
+    "after": "Ne viot ket kelaouet biken eus kemmoù en daolenn-mañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "newLineNewItem",
+    "before": "Une ligne de texte = un élément de la check-list",
+    "after": "Ul linenn destenn = un elfenn eus ar roll kontroll",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "newlineBecomesNewChecklistItem",
+    "before": "Chaque ligne de texte devient un élément de la check-list",
+    "after": "Pep linenn destenn a zeu da vezañ un elfenn eus ar roll kontroll",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "before": "Chaque ligne de texte devient un élément de la check-list, l'ordre est respecté",
+    "after": "Pep linenn destenn a zeu da vezañ un elfenn eus ar roll kontroll, en urzh orin",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "normal-assigned-only-desc",
+    "before": "Seules les cartes assignées sont visibles. Modifier en tant qu'utilisateur normal.",
+    "after": "Ar c’hartennoù roet deoc’h hepken a vez gwelet. Kemmañ evel un implijer normal.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "normal-desc",
+    "before": "Peut voir et modifier les cartes. Ne peut pas changer les paramètres.",
+    "after": "Gallout a ra gwelout ha kemmañ kartennoù. Ne c’hall ket kemmañ an arventennoù.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "people-number",
+    "before": "Le nombre d'utilisateurs est de :",
+    "after": "Niver an dud zo :",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "private-desc",
+    "before": "Ce tableau est privé. Seuls les membres peuvent y accéder et le modifier.",
+    "after": "Prevez eo an daolenn-mañ. An dud ouzhpennet d’an daolenn hepken a c’hall he gwelout ha he c’hemmañ.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "public-desc",
+    "before": "Ce tableau est public. Il est accessible par toutes les personnes disposant du lien et apparaîtra dans les résultats des moteurs de recherche tels que Google. Seuls les membres peuvent le modifier.",
+    "after": "Foran eo an daolenn-mañ. Gallout a ra kement den en deus al liamm he gwelout, ha diskouezet e vo e luskerioù enklask evel Google. An dud ouzhpennet d’an daolenn hepken a c’hall he c’hemmañ.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
