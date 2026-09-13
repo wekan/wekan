@@ -51623,5 +51623,61 @@
     "before": "Il .zip è troppo grande per essere importato.",
     "after": "U .zip hè troppu grande per esse impurtatu.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "invalid-domain",
+    "before": "Dominio non valido. Usa un dominio come esempio.com (senza @ o spazi).",
+    "after": "Duminiu micca validu. Aduprate un duminiu cum’è example.com (senza @ o spazii).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "invalid-year",
+    "before": "Anno non valido. Digita tutte e quattro le cifre, ad esempio 2026.",
+    "after": "Annu micca validu. Scrivite tutte e quattru cifre, per esempiu 2026.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "invite-people-success",
+    "before": "Inviti di registrazione inviati correttamente",
+    "after": "Invitu à registrà si mandatu cun successu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "keyboard-shortcuts-disabled",
+    "before": "Scorciatoie da tastiera disabilitate. Clicca per abilitarle.",
+    "after": "Accurtatoghji di tastiera disattivati. Cliccate per attivà li.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "keyboard-shortcuts-enabled",
+    "before": "Scorciatoie da tastiera abilitate. Clicca per disabilitarle.",
+    "after": "Accurtatoghji di tastiera attivati. Cliccate per disattivà li.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "label-not-found",
+    "before": "Etichetta '%s' non trovata.",
+    "after": "Etichetta '%s' micca truvata.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "last-admin-desc",
+    "before": "Non puoi cambiare i ruoli perché deve esserci almeno un admin.",
+    "after": "Ùn pudete micca cambià i rolli perchè ci vole almenu un amministratore.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "list-delete-pop",
+    "before": "Tutte le azioni saranno rimosse dal flusso attività e non sarai in grado di recuperare la lista. Non potrai tornare indietro.",
+    "after": "Tutte l’azzioni seranu cacciate da u filu d’attività è ùn puderete micca ricuperà a lista. Ùn si pò annullà.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
