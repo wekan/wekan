@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,900 |
+| Corrected | 11,902 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,946 |
+| Pending review or repair | 3,944 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,290** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,292** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `3d2d411b867e08de75dcaf2d6f2720ac93327bbf` — unflagged Cornish Gregorian calendar label corrected using the [CLDR adjective](https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/kw.xml) and existing dictionary terminology. CLDR marks its form unconfirmed; adapted wording remains low confidence. Exact-value, token, JSON-example, key-order and idempotency checks pass; native-speaker and browser verification remain unavailable.
+Latest translation fix: **2026-09-13**, local commit `b1257ef4d574b4753cfd990afcb777d394974ee7` — two Sakha Islamic calendar labels corrected using the [CLDR calendar term](https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/sah.xml), preserving Umm al-Qura. CLDR marks the term provisional; language confidence remains limited. Exact-value, token, JSON-example, key-order and idempotency checks pass; native-speaker and browser verification remain unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending because available evidence does not distinguish its wording sufficiently from Polish.
 
