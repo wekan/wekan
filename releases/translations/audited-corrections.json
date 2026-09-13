@@ -92195,5 +92195,26 @@
     "before": "Ethiopic Amete Alem",
     "after": "Etiopsczi kalãdôrz Amete Alem",
     "reason": "Replace English calendar labels directly with Kashubian, following existing kalãdôrz and -sczi masculine adjective terminology. Preserve Amete Alem proper variant name. Buddhist, Coptic and Ethiopian adjective forms assembled with low confidence; searches did not independently attest them, which is not proof of invalidity. Native-speaker vocabulary and phrase validation required; structural tests do not establish language correctness."
+  },
+  {
+    "locale": "csb",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Kalãdôrz Hijri (tabelowi, cywilnô data pòczątkòwô)",
+    "reason": "Replace English Hijri variant wording directly with Kashubian, restoring tabular and civil/astronomical epoch distinctions and sighting/observation qualifier. Epoch paraphrased as starting date. Existing local Kalãdôrz Hijri retained. Rada Języka Kaszubskiego https://rjk.org.pl/resolutions/uchwaly-2015/ attests astronomical adjective astronomiczny, adapted to feminine date. Other scientific/name forms and assembled phrases are low confidence, not independently attested in this batch; native-speaker validation required."
+  },
+  {
+    "locale": "csb",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Kalãdôrz Hijri (tabelowi, astronomicznô data pòczątkòwô)",
+    "reason": "Replace English Hijri variant wording directly with Kashubian, restoring tabular and civil/astronomical epoch distinctions and sighting/observation qualifier. Epoch paraphrased as starting date. Existing local Kalãdôrz Hijri retained. Rada Języka Kaszubskiego https://rjk.org.pl/resolutions/uchwaly-2015/ attests astronomical adjective astronomiczny, adapted to feminine date. Other scientific/name forms and assembled phrases are low confidence, not independently attested in this batch; native-speaker validation required."
+  },
+  {
+    "locale": "csb",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Kalãdôrz Hijri (Saudëjskô Arabiô, òbserwacjô)",
+    "reason": "Replace English Hijri variant wording directly with Kashubian, restoring tabular and civil/astronomical epoch distinctions and sighting/observation qualifier. Epoch paraphrased as starting date. Existing local Kalãdôrz Hijri retained. Rada Języka Kaszubskiego https://rjk.org.pl/resolutions/uchwaly-2015/ attests astronomical adjective astronomiczny, adapted to feminine date. Other scientific/name forms and assembled phrases are low confidence, not independently attested in this batch; native-speaker validation required."
   }
 ]
