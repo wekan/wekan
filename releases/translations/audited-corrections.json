@@ -81086,5 +81086,124 @@
     "before": "Accueil",
     "after": "Xëtu dalal bi",
     "reason": "Replace French board navigation labels and repair unflagged public-boards construction noun with Wolof tablo terminology. Preserve all versus my versus public boards, board title and home page. Existing Board/Boards retained. Public/home adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "add-list",
+    "before": "Ajouter une liste",
+    "after": "Yokk limu",
+    "reason": "Replace French list/swimlane action headings with Wolof using existing Limu/Yoon terminology. Preserve adding, archival versus deletion, moving versus copying and above/below selected swimlane. Full grammar and kanban adaptations remain low confidence; original local noun labels retained."
+  },
+  {
+    "locale": "wo",
+    "key": "add-swimlane",
+    "before": "Ajouter un couloir",
+    "after": "Yokk yoon",
+    "reason": "Replace French list/swimlane action headings with Wolof using existing Limu/Yoon terminology. Preserve adding, archival versus deletion, moving versus copying and above/below selected swimlane. Full grammar and kanban adaptations remain low confidence; original local noun labels retained."
+  },
+  {
+    "locale": "wo",
+    "key": "archive-swimlane",
+    "before": "Archiver le couloir",
+    "after": "Yóbbu yoon bi ci àrsiw bi",
+    "reason": "Replace French list/swimlane action headings with Wolof using existing Limu/Yoon terminology. Preserve adding, archival versus deletion, moving versus copying and above/below selected swimlane. Full grammar and kanban adaptations remain low confidence; original local noun labels retained."
+  },
+  {
+    "locale": "wo",
+    "key": "board-view-swimlanes",
+    "before": "Couloirs",
+    "after": "Yoon yi",
+    "reason": "Replace French list/swimlane action headings with Wolof using existing Limu/Yoon terminology. Preserve adding, archival versus deletion, moving versus copying and above/below selected swimlane. Full grammar and kanban adaptations remain low confidence; original local noun labels retained."
+  },
+  {
+    "locale": "wo",
+    "key": "listArchivePopup-title",
+    "before": "Archiver la liste ?",
+    "after": "Yóbbu limu bi ci àrsiw bi?",
+    "reason": "Replace French list/swimlane action headings with Wolof using existing Limu/Yoon terminology. Preserve adding, archival versus deletion, moving versus copying and above/below selected swimlane. Full grammar and kanban adaptations remain low confidence; original local noun labels retained."
+  },
+  {
+    "locale": "wo",
+    "key": "swimlaneArchivePopup-title",
+    "before": "Archiver le couloir ?",
+    "after": "Yóbbu yoon bi ci àrsiw bi?",
+    "reason": "Replace French list/swimlane action headings with Wolof using existing Limu/Yoon terminology. Preserve adding, archival versus deletion, moving versus copying and above/below selected swimlane. Full grammar and kanban adaptations remain low confidence; original local noun labels retained."
+  },
+  {
+    "locale": "wo",
+    "key": "listActionPopup-title",
+    "before": "Actions sur la liste",
+    "after": "Jëf yi ci limu bi",
+    "reason": "Replace French list/swimlane action headings with Wolof using existing Limu/Yoon terminology. Preserve adding, archival versus deletion, moving versus copying and above/below selected swimlane. Full grammar and kanban adaptations remain low confidence; original local noun labels retained."
+  },
+  {
+    "locale": "wo",
+    "key": "swimlaneActionPopup-title",
+    "before": "Actions du couloir",
+    "after": "Jëf yi ci yoon bi",
+    "reason": "Replace French list/swimlane action headings with Wolof using existing Limu/Yoon terminology. Preserve adding, archival versus deletion, moving versus copying and above/below selected swimlane. Full grammar and kanban adaptations remain low confidence; original local noun labels retained."
+  },
+  {
+    "locale": "wo",
+    "key": "swimlaneAddPopup-title",
+    "before": "Ajouter un couloir en dessous",
+    "after": "Yokk yoon ci suuf",
+    "reason": "Replace French list/swimlane action headings with Wolof using existing Limu/Yoon terminology. Preserve adding, archival versus deletion, moving versus copying and above/below selected swimlane. Full grammar and kanban adaptations remain low confidence; original local noun labels retained."
+  },
+  {
+    "locale": "wo",
+    "key": "listDeletePopup-title",
+    "before": "Supprimer la liste ?",
+    "after": "Far limu bi?",
+    "reason": "Replace French list/swimlane action headings with Wolof using existing Limu/Yoon terminology. Preserve adding, archival versus deletion, moving versus copying and above/below selected swimlane. Full grammar and kanban adaptations remain low confidence; original local noun labels retained."
+  },
+  {
+    "locale": "wo",
+    "key": "swimlaneDeletePopup-title",
+    "before": "Supprimer le couloir ?",
+    "after": "Far yoon bi?",
+    "reason": "Replace French list/swimlane action headings with Wolof using existing Limu/Yoon terminology. Preserve adding, archival versus deletion, moving versus copying and above/below selected swimlane. Full grammar and kanban adaptations remain low confidence; original local noun labels retained."
+  },
+  {
+    "locale": "wo",
+    "key": "move-swimlane",
+    "before": "Déplacer le couloir",
+    "after": "Yóbbu yoon bi",
+    "reason": "Replace French list/swimlane action headings with Wolof using existing Limu/Yoon terminology. Preserve adding, archival versus deletion, moving versus copying and above/below selected swimlane. Full grammar and kanban adaptations remain low confidence; original local noun labels retained."
+  },
+  {
+    "locale": "wo",
+    "key": "moveSwimlanePopup-title",
+    "before": "Déplacer le couloir",
+    "after": "Yóbbu yoon bi",
+    "reason": "Replace French list/swimlane action headings with Wolof using existing Limu/Yoon terminology. Preserve adding, archival versus deletion, moving versus copying and above/below selected swimlane. Full grammar and kanban adaptations remain low confidence; original local noun labels retained."
+  },
+  {
+    "locale": "wo",
+    "key": "copy-swimlane",
+    "before": "Copie de Couloir",
+    "after": "Sotti yoon bi",
+    "reason": "Replace French list/swimlane action headings with Wolof using existing Limu/Yoon terminology. Preserve adding, archival versus deletion, moving versus copying and above/below selected swimlane. Full grammar and kanban adaptations remain low confidence; original local noun labels retained."
+  },
+  {
+    "locale": "wo",
+    "key": "copySwimlanePopup-title",
+    "before": "Copie de Couloir",
+    "after": "Sotti yoon bi",
+    "reason": "Replace French list/swimlane action headings with Wolof using existing Limu/Yoon terminology. Preserve adding, archival versus deletion, moving versus copying and above/below selected swimlane. Full grammar and kanban adaptations remain low confidence; original local noun labels retained."
+  },
+  {
+    "locale": "wo",
+    "key": "above-selected-swimlane",
+    "before": "Au-dessus du couloir sélectionné",
+    "after": "Ci kaw yoon bi ñu tànn",
+    "reason": "Replace French list/swimlane action headings with Wolof using existing Limu/Yoon terminology. Preserve adding, archival versus deletion, moving versus copying and above/below selected swimlane. Full grammar and kanban adaptations remain low confidence; original local noun labels retained."
+  },
+  {
+    "locale": "wo",
+    "key": "below-selected-swimlane",
+    "before": "En dessous du couloir sélectionné",
+    "after": "Ci suufu yoon bi ñu tànn",
+    "reason": "Replace French list/swimlane action headings with Wolof using existing Limu/Yoon terminology. Preserve adding, archival versus deletion, moving versus copying and above/below selected swimlane. Full grammar and kanban adaptations remain low confidence; original local noun labels retained."
   }
 ]
