@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,615 |
+| Corrected | 12,623 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 177 |
-| Pending review or repair | 3,230 |
+| Pending review or repair | 3,222 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,205** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,215** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `7a875b0d233a16341b0164a42ddadb5726ef0212` — four German/French webhook labels replaced with Klingon, retaining the webhook technical term. Full phrases and borrowed-noun inflection are low confidence and need fluent-speaker validation.
+Latest translation fix: **2026-09-13**, local commit `fcf9be87d6228e379be58cc2e2c890d22ab3841d` — ten German settings labels replaced with consistent Klingon configuration wording, including generic settings strings outside the flagged audit. Full phrases and specialized nouns are low confidence and need fluent-speaker validation.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
