@@ -118611,15 +118611,15 @@
     "locale": "ve-PP",
     "key": "card-sorting-by-number",
     "before": "Korttien lajittelu numeroiden mukaan",
-    "after": "Kartoiden järgenduz numeran mödhe",
-    "reason": "Replace flagged Finnish card sorting/template/bulk-copy or member-permission prose with Veps dictionary and existing terminology. Preserve literal JSON title/description fields, first/second/last examples, minicard placement, settings prohibition and at least one administrator. Composed technical case/morphology remains low confidence pending fluent review."
+    "after": "Kartoiden järgenduz nomeran mödhe",
+    "reason": "Replace flagged Finnish card sorting/template/bulk-copy or member-permission prose with Veps dictionary and existing terminology. Preserve literal JSON title/description fields, first/second/last examples, minicard placement, settings prohibition and at least one administrator. Composed technical case/morphology remains low confidence pending fluent review. Dictionary follow-up uses attested nomer (genitive nomeran) for numbered items."
   },
   {
     "locale": "ve-PP",
     "key": "card-sorting-by-number-on-minicard",
     "before": "Korttien lajittelu minikortin numeroiden mukaan",
-    "after": "Kartoiden järgenduz numeran mödhe minikartal",
-    "reason": "Replace flagged Finnish card sorting/template/bulk-copy or member-permission prose with Veps dictionary and existing terminology. Preserve literal JSON title/description fields, first/second/last examples, minicard placement, settings prohibition and at least one administrator. Composed technical case/morphology remains low confidence pending fluent review."
+    "after": "Kartoiden järgenduz nomeran mödhe minikartal",
+    "reason": "Replace flagged Finnish card sorting/template/bulk-copy or member-permission prose with Veps dictionary and existing terminology. Preserve literal JSON title/description fields, first/second/last examples, minicard placement, settings prohibition and at least one administrator. Composed technical case/morphology remains low confidence pending fluent review. Dictionary follow-up uses attested nomer (genitive nomeran) for numbered items."
   },
   {
     "locale": "ve-PP",

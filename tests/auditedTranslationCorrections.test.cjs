@@ -2005,8 +2005,8 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['operator-limit-invalid'], /suremb 0/);
   const vepsCardCopyPermissions = {
   "card-show-lists-on-minicard": "Ozuta lugetišed minikartal",
-  "card-sorting-by-number": "Kartoiden järgenduz numeran mödhe",
-  "card-sorting-by-number-on-minicard": "Kartoiden järgenduz numeran mödhe minikartal",
+  "card-sorting-by-number": "Kartoiden järgenduz nomeran mödhe",
+  "card-sorting-by-number-on-minicard": "Kartoiden järgenduz nomeran mödhe minikartal",
   "copyChecklistFromTemplate": "Kopirui kodvindlugetiž vilitesespäi",
   "copyChecklistFromTemplatePopup-title": "Kopirui kodvindlugetiž vilitesespäi",
   "copyManyCardsPopup-format": "[{\"title\":\"Ezmäižen kartan pälkirjutez\",\"description\":\"Ezmäižen kartan kuvadand\"},{\"title\":\"Toižen kartan pälkirjutez\",\"description\":\"Toižen kartan kuvadand\"},{\"title\":\"Jäl’gmäižen kartan pälkirjutez\",\"description\":\"Jäl’gmäižen kartan kuvadand\"}]",
