@@ -2514,5 +2514,27 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(vepsTranslator.t('act-atUserComment', { card: 'CARD', comment: 'COMMENT', list: 'LIST', swimlane: 'SWIMLANE', board: 'BOARD' }),
     'Nimiti sinud kartal CARD: COMMENT lugetišes LIST ujundšoidul SWIMLANE laudal BOARD');
   assert.doesNotMatch(cache['ve-PP']['act-atUserComment'], /mainitsi sinut|kortilla|listalla|uimaradalla|taululla/);
+  const vepsSubtaskControls = {
+  "default-subtasks-board": "Alategendad laudale __board__",
+  "subtask-settings": "Alategendoiden sändod",
+  "deposit-subtasks-board": "Pane alategendad necile laudale:",
+  "deposit-subtasks-list": "Lugetiž sihe pandud alategendoiden täht:",
+  "subtaskDeletePopup-title": "Heitta alategend?",
+  "export-card-subtasks": "Alategendad",
+  "subtaskActionsPopup-title": "Alategendan tegendad",
+  "show-subtasks-field": "Ozuta alategendoiden pöud",
+  "add-existing-card-as-subtask-empty": "Kartoid, miččed sättuba kodvindoihe, ei ole löutud."
+};
+  for (const [key, value] of Object.entries(vepsSubtaskControls)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    const rendered = vepsTranslator.t(key, { board: 'BOARD' });
+    assert.equal(rendered, value.replace('__board__', 'BOARD'), key);
+    assert.doesNotMatch(rendered, /Alitehtäv|Talleta|Laskeutumislista|alatehtäville|Poista alitehtävä|Näytä alitehtävät|Kortteja ei löytynyt/, key);
+  }
+  assert.match(vepsTranslator.t('deposit-subtasks-board'), /laudale:$/);
+  assert.match(vepsTranslator.t('deposit-subtasks-list'), /^Lugetiž.*alategendoiden/);
+  assert.match(vepsTranslator.t('add-existing-card-as-subtask-empty'), /sättuba kodvindoihe.*ei ole löutud/);
+  assert.ok(vepsTranslator.t('subtaskDeletePopup-title').endsWith('?'));
+  assert.equal(cache['ve-PP'].subtasks, 'Alategendad', 'retain the existing correct subtask heading');
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

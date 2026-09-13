@@ -119866,5 +119866,68 @@
     "before": "mainitsi sinut kortilla __card__: __comment__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
     "after": "Nimiti sinud kartal __card__: __comment__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
     "reason": "Replace Finnish mention notification with Veps, using dictionary nimitada(-ab,-i) for naming/mentioning and existing kartal, lugetišes, ujundšoidul and laudal. Preserve all five exact placeholders and comment position. Low confidence: UI mention adaptation and composed notification grammar require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "default-subtasks-board",
+    "before": "Alitehtävät taululle __board__",
+    "after": "Alategendad laudale __board__",
+    "reason": "Replace Finnish subtask controls with Veps, reusing existing alategend, sändod, laud, lugetiž, tegendad, Ozuta and pöud. Preserve board/list destination distinction, matching-card absence, deletion confirmation and __board__ token. Dictionary panda, sättuda with illative complement and löuta. Low confidence: composed subtask-destination and matching-card grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "subtask-settings",
+    "before": "Alitehtävä-asetukset",
+    "after": "Alategendoiden sändod",
+    "reason": "Replace Finnish subtask controls with Veps, reusing existing alategend, sändod, laud, lugetiž, tegendad, Ozuta and pöud. Preserve board/list destination distinction, matching-card absence, deletion confirmation and __board__ token. Dictionary panda, sättuda with illative complement and löuta. Low confidence: composed subtask-destination and matching-card grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "deposit-subtasks-board",
+    "before": "Talleta alitehtävät tälle taululle:",
+    "after": "Pane alategendad necile laudale:",
+    "reason": "Replace Finnish subtask controls with Veps, reusing existing alategend, sändod, laud, lugetiž, tegendad, Ozuta and pöud. Preserve board/list destination distinction, matching-card absence, deletion confirmation and __board__ token. Dictionary panda, sättuda with illative complement and löuta. Low confidence: composed subtask-destination and matching-card grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "deposit-subtasks-list",
+    "before": "Laskeutumislista alatehtäville tallennettu tänne:",
+    "after": "Lugetiž sihe pandud alategendoiden täht:",
+    "reason": "Replace Finnish subtask controls with Veps, reusing existing alategend, sändod, laud, lugetiž, tegendad, Ozuta and pöud. Preserve board/list destination distinction, matching-card absence, deletion confirmation and __board__ token. Dictionary panda, sättuda with illative complement and löuta. Low confidence: composed subtask-destination and matching-card grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "subtaskDeletePopup-title",
+    "before": "Poista alitehtävä?",
+    "after": "Heitta alategend?",
+    "reason": "Replace Finnish subtask controls with Veps, reusing existing alategend, sändod, laud, lugetiž, tegendad, Ozuta and pöud. Preserve board/list destination distinction, matching-card absence, deletion confirmation and __board__ token. Dictionary panda, sättuda with illative complement and löuta. Low confidence: composed subtask-destination and matching-card grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "export-card-subtasks",
+    "before": "Alitehtävät",
+    "after": "Alategendad",
+    "reason": "Replace Finnish subtask controls with Veps, reusing existing alategend, sändod, laud, lugetiž, tegendad, Ozuta and pöud. Preserve board/list destination distinction, matching-card absence, deletion confirmation and __board__ token. Dictionary panda, sättuda with illative complement and löuta. Low confidence: composed subtask-destination and matching-card grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "subtaskActionsPopup-title",
+    "before": "Alitehtävä toimet",
+    "after": "Alategendan tegendad",
+    "reason": "Replace Finnish subtask controls with Veps, reusing existing alategend, sändod, laud, lugetiž, tegendad, Ozuta and pöud. Preserve board/list destination distinction, matching-card absence, deletion confirmation and __board__ token. Dictionary panda, sättuda with illative complement and löuta. Low confidence: composed subtask-destination and matching-card grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "show-subtasks-field",
+    "before": "Näytä alitehtävät kenttä",
+    "after": "Ozuta alategendoiden pöud",
+    "reason": "Replace Finnish subtask controls with Veps, reusing existing alategend, sändod, laud, lugetiž, tegendad, Ozuta and pöud. Preserve board/list destination distinction, matching-card absence, deletion confirmation and __board__ token. Dictionary panda, sättuda with illative complement and löuta. Low confidence: composed subtask-destination and matching-card grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-existing-card-as-subtask-empty",
+    "before": "Kortteja ei löytynyt.",
+    "after": "Kartoid, miččed sättuba kodvindoihe, ei ole löutud.",
+    "reason": "Replace Finnish subtask controls with Veps, reusing existing alategend, sändod, laud, lugetiž, tegendad, Ozuta and pöud. Preserve board/list destination distinction, matching-card absence, deletion confirmation and __board__ token. Dictionary panda, sättuda with illative complement and löuta. Low confidence: composed subtask-destination and matching-card grammar need fluent review."
   }
 ]
