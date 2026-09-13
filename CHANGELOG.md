@@ -914,13 +914,15 @@ unowned. These checks and all 21 build-script parity checks pass.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/4a6738330">Keep shared-list cards scoped during partial-profile loading and impersonation</a>. Thanks to gleneindre and xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/236095a4a">Keep shared-list cards scoped during partial-profile loading and impersonation</a>. Thanks to gleneindre and xet7.</summary>
 
 Fixes [#6691](https://github.com/wekan/wekan/issues/6691). Board content and
 list selectors share the existing view resolver. Missing or invalid profile
 preferences now fall back to the browser preference and Swimlanes without
 reloading. A private current-user publication supplies the board-view
 preference after admin impersonation without exposing other members’ settings.
+The preference uses its own reactive field so competing partial profile
+publications cannot hide it.
 <a href="https://github.com/wekan/wekan/commit/1c47bcc4a">Await the Meteor 3 identity switch</a> before returning from impersonation; a deferred-promise
 test checks that subscriptions finish switching and failures propagate.
 Regression tests cover fallback precedence, pending choices, board visibility,
