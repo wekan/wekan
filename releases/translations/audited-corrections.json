@@ -86707,5 +86707,40 @@
     "before": "Décocher tous les éléments d'une liste",
     "after": "Sädunön mäkami notetas valik liseda",
     "reason": "Replace French rule-title and check/uncheck-all action labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nom (rule/regulation), tiäd (text title), nulik (new), mäkön (mark), sädunön (undo), notet (written item), lised (list), valik (all). Retain all-items scope and distinguish marking from undoing marking. Software-rule sense, derived marking noun and full inflected phrases remain low confidence pending native review; preserve source token inventory."
+  },
+  {
+    "locale": "vo",
+    "key": "r-d-move-to-bottom-gen",
+    "before": "Déplacer la carte en bas de sa liste",
+    "after": "Topätükön kadi lü don liseda onik",
+    "reason": "Replace French card-position and remove-all-members rule actions with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kad (card), topätükön (move between places), don (bottom), löp (top), lised (list), moükön (remove), liman (member), valik (all). Retain top/bottom contrast, own-list possessive onik and all-members scope. Software senses, possessive and complete inflected UI grammar remain low confidence pending native review. Preserve source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "Déplacer la carte en bas de la liste",
+    "after": "Topätükön kadi lü don liseda",
+    "reason": "Replace French card-position and remove-all-members rule actions with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kad (card), topätükön (move between places), don (bottom), löp (top), lised (list), moükön (remove), liman (member), valik (all). Retain top/bottom contrast, own-list possessive onik and all-members scope. Software senses, possessive and complete inflected UI grammar remain low confidence pending native review. Preserve source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "r-d-move-to-top-gen",
+    "before": "Déplacer la carte en haut de sa liste",
+    "after": "Topätükön kadi lü löp liseda onik",
+    "reason": "Replace French card-position and remove-all-members rule actions with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kad (card), topätükön (move between places), don (bottom), löp (top), lised (list), moükön (remove), liman (member), valik (all). Retain top/bottom contrast, own-list possessive onik and all-members scope. Software senses, possessive and complete inflected UI grammar remain low confidence pending native review. Preserve source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "r-d-move-to-top-spec",
+    "before": "Déplacer la carte en haut de la liste",
+    "after": "Topätükön kadi lü löp liseda",
+    "reason": "Replace French card-position and remove-all-members rule actions with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kad (card), topätükön (move between places), don (bottom), löp (top), lised (list), moükön (remove), liman (member), valik (all). Retain top/bottom contrast, own-list possessive onik and all-members scope. Software senses, possessive and complete inflected UI grammar remain low confidence pending native review. Preserve source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "r-remove-all",
+    "before": "Supprimer tous les membres de la carte",
+    "after": "Moükön limanis valik de kad",
+    "reason": "Replace French card-position and remove-all-members rule actions with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kad (card), topätükön (move between places), don (bottom), löp (top), lised (list), moükön (remove), liman (member), valik (all). Retain top/bottom contrast, own-list possessive onik and all-members scope. Software senses, possessive and complete inflected UI grammar remain low confidence pending native review. Preserve source tokens."
   }
 ]
