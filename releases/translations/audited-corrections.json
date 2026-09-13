@@ -85440,5 +85440,75 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "Ikirangamisi ca Hijri (Saudi Arabia, kubona ukwezi)",
     "reason": "Replace English Indian national calendar and Saudi Islamic labels with Rundi, preserving national and moon-sighting distinctions and Hijri identity. Ubuhindi and national c’igihugu terminology attested at https://www.jw.org/run/amakuru/akarere/ubuhindi/ ; kubona/ukwezi moon vocabulary at https://wol.jw.org/run/wol/d/r82/lp-ru/2007121 and https://www.jw.org/run/ivyasohowe/ibinyamakuru/umunara-wukwiga-ruheshi-2022/wari-ubizi-2022-2/ . Complete assembled grammar and retained Saudi Arabia spelling remain low confidence; Buddhist, Coptic and tabular epochs remain pending."
+  },
+  {
+    "locale": "bm",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Kalandiriye fɛɛrɛ (don jira)",
+    "reason": "Replace foreign calendar setting and English calendar labels with Bambara descriptions using existing kalandiriye vocabulary; preserve Dangi/Hijri/Umm al-Qura/Minguo/Amete Alem/ISO identifiers and Gregorian ISO week detail. Siniwajamana, Zapɔn, Etiopi, don and dɔgɔkun attested in Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bm.xml . Assembled setting/label grammar and existing kalandiriye loan remain low confidence; religious/national and Hijri epoch/sighting variants remain pending."
+  },
+  {
+    "locale": "bm",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Siniwajamana ka kalandiriye",
+    "reason": "Replace foreign calendar setting and English calendar labels with Bambara descriptions using existing kalandiriye vocabulary; preserve Dangi/Hijri/Umm al-Qura/Minguo/Amete Alem/ISO identifiers and Gregorian ISO week detail. Siniwajamana, Zapɔn, Etiopi, don and dɔgɔkun attested in Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bm.xml . Assembled setting/label grammar and existing kalandiriye loan remain low confidence; religious/national and Hijri epoch/sighting variants remain pending."
+  },
+  {
+    "locale": "bm",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Zapɔn ka kalandiriye",
+    "reason": "Replace foreign calendar setting and English calendar labels with Bambara descriptions using existing kalandiriye vocabulary; preserve Dangi/Hijri/Umm al-Qura/Minguo/Amete Alem/ISO identifiers and Gregorian ISO week detail. Siniwajamana, Zapɔn, Etiopi, don and dɔgɔkun attested in Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bm.xml . Assembled setting/label grammar and existing kalandiriye loan remain low confidence; religious/national and Hijri epoch/sighting variants remain pending."
+  },
+  {
+    "locale": "bm",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Etiopi ka kalandiriye",
+    "reason": "Replace foreign calendar setting and English calendar labels with Bambara descriptions using existing kalandiriye vocabulary; preserve Dangi/Hijri/Umm al-Qura/Minguo/Amete Alem/ISO identifiers and Gregorian ISO week detail. Siniwajamana, Zapɔn, Etiopi, don and dɔgɔkun attested in Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bm.xml . Assembled setting/label grammar and existing kalandiriye loan remain low confidence; religious/national and Hijri epoch/sighting variants remain pending."
+  },
+  {
+    "locale": "bm",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Etiopi ka Amete Alem kalandiriye",
+    "reason": "Replace foreign calendar setting and English calendar labels with Bambara descriptions using existing kalandiriye vocabulary; preserve Dangi/Hijri/Umm al-Qura/Minguo/Amete Alem/ISO identifiers and Gregorian ISO week detail. Siniwajamana, Zapɔn, Etiopi, don and dɔgɔkun attested in Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bm.xml . Assembled setting/label grammar and existing kalandiriye loan remain low confidence; religious/national and Hijri epoch/sighting variants remain pending."
+  },
+  {
+    "locale": "bm",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Dangi kalandiriye",
+    "reason": "Replace foreign calendar setting and English calendar labels with Bambara descriptions using existing kalandiriye vocabulary; preserve Dangi/Hijri/Umm al-Qura/Minguo/Amete Alem/ISO identifiers and Gregorian ISO week detail. Siniwajamana, Zapɔn, Etiopi, don and dɔgɔkun attested in Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bm.xml . Assembled setting/label grammar and existing kalandiriye loan remain low confidence; religious/national and Hijri epoch/sighting variants remain pending."
+  },
+  {
+    "locale": "bm",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Hijri kalandiriye",
+    "reason": "Replace foreign calendar setting and English calendar labels with Bambara descriptions using existing kalandiriye vocabulary; preserve Dangi/Hijri/Umm al-Qura/Minguo/Amete Alem/ISO identifiers and Gregorian ISO week detail. Siniwajamana, Zapɔn, Etiopi, don and dɔgɔkun attested in Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bm.xml . Assembled setting/label grammar and existing kalandiriye loan remain low confidence; religious/national and Hijri epoch/sighting variants remain pending."
+  },
+  {
+    "locale": "bm",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Hijri kalandiriye (Umm al-Qura)",
+    "reason": "Replace foreign calendar setting and English calendar labels with Bambara descriptions using existing kalandiriye vocabulary; preserve Dangi/Hijri/Umm al-Qura/Minguo/Amete Alem/ISO identifiers and Gregorian ISO week detail. Siniwajamana, Zapɔn, Etiopi, don and dɔgɔkun attested in Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bm.xml . Assembled setting/label grammar and existing kalandiriye loan remain low confidence; religious/national and Hijri epoch/sighting variants remain pending."
+  },
+  {
+    "locale": "bm",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Minguo kalandiriye",
+    "reason": "Replace foreign calendar setting and English calendar labels with Bambara descriptions using existing kalandiriye vocabulary; preserve Dangi/Hijri/Umm al-Qura/Minguo/Amete Alem/ISO identifiers and Gregorian ISO week detail. Siniwajamana, Zapɔn, Etiopi, don and dɔgɔkun attested in Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bm.xml . Assembled setting/label grammar and existing kalandiriye loan remain low confidence; religious/national and Hijri epoch/sighting variants remain pending."
+  },
+  {
+    "locale": "bm",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "Gregoriana kalandiriye (ISO 8601 dɔgɔkunw)",
+    "reason": "Replace foreign calendar setting and English calendar labels with Bambara descriptions using existing kalandiriye vocabulary; preserve Dangi/Hijri/Umm al-Qura/Minguo/Amete Alem/ISO identifiers and Gregorian ISO week detail. Siniwajamana, Zapɔn, Etiopi, don and dɔgɔkun attested in Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bm.xml . Assembled setting/label grammar and existing kalandiriye loan remain low confidence; religious/national and Hijri epoch/sighting variants remain pending."
   }
 ]
