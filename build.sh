@@ -1783,21 +1783,9 @@ acquire_everything_lock() {
 # ============================================================================
 # Multi-forge tooling (menu options below).
 #   * install_forge_tools: install gh-like CLIs (gh, glab, tea, git-bug, forge).
-#   * mirror_forge: mirror a repo from GitHub to GitLab/Codeberg/Forgejo/Gitea.
-# Code history is pushed with `git push --mirror`; issues, PRs and CI workflow
-# syntax (which git cannot carry) are handled by tools/forge-mirror.js (Node).
-# Forge registry: index = menu number - 1.
+#   * mirror_forge: run the active GitLab/Codeberg/SourceForge mirror scripts.
+# Shared Node helpers synchronize missing issue and release data as well as Git.
 # ============================================================================
-FORGE_NAMES=("GitHub" "GitLab" "Codeberg" "Forgejo (self-hosted)" "Gitea (self-hosted)")
-FORGE_HOST=("github.com" "gitlab.com" "codeberg.org" "" "")
-FORGE_TOOL=("gh" "glab" "tea" "tea" "tea")
-FORGE_KIND=("github" "gitlab" "codeberg" "forgejo" "gitea")
-
-function forge_list(){
-	local i
-	for i in "${!FORGE_NAMES[@]}"; do printf "  %d) %s\n" "$((i+1))" "${FORGE_NAMES[$i]}"; done
-}
-
 function install_forge_tools(){
 	local tool module forge_install_status=0
 	local forge_bin="${GOBIN:-$WEKAN_TOOLS_DIR/bin}"
@@ -1807,7 +1795,7 @@ function install_forge_tools(){
 	echo "Installing tools for GitHub, GitLab, Codeberg and SourceForge mirrors."
 	echo "Native packages are preferred; missing Go CLIs are built for this host CPU."
 	# SourceForge uses Git/SSH, HTTP APIs and SCP/SFTP release transfers.
-	# Node runs the existing issue/PR/CI mirror helper; Go builds missing CLIs.
+	# Node runs the issue/release mirror helper; Go builds missing CLIs.
 	for tool in git ssh scp sftp curl jq rsync node go; do
 		if ! command -v "$tool" >/dev/null 2>&1; then
 			ensure_tools "$tool" || echo "Package installation failed for $tool."
@@ -1858,60 +1846,7 @@ function install_forge_tools(){
 
 function mirror_forge(){
 	local scriptdir; scriptdir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-	echo
-	echo "Mirror a repository between forges (code + issues + PRs + Actions)."
-	echo "Forges:"
-	forge_list
-	echo
-	read -p "Enter SOURCE and TARGET numbers, e.g. '1 3' (GitHub -> Codeberg): " SRC TGT
-	case "${SRC}${TGT}" in *[!12345]*|"") echo "Invalid selection."; return ;; esac
-	if [ "$SRC" = "$TGT" ]; then echo "Source and target must differ."; return; fi
-	local si=$((SRC-1)) ti=$((TGT-1))
-	echo "Source: ${FORGE_NAMES[$si]}   ->   Target: ${FORGE_NAMES[$ti]}"
-	if [ "${FORGE_TOOL[$si]}" != gh ]; then
-		echo "NOTE: automated issue/PR sync supports GitHub as SOURCE only;"
-		echo "      code mirroring + CI conversion still work for any source."
-	fi
-	read -p "Source repo (owner/name): " SREPO
-	read -p "Target repo (owner/name): " TREPO
-	if [ -z "$SREPO" ] || [ -z "$TREPO" ]; then echo "Both repos are required."; return; fi
-	local shost="${FORGE_HOST[$si]}" thost="${FORGE_HOST[$ti]}"
-	[ -z "$shost" ] && read -p "Source host (e.g. git.example.com): " shost
-	[ -z "$thost" ] && read -p "Target host (e.g. git.example.com): " thost
-
-	# 1. Code: mirror all branches + tags.
-	echo
-	read -p "Mirror code (all branches/tags) with 'git push --mirror'? [y/N] " DOCODE
-	case "$DOCODE" in [Yy]*)
-		local work; work="$(mktemp -d)"
-		echo "Cloning https://$shost/$SREPO.git (mirror) ..."
-		if git clone --mirror "https://$shost/$SREPO.git" "$work/repo.git"; then
-			echo "Pushing to https://$thost/$TREPO.git (target must exist; push credentials required) ..."
-			( cd "$work/repo.git" && git push --mirror "https://$thost/$TREPO.git" ) \
-				|| echo "Push failed — check the target repo exists and credentials are set."
-		else
-			echo "Clone failed — check the source URL/host."
-		fi
-		rm -rf "$work"
-		;;
-	esac
-
-	# 2 + 3. Issues / PRs / Actions via the Node engine (dry run first).
-	echo
-	echo "Now syncing issues + PRs (missing only) and converting CI workflows (DRY RUN)..."
-	node "$scriptdir/tools/forge-mirror.js" \
-		--source-tool "${FORGE_TOOL[$si]}" --source-repo "$SREPO" --source-host "$shost" \
-		--target-tool "${FORGE_TOOL[$ti]}" --target-repo "$TREPO" --target-host "$thost" \
-		--target-kind "${FORGE_KIND[$ti]}" --include-closed
-	echo
-	read -p "Apply the issue/PR creation at the target now (not a dry run)? [y/N] " APPLYNOW
-	case "$APPLYNOW" in [Yy]*)
-		node "$scriptdir/tools/forge-mirror.js" \
-			--source-tool "${FORGE_TOOL[$si]}" --source-repo "$SREPO" --source-host "$shost" \
-			--target-tool "${FORGE_TOOL[$ti]}" --target-repo "$TREPO" --target-host "$thost" \
-			--target-kind "${FORGE_KIND[$ti]}" --include-closed --issues --prs --apply ;;
-	esac
-	echo "Mirror flow complete."
+	bash "$scriptdir/releases/mirror.sh"
 }
 
 # Run a docker compose subcommand against one of the docker-compose*.yml files
@@ -2698,7 +2633,7 @@ while [ -z "$opt" ]; do
 				choose "Tools" \
 					"Save Meteor deps list|Save Meteor dependency chain to ../meteor-deps.txt" \
 					"Install forge CLI tools|Install forge CLI tools (gh, glab, tea, git-bug, forge) for GitHub/GitLab/Codeberg/Forgejo/Gitea" \
-					"Mirror repo to forges|Mirror repo GitHub -> GitLab/Codeberg/Forgejo/Gitea: code + issues + PRs + Actions (sync missing, convert CI syntax)" ;;
+					"Mirror repo to forges|Mirror GitHub to active mirrors: code, issues, PR conversations, releases and assets" ;;
 			"Docker") if docker_menu; then exit 0; fi ;;
 			"Releases") if releases_menu; then exit 0; fi ;;
 			"CLI commands")
@@ -3074,6 +3009,11 @@ for _once in 1; do
 			# .eslintrc.json, and a test run must do neither.
 			floating_promises_checks
 		} 2>&1 | tee "$LOG"
+		break
+		;;
+
+    "Mirror GitHub to active mirrors: code, issues, PR conversations, releases and assets")
+		mirror_forge
 		break
 		;;
 

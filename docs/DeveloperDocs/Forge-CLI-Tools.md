@@ -64,12 +64,12 @@ Authentication is separate: `gh auth login`, `glab auth login`, `tea login add`.
 SourceForge uses the maintainer's account for SSH/SFTP and its API authentication.
 No credentials are collected or remote data changed by the installer.
 
-Installing tools does not synchronize forge data. `releases/mirror.sh` and
-`releases/mirror.bat` transfer Git history. The existing `tools/forge-mirror.js`
-handles GitHub-to-GitLab/Codeberg issues, recreates PRs as linked issues, and converts
-CI scaffolding. It does not yet automate SourceForge tracker or release migration.
-Use each forge's CLI or SourceForge API/transfers for those workflows; install status
-alone does not prove a remote migration is complete.
+Installing tools does not synchronize forge data. The build Tools menu runs
+`releases/mirror.sh` or `releases/mirror.bat`, dispatching to a script for each
+active mirror. They copy missing issues/PR conversations and supported release
+metadata/assets as well as Git history. See [Forge mirroring](Forge-Mirroring.md)
+for credentials, preview commands, restart behavior and unsupported data. Install
+status alone does not prove a remote migration is complete.
 
 References: [Tea](https://pkg.go.dev/gitea.dev/tea#section-readme),
 [Forge](https://github.com/git-pkgs/forge#cli),

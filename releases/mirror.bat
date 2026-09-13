@@ -1,46 +1,36 @@
 @echo off
-setlocal EnableExtensions
-
-rem WeKan's Windows checkout location, matching build.bat and AGENTS.md.
-set "WEKAN_ROOT=%USERPROFILE%\Downloads\repos\wekan"
+setlocal
+REM The documented Windows checkout is %USERPROFILE%\Downloads\repos\wekan.
+REM Resolve this script so other checkout locations also work.
+for %%I in ("%~dp0..") do set "WEKAN_ROOT=%%~fI"
 set "TOOLS_DIR=%WEKAN_ROOT%\.tools"
-
-if not exist "%WEKAN_ROOT%\releases\git-mirror-update.bat" (
-  echo WeKan checkout not found at "%WEKAN_ROOT%". 1>&2
+set "PATH=%TOOLS_DIR%\bin;%GOBIN%;%PATH%"
+if "%~1"=="--help" (
+  echo Usage: releases\mirror.bat [--preview]
+  exit /b 0
+)
+if not "%~1"=="" if not "%~1"=="--preview" exit /b 2
+if not "%~2"=="" exit /b 2
+if not exist "%TOOLS_DIR%\tmp" mkdir "%TOOLS_DIR%\tmp"
+set "TEMP=%TOOLS_DIR%\tmp"
+set "TMP=%TEMP%"
+set "SNAPSHOT=%TEMP%\mirror-source-%RANDOM%-%RANDOM%.json"
+node "%WEKAN_ROOT%\tools\mirror-active-forges.mjs" --export-source "%SNAPSHOT%"
+if errorlevel 1 exit /b 1
+set "STATUS=0"
+set "TARGETS=%SNAPSHOT%.targets"
+node "%WEKAN_ROOT%\tools\mirror-active-forges.mjs" --list-targets > "%TARGETS%"
+if errorlevel 1 (
+  del "%SNAPSHOT%" "%TARGETS%"
   exit /b 1
 )
-
-if not exist "%TOOLS_DIR%" mkdir "%TOOLS_DIR%"
-if errorlevel 1 exit /b %errorlevel%
-
-call :mirror gitlab git@gitlab.com:wekan/wekan
-if errorlevel 1 exit /b %errorlevel%
-call :mirror codeberg git@codeberg.org:wekan/wekan
-if errorlevel 1 exit /b %errorlevel%
-call :mirror sourceforge ssh://wekan@git.code.sf.net/p/wekan/code
-exit /b %errorlevel%
+for /f "usebackq tokens=1,2" %%A in ("%TARGETS%") do call :mirror %%A %%B %1
+del "%TARGETS%"
+del "%SNAPSHOT%"
+exit /b %STATUS%
 
 :mirror
-set "MIRROR_NAME=%~1"
-set "CLONE_URL=%~2"
-set "MIRROR_DIR=%TOOLS_DIR%\wekan-%MIRROR_NAME%"
-
-if not exist "%MIRROR_DIR%\.git" (
-  git -C "%TOOLS_DIR%" clone "%CLONE_URL%" "wekan-%MIRROR_NAME%"
-  if errorlevel 1 exit /b 1
-)
-
-git -C "%MIRROR_DIR%" remote get-url upstream >nul 2>&1
-if errorlevel 1 (
-  git -C "%MIRROR_DIR%" remote add upstream https://github.com/wekan/wekan
-  if errorlevel 1 exit /b 1
-)
-
-git -C "%MIRROR_DIR%" pull
-if errorlevel 1 exit /b %errorlevel%
-git -C "%MIRROR_DIR%" fetch upstream
-if errorlevel 1 exit /b %errorlevel%
-git -C "%MIRROR_DIR%" merge upstream/main
-if errorlevel 1 exit /b %errorlevel%
-git -C "%MIRROR_DIR%" push
-exit /b %errorlevel%
+REM The shared engine sends branches and tags without force or deletion.
+call "%~dp0mirror-%~1.bat" %3 --snapshot "%SNAPSHOT%"
+if errorlevel 1 set "STATUS=1"
+exit /b 0

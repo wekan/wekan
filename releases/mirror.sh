@@ -12,26 +12,27 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WEKAN_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 TOOLS_DIR="$WEKAN_ROOT/.tools"
+export PATH="$TOOLS_DIR/bin:${GOBIN:+$GOBIN:}$PATH"
 
+case "${1:-}" in
+  --help|-h) echo "Usage: bash releases/mirror.sh [--preview]"; exit 0 ;;
+  --preview|"") ;;
+  *) echo "Unknown mirror option: $1" >&2; exit 2 ;;
+esac
+if [ "$#" -gt 1 ]; then echo "Expected at most --preview" >&2; exit 2; fi
+
+mkdir -p "$TOOLS_DIR/tmp"
+export TMPDIR="$TOOLS_DIR/tmp"
+WORK_DIR="$(mktemp -d "$TMPDIR/mirror-run.XXXXXX")"
+trap 'rm -rf "$WORK_DIR"' EXIT
+node "$WEKAN_ROOT/tools/mirror-active-forges.mjs" --export-source "$WORK_DIR/github.json"
+STATUS=0
 mirror() {
   local name="$1"
-  local clone_url="$2"
-  local mirror_dir="$TOOLS_DIR/wekan-$name"
-
-  mkdir -p "$TOOLS_DIR"
-  if [ ! -d "$mirror_dir/.git" ]; then
-    git -C "$TOOLS_DIR" clone "$clone_url" "wekan-$name"
-  fi
-
-  if ! git -C "$mirror_dir" remote get-url upstream >/dev/null 2>&1; then
-    git -C "$mirror_dir" remote add upstream https://github.com/wekan/wekan
-  fi
-
-  git -C "$mirror_dir" pull
-  git -C "$mirror_dir" fetch upstream
-  git -C "$mirror_dir" merge upstream/main
-  git -C "$mirror_dir" push
+  local clone_url="$2" # Also read by the shared engine's active-mirror registry.
+  bash "$SCRIPT_DIR/mirror-$name.sh" ${RUN_ARGS[@]+"${RUN_ARGS[@]}"} --snapshot "$WORK_DIR/github.json" || STATUS=1
 }
+RUN_ARGS=("$@")
 
 # WeKan repo mirrors
 
@@ -53,3 +54,5 @@ mirror "codeberg" "git@codeberg.org:wekan/wekan"
 # https://sourceforge.net/projects/wekan/
 # git clone ssh://wekan@git.code.sf.net/p/wekan/code wekan-sourceforge
 mirror "sourceforge" "ssh://wekan@git.code.sf.net/p/wekan/code"
+
+exit "$STATUS"

@@ -1,0 +1,12 @@
+@echo off
+setlocal
+for %%I in ("%~dp0..") do set "WEKAN_ROOT=%%~fI"
+set "PATH=%WEKAN_ROOT%\.tools\bin;%GOBIN%;%PATH%"
+set "FLAGS=--apply --code"
+if "%~1"=="--preview" (
+  set "FLAGS=--code"
+  node "%WEKAN_ROOT%\tools\mirror-active-forges.mjs" --target gitlab --code %2 %3 %4 %5
+) else (
+  node "%WEKAN_ROOT%\tools\mirror-active-forges.mjs" --target gitlab %FLAGS% %*
+)
+exit /b %ERRORLEVEL%

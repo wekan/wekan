@@ -1432,70 +1432,14 @@ exit /b %FORGE_INSTALL_STATUS%
 
 REM ===========================================================================
 :mirror_forge
-echo.
-echo Mirror a repository between forges ^(code + issues + PRs + Actions^).
-echo Forges:
-echo   1^) GitHub
-echo   2^) GitLab
-echo   3^) Codeberg
-echo   4^) Forgejo ^(self-hosted^)
-echo   5^) Gitea ^(self-hosted^)
-echo.
-set "SRC="
-set "TGT="
-set /p "FORGESEL=Enter SOURCE and TARGET numbers, e.g. 1 3 (GitHub -> Codeberg): "
-for /f "tokens=1,2" %%a in ("%FORGESEL%") do ( set "SRC=%%a" & set "TGT=%%b" )
-call :forge_props "%SRC%" S
-if not defined SNAME ( echo Invalid source number. & goto end )
-call :forge_props "%TGT%" T
-if not defined TNAME ( echo Invalid target number. & goto end )
-if "%SRC%"=="%TGT%" ( echo Source and target must differ. & goto end )
-echo Source: %SNAME%   -^>   Target: %TNAME%
-if not "%STOOL%"=="gh" echo NOTE: automated issue/PR sync supports GitHub as SOURCE only; code + CI conversion still work.
-set /p "SREPO=Source repo (owner/name): "
-set /p "TREPO=Target repo (owner/name): "
-if "%SREPO%"=="" ( echo Both repos are required. & goto end )
-if "%TREPO%"=="" ( echo Both repos are required. & goto end )
-if not defined SHOST set /p "SHOST=Source host (e.g. git.example.com): "
-if not defined THOST set /p "THOST=Target host (e.g. git.example.com): "
-
-set /p "DOCODE=Mirror code (all branches/tags) with git push --mirror? [y/N] "
-if /i not "%DOCODE%"=="y" goto forge_extras
-set "FWORK=%TEMP%\wekan-mirror-%RANDOM%"
-echo Cloning https://%SHOST%/%SREPO%.git (mirror) ...
-git clone --mirror "https://%SHOST%/%SREPO%.git" "%FWORK%\repo.git"
-echo Pushing to https://%THOST%/%TREPO%.git (target must exist; push credentials required) ...
-pushd "%FWORK%\repo.git"
-git push --mirror "https://%THOST%/%TREPO%.git"
-popd
-rmdir /s /q "%FWORK%"
-
-:forge_extras
-echo.
-echo Now syncing issues + PRs (missing only) and converting CI workflows (DRY RUN)...
-node "%REPO%\tools\forge-mirror.js" --source-tool %STOOL% --source-repo "%SREPO%" --source-host "%SHOST%" --target-tool %TTOOL% --target-repo "%TREPO%" --target-host "%THOST%" --target-kind %TKIND% --include-closed
-echo.
-set /p "APPLYNOW=Apply the issue/PR creation at the target now (not a dry run)? [y/N] "
-if /i "%APPLYNOW%"=="y" node "%REPO%\tools\forge-mirror.js" --source-tool %STOOL% --source-repo "%SREPO%" --source-host "%SHOST%" --target-tool %TTOOL% --target-repo "%TREPO%" --target-host "%THOST%" --target-kind %TKIND% --include-closed --issues --prs --apply
-echo Mirror flow complete.
+call "%REPO%\releases\mirror.bat"
+set "MIRROR_STATUS=%ERRORLEVEL%"
+if not "%MIRROR_STATUS%"=="0" echo Mirror finished with errors. See .tools\log\mirror-*\report.json.
 goto end
 
 REM ===========================================================================
 REM  Subroutines
 REM ===========================================================================
-:forge_props
-REM %1 = forge number, %2 = output prefix (S or T).
-REM Sets <prefix>NAME <prefix>HOST <prefix>TOOL <prefix>KIND. HOST empty = ask.
-set "_n=%~1"
-set "%2NAME="
-set "%2HOST="
-if "%_n%"=="1" ( set "%2NAME=GitHub"   & set "%2HOST=github.com"   & set "%2TOOL=gh"   & set "%2KIND=github" )
-if "%_n%"=="2" ( set "%2NAME=GitLab"   & set "%2HOST=gitlab.com"   & set "%2TOOL=glab" & set "%2KIND=gitlab" )
-if "%_n%"=="3" ( set "%2NAME=Codeberg" & set "%2HOST=codeberg.org" & set "%2TOOL=tea"  & set "%2KIND=codeberg" )
-if "%_n%"=="4" ( set "%2NAME=Forgejo"  & set "%2HOST="             & set "%2TOOL=tea"  & set "%2KIND=forgejo" )
-if "%_n%"=="5" ( set "%2NAME=Gitea"    & set "%2HOST="             & set "%2TOOL=tea"  & set "%2KIND=gitea" )
-exit /b 0
-
 :ensure_dirs
 if not exist "%REPO%\public\build-chunks" md "%REPO%\public\build-chunks"
 if not exist "%REPO%\public\build-assets" md "%REPO%\public\build-assets"
