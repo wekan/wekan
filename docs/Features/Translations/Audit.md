@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 8,309 |
+| Corrected | 8,314 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 175 |
-| Pending review or repair | 7,538 |
+| Pending review or repair | 7,533 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **8,382** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **8,387** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `d290b8bcf7c16e7c94f649d19fb4cabbf044e68f` — two Tigrinya calendar findings repaired; **no flagged Tigrinya findings remain**. Indian national calendar and Saudi lunar sighting meanings are preserved. Low-confidence specialized wording needs native-speaker review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `d319dfac61da4ee057a4b972181d3dc7639cd11a` — five Kashmiri named-calendar findings repaired; **5 Kashmiri Hijri findings remain**. Existing calendar orthography was retained; localized names and wording need native-speaker review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
