@@ -104361,5 +104361,110 @@
     "before": "Ungahambisa uhlu Kungobo yomlando ukuze uyisuse ebhodini futhi ulondoloze umsebenzi.",
     "after": "Ni nga isa mutevhe fhethu ha u vhulunga u u bvisa kha bodo ya Kanban ni tshi vhulunga nyito.",
     "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal vendor menu paths, privacy scopes, archive restoration and irreversible deletion warnings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "list-move-cards",
+    "before": "Hambisa wonke amakhadi akulolu hlu",
+    "after": "Pfulusani makhadi oṱhe a mutevhe uyu",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, imported-role permission ceiling, restricted-user capabilities and storage targets. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "list-select-cards",
+    "before": "Khetha wonke amakhadi akulolu hlu",
+    "after": "Nangani makhadi oṱhe a mutevhe uyu",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, imported-role permission ceiling, restricted-user capabilities and storage targets. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "map-to-existing-user-desc",
+    "before": "Khetha umsebenzisi wangempela okuyilungu (elingokoqobo) elingeniswe lapha. Amakhadi akhe, amazwana nomsebenzi wakhe kudluliselwa kulowo msebenzisi. Sesha ukuze uthole noma ubani; umsebenzisi ongekho kuleli bhodi wengezwa ngendima yelungu elingenisiwe uqobo, ngakho lokhu kuhambisana akusoze kwanikeza izimvume ezingaphezu kwalezo okungenisa okwazinikeza.",
+    "after": "Nangani mushumisi wa vhukuma ane muraḓo uyu wa u tou dzheniswa a mu imela. Makhadi, mihumbulo na nyito zwawe zwi pfuluselwa kha mushumisi uyo. Ṱoḓani u wana muthu muṅwe na muṅwe; mushumisi a sa athu vha kha bodo iyi ya Kanban u engedzwa nga mushumo wa muraḓo wo dzheniswaho, uri u fanyisa hu sa fhe thendelo nnzhi u fhira dze u dzhenisa ha dzi fha.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, imported-role permission ceiling, restricted-user capabilities and storage targets. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "migration-progress-note",
+    "before": "Sicela ulinde ngenkathi sithuthela ibhodi lakho esakhiweni sakamuva...",
+    "after": "Lindelani musi ri tshi pfulusela bodo yaṋu ya Kanban kha nzudzanyo ya zwino...",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, imported-role permission ceiling, restricted-user capabilities and storage targets. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "move-all-attachments-of-board-to-fs",
+    "before": "Hambisa konke okunamathiselwe ebhodini kusistimu yefayela",
+    "after": "Pfuluselani ṱumetshedzo dzoṱhe dza bodo ya Kanban kha sisiteme ya faela",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, imported-role permission ceiling, restricted-user capabilities and storage targets. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "move-all-attachments-of-board-to-gridfs",
+    "before": "Hambisa konke okunamathiselwe ebhodini ku-GridFS",
+    "after": "Pfuluselani ṱumetshedzo dzoṱhe dza bodo ya Kanban kha GridFS",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, imported-role permission ceiling, restricted-user capabilities and storage targets. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "move-all-attachments-of-board-to-s3",
+    "before": "Hambisa konke okunamathiselwe ebhodini ku-S3",
+    "after": "Pfuluselani ṱumetshedzo dzoṱhe dza bodo ya Kanban kha S3",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, imported-role permission ceiling, restricted-user capabilities and storage targets. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "move-all-attachments-to-gridfs",
+    "before": "Hambisa konke okunamathiselwe ku-GridFS",
+    "after": "Pfuluselani ṱumetshedzo dzoṱhe kha GridFS",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, imported-role permission ceiling, restricted-user capabilities and storage targets. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "move-all-attachments-to-s3",
+    "before": "Hambisa konke okunamathiselwe ku-S3",
+    "after": "Pfuluselani ṱumetshedzo dzoṱhe kha S3",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, imported-role permission ceiling, restricted-user capabilities and storage targets. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "no-archived-cards",
+    "before": "Awekho amakhadi kungobo yomlando.",
+    "after": "A hu na makhadi fhethu ha u vhulunga.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, imported-role permission ceiling, restricted-user capabilities and storage targets. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "normal-assigned-only-desc",
+    "before": "Amakhadi abelwe kuphela abonakalayo. Hlela njengomsebenzisi Ojwayelekile.",
+    "after": "Hu vhonala makhadi o avhelwaho fhedzi. Ni nga khwinisa sa mushumisi wa nga misi.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, imported-role permission ceiling, restricted-user capabilities and storage targets. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "normal-desc",
+    "before": "Angakwazi ukubuka futhi ahlele amakhadi. Ayikwazi ukushintsha izilungiselelo.",
+    "after": "A nga vhona na u khwinisa makhadi. A nga si shandule nzudzanyo.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, imported-role permission ceiling, restricted-user capabilities and storage targets. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "notify-participate",
+    "before": "Thola izibuyekezo kunoma imaphi amakhadi owabamba iqhaza njengomdali noma ilungu",
+    "after": "Ṱanganedzani tshanduko dza makhadi ane na shela mulenzhe khawo sa musiki kana muraḓo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, imported-role permission ceiling, restricted-user capabilities and storage targets. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "notify-watch",
+    "before": "Thola izibuyekezo kunoma imaphi amabhodi, izinhlu, noma amakhadi owabukayo",
+    "after": "Ṱanganedzani tshanduko dza bodo dza Kanban, mitevhe kana makhadi ane na khou a tevhela",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, imported-role permission ceiling, restricted-user capabilities and storage targets. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "open-many-cards-at-once",
+    "before": "Vula amakhadi amaningi ngesikhathi esisodwa",
+    "after": "Vulani makhadi manzhi nga tshifhinga tshithihi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, imported-role permission ceiling, restricted-user capabilities and storage targets. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
