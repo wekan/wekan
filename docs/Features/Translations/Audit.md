@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 9,368 |
+| Corrected | 9,384 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 175 |
-| Pending review or repair | 6,479 |
+| Pending review or repair | 6,463 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **9,444** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **9,460** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `e6b0bd60b74a558d7178bdef3d59143dabca1d89` — sixteen Breton migration, scheduled-job and custom-content findings repaired; **258 Breton findings remain**. Filenames, HTML entities, template placeholders and deletion/history-loss warnings are preserved. Specialized terminology and grammar need language review. Exact-value, placeholder, JSON example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `c852e82297a03a7bdc2546bb22baeabb48d7460f` — sixteen Breton branding, authentication, duplicate-list and action findings repaired; **242 Breton findings remain**. Logo defaults, technical terms and both duplicate-list deletion conditions are preserved. Specialized terminology and grammar need language review. Exact-value, placeholder, JSON example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
