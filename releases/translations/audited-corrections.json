@@ -80771,5 +80771,47 @@
     "before": "Options de liste",
     "after": "Tànneef yi ci limu bi",
     "reason": "Replace French custom-field types/options and string-template formatting controls with Wolof. Preserve literal %{value}, &#32; and &nbsp; examples, none versus unknown and number versus text. Reuse established royukaay/mbind/lim/tànneef vocabulary. Separator/placeholder adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "import-user-select",
+    "before": "Sélectionnez l'utilisateur existant que vous voulez associer à ce participant",
+    "after": "Tànnal jëfandikukat bi am ba noppi bi nga bëgg a jëfandikoo ni bokkkat bii",
+    "reason": "Replace French import membership mapping and ZIP structure labels with Wolof. Preserve existing-user selection as imported member, username import, mapping/review/member selection and ZIP containing board JSON plus board-name attachment subdirectories. Preserve literal .zip/JSON. Directory/mapping terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "import-usernames",
+    "before": "Importer les noms d'utilisateurs",
+    "after": "Dugal turu jëfandikukat yi",
+    "reason": "Replace French import membership mapping and ZIP structure labels with Wolof. Preserve existing-user selection as imported member, username import, mapping/review/member selection and ZIP containing board JSON plus board-name attachment subdirectories. Preserve literal .zip/JSON. Directory/mapping terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "import-map-members",
+    "before": "Assigner des participants",
+    "after": "Lëkkale bokkkat yi",
+    "reason": "Replace French import membership mapping and ZIP structure labels with Wolof. Preserve existing-user selection as imported member, username import, mapping/review/member selection and ZIP containing board JSON plus board-name attachment subdirectories. Preserve literal .zip/JSON. Directory/mapping terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "import-show-user-mapping",
+    "before": "Contrôler l'assignation des participants",
+    "after": "Seetlu lëkkaleb bokkkat yi",
+    "reason": "Replace French import membership mapping and ZIP structure labels with Wolof. Preserve existing-user selection as imported member, username import, mapping/review/member selection and ZIP containing board JSON plus board-name attachment subdirectories. Preserve literal .zip/JSON. Directory/mapping terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "importMapMembersAddPopup-title",
+    "before": "Sélectionner le participant",
+    "after": "Tànn bokkkat",
+    "reason": "Replace French import membership mapping and ZIP structure labels with Wolof. Preserve existing-user selection as imported member, username import, mapping/review/member selection and ZIP containing board JSON plus board-name attachment subdirectories. Preserve literal .zip/JSON. Directory/mapping terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "import-board-zip",
+    "before": "Ajouter un fichier .zip qui contient les fichiers JSON du tableau et les noms de sous-répertoires avec les pièces jointes",
+    "after": "Yokk fiise .zip bu am fiise yu JSON yu tablo yi ak dencukaay yu ndaw yu am turu tablo yi te am takkaay yi",
+    "reason": "Replace French import membership mapping and ZIP structure labels with Wolof. Preserve existing-user selection as imported member, username import, mapping/review/member selection and ZIP containing board JSON plus board-name attachment subdirectories. Preserve literal .zip/JSON. Directory/mapping terminology and full grammar remain low confidence."
   }
 ]
