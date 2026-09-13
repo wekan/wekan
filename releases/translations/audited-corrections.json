@@ -92335,5 +92335,12 @@
     "before": "Islamic tabular",
     "after": "Khalendara ya Hijri (go bala ka lenaneo, letlha la tshimologo la bolepadinaledi)",
     "reason": "Replace English Hijri labels with direct Setswana phrasing, keeping table-based calculation and civil versus astronomical starting-date distinctions. Existing Khalendara ya Hijri retained. https://baqonde.usal.es/wp-content/uploads/2023/05/NWU_HS_111-AAA-NUWE-orthography-Eng-Afr-Setsw-1.pdf attests lenaneo for table of figures and selegae in civil law; https://www.gov.za/tn/news/cabinet-statements/pegelo-ya-kopano-ya-kabinete-ya-laboraro-la-bo-30-phatwe-2017-01-sep-2017 attests bolepadinaledi in radio astronomy. Vocabulary attestation does not validate these full phrases or calendar-domain civil usage: low confidence, native-speaker review required."
+  },
+  {
+    "locale": "st",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Khalendara ea Hijri (ho bala ka tafole, letsatsi la qalo ho latela bolepi ba linaleli)",
+    "reason": "Replace English Islamic tabular with direct Southern Sotho wording for the tabular Hijri calendar and astronomical starting date. Existing Khalendara ea Hijri retained. https://glosbe.com/en/st/astronomy attests bolepi ba linaleli in a human parallel-text example; https://www.dsac.gov.za/sites/default/files/2023-11/Multilingual%20Mathematics%20Dictionary.pdf attests Sesotho tafole for rows-and-columns table. Full phrasing and starting-date terminology are assembled, not independently validated: low confidence, native-speaker review required. No tokens changed."
   }
 ]
