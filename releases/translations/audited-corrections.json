@@ -109667,5 +109667,89 @@
     "before": "Stai filtrando le schede su questa bacheca. Clicca qui per modificare il filtro,",
     "after": "Te si drio filtrar łe schede de sto quadro. Clica qua par canbiar el filtro.",
     "reason": "Replace Italian-seeded Venetian values; preserve member/admin requirements, deletion ordering, irreversible warnings and invitation placeholders/newlines. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-description",
+    "before": "Per affinare le ricerche si possono includere degli operatori. Questi vanno specificati indicandone il nome ed il valore separati dai due punti. Ad esempio, specificare `list:Blocked` limita la ricerca alle schede contenute nella lista denominata *Blocked*. Se il valore del criterio contiene spazi o caratteri speciali, va racchiuso tra virgolette (es.: `__operator_list__:\"Da Controllare\"`)",
+    "after": "Łe serche łe pol includar operatori par afinar el rezultà. I operatori i se scrive col nome e el vałor separài da do ponti. Par esenpio, `list:Blocked` el łimita ła serca a łe schede inte na lista ciamà *Blocked*. Se el vałor el gà spàsi o caràteri spesiałi, el va messo tra virgołete (par esenpio `__operator_list__:\"To Review\"`).",
+    "reason": "Replace Italian-seeded search and import instructions with Venetian; preserve literal search examples, predicate placeholders, descending minus sign and external menu labels. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-notes-3",
+    "before": "Più criteri di ricerca sono combinati con l'operatore *AND*. Vengono selezionate solo le schede che soddisfano tutti gli operatori. `__operator_list__:Available __operator_label__:red` seleziona solo le schede nella lista *Available* che hanno una etichetta *red*.",
+    "after": "Operatori diversi i se conbina co *AND*. Vien mostrà soło łe schede che łe sodisfa tuti i operatori diversi. `__operator_list__:Available __operator_label__:red` el mostra soło łe schede inte ła lista *Available* co na eticheta *red*.",
+    "reason": "Replace Italian-seeded search and import instructions with Venetian; preserve literal search examples, predicate placeholders, descending minus sign and external menu labels. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-notes-5",
+    "before": "Per impostazione predefinita le schede archiviate non sono incluse nella ricerca.",
+    "after": "De sołito łe schede inte el archivio no łe vien sercà.",
+    "reason": "Replace Italian-seeded search and import instructions with Venetian; preserve literal search examples, predicate placeholders, descending minus sign and external menu labels. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-operator-limit",
+    "before": "`__operator_limit__:<n>` - dove *<n>* è un numero intero positivo che esprime il numero delle schede da visualizzare per pagina.",
+    "after": "`__operator_limit__:<n>` - *<n>* el xe un nùmaro intero pì grando de zero che el indica quante schede mostrar par pàjina.",
+    "reason": "Replace Italian-seeded search and import instructions with Venetian; preserve literal search examples, predicate placeholders, descending minus sign and external menu labels. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "globalSearch-instructions-operator-sort",
+    "before": "`__operator_sort__:<sort-name>` - dove *<sort-name>* è uno dei `__predicate_due__`, `__predicate_created__` oppure `__predicate_modified__`.  Per un ordine discendente, aggiungi un `-` davanti al nome.",
+    "after": "`__operator_sort__:<sort-name>` - *<sort-name>* el xe uno tra `__predicate_due__`, `__predicate_created__` o `__predicate_modified__`. Par un òrdine dał alto al basso, mete un `-` davanti al nome del òrdine.",
+    "reason": "Replace Italian-seeded search and import instructions with Venetian; preserve literal search examples, predicate placeholders, descending minus sign and external menu labels. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "header-logo-title",
+    "before": "Torna alla pagina delle tue bacheche.",
+    "after": "Torna a ła pàjina dei to quadri.",
+    "reason": "Replace Italian-seeded search and import instructions with Venetian; preserve literal search examples, predicate placeholders, descending minus sign and external menu labels. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "hideAllChecklistItems",
+    "before": "Nascondi gli elementi della lista di controllo",
+    "after": "Scondi tute łe vozi de ła lista de controło",
+    "reason": "Replace Italian-seeded search and import instructions with Venetian; preserve literal search examples, predicate placeholders, descending minus sign and external menu labels. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "hideCheckedChecklistItems",
+    "before": "Nascondi gli elementi della lista di controllo selezionati",
+    "after": "Scondi łe vozi segnà de ła lista de controło",
+    "reason": "Replace Italian-seeded search and import instructions with Venetian; preserve literal search examples, predicate placeholders, descending minus sign and external menu labels. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "import-board-instruction-about-errors",
+    "before": "Se hai degli errori quando importi una bacheca, qualche volta l'importazione funziona comunque, e la bacheca si trova nella pagina \"Tutte le bacheche\"",
+    "after": "Se te gà erori inportando un quadro, a volte ła inportasion ła funsiona istesso e el quadro el xe inte ła pàjina de tuti i quadri.",
+    "reason": "Replace Italian-seeded search and import instructions with Venetian; preserve literal search examples, predicate placeholders, descending minus sign and external menu labels. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "import-board-instruction-trello",
+    "before": "Nella tua bacheca Trello vai a 'Menu', poi 'Altro', 'Stampa ed esporta', 'Esporta JSON', e copia il testo che compare.",
+    "after": "Inte el to quadro Trello, va a 'Menu', po a 'More', 'Print and Export', 'Export JSON', e copia el testo che vien fora.",
+    "reason": "Replace Italian-seeded search and import instructions with Venetian; preserve literal search examples, predicate placeholders, descending minus sign and external menu labels. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "import-board-instruction-wekan",
+    "before": "Nella tua bacheca vai su \"Menu\", poi \"Esporta bacheca\" e copia il testo nel file scaricato.",
+    "after": "Inte el to quadro, va a 'Menu', po a 'Export board', e copia el testo del file descargà.",
+    "reason": "Replace Italian-seeded search and import instructions with Venetian; preserve literal search examples, predicate placeholders, descending minus sign and external menu labels. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "import-board-zip",
+    "before": "Aggiungi il file .zip contenente i file JSON della bacheca, i nomi bacheca delle sottodirectory con gli allegati",
+    "after": "Zonta un file .zip co i file JSON dei quadri e sotocartełe col nome del quadro che łe gà i file łigài",
+    "reason": "Replace Italian-seeded search and import instructions with Venetian; preserve literal search examples, predicate placeholders, descending minus sign and external menu labels. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
