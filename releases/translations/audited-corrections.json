@@ -120446,14 +120446,14 @@
     "key": "zoom-in",
     "before": "Lähennä",
     "after": "Surenda",
-    "reason": "Replace unflagged Finnish zoom action using Zaiceva/Mullonen Veps sureta (-ndab) increase and peneta (-ndab) decrease. Actual card zoom handlers increase/decrease by 0.1 and retain bounds 0.5–3.0. Low confidence: technical zoom usage and imperative forms need fluent review."
+    "reason": "Replace unflagged Finnish zoom action using Zaiceva/Mullonen dictionary sureta. Review 2026-09-14: https://en.wiktionary.org/wiki/sureta confirms the transitive make-larger/make-smaller sense and second-person singular imperative surenda; distinguish the intransitive imperative surene. Actual card zoom handlers increase/decrease by 0.1 and retain bounds 0.5–3.0. Imperative morphology is supported by the reference; technical screen-zoom usage still needs fluent review."
   },
   {
     "locale": "ve-PP",
     "key": "zoom-out",
     "before": "Loitonna",
     "after": "Penenda",
-    "reason": "Replace unflagged Finnish zoom action using Zaiceva/Mullonen Veps sureta (-ndab) increase and peneta (-ndab) decrease. Actual card zoom handlers increase/decrease by 0.1 and retain bounds 0.5–3.0. Low confidence: technical zoom usage and imperative forms need fluent review."
+    "reason": "Replace unflagged Finnish zoom action using Zaiceva/Mullonen dictionary peneta. Review 2026-09-14: https://en.wiktionary.org/wiki/peneta confirms the transitive make-larger/make-smaller sense and second-person singular imperative penenda; distinguish the intransitive imperative penene. Actual card zoom handlers increase/decrease by 0.1 and retain bounds 0.5–3.0. Imperative morphology is supported by the reference; technical screen-zoom usage still needs fluent review."
   },
   {
     "locale": "ve-PP",
