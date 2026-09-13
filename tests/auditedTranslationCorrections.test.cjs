@@ -2293,5 +2293,34 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(vepsTranslator.t('add-cron-job-placeholder'), /funkcii tuleb pigai$/);
   assert.match(vepsTranslator.t('search-boards-or-operations'), /laudoid libo radoid/);
   assert.notEqual(vepsTranslator.t('schedule-board-backup'), vepsTranslator.t('schedule-board-cleanup'));
+  const vepsPresenceSearch = {
+  "operator-has": "om",
+  "predicate-attachment": "tartutadud",
+  "predicate-description": "kirjutuz",
+  "predicate-checklist": "kodvindlugetiž",
+  "predicate-start": "augotiž",
+  "predicate-end": "lop",
+  "predicate-assignee": "märitud",
+  "predicate-member": "ühtnik",
+  "globalSearch-instructions-operators": "Kävutandaha joudajad operatorad:",
+  "globalSearch-instructions-operator-has": "`__operator_has__:<field>` - *<field>* om üks neciš: `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` libo `__predicate_member__`. Pane `-` *<field>* edele, miše ecta kartoid, miččil ei ole necen pöudon znamoičendad (näute: `om:-märaig` ecib kartoid ilma märaigata)."
+};
+  for (const [key, value] of Object.entries(vepsPresenceSearch)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /sisältää|liitetiedosto|kuvaus|tarkistuslista|alkaa|loppuu|käsittelijä|jäsen|Saatavilla olevat|jossa|Laittamalla/, key);
+  }
+  for (const [key, field] of [['predicate-attachment', 'attachment'], ['predicate-description', 'description'], ['predicate-checklist', 'checklist'], ['predicate-start', 'startAt'], ['predicate-due', 'dueAt'], ['predicate-end', 'endAt'], ['predicate-assignee', 'assignees'], ['predicate-member', 'members']]) {
+    for (const absent of [false, true]) {
+      const parsed = new visibilityContext.Query();
+      parsed.buildParams(`${cache['ve-PP']['operator-has']}:${absent ? '-' : ''}${cache['ve-PP'][key]}`);
+      assert.equal(parsed.hasErrors(), false, key);
+      assert.deepEqual(JSON.parse(JSON.stringify(parsed.getQueryParams().getPredicate('has'))), { field, exists: !absent }, key);
+    }
+  }
+  const invalidPresence = new visibilityContext.Query();
+  invalidPresence.buildParams('om:nonexistent-field');
+  assert.equal(invalidPresence.hasErrors(), true);
+  assert.match(vepsTranslator.t('globalSearch-instructions-operator-has'), /`om:-märaig`.*ilma märaigata/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

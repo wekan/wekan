@@ -119404,5 +119404,75 @@
     "before": "Toiminnon tyyppi",
     "after": "Radon tip",
     "reason": "Replace Finnish scheduling text with Veps. Preserve failure to schedule, successful scheduling and coming-soon functionality; reuse märitud aiganke rad and varmkopii. Dictionary: rad(-on,-oid), puhtastand(-an), funkcii(-jan), pigai/tuleb and tip. Low confidence: composed scheduling syntax and varmkopijan/sirttandan inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-has",
+    "before": "sisältää",
+    "after": "om",
+    "reason": "Replace Finnish presence-search terminology with Veps; reuse existing description/checklist/attachment/member/assignee labels. Dictionary: augotiž (beginning), lop (end), and om (is/has possession). Keep single-word parser keywords, exact placeholder inventory and working localized negative due-date example. Low confidence: composed presence/absence instruction grammar needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "predicate-attachment",
+    "before": "liitetiedosto",
+    "after": "tartutadud",
+    "reason": "Replace Finnish presence-search terminology with Veps; reuse existing description/checklist/attachment/member/assignee labels. Dictionary: augotiž (beginning), lop (end), and om (is/has possession). Keep single-word parser keywords, exact placeholder inventory and working localized negative due-date example. Low confidence: composed presence/absence instruction grammar needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "predicate-description",
+    "before": "kuvaus",
+    "after": "kirjutuz",
+    "reason": "Replace Finnish presence-search terminology with Veps; reuse existing description/checklist/attachment/member/assignee labels. Dictionary: augotiž (beginning), lop (end), and om (is/has possession). Keep single-word parser keywords, exact placeholder inventory and working localized negative due-date example. Low confidence: composed presence/absence instruction grammar needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "predicate-checklist",
+    "before": "tarkistuslista",
+    "after": "kodvindlugetiž",
+    "reason": "Replace Finnish presence-search terminology with Veps; reuse existing description/checklist/attachment/member/assignee labels. Dictionary: augotiž (beginning), lop (end), and om (is/has possession). Keep single-word parser keywords, exact placeholder inventory and working localized negative due-date example. Low confidence: composed presence/absence instruction grammar needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "predicate-start",
+    "before": "alkaa",
+    "after": "augotiž",
+    "reason": "Replace Finnish presence-search terminology with Veps; reuse existing description/checklist/attachment/member/assignee labels. Dictionary: augotiž (beginning), lop (end), and om (is/has possession). Keep single-word parser keywords, exact placeholder inventory and working localized negative due-date example. Low confidence: composed presence/absence instruction grammar needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "predicate-end",
+    "before": "loppuu",
+    "after": "lop",
+    "reason": "Replace Finnish presence-search terminology with Veps; reuse existing description/checklist/attachment/member/assignee labels. Dictionary: augotiž (beginning), lop (end), and om (is/has possession). Keep single-word parser keywords, exact placeholder inventory and working localized negative due-date example. Low confidence: composed presence/absence instruction grammar needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "predicate-assignee",
+    "before": "käsittelijä",
+    "after": "märitud",
+    "reason": "Replace Finnish presence-search terminology with Veps; reuse existing description/checklist/attachment/member/assignee labels. Dictionary: augotiž (beginning), lop (end), and om (is/has possession). Keep single-word parser keywords, exact placeholder inventory and working localized negative due-date example. Low confidence: composed presence/absence instruction grammar needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "predicate-member",
+    "before": "jäsen",
+    "after": "ühtnik",
+    "reason": "Replace Finnish presence-search terminology with Veps; reuse existing description/checklist/attachment/member/assignee labels. Dictionary: augotiž (beginning), lop (end), and om (is/has possession). Keep single-word parser keywords, exact placeholder inventory and working localized negative due-date example. Low confidence: composed presence/absence instruction grammar needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-operators",
+    "before": "Saatavilla olevat operaattorit:",
+    "after": "Kävutandaha joudajad operatorad:",
+    "reason": "Replace Finnish presence-search terminology with Veps; reuse existing description/checklist/attachment/member/assignee labels. Dictionary: augotiž (beginning), lop (end), and om (is/has possession). Keep single-word parser keywords, exact placeholder inventory and working localized negative due-date example. Low confidence: composed presence/absence instruction grammar needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-operator-has",
+    "before": "`__operator_has__:<field>` - jossa *<field>* on yksi näistä: `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` tai `__predicate_member__`.  Laittamalla `-` eteen *<field>* etsii niistä joissa puuttuu se arvo siitä kentästä (esim. `sisältää:-erääntyy` etsii korteista joilla ei ole erääntymispäivää).",
+    "after": "`__operator_has__:<field>` - *<field>* om üks neciš: `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` libo `__predicate_member__`. Pane `-` *<field>* edele, miše ecta kartoid, miččil ei ole necen pöudon znamoičendad (näute: `om:-märaig` ecib kartoid ilma märaigata).",
+    "reason": "Replace Finnish presence-search terminology with Veps; reuse existing description/checklist/attachment/member/assignee labels. Dictionary: augotiž (beginning), lop (end), and om (is/has possession). Keep single-word parser keywords, exact placeholder inventory and working localized negative due-date example. Low confidence: composed presence/absence instruction grammar needs fluent review."
   }
 ]
