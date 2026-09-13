@@ -86987,5 +86987,103 @@
     "before": "Êtes-vous sûr de vouloir supprimer toutes les notifications ? Cette action est irréversible.",
     "after": "Fümol-li, das vilol radön nunädis valik? Sädunam binon nemögik.",
     "reason": "Replace French confirmation/warning text with Volapük, preserving certainty questions, delete versus remove-from-board meaning, at-least-one-user deletion blocker and no-undo warning. Checked settingsTeamPopup and removeBoardTeamPopup source. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests fümön (be sure), vilön + infinitive (want), nemu (at least), dutön lü (belong to), sädunön (undo), nemögik (impossible); reuse kvip, radön, moükön, nunäd. Derived sädunam, avatar borrowing, software board terminology and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "checklistActionsPopup-title",
+    "before": "Actions sur la check-list",
+    "after": "Dunots kontrolaliseda",
+    "reason": "Replace French checklist controls, minicard settings and template labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests rot (computer template), kopiedön (copy), klänedön (hide), dunot (action), kadil (small card); reuse previously checked väls (settings), fimekön (complete), mäkön (mark), notet and kontrolalised. Preserve all-items versus marked-items filtering and completed-checklist distinction. Derived checklist compound, software sense adaptations and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "checklistDeletePopup-title",
+    "before": "Supprimer la check-list ?",
+    "after": "Radön kontrolalisedi?",
+    "reason": "Replace French checklist controls, minicard settings and template labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests rot (computer template), kopiedön (copy), klänedön (hide), dunot (action), kadil (small card); reuse previously checked väls (settings), fimekön (complete), mäkön (mark), notet and kontrolalised. Preserve all-items versus marked-items filtering and completed-checklist distinction. Derived checklist compound, software sense adaptations and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "checklistItemDeletePopup-title",
+    "before": "Supprimer l'élément de la check-list ?",
+    "after": "Radön noteti kontrolaliseda?",
+    "reason": "Replace French checklist controls, minicard settings and template labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests rot (computer template), kopiedön (copy), klänedön (hide), dunot (action), kadil (small card); reuse previously checked väls (settings), fimekön (complete), mäkön (mark), notet and kontrolalised. Preserve all-items versus marked-items filtering and completed-checklist distinction. Derived checklist compound, software sense adaptations and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "hide-finished-checklist",
+    "before": "Cacher la check-list terminée",
+    "after": "Klänedön kontrolalisedi pefimeköl",
+    "reason": "Replace French checklist controls, minicard settings and template labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests rot (computer template), kopiedön (copy), klänedön (hide), dunot (action), kadil (small card); reuse previously checked väls (settings), fimekön (complete), mäkön (mark), notet and kontrolalised. Preserve all-items versus marked-items filtering and completed-checklist distinction. Derived checklist compound, software sense adaptations and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "hideAllChecklistItems",
+    "before": "Cacher tous les éléments de la check-list",
+    "after": "Klänedön notetis valik kontrolaliseda",
+    "reason": "Replace French checklist controls, minicard settings and template labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests rot (computer template), kopiedön (copy), klänedön (hide), dunot (action), kadil (small card); reuse previously checked väls (settings), fimekön (complete), mäkön (mark), notet and kontrolalised. Preserve all-items versus marked-items filtering and completed-checklist distinction. Derived checklist compound, software sense adaptations and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "hideCheckedChecklistItems",
+    "before": "Cacher les éléments cochés de la check-list",
+    "after": "Klänedön notetis pemäköl kontrolaliseda",
+    "reason": "Replace French checklist controls, minicard settings and template labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests rot (computer template), kopiedön (copy), klänedön (hide), dunot (action), kadil (small card); reuse previously checked väls (settings), fimekön (complete), mäkön (mark), notet and kontrolalised. Preserve all-items versus marked-items filtering and completed-checklist distinction. Derived checklist compound, software sense adaptations and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "copyChecklistFromTemplate",
+    "before": "Copier la check-list - Modèle",
+    "after": "Kopiedön kontrolalisedi de rot",
+    "reason": "Replace French checklist controls, minicard settings and template labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests rot (computer template), kopiedön (copy), klänedön (hide), dunot (action), kadil (small card); reuse previously checked väls (settings), fimekön (complete), mäkön (mark), notet and kontrolalised. Preserve all-items versus marked-items filtering and completed-checklist distinction. Derived checklist compound, software sense adaptations and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "copyChecklistFromTemplatePopup-title",
+    "before": "Copier la check-list - Modèle",
+    "after": "Kopiedön kontrolalisedi de rot",
+    "reason": "Replace French checklist controls, minicard settings and template labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests rot (computer template), kopiedön (copy), klänedön (hide), dunot (action), kadil (small card); reuse previously checked väls (settings), fimekön (complete), mäkön (mark), notet and kontrolalised. Preserve all-items versus marked-items filtering and completed-checklist distinction. Derived checklist compound, software sense adaptations and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "boardMinicardSettingsPopup-title",
+    "before": "Paramètres de la mini-carte",
+    "after": "Väls kadila",
+    "reason": "Replace French checklist controls, minicard settings and template labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests rot (computer template), kopiedön (copy), klänedön (hide), dunot (action), kadil (small card); reuse previously checked väls (settings), fimekön (complete), mäkön (mark), notet and kontrolalised. Preserve all-items versus marked-items filtering and completed-checklist distinction. Derived checklist compound, software sense adaptations and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "minicard-settings",
+    "before": "Paramètres de la mini-carte",
+    "after": "Väls kadila",
+    "reason": "Replace French checklist controls, minicard settings and template labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests rot (computer template), kopiedön (copy), klänedön (hide), dunot (action), kadil (small card); reuse previously checked väls (settings), fimekön (complete), mäkön (mark), notet and kontrolalised. Preserve all-items versus marked-items filtering and completed-checklist distinction. Derived checklist compound, software sense adaptations and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "template",
+    "before": "Modèle",
+    "after": "Rot",
+    "reason": "Replace French checklist controls, minicard settings and template labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests rot (computer template), kopiedön (copy), klänedön (hide), dunot (action), kadil (small card); reuse previously checked väls (settings), fimekön (complete), mäkön (mark), notet and kontrolalised. Preserve all-items versus marked-items filtering and completed-checklist distinction. Derived checklist compound, software sense adaptations and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "templates",
+    "before": "Modèles",
+    "after": "Rots",
+    "reason": "Replace French checklist controls, minicard settings and template labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests rot (computer template), kopiedön (copy), klänedön (hide), dunot (action), kadil (small card); reuse previously checked väls (settings), fimekön (complete), mäkön (mark), notet and kontrolalised. Preserve all-items versus marked-items filtering and completed-checklist distinction. Derived checklist compound, software sense adaptations and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "allboards.templates",
+    "before": "Modèles",
+    "after": "Rots",
+    "reason": "Replace French checklist controls, minicard settings and template labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests rot (computer template), kopiedön (copy), klänedön (hide), dunot (action), kadil (small card); reuse previously checked väls (settings), fimekön (complete), mäkön (mark), notet and kontrolalised. Preserve all-items versus marked-items filtering and completed-checklist distinction. Derived checklist compound, software sense adaptations and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "add-template",
+    "before": "Ajouter un modèle",
+    "after": "Lüükön roti",
+    "reason": "Replace French checklist controls, minicard settings and template labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests rot (computer template), kopiedön (copy), klänedön (hide), dunot (action), kadil (small card); reuse previously checked väls (settings), fimekön (complete), mäkön (mark), notet and kontrolalised. Preserve all-items versus marked-items filtering and completed-checklist distinction. Derived checklist compound, software sense adaptations and assembled grammar remain low confidence; no native-speaker validation."
   }
 ]
