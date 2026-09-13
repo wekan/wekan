@@ -67961,5 +67961,40 @@
     "before": "Sterta Node: liczba kontekstów natywnych",
     "after": "Sterta Node: wielość natywnych kōntekstōw",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "Node_heap_total_available_size",
+    "before": "Sterta Node: całkowity dostępny rozmiar",
+    "after": "Sterta Node: cołki dostympny rozmiar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "Node_heap_total_heap_size",
+    "before": "Sterta Node: całkowity rozmiar sterty",
+    "after": "Sterta Node: cołki rozmiar sterty",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "Node_heap_total_heap_size_executable",
+    "before": "Sterta Node: całkowity rozmiar sterty wykonywalnej",
+    "after": "Sterta Node: cołki rozmiar sterty ze wykonywalnym kōdym",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "Node_heap_total_physical_size",
+    "before": "Sterta Node: całkowity rozmiar fizyczny",
+    "after": "Sterta Node: cołki fizyczny rozmiar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "Node_memory_usage_external",
+    "before": "Zużycie pamięci Node: zewnętrzna",
+    "after": "Użycie pamiyńci Node: zewnyntrznŏ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
