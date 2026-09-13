@@ -51105,5 +51105,61 @@
     "before": "Link dell'immagine del logo personalizzato per il login",
     "after": "URL di u ligame di u logò di cunnessione persunalizatu",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "custom-product-name",
+    "before": "Nome prodotto personalizzato",
+    "after": "Nome di pruduttu persunalizatu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "custom-top-left-corner-logo-height",
+    "before": "Altezza del logo personalizzato nell'angolo superiore sinistro. Default: 27",
+    "after": "Altezza di u logò persunalizatu in u cantu supranu à manca. Valore predefinitu: 27",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "custom-top-left-corner-logo-image-url",
+    "before": "URL dell'immagine del logo personalizzato nell'angolo superiore sinistro",
+    "after": "URL di l’imagine di u logò persunalizatu in u cantu supranu à manca",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "custom-top-left-corner-logo-link-url",
+    "before": "URL del link del logo personalizzato nell'angolo superiore sinistro",
+    "after": "URL di u ligame di u logò persunalizatu in u cantu supranu à manca",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "database-migrate-to-ferretdb",
+    "before": "Migra i dati testuali su FerretDB v1 (SQLite)",
+    "after": "Migrà i dati testuali versu FerretDB v1 (SQLite)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "database-migrate-to-mongodb",
+    "before": "Migra i dati testuali su MongoDB",
+    "after": "Migrà i dati testuali versu MongoDB",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "database-migration-done",
+    "before": "Migrazione dei dati testuali completata.",
+    "after": "Migrazione di i dati testuali compia.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "default-authentication-method",
+    "before": "Metodo di autenticazione predefinito",
+    "after": "Metudu d’autentificazione predefinitu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
