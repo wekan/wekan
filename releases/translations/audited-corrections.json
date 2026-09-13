@@ -82843,5 +82843,103 @@
     "before": "Votre périphérique ne supporte pas la prévisualisation de PDF. Essayer plutôt le téléchargement.",
     "after": "Sa jumtukaay manul a wone PDF bi bala nga yeb ko. Jéemal a yeb ko.",
     "reason": "Replace French with Wolof; preserve unsaved-description recovery before close and replacement confirmation, maximum task limit, self-assignment, minicard field label, field-value sum at list top, full-path prefix and PDF download fallback. Recovery/sum/path terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "pastdue",
+    "before": "La date d'échéance %s est passée",
+    "after": "waxtu jeexal bi %s weesu na",
+    "reason": "Replace French with Wolof; preserve overdue time token, possible private-page access with exact HTML link, empty-field wildcard, server log commands, week start and migration step distinctions. Wildcard/ensure/step phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "page-maybe-private",
+    "before": "Cette page est peut-être privée. Vous pourrez peut-être la voir en vous <a href='%s'>connectant</a>.",
+    "after": "Xët wii man na doon bu sutura. Bu nga <a href='%s'>dugg</a>, man na am nga man a gis ko.",
+    "reason": "Replace French with Wolof; preserve overdue time token, possible private-page access with exact HTML link, empty-field wildcard, server log commands, week start and migration step distinctions. Wildcard/ensure/step phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "r-board-note",
+    "before": "Note : laisser le champ vide pour correspondre à toutes les valeurs possibles.",
+    "after": "Karmat: bàyyi wàllu dugal bu neen ngir dëppoo ak dayo bu nekk. ",
+    "reason": "Replace French with Wolof; preserve overdue time token, possible private-page access with exact HTML link, empty-field wildcard, server log commands, week start and migration step distinctions. Wildcard/ensure/step phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "r-new-rule-name",
+    "before": "Titre de la nouvelle règle",
+    "after": "Turu yoon wu bees",
+    "reason": "Replace French with Wolof; preserve overdue time token, possible private-page access with exact HTML link, empty-field wildcard, server log commands, week start and migration step distinctions. Wildcard/ensure/step phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "server-error-troubleshooting",
+    "before": "Merci de soumettre l'erreur générée par le serveur. Pour une installation snap, lancer `sudo snap logs wekan.wekan`. Pour une installation docker, lancer `sudo docker logs wekan-app`",
+    "after": "Yónneel njuumte bi serwëër bi génne.\nBu nga samp ak snap, doxal: `sudo snap logs wekan.wekan`\nBu nga samp ak Docker, doxal: `sudo docker logs wekan-app`",
+    "reason": "Replace French with Wolof; preserve overdue time token, possible private-page access with exact HTML link, empty-field wildcard, server log commands, week start and migration step distinctions. Wildcard/ensure/step phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "start-day-of-week",
+    "before": "Définir le jour de début de semaine",
+    "after": "Jekkal bis bi ayu-bés bi di tambali",
+    "reason": "Replace French with Wolof; preserve overdue time token, possible private-page access with exact HTML link, empty-field wildcard, server log commands, week start and migration step distinctions. Wildcard/ensure/step phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "step-convert-shared-lists",
+    "before": "Convertir les listes partagées",
+    "after": "Soppi limu yi ñu bokk",
+    "reason": "Replace French with Wolof; preserve overdue time token, possible private-page access with exact HTML link, empty-field wildcard, server log commands, week start and migration step distinctions. Wildcard/ensure/step phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "step-create-missing-lists",
+    "before": "Créer les listes manquantes",
+    "after": "Sos limu yi amul",
+    "reason": "Replace French with Wolof; preserve overdue time token, possible private-page access with exact HTML link, empty-field wildcard, server log commands, week start and migration step distinctions. Wildcard/ensure/step phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "step-ensure-lost-cards-swimlane",
+    "before": "Assurer le couloir des cartes perdues",
+    "after": "Wóoral ne yoonu karta yi réer am na",
+    "reason": "Replace French with Wolof; preserve overdue time token, possible private-page access with exact HTML link, empty-field wildcard, server log commands, week start and migration step distinctions. Wildcard/ensure/step phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "step-ensure-per-swimlane-lists",
+    "before": "Assurer les listes par couloir",
+    "after": "Wóoral ne yoon bu nekk am na limu",
+    "reason": "Replace French with Wolof; preserve overdue time token, possible private-page access with exact HTML link, empty-field wildcard, server log commands, week start and migration step distinctions. Wildcard/ensure/step phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "step-fix-attachment-urls",
+    "before": "Corriger les URL des pièces jointes",
+    "after": "Defaraat URL yu fiise yi ñu takkal",
+    "reason": "Replace French with Wolof; preserve overdue time token, possible private-page access with exact HTML link, empty-field wildcard, server log commands, week start and migration step distinctions. Wildcard/ensure/step phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "step-fix-avatar-urls",
+    "before": "Corriger les URLs d'avatar",
+    "after": "Defaraat URL yu avatar",
+    "reason": "Replace French with Wolof; preserve overdue time token, possible private-page access with exact HTML link, empty-field wildcard, server log commands, week start and migration step distinctions. Wildcard/ensure/step phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "step-fix-file-urls",
+    "before": "Réparation des URL de fichier",
+    "after": "Mi ngi defaraat URL yu fiise",
+    "reason": "Replace French with Wolof; preserve overdue time token, possible private-page access with exact HTML link, empty-field wildcard, server log commands, week start and migration step distinctions. Wildcard/ensure/step phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "step-fix-missing-ids",
+    "before": "Réparation des IDs manquants",
+    "after": "Defaraat ID yi amul",
+    "reason": "Replace French with Wolof; preserve overdue time token, possible private-page access with exact HTML link, empty-field wildcard, server log commands, week start and migration step distinctions. Wildcard/ensure/step phrasing and full grammar remain low confidence."
   }
 ]
