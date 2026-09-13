@@ -496,5 +496,32 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(vepsTranslator.t('error-list-doesNotExist'), 'Necidä lugetišt ei ole.');
   assert.notEqual(cache['ve-PP']['activity-joined'], cache['ve-PP']['activity-unjoined']);
   assert.notEqual(cache['ve-PP']['activity-attached'], cache['ve-PP']['activity-added']);
+  const vepsNetworkRepairs = {
+  "smtp-host": "SMTP -server",
+  "smtp-host-description": "SMTP -serveran adres, kudamb oigendab sinun email-kirjeižid.",
+  "smtp-port": "SMTP -port",
+  "smtp-port-description": "Port, kudambad sinun SMTP -server kävutab oigendatuid email-kirjeižiden täht.",
+  "smtp-tls": "TLS -tugi",
+  "smtp-tls-description": "Kävuta TLS -tugi SMTP -serveran täht",
+  "s3-minio-storage": "S3/MinIO -kaičuz",
+  "s3-port": "S3 -port",
+  "s3-port-description": "S3 -endpointan portan nomer",
+  "s3-region": "S3 -aloveh",
+  "s3-region-description": "AWS S3 -aloveh (nä., us-east-1)",
+  "s3-secret-key": "S3 -peituzavadim",
+  "s3-secret-key-description": "AWS S3 -peituzavadim ičen tundištamižen täht",
+  "s3-secret-key-placeholder": "Vede S3 -peituzavadim",
+  "s3-ssl-enabled": "S3 SSL kävutuses",
+  "s3-ssl-enabled-description": "Kävuta SSL/TLS S3 -ühtenzoitusten täht",
+  "save-s3-settings": "Kaita S3 -valičused",
+  "test-s3-connection": "Testirui S3 -ühtenzoitust"
+};
+  for (const [key,value] of Object.entries(vepsNetworkRepairs)) {
+    assert.equal(cache['ve-PP'][key],value);
+    assert.equal(vepsTranslator.t(key),value);
+    assert.doesNotMatch(value,/palvelim|käyttöavain|salainen|portti|Tallenna|Testaa|STMP/);
+  }
+  assert.match(cache['ve-PP']['s3-region-description'],/us-east-1/);
+  assert.match(cache['ve-PP']['s3-ssl-enabled-description'],/SSL\/TLS/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

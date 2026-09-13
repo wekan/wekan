@@ -113629,5 +113629,131 @@
     "before": "Tallennuksen jakautuminen",
     "after": "Kaičusen jago",
     "reason": "Replace Finnish attachment/storage text with Veps. Zaiceva/Mullonen, Uz’ venä-vepsläine vajehnik (2007): хранение kaičuz, хранить/сохранять kaita, система sistem, размер suruz’, необратимый pördutamatoi, распределение jago. Native MediaWiki vep.json attests failoiden, backend path te, kaitud, valičused, pördutada, peituzavadim, tarbhai, hüvin and Sirdä (move/movepagebtn; physical transfer, distinct from navigation Sirte). Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve filesystem/GridFS/S3 destination distinctions, all-versus-single file scope, AWS/MinIO identifiers, and permanent deletion/no-undo warning. Low confidence: composed filesystem terminology failoiden sistem, base-path compound päte, attachment participle tartutadud and technical UI grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "smtp-host",
+    "before": "SMTP-isäntä",
+    "after": "SMTP -server",
+    "reason": "Replace Finnish SMTP/S3 prose with Veps. Zaiceva/Mullonen (2007), Uz’ venä-vepsläine vajehnik: область aloveh, номер nomer, поддержка tugi, опознать tundištada, связь ühtenzoituz, вводить veda. Native MediaWiki Veps attests server/serveran, adres, peituzavadim and kävuta; existing reviewed Veps uses email-kirjeižid, kaičuz, kaita, valičused. Preserve SMTP, TLS, SSL/TLS, AWS S3, MinIO and literal region code us-east-1. Use technical loan port for a network port, not dictionary valdmad (seaport), and repair malformed STMP acronym. Source: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Low confidence: network loan endpoint/port, composed credential/authentication terminology and case/verb grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "smtp-host-description",
+    "before": "SMTP-palvelimen osoite jolla sähköpostit lähetetään.",
+    "after": "SMTP -serveran adres, kudamb oigendab sinun email-kirjeižid.",
+    "reason": "Replace Finnish SMTP/S3 prose with Veps. Zaiceva/Mullonen (2007), Uz’ venä-vepsläine vajehnik: область aloveh, номер nomer, поддержка tugi, опознать tundištada, связь ühtenzoituz, вводить veda. Native MediaWiki Veps attests server/serveran, adres, peituzavadim and kävuta; existing reviewed Veps uses email-kirjeižid, kaičuz, kaita, valičused. Preserve SMTP, TLS, SSL/TLS, AWS S3, MinIO and literal region code us-east-1. Use technical loan port for a network port, not dictionary valdmad (seaport), and repair malformed STMP acronym. Source: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Low confidence: network loan endpoint/port, composed credential/authentication terminology and case/verb grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "smtp-port",
+    "before": "SMTP-portti",
+    "after": "SMTP -port",
+    "reason": "Replace Finnish SMTP/S3 prose with Veps. Zaiceva/Mullonen (2007), Uz’ venä-vepsläine vajehnik: область aloveh, номер nomer, поддержка tugi, опознать tundištada, связь ühtenzoituz, вводить veda. Native MediaWiki Veps attests server/serveran, adres, peituzavadim and kävuta; existing reviewed Veps uses email-kirjeižid, kaičuz, kaita, valičused. Preserve SMTP, TLS, SSL/TLS, AWS S3, MinIO and literal region code us-east-1. Use technical loan port for a network port, not dictionary valdmad (seaport), and repair malformed STMP acronym. Source: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Low confidence: network loan endpoint/port, composed credential/authentication terminology and case/verb grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "smtp-port-description",
+    "before": "STMP-palvelimesi käyttämä lähteville sähköposteille tarkoitettu portti.",
+    "after": "Port, kudambad sinun SMTP -server kävutab oigendatuid email-kirjeižiden täht.",
+    "reason": "Replace Finnish SMTP/S3 prose with Veps. Zaiceva/Mullonen (2007), Uz’ venä-vepsläine vajehnik: область aloveh, номер nomer, поддержка tugi, опознать tundištada, связь ühtenzoituz, вводить veda. Native MediaWiki Veps attests server/serveran, adres, peituzavadim and kävuta; existing reviewed Veps uses email-kirjeižid, kaičuz, kaita, valičused. Preserve SMTP, TLS, SSL/TLS, AWS S3, MinIO and literal region code us-east-1. Use technical loan port for a network port, not dictionary valdmad (seaport), and repair malformed STMP acronym. Source: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Low confidence: network loan endpoint/port, composed credential/authentication terminology and case/verb grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "smtp-tls",
+    "before": "TLS-tuki",
+    "after": "TLS -tugi",
+    "reason": "Replace Finnish SMTP/S3 prose with Veps. Zaiceva/Mullonen (2007), Uz’ venä-vepsläine vajehnik: область aloveh, номер nomer, поддержка tugi, опознать tundištada, связь ühtenzoituz, вводить veda. Native MediaWiki Veps attests server/serveran, adres, peituzavadim and kävuta; existing reviewed Veps uses email-kirjeižid, kaičuz, kaita, valičused. Preserve SMTP, TLS, SSL/TLS, AWS S3, MinIO and literal region code us-east-1. Use technical loan port for a network port, not dictionary valdmad (seaport), and repair malformed STMP acronym. Source: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Low confidence: network loan endpoint/port, composed credential/authentication terminology and case/verb grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "smtp-tls-description",
+    "before": "Ota käyttöön TLS-tuki SMTP-palvelimelle",
+    "after": "Kävuta TLS -tugi SMTP -serveran täht",
+    "reason": "Replace Finnish SMTP/S3 prose with Veps. Zaiceva/Mullonen (2007), Uz’ venä-vepsläine vajehnik: область aloveh, номер nomer, поддержка tugi, опознать tundištada, связь ühtenzoituz, вводить veda. Native MediaWiki Veps attests server/serveran, adres, peituzavadim and kävuta; existing reviewed Veps uses email-kirjeižid, kaičuz, kaita, valičused. Preserve SMTP, TLS, SSL/TLS, AWS S3, MinIO and literal region code us-east-1. Use technical loan port for a network port, not dictionary valdmad (seaport), and repair malformed STMP acronym. Source: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Low confidence: network loan endpoint/port, composed credential/authentication terminology and case/verb grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-minio-storage",
+    "before": "S3/MinIO tallennus",
+    "after": "S3/MinIO -kaičuz",
+    "reason": "Replace Finnish SMTP/S3 prose with Veps. Zaiceva/Mullonen (2007), Uz’ venä-vepsläine vajehnik: область aloveh, номер nomer, поддержка tugi, опознать tundištada, связь ühtenzoituz, вводить veda. Native MediaWiki Veps attests server/serveran, adres, peituzavadim and kävuta; existing reviewed Veps uses email-kirjeižid, kaičuz, kaita, valičused. Preserve SMTP, TLS, SSL/TLS, AWS S3, MinIO and literal region code us-east-1. Use technical loan port for a network port, not dictionary valdmad (seaport), and repair malformed STMP acronym. Source: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Low confidence: network loan endpoint/port, composed credential/authentication terminology and case/verb grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-port",
+    "before": "S3 portti",
+    "after": "S3 -port",
+    "reason": "Replace Finnish SMTP/S3 prose with Veps. Zaiceva/Mullonen (2007), Uz’ venä-vepsläine vajehnik: область aloveh, номер nomer, поддержка tugi, опознать tundištada, связь ühtenzoituz, вводить veda. Native MediaWiki Veps attests server/serveran, adres, peituzavadim and kävuta; existing reviewed Veps uses email-kirjeižid, kaičuz, kaita, valičused. Preserve SMTP, TLS, SSL/TLS, AWS S3, MinIO and literal region code us-east-1. Use technical loan port for a network port, not dictionary valdmad (seaport), and repair malformed STMP acronym. Source: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Low confidence: network loan endpoint/port, composed credential/authentication terminology and case/verb grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-port-description",
+    "before": "S3 päätepisteen porttinumero",
+    "after": "S3 -endpointan portan nomer",
+    "reason": "Replace Finnish SMTP/S3 prose with Veps. Zaiceva/Mullonen (2007), Uz’ venä-vepsläine vajehnik: область aloveh, номер nomer, поддержка tugi, опознать tundištada, связь ühtenzoituz, вводить veda. Native MediaWiki Veps attests server/serveran, adres, peituzavadim and kävuta; existing reviewed Veps uses email-kirjeižid, kaičuz, kaita, valičused. Preserve SMTP, TLS, SSL/TLS, AWS S3, MinIO and literal region code us-east-1. Use technical loan port for a network port, not dictionary valdmad (seaport), and repair malformed STMP acronym. Source: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Low confidence: network loan endpoint/port, composed credential/authentication terminology and case/verb grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-region",
+    "before": "S3 alue",
+    "after": "S3 -aloveh",
+    "reason": "Replace Finnish SMTP/S3 prose with Veps. Zaiceva/Mullonen (2007), Uz’ venä-vepsläine vajehnik: область aloveh, номер nomer, поддержка tugi, опознать tundištada, связь ühtenzoituz, вводить veda. Native MediaWiki Veps attests server/serveran, adres, peituzavadim and kävuta; existing reviewed Veps uses email-kirjeižid, kaičuz, kaita, valičused. Preserve SMTP, TLS, SSL/TLS, AWS S3, MinIO and literal region code us-east-1. Use technical loan port for a network port, not dictionary valdmad (seaport), and repair malformed STMP acronym. Source: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Low confidence: network loan endpoint/port, composed credential/authentication terminology and case/verb grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-region-description",
+    "before": "AWS S3 alue (esim. us-east-1)",
+    "after": "AWS S3 -aloveh (nä., us-east-1)",
+    "reason": "Replace Finnish SMTP/S3 prose with Veps. Zaiceva/Mullonen (2007), Uz’ venä-vepsläine vajehnik: область aloveh, номер nomer, поддержка tugi, опознать tundištada, связь ühtenzoituz, вводить veda. Native MediaWiki Veps attests server/serveran, adres, peituzavadim and kävuta; existing reviewed Veps uses email-kirjeižid, kaičuz, kaita, valičused. Preserve SMTP, TLS, SSL/TLS, AWS S3, MinIO and literal region code us-east-1. Use technical loan port for a network port, not dictionary valdmad (seaport), and repair malformed STMP acronym. Source: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Low confidence: network loan endpoint/port, composed credential/authentication terminology and case/verb grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-secret-key",
+    "before": "S3 salainen avain",
+    "after": "S3 -peituzavadim",
+    "reason": "Replace Finnish SMTP/S3 prose with Veps. Zaiceva/Mullonen (2007), Uz’ venä-vepsläine vajehnik: область aloveh, номер nomer, поддержка tugi, опознать tundištada, связь ühtenzoituz, вводить veda. Native MediaWiki Veps attests server/serveran, adres, peituzavadim and kävuta; existing reviewed Veps uses email-kirjeižid, kaičuz, kaita, valičused. Preserve SMTP, TLS, SSL/TLS, AWS S3, MinIO and literal region code us-east-1. Use technical loan port for a network port, not dictionary valdmad (seaport), and repair malformed STMP acronym. Source: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Low confidence: network loan endpoint/port, composed credential/authentication terminology and case/verb grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-secret-key-description",
+    "before": "AWS S3 salainen avain tunnistautumiseen",
+    "after": "AWS S3 -peituzavadim ičen tundištamižen täht",
+    "reason": "Replace Finnish SMTP/S3 prose with Veps. Zaiceva/Mullonen (2007), Uz’ venä-vepsläine vajehnik: область aloveh, номер nomer, поддержка tugi, опознать tundištada, связь ühtenzoituz, вводить veda. Native MediaWiki Veps attests server/serveran, adres, peituzavadim and kävuta; existing reviewed Veps uses email-kirjeižid, kaičuz, kaita, valičused. Preserve SMTP, TLS, SSL/TLS, AWS S3, MinIO and literal region code us-east-1. Use technical loan port for a network port, not dictionary valdmad (seaport), and repair malformed STMP acronym. Source: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Low confidence: network loan endpoint/port, composed credential/authentication terminology and case/verb grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-secret-key-placeholder",
+    "before": "Syötä S3 salainen avain",
+    "after": "Vede S3 -peituzavadim",
+    "reason": "Replace Finnish SMTP/S3 prose with Veps. Zaiceva/Mullonen (2007), Uz’ venä-vepsläine vajehnik: область aloveh, номер nomer, поддержка tugi, опознать tundištada, связь ühtenzoituz, вводить veda. Native MediaWiki Veps attests server/serveran, adres, peituzavadim and kävuta; existing reviewed Veps uses email-kirjeižid, kaičuz, kaita, valičused. Preserve SMTP, TLS, SSL/TLS, AWS S3, MinIO and literal region code us-east-1. Use technical loan port for a network port, not dictionary valdmad (seaport), and repair malformed STMP acronym. Source: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Low confidence: network loan endpoint/port, composed credential/authentication terminology and case/verb grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-ssl-enabled",
+    "before": "S3 SSL käytössä",
+    "after": "S3 SSL kävutuses",
+    "reason": "Replace Finnish SMTP/S3 prose with Veps. Zaiceva/Mullonen (2007), Uz’ venä-vepsläine vajehnik: область aloveh, номер nomer, поддержка tugi, опознать tundištada, связь ühtenzoituz, вводить veda. Native MediaWiki Veps attests server/serveran, adres, peituzavadim and kävuta; existing reviewed Veps uses email-kirjeižid, kaičuz, kaita, valičused. Preserve SMTP, TLS, SSL/TLS, AWS S3, MinIO and literal region code us-east-1. Use technical loan port for a network port, not dictionary valdmad (seaport), and repair malformed STMP acronym. Source: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Low confidence: network loan endpoint/port, composed credential/authentication terminology and case/verb grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-ssl-enabled-description",
+    "before": "Käytä SSL/TLS:ää S3 yhteyksille",
+    "after": "Kävuta SSL/TLS S3 -ühtenzoitusten täht",
+    "reason": "Replace Finnish SMTP/S3 prose with Veps. Zaiceva/Mullonen (2007), Uz’ venä-vepsläine vajehnik: область aloveh, номер nomer, поддержка tugi, опознать tundištada, связь ühtenzoituz, вводить veda. Native MediaWiki Veps attests server/serveran, adres, peituzavadim and kävuta; existing reviewed Veps uses email-kirjeižid, kaičuz, kaita, valičused. Preserve SMTP, TLS, SSL/TLS, AWS S3, MinIO and literal region code us-east-1. Use technical loan port for a network port, not dictionary valdmad (seaport), and repair malformed STMP acronym. Source: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Low confidence: network loan endpoint/port, composed credential/authentication terminology and case/verb grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "save-s3-settings",
+    "before": "Tallenna S3 asetukset",
+    "after": "Kaita S3 -valičused",
+    "reason": "Replace Finnish SMTP/S3 prose with Veps. Zaiceva/Mullonen (2007), Uz’ venä-vepsläine vajehnik: область aloveh, номер nomer, поддержка tugi, опознать tundištada, связь ühtenzoituz, вводить veda. Native MediaWiki Veps attests server/serveran, adres, peituzavadim and kävuta; existing reviewed Veps uses email-kirjeižid, kaičuz, kaita, valičused. Preserve SMTP, TLS, SSL/TLS, AWS S3, MinIO and literal region code us-east-1. Use technical loan port for a network port, not dictionary valdmad (seaport), and repair malformed STMP acronym. Source: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Low confidence: network loan endpoint/port, composed credential/authentication terminology and case/verb grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "test-s3-connection",
+    "before": "Testaa S3 yhteys",
+    "after": "Testirui S3 -ühtenzoitust",
+    "reason": "Replace Finnish SMTP/S3 prose with Veps. Zaiceva/Mullonen (2007), Uz’ venä-vepsläine vajehnik: область aloveh, номер nomer, поддержка tugi, опознать tundištada, связь ühtenzoituz, вводить veda. Native MediaWiki Veps attests server/serveran, adres, peituzavadim and kävuta; existing reviewed Veps uses email-kirjeižid, kaičuz, kaita, valičused. Preserve SMTP, TLS, SSL/TLS, AWS S3, MinIO and literal region code us-east-1. Use technical loan port for a network port, not dictionary valdmad (seaport), and repair malformed STMP acronym. Source: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Low confidence: network loan endpoint/port, composed credential/authentication terminology and case/verb grammar need fluent review."
   }
 ]
