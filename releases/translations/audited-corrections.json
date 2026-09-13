@@ -83830,5 +83830,54 @@
     "before": "Japanese",
     "after": "Kalendaryo han Hapon",
     "reason": "Registry declares Waray-Waray, not Walloon. Replace Turkish/English calendar labels with Waray framing, preserving Dangi/Amete Alem/Umm al-Qura/Minguo proper names and Hijri/Ethiopian/Japanese meanings. Complete grammar remains low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "Cube-Grid",
+    "before": "Icône d'attente cube filaire",
+    "after": "Nagtutuyok nga tigaman ha paghulat nga Cube-Grid",
+    "reason": "Replace French with Waray (registry-declared language); retain named waiting spinner styles, MongoDB storage meaning, Node heap option does_zap_garbage and OS running duration. Technical noun phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "Double-Bounce",
+    "before": "Icône d'attente double rebond",
+    "after": "Nagtutuyok nga tigaman ha paghulat nga Double Bounce",
+    "reason": "Replace French with Waray (registry-declared language); retain named waiting spinner styles, MongoDB storage meaning, Node heap option does_zap_garbage and OS running duration. Technical noun phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "Rotateplane",
+    "before": "Icône d'attente plan rotatif",
+    "after": "Nagtutuyok nga tigaman ha paghulat nga Rotateplane",
+    "reason": "Replace French with Waray (registry-declared language); retain named waiting spinner styles, MongoDB storage meaning, Node heap option does_zap_garbage and OS running duration. Technical noun phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "Scaleout",
+    "before": "Icône d'attente mise à l'échelle",
+    "after": "Nagtutuyok nga tigaman ha paghulat nga Scaleout",
+    "reason": "Replace French with Waray (registry-declared language); retain named waiting spinner styles, MongoDB storage meaning, Node heap option does_zap_garbage and OS running duration. Technical noun phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "MongoDB_storage_engine",
+    "before": "Moteur de stockage MongoDB",
+    "after": "Sistema han pagtipig han MongoDB",
+    "reason": "Replace French with Waray (registry-declared language); retain named waiting spinner styles, MongoDB storage meaning, Node heap option does_zap_garbage and OS running duration. Technical noun phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Tas de Node : Utilise l'option does_zap_garbage",
+    "after": "Heap han Node: ginagamit an opsyon nga does_zap_garbage",
+    "reason": "Replace French with Waray (registry-declared language); retain named waiting spinner styles, MongoDB storage meaning, Node heap option does_zap_garbage and OS running duration. Technical noun phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "OS_Uptime",
+    "before": "OS Durée de fonctionnement",
+    "after": "Kadugayon han pagdalagan han OS",
+    "reason": "Replace French with Waray (registry-declared language); retain named waiting spinner styles, MongoDB storage meaning, Node heap option does_zap_garbage and OS running duration. Technical noun phrasing and full grammar remain low confidence."
   }
 ]
