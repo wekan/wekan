@@ -50482,5 +50482,54 @@
     "before": "Continuando, accetti il nostro",
     "after": "Cuntinuendu, accetti a nostra",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "accessibility-content",
+    "before": "Contenuti di accessibilità",
+    "after": "Cuntenutu d’accessibilità",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "accessibility-page-enabled",
+    "before": "Pagina accessibilità abilitata",
+    "after": "Pagina d’accessibilità attivata",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "account-created",
+    "before": "Account creato! Ora puoi accedere.",
+    "after": "Contu creatu! Avà ti poi cunnettà.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "account-creation-failed",
+    "before": "Impossibile creare l'account",
+    "after": "Ùn hè statu pussibule di creà u contu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "account-locked",
+    "before": "L'account è temporaneamente bloccato a causa di troppi tentativi di accesso falliti. Riprova più tardi.",
+    "after": "U contu hè bluccatu tempuraneamente per via di troppu tentativi di cunnessione fiascati. Pruvate torna più tardi.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "accounts-lockout-failure-window",
+    "before": "Finestra di errore (secondi)",
+    "after": "Intervallu di i fiaschi (seconde)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "accounts-lockout-failures-before",
+    "before": "Fallimenti prima del blocco",
+    "after": "Fiaschi prima di u bloccu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
