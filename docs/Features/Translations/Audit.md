@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,158 |
+| Corrected | 12,169 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,688 |
+| Pending review or repair | 3,677 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,614** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,625** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `267cf60c5cff2c9de5e2687b8b79b2098466d912` — five French filter-interface strings repaired in Volapük using existing terminology and [Midgley vocabulary](https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf). Preserved card/list selection, filter criteria, active-filter editing and sidebar visibility; sidebar compound and assembled wording remain low confidence.
+Latest translation fix: **2026-09-13**, local commit `9c34b50dfa9a80dcdc35b93a4b3194ca6d942121` — eleven French menu/account/filter/label strings repaired in Volapük using existing terminology and [Midgley vocabulary](https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf). Preserved sidebar distinctions, checked state, label-text visibility, permissions, warnings and placeholder; sidebar compound and assembled wording remain low confidence.
 
 **Verification:** exact values, placeholders, JSON examples, key order and progress-update checks pass. Native-speaker and browser verification remain unavailable.
 
