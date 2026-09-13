@@ -52,4 +52,4 @@ mirror "codeberg" "git@codeberg.org:wekan/wekan"
 # SourceForge:
 # https://sourceforge.net/projects/wekan/
 # git clone ssh://wekan@git.code.sf.net/p/wekan/code wekan-sourceforge
-mirror "sourceforge" "wekan@git.code.sf.net/p/wekan/code"
+mirror "sourceforge" "ssh://wekan@git.code.sf.net/p/wekan/code"
