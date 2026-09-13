@@ -50657,5 +50657,61 @@
     "before": "I team aggiunti sono i seguenti:",
     "after": "E squadre aghjunte sò affissate quì sottu:",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "admin-announcement-active",
+    "before": "Attiva annunci di sistema",
+    "after": "Annunziu attivu per tuttu u sistema",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "admin-announcement-title",
+    "before": "Annunci dell'Amministratore",
+    "after": "Annunziu di l’amministratore",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "allBoardsChangeBackgroundImagePopup-title",
+    "before": "Modificare immagine di sfondo",
+    "after": "Cambià l’imagine di fondu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "almostdue",
+    "before": "la data di scadenza attuale %s si sta avvicinando",
+    "after": "A scadenza attuale %s s’avvicina",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "already-account",
+    "before": "Hai già un account? Accedi",
+    "after": "Ai digià un contu? Cunnettà si",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "api-no-calls",
+    "before": "Non è stata registrata alcuna chiamata REST API. L'API è disattivata a meno che WITH_API=true.",
+    "after": "Nisuna chjama REST API hè stata arregistrata. L’API hè disattivata à menu chì WITH_API=true.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-repair-running",
+    "before": "Ricerca e riparazione in corso…",
+    "after": "Ricerca è riparazione in corsu…",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "attachment-transfer-limits-invalid-value",
+    "before": "Inserisci un valore limite positivo valido",
+    "after": "Inserite un valore di limita pusitivu validu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
