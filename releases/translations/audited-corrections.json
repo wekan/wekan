@@ -79210,5 +79210,40 @@
     "before": "a quitté %s",
     "after": "génn %s",
     "reason": "Replace French short activity/comment messages with Wolof, reusing existing action terminology. Preserve %s count and argument order; remove erroneous literal 1 before renamed-list placeholder. Keep comment edit/delete, generic removal, sending, leaving and archival distinct. Full grammar and generic entity prepositions remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-receivedDate",
+    "before": "date de réception éditée de %s à %s",
+    "after": "soppi bisu jot bi mu nekk %s ci karta %s",
+    "reason": "Replace French date-change activity text with Wolof. Source template activities.jade passes date first and cardLink second; repair French wording that suggested old/new dates instead. Distinguish received/start/due/end and preserve old due time separately in rule activity. Reuse Bis and due-date terminology. Full grammar and received/end date adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-startDate",
+    "before": "date de début éditée de %s à %s",
+    "after": "soppi bisu tambali bi mu nekk %s ci karta %s",
+    "reason": "Replace French date-change activity text with Wolof. Source template activities.jade passes date first and cardLink second; repair French wording that suggested old/new dates instead. Distinguish received/start/due/end and preserve old due time separately in rule activity. Reuse Bis and due-date terminology. Full grammar and received/end date adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-dueDate",
+    "before": "date d'échéance éditée de %s à %s",
+    "after": "soppi bis bi ñu war a jeexal mu nekk %s ci karta %s",
+    "reason": "Replace French date-change activity text with Wolof. Source template activities.jade passes date first and cardLink second; repair French wording that suggested old/new dates instead. Distinguish received/start/due/end and preserve old due time separately in rule activity. Reuse Bis and due-date terminology. Full grammar and received/end date adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-endDate",
+    "before": "date de fin éditée de %s à %s",
+    "after": "soppi bisu jeex bi mu nekk %s ci karta %s",
+    "reason": "Replace French date-change activity text with Wolof. Source template activities.jade passes date first and cardLink second; repair French wording that suggested old/new dates instead. Distinguish received/start/due/end and preserve old due time separately in rule activity. Reuse Bis and due-date terminology. Full grammar and received/end date adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-a-dueAt",
+    "before": "Echéance modifiée à\nQuand: __timeValue__\nOù: __card__\n L'échéance précédente était __timeOldValue__",
+    "after": "soppi waxtu wi ñu war a jeexal mu nekk\nWaxtu: __timeValue__\nFan: __card__\nWaxtu wi ñu war a jeexal woon mooy __timeOldValue__",
+    "reason": "Replace French date-change activity text with Wolof. Source template activities.jade passes date first and cardLink second; repair French wording that suggested old/new dates instead. Distinguish received/start/due/end and preserve old due time separately in rule activity. Reuse Bis and due-date terminology. Full grammar and received/end date adaptations remain low confidence."
   }
 ]
