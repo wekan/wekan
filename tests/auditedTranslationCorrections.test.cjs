@@ -2046,5 +2046,23 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['export-card-field-board-info'], /Laud, Lugetiž, Ujundšoid/);
   assert.equal(cache['ve-PP']['newlineBecomesNewChecklistItemOriginOrder'], cache['ve-PP']['newlineBecomesNewChecklistItem'] + ', ezmäižes järgenduses');
   assert.match(cache['ve-PP']['newlineBecomesNewChecklistItem'], /Joga tekstan rivi.*ühteks.*kohtaks/);
+  const vepsBoardConfirmations = {
+  "allboards.delete-workspace-confirm": "Tahod-ik heitta necen tötilan?",
+  "duplicate-board": "Kopirui laud",
+  "duplicate-board-confirm": "Tahod-ik kopiruida necen laudan?",
+  "leave-board": "Lähte laudaspäi",
+  "leaveBoardPopup-title": "Lähtta laudaspäi?",
+  "leave-board-pop": "Tahod-ik lähtta laudaspäi __boardTitle__? Sinä linned heittud kaikiš necen laudan kartoišpäi.",
+  "export-card-excel-no-disk-space": "Ei voi tehta Excel-irdalevendad: diskal ei ole külläks joudajad tilad"
+};
+  for (const [key, value] of Object.entries(vepsBoardConfirmations)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.doesNotMatch(value, /Haluatko|Tee kaksoiskappale|Oletko varma|Jää pois|Poistu taululta|Sinut poistetaan|Vienti Exceliin|levytilaa/, key);
+    if (key !== 'leave-board-pop') assert.equal(vepsTranslator.t(key), value, key);
+  }
+  assert.equal(vepsTranslator.t('leave-board-pop', { boardTitle: 'BOARD_TITLE' }), 'Tahod-ik lähtta laudaspäi BOARD_TITLE? Sinä linned heittud kaikiš necen laudan kartoišpäi.');
+  assert.match(cache['ve-PP']['leave-board-pop'], /kaikiš necen laudan kartoišpäi/);
+  assert.match(cache['ve-PP']['export-card-excel-no-disk-space'], /^Ei voi.*diskal ei ole külläks/);
+  assert.match(cache['ve-PP']['duplicate-board-confirm'], /kopiruida.*laudan/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

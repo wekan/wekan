@@ -118704,5 +118704,54 @@
     "before": "Joka rivistä tulee yksi tarkistuslistan kohdista, alkuperäinen järjestys",
     "after": "Joga tekstan rivi linneb ühteks kodvindlugetišen kohtaks, ezmäižes järgenduses",
     "reason": "Replace Finnish export-field/checklist-line wording with Veps dictionary vali-ta, ižand, joga, rivi and existing kanban terms. Preserve distinct creator/owner/member/assignee roles, board/list/swimlane fields, one checklist item per line and original order. Composed technical inflection remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "allboards.delete-workspace-confirm",
+    "before": "Haluatko varmasti poistaa tämän työtilan?",
+    "after": "Tahod-ik heitta necen tötilan?",
+    "reason": "Replace Finnish board/workspace confirmations or disk-space warning with Veps dictionary lähtta, kopiruida, külläks and joudai. Preserve boardTitle placeholder, removal from every board card, duplication and insufficient available disk space. Composed technical inflection remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "duplicate-board",
+    "before": "Tee kaksoiskappale taulusta",
+    "after": "Kopirui laud",
+    "reason": "Replace Finnish board/workspace confirmations or disk-space warning with Veps dictionary lähtta, kopiruida, külläks and joudai. Preserve boardTitle placeholder, removal from every board card, duplication and insufficient available disk space. Composed technical inflection remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "duplicate-board-confirm",
+    "before": "Oletko varma että haluat monistaa tämän taulun?",
+    "after": "Tahod-ik kopiruida necen laudan?",
+    "reason": "Replace Finnish board/workspace confirmations or disk-space warning with Veps dictionary lähtta, kopiruida, külläks and joudai. Preserve boardTitle placeholder, removal from every board card, duplication and insufficient available disk space. Composed technical inflection remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "leave-board",
+    "before": "Jää pois taululta",
+    "after": "Lähte laudaspäi",
+    "reason": "Replace Finnish board/workspace confirmations or disk-space warning with Veps dictionary lähtta, kopiruida, külläks and joudai. Preserve boardTitle placeholder, removal from every board card, duplication and insufficient available disk space. Composed technical inflection remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "leaveBoardPopup-title",
+    "before": "Poistu taululta?",
+    "after": "Lähtta laudaspäi?",
+    "reason": "Replace Finnish board/workspace confirmations or disk-space warning with Veps dictionary lähtta, kopiruida, külläks and joudai. Preserve boardTitle placeholder, removal from every board card, duplication and insufficient available disk space. Composed technical inflection remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "leave-board-pop",
+    "before": "Haluatko varmasti poistua taululta __boardTitle__? Sinut poistetaan kaikista tämän taulun korteista.",
+    "after": "Tahod-ik lähtta laudaspäi __boardTitle__? Sinä linned heittud kaikiš necen laudan kartoišpäi.",
+    "reason": "Replace Finnish board/workspace confirmations or disk-space warning with Veps dictionary lähtta, kopiruida, külläks and joudai. Preserve boardTitle placeholder, removal from every board card, duplication and insufficient available disk space. Composed technical inflection remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "export-card-excel-no-disk-space",
+    "before": "Vienti Exceliin ei onnistu: levytilaa ei ole riittävästi",
+    "after": "Ei voi tehta Excel-irdalevendad: diskal ei ole külläks joudajad tilad",
+    "reason": "Replace Finnish board/workspace confirmations or disk-space warning with Veps dictionary lähtta, kopiruida, külläks and joudai. Preserve boardTitle placeholder, removal from every board card, duplication and insufficient available disk space. Composed technical inflection remains low confidence pending fluent review."
   }
 ]
