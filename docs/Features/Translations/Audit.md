@@ -30,6 +30,8 @@ Latest translation fix: **2026-09-14**, local commit `f0d42d57f` — localized t
 
 **Security interruption (2026-09-14):** `c1246d720` reviews both saved `.tools/wekansec20` alerts and hardens exact archive-host checks and shell-free mirror dispatch, including direct Windows Node execution. All 25 focused mirror test entries pass; native Windows and remote CodeQL rescanning remain unverified. Translation counts and remaining validation are unchanged.
 
+**Time view interruption (2026-09-14):** local commit `dc0855711` renders card titles through the shared Markdown/emoji viewer, respecting Admin Panel plain-text security mode. The report regression passes; both browser modes are added and syntax-checked, not run live. Translation counts remain unchanged.
+
 **Calendar interruption (2026-09-14):** local commit `ef12548a9` replaces the rejected FullCalendar 5 `isRTL` option with `direction` in both board calendars. Four focused calendar test entries pass, including RTL/LTR and negative legacy-option checks. Browser regressions are added and syntax-checked, not run live. Translation counts and remaining language validation are unchanged.
 
 **Build logging update (2026-09-14):** `5f8f22f8c` unifies build.sh/build.bat logger directories; `3fedee2b9` prints completion log paths and fixes read-only server manifests in local release preparation. Linux arm64 development and release builds and release startup smoke check pass; 13 targeted test entries pass. Native Windows execution was unavailable. Translation counts and remaining review work are unchanged; translation repairs remain unfinished.

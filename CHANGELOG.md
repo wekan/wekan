@@ -635,6 +635,20 @@ collection, checkpoint, menu and launcher tests pass; no live remote sync was ru
 
 </details>
 
+and improves the following Time view rendering:
+
+**Time view** - Security-aware card-title display.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dc0855711">Use the shared viewer for Time view card titles</a>. Thanks to xet7.</summary>
+
+Card titles now use the same Markdown and emoji viewer as other view fields.
+Admin Panel plain-text security mode still shows the raw title. Keep the
+overtime annotation separate. The Time report regression passes; normal
+and plain-text browser tests are added and syntax-checked, not run live.
+
+</details>
+
 and fixes the following calendar compatibility problem:
 
 **Calendars** - FullCalendar direction options.
