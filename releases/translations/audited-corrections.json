@@ -114714,5 +114714,278 @@
     "before": "Toimintailmoitus",
     "after": "Tegendoiden tedotuz",
     "reason": "Replace Finnish activity wording with Veps tegendad (native MediaWiki actions) and tedotuz (notification, Zaiceva/Mullonen 2007 Russian–Veps dictionary). Activity denotes the action stream; composed notification label has low-confidence inflection and needs fluent-speaker review. Sources: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-receivedDate",
+    "before": "muokkasi vastaanotettu päiväksi %s / %s",
+    "after": "Vajehtadud sadud päivmär: %s azjal %s",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-startDate",
+    "before": "muokkasi aloituspäiväksi %s / %s",
+    "after": "Vajehtadud augotišen päivmär: %s azjal %s",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-dueDate",
+    "before": "muokkasi eräpäiväksi %s / %s",
+    "after": "Vajehtadud märaigan päivmär: %s azjal %s",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity-endDate",
+    "before": "muokkasi loppumispäiväksi %s / %s",
+    "after": "Vajehtadud lopun päivmär: %s azjal %s",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-received",
+    "before": "Vastaanotettu",
+    "after": "Sadud",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-received-on",
+    "before": "Vastaanotettu",
+    "after": "Sadud",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-start",
+    "before": "Alkaa",
+    "after": "Augotiž",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-start-on",
+    "before": "Alkaa",
+    "after": "Augotiž",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-due",
+    "before": "Erääntyy",
+    "after": "Märaig",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-due-on",
+    "before": "Erääntyy",
+    "after": "Märaig",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-end",
+    "before": "Loppuu",
+    "after": "Lop",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-end-on",
+    "before": "Päättyy",
+    "after": "Lop",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "due-date",
+    "before": "Eräpäivä",
+    "after": "Märaigan päivmär",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "editCardReceivedDatePopup-title",
+    "before": "Vaihda vastaanottamispäivää",
+    "after": "Vajehta sadud päivmär",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "editCardStartDatePopup-title",
+    "before": "Muokkaa aloituspäivää",
+    "after": "Vajehta augotišen päivmär",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "editCardDueDatePopup-title",
+    "before": "Muokkaa eräpäivää",
+    "after": "Vajehta märaigan päivmär",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "editCardEndDatePopup-title",
+    "before": "Vaihda loppumispäivää",
+    "after": "Vajehta lopun päivmär",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-when-a-due-date-changed",
+    "before": "Erääntyy: ḓuvha ḽo shanduka",
+    "after": "Konz märaigan päivmär om pandud libo vajehtadud",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-when-a-start-date-changed",
+    "before": "Alkaa: ḓuvha ḽo shanduka",
+    "after": "Konz augotišen päivmär om pandud libo vajehtadud",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-when-a-end-date-changed",
+    "before": "Loppuu: ḓuvha ḽo shanduka",
+    "after": "Konz lopun päivmär om pandud libo vajehtadud",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-when-a-received-date-changed",
+    "before": "Vastaanotettu: ḓuvha ḽo shanduka",
+    "after": "Konz sadud päivmär om pandud libo vajehtadud",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-df-due-at",
+    "before": "erääntyy",
+    "after": "märaig",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-df-received-at",
+    "before": "vastaanotettu",
+    "after": "sadud",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-a-dueAt",
+    "before": "muokattu eräätymisaikaa \nMilloin: __timeValue__\nMissä: __card__\n edellinen erääntymisaika oli __timeOldValue__",
+    "after": "Vajehtadud märaig\nKonz: __timeValue__\nKus: __card__\nEdeline märaig: __timeOldValue__",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-a-endAt",
+    "before": "muokattu loppumisajaksi __timeValue__ alkuperäisestä (__timeOldValue__)",
+    "after": "Vajehtadud lopun aig: __timeValue__ (ende: __timeOldValue__)",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-a-receivedAt",
+    "before": "muutettu vastaanottamisajaksi __timeValue__ alkuperäisestä (__timeOldValue__)",
+    "after": "Vajehtadud sadud aig: __timeValue__ (ende: __timeOldValue__)",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-a-startAt",
+    "before": "muokattu aloitusajaksi  __timeValue__ alkuperäisestä (__timeOldValue__)",
+    "after": "Vajehtadud augotišen aig: __timeValue__ (ende: __timeOldValue__)",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "a-dueAt",
+    "before": "muutettu vastaanottamisajaksi",
+    "after": "vajehtadud märaig:",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "a-endAt",
+    "before": "muokattu loppumisajaksi",
+    "after": "vajehtadud lopun aig:",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "a-receivedAt",
+    "before": "muokattu vastaanottamisajaksi",
+    "after": "vajehtadud sadud aig:",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "a-startAt",
+    "before": "muokattu aloitusajaksi",
+    "after": "vajehtadud augotišen aig:",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "almostdue",
+    "before": "nykyinen eräaika %s lähestyy",
+    "after": "nügüdläine märaig %s läheneb",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "pastdue",
+    "before": "nykyinen eräaika %s on mennyt",
+    "after": "nügüdläine märaig %s om männu",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "duenow",
+    "before": "nykyinen eräaika %s on tänään",
+    "after": "nügüdläine märaig %s om tämbei",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-newDue",
+    "before": "__list__/__card__ on 1. erääntymismuistutus [__board__]",
+    "after": "__list__/__card__: ezmäine märaigan johtutez [__board__]",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-withDue",
+    "before": "__list__/__card__ erääntymismuistutukset [__board__]",
+    "after": "__list__/__card__: märaigan johtutesed [__board__]",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-almostdue",
+    "before": "muistutti nykyisen eräajan (__timeValue__) kortilla __card__ lähestyvän",
+    "after": "Johtuti: kartan __card__ nügüdläine märaig (__timeValue__) läheneb",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-pastdue",
+    "before": "muistutti nykyisen eräajan (__timeValue__) kortilla __card__ menneen",
+    "after": "Johtuti: kartan __card__ nügüdläine märaig (__timeValue__) om männu",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-duenow",
+    "before": "muistutti nykyisen eräajan (__timeValue__) kortilla __card__ olevan nyt",
+    "after": "Johtuti: kartan __card__ nügüdläine märaig (__timeValue__) om nügüd'",
+    "reason": "Replace Finnish or Finnish/Venda date wording with Veps dictionary märaig (deadline), aig (time), augotiž (beginning), lop (end), johtutez (reminder), läheneda (approach), männu (past), tämbei (today), nügüdläine (current) and native MediaWiki sadud (received). Preserve distinct received/start/due/end semantics, old/new times, reminder states and exact placeholders. Composed UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
   }
 ]

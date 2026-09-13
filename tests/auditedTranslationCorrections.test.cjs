@@ -785,6 +785,67 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(cache['ve-PP']['activity-checklist-completed-card'], cache['ve-PP']['act-completeChecklist']);
   assert.match(vepsTranslator.t('activity-checklist-uncompleted', { sprintf: ['CHECKLIST', 'CARD'] }), /CHECKLIST om märitadud kut lopmatoi azjal CARD/);
   assert.match(cache['ve-PP']['r-w-label-added'], /^Mitte taht znam/);
+  const vepsDateActivityRepairs = {
+  "activity-receivedDate": "Vajehtadud sadud päivmär: %s azjal %s",
+  "activity-startDate": "Vajehtadud augotišen päivmär: %s azjal %s",
+  "activity-dueDate": "Vajehtadud märaigan päivmär: %s azjal %s",
+  "activity-endDate": "Vajehtadud lopun päivmär: %s azjal %s",
+  "card-received": "Sadud",
+  "card-received-on": "Sadud",
+  "card-start": "Augotiž",
+  "card-start-on": "Augotiž",
+  "card-due": "Märaig",
+  "card-due-on": "Märaig",
+  "card-end": "Lop",
+  "card-end-on": "Lop",
+  "due-date": "Märaigan päivmär",
+  "editCardReceivedDatePopup-title": "Vajehta sadud päivmär",
+  "editCardStartDatePopup-title": "Vajehta augotišen päivmär",
+  "editCardDueDatePopup-title": "Vajehta märaigan päivmär",
+  "editCardEndDatePopup-title": "Vajehta lopun päivmär",
+  "r-when-a-due-date-changed": "Konz märaigan päivmär om pandud libo vajehtadud",
+  "r-when-a-start-date-changed": "Konz augotišen päivmär om pandud libo vajehtadud",
+  "r-when-a-end-date-changed": "Konz lopun päivmär om pandud libo vajehtadud",
+  "r-when-a-received-date-changed": "Konz sadud päivmär om pandud libo vajehtadud",
+  "r-df-due-at": "märaig",
+  "r-df-received-at": "sadud",
+  "act-a-dueAt": "Vajehtadud märaig\nKonz: __timeValue__\nKus: __card__\nEdeline märaig: __timeOldValue__",
+  "act-a-endAt": "Vajehtadud lopun aig: __timeValue__ (ende: __timeOldValue__)",
+  "act-a-receivedAt": "Vajehtadud sadud aig: __timeValue__ (ende: __timeOldValue__)",
+  "act-a-startAt": "Vajehtadud augotišen aig: __timeValue__ (ende: __timeOldValue__)",
+  "a-dueAt": "vajehtadud märaig:",
+  "a-endAt": "vajehtadud lopun aig:",
+  "a-receivedAt": "vajehtadud sadud aig:",
+  "a-startAt": "vajehtadud augotišen aig:",
+  "almostdue": "nügüdläine märaig %s läheneb",
+  "pastdue": "nügüdläine märaig %s om männu",
+  "duenow": "nügüdläine märaig %s om tämbei",
+  "act-newDue": "__list__/__card__: ezmäine märaigan johtutez [__board__]",
+  "act-withDue": "__list__/__card__: märaigan johtutesed [__board__]",
+  "act-almostdue": "Johtuti: kartan __card__ nügüdläine märaig (__timeValue__) läheneb",
+  "act-pastdue": "Johtuti: kartan __card__ nügüdläine märaig (__timeValue__) om männu",
+  "act-duenow": "Johtuti: kartan __card__ nügüdläine märaig (__timeValue__) om nügüd'"
+};
+  const dateSlots = { ...activitySlots, timeValue: 'NEW_TIME', timeOldValue: 'OLD_TIME' };
+  for (const [key, value] of Object.entries(vepsDateActivityRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key, dateSlots), value.replace(/__([A-Za-z]+)__/g, (_, name) => dateSlots[name]), key);
+    assert.doesNotMatch(value, /muokkasi|vastaanott|aloitus|loppumis|eräpäiv|eräänt|Alkaa|Loppuu|Päättyy|muokattu|muutettu|alkuperäisestä|Milloin|Missä|edellinen|nykyinen|lähestyy|on mennyt|on tänään|muistutt|ḽo|ḓuvha|shanduka/i, key);
+  }
+  for (const [kind, noun] of [['received', 'sadud'], ['start', 'augotišen'], ['due', 'märaigan'], ['end', 'lopun']]) {
+    assert.equal(vepsTranslator.t(`activity-${kind}Date`, { sprintf: ['DATE', 'CARD'] }), `Vajehtadud ${noun} päivmär: DATE azjal CARD`);
+    assert.match(cache['ve-PP'][`r-when-a-${kind}-date-changed`], /om pandud libo vajehtadud$/);
+  }
+  assert.equal(vepsTranslator.t('act-a-dueAt', dateSlots), 'Vajehtadud märaig\nKonz: NEW_TIME\nKus: CARD\nEdeline märaig: OLD_TIME');
+  assert.match(vepsTranslator.t('act-a-startAt', dateSlots), /augotišen aig: NEW_TIME \(ende: OLD_TIME\)$/);
+  assert.match(vepsTranslator.t('act-a-endAt', dateSlots), /lopun aig: NEW_TIME \(ende: OLD_TIME\)$/);
+  assert.match(vepsTranslator.t('act-a-receivedAt', dateSlots), /sadud aig: NEW_TIME \(ende: OLD_TIME\)$/);
+  assert.match(vepsTranslator.t('act-almostdue', dateSlots), /läheneb$/);
+  assert.match(vepsTranslator.t('act-pastdue', dateSlots), /om männu$/);
+  assert.match(vepsTranslator.t('act-duenow', dateSlots), /om nügüd'$/);
+  assert.match(vepsTranslator.t('duenow', { sprintf: ['TIME'] }), /TIME om tämbei$/);
+  assert.match(vepsTranslator.t('act-newDue', dateSlots), /ezmäine märaigan johtutez/);
+  assert.notEqual(cache['ve-PP']['a-dueAt'], cache['ve-PP']['a-receivedAt']);
   assert.equal(vepsTranslator.t('activity'), 'Tegendad');
   assert.equal(vepsTranslator.t('act-activity-notify'), 'Tegendoiden tedotuz');
   for (const key of ['activity', 'act-activity-notify']) {
