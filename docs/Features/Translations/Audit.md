@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,116 |
+| Corrected | 12,120 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,730 |
+| Pending review or repair | 3,726 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,567** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,573** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `98d69b5ad5cd7b3d8bccfb161baae4784f17a909` — seven French login-protection labels repaired in Volapük using existing terminology and [Midgley vocabulary](https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf). Preserved known/unknown-user distinctions, failure ordering and unlock scope; assembled wording remains low confidence.
+Latest translation fix: **2026-09-13**, local commit `fa798e56dbdc68c7a9c73f31d8338de704cbdeb1` — six French/Esperanto login and lockout strings repaired in Volapük using [MediaWiki login terminology](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) and [Midgley vocabulary](https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf). Preserved temporary lock, failed-attempt cause, later retry and seconds units; failure-window phrasing and assembled grammar remain low confidence.
 
 **Verification:** exact values, placeholders, JSON examples, key order and progress-update checks pass. Native-speaker and browser verification remain unavailable.
 
