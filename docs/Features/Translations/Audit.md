@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,432 |
+| Corrected | 12,438 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,414 |
+| Pending review or repair | 3,408 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,981** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,990** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `c370b985ef28e3441c8ced4a3d3202ac8660edc7` — five Volapük automatic-width, avatar-size and reconnect strings repaired. Opposite control states/actions and the size upper bound preserved; assembled wording remains low confidence.
+Latest translation fix: **2026-09-13**, local commit `2cf52d6f29ca79e03f631315a1970565eeb71644` — seven Volapük date-popup titles and two email strings repaired. Date distinctions, invitation placeholder and sender/recipient roles preserved; assembled wording remains low confidence.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
