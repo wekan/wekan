@@ -90067,5 +90067,47 @@
     "before": "Vous pouvez restaurer le tableau en cliquant sur le bouton « Archives » depuis le menu en entête.",
     "after": "Okanol sädunön ragivami taba me klikön su «Topätükön lü ragiv» in tiäd pada primik.",
     "reason": "Repair audited French board access/membership, invitation email, dropdown and archive navigation messages in Volapük. Preserve required member/admin roles, login error, leave/all-card removal, duplication confirmation, Enter/add-more action, invitation placeholders/newlines and current localized menu/archive controls. Existing Volapük terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf (vüdön invite, kevobön cooperate, sökön follow, lüvön leave, guvan administrator). Archive-header/control and assembled software wording remain low confidence; no native-speaker/browser verification."
+  },
+  {
+    "locale": "vo",
+    "key": "cardType-linkedCard",
+    "before": "Carte liée",
+    "after": "Kad peyümöl",
+    "reason": "Replace French or malformed linked-card/subtask and custom-translation wording with Volapük; Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests yümön (connect), bligäd (task), tradutod (translated text), radön (erase). cardDetails.js appends linkedId to the card-warning fragment; listHeader.js requires deleting links to cards in this list first. Preserve blocking order and confirmation/no-undo meaning. Derived donabligäd and assembled software phrases remain low confidence; native review outstanding."
+  },
+  {
+    "locale": "vo",
+    "key": "cardType-linkedBoard",
+    "before": "Tableau lié",
+    "after": "Tab peyümöl",
+    "reason": "Replace French or malformed linked-card/subtask and custom-translation wording with Volapük; Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests yümön (connect), bligäd (task), tradutod (translated text), radön (erase). cardDetails.js appends linkedId to the card-warning fragment; listHeader.js requires deleting links to cards in this list first. Preserve blocking order and confirmation/no-undo meaning. Derived donabligäd and assembled software phrases remain low confidence; native review outstanding."
+  },
+  {
+    "locale": "vo",
+    "key": "checklistItem-linked-subtask",
+    "before": "Subplän lin",
+    "after": "Donabligäd peyümöl",
+    "reason": "Replace French or malformed linked-card/subtask and custom-translation wording with Volapük; Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests yümön (connect), bligäd (task), tradutod (translated text), radön (erase). cardDetails.js appends linkedId to the card-warning fragment; listHeader.js requires deleting links to cards in this list first. Preserve blocking order and confirmation/no-undo meaning. Derived donabligäd and assembled software phrases remain low confidence; native review outstanding."
+  },
+  {
+    "locale": "vo",
+    "key": "delete-linked-card-before-this-card",
+    "before": "Vous ne pouvez pas supprimer cette carte avant d'avoir d'abord supprimé la carte liée qui a",
+    "after": "No kanol radön kadi at bü radön balido kadi peyümöl, kel labon",
+    "reason": "Replace French or malformed linked-card/subtask and custom-translation wording with Volapük; Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests yümön (connect), bligäd (task), tradutod (translated text), radön (erase). cardDetails.js appends linkedId to the card-warning fragment; listHeader.js requires deleting links to cards in this list first. Preserve blocking order and confirmation/no-undo meaning. Derived donabligäd and assembled software phrases remain low confidence; native review outstanding."
+  },
+  {
+    "locale": "vo",
+    "key": "delete-linked-cards-before-this-list",
+    "before": "Vous ne pouvez pas supprimer cette liste avant d'avoir d'abord supprimé les cartes liées qui pointent vers des cartes de cette liste",
+    "after": "No kanol radön lisedi at bü radön balido kadis peyümöl ko kads in lised at",
+    "reason": "Replace French or malformed linked-card/subtask and custom-translation wording with Volapük; Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests yümön (connect), bligäd (task), tradutod (translated text), radön (erase). cardDetails.js appends linkedId to the card-warning fragment; listHeader.js requires deleting links to cards in this list first. Preserve blocking order and confirmation/no-undo meaning. Derived donabligäd and assembled software phrases remain low confidence; native review outstanding."
+  },
+  {
+    "locale": "vo",
+    "key": "delete-translation-confirm-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer cette traduction personnalisée ? Cela est irréversible.",
+    "after": "Fümol-li, das vilol radön vödemi tradutoda lönik at? Sädunam binon nemögik.",
+    "reason": "Replace French or malformed linked-card/subtask and custom-translation wording with Volapük; Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests yümön (connect), bligäd (task), tradutod (translated text), radön (erase). cardDetails.js appends linkedId to the card-warning fragment; listHeader.js requires deleting links to cards in this list first. Preserve blocking order and confirmation/no-undo meaning. Derived donabligäd and assembled software phrases remain low confidence; native review outstanding."
   }
 ]
