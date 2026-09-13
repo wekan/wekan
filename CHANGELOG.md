@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 14,590 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 1,254 pending review or repair.
-The correction inventory records 16,277 exact before/after values,
+findings: 14,593 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 1,251 pending review or repair.
+The correction inventory records 16,287 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original finding queues remain in Veps (513) and Standard Moroccan
+The largest original finding queues remain in Veps (510) and Standard Moroccan
 Tamazight (595). Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -1098,6 +1098,20 @@ and updates the test dependency:
 and updates maintainer tooling:
 
 **Maintenance scripts** - explicit translation uploads and repository mirrors.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0cef80395">Repair Veps migration limits and log translations</a>. Thanks to xet7.</summary>
+
+Replace 10 Finnish settings values with dictionary-backed Veps, resolving three
+original findings. Preserve attachment batch counts, CPU percentage pause
+thresholds, millisecond delays and numeric ranges 1-100, 10-90 and 100-10000.
+Exact correction, source token, key-order, range and actual i18next rendering
+regressions pass. Technical batch terminology, millisecond inflection and
+composed UI grammar need fluent review. Audit and TODO Later now record
+14,593 corrected findings, 1,251 pending and 16,287 exact repair records.
+Restored pre-pull values and broader language/rendering reviews remain pending.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/de2919013">Repair Veps migration controls and status translations</a>. Thanks to xet7.</summary>

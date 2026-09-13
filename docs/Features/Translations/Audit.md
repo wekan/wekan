@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 14,590 |
+| Corrected | 14,593 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 1,254 |
+| Pending review or repair | 1,251 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,277** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,287** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-13**, local commit `de2919013` — repaired **15** Finnish Veps migration controls/status values, resolving **seven** original findings. Preserve all-migration scope and distinguish pause, stop, start, resume, completion and failure outcomes; use the existing Veps migration term instead of physical file transfer. Dictionary and native MediaWiki evidence is recorded per key. All **16,277** correction records, placeholders, key order and actual i18next rendering checks pass. **Low confidence:** technical loan inflection and composed UI grammar need fluent review, alongside earlier authentication/network/list/storage/calendar/account wording. Veps has **513** pending original findings. Translation repairs continue; broader wrong-language/script and restored-value validation remain outstanding.
+Latest translation fix: **2026-09-13**, local commit `0cef80395` — repaired **10** Finnish Veps migration settings/log values, resolving **three** original findings. Preserve attachment batch counts, CPU percentage pause thresholds, millisecond delay and ranges `1-100`, `10-90`, `100-10000`. Dictionary and native MediaWiki evidence is recorded per key. All **16,287** correction records, placeholders, key order, numeric-range and actual i18next rendering checks pass. **Low confidence:** technical batch terminology, millisecond inflection and composed UI grammar need fluent review, alongside earlier migration/authentication/network/list/storage/calendar/account wording. Veps has **510** pending original findings. Translation repairs continue; broader wrong-language/script and restored-value validation remain outstanding.
 
 **Mirror interruption completed (2026-09-13):** local commit `02383540a` adds organization management, destination namespaces, host/organization/repository archives, linked comment attachments/webpage HTML, static HTML/CSV indexes and rate limits for all forges with tokenless public GitHub reads. Full Node verification: **1,014 suites, zero failures**; final targeted checks and Chromium/Firefox static checks pass. WebKit is unavailable locally (ICU 74/Docker). Translation repairs subsequently resumed; current counts and latest fix are above.
 
