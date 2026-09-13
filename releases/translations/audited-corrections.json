@@ -93588,5 +93588,40 @@
     "before": "Êtes-vous sûr de vouloir supprimer toutes les notifications ? Cette action est irréversible.",
     "after": "ghuHmoHmeH Hoch QInmey DaQaw' DaneHbej'a'? Qu'vam ta'lu'DI', ghu' wa'DIch cheghmoHlaH pagh.",
     "reason": "Replace German/French permanent-deletion warnings with Klingon. Preserve attachment deletion permanence and inability to restore the original state; label removal from every card and destruction of its history; loss of all actions on this card; and confirmation before deleting all notification messages. Reuse repaired attachment/label/card/notification terms and descriptive undo wording. Full software phrasing is assembled, low confidence, and needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "close-add-checklist-item",
+    "before": "Schließe Einen Eintrag zur Checkliste hinzufügen",
+    "after": "ghItlhHommey tetlhvaD ghItlhHom chelmeH nav yISoQmoH",
+    "reason": "Replace audited German checklist-form and multiple-card-window controls, plus missing-board error, with Klingon. Preserve add versus edit form closure, named board placeholder, simultaneous multiple-card opening, each clicked card retaining its own window, and closing the open window when the option is disabled. Reuse checklist/card/board terminology; software window Qorwagh and form nav are descriptive metaphors. Full phrases are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "close-edit-checklist-item",
+    "before": "Schließe Bearbeitung eines Checklisteneintrags",
+    "after": "ghItlhHommey tetlh ghItlhHom choHmeH nav yISoQmoH",
+    "reason": "Replace audited German checklist-form and multiple-card-window controls, plus missing-board error, with Klingon. Preserve add versus edit form closure, named board placeholder, simultaneous multiple-card opening, each clicked card retaining its own window, and closing the open window when the option is disabled. Reuse checklist/card/board terminology; software window Qorwagh and form nav are descriptive metaphors. Full phrases are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "board-title-not-found",
+    "before": "Board „%s“ nicht gefunden.",
+    "after": "'%s' raS tu'lu'be'.",
+    "reason": "Replace audited German checklist-form and multiple-card-window controls, plus missing-board error, with Klingon. Preserve add versus edit form closure, named board placeholder, simultaneous multiple-card opening, each clicked card retaining its own window, and closing the open window when the option is disabled. Reuse checklist/card/board terminology; software window Qorwagh and form nav are descriptive metaphors. Full phrases are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "open-many-cards-at-once",
+    "before": "Mehrere Karten gleichzeitig öffnen",
+    "after": "wa' poHDaq 'echletHom law' tIpoSmoH",
+    "reason": "Replace audited German checklist-form and multiple-card-window controls, plus missing-board error, with Klingon. Preserve add versus edit form closure, named board placeholder, simultaneous multiple-card opening, each clicked card retaining its own window, and closing the open window when the option is disabled. Reuse checklist/card/board terminology; software window Qorwagh and form nav are descriptive metaphors. Full phrases are assembled, low confidence, and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "open-many-cards-at-once-description",
+    "before": "Jede Karte, die Sie anklicken, bleibt in einem eigenen Fenster geöffnet. Ist dies ausgeschaltet, schließt ein Klick auf eine Karte die zuvor geöffnete.",
+    "after": "Hoch 'echletHom DaqIpDI', poStaH QorwaghDaj. DuHvam chu'Ha'lu'DI', 'echletHom DaqIpDI', Qorwagh poS SoQmoH WeKan.",
+    "reason": "Replace audited German checklist-form and multiple-card-window controls, plus missing-board error, with Klingon. Preserve add versus edit form closure, named board placeholder, simultaneous multiple-card opening, each clicked card retaining its own window, and closing the open window when the option is disabled. Reuse checklist/card/board terminology; software window Qorwagh and form nav are descriptive metaphors. Full phrases are assembled, low confidence, and require fluent-speaker validation."
   }
 ]
