@@ -58672,5 +58672,40 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "ዓውደ ኣዋርሕ ሂጅራ (ስዑዲ ዓረብ፣ ብምርኣይ ሃላል ወርሒ)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ks",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "جلالی کیلنڑَر (فارسی)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ks",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "قِبطی کیلنڑَر",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ks",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "دانگی کیلنڑَر (کوریاہُک)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ks",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "ایتھوپیاہُک امیتے عالم کیلنڑَر",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ks",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "ایتھوپیاہُک کیلنڑَر",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
