@@ -52,5 +52,6 @@ Colombian Spanish maps `es-CO.i18n.json` to Transifex `es_CO`; `es-CO`
 is not a supported Transifex code. The legacy `es_CO.i18n.json` file is an alias
 of that remote target. The explicit mapping selects `es-CO.i18n.json`, and the
 script reports the alias instead of uploading the same target twice. Both local
-files remain available; their nine differing values still require reconciliation.
+files remain available; all nine differences were reviewed, with three erroneous values repaired and
+seven valid wording alternatives retained.
 The offline dry run reports 244 distinct targets and the English source.
