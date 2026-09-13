@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,785 |
+| Corrected | 11,790 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,061 |
+| Pending review or repair | 4,056 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,164** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,169** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `25c237712b2d2fa7541425c85cfdc4132923ea3e` — 3 Northern Sotho labels repaired: Ethiopic, Amete Alem and Indian national calendar. Calendar vocabulary is attested; retained country spellings and assembled grammar remain low confidence after country lookups failed to establish native wording. Coptic and tabular epoch variants still need review. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `bb528d5528ea3a3fd26b728e5c1538a24eb441d1` — 5 Swati labels repaired: calendar setting, Dangi, Hijri/Umm al-Qura and Minguo. Existing local calendar/date terminology guides replacements; assembled grammar remains low confidence and searches did not establish native attestation. Other religious/country/calendar variants still need review. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
