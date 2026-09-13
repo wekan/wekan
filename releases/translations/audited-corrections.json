@@ -81660,5 +81660,54 @@
     "before": "Ce tableau est public. Il est accessible par toutes les personnes disposant du lien et apparaîtra dans les résultats des moteurs de recherche tels que Google. Seuls les membres peuvent le modifier.",
     "after": "Ñépp a man a gis tablo bii. Ku am lëkkalekaay bi man na ko gis, te dina feeñ ci jumtukaayi seet yu mel ni Google. Ñi ñu yokk ci tablo bi rekk a ko man a soppi.",
     "reason": "Replace French with Wolof; preserve invitation tokens and line breaks, public link/search visibility and member-only editing, private member-only viewing/editing. Greeting/thanks checked against https://jangawolof.org/essential-wolof-phrases-for-everyday-communication/; full grammar and invitation/link/search technical terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "board-drag-drop-reorder-or-click-open",
+    "before": "Glisser-déposer les icônes de tableau pour les réordonner. Cliquer sur l'icône du tableau pour l'ouvrir.",
+    "after": "Xëcc te bàyyi màndarga yi ci tablo yi ngir soppi seen toftal. Bësal màndarga bu tablo bi ngir ubbi tablo bi.",
+    "reason": "Replace French with Wolof using existing board/card/star/organization terminology; preserve literal search operators, argument examples and Markdown. Drag/drop, shortcut and domain technical phrasing and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "quick-access-description",
+    "before": "Ajouter un tableau à vos favoris pour créer un raccourci dans cette barre.",
+    "after": "Màndargaal tablo ak biddiiw ngir yokk yoonu gaaw ci rëdd wii.",
+    "reason": "Replace French with Wolof using existing board/card/star/organization terminology; preserve literal search operators, argument examples and Markdown. Drag/drop, shortcut and domain technical phrasing and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-status-private",
+    "before": "`__predicate_private__` - uniquement les cartes qui sont dans un tableau privé.",
+    "after": "`__predicate_private__` - karta yi nekk ci tablo yu sutura rekk",
+    "reason": "Replace French with Wolof using existing board/card/star/organization terminology; preserve literal search operators, argument examples and Markdown. Drag/drop, shortcut and domain technical phrasing and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-status-public",
+    "before": "`__predicate_public__` - uniquement les cartes qui sont dans un tableau public.",
+    "after": "`__predicate_public__` - karta yi nekk ci tablo yi ñépp man a gis rekk",
+    "reason": "Replace French with Wolof using existing board/card/star/organization terminology; preserve literal search operators, argument examples and Markdown. Drag/drop, shortcut and domain technical phrasing and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-operator-org",
+    "before": "`__operator_org__:<display name|short name>` - cartes appartenant à un tableau assigné à l'organisation *<name>*",
+    "after": "`__operator_org__:<display name|short name>` - karta yi nekk ci tablo bu ñu sas kureel *<name>*",
+    "reason": "Replace French with Wolof using existing board/card/star/organization terminology; preserve literal search operators, argument examples and Markdown. Drag/drop, shortcut and domain technical phrasing and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "autoAddUsersWithDomainName",
+    "before": "Ajouter automatiquement les utilisateurs avec le nom de domaine",
+    "after": "Yokk ci boppam jëfandikukat yi am turu domen bi",
+    "reason": "Replace French with Wolof using existing board/card/star/organization terminology; preserve literal search operators, argument examples and Markdown. Drag/drop, shortcut and domain technical phrasing and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "error-ldap-login",
+    "before": "Une erreur s'est produite lors de la tentative de connexion",
+    "after": "Am na njuumte bi ngay jéem a dugg",
+    "reason": "Replace French with Wolof using existing board/card/star/organization terminology; preserve literal search operators, argument examples and Markdown. Drag/drop, shortcut and domain technical phrasing and complete grammar remain low confidence."
   }
 ]
