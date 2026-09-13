@@ -83102,5 +83102,33 @@
     "before": "Voir les poignées de déplacement du bureau",
     "after": "Wone jàppukaay yi ngir xëcc ci doxinu ordineer",
     "reason": "Replace French with Wolof; preserve keyboard-shortcut enabled/disabled actions and list display, check versus uncheck all, mobile/desktop mode toggle and desktop dragging controls. Keyboard/handle loanwords and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "clipboard",
+    "before": "Presse-papier ou glisser-déposer",
+    "after": "Dencukaayu sotti walla xëcc te bàyyi",
+    "reason": "Replace French with Wolof; keep clipboard as temporary copy storage, copy link versus text actions, paste versus drag/drop and image-only restriction. Descriptive clipboard/paste technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "copy-card-link-to-clipboard",
+    "before": "Copier le lien de la carte dans le presse-papier",
+    "after": "Sotti lëkkalekaayu karta bi ci dencukaayu sotti",
+    "reason": "Replace French with Wolof; keep clipboard as temporary copy storage, copy link versus text actions, paste versus drag/drop and image-only restriction. Descriptive clipboard/paste technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "copy-text-to-clipboard",
+    "before": "Copier le texte dans le presse-papier",
+    "after": "Sotti mbind mi ci dencukaayu sotti",
+    "reason": "Replace French with Wolof; keep clipboard as temporary copy storage, copy link versus text actions, paste versus drag/drop and image-only restriction. Descriptive clipboard/paste technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "paste-or-dragdrop",
+    "before": "pour coller, ou glissez-déposez une image ici (seulement une image)",
+    "after": "ngir taf, walla xëcc te bàyyi fiise bu nataal ci moom (nataal rekk)",
+    "reason": "Replace French with Wolof; keep clipboard as temporary copy storage, copy link versus text actions, paste versus drag/drop and image-only restriction. Descriptive clipboard/paste technical terminology and full grammar remain low confidence."
   }
 ]
