@@ -49089,5 +49089,89 @@
     "before": "Credenziali dell'cont di servizio (JSON)",
     "after": "Datas d’access dal cont da servetsch (JSON)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "gcs-key-filename-description",
+    "before": "Facoltativo: troi di un file di chiave JSON dell'cont di servizio sul server.",
+    "after": "Opziunal: via ad ina datoteca da clav JSON dal cont da servetsch sin il server.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "globalSearch-instructions-notes-1",
+    "before": "È possibile specificare più operatori.",
+    "after": "I pon vegnir inditgads plirs operaturs.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<username>` - ciartes dove *<username>* ie un *assegnatario*",
+    "after": "`__operator_assignee__:<username>` - cartas nua che *<username>* è ina *persuna responsabla*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "globalSearch-instructions-operator-comment",
+    "before": "`__operator_comment__:<text>` - ciartes cun comenc contenenti *<text>*.",
+    "after": "`__operator_comment__:<text>` - cartas cun in commentari che cuntegna *<text>*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "globalSearch-instructions-operator-created",
+    "before": "`__operator_created__:<n>` - ciartes create *<n>* dis fa o prima",
+    "after": "`__operator_created__:<n>` - cartas ch’èn vegnidas creadas avant *<n>* dis u pli pauc",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "globalSearch-instructions-operator-hash",
+    "before": "`__operator_label_abbrev__<name|color>` - abbreviazion di `__operator_label__:<color>` o `__operator_label__:<name>`",
+    "after": "`__operator_label_abbrev__<name|color>` - abreviaziun per `__operator_label__:<color>` u `__operator_label__:<name>`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "globalSearch-instructions-operator-label",
+    "before": "`__operator_label__:<color>` `__operator_label__:<name>` - ciartes aventi un'eticheta corrispondente a *<color>* o *<name>*",
+    "after": "`__operator_label__:<color>` `__operator_label__:<name>` - cartas cun in’etichetta che correspunda a *<color>* u *<name>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "globalSearch-instructions-operator-list",
+    "before": "`__operator_list__:<title>` - ciartes nelle liste corrispondenti a *<title>*",
+    "after": "`__operator_list__:<title>` - cartas en glistas che correspundan al *<title>* inditgà",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "globalSearch-instructions-operator-member",
+    "before": "`__operator_member__:<username>` - ciartes dove *<username>* ie un *membr*",
+    "after": "`__operator_member__:<username>` - cartas nua che *<username>* è in *commember*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "globalSearch-instructions-operator-modified",
+    "before": "`__operator_modified__:<n>` - ciartes mudate *<n>* dis fa o prima",
+    "after": "`__operator_modified__:<n>` - cartas ch’èn vegnidas modifitgadas avant *<n>* dis u pli pauc",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "globalSearch-instructions-operator-number",
+    "before": "`__operator_number__:<number>` - ciartes il cui numero ie *<number>*",
+    "after": "`__operator_number__:<number>` - cartas cun il numer da carta *<number>*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "globalSearch-instructions-operator-status",
+    "before": "`__operator_status__:<status>` - dove *<status>* ie uno di seguenti:",
+    "after": "`__operator_status__:<status>` - nua che *<status>* è ina da las suandantas valurs:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
