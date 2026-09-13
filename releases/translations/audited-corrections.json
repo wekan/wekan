@@ -54570,5 +54570,61 @@
     "before": "Mostra il metodo di autenticazione",
     "after": "Aratã metoda di autentificari",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "dueCardsViewChange-choice-all-description",
+    "before": "Visualizza tutte le schede non completate con una data di *scadenza* dalle bacheche in cui l'utente ha il permesso.",
+    "after": "Aratã tuti cãrtsãli nibitisiti cu unã datã di *termen* di tabelili la cari ufilisitorlu ari permisiuni.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "dueCardsViewChange-title",
+    "before": "Vista schede con scadenza",
+    "after": "Vidiri a cãrtsãlor cu termen",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "dueCardsViewChangePopup-title",
+    "before": "Vista schede con scadenza",
+    "after": "Vidiri a cãrtsãlor cu termen",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "duenow",
+    "before": "la data di scadenza attuale %s è oggi",
+    "after": "Termenlu curentu %s easti astãdzi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "editTranslationPopup-title",
+    "before": "Modificare stringa di traduzione personalizzata",
+    "after": "Alãxea stringa di traducere personalizatã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "email-enrollAccount-subject",
+    "before": "Creato un account per te su __siteName__",
+    "after": "Un contu fu creat ti tini pi __siteName__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "email-fail-text",
+    "before": "Errore nel tentativo di invio email",
+    "after": "Eroari la probã di trimiteri a email-lui",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "email-resetPassword-subject",
+    "before": "Ripristina la tua password su on __siteName__",
+    "after": "Reseteadzã zborlu di intrari pi __siteName__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
