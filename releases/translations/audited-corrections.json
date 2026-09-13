@@ -85601,5 +85601,12 @@
     "before": "Indian national",
     "after": "རྒྱ་གར་གྱི་རྒྱལ་ཁབ་ལོ་ཐོ།",
     "reason": "Replace English Ethiopic/Amete Alem and Indian national calendar labels with Tibetan; preserve Amete Alem identifier and national calendar distinction. Country forms ཨི་ཐིའོ་པི་ཡ (draft unconfirmed) and རྒྱ་གར attested in Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bo.xml . Existing ལོ་ཐོ terminology retained. Complete assembled grammar and draft Ethiopian spelling remain low confidence; religious and Hijri variant labels remain pending."
+  },
+  {
+    "locale": "bo",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "ནང་པའི་ལོ་ཐོ།",
+    "reason": "Replace English Buddhist label with Tibetan Buddhist calendar description. ནང་པ Buddhist attested in Tibetan-Sanskrit-English dictionary https://mahabodhi.saranagamana.org/studies/texts/language/UMA_Dictionary_May2016.pdf ; ནང་པའི genitive construction attested at https://www.gsungrab.org/etdkst/tibetan/entries/religion.htm ; existing ལོ་ཐོ calendar terminology retained. Complete adapted calendar label remains low confidence and does not assert Buddhist Intl calendar is the Tibetan lunisolar calendar. Other religious and Hijri variants remain pending."
   }
 ]
