@@ -88177,5 +88177,47 @@
     "before": "attention : cette carte est dans une liste archivée",
     "after": "Nuned: kad at binon in lised in ragiv",
     "reason": "Replace French workspace deletion and board/card/list archive warnings with Volapük using existing terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fümükön (confirm), perön (lose), laidik (permanent), ragiv (archive). Preserve permanent data loss, all-object scope, archive destination and post-archive invisibility. Workspace compound, software archive adaptation and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "card-delete-suggest-archive",
+    "before": "Vous pouvez déplacer une carte vers les archives afin de l'enlever du tableau tout en préservant l'activité.",
+    "after": "Kanol topätükön kadi lü ragiv ad moükön oni de tab e dakipön dunotis.",
+    "reason": "Replace French archive/restoration and membership messages with Volapük using existing terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf topätükön (move), dakipön (keep), ragiv (archive), dutön lü (belong to), nunäd (notification). Express restoration as moving back from archive, avoiding dictionary restore senses limited to health/repair. Preserve activity retention, settings location, at-least-one-user deletion block, member removal from all cards and notification; exact source tokens retained. Assembled wording and software adaptations remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "list-delete-suggest-archive",
+    "before": "Vous pouvez archiver une liste pour l'enlever du tableau tout en conservant son activité.",
+    "after": "Kanol topätükön lisedi lü ragiv ad moükön oni de tab e dakipön dunotis.",
+    "reason": "Replace French archive/restoration and membership messages with Volapük using existing terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf topätükön (move), dakipön (keep), ragiv (archive), dutön lü (belong to), nunäd (notification). Express restoration as moving back from archive, avoiding dictionary restore senses limited to health/repair. Preserve activity retention, settings location, at-least-one-user deletion block, member removal from all cards and notification; exact source tokens retained. Assembled wording and software adaptations remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "list-archive-suggest",
+    "before": "Vous pourrez plus tard restaurer la liste depuis les archives dans les paramètres du tableau.",
+    "after": "Kanol poso topätükön lisedi de ragiv dönu lü tab in väls taba.",
+    "reason": "Replace French archive/restoration and membership messages with Volapük using existing terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf topätükön (move), dakipön (keep), ragiv (archive), dutön lü (belong to), nunäd (notification). Express restoration as moving back from archive, avoiding dictionary restore senses limited to health/repair. Preserve activity retention, settings location, at-least-one-user deletion block, member removal from all cards and notification; exact source tokens retained. Assembled wording and software adaptations remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "card-archive-suggest-cancel",
+    "before": "Vous pouvez, plus tard, restaurer une carte depuis les archives.",
+    "after": "Kanol poso topätükön kadi de ragiv dönu lü tab.",
+    "reason": "Replace French archive/restoration and membership messages with Volapük using existing terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf topätükön (move), dakipön (keep), ragiv (archive), dutön lü (belong to), nunäd (notification). Express restoration as moving back from archive, avoiding dictionary restore senses limited to health/repair. Preserve activity retention, settings location, at-least-one-user deletion block, member removal from all cards and notification; exact source tokens retained. Assembled wording and software adaptations remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "delete-org-warning-message",
+    "before": "Impossible de supprimer cette organisation, au moins un utilisateur lui appartient",
+    "after": "Radön klubädi at binon nemögik: nemu geban bal duton lü on.",
+    "reason": "Replace French archive/restoration and membership messages with Volapük using existing terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf topätükön (move), dakipön (keep), ragiv (archive), dutön lü (belong to), nunäd (notification). Express restoration as moving back from archive, avoiding dictionary restore senses limited to health/repair. Preserve activity retention, settings location, at-least-one-user deletion block, member removal from all cards and notification; exact source tokens retained. Assembled wording and software adaptations remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "remove-member-pop",
+    "before": "Supprimer __name__ (__username__) de __boardTitle__ ? Ce participant sera supprimé de toutes les cartes du tableau et recevra une notification.",
+    "after": "Moükön __name__ (__username__) de __boardTitle__? Liman pomoükon de kads valik su tab at. Ogeton nunädi.",
+    "reason": "Replace French archive/restoration and membership messages with Volapük using existing terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf topätükön (move), dakipön (keep), ragiv (archive), dutön lü (belong to), nunäd (notification). Express restoration as moving back from archive, avoiding dictionary restore senses limited to health/repair. Preserve activity retention, settings location, at-least-one-user deletion block, member removal from all cards and notification; exact source tokens retained. Assembled wording and software adaptations remain low confidence; native review unavailable."
   }
 ]
