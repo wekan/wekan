@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,107 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 737 pending review or repair.
-The correction inventory records 17,238 exact before/after values,
+The correction inventory records 17,242 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,8 +102,8 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 5f3cfb608 (2026-09-14), repairing two unflagged
-French Tamazight labels. Previous fix e07d2be5f replaced two English
+Latest translation fix is b692ef9f4 (2026-09-14), repairing four unflagged
+Arabic/French Tamazight labels; 5f3cfb608 repaired Help/Next. Previous fix e07d2be5f replaced two English
 Cherokee Hijri labels with exact native-script CLDR variant names. Cherokee’s
 original queue is empty. Compact tabular epoch wording still needs fluent
 technical review. Quechua palette compounds and remaining color wrappers
@@ -646,6 +646,16 @@ The audit records 749 pending original findings and wider unfinished validation.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b692ef9f4">Repair Tamazight action and error labels</a>. Thanks to xet7.</summary>
+
+Replace Arabic/French Actions, Create, Download and Error labels with exact
+native MediaWiki UI terms. All 17,242 correction checks pass; these four
+unflagged repairs leave 737 original findings pending. Broader linguistic
+validation and live browser verification remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5f3cfb608">Repair Tamazight help and next labels</a>. Thanks to xet7.</summary>
