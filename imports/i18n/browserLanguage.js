@@ -3,7 +3,7 @@ const aliases = {
   vep: 've-PP', vec: 've-CC', vls: 'vl-SS', war: 'wa-RR',
   'es-419': 'es-LA', 'be-by': 'be-BE', 'ca-valencia': 'ca-valencia',
   'uz-arab': 'uz-AR', 'uz-latn': 'uz-LA', iw: 'he', ji: 'yi', in: 'id',
-  no: 'nb',
+  no: 'nb', yue: 'yue_CN', wuu: 'wuu-Hans', 'zh-mo': 'zh-Hant',
 };
 function matchBrowserLanguage(value, resolveTag) {
   if (typeof value !== 'string' || !value.trim()) return undefined;
