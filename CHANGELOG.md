@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 14,527 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 1,317 pending review or repair.
-The correction inventory records 16,166 exact before/after values,
+The correction inventory records 16,167 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -108,8 +108,11 @@ the completeness guard permits only that exact known pending value.
 
 The first complete EVERYTHING run passed Meteor, Node, import, Node E2E,
 all three browsers, four database conformance runs and FerretDB tests.
-Fresh verification including #6691 is running. Live external identity-provider
-validation and fluent-speaker translation review remain outstanding. Mirror-script syntax passes; no
+The second EVERYTHING run passed #6691 in all three browsers, but Chromium
+board-export popup readiness remains unresolved; the Fossil menu check is fixed.
+Live external identity-provider validation and fluent-speaker translation review
+remain outstanding. The latest full Node run passes **1,010 suites, zero failures**, including
+mirror-script and offline archive checks; no
 remote mirror or translation upload was executed.
 
 </details>
@@ -1092,6 +1095,49 @@ and updates maintainer tooling:
 **Maintenance scripts** - explicit translation uploads and repository mirrors.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e2338530c">Retain complete issue, pull request and release mirror files</a>. Thanks to xet7.</summary>
+
+Persist source metadata, comments, reviews, PR patches, GitHub-hosted attachments,
+release binaries and source archives in .tools/mirror/issues/1234,
+.tools/mirror/pulls/1234 and .tools/mirror/releases/10.00. Reruns add new files,
+reuse valid cached binaries and rename removed or changed versions to
+old-YYYY-MM-DD_HH-MM-SS-ORIGINALFILENAME. Failed downloads preserve existing
+copies for retry; historical and manually added files are retained.
+
+Archive once before target synchronization. Offline tests cover retention,
+replacement filenames, missing source items, corruption, conditional requests,
+concurrent writers and preview behavior. Preserve destination main history
+through a merge fallback without forced updates or remote deletions. GitHub
+Discussions, projects and wiki are excluded. Design and commands are documented
+in releases/mirror.md. No live mirroring was run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b1983adbb">Synchronize missing GitHub data to each active mirror</a>. Thanks to xet7.</summary>
+
+Fix the Build Tools mirror menu handler and delegate to separate GitLab,
+Codeberg and SourceForge scripts on Unix and Windows. Use one fully paginated
+GitHub snapshot and provenance identifiers to copy missing issues, linked PRs,
+comments, labels, milestones and releases where supported. Retry interrupted
+imports while preserving existing destination text. SourceForge uses Tracker
+tickets and File Release System uploads. Report failures and continue to later
+targets. Offline CLI/API fixtures verify pagination, retries, preview behavior,
+upload shapes and launcher parity.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a574de0e1">Repair the Veps chart export title</a>. Thanks to xet7.</summary>
+
+Replace the remaining Zulu popup title with the native Veps export label Ve.
+Record the exact correction and verify title consistency and source tokens;
+the correction ledger now contains 16,167 repairs. Translation audit progress
+is recorded in docs/Features/Translations/Audit.md.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e8be34404">Install complete tooling for active mirrors across platforms</a>. Thanks to xet7.</summary>
 
 The mirror tooling installer now installs missing Git, SSH/SCP/SFTP, curl,
@@ -1112,7 +1158,7 @@ Offline regressions execute Unix and PowerShell install flows and verify
 package mappings, architecture selection, checksum rejection, installed
 command skips, failure continuation and menu parity. Live installation on
 every OS/CPU remains unverified and requires upstream toolchain support.
-Tool installation does not automate SourceForge tracker/release migration.
+Tool installation is separate from running the mirror scripts.
 No authenticated mirroring, uploads or publishing were performed.
 
 </details>
