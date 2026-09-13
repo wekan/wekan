@@ -1102,6 +1102,18 @@ no mirroring or publishing commands were executed for this audit.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/637dbebd6">Report translation upload outcomes and catalogue support</a>. Thanks to xet7.</summary>
+
+List successful uploads and failures with reasons, supported retry targets,
+unsupported local codes and additional supported targets requiring translations.
+Read all catalogue pages; report unavailable discovery as unknown support.
+Print instructions for requesting new catalogue languages. Offline positive and
+negative summary, pagination and unavailable-catalogue checks pass. No uploads
+were performed here.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d656d86c0">Repair Veps field labels and board command grammar</a>. Thanks to xet7.</summary>
 
 Use native Language, Number and Title labels, and correct the click imperative
