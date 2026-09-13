@@ -785,6 +785,11 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(cache['ve-PP']['activity-checklist-completed-card'], cache['ve-PP']['act-completeChecklist']);
   assert.match(vepsTranslator.t('activity-checklist-uncompleted', { sprintf: ['CHECKLIST', 'CARD'] }), /CHECKLIST om märitadud kut lopmatoi azjal CARD/);
   assert.match(cache['ve-PP']['r-w-label-added'], /^Mitte taht znam/);
+  assert.equal(vepsTranslator.t('activity'), 'Tegendad');
+  assert.equal(vepsTranslator.t('act-activity-notify'), 'Tegendoiden tedotuz');
+  for (const key of ['activity', 'act-activity-notify']) {
+    assert.doesNotMatch(cache['ve-PP'][key], /Toiminta|ilmoitus/i, key);
+  }
   for (const value of Object.values(cache['ve-PP'])) assert.doesNotMatch(value, /ližadud/i);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

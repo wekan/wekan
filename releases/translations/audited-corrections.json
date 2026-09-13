@@ -114700,5 +114700,19 @@
     "before": "Ličtuz om ližadud",
     "after": "Tartutadud fail om ližatud",
     "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activity",
+    "before": "Toiminta",
+    "after": "Tegendad",
+    "reason": "Replace Finnish activity wording with Veps tegendad (native MediaWiki actions) and tedotuz (notification, Zaiceva/Mullonen 2007 Russian–Veps dictionary). Activity denotes the action stream; composed notification label has low-confidence inflection and needs fluent-speaker review. Sources: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-activity-notify",
+    "before": "Toimintailmoitus",
+    "after": "Tegendoiden tedotuz",
+    "reason": "Replace Finnish activity wording with Veps tegendad (native MediaWiki actions) and tedotuz (notification, Zaiceva/Mullonen 2007 Russian–Veps dictionary). Activity denotes the action stream; composed notification label has low-confidence inflection and needs fluent-speaker review. Sources: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf"
   }
 ]
