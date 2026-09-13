@@ -78048,5 +78048,103 @@
     "before": "`__operator_limit__:<n>` - où *<n>* est un entier positif exprimant le nombre de cartes à afficher par page.",
     "after": "`__operator_limit__:<n>` - *<n>* mooy lim bu mat te ëpp 0, di limu karta yi ñuy wone ci xët wu nekk.",
     "reason": "Replace French creator/creation/modification/sort/limit search help with Wolof. Preserve literal username/n/sort-name variables, all operator/predicate tokens, days-ago-or-less interval, minus-prefix descending sorting and strictly positive integer per-page card limit. Full grammar and numerical/sort terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "allboards.workspaces",
+    "before": "Espaces de travail",
+    "after": "Barabi liggéey yi",
+    "reason": "Replace French workspace controls with Wolof, preserving workspace versus subordinate workspace, name/icon/settings/menu distinctions, markdown and deletion confirmation. Workspace hierarchy/settings terminology and full grammar remain low confidence; includes unflagged short headings."
+  },
+  {
+    "locale": "wo",
+    "key": "allboards.add-workspace",
+    "before": "Ajouter un espace de travail",
+    "after": "Yokk barabu liggéey",
+    "reason": "Replace French workspace controls with Wolof, preserving workspace versus subordinate workspace, name/icon/settings/menu distinctions, markdown and deletion confirmation. Workspace hierarchy/settings terminology and full grammar remain low confidence; includes unflagged short headings."
+  },
+  {
+    "locale": "wo",
+    "key": "allboards.add-workspace-prompt",
+    "before": "Nom de l'espace de travail",
+    "after": "Turu barabu liggéey bi",
+    "reason": "Replace French workspace controls with Wolof, preserving workspace versus subordinate workspace, name/icon/settings/menu distinctions, markdown and deletion confirmation. Workspace hierarchy/settings terminology and full grammar remain low confidence; includes unflagged short headings."
+  },
+  {
+    "locale": "wo",
+    "key": "allboards.add-subworkspace",
+    "before": "Ajouter un sous-espace de travail",
+    "after": "Yokk barabu liggéey bu féete suuf",
+    "reason": "Replace French workspace controls with Wolof, preserving workspace versus subordinate workspace, name/icon/settings/menu distinctions, markdown and deletion confirmation. Workspace hierarchy/settings terminology and full grammar remain low confidence; includes unflagged short headings."
+  },
+  {
+    "locale": "wo",
+    "key": "allboards.add-subworkspace-prompt",
+    "before": "Nom du sous-espace de travail",
+    "after": "Turu barabu liggéey bu féete suuf bi",
+    "reason": "Replace French workspace controls with Wolof, preserving workspace versus subordinate workspace, name/icon/settings/menu distinctions, markdown and deletion confirmation. Workspace hierarchy/settings terminology and full grammar remain low confidence; includes unflagged short headings."
+  },
+  {
+    "locale": "wo",
+    "key": "allboards.edit-workspace",
+    "before": "Modifier l'espace de travail",
+    "after": "Soppi barabu liggéey bi",
+    "reason": "Replace French workspace controls with Wolof, preserving workspace versus subordinate workspace, name/icon/settings/menu distinctions, markdown and deletion confirmation. Workspace hierarchy/settings terminology and full grammar remain low confidence; includes unflagged short headings."
+  },
+  {
+    "locale": "wo",
+    "key": "allboards.edit-workspace-name",
+    "before": "Nom de l'espace de travail",
+    "after": "Turu barabu liggéey bi",
+    "reason": "Replace French workspace controls with Wolof, preserving workspace versus subordinate workspace, name/icon/settings/menu distinctions, markdown and deletion confirmation. Workspace hierarchy/settings terminology and full grammar remain low confidence; includes unflagged short headings."
+  },
+  {
+    "locale": "wo",
+    "key": "allboards.edit-workspace-icon",
+    "before": "Icône d'espace de travail (markdown)",
+    "after": "Nataalu barabu liggéey bi (markdown)",
+    "reason": "Replace French workspace controls with Wolof, preserving workspace versus subordinate workspace, name/icon/settings/menu distinctions, markdown and deletion confirmation. Workspace hierarchy/settings terminology and full grammar remain low confidence; includes unflagged short headings."
+  },
+  {
+    "locale": "wo",
+    "key": "allboards.workspace-menu",
+    "before": "Menu de l'espace de travail",
+    "after": "Menyu barabu liggéey bi",
+    "reason": "Replace French workspace controls with Wolof, preserving workspace versus subordinate workspace, name/icon/settings/menu distinctions, markdown and deletion confirmation. Workspace hierarchy/settings terminology and full grammar remain low confidence; includes unflagged short headings."
+  },
+  {
+    "locale": "wo",
+    "key": "workspace-settings",
+    "before": "Paramètres de l'espace de travail",
+    "after": "Jekkal yi ci barabu liggéey bi",
+    "reason": "Replace French workspace controls with Wolof, preserving workspace versus subordinate workspace, name/icon/settings/menu distinctions, markdown and deletion confirmation. Workspace hierarchy/settings terminology and full grammar remain low confidence; includes unflagged short headings."
+  },
+  {
+    "locale": "wo",
+    "key": "workspaceActionsPopup-title",
+    "before": "Paramètres de l'espace de travail",
+    "after": "Jekkal yi ci barabu liggéey bi",
+    "reason": "Replace French workspace controls with Wolof, preserving workspace versus subordinate workspace, name/icon/settings/menu distinctions, markdown and deletion confirmation. Workspace hierarchy/settings terminology and full grammar remain low confidence; includes unflagged short headings."
+  },
+  {
+    "locale": "wo",
+    "key": "allboards.workspace-color",
+    "before": "Couleur",
+    "after": "Melo",
+    "reason": "Replace French workspace controls with Wolof, preserving workspace versus subordinate workspace, name/icon/settings/menu distinctions, markdown and deletion confirmation. Workspace hierarchy/settings terminology and full grammar remain low confidence; includes unflagged short headings."
+  },
+  {
+    "locale": "wo",
+    "key": "allboards.delete-workspace-confirm",
+    "before": "Êtes-vous sûr de vouloir supprimer cet espace de travail ?",
+    "after": "Wóor na la ne bëgg nga far barabu liggéey bii?",
+    "reason": "Replace French workspace controls with Wolof, preserving workspace versus subordinate workspace, name/icon/settings/menu distinctions, markdown and deletion confirmation. Workspace hierarchy/settings terminology and full grammar remain low confidence; includes unflagged short headings."
+  },
+  {
+    "locale": "wo",
+    "key": "allboards.delete-workspace-confirm-check",
+    "before": "Confirmer la suppression de l'espace de travail",
+    "after": "Dëggal far barabu liggéey bi",
+    "reason": "Replace French workspace controls with Wolof, preserving workspace versus subordinate workspace, name/icon/settings/menu distinctions, markdown and deletion confirmation. Workspace hierarchy/settings terminology and full grammar remain low confidence; includes unflagged short headings."
   }
 ]
