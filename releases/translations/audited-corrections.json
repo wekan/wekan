@@ -65602,5 +65602,61 @@
     "before": "Icône d'espace de travail (markdown)",
     "after": "Arlun an egor labour (markdown)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "allboards.edit-workspace-name",
+    "before": "Nom de l'espace de travail",
+    "after": "Anv an egor labour",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "allboards.workspace-menu",
+    "before": "Menu de l'espace de travail",
+    "after": "Lañser an egor labour",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "allowed-avatar-filetypes",
+    "before": "Types de fichier autorisés pour l'avatar :",
+    "after": "Seurtoù restroù aotreet evit ar skeudennig:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "allowed-upload-filetypes",
+    "before": "Types de fichier autorisés pour l'upload :",
+    "after": "Seurtoù restroù aotreet evit an enkargañ:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "almostdue",
+    "before": "La date d'échéance %s approche",
+    "after": "Tostaat a ra an eur termen %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "already-account",
+    "before": "Vous avez déjà un compte ? Se connecter",
+    "after": "Ur gont zo ganeoc’h dija? Kevreañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "app-try-reconnect",
+    "before": "Essayer de se reconnecter.",
+    "after": "Klask adkevreañ.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "attachmentActionsPopup-title",
+    "before": "Actions sur les pièces jointes",
+    "after": "Oberoù ar stagadennoù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
