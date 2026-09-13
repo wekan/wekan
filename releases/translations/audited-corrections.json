@@ -86686,5 +86686,26 @@
     "before": "Pas de champs personnalisés",
     "after": "Fels lönik nonik",
     "reason": "Replace French custom-field labels/activities with directly assembled Volapük. Dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests fel (general field), lönik (ones own), lonön (determine/set), jafön (create), radön (erase), nonik (none). Render custom as own to distinguish user-defined fields from defaults. Software-field sense, custom adjective, set/unset constructions and complete grammar remain low confidence pending native review. Preserve source quotes and %s arguments in order."
+  },
+  {
+    "locale": "vo",
+    "key": "r-new-rule-name",
+    "before": "Titre de la nouvelle règle",
+    "after": "Tiäd noma nulik",
+    "reason": "Replace French rule-title and check/uncheck-all action labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nom (rule/regulation), tiäd (text title), nulik (new), mäkön (mark), sädunön (undo), notet (written item), lised (list), valik (all). Retain all-items scope and distinguish marking from undoing marking. Software-rule sense, derived marking noun and full inflected phrases remain low confidence pending native review; preserve source token inventory."
+  },
+  {
+    "locale": "vo",
+    "key": "r-d-check-all",
+    "before": "Cocher tous les éléments d'une liste",
+    "after": "Mäkön notetis valik liseda",
+    "reason": "Replace French rule-title and check/uncheck-all action labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nom (rule/regulation), tiäd (text title), nulik (new), mäkön (mark), sädunön (undo), notet (written item), lised (list), valik (all). Retain all-items scope and distinguish marking from undoing marking. Software-rule sense, derived marking noun and full inflected phrases remain low confidence pending native review; preserve source token inventory."
+  },
+  {
+    "locale": "vo",
+    "key": "r-d-uncheck-all",
+    "before": "Décocher tous les éléments d'une liste",
+    "after": "Sädunön mäkami notetas valik liseda",
+    "reason": "Replace French rule-title and check/uncheck-all action labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nom (rule/regulation), tiäd (text title), nulik (new), mäkön (mark), sädunön (undo), notet (written item), lised (list), valik (all). Retain all-items scope and distinguish marking from undoing marking. Software-rule sense, derived marking noun and full inflected phrases remain low confidence pending native review; preserve source token inventory."
   }
 ]
