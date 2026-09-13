@@ -112411,5 +112411,33 @@
     "before": "Republic of China",
     "after": "Minguo (Kitain Tazovaldkundan kalendar')",
     "reason": "Replace English calendar descriptors with Veps vocabulary: Indijan nacionaline is attested in indexed copies of Veps Wikipedia Indii/Deli; Kitain Tazovaldkundan is attested in indexed Mongolii. Direct article fetches failed. Preserve National meaning and the Minguo identifier, using dictionary-attested kalendar'. Composed technical labels need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "date-format-yyyy-mm-dd",
+    "before": "VVVV-KK-PP",
+    "after": "YYYY-MM-DD",
+    "reason": "Restore the canonical date-format token displayed by the existing card date-format selector; Finnish V/K/P abbreviations are inappropriate for Veps and do not match the option value in client/components/cards/cardDetails.jade."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "date-format-dd-mm-yyyy",
+    "before": "PP-KK-VVVV",
+    "after": "DD-MM-YYYY",
+    "reason": "Restore the canonical date-format token displayed by the existing card date-format selector; Finnish V/K/P abbreviations are inappropriate for Veps and do not match the option value in client/components/cards/cardDetails.jade."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "date-format-mm-dd-yyyy",
+    "before": "KK-PP-VVVV",
+    "after": "MM-DD-YYYY",
+    "reason": "Restore the canonical date-format token displayed by the existing card date-format selector; Finnish V/K/P abbreviations are inappropriate for Veps and do not match the option value in client/components/cards/cardDetails.jade."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "invalid-time",
+    "before": "Virheellinen aika",
+    "after": "Vär aig",
+    "reason": "Replace Finnish Virheellinen aika with Veps vär (incorrect/wrong) and aig (time), attested in https://kaikki.org/dictionary/Veps/index.html; composed warning needs fluent review."
   }
 ]

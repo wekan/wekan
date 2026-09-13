@@ -218,5 +218,15 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(cache['ve-PP']['calendar-system-roc'], "Minguo (Kitain Tazovaldkundan kalendar')");
   assert.notEqual(cache['ve-PP']['calendar-system-roc'], cache['ve-PP']['calendar-system-chinese']);
   assert.doesNotMatch(cache['ve-PP']['calendar-system-indian'] + cache['ve-PP']['calendar-system-roc'], /Indian national|Republic of China/);
+  for (const [key, value] of Object.entries({
+    'date-format-yyyy-mm-dd': 'YYYY-MM-DD',
+    'date-format-dd-mm-yyyy': 'DD-MM-YYYY',
+    'date-format-mm-dd-yyyy': 'MM-DD-YYYY',
+  })) {
+    assert.equal(cache['ve-PP'][key], value);
+    assert.doesNotMatch(cache['ve-PP'][key], /VVVV|KK|PP/);
+  }
+  assert.equal(cache['ve-PP']['invalid-time'], 'Vär aig');
+  assert.doesNotMatch(cache['ve-PP']['invalid-time'], /Virheellinen|aika/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
