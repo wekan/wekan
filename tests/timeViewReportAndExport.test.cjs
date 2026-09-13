@@ -60,4 +60,13 @@ assert.match(timeViewJade, /\{\{_ 'board-status-time-spent-total'\}\}/);
 assert.match(timeViewJade, /\{\{_ 'board-status-cards-with-time'\}\}/);
 assert.match(timeViewJade, /\{\{_ 'board-status-overtime-cards'\}\}/);
 
+// Card titles share the sanitized Markdown/emoji viewer used by other board views.
+assert.match(timeViewJade, /\.time-view-card-title\n\s+\+viewer\n\s+= title/);
+assert.doesNotMatch(timeViewJade, /td \{\{title\}\}/);
+assert.match(timeViewJade, /if isOvertime\n\s+\|.*overtime/,
+  'overtime status stays outside user-authored Markdown');
+
+assert.match(read('client/components/main/editor.jade'), /template\(name="viewer"\)[\s\S]*?\+markdown/);
+assert.match(read('packages/markdown/src/template-integration.js'), /const forceRawSource = Markdown\.alwaysShowCodeAsText\.get\(\)/);
+
 console.log('timeViewReportAndExport: Time view now reports hours by assignee/card and exports like every other chart view');

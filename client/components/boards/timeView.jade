@@ -51,5 +51,10 @@ template(name="timeView")
             tbody
               each byCard
                 tr
-                  td {{title}}{{#if isOvertime}} ({{_ 'overtime'}}){{/if}}
+                  td
+                    .time-view-card-title
+                      +viewer
+                        = title
+                    if isOvertime
+                      |  ({{_ 'overtime'}})
                   td {{hours}}
