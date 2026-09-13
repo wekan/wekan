@@ -87967,5 +87967,47 @@
     "before": "Tout déverrouiller",
     "after": "Mailökön valikis",
     "reason": "Replace French login-lockout labels with Volapük. Use existing username/password/settings terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf steifül (attempt), sevädik/nesevädik (known/unknown), mailökön (unlock), stad (status). Preserve correct-username/wrong-password distinction, absent username and failure-before-lockout ordering. Assembled wording and software lock adaptation remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "login",
+    "before": "Connexion",
+    "after": "Nunädön oki",
+    "reason": "Replace French or Esperanto login/lockout wording with Volapük. MediaWiki Volapük source https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json attests nunädön oki for software login; Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nelaidüpo (temporarily), steifül (attempt), sekun (second), lepök (failure). Preserve temporary lock, excessive failed-login cause, later retry and seconds units. Failure-window wording and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "log-in",
+    "before": "Ensaluti",
+    "after": "Nunädön oki",
+    "reason": "Replace French or Esperanto login/lockout wording with Volapük. MediaWiki Volapük source https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json attests nunädön oki for software login; Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nelaidüpo (temporarily), steifül (attempt), sekun (second), lepök (failure). Preserve temporary lock, excessive failed-login cause, later retry and seconds units. Failure-window wording and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "account-locked",
+    "before": "Le compte est temporairement verrouillé en raison de trop de tentatives de connexion échouées. Veuillez réessayer plus tard.",
+    "after": "Kal pefäilökon nelaidüpo demü steifüls tumödik no peplöpöl ad nunädön oki. Begö! steifülolös dönu poso.",
+    "reason": "Replace French or Esperanto login/lockout wording with Volapük. MediaWiki Volapük source https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json attests nunädön oki for software login; Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nelaidüpo (temporarily), steifül (attempt), sekun (second), lepök (failure). Preserve temporary lock, excessive failed-login cause, later retry and seconds units. Failure-window wording and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "accounts-lockout-locked-users-info",
+    "before": "Utilisateurs actuellement verrouillés pour trop de tentatives de connexion en échec",
+    "after": "Gebans nu pefäilököl demü steifüls tumödik no peplöpöl ad nunädön oki",
+    "reason": "Replace French or Esperanto login/lockout wording with Volapük. MediaWiki Volapük source https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json attests nunädön oki for software login; Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nelaidüpo (temporarily), steifül (attempt), sekun (second), lepök (failure). Preserve temporary lock, excessive failed-login cause, later retry and seconds units. Failure-window wording and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "accounts-lockout-period",
+    "before": "Durée de verrouillage (secondes)",
+    "after": "Tim fäilökama (sekuns)",
+    "reason": "Replace French or Esperanto login/lockout wording with Volapük. MediaWiki Volapük source https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json attests nunädön oki for software login; Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nelaidüpo (temporarily), steifül (attempt), sekun (second), lepök (failure). Preserve temporary lock, excessive failed-login cause, later retry and seconds units. Failure-window wording and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "accounts-lockout-failure-window",
+    "before": "Fenêtre des échecs (secondes)",
+    "after": "Tim pro lepöks (sekuns)",
+    "reason": "Replace French or Esperanto login/lockout wording with Volapük. MediaWiki Volapük source https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json attests nunädön oki for software login; Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nelaidüpo (temporarily), steifül (attempt), sekun (second), lepök (failure). Preserve temporary lock, excessive failed-login cause, later retry and seconds units. Failure-window wording and assembled grammar remain low confidence; native review unavailable."
   }
 ]
