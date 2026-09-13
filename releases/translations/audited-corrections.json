@@ -49530,5 +49530,89 @@
     "before": "Impossibile arrestare le migrazions",
     "after": "Impussibel da fermar las migraziuns",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "migration-stopped",
+    "before": "Migrazions arrestate cun successo",
+    "after": "Migraziuns fermadas cun success",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "migration-successful",
+    "before": "Migrazion completada cun successo",
+    "after": "Migraziun terminada cun success",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "mobile-desktop-toggle",
+    "before": "Alterna tra modalità mobile e desktop",
+    "after": "Midar tranter il modus mobil ed il modus desktop",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "mongodb-compact-running",
+    "before": "Compact in esecuzione, potrebbe richiedere diversi menüc...",
+    "after": "La cumpressiun cun compact vegn exequida; quai po durar pliras minutas...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "mongodb-compact-success",
+    "before": "Compact completé. Collection compattate:",
+    "after": "compact terminà. Collecziuns cumprimidas:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "monitoring-export-failed",
+    "before": "Impossibile esportare i dati di monitoraggio",
+    "after": "Impussibel dad exportar las datas da surveglianza",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "monitoring-refresh-failed",
+    "before": "Impossibile aggiornare i dati di monitoraggio",
+    "after": "Impussibel dad actualisar las datas da surveglianza",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "move-all-attachments-to-fs",
+    "before": "Sposta duc gli injuntes tl filesystem",
+    "after": "Spustar tut las agiuntas en il sistem da datotecas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "move-all-attachments-to-gridfs",
+    "before": "Sposta duc gli injuntes in GridFS",
+    "after": "Spustar tut las agiuntas en GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "move-all-attachments-to-s3",
+    "before": "Sposta duc gli injuntes in S3",
+    "after": "Spustar tut las agiuntas en S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "move-progress-file",
+    "before": "Documento in trasferimento",
+    "after": "Datoteca",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "move-storage-all",
+    "before": "Duc gli storage ativeati in lettura",
+    "after": "Tut ils sistems da memorisaziun cun lectura activada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
