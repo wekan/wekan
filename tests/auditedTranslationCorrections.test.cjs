@@ -70,5 +70,10 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.doesNotMatch(cache.ace['shortcut-add-self'], /Bri tugas/);
   assert.match(cache.ace['wipLimitErrorPopup-dialog-pt2'], /u luwa senarai/, 'move excess tasks out of the list');
   assert.match(cache.ace['user-can-not-export-excel'], /Excel$/, 'preserve the export format name');
+  const filterHelp = cache.ace['advanced-filter-description'];
+  assert.deepEqual(filterHelp.match(/\\+/g), english['advanced-filter-description'].match(/\\+/g), 'filter examples must not double escape characters');
+  for (const example of ['== != <= >= && || ( )', 'Field1 == Value1', "'Field 1' == 'Value 1'", 'F1 == V1 || F1 == V2', 'F1 == V1 && ( F2 == V2 || F2 == V3 )', 'F1 == /Tes.*/i']) {
+    assert.ok(filterHelp.includes(example), `preserve filter example: ${example}`);
+  }
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
