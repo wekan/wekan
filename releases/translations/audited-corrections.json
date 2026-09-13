@@ -90319,5 +90319,40 @@
     "before": "Vous ne pouvez pas changer les rôles car il doit y avoir au moins un administrateur.",
     "after": "No kanol votükön rolis, bi guvan nemu bal muton dabinön.",
     "reason": "Replace French assigned-card/worker/last-admin descriptions and Esperanto normal label with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nomik (normal), noet (textual remark), jonidükön (assign), topätükön (move between places), nemu (at least), guvan (administrator). Preserve assigned-card-only visibility, comment-only permission, worker self-assignment/move/comment restriction and at least one administrator. Reuse existing Rols borrowing for roles; software adaptation and assembled wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "board-drag-drop-reorder-or-click-open",
+    "before": "Glisser-déposer les icônes de tableau pour les réordonner. Cliquer sur l'icône du tableau pour l'ouvrir.",
+    "after": "Tränolös e pladolös magodis tabas ad votükön sotami. Klikolös magodi taba ad maifükön tabi.",
+    "reason": "Replace audited French board navigation/favorite instructions with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests tränön (drag), pladön (place), stel (star), mäkön (mark), magod (image), maifükön (open). Preserve drag-and-drop sorting versus click-to-open and opposite star/unstar actions. Use image descriptively for board icon and marked-with-star for favorites. Software adaptation and assembled phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "click-to-star",
+    "before": "Cliquez pour ajouter ce tableau aux favoris.",
+    "after": "Klikolös ad mäkön tabi at me stel.",
+    "reason": "Replace audited French board navigation/favorite instructions with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests tränön (drag), pladön (place), stel (star), mäkön (mark), magod (image), maifükön (open). Preserve drag-and-drop sorting versus click-to-open and opposite star/unstar actions. Use image descriptively for board icon and marked-with-star for favorites. Software adaptation and assembled phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "click-to-unstar",
+    "before": "Cliquez pour retirer ce tableau des favoris.",
+    "after": "Klikolös ad moükön steli de tab at.",
+    "reason": "Replace audited French board navigation/favorite instructions with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests tränön (drag), pladön (place), stel (star), mäkön (mark), magod (image), maifükön (open). Preserve drag-and-drop sorting versus click-to-open and opposite star/unstar actions. Use image descriptively for board icon and marked-with-star for favorites. Software adaptation and assembled phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "starred-boards",
+    "before": "Tableaux favoris",
+    "after": "Tabs pemäköl me stel",
+    "reason": "Replace audited French board navigation/favorite instructions with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests tränön (drag), pladön (place), stel (star), mäkön (mark), magod (image), maifükön (open). Preserve drag-and-drop sorting versus click-to-open and opposite star/unstar actions. Use image descriptively for board icon and marked-with-star for favorites. Software adaptation and assembled phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "drag-board",
+    "before": "Glisser le tableau",
+    "after": "Tränön tabi",
+    "reason": "Replace audited French board navigation/favorite instructions with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests tränön (drag), pladön (place), stel (star), mäkön (mark), magod (image), maifükön (open). Preserve drag-and-drop sorting versus click-to-open and opposite star/unstar actions. Use image descriptively for board icon and marked-with-star for favorites. Software adaptation and assembled phrases remain low confidence pending native review."
   }
 ]
