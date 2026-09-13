@@ -94295,5 +94295,82 @@
     "before": "Tâche planifiée démarrée avec succès",
     "after": "ta'meH poH ghajbogh Qu' taghlu'pu'",
     "reason": "Replace German/French scheduled-job state controls with Klingon. Preserve deletion confirmation, successful deletion, pause versus resume versus start, and successful versus failed operations. Reuse descriptive scheduled task with execution time. https://klingonska.org/klo/ordlista-01.html attests yev (pause), taH (continue) and tagh (start); causative forms and resume-again phrase are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "migration-not-needed",
+    "before": "Keine Migration notwendig",
+    "after": "De' choHmeH Qu' poQlu'be'",
+    "reason": "Replace German migration state messages with Klingon, describing data migration as a data-changing task. Preserve no migration needed, pause/resume/start/stop distinctions, success versus failure, all-migrations stop confirmation, and completed migration. Reuse repaired operation verbs and plural indefinite lu- agreement. Full technical migration metaphor and assembled phrases are low confidence and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "migration-pause-failed",
+    "before": "Unterbrechung der Migrationen fehlgeschlagen",
+    "after": "De' choHmeH Qu'mey yevmoHmeH Qu' lujpu'",
+    "reason": "Replace German migration state messages with Klingon, describing data migration as a data-changing task. Preserve no migration needed, pause/resume/start/stop distinctions, success versus failure, all-migrations stop confirmation, and completed migration. Reuse repaired operation verbs and plural indefinite lu- agreement. Full technical migration metaphor and assembled phrases are low confidence and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "migration-paused",
+    "before": "Migrationen erfolgreich unterbrochen",
+    "after": "De' choHmeH Qu'mey luyevmoHlu'pu'",
+    "reason": "Replace German migration state messages with Klingon, describing data migration as a data-changing task. Preserve no migration needed, pause/resume/start/stop distinctions, success versus failure, all-migrations stop confirmation, and completed migration. Reuse repaired operation verbs and plural indefinite lu- agreement. Full technical migration metaphor and assembled phrases are low confidence and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "migration-resume-failed",
+    "before": "Fortfahren der Migration misslungen",
+    "after": "De' choHmeH Qu' taHqa'moHmeH Qu' lujpu'",
+    "reason": "Replace German migration state messages with Klingon, describing data migration as a data-changing task. Preserve no migration needed, pause/resume/start/stop distinctions, success versus failure, all-migrations stop confirmation, and completed migration. Reuse repaired operation verbs and plural indefinite lu- agreement. Full technical migration metaphor and assembled phrases are low confidence and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "migration-resumed",
+    "before": "Migration fortgesetzt",
+    "after": "De' choHmeH Qu' taHqa'moHlu'pu'",
+    "reason": "Replace German migration state messages with Klingon, describing data migration as a data-changing task. Preserve no migration needed, pause/resume/start/stop distinctions, success versus failure, all-migrations stop confirmation, and completed migration. Reuse repaired operation verbs and plural indefinite lu- agreement. Full technical migration metaphor and assembled phrases are low confidence and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "migration-start-failed",
+    "before": "Start der Migrationen fehlgeschlagen",
+    "after": "De' choHmeH Qu'mey taghmeH Qu' lujpu'",
+    "reason": "Replace German migration state messages with Klingon, describing data migration as a data-changing task. Preserve no migration needed, pause/resume/start/stop distinctions, success versus failure, all-migrations stop confirmation, and completed migration. Reuse repaired operation verbs and plural indefinite lu- agreement. Full technical migration metaphor and assembled phrases are low confidence and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "migration-started",
+    "before": "Migrationen erfolgreich gestartet",
+    "after": "De' choHmeH Qu'mey lutaghlu'pu'",
+    "reason": "Replace German migration state messages with Klingon, describing data migration as a data-changing task. Preserve no migration needed, pause/resume/start/stop distinctions, success versus failure, all-migrations stop confirmation, and completed migration. Reuse repaired operation verbs and plural indefinite lu- agreement. Full technical migration metaphor and assembled phrases are low confidence and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "migration-stop-confirm",
+    "before": "Sind Sie sicher, dass Sie alle Migrationen stoppen wollen?",
+    "after": "De' choHmeH Hoch Qu'mey DamevmoH DaneHbej'a'?",
+    "reason": "Replace German migration state messages with Klingon, describing data migration as a data-changing task. Preserve no migration needed, pause/resume/start/stop distinctions, success versus failure, all-migrations stop confirmation, and completed migration. Reuse repaired operation verbs and plural indefinite lu- agreement. Full technical migration metaphor and assembled phrases are low confidence and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "migration-stop-failed",
+    "before": "Stoppen der Migrationen fehlgeschlagen",
+    "after": "De' choHmeH Qu'mey mevmoHmeH Qu' lujpu'",
+    "reason": "Replace German migration state messages with Klingon, describing data migration as a data-changing task. Preserve no migration needed, pause/resume/start/stop distinctions, success versus failure, all-migrations stop confirmation, and completed migration. Reuse repaired operation verbs and plural indefinite lu- agreement. Full technical migration metaphor and assembled phrases are low confidence and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "migration-stopped",
+    "before": "Migrationen erfolgreich gestoppt",
+    "after": "De' choHmeH Qu'mey lumevmoHlu'pu'",
+    "reason": "Replace German migration state messages with Klingon, describing data migration as a data-changing task. Preserve no migration needed, pause/resume/start/stop distinctions, success versus failure, all-migrations stop confirmation, and completed migration. Reuse repaired operation verbs and plural indefinite lu- agreement. Full technical migration metaphor and assembled phrases are low confidence and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "migration-successful",
+    "before": "Migration erfolgreich abgeschlossen",
+    "after": "rInpu' De' choHmeH Qu'",
+    "reason": "Replace German migration state messages with Klingon, describing data migration as a data-changing task. Preserve no migration needed, pause/resume/start/stop distinctions, success versus failure, all-migrations stop confirmation, and completed migration. Reuse repaired operation verbs and plural indefinite lu- agreement. Full technical migration metaphor and assembled phrases are low confidence and require fluent-speaker validation."
   }
 ]
