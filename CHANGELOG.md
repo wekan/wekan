@@ -1245,6 +1245,18 @@ for this change.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/50337aea3">Repair Veps label, status, sort and limit instructions</a>. Thanks to xet7.</summary>
+
+Replace eight Finnish values, resolving five original findings and three
+unflagged errors. Preserve matching choices, positive per-page limits and minus
+syntax for descending sorting. Localize user shorthand and close unmatched
+label-name emphasis. Production Query/runtime tests and all 17,010 exact
+correction checks pass. Technical grammar needs fluent review; 854 original
+findings and restored-value validation remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/68a54ec5b">Repair Veps date-search, period and case wording</a>. Thanks to xet7.</summary>
 
 Replace twelve Finnish values, resolving four original findings and eight

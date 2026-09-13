@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 14,985 |
+| Corrected | 14,990 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 859 |
+| Pending review or repair | 854 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,002** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,010** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `68a54ec5b` — repaired **12** Veps date-search/period/sort/case values, resolving **four** original findings and **eight** unflagged errors. Preserve days-ago-or-less bounds, signed integers, period placeholders and case insensitivity. Production Query verifies localized date-sort predicates and rejection of invalid date operands; runtime tests check period interpolation. All **17,002** exact corrections pass runtime rendering, placeholder, JSON, key-order and human-preference checks. The original queue has **859** pending findings, including **118** Veps findings. **Low confidence:** technical adaptations and composed grammar/case, relative clauses and scheduling/migration wording need fluent-speaker review. Restored/unflagged values, wrong-language/script checks, keyboard shortcuts and remaining migration/search messages remain unfinished. No translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `50337aea3` — repaired **eight** Veps operator/instruction values, resolving **five** original findings and **three** unflagged errors. Preserve label color OR name matching, positive per-page limits, status choices and descending minus syntax. The user shorthand uses a working localized operator; unmatched label-name emphasis is closed. Production Query verifies label values and descending due-date sorting; runtime tests preserve interpolation. All **17,010** exact corrections pass runtime rendering, placeholder, JSON, key-order and human-preference checks. The original queue has **854** pending findings, including **113** Veps findings. **Low confidence:** technical adaptations and composed grammar/case, relative clauses and scheduling/migration wording need fluent-speaker review. Restored/unflagged values, wrong-language/script checks, keyboard shortcuts and remaining migration/search messages remain unfinished. No translations were pushed.
 
 **Build logging update (2026-09-14):** `5f8f22f8c` unifies all logger entry points managed by build.sh/build.bat under operation/date/time directories. Repeated runs stay separate; same-second starts reserve numeric suffixes. Twelve targeted test entries pass; native Windows execution was unavailable. Translation counts and remaining review work are unchanged; translation repairs remain unfinished.
 
