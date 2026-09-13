@@ -80708,5 +80708,68 @@
     "before": "Ce nom d'organisation est déjà utilisé",
     "after": "Turu kureel gii jëfandikoo nañu ko ba noppi",
     "reason": "Replace French permission/account/JSON errors with Wolof. Distinguish nonexistent versus uncreated user, taken username/email/organization name, board administrator requirement, denied page viewing, malformed JSON versus missing schema information. Preserve JSON technical name. Technical loans and full grammar remain low confidence; login/CSV errors remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "custom-field-stringtemplate",
+    "before": "Modèle de chaîne",
+    "after": "Royukaayu mbind",
+    "reason": "Replace French custom-field types/options and string-template formatting controls with Wolof. Preserve literal %{value}, &#32; and &nbsp; examples, none versus unknown and number versus text. Reuse established royukaay/mbind/lim/tànneef vocabulary. Separator/placeholder adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Format (utiliser %{value} pour marquer un emplacement)",
+    "after": "Anam (jëfandikoo %{value} ngir màndargaal barab bi)",
+    "reason": "Replace French custom-field types/options and string-template formatting controls with Wolof. Preserve literal %{value}, &#32; and &nbsp; examples, none versus unknown and number versus text. Reuse established royukaay/mbind/lim/tànneef vocabulary. Separator/placeholder adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "custom-field-stringtemplate-separator",
+    "before": "Séparateur (utiliser &#32; ou &nbsp; pour un espace)",
+    "after": "Li tàggale (jëfandikoo &#32; walla &nbsp; ngir barab bu féex)",
+    "reason": "Replace French custom-field types/options and string-template formatting controls with Wolof. Preserve literal %{value}, &#32; and &nbsp; examples, none versus unknown and number versus text. Reuse established royukaay/mbind/lim/tànneef vocabulary. Separator/placeholder adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "custom-field-number",
+    "before": "Nombre",
+    "after": "Lim",
+    "reason": "Replace French custom-field types/options and string-template formatting controls with Wolof. Preserve literal %{value}, &#32; and &nbsp; examples, none versus unknown and number versus text. Reuse established royukaay/mbind/lim/tànneef vocabulary. Separator/placeholder adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "custom-field-text",
+    "before": "Texte",
+    "after": "Mbind",
+    "reason": "Replace French custom-field types/options and string-template formatting controls with Wolof. Preserve literal %{value}, &#32; and &nbsp; examples, none versus unknown and number versus text. Reuse established royukaay/mbind/lim/tànneef vocabulary. Separator/placeholder adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "custom-field-dropdown",
+    "before": "Liste de choix",
+    "after": "Limu tànneef",
+    "reason": "Replace French custom-field types/options and string-template formatting controls with Wolof. Preserve literal %{value}, &#32; and &nbsp; examples, none versus unknown and number versus text. Reuse established royukaay/mbind/lim/tànneef vocabulary. Separator/placeholder adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "custom-field-dropdown-none",
+    "before": "(aucun)",
+    "after": "(amul)",
+    "reason": "Replace French custom-field types/options and string-template formatting controls with Wolof. Preserve literal %{value}, &#32; and &nbsp; examples, none versus unknown and number versus text. Reuse established royukaay/mbind/lim/tànneef vocabulary. Separator/placeholder adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "custom-field-dropdown-unknown",
+    "before": "(inconnu)",
+    "after": "(xameesul)",
+    "reason": "Replace French custom-field types/options and string-template formatting controls with Wolof. Preserve literal %{value}, &#32; and &nbsp; examples, none versus unknown and number versus text. Reuse established royukaay/mbind/lim/tànneef vocabulary. Separator/placeholder adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "custom-field-dropdown-options",
+    "before": "Options de liste",
+    "after": "Tànneef yi ci limu bi",
+    "reason": "Replace French custom-field types/options and string-template formatting controls with Wolof. Preserve literal %{value}, &#32; and &nbsp; examples, none versus unknown and number versus text. Reuse established royukaay/mbind/lim/tànneef vocabulary. Separator/placeholder adaptations and full grammar remain low confidence."
   }
 ]
