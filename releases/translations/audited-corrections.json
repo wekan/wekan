@@ -69326,5 +69326,89 @@
     "before": "Zapewnij listy per ścieżka",
     "after": "Zapewnij listy dlŏ kożdygo toru",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "step-fix-avatar-urls",
+    "before": "Napraw adresy URL awatarów",
+    "after": "Napraw adresy URL awatarōw",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "submit-on-enter",
+    "before": "Zatwierdzaj edytory klawiszem Enter",
+    "after": "Zatwierdzŏj edytōry kneflym Enter",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "swimlane-height-error-message",
+    "before": "Wysokość ścieżki musi mieć wartość dodatnią",
+    "after": "Wysokość toru musi być dodatniōm cołkowitōm liczbōm",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "text-below-custom-login-logo",
+    "before": "Tekst pod logo na ekranie logowania",
+    "after": "Tekst pod włŏsnym logo logowaniŏ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "translation-number",
+    "before": "Liczba przetłumaczonych haseł to:",
+    "after": "Wielość włŏsnych tekstōw tłōmaczyniŏ:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "trello-api-credentials-required",
+    "before": "Wprowadź zarówno klucz, jak i token API Trello.",
+    "after": "Wpisz ôba: klucz API Trello i token.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "trello-api-import",
+    "before": "Importuj bezpośrednio z Trello za pomocą klucza i tokenu API",
+    "after": "Importuj prosto ze Trello z kluczym API i tokynym",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "trello-api-token",
+    "before": "Token API Trello (wygenerowany ręcznie poniżej klucza API)",
+    "after": "Token API Trello (rynczy wygenerowany niżyj klucza API)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "upload-repository",
+    "before": "Prześlij/Zaktualizuj repozytorium",
+    "after": "Wyślij/aktualizuj repozytōrium",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "wait-spinner",
+    "before": "Animowany wskaźnik postępu",
+    "after": "Animowany wskŏźnik czekaniŏ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "webhook-token",
+    "before": "Token (opcjonalny do autoryzacji)",
+    "after": "Token (ôpcyjōnalny do uwierzytelniyniŏ)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "wipLimitErrorPopup-title",
+    "before": "Nieprawidłowy limit kart na liście",
+    "after": "Niypoprawny limit WIP",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
