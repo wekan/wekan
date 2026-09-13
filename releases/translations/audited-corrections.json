@@ -88562,5 +88562,61 @@
     "before": "La date d'échéance %s est passée",
     "after": "Tüp anuik %s ya epason",
     "reason": "Replace French due-date/time labels with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests tüp (due date), vig (week), retön (remain over); reuse existing today/next/current terminology. Preserve due-date concept rather than financial due, today/this-week/next-week distinctions, remaining lockout time and past-due placeholder. Assembled wording remains low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-dueDate",
+    "before": "date d'échéance éditée de %s à %s",
+    "after": "evotükon tüpi ad %s su kad: %s",
+    "reason": "Replace French date-change activity wording with Volapük using existing perfect-tense activity style and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf tüp (due date), prim (start), getön (receive). Inspect client/components/activities/activities.jade:125/128/131: first %s is new date, second %s is card link, not old date; preserve those argument roles. Preserve multiline time/card/previous-due tokens and line breaks. Received-time compound and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-startDate",
+    "before": "date de début éditée de %s à %s",
+    "after": "evotükon däti prima ad %s su kad: %s",
+    "reason": "Replace French date-change activity wording with Volapük using existing perfect-tense activity style and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf tüp (due date), prim (start), getön (receive). Inspect client/components/activities/activities.jade:125/128/131: first %s is new date, second %s is card link, not old date; preserve those argument roles. Preserve multiline time/card/previous-due tokens and line breaks. Received-time compound and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-endDate",
+    "before": "date de fin éditée de %s à %s",
+    "after": "evotükon däti fina ad %s su kad: %s",
+    "reason": "Replace French date-change activity wording with Volapük using existing perfect-tense activity style and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf tüp (due date), prim (start), getön (receive). Inspect client/components/activities/activities.jade:125/128/131: first %s is new date, second %s is card link, not old date; preserve those argument roles. Preserve multiline time/card/previous-due tokens and line breaks. Received-time compound and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "a-receivedAt",
+    "before": "Date de réception modifiée à",
+    "after": "evotükon timi getama ad",
+    "reason": "Replace French date-change activity wording with Volapük using existing perfect-tense activity style and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf tüp (due date), prim (start), getön (receive). Inspect client/components/activities/activities.jade:125/128/131: first %s is new date, second %s is card link, not old date; preserve those argument roles. Preserve multiline time/card/previous-due tokens and line breaks. Received-time compound and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "a-dueAt",
+    "before": "Echéance modifiée à",
+    "after": "evotükon tüpi ad",
+    "reason": "Replace French date-change activity wording with Volapük using existing perfect-tense activity style and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf tüp (due date), prim (start), getön (receive). Inspect client/components/activities/activities.jade:125/128/131: first %s is new date, second %s is card link, not old date; preserve those argument roles. Preserve multiline time/card/previous-due tokens and line breaks. Received-time compound and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "a-startAt",
+    "before": "Date de début modifiée à",
+    "after": "evotükon timi prima ad",
+    "reason": "Replace French date-change activity wording with Volapük using existing perfect-tense activity style and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf tüp (due date), prim (start), getön (receive). Inspect client/components/activities/activities.jade:125/128/131: first %s is new date, second %s is card link, not old date; preserve those argument roles. Preserve multiline time/card/previous-due tokens and line breaks. Received-time compound and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "a-endAt",
+    "before": "Date de fin modifiée à",
+    "after": "evotükon timi fina ad",
+    "reason": "Replace French date-change activity wording with Volapük using existing perfect-tense activity style and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf tüp (due date), prim (start), getön (receive). Inspect client/components/activities/activities.jade:125/128/131: first %s is new date, second %s is card link, not old date; preserve those argument roles. Preserve multiline time/card/previous-due tokens and line breaks. Received-time compound and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "act-a-dueAt",
+    "before": "Echéance modifiée à\nQuand: __timeValue__\nOù: __card__\n L'échéance précédente était __timeOldValue__",
+    "after": "evotükon tüpi ad \nTim: __timeValue__\nTop: __card__\n tüp büik äbinon __timeOldValue__",
+    "reason": "Replace French date-change activity wording with Volapük using existing perfect-tense activity style and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf tüp (due date), prim (start), getön (receive). Inspect client/components/activities/activities.jade:125/128/131: first %s is new date, second %s is card link, not old date; preserve those argument roles. Preserve multiline time/card/previous-due tokens and line breaks. Received-time compound and assembled grammar remain low confidence; native review unavailable."
   }
 ]
