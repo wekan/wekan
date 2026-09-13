@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,288 |
+| Corrected | 11,291 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,558 |
+| Pending review or repair | 4,555 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,561** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,571** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `12f7872975a1e6760d0de4f331590e5d6dc42896` — 11 French card-action/display labels replaced with Wolof. Move triggers, export restrictions, relative positions, title filtering and minicard/parent scopes are retained. Cover/parent terminology and full grammar remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `ceef17470eb2fcae621cdb2973d76f591f5fb243` — 10 due-card/date-change labels repaired in Wolof. Due dates are distinguished from overdue-only cards; incomplete-card/board-permission conditions, me/all users and change counts remain explicit. Full grammar and due-card terminology remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
