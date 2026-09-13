@@ -58245,5 +58245,145 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "伊斯兰历（沙特阿拉伯，按新月观测）",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fy",
+    "key": "fix-avatar-urls-migration",
+    "before": "Fix Avatar URL's",
+    "after": "Avatar-URL's reparearje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fy",
+    "key": "step-fix-avatar-urls",
+    "before": "Fix Avatar URL's",
+    "after": "Avatar-URL's reparearje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fy",
+    "key": "s3-minio-storage",
+    "before": "S3 / MinIO Storage",
+    "after": "S3/MinIO-opslach",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fy",
+    "key": "upload-repository",
+    "before": "Upload / Update Repository",
+    "after": "Repository oplade/bywurkje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fy",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Dangi-kalinder (Koreaansk)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fy",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Hidjra-kalinder",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fy",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Hidjra-kalinder (tabellêr, boargerlik begjintiidstip)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fy",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Hidjra-kalinder (Saûdy-Araabje, moanwaarnimming)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fy",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Hidjra-kalinder (tabellêr, astronomysk begjintiidstip)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fy",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Hidjra-kalinder (Umm al-Qura)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fy-NL",
+    "key": "fix-avatar-urls-migration",
+    "before": "Fix Avatar URL's",
+    "after": "Avatar-URL's reparearje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fy-NL",
+    "key": "step-fix-avatar-urls",
+    "before": "Fix Avatar URL's",
+    "after": "Avatar-URL's reparearje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fy-NL",
+    "key": "s3-minio-storage",
+    "before": "S3 / MinIO Storage",
+    "after": "S3/MinIO-opslach",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fy-NL",
+    "key": "upload-repository",
+    "before": "Upload / Update Repository",
+    "after": "Repository oplade/bywurkje",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fy-NL",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Dangi-kalinder (Koreaansk)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fy-NL",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Hidjra-kalinder",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fy-NL",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Hidjra-kalinder (tabellêr, boargerlik begjintiidstip)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fy-NL",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Hidjra-kalinder (Saûdy-Araabje, moanwaarnimming)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fy-NL",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Hidjra-kalinder (tabellêr, astronomysk begjintiidstip)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "fy-NL",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Hidjra-kalinder (Umm al-Qura)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
