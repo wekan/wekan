@@ -88296,5 +88296,82 @@
     "before": "Afficher/Masquer la barre latérale des filtres",
     "after": "Jonön u klänedön flanapadi sulas",
     "reason": "Replace French filter-interface wording with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests sul/sulön (filter), tiäd (title), klänedön (hide); reuse existing card/list/custom-field terminology and software click wording. Preserve card-or-list selection, title/custom-field criteria, active-filter editing and sidebar show/hide behavior. Sidebar compound and assembled software wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "shortcut-toggle-sidebar",
+    "before": "Afficher/Masquer la barre latérale du tableau",
+    "after": "Jonön u klänedön flanapadi taba",
+    "reason": "Replace French menu/account/filter/label wording with Volapük using existing terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests sotön (sort), sul (filter), klänedön (hide), ninädapenäd (label). Preserve checked-item state, label text rather than whole label, search/board sidebar distinctions, account-creation failure, email-change permission and not-found placeholder. Sidebar compound and assembled software wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "shortcut-toggle-searchbar",
+    "before": "Afficher/Masquer la barre latérale de recherche",
+    "after": "Jonön u klänedön flanapadi suka",
+    "reason": "Replace French menu/account/filter/label wording with Volapük using existing terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests sotön (sort), sul (filter), klänedön (hide), ninädapenäd (label). Preserve checked-item state, label text rather than whole label, search/board sidebar distinctions, account-creation failure, email-change permission and not-found placeholder. Sidebar compound and assembled software wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "user-exists",
+    "before": "L'utilisateur existe déjà",
+    "after": "Geban ya dabinon",
+    "reason": "Replace French menu/account/filter/label wording with Volapük using existing terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests sotön (sort), sul (filter), klänedön (hide), ninädapenäd (label). Preserve checked-item state, label text rather than whole label, search/board sidebar distinctions, account-creation failure, email-change permission and not-found placeholder. Sidebar compound and assembled software wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "account-creation-failed",
+    "before": "Échec de la création du compte",
+    "after": "Jafam kala no eplöpon",
+    "reason": "Replace French menu/account/filter/label wording with Volapük using existing terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests sotön (sort), sul (filter), klänedön (hide), ninädapenäd (label). Preserve checked-item state, label text rather than whole label, search/board sidebar distinctions, account-creation failure, email-change permission and not-found placeholder. Sidebar compound and assembled software wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "accounts-allowEmailChange",
+    "before": "Autoriser le changement d'adresse de courriel",
+    "after": "Dälön votükami ladeta leäktronik",
+    "reason": "Replace French menu/account/filter/label wording with Volapük using existing terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests sotön (sort), sul (filter), klänedön (hide), ninädapenäd (label). Preserve checked-item state, label text rather than whole label, search/board sidebar distinctions, account-creation failure, email-change permission and not-found placeholder. Sidebar compound and assembled software wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "boardCardTitlePopup-title",
+    "before": "Filtre par titre de carte",
+    "after": "Sul ma tiäd kada",
+    "reason": "Replace French menu/account/filter/label wording with Volapük using existing terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests sotön (sort), sul (filter), klänedön (hide), ninädapenäd (label). Preserve checked-item state, label text rather than whole label, search/board sidebar distinctions, account-creation failure, email-change permission and not-found placeholder. Sidebar compound and assembled software wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "card-edit-custom-fields",
+    "before": "Éditer les champs personnalisés",
+    "after": "Votükön felis lönik",
+    "reason": "Replace French menu/account/filter/label wording with Volapük using existing terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests sotön (sort), sul (filter), klänedön (hide), ninädapenäd (label). Preserve checked-item state, label text rather than whole label, search/board sidebar distinctions, account-creation failure, email-change permission and not-found placeholder. Sidebar compound and assembled software wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "hide-checked-items",
+    "before": "Cacher les éléments cochés",
+    "after": "Klänedön notetis pemäköl",
+    "reason": "Replace French menu/account/filter/label wording with Volapük using existing terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests sotön (sort), sul (filter), klänedön (hide), ninädapenäd (label). Preserve checked-item state, label text rather than whole label, search/board sidebar distinctions, account-creation failure, email-change permission and not-found placeholder. Sidebar compound and assembled software wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "hide-minicard-label-text",
+    "before": "Cacher l'étiquette de la mini-carte",
+    "after": "Klänedön vödemi ninädapenäda su kadil",
+    "reason": "Replace French menu/account/filter/label wording with Volapük using existing terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests sotön (sort), sul (filter), klänedön (hide), ninädapenäd (label). Preserve checked-item state, label text rather than whole label, search/board sidebar distinctions, account-creation failure, email-change permission and not-found placeholder. Sidebar compound and assembled software wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "label-not-found",
+    "before": "Étiquette '%s' non trouvée.",
+    "after": "Ninädapenäd '%s' no petuvon.",
+    "reason": "Replace French menu/account/filter/label wording with Volapük using existing terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests sotön (sort), sul (filter), klänedön (hide), ninädapenäd (label). Preserve checked-item state, label text rather than whole label, search/board sidebar distinctions, account-creation failure, email-change permission and not-found placeholder. Sidebar compound and assembled software wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "sort-desc",
+    "before": "Cliquez pour trier la liste",
+    "after": "Klikön ad sotön lisedi",
+    "reason": "Replace French menu/account/filter/label wording with Volapük using existing terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests sotön (sort), sul (filter), klänedön (hide), ninädapenäd (label). Preserve checked-item state, label text rather than whole label, search/board sidebar distinctions, account-creation failure, email-change permission and not-found placeholder. Sidebar compound and assembled software wording remain low confidence; native review unavailable."
   }
 ]
