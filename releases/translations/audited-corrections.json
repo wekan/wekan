@@ -111837,5 +111837,19 @@
     "before": "päivää",
     "after": "päiväd",
     "reason": "Replace Finnish-seeded basic date units with Veps vocabulary. Source: https://fi.wikibooks.org/wiki/Veps%C3%A4n_kieli/Sanasto (päiv, nedalin päiväd, kud). Plural days uses Veps nominative plural; inflection in composed UI requires review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "calendar",
+    "before": "Kalenteri",
+    "after": "Kalendar'",
+    "reason": "Replace Finnish calendar and Turkic-seeded selector text with Veps. Actual Veps newspaper usage attests kalendar': https://omamedia.ru/news/oma_tal_vku_kodiman_lehtpolil/ and corpus https://dictorpus.krc.karelia.ru/ru/corpus/text/1150 . Selector compound wording is low confidence; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Kalendarin sistem (päivän näütamine)",
+    "reason": "Replace Finnish calendar and Turkic-seeded selector text with Veps. Actual Veps newspaper usage attests kalendar': https://omamedia.ru/news/oma_tal_vku_kodiman_lehtpolil/ and corpus https://dictorpus.krc.karelia.ru/ru/corpus/text/1150 . Selector compound wording is low confidence; fluent-speaker validation outstanding."
   }
 ]
