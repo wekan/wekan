@@ -5,14 +5,15 @@
 const { Meteor } = require('meteor/meteor');
 const { Accounts } = require('meteor/accounts-base');
 const { WebApp } = require('meteor/webapp');
-const bodyParser = require('body-parser');
 const { safeJsonStringify } = require('/server/lib/apiResponseHelpers');
 
 // ---------------------------------------------------------------------------
 // 1. Body parsing (previously registered by json-routes)
 // ---------------------------------------------------------------------------
-WebApp.handlers.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
-WebApp.handlers.use(bodyParser.json({ limit: '50mb' }));
+// Reuse Meteor's Express parsers. Rspack 2 no longer brings body-parser into
+// the app's node_modules through its development server dependencies.
+WebApp.handlers.use(WebApp.express.urlencoded({ limit: '50mb', extended: false }));
+WebApp.handlers.use(WebApp.express.json({ limit: '50mb' }));
 
 // ---------------------------------------------------------------------------
 // 2. API gate — check WITH_API env var (previously in models/users.js)

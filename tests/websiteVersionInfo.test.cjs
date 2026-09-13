@@ -54,7 +54,8 @@ const expected = [
 const result = run('v1.64.0');
 assert.equal(result.status, 0, result.stderr);
 assert.equal(fs.readFileSync(path.join(temp, 'version.txt'), 'utf8'), `${expected}\n`);
-assert.ok(!fs.readFileSync(path.join(temp, 'version.txt'), 'utf8').includes('beta.0'),
+// A current Meteor prerelease is valid; reject the specific stale fixture version.
+assert.ok(!fs.readFileSync(path.join(temp, 'version.txt'), 'utf8').includes('Meteor 3.5.2-beta.0\n'),
   'stale Docker metadata cannot override the canonical .meteor/release pin');
 const installPage = fs.readFileSync(path.join(temp, 'install/index.html'), 'utf8');
 assert.ok(installPage.includes(`<pre id="version-info">${expected}</pre>`),

@@ -158,7 +158,7 @@ test('moment is gone and stays gone (negative)', () => {
 // Resolving is what the build needs; DECLARING is what protects it tomorrow. A
 // package the app imports directly but does not name is there only because
 // something else happens to depend on it, and disappears when that dependency
-// changes. These two are the ones that predate this test - the list is pinned so
+// changes. The remaining mime-types import predates this test - the list is pinned so
 // it cannot quietly grow, not because it is fine.
 test('the set of imported-but-undeclared packages does not grow', () => {
   const undeclared = new Set();
@@ -171,7 +171,7 @@ test('the set of imported-but-undeclared packages does not grow', () => {
       if (!DECLARED.has(name)) undeclared.add(name);
     }
   }
-  assert.deepEqual([...undeclared].sort(), ['body-parser', 'mime-types'],
+  assert.deepEqual([...undeclared].sort(), ['mime-types'],
     'a new entry here is a direct dependency that package.json does not name: ' +
     'it works today only because something else pulls it in');
 });
