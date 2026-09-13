@@ -109,5 +109,10 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.doesNotMatch(veps['color-green'], /vihreä/);
   assert.doesNotMatch(veps['color-red'], /punainen/);
   assert.doesNotMatch(veps['color-white'], /valkoinen/);
+  // Veps action labels use the imperative and passive participle, not Finnish seed text.
+  assert.equal(cache['ve-PP'].add, 'Ližada');
+  assert.equal(cache['ve-PP'].added, 'Ližatud');
+  assert.notEqual(cache['ve-PP'].add, 'Lisää');
+  assert.notEqual(cache['ve-PP'].added, 'Lisätty');
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

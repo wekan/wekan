@@ -111907,5 +111907,19 @@
     "before": "keltainen",
     "after": "pakuine",
     "reason": "Replace Finnish-seeded basic color vocabulary with attested Veps terms. Source: https://fi.wikibooks.org/wiki/Veps%C3%A4n_kieli/Sanasto section Mujud. Specialized shades remain for separate semantic review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add",
+    "before": "Lisää",
+    "after": "Ližada",
+    "reason": "Replace Finnish-seeded Add/Added labels with Veps imperative ližada and past passive participle ližatud, attested in the conjugation of ližata (Zajceva/Mullonen 2007 dictionary). Source: https://en.wiktionary.org/wiki/li%C5%BEata ."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "added",
+    "before": "Lisätty",
+    "after": "Ližatud",
+    "reason": "Replace Finnish-seeded Add/Added labels with Veps imperative ližada and past passive participle ližatud, attested in the conjugation of ližata (Zajceva/Mullonen 2007 dictionary). Source: https://en.wiktionary.org/wiki/li%C5%BEata ."
   }
 ]
