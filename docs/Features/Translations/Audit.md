@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,538 |
+| Corrected | 12,542 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,308 |
+| Pending review or repair | 3,304 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,111** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,115** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `18ecbef828de2ee1e6b9f09853bfc97a2a880d42` — four Volapük comment-role, webhook-token and URL-scheme strings repaired. Role limits, optional authentication and one-scheme-per-line instruction preserved; software wording remains low confidence.
+Latest translation fix: **2026-09-13**, local commit `0db24a3eaf362d9d99b338eea96c5b8b401e345b` — four Volapük wait-spinner labels repaired, preserving animation style identifiers. Dictionary-based software wording remains low confidence and requires native-speaker review.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
