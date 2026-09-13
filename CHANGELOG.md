@@ -80,12 +80,13 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 13,146 corrected, 4,058 restored pre-pull values awaiting
-validation, 178 reviewed and retained, and 2,699 pending review or repair.
-The correction inventory records 13,824 exact before/after values across
+findings: 13,227 corrected, 4,058 restored pre-pull values awaiting
+validation, 178 reviewed and retained, and 2,618 pending review or repair.
+The correction inventory records 13,905 exact before/after values across
 201 locale identifiers, including repairs outside the original findings.
-Klingon has 81 pending flagged findings after 280 new repairs; review and repairs are
-underway. Other substantial queues remain in Venda and regional
+All 361 originally flagged Klingon findings are repaired. Another 829
+German-identical Klingon values need individual review; technical names and
+formats are not presumed wrong. Other substantial queues remain in Venda and regional
 locale files and Tamazight. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
