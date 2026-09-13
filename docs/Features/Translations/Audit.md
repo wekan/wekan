@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,428 |
+| Corrected | 12,432 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,418 |
+| Pending review or repair | 3,414 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,976** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,981** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `62cd464dcd499eab1eeeac0cdbc10053c83e10cd` — four Volapük copy-card instructions/example and creation-date sorting strings repaired. JSON property names and first/second/last examples preserved; assembled wording remains low confidence.
+Latest translation fix: **2026-09-13**, local commit `c370b985ef28e3441c8ced4a3d3202ac8660edc7` — five Volapük automatic-width, avatar-size and reconnect strings repaired. Opposite control states/actions and the size upper bound preserved; assembled wording remains low confidence.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
