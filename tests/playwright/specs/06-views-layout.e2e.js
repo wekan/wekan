@@ -57,7 +57,15 @@ test.describe('Views & layout', () => {
       });
     }), user.id);
     await boardPage.waitForFunction(id => Meteor.userId() === id &&
-      Meteor.user()?.profile?.boardView === 'board-view-swimlanes', user.id);
+      Meteor.user()?.boardViewPreference === 'board-view-swimlanes', user.id).catch(async error => {
+      const state = await boardPage.evaluate(() => ({
+        userId: Meteor.userId(), profile: Meteor.user()?.profile,
+        boardViewPreference: Meteor.user()?.boardViewPreference,
+        subscriptions: Object.values(Meteor.connection._subscriptions).map(sub => ({ name: sub.name, ready: sub.ready })),
+      }));
+      error.message += `\nImpersonation state: ${JSON.stringify(state)}`;
+      throw error;
+    });
     await navigateInApp(boardPage, `/b/${board.boardId}/${board.slug}`);
     await assertScoped();
     expect(db.findOne('users', { _id: user.id }).profile.boardView).toBe('board-view-swimlanes');

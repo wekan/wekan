@@ -28,6 +28,18 @@ for (const profile of [undefined, {}, { boardView: undefined }, { boardView: '' 
 user = { profile: { boardView: 'board-view-lists' } };
 browserView = 'board-view-cal';
 assert.equal(Utils.boardView(), 'board-view-lists', 'published preference wins');
+user.boardViewPreference = 'board-view-swimlanes';
+assert.equal(Utils.boardView(), 'board-view-swimlanes', 'private preference survives a competing partial profile');
+user.boardViewPreference = 'board-view-lists';
+pending = 'board-view-cal';
+user.profile.boardView = pending;
+assert.equal(Utils.boardView(), 'board-view-cal');
+assert.equal(pending, 'board-view-cal', 'stale private preference cannot acknowledge a pending choice');
+user.boardViewPreference = pending;
+assert.equal(Utils.boardView(), 'board-view-cal');
+assert.equal(pending, null);
+delete user.boardViewPreference;
+
 pending = 'board-view-swimlanes';
 assert.equal(Utils.boardView(), pending, 'pending choice wins until publication catches up');
 user.profile.boardView = pending;
@@ -47,17 +59,46 @@ browserView = 'board-view-lists';
 assert.equal(context.instance.idOrNull('lane-A'), undefined, 'list view stays unscoped');
 context.instance.data = null;
 assert.equal(context.instance.idOrNull('lane-A'), undefined);
-let publish;
-vm.runInNewContext(fs.readFileSync('server/publications/userBoardView.js', 'utf8').replace(/^import .*;\n/m, ''), {
-  Meteor: { publish: (name, handler) => { assert.equal(name, 'userBoardView'); publish = handler; },
-    users: { find: (selector, options) => JSON.parse(JSON.stringify({ selector, options })) } },
-});
-assert.equal(publish.call({ userId: null, ready: () => 'ready' }, 'victim'), 'ready');
-for (const id of ['admin', 'impersonated-member']) {
-  assert.deepEqual(publish.call({ userId: id }, 'victim'), {
-    selector: { _id: id }, options: { fields: { 'profile.boardView': 1 } },
-  }, 'publication ignores supplied user IDs and follows authenticated identity');
-}
+(async () => {
+  let publish, observer, selector, options, cleanup;
+  const messages = [];
+  let stops = 0;
+  const handle = { stop: () => { stops++; } };
+  vm.runInNewContext(fs.readFileSync('server/publications/userBoardView.js', 'utf8').replace(/^import .*;\n/m, ''), {
+    Meteor: { publish: (name, handler) => { assert.equal(name, 'userBoardView'); publish = handler; },
+      users: { find: (filter, projection) => {
+        selector = JSON.parse(JSON.stringify(filter)); options = JSON.parse(JSON.stringify(projection));
+        return { observeChangesAsync: async callbacks => {
+          observer = callbacks; callbacks.added(filter._id, { profile: { boardView: 'board-view-swimlanes' } });
+          return handle;
+        } };
+      } } },
+  });
+  assert.equal(await publish.call({ userId: null, ready: () => 'ready' }, 'victim'), 'ready');
+  for (const id of ['admin', 'impersonated-member']) {
+    messages.length = 0;
+    await publish.call({ userId: id, onStop: callback => { cleanup = callback; },
+      added: (collection, userId, fields) => messages.push(['added', collection, userId, JSON.parse(JSON.stringify(fields))]),
+      changed: (collection, userId, fields) => messages.push(['changed', collection, userId, fields.boardViewPreference]),
+      removed: (collection, userId) => messages.push(['removed', collection, userId]),
+      ready: () => messages.push(['ready']),
+    }, 'victim');
+    assert.deepEqual(selector, { _id: id }, 'client-supplied IDs cannot select another user');
+    assert.deepEqual(options, { fields: { 'profile.boardView': 1 } });
+    assert.deepEqual(messages, [['added', 'users', id, { boardViewPreference: 'board-view-swimlanes' }], ['ready']]);
+    observer.changed(id, { profile: { boardView: 'board-view-lists' } });
+    observer.changed(id, {});
+    observer.removed(id);
+    assert.deepEqual(messages.slice(2), [['changed', 'users', id, 'board-view-lists'], ['changed', 'users', id, undefined], ['removed', 'users', id]],
+      'preference changes, unsets and deleted users remain reactive');
+    cleanup();
+    const count = messages.length;
+    observer.added(id, { profile: { boardView: 'board-view-cal' } });
+    assert.equal(messages.length, count, 'stopped subscriptions send no preference');
+  }
+  assert.equal(stops, 2, 'every observer is stopped');
+  console.log('boardViewMissingProfile6691: private preference publication, reactivity and cleanup passed');
+})().catch(error => { console.error(error); process.exitCode = 1; });
 assert.match(fs.readFileSync('server/imports.js', 'utf8'), /import '\/server\/publications\/userBoardView'/);
 assert.match(fs.readFileSync('client/00-startup.js', 'utf8'), /Meteor\.subscribe\('userBoardView'\)/);
 console.log('boardViewMissingProfile6691: fallback, scoping, defaults and private publication passed');

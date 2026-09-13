@@ -18,7 +18,7 @@ assert.doesNotMatch(authenticated, /Utils\.reload\(\)/,
 assert.doesNotMatch(authenticated, /\}\s*pendingBoardView\.set\(null\);\s*\}\);/,
   'a successful callback must not clear pending before profile reactivity catches up');
 assert.match(utils,
-  /if \(currentUser && \(currentUser\.profile \|\| \{\}\)\.boardView === pending\)/,
+  /if \(currentUser && profileView === pending\)/,
   'the pending view is acknowledged only after the reactive profile matches');
 assert.match(authenticated, /if \(error\) \{[\s\S]*?pendingBoardView\.set\(null\);/,
   'a failed persistence call releases the pending view');

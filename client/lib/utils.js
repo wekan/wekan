@@ -353,19 +353,21 @@ export const Utils = {
   storedBoardView() {
     const pending = pendingBoardView.get();
     const currentUser = ReactiveCache.getCurrentUser();
+    const publishedView = currentUser?.boardViewPreference;
+    const profileView = isKnownBoardView(publishedView)
+      ? publishedView : (currentUser?.profile || {}).boardView;
     if (pending) {
       // #6659: a successful method callback can run before the reactive user
       // document carries the persisted profile value. Keep rendering the
       // chosen view until that document catches up instead of briefly exposing
       // the old value and snapping back to it.
-      if (currentUser && (currentUser.profile || {}).boardView === pending) {
+      if (currentUser && profileView === pending) {
         pendingBoardView.set(null);
       }
       return pending;
     }
     // #6691: impersonation and subscriptions still loading can expose a partial
     // profile. Fall back to the browser preference, then the normal default.
-    const profileView = (currentUser?.profile || {}).boardView;
     if (isKnownBoardView(profileView)) {
       return profileView;
     }

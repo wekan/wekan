@@ -1449,12 +1449,7 @@ Template.calendarView.helpers({
     };
   },
   isViewCalendar() {
-    const currentUser = ReactiveCache.getCurrentUser();
-    if (currentUser) {
-      return (currentUser.profile || {}).boardView === 'board-view-cal';
-    } else {
-      return window.localStorage.getItem('boardView') === 'board-view-cal';
-    }
+    return Utils.boardView() === 'board-view-cal';
   },
 });
 
