@@ -65490,5 +65490,61 @@
     "before": "a créé le champ personnalisé %s",
     "after": "krouet ar maezienn personelaet %s",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-dueDate",
+    "before": "date d'échéance éditée de %s à %s",
+    "after": "kemmet an deiziad termen da %s evit ar gartenn %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-endDate",
+    "before": "date de fin éditée de %s à %s",
+    "after": "kemmet an deiziad echuiñ da %s evit ar gartenn %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-receivedDate",
+    "before": "date de réception éditée de %s à %s",
+    "after": "kemmet an deiziad degemer da %s evit ar gartenn %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-set-customfield",
+    "before": "a défini le champ personnalisé '%s' à '%s' dans %s",
+    "after": "lakaet ar maezienn personelaet '%s' da '%s' e %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-startDate",
+    "before": "date de début éditée de %s à %s",
+    "after": "kemmet an deiziad deroù da %s evit ar gartenn %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-unchecked-item",
+    "before": "a décoché %s dans la checklist %s de %s",
+    "after": "diverket %s er roll kontroll %s eus %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-unchecked-item-card",
+    "before": "a décoché %s dans la checklist %s",
+    "after": "diverket %s er roll kontroll %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "activity-unset-customfield",
+    "before": "a effacé le champ personnalisé '%s' dans %s",
+    "after": "goullonderet talvoud ar maezienn personelaet '%s' e %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
