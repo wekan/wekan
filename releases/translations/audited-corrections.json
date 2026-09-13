@@ -72455,5 +72455,75 @@
     "before": "Islamic tabular",
     "after": "Kalena Hijri (fa'atatau i siata, aso amata e tusa ma le saienisi o le vateatea)",
     "reason": "Replace English label while retaining chart/table calculation and astronomical starting date. Samoan saienisi/vateatea vocabulary informed by primary article https://www.jw.org/sm/lomiga-ma-isi-mea/mekasini/g20040108/Na-Avea-ma-Au-Tapuaiga-le-Faasaienisi/ ; siata/calendar terminology in https://www.jw.org/sm/lomiga-ma-isi-mea/mekasini/su%CA%BBesu%CA%BBega-olomatamata-iuni-2022/e-te-silafia-iuni-2022-2/ . Direct specialized starting-date phrasing remains low confidence and needs native review."
+  },
+  {
+    "locale": "wa",
+    "key": "accounts-lockout-all-users-unlocked",
+    "before": "Tous les utilisateurs bloqués ont été déverrouillés",
+    "after": "Tos les uzeus blokés ont stî disblokés",
+    "reason": "Replace audited French with Walloon. Native computing terminology uzeu, no d' uzeu, sicret, apontiaedje: https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block/unblock vocabulary: https://dtw.walon.org/index.php?query=bloker and https://dtw.walon.org/index.php?query=li%C3%A5rds&type=artike . Complete sentence grammar remains low confidence; source meanings and tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "accounts-lockout-click-to-unlock",
+    "before": "Cliquer pour déverrouiller cet utilisateur",
+    "after": "Clitchîz po disbloker ci uzeu ci",
+    "reason": "Replace audited French with Walloon. Native computing terminology uzeu, no d' uzeu, sicret, apontiaedje: https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block/unblock vocabulary: https://dtw.walon.org/index.php?query=bloker and https://dtw.walon.org/index.php?query=li%C3%A5rds&type=artike . Complete sentence grammar remains low confidence; source meanings and tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "accounts-lockout-confirm-unlock",
+    "before": "Êtes-vous sûr de vouloir déverrouiller cet utilisateur ?",
+    "after": "Estoz vs seur di voleur disbloker ci uzeu ci?",
+    "reason": "Replace audited French with Walloon. Native computing terminology uzeu, no d' uzeu, sicret, apontiaedje: https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block/unblock vocabulary: https://dtw.walon.org/index.php?query=bloker and https://dtw.walon.org/index.php?query=li%C3%A5rds&type=artike . Complete sentence grammar remains low confidence; source meanings and tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "before": "Êtes-vous sûr de vouloir déverrouiller tous les utilisateurs verrouillés ?",
+    "after": "Estoz vs seur di voleur disbloker tos les uzeus blokés?",
+    "reason": "Replace audited French with Walloon. Native computing terminology uzeu, no d' uzeu, sicret, apontiaedje: https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block/unblock vocabulary: https://dtw.walon.org/index.php?query=bloker and https://dtw.walon.org/index.php?query=li%C3%A5rds&type=artike . Complete sentence grammar remains low confidence; source meanings and tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "accounts-lockout-known-users",
+    "before": "Paramètres pour les utilisateurs connus (utilisateur existant, mot de passe incorrect)",
+    "after": "Apontiaedjes po les uzeus cnoxhous (bon no d' uzeu, mwais sicret)",
+    "reason": "Replace audited French with Walloon. Native computing terminology uzeu, no d' uzeu, sicret, apontiaedje: https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block/unblock vocabulary: https://dtw.walon.org/index.php?query=bloker and https://dtw.walon.org/index.php?query=li%C3%A5rds&type=artike . Complete sentence grammar remains low confidence; source meanings and tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "accounts-lockout-no-locked-users",
+    "before": "Il n'y a actuellement aucun utilisateur verrouillé",
+    "after": "I gn a pont d' uzeus blokés pol moumint",
+    "reason": "Replace audited French with Walloon. Native computing terminology uzeu, no d' uzeu, sicret, apontiaedje: https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block/unblock vocabulary: https://dtw.walon.org/index.php?query=bloker and https://dtw.walon.org/index.php?query=li%C3%A5rds&type=artike . Complete sentence grammar remains low confidence; source meanings and tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "accounts-lockout-show-locked-users",
+    "before": "Afficher les utilisateurs verrouillés seulement",
+    "after": "Mostrer seulmint les uzeus blokés",
+    "reason": "Replace audited French with Walloon. Native computing terminology uzeu, no d' uzeu, sicret, apontiaedje: https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block/unblock vocabulary: https://dtw.walon.org/index.php?query=bloker and https://dtw.walon.org/index.php?query=li%C3%A5rds&type=artike . Complete sentence grammar remains low confidence; source meanings and tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "accounts-lockout-unknown-users",
+    "before": "Paramètres pour les utilisateurs inconnus (utilisateur inexistant)",
+    "after": "Apontiaedjes po les uzeus nén cnoxhous (no d' uzeu ki n' egzistêye nén)",
+    "reason": "Replace audited French with Walloon. Native computing terminology uzeu, no d' uzeu, sicret, apontiaedje: https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block/unblock vocabulary: https://dtw.walon.org/index.php?query=bloker and https://dtw.walon.org/index.php?query=li%C3%A5rds&type=artike . Complete sentence grammar remains low confidence; source meanings and tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "accounts-lockout-user-locked",
+    "before": "L'utilisateur est verrouillé",
+    "after": "L' uzeu est bloké",
+    "reason": "Replace audited French with Walloon. Native computing terminology uzeu, no d' uzeu, sicret, apontiaedje: https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block/unblock vocabulary: https://dtw.walon.org/index.php?query=bloker and https://dtw.walon.org/index.php?query=li%C3%A5rds&type=artike . Complete sentence grammar remains low confidence; source meanings and tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "accounts-lockout-user-unlocked",
+    "before": "L'utilisateur a été déverrouillé avec succès",
+    "after": "L' uzeu a stî disbloké",
+    "reason": "Replace audited French with Walloon. Native computing terminology uzeu, no d' uzeu, sicret, apontiaedje: https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block/unblock vocabulary: https://dtw.walon.org/index.php?query=bloker and https://dtw.walon.org/index.php?query=li%C3%A5rds&type=artike . Complete sentence grammar remains low confidence; source meanings and tokens retained."
   }
 ]
