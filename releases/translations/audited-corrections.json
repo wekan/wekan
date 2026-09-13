@@ -61416,5 +61416,75 @@
     "before": "Dates (Création, Réception, Début, Échéance, Fin)",
     "after": "Datas (Creacion, Recepcion, Començament, Escasença, Fin)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "export-card-field-people",
+    "before": "Personnes (Créateur, Propriétaire, Participants, Intervenants)",
+    "after": "Personas (Creator, Proprietari, Membres, Assignataris)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "filesReportTitle",
+    "before": "Rapports sur les fichiers",
+    "after": "Rapòrt dels fichièrs",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "filter-card-title-label",
+    "before": "Filtrer par titre de carte",
+    "after": "Filtrar pel títol de la carta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "filter-cards",
+    "before": "Filtrer les cartes ou listes",
+    "after": "Filtrar las cartas o las listas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "filter-custom-fields-label",
+    "before": "Filtrer par champs personnalisés",
+    "after": "Filtrar pels camps personalizats",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "filter-due-next-week",
+    "before": "Arrive à échéance semaine prochaine",
+    "after": "Escasença la setmana que ven",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "filter-due-this-week",
+    "before": "Arrive à échéance cette semaine",
+    "after": "Escasença aquesta setmana",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "filter-due-today",
+    "before": "Arrive à échéance aujourd'hui",
+    "after": "Escasença uèi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "filter-show-archive",
+    "before": "Montrer les listes archivées",
+    "after": "Mostrar las listas archivadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "fix-all-file-urls-migration",
+    "before": "Corriger toutes les URL de fichiers",
+    "after": "Corregir totes los URL dels fichièrs",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
