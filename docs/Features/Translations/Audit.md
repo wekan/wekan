@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,143 |
+| Corrected | 11,144 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,703 |
+| Pending review or repair | 4,702 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,306** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,316** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `fbdf7172067fd79ba985025e1f904e38b4986c19` — 6 French account-status filters and activation controls replaced with Wolof. Locked-only filtering stays distinct from active/inactive states; click actions retain their opposite effects. Account-state terminology and full grammar remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `ab8313bf227e031c46e61d4f0762925d9de31ed4` — 10 French short activity/comment messages replaced with Wolof; removed an erroneous numeral before the list-rename placeholder. Placeholder counts and argument order are preserved. Full grammar and generic entity prepositions remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
