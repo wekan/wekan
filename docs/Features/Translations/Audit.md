@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,314 |
+| Corrected | 12,321 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,532 |
+| Pending review or repair | 3,525 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,830** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,839** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `4574aa632e7f0ae911d81200d847a0c8dd743b0e` — six French search syntax/combination explanations replaced with Volapük. Preserved exact examples, quoted values, OR/any versus AND/all, signed day counts and descending-sort minus; software paraphrases and assembled wording remain low confidence.
+Latest translation fix: **2026-09-13**, local commit `d291c9cb6262cde02ea42aaa307a328c13ceeb4c` — nine French assignee/search/export strings replaced with Volapük. Preserved member-versus-assignee roles, scope, organization/team relationships and exact search syntax; software adaptations and assembled wording remain low confidence.
 
 **Verification:** correction and progress tests pass, covering exact values, placeholders, JSON examples and key order. Native-speaker and browser checks remain outstanding.
 
