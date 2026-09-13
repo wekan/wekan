@@ -50363,5 +50363,61 @@
     "before": "Heap Node: memoria allocata (malloc)",
     "after": "Heap Node: memoria attribuita (malloc)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "Node_heap_number_of_detached_contexts",
+    "before": "Heap Node: numero di contesti scollegati",
+    "after": "Heap Node: numeru di cuntesti staccati",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "Node_heap_number_of_native_contexts",
+    "before": "Heap Node: numero di contesti nativi",
+    "after": "Heap Node: numeru di cuntesti nativi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Heap Node: picco di memoria allocata (malloc)",
+    "after": "Heap Node: massimu di memoria attribuita (malloc)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "Node_heap_total_available_size",
+    "before": "Heap Node: dimensione totale disponibile",
+    "after": "Heap Node: dimensione tutale dispunibule",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "Node_heap_total_heap_size",
+    "before": "Heap Node: dimensione totale dell'heap",
+    "after": "Heap Node: dimensione tutale di u heap",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "Node_heap_total_heap_size_executable",
+    "before": "Heap Node: dimensione totale dell'heap eseguibile",
+    "after": "Heap Node: dimensione tutale di u heap eseguibile",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "Node_heap_total_physical_size",
+    "before": "Heap Node: dimensione fisica totale",
+    "after": "Heap Node: dimensione fisica tutale",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "Node_heap_used_heap_size",
+    "before": "Heap Node: dimensione dell'heap utilizzata",
+    "after": "Heap Node: dimensione aduprata di u heap",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
