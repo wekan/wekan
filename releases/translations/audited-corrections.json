@@ -71118,5 +71118,103 @@
     "before": "Apabila senaraisemak  adalah",
     "after": "Watee checklist",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "r-when-a-item",
+    "before": "Apabila item senarai semak adalah",
+    "after": "Watee item checklist",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "r-when-the-item",
+    "before": "Apabila item senaraisemak",
+    "after": "Watee item checklist nyan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "read-assigned-only-desc",
+    "before": "Hanya papar kad yang ditugaskan sahaja. Ubahsuai disekat.",
+    "after": "Kad nyang geubri tugas mantong deuh. Hana jeuet sunting.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "read-only-desc",
+    "before": "Kad hanya untuk paparan. Ubahsuai disekat.",
+    "after": "Jeuet ngieng kad mantong. Hana jeuet sunting.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "remove-all-read",
+    "before": "Hapus semua yang telah dibaca",
+    "after": "Hapus mandum nyang ka geubeuet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "remove-background-image",
+    "before": "Hapus latar belakang gambar",
+    "after": "Hapus gamba latar likot",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "remove-cover",
+    "before": "Hapus gambar sampul dari kartu mini",
+    "after": "Hapus gamba sampul nibak kad ubit",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "remove-labels-multiselect",
+    "before": "Pelbagai-pilihan buang labem 1-9",
+    "after": "Pilehan le kad hapus label 1-9",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "remove-organization-from-board",
+    "before": "Anda pasti untuk membuang organisasi ini daripada papan ini?",
+    "after": "Beutoi droeneueh keuneuk hapus organisasi nyoe nibak papan nyoe?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "remove-team-from-table",
+    "before": "Anda pasti untuk membuang pasukan ini daripada papan?",
+    "after": "Beutoi droeneueh keuneuk hapus tim nyoe nibak papan?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "rescue-card-description",
+    "before": "Papar dialog pengesahan sebelum menutup deskripsi kad yang tidak disimpan.",
+    "after": "Peuleumah dialog peuwoe deskripsi kad nyang gohlom geukeuneubah sigohlom top",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "rescue-card-description-dialogue",
+    "before": "Simpan dan ubah deskripsi kad sekarang dengan perubahan yang anda lakukan?",
+    "after": "Gantoe deskripsi kad jinoe ngon perubahan droeneueh?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "roles-status-desc",
+    "before": "Apa yang boleh dilakukan oleh setiap peranan papan. Baca sahaja: ia mengikut kotak semak di atas, jadi ia menunjukkan pilihan anda sebelum disimpan.",
+    "after": "Peue nyang jeuet geupeubuet le tiep peran papan. Ngieng mantong: Nyoe ikot kotak cek di ateueh, jadi nyoe peuleumah pilehan droeneueh sigohlom geukeuneubah.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "search-cards",
+    "before": "Cari dari judul kartu/daftar, deskripsi dan bidang khusus di papan ini",
+    "after": "Mita nibak judul kad/senarai, deskripsi ngon ruang khusus bak papan nyoe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
