@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,520 |
+| Corrected | 12,523 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,326 |
+| Pending review or repair | 3,323 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,087** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,090** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `a612b220da1bd8de6c70cf23bb02c4cfd4fa7e20` — five Volapük bulk-action, reminder, example and sum strings repaired. Label/member choices, first-reminder placeholders and numeric field sum preserved; wording remains low confidence.
+Latest translation fix: **2026-09-13**, local commit `b3f8c895a13944e35e2a3b2ee0ac9f24b2bb27b1` — three Volapük authentication-method labels repaired. Generic method, display toggle and default selector remain distinct; identity-checking paraphrase remains low confidence.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
