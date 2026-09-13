@@ -118543,5 +118543,61 @@
     "before": "Oletuksena arkistoiduista korteista ei etsitä.",
     "after": "Sanumata ecind om ilma arhivaha sirttud kartoid.",
     "reason": "Replace Finnish Veps search/creator wording using dictionary tegii and existing kävutai, lopun päivmär and sanumata terminology. Preserve member OR assignee, creator distinction, end-date status and default exclusion of archived cards. Technical grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-unknown-error",
+    "before": "%s ei ole operaattori",
+    "after": "%s ei ole operator",
+    "reason": "Replace Finnish search errors with Veps using dictionary lugu, kogonaine, olend and järgenduz. Preserve placeholders and distinct number/sort/status/existence/limit/debug meanings; express positive integer explicitly as greater than zero. Technical composition remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-number-expected",
+    "before": "operaattori __operator__ odotettiin numeroa, saatiin '__value__'",
+    "after": "Operatoran __operator__ täht om tarbiž lugu, no om sadud '__value__'",
+    "reason": "Replace Finnish search errors with Veps using dictionary lugu, kogonaine, olend and järgenduz. Preserve placeholders and distinct number/sort/status/existence/limit/debug meanings; express positive integer explicitly as greater than zero. Technical composition remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-sort-invalid",
+    "before": "lajittelutapa '%s' on virheellinen",
+    "after": "Järgenduz '%s' om vär",
+    "reason": "Replace Finnish search errors with Veps using dictionary lugu, kogonaine, olend and järgenduz. Preserve placeholders and distinct number/sort/status/existence/limit/debug meanings; express positive integer explicitly as greater than zero. Technical composition remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-status-invalid",
+    "before": "'%s' ei ole kelvollinen tila",
+    "after": "'%s' om vär olo",
+    "reason": "Replace Finnish search errors with Veps using dictionary lugu, kogonaine, olend and järgenduz. Preserve placeholders and distinct number/sort/status/existence/limit/debug meanings; express positive integer explicitly as greater than zero. Technical composition remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-has-invalid",
+    "before": "%s ei ole kelvollinen olemassaolo tarkistus",
+    "after": "%s om vär olendan kodvind",
+    "reason": "Replace Finnish search errors with Veps using dictionary lugu, kogonaine, olend and järgenduz. Preserve placeholders and distinct number/sort/status/existence/limit/debug meanings; express positive integer explicitly as greater than zero. Technical composition remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-limit-invalid",
+    "before": "%s ei ole kelvollinen raja. Rajan pitäisi olla positiivinen kokonaisluku.",
+    "after": "%s om vär ülimär. Ülimär pidab olda kogonaine lugu, mi om suremb 0.",
+    "reason": "Replace Finnish search errors with Veps using dictionary lugu, kogonaine, olend and järgenduz. Preserve placeholders and distinct number/sort/status/existence/limit/debug meanings; express positive integer explicitly as greater than zero. Technical composition remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-debug-invalid",
+    "before": "%s ei ole kelvollinen debuggaus predikaatti",
+    "after": "%s om vär debug-predikat",
+    "reason": "Replace Finnish search errors with Veps using dictionary lugu, kogonaine, olend and järgenduz. Preserve placeholders and distinct number/sort/status/existence/limit/debug meanings; express positive integer explicitly as greater than zero. Technical composition remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-limit",
+    "before": "raja",
+    "after": "ülimär",
+    "reason": "Replace Finnish search errors with Veps using dictionary lugu, kogonaine, olend and järgenduz. Preserve placeholders and distinct number/sort/status/existence/limit/debug meanings; express positive integer explicitly as greater than zero. Technical composition remains low confidence pending fluent review."
   }
 ]

@@ -1976,5 +1976,32 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['globalSearch-instructions-operator-user'], /ühtnik.*libo.*märitud kävutai/);
   assert.match(cache['ve-PP']['globalSearch-instructions-notes-5'], /Sanumata.*ilma arhivaha sirttud kartoid/);
   assert.notEqual(cache['ve-PP']['operator-creator'], cache['ve-PP']['operator-assignee']);
+  const vepsSearchErrors = {
+  "operator-unknown-error": "%s ei ole operator",
+  "operator-number-expected": "Operatoran __operator__ täht om tarbiž lugu, no om sadud '__value__'",
+  "operator-sort-invalid": "Järgenduz '%s' om vär",
+  "operator-status-invalid": "'%s' om vär olo",
+  "operator-has-invalid": "%s om vär olendan kodvind",
+  "operator-limit-invalid": "%s om vär ülimär. Ülimär pidab olda kogonaine lugu, mi om suremb 0.",
+  "operator-debug-invalid": "%s om vär debug-predikat",
+  "operator-limit": "ülimär"
+};
+  for (const [key, value] of Object.entries(vepsSearchErrors)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.doesNotMatch(value, /operaattori|odotettiin|saatiin|lajittelutapa|virheellinen|kelvollinen|Rajan pitäisi|kokonaisluku|debuggaus/, key);
+    if (value.includes('%s')) assert.equal(vepsTranslator.t(key, { sprintf: ['BAD_VALUE'] }), value.replace('%s', 'BAD_VALUE'));
+  }
+  assert.equal(vepsTranslator.t('operator-number-expected', { operator: 'TEST_OPERATOR', value: 'BAD_VALUE' }), "Operatoran TEST_OPERATOR täht om tarbiž lugu, no om sadud 'BAD_VALUE'");
+  for (const value of ['BAD_VALUE', '-1']) {
+    const invalid = new visibilityContext.Query();
+    invalid.buildParams(`${cache['ve-PP']['operator-limit']}:${value}`);
+    assert.equal(invalid.hasErrors(), true, value);
+  }
+  const validLimit = new visibilityContext.Query();
+  validLimit.buildParams(`${cache['ve-PP']['operator-limit']}:10`);
+  assert.equal(validLimit.hasErrors(), false);
+  assert.equal(validLimit.getQueryParams().getPredicate('limit'), 10);
+  assert.match(cache['ve-PP']['operator-limit-invalid'], /kogonaine/);
+  assert.match(cache['ve-PP']['operator-limit-invalid'], /suremb 0/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
