@@ -90438,5 +90438,40 @@
     "before": "Ven aktivik, lukisärvot pasiston — gebans no kanons abonön tabis, liseds u kads ad getön sususiamis, e alik nedam ad votükön lukanivodi parefudon. Defaultik binon neaktivik.",
     "after": "Ven väl at binon dunik, galädam parefudon: gebans no kanons galädön tabis, lisedis u kadis ad getön nunädis, e steifül alik ad votükön nivodi galädama parefudon. Kösömo väl at no binon dunik.",
     "reason": "Replace foreign or malformed notification/watch wording with Volapük. MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json directly uses Galädön/Negalädön for software watch/unwatch. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests itjäfidik (automatic), nunäd (notification), jafan (creator), liman (member), refudön (refuse), steifül (attempt). Preserve watched board/list/card scope, creator/member participation, all changes and automatic watching on creation. Disable-setting description retains enabled-means-disabled, rejected level changes and default off. Assembled wording and watch-level software adaptation remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "map-to-existing-user-none",
+    "before": "Il n'y a pas encore d'autres membres réels sur ce tableau. Cherchez ci-dessus pour trouver n'importe quel utilisateur.",
+    "after": "Limans jenöfik votik no nog binons su tab at. Sukolös löpü ad tuvön gebani alik.",
+    "reason": "Replace audited French imported-member search hint, invitation, favorites and WIP warning with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests vüdön (invite), stel (star), mäkön (mark), bligäd (task), löpü (above), plödü (outside). Reuse dictionary-based local invitation wording. Preserve source tokens and eight actual invitation newlines, no-other-members-yet search, favorite positioning and alternative move-tasks/raise-WIP-limit actions. Describe shortcut as a link in the row rather than a keyboard shortcut. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "push-invite-text",
+    "before": "Cher/Chère __user__,\n\n__inviter__ vous invite à rejoindre le tableau \"__board__\" pour collaborer.\n\nVeuillez suivre le lien ci-dessous :\n\n__url__\n\nMerci.",
+    "after": "Löfik __user__,\n\n__inviter__ vüdon oli lü tab: \"__board__\" ad kevobön.\n\nBegö! Sökolös yümi dono:\n\n__url__\n\nDanö.",
+    "reason": "Replace audited French imported-member search hint, invitation, favorites and WIP warning with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests vüdön (invite), stel (star), mäkön (mark), bligäd (task), löpü (above), plödü (outside). Reuse dictionary-based local invitation wording. Preserve source tokens and eight actual invitation newlines, no-other-members-yet search, favorite positioning and alternative move-tasks/raise-WIP-limit actions. Describe shortcut as a link in the row rather than a keyboard shortcut. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "quick-access-description",
+    "before": "Ajouter un tableau à vos favoris pour créer un raccourci dans cette barre.",
+    "after": "Mäkolös tabi me stel ad lüükön yümi lü lien at.",
+    "reason": "Replace audited French imported-member search hint, invitation, favorites and WIP warning with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests vüdön (invite), stel (star), mäkön (mark), bligäd (task), löpü (above), plödü (outside). Reuse dictionary-based local invitation wording. Preserve source tokens and eight actual invitation newlines, no-other-members-yet search, favorite positioning and alternative move-tasks/raise-WIP-limit actions. Describe shortcut as a link in the row rather than a keyboard shortcut. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "star-board-title",
+    "before": "Cliquer pour ajouter ce tableau aux favoris. Il sera affiché en tête de votre liste de tableaux.",
+    "after": "Klikolös ad mäkön tabi at me stel. Pojonon löpü lised tabas olik.",
+    "reason": "Replace audited French imported-member search hint, invitation, favorites and WIP warning with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests vüdön (invite), stel (star), mäkön (mark), bligäd (task), löpü (above), plödü (outside). Reuse dictionary-based local invitation wording. Preserve source tokens and eight actual invitation newlines, no-other-members-yet search, favorite positioning and alternative move-tasks/raise-WIP-limit actions. Describe shortcut as a link in the row rather than a keyboard shortcut. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "wipLimitErrorPopup-dialog-pt2",
+    "before": "Veuillez enlever des cartes de cette liste, ou définir une limite WIP plus importante.",
+    "after": "Begö! Topätükolös bligädis anik plödü lised at, u lonolös miedi WIP geilikum.",
+    "reason": "Replace audited French imported-member search hint, invitation, favorites and WIP warning with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests vüdön (invite), stel (star), mäkön (mark), bligäd (task), löpü (above), plödü (outside). Reuse dictionary-based local invitation wording. Preserve source tokens and eight actual invitation newlines, no-other-members-yet search, favorite positioning and alternative move-tasks/raise-WIP-limit actions. Describe shortcut as a link in the row rather than a keyboard shortcut. Assembled software wording remains low confidence pending native review."
   }
 ]
