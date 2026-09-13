@@ -54206,5 +54206,54 @@
     "before": "Sarai notificato per tutte le modifiche in questa bacheca",
     "after": "Va s-hii notificat ti cathi alãxeari tu aesta tabelã",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "Node_memory_usage_external",
+    "before": "Uttilizzo memoria del nodo: esterna",
+    "after": "Memoria ufilisitã di Node: externã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "Node_memory_usage_heap_used",
+    "before": "Utilizzo memoria del nodo: memoria effettivamente usata",
+    "after": "Memoria ufilisitã di Node: memoria ufilisitã efectiv",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "a-endAt",
+    "before": "orario finale modificato in",
+    "after": "alãxã timpul di bitisiri la",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "a-receivedAt",
+    "before": "orario di ricezione modificato in",
+    "after": "alãxã timpul di primiri la",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "a-startAt",
+    "before": "orario iniziale modificato in",
+    "after": "alãxã timpul di ahurhiri la",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "accounts-lockout-click-to-unlock",
+    "before": "Clicca per sbloccare questo utente",
+    "after": "Clicã ti s-deblochezi aestu ufilisitor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "accounts-lockout-confirm-unlock",
+    "before": "Sei sicuro di voler sbloccare questo utente?",
+    "after": "Esht sigur cã vrei s-deblochezi aestu ufilisitor?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
