@@ -119929,5 +119929,96 @@
     "before": "Kortteja ei löytynyt.",
     "after": "Kartoid, miččed sättuba kodvindoihe, ei ole löutud.",
     "reason": "Replace Finnish subtask controls with Veps, reusing existing alategend, sändod, laud, lugetiž, tegendad, Ozuta and pöud. Preserve board/list destination distinction, matching-card absence, deletion confirmation and __board__ token. Dictionary panda, sättuda with illative complement and löuta. Low confidence: composed subtask-destination and matching-card grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "allboards.workspaces",
+    "before": "Työtilat",
+    "after": "Tötilad",
+    "reason": "Replace Finnish workspace controls with Veps; reuse existing tötila, Vajehta, Ližada, menülist and valičused, with dictionary-attested confirmation/deletion. Low confidence: composed subworkspace and technical icon terminology require native review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "allboards.add-workspace",
+    "before": "Lisää työtila",
+    "after": "Ližada tötila",
+    "reason": "Replace Finnish workspace controls with Veps; reuse existing tötila, Vajehta, Ližada, menülist and valičused, with dictionary-attested confirmation/deletion. Low confidence: composed subworkspace and technical icon terminology require native review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "allboards.add-workspace-prompt",
+    "before": "Työtilan nimi",
+    "after": "Tötilan nimi",
+    "reason": "Replace Finnish workspace controls with Veps; reuse existing tötila, Vajehta, Ližada, menülist and valičused, with dictionary-attested confirmation/deletion. Low confidence: composed subworkspace and technical icon terminology require native review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "allboards.add-subworkspace",
+    "before": "Lisää alityötila",
+    "after": "Ližada alatötila",
+    "reason": "Replace Finnish workspace controls with Veps; reuse existing tötila, Vajehta, Ližada, menülist and valičused, with dictionary-attested confirmation/deletion. Low confidence: composed subworkspace and technical icon terminology require native review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "allboards.add-subworkspace-prompt",
+    "before": "Alityötilan nimi",
+    "after": "Alatötilan nimi",
+    "reason": "Replace Finnish workspace controls with Veps; reuse existing tötila, Vajehta, Ližada, menülist and valičused, with dictionary-attested confirmation/deletion. Low confidence: composed subworkspace and technical icon terminology require native review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "allboards.edit-workspace",
+    "before": "Muokkaa työtilaa",
+    "after": "Vajehta tötila",
+    "reason": "Replace Finnish workspace controls with Veps; reuse existing tötila, Vajehta, Ližada, menülist and valičused, with dictionary-attested confirmation/deletion. Low confidence: composed subworkspace and technical icon terminology require native review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "allboards.edit-workspace-name",
+    "before": "Työtilan nimi",
+    "after": "Tötilan nimi",
+    "reason": "Replace Finnish workspace controls with Veps; reuse existing tötila, Vajehta, Ližada, menülist and valičused, with dictionary-attested confirmation/deletion. Low confidence: composed subworkspace and technical icon terminology require native review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "allboards.edit-workspace-icon",
+    "before": "Työtilan ikoni (markdown)",
+    "after": "Tötilan ikon (markdown)",
+    "reason": "Replace Finnish workspace controls with Veps; reuse existing tötila, Vajehta, Ližada, menülist and valičused, with dictionary-attested confirmation/deletion. Low confidence: composed subworkspace and technical icon terminology require native review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "allboards.workspace-menu",
+    "before": "Työtila valikko",
+    "after": "Tötilan menülist",
+    "reason": "Replace Finnish workspace controls with Veps; reuse existing tötila, Vajehta, Ližada, menülist and valičused, with dictionary-attested confirmation/deletion. Low confidence: composed subworkspace and technical icon terminology require native review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "workspace-settings",
+    "before": "Työtila asetukset",
+    "after": "Tötilan valičused",
+    "reason": "Replace Finnish workspace controls with Veps; reuse existing tötila, Vajehta, Ližada, menülist and valičused, with dictionary-attested confirmation/deletion. Low confidence: composed subworkspace and technical icon terminology require native review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "workspaceActionsPopup-title",
+    "before": "Työtila asetukset",
+    "after": "Tötilan valičused",
+    "reason": "Replace Finnish workspace controls with Veps; reuse existing tötila, Vajehta, Ližada, menülist and valičused, with dictionary-attested confirmation/deletion. Low confidence: composed subworkspace and technical icon terminology require native review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "addWorkspacePopup-title",
+    "before": "Lisää työtila",
+    "after": "Ližada tötila",
+    "reason": "Replace Finnish workspace controls with Veps; reuse existing tötila, Vajehta, Ližada, menülist and valičused, with dictionary-attested confirmation/deletion. Low confidence: composed subworkspace and technical icon terminology require native review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "allboards.delete-workspace-confirm-check",
+    "before": "Varmista työtilan poisto",
+    "after": "Vahvištoita tötilan heittand",
+    "reason": "Replace Finnish workspace controls with Veps; reuse existing tötila, Vajehta, Ližada, menülist and valičused, with dictionary-attested confirmation/deletion. Low confidence: composed subworkspace and technical icon terminology require native review."
   }
 ]

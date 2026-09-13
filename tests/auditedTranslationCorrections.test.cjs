@@ -2536,5 +2536,28 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(vepsTranslator.t('add-existing-card-as-subtask-empty'), /sättuba kodvindoihe.*ei ole löutud/);
   assert.ok(vepsTranslator.t('subtaskDeletePopup-title').endsWith('?'));
   assert.equal(cache['ve-PP'].subtasks, 'Alategendad', 'retain the existing correct subtask heading');
+  const vepsWorkspaceControls = {
+  "allboards.workspaces": "Tötilad",
+  "allboards.add-workspace": "Ližada tötila",
+  "allboards.add-workspace-prompt": "Tötilan nimi",
+  "allboards.add-subworkspace": "Ližada alatötila",
+  "allboards.add-subworkspace-prompt": "Alatötilan nimi",
+  "allboards.edit-workspace": "Vajehta tötila",
+  "allboards.edit-workspace-name": "Tötilan nimi",
+  "allboards.edit-workspace-icon": "Tötilan ikon (markdown)",
+  "allboards.workspace-menu": "Tötilan menülist",
+  "workspace-settings": "Tötilan valičused",
+  "workspaceActionsPopup-title": "Tötilan valičused",
+  "addWorkspacePopup-title": "Ližada tötila",
+  "allboards.delete-workspace-confirm-check": "Vahvištoita tötilan heittand"
+};
+  for (const [key, value] of Object.entries(vepsWorkspaceControls)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Työtila|työtila|Alityötila|alityötila|Lisää|Muokkaa|Varmista|asetukset|valikko/, key);
+  }
+  assert.notEqual(vepsTranslator.t('allboards.add-workspace-prompt'), vepsTranslator.t('allboards.add-subworkspace-prompt'));
+  assert.match(vepsTranslator.t('allboards.edit-workspace-icon'), /\(markdown\)$/);
+  assert.equal(cache['ve-PP']['allboards.delete-workspace-confirm'], 'Tahod-ik heitta necen tötilan?', 'preserve existing Veps confirmation');
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
