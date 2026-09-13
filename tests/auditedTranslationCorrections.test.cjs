@@ -37,6 +37,8 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.notEqual(cache.zgh.help, 'Aide');
   assert.notEqual(cache.zgh.next, 'Suivant');
   assert.equal(cache.zgh.cancel, 'Sefsex');
+  assert.equal(cache.zgh['accounts-allowUserNameChange'], 'ⵙⵏⴼⵍ ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ');
+  assert.doesNotMatch(cache.zgh['accounts-allowUserNameChange'], /Autoriser|identifiant/);
   assert.equal(cache.zgh['deleteCommentPopup-title'], 'ⴽⴽⵙ ⴰⵖⴼⴰⵡⴰⵍ?');
   assert.doesNotMatch(cache.zgh['deleteCommentPopup-title'], /Supprimer|commentaire/);
   assert.ok(cache.zgh['deleteCommentPopup-title'].endsWith('?'));

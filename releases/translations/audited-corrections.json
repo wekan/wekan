@@ -120888,5 +120888,12 @@
     "before": "Supprimer le commentaire ?",
     "after": "ⴽⴽⵙ ⴰⵖⴼⴰⵡⴰⵍ?",
     "reason": "Reviewed 2026-09-14: replace French deletion prompt with directly composed Standard Moroccan Tamazight delete command ⴽⴽⵙ and comment noun ⴰⵖⴼⴰⵡⴰⵍ, attested in MediaWiki delete and filehist-comment: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve question marking and destructive-action meaning. LOW CONFIDENCE full prompt composition/definiteness requires fluent review; lexical references do not prove idiomatic full sentence."
+  },
+  {
+    "locale": "zgh",
+    "key": "accounts-allowUserNameChange",
+    "before": "Autoriser le changement d'identifiant",
+    "after": "ⵙⵏⴼⵍ ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ",
+    "reason": "Reviewed 2026-09-14: English source is Username Change, not the French allow-change paraphrase. Compose Standard Moroccan Tamazight change verb ⵙⵏⴼⵍ from MediaWiki changepassword and username noun from userlogin-yourname: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE combined setting-label grammar requires fluent review. Preserve the source meaning and established username terminology; do not claim exact full-phrase reference."
   }
 ]
