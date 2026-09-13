@@ -110640,5 +110640,117 @@
     "before": "Link dell'immagine del logo personalizzato per il login",
     "after": "URL del łigamento del logo de acesso personałizà",
     "reason": "Replace Italian-seeded Venetian controls; preserve comment-only role, singular not-found meaning, irreversible custom-field history loss and image/link URL distinction. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "custom-product-name",
+    "before": "Nome prodotto personalizzato",
+    "after": "Nome del prodoto personałizà",
+    "reason": "Replace Italian-seeded Venetian settings and warning text; preserve default 27, linked-card deletion prerequisites, organization membership guard, irreversible deletion and permitted incomplete due-card scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "custom-top-left-corner-logo-height",
+    "before": "Altezza del logo personalizzato nell'angolo superiore sinistro. Default: 27",
+    "after": "Altesa del logo personałizà inte el canto in alto a sinistra. Vałor predefinìo: 27",
+    "reason": "Replace Italian-seeded Venetian settings and warning text; preserve default 27, linked-card deletion prerequisites, organization membership guard, irreversible deletion and permitted incomplete due-card scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "custom-top-left-corner-logo-image-url",
+    "before": "URL dell'immagine del logo personalizzato nell'angolo superiore sinistro",
+    "after": "URL de ła imàjine del logo personałizà inte el canto in alto a sinistra",
+    "reason": "Replace Italian-seeded Venetian settings and warning text; preserve default 27, linked-card deletion prerequisites, organization membership guard, irreversible deletion and permitted incomplete due-card scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "custom-top-left-corner-logo-link-url",
+    "before": "URL del link del logo personalizzato nell'angolo superiore sinistro",
+    "after": "URL del łigamento del logo personałizà inte el canto in alto a sinistra",
+    "reason": "Replace Italian-seeded Venetian settings and warning text; preserve default 27, linked-card deletion prerequisites, organization membership guard, irreversible deletion and permitted incomplete due-card scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "default-authentication-method",
+    "before": "Metodo di autenticazione predefinito",
+    "after": "Metodo de autenticasion predefinìo",
+    "reason": "Replace Italian-seeded Venetian settings and warning text; preserve default 27, linked-card deletion prerequisites, organization membership guard, irreversible deletion and permitted incomplete due-card scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "delete-linked-cards-before-this-list",
+    "before": "Non puoi eliminare questa lista prima di avere eliminato le schede collegate che puntano su schede in questa lista",
+    "after": "No te pol scancełar sta lista prima de scancełar łe schede łigà che łe punta a schede inte sta lista",
+    "reason": "Replace Italian-seeded Venetian settings and warning text; preserve default 27, linked-card deletion prerequisites, organization membership guard, irreversible deletion and permitted incomplete due-card scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "delete-org-warning-message",
+    "before": "Non posso cancellare questa organizzazione: c'è almeno un utente che gli appartiene",
+    "after": "No se pol scancełar sta organisasion: ghe xe almanco un utente che el ghe apartien",
+    "reason": "Replace Italian-seeded Venetian settings and warning text; preserve default 27, linked-card deletion prerequisites, organization membership guard, irreversible deletion and permitted incomplete due-card scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "delete-translation-confirm-popup",
+    "before": "Sei sicuro di voler eliminare questa stringa di traduzione personalizzata? Non sarà possibile ripristinarla.",
+    "after": "Sito seguro de vołer scancełar sta stringa de tradusion personałizà? No se po tornar indrìo.",
+    "reason": "Replace Italian-seeded Venetian settings and warning text; preserve default 27, linked-card deletion prerequisites, organization membership guard, irreversible deletion and permitted incomplete due-card scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "delete-user-confirm-popup",
+    "before": "Sei sicuro di voler eliminare questo profilo? Non sarà possibile ripristinarlo.",
+    "after": "Sito seguro de vołer scancełar sto conto? No se po tornar indrìo.",
+    "reason": "Replace Italian-seeded Venetian settings and warning text; preserve default 27, linked-card deletion prerequisites, organization membership guard, irreversible deletion and permitted incomplete due-card scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "deleteCustomFieldPopup-title",
+    "before": "Elimina il campo personalizzato?",
+    "after": "Scancełar el canpo personałizà?",
+    "reason": "Replace Italian-seeded Venetian settings and warning text; preserve default 27, linked-card deletion prerequisites, organization membership guard, irreversible deletion and permitted incomplete due-card scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "deposit-subtasks-list",
+    "before": "Lista di destinaizoni per questi sotto-compiti",
+    "after": "Lista de destinasion par i sotoconpiti messi qua:",
+    "reason": "Replace Italian-seeded Venetian settings and warning text; preserve default 27, linked-card deletion prerequisites, organization membership guard, irreversible deletion and permitted incomplete due-card scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "disambiguateMultiLabelPopup-title",
+    "before": "Disambiguare l'azione Etichetta",
+    "after": "Scełi ła asion de ła eticheta",
+    "reason": "Replace Italian-seeded Venetian settings and warning text; preserve default 27, linked-card deletion prerequisites, organization membership guard, irreversible deletion and permitted incomplete due-card scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "disambiguateMultiMemberPopup-title",
+    "before": "Disambiguare l'azione Membro",
+    "after": "Scełi ła asion del membro",
+    "reason": "Replace Italian-seeded Venetian settings and warning text; preserve default 27, linked-card deletion prerequisites, organization membership guard, irreversible deletion and permitted incomplete due-card scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "display-authentication-method",
+    "before": "Mostra il metodo di autenticazione",
+    "after": "Mostra el metodo de autenticasion",
+    "reason": "Replace Italian-seeded Venetian settings and warning text; preserve default 27, linked-card deletion prerequisites, organization membership guard, irreversible deletion and permitted incomplete due-card scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "dueCardsViewChange-choice-all-description",
+    "before": "Visualizza tutte le schede non completate con una data di *scadenza* dalle bacheche in cui l'utente ha il permesso.",
+    "after": "Mostra tute łe schede no finìe co na data de *scadensa* dai quadri dove el utente el gà el permesso.",
+    "reason": "Replace Italian-seeded Venetian settings and warning text; preserve default 27, linked-card deletion prerequisites, organization membership guard, irreversible deletion and permitted incomplete due-card scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "dueCardsViewChange-title",
+    "before": "Vista schede con scadenza",
+    "after": "Vista de łe schede co scadensa",
+    "reason": "Replace Italian-seeded Venetian settings and warning text; preserve default 27, linked-card deletion prerequisites, organization membership guard, irreversible deletion and permitted incomplete due-card scope. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
