@@ -92111,5 +92111,12 @@
     "before": "Activer les barres de défilement verticales",
     "after": "Gebön tanedis normik pro topätükön ninädi",
     "reason": "Replace French enable-scrollbars label after inspecting sidebar.jade checkbox toggle. Descriptive Volapük: use vertical strips to move content. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests taned (strip) and normik (vertical); other words follow dictionary-based local use/move/content terminology. Physical strip adapted to scrollbar; assembled GUI wording low confidence and needs native-speaker review."
+  },
+  {
+    "locale": "vo",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Kaled slamik (Hijri; Saudi Arabia, küped)",
+    "reason": "Translate Hijri calendar label and restore omitted sighting distinction using küped (observation) attested in Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf; slamik follows attested Islamic adjective and existing Kaled terminology. Hijri and Saudi Arabia retained as proper names; no independently verified Volapük country exonym found in this lookup. Assembled label and sighting terminology low confidence, requiring native-speaker validation. Completion of flagged queue does not validate unflagged/restored translations."
   }
 ]
