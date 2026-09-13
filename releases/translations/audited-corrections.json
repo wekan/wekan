@@ -78972,5 +78972,33 @@
     "before": "Couloir __swimlane__ du tableau __board__ archivé",
     "after": "Yoon __swimlane__ ci tablo __board__ yóbbu nañu ko ci àrsiw bi",
     "reason": "Replace French archive action/activity wording with Wolof using existing Yóbbu ci àrsiw bi and karta/limu/yoon/tablo terminology. Preserve all entity/location placeholders and archival rather than permanent deletion. Archive loan and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-moveCard",
+    "before": "a déplacé la carte __card__ du tableau __board__ de la liste __oldList__ du couloir __oldSwimlane__ vers la liste __list__ du couloir __swimlane__",
+    "after": "yóbbu karta __card__ ci tablo __board__ jóge ci limu __oldList__ ci yoon __oldSwimlane__ dem ci limu __list__ ci yoon __swimlane__",
+    "reason": "Replace French move/swimlane/checklist activity messages with Wolof, reusing existing terminology and the corrected checklist-completion activity. Preserve source versus destination list/swimlane/board placeholders. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-moveCardToOtherBoard",
+    "before": "a déplacé la carte __card__ de la liste __oldList__ du couloir __oldSwimlane__ du tableau __oldBoard__ vers la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "yóbbu karta __card__ jóge ci limu __oldList__ ci yoon __oldSwimlane__ ci tablo __oldBoard__ dem ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French move/swimlane/checklist activity messages with Wolof, reusing existing terminology and the corrected checklist-completion activity. Preserve source versus destination list/swimlane/board placeholders. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-createSwimlane",
+    "before": "a créé le couloir __swimlane__ dans le tableau __board__",
+    "after": "sos yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French move/swimlane/checklist activity messages with Wolof, reusing existing terminology and the corrected checklist-completion activity. Preserve source versus destination list/swimlane/board placeholders. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-checklist-completed-card",
+    "before": "a complété la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "jeexal limu bu seetlu __checklist__ ci karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French move/swimlane/checklist activity messages with Wolof, reusing existing terminology and the corrected checklist-completion activity. Preserve source versus destination list/swimlane/board placeholders. Full grammar and computing adaptations remain low confidence."
   }
 ]
