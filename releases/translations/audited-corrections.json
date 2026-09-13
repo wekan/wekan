@@ -63929,5 +63929,75 @@
     "before": "Déplacer la pièce jointe vers le système de fichier",
     "after": "Dilec’hiañ ar stagadenn d’ar reizhiad restroù",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "attachment-move-storage-gridfs",
+    "before": "Déplacer la pièce jointe vers GridFS",
+    "after": "Dilec’hiañ ar stagadenn da GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "attachment-move-storage-s3",
+    "before": "Déplacer la pièce jointe vers S3",
+    "after": "Dilec’hiañ ar stagadenn da S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "attachmentDeletePopup-title",
+    "before": "Supprimer la pièce jointe ?",
+    "after": "Dilemel ar stagadenn ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "auto-watch",
+    "before": "Surveiller automatiquement les tableaux quand ils sont créés",
+    "after": "Heuliañ an taolennoù ent emgefre pa vezont krouet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "autoAddUsersWithDomainName",
+    "before": "Ajouter automatiquement les utilisateurs avec le nom de domaine",
+    "after": "Ouzhpennañ ent emgefre an implijerien gant an anv domani",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "automatically-field-on-card",
+    "before": "Ajouter le champ aux cartes nouvellement créées",
+    "after": "Ouzhpennañ ar maezienn d’ar c’hartennoù nevez",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "board-delete-notice",
+    "before": "La suppression est définitive. Vous perdrez toutes les listes, cartes et actions associées à ce tableau.",
+    "after": "An dilemel zo da vat. Koll a reot an holl rolloù, kartennoù hag oberoù stag ouzh an daolenn-mañ.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "board-drag-drop-reorder-or-click-open",
+    "before": "Glisser-déposer les icônes de tableau pour les réordonner. Cliquer sur l'icône du tableau pour l'ouvrir.",
+    "after": "Riklit ha laoskit arlunioù an taolennoù evit kemmañ o urzh. Klikit war arlun un daolenn evit he digeriñ.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "board-info-on-my-boards",
+    "before": "Paramètres de tous les tableaux",
+    "after": "Arventennoù an holl daolennoù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "boardChangeColorPopup-title",
+    "before": "Change la couleur de fond du tableau",
+    "after": "Kemmañ drekleur an daolenn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
