@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,675 |
+| Corrected | 12,677 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 177 |
-| Pending review or repair | 3,170 |
+| Pending review or repair | 3,168 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,286** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,294** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `4613a63b775db60451534c0602b4d5f5c49b819e` — flagged German account self-deletion permission replaced with Klingon; preceding commit `e981bc8a4` repaired three notification controls outside the original audit. Full software wording is low confidence and needs fluent-speaker validation.
+Latest translation fix: **2026-09-13**, local commit `bf9b04829b8c39f08df6c44daebcf81f6e9b323f` — eight German/French account and login controls replaced with Klingon, preserving existing-account prompts and creation success/failure. Full software wording is low confidence and needs fluent-speaker validation.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
