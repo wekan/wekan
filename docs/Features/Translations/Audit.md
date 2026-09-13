@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 9,008 |
+| Corrected | 9,018 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 175 |
-| Pending review or repair | 6,839 |
+| Pending review or repair | 6,829 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **9,083** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **9,093** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `bcf45b1691c9da78376d9fcbb4d42c545135d2ba` — ten Breton creation, deletion, completion and import findings repaired; **618 Breton findings remain**. Activity actions, locations and substitution tokens are preserved. Kanban terminology and grammatical mutations need language review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `262c7748431923c37f115e34007c2217f8bb9214` — ten Breton movement, membership and removal findings repaired; **608 Breton findings remain**. Old/new locations, restore actions and substitution tokens are preserved. Kanban terminology and grammatical mutations need language review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
