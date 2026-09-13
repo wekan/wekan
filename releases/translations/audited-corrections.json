@@ -92146,5 +92146,26 @@
     "before": "Hebrew",
     "after": "Еврейн литэ",
     "reason": "Replace Turkish/English calendar wording directly with Buryat, following existing local литэ calendar and Үдэр date terminology and Cyrillic proper-name/genitive conventions. системэ is a technical borrowing; calendar-system date display phrased as showing date. Coptic, Hebrew, Persian and Jalali name renderings are assembled with low confidence, not independently attested in this batch. Native-speaker validation required; structural tests do not prove correct Buryat vocabulary or grammar."
+  },
+  {
+    "locale": "bua",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Хиджрын литэ (таблицын, гражданска эхин үдэр)",
+    "reason": "Replace English Hijri calendar variants directly with Buryat following existing литэ calendar, һара moon/month, and эхин start terminology. Restore tabular and civil/astronomical epoch distinctions, paraphrasing epoch as starting date, and sighting as observing the moon. Cyrillic scientific borrowings, country/genitive renderings and assembled phrases are low confidence and not independently vocabulary-attested in this batch. Native-speaker validation required; structural checks alone are insufficient."
+  },
+  {
+    "locale": "bua",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Хиджрын литэ (таблицын, астрономиин эхин үдэр)",
+    "reason": "Replace English Hijri calendar variants directly with Buryat following existing литэ calendar, һара moon/month, and эхин start terminology. Restore tabular and civil/astronomical epoch distinctions, paraphrasing epoch as starting date, and sighting as observing the moon. Cyrillic scientific borrowings, country/genitive renderings and assembled phrases are low confidence and not independently vocabulary-attested in this batch. Native-speaker validation required; structural checks alone are insufficient."
+  },
+  {
+    "locale": "bua",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Хиджрын литэ (Саудай Арави, һара ажаглалта)",
+    "reason": "Replace English Hijri calendar variants directly with Buryat following existing литэ calendar, һара moon/month, and эхин start terminology. Restore tabular and civil/astronomical epoch distinctions, paraphrasing epoch as starting date, and sighting as observing the moon. Cyrillic scientific borrowings, country/genitive renderings and assembled phrases are low confidence and not independently vocabulary-attested in this batch. Native-speaker validation required; structural checks alone are insufficient."
   }
 ]
