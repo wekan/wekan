@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,893 |
+| Corrected | 11,897 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,953 |
+| Pending review or repair | 3,949 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,282** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,286** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `3323ef43039b55e511852b7abf0c177a2dc8238d` — 4 Fulah named-calendar labels repaired using Haatumeere Lislaam from [published Pulaar calendar usage](https://www.boolumbal.org/GANNDE-KESE-Jaa%C9%93ngal-waktuuji-Njuulu-Muslim-Pro-yaltii-e-%C9%97emngal-Pulaar_a18834.html). Assembled labels and proper-name forms remain low confidence; other Fulah findings remain pending. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; native-speaker and live browser verification are unavailable.
+Latest translation fix: **2026-09-13**, local commit `1bc69f3193b53922acf98cd8445e0c946bd3acb0` — 4 Fulah Chinese/Japanese/Ethiopian/Amete Alem calendar labels repaired using [CLDR country names](https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/ff.xml). Assembled grammar remains low confidence; settings, religious calendar names and Hijri variants remain pending. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; native-speaker and live browser verification are unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
