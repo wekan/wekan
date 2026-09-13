@@ -88737,5 +88737,47 @@
     "before": "Afficher cette liste de raccourcis",
     "after": "Jonön lisedi at klavabüdas",
     "reason": "Replace French keyboard shortcut/dialog labels with Volapük. Primary MediaWiki Volapük source https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses telspikot for software dialog and klav: Enter for Enter key. Reuse existing close/show/add/item terminology. Preserve dialog close, this shortcut-list display and Enter-to-add-more action. Klavabüd (keyboard command) compound and assembled wording remain low confidence; no claim of attested shortcut term or native review."
+  },
+  {
+    "locale": "vo",
+    "key": "r-when-a-card-is-moved",
+    "before": "Quand une carte est déplacée vers une autre liste",
+    "after": "Ven kad patopätükon lü lised votik",
+    "reason": "Replace French rule-trigger wording with Volapük using existing card/list/checklist terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ven (when conjunction), völad (value), topätükön (move). Inspect checklistTriggers.jade:90/108 and boardTriggers.jade:103 for composed trigger fragments and empty-field matching note. Preserve fragment boundaries, another-list destination and empty-field matches-any-possible-value meaning. Software value adaptation, checklist compound and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "r-when-a-item",
+    "before": "Quand un élément de la check-list est",
+    "after": "Ven notet kontrolaliseda binon",
+    "reason": "Replace French rule-trigger wording with Volapük using existing card/list/checklist terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ven (when conjunction), völad (value), topätükön (move). Inspect checklistTriggers.jade:90/108 and boardTriggers.jade:103 for composed trigger fragments and empty-field matching note. Preserve fragment boundaries, another-list destination and empty-field matches-any-possible-value meaning. Software value adaptation, checklist compound and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "r-when-the-item",
+    "before": "Quand l'élément de la check-list",
+    "after": "Ven notet kontrolaliseda",
+    "reason": "Replace French rule-trigger wording with Volapük using existing card/list/checklist terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ven (when conjunction), völad (value), topätükön (move). Inspect checklistTriggers.jade:90/108 and boardTriggers.jade:103 for composed trigger fragments and empty-field matching note. Preserve fragment boundaries, another-list destination and empty-field matches-any-possible-value meaning. Software value adaptation, checklist compound and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "r-when-a-card",
+    "before": "Quand une carte",
+    "after": "Ven kad",
+    "reason": "Replace French rule-trigger wording with Volapük using existing card/list/checklist terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ven (when conjunction), völad (value), topätükön (move). Inspect checklistTriggers.jade:90/108 and boardTriggers.jade:103 for composed trigger fragments and empty-field matching note. Preserve fragment boundaries, another-list destination and empty-field matches-any-possible-value meaning. Software value adaptation, checklist compound and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "r-when-a-checklist",
+    "before": "Quand une check-list est",
+    "after": "Ven kontrolalised binon",
+    "reason": "Replace French rule-trigger wording with Volapük using existing card/list/checklist terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ven (when conjunction), völad (value), topätükön (move). Inspect checklistTriggers.jade:90/108 and boardTriggers.jade:103 for composed trigger fragments and empty-field matching note. Preserve fragment boundaries, another-list destination and empty-field matches-any-possible-value meaning. Software value adaptation, checklist compound and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "r-board-note",
+    "before": "Note : laisser le champ vide pour correspondre à toutes les valeurs possibles.",
+    "after": "Noet: leadolös feli vagik ad baiädön bai völad alik mögik. ",
+    "reason": "Replace French rule-trigger wording with Volapük using existing card/list/checklist terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ven (when conjunction), völad (value), topätükön (move). Inspect checklistTriggers.jade:90/108 and boardTriggers.jade:103 for composed trigger fragments and empty-field matching note. Preserve fragment boundaries, another-list destination and empty-field matches-any-possible-value meaning. Software value adaptation, checklist compound and assembled wording remain low confidence; native review unavailable."
   }
 ]
