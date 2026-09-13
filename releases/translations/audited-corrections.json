@@ -94778,5 +94778,33 @@
     "before": "Tastaturkürzel sind deaktiviert. Klicke, um sie zu aktivieren.",
     "after": "Qu' nom ta'meH nItlh 'echlet ra'mey lulo'laHbe' lo'wI'pu'. DuHvam Dachu'meH yIqIp.",
     "reason": "Replace German keyboard shortcut label and opposite enable/disable tooltips after reviewing sidebar.jade isKeyboardShortcuts condition. nItlh 'echlet is attested keyboard at https://www.kli.org/about-klingon/new-klingon-words/date/ (qepHom 13); shortcut is descriptively rendered as keyboard commands for quickly accomplishing tasks. Preserve ability-versus-inability and opposite click actions. Complete assembled software phrases are low confidence and need fluent-speaker validation; token inventory preserved."
+  },
+  {
+    "locale": "tlh",
+    "key": "admin-people-user-active",
+    "before": "Benutzer ist Aktiv - zum Deaktivieren klicken",
+    "after": "lo'wI' account chu'lu'pu'. accountvam Dachu'Ha'meH yIqIp.",
+    "reason": "Replace German account activation, last-administrator and team-creation messages. Reviewed peopleBody.jade active-status branches and sidebar.jade last-admin role popup. Preserve activated/deactivated states and opposite click actions, required administrator before role change, and administrator contact for creating teams. Reuse existing che'wI', patlhmey, ghom and corresponding organization contact wording. Borrowed account and complete software phrases are low confidence and need fluent-speaker validation; source tokens preserved."
+  },
+  {
+    "locale": "tlh",
+    "key": "admin-people-user-inactive",
+    "before": "Benutzer ist Inaktiv - zum Aktivieren klicken",
+    "after": "lo'wI' account chu'Ha'lu'pu'. accountvam Dachu'meH yIqIp.",
+    "reason": "Replace German account activation, last-administrator and team-creation messages. Reviewed peopleBody.jade active-status branches and sidebar.jade last-admin role popup. Preserve activated/deactivated states and opposite click actions, required administrator before role change, and administrator contact for creating teams. Reuse existing che'wI', patlhmey, ghom and corresponding organization contact wording. Borrowed account and complete software phrases are low confidence and need fluent-speaker validation; source tokens preserved."
+  },
+  {
+    "locale": "tlh",
+    "key": "last-admin-desc",
+    "before": "Sie können keine Rollen ändern, weil es mindestens einen Administrator geben muss.",
+    "after": "wa' che'wI' tu'lu'nISmo', patlhmey DachoHlaHbe'.",
+    "reason": "Replace German account activation, last-administrator and team-creation messages. Reviewed peopleBody.jade active-status branches and sidebar.jade last-admin role popup. Preserve activated/deactivated states and opposite click actions, required administrator before role change, and administrator contact for creating teams. Reuse existing che'wI', patlhmey, ghom and corresponding organization contact wording. Borrowed account and complete software phrases are low confidence and need fluent-speaker validation; source tokens preserved."
+  },
+  {
+    "locale": "tlh",
+    "key": "to-create-teams-contact-admin",
+    "before": "Bitte kontaktieren Sie den Administrator um Teams anlegen zu lassen.",
+    "after": "ghommey DachenmoHmeH, che'wI' yIrI'.",
+    "reason": "Replace German account activation, last-administrator and team-creation messages. Reviewed peopleBody.jade active-status branches and sidebar.jade last-admin role popup. Preserve activated/deactivated states and opposite click actions, required administrator before role change, and administrator contact for creating teams. Reuse existing che'wI', patlhmey, ghom and corresponding organization contact wording. Borrowed account and complete software phrases are low confidence and need fluent-speaker validation; source tokens preserved."
   }
 ]
