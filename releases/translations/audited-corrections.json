@@ -52547,5 +52547,40 @@
     "before": "È stata rimossa una checklist da%s",
     "after": "à cavà na lista de control da %s",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "Cube-Grid",
+    "before": "Spinner di attesa Cube-Grid",
+    "after": "Indicadour de atesa Cube-Grid",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "DDP_transport",
+    "before": "Trasporto DDP (DDP_TRANSPORT)",
+    "after": "Trasport DDP (DDP_TRANSPORT)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "Double-Bounce",
+    "before": "Spinner di attesa Double Bounce",
+    "after": "Indicadour de atesa Double Bounce",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "MongoDB_storage_engine",
+    "before": "Storage engine di MongoDB",
+    "after": "Motor de memorisazion MongoDB",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "Node_heap_malloced_memory",
+    "before": "Heap Node: memoria allocata (malloc)",
+    "after": "Heap Node: memoria atribuida (malloc)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
