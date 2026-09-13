@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 14,529 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 1,315 pending review or repair.
-The correction inventory records 16,170 exact before/after values,
+findings: 14,533 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 1,311 pending review or repair.
+The correction inventory records 16,174 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -1093,6 +1093,18 @@ and updates the test dependency:
 and updates maintainer tooling:
 
 **Maintenance scripts** - explicit translation uploads and repository mirrors.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b7eca83d9">Translate remaining Veps Coptic and Hijri labels</a>. Thanks to xet7.</summary>
+
+Replace four English calendar labels with Veps. Preserve tabular civil and
+astronomical origins of time reckoning and Saudi moon-observation distinctions,
+using checked Russian–Veps dictionary vocabulary. Composed technical terminology
+and the adapted Coptic name remain low confidence. Exact correction, token,
+variant-distinction and negative English regressions pass. The audit now records
+14,533 corrected findings, 1,311 pending and 16,174 correction records.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6d071f6cb">Repair Veps account validation and test-email action</a>. Thanks to xet7.</summary>
