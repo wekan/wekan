@@ -86742,5 +86742,40 @@
     "before": "Supprimer tous les membres de la carte",
     "after": "Moükön limanis valik de kad",
     "reason": "Replace French card-position and remove-all-members rule actions with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kad (card), topätükön (move between places), don (bottom), löp (top), lised (list), moükön (remove), liman (member), valik (all). Retain top/bottom contrast, own-list possessive onik and all-members scope. Software senses, possessive and complete inflected UI grammar remain low confidence pending native review. Preserve source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-archived",
+    "before": "%s a été archivé",
+    "after": "%s petopätükon lü ragiv",
+    "reason": "Replace French archive/restore labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ragiv (archive), ragivam (archiving), topätükön (move between places), kad (card), sädunön (undo). Render restore-from-archive as undo archiving to avoid repair/health-only restore senses. Retain move-to versus restore-from contrast and source %s. Passive forms and complete software phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "archive",
+    "before": "Archiver",
+    "after": "Topätükön lü ragiv",
+    "reason": "Replace French archive/restore labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ragiv (archive), ragivam (archiving), topätükön (move between places), kad (card), sädunön (undo). Render restore-from-archive as undo archiving to avoid repair/health-only restore senses. Retain move-to versus restore-from contrast and source %s. Passive forms and complete software phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "r-d-unarchive",
+    "before": "Restaurer la carte depuis les archives",
+    "after": "Sädunön ragivami kada",
+    "reason": "Replace French archive/restore labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ragiv (archive), ragivam (archiving), topätükön (move between places), kad (card), sädunön (undo). Render restore-from-archive as undo archiving to avoid repair/health-only restore senses. Retain move-to versus restore-from contrast and source %s. Passive forms and complete software phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "r-unarchive",
+    "before": "Restaurer depuis les archives",
+    "after": "Sädunön ragivami",
+    "reason": "Replace French archive/restore labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ragiv (archive), ragivam (archiving), topätükön (move between places), kad (card), sädunön (undo). Render restore-from-archive as undo archiving to avoid repair/health-only restore senses. Retain move-to versus restore-from contrast and source %s. Passive forms and complete software phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "r-unarchived",
+    "before": "Restauré depuis les archives",
+    "after": "Ragivam pesädunon",
+    "reason": "Replace French archive/restore labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests ragiv (archive), ragivam (archiving), topätükön (move between places), kad (card), sädunön (undo). Render restore-from-archive as undo archiving to avoid repair/health-only restore senses. Retain move-to versus restore-from contrast and source %s. Passive forms and complete software phrases remain low confidence pending native review."
   }
 ]
