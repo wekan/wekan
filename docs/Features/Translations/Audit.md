@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,809 |
+| Corrected | 11,811 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,037 |
+| Pending review or repair | 4,035 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,189** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,192** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `9656ef22f31bdf3dc410fc26ce1c0ca9cd8c80fe` — 5 Northern Ndebele labels repaired: Jalali/Persian, Chinese/Japanese and Ethiopic/Amete Alem. Published Phesiya wording and existing calendar terminology guide replacements; other retained country spellings and assembled grammar remain low confidence. Religious/national and Hijri variants still need review. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `011af79140f6fef3bc2a3718997571c6d3b3097d` — 3 Northern Ndebele labels repaired: Indian national calendar, Saudi Hijri moon sighting and Gregorian ISO weeks. Published moon/calendar vocabulary and existing week terminology guide replacements; country spelling, derived plural and assembled grammar remain low confidence. Buddhist, Coptic and tabular epochs still need review. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
