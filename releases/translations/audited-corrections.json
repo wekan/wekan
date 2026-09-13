@@ -86616,5 +86616,40 @@
     "before": "a supprimé l'étiquette '%s'",
     "after": "emoükon ninädapenädi '%s'",
     "reason": "Replace Esperanto labels noun and French label activities with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf page 70 attests ninädapenäd (label); dictionary add/remove vocabulary lüükön/moükön and local perfect-tense activity pattern reused. Software-label sense, inflections and complete grammar remain low confidence pending native review. Preserve quoted label names and all %s arguments in source order."
+  },
+  {
+    "locale": "vo",
+    "key": "label-color-not-found",
+    "before": "Étiquette de couleur '%s' non trouvée",
+    "after": "Köl ninädapenäda %s no petuvon.",
+    "reason": "Replace French label-color error and attachment labels/activities with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests köl (colour, PDF page25), ninädapenäd (label, page70), tuvön (find), fimükön (attach), votükön (alter), radön (erase). Derive result noun fimükot for attached item rather than action noun fimükam; result noun and full software phrasing remain low confidence pending native review. Retain label-color not-found meaning and source %s inventory/order."
+  },
+  {
+    "locale": "vo",
+    "key": "attachments",
+    "before": "Pièces jointes",
+    "after": "Fimükots",
+    "reason": "Replace French label-color error and attachment labels/activities with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests köl (colour, PDF page25), ninädapenäd (label, page70), tuvön (find), fimükön (attach), votükön (alter), radön (erase). Derive result noun fimükot for attached item rather than action noun fimükam; result noun and full software phrasing remain low confidence pending native review. Retain label-color not-found meaning and source %s inventory/order."
+  },
+  {
+    "locale": "vo",
+    "key": "card-edit-attachments",
+    "before": "Modifier les pièces jointes",
+    "after": "Votükön fimükotis",
+    "reason": "Replace French label-color error and attachment labels/activities with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests köl (colour, PDF page25), ninädapenäd (label, page70), tuvön (find), fimükön (attach), votükön (alter), radön (erase). Derive result noun fimükot for attached item rather than action noun fimükam; result noun and full software phrasing remain low confidence pending native review. Retain label-color not-found meaning and source %s inventory/order."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-delete-attach",
+    "before": "a supprimé une pièce jointe de %s",
+    "after": "eradon fimükoti de %s",
+    "reason": "Replace French label-color error and attachment labels/activities with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests köl (colour, PDF page25), ninädapenäd (label, page70), tuvön (find), fimükön (attach), votükön (alter), radön (erase). Derive result noun fimükot for attached item rather than action noun fimükam; result noun and full software phrasing remain low confidence pending native review. Retain label-color not-found meaning and source %s inventory/order."
+  },
+  {
+    "locale": "vo",
+    "key": "activity-delete-attach-card",
+    "before": "a supprimé une pièce jointe",
+    "after": "eradon fimükoti",
+    "reason": "Replace French label-color error and attachment labels/activities with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests köl (colour, PDF page25), ninädapenäd (label, page70), tuvön (find), fimükön (attach), votükön (alter), radön (erase). Derive result noun fimükot for attached item rather than action noun fimükam; result noun and full software phrasing remain low confidence pending native review. Retain label-color not-found meaning and source %s inventory/order."
   }
 ]
