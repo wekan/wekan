@@ -82,10 +82,11 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 14,491 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 1,353 pending review or repair.
-The correction inventory records 16,007 exact before/after values across
-201 locale identifiers, including repairs outside the original findings.
+The correction inventory records 16,047 exact before/after values,
+including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
-German-identical Klingon values repaired 828 and retained the Cron tool name.
+German-identical Klingon values repaired all 829, including the mistaken
+German cron label, which now uses the actual tool name Cron.
 formats are not presumed wrong. Other substantial queues remain in Venda and regional
 locale files and Tamazight. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
@@ -1098,6 +1099,16 @@ Bitbucket was tried during development and is now disabled because of
 Unauthorized errors. Repository paths remain resolved from the script's
 checkout. Syntax validation does not contact or certify remote mirrors;
 no mirroring or publishing commands were executed for this audit.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d75133d57">Repair Veps color, year and event name labels</a>. Thanks to xet7.</summary>
+
+Replace Finnish color/year and Latvian name values with dictionary-attested
+Veps vocabulary. Preserve existing correct Veps name and Gantt-year labels.
+Positive vocabulary, rejected wrong-language seeds and all 16,047 correction
+records pass. These four unflagged repairs leave original pending counts unchanged.
 
 </details>
 
