@@ -57895,5 +57895,89 @@
     "before": "Islamic tabular",
     "after": "ប្រតិទិនហ៊ីជ្រី (តាមតារាង ចំណុចចាប់ផ្តើមតាមតារាសាស្ត្រ)",
     "reason": "Same reviewed correction applies to the canonical file targeted by the km-KH locale symlink."
+  },
+  {
+    "locale": "km",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Node heap : peak malloced memory",
+    "after": "Heap របស់ Node៖ ទំហំអង្គចងចាំអតិបរមាដែលបានបម្រុងតាម malloc",
+    "reason": "Translate retained English prose into Khmer; preserve diagnostic identifiers and exact filter syntax and examples."
+  },
+  {
+    "locale": "km",
+    "key": "azure-blob-storage-description",
+    "before": "Microsoft Azure Blob Storage។",
+    "after": "សេវាផ្ទុកទិន្នន័យ Microsoft Azure Blob។",
+    "reason": "Translate retained English prose into Khmer; preserve diagnostic identifiers and exact filter syntax and examples."
+  },
+  {
+    "locale": "km",
+    "key": "gcs-storage-description",
+    "before": "Google Cloud Storage។",
+    "after": "សេវាផ្ទុកទិន្នន័យ Google Cloud។",
+    "reason": "Translate retained English prose into Khmer; preserve diagnostic identifiers and exact filter syntax and examples."
+  },
+  {
+    "locale": "km",
+    "key": "advanced-filter-description",
+    "before": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A space is used as a separator between the Operators. You can filter for all Custom Fields by typing their names and values. For Example: Field1 == Value1. Note: If fields or values contains spaces, you need to encapsulate them into single quotes. For Example: 'Field 1' == 'Value 1'. For single control characters (' \\\\/) to be skipped, you can use \\\\. For example: Field1 == I\\\\'m. Also you can combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally all operators are interpreted from left to right. You can change the order by placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also you can search text fields using regex: F1 == /Tes.*/i",
+    "after": "តម្រងកម្រិតខ្ពស់អនុញ្ញាតឱ្យសរសេរខ្សែអក្សរដែលមានប្រមាណវិធី៖ == != <= >= && || ( ) ប្រើចន្លោះដើម្បីបំបែកប្រមាណវិធី។ អ្នកអាចត្រងវាលផ្ទាល់ខ្លួនទាំងអស់ដោយវាយឈ្មោះនិងតម្លៃរបស់វា។ ឧទាហរណ៍៖ Field1 == Value1. បើឈ្មោះវាលឬតម្លៃមានចន្លោះ ត្រូវដាក់វាក្នុងសញ្ញាសម្រង់ទោល។ ឧទាហរណ៍៖ 'Field 1' == 'Value 1'. ដើម្បីគេចតួអក្សរបញ្ជា (' \\\\/) អ្នកអាចប្រើ \\\\. ឧទាហរណ៍៖ Field1 == I\\\\'m. អ្នកក៏អាចរួមបញ្ចូលលក្ខខណ្ឌច្រើនបាន។ ឧទាហរណ៍៖ F1 == V1 || F1 == V2. ជាធម្មតា ប្រមាណវិធីទាំងអស់ត្រូវបានបកស្រាយពីឆ្វេងទៅស្តាំ។ អ្នកអាចប្តូរលំដាប់ដោយប្រើវង់ក្រចក។ ឧទាហរណ៍៖ F1 == V1 && ( F2 == V2 || F2 == V3 ). អ្នកក៏អាចស្វែងរកវាលអត្ថបទដោយប្រើ regex៖ F1 == /Tes.*/i",
+    "reason": "Translate retained English prose into Khmer; preserve diagnostic identifiers and exact filter syntax and examples."
+  },
+  {
+    "locale": "km-KH",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Node heap : peak malloced memory",
+    "after": "Heap របស់ Node៖ ទំហំអង្គចងចាំអតិបរមាដែលបានបម្រុងតាម malloc",
+    "reason": "Translate retained English prose into Khmer; preserve diagnostic identifiers and exact filter syntax and examples."
+  },
+  {
+    "locale": "km-KH",
+    "key": "azure-blob-storage-description",
+    "before": "Microsoft Azure Blob Storage។",
+    "after": "សេវាផ្ទុកទិន្នន័យ Microsoft Azure Blob។",
+    "reason": "Translate retained English prose into Khmer; preserve diagnostic identifiers and exact filter syntax and examples."
+  },
+  {
+    "locale": "km-KH",
+    "key": "gcs-storage-description",
+    "before": "Google Cloud Storage។",
+    "after": "សេវាផ្ទុកទិន្នន័យ Google Cloud។",
+    "reason": "Translate retained English prose into Khmer; preserve diagnostic identifiers and exact filter syntax and examples."
+  },
+  {
+    "locale": "km-KH",
+    "key": "advanced-filter-description",
+    "before": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A space is used as a separator between the Operators. You can filter for all Custom Fields by typing their names and values. For Example: Field1 == Value1. Note: If fields or values contains spaces, you need to encapsulate them into single quotes. For Example: 'Field 1' == 'Value 1'. For single control characters (' \\\\/) to be skipped, you can use \\\\. For example: Field1 == I\\\\'m. Also you can combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally all operators are interpreted from left to right. You can change the order by placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also you can search text fields using regex: F1 == /Tes.*/i",
+    "after": "តម្រងកម្រិតខ្ពស់អនុញ្ញាតឱ្យសរសេរខ្សែអក្សរដែលមានប្រមាណវិធី៖ == != <= >= && || ( ) ប្រើចន្លោះដើម្បីបំបែកប្រមាណវិធី។ អ្នកអាចត្រងវាលផ្ទាល់ខ្លួនទាំងអស់ដោយវាយឈ្មោះនិងតម្លៃរបស់វា។ ឧទាហរណ៍៖ Field1 == Value1. បើឈ្មោះវាលឬតម្លៃមានចន្លោះ ត្រូវដាក់វាក្នុងសញ្ញាសម្រង់ទោល។ ឧទាហរណ៍៖ 'Field 1' == 'Value 1'. ដើម្បីគេចតួអក្សរបញ្ជា (' \\\\/) អ្នកអាចប្រើ \\\\. ឧទាហរណ៍៖ Field1 == I\\\\'m. អ្នកក៏អាចរួមបញ្ចូលលក្ខខណ្ឌច្រើនបាន។ ឧទាហរណ៍៖ F1 == V1 || F1 == V2. ជាធម្មតា ប្រមាណវិធីទាំងអស់ត្រូវបានបកស្រាយពីឆ្វេងទៅស្តាំ។ អ្នកអាចប្តូរលំដាប់ដោយប្រើវង់ក្រចក។ ឧទាហរណ៍៖ F1 == V1 && ( F2 == V2 || F2 == V3 ). អ្នកក៏អាចស្វែងរកវាលអត្ថបទដោយប្រើ regex៖ F1 == /Tes.*/i",
+    "reason": "Translate retained English prose into Khmer; preserve diagnostic identifiers and exact filter syntax and examples."
+  },
+  {
+    "locale": "km_KH",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Node heap : peak malloced memory",
+    "after": "Heap របស់ Node៖ ទំហំអង្គចងចាំអតិបរមាដែលបានបម្រុងតាម malloc",
+    "reason": "Translate retained English prose into Khmer; preserve diagnostic identifiers and exact filter syntax and examples."
+  },
+  {
+    "locale": "km_KH",
+    "key": "azure-blob-storage-description",
+    "before": "Microsoft Azure Blob Storage។",
+    "after": "សេវាផ្ទុកទិន្នន័យ Microsoft Azure Blob។",
+    "reason": "Translate retained English prose into Khmer; preserve diagnostic identifiers and exact filter syntax and examples."
+  },
+  {
+    "locale": "km_KH",
+    "key": "gcs-storage-description",
+    "before": "Google Cloud Storage។",
+    "after": "សេវាផ្ទុកទិន្នន័យ Google Cloud។",
+    "reason": "Translate retained English prose into Khmer; preserve diagnostic identifiers and exact filter syntax and examples."
+  },
+  {
+    "locale": "km_KH",
+    "key": "advanced-filter-description",
+    "before": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A space is used as a separator between the Operators. You can filter for all Custom Fields by typing their names and values. For Example: Field1 == Value1. Note: If fields or values contains spaces, you need to encapsulate them into single quotes. For Example: 'Field 1' == 'Value 1'. For single control characters (' \\\\/) to be skipped, you can use \\\\. For example: Field1 == I\\\\'m. Also you can combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally all operators are interpreted from left to right. You can change the order by placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also you can search text fields using regex: F1 == /Tes.*/i",
+    "after": "តម្រងកម្រិតខ្ពស់អនុញ្ញាតឱ្យសរសេរខ្សែអក្សរដែលមានប្រមាណវិធី៖ == != <= >= && || ( ) ប្រើចន្លោះដើម្បីបំបែកប្រមាណវិធី។ អ្នកអាចត្រងវាលផ្ទាល់ខ្លួនទាំងអស់ដោយវាយឈ្មោះនិងតម្លៃរបស់វា។ ឧទាហរណ៍៖ Field1 == Value1. បើឈ្មោះវាលឬតម្លៃមានចន្លោះ ត្រូវដាក់វាក្នុងសញ្ញាសម្រង់ទោល។ ឧទាហរណ៍៖ 'Field 1' == 'Value 1'. ដើម្បីគេចតួអក្សរបញ្ជា (' \\\\/) អ្នកអាចប្រើ \\\\. ឧទាហរណ៍៖ Field1 == I\\\\'m. អ្នកក៏អាចរួមបញ្ចូលលក្ខខណ្ឌច្រើនបាន។ ឧទាហរណ៍៖ F1 == V1 || F1 == V2. ជាធម្មតា ប្រមាណវិធីទាំងអស់ត្រូវបានបកស្រាយពីឆ្វេងទៅស្តាំ។ អ្នកអាចប្តូរលំដាប់ដោយប្រើវង់ក្រចក។ ឧទាហរណ៍៖ F1 == V1 && ( F2 == V2 || F2 == V3 ). អ្នកក៏អាចស្វែងរកវាលអត្ថបទដោយប្រើ regex៖ F1 == /Tes.*/i",
+    "reason": "Translate retained English prose into Khmer; preserve diagnostic identifiers and exact filter syntax and examples."
   }
 ]
