@@ -250,5 +250,19 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     assert.equal(cache['ve-PP'][key], value, key);
     assert.doesNotMatch(cache['ve-PP'][key], /salasana|Salasana|Salasanat|Käyttäjätunnus|uudelleen|Vaihda/, key);
   }
+  for (const [key, value] of Object.entries({
+    'accounts-lockout-known-users': 'Tetud kävutajiden valičused (oiged kävutajan nimi, vär peitsana)',
+    'accounts-lockout-unknown-users': 'Tundmatomiden kävutajiden valičused (kävutajan nimed ei ole)',
+    'accounts-lockout-locked-users': 'Saubatud kävutajad',
+    'accounts-lockout-user-locked': 'Nece kävutai om saubatud.',
+    'accounts-lockout-no-locked-users': "Nügüd' ei ole saubatud kävutajid.",
+    'accounts-lockout-user-unlocked': 'Kävutajan saubatuz om heittud hüvin.',
+  })) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.doesNotMatch(cache['ve-PP'][key], /käyttäj|Käyttäj|salasana|asetukset|lukit|Lukit/i, key);
+  }
+  assert.match(cache['ve-PP']['accounts-lockout-known-users'], /oiged.*nimi, vär peitsana/);
+  assert.match(cache['ve-PP']['accounts-lockout-unknown-users'], /nimed ei ole/);
+  assert.match(cache['ve-PP']['accounts-lockout-user-unlocked'], /heittud hüvin/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

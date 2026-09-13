@@ -112551,5 +112551,47 @@
     "before": "Käyttäjätunnus ja salasana vaaditaan",
     "after": "Kävutajan nimi da peitsana oma tarbiž.",
     "reason": "Replace Finnish account terminology with native Veps vocabulary from https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json (changepassword, userlogin-yourname, createacct-yourpasswordagain-ph, userlogin-resetpassword-link, badretype). Preserve the specific instruction; password-again uses native völ kerdan for again. Direct composed requirement using existing Veps tarbiž vocabulary; LOW CONFIDENCE grammar/required terminology needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accounts-lockout-known-users",
+    "before": "Tunnettujen käyttäjien asetukset (oikea käyttäjätunnus, väärä salasana)",
+    "after": "Tetud kävutajiden valičused (oiged kävutajan nimi, vär peitsana)",
+    "reason": "Replace Finnish lockout text with Veps. Dictionary at https://kaikki.org/dictionary/Veps/index.html confirms teta passive tetud (known), tundmatoi genitive plural tundmatomiden (unknown), and oiged/vär. Software reference https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests saubatud, kävutai/kävutajid, valičused, peitsana, saubatuz om heittud, and hüvin. Keep known/unknown username/password conditions and successful-unlock meaning. Composed settings/warning grammar needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accounts-lockout-unknown-users",
+    "before": "Tuntemattomien käyttäjien asetukset (olematon käyttäjätunnus)",
+    "after": "Tundmatomiden kävutajiden valičused (kävutajan nimed ei ole)",
+    "reason": "Replace Finnish lockout text with Veps. Dictionary at https://kaikki.org/dictionary/Veps/index.html confirms teta passive tetud (known), tundmatoi genitive plural tundmatomiden (unknown), and oiged/vär. Software reference https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests saubatud, kävutai/kävutajid, valičused, peitsana, saubatuz om heittud, and hüvin. Keep known/unknown username/password conditions and successful-unlock meaning. Composed settings/warning grammar needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accounts-lockout-locked-users",
+    "before": "Lukitut käyttäjät",
+    "after": "Saubatud kävutajad",
+    "reason": "Replace Finnish lockout text with Veps. Dictionary at https://kaikki.org/dictionary/Veps/index.html confirms teta passive tetud (known), tundmatoi genitive plural tundmatomiden (unknown), and oiged/vär. Software reference https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests saubatud, kävutai/kävutajid, valičused, peitsana, saubatuz om heittud, and hüvin. Keep known/unknown username/password conditions and successful-unlock meaning. Composed settings/warning grammar needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accounts-lockout-user-locked",
+    "before": "Käyttäjä on lukittu",
+    "after": "Nece kävutai om saubatud.",
+    "reason": "Replace Finnish lockout text with Veps. Dictionary at https://kaikki.org/dictionary/Veps/index.html confirms teta passive tetud (known), tundmatoi genitive plural tundmatomiden (unknown), and oiged/vär. Software reference https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests saubatud, kävutai/kävutajid, valičused, peitsana, saubatuz om heittud, and hüvin. Keep known/unknown username/password conditions and successful-unlock meaning. Composed settings/warning grammar needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accounts-lockout-no-locked-users",
+    "before": "Lukittuja käyttäjiä ei ole tällä hetkellä",
+    "after": "Nügüd' ei ole saubatud kävutajid.",
+    "reason": "Replace Finnish lockout text with Veps. Dictionary at https://kaikki.org/dictionary/Veps/index.html confirms teta passive tetud (known), tundmatoi genitive plural tundmatomiden (unknown), and oiged/vär. Software reference https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests saubatud, kävutai/kävutajid, valičused, peitsana, saubatuz om heittud, and hüvin. Keep known/unknown username/password conditions and successful-unlock meaning. Composed settings/warning grammar needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accounts-lockout-user-unlocked",
+    "before": "Käyttäjän lukitus on avattu onnistuneesti",
+    "after": "Kävutajan saubatuz om heittud hüvin.",
+    "reason": "Replace Finnish lockout text with Veps. Dictionary at https://kaikki.org/dictionary/Veps/index.html confirms teta passive tetud (known), tundmatoi genitive plural tundmatomiden (unknown), and oiged/vär. Software reference https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests saubatud, kävutai/kävutajid, valičused, peitsana, saubatuz om heittud, and hüvin. Keep known/unknown username/password conditions and successful-unlock meaning. Composed settings/warning grammar needs fluent review."
   }
 ]
