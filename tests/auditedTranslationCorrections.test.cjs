@@ -2405,5 +2405,22 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(vepsTranslator.t('Node_memory_usage_heap_used'), /todesine kävutadud mušt/);
   assert.match(vepsTranslator.t('Node_memory_usage_external'), /irdpoline mušt/);
   assert.equal(new Set(Object.values(vepsMemoryUsage)).size, 4, 'all four metrics remain distinct');
+  const vepsNotificationReadState = {
+  "filter-by-unread": "Puhtasta tedotuzed, miččid ei ole lugedud",
+  "mark-all-as-read": "Znamoiče kaik kut lugedud",
+  "mark-all-as-unread": "Znamoiče kaik kut lugematomad",
+  "remove-all-read": "Heitä kaik lugedud tedotuzed"
+};
+  for (const [key, value] of Object.entries(vepsNotificationReadState)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Suodata|lukemattomat|Merkkaa|kaikki|luetuksi|lukemattomaksi|Poista|luetut/, key);
+  }
+  assert.match(vepsTranslator.t('filter-by-unread'), /Puhtasta.*ei ole lugedud/);
+  assert.match(vepsTranslator.t('mark-all-as-read'), /^Znamoiče kaik kut lugedud$/);
+  assert.match(vepsTranslator.t('mark-all-as-unread'), /^Znamoiče kaik kut lugematomad$/);
+  assert.match(vepsTranslator.t('remove-all-read'), /^Heitä kaik lugedud tedotuzed$/);
+  assert.equal(new Set(Object.values(vepsNotificationReadState)).size, 4);
+  assert.equal(cache['ve-PP']['card-has-unread-comments'], 'Om sel’genzoitusid, miččid ei ole lugedud', 'retain the existing correct unread-comment phrase');
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

@@ -119656,5 +119656,33 @@
     "before": "Node muistin käyttö: ulkoinen",
     "after": "Node mušton kävutand: irdpoline mušt",
     "reason": "Replace Finnish Node memory labels with Veps. Preserve allocated heap versus actual use and external memory; RSS is process memory resident in RAM, not permanently assigned size. Dictionary: mušt, kogo, suruz’, jagada, todesine and irdpoline; reuse mušton kävutand. Low confidence: composed technical metric grammar needs fluent review. Node24 definitions: https://nodejs.org/download/release/v24.11.0/docs/api/process.html#processmemoryusage"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-by-unread",
+    "before": "Suodata lukemattomat",
+    "after": "Puhtasta tedotuzed, miččid ei ole lugedud",
+    "reason": "Replace Finnish notification controls with Veps; retain unread-only filtering, all-read/all-unread marking and deletion of read notifications only. Native MediaWiki vep markaspatrolledtext uses Znamoiče ... kut tarkištadud; existing card-has-unread-comments supplies ei ole lugedud. Dictionary lugeda and lugematoi; Heitä is existing deletion terminology. Low confidence: unread participle inflection and composed notification grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "mark-all-as-read",
+    "before": "Merkkaa kaikki luetuksi",
+    "after": "Znamoiče kaik kut lugedud",
+    "reason": "Replace Finnish notification controls with Veps; retain unread-only filtering, all-read/all-unread marking and deletion of read notifications only. Native MediaWiki vep markaspatrolledtext uses Znamoiče ... kut tarkištadud; existing card-has-unread-comments supplies ei ole lugedud. Dictionary lugeda and lugematoi; Heitä is existing deletion terminology. Low confidence: unread participle inflection and composed notification grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "mark-all-as-unread",
+    "before": "Merkkaa kaikki lukemattomaksi",
+    "after": "Znamoiče kaik kut lugematomad",
+    "reason": "Replace Finnish notification controls with Veps; retain unread-only filtering, all-read/all-unread marking and deletion of read notifications only. Native MediaWiki vep markaspatrolledtext uses Znamoiče ... kut tarkištadud; existing card-has-unread-comments supplies ei ole lugedud. Dictionary lugeda and lugematoi; Heitä is existing deletion terminology. Low confidence: unread participle inflection and composed notification grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "remove-all-read",
+    "before": "Poista kaikki luetut",
+    "after": "Heitä kaik lugedud tedotuzed",
+    "reason": "Replace Finnish notification controls with Veps; retain unread-only filtering, all-read/all-unread marking and deletion of read notifications only. Native MediaWiki vep markaspatrolledtext uses Znamoiče ... kut tarkištadud; existing card-has-unread-comments supplies ei ole lugedud. Dictionary lugeda and lugematoi; Heitä is existing deletion terminology. Low confidence: unread participle inflection and composed notification grammar need fluent review."
   }
 ]
