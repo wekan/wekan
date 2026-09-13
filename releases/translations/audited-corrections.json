@@ -74737,5 +74737,208 @@
     "before": "Texte sous le logo de connexion personnalisé",
     "after": "Tecse pa dzo l' logo d' elodjaedje da vosse",
     "reason": "Replace audited French account/login wording with Walloon. Native username/password/login/settings terminology https://berdelaedje.walon.org/faq.php and https://berdelaedje.walon.org/index.php ; block vocabulary https://dtw.walon.org/index.php?query=bloker . Retain temporary lockout, failed attempts, brute-force protection, seconds and activation action inversion. Full grammar and security terminology remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-subtask-added",
+    "before": "a ajouté une sous-tâche à %s",
+    "after": "a radjouté ene sos-bouye a %s",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "add-background-image",
+    "before": "Ajouter une image de fond",
+    "after": "Radjouter ene imådje di fond",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "add-cover",
+    "before": "Ajouter la vignette sur la mini-carte",
+    "after": "Radjouter ene imådje di coviete al minicåte",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "add-cron-job",
+    "before": "Ajouter un travail planifié",
+    "after": "Radjouter ene bouye planifiêye",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "add-organizations",
+    "before": "Ajouter des organisations",
+    "after": "Radjouter des organizåcions",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "add-template-container",
+    "before": "Ajouter un conteneur de modèles",
+    "after": "Radjouter on contneu di modeles",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "createTemplateContainerPopup-title",
+    "before": "Ajouter un conteneur de modèles",
+    "after": "Radjouter on contneu di modeles",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "addWorkspacePopup-title",
+    "before": "Ajouter un espace de travail",
+    "after": "Radjouter èn espåce di bouye",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "allboards.add-workspace",
+    "before": "Ajouter un espace de travail",
+    "after": "Radjouter èn espåce di bouye",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "allboards.add-subworkspace",
+    "before": "Ajouter un sous-espace de travail",
+    "after": "Radjouter on dzo-espåce di bouye",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "allboards.delete-workspace-confirm",
+    "before": "Êtes-vous sûr de vouloir supprimer cet espace de travail ?",
+    "after": "Estoz vs seur di voleur disfacer ci espåce di bouye ci?",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "boardChangeColorPopup-title",
+    "before": "Change la couleur de fond du tableau",
+    "after": "Candjî l' fond do tåvlea",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "boardSubtaskSettingsPopup-title",
+    "before": "Paramètres des sous-tâches",
+    "after": "Apontiaedjes des sos-bouyes",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "confirm-subtask-delete-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer la sous-tâche ?",
+    "after": "Estoz vs seur di voleur disfacer li sos-bouye?",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "deposit-subtasks-board",
+    "before": "Déposer des sous-tâches dans ce tableau :",
+    "after": "Mete les sos-bouyes so ci tåvlea ci:",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "duplicate-board-confirm",
+    "before": "Êtes-vous sûr de vouloir dupliquer ce tableau ?",
+    "after": "Estoz vs seur di voleur fé ene copeye di ci tåvlea ci?",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "error-board-notAMember",
+    "before": "Vous devez être participant de ce tableau pour faire cela",
+    "after": "Vos dvoz esse mimbe di ci tåvlea ci po fé çoula",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "error-board-notAdmin",
+    "before": "Vous devez être administrateur de ce tableau pour faire cela",
+    "after": "Vos dvoz esse manaedjeu di ci tåvlea ci po fé çoula",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "error-user-doesNotExist",
+    "before": "Cet utilisateur n'existe pas",
+    "after": "Ci uzeu ci n' egzistêye nén",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "error-user-notCreated",
+    "before": "Cet utilisateur n'a pas encore été créé",
+    "after": "Ci uzeu ci n' est nén askepyî",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "error-username-taken",
+    "before": "Ce nom d'utilisateur est déjà utilisé",
+    "after": "Ci no d' uzeu ci est dedja pris",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "invalid-credentials",
+    "before": "Nom d'utilisateur ou mot de passe invalide",
+    "after": "No d' uzeu ou sicret nén valåbe",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "just-invited",
+    "before": "Vous venez d'être invité à ce tableau",
+    "after": "Vos avoz seulmint ene invitåcion po ci tåvlea ci",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "filter-on-desc",
+    "before": "Vous êtes en train de filtrer les cartes sur ce tableau. Cliquez ici pour modifier les filtres.",
+    "after": "Vos passez les cåtes di ci tåvlea ci. Clitchîz cial po candjî l' passaedje.",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "list-move-cards",
+    "before": "Déplacer toutes les cartes de cette liste",
+    "after": "Bodjî totes les cåtes di cisse djivêye ci",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "minicard-settings",
+    "before": "Paramètres de la minicarte",
+    "after": "Apontiaedjes del minicåte",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "people-number",
+    "before": "Le nombre d'utilisateurs est de :",
+    "after": "Li nombe di djins est: ",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "quick-access-description",
+    "before": "Ajouter un tableau à vos favoris pour créer un raccourci dans cette barre.",
+    "after": "Mete ene stoele a on tåvlea po radjouter on rascourti dins cisse båre ci.",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "newLineNewItem",
+    "before": "Une ligne de texte = un élément de la check-list",
+    "after": "Ene roye di tecse = on cayet del djivêye di verifiaedje",
+    "reason": "Replace audited French board/card/account controls with Walloon using existing vocabulary and authored computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve required member/admin role distinctions, duplicate/deletion questions and card versus subtask scope. Full grammar and template-container terminology remain low confidence; source tokens retained."
   }
 ]
