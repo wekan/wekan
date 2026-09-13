@@ -93189,5 +93189,61 @@
     "before": "hat Karte __card__ von Liste __oldList__ in Swimlane  __oldSwimlane__ in Board __oldBoard__ zu Liste __list__ in Swimlane __swimlane__ in Board __board__ verschoben",
     "after": "__oldBoard__ raSvo' __oldSwimlane__ Hevo' __oldList__ tetlhvo' __board__ raSvaD __swimlane__ HevaD __list__ tetlhvaD __card__ 'echletHom vIHmoHlu'pu'",
     "reason": "Replace audited German import/movement activity and duplicate label-removal message with Klingon. Preserve all source and destination placeholder roles; -vo- marks origins, -vaD destinations, and -Daq surrounding context. https://klingonska.org/klo/ordlista-01.html attests qem (bring) and vIH (move intransitively); vIHmoH causes the card to move. Reuse the repaired label-removal wording. Software import metaphor and chained movement contexts are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-addComment",
+    "before": "hat Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ kommentiert: __comment__",
+    "after": "__board__ raSDaq __swimlane__ HeDaq __list__ tetlhDaq __card__ 'echletHomDaq QInHom chellu'pu': __comment__",
+    "reason": "Replace German comment activities and controls with Klingon, using QInHom (small message) already used in restrict-comment-editing. Preserve addition chel versus editing choH and deletion Qaw, absence of comments, and deletion confirmation question. Every named board/swimlane/list/card/comment placeholder and percent token retains its source role. Existing software terminology is reused; assembled clauses are low confidence and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-editComment",
+    "before": "hat den Kommentar auf Karte __card__: __comment__ auf Liste __list__ in Swimlane __swimlane__ in Board __board__ bearbeitet",
+    "after": "__board__ raSDaq __swimlane__ HeDaq __list__ tetlhDaq __card__ 'echletHomDaq QInHom choHlu'pu': __comment__",
+    "reason": "Replace German comment activities and controls with Klingon, using QInHom (small message) already used in restrict-comment-editing. Preserve addition chel versus editing choH and deletion Qaw, absence of comments, and deletion confirmation question. Every named board/swimlane/list/card/comment placeholder and percent token retains its source role. Existing software terminology is reused; assembled clauses are low confidence and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-deleteComment",
+    "before": "hat den Kommentar von Karte __card__: __comment__ auf Liste __list__ in Swimlane __swimlane__ in Board __board__ gelöscht",
+    "after": "__board__ raSDaq __swimlane__ HeDaq __list__ tetlhDaq __card__ 'echletHomDaq QInHom Qaw'lu'pu': __comment__",
+    "reason": "Replace German comment activities and controls with Klingon, using QInHom (small message) already used in restrict-comment-editing. Preserve addition chel versus editing choH and deletion Qaw, absence of comments, and deletion confirmation question. Every named board/swimlane/list/card/comment placeholder and percent token retains its source role. Existing software terminology is reused; assembled clauses are low confidence and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "activity-editComment",
+    "before": "editierte Kommentar %s",
+    "after": "%s QInHom choHlu'pu'",
+    "reason": "Replace German comment activities and controls with Klingon, using QInHom (small message) already used in restrict-comment-editing. Preserve addition chel versus editing choH and deletion Qaw, absence of comments, and deletion confirmation question. Every named board/swimlane/list/card/comment placeholder and percent token retains its source role. Existing software terminology is reused; assembled clauses are low confidence and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "activity-deleteComment",
+    "before": "löschte Kommentar %s",
+    "after": "%s QInHom Qaw'lu'pu'",
+    "reason": "Replace German comment activities and controls with Klingon, using QInHom (small message) already used in restrict-comment-editing. Preserve addition chel versus editing choH and deletion Qaw, absence of comments, and deletion confirmation question. Every named board/swimlane/list/card/comment placeholder and percent token retains its source role. Existing software terminology is reused; assembled clauses are low confidence and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "comments",
+    "before": "Kommentare",
+    "after": "QInHommey",
+    "reason": "Replace German comment activities and controls with Klingon, using QInHom (small message) already used in restrict-comment-editing. Preserve addition chel versus editing choH and deletion Qaw, absence of comments, and deletion confirmation question. Every named board/swimlane/list/card/comment placeholder and percent token retains its source role. Existing software terminology is reused; assembled clauses are low confidence and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "no-comments",
+    "before": "Keine Kommentare",
+    "after": "QInHommey tu'lu'be'",
+    "reason": "Replace German comment activities and controls with Klingon, using QInHom (small message) already used in restrict-comment-editing. Preserve addition chel versus editing choH and deletion Qaw, absence of comments, and deletion confirmation question. Every named board/swimlane/list/card/comment placeholder and percent token retains its source role. Existing software terminology is reused; assembled clauses are low confidence and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "deleteCommentPopup-title",
+    "before": "Kommentar löschen?",
+    "after": "QInHom Qaw'lu''a'?",
+    "reason": "Replace German comment activities and controls with Klingon, using QInHom (small message) already used in restrict-comment-editing. Preserve addition chel versus editing choH and deletion Qaw, absence of comments, and deletion confirmation question. Every named board/swimlane/list/card/comment placeholder and percent token retains its source role. Existing software terminology is reused; assembled clauses are low confidence and need fluent-speaker validation."
   }
 ]
