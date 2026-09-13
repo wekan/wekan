@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 14,780 |
+| Corrected | 14,792 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 1,064 |
+| Pending review or repair | 1,052 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,655** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,670** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-13**, local commit `320a8ae1a` — repaired **54** Veps rule labels/fragments, resolving **three** original findings and **51** related unflagged Finnish errors. Preserve trigger subjects, member/assignee distinctions, added/removed and source/destination directions, archive/restore, complete/incomplete states, all-member removal and comma-separated three-item examples. Actual joined trigger fragments and all **16,655** exact correction records pass positive/negative rendering and placeholder checks. **Low confidence:** composed UI grammar and derived participles need fluent-speaker review; browser verification remains outstanding. Veps has **323** pending original findings. Translation repairs remain active, including restored/unflagged and wrong-language/script validation.
+Latest translation fix: **2026-09-13**, local commit `3a4196abb` — repaired **15** Veps account/email/push/notification values, resolving **12** original findings and **three** related unflagged errors. Preserve greetings, collaboration invitations, invitation codes, literal URLs, board names and line breaks; distinguish password reset from email verification. Retain account creation/sign-in, own-account deletion and irreversible all-notification deletion semantics. All **16,670** exact correction records and actual positive/negative interpolation/rendering checks pass. **Low confidence:** composed mail/account grammar and inflections need fluent-speaker review; browser verification remains outstanding. Veps has **311** pending original findings. Translation repairs remain active, including restored/unflagged and wrong-language/script validation.
 
 **Build interruption (2026-09-13):** local commit `6cd193879` repairs the Meteor 3.6/Rspack 2 build's undeclared body-parser import using Meteor's existing Express parsers. Seven HTTP/build regressions pass. Meteor 3.6-beta.0/Rspack 2.2 and matching Docker metadata are committed locally (`35082f7d7`), and both previously failing version checks pass. All **1,015** Node suites pass. The actual Meteor bundle build remains under verification: the local beta tool is still starting before compilation. Translation counts and the latest translation commit remain unchanged.
 
