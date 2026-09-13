@@ -79819,5 +79819,96 @@
     "before": "Impossible d'exporter vers Excel : espace disque insuffisant",
     "after": "Mëneesul génne ci Excel: barab bu féex ci disk bi doyul",
     "reason": "Replace French card export controls and field-group labels with Wolof, reusing existing Génne export term. Preserve PDF/Excel names, creator/owner/member/assignee roles, board/list/swimlane and all five date categories. Disk-space failure refers to insufficient available storage. Technical adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "cardCustomField-datePopup-title",
+    "before": "Modifier la date",
+    "after": "Soppi bis bi",
+    "reason": "Repair Wolof date/time controls and French labels. Reuse Bis/Waxtu; remove unrelated custom-field prose from Date type. Restore literal YYYY/MM/DD format tokens instead of French AAAA/JJ. Preserve no-due-date, invalid date versus time, remaining-time distinctions. Full grammar and date-format adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "custom-field-date",
+    "before": "Bésu barab bu ñu jagleel",
+    "after": "Bis",
+    "reason": "Repair Wolof date/time controls and French labels. Reuse Bis/Waxtu; remove unrelated custom-field prose from Date type. Restore literal YYYY/MM/DD format tokens instead of French AAAA/JJ. Preserve no-due-date, invalid date versus time, remaining-time distinctions. Full grammar and date-format adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "date-format",
+    "before": "Format de la date",
+    "after": "Anamu bind bis bi",
+    "reason": "Repair Wolof date/time controls and French labels. Reuse Bis/Waxtu; remove unrelated custom-field prose from Date type. Restore literal YYYY/MM/DD format tokens instead of French AAAA/JJ. Preserve no-due-date, invalid date versus time, remaining-time distinctions. Full grammar and date-format adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "date-format-yyyy-mm-dd",
+    "before": "AAAA-MM-JJ",
+    "after": "YYYY-MM-DD",
+    "reason": "Repair Wolof date/time controls and French labels. Reuse Bis/Waxtu; remove unrelated custom-field prose from Date type. Restore literal YYYY/MM/DD format tokens instead of French AAAA/JJ. Preserve no-due-date, invalid date versus time, remaining-time distinctions. Full grammar and date-format adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "date-format-dd-mm-yyyy",
+    "before": "JJ-MM-AAAA",
+    "after": "DD-MM-YYYY",
+    "reason": "Repair Wolof date/time controls and French labels. Reuse Bis/Waxtu; remove unrelated custom-field prose from Date type. Restore literal YYYY/MM/DD format tokens instead of French AAAA/JJ. Preserve no-due-date, invalid date versus time, remaining-time distinctions. Full grammar and date-format adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "date-format-mm-dd-yyyy",
+    "before": "MM-JJ-AAAA",
+    "after": "MM-DD-YYYY",
+    "reason": "Repair Wolof date/time controls and French labels. Reuse Bis/Waxtu; remove unrelated custom-field prose from Date type. Restore literal YYYY/MM/DD format tokens instead of French AAAA/JJ. Preserve no-due-date, invalid date versus time, remaining-time distinctions. Full grammar and date-format adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "filter-no-due-date",
+    "before": "Pas de date d'échéance",
+    "after": "Amul bis bi ñu war a jeexal",
+    "reason": "Repair Wolof date/time controls and French labels. Reuse Bis/Waxtu; remove unrelated custom-field prose from Date type. Restore literal YYYY/MM/DD format tokens instead of French AAAA/JJ. Preserve no-due-date, invalid date versus time, remaining-time distinctions. Full grammar and date-format adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "invalid-date",
+    "before": "Date invalide",
+    "after": "Bis bi baaxul",
+    "reason": "Repair Wolof date/time controls and French labels. Reuse Bis/Waxtu; remove unrelated custom-field prose from Date type. Restore literal YYYY/MM/DD format tokens instead of French AAAA/JJ. Preserve no-due-date, invalid date versus time, remaining-time distinctions. Full grammar and date-format adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "invalid-time",
+    "before": "Heure invalide",
+    "after": "Waxtu wi baaxul",
+    "reason": "Repair Wolof date/time controls and French labels. Reuse Bis/Waxtu; remove unrelated custom-field prose from Date type. Restore literal YYYY/MM/DD format tokens instead of French AAAA/JJ. Preserve no-due-date, invalid date versus time, remaining-time distinctions. Full grammar and date-format adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "time",
+    "before": "Temps",
+    "after": "Waxtu",
+    "reason": "Repair Wolof date/time controls and French labels. Reuse Bis/Waxtu; remove unrelated custom-field prose from Date type. Restore literal YYYY/MM/DD format tokens instead of French AAAA/JJ. Preserve no-due-date, invalid date versus time, remaining-time distinctions. Full grammar and date-format adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "cron-error-time",
+    "before": "Temps",
+    "after": "Waxtu",
+    "reason": "Repair Wolof date/time controls and French labels. Reuse Bis/Waxtu; remove unrelated custom-field prose from Date type. Restore literal YYYY/MM/DD format tokens instead of French AAAA/JJ. Preserve no-due-date, invalid date versus time, remaining-time distinctions. Full grammar and date-format adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "remaining_time",
+    "before": "Temps restant",
+    "after": "Waxtu wi des",
+    "reason": "Repair Wolof date/time controls and French labels. Reuse Bis/Waxtu; remove unrelated custom-field prose from Date type. Restore literal YYYY/MM/DD format tokens instead of French AAAA/JJ. Preserve no-due-date, invalid date versus time, remaining-time distinctions. Full grammar and date-format adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accounts-lockout-remaining-time",
+    "before": "Temps restant",
+    "after": "Waxtu wi des",
+    "reason": "Repair Wolof date/time controls and French labels. Reuse Bis/Waxtu; remove unrelated custom-field prose from Date type. Restore literal YYYY/MM/DD format tokens instead of French AAAA/JJ. Preserve no-due-date, invalid date versus time, remaining-time distinctions. Full grammar and date-format adaptation remain low confidence."
   }
 ]
