@@ -100,9 +100,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is de0d3d821 (2026-09-14), replacing the English Tongan
-tabular Hijri label with provisional CLDR wording. Explicit astronomical-epoch
-wording and fluent review remain required. The original Neapolitan queue is empty. All correction/rendering checks
+Latest translation fix is 335a9bcd3 (2026-09-14), refining the Tongan tabular
+Hijri label with explicit astronomical-epoch wording. Fluent technical review
+of the composed phrase remains required. The original Neapolitan queue is empty. All correction/rendering checks
 pass; low-confidence technical terminology remains explicitly tracked.
 Member assignment popup handlers need separate review for apparent reversed
 operations. The 1,015-suite Node result is historical and predates the latest batches.
@@ -641,6 +641,17 @@ The audit records 749 pending original findings and wider unfinished validation.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/335a9bcd3">Preserve the astronomical epoch in Tongan calendar wording</a>. Thanks to xet7.</summary>
+
+Refine the existing tabular Hijri label using a dictionary epoch term and
+CLDR’s astronomical adjective. Supply the qualifier missing from the provisional
+repair while preserving provenance and distinct calendar variants. All 17,211
+correction checks pass. The calendar base is CLDR-unconfirmed and the composed
+phrase needs fluent review. Original pending findings remain at 746.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/de0d3d821">Use provisional CLDR Tongan tabular Hijri wording</a>. Thanks to xet7.</summary>
