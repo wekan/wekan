@@ -59071,5 +59071,131 @@
     "before": "L'utilisateur a été déverrouillé avec succès",
     "after": "L’utilizaire es estat desblocat amb succès",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "act-a-dueAt",
+    "before": "Echéance modifiée à\nQuand: __timeValue__\nOù: __card__\n L'échéance précédente était __timeOldValue__",
+    "after": "a modificat l'escasença\nQuand : __timeValue__\nOnt : __card__\nL'escasença precedenta èra __timeOldValue__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "act-archivedBoard",
+    "before": "Le tableau __board__ a été déplacé vers les archives",
+    "after": "Lo tablèu __board__ es estat desplaçat dins los archius",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "act-atUserComment",
+    "before": "vous a mentionné sur la carte __card__ : __comment__ dans la liste __list__ dans le couloir __swimlane__ dans le tableau __board__",
+    "after": "vos a mencionat sus la carta __card__ : __comment__ dins la lista __list__ del corredor __swimlane__ del tablèu __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "act-createCustomField",
+    "before": "a créé le champ personnalisé __customField__ du tableau __board__",
+    "after": "a creat lo camp personalizat __customField__ dins lo tablèu __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "act-createSwimlane",
+    "before": "a créé le couloir __swimlane__ dans le tableau __board__",
+    "after": "a creat lo corredor __swimlane__ dins lo tablèu __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "act-deleteComment",
+    "before": "a supprimé le commentaire de la carte __card__ : __comment__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a suprimit lo comentari sus la carta __card__ : __comment__ dins la lista __list__ del corredor __swimlane__ del tablèu __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "act-deleteCustomField",
+    "before": "a supprimé le champ personnalisé __customField__ du tableau __board__",
+    "after": "a suprimit lo camp personalizat __customField__ dins lo tablèu __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "act-editComment",
+    "before": "a édité le commentaire de la carte __card__ : __comment__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a modificat lo comentari sus la carta __card__ : __comment__ dins la lista __list__ del corredor __swimlane__ del tablèu __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "act-moveCard",
+    "before": "a déplacé la carte __card__ du tableau __board__ de la liste __oldList__ du couloir __oldSwimlane__ vers la liste __list__ du couloir __swimlane__",
+    "after": "a desplaçat la carta __card__ del tablèu __board__ de la lista __oldList__ del corredor __oldSwimlane__ cap a la lista __list__ del corredor __swimlane__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "activity-added-label",
+    "before": "a ajouté l'étiquette '%s' à %s",
+    "after": "a apondut l'etiqueta '%s' a %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "activity-added-label-card",
+    "before": "a ajouté l'étiquette '%s'",
+    "after": "a apondut l'etiqueta '%s'",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "activity-checklist-completed",
+    "before": "a complété la check-list %s de %s",
+    "after": "a completat la lista de contraròtle %s de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "activity-delete-attach",
+    "before": "a supprimé une pièce jointe de %s",
+    "after": "a suprimit una pèça junta de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "activity-delete-attach-card",
+    "before": "a supprimé une pièce jointe",
+    "after": "a suprimit una pèça junta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "activity-removed-label",
+    "before": "a supprimé l'étiquette '%s' de %s",
+    "after": "a levat l'etiqueta '%s' de %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "activity-removed-label-card",
+    "before": "a supprimé l'étiquette '%s'",
+    "after": "a levat l'etiqueta '%s'",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "add-background-image",
+    "before": "Ajouter une image de fond",
+    "after": "Apondre un imatge de fons",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "add-card-to-bottom-of-list",
+    "before": "Ajouter la carte en bas de la liste",
+    "after": "Apondre la carta en bas de la lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
