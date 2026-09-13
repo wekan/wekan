@@ -89038,5 +89038,47 @@
     "before": "Migradasteps",
     "after": "Tridäds migrada",
     "reason": "Repair French migration labels and progress instructions, and replace physical steps with figurative tridäds. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests stopön, proged, fimekön, pat, stebedön, binod, nuik and tridäd (figurative step). Preserve board/latest-structure/wait instruction and status distinctions; existing software migrad stem and assembled wording remain low confidence. No native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "add-custom-html-after-body-start",
+    "before": "Ajouter le HTML personnalisé après le début du <body>",
+    "after": "Lüükön HTML lönik pos prim <body>",
+    "reason": "Replace audited French board/member and custom-HTML descriptions with Volapük. Preserve add/remove direction, view/edit/member/settings/activity permissions, all-current-card-members scope, and exact <body>/</body> tags and before/after positions. Existing WeKan terminology plus Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf (bepenam, prolidik, lüükön, moükön, votükön). Custom/settings software adaptations and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "add-custom-html-before-body-end",
+    "before": "Ajouter le HTML personnalisé avant la fin du </body>",
+    "after": "Lüükön HTML lönik bü fin </body>",
+    "reason": "Replace audited French board/member and custom-HTML descriptions with Volapük. Preserve add/remove direction, view/edit/member/settings/activity permissions, all-current-card-members scope, and exact <body>/</body> tags and before/after positions. Existing WeKan terminology plus Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf (bepenam, prolidik, lüükön, moükön, votükön). Custom/settings software adaptations and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "addmore-detail",
+    "before": "Ajouter une description plus détaillée",
+    "after": "Lüükön bepenami prolidikum",
+    "reason": "Replace audited French board/member and custom-HTML descriptions with Volapük. Preserve add/remove direction, view/edit/member/settings/activity permissions, all-current-card-members scope, and exact <body>/</body> tags and before/after positions. Existing WeKan terminology plus Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf (bepenam, prolidik, lüükön, moükön, votükön). Custom/settings software adaptations and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "admin-desc",
+    "before": "Peut consulter et modifier les cartes, supprimer des participants et modifier les paramètres du tableau. Peut consulter les activités.\n ",
+    "after": "Kanon logön e votükön kadis, moükön limanis e votükön välis taba. Kanon logön dunotis.",
+    "reason": "Replace audited French board/member and custom-HTML descriptions with Volapük. Preserve add/remove direction, view/edit/member/settings/activity permissions, all-current-card-members scope, and exact <body>/</body> tags and before/after positions. Existing WeKan terminology plus Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf (bepenam, prolidik, lüükön, moükön, votükön). Custom/settings software adaptations and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "card-members-title",
+    "before": "Ajouter ou supprimer des participants du tableau à la carte.",
+    "after": "Lüükön limanis taba lü kad u moükön onis de kad.",
+    "reason": "Replace audited French board/member and custom-HTML descriptions with Volapük. Preserve add/remove direction, view/edit/member/settings/activity permissions, all-current-card-members scope, and exact <body>/</body> tags and before/after positions. Existing WeKan terminology plus Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf (bepenam, prolidik, lüükön, moükön, votükön). Custom/settings software adaptations and assembled phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "vo",
+    "key": "card_members",
+    "before": "Tous les participants de la carte actuelle dans ce tableau",
+    "after": "Limans valik kada nuik su tab at",
+    "reason": "Replace audited French board/member and custom-HTML descriptions with Volapük. Preserve add/remove direction, view/edit/member/settings/activity permissions, all-current-card-members scope, and exact <body>/</body> tags and before/after positions. Existing WeKan terminology plus Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf (bepenam, prolidik, lüükön, moükön, votükön). Custom/settings software adaptations and assembled phrases remain low confidence; no native-speaker verification."
   }
 ]
