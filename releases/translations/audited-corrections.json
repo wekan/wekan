@@ -73113,5 +73113,173 @@
     "before": "Copier la checklist - Modèle",
     "after": "Copyî l' djivêye di verifiaedje a pårti do modele",
     "reason": "Replace audited French checklist wording with Walloon. Finish/complete and feminine fineye attested: https://dtw.walon.org/index.php?query=fini ; item vocabulary https://dtw.walon.org/index.php?query=cayet plus existing checklist terminology. Restore removed-item meaning where French omitted the item; keep completed and uncompleted states distinct. Full sentence grammar remains low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "admin-desc",
+    "before": "Peut consulter et modifier les cartes, supprimer des participants et modifier les paramètres du tableau. Peut consulter les activités.\n ",
+    "after": "Pout vey et candjî les cåtes, oister des mimbes eyet candjî les apontiaedjes do tåvlea. Pout vey les activités.",
+    "reason": "Replace audited French permission/member wording with Walloon, retaining visibility restrictions, editing prohibitions and administrator-only actions. Assignment vocabulary diner (allouer/attribuer): https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf ; user/login terminology https://berdelaedje.walon.org/faq.php . Existing card/board/settings vocabulary reused. Full sentence grammar and specialized assignment phrasing remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "normal-desc",
+    "before": "Peut voir et modifier les cartes. Ne peut pas changer les paramètres.",
+    "after": "Pout vey et candjî les cåtes. Ni pout nén candjî les apontiaedjes.",
+    "reason": "Replace audited French permission/member wording with Walloon, retaining visibility restrictions, editing prohibitions and administrator-only actions. Assignment vocabulary diner (allouer/attribuer): https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf ; user/login terminology https://berdelaedje.walon.org/faq.php . Existing card/board/settings vocabulary reused. Full sentence grammar and specialized assignment phrasing remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "normal-assigned-only-desc",
+    "before": "Seules les cartes assignées sont visibles. Modifier en tant qu'utilisateur normal.",
+    "after": "Seulmint les cåtes ki lyi sont dinêyes sont veyåves. Pout les candjî come on uzeu normål.",
+    "reason": "Replace audited French permission/member wording with Walloon, retaining visibility restrictions, editing prohibitions and administrator-only actions. Assignment vocabulary diner (allouer/attribuer): https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf ; user/login terminology https://berdelaedje.walon.org/faq.php . Existing card/board/settings vocabulary reused. Full sentence grammar and specialized assignment phrasing remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "comment-only-desc",
+    "before": "Ne peut que commenter des cartes.",
+    "after": "Pout seulmint fé des rimåkes so les cåtes.",
+    "reason": "Replace audited French permission/member wording with Walloon, retaining visibility restrictions, editing prohibitions and administrator-only actions. Assignment vocabulary diner (allouer/attribuer): https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf ; user/login terminology https://berdelaedje.walon.org/faq.php . Existing card/board/settings vocabulary reused. Full sentence grammar and specialized assignment phrasing remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "comment-assigned-only-desc",
+    "before": "Seules les cartes assignées sont visibles. Commentaire uniquement.",
+    "after": "Seulmint les cåtes ki lyi sont dinêyes sont veyåves. Pout seulmint fé des rimåkes.",
+    "reason": "Replace audited French permission/member wording with Walloon, retaining visibility restrictions, editing prohibitions and administrator-only actions. Assignment vocabulary diner (allouer/attribuer): https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf ; user/login terminology https://berdelaedje.walon.org/faq.php . Existing card/board/settings vocabulary reused. Full sentence grammar and specialized assignment phrasing remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "read-only-desc",
+    "before": "Peut seulement voir les cartes. Ne peut pas éditer.",
+    "after": "Pout seulmint vey les cåtes. Ni pout nén les candjî.",
+    "reason": "Replace audited French permission/member wording with Walloon, retaining visibility restrictions, editing prohibitions and administrator-only actions. Assignment vocabulary diner (allouer/attribuer): https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf ; user/login terminology https://berdelaedje.walon.org/faq.php . Existing card/board/settings vocabulary reused. Full sentence grammar and specialized assignment phrasing remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "read-assigned-only-desc",
+    "before": "Seules les cartes assignées sont visibles. Modification impossible.",
+    "after": "Seulmint les cåtes ki lyi sont dinêyes sont veyåves. Ni pout nén les candjî.",
+    "reason": "Replace audited French permission/member wording with Walloon, retaining visibility restrictions, editing prohibitions and administrator-only actions. Assignment vocabulary diner (allouer/attribuer): https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf ; user/login terminology https://berdelaedje.walon.org/faq.php . Existing card/board/settings vocabulary reused. Full sentence grammar and specialized assignment phrasing remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "no-comments-desc",
+    "before": "Impossible de voir les commentaires.",
+    "after": "Ni pout nén vey les rimåkes.",
+    "reason": "Replace audited French permission/member wording with Walloon, retaining visibility restrictions, editing prohibitions and administrator-only actions. Assignment vocabulary diner (allouer/attribuer): https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf ; user/login terminology https://berdelaedje.walon.org/faq.php . Existing card/board/settings vocabulary reused. Full sentence grammar and specialized assignment phrasing remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "worker-desc",
+    "before": "Peut seulement déplacer des cartes, s'assigner à une carte et la commenter.",
+    "after": "Pout seulmint bodjî les cåtes, si diner ene cåte eyet fé des rimåkes.",
+    "reason": "Replace audited French permission/member wording with Walloon, retaining visibility restrictions, editing prohibitions and administrator-only actions. Assignment vocabulary diner (allouer/attribuer): https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf ; user/login terminology https://berdelaedje.walon.org/faq.php . Existing card/board/settings vocabulary reused. Full sentence grammar and specialized assignment phrasing remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "last-admin-desc",
+    "before": "Vous ne pouvez pas changer les rôles car il doit y avoir au moins un administrateur.",
+    "after": "Vos n' poloz nén candjî les roles, paski i fåt todi å moens on manaedjeu.",
+    "reason": "Replace audited French permission/member wording with Walloon, retaining visibility restrictions, editing prohibitions and administrator-only actions. Assignment vocabulary diner (allouer/attribuer): https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf ; user/login terminology https://berdelaedje.walon.org/faq.php . Existing card/board/settings vocabulary reused. Full sentence grammar and specialized assignment phrasing remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "private-desc",
+    "before": "Ce tableau est privé. Seuls les membres peuvent y accéder et le modifier.",
+    "after": "Ci tåvlea ci est privé. Seulmint les djins radjoutés å tåvlea polèt l' vey et l' candjî.",
+    "reason": "Replace audited French permission/member wording with Walloon, retaining visibility restrictions, editing prohibitions and administrator-only actions. Assignment vocabulary diner (allouer/attribuer): https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf ; user/login terminology https://berdelaedje.walon.org/faq.php . Existing card/board/settings vocabulary reused. Full sentence grammar and specialized assignment phrasing remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "public-desc",
+    "before": "Ce tableau est public. Il est accessible par toutes les personnes disposant du lien et apparaîtra dans les résultats des moteurs de recherche tels que Google. Seuls les membres peuvent le modifier.",
+    "after": "Ci tåvlea ci est publike. Tot l' minme kî avou l' hårdêye pout l' vey, eyet i serè mostrê dins les moteurs di cweraedje come Google. Seulmint les djins radjoutés å tåvlea polèt l' candjî.",
+    "reason": "Replace audited French permission/member wording with Walloon, retaining visibility restrictions, editing prohibitions and administrator-only actions. Assignment vocabulary diner (allouer/attribuer): https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf ; user/login terminology https://berdelaedje.walon.org/faq.php . Existing card/board/settings vocabulary reused. Full sentence grammar and specialized assignment phrasing remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "board_members",
+    "before": "Tous les participants du tableau",
+    "after": "Tos les mimbes do tåvlea",
+    "reason": "Replace audited French permission/member wording with Walloon, retaining visibility restrictions, editing prohibitions and administrator-only actions. Assignment vocabulary diner (allouer/attribuer): https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf ; user/login terminology https://berdelaedje.walon.org/faq.php . Existing card/board/settings vocabulary reused. Full sentence grammar and specialized assignment phrasing remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "card_members",
+    "before": "Tous les participants de la carte actuelle dans ce tableau",
+    "after": "Tos les mimbes del cåte do moumint di ci tåvlea ci",
+    "reason": "Replace audited French permission/member wording with Walloon, retaining visibility restrictions, editing prohibitions and administrator-only actions. Assignment vocabulary diner (allouer/attribuer): https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf ; user/login terminology https://berdelaedje.walon.org/faq.php . Existing card/board/settings vocabulary reused. Full sentence grammar and specialized assignment phrasing remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "board_assignees",
+    "before": "Tous les intervenants de toutes les cartes de ce tableau",
+    "after": "Tos les djins avou des cåtes dinêyes, po totes les cåtes di ci tåvlea ci",
+    "reason": "Replace audited French permission/member wording with Walloon, retaining visibility restrictions, editing prohibitions and administrator-only actions. Assignment vocabulary diner (allouer/attribuer): https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf ; user/login terminology https://berdelaedje.walon.org/faq.php . Existing card/board/settings vocabulary reused. Full sentence grammar and specialized assignment phrasing remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "card_assignees",
+    "before": "Tous les intervenants de la carte actuelle de ce tableau",
+    "after": "Tos les djins avou li cåte do moumint dinêye, di ci tåvlea ci",
+    "reason": "Replace audited French permission/member wording with Walloon, retaining visibility restrictions, editing prohibitions and administrator-only actions. Assignment vocabulary diner (allouer/attribuer): https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf ; user/login terminology https://berdelaedje.walon.org/faq.php . Existing card/board/settings vocabulary reused. Full sentence grammar and specialized assignment phrasing remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "card-members-title",
+    "before": "Assigner ou supprimer des participants à la carte.",
+    "after": "Radjouter ou oister des mimbes do tåvlea del cåte.",
+    "reason": "Replace audited French permission/member wording with Walloon, retaining visibility restrictions, editing prohibitions and administrator-only actions. Assignment vocabulary diner (allouer/attribuer): https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf ; user/login terminology https://berdelaedje.walon.org/faq.php . Existing card/board/settings vocabulary reused. Full sentence grammar and specialized assignment phrasing remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "add-members",
+    "before": "Assigner des participants",
+    "after": "Radjouter des mimbes",
+    "reason": "Replace audited French permission/member wording with Walloon, retaining visibility restrictions, editing prohibitions and administrator-only actions. Assignment vocabulary diner (allouer/attribuer): https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf ; user/login terminology https://berdelaedje.walon.org/faq.php . Existing card/board/settings vocabulary reused. Full sentence grammar and specialized assignment phrasing remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "memberMenuPopup-title",
+    "before": "Préférence du participant",
+    "after": "Apontiaedjes do mimbe",
+    "reason": "Replace audited French permission/member wording with Walloon, retaining visibility restrictions, editing prohibitions and administrator-only actions. Assignment vocabulary diner (allouer/attribuer): https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf ; user/login terminology https://berdelaedje.walon.org/faq.php . Existing card/board/settings vocabulary reused. Full sentence grammar and specialized assignment phrasing remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "memberPopup-title",
+    "before": "Préférence du participant",
+    "after": "Apontiaedjes do mimbe",
+    "reason": "Replace audited French permission/member wording with Walloon, retaining visibility restrictions, editing prohibitions and administrator-only actions. Assignment vocabulary diner (allouer/attribuer): https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf ; user/login terminology https://berdelaedje.walon.org/faq.php . Existing card/board/settings vocabulary reused. Full sentence grammar and specialized assignment phrasing remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "migrations-admin-only",
+    "before": "Seuls les administrateurs du tableau peuvent exécuter les migrations",
+    "after": "Seulmint les manaedjeus do tåvlea polèt enonder les migråcions",
+    "reason": "Replace audited French permission/member wording with Walloon, retaining visibility restrictions, editing prohibitions and administrator-only actions. Assignment vocabulary diner (allouer/attribuer): https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf ; user/login terminology https://berdelaedje.walon.org/faq.php . Existing card/board/settings vocabulary reused. Full sentence grammar and specialized assignment phrasing remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "support-info-only-for-logged-in-users",
+    "before": "Les informations d'assistance sont réservées aux utilisateurs connectés.",
+    "after": "Les informåcions di sopoirt sont seulmint po les uzeus elodjîs.",
+    "reason": "Replace audited French permission/member wording with Walloon, retaining visibility restrictions, editing prohibitions and administrator-only actions. Assignment vocabulary diner (allouer/attribuer): https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf ; user/login terminology https://berdelaedje.walon.org/faq.php . Existing card/board/settings vocabulary reused. Full sentence grammar and specialized assignment phrasing remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "allowNonBoardMembers",
+    "before": "Autoriser tous les utilisateurs authentifiés",
+    "after": "Permete tos les uzeus elodjîs",
+    "reason": "Replace audited French permission/member wording with Walloon, retaining visibility restrictions, editing prohibitions and administrator-only actions. Assignment vocabulary diner (allouer/attribuer): https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf ; user/login terminology https://berdelaedje.walon.org/faq.php . Existing card/board/settings vocabulary reused. Full sentence grammar and specialized assignment phrasing remain low confidence; source tokens preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "show-board_members-avatar",
+    "before": "Afficher les avatars des participants du tableau.",
+    "after": "Mostrer les avatårs des mimbes do tåvlea",
+    "reason": "Replace audited French permission/member wording with Walloon, retaining visibility restrictions, editing prohibitions and administrator-only actions. Assignment vocabulary diner (allouer/attribuer): https://theatrewallon.be/onewebmedia/DICTIONNAIRE%20POPULAIRE.pdf ; user/login terminology https://berdelaedje.walon.org/faq.php . Existing card/board/settings vocabulary reused. Full sentence grammar and specialized assignment phrasing remain low confidence; source tokens preserved."
   }
 ]
