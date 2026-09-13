@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,185 |
+| Corrected | 12,190 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,661 |
+| Pending review or repair | 3,656 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,641** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,646** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `b466daf430621ae8a3130d025b93ebe218c2b9ff` — three French subworkspace/icon labels repaired in Volapük using existing workspace terminology, [Midgley compound vocabulary](https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) and [MediaWiki symbol terminology](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json). Preserved hierarchy and Markdown format name; assembled compound and icon adaptation remain low confidence.
+Latest translation fix: **2026-09-13**, local commit `0c955d814751d15ae29e3824eba622073c0b3098` — five French migration-action labels repaired in Volapük using existing terminology and [Midgley vocabulary](https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf). Preserved all-file scope, missing lists/IDs, create/repair distinctions and member-avatar checks; assembled wording remains low confidence.
 
 **Verification:** exact values, placeholders, JSON examples, key order and progress-update checks pass. Native-speaker and browser verification remain unavailable.
 
