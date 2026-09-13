@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 7,886 |
+| Explicitly corrected | 7,892 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 175 |
-| Pending review or repair | 7,961 |
+| Pending review or repair | 7,955 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **7,959 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
+Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **7,965 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
 
-Latest fix: [9311ddeec](https://github.com/wekan/wekan/commit/9311ddeec38b3004e319314712d910cb0f4ebb2a), **2026-09-13** — eleven Neapolitan calendar labels repaired with low confidence; **250 Neapolitan findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
+Latest fix: [629586db3](https://github.com/wekan/wekan/commit/629586db327f02efb80a170bd90bbd3c2fa8a823), **2026-09-13** — six Neapolitan calendar variants repaired with low confidence; **244 Neapolitan findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors predated that pull in a [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983). Other ultimate origins remain unverified.
 
