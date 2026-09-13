@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,955 |
+| Corrected | 11,956 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,891 |
+| Pending review or repair | 3,890 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,351** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,356** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `05e6767b8e9116b765a5f3f3666e6d2a83d5ca8e` — six French attachment, removal, import and comment activity messages replaced with Volapük using [dictionary vocabulary](https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary), preserving placeholder order. Data-import terminology and assembled grammar remain low confidence. Exact-value, token, JSON-example, key-order and idempotency checks pass; native-speaker and browser verification remain unavailable.
+Latest translation fix: **2026-09-13**, local commit `1dbaf4ffe66e14e5e43a993055af8ffd4b96d349` — five French movement/membership activity labels replaced with Volapük using [dictionary vocabulary](https://en.wikibooks.org/wiki/Volap%C3%BCk/English-Volap%C3%BCk_dictionary), preserving argument order. Membership constructions and assembled grammar remain low confidence. Exact-value, token, JSON-example, key-order and idempotency checks pass; native-speaker and browser verification remain unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending because available evidence does not distinguish its wording sufficiently from Polish.
 
