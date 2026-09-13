@@ -1118,7 +1118,7 @@
   "Reactivity_order": "Ndondamo ya u fhindula (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "Kutakuliso kwa DDP (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB-ke ühtenmüline versii",
-  "MongoDB_storage_engine": "MongoDB tallennusmoottori",
+  "MongoDB_storage_engine": "MongoDB kaičusen motor",
   "MongoDB_Oplog_enabled": "MongoDB Oplog käytössä",
   "OS_Arch": "OS: arhitektur",
   "OS_Cpus": "OS: CPU lugumär",

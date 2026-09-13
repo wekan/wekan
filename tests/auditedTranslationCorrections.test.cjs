@@ -2732,5 +2732,7 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   }
   assert.match(vepsTranslator.t('globalSearch-instructions-description', { operator_list: 'lugetiž' }), /`lugetiž:Blocked`.*keskustoid libo eriližid simvoloid.*`lugetiž:"Kodvi"`/);
   assert.match(vepsTranslator.t('globalSearch-instructions-operator-due', { operator_due: 'märaig', predicate_overdue: cache['ve-PP']['predicate-overdue'] }), /`märaig:<n>`.*\*<n>\* päivässai.*`märaig:möhäline`.*märaig om männu/);
+  assert.equal(vepsTranslator.t('MongoDB_storage_engine'), 'MongoDB kaičusen motor');
+  assert.doesNotMatch(vepsTranslator.t('MongoDB_storage_engine'), /tallennusmoottori/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

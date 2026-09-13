@@ -120433,5 +120433,12 @@
     "before": "myöhässä",
     "after": "möhäline",
     "reason": "Replace Finnish myöhässä with dictionary-attested Veps möhäline (late/delayed) for the overdue search predicate. Verify the actual Query parser recognizes the localized predicate. Technical deadline adaptation needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "MongoDB_storage_engine",
+    "before": "MongoDB tallennusmoottori",
+    "after": "MongoDB kaičusen motor",
+    "reason": "Replace Finnish storage-engine terminology using Zaiceva/Mullonen dictionary kaičuz (storage; genitive kaičusen) and motor (engine). Preserve MongoDB. Low confidence: composed database-engine terminology needs fluent technical review."
   }
 ]
