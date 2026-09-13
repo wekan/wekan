@@ -84677,5 +84677,26 @@
     "before": "ISO 8601",
     "after": "Kalenda ya Gregoriana (wiiki za ISO 8601)",
     "reason": "Replace foreign/English Persian and Hebrew calendar labels with Luganda, preserve Jalali identity and restore Gregorian ISO week information. Buperusi attested at https://www.jw.org/lg/layibulale/magazini/wp201705/okunoonyereza-ku-bintu-ebyedda-obukakafu-tattenayi/; Abebbulaniya at https://www.jw.org/lg/layibulale/magazini/wp20130801/Yawonyezebwawo-nabalala-musanvu/; kalenda and wiiki at https://www.jw.org/lg/layibulale/magazini/awake-no4-2016-august/tokoowa/. Complete label grammar remains low confidence; Buddhist/Coptic/Indian national and Hijri epochs/sighting remain pending."
+  },
+  {
+    "locale": "lg",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Kalenda y’Ababuddha",
+    "reason": "Replace English Buddhist/Indian national/Saudi Hijri labels with Luganda, restoring national and lunar sighting qualifiers. Ababuddha attested in publisher Luganda text https://www.practiceministries.org/wp-content/uploads/2019/04/Christian-Character-Leaderbook-Luganda-032819-1.pdf; Buyindi supported by CLDR lg.xml; omwezi attested at https://www.jw.org/lg/layibulale/bayibuli/nwt/awannyonnyolerwa-ebigambo/. Complete assembled grammar and sighting adaptation remain low confidence; Coptic and civil/astronomical tabular epoch labels remain pending."
+  },
+  {
+    "locale": "lg",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Kalenda y’eggwanga lya Buyindi",
+    "reason": "Replace English Buddhist/Indian national/Saudi Hijri labels with Luganda, restoring national and lunar sighting qualifiers. Ababuddha attested in publisher Luganda text https://www.practiceministries.org/wp-content/uploads/2019/04/Christian-Character-Leaderbook-Luganda-032819-1.pdf; Buyindi supported by CLDR lg.xml; omwezi attested at https://www.jw.org/lg/layibulale/bayibuli/nwt/awannyonnyolerwa-ebigambo/. Complete assembled grammar and sighting adaptation remain low confidence; Coptic and civil/astronomical tabular epoch labels remain pending."
+  },
+  {
+    "locale": "lg",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Kalenda ya Hijri (Saudi Arabia, okulaba omwezi)",
+    "reason": "Replace English Buddhist/Indian national/Saudi Hijri labels with Luganda, restoring national and lunar sighting qualifiers. Ababuddha attested in publisher Luganda text https://www.practiceministries.org/wp-content/uploads/2019/04/Christian-Character-Leaderbook-Luganda-032819-1.pdf; Buyindi supported by CLDR lg.xml; omwezi attested at https://www.jw.org/lg/layibulale/bayibuli/nwt/awannyonnyolerwa-ebigambo/. Complete assembled grammar and sighting adaptation remain low confidence; Coptic and civil/astronomical tabular epoch labels remain pending."
   }
 ]
