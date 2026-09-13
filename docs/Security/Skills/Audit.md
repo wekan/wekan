@@ -2,6 +2,10 @@
 
 Updated: **2026-09-14**. Source baseline: **fe52b7dac**.
 Status: initial source review completed; the improvements below remain open.
+Follow-up **2026-09-14**, `c1246d720`: saved mirror alerts reviewed and
+command/host validation hardened; see [WeKanSec20.md](../WeKanSec20.md).
+All 25 focused mirror test entries pass. This does not resolve the four
+application findings below.
 This is a bounded review, not a complete security or runtime certification.
 
 Read all 15 installed `meteor/agent-skills` skills, pinned by

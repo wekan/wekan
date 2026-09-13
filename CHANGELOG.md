@@ -582,6 +582,26 @@ current-time actions and comma-separated examples retain their distinctions.
 Fulah and Bambara Persian calendar qualifiers use Unicode locale terminology.
 The audit records verified repairs and remaining language reviews. A Meteor
 skills review documents current safeguards and remaining code improvements.
+Mirror tools reject unknown archive hosts and executables, and Windows sync
+passes paths directly to Node without a command-shell string.
+
+This release adds the following security hardening:
+
+**Security hardening** - Mirror archive validation and process dispatch.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c1246d720">Harden mirror host checks and Windows command dispatch</a>. Thanks to xet7.</summary>
+
+Review saved scanning alerts 537 and 539. Require exact string archive hosts,
+restrict executables and run Windows destinations directly through the
+existing Node engine. Preserve literal paths, preview flags and resumable
+archives. All 25 focused mirror test entries pass, including lookalike hosts,
+metacharacter arguments, failure handling and source-wide dispatch checks.
+The reported original substring/shell bypasses were not reproduced; these
+are hardening changes. Native Windows and remote CodeQL rescanning remain
+unverified. Details are in docs/Security/WeKanSec20.md.
+
+</details>
 
 This release adds the following translation improvements:
 
