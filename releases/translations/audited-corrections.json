@@ -111592,5 +111592,215 @@
     "before": "Apri/chiudi la barra laterale dei filtri",
     "after": "Verzi o sera ła bara łaterałe dei filtri",
     "reason": "Replace Italian-seeded Venetian rules and shortcuts; preserve uncheck action, comma-separated example, maximum task limit and current-user assigned-card filter. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "shortcut-toggle-searchbar",
+    "before": "Apri/chiudi la barra laterale di ricerca",
+    "after": "Verzi o sera ła bara łaterałe de serca",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "show-card-counter-per-list",
+    "before": "Mostra numero schede per lista",
+    "after": "Mostra el nùmaro de schede par lista",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "show-desktop-drag-handles",
+    "before": "Mostra maniglie di trascinamento del desktop",
+    "after": "Mostra łe manije par strasinar so desktop",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "show-parent-in-minicard",
+    "before": "Mostra genirotri nelle mini schede:",
+    "after": "Mostra ła scheda mare so ła scheda picenina:",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "show-week-of-year",
+    "before": "Mostra la settimana dell'anno (ISO 8601)",
+    "after": "Mostra ła setimana del ano (ISO 8601)",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "showLabel-field-on-card",
+    "before": "Mostra l'etichetta di campo su minischeda",
+    "after": "Mostra ła eticheta del canpo so ła scheda picenina",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "smtp-host-description",
+    "before": "L'indirizzo del server SMTP che gestisce le tue email.",
+    "after": "El indiriso del server SMTP che el jestise łe to email.",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "smtp-port-description",
+    "before": "La porta che il tuo server SMTP utilizza per le email in uscita.",
+    "after": "Ła porta che el to server SMTP el dopara par łe email in usita.",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "smtp-tls-description",
+    "before": "Abilita supporto TLS per server SMTP",
+    "after": "Ativa el suporto TLS par el server SMTP",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "soft-wip-limit",
+    "before": "Limite Work in progress soft",
+    "after": "Łimite WIP no vincołante",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "sort-desc",
+    "before": "Clicca per ordinare la lista",
+    "after": "Clica par ordenar ła lista",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "subtext-with-full-path",
+    "before": "Sottotesto con percorso completo",
+    "after": "Testo soto col percorso conpleto",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "swimlane-title-not-found",
+    "before": "Swimlane '%s' non trovata.",
+    "after": "Corsia '%s' no trovà.",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "tableVisibilityMode-allowPrivateOnly",
+    "before": "Visibilità bacheche: Consenti solo le bacheche private",
+    "after": "Visibiłità dei quadri: permeti soło quadri privài",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "text-below-custom-login-logo",
+    "before": "Testo sotto il logo personalizzato per il login",
+    "after": "Testo soto el logo de acesso personałizà",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "title-alphabetically",
+    "before": "Titolo (ordine alfabetico)",
+    "after": "Tìtoło (in òrdine ałfabètico)",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "to-create-organizations-contact-admin",
+    "before": "Per creare organizzazioni, cortesemente contattare l'amministratore.",
+    "after": "Par crear organisasion, contata el aministrador par piazer.",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "translation-number",
+    "before": "Il numero di stringhe di traduzione personalizzate è:",
+    "after": "El nùmaro de stringhe de tradusion personałizà el xe:",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "unsaved-description",
+    "before": "Hai una descrizione non salvata",
+    "after": "Te gà na descrision no salvà.",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "user-can-not-export-excel",
+    "before": "L'utente non può effettuare l'esportazione in Excel",
+    "after": "El utente no el pol esportar Excel",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "user-username-not-found",
+    "before": "Username '%s' non trovato.",
+    "after": "Nome utente '%s' no trovà.",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "vote-delete-pop",
+    "before": "L'eliminazione è permanente. Tutte le azioni associate a questa votazione andranno perse.",
+    "after": "Scancełar el xe definitivo. Te perderè tute łe asion łigà a sto voto.",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "vote-public",
+    "before": "Mostrare chi ha votato cosa",
+    "after": "Mostra chi gà votà cossa",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "webhook-token",
+    "before": "Token (facoltativo per l'autenticazione)",
+    "after": "Token (facoltativo par ła autenticasion)",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "wipLimitErrorPopup-dialog-pt1",
+    "before": "Il numero di compiti in questa lista è maggiore del limite di work in progress che hai definito in precedenza.",
+    "after": "El nùmaro de conpiti inte sta lista el xe pì alto del łimite WIP che te gà inpostà.",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "wipLimitErrorPopup-dialog-pt2",
+    "before": "Per favore, sposta alcuni dei compiti fuori da questa lista, oppure imposta un limite di work in progress più alto.",
+    "after": "Sposta dei conpiti fora de sta lista, o inposta un łimite WIP pì alto par piazer.",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "wipLimitErrorPopup-title",
+    "before": "Limite Work In Progress non valido",
+    "after": "Łimite WIP no vàłido",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Całendario nasionałe indian",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Całendario Hijri (Arabia Saudita, osservasion de ła łuna)",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Całendario Hijri (a tabełe, epoca astronòmica)",
+    "reason": "Replace remaining originally flagged Italian/English Venetian labels; preserve private-only access, SMTP/TLS, irreversible vote loss, WIP direction and calendar identities. Low-confidence wording and specialized calendar terminology; fluent-speaker validation outstanding."
   }
 ]
