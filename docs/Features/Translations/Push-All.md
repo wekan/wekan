@@ -6,7 +6,7 @@ Run the explicit upload operation from any directory:
 releases/translations/push-all-translations.sh
 ```
 
-It uploads the English source and every other local language file, including
+It uploads the English source and every distinct remote target language, including
 regional English variants. Local translation values replace the corresponding
 remote values, irrespective of file or remote modification times. Source strings
 edited remotely are also replaced by the local source. This operation publishes
@@ -47,3 +47,10 @@ The upload implementation follows the [Transifex API v3 documentation](https://t
 It bypasses the CLI's timestamp skip rather than using an undocumented force
 attribute. The [CLI documentation](https://developers.transifex.com/docs/cli)
 describes `--force` as disabling that timestamp skip.
+
+Colombian Spanish maps `es-CO.i18n.json` to Transifex `es_CO`; `es-CO`
+is not a supported Transifex code. The legacy `es_CO.i18n.json` file is an alias
+of that remote target. The explicit mapping selects `es-CO.i18n.json`, and the
+script reports the alias instead of uploading the same target twice. Both local
+files remain available; their nine differing values still require reconciliation.
+The offline dry run reports 244 distinct targets and the English source.

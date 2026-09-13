@@ -130,6 +130,11 @@ async function main() {
   const config = readConfig();
   if (!config.sourceFile) throw new Error('Missing source_file in .tx/config');
   const languages = localLanguages(config);
+  for (const language of languages) {
+    for (const alias of language.aliases || []) {
+      console.log(`[tx] alias ${alias}.i18n.json -> ${language.code}; using mapped ${language.file}.i18n.json`);
+    }
+  }
   const source = JSON.parse(fs.readFileSync(config.sourceFile, 'utf8'));
   if (args.includes('--dry-run')) {
     const failures = [];

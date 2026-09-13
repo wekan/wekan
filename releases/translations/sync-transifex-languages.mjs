@@ -61,12 +61,21 @@ export function readConfig() {
 // Every language WeKan ships, as the code Transifex knows it by. English is the
 // SOURCE language, so it is not a target and is left out.
 export function localLanguages({ localToTx, sourceLanguage = 'en' }) {
-  return readdirSync(DATA_DIR)
+  const targets = new Map();
+  const files = readdirSync(DATA_DIR)
     .filter(f => f.endsWith('.i18n.json'))
     .map(f => f.replace('.i18n.json', ''))
-    .filter(name => name !== sourceLanguage)
-    .map(name => ({ file: name, code: localToTx.get(name) || name }))
-    .sort((a, b) => a.code.localeCompare(b.code));
+    .filter(name => name !== sourceLanguage);
+  // Explicit filename mappings win over a second file named after the same
+  // remote code. One remote language cannot retain two different uploads.
+  files.sort((a, b) => Number(localToTx.has(b)) - Number(localToTx.has(a)) || a.localeCompare(b));
+  for (const file of files) {
+    const code = localToTx.get(file) || file;
+    const target = targets.get(code);
+    if (target) (target.aliases ||= []).push(file);
+    else targets.set(code, { file, code });
+  }
+  return [...targets.values()].sort((a, b) => a.code.localeCompare(b.code));
 }
 
 // ── the token ───────────────────────────────────────────────────────────────
