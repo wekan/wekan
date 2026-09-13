@@ -590,7 +590,7 @@ This release adds the following security hardening:
 **Security hardening** - Mirror archive validation and process dispatch.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c1246d720">Harden mirror host checks and Windows command dispatch</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3a86fc7e3">Harden mirror host checks and Windows command dispatch</a>. Thanks to xet7.</summary>
 
 Review saved scanning alerts 537 and 539. Require exact string archive hosts,
 restrict executables and run Windows destinations directly through the
@@ -608,7 +608,7 @@ This release adds the following translation improvements:
 **Translations** - Locale wording repairs and remaining audit progress.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/8931f9d02">Repair Veps recovery labels and migration step names</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a2929974e">Repair Veps recovery labels and migration step names</a>. Thanks to xet7.</summary>
 
 Replace four Finnish labels, preserving per-swimlane and ensure-if-missing
 scope. Distinguish lost cards from restored items and retain the recovery
@@ -620,7 +620,7 @@ need fluent review. Live browser checks were not run. The original queue has
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f1a6a1d08">Repair Veps board conversion and migration progress messages</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/83361230d">Repair Veps board conversion and migration progress messages</a>. Thanks to xet7.</summary>
 
 Replace four Finnish explanations, preserving one-time scope, continued board
 use, performance improvement, brief duration and background continuation after
@@ -632,7 +632,7 @@ queue has 753 pending findings; wider validation remains unfinished.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/760c4d65e">Repair Veps duplicate-list safety warnings</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/08d1f9e9b">Repair Veps duplicate-list safety warnings</a>. Thanks to xet7.</summary>
 
 Replace three Finnish warnings, preserving empty-list AND populated-same-name
 duplicate conditions, initial shared-list conversion and redundant-only
@@ -644,7 +644,7 @@ run. The original queue has 757 pending findings; wider validation continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3a7a845ee">Repair Veps migration integrity explanations</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ef7d530e9">Repair Veps migration integrity explanations</a>. Thanks to xet7.</summary>
 
 Replace six Finnish messages, preserving list order, card positions, swimlane
 structure, independent migrations and brief duration. All 17,191 correction
@@ -656,7 +656,7 @@ restored, unflagged and low-confidence validation remains unfinished.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/9bd0c347e">Repair Veps board-structure migration controls</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c6eaeb9ce">Repair Veps board-structure migration controls</a>. Thanks to xet7.</summary>
 
 Replace five Finnish values, preserving comprehensive scope, board analysis,
 missing/corrupt list alternatives and continuation confirmation. All 17,185
@@ -668,7 +668,7 @@ need fluent review. Live browser checks were not run. The original queue has
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/70921d116">Repair Veps wait-spinner descriptions</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/66cd9b69e">Repair Veps wait-spinner descriptions</a>. Thanks to xet7.</summary>
 
 Replace nine Finnish labels, preserving all eight wait-animation choices
 and identifiers. All 17,180 correction/rendering checks pass, including
@@ -680,7 +680,7 @@ unflagged and low-confidence validation remains unfinished.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a526d323c">Repair Veps spent-time card and hours labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/182983fe2">Repair Veps spent-time card and hours labels</a>. Thanks to xet7.</summary>
 
 Replace two Finnish values, preserving the distinction between boards with
 tracked-time cards and the hours field. Retain existing hours terminology.
@@ -692,7 +692,7 @@ findings; restored, unflagged and low-confidence validation continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3409b28fd">Repair Veps device modes and PDF preview fallback</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/27e76175d">Repair Veps device modes and PDF preview fallback</a>. Thanks to xet7.</summary>
 
 Replace four Finnish values, preserving mobile/desktop mode distinctions,
 the toggle and alternative download action. Retain the existing download label.
@@ -704,7 +704,7 @@ queue has 772 pending findings; restored and unflagged validation continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/0891efb93">Repair Veps announcement and repository controls</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2c1b453ed">Repair Veps announcement and repository controls</a>. Thanks to xet7.</summary>
 
 Replace ten Finnish values, preserving system-wide and administrator
 announcements, create/upload/update/sign-in actions and the existing technical
@@ -716,7 +716,7 @@ The original queue has 774 pending findings; wider validation continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d60284038">Repair Veps remaining-time label and assigned-card pronoun</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c0bd1cecb">Repair Veps remaining-time label and assigned-card pronoun</a>. Thanks to xet7.</summary>
 
 Replace the Finnish remaining-time label and refine an earlier shortcut
 correction from assigned to you to assigned to me. Preserve distinct own-card
@@ -728,7 +728,7 @@ review. Live browser checks were not run; 777 original findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1fe66bc7f">Repair Veps drag instructions and sidebar controls</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/db9a1e001">Repair Veps drag instructions and sidebar controls</a>. Thanks to xet7.</summary>
 
 Replace eight Finnish/Venda instructions, preserving click, drag, drop,
 resize, opening and closing distinctions and workspace placeholders.
@@ -740,7 +740,7 @@ were not run. The original queue has 778 pending findings; review continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/166e66563">Repair Veps workspace controls and submenu labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f72f22254">Repair Veps workspace controls and submenu labels</a>. Thanks to xet7.</summary>
 
 Replace 13 Finnish labels with Veps, preserving workspace/subworkspace
 names, markdown notation and the existing deletion question. All 17,146
@@ -752,7 +752,7 @@ not run. The original queue has 782 pending findings; validation continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/82b12bd88">Repair Veps subtask destination and action controls</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/fe8a52076">Repair Veps subtask destination and action controls</a>. Thanks to xet7.</summary>
 
 Replace nine Finnish values with Veps, preserving board/list destinations,
 matching-card absence, deletion confirmation and the board placeholder. Retain
@@ -765,7 +765,7 @@ Veps; parent-card terminology and wider validation remain unfinished.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/dd8cf329c">Repair Veps card mention notification</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8a1c76264">Repair Veps card mention notification</a>. Thanks to xet7.</summary>
 
 Replace Finnish prose with Veps, preserving five card/comment/list/swimlane/
 board placeholders and existing location terminology. Actual substituted
@@ -777,7 +777,7 @@ pending findings, including 48 in Veps; wider validation remains unfinished.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1e69af603">Repair Veps wildcard and board-shortcut guidance</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/28f37f0ab">Repair Veps wildcard and board-shortcut guidance</a>. Thanks to xet7.</summary>
 
 Replace two Finnish hints with Veps. Explain that empty rule fields match every
 possible value and starring adds the board link to the quick-access bar.
@@ -789,7 +789,7 @@ queue has 786 pending findings, including 49 in Veps; wider work is unfinished.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/6e4343f86">Localize Ewe civil Hijri calendar name</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/60d14076a">Localize Ewe civil Hijri calendar name</a>. Thanks to xet7.</summary>
 
 Replace the English civil-calendar label with Unicode CLDR Ewe terminology.
 Actual locale rendering and all 17,121 correction checks pass, including
@@ -801,7 +801,7 @@ Other calendar variants and wider translation validation remain unfinished.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/99cea5fb4">Localize Persian calendar qualifiers in Fulah and Bambara</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ff742c414">Localize Persian calendar qualifiers in Fulah and Bambara</a>. Thanks to xet7.</summary>
 
 Use Unicode CLDR Persian language names with existing calendar nouns,
 preserving Jalali identity and distinction from Hijri. Actual locale rendering
@@ -813,7 +813,7 @@ including five each in Fulah and Bambara. Wider validation remains unfinished.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/655066430">Repair Veps multi-selection action choice translations</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/25dbf6409">Repair Veps multi-selection action choice translations</a>. Thanks to xet7.</summary>
 
 Replace four Finnish popup values with Veps, preserving label/member action
 choices and member removal from cards. Retain existing assignment and
@@ -826,7 +826,7 @@ The original queue has 791 pending findings; wider validation is unfinished.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/60579f376">Repair Neapolitan rule item label and list example</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/62c011b86">Repair Neapolitan rule item label and list example</a>. Thanks to xet7.</summary>
 
 Use dictionary-attested alimento for the item label and comma-separated rule
 example, preserving three entries and numeric suffixes. Production rendering
@@ -855,7 +855,7 @@ This release adds the following developer documentation:
 **Developer documentation** - Meteor skills audit and remaining improvements.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/82666385e">Document Meteor skills review findings and verification limits</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ab05c974d">Document Meteor skills review findings and verification limits</a>. Thanks to xet7.</summary>
 
 Record four confirmed search, browser-policy and multi-card popup findings,
 publication and permission review candidates, and existing safeguards in
