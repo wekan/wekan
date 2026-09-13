@@ -77614,5 +77614,47 @@
     "before": "Supprimer le participant ?",
     "after": "Dindi bokkkat bi?",
     "reason": "Replace French board/card membership labels and actions with Wolof, distinguishing removing membership from deleting a person/account and preserving board versus current-card scope and placeholders. Reuse karta/tablo; bokk participation terminology. Full grammar and member noun terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<nom>` - cartes *assignées* à l'utilisateur *<nom>*",
+    "after": "`__operator_assignee__:<username>` - karta yi ñu *sas* *<username>*",
+    "reason": "Replace French membership/assignee search and import mapping descriptions with Wolof. Restore source <username> examples, preserve operator tokens, distinguish member from assigned person and retain current-user fallback for unmapped imported members. Full grammar and assignment/mapping terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "globalSearch-instructions-operator-member",
+    "before": "`__operator_member__:<nom>` - cartes pour lesquelles l'utilisateur *<nom>* est *participant*",
+    "after": "`__operator_member__:<username>` - karta yi *<username>* di *bokkkat*",
+    "reason": "Replace French membership/assignee search and import mapping descriptions with Wolof. Restore source <username> examples, preserve operator tokens, distinguish member from assigned person and retain current-user fallback for unmapped imported members. Full grammar and assignment/mapping terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "import-members-map",
+    "before": "Le tableau que vous venez d'importer contient des participants. Veuillez assigner les participants que vous souhaitez importer à vos utilisateurs.",
+    "after": "Tablo bi nga indi am na ay bokkkat. Lëkkal bokkkat yi nga bëgg indi ak say jëfandikukat",
+    "reason": "Replace French membership/assignee search and import mapping descriptions with Wolof. Restore source <username> examples, preserve operator tokens, distinguish member from assigned person and retain current-user fallback for unmapped imported members. Full grammar and assignment/mapping terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "import-members-map-note",
+    "before": "Note: les participants ne concordant pas seront assignés à l'utilisateur courant.",
+    "after": "Seetlu: bokkkat yi nga lëkkalul dañu leen di sas jëfandikukat bi fi nekk.",
+    "reason": "Replace French membership/assignee search and import mapping descriptions with Wolof. Restore source <username> examples, preserve operator tokens, distinguish member from assigned person and retain current-user fallback for unmapped imported members. Full grammar and assignment/mapping terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "board_assignees",
+    "before": "Tous les intervenants de toutes les cartes de ce tableau",
+    "after": "Ñi ñu sas karta yi yépp ci tablo bii",
+    "reason": "Replace French membership/assignee search and import mapping descriptions with Wolof. Restore source <username> examples, preserve operator tokens, distinguish member from assigned person and retain current-user fallback for unmapped imported members. Full grammar and assignment/mapping terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "card_assignees",
+    "before": "Tous les intervenants de la carte actuelle de ce tableau",
+    "after": "Ñi ñu sas karta bi fi nekk ci tablo bii yépp",
+    "reason": "Replace French membership/assignee search and import mapping descriptions with Wolof. Restore source <username> examples, preserve operator tokens, distinguish member from assigned person and retain current-user fallback for unmapped imported members. Full grammar and assignment/mapping terminology remain low confidence."
   }
 ]
