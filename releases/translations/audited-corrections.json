@@ -121098,5 +121098,26 @@
     "before": "Cet utilisateur n'a pas encore été créé",
     "after": "ⴰⵏⵙⵙⵎⵔⵙ ⴰⴷ ⵓⵔ ⵉⵜⵜⵡⴰⵙⵏⴼⵍⵓⵍ",
     "reason": "Replace French with a direct native composition. MediaWiki nocookiesfornew attests the negative passive creation clause; login-userblocked attests the user noun with ad (this). Preserve not-created semantics separately from nonexistent and duplicate-user errors. Do not import cookie-specific reasons or browser instructions. LOW CONFIDENCE: changing the subject from account to this user requires fluent review of the complete sentence. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "password-again",
+    "before": "Mot de passe (à nouveau)",
+    "after": "ⵙⵍⴽⵏ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ",
+    "reason": "Direct native MediaWiki createacct-yourpasswordagain (Confirm password) label for the repeated-password field; preserves confirmation purpose. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "forgot-password",
+    "before": "Mot de passe oublié",
+    "after": "ⵜⴻⵜⵜⵓⴷ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⵏⵏⵎ/ⴽ?",
+    "reason": "Direct native MediaWiki userlogin-resetpassword-link (Forgot your password?) wording for the recovery link; retains its native gender-inclusive possessive and question punctuation. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "username-password-required",
+    "before": "Nom d'utilisateur et mot de passe requis",
+    "after": "ⵉⵍⵍⴰ ⴼⵍⵍⴰⴽ ⴰⴷ ⵜⴼⴽⴷ ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ ⴷ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ",
+    "reason": "LOW CONFIDENCE composed username/password-required message: adapts the native noemailcreate obligation-to-provide clause with userlogin-yourname and userlogin-yourpassword nouns, joined with native and (ⴷ). Removes email-specific validity qualifier; adds no failure reason. Complete clause/object coordination needs fluent review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]

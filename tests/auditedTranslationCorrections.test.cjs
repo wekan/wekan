@@ -31,6 +31,10 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     assert.deepEqual(Object.keys(data), Object.keys(english), locale);
     assert.equal(repairLocale(locale, data).changed, 0, 'idempotent after correction');
   }
+  for (const key of ['password-again', 'forgot-password', 'username-password-required']) {
+    assert.doesNotMatch(cache.zgh[key], /Mot de passe|Nom d.utilisateur|requis/);
+    assert.match(cache.zgh[key], /ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ/);
+  }
   // Exact native UI references replace French without normalizing valid Latin-script Tamazight.
   assert.equal(cache.zgh.help, 'ⵜⵉⵡⵉⵙⵉ');
   assert.equal(cache.zgh.next, 'ⵉⵏⴹⴼⵔ');
