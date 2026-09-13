@@ -78552,5 +78552,26 @@
     "before": "Les paramètres de protection contre la force brute ont été mis à jour",
     "after": "Yeesal nañu jekkal yi ngir aar ci song yu jéem ay baatu jall yu bari",
     "reason": "Replace French brute-force login-protection settings with Wolof descriptive wording about attacks trying many passwords. Preserve login-attempt protection/settings versus settings-updated status. Specialized security/password terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-addAttachment",
+    "before": "a ajouté la pièce jointe __attachment__ à la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "yokk takkaay __attachment__ ci karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French attachment add/delete and card-restoration activity with Wolof. Preserve attachment/card/list/swimlane/board placeholders and restored-to-list direction; reuse existing takkaay/karta/limu/yoon/tablo vocabulary. Full grammar remains low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-deleteAttachment",
+    "before": "a supprimé la pièce jointe __attachment__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "far takkaay __attachment__ ci karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French attachment add/delete and card-restoration activity with Wolof. Preserve attachment/card/list/swimlane/board placeholders and restored-to-list direction; reuse existing takkaay/karta/limu/yoon/tablo vocabulary. Full grammar remains low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-restoredCard",
+    "before": "a restauré la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "delloo karta __card__ ci limu __list__ ci yoon __swimlane__ ci tablo __board__",
+    "reason": "Replace French attachment add/delete and card-restoration activity with Wolof. Preserve attachment/card/list/swimlane/board placeholders and restored-to-list direction; reuse existing takkaay/karta/limu/yoon/tablo vocabulary. Full grammar remains low confidence."
   }
 ]
