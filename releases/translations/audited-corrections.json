@@ -93147,5 +93147,47 @@
     "before": "hat Checklistenposition __checklistItem__ von Checkliste __checkList__ auf der Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ entfernt",
     "after": "__board__ raSDaq __swimlane__ HeDaq __list__ tetlhDaq __card__ 'echletHomDaq __checkList__ ghItlhHommey tetlhvo' __checklistItem__ ghItlhHom teqlu'pu'",
     "reason": "Replace audited German card membership and checklist-removal activities with Klingon. Preserve board/swimlane/list/card context and distinguish destination -vaD for addition from origin -vo- for removal. Reuse repaired jeSwI member and existing ghItlhHommey tetlh / ghItlhHom checklist terminology. Preserve the source case distinction __checkList__ versus __checklistItem__ exactly. Assembled software clauses are low confidence and require fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-importBoard",
+    "before": "hat Board __board__ importiert",
+    "after": "__board__ raS qemlu'pu'",
+    "reason": "Replace audited German import/movement activity and duplicate label-removal message with Klingon. Preserve all source and destination placeholder roles; -vo- marks origins, -vaD destinations, and -Daq surrounding context. https://klingonska.org/klo/ordlista-01.html attests qem (bring) and vIH (move intransitively); vIHmoH causes the card to move. Reuse the repaired label-removal wording. Software import metaphor and chained movement contexts are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-importList",
+    "before": "hat Liste __list__ in Swimlane __swimlane__ in Board __board__ importiert",
+    "after": "__board__ raSDaq __swimlane__ HevaD __list__ tetlh qemlu'pu'",
+    "reason": "Replace audited German import/movement activity and duplicate label-removal message with Klingon. Preserve all source and destination placeholder roles; -vo- marks origins, -vaD destinations, and -Daq surrounding context. https://klingonska.org/klo/ordlista-01.html attests qem (bring) and vIH (move intransitively); vIHmoH causes the card to move. Reuse the repaired label-removal wording. Software import metaphor and chained movement contexts are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-importCard",
+    "before": "hat Karte __card__ in Liste __list__ in Swimlane __swimlane__ in Board __board__ importiert",
+    "after": "__board__ raSDaq __swimlane__ HeDaq __list__ tetlhvaD __card__ 'echletHom qemlu'pu'",
+    "reason": "Replace audited German import/movement activity and duplicate label-removal message with Klingon. Preserve all source and destination placeholder roles; -vo- marks origins, -vaD destinations, and -Daq surrounding context. https://klingonska.org/klo/ordlista-01.html attests qem (bring) and vIH (move intransitively); vIHmoH causes the card to move. Reuse the repaired label-removal wording. Software import metaphor and chained movement contexts are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-removedLabel",
+    "before": "hat Label __label__ von Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ entfernt",
+    "after": "__board__ raSDaq __swimlane__ HeDaq __list__ tetlhDaq __card__ 'echletHomvo' __label__ per teqlu'pu'",
+    "reason": "Replace audited German import/movement activity and duplicate label-removal message with Klingon. Preserve all source and destination placeholder roles; -vo- marks origins, -vaD destinations, and -Daq surrounding context. https://klingonska.org/klo/ordlista-01.html attests qem (bring) and vIH (move intransitively); vIHmoH causes the card to move. Reuse the repaired label-removal wording. Software import metaphor and chained movement contexts are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-moveCard",
+    "before": "hat Karte __card__ in Board __board__ von Liste __oldList__ in Swimlane __oldSwimlane__ zu Liste __list__ in Swimlane __swimlane__ verschoben",
+    "after": "__board__ raSDaq __oldSwimlane__ Hevo' __oldList__ tetlhvo' __swimlane__ HevaD __list__ tetlhvaD __card__ 'echletHom vIHmoHlu'pu'",
+    "reason": "Replace audited German import/movement activity and duplicate label-removal message with Klingon. Preserve all source and destination placeholder roles; -vo- marks origins, -vaD destinations, and -Daq surrounding context. https://klingonska.org/klo/ordlista-01.html attests qem (bring) and vIH (move intransitively); vIHmoH causes the card to move. Reuse the repaired label-removal wording. Software import metaphor and chained movement contexts are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-moveCardToOtherBoard",
+    "before": "hat Karte __card__ von Liste __oldList__ in Swimlane  __oldSwimlane__ in Board __oldBoard__ zu Liste __list__ in Swimlane __swimlane__ in Board __board__ verschoben",
+    "after": "__oldBoard__ raSvo' __oldSwimlane__ Hevo' __oldList__ tetlhvo' __board__ raSvaD __swimlane__ HevaD __list__ tetlhvaD __card__ 'echletHom vIHmoHlu'pu'",
+    "reason": "Replace audited German import/movement activity and duplicate label-removal message with Klingon. Preserve all source and destination placeholder roles; -vo- marks origins, -vaD destinations, and -Daq surrounding context. https://klingonska.org/klo/ordlista-01.html attests qem (bring) and vIH (move intransitively); vIHmoH causes the card to move. Reuse the repaired label-removal wording. Software import metaphor and chained movement contexts are assembled, low confidence, and need fluent-speaker validation."
   }
 ]
