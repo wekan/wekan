@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 14,723 |
+| Corrected | 14,745 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 1,121 |
+| Pending review or repair | 1,099 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,510** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,535** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-13**, local commit `834beb172` — repaired/refined **43** Veps role/member/assignee/selection and related values (**26** new records, **17** refinements), resolving **18** original findings. Preserve read/comment/normal permissions, assigned-only current-user visibility, board/card scopes, add versus assign, all-card member removal plus notification and numeric selection ranges. The reference table confirms passive `märitud`; all malformed `märitadud` occurrences are corrected while retaining original before records. All **16,510** exact corrections and actual positive/negative placeholder rendering checks pass. **Low confidence:** composed role/UI wording and inflections need fluent-speaker review. Veps has **380** pending original findings. Translation repairs remain active, including restored/unflagged and wrong-language/script validation.
+Latest translation fix: **2026-09-13**, local commit `08a24ea92` — repaired **25** Veps import/member/invitation/navigation values, resolving **22** original findings. Preserve ZIP attachments, CSV/TSV separators, existing-user mapping, unmapped-member current-user fallback, invitation/account states and conditional import-error guidance. Assignee shortcuts toggle assignment rather than visibility, retaining **1–9** and board-addition order. WeKan navigation instructions match translated labels; external Trello literals remain intact. All **16,535** exact corrections and actual positive/negative rendering checks pass. **Low confidence:** composed technical UI wording and inflections need fluent-speaker review. Veps has **358** pending original findings. Translation repairs remain active, including restored/unflagged and wrong-language/script validation.
 
 **Build interruption (2026-09-13):** local commit `6cd193879` repairs the Meteor 3.6/Rspack 2 build's undeclared body-parser import using Meteor's existing Express parsers. Seven HTTP/build regressions pass. Meteor 3.6-beta.0/Rspack 2.2 and matching Docker metadata are committed locally (`35082f7d7`), and both previously failing version checks pass. All **1,015** Node suites pass. The actual Meteor bundle build remains under verification: the local beta tool is still starting before compilation. Translation counts and the latest translation commit remain unchanged.
 
