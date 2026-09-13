@@ -103129,5 +103129,26 @@
     "before": "Checkliste",
     "after": "ta'tetlh",
     "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ay",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Hijri pachachimpu (tabla, jaqinakan pacha qallta)",
+    "reason": "Replace English calendar label directly using existing Aymara calendar terminology; preserve civil versus astronomical epoch and Saudi moon-sighting distinctions. Low-confidence specialized wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ay",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Hijri pachachimpu (Arabia Saudita, phaxsi uñjaña)",
+    "reason": "Replace English calendar label directly using existing Aymara calendar terminology; preserve civil versus astronomical epoch and Saudi moon-sighting distinctions. Low-confidence specialized wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ay",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Hijri pachachimpu (tabla, warawaranakan pacha qallta)",
+    "reason": "Replace English calendar label directly using existing Aymara calendar terminology; preserve civil versus astronomical epoch and Saudi moon-sighting distinctions. Low-confidence specialized wording; fluent-speaker validation outstanding."
   }
 ]
