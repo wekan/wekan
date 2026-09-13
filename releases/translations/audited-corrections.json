@@ -120496,5 +120496,12 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "Ислаам халандаара (Сауд Арабията, ыйы кэтээн көрүү)",
     "reason": "Replace English Saudi sighting calendar label preserving both country and observation qualifiers. Review 2026-09-14: Sakha country sitelink Сауд Арабията at https://www.wikidata.org/wiki/Q851; moon ый and observation кэтээн көрүү at https://sakhatyla.ru/translate?q=луна and https://sakhatyla.ru/translate?q=көрүү. Existing Islamic base follows provisional Unicode CLDR sah.xml. Low confidence: moon accusative/composed observation phrase and adaptation to crescent sighting require fluent technical review. Preserve distinction from civil, astronomical and Umm al-Qura variants."
+  },
+  {
+    "locale": "bm",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Yahudiya ka kalandiriye",
+    "reason": "Replace English Hebrew calendar label with Bambara Jewish-calendar wording. Bamadaba reference-corpus dictionary attests yahudiya for Juif: https://bamadaba.coastsystems.net/index-french/j/ (review 2026-09-14). Reuse existing ka kalandiriye construction. Low confidence: composed calendar name needs fluent technical review; dictionary attests the noun, not this calendar compound. Other four original Bambara calendar findings remain unresolved."
   }
 ]

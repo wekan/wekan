@@ -2757,5 +2757,8 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(cache.sah['calendar-system-islamic-rgsa'], 'Ислаам халандаара (Сауд Арабията, ыйы кэтээн көрүү)');
   assert.doesNotMatch(cache.sah['calendar-system-islamic-rgsa'], /Islamic|Saudi Arabia/);
   for (const variant of ['civil', 'tbla', 'umalqura']) assert.notEqual(cache.sah['calendar-system-islamic-rgsa'], cache.sah[`calendar-system-islamic-${variant}`]);
+  assert.equal(cache.bm['calendar-system-hebrew'], 'Yahudiya ka kalandiriye');
+  assert.doesNotMatch(cache.bm['calendar-system-hebrew'], /Hebrew/);
+  assert.notEqual(cache.bm['calendar-system-hebrew'], cache.bm['calendar-system-islamic']);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
