@@ -84586,5 +84586,75 @@
     "before": "Ethiopic Amete Alem",
     "after": "Etiopialaš Amete Alem kaleandar",
     "reason": "Replace English/foreign Persian Japanese and Ethiopic calendar names with Northern Sami, preserving Jalali/Amete Alem identifiers. Persian adjective attested at https://bibel.no/nettbibelen/les/sme-2019/DAN/DAN.6; Japanese/Ethiopian adjectives attested in Northern Sami KDE translation at https://sources.debian.org/src/kwidgetsaddons/5.28.0-3/po/se/kwidgetsaddons5_qt.po. These support individual terms, not complete assembled grammar, which remains low confidence. Remaining religious/national and Hijri variant labels need review."
+  },
+  {
+    "locale": "lg",
+    "key": "calendar",
+    "before": "Calendar (mu Luganda)",
+    "after": "Kalenda",
+    "reason": "Replace foreign-language calendar setting, English names and literal English plus language-name filler with Luganda. Kalenda attested at https://www.jw.org/lg/layibulale/magazini/awake-no4-2016-august/tokoowa/; Cayina/Japani/Koreya/Esyopya supported by https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/lg.xml. Preserve Dangi/Amete Alem/Hijri/Umm al-Qura/Minguo identifiers. Complete assembled grammar remains low confidence; remaining religious/national and Hijri epoch/sighting labels need review."
+  },
+  {
+    "locale": "lg",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Enkola ya kalenda (okulaga ennaku)",
+    "reason": "Replace foreign-language calendar setting, English names and literal English plus language-name filler with Luganda. Kalenda attested at https://www.jw.org/lg/layibulale/magazini/awake-no4-2016-august/tokoowa/; Cayina/Japani/Koreya/Esyopya supported by https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/lg.xml. Preserve Dangi/Amete Alem/Hijri/Umm al-Qura/Minguo identifiers. Complete assembled grammar remains low confidence; remaining religious/national and Hijri epoch/sighting labels need review."
+  },
+  {
+    "locale": "lg",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Kalenda ya Cayina",
+    "reason": "Replace foreign-language calendar setting, English names and literal English plus language-name filler with Luganda. Kalenda attested at https://www.jw.org/lg/layibulale/magazini/awake-no4-2016-august/tokoowa/; Cayina/Japani/Koreya/Esyopya supported by https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/lg.xml. Preserve Dangi/Amete Alem/Hijri/Umm al-Qura/Minguo identifiers. Complete assembled grammar remains low confidence; remaining religious/national and Hijri epoch/sighting labels need review."
+  },
+  {
+    "locale": "lg",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Kalenda ya Japani",
+    "reason": "Replace foreign-language calendar setting, English names and literal English plus language-name filler with Luganda. Kalenda attested at https://www.jw.org/lg/layibulale/magazini/awake-no4-2016-august/tokoowa/; Cayina/Japani/Koreya/Esyopya supported by https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/lg.xml. Preserve Dangi/Amete Alem/Hijri/Umm al-Qura/Minguo identifiers. Complete assembled grammar remains low confidence; remaining religious/national and Hijri epoch/sighting labels need review."
+  },
+  {
+    "locale": "lg",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Kalenda ya Dangi (Koreya)",
+    "reason": "Replace foreign-language calendar setting, English names and literal English plus language-name filler with Luganda. Kalenda attested at https://www.jw.org/lg/layibulale/magazini/awake-no4-2016-august/tokoowa/; Cayina/Japani/Koreya/Esyopya supported by https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/lg.xml. Preserve Dangi/Amete Alem/Hijri/Umm al-Qura/Minguo identifiers. Complete assembled grammar remains low confidence; remaining religious/national and Hijri epoch/sighting labels need review."
+  },
+  {
+    "locale": "lg",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Kalenda ya Esyopya",
+    "reason": "Replace foreign-language calendar setting, English names and literal English plus language-name filler with Luganda. Kalenda attested at https://www.jw.org/lg/layibulale/magazini/awake-no4-2016-august/tokoowa/; Cayina/Japani/Koreya/Esyopya supported by https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/lg.xml. Preserve Dangi/Amete Alem/Hijri/Umm al-Qura/Minguo identifiers. Complete assembled grammar remains low confidence; remaining religious/national and Hijri epoch/sighting labels need review."
+  },
+  {
+    "locale": "lg",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Kalenda ya Amete Alem eya Esyopya",
+    "reason": "Replace foreign-language calendar setting, English names and literal English plus language-name filler with Luganda. Kalenda attested at https://www.jw.org/lg/layibulale/magazini/awake-no4-2016-august/tokoowa/; Cayina/Japani/Koreya/Esyopya supported by https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/lg.xml. Preserve Dangi/Amete Alem/Hijri/Umm al-Qura/Minguo identifiers. Complete assembled grammar remains low confidence; remaining religious/national and Hijri epoch/sighting labels need review."
+  },
+  {
+    "locale": "lg",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Kalenda ya Hijri",
+    "reason": "Replace foreign-language calendar setting, English names and literal English plus language-name filler with Luganda. Kalenda attested at https://www.jw.org/lg/layibulale/magazini/awake-no4-2016-august/tokoowa/; Cayina/Japani/Koreya/Esyopya supported by https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/lg.xml. Preserve Dangi/Amete Alem/Hijri/Umm al-Qura/Minguo identifiers. Complete assembled grammar remains low confidence; remaining religious/national and Hijri epoch/sighting labels need review."
+  },
+  {
+    "locale": "lg",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Kalenda ya Hijri (Umm al-Qura)",
+    "reason": "Replace foreign-language calendar setting, English names and literal English plus language-name filler with Luganda. Kalenda attested at https://www.jw.org/lg/layibulale/magazini/awake-no4-2016-august/tokoowa/; Cayina/Japani/Koreya/Esyopya supported by https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/lg.xml. Preserve Dangi/Amete Alem/Hijri/Umm al-Qura/Minguo identifiers. Complete assembled grammar remains low confidence; remaining religious/national and Hijri epoch/sighting labels need review."
+  },
+  {
+    "locale": "lg",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Kalenda ya Minguo",
+    "reason": "Replace foreign-language calendar setting, English names and literal English plus language-name filler with Luganda. Kalenda attested at https://www.jw.org/lg/layibulale/magazini/awake-no4-2016-august/tokoowa/; Cayina/Japani/Koreya/Esyopya supported by https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/lg.xml. Preserve Dangi/Amete Alem/Hijri/Umm al-Qura/Minguo identifiers. Complete assembled grammar remains low confidence; remaining religious/national and Hijri epoch/sighting labels need review."
   }
 ]
