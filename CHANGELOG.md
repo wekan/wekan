@@ -1102,6 +1102,24 @@ no mirroring or publishing commands were executed for this audit.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b9f5fbb92">Repair Veps time and basic interface vocabulary</a>. Thanks to xet7.</summary>
+
+Replace Finnish Time, New and Today labels with dictionary-attested Veps.
+Exact correction records and positive/negative vocabulary checks pass.
+The broader translation audit remains unfinished.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c2a9168c4">Fix Simplified Chinese Transifex script identifier</a>. Thanks to xet7.</summary>
+
+Use supported zh-Hans instead of invalid zh_Hans. Offline upload mapping and
+locale loader round-trip checks pass. Wolaytta remains a reported unsupported
+catalogue language; no remote uploads were performed.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/196c0addc">Save translation upload status to timestamped text logs</a>. Thanks to xet7.</summary>
 
 Keep terminal status and errors in
