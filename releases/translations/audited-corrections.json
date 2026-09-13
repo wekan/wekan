@@ -84397,5 +84397,26 @@
     "before": "Islamic Umm al-Qura",
     "after": "Hijri kalenda (Umm al-Qura)",
     "reason": "Replace English calendar labels with Ewe calendar noun kalenda, preserving Dangi/Hijri/Umm al-Qura identities. Noun and proper-name calendar pattern supported by https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/ee.xml (Gregorian kalenda, coptia kalenda). Complete adapted labels remain low confidence; tabular civil/astronomical epochs and Saudi moon sighting remain pending. Do not use CLDR provisional civil name to omit source epoch/table detail."
+  },
+  {
+    "locale": "to",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Tohi māhina Hijri (Saudi Arabia, vakaiʻi ʻo e māhina)",
+    "reason": "Restore Tongan calendar identity and omitted Saudi lunar-sighting/Gregorian ISO week information, retaining Hijri name. Tohi māhina attested at https://www.churchofjesuschrist.org/tools/help/about-member-tools?lang=ton and week vocabulary at https://www.churchofjesuschrist.org/study/manual/youth-activities/service?lang=ton; reuse existing Gregorian adjective. Sighting adaptation and full phrase grammar remain low confidence; tabular astronomical epoch and other unflagged variant details need review."
+  },
+  {
+    "locale": "to",
+    "key": "calendar-system-islamic",
+    "before": "fakamohameti",
+    "after": "Tohi māhina Hijri",
+    "reason": "Restore Tongan calendar identity and omitted Saudi lunar-sighting/Gregorian ISO week information, retaining Hijri name. Tohi māhina attested at https://www.churchofjesuschrist.org/tools/help/about-member-tools?lang=ton and week vocabulary at https://www.churchofjesuschrist.org/study/manual/youth-activities/service?lang=ton; reuse existing Gregorian adjective. Sighting adaptation and full phrase grammar remain low confidence; tabular astronomical epoch and other unflagged variant details need review."
+  },
+  {
+    "locale": "to",
+    "key": "calendar-system-iso8601",
+    "before": "faka-iso8601",
+    "after": "Tohi māhina fakakelekolia (ngaahi uike ISO 8601)",
+    "reason": "Restore Tongan calendar identity and omitted Saudi lunar-sighting/Gregorian ISO week information, retaining Hijri name. Tohi māhina attested at https://www.churchofjesuschrist.org/tools/help/about-member-tools?lang=ton and week vocabulary at https://www.churchofjesuschrist.org/study/manual/youth-activities/service?lang=ton; reuse existing Gregorian adjective. Sighting adaptation and full phrase grammar remain low confidence; tabular astronomical epoch and other unflagged variant details need review."
   }
 ]
