@@ -70565,5 +70565,110 @@
     "before": "Jika anda sudah ada akaun",
     "after": "Meunyoe droeneueh ka na akun",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "impersonate-user",
+    "before": "Berlakon sebagai pengguna",
+    "after": "Login seubagoe ureueng ngui",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "import-board-instruction-trello",
+    "before": "Di panel Trello anda, ke 'Menu', terus 'More', 'Print and Export','Export JSON', dan salin hasilnya",
+    "after": "Bak papan Trello droeneueh, buka 'Menu', lheueh nyan 'More', 'Print and Export', 'Export JSON', ngon salin teks hasil jih.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "import-board-source",
+    "before": "Import papan (Trello, Jira, eksport WeKan, CSV, Excel, …)",
+    "after": "Peutamong papan (Trello, Jira, ekspor WeKan, CSV, Excel, …)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "import-csv-placeholder",
+    "before": "Tampal data CSV/TSV yang sah di sini",
+    "after": "Tempel data CSV/TSV droeneueh nyang sah keunoe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "import-here-instruction",
+    "before": "Import eksport WeKan (.json atau .zip) di sini:",
+    "after": "Peutamong ekspor WeKan (.json atawa .zip) keunoe:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "import-json-placeholder",
+    "before": "Tempelkan data JSON yang sah disini",
+    "after": "Tempel data JSON droeneueh nyang sah keunoe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "import-members-map",
+    "before": "Papan yang diimport mempunyai ahli. Sila padankan ahli yang anda mahukan untuk import kepada pengguna anda",
+    "after": "Papan nyang geupeutamong na anggota. Peupadan anggota nyang keuneuk geupeutamong ngon ureueng ngui droeneueh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "import-members-map-note",
+    "before": "Ahli yang tidak dipadan akan di padankan kepada pengguna yang ada",
+    "after": "Catatan: Anggota nyang hana geupeupadan akan geubri u ureueng ngui jinoe.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "import-not-wekan-export",
+    "before": "Fail itu bukan eksport WeKan",
+    "after": "Fail nyan kon ekspor WeKan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "import-parts-instruction",
+    "before": "Hanya bahagian yang ditanda diimport. Pilihan yang sama digunakan semasa mengeksport.",
+    "after": "Bagian nyang geucek mantong geupeutamong. Pilehan nyang saban geungui watee ekspor.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "import-show-user-mapping",
+    "before": "Review pemetaan partisipan",
+    "after": "Periksa peupadan anggota",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "import-user-select",
+    "before": "Pilih pengguna sedia ada yang anda mahu gunakan sebagai ahli",
+    "after": "Pileh ureueng ngui nyang ka na keu ngui seubagoe anggota nyoe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "import-wekan-file",
+    "before": "Import daripada fail eksport .json atau .zip:",
+    "after": "Peutamong nibak fail ekspor .json atawa .zip:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "invalid-file",
+    "before": "Jika nama berkas tidak sah, unggah atau ubah nama dibatalkan",
+    "after": "Meunyoe nan fail hana sah, unggah atawa ubah nan geubatai.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "invite-people-error",
+    "before": "Ralat semasa mengantar jemputan pendaftaran",
+    "after": "Na salah watee geukirem undangan keu daftar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
