@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 10,720 |
+| Corrected | 10,742 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 5,126 |
+| Pending review or repair | 5,104 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **10,807** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **10,829** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `93fb273e728b8bacfc7056e961ee7ba7c7cb076a` — 22 French search/control values replaced with Walloon, retaining OR/AND examples, predicate tokens and removal scope; **223 flagged Walloon findings remain**. Sources are recorded with the corrections; full grammar and search terminology remain low confidence. Exact-value, placeholder, JSON example, HTML-tag/entity, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `62d15364e00b1f28faa61d7af6df148539892e82` — 22 French date/activity/accessibility values replaced with Walloon, retaining due states, old/new time tokens, field arguments and permission-limited visibility; **201 flagged Walloon findings remain**. Sources are recorded with the corrections; full grammar and specialized date/accessibility terminology remain low confidence. Exact-value, placeholder, JSON example, HTML-tag/entity, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
