@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,599 |
+| Corrected | 12,601 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,247 |
+| Pending review or repair | 3,245 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,181** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,183** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `2b2f08df94704e344b019352fd7d3389180d4918` — two Cornish Hijri labels repaired, restoring tabular and civil/astronomical starting-date distinctions. Flagged Cornish queue is empty; technical wording and restored/unflagged values still need validation.
+Latest translation fix: **2026-09-13**, local commit `f42bab7f5b960fd5e8b5190aed614aac7fb31dc2` — two Sardinian work-progress chart labels localized using existing vocabulary, retaining Burndown/Burnup identifiers. Assembled labels need native-speaker validation; computer and magenta findings remain under review.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
