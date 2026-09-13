@@ -78783,5 +78783,26 @@
     "before": "Cliquez pour trier la liste",
     "after": "Bësal ngir toftale limu bi",
     "reason": "Replace French list sorting labels with Wolof. Restore missing manual-order meaning (French Votre manuel meant your manual), preserve last-access time versus list name and click-to-sort action. Last-access/manual-sort phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "copyChecklistFromTemplate",
+    "before": "Copier la checklist - Modèle",
+    "after": "Sotti limu bu seetlu bi jóge ci royukaay bi",
+    "reason": "Replace French checklist-copy and template-container controls with Wolof. Preserve copying from template and adding a container for templates rather than a single template. Reuse prior royukaay/checklist terminology; template/container wording and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "copyChecklistFromTemplatePopup-title",
+    "before": "Copier la checklist - Modèle",
+    "after": "Sotti limu bu seetlu bi jóge ci royukaay bi",
+    "reason": "Replace French checklist-copy and template-container controls with Wolof. Preserve copying from template and adding a container for templates rather than a single template. Reuse prior royukaay/checklist terminology; template/container wording and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "add-template-container",
+    "before": "Ajouter un conteneur de modèles",
+    "after": "Yokk ndab ngir royukaay yi",
+    "reason": "Replace French checklist-copy and template-container controls with Wolof. Preserve copying from template and adding a container for templates rather than a single template. Reuse prior royukaay/checklist terminology; template/container wording and full grammar remain low confidence."
   }
 ]
