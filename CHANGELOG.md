@@ -572,7 +572,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.73 2026-09-14 WeKan ® release
 
 
 **In short:** Members can select one calendar independently of their

@@ -4,15 +4,15 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,049 |
+| Corrected | 15,050 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 795 |
+| Pending review or repair | 794 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,103** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,112** exact before/after values, including unflagged repairs.
 
 Latest translation fix: **2026-09-14**, local commit `fcb7fdaf9` — repaired **five** Veps file-storage values, resolving **three** original findings and **two** unflagged wrong-language values. Preserve avatar-specific storage, writable/base-directory paths, and cancellation of upload or rename for invalid filenames; retain existing attachment-path wording. All **17,103** exact corrections pass runtime rendering, placeholder, JSON, key-order and human-preference checks. The original queue has **795** pending findings, including **54** Veps findings. **Low confidence:** base-folder terminology, cancellation grammar, unread participle inflection, composed notification/metric/warning/confirmation/presence/logical grammar, home-header/button terminology, scheduling syntax, backup/archive inflection, heap compounds and legal argument case need fluent-speaker review. Restored/unflagged values, wrong-language/script checks, keyboard shortcuts and remaining migration/search messages remain unfinished. Live browser verification was not run for this batch. No translations were pushed.
 
