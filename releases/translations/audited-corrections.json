@@ -90284,5 +90284,40 @@
     "before": "L'utilisateur est désactivé - Cliquer pour l'activer",
     "after": "Geban no binon dunik; klikolös ad dälön nunädami",
     "reason": "Replace audited French active/inactive account tooltips with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests dunik (active), refudön (refuse), dälön (allow); MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses nunädam for login and klikolös for click. peopleBody.jade renders these from userData.loginDisabled, so express deactivation/activation as refusing/allowing login. Preserve opposite actions. Software adaptation and assembled wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "normal",
+    "before": "Normala",
+    "after": "Nomik",
+    "reason": "Replace French assigned-card/worker/last-admin descriptions and Esperanto normal label with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nomik (normal), noet (textual remark), jonidükön (assign), topätükön (move between places), nemu (at least), guvan (administrator). Preserve assigned-card-only visibility, comment-only permission, worker self-assignment/move/comment restriction and at least one administrator. Reuse existing Rols borrowing for roles; software adaptation and assembled wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "normal-assigned-only-desc",
+    "before": "Seules les cartes assignées sont visibles. Modifier en tant qu'utilisateur normal.",
+    "after": "Te kads pejonidüköl binons logovik. Votükön as geban nomik.",
+    "reason": "Replace French assigned-card/worker/last-admin descriptions and Esperanto normal label with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nomik (normal), noet (textual remark), jonidükön (assign), topätükön (move between places), nemu (at least), guvan (administrator). Preserve assigned-card-only visibility, comment-only permission, worker self-assignment/move/comment restriction and at least one administrator. Reuse existing Rols borrowing for roles; software adaptation and assembled wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "comment-assigned-only-desc",
+    "before": "Seules les cartes assignées sont visibles. Commentaire uniquement.",
+    "after": "Te kads pejonidüköl binons logovik. Kanon te penön noetis.",
+    "reason": "Replace French assigned-card/worker/last-admin descriptions and Esperanto normal label with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nomik (normal), noet (textual remark), jonidükön (assign), topätükön (move between places), nemu (at least), guvan (administrator). Preserve assigned-card-only visibility, comment-only permission, worker self-assignment/move/comment restriction and at least one administrator. Reuse existing Rols borrowing for roles; software adaptation and assembled wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "worker-desc",
+    "before": "Peut seulement déplacer des cartes, s'attribuer une carte et la commenter.",
+    "after": "Kanon te topätükön kadis, jonidükön oki lü kad e penön noetis.",
+    "reason": "Replace French assigned-card/worker/last-admin descriptions and Esperanto normal label with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nomik (normal), noet (textual remark), jonidükön (assign), topätükön (move between places), nemu (at least), guvan (administrator). Preserve assigned-card-only visibility, comment-only permission, worker self-assignment/move/comment restriction and at least one administrator. Reuse existing Rols borrowing for roles; software adaptation and assembled wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "last-admin-desc",
+    "before": "Vous ne pouvez pas changer les rôles car il doit y avoir au moins un administrateur.",
+    "after": "No kanol votükön rolis, bi guvan nemu bal muton dabinön.",
+    "reason": "Replace French assigned-card/worker/last-admin descriptions and Esperanto normal label with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nomik (normal), noet (textual remark), jonidükön (assign), topätükön (move between places), nemu (at least), guvan (administrator). Preserve assigned-card-only visibility, comment-only permission, worker self-assignment/move/comment restriction and at least one administrator. Reuse existing Rols borrowing for roles; software adaptation and assembled wording remain low confidence pending native review."
   }
 ]
