@@ -117423,5 +117423,33 @@
     "before": "Uimarataa '%s' ei löytynyt.",
     "after": "Ujundšoid '%s' ei ole löutud.",
     "reason": "Replace Finnish with Veps; preserve board-wide versus creator/member notification scope, signed-in-only support, archive location in Board Settings, avatar URL terminology and the exact %s name token. Lexical reference: Zaiceva/Mullonen 2007 Russian–Veps dictionary (vajehtuz, tedotuz, möhemba, koheta); native usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Low confidence: composed notification and archive-help grammar/inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "search-example",
+    "before": "Kirjoita teksti jota etsit ja paina Enter",
+    "after": "Kirjuta tekst, midä sinä ecid, da paina Enter",
+    "reason": "Replace Finnish with Veps while preserving the literal Enter key, worker-only move/self-assignment/comment permission scope, unsaved description state, and irreversible loss of all swimlane actions. Zaiceva/Mullonen 2007 dictionary: ecta, kirjutada, painda, kaita; native lexical usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Low confidence: composed permission and deletion-warning grammar/inflections need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "worker-desc",
+    "before": "Voi vain siirtää kortteja, ilmoittautua kortin käsittelijäksi ja kommentoida.",
+    "after": "Voib vaiše sirtta kartoid, märita ičtaze kartale da kirjutada sel’genzoitusid.",
+    "reason": "Replace Finnish with Veps while preserving the literal Enter key, worker-only move/self-assignment/comment permission scope, unsaved description state, and irreversible loss of all swimlane actions. Zaiceva/Mullonen 2007 dictionary: ecta, kirjutada, painda, kaita; native lexical usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Low confidence: composed permission and deletion-warning grammar/inflections need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "unsaved-description",
+    "before": "Sinulla on tallentamaton kuvaus.",
+    "after": "Sinun kuvadand ei ole kaitud.",
+    "reason": "Replace Finnish with Veps while preserving the literal Enter key, worker-only move/self-assignment/comment permission scope, unsaved description state, and irreversible loss of all swimlane actions. Zaiceva/Mullonen 2007 dictionary: ecta, kirjutada, painda, kaita; native lexical usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Low confidence: composed permission and deletion-warning grammar/inflections need fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "swimlane-delete-pop",
+    "before": "Kaikki toimet poistetaan toimintasyötteestä ja uimaradan poistaminen on lopullista. Tätä ei pysty peruuttamaan.",
+    "after": "Kaik tegendad linneba heittud tegendoiden lugetišespäi, da sinä ed voi endištada ujundšoidud. Necidä tegendad ei sa pördutada.",
+    "reason": "Replace Finnish with Veps while preserving the literal Enter key, worker-only move/self-assignment/comment permission scope, unsaved description state, and irreversible loss of all swimlane actions. Zaiceva/Mullonen 2007 dictionary: ecta, kirjutada, painda, kaita; native lexical usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Low confidence: composed permission and deletion-warning grammar/inflections need fluent-speaker review."
   }
 ]

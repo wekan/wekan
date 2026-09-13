@@ -1521,5 +1521,22 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.doesNotMatch(cache['ve-PP']['tracking-info'], /tegija da ühtnik/);
   assert.match(cache['ve-PP']['support-info-only-for-logged-in-users'], /vaiše sistemaha tulnuded kävutajile/);
   assert.match(cache['ve-PP']['swimlane-archive-suggest'], /möhemba.*Arhivaspäi Laudan sändoiš/);
+  const vepsPermissionWarningRepairs = {
+  "search-example": "Kirjuta tekst, midä sinä ecid, da paina Enter",
+  "worker-desc": "Voib vaiše sirtta kartoid, märita ičtaze kartale da kirjutada sel’genzoitusid.",
+  "unsaved-description": "Sinun kuvadand ei ole kaitud.",
+  "swimlane-delete-pop": "Kaik tegendad linneba heittud tegendoiden lugetišespäi, da sinä ed voi endištada ujundšoidud. Necidä tegendad ei sa pördutada."
+};
+  for (const [key, value] of Object.entries(vepsPermissionWarningRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Kirjoita teksti|jota etsit|Voi vain siirtää|kortteja|ilmoittautua|kommentoida|Sinulla on|tallentamaton|Kaikki toimet|toimintasyötteestä|uimaradan|lopullista|peruuttamaan/i, key);
+  }
+  assert.match(cache['ve-PP']['search-example'], /Kirjuta tekst.*ecid.*paina Enter$/);
+  assert.match(cache['ve-PP']['worker-desc'], /^Voib vaiše sirtta kartoid, märita ičtaze kartale da kirjutada sel’genzoitusid/);
+  assert.doesNotMatch(cache['ve-PP']['worker-desc'], /märita toišt|vajehtada kartoid/);
+  assert.match(cache['ve-PP']['unsaved-description'], /ei ole kaitud/);
+  assert.match(cache['ve-PP']['swimlane-delete-pop'], /^Kaik tegendad.*heittud tegendoiden lugetišespäi.*ed voi endištada ujundšoidud/);
+  assert.match(cache['ve-PP']['swimlane-delete-pop'], /ei sa pördutada\.$/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
