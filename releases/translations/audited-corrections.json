@@ -88931,8 +88931,8 @@
     "locale": "vo",
     "key": "keyboard-shortcuts-enabled",
     "before": "Raccourcis clavier activés. Cliquer pour désactiver.",
-    "after": "Klavabüds pajäfidükons. Klikön ad säjäfidükön onis.",
-    "reason": "Replace French custom login-logo/shortcut settings with Volapük. Reuse reviewed login/symbol/keyboard-command vocabulary; Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests donü (below), and MediaWiki Volapük https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses software nunädam and säjäfidükön. Preserve image URL versus link URL, text below custom logo, enabled shortcut state and click-to-disable. Logo-to-symbol adaptation, keyboard-command compound and assembled grammar remain low confidence; native review unavailable."
+    "after": "Klavabüds pagebons. Klikolös ad stopön gebi onas.",
+    "reason": "Repair French selection, unread/read and disabled-keyboard wording; align the paired keyboard tooltip with the same Volapük wording. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests büd (command), kvad (square), mäkön (mark), reidön (read), välön (select), lonön (set/determine), liman (member), and ninädapenäd (label); MediaWiki Volapük uses klikön for software clicking. Klavabüd and kvads mäkama are descriptive software adaptations. Sidebar template preserves enabled->disable and disabled->enable actions; notifications retain all-read versus all-unread, board selection retains clicking checkboxes, and bulk-selection controls retain label versus member. Assembled software wording remains low confidence pending native review."
   },
   {
     "locale": "vo",
@@ -90991,5 +90991,47 @@
     "before": "Cette page est peut-être privée. Vous pourrez peut-être la voir en vous <a href='%s'>connectant</a>.",
     "after": "Pad at ba binon privatik. Ba kanol logön oni pos <a href='%s'>nunädam</a>.",
     "reason": "Replace audited French account/invitation, visibility and loading text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests bepenam (description), kadil (small card), jafan (creator), jonön (show), däl (permission), vüd (invitation), pöl (error), sedön (send), stebedön (wait), klänedön (hide) and ba (perhaps); MediaWiki Volapük attests kal (account), privatik and nunädam (login). Registration is paraphrased as creating an account; preserve invitation error versus success, existing account condition, lack of page-view permission and merely possible access after login. Preserve HTML sign-in link and exact %s URL argument; all activities of all boards hidden now. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "keyboard-shortcuts-disabled",
+    "before": "Raccourcis clavier désactivés. Cliquer pour activer.",
+    "after": "Klavabüds no pagebons. Klikolös ad gebön onis.",
+    "reason": "Repair French selection, unread/read and disabled-keyboard wording; align the paired keyboard tooltip with the same Volapük wording. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests büd (command), kvad (square), mäkön (mark), reidön (read), välön (select), lonön (set/determine), liman (member), and ninädapenäd (label); MediaWiki Volapük uses klikön for software clicking. Klavabüd and kvads mäkama are descriptive software adaptations. Sidebar template preserves enabled->disable and disabled->enable actions; notifications retain all-read versus all-unread, board selection retains clicking checkboxes, and bulk-selection controls retain label versus member. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "mark-all-as-read",
+    "before": "Marquer comme lus",
+    "after": "Mäkön valikis äs pereidöl",
+    "reason": "Repair French selection, unread/read and disabled-keyboard wording; align the paired keyboard tooltip with the same Volapük wording. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests büd (command), kvad (square), mäkön (mark), reidön (read), välön (select), lonön (set/determine), liman (member), and ninädapenäd (label); MediaWiki Volapük uses klikön for software clicking. Klavabüd and kvads mäkama are descriptive software adaptations. Sidebar template preserves enabled->disable and disabled->enable actions; notifications retain all-read versus all-unread, board selection retains clicking checkboxes, and bulk-selection controls retain label versus member. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "mark-all-as-unread",
+    "before": "Tout marquer comme non lu",
+    "after": "Mäkön valikis äs no pereidöl",
+    "reason": "Repair French selection, unread/read and disabled-keyboard wording; align the paired keyboard tooltip with the same Volapük wording. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests büd (command), kvad (square), mäkön (mark), reidön (read), välön (select), lonön (set/determine), liman (member), and ninädapenäd (label); MediaWiki Volapük uses klikön for software clicking. Klavabüd and kvads mäkama are descriptive software adaptations. Sidebar template preserves enabled->disable and disabled->enable actions; notifications retain all-read versus all-unread, board selection retains clicking checkboxes, and bulk-selection controls retain label versus member. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "multi-selection-active",
+    "before": "Cliquez sur les cases à cocher pour sélectionner les tableaux",
+    "after": "Klikolös kvadis mäkama ad välön tabis",
+    "reason": "Repair French selection, unread/read and disabled-keyboard wording; align the paired keyboard tooltip with the same Volapük wording. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests büd (command), kvad (square), mäkön (mark), reidön (read), välön (select), lonön (set/determine), liman (member), and ninädapenäd (label); MediaWiki Volapük uses klikön for software clicking. Klavabüd and kvads mäkama are descriptive software adaptations. Sidebar template preserves enabled->disable and disabled->enable actions; notifications retain all-read versus all-unread, board selection retains clicking checkboxes, and bulk-selection controls retain label versus member. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "multi-selection-label",
+    "before": "Définir l'étiquette pour la sélection",
+    "after": "Lonön ninädapenädi pro väl",
+    "reason": "Repair French selection, unread/read and disabled-keyboard wording; align the paired keyboard tooltip with the same Volapük wording. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests büd (command), kvad (square), mäkön (mark), reidön (read), välön (select), lonön (set/determine), liman (member), and ninädapenäd (label); MediaWiki Volapük uses klikön for software clicking. Klavabüd and kvads mäkama are descriptive software adaptations. Sidebar template preserves enabled->disable and disabled->enable actions; notifications retain all-read versus all-unread, board selection retains clicking checkboxes, and bulk-selection controls retain label versus member. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "multi-selection-member",
+    "before": "Définir le participant pour la sélection",
+    "after": "Lonön limani pro väl",
+    "reason": "Repair French selection, unread/read and disabled-keyboard wording; align the paired keyboard tooltip with the same Volapük wording. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests büd (command), kvad (square), mäkön (mark), reidön (read), välön (select), lonön (set/determine), liman (member), and ninädapenäd (label); MediaWiki Volapük uses klikön for software clicking. Klavabüd and kvads mäkama are descriptive software adaptations. Sidebar template preserves enabled->disable and disabled->enable actions; notifications retain all-read versus all-unread, board selection retains clicking checkboxes, and bulk-selection controls retain label versus member. Assembled software wording remains low confidence pending native review."
   }
 ]
