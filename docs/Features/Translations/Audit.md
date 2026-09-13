@@ -12,9 +12,9 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,618** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,624** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `bf0ef26113721fb86d9bef9b657ed1e28d8e3f7d` — 8 French template/list-import/sort labels replaced with Wolof. Card/list/board templates, Excel CSV/TSV names and left/right selected-list positions remain distinct. Full grammar and location terminology remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `7206b01aaf0ae4658ba79e745a9927f650ec2dfa` — 6 French swimlane/checklist/update rule labels replaced with Wolof. Name, containment and adding scopes remain distinct. Composed rule grammar remains low confidence; checklist trigger prefixes remain pending broader review. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
