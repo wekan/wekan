@@ -73848,5 +73848,208 @@
     "before": "Réécrire la description de la carte courante avec vos changements ?",
     "after": "Rimplacer li discrijhaedje do moumint del cåte avou vos candjmints?",
     "reason": "Replace audited French custom-field, HTML and description controls with Walloon using existing field/label/description vocabulary. Choice vocabulary family: https://dtw.walon.org/index.php?query=tchoezi . Preserve %{value}, HTML tags and whitespace entities exactly; Enter retained as keyboard key name. Complete grammar and template-placeholder terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "fix-all-file-urls-migration",
+    "before": "Corriger toutes les URL de fichiers",
+    "after": "Rapontyî totes les URL di fitchîs",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "fix-avatar-urls-migration",
+    "before": "Corriger les URLs d'avatar",
+    "after": "Rapontyî les URL d' avatårs",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "fix-missing-lists-migration",
+    "before": "Corriger les listes manquantes",
+    "after": "Rapontyî les djivêyes ki mankèt",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "delete-duplicate-empty-lists-migration",
+    "before": "Supprimer les listes vides en doublon ? ",
+    "after": "Disfacer les vudes djivêyes e dobe",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "step-delete-duplicate-empty-lists",
+    "before": "Supprimer les listes vides en doublon ? ",
+    "after": "Disfacer les vudes djivêyes e dobe",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "restore-all-archived-migration",
+    "before": "Tout restaurer depuis les archives",
+    "after": "Rimete tot çou k' est ås årtchives",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "restore-lost-cards-migration",
+    "before": "Restaurer les cartes perdues",
+    "after": "Rimete les cåtes pierdowes",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "restore-lost-cards-nothing-to-restore",
+    "before": "Aucun couloir, liste ou carte perdu à restaurer",
+    "after": "Pont d' coridôrs, di djivêyes ou di cåtes pierdous a rimete",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "select-migration",
+    "before": "Sélectionner une migration",
+    "after": "Tchoezi ene migråcion",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "database-migrations",
+    "before": "Migrations base de données",
+    "after": "Migråcions del båze di dnêyes",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "migration-not-needed",
+    "before": "Aucune migration nécessaire",
+    "after": "Pont d' migråcion di dandjî",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "migration-pausing",
+    "before": "Mise en pause des migrations...",
+    "after": "Djocaedje des migråcions...",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "migration-starting",
+    "before": "Démarrage des migrations...",
+    "after": "Cminçaedje des migråcions...",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "migration-successful",
+    "before": "Migration terminée avec succès",
+    "after": "Li migråcion est bén fineye",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "migration-progress-title",
+    "before": "Migration du tableau en cours",
+    "after": "Migråcion do tåvlea en cours",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "migration-progress-note",
+    "before": "Veuillez patienter pendant la migration de votre tableau vers la dernière structure...",
+    "after": "Ratindoz tins ki vosse tåvlea est migré viè l' dierinne strutcheure...",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "cron-migration-warnings",
+    "before": "Avertissements de migration",
+    "after": "Astemes des migråcions",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "cron-no-failed-migrations",
+    "before": "Aucune migration échouée à réessayer",
+    "after": "Pont d' migråcions ki n' ont nén reüssi a rissayî",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "cron-no-paused-migrations",
+    "before": "Aucune migration en pause à reprendre",
+    "after": "Pont d' migråcions djokêyes a rataker",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "cron-migrations-resumed",
+    "before": "Migrations reprises avec succès",
+    "after": "Les migråcions ont bén rataké",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "cron-migrations-retried",
+    "before": "Migrations échouées réessayées avec succès",
+    "after": "Les migråcions ki n' avént nén reüssi ont stî bén rissayeyes",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "step-analyze-board-structure",
+    "before": "Analyser la structure du tableau",
+    "after": "Analizer li strutcheure do tåvlea",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "step-scan-files",
+    "before": "Vérification des pièces jointes du tableau",
+    "after": "Verifiaedje des pîces djondowes do tåvlea",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "step-scan-users",
+    "before": "Vérification des avatars du participant du tableau",
+    "after": "Verifiaedje des avatårs des mimbes do tåvlea",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "step-create-missing-lists",
+    "before": "Créer les listes manquantes",
+    "after": "Askepyî les djivêyes ki mankèt",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "step-fix-attachment-urls",
+    "before": "Corriger les URL des pièces jointes",
+    "after": "Rapontyî les URL des pîces djondowes",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "step-fix-avatar-urls",
+    "before": "Corriger les URLs d'avatar",
+    "after": "Rapontyî les URL des avatårs",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "step-fix-file-urls",
+    "before": "Réparation des URL de fichier",
+    "after": "Rapontiaedje des URL di fitchîs",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
+  },
+  {
+    "locale": "wa",
+    "key": "step-fix-missing-ids",
+    "before": "Réparation des IDs manquants",
+    "after": "Rapontyî les ID ki mankèt",
+    "reason": "Replace audited French migration/repair controls with Walloon; preserve operation scope, missing IDs, file versus avatar URLs and paused versus failed migrations. Repair/update verb https://dtw.walon.org/index.php?query=raponty%C3%AE and existing native terminology reused. Full grammar and specialized migration terminology remain low confidence; source placeholders and technical identifiers retained."
   }
 ]
