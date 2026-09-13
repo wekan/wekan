@@ -1136,5 +1136,63 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(cache['ve-PP'].filter, 'Puhtastim');
   assert.equal(cache['ve-PP'].search, 'Eci');
   assert.equal(cache['ve-PP'].title, 'Nimi');
+  const vepsArchiveRuleRepairs = {
+  "board-delete-notice": "Heitämine om igäks. Kaik necen laudan lugetišed, kartad da tegendad linneba heittud.",
+  "card-archive-pop": "Kart ei nägu neciš lugetišes arhivaha sirdändan jäl'ghe.",
+  "swimlane-archive-pop": "Ujundšoid ei nägu laudal arhivaha sirdändan jäl'ghe.",
+  "warn-list-archived": "Varutuz: nece kart om arhivas olijas lugetišes",
+  "filter-on-desc": "Sinä puhtastad kartoid necil laudal. Paina tänna, miše vajehtada puhtastim.",
+  "support-info-not-added-yet": "Tugen tedod ei ole völ ližatud",
+  "user-can-not-export-card-to-excel": "Kävutai ei voi vedäda kartad Excel-failaha",
+  "user-can-not-export-card-to-pdf": "Kävutai ei voi vedäda kartad PDF-failaha",
+  "user-can-not-export-excel": "Kävutai ei voi vedäda Excel-failaha",
+  "r-remove-all": "Heitä kaik ühtnikad kartaspäi",
+  "r-remove-all-labels": "Heitä kaik znamad kartaspäi",
+  "r-unchecked": "Heittud znam",
+  "r-checked": "Znamoitud",
+  "r-check-all": "Znamoita kaik",
+  "r-uncheck-all": "Heitä znam kaikispäi",
+  "r-check": "Znamoita",
+  "r-uncheck": "Heitä znam",
+  "r-d-check-all": "Znamoita kaik lugetišen kohtid",
+  "r-d-uncheck-all": "Heitä znam kaikispäi lugetišen kohtispäi",
+  "r-d-check-one": "Znamoita koht",
+  "r-d-uncheck-one": "Heitä znam kohtaspäi",
+  "uncheckAllItems": "Heitä znam kaikispäi kohtispäi",
+  "r-checklist": "kodvindlugetiž",
+  "r-of-checklist": "kodvindlugetišespäi",
+  "r-d-check-of-list": "kodvindlugetišespäi",
+  "r-d-add-checklist": "Ližada kodvindlugetiž",
+  "r-d-remove-checklist": "Heitä kodvindlugetiž",
+  "r-add-checklist": "Ližada kodvindlugetiž",
+  "r-items-check": "kohtid kodvindlugetišes",
+  "toggle-labels": "Ližada kartale libo heitä kartaspäi znamad 1-9. Äi valičuz ližab znamad 1-9",
+  "multi-selection": "Äi valičuz",
+  "multi-selection-member": "Märiče ühtnik valičusele",
+  "multi-selection-on": "Äi valičuz om aktivine",
+  "multi-selection-off": "Saubata äi valičuz"
+};
+  for (const [key, value] of Object.entries(vepsArchiveRuleRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Poistaminen|lopullista|Menetät|listat|kortit|toimet|Kortti ei|enää näy|arkistoinnin|Uimarata|varoitus|tämä kortti|olevassa listassa|Suodatat|Klikkaa|muokataksesi|Tuki tietoja|lisätty|Käyttäjä|ei voi viedä|korttia|Poista|jäsenet|nimilappu|Poistettu ruksi|Ruksattu|Ruksaa|tarkistuslista|kaikista listan|kohdasta|Bvisa luswayo|Lisää|näkyvyyttä|Monivalinta/i, key);
+  }
+  assert.match(cache['ve-PP']['board-delete-notice'], /igäks.*Kaik.*lugetišed, kartad da tegendad.*heittud/);
+  assert.match(cache['ve-PP']['card-archive-pop'], /ei nägu neciš lugetišes.*arhivaha/);
+  assert.match(cache['ve-PP']['swimlane-archive-pop'], /ei nägu laudal.*arhivaha/);
+  assert.match(cache['ve-PP']['warn-list-archived'], /kart.*arhivas.*lugetišes/);
+  for (const key of ['user-can-not-export-card-to-excel', 'user-can-not-export-card-to-pdf', 'user-can-not-export-excel']) assert.match(cache['ve-PP'][key], /ei voi vedäda/);
+  assert.match(cache['ve-PP']['user-can-not-export-card-to-pdf'], /kartad PDF-failaha$/);
+  assert.match(cache['ve-PP']['user-can-not-export-card-to-excel'], /kartad Excel-failaha$/);
+  assert.match(cache['ve-PP']['toggle-labels'], /^Ližada kartale libo heitä kartaspäi znamad 1-9\. Äi valičuz ližab znamad 1-9$/);
+  assert.doesNotMatch(cache['ve-PP']['toggle-labels'], /Ozuta|Peitä|nägu/);
+  assert.match(cache['ve-PP']['r-d-uncheck-all'], /kaikispäi lugetišen kohtispäi$/);
+  assert.match(cache['ve-PP']['r-d-uncheck-one'], /znam kohtaspäi$/);
+  assert.doesNotMatch(cache['ve-PP']['r-d-uncheck-one'], /kaik/);
+  assert.match(cache['ve-PP']['r-remove-all'], /kaik ühtnikad kartaspäi$/);
+  assert.match(cache['ve-PP']['r-remove-all-labels'], /kaik znamad kartaspäi$/);
+  assert.ok(cache['ve-PP']['toggle-labels'].includes(`${cache['ve-PP']['multi-selection']} ližab znamad 1-9`));
+  assert.match(cache['ve-PP']['multi-selection-on'], /om aktivine$/);
+  assert.match(cache['ve-PP']['multi-selection-off'], /^Saubata/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

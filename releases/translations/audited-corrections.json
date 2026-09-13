@@ -115967,5 +115967,243 @@
     "before": "Poista nimilappu",
     "after": "Heitä znam",
     "reason": "Replace Finnish/Venda selection, sidebar and filter wording with Veps, including related unflagged controls. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): above päl, under al, label znam, name nimi, side čura, excluding heitta; native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Ozuta, peitä, Eci, menülist, Tegijan. Retain correct core Znamad, Puhtastim, Eci and Nimi; preserve distinct card/swimlane targets, OR, member/assignee/creator filters, field-name display and board search scope. Low confidence: composed sidebar terminology and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-delete-notice",
+    "before": "Poistaminen on lopullista. Menetät kaikki listat, kortit ja toimet tällä taululla.",
+    "after": "Heitämine om igäks. Kaik necen laudan lugetišed, kartad da tegendad linneba heittud.",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-archive-pop",
+    "before": "Kortti ei enää näy tässä listassa arkistoinnin jälkeen.",
+    "after": "Kart ei nägu neciš lugetišes arhivaha sirdändan jäl'ghe.",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "swimlane-archive-pop",
+    "before": "Uimarata ei enää näy taululla arkistoinnin jälkeen.",
+    "after": "Ujundšoid ei nägu laudal arhivaha sirdändan jäl'ghe.",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "warn-list-archived",
+    "before": "varoitus: tämä kortti on Arkistossa olevassa listassa",
+    "after": "Varutuz: nece kart om arhivas olijas lugetišes",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-on-desc",
+    "before": "Suodatat kortteja tällä taululla. Klikkaa tästä muokataksesi suodatinta.",
+    "after": "Sinä puhtastad kartoid necil laudal. Paina tänna, miše vajehtada puhtastim.",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "support-info-not-added-yet",
+    "before": "Tuki tietoja ei ole vielä lisätty",
+    "after": "Tugen tedod ei ole völ ližatud",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "user-can-not-export-card-to-excel",
+    "before": "Käyttäjä ei voi viedä korttia Exceliin",
+    "after": "Kävutai ei voi vedäda kartad Excel-failaha",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "user-can-not-export-card-to-pdf",
+    "before": "Käyttäjä ei voi viedä korttia PDF tiedostoon",
+    "after": "Kävutai ei voi vedäda kartad PDF-failaha",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "user-can-not-export-excel",
+    "before": "Käyttäjä ei voi viedä Excel tiedostoon",
+    "after": "Kävutai ei voi vedäda Excel-failaha",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-remove-all",
+    "before": "Poista kaikki jäsenet kortilta",
+    "after": "Heitä kaik ühtnikad kartaspäi",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-remove-all-labels",
+    "before": "Poista kaikki nimilappuet kortilta",
+    "after": "Heitä kaik znamad kartaspäi",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-unchecked",
+    "before": "Poistettu ruksi",
+    "after": "Heittud znam",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-checked",
+    "before": "Ruksattu",
+    "after": "Znamoitud",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-check-all",
+    "before": "Ruksaa kaikki",
+    "after": "Znamoita kaik",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-uncheck-all",
+    "before": "Poista ruksi kaikista",
+    "after": "Heitä znam kaikispäi",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-check",
+    "before": "Ruksaa",
+    "after": "Znamoita",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-uncheck",
+    "before": "Poista ruksi",
+    "after": "Heitä znam",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-d-check-all",
+    "before": "Ruksaa kaikki listan kohdat",
+    "after": "Znamoita kaik lugetišen kohtid",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-d-uncheck-all",
+    "before": "Poista ruksi kaikista listan kohdista",
+    "after": "Heitä znam kaikispäi lugetišen kohtispäi",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-d-check-one",
+    "before": "Ruksaa kohta",
+    "after": "Znamoita koht",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-d-uncheck-one",
+    "before": "Poista ruksi kohdasta",
+    "after": "Heitä znam kohtaspäi",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "uncheckAllItems",
+    "before": "Bvisa luswayo kha zwithu zwoṱhe",
+    "after": "Heitä znam kaikispäi kohtispäi",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-checklist",
+    "before": "tarkistuslista",
+    "after": "kodvindlugetiž",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-of-checklist",
+    "before": "tarkistuslistasta",
+    "after": "kodvindlugetišespäi",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-d-check-of-list",
+    "before": "tarkistuslistasta",
+    "after": "kodvindlugetišespäi",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-d-add-checklist",
+    "before": "Lisää tarkistuslista",
+    "after": "Ližada kodvindlugetiž",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-d-remove-checklist",
+    "before": "Poista tarkistuslista",
+    "after": "Heitä kodvindlugetiž",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-add-checklist",
+    "before": "Lisää tarkistuslista",
+    "after": "Ližada kodvindlugetiž",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-items-check",
+    "before": "kohtaa tarkistuslistassa",
+    "after": "kohtid kodvindlugetišes",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "toggle-labels",
+    "before": "Muokkaa nimilappujen 1-9 näkyvyyttä kortilla. Monivalinta lisää nimilaput 1-9",
+    "after": "Ližada kartale libo heitä kartaspäi znamad 1-9. Äi valičuz ližab znamad 1-9",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "multi-selection",
+    "before": "Monivalinta",
+    "after": "Äi valičuz",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review. Keep multi-selection header and on/off/member actions consistent with keyboard help."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "multi-selection-member",
+    "before": "Aseta jäsen valinnalle",
+    "after": "Märiče ühtnik valičusele",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review. Keep multi-selection header and on/off/member actions consistent with keyboard help."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "multi-selection-on",
+    "before": "Monivalinta on päällä",
+    "after": "Äi valičuz om aktivine",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review. Keep multi-selection header and on/off/member actions consistent with keyboard help."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "multi-selection-off",
+    "before": "Vala ukukhetha okuningi",
+    "after": "Saubata äi valičuz",
+    "reason": "Replace Finnish/Venda archive, permission and checklist-rule text with Veps, including related unflagged rules. References: Zaiceva/Mullonen 2007 Russian–Veps dictionary (http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf): permanent igäks, warning varutuz, support tugi, document item koht (gen kohtan; distinguish belly kohtun); native UI https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: Heitä, heittud, ližatud, tedod. Keep all-board deletion losses, archived card/list/swimlane contexts, permission negation, Excel/PDF literals, all/one checklist scope and unchanged exact placeholders. Number-key source client/lib/keyboard.js toggles label assignment, while multi-selection only adds labels; preserve 1-9. Low confidence: composed technical wording and inflections require fluent-speaker review. Keep multi-selection header and on/off/member actions consistent with keyboard help."
   }
 ]
