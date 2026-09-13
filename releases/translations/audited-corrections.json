@@ -92797,5 +92797,26 @@
     "before": "Element1,Element2,Element3",
     "after": "Doch1,Doch2,Doch3",
     "reason": "Replace three flagged German checklist-item/example labels with direct Klingon, using existing ghItlhHom entry, ghItlhHommey tetlh checklist and Doch thing/item vocabulary. Checked items described as completed entries (rInbogh), consistent with checklist completion wording; plural-object hiding uses tISo'. Deletion remains a question. Comma-separated example retains three numbered entries and exact comma separators. Software-domain descriptions and full phrases are low confidence and need fluent-speaker validation. No placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "export-card-pdf",
+    "before": "Karte in ein PDF exportieren",
+    "after": "PDF-vaD 'echletHom yIngeH",
+    "reason": "Replace three flagged German transfer labels with direct Klingon: export card to PDF, failed message sending through the email system, and failed S3 connection. Reuse existing 'echletHom card, ngeH export/send, QIn pat email system, rar connect and Qu' task terminology. Failure uses lujpu' (failed). PDF and S3 identifiers retained exactly. Domain adaptation of purpose clauses and full phrases has low confidence and needs fluent-speaker validation; no source placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "email-fail",
+    "before": "Senden der E-Mail fehlgeschlagen",
+    "after": "QIn pat lo'lu'taHvIS QIn ngeHmeH Qu' lujpu'",
+    "reason": "Replace three flagged German transfer labels with direct Klingon: export card to PDF, failed message sending through the email system, and failed S3 connection. Reuse existing 'echletHom card, ngeH export/send, QIn pat email system, rar connect and Qu' task terminology. Failure uses lujpu' (failed). PDF and S3 identifiers retained exactly. Domain adaptation of purpose clauses and full phrases has low confidence and needs fluent-speaker validation; no source placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "s3-connection-failed",
+    "before": "S3 Verbindung fehlgeschlagen",
+    "after": "S3 rarmeH Qu' lujpu'",
+    "reason": "Replace three flagged German transfer labels with direct Klingon: export card to PDF, failed message sending through the email system, and failed S3 connection. Reuse existing 'echletHom card, ngeH export/send, QIn pat email system, rar connect and Qu' task terminology. Failure uses lujpu' (failed). PDF and S3 identifiers retained exactly. Domain adaptation of purpose clauses and full phrases has low confidence and needs fluent-speaker validation; no source placeholders changed."
   }
 ]
