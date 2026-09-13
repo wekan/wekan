@@ -79,8 +79,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 <summary>Paused local translation repairs and validation.</summary>
 
 Paused at the maintainer's request on 2026-09-13. The audit tracks 20,081
-findings: 12,866 corrected, 4,059 restored pre-pull values awaiting
-validation, 177 reviewed and retained, and 2,979 pending review or repair.
+findings: 12,866 corrected, 4,058 restored pre-pull values awaiting
+validation, 178 reviewed and retained, and 2,979 pending review or repair.
 The correction inventory records 13,544 exact before/after values across
 201 locale identifiers, including repairs outside the original findings.
 Klingon still has 361 pending flagged findings; stop repairs now and resume
@@ -96,22 +96,17 @@ Transifex: the evidence includes 4,061 pulled changes and 16,020 additional
 local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders on resume.
 
-Coverage audit on 2026-09-13: all 986 Node suites ran; 19 failed. The
-changelog formatting failure was corrected and its 17 checks now pass.
-The other 18 observed failures remain outstanding, without resuming repairs:
+Node regressions resolved on 2026-09-13: the original audit ran 986 suites
+with 19 failures. After the recorded source and guard repairs and one new
+regression suite, the final full run completed **987 suites, zero failures**.
+Calendar/date-popup, OAuth2, correction/review, progress and mocked upload
+checks pass. Sardinian magenta remains an explicit language-review item;
+the completeness guard permits only that exact known pending value.
 
-- Translation checks: Aragonese, Aromanian, Danish, Estonian/Romanian/Walloon,
-  Friulian, Galician/Xhosa, Ladin, Neapolitan and Sardinian progress suites.
-- Build/backend checks: build-script parity, FerretDB charts and Docker
-  Compose backend parity.
-- UI checks: archive section, viewport spacing and RTL.
-- Pomodoro timer and the OpenAPI multiline-parameter/new-feature route suites.
-
-The calendar/date-popup, OAuth2 domain-policy, audited correction/review,
-progress and mocked Transifex upload suites passed in that run. Browser
-calendar regressions remain registered and syntax-checked; live Meteor,
-identity-provider and browser validation remains outstanding. Mirror-script
-syntax passes; no remote mirror or translation upload was executed.
+Browser calendar regressions, including RTL popup placement and dragging,
+remain registered and syntax-checked; live Meteor, identity-provider and
+browser validation remains outstanding. Mirror-script syntax passes; no
+remote mirror or translation upload was executed.
 
 </details>
 
@@ -687,6 +682,45 @@ review; the full roadmap implementation remains unfinished.
 
 </details>
 
+and fixes the following regression failures:
+
+**Source and test parity** - preserve current behavior and reject real regressions.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8ae15efff">Fix Node suite failures after calendar and translation updates</a>. Thanks to xet7.</summary>
+
+Resolve the reported Node failures by carrying OAuth2 email-domain settings
+into every backend Compose reference and the companion Helm values. Keep
+calendar profile identifiers in one static runtime array, and teach the
+OpenAPI generator to resolve destructured static module imports and parse
+Unicode property escapes without executing JavaScript. Generated calendar
+enums now match runtime validation instead of being silently omitted.
+
+Date popups use logical initial offsets and clear both logical anchors
+before dragging with physical pointer coordinates. The requested resize
+grip stays at bottom-right in both directions. Updated archive-date guards
+verify the selected-calendar formatter and its import. A
+[browser regression](https://github.com/wekan/wekan/commit/c3d87894c)
+checks RTL grip placement and title-bar dragging; it is syntax-checked but
+was not run against a live Meteor stack.
+
+Retain valid shared translation terms and protect exact reviewed terms
+from being overwritten by filling. Restore the native Aragonese numbered
+examples that were mistakenly replaced with English, and match the
+Galician storage label to its reviewed regional counterpart. Stale wording
+and release-menu guards now reflect the current source while preserving
+placeholder, HTML, key-order and locale-isolation checks. Sardinian magenta
+remains explicitly awaiting language review; global completeness checks
+reject every other missing key rather than claiming that review finished.
+The wider translation repair task remains paused.
+
+New regression checks exercise actual enum generation, logical-anchor
+clearing, locale-specific reviewed values, changed-source rejection and
+safe filling. Full verification results are recorded in TODO Later and
+the translation audit.
+
+</details>
+
 and updates the test dependency:
 
 - [Playwright 1.62.1 → 1.63.0](https://github.com/wekan/wekan/commit/a15b065b56c87f9538ea21cd78a385257e71bfee).
@@ -745,7 +779,7 @@ evidence and correction/review inventories. Language-specific tests and
 shared regression checks cover recorded values, tokens, key order, repair
 idempotency and preference for newer human translations. This is a record
 of completed local batches, not certification of every language: 2,979
-findings remain pending, 4,059 restored values still need validation and
+findings remain pending, 4,058 restored values still need validation and
 fluent-speaker/browser checks remain outstanding. Repairs are paused;
 see TODO Later and the translation audit for the dated resume status.
 
@@ -753,10 +787,11 @@ Upcoming regression coverage was audited against all source changes since
 v11.72: existing positive/negative calendar, popup, OAuth2 and translation
 checks cover the implemented behavior; the calendar browser spec is
 registered and syntax-checked. The full Node run completed 986 suites with
-19 failures. Changelog formatting was then corrected (17 focused checks
-pass); 18 other observed failures remain tracked under TODO Later. Mirror
-syntax was checked without running the publishing script. Live browser,
-identity-provider and fluent-speaker checks remain outstanding.
+19 failures. The subsequent regression repairs are recorded above; the final
+full run completed 987 suites with zero failures, and changelog formatting
+checks pass. Mirror syntax was checked without running the publishing
+script. Live browser, identity-provider and fluent-speaker checks remain
+outstanding.
 
 </details>
 

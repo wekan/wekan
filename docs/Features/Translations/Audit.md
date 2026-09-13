@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 12,866 |
-| Restored pre-pull; awaiting validation | 4,059 |
-| Reviewed; retained unchanged | 177 |
+| Restored pre-pull; awaiting validation | 4,058 |
+| Reviewed; retained unchanged | 178 |
 | Pending review or repair | 2,979 |
 | Total tracked | 20,081 |
 
@@ -14,9 +14,9 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,544** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-13**, local commit `f6e2f742c298621c3cb11de6a4dce6cae64a9425` — four German account/administrator messages replaced with Klingon. Activation states, opposite click actions and administrator requirements preserved; wording needs fluent-speaker validation.
+Latest translation fix: **2026-09-13**, local commit `8ae15efffb1101970ff2bc04f5f628c1c072c307` — restored native Aragonese numbered examples after a mistaken English replacement and localized the Galician storage label. Reviewed shared terms are protected during filling; broader repairs remain paused.
 
-**Verification:** correction/review and progress suites pass. Full Node audit: 986 suites, 19 failures; changelog formatting subsequently fixed, 18 other observed failures tracked in [TODO Later](../../../CHANGELOG.md). Fluent-speaker and browser checks remain outstanding.
+**Verification:** final full Node run on 2026-09-13: **987 suites, zero failures**. The 19 initially reported failures are resolved; reviewed shared terms and the exact pending Sardinian color review remain protected. Browser regressions are syntax-checked; fluent-speaker and live browser checks remain outstanding.
 
 **Unresolved reviews:** Silesian database terminology and 17 Tigre calendar findings need language-specific validation.
 
