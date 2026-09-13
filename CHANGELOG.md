@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,038 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 806 pending review or repair.
-The correction inventory records 17,077 exact before/after values,
+findings: 15,041 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 803 pending review or repair.
+The correction inventory records 17,090 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original finding queues remain in Veps (65) and Standard Moroccan
+The largest original finding queues remain in Veps (62) and Standard Moroccan
 Tamazight (595). Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -100,8 +100,8 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is d41db1a2c (2026-09-14), covering seven Veps
-clipboard and unsaved-description messages. All correction/rendering checks
+Latest translation fix is 181585ce6 (2026-09-14), covering thirteen Veps
+archive actions and linked-deletion warnings. All correction/rendering checks
 pass; low-confidence technical terminology remains explicitly tracked.
 The 1,015-suite Node result is historical and predates the latest batches.
 
@@ -1256,6 +1256,19 @@ preparation uses the same reporting. Offline positive and negative fixtures
 verify immediate output, periodic progress and failure propagation; build-menu
 parity and release workflow checks pass. A full Meteor build was not rerun
 for this change.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/181585ce6">Repair Veps archive actions and linked-deletion warnings</a>. Thanks to xet7.</summary>
+
+Replace thirteen Finnish values, resolving three original findings and ten
+unflagged errors. Preserve archive destinations, restoration guidance, deletion
+order and inbound references; keep the linkedId sentence fragment and existing
+correct archive label. Actual rendering and all 17,090 correction regressions
+pass. Composed warning grammar and UI terminology need fluent review; live
+browser checks were not run. The original queue has 803 pending findings.
+Restored and unflagged values still require validation.
 
 </details>
 
