@@ -79063,5 +79063,40 @@
     "before": "Ajouter la vignette sur la mini-carte",
     "after": "Yokk nataalu muur ci karta bu ndaw bi",
     "reason": "Replace French HTML insertion and card insertion/cover controls with Wolof. Preserve literal <body> and </body> tags and after-start versus before-end positions; retain bottom-of-list and minicard cover scopes. Cover adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "click-to-star",
+    "before": "Cliquez pour ajouter ce tableau aux favoris.",
+    "after": "Bësal ngir màndargaal tablo bii ak biddiiw.",
+    "reason": "Replace French star/unstar board controls, starred-board heading, comment deletion confirmation and description prompt with Wolof. Preserve opposite star actions and reuse existing xalaat/Melokaan. Senegal education Wolof primer attests biddiiw for star: https://senprof.education.sn/PROGRAMME%20LECTURE%20POUR%20TOUS/documentation/CI/Manuels%20de%20classe%20CI/Manuel%20de%20classe%20wolof%20CI_Complet.pdf . Computing adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "click-to-unstar",
+    "before": "Cliquez pour retirer ce tableau des favoris.",
+    "after": "Bësal ngir dindi màndarga biddiiw bi ci tablo bii.",
+    "reason": "Replace French star/unstar board controls, starred-board heading, comment deletion confirmation and description prompt with Wolof. Preserve opposite star actions and reuse existing xalaat/Melokaan. Senegal education Wolof primer attests biddiiw for star: https://senprof.education.sn/PROGRAMME%20LECTURE%20POUR%20TOUS/documentation/CI/Manuels%20de%20classe%20CI/Manuel%20de%20classe%20wolof%20CI_Complet.pdf . Computing adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "starred-boards",
+    "before": "Tableaux favoris",
+    "after": "Tablo yu ñu màndargaal ak biddiiw",
+    "reason": "Replace French star/unstar board controls, starred-board heading, comment deletion confirmation and description prompt with Wolof. Preserve opposite star actions and reuse existing xalaat/Melokaan. Senegal education Wolof primer attests biddiiw for star: https://senprof.education.sn/PROGRAMME%20LECTURE%20POUR%20TOUS/documentation/CI/Manuels%20de%20classe%20CI/Manuel%20de%20classe%20wolof%20CI_Complet.pdf . Computing adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "comment-delete",
+    "before": "Êtes-vous sûr de vouloir supprimer le commentaire ?",
+    "after": "Ndax wóor na la ne bëgg nga far xalaat bi?",
+    "reason": "Replace French star/unstar board controls, starred-board heading, comment deletion confirmation and description prompt with Wolof. Preserve opposite star actions and reuse existing xalaat/Melokaan. Senegal education Wolof primer attests biddiiw for star: https://senprof.education.sn/PROGRAMME%20LECTURE%20POUR%20TOUS/documentation/CI/Manuels%20de%20classe%20CI/Manuel%20de%20classe%20wolof%20CI_Complet.pdf . Computing adaptation and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "addmore-detail",
+    "before": "Ajouter une description plus détaillée",
+    "after": "Yokk melokaan bu gën a leeral",
+    "reason": "Replace French star/unstar board controls, starred-board heading, comment deletion confirmation and description prompt with Wolof. Preserve opposite star actions and reuse existing xalaat/Melokaan. Senegal education Wolof primer attests biddiiw for star: https://senprof.education.sn/PROGRAMME%20LECTURE%20POUR%20TOUS/documentation/CI/Manuels%20de%20classe%20CI/Manuel%20de%20classe%20wolof%20CI_Complet.pdf . Computing adaptation and full grammar remain low confidence."
   }
 ]
