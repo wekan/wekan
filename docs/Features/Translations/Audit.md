@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,657 |
+| Corrected | 11,659 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,189 |
+| Pending review or repair | 4,187 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,012** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,016** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `b4d97631edef1a0e824e1659d06a2e713da4b8d0` — 4 Guarani calendar labels repaired using existing arapapaha/Hijri framing. Table-based civil versus astronomical starting epoch, Saudi lunar sighting and Gregorian ISO weeks are preserved. Epoch adaptations and full grammar remain low confidence. Waray/Wolof native and unflagged review and Acehnese credentials remain outstanding. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `be88e25b652fc5a5fa6f20b6f4a0a701eeadde29` — 6 Akan calendar values repaired, restoring moon sighting, table-based astronomical starting date, Gregorian ISO weeks, Jalali and exact Umm al-Qura names and date-display setting. Epoch phrasing and full grammar remain low confidence. Waray/Wolof native and unflagged review and Acehnese credentials remain outstanding. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
