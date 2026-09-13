@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,061 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 783 pending review or repair.
-The correction inventory records 17,133 exact before/after values,
+findings: 15,062 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 782 pending review or repair.
+The correction inventory records 17,146 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original finding queues remain in Veps (46) and Standard Moroccan
+The largest original finding queues remain in Veps (45) and Standard Moroccan
 Tamazight (595). Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -100,7 +100,7 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 82b12bd88 (2026-09-14), covering nine Veps subtask
+Latest translation fix is 166e66563 (2026-09-14), covering 13 Veps workspace
 controls. The original Neapolitan queue is empty. All correction/rendering checks
 pass; low-confidence technical terminology remains explicitly tracked.
 Member assignment popup handlers need separate review for apparent reversed
@@ -586,6 +586,18 @@ skills review documents current safeguards and remaining code improvements.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/166e66563">Repair Veps workspace controls and submenu labels</a>. Thanks to xet7.</summary>
+
+Replace 13 Finnish labels with Veps, preserving workspace/subworkspace
+names, markdown notation and the existing deletion question. All 17,146
+correction and runtime rendering checks pass, including tokens, JSON,
+key order and newer translations. Composed subworkspace and technical icon
+terms have low confidence and need fluent review. Live browser checks were
+not run. The original queue has 782 pending findings; validation continues.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/82b12bd88">Repair Veps subtask destination and action controls</a>. Thanks to xet7.</summary>
