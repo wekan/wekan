@@ -119159,5 +119159,61 @@
     "before": "Automaattinen listan leveys käytössä. Klikkaa poistaaksesi käytöstä.",
     "after": "Lugetišen avtomatine leveduz’ om päl. Painda sammutandaks.",
     "reason": "Replace flagged Finnish starring/automatic-width text with Veps dictionary tähtaz (genitive tähthan), painda and ülähän, preserving existing avtomatine leveduz terminology. Preserve star versus unstar, starred boards at top and enabled versus disabled actions. Composed morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "acceptance_of_our_legalNotice",
+    "before": "Jatkamalla hyväksyt meidän",
+    "after": "Jatkmal sinä hökkähtad meiden",
+    "reason": "Replace Finnish legal-notice/notification wording with Veps dictionary hökkähtada (native MediaWiki consent phrase), juridine, homaičuz and sada. Preserve combined consent sentence, never-notified state, creator OR member and watching subscriptions. Reuse existing kaceluz technical term. Legal argument case and composed notification morphology remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "legalNotice",
+    "before": "oikeudellisen huomautuksen",
+    "after": "juridižehe homaičusehe",
+    "reason": "Replace Finnish legal-notice/notification wording with Veps dictionary hökkähtada (native MediaWiki consent phrase), juridine, homaičuz and sada. Preserve combined consent sentence, never-notified state, creator OR member and watching subscriptions. Reuse existing kaceluz technical term. Legal argument case and composed notification morphology remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "muted-info",
+    "before": "Et saa koskaan ilmoituksia tämän taulun muutoksista",
+    "after": "Sinä ed sa nikonz tedotusid necen laudan vajehtusiš.",
+    "reason": "Replace Finnish legal-notice/notification wording with Veps dictionary hökkähtada (native MediaWiki consent phrase), juridine, homaičuz and sada. Preserve combined consent sentence, never-notified state, creator OR member and watching subscriptions. Reuse existing kaceluz technical term. Legal argument case and composed notification morphology remain low confidence pending fluent review. Dictionary sa-da (present sab) gives negative sa, not Finnish saa."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "notify-participate",
+    "before": "Vastaanota päivityksiä kaikilta korteilta jotka olet tehnyt tai joissa olet luoja tai jäsen",
+    "after": "Sada tedotusid kaikiš kartoiš, miččil sinä oled tegii libo ühtnik",
+    "reason": "Replace Finnish legal-notice/notification wording with Veps dictionary hökkähtada (native MediaWiki consent phrase), juridine, homaičuz and sada. Preserve combined consent sentence, never-notified state, creator OR member and watching subscriptions. Reuse existing kaceluz technical term. Legal argument case and composed notification morphology remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "notify-watch",
+    "before": "Vastaanota päivityksiä kaikilta tauluilta, listoilta tai korteilta joita seuraat.",
+    "after": "Sada tedotusid kaikiš laudoiš, lugetišiš libo kartoiš, miččiden täht sinä oled pandud kacelusen päle.",
+    "reason": "Replace Finnish legal-notice/notification wording with Veps dictionary hökkähtada (native MediaWiki consent phrase), juridine, homaičuz and sada. Preserve combined consent sentence, never-notified state, creator OR member and watching subscriptions. Reuse existing kaceluz technical term. Legal argument case and composed notification morphology remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "auto-watch",
+    "before": "Automaattisesti seuraa tauluja kun ne on luotu",
+    "after": "Pane kaceluz päle avtomatižesti laudoiden tegendan aigan",
+    "reason": "Replace Finnish legal-notice/notification wording with Veps dictionary hökkähtada (native MediaWiki consent phrase), juridine, homaičuz and sada. Preserve combined consent sentence, never-notified state, creator OR member and watching subscriptions. Reuse existing kaceluz technical term. Legal argument case and composed notification morphology remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "watch",
+    "before": "Seuraa",
+    "after": "Pane kaceluz päle",
+    "reason": "Replace Finnish legal-notice/notification wording with Veps dictionary hökkähtada (native MediaWiki consent phrase), juridine, homaičuz and sada. Preserve combined consent sentence, never-notified state, creator OR member and watching subscriptions. Reuse existing kaceluz technical term. Legal argument case and composed notification morphology remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "watching",
+    "before": "Seurataan",
+    "after": "Kaceluz om päl",
+    "reason": "Replace Finnish legal-notice/notification wording with Veps dictionary hökkähtada (native MediaWiki consent phrase), juridine, homaičuz and sada. Preserve combined consent sentence, never-notified state, creator OR member and watching subscriptions. Reuse existing kaceluz technical term. Legal argument case and composed notification morphology remain low confidence pending fluent review."
   }
 ]

@@ -2217,5 +2217,26 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['click-to-disable-auto-width'], /om päl.*sammutandaks/);
   assert.notEqual(cache['ve-PP']['click-to-star'], cache['ve-PP']['click-to-unstar']);
   for (const key of ['star-board-title', 'starred-boards-description']) assert.match(cache['ve-PP'][key], /lugetišen ülähän/);
+  const vepsConsentNotifications = {
+  "acceptance_of_our_legalNotice": "Jatkmal sinä hökkähtad meiden",
+  "legalNotice": "juridižehe homaičusehe",
+  "muted-info": "Sinä ed sa nikonz tedotusid necen laudan vajehtusiš.",
+  "notify-participate": "Sada tedotusid kaikiš kartoiš, miččil sinä oled tegii libo ühtnik",
+  "notify-watch": "Sada tedotusid kaikiš laudoiš, lugetišiš libo kartoiš, miččiden täht sinä oled pandud kacelusen päle.",
+  "auto-watch": "Pane kaceluz päle avtomatižesti laudoiden tegendan aigan",
+  "watch": "Pane kaceluz päle",
+  "watching": "Kaceluz om päl"
+};
+  for (const [key, value] of Object.entries(vepsConsentNotifications)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Jatkamalla|hyväksyt|oikeudellisen|Et saa koskaan|Vastaanota päivityksiä|Automaattisesti seuraa|Seuraa|Seurataan/, key);
+  }
+  assert.equal(vepsTranslator.t('acceptance_of_our_legalNotice') + ' ' + vepsTranslator.t('legalNotice'), 'Jatkmal sinä hökkähtad meiden juridižehe homaičusehe');
+  assert.match(cache['ve-PP']['muted-info'], /ed sa nikonz tedotusid/);
+  assert.match(cache['ve-PP']['notify-participate'], /tegii libo ühtnik/);
+  assert.match(cache['ve-PP']['notify-watch'], /laudoiš, lugetišiš libo kartoiš.*kacelusen päle/);
+  assert.match(cache['ve-PP']['auto-watch'], /avtomatižesti.*tegendan aigan/);
+  assert.notEqual(cache['ve-PP']['watch'], cache['ve-PP']['watching']);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
