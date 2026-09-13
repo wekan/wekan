@@ -92944,5 +92944,33 @@
     "before": "Überschrift (alphabetisch)",
     "after": "pong (ngutlhmey patlh)",
     "reason": "Replace German title/alphabetical-sort labels with direct Klingon. Title uses existing pong name terminology from activity-changedTitle. Alphabetical ordering described as ngutlhmey patlh (written-character order): https://tlhingan.org/word/ngutlh attests ngutlh letter/written character; https://tlhingan.org/word/patlh attests patlh order and documents alphabetical sorting. Avoid specifying native Klingon or Latin endpoints because the label does not determine runtime collation. Full compound wording and title-domain usage are low confidence and require fluent-speaker validation. Generic title repaired beyond flagged findings for consistency; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "filter-card-title-label",
+    "before": "Nach Titel der Karte filtern",
+    "after": "'echletHom pong Dalo'taHvIS yIwIv",
+    "reason": "Replace four flagged German filter/subtask-field labels with direct Klingon. Filtering paraphrased as selection wIv, with card title ('echletHom pong) or user-configured fields (De' 'ay'mey cherbogh lo'wI') explicitly used as criteria through Dalo'taHvIS. Card/list filter retains alternative objects and plural imperative; subtask-field display uses Qu'Hommey De' 'ay' yI'ang. Reuse vocabulary established in adjacent reviewed batches. Selection as filtering, software-field compounds and full clauses are low confidence and require fluent-speaker validation; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "filter-custom-fields-label",
+    "before": "Filtern nach benutzerdefinierten Feldern",
+    "after": "De' 'ay'mey cherbogh lo'wI' Dalo'taHvIS yIwIv",
+    "reason": "Replace four flagged German filter/subtask-field labels with direct Klingon. Filtering paraphrased as selection wIv, with card title ('echletHom pong) or user-configured fields (De' 'ay'mey cherbogh lo'wI') explicitly used as criteria through Dalo'taHvIS. Card/list filter retains alternative objects and plural imperative; subtask-field display uses Qu'Hommey De' 'ay' yI'ang. Reuse vocabulary established in adjacent reviewed batches. Selection as filtering, software-field compounds and full clauses are low confidence and require fluent-speaker validation; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "filter-cards",
+    "before": "Karten oder Listen filtern",
+    "after": "'echletHommey pagh tetlhmey tIwIv",
+    "reason": "Replace four flagged German filter/subtask-field labels with direct Klingon. Filtering paraphrased as selection wIv, with card title ('echletHom pong) or user-configured fields (De' 'ay'mey cherbogh lo'wI') explicitly used as criteria through Dalo'taHvIS. Card/list filter retains alternative objects and plural imperative; subtask-field display uses Qu'Hommey De' 'ay' yI'ang. Reuse vocabulary established in adjacent reviewed batches. Selection as filtering, software-field compounds and full clauses are low confidence and require fluent-speaker validation; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "show-subtasks-field",
+    "before": "Teilaufgaben Feld anzeigen",
+    "after": "Qu'Hommey De' 'ay' yI'ang",
+    "reason": "Replace four flagged German filter/subtask-field labels with direct Klingon. Filtering paraphrased as selection wIv, with card title ('echletHom pong) or user-configured fields (De' 'ay'mey cherbogh lo'wI') explicitly used as criteria through Dalo'taHvIS. Card/list filter retains alternative objects and plural imperative; subtask-field display uses Qu'Hommey De' 'ay' yI'ang. Reuse vocabulary established in adjacent reviewed batches. Selection as filtering, software-field compounds and full clauses are low confidence and require fluent-speaker validation; no placeholders changed."
   }
 ]
