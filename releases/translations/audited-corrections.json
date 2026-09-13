@@ -68164,5 +68164,89 @@
     "before": "zaimportowano %s to %s z %s",
     "after": "zaimportowŏł %s do %s ze %s",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "activity-receivedDate",
+    "before": "zmienił datę otrzymania na %s z %s",
+    "after": "zmiyniōł datã ôtrzimaniŏ na %s karty %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "activity-removed-label",
+    "before": "usunął etykietę '%s' z '%s'",
+    "after": "wyciepŏł etyketã « %s » ze %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "activity-startDate",
+    "before": "zmienił datę rozpoczęcia na %s z %s",
+    "after": "zmiyniōł datã zaczynaniŏ na %s karty %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "admin-announcement-title",
+    "before": "Ogłoszenie od administratora",
+    "after": "Ôgłoszynie ôd administratora",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "allboards.delete-workspace-confirm",
+    "before": "Czy na pewno chcesz usunąć tę przestrzeń roboczą?",
+    "after": "Na isto chcesz wyciepać tã przestrzyń roboczŏ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "allboards.edit-workspace",
+    "before": "Edytuj przestrzeń roboczą",
+    "after": "Edytuj przestrzyń roboczŏ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "always-show-code-as-text",
+    "before": "Zawsze pokazuj cały kod jako zwykły tekst",
+    "after": "Dycki pokazuj cołki kōd jako prosty tekst",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "api-download-limit-label",
+    "before": "Maksymalny rozmiar pliku pobieranego przez API",
+    "after": "Nojwiynkszy rozmiar pliku do pobraniŏ bez API",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "api-upload-limit-label",
+    "before": "Maksymalny rozmiar pliku przesyłanego przez API",
+    "after": "Nojwiynkszy rozmiar pliku do wysłaniŏ bez API",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "attachment-transfer-limits-invalid-value",
+    "before": "Wprowadź prawidłową dodatnią wartość limitu",
+    "after": "Wpisz poprawnŏ dodatniŏ wartość limitu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "auto-list-width",
+    "before": "Automatyczna szerokość listy",
+    "after": "Automatycznŏ szyrokość listy",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "azure-account-key-menu-path",
+    "before": "Azure Portal → Storage accounts → twoje konto → Security + networking → Access keys → key1 → Show → Key.",
+    "after": "Azure Portal → Storage accounts → twoje kōnto → Security + networking → Access keys → key1 → Show → Key.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
