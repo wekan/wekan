@@ -72182,5 +72182,19 @@
     "before": "Coptic",
     "after": "Kalendala ya Chikoputiki",
     "reason": "Replace English calendar wording using Chichewa Kalendala ya and Chikoputiki, attested by publisher https://www.jw.org/ny/laibulale/mabuku/bulu-lapachaka-la-2017/georgia/baibulo-chijojiya/ . Full specialized calendar phrasing still needs native review."
+  },
+  {
+    "locale": "ny",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Kalendala ya Jalali (ya ku Perisiya)",
+    "reason": "Replace Fars with published Chichewa geographical name Perisiya, retaining Jalali proper name: https://www.jw.org/ny/laibulale/magazini/nsanja-ya-olonda-yophunzira-february-2020/atate-wathu-yehova-amatikonda-kwambiri/ . Full phrasing needs native review."
+  },
+  {
+    "locale": "ny",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Kalendala ya Hijri (yowerengera ndi tebulo, tsiku loyambira potsatira sayansi ya zakuthambo)",
+    "reason": "Replace English calendar label while preserving table computation and astronomical starting date. Sayansi ya zakuthambo (astronomy) is attested in https://www.jw.org/ny/laibulale/magazini/galamukani-na5-2016-october/mmene-aristotle-ankaonera-zinthu-zakuthambo/ . Direct specialized phrasing is low confidence and needs native review."
   }
 ]
