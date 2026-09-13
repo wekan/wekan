@@ -53940,5 +53940,26 @@
     "before": "Una riga di testo = un elemento della lista di controllo",
     "after": "Unã linie di text = un element di lista di control",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "globalSearch-instructions-description",
+    "before": "Per affinare le ricerche si possono includere degli operatori. Questi vanno specificati indicandone il nome ed il valore separati dai due punti. Ad esempio, specificare `list:Blocked` limita la ricerca alle schede contenute nella lista denominata *Blocked*. Se il valore del criterio contiene spazi o caratteri speciali, va racchiuso tra virgolette (es.: `__operator_list__:\"Da Controllare\"`)",
+    "after": "Cãutãrili pot s-includã operatori ti unã cãutari ma precisã. Operatorlji s-scriu cu numa shi valoarea separati di doauã puncti. Di exemplu, `list:Blocked` limiteadzã cãutarea la cãrtsãli di lista numitã *Blocked*. Dacã valoarea ari spatsii icã caractersi spetsiali, lipsea s-hibã închisã tu ghilimeali (di exemplu `__operator_list__:\"To Review\"`).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "globalSearch-instructions-notes-3",
+    "before": "Più criteri di ricerca sono combinati con l'operatore *AND*. Vengono selezionate solo le schede che soddisfano tutti gli operatori. `__operator_list__:Available __operator_label__:red` seleziona solo le schede nella lista *Available* che hanno una etichetta *red*.",
+    "after": "Operatorlji diferenti s-combinã cu *AND*. Suntu arãtati mash cãrtsãli tsi corespundu la tuts operatorlji diferenti. `__operator_list__:Available __operator_label__:red` aratã mash cãrtsãli di lista *Available* cu eticheta *red*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "list-archive-cards-pop",
+    "before": "Questo rimuoverà tutte le schede nell'elenco dalla bacheca. Per vedere le schede nell'archivio e portarle dov'erano  nella bacheca, clicca su \"Menu\"  > \"Archivio\".",
+    "after": "Aesta va s-scoatã tuti cãrtsãli di aesta listã di tabelã. Ti s-vedzi cãrtsãli tu Arhivã shi s-li adutsi napoi la tabelã, clicã “Meniu” > “Arhivã”.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
