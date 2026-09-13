@@ -88373,5 +88373,54 @@
     "before": "Cliquez pour trier la liste",
     "after": "Klikön ad sotön lisedi",
     "reason": "Replace French menu/account/filter/label wording with Volapük using existing terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests sotön (sort), sul (filter), klänedön (hide), ninädapenäd (label). Preserve checked-item state, label text rather than whole label, search/board sidebar distinctions, account-creation failure, email-change permission and not-found placeholder. Sidebar compound and assembled software wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "above-selected-card",
+    "before": "Au-dessus de la carte sélectionnée",
+    "after": "Löpü kad pevälöl",
+    "reason": "Replace French positioning/member/navigation labels with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests löpü (above), nedetü (left of), detü (right of); reuse existing selected-card/list, member and avatar terminology. Preserve selected object, opposite directions, self addition to current card, member avatars and return to own boards page. Assembled wording and avatar borrowing remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "below-selected-card",
+    "before": "En dessous de la carte sélectionnée",
+    "after": "Donü kad pevälöl",
+    "reason": "Replace French positioning/member/navigation labels with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests löpü (above), nedetü (left of), detü (right of); reuse existing selected-card/list, member and avatar terminology. Preserve selected object, opposite directions, self addition to current card, member avatars and return to own boards page. Assembled wording and avatar borrowing remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "left-of-list",
+    "before": "À gauche de la liste sélectionnée",
+    "after": "Nedetü lised pevälöl",
+    "reason": "Replace French positioning/member/navigation labels with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests löpü (above), nedetü (left of), detü (right of); reuse existing selected-card/list, member and avatar terminology. Preserve selected object, opposite directions, self addition to current card, member avatars and return to own boards page. Assembled wording and avatar borrowing remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "right-of-list",
+    "before": "À droite de la liste sélectionnée",
+    "after": "Detü lised pevälöl",
+    "reason": "Replace French positioning/member/navigation labels with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests löpü (above), nedetü (left of), detü (right of); reuse existing selected-card/list, member and avatar terminology. Preserve selected object, opposite directions, self addition to current card, member avatars and return to own boards page. Assembled wording and avatar borrowing remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "shortcut-add-self",
+    "before": "S'ajouter à la carte courante",
+    "after": "Lüükön oli lü kad anuik",
+    "reason": "Replace French positioning/member/navigation labels with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests löpü (above), nedetü (left of), detü (right of); reuse existing selected-card/list, member and avatar terminology. Preserve selected object, opposite directions, self addition to current card, member avatars and return to own boards page. Assembled wording and avatar borrowing remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "show-board_members-avatar",
+    "before": "Afficher les avatars des participants du tableau.",
+    "after": "Jonön avataris limanas taba",
+    "reason": "Replace French positioning/member/navigation labels with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests löpü (above), nedetü (left of), detü (right of); reuse existing selected-card/list, member and avatar terminology. Preserve selected object, opposite directions, self addition to current card, member avatars and return to own boards page. Assembled wording and avatar borrowing remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "header-logo-title",
+    "before": "Retourner à la page des tableaux",
+    "after": "Geön lü pad tabas olik.",
+    "reason": "Replace French positioning/member/navigation labels with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests löpü (above), nedetü (left of), detü (right of); reuse existing selected-card/list, member and avatar terminology. Preserve selected object, opposite directions, self addition to current card, member avatars and return to own boards page. Assembled wording and avatar borrowing remain low confidence; native review unavailable."
   }
 ]
