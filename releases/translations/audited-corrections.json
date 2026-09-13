@@ -91957,5 +91957,26 @@
     "before": "Moteur de stockage MongoDB",
     "after": "Sit kipeda ela MongoDB",
     "reason": "Replace French storage-engine label with Volapük storage-system wording, retaining MongoDB proper name. Sit and kiped follow dictionary-based local system/storage terminology; full assembled technical phrase and proper-name inflection remain low confidence and require native-speaker review."
+  },
+  {
+    "locale": "vo",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Kaled budik",
+    "reason": "Replace English calendar label using existing Volapük Kaled terminology. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests budik (Buddhist adjective) and koptan (Copt); Coptic phrased as calendar of the Copts with plural genitive koptanas. Minguo preserved as the proper calendar name from English source. Assembled labels require native-speaker validation; vocabulary attestation alone is not phrase validation."
+  },
+  {
+    "locale": "vo",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Kaled koptanas",
+    "reason": "Replace English calendar label using existing Volapük Kaled terminology. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests budik (Buddhist adjective) and koptan (Copt); Coptic phrased as calendar of the Copts with plural genitive koptanas. Minguo preserved as the proper calendar name from English source. Assembled labels require native-speaker validation; vocabulary attestation alone is not phrase validation."
+  },
+  {
+    "locale": "vo",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Kaled Minguo",
+    "reason": "Replace English calendar label using existing Volapük Kaled terminology. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests budik (Buddhist adjective) and koptan (Copt); Coptic phrased as calendar of the Copts with plural genitive koptanas. Minguo preserved as the proper calendar name from English source. Assembled labels require native-speaker validation; vocabulary attestation alone is not phrase validation."
   }
 ]
