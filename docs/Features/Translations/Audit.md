@@ -12,9 +12,9 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,171** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,180** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `5730e2dda7aa9720b61a3a3b0e81df7cce25a4f3` — 7 French keyboard-help values replaced with Wolof, preserving show/hide actions, label multi-selection addition and assignment-key ordering. Autocomplete/window/keyboard terminology and full grammar remain low confidence. Exact-value, placeholder, JSON example, HTML-tag/entity, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `c66df192bcfbc328aee92394196030fab7e12362` — 9 Wolof calendar/date label repairs, replacing French navigation/state labels and removing an incorrect time meaning from Date. Includes unflagged labels; due/received wording and full grammar remain low confidence. Exact-value, placeholder, JSON example, HTML-tag/entity, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
