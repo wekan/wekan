@@ -105040,5 +105040,145 @@
     "before": "Vumela abasebenzisi ukuthi bazisuse ngokwabo i-akhawunti yabo",
     "after": "U ḓisusela akhaunthu ya mushumisi",
     "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, technical identifiers, temporal lockout and date-field distinctions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "accounts-allowUserNameChange",
+    "before": "Vumela Ukuguqulwa Kwegama Lomsebenzisi",
+    "after": "U shandula dzina ḽa mushumisi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, locked versus unlocked states, known versus unknown users and old/new time values. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "accounts-lockout-all-users-unlocked",
+    "before": "Bonke abasebenzisi abakhiyiwe bavuliwe",
+    "after": "Vhashumisi vhoṱhe vho valelwaho vho vulelwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, locked versus unlocked states, known versus unknown users and old/new time values. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "accounts-lockout-click-to-unlock",
+    "before": "Chofoza ukuze uvule lo msebenzisi",
+    "after": "Kiḽikani u vulela mushumisi uyu",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, locked versus unlocked states, known versus unknown users and old/new time values. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "accounts-lockout-confirm-unlock",
+    "before": "Uqinisekile ukuthi ufuna ukuvula lo msebenzisi?",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u vulela mushumisi uyu?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, locked versus unlocked states, known versus unknown users and old/new time values. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "before": "Uqinisekile ukuthi ufuna ukuvula bonke abasebenzisi abakhiyiwe?",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u vulela vhashumisi vhoṱhe vho valelwaho?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, locked versus unlocked states, known versus unknown users and old/new time values. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "accounts-lockout-failure-window",
+    "before": "Iwindi lokwehluleka (amasekhondi)",
+    "after": "Tshifhinga tsha u vhala u kundelwa (sekonde)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, locked versus unlocked states, known versus unknown users and old/new time values. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "accounts-lockout-failures-before",
+    "before": "Ukwehluleka ngaphambi kokuvala ngaphandle",
+    "after": "U kundelwa hu sa athu valelwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, locked versus unlocked states, known versus unknown users and old/new time values. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "accounts-lockout-info",
+    "before": "Lezi zilungiselelo zilawula ukuthi imizamo yokungena ivikelwa kanjani ekuhlaselweni ngenkani.",
+    "after": "Nzudzanyo idzi dzi langa nḓila ine u lingedza u dzhena ha tsireledzwa ngayo kha u lingedza phasiwede nga nungo.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, locked versus unlocked states, known versus unknown users and old/new time values. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "accounts-lockout-known-users",
+    "before": "Izilungiselelo zabasebenzisi abaziwayo (igama lomsebenzisi elilungile, iphasiwedi engalungile)",
+    "after": "Nzudzanyo dza vhashumisi vha ḓivheaho (dzina ḽa mushumisi ḽo teaho, phasiwede yo khakheaho)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, locked versus unlocked states, known versus unknown users and old/new time values. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "accounts-lockout-locked-users-info",
+    "before": "Abasebenzisi okwamanje bavalelwe ngaphandle ngenxa yemizamo eminingi ehlulekile yokungena ngemvume",
+    "after": "Vhashumisi vho valelwaho zwino nga u kundelwa u dzhena lunzhi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, locked versus unlocked states, known versus unknown users and old/new time values. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "accounts-lockout-no-locked-users",
+    "before": "Okwamanje abekho abasebenzisi abakhiyiwe",
+    "after": "Zwino a hu na vhashumisi vho valelwaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, locked versus unlocked states, known versus unknown users and old/new time values. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "accounts-lockout-period",
+    "before": "Isikhathi sokuvala (amasekhondi)",
+    "after": "Tshifhinga tsha u valelwa (sekonde)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, locked versus unlocked states, known versus unknown users and old/new time values. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "accounts-lockout-settings",
+    "before": "Izilungiselelo Zokuvikela Ze-Brute Force",
+    "after": "Nzudzanyo dza u tsireledza kha u lingedza phasiwede nga nungo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, locked versus unlocked states, known versus unknown users and old/new time values. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "accounts-lockout-settings-updated",
+    "before": "Izilungiselelo zokuvikela amandla e-Brute zibuyekeziwe",
+    "after": "Nzudzanyo dza u tsireledza kha u lingedza phasiwede nga nungo dzo shandulwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, locked versus unlocked states, known versus unknown users and old/new time values. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "accounts-lockout-show-locked-users",
+    "before": "Bonisa abasebenzisi abakhiyiwe kuphela",
+    "after": "Sumbedza vhashumisi vho valelwaho fhedzi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, locked versus unlocked states, known versus unknown users and old/new time values. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "accounts-lockout-unknown-users",
+    "before": "Izilungiselelo zabasebenzisi abangaziwa (igama lomsebenzisi elingekho)",
+    "after": "Nzudzanyo dza vhashumisi vha sa ḓivhei (dzina ḽa mushumisi ḽi siho)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, locked versus unlocked states, known versus unknown users and old/new time values. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "accounts-lockout-user-unlocked",
+    "before": "Umsebenzisi uvulelwe ngempumelelo",
+    "after": "Mushumisi o vulelwa nga nḓila yo bvelelaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, locked versus unlocked states, known versus unknown users and old/new time values. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-a-dueAt",
+    "before": "ilungiswe isikhathi esifanele ukuze \nNini: __timeValue__\nKuphi: __card__\n okwedlule okwakufuneka kwakungu-__timeOldValue__",
+    "after": "o shandula tshifhinga tsha u fhedza tsha vha \nMusi: __timeValue__\nFhethu: __card__\n tshifhinga tsha u fhedza tsha kale tsho vha __timeOldValue__",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, locked versus unlocked states, known versus unknown users and old/new time values. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-a-endAt",
+    "before": "silungise isikhathi sokugcina saba ngu-__timeValue__ kusuka ku-(__timeOldValue__)",
+    "after": "o shandula tshifhinga tsha u guma tsha vha __timeValue__ u bva kha (__timeOldValue__)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, locked versus unlocked states, known versus unknown users and old/new time values. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "act-a-receivedAt",
+    "before": "kulungiswe isikhathi esamukelwe ku-__timeValue__ kusuka ku-(__timeOldValue__)",
+    "after": "o shandula tshifhinga tsha u ṱanganedza tsha vha __timeValue__ u bva kha (__timeOldValue__)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, locked versus unlocked states, known versus unknown users and old/new time values. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
