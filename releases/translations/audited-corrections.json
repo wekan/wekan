@@ -78258,5 +78258,47 @@
     "before": "Début",
     "after": "Tambali",
     "reason": "Replace French calendar navigation and start/end/received/due labels with Wolof. Correct date label incorrectly including time; preserve previous versus next month and received versus completion deadline distinctions. General vocabulary reference https://jangawolof.org/dictionary/ ; due/received wording and full grammar remain low confidence, includes unflagged labels."
+  },
+  {
+    "locale": "wo",
+    "key": "attachmentDeletePopup-title",
+    "before": "Supprimer la pièce jointe ?",
+    "after": "Far takkaay bi?",
+    "reason": "Replace French attachment controls/activity with Wolof using existing takkaay/yokk/far terminology. Preserve attachment deletion versus movement to S3, source %s scope and singular/plural controls. Full grammar and storage-movement terminology remain low confidence; includes unflagged attachment headings."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-delete-attach-card",
+    "before": "a supprimé une pièce jointe",
+    "after": "far takkaay",
+    "reason": "Replace French attachment controls/activity with Wolof using existing takkaay/yokk/far terminology. Preserve attachment deletion versus movement to S3, source %s scope and singular/plural controls. Full grammar and storage-movement terminology remain low confidence; includes unflagged attachment headings."
+  },
+  {
+    "locale": "wo",
+    "key": "attachment-move-storage-s3",
+    "before": "Déplacer la pièce jointe vers S3",
+    "after": "Yóbbu takkaay bi ci S3",
+    "reason": "Replace French attachment controls/activity with Wolof using existing takkaay/yokk/far terminology. Preserve attachment deletion versus movement to S3, source %s scope and singular/plural controls. Full grammar and storage-movement terminology remain low confidence; includes unflagged attachment headings."
+  },
+  {
+    "locale": "wo",
+    "key": "add-attachment",
+    "before": "Ajouter une pièce jointe",
+    "after": "Yokk takkaay",
+    "reason": "Replace French attachment controls/activity with Wolof using existing takkaay/yokk/far terminology. Preserve attachment deletion versus movement to S3, source %s scope and singular/plural controls. Full grammar and storage-movement terminology remain low confidence; includes unflagged attachment headings."
+  },
+  {
+    "locale": "wo",
+    "key": "attachments",
+    "before": "Pièces jointes",
+    "after": "Takkaay yi",
+    "reason": "Replace French attachment controls/activity with Wolof using existing takkaay/yokk/far terminology. Preserve attachment deletion versus movement to S3, source %s scope and singular/plural controls. Full grammar and storage-movement terminology remain low confidence; includes unflagged attachment headings."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-delete-attach",
+    "before": "a supprimé une pièce jointe de %s",
+    "after": "far takkaay ci %s",
+    "reason": "Replace French attachment controls/activity with Wolof using existing takkaay/yokk/far terminology. Preserve attachment deletion versus movement to S3, source %s scope and singular/plural controls. Full grammar and storage-movement terminology remain low confidence; includes unflagged attachment headings."
   }
 ]
