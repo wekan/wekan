@@ -96766,5 +96766,572 @@
     "before": "Maximale Dateigröße zum Hochladen in Bytes:",
     "after": "lI'meH teywI' tIq 'aqroS (bytes):",
     "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "migrate-all-to-filesystem",
+    "before": "Migriere alles ins Dateisystem",
+    "after": "Hoch De' teywI' patDaq vIHmoH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "migrate-all-to-gridfs",
+    "before": "Migriere alles ins GridFS",
+    "after": "Hoch De' GridFSDaq vIHmoH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "migration-batch-size-description",
+    "before": "Anzahl der zu bearbeitenden Anhänge pro Batch (1-100)",
+    "after": "Qu' ghom wa'Daq rarDochmey mI' (1-100)",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "migration-delay-ms-description",
+    "before": "Verzögerung zwischen Batches in Millisekunden (100-10000)",
+    "after": "Qu' ghommey jojDaq loSmeH poH (lupHom, 100-10000)",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "mobile-desktop-toggle",
+    "before": "Wechseln zwischen Mobil und Desktop Modus",
+    "after": "ghogh HablI' pat De'wI' raS pat je jojDaq choH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "multi-selection-active",
+    "before": "Wähle Kontrollkästchen um Bretter auszuwählen",
+    "after": "raSmey wIvmeH wIvmeH meyrI' yI'uy",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "multi-selection-member",
+    "before": "Mitglied für die Auswahl setzen",
+    "after": "wIvlu'bogh De'vaD lo'wI' cher",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "muted-info",
+    "before": "Sie werden nicht über Änderungen auf diesem Board benachrichtigt",
+    "after": "raSvam choHmeymo' QInmey DaHevbe'.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "newTranslationPopup-title",
+    "before": "Neue benutzerdefinierte String-Übersetzung",
+    "after": "mughmeH mu'tlhegh le' chu'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "no-archived-swimlanes",
+    "before": "Keine Swimlanes im Archiv.",
+    "after": "polmeH DaqDaq Hemey tu'lu'be'.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "not-accepted-yet",
+    "before": "Die Einladung wurde noch nicht angenommen",
+    "after": "rI'meH QIn lajlu'be'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "oidc-button-text",
+    "before": "Benutzerdefinierter Text der OIDC-Schaltfläche",
+    "after": "OIDC leQ ghItlh yIchoH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "operator-debug-invalid",
+    "before": "%s ist kein gültiger Debugausdruck",
+    "after": "%s tI'meH chut lugh 'oHbe'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "operator-has-invalid",
+    "before": "%s ist keine gültige Prüfung auf Existenz",
+    "after": "%s tu'lu' 'e' 'olmeH chut lugh 'oHbe'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "operator-limit-invalid",
+    "before": "%s ist keine gültige Begrenzung. Die Begrenzung sollte eine positive Ganzzahl sein.",
+    "after": "%s 'aqroS lugh 'oHbe'. mI' naQ 'oHnIS 'aqroS; 'aqroS tIn law' 0 tIn puS.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "pastdue",
+    "before": "aktuelles Fälligkeitsdatum %s überschritten",
+    "after": "qaSmeH poH %s juSlu'pu'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "paste-or-dragdrop",
+    "before": "Einfügen oder Datei mit Drag & Drop ablegen (nur Bilder)",
+    "after": "mIllogh teywI' lanmeH pagh luHmeH (mIllogh neH)",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "pause-all-migrations",
+    "before": "Alle Migrationen anhalten",
+    "after": "Hoch De' vIHmoHmeH mIwmey yev",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "people-number",
+    "before": "Die Anzahl der Personen ist:",
+    "after": "lo'wI'pu' mI': ",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "poker-delete-pop",
+    "before": "Die Löschung ist permanent. Sie werden alles im Zusammenhang mit diesem Planungspoker verlieren.",
+    "after": "Qaw'lu'DI' ratlhbe'. Hoch Qu' nabmeH Pokervam ta'mey DachIl.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "prefix-with-full-path",
+    "before": "Vollständiger Pfad über Titel",
+    "after": "Hoch He ghajbogh moHaq",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "preview-pdf-not-supported",
+    "before": "Dein Gerät unterstützt keine PDF Vorschau. Versuche sie stattdessen herunterzuladen.",
+    "after": "PDF bejmeH DuH ghajbe' janlIj. teywI' yIlI' 'e' yInID.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "push-invite-text",
+    "before": "Hallo __user__,\n\n__inviter__ hat Sie zu dem Board \"__board__\" eingeladen.\n\nBitte klicken Sie auf folgenden Link:\n\n__url__\n\nDanke.",
+    "after": "__user__,\n\nQu'vaD nItebHa' jeSmeH \"__board__\" raSvaD DurI' __inviter__.\n\nrarwI'vam yItlha':\n\n__url__\n\nqatlho'.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "push-invite-title",
+    "before": "__inviter__ hat Ihnen eine Einladung geschickt",
+    "after": "rI'meH QIn DungeHpu' __inviter__",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "quick-access-description",
+    "before": "Markieren Sie ein Board mit einem Stern, um dieser Leiste eine Verknüpfung hinzuzufügen.",
+    "after": "raS yIper; Hov yIlo'. ghIq leQmeyvamDaq raSvaD nom ghoSmeH leQ chellu'.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "r-board-note",
+    "before": "Hinweis: Lass ein Feld leer, um alle möglichen Werte zu finden.",
+    "after": "ghuH: Hoch chutmey DalajmeH De' Daq yIchImmoH.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "r-to-current-datetime",
+    "before": "auf das aktuelle Datum/Zeit",
+    "after": "DaH jaj/poHvaD",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "r-unarchive",
+    "before": "Aus dem Archiv wiederherstellen",
+    "after": "polmeH Daqvo' chelqa'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "r-unarchived",
+    "before": "aus dem Archiv wiederhergestellt",
+    "after": "polmeH Daqvo' chelqa'lu'pu'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "rescue-card-description-dialogue",
+    "before": "Soll die aktuelle Kartenbeschreibung mit deinen Änderungen überschrieben werden?",
+    "after": "choHmeylIjmo' DaH 'echletHom DelmeH De' DaDIH DaneH'a'?",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "restore-all-archived-migration",
+    "before": "Alles Archivierte wiederherstellen",
+    "after": "Hoch polmeH Daq De' chelqa'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "s3-access-key-description",
+    "before": "AWS S3 Zugangsschlüssel zur Authentifizierung",
+    "after": "'elmeH chaw' 'olmeH AWS S3 chaw' ngoq",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "s3-access-key-placeholder",
+    "before": "S3 Zugriffsschlüssel eingeben",
+    "after": "S3 chaw' ngoq yIghItlh",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "s3-bucket-description",
+    "before": "S3 Bucket Name um Dateien zu speichern",
+    "after": "teywI'mey polmeH S3 ngaSwI' pong",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "s3-connection-success",
+    "before": "S3 Verbindung erfolgreich",
+    "after": "S3 rarmeH mIw Qap",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "s3-enabled-description",
+    "before": "Benutze AWS S3 oder MiniIO als Dateispeicher",
+    "after": "teywI'mey polmeH AWS S3 pagh MinIO lo'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "s3-endpoint-description",
+    "before": "S3 Endpunkt URL (z.B., s3.amazonaws.com oder minio.example.com)",
+    "after": "S3 jabwI' URL (ghantoH: s3.amazonaws.com pagh minio.example.com)",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "s3-region-description",
+    "before": "AWS S3 Region (z.B., us-east-1)",
+    "after": "AWS S3 Sep (ghantoH: us-east-1)",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "s3-secret-key-description",
+    "before": "AWS S3 geheimer Schlüssel zur Authentifizierung",
+    "after": "'elmeH chaw' 'olmeH AWS S3 ngoq pegh",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "s3-secret-key-placeholder",
+    "before": "S3 geheimen Schlüssel eingeben",
+    "after": "S3 ngoq pegh yIghItlh",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "s3-secret-key-required",
+    "before": "S3 geheimer Schlüssel ist erforderlich",
+    "after": "S3 ngoq pegh poQlu'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "s3-ssl-enabled-description",
+    "before": "Benutze SSL/TLS für S3 Verbindungen",
+    "after": "S3 rarmeH SSL/TLS lo'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "scheduled-board-operations",
+    "before": "Geplante Brettoperationen",
+    "after": "poH nablu'bogh raS Qu'mey",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "search-boards-or-operations",
+    "before": "Durchsuche Bretter oder Vorgänge",
+    "after": "raSmey pagh Qu'mey nej...",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "search-example",
+    "before": "Suchtext eingeben und Enter drücken",
+    "after": "nejmeH ghItlh yIghItlh 'ej Enter yI'uy",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "server-error-troubleshooting",
+    "before": "Bitte übermitteln Sie den Fehler, den der Server erzeugt hat.\nRufen Sie für eine Snap-Installation auf: `sudo snap logs wekan.wekan`\nRufen Sie für eine Docker-Installation auf: `sudo docker logs wekan-app`",
+    "after": "jabwI' QapHa'meH QIn yIngeH.\nsnap Dalo'chugh: `sudo snap logs wekan.wekan`\nDocker Dalo'chugh: `sudo docker logs wekan-app`",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "set-swimlane-height-value",
+    "before": "Höhe der Swimlane (Pixel)",
+    "after": "He 'ab (pixels)",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "settingsTranslationPopup-title",
+    "before": "Soll die benutzerdefinierte String-Übersetzung gelöscht werden?",
+    "after": "mughmeH mu'tlhegh le'vam Qaw''a'?",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "shortcut-autocomplete-members",
+    "before": "Mitglieder vervollständigen",
+    "after": "lo'wI' pongmey naQmoH'egh",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "show-desktop-drag-handles",
+    "before": "Desktop-Ziehpunkte anzeigen",
+    "after": "De'wI' raSDaq luHmeH leQmey 'ang",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "show-parent-in-minicard",
+    "before": "Übergeordnetes Element auf Minikarte anzeigen:",
+    "after": "'echletHomHomDaq qup 'ang:",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "spent-time-hours",
+    "before": "Aufgewendete Zeit (Stunden)",
+    "after": "poH lo'lu'bogh (rep)",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "start-day-of-week",
+    "before": "Wochentagbeginn festlegen",
+    "after": "Hogh jaj wa'DIch yIcher",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "step-progress",
+    "before": "Durchschreite Fortschritt",
+    "after": "mIw Ser",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "step-restore-swimlanes",
+    "before": "Swimlanes wiederherstellen",
+    "after": "Hemey chelqa'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "subtext-with-full-path",
+    "before": "Vollständiger Pfad unter Titel",
+    "after": "Hoch He ghajbogh bIng ghItlh",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "support-page-enabled",
+    "before": "Supportseite eingeschaltet",
+    "after": "QaHmeH nav chu'lu'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "swimlane-delete-pop",
+    "before": "Alle Aktionen werden aus dem Aktivitätenfeed entfernt und die Swimlane kann nicht wiederhergestellt werden. Die Aktion kann nicht rückgängig gemacht werden.",
+    "after": "ta'mey tetlhvo' Hoch ta'mey teqlu'; He DachellaHqa'be'. mIwvam DaqIlHa'laHbe'.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "swimlane-height-error-message",
+    "before": "Die Höhe der Swimlane muss eine positive ganze Zahl sein",
+    "after": "mI' naQ 'oHnIS He 'ab; 'ab tIn law' 0 tIn puS",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "tableVisibilityMode-allowPrivateOnly",
+    "before": "Board-Sichtbarkeit: Erlaube ausschließlich private Boards",
+    "after": "raSmey 'angmeH DuH: peghbogh raSmey neH chaw'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "text-below-custom-login-logo",
+    "before": "Text unterhalb benutzerdefiniertem Login Logo",
+    "after": "'elmeH Degh le' bIngDaq ghItlh",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "translation-number",
+    "before": "Die Anzahl benutzerdefinierter String-Übersetzungen ist:",
+    "after": "mughmeH mu'tlheghmey le' mI':",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "vote-public",
+    "before": "Zeigen, wer was gewählt hat",
+    "after": "nuq wIv 'Iv 'e' 'ang",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "webhook-token",
+    "before": "Token (Optional für Authentifizierung)",
+    "after": "ngoq ('elmeH chaw' 'olmeH; poQbe'lu')",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "writable-path-description",
+    "before": "Basispfad des Dateispeichers",
+    "after": "teywI'mey polmeH He tagh",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "soft-wip-limit",
+    "before": "Soft WIP-Limit",
+    "after": "Qu'mey 'aqroS ghuH neH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Buddha 'ISjaH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "China 'ISjaH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Coptic 'ISjaH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Dangi 'ISjaH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Ethiopia Amete Alem 'ISjaH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Ethiopia 'ISjaH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Hebrew 'ISjaH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "India wo' 'ISjaH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Hijri 'ISjaH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Hijri 'ISjaH (tetlh SImmeH mIw, rewbe' taghmeH poH)",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Hijri 'ISjaH (Saudi Arabia, maS bejmeH mIw)",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Hijri 'ISjaH (tetlh SImmeH mIw, Hovmey QeD taghmeH poH)",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Hijri 'ISjaH (Umm al-Qura)",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Japan 'ISjaH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Minguo 'ISjaH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
   }
 ]
