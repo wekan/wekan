@@ -78349,5 +78349,54 @@
     "before": "Tri numérique des cartes sur la mini-carte",
     "after": "Toftale karta yi ci nimero bi ci karta bu ndaw bi",
     "reason": "Replace French list/card controls with Wolof; preserve movement of all cards in the list, comment count placeholder, attachment/custom-field editing, list display on full versus small card and card number sorting. Full grammar, custom-field and number-sorting wording remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "list-archive-cards",
+    "before": "Déplacer toutes les cartes de cette liste vers les archives",
+    "after": "Yóbbu karta yi yépp ci limu bii ci àrsiw bi",
+    "reason": "Replace French card/list archive action and recovery instructions with Wolof. Preserve all-card scope, post-archive invisibility and later restoration through board settings. Archive loan àrsiw, recovery phrasing and full grammar remain low confidence; includes unflagged archive heading/action."
+  },
+  {
+    "locale": "wo",
+    "key": "list-archive-pop",
+    "before": "La liste ne sera pas visible sur le tableau après archivage.",
+    "after": "Limu bi du feeñ ci tablo bi gannaaw bi ñu ko yóbboo ci àrsiw bi.",
+    "reason": "Replace French card/list archive action and recovery instructions with Wolof. Preserve all-card scope, post-archive invisibility and later restoration through board settings. Archive loan àrsiw, recovery phrasing and full grammar remain low confidence; includes unflagged archive heading/action."
+  },
+  {
+    "locale": "wo",
+    "key": "list-archive-suggest",
+    "before": "Vous pourrez plus tard restaurer la liste depuis les archives dans les paramètres du tableau.",
+    "after": "Mën nga delloo limu bi ci àrsiw bi ci jekkal yi ci tablo bi gannaaw.",
+    "reason": "Replace French card/list archive action and recovery instructions with Wolof. Preserve all-card scope, post-archive invisibility and later restoration through board settings. Archive loan àrsiw, recovery phrasing and full grammar remain low confidence; includes unflagged archive heading/action."
+  },
+  {
+    "locale": "wo",
+    "key": "card-archive-pop",
+    "before": "La carte ne sera plus visible dans cette liste après archivage.",
+    "after": "Karta bi du feeñ ci limu bii gannaaw bi ñu ko yóbboo ci àrsiw bi.",
+    "reason": "Replace French card/list archive action and recovery instructions with Wolof. Preserve all-card scope, post-archive invisibility and later restoration through board settings. Archive loan àrsiw, recovery phrasing and full grammar remain low confidence; includes unflagged archive heading/action."
+  },
+  {
+    "locale": "wo",
+    "key": "card-archive-suggest-cancel",
+    "before": "Vous pouvez, plus tard, restaurer une carte depuis les archives.",
+    "after": "Mën nga delloo karta bi ci àrsiw bi gannaaw.",
+    "reason": "Replace French card/list archive action and recovery instructions with Wolof. Preserve all-card scope, post-archive invisibility and later restoration through board settings. Archive loan àrsiw, recovery phrasing and full grammar remain low confidence; includes unflagged archive heading/action."
+  },
+  {
+    "locale": "wo",
+    "key": "archives",
+    "before": "Archives",
+    "after": "Àrsiw",
+    "reason": "Replace French card/list archive action and recovery instructions with Wolof. Preserve all-card scope, post-archive invisibility and later restoration through board settings. Archive loan àrsiw, recovery phrasing and full grammar remain low confidence; includes unflagged archive heading/action."
+  },
+  {
+    "locale": "wo",
+    "key": "archive",
+    "before": "Archiver",
+    "after": "Yóbbu ci àrsiw bi",
+    "reason": "Replace French card/list archive action and recovery instructions with Wolof. Preserve all-card scope, post-archive invisibility and later restoration through board settings. Archive loan àrsiw, recovery phrasing and full grammar remain low confidence; includes unflagged archive heading/action."
   }
 ]
