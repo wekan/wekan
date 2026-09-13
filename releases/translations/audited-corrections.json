@@ -71573,5 +71573,145 @@
     "before": "Tetapkan hari dimulai dalam minggu",
     "after": "Atô uroe awai minggu",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "Cube-Grid",
+    "before": "Pemintal Tunggu Grid-kiub",
+    "after": "Animasi preh Cube-Grid",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "Double-Bounce",
+    "before": "Pemintal Tunggu Melantun Berganda",
+    "after": "Animasi preh Double Bounce",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "Rotateplane",
+    "before": "Pemintal Tunggu Piring-Berpusing",
+    "after": "Animasi preh Rotateplane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "Scaleout",
+    "before": "Pemintal Tunggu Skala Mendatar",
+    "after": "Animasi preh Scaleout",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "MongoDB_storage_engine",
+    "before": "Mesin penyimpanan MongoDb",
+    "after": "Mesin keuneubah data MongoDB",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Timbunan nod: Laksanakan 'zap' sampah",
+    "after": "Heap Node: tuleh ulang memori nyang hana geungui ngon pola bit (zap garbage)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "Node_heap_heap_size_limit",
+    "before": "Timbunan nod: Had saiz timbunan",
+    "after": "Heap Node: bataih ukoran heap",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "Node_heap_malloced_memory",
+    "before": "Timbunan nod: memori yang diperuntukan",
+    "after": "Heap Node: memori nyang geubri le malloc",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "Node_heap_number_of_detached_contexts",
+    "before": "Timbunan nod: Bilangan konteks terpisah",
+    "after": "Heap Node: jeumeulah konteks nyang ka geupeupisah",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "Node_heap_number_of_native_contexts",
+    "before": "Timbunan nod: Bilangan Konteks asli",
+    "after": "Heap Node: jeumeulah konteks native",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Timunan nod: puncak memori yang diperuntukan",
+    "after": "Heap Node: jeumeulah memori nyang geubri le malloc nyang paleng rayek",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "Node_heap_total_available_size",
+    "before": "Timbunan node: Jumlah saiz yang sedia",
+    "after": "Heap Node: jeumeulah ukoran nyang mantong na keu geungui",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "Node_heap_total_heap_size",
+    "before": "Timbunan nod: saiz keseluruhan timbunan",
+    "after": "Heap Node: jeumeulah ukoran heap",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "Node_heap_total_heap_size_executable",
+    "before": "Timbunan Nod: Jumlah keseluruhan nod yang boleh-lari",
+    "after": "Heap Node: jeumeulah ukoran bagian heap keu kode nyang jeuet geupeujalan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "Node_heap_total_physical_size",
+    "before": "Timbunan node: Jumlah saiz fizikal",
+    "after": "Heap Node: jeumeulah ukoran fisik",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "Node_heap_used_heap_size",
+    "before": "Timbunan nod: Saiz timbunan yang digunakan",
+    "after": "Heap Node: ukoran heap nyang geungui",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "Node_memory_usage_external",
+    "before": "Penggunaan memori nod: luaran",
+    "after": "Memori Node nyang geungui: luwa heap",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "Node_memory_usage_heap_total",
+    "before": "Penggunaan memori nod: Jumlah saiz timbunan yang diperuntukan",
+    "after": "Memori Node nyang geungui: jeumeulah ukoran heap nyang geubri",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "Node_memory_usage_heap_used",
+    "before": "Penggunaan memori nod: Saiz sebenar memori yang digunakan",
+    "after": "Memori Node nyang geungui: memori nyang beutoi geungui",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "Node_memory_usage_rss",
+    "before": "Penggunaan memori nod: Set saiz residen",
+    "after": "Memori Node nyang geungui: ukoran memori nyang na bak RAM (RSS)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
