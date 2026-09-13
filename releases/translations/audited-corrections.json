@@ -91061,5 +91061,75 @@
     "before": "Dupliquer le tableau",
     "after": "Kopiedön tabi",
     "reason": "Replace French duplicate-list deletion warnings and duplicate-board action with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests sefik (safe), radön (erase), telik (double), vagik (empty), tiäd (title), ninädön (contain), kopiedön (copy), balido (firstly), jenöfik (real), and zesüdik (necessary). Preserve conjunctive migration conditions: empty list AND another same-title list containing cards; preserve conversion of shared lists to per-swimlane lists before deletion and only redundant empty lists removed. Distinct sidebar confirmation preserves same-name/no-cards conditions. Source reviewed: server/migrations/deleteDuplicateEmptyLists.js and client/components/sidebar/sidebar.js. Shared lists paraphrased as used across horizontal parts, swimlane as dil horitätik, redundant as nezesüdik; assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "read-only",
+    "before": "Lecture seule",
+    "after": "Te reidön",
+    "reason": "Replace French role, invitation, filter and list/migration setting labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests reidön (read), jonidükön (assign), nomik (normal), logädik (visible), votükön (alter), vüd (invitation), sulön (filter), geilot (measured height), lonön (set), mied (limit), mödot (quantity), muik (maximum) and bligäd (task). Source models/lib/boardRoleCapabilities.js and sidebar role menu confirm assigned-card visibility and no editing for read-only roles; preserve normal role separately. Preserve invitation sender/recipient and exact __inviter__, my assigned cards, measured swimlane height, and maximum task count per list. Swimlane horizontal-part paraphrase and existing migrad borrowing remain low confidence, as does assembled software wording pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "read-assigned-only",
+    "before": "Lecture uniquement pour les cartes assignées",
+    "after": "Te reidön kadis pejonidüköl",
+    "reason": "Replace French role, invitation, filter and list/migration setting labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests reidön (read), jonidükön (assign), nomik (normal), logädik (visible), votükön (alter), vüd (invitation), sulön (filter), geilot (measured height), lonön (set), mied (limit), mödot (quantity), muik (maximum) and bligäd (task). Source models/lib/boardRoleCapabilities.js and sidebar role menu confirm assigned-card visibility and no editing for read-only roles; preserve normal role separately. Preserve invitation sender/recipient and exact __inviter__, my assigned cards, measured swimlane height, and maximum task count per list. Swimlane horizontal-part paraphrase and existing migrad borrowing remain low confidence, as does assembled software wording pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "read-assigned-only-desc",
+    "before": "Seules les cartes assignées sont visibles. Modification impossible.",
+    "after": "Te kads pejonidüköl binons logädik. No kanol votükön onis.",
+    "reason": "Replace French role, invitation, filter and list/migration setting labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests reidön (read), jonidükön (assign), nomik (normal), logädik (visible), votükön (alter), vüd (invitation), sulön (filter), geilot (measured height), lonön (set), mied (limit), mödot (quantity), muik (maximum) and bligäd (task). Source models/lib/boardRoleCapabilities.js and sidebar role menu confirm assigned-card visibility and no editing for read-only roles; preserve normal role separately. Preserve invitation sender/recipient and exact __inviter__, my assigned cards, measured swimlane height, and maximum task count per list. Swimlane horizontal-part paraphrase and existing migrad borrowing remain low confidence, as does assembled software wording pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "read-only-desc",
+    "before": "Peut seulement voir les cartes. Ne peut pas éditer.",
+    "after": "Kanol te logön kadis. No kanol votükön onis.",
+    "reason": "Replace French role, invitation, filter and list/migration setting labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests reidön (read), jonidükön (assign), nomik (normal), logädik (visible), votükön (alter), vüd (invitation), sulön (filter), geilot (measured height), lonön (set), mied (limit), mödot (quantity), muik (maximum) and bligäd (task). Source models/lib/boardRoleCapabilities.js and sidebar role menu confirm assigned-card visibility and no editing for read-only roles; preserve normal role separately. Preserve invitation sender/recipient and exact __inviter__, my assigned cards, measured swimlane height, and maximum task count per list. Swimlane horizontal-part paraphrase and existing migrad borrowing remain low confidence, as does assembled software wording pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "normal-assigned-only",
+    "before": "Assigné uniquement Normal",
+    "after": "Nomik; te kads pejonidüköl",
+    "reason": "Replace French role, invitation, filter and list/migration setting labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests reidön (read), jonidükön (assign), nomik (normal), logädik (visible), votükön (alter), vüd (invitation), sulön (filter), geilot (measured height), lonön (set), mied (limit), mödot (quantity), muik (maximum) and bligäd (task). Source models/lib/boardRoleCapabilities.js and sidebar role menu confirm assigned-card visibility and no editing for read-only roles; preserve normal role separately. Preserve invitation sender/recipient and exact __inviter__, my assigned cards, measured swimlane height, and maximum task count per list. Swimlane horizontal-part paraphrase and existing migrad borrowing remain low confidence, as does assembled software wording pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "push-invite-title",
+    "before": "__inviter__ vous a envoyé une invitation",
+    "after": "__inviter__ esedon ole vüdi",
+    "reason": "Replace French role, invitation, filter and list/migration setting labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests reidön (read), jonidükön (assign), nomik (normal), logädik (visible), votükön (alter), vüd (invitation), sulön (filter), geilot (measured height), lonön (set), mied (limit), mödot (quantity), muik (maximum) and bligäd (task). Source models/lib/boardRoleCapabilities.js and sidebar role menu confirm assigned-card visibility and no editing for read-only roles; preserve normal role separately. Preserve invitation sender/recipient and exact __inviter__, my assigned cards, measured swimlane height, and maximum task count per list. Swimlane horizontal-part paraphrase and existing migrad borrowing remain low confidence, as does assembled software wording pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "shortcut-filter-my-assigned-cards",
+    "before": "Filtrer mes cartes attribuées",
+    "after": "Sulön kadis pejonidüköl obe",
+    "reason": "Replace French role, invitation, filter and list/migration setting labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests reidön (read), jonidükön (assign), nomik (normal), logädik (visible), votükön (alter), vüd (invitation), sulön (filter), geilot (measured height), lonön (set), mied (limit), mödot (quantity), muik (maximum) and bligäd (task). Source models/lib/boardRoleCapabilities.js and sidebar role menu confirm assigned-card visibility and no editing for read-only roles; preserve normal role separately. Preserve invitation sender/recipient and exact __inviter__, my assigned cards, measured swimlane height, and maximum task count per list. Swimlane horizontal-part paraphrase and existing migrad borrowing remain low confidence, as does assembled software wording pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "select-migration",
+    "before": "Sélectionner une migration",
+    "after": "Välön migradi",
+    "reason": "Replace French role, invitation, filter and list/migration setting labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests reidön (read), jonidükön (assign), nomik (normal), logädik (visible), votükön (alter), vüd (invitation), sulön (filter), geilot (measured height), lonön (set), mied (limit), mödot (quantity), muik (maximum) and bligäd (task). Source models/lib/boardRoleCapabilities.js and sidebar role menu confirm assigned-card visibility and no editing for read-only roles; preserve normal role separately. Preserve invitation sender/recipient and exact __inviter__, my assigned cards, measured swimlane height, and maximum task count per list. Swimlane horizontal-part paraphrase and existing migrad borrowing remain low confidence, as does assembled software wording pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "setSwimlaneHeightPopup-title",
+    "before": "Définir la hauteur du couloir",
+    "after": "Lonön geiloti dila horitätik",
+    "reason": "Replace French role, invitation, filter and list/migration setting labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests reidön (read), jonidükön (assign), nomik (normal), logädik (visible), votükön (alter), vüd (invitation), sulön (filter), geilot (measured height), lonön (set), mied (limit), mödot (quantity), muik (maximum) and bligäd (task). Source models/lib/boardRoleCapabilities.js and sidebar role menu confirm assigned-card visibility and no editing for read-only roles; preserve normal role separately. Preserve invitation sender/recipient and exact __inviter__, my assigned cards, measured swimlane height, and maximum task count per list. Swimlane horizontal-part paraphrase and existing migrad borrowing remain low confidence, as does assembled software wording pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "set-wip-limit-value",
+    "before": "Définit une limite maximale au nombre de cartes de cette liste",
+    "after": "Lonön miedi pro mödot muik bligädas in lised at",
+    "reason": "Replace French role, invitation, filter and list/migration setting labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests reidön (read), jonidükön (assign), nomik (normal), logädik (visible), votükön (alter), vüd (invitation), sulön (filter), geilot (measured height), lonön (set), mied (limit), mödot (quantity), muik (maximum) and bligäd (task). Source models/lib/boardRoleCapabilities.js and sidebar role menu confirm assigned-card visibility and no editing for read-only roles; preserve normal role separately. Preserve invitation sender/recipient and exact __inviter__, my assigned cards, measured swimlane height, and maximum task count per list. Swimlane horizontal-part paraphrase and existing migrad borrowing remain low confidence, as does assembled software wording pending native review."
   }
 ]
