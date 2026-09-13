@@ -60940,5 +60940,75 @@
     "before": "Afficher les listes sur la carte",
     "after": "Afichar las listas sus la carta",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "card-show-lists-on-minicard",
+    "before": "Afficher les listes sur la mini-carte",
+    "after": "Afichar las listas sus la minicarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "card-sorting-by-number-on-minicard",
+    "before": "Tri numérique des cartes sur la mini-carte",
+    "after": "Tri de las cartas pel nombre sus la minicarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "cardStartPlanningPokerPopup-title",
+    "before": "Démarrer un planning poker",
+    "after": "Començar un planning poker",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "change-card-parent",
+    "before": "Changer le parent de la carte",
+    "after": "Cambiar la carta parenta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "click-to-disable-auto-width",
+    "before": "Largeur de liste auto. activée. Cliquer pour désactiver.",
+    "after": "Largor automatica de lista activada. Clicatz per la desactivar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "click-to-enable-auto-width",
+    "before": "Largeur de liste auto. désactivée. Cliquer pour activer.",
+    "after": "Largor automatica de lista desactivada. Clicatz per l’activar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "comment-assigned-only",
+    "before": "Commentaire assigné uniquement",
+    "after": "Comentaris solament sus las cartas assignadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "comment-assigned-only-desc",
+    "before": "Seules les cartes assignées sont visibles. Commentaire uniquement.",
+    "after": "Solament las cartas assignadas son visiblas. Pòt solament comentar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "comment-not-found",
+    "before": "Carte dont le commentaire contient '%s' non trouvée",
+    "after": "Cap de carta amb un comentari que conten lo tèxte '%s' pas trobada.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "copy-text-to-clipboard",
+    "before": "Copier le texte dans le presse-papier",
+    "after": "Copiar lo tèxte dins lo quichapapièrs",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
