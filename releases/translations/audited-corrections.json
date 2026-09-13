@@ -77124,5 +77124,68 @@
     "before": "Choisissez l'utilisateur réel que ce membre (virtuel) importé est en réalité. Ses cartes, commentaires et activités passent à cet utilisateur. Cherchez pour trouver n'importe qui ; un utilisateur qui n'est pas encore sur ce tableau est ajouté avec le rôle propre du membre importé, si bien que la correspondance ne peut jamais accorder plus de droits que l'import n'en a donnés.",
     "after": "Tchoezixhoz li vraiy uzeu ki ci mimbe abagué (virtuwel) ci est po do bon. Ses cåtes, comintaires eyet accions sont dnés a ç' uzeu la. Cwerîz po trover tot l' minme kî; on uzeu ki n' est nén co so ci tåvlea ci est radjouté avou l' rôle do mimbe abagué. Insi, li raployaedje ni pout måy dner pus di droets ki l' abagaedje n' end a dné.",
     "reason": "Replace French selection/import member mapping instructions with Walloon. Preserve checkbox selection, assignment toggle 1-9 in board addition order, transfer of cards/comments/activity and imported-role permission ceiling for newly added users. Native user/search vocabulary: https://berdelaedje.walon.org/index.php ; full grammar and mapping terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "wait-spinner",
+    "before": "Icône d'attente",
+    "after": "Imådjete di ratindaedje",
+    "reason": "Replace French wait-spinner labels with Walloon descriptions, preserving cube grid, single/double bounce, rotating plane, scale and wave distinctions. Native waiting/rotation vocabulary: https://dtw.walon.org/index.php?query=ratindaedje and https://dtw.walon.org/index.php?query=tourner ; other animation vocabulary and full grammar remain low confidence; includes unflagged labels."
+  },
+  {
+    "locale": "wa",
+    "key": "Bounce",
+    "before": "Icône d'attente rebond",
+    "after": "Imådjete di ratindaedje avou ribondaedje",
+    "reason": "Replace French wait-spinner labels with Walloon descriptions, preserving cube grid, single/double bounce, rotating plane, scale and wave distinctions. Native waiting/rotation vocabulary: https://dtw.walon.org/index.php?query=ratindaedje and https://dtw.walon.org/index.php?query=tourner ; other animation vocabulary and full grammar remain low confidence; includes unflagged labels."
+  },
+  {
+    "locale": "wa",
+    "key": "Cube",
+    "before": "Icône d'attente cube",
+    "after": "Imådjete di ratindaedje avou on cube",
+    "reason": "Replace French wait-spinner labels with Walloon descriptions, preserving cube grid, single/double bounce, rotating plane, scale and wave distinctions. Native waiting/rotation vocabulary: https://dtw.walon.org/index.php?query=ratindaedje and https://dtw.walon.org/index.php?query=tourner ; other animation vocabulary and full grammar remain low confidence; includes unflagged labels."
+  },
+  {
+    "locale": "wa",
+    "key": "Cube-Grid",
+    "before": "Icône d'attente cube filaire",
+    "after": "Imådjete di ratindaedje avou ene grile di cubes",
+    "reason": "Replace French wait-spinner labels with Walloon descriptions, preserving cube grid, single/double bounce, rotating plane, scale and wave distinctions. Native waiting/rotation vocabulary: https://dtw.walon.org/index.php?query=ratindaedje and https://dtw.walon.org/index.php?query=tourner ; other animation vocabulary and full grammar remain low confidence; includes unflagged labels."
+  },
+  {
+    "locale": "wa",
+    "key": "Dot",
+    "before": "Icône d'attente point",
+    "after": "Imådjete di ratindaedje avou on pont",
+    "reason": "Replace French wait-spinner labels with Walloon descriptions, preserving cube grid, single/double bounce, rotating plane, scale and wave distinctions. Native waiting/rotation vocabulary: https://dtw.walon.org/index.php?query=ratindaedje and https://dtw.walon.org/index.php?query=tourner ; other animation vocabulary and full grammar remain low confidence; includes unflagged labels."
+  },
+  {
+    "locale": "wa",
+    "key": "Double-Bounce",
+    "before": "Icône d'attente double rebond",
+    "after": "Imådjete di ratindaedje avou on dobe ribondaedje",
+    "reason": "Replace French wait-spinner labels with Walloon descriptions, preserving cube grid, single/double bounce, rotating plane, scale and wave distinctions. Native waiting/rotation vocabulary: https://dtw.walon.org/index.php?query=ratindaedje and https://dtw.walon.org/index.php?query=tourner ; other animation vocabulary and full grammar remain low confidence; includes unflagged labels."
+  },
+  {
+    "locale": "wa",
+    "key": "Rotateplane",
+    "before": "Icône d'attente plan rotatif",
+    "after": "Imådjete di ratindaedje avou on plan ki toûne",
+    "reason": "Replace French wait-spinner labels with Walloon descriptions, preserving cube grid, single/double bounce, rotating plane, scale and wave distinctions. Native waiting/rotation vocabulary: https://dtw.walon.org/index.php?query=ratindaedje and https://dtw.walon.org/index.php?query=tourner ; other animation vocabulary and full grammar remain low confidence; includes unflagged labels."
+  },
+  {
+    "locale": "wa",
+    "key": "Scaleout",
+    "before": "Icône d'attente mise à l'échelle",
+    "after": "Imådjete di ratindaedje ki candje di grandeu",
+    "reason": "Replace French wait-spinner labels with Walloon descriptions, preserving cube grid, single/double bounce, rotating plane, scale and wave distinctions. Native waiting/rotation vocabulary: https://dtw.walon.org/index.php?query=ratindaedje and https://dtw.walon.org/index.php?query=tourner ; other animation vocabulary and full grammar remain low confidence; includes unflagged labels."
+  },
+  {
+    "locale": "wa",
+    "key": "Wave",
+    "before": "Icône d'attente onde",
+    "after": "Imådjete di ratindaedje avou ene vague",
+    "reason": "Replace French wait-spinner labels with Walloon descriptions, preserving cube grid, single/double bounce, rotating plane, scale and wave distinctions. Native waiting/rotation vocabulary: https://dtw.walon.org/index.php?query=ratindaedje and https://dtw.walon.org/index.php?query=tourner ; other animation vocabulary and full grammar remain low confidence; includes unflagged labels."
   }
 ]
