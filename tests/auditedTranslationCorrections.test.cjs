@@ -681,7 +681,7 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   "act-checkedItem": "Znamoitud koht __checklistItem__ kodvindlugetišes __checklist__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
   "act-uncheckedItem": "Heittud znam kohtaspäi __checklistItem__ kodvindlugetišes __checklist__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
   "act-completeChecklist": "Loptud kodvindlugetiž __checklist__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
-  "act-uncompleteChecklist": "Kodvindlugetiž __checklist__ om märitadud kut lopmatoi kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__"
+  "act-uncompleteChecklist": "Kodvindlugetiž __checklist__ om märitud kut lopmatoi kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__"
 };
   const checklistSlots = { ...activitySlots, checklist: 'CHECKLIST', checkList: 'SOURCE_CHECKLIST', checklistItem: 'ITEM', subtask: 'SUBTASK' };
   for (const [key, value] of Object.entries(vepsChecklistRepairs)) {
@@ -693,17 +693,17 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(vepsTranslator.t('act-removeChecklistItem', checklistSlots), /ITEM kodvindlugetišespäi SOURCE_CHECKLIST kartal CARD/);
   assert.match(vepsTranslator.t('act-uncheckedItem', checklistSlots), /^Heittud znam kohtaspäi ITEM/);
   assert.doesNotMatch(vepsTranslator.t('act-checkedItem', checklistSlots), /Heittud znam/);
-  assert.match(vepsTranslator.t('act-uncompleteChecklist', checklistSlots), /CHECKLIST om märitadud kut lopmatoi/);
+  assert.match(vepsTranslator.t('act-uncompleteChecklist', checklistSlots), /CHECKLIST om märitud kut lopmatoi/);
   assert.match(vepsTranslator.t('act-completeChecklist', checklistSlots), /^Loptud kodvindlugetiž CHECKLIST/);
   assert.match(vepsTranslator.t('act-addSubtask', checklistSlots), /SUBTASK kartale CARD/);
   assert.match(cache['ve-PP']['checklist-count'], /\(0\/0\)$/);
   assert.equal(cache['ve-PP']['checklist-count-on-minicard'], cache['ve-PP']['checklist-count'] + ' minikartal');
   const vepsCustomFieldRepairs = {
-  "act-createCustomField": "Tehtud kävutajan märitadud pöud __customField__ laudal __board__",
-  "act-deleteCustomField": "Heittud kävutajan märitadud pöud __customField__ laudal __board__",
-  "act-setCustomField": "Vajehtadud kävutajan märitadud pöud __customField__: __customFieldValue__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
-  "card-edit-custom-fields": "Vajehta kävutajan märitadud pöudoid",
-  "custom-field-delete-pop": "Ei sa pördutada. Nece heitäb necen kävutajan märitadud pöudon kaikiš kartoišpäi da heitäb sen istorijan.",
+  "act-createCustomField": "Tehtud kävutajan märitud pöud __customField__ laudal __board__",
+  "act-deleteCustomField": "Heittud kävutajan märitud pöud __customField__ laudal __board__",
+  "act-setCustomField": "Vajehtadud kävutajan märitud pöud __customField__: __customFieldValue__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "card-edit-custom-fields": "Vajehta kävutajan märitud pöudoid",
+  "custom-field-delete-pop": "Ei sa pördutada. Nece heitäb necen kävutajan märitud pöudon kaikiš kartoišpäi da heitäb sen istorijan.",
   "custom-field-checkbox": "Valičuznellik",
   "custom-field-date": "Päivmär",
   "date": "Päivmär",
@@ -715,9 +715,9 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   "custom-field-dropdownMultiSelect": "Valičuzlugetiž (äjiden valičuz)",
   "custom-field-number": "Lugu",
   "custom-field-text": "Tekst",
-  "custom-fields": "Kävutajan märitadud pöudod",
-  "filter-custom-fields-label": "Puhtasta kävutajan märitadud pöudoiden mödhe",
-  "filter-no-custom-fields": "Ei ole kävutajan märitadud pöudoid",
+  "custom-fields": "Kävutajan märitud pöudod",
+  "filter-custom-fields-label": "Puhtasta kävutajan märitud pöudoiden mödhe",
+  "filter-no-custom-fields": "Ei ole kävutajan märitud pöudoid",
   "custom-field-stringtemplate": "Simvolrivin šablon",
   "custom-field-stringtemplate-format": "Format (kävuta %{value} sijaznamaks)",
   "custom-field-stringtemplate-separator": "Jagoznam (kävuta &#32; libo &nbsp; keskustan täht)",
@@ -739,27 +739,27 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(vepsTranslator.t('custom-field-stringtemplate-format'), /%\{value\}/);
   assert.deepEqual(entities(cache['ve-PP']['custom-field-stringtemplate-separator']), entities(english['custom-field-stringtemplate-separator']));
   const vepsChecklistActivityRepairs = {
-  "activity-customfield-created": "Tehtud kävutajan märitadud pöud %s",
+  "activity-customfield-created": "Tehtud kävutajan märitud pöud %s",
   "activity-subtask-added": "Ližatud alategend azjale %s",
   "activity-checked-item": "Znamoitud koht %s kodvindlugetišes %s azjal %s",
   "activity-unchecked-item": "Heittud znam kohtaspäi %s kodvindlugetišes %s azjal %s",
   "activity-checklist-added": "Ližatud kodvindlugetiž azjale %s",
   "activity-checklist-removed": "Heittud kodvindlugetiž azjaspäi %s",
   "activity-checklist-completed": "Loptud kodvindlugetiž %s azjal %s",
-  "activity-checklist-uncompleted": "Kodvindlugetiž %s om märitadud kut lopmatoi azjal %s",
+  "activity-checklist-uncompleted": "Kodvindlugetiž %s om märitud kut lopmatoi azjal %s",
   "activity-checklist-item-added": "Ližatud koht kodvindlugetišehe '%s' azjal %s",
   "activity-checklist-item-removed": "Heittud koht kodvindlugetišespäi '%s' azjal %s",
   "activity-checked-item-card": "Znamoitud koht %s kodvindlugetišes %s",
   "activity-unchecked-item-card": "Heittud znam kohtaspäi %s kodvindlugetišes %s",
   "activity-checklist-completed-card": "Loptud kodvindlugetiž __checklist__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
-  "activity-checklist-uncompleted-card": "Kodvindlugetiž %s om märitadud kut lopmatoi",
+  "activity-checklist-uncompleted-card": "Kodvindlugetiž %s om märitud kut lopmatoi",
   "activity-editComment": "Vajehtadud sel’genzoituz %s",
   "activity-deleteComment": "Heittud sel’genzoituz %s",
-  "activity-set-customfield": "Kävutajan märitadud pöud '%s' om pandud kut '%s' azjal %s",
-  "activity-unset-customfield": "Heittud kävutajan märitadud pöudon '%s' znamoičend azjal %s",
+  "activity-set-customfield": "Kävutajan märitud pöud '%s' om pandud kut '%s' azjal %s",
+  "activity-unset-customfield": "Heittud kävutajan märitud pöudon '%s' znamoičend azjal %s",
   "r-w-label-added": "Mitte taht znam om ližatud",
   "r-w-member-added": "Ühtnik om ližatud",
-  "r-w-assignee-added": "Märitadud kävutai om ližatud",
+  "r-w-assignee-added": "Märitud kävutai om ližatud",
   "r-w-checklist-added": "Kodvindlugetiž om ližatud",
   "r-w-attachment-added": "Tartutadud fail om ližatud",
   "act-addAttachment": "Ližatud tartutadud fail __attachment__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
@@ -780,10 +780,10 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(vepsTranslator.t('activity-checked-item', { sprintf: ['ITEM', 'CHECKLIST', 'CARD'] }), 'Znamoitud koht ITEM kodvindlugetišes CHECKLIST azjal CARD');
   assert.equal(vepsTranslator.t('activity-checklist-item-added', { sprintf: ['CHECKLIST', 'CARD'] }), "Ližatud koht kodvindlugetišehe 'CHECKLIST' azjal CARD");
   assert.equal(vepsTranslator.t('activity-checklist-item-removed', { sprintf: ['CHECKLIST', 'CARD'] }), "Heittud koht kodvindlugetišespäi 'CHECKLIST' azjal CARD");
-  assert.equal(vepsTranslator.t('activity-set-customfield', { sprintf: ['FIELD', 'VALUE', 'CARD'] }), "Kävutajan märitadud pöud 'FIELD' om pandud kut 'VALUE' azjal CARD");
-  assert.equal(vepsTranslator.t('activity-unset-customfield', { sprintf: ['FIELD', 'CARD'] }), "Heittud kävutajan märitadud pöudon 'FIELD' znamoičend azjal CARD");
+  assert.equal(vepsTranslator.t('activity-set-customfield', { sprintf: ['FIELD', 'VALUE', 'CARD'] }), "Kävutajan märitud pöud 'FIELD' om pandud kut 'VALUE' azjal CARD");
+  assert.equal(vepsTranslator.t('activity-unset-customfield', { sprintf: ['FIELD', 'CARD'] }), "Heittud kävutajan märitud pöudon 'FIELD' znamoičend azjal CARD");
   assert.equal(cache['ve-PP']['activity-checklist-completed-card'], cache['ve-PP']['act-completeChecklist']);
-  assert.match(vepsTranslator.t('activity-checklist-uncompleted', { sprintf: ['CHECKLIST', 'CARD'] }), /CHECKLIST om märitadud kut lopmatoi azjal CARD/);
+  assert.match(vepsTranslator.t('activity-checklist-uncompleted', { sprintf: ['CHECKLIST', 'CARD'] }), /CHECKLIST om märitud kut lopmatoi azjal CARD/);
   assert.match(cache['ve-PP']['r-w-label-added'], /^Mitte taht znam/);
   const vepsDateActivityRepairs = {
   "activity-receivedDate": "Vajehtadud sadud päivmär: %s azjal %s",
@@ -890,10 +890,10 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   "automatically-field-on-card": "Ližada pöud uzihe kartoihe",
   "card-archived": "Nece kart om sirttud arhivaha.",
   "card-labels-title": "Vajehta kartan znamad.",
-  "cardCustomFieldsPopup-title": "Vajehta kävutajan märitadud pöudoid",
+  "cardCustomFieldsPopup-title": "Vajehta kävutajan märitud pöudoid",
   "close-add-checklist-item": "Saubata kodvindlugetišen kohtan ližadusen form",
   "close-edit-checklist-item": "Saubata kodvindlugetišen kohtan vajehtusen form",
-  "deleteCustomFieldPopup-title": "Heitä kävutajan märitadud pöud?",
+  "deleteCustomFieldPopup-title": "Heitä kävutajan märitud pöud?",
   "list-archive-pop": "Lugetiž ei nägu laudal arhivaha sirdändan jäl'ghe.",
   "r-d-move-to-bottom-gen": "Sirdä kart sen lugetišen lophu",
   "r-d-move-to-bottom-spec": "Sirdä kart lugetišen lophu",
@@ -944,6 +944,69 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['list-archive-cards-pop'], new RegExp(`“${cache['ve-PP'].menu}” > “${cache['ve-PP'].archives}”`));
   assert.match(cache['ve-PP']['always-field-on-card'], /kaikihe kartoihe$/);
   assert.match(cache['ve-PP']['automatically-field-on-card'], /uzihe kartoihe$/);
+  const vepsMemberControlRepairs = {
+  "normal": "Veronmugaine",
+  "comment-only": "Vaiše sel’genzoitused",
+  "read-only": "Vaiše kacund",
+  "read-assigned-only": "Vaiše märitud, kacund",
+  "comment-assigned-only": "Vaiše märitud, sel’genzoitused",
+  "normal-assigned-only": "Vaiše märitud, veronmugaine",
+  "normal-assigned-only-desc": "Vaiše sinei märitud kartad näguba. Vajehta kut veronmugaine kävutai.",
+  "comment-assigned-only-desc": "Vaiše sinei märitud kartad näguba. Voib vaiše kirjutada sel’genzoitusid kartoil.",
+  "read-assigned-only-desc": "Vaiše sinei märitud kartad näguba. Ei sa vajehtada.",
+  "comment-only-desc": "Voib vaiše kirjutada sel’genzoitusid kartoil.",
+  "read-only-desc": "Voib vaiše kacta kartoid. Ei sa vajehtada.",
+  "assignee": "Märitud kävutai",
+  "assignees": "Märitud kävutajad",
+  "assign-member": "Märiče ühtnik",
+  "members": "Ühtnikad",
+  "board_assignees": "Kaik märitud kävutajad kaikiš necen laudan kartoiš",
+  "card_assignees": "Kaik märitud kävutajad necen laudan nügüdläižel kartal",
+  "card_members": "Kaik ühtnikad necen laudan nügüdläižel kartal",
+  "card-members-title": "Ližada kartale libo heitä kartaspäi laudan ühtnikoid.",
+  "remove-member-pop": "Heitä __name__ (__username__) laudaspäi __boardTitle__? Ühtnik linneb heittud kaikiš necen laudan kartoišpäi. Hän sab tedotuz.",
+  "shortcut-add-self": "Ližada ičtaze nügüdläižele kartale",
+  "shortcut-assign-self": "Märiče ičtaze nügüdläižele kartale",
+  "shortcut-filter-my-assigned-cards": "Puhtasta sinei märitud kartad",
+  "multi-selection-active": "Paina valičuznellikid, miše valita laudoid",
+  "multi-selection-label": "Pane znam valičusele",
+  "remove-labels-multiselect": "Äjiden valičuz heitäb znamad 1-9",
+  "act-uncompleteChecklist": "Kodvindlugetiž __checklist__ om märitud kut lopmatoi kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-createCustomField": "Tehtud kävutajan märitud pöud __customField__ laudal __board__",
+  "act-deleteCustomField": "Heittud kävutajan märitud pöud __customField__ laudal __board__",
+  "act-setCustomField": "Vajehtadud kävutajan märitud pöud __customField__: __customFieldValue__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "activity-customfield-created": "Tehtud kävutajan märitud pöud %s",
+  "activity-checklist-uncompleted": "Kodvindlugetiž %s om märitud kut lopmatoi azjal %s",
+  "activity-checklist-uncompleted-card": "Kodvindlugetiž %s om märitud kut lopmatoi",
+  "card-edit-custom-fields": "Vajehta kävutajan märitud pöudoid",
+  "cardCustomFieldsPopup-title": "Vajehta kävutajan märitud pöudoid",
+  "custom-field-delete-pop": "Ei sa pördutada. Nece heitäb necen kävutajan märitud pöudon kaikiš kartoišpäi da heitäb sen istorijan.",
+  "custom-fields": "Kävutajan märitud pöudod",
+  "deleteCustomFieldPopup-title": "Heitä kävutajan märitud pöud?",
+  "filter-custom-fields-label": "Puhtasta kävutajan märitud pöudoiden mödhe",
+  "filter-no-custom-fields": "Ei ole kävutajan märitud pöudoid",
+  "activity-set-customfield": "Kävutajan märitud pöud '%s' om pandud kut '%s' azjal %s",
+  "activity-unset-customfield": "Heittud kävutajan märitud pöudon '%s' znamoičend azjal %s",
+  "r-w-assignee-added": "Märitud kävutai om ližatud"
+};
+  const memberSlots = { ...customFieldSlots, ...checklistSlots, name: 'NAME', username: 'USERNAME', boardTitle: 'BOARD' };
+  for (const [key, value] of Object.entries(vepsMemberControlRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key, memberSlots), value.replace(/__([A-Za-z]+)__/g, (_, name) => memberSlots[name]), key);
+    assert.doesNotMatch(value, /Normaali|Vain|käsittelij|kommentointi|luku|käyttäjänä|näkyvissä|Muokkaa|kortteja|Lisää|itsesi|nykyiselle|Kaikki|korteilla|Kakki|taululla|jäseniä|Poista|poistetaan|lähetetään|ilmoitus|Valitse|napsauttamalla|nimilappu|Monivalinta|märitadud/i, key);
+  }
+  for (const role of ['normal', 'read', 'comment']) assert.match(cache['ve-PP'][`${role}-assigned-only-desc`], /^Vaiše sinei märitud kartad näguba\./);
+  assert.match(cache['ve-PP']['read-assigned-only-desc'], /Ei sa vajehtada\.$/);
+  assert.match(cache['ve-PP']['read-only-desc'], /vaiše kacta kartoid\. Ei sa vajehtada\.$/);
+  assert.match(cache['ve-PP']['comment-assigned-only-desc'], /vaiše kirjutada sel’genzoitusid kartoil\.$/);
+  assert.match(cache['ve-PP']['normal-assigned-only-desc'], /Vajehta kut veronmugaine kävutai\.$/);
+  assert.doesNotMatch(cache['ve-PP']['normal-assigned-only-desc'], /Ei sa vajehtada/);
+  assert.match(vepsTranslator.t('remove-member-pop', memberSlots), /^Heitä NAME \(USERNAME\) laudaspäi BOARD\?.*kaikiš necen laudan kartoišpäi.*Hän sab tedotuz\.$/);
+  assert.notEqual(cache['ve-PP']['shortcut-add-self'], cache['ve-PP']['shortcut-assign-self']);
+  assert.match(cache['ve-PP']['shortcut-add-self'], /^Ližada/);
+  assert.match(cache['ve-PP']['shortcut-assign-self'], /^Märiče/);
+  assert.match(cache['ve-PP']['remove-labels-multiselect'], /1-9$/);
+  for (const value of Object.values(cache['ve-PP'])) assert.doesNotMatch(value, /märitadud/i);
   assert.equal(vepsTranslator.t('activity'), 'Tegendad');
   assert.equal(vepsTranslator.t('act-activity-notify'), 'Tegendoiden tedotuz');
   for (const key of ['activity', 'act-activity-notify']) {

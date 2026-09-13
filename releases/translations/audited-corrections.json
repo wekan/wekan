@@ -114376,43 +114376,43 @@
     "locale": "ve-PP",
     "key": "act-uncompleteChecklist",
     "before": "tehty ei valmistuneeksi tarkistuslista __checklist__ kortilla __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
-    "after": "Kodvindlugetiž __checklist__ om märitadud kut lopmatoi kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
-    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+    "after": "Kodvindlugetiž __checklist__ om märitud kut lopmatoi kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review. Refinement: Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
   },
   {
     "locale": "ve-PP",
     "key": "act-createCustomField",
     "before": "loi mukautetun kentän __customField__ taululla __board__",
-    "after": "Tehtud kävutajan märitadud pöud __customField__ laudal __board__",
-    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+    "after": "Tehtud kävutajan märitud pöud __customField__ laudal __board__",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review. Refinement: Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
   },
   {
     "locale": "ve-PP",
     "key": "act-deleteCustomField",
     "before": "poisti mukautetun kentän __customField__ taululla __board__",
-    "after": "Heittud kävutajan märitadud pöud __customField__ laudal __board__",
-    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+    "after": "Heittud kävutajan märitud pöud __customField__ laudal __board__",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review. Refinement: Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
   },
   {
     "locale": "ve-PP",
     "key": "act-setCustomField",
     "before": "muokkasi mukautettua kenttää __customField__: __customFieldValue__ kortilla __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
-    "after": "Vajehtadud kävutajan märitadud pöud __customField__: __customFieldValue__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
-    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+    "after": "Vajehtadud kävutajan märitud pöud __customField__: __customFieldValue__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review. Refinement: Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
   },
   {
     "locale": "ve-PP",
     "key": "card-edit-custom-fields",
     "before": "Muokkaa mukautettuja kenttiä",
-    "after": "Vajehta kävutajan märitadud pöudoid",
-    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+    "after": "Vajehta kävutajan märitud pöudoid",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review. Refinement: Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
   },
   {
     "locale": "ve-PP",
     "key": "custom-field-delete-pop",
     "before": "Tätä ei voi peruuttaa. Tämä poistaa tämän mukautetun kentän kaikista korteista ja poistaa sen historian.",
-    "after": "Ei sa pördutada. Nece heitäb necen kävutajan märitadud pöudon kaikiš kartoišpäi da heitäb sen istorijan.",
-    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+    "after": "Ei sa pördutada. Nece heitäb necen kävutajan märitud pöudon kaikiš kartoišpäi da heitäb sen istorijan.",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review. Refinement: Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
   },
   {
     "locale": "ve-PP",
@@ -114495,22 +114495,22 @@
     "locale": "ve-PP",
     "key": "custom-fields",
     "before": "Mukautetut kentät",
-    "after": "Kävutajan märitadud pöudod",
-    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+    "after": "Kävutajan märitud pöudod",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review. Refinement: Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
   },
   {
     "locale": "ve-PP",
     "key": "filter-custom-fields-label",
     "before": "Suodata mukautettu kenttä",
-    "after": "Puhtasta kävutajan märitadud pöudoiden mödhe",
-    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+    "after": "Puhtasta kävutajan märitud pöudoiden mödhe",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review. Refinement: Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
   },
   {
     "locale": "ve-PP",
     "key": "filter-no-custom-fields",
     "before": "Ei mukautettuja kenttiä",
-    "after": "Ei ole kävutajan märitadud pöudoid",
-    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review."
+    "after": "Ei ole kävutajan märitud pöudoid",
+    "reason": "Replace Finnish/Venda custom-field text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests pöud (field), päivmär (date), nellik (square), valičuz (choice), nimidä, tundmatoi, lugu, tekst, simvol, jagoznam (separator), keskust (space) and sija (position). Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests kävutajan, märitadud, šablon, rivi, format, puhtasta, vajehtadud and heittud. Compose user-defined fields, selection controls and sijaznam placeholder terminology; preserve action kind, field value/context, all-card irreversible deletion/history loss, and literal %{value}/&#32;/&nbsp;/Enter. Low confidence: composed custom-field/control terminology and UI grammar/inflections require fluent review. Refinement: Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
   },
   {
     "locale": "ve-PP",
@@ -114544,8 +114544,8 @@
     "locale": "ve-PP",
     "key": "activity-customfield-created",
     "before": "luotu mukautettu kenttä %s",
-    "after": "Tehtud kävutajan märitadud pöud %s",
-    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+    "after": "Tehtud kävutajan märitud pöud %s",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review. Refinement: Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
   },
   {
     "locale": "ve-PP",
@@ -114593,8 +114593,8 @@
     "locale": "ve-PP",
     "key": "activity-checklist-uncompleted",
     "before": "keskeneräinen tarkistuslista %s / %s",
-    "after": "Kodvindlugetiž %s om märitadud kut lopmatoi azjal %s",
-    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+    "after": "Kodvindlugetiž %s om märitud kut lopmatoi azjal %s",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review. Refinement: Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
   },
   {
     "locale": "ve-PP",
@@ -114635,8 +114635,8 @@
     "locale": "ve-PP",
     "key": "activity-checklist-uncompleted-card",
     "before": "ei valmistunut tarkistuslista %s",
-    "after": "Kodvindlugetiž %s om märitadud kut lopmatoi",
-    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+    "after": "Kodvindlugetiž %s om märitud kut lopmatoi",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review. Refinement: Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
   },
   {
     "locale": "ve-PP",
@@ -114656,15 +114656,15 @@
     "locale": "ve-PP",
     "key": "activity-set-customfield",
     "before": "asetettu mukautettu kentän '%s' sisällöksi '%s' kortilla %s",
-    "after": "Kävutajan märitadud pöud '%s' om pandud kut '%s' azjal %s",
-    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+    "after": "Kävutajan märitud pöud '%s' om pandud kut '%s' azjal %s",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review. Refinement: Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
   },
   {
     "locale": "ve-PP",
     "key": "activity-unset-customfield",
     "before": "poistettu mukautettu kenttä '%s' kortilla %s",
-    "after": "Heittud kävutajan märitadud pöudon '%s' znamoičend azjal %s",
-    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+    "after": "Heittud kävutajan märitud pöudon '%s' znamoičend azjal %s",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review. Refinement: Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
   },
   {
     "locale": "ve-PP",
@@ -114684,8 +114684,8 @@
     "locale": "ve-PP",
     "key": "r-w-assignee-added",
     "before": "Käsittelijä ližadud",
-    "after": "Märitadud kävutai om ližatud",
-    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review."
+    "after": "Märitud kävutai om ližatud",
+    "reason": "Replace Finnish or mixed activity/rule messages with Veps using Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, and native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Reuse reviewed checklist/subtask/custom-field and kanban context terminology. Preserve action kind, checkbox versus completion/reopening, add/remove source/destination, field clearing versus deletion, and exact placeholders in source argument order. Correct added to attested past passive ližatud, not ližadud: https://en.wiktionary.org/wiki/li%C5%BEata (past passive table), matching native MediaWiki diff-inline-tooltip-ins/recentchanges-page-added-to-category. Low confidence: composed kanban terminology and remaining UI inflection require fluent review. Refinement: Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
   },
   {
     "locale": "ve-PP",
@@ -115181,8 +115181,8 @@
     "locale": "ve-PP",
     "key": "cardCustomFieldsPopup-title",
     "before": "Muokkaa mukautettuja kenttiä",
-    "after": "Vajehta kävutajan märitadud pöudoid",
-    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+    "after": "Vajehta kävutajan märitud pöudoid",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json Refinement: Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
   },
   {
     "locale": "ve-PP",
@@ -115202,8 +115202,8 @@
     "locale": "ve-PP",
     "key": "deleteCustomFieldPopup-title",
     "before": "Poista mukautettu kenttä?",
-    "after": "Heitä kävutajan märitadud pöud?",
-    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json"
+    "after": "Heitä kävutajan märitud pöud?",
+    "reason": "Replace Finnish controls with reference Veps list/card/field/checklist/action/archive vocabulary. Preserve top/bottom and own/selected-list distinctions, checked/all/completed items, archive recovery versus irreversible deletion, activity preservation and archive-menu navigation. Dictionary distinguishes document item koht (-an,-id) from belly koht (-un,-uid); refine item plural stems without replacing original before records. Composed kanban UI inflections have low confidence and need fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json Refinement: Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
   },
   {
     "locale": "ve-PP",
@@ -115386,5 +115386,187 @@
     "before": "Arkisto",
     "after": "Arhiv",
     "reason": "Replace Finnish Archive heading with dictionary Veps arhiv, matching archive-navigation warning text. Source: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "normal",
+    "before": "Normaali",
+    "after": "Veronmugaine",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "comment-only",
+    "before": "Vain kommentointi",
+    "after": "Vaiše sel’genzoitused",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "read-only",
+    "before": "Vain luku",
+    "after": "Vaiše kacund",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "read-assigned-only",
+    "before": "Vain käsittelijä lukee",
+    "after": "Vaiše märitud, kacund",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "comment-assigned-only",
+    "before": "Vain käsittelijän kommentti",
+    "after": "Vaiše märitud, sel’genzoitused",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "normal-assigned-only",
+    "before": "Vain käsittelijä normaali",
+    "after": "Vaiše märitud, veronmugaine",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "normal-assigned-only-desc",
+    "before": "Vain käsittelijä kortit näkyvissä. Muokkaa normaalina käyttäjänä.",
+    "after": "Vaiše sinei märitud kartad näguba. Vajehta kut veronmugaine kävutai.",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "comment-assigned-only-desc",
+    "before": "Vain käsittelijä kortit näkyvissä. Voi vain kommentoida.",
+    "after": "Vaiše sinei märitud kartad näguba. Voib vaiše kirjutada sel’genzoitusid kartoil.",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "read-assigned-only-desc",
+    "before": "Vain käsittelijä kortit näkyvissä. Ei voi muokata.",
+    "after": "Vaiše sinei märitud kartad näguba. Ei sa vajehtada.",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "comment-only-desc",
+    "before": "Voi vain kommentoida kortteja",
+    "after": "Voib vaiše kirjutada sel’genzoitusid kartoil.",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "read-only-desc",
+    "before": "Voi vain katsoa kortteja. Ei voi muokata.",
+    "after": "Voib vaiše kacta kartoid. Ei sa vajehtada.",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "assignee",
+    "before": "Käsittelijä",
+    "after": "Märitud kävutai",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "assignees",
+    "before": "Käsittelijät",
+    "after": "Märitud kävutajad",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "assign-member",
+    "before": "Valitse jäsen",
+    "after": "Märiče ühtnik",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "members",
+    "before": "Jäsenet",
+    "after": "Ühtnikad",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board_assignees",
+    "before": "Kaikki käsittelijät kaikilla korteilla tällä taululla",
+    "after": "Kaik märitud kävutajad kaikiš necen laudan kartoiš",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card_assignees",
+    "before": "Kaikki käsittelijät nykyisellä kortilla tällä taululla",
+    "after": "Kaik märitud kävutajad necen laudan nügüdläižel kartal",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card_members",
+    "before": "Kakki tämän kortin jäsenet tällä taululla",
+    "after": "Kaik ühtnikad necen laudan nügüdläižel kartal",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-members-title",
+    "before": "Lisää tai poista taulun jäseniä tältä kortilta.",
+    "after": "Ližada kartale libo heitä kartaspäi laudan ühtnikoid.",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "remove-member-pop",
+    "before": "Poista __name__ (__username__) taululta __boardTitle__? Jäsen poistetaan kaikilta taulun korteilta. Heille lähetetään ilmoitus.",
+    "after": "Heitä __name__ (__username__) laudaspäi __boardTitle__? Ühtnik linneb heittud kaikiš necen laudan kartoišpäi. Hän sab tedotuz.",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "shortcut-add-self",
+    "before": "Lisää itsesi nykyiselle kortille",
+    "after": "Ližada ičtaze nügüdläižele kartale",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "shortcut-assign-self",
+    "before": "Valitse itsesi nykyiselle kortille",
+    "after": "Märiče ičtaze nügüdläižele kartale",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "shortcut-filter-my-assigned-cards",
+    "before": "Suodata käsittelijä korttini",
+    "after": "Puhtasta sinei märitud kartad",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "multi-selection-active",
+    "before": "Valitse taulut napsauttamalla valintaruutuja",
+    "after": "Paina valičuznellikid, miše valita laudoid",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "multi-selection-label",
+    "before": "Aseta nimilappu valinnalle",
+    "after": "Pane znam valičusele",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "remove-labels-multiselect",
+    "before": "Monivalinta poistaa nimilaput 1-9",
+    "after": "Äjiden valičuz heitäb znamad 1-9",
+    "reason": "Replace Finnish member/role/selection wording with reference Veps vocabulary. Preserve read-only versus comment-only versus normal editing, assigned-only current-user card visibility, board/card member and assignee scopes, add versus assign, all-card member removal plus notification, selection and 1-9 key ranges. Refine malformed märitadud to dictionary/native MediaWiki and inflection-table märitud, retaining original before records. Composed role/UI phrasing has low-confidence inflection and needs fluent-speaker review. Sources: http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json ; https://en.wiktionary.org/wiki/m%C3%A4rita"
   }
 ]
