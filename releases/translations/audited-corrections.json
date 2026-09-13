@@ -80568,5 +80568,54 @@
     "before": "Paramètres de l'utilisateur",
     "after": "Jekkal yi ci jëfandikukat bi",
     "reason": "Replace French minicard/organization/user settings titles with Wolof using existing Jekkal yi ci settings pattern and repaired karta bu ndaw/kureel/jëfandikukat terminology. Preserve distinct settings targets. Settings adaptation and full grammar remain low confidence; custom translation controls remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "translation",
+    "before": "Traduction",
+    "after": "Tekki",
+    "reason": "Replace French custom-translation controls with Wolof. Tekki translation attested in native Wolof Wiktionary https://wo.wiktionary.org/wiki/tekki ; preserve custom string/count/new/edit/delete distinctions and no undo. Full custom-string phrasing and grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "translation-text",
+    "before": "Texte traduit",
+    "after": "Mbind mi ñu tekki",
+    "reason": "Replace French custom-translation controls with Wolof. Tekki translation attested in native Wolof Wiktionary https://wo.wiktionary.org/wiki/tekki ; preserve custom string/count/new/edit/delete distinctions and no undo. Full custom-string phrasing and grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "translation-number",
+    "before": "Le nombre de traductions personnalisées est de :",
+    "after": "Limu mbind yu tekki yi ñu def ci soxla mooy:",
+    "reason": "Replace French custom-translation controls with Wolof. Tekki translation attested in native Wolof Wiktionary https://wo.wiktionary.org/wiki/tekki ; preserve custom string/count/new/edit/delete distinctions and no undo. Full custom-string phrasing and grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "newTranslationPopup-title",
+    "before": "Nouvelle traduction personnalisée",
+    "after": "Mbind mu tekki mu bees bu ñu def ci soxla",
+    "reason": "Replace French custom-translation controls with Wolof. Tekki translation attested in native Wolof Wiktionary https://wo.wiktionary.org/wiki/tekki ; preserve custom string/count/new/edit/delete distinctions and no undo. Full custom-string phrasing and grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "editTranslationPopup-title",
+    "before": "Éditer la traduction personnalisée",
+    "after": "Soppi mbind mu tekki mi ñu def ci soxla",
+    "reason": "Replace French custom-translation controls with Wolof. Tekki translation attested in native Wolof Wiktionary https://wo.wiktionary.org/wiki/tekki ; preserve custom string/count/new/edit/delete distinctions and no undo. Full custom-string phrasing and grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "settingsTranslationPopup-title",
+    "before": "Supprimer cette traduction personnalisée ?",
+    "after": "Far mbind mu tekki mii ñu def ci soxla?",
+    "reason": "Replace French custom-translation controls with Wolof. Tekki translation attested in native Wolof Wiktionary https://wo.wiktionary.org/wiki/tekki ; preserve custom string/count/new/edit/delete distinctions and no undo. Full custom-string phrasing and grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "delete-translation-confirm-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer cette traduction personnalisée ? Cela est irréversible.",
+    "after": "Ndax wóor na la ne bëgg nga far mbind mu tekki mii ñu def ci soxla? Mëneesul delloo jëf jii.",
+    "reason": "Replace French custom-translation controls with Wolof. Tekki translation attested in native Wolof Wiktionary https://wo.wiktionary.org/wiki/tekki ; preserve custom string/count/new/edit/delete distinctions and no undo. Full custom-string phrasing and grammar remain low confidence."
   }
 ]
