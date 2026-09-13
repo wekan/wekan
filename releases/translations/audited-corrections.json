@@ -88422,5 +88422,47 @@
     "before": "Retourner à la page des tableaux",
     "after": "Geön lü pad tabas olik.",
     "reason": "Replace French positioning/member/navigation labels with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf explicitly attests löpü (above), nedetü (left of), detü (right of); reuse existing selected-card/list, member and avatar terminology. Preserve selected object, opposite directions, self addition to current card, member avatars and return to own boards page. Assembled wording and avatar borrowing remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "allowed-avatar-filetypes",
+    "before": "Types de fichier autorisés pour l'avatar :",
+    "after": "Sots nünedas pedälöl pro avatar:",
+    "reason": "Replace French upload/file-limit/test-email labels with Volapük. Primary MediaWiki Volapük source https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json attests nüned (file), löpiokopiedam (upload), jölät (byte) and software file-size wording; Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gretot (size). Preserve allowed file types, avatar versus upload limits, maximum size in bytes, completed upload and self-addressed test email. Assembled compounds and grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "allowed-upload-filetypes",
+    "before": "Types de fichier autorisés pour l'upload :",
+    "after": "Sots nünedas pedälöl pro löpiokopiedam:",
+    "reason": "Replace French upload/file-limit/test-email labels with Volapük. Primary MediaWiki Volapük source https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json attests nüned (file), löpiokopiedam (upload), jölät (byte) and software file-size wording; Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gretot (size). Preserve allowed file types, avatar versus upload limits, maximum size in bytes, completed upload and self-addressed test email. Assembled compounds and grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "max-avatar-filesize",
+    "before": "Taille maximum du fichier de l'avatar en octets :",
+    "after": "Gretot gretikün nüneda avatara in jöläts:",
+    "reason": "Replace French upload/file-limit/test-email labels with Volapük. Primary MediaWiki Volapük source https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json attests nüned (file), löpiokopiedam (upload), jölät (byte) and software file-size wording; Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gretot (size). Preserve allowed file types, avatar versus upload limits, maximum size in bytes, completed upload and self-addressed test email. Assembled compounds and grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "max-upload-filesize",
+    "before": "Taille maximum du fichier à uploader en octets : ",
+    "after": "Gretot gretikün nüneda löpiokopiedabik in jöläts:",
+    "reason": "Replace French upload/file-limit/test-email labels with Volapük. Primary MediaWiki Volapük source https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json attests nüned (file), löpiokopiedam (upload), jölät (byte) and software file-size wording; Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gretot (size). Preserve allowed file types, avatar versus upload limits, maximum size in bytes, completed upload and self-addressed test email. Assembled compounds and grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "upload-completed",
+    "before": "Le chargement est terminé",
+    "after": "Löpiokopiedam pefimekon",
+    "reason": "Replace French upload/file-limit/test-email labels with Volapük. Primary MediaWiki Volapük source https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json attests nüned (file), löpiokopiedam (upload), jölät (byte) and software file-size wording; Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gretot (size). Preserve allowed file types, avatar versus upload limits, maximum size in bytes, completed upload and self-addressed test email. Assembled compounds and grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "send-smtp-test",
+    "before": "Envoyer un courriel de test à vous-même",
+    "after": "Sedön penedi leäktronik blufa lü ol it",
+    "reason": "Replace French upload/file-limit/test-email labels with Volapük. Primary MediaWiki Volapük source https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json attests nüned (file), löpiokopiedam (upload), jölät (byte) and software file-size wording; Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gretot (size). Preserve allowed file types, avatar versus upload limits, maximum size in bytes, completed upload and self-addressed test email. Assembled compounds and grammar remain low confidence; native review unavailable."
   }
 ]
