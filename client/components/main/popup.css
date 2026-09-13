@@ -1280,3 +1280,11 @@ body.mobile-mode .pop-over .content-wrapper {
   border: none;
   border-top: 1px solid rgba(0, 0, 0, 0.12);
 }
+
+/* Keep country then language flags in that visual order in RTL locales too. */
+.pop-over[data-popup='changeLanguagePopup'] .language-flags {
+  direction: ltr;
+  unicode-bidi: isolate;
+  white-space: nowrap;
+  width: auto;
+}

@@ -243,7 +243,7 @@ template(name="changeLanguagePopup")
     each languages
       li(class="{{# if isCurrentLanguage}}active{{/if}}")
         a.js-set-language
-          span.emoji-icon {{languageFlag}}
+          span.emoji-icon.language-flags(dir="ltr" aria-hidden="true") {{languageFlag}}
           | {{name}}
           if rtl
             |  (RTL)

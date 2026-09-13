@@ -34,3 +34,30 @@ test('language list is an auto-filling multi-column grid', () => {
 });
 
 console.log(`\nAll ${passed} change-language-columns tests passed`);
+
+// Evaluate the actual popup helpers against every registry entry, not a copied map.
+const vm = require('node:vm');
+const { parseLanguageMetadata } = require('./lib/languageRegistrySource.cjs');
+const root = path.resolve(__dirname, '..');
+const rows = parseLanguageMetadata(fs.readFileSync(path.join(root, 'imports/i18n/languages.js'), 'utf8'));
+const header = fs.readFileSync(path.join(root, 'client/components/users/userHeader.js'), 'utf8');
+const start = header.indexOf('Template.changeLanguagePopup.helpers({');
+const end = header.indexOf('Template.changeLanguagePopup.events(', start);
+let helpers;
+vm.runInNewContext(header.slice(start, end), {
+  Template: { changeLanguagePopup: { helpers(value) { helpers = value; } } },
+  TAPi18n: { getSupportedLanguages: () => rows.map(row => ({tag: row[2], name: row[3], rtl: row[4]})), getLanguage: () => 'en' },
+});
+assert.deepEqual(Array.from(helpers.languages(), row => row.tag).sort(), rows.map(row => row[2]).sort(), 'all registered locales appear exactly once');
+for (const row of rows) {
+  const flags = helpers.languageFlag.call({tag: row[2]});
+  assert.ok(flags && !flags.includes('undefined'), row[2]);
+  if (/[-_@]/.test(row[2])) assert.equal(flags.split(' ').length, 2, `country then language: ${row[2]}`);
+  else if (!['eo', 'tlh', 'vo', 'ia'].includes(row[2])) assert.notEqual(flags, '🌐', row[2]);
+}
+for (const [tag, expected] of Object.entries({'es-CO':'🇨🇴 🇪🇸', 'es_CO':'🇨🇴 🇪🇸', 'fr-CA':'🇨🇦 🇫🇷', 'be-BE':'🇧🇾 🇧🇾', 've-PP':'🇷🇺 🇷🇺', 've-CC':'🇮🇹 🇮🇹', 'wa-RR':'🇵🇭 🇵🇭', 'uz-AR':'🇺🇿 🇺🇿', 'zh-GB':'🇨🇳 🇨🇳', 'eo':'🌐', 'tlh':'🌐'})) {
+  assert.equal(helpers.languageFlag.call({tag}), expected, tag);
+}
+assert.notEqual(helpers.languageFlag.call({tag:'ve-PP'}), '🇿🇦 🇿🇦');
+assert.ok(fs.readFileSync(path.join(root, 'client/components/users/userHeader.jade'), 'utf8').includes('language-flags(dir="ltr"'));
+console.log(`changeLanguageColumns: all ${rows.length} popup locales and country/language flag ordering verified`);

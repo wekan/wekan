@@ -82,7 +82,7 @@ test('every language has a flag, or the deliberate globe', () => {
     .filter(t => !CONSTRUCTED.includes(t) && !new RegExp(`'${t}': '`).test(map));
   assert.ok(missing.length <= 12,
     `${missing.length} languages fall back to the globe: ${missing.join(' ')}`);
-  assert.ok(/return flagMap\[this\.tag\] \|\| '🌐';/.test(header),
+  assert.ok(header.includes("flagMap[base] || '🌐'"),
     'and the fallback is a globe, not a wrong country');
 });
 
