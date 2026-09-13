@@ -88933,5 +88933,33 @@
     "before": "Raccourcis clavier activés. Cliquer pour désactiver.",
     "after": "Klavabüds pajäfidükons. Klikön ad säjäfidükön onis.",
     "reason": "Replace French custom login-logo/shortcut settings with Volapük. Reuse reviewed login/symbol/keyboard-command vocabulary; Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests donü (below), and MediaWiki Volapük https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses software nunädam and säjäfidükön. Preserve image URL versus link URL, text below custom logo, enabled shortcut state and click-to-disable. Logo-to-symbol adaptation, keyboard-command compound and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "migration-starting",
+    "before": "Démarrage des migrations...",
+    "after": "Migrads primons...",
+    "reason": "Replace French migration status with Volapük; preserve starting/pausing/no-need/success distinctions. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests paudön (intransitive), zesüdik and fimekön; https://volapuk.evertype.com/volapuk-vifik-05.html attests primön. Retain existing software migration stem migrad, not dictionary-attested; assembled wording and software borrowing remain low confidence."
+  },
+  {
+    "locale": "vo",
+    "key": "migration-pausing",
+    "before": "Mise en pause des migrations...",
+    "after": "Migrads paudons...",
+    "reason": "Replace French migration status with Volapük; preserve starting/pausing/no-need/success distinctions. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests paudön (intransitive), zesüdik and fimekön; https://volapuk.evertype.com/volapuk-vifik-05.html attests primön. Retain existing software migration stem migrad, not dictionary-attested; assembled wording and software borrowing remain low confidence."
+  },
+  {
+    "locale": "vo",
+    "key": "migration-not-needed",
+    "before": "Aucune migration nécessaire",
+    "after": "Migrad no binon zesüdik",
+    "reason": "Replace French migration status with Volapük; preserve starting/pausing/no-need/success distinctions. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests paudön (intransitive), zesüdik and fimekön; https://volapuk.evertype.com/volapuk-vifik-05.html attests primön. Retain existing software migration stem migrad, not dictionary-attested; assembled wording and software borrowing remain low confidence."
+  },
+  {
+    "locale": "vo",
+    "key": "migration-successful",
+    "before": "Migration terminée avec succès",
+    "after": "Migrad pefimekon plöpo",
+    "reason": "Replace French migration status with Volapük; preserve starting/pausing/no-need/success distinctions. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests paudön (intransitive), zesüdik and fimekön; https://volapuk.evertype.com/volapuk-vifik-05.html attests primön. Retain existing software migration stem migrad, not dictionary-attested; assembled wording and software borrowing remain low confidence."
   }
 ]
