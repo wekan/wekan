@@ -63789,5 +63789,75 @@
     "before": "Ajouter la vignette sur la mini-carte",
     "after": "Ouzhpennañ ur skeudenn golo d’ar gartenn vihan",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "add-cron-job",
+    "before": "Ajouter un travail planifié",
+    "after": "Ouzhpennañ un trevell steuñvet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "add-custom-html-after-body-start",
+    "before": "Ajouter le HTML personnalisé après le début du <body>",
+    "after": "Ouzhpennañ HTML personelaet goude deroù <body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "add-custom-html-before-body-end",
+    "before": "Ajouter le HTML personnalisé avant la fin du </body>",
+    "after": "Ouzhpennañ HTML personelaet a-raok dibenn </body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "add-organizations",
+    "before": "Ajouter des organisations",
+    "after": "Ouzhpennañ aozadurioù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "add-template-container",
+    "before": "Ajouter un conteneur de modèles",
+    "after": "Ouzhpennañ ur c’hendalc’her patromoù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "addWorkspacePopup-title",
+    "before": "Ajouter un espace de travail",
+    "after": "Ouzhpennañ un egor labour",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "addmore-detail",
+    "before": "Ajouter une description plus détaillée",
+    "after": "Ouzhpennañ un deskrivadur munutoc’h",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "admin-desc",
+    "before": "Peut consulter et modifier les cartes, supprimer des participants et modifier les paramètres du tableau. Peut consulter les activités.\n ",
+    "after": "Gallout a ra gwelout ha kemmañ kartennoù, tennañ izili ha kemmañ arventennoù an daolenn. Gallout a ra gwelout an obererezhioù.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "admin-people-filter-locked",
+    "before": "Utilisateurs verrouillés seulement",
+    "after": "Implijerien stanket hepken",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "admin-people-user-active",
+    "before": "L'utilisateur est activé - Cliquer pour le désactiver",
+    "after": "Oberiant eo an implijer — klikit evit e ziweredekaat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
