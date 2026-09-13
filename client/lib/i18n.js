@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
+const { preferredLanguage } = require('/imports/i18n/browserLanguage');
 
 // We save the user language preference in the user profile, and use that to set
 // the language reactively. If the user is not connected we use the language
@@ -37,30 +38,15 @@ Meteor.startup(() => {
   // A stored login token can begin resuming after startup has run. Keep this
   // reactive so the persisted profile language wins when that user arrives,
   // rather than leaving a resumed session in the browser's language.
-  Tracker.autorun(() => {
+  const applyPreferredLanguage = () => {
     const currentUser = ReactiveCache.getCurrentUser();
-    const [language] = [
-      currentUser?.profile?.language,
-      navigator.languages?.at(0),
-      navigator.language,
-      navigator.userLanguage,
-    ].filter(Boolean);
-    if (!language) return;
-
-    // Match the browser tag, then progressively strip trailing subtags until a supported
-    // language is found: e.g. 'zh-Hans-CN' -> 'zh-Hans', 'zh-Hant-TW' -> 'zh-Hant',
-    // 'ja-JP' -> 'ja-JP', bare 'zh' -> 'zh-Hans' (via alias). isLanguageSupported is
-    // case-insensitive, so 'zh-hant' / 'JA-JP' etc. also match.
-    let candidate = language;
-    while (candidate) {
-      if (TAPi18n.isLanguageSupported(candidate)) {
-        Promise.resolve(TAPi18n.setLanguage(candidate)).catch(error => {
-          console.error(`Could not load language ${candidate}:`, error);
-        });
-        break;
-      }
-      const cut = candidate.lastIndexOf('-');
-      candidate = cut > 0 ? candidate.slice(0, cut) : '';
-    }
-  });
+    const language = preferredLanguage(currentUser?.profile?.language, navigator,
+      candidate => TAPi18n.resolveTag(candidate));
+    Promise.resolve(TAPi18n.setLanguage(language)).catch(error => {
+      console.error(`Could not load language ${language}:`, error);
+    });
+  };
+  Tracker.autorun(applyPreferredLanguage);
+  // Browsers can change their ordered preferences without a page reload.
+  window.addEventListener('languagechange', applyPreferredLanguage);
 });
