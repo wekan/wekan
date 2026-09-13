@@ -55711,5 +55711,47 @@
     "before": "Republic of China",
     "after": "Calannàrio Minguo",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Calannàrio naziunale indiano",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Calannàrio Hijri",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Calannàrio Hijri (tabulare, epoca civile)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Calannàrio Hijri (Arabia Saudita, osservazzione d'a luna)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Calannàrio Hijri (tabulare, epoca astrunomica)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Calannàrio Hijri (Umm al-Qura)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
