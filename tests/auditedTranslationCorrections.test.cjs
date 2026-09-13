@@ -294,5 +294,14 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(cache['ve-PP'].seconds, 'sekundad');
   assert.equal(cache['ve-PP']['accounts-lockout-period'], "Saubatusen piduz' (sekundad)");
   assert.doesNotMatch(cache['ve-PP'].hours + cache['ve-PP'].minutes + cache['ve-PP'].seconds + cache['ve-PP']['accounts-lockout-period'], /tuntia|minuuttia|sekuntia|Lukituksen/);
+  for (const [key, unit] of Object.entries({
+    'every-1-day': 'päiväs', 'every-1-hour': 'časus', 'every-1-minute': 'minutas',
+    'every-10-minutes': 'minutas', 'every-30-minutes': 'minutas',
+    'every-5-minutes': 'minutas', 'every-6-hours': 'časus',
+  })) {
+    const interval = key.split('-')[1];
+    assert.equal(cache['ve-PP'][key], `Kaikuččes ${interval} ${unit}`, key);
+    assert.doesNotMatch(cache['ve-PP'][key], /Kerran|päivässä|tunnissa|minuut|tunnin|välein/, key);
+  }
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

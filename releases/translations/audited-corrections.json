@@ -112775,5 +112775,54 @@
     "before": "Lukituksen kesto (sekuntia)",
     "after": "Saubatusen piduz' (sekundad)",
     "reason": "Replace Finnish time units and lockout-duration text with Veps. Native software reference https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests časud (rcfilters-days-show-hours), minutad (dberr-again), sekundad (timeouterror-text) and piduz' for length/duration. Lockout uses native saubatuz genitive saubatusen. Preserve seconds unit and duration meaning; composed duration label needs fluent review. Preserve existing Veps ZIP warning."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "every-1-day",
+    "before": "Kerran päivässä",
+    "after": "Kaikuččes 1 päiväs",
+    "reason": "Replace Finnish recurring interval labels with direct Veps compositions preserving every interval number/unit. Dictionary https://kaikki.org/dictionary/Veps/index.html confirms päiväs; VepKar corpus attests kaikuččes, minutas and časus (e.g. https://www.ruors.ru/en/corpus/text?page=47&search_lang%5B0%5D=1&search_text=S, https://artolela.krc.karelia.ru/en/corpus/text/70?page=145&search_lang%5B0%5D=1&search_text=T). LOW CONFIDENCE: composed every-N-unit frequency grammar needs fluent review. Scheduler values/behavior are unchanged."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "every-1-hour",
+    "before": "Kerran tunnissa",
+    "after": "Kaikuččes 1 časus",
+    "reason": "Replace Finnish recurring interval labels with direct Veps compositions preserving every interval number/unit. Dictionary https://kaikki.org/dictionary/Veps/index.html confirms päiväs; VepKar corpus attests kaikuččes, minutas and časus (e.g. https://www.ruors.ru/en/corpus/text?page=47&search_lang%5B0%5D=1&search_text=S, https://artolela.krc.karelia.ru/en/corpus/text/70?page=145&search_lang%5B0%5D=1&search_text=T). LOW CONFIDENCE: composed every-N-unit frequency grammar needs fluent review. Scheduler values/behavior are unchanged."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "every-1-minute",
+    "before": "Kerran minuutissa",
+    "after": "Kaikuččes 1 minutas",
+    "reason": "Replace Finnish recurring interval labels with direct Veps compositions preserving every interval number/unit. Dictionary https://kaikki.org/dictionary/Veps/index.html confirms päiväs; VepKar corpus attests kaikuččes, minutas and časus (e.g. https://www.ruors.ru/en/corpus/text?page=47&search_lang%5B0%5D=1&search_text=S, https://artolela.krc.karelia.ru/en/corpus/text/70?page=145&search_lang%5B0%5D=1&search_text=T). LOW CONFIDENCE: composed every-N-unit frequency grammar needs fluent review. Scheduler values/behavior are unchanged."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "every-10-minutes",
+    "before": "10 minuutin välein",
+    "after": "Kaikuččes 10 minutas",
+    "reason": "Replace Finnish recurring interval labels with direct Veps compositions preserving every interval number/unit. Dictionary https://kaikki.org/dictionary/Veps/index.html confirms päiväs; VepKar corpus attests kaikuččes, minutas and časus (e.g. https://www.ruors.ru/en/corpus/text?page=47&search_lang%5B0%5D=1&search_text=S, https://artolela.krc.karelia.ru/en/corpus/text/70?page=145&search_lang%5B0%5D=1&search_text=T). LOW CONFIDENCE: composed every-N-unit frequency grammar needs fluent review. Scheduler values/behavior are unchanged."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "every-30-minutes",
+    "before": "30 minuutin välein",
+    "after": "Kaikuččes 30 minutas",
+    "reason": "Replace Finnish recurring interval labels with direct Veps compositions preserving every interval number/unit. Dictionary https://kaikki.org/dictionary/Veps/index.html confirms päiväs; VepKar corpus attests kaikuččes, minutas and časus (e.g. https://www.ruors.ru/en/corpus/text?page=47&search_lang%5B0%5D=1&search_text=S, https://artolela.krc.karelia.ru/en/corpus/text/70?page=145&search_lang%5B0%5D=1&search_text=T). LOW CONFIDENCE: composed every-N-unit frequency grammar needs fluent review. Scheduler values/behavior are unchanged."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "every-5-minutes",
+    "before": "5 minuutin välein",
+    "after": "Kaikuččes 5 minutas",
+    "reason": "Replace Finnish recurring interval labels with direct Veps compositions preserving every interval number/unit. Dictionary https://kaikki.org/dictionary/Veps/index.html confirms päiväs; VepKar corpus attests kaikuččes, minutas and časus (e.g. https://www.ruors.ru/en/corpus/text?page=47&search_lang%5B0%5D=1&search_text=S, https://artolela.krc.karelia.ru/en/corpus/text/70?page=145&search_lang%5B0%5D=1&search_text=T). LOW CONFIDENCE: composed every-N-unit frequency grammar needs fluent review. Scheduler values/behavior are unchanged."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "every-6-hours",
+    "before": "6 tunnin välein",
+    "after": "Kaikuččes 6 časus",
+    "reason": "Replace Finnish recurring interval labels with direct Veps compositions preserving every interval number/unit. Dictionary https://kaikki.org/dictionary/Veps/index.html confirms päiväs; VepKar corpus attests kaikuččes, minutas and časus (e.g. https://www.ruors.ru/en/corpus/text?page=47&search_lang%5B0%5D=1&search_text=S, https://artolela.krc.karelia.ru/en/corpus/text/70?page=145&search_lang%5B0%5D=1&search_text=T). LOW CONFIDENCE: composed every-N-unit frequency grammar needs fluent review. Scheduler values/behavior are unchanged."
   }
 ]
