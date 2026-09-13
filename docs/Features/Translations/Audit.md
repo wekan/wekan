@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,096 |
+| Corrected | 15,097 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 748 |
+| Pending review or repair | 747 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,208** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,210** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `85de9ea7d` — replaced **two** unflagged Finnish zoom actions with distinct Veps dictionary-based increase/decrease labels. The actual handlers increase/decrease by 0.1 and preserve their 0.5–3.0 limits. All **17,208** exact correction/rendering checks pass, including placeholders, JSON, key order and human preference. The original queue remains at **748** pending findings, including **11** Veps findings; these repairs were outside it. **Low confidence:** technical zoom usage and imperative forms need fluent review. The zoom-level/range labels remain unresolved. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `bc84ca78b` — replaced **two** Finnish zoom-scale values, resolving **one** original finding and **one** unflagged label. Preserve the exact **50-300%** range and prompt punctuation. All **17,210** exact correction/rendering checks pass, including placeholders, JSON, key order and human preference. The original queue has **747** pending findings, including **10** Veps findings. **Low confidence:** the dictionary map-scale term’s adaptation to screen zoom and prompt inflection need fluent technical review; the previously repaired zoom directions also need fluent review. Live browser verification was not run; no translations were pushed.
 
 **Remaining validation:** all restored/unflagged values and low-confidence replacements remain open. Detailed per-key caveats are retained in the correction ledger and source commits. These include Veps composed UI, card, notification, calendar, timing, file/archive, metric and legal terminology/inflection; Neapolitan technical checklist usage; Fulah/Bambara calendar composition; and CLDR-provisional Ewe civil-calendar wording. Field sums, parent-card terminology, keyboard shortcuts, remaining migration/search messages and other calendar variants need further language research. Wrong-language/script and fluent-speaker checks remain unfinished.
 

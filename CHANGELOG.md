@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,096 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 748 pending review or repair.
-The correction inventory records 17,208 exact before/after values,
+findings: 15,097 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 747 pending review or repair.
+The correction inventory records 17,210 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original finding queues remain in Veps (11) and Standard Moroccan
+The largest original finding queues remain in Veps (10) and Standard Moroccan
 Tamazight (595). Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -100,8 +100,8 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 85de9ea7d (2026-09-14), replacing two unflagged Finnish
-zoom actions with distinct Veps increase/decrease terminology. The original Neapolitan queue is empty. All correction/rendering checks
+Latest translation fix is bc84ca78b (2026-09-14), replacing the Finnish zoom
+scale label and percentage prompt while preserving the 50-300% range. The original Neapolitan queue is empty. All correction/rendering checks
 pass; low-confidence technical terminology remains explicitly tracked.
 Member assignment popup handlers need separate review for apparent reversed
 operations. The 1,015-suite Node result is historical and predates the latest batches.
@@ -640,6 +640,17 @@ The audit records 749 pending original findings and wider unfinished validation.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bc84ca78b">Repair Veps zoom scale and range prompt</a>. Thanks to xet7.</summary>
+
+Replace two Finnish values with dictionary-based scale terminology and existing
+Veps prompt wording. Preserve the exact 50-300% range and punctuation.
+All 17,210 correction/rendering checks pass. Screen-zoom adaptation of the
+map-scale term and prompt inflection need fluent technical review; live browser
+verification was not run. Original pending findings decrease to 747.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/85de9ea7d">Repair Veps zoom directions</a>. Thanks to xet7.</summary>
