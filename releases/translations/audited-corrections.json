@@ -67506,5 +67506,89 @@
     "before": "Auto-complétion des participants",
     "after": "Klokaat an izili ent emgefre",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "shortcut-close-dialog",
+    "before": "Fermer la boîte de dialogue",
+    "after": "Serriñ ar voest emziviz",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "shortcut-filter-my-assigned-cards",
+    "before": "Filtrer mes cartes assignées",
+    "after": "Silañ ar c’hartennoù deverket din",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "shortcut-show-shortcuts",
+    "before": "Afficher cette liste de raccourcis",
+    "after": "Diskouez ar roll berradennoù-mañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "shortcut-toggle-filterbar",
+    "before": "Afficher/Masquer la barre latérale des filtres",
+    "after": "Diskouez/kuzhat barrenn gostez ar siloù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "shortcut-toggle-searchbar",
+    "before": "Afficher/Masquer la barre latérale de recherche",
+    "after": "Diskouez/kuzhat barrenn gostez an enklask",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "show-at-all-boards-page",
+    "before": "Afficher sur la page de tous les tableaux",
+    "after": "Diskouez war pajenn an holl daolennoù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "show-card-counter-per-list",
+    "before": "Afficher le nombre de cartes par liste",
+    "after": "Diskouez an niver a gartennoù dre roll",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "show-cards-minimum-count",
+    "before": "Afficher le nombre de cartes si la liste en contient plus de",
+    "after": "Diskouez an niver a gartennoù ma’z eus er roll muioc’h eget",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "show-desktop-drag-handles",
+    "before": "Voir les poignées de déplacement du bureau",
+    "after": "Diskouez an dornelloù riklañ er mod burev",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "show-field-on-card",
+    "before": "Afficher ce champ sur la carte",
+    "after": "Diskouez ar maezienn-mañ war ar gartenn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "show-list-on-minicard",
+    "before": "Afficher la liste sur la mini-carte",
+    "after": "Diskouez ar roll war ar gartennig",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "show-on-minicard",
+    "before": "Afficher sur la minicarte",
+    "after": "Diskouez war ar gartennig",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
