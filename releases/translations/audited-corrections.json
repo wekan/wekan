@@ -108890,5 +108890,180 @@
     "before": "Impostazioni per utenti sconosciuti (nome utente inesistente)",
     "after": "Inpostasion par utenti sconosùi (nome utente che no el esiste)",
     "reason": "Replace Italian account-control text with Venetian, preserving known/unknown user distinctions and lockout protection. Direct low-confidence wording; fluent-speaker validation outstanding. Venetian orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-addAttachment",
+    "before": "Aggiunto allegato __attachment__ alla scheda __card__ della lista __list__ della swimlane __swimlane__  nella bacheca __board__",
+    "after": "zontà el file łigà __attachment__ a ła scheda __card__ inte ła lista __list__ inte ła corsia __swimlane__ del quadro __board__",
+    "reason": "Replace Italian-seeded activity messages with Venetian; retain event actions, source/destination hierarchy and all placeholders. Low-confidence kanban terminology; fluent-speaker validation outstanding. Orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-addBoardMember",
+    "before": "aggiunto membro __member__ alla bacheca __board__",
+    "after": "zontà el membro __member__ al quadro __board__",
+    "reason": "Replace Italian-seeded activity messages with Venetian; retain event actions, source/destination hierarchy and all placeholders. Low-confidence kanban terminology; fluent-speaker validation outstanding. Orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-addChecklistItem",
+    "before": "aggiunto elemento __checklistItem__ alla lista di controllo __checklist__ della scheda __card__ della lista __list__ della swimlane __swimlane__  nella bacheca __board__",
+    "after": "zontà ła voze __checklistItem__ a ła lista de controło __checklist__ de ła scheda __card__ inte ła lista __list__ inte ła corsia __swimlane__ del quadro __board__",
+    "reason": "Replace Italian-seeded activity messages with Venetian; retain event actions, source/destination hierarchy and all placeholders. Low-confidence kanban terminology; fluent-speaker validation outstanding. Orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-addComment",
+    "before": "commento sulla scheda __card__: __comment__ nella lista __list__ della swimlane __swimlane__ della bacheca __board__",
+    "after": "comentà ła scheda __card__: __comment__ inte ła lista __list__ inte ła corsia __swimlane__ del quadro __board__",
+    "reason": "Replace Italian-seeded activity messages with Venetian; retain event actions, source/destination hierarchy and all placeholders. Low-confidence kanban terminology; fluent-speaker validation outstanding. Orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-addLabel",
+    "before": "Aggiunta etichetta __label__ alla scheda __card__ della lista __list__ della swimlane __swimlane__  nella bacheca __board__",
+    "after": "zontà ła eticheta __label__ a ła scheda __card__ inte ła lista __list__ inte ła corsia __swimlane__ del quadro __board__",
+    "reason": "Replace Italian-seeded activity messages with Venetian; retain event actions, source/destination hierarchy and all placeholders. Low-confidence kanban terminology; fluent-speaker validation outstanding. Orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-addSubtask",
+    "before": "Aggiunto sottotask __subtask__ alla scheda __card__ della lista __list__ della swimlane __swimlane__  nella bacheca __board__",
+    "after": "zontà el sotocompito __subtask__ a ła scheda __card__ inte ła lista __list__ inte ła corsia __swimlane__ del quadro __board__",
+    "reason": "Replace Italian-seeded activity messages with Venetian; retain event actions, source/destination hierarchy and all placeholders. Low-confidence kanban terminology; fluent-speaker validation outstanding. Orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-addedLabel",
+    "before": "Aggiunta etichetta __label__ alla scheda __card__ della lista __list__ della swimlane __swimlane__  nella bacheca __board__",
+    "after": "zontà ła eticheta __label__ a ła scheda __card__ inte ła lista __list__ inte ła corsia __swimlane__ del quadro __board__",
+    "reason": "Replace Italian-seeded activity messages with Venetian; retain event actions, source/destination hierarchy and all placeholders. Low-confidence kanban terminology; fluent-speaker validation outstanding. Orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-archivedCard",
+    "before": "Scheda __card__ della lista __list__ della swimlane __swimlane__ della bacheca __board__ archiviata",
+    "after": "scheda __card__ inte ła lista __list__ inte ła corsia __swimlane__ del quadro __board__ spostà inte el archivio",
+    "reason": "Replace Italian-seeded activity messages with Venetian; retain event actions, source/destination hierarchy and all placeholders. Low-confidence kanban terminology; fluent-speaker validation outstanding. Orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-archivedList",
+    "before": "Lista __list__ della swimlane __swimlane__ della bacheca __board__ archiviata",
+    "after": "lista __list__ inte ła corsia __swimlane__ del quadro __board__ spostà inte el archivio",
+    "reason": "Replace Italian-seeded activity messages with Venetian; retain event actions, source/destination hierarchy and all placeholders. Low-confidence kanban terminology; fluent-speaker validation outstanding. Orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-archivedSwimlane",
+    "before": "Corsia __swimlane__ della bacheca __board__ archiviata",
+    "after": "corsia __swimlane__ del quadro __board__ spostà inte el archivio",
+    "reason": "Replace Italian-seeded activity messages with Venetian; retain event actions, source/destination hierarchy and all placeholders. Low-confidence kanban terminology; fluent-speaker validation outstanding. Orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-checkedItem",
+    "before": "attivato __checklistItem__ nella lista di controllo __checklist__ della scheda __card__ della lista __list__ della swimlane __swimlane__ nella bacheca __board__",
+    "after": "segnà ła voze __checklistItem__ de ła lista de controło __checklist__ de ła scheda __card__ inte ła lista __list__ inte ła corsia __swimlane__ del quadro __board__",
+    "reason": "Replace Italian-seeded activity messages with Venetian; retain event actions, source/destination hierarchy and all placeholders. Low-confidence kanban terminology; fluent-speaker validation outstanding. Orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-completeChecklist",
+    "before": "completata lista di controllo __checklist__  nella scheda __card__ della lista __list__ della swimlane __swimlane__ nella bacheca __board__",
+    "after": "finìo ła lista de controło __checklist__ de ła scheda __card__ inte ła lista __list__ inte ła corsia __swimlane__ del quadro __board__",
+    "reason": "Replace Italian-seeded activity messages with Venetian; retain event actions, source/destination hierarchy and all placeholders. Low-confidence kanban terminology; fluent-speaker validation outstanding. Orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-createCard",
+    "before": "scheda __card__ creata nella lista __list__ della swimlane __swimlane__ della bacheca __board__",
+    "after": "creà ła scheda __card__ inte ła lista __list__ inte ła corsia __swimlane__ del quadro __board__",
+    "reason": "Replace Italian-seeded activity messages with Venetian; retain event actions, source/destination hierarchy and all placeholders. Low-confidence kanban terminology; fluent-speaker validation outstanding. Orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-createList",
+    "before": "aggiunta lista __list__ alla bacheca __board__",
+    "after": "zontà ła lista __list__ al quadro __board__",
+    "reason": "Replace Italian-seeded activity messages with Venetian; retain event actions, source/destination hierarchy and all placeholders. Low-confidence kanban terminology; fluent-speaker validation outstanding. Orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-createSwimlane",
+    "before": "creata swimlane __swimlane__ alla bacheca __board__",
+    "after": "creà ła corsia __swimlane__ inte el quadro __board__",
+    "reason": "Replace Italian-seeded activity messages with Venetian; retain event actions, source/destination hierarchy and all placeholders. Low-confidence kanban terminology; fluent-speaker validation outstanding. Orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-deleteAttachment",
+    "before": "Eliminato allegato __attachment__ dalla scheda __card__ della lista __list__ della swimlane __swimlane__  nella bacheca __board__",
+    "after": "scancełà el file łigà __attachment__ de ła scheda __card__ inte ła lista __list__ inte ła corsia __swimlane__ del quadro __board__",
+    "reason": "Replace Italian-seeded activity messages with Venetian; retain event actions, source/destination hierarchy and all placeholders. Low-confidence kanban terminology; fluent-speaker validation outstanding. Orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-deleteComment",
+    "before": "commento eliminato sulla scheda __card__: __comment__ nella lista __list__ nella swim lane __swimlane__ nella bacheca __board__",
+    "after": "scancełà el comento de ła scheda __card__: __comment__ inte ła lista __list__ inte ła corsia __swimlane__ del quadro __board__",
+    "reason": "Replace Italian-seeded activity messages with Venetian; retain event actions, source/destination hierarchy and all placeholders. Low-confidence kanban terminology; fluent-speaker validation outstanding. Orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-editComment",
+    "before": "commento modificato sulla scheda __card__: __comment__ nella lista __list__ nella swim lane __swimlane__ nella bacheca __board__",
+    "after": "canbià el comento de ła scheda __card__: __comment__ inte ła lista __list__ inte ła corsia __swimlane__ del quadro __board__",
+    "reason": "Replace Italian-seeded activity messages with Venetian; retain event actions, source/destination hierarchy and all placeholders. Low-confidence kanban terminology; fluent-speaker validation outstanding. Orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-importCard",
+    "before": "scheda importata  __card__ nella lista __list__ della swimlane __swimlane__ della bacheca __board__",
+    "after": "inportà ła scheda __card__ inte ła lista __list__ inte ła corsia __swimlane__ del quadro __board__",
+    "reason": "Replace Italian-seeded activity messages with Venetian; retain event actions, source/destination hierarchy and all placeholders. Low-confidence kanban terminology; fluent-speaker validation outstanding. Orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-importList",
+    "before": "lista __list__ importata nella swimlane __swimlane__ della bacheca __board__",
+    "after": "inportà ła lista __list__ inte ła corsia __swimlane__ del quadro __board__",
+    "reason": "Replace Italian-seeded activity messages with Venetian; retain event actions, source/destination hierarchy and all placeholders. Low-confidence kanban terminology; fluent-speaker validation outstanding. Orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-joinMember",
+    "before": "aggiunto membro __member__  alla scheda __card__ della list __list__ nella swimlane __swimlane__ della bacheca __board__",
+    "after": "zontà el membro __member__ a ła scheda __card__ inte ła lista __list__ inte ła corsia __swimlane__ del quadro __board__",
+    "reason": "Replace Italian-seeded activity messages with Venetian; retain event actions, source/destination hierarchy and all placeholders. Low-confidence kanban terminology; fluent-speaker validation outstanding. Orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-moveCard",
+    "before": "spostata scheda __card__ della bacheca __board__ dalla lista __oldList__ della swimlane  __oldSwimlane__ alla lista __list__ della swimlane __swimlane__",
+    "after": "spostà ła scheda __card__ del quadro __board__ da ła lista __oldList__ inte ła corsia __oldSwimlane__ a ła lista __list__ inte ła corsia __swimlane__",
+    "reason": "Replace Italian-seeded activity messages with Venetian; retain event actions, source/destination hierarchy and all placeholders. Low-confidence kanban terminology; fluent-speaker validation outstanding. Orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-moveCardToOtherBoard",
+    "before": "postata scheda __card__ dalla lista __oldList__ della swimlane __oldSwimlane__ della bacheca __oldBoard__ alla lista __list__ nella swimlane __swimlane__ della bacheca __board__",
+    "after": "spostà ła scheda __card__ da ła lista __oldList__ inte ła corsia __oldSwimlane__ del quadro __oldBoard__ a ła lista __list__ inte ła corsia __swimlane__ del quadro __board__",
+    "reason": "Replace Italian-seeded activity messages with Venetian; retain event actions, source/destination hierarchy and all placeholders. Low-confidence kanban terminology; fluent-speaker validation outstanding. Orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-removeBoardMember",
+    "before": "rimosso membro __member__ dalla bacheca __board__",
+    "after": "cavà el membro __member__ dal quadro __board__",
+    "reason": "Replace Italian-seeded activity messages with Venetian; retain event actions, source/destination hierarchy and all placeholders. Low-confidence kanban terminology; fluent-speaker validation outstanding. Orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "act-removeChecklist",
+    "before": "rimossa lista di controllo __checklist__ dalla scheda __card__ della lista __list__ della swimlane __swimlane__  nella bacheca __board__",
+    "after": "cavà ła lista de controło __checklist__ da ła scheda __card__ inte ła lista __list__ inte ła corsia __swimlane__ del quadro __board__",
+    "reason": "Replace Italian-seeded activity messages with Venetian; retain event actions, source/destination hierarchy and all placeholders. Low-confidence kanban terminology; fluent-speaker validation outstanding. Orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
   }
 ]
