@@ -53828,5 +53828,19 @@
     "before": "Stai filtrando le schede su questa bacheca. Clicca qui per modificare il filtro,",
     "after": "Filtrezi cãrtsãli di aesta tabelã. Clicã aua ti s-alãxezi filtru.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "email-invite-register-text",
+    "before": "Gentile __user__,\n\n__inviter__ ti ha invitato a partecipare a questa bacheca kanban per collaborare.\n\nPer favore segui il collegamento qui sotto:\n__url__\n\nIl tuo codice di invito è: __icode__\n\nGrazie.",
+    "after": "Dragã __user__,\\n\\n__inviter__ ti invitã la unã tabelã kanban ti colaborari.\\n\\nTi pãrãcãlsescu s-urmeadzi ligãtura di ma njos:\\n__url__\\n\\nCodul a invitatsiei a ta easti: __icode__\\n\\nHaristo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "email-invite-text",
+    "before": "Caro __user__,\n\n__inviter__ ti ha invitato ad unirti alla bacheca \"__board__\" per collaborare.\n\nPer favore clicca sul link seguente:\n\n__url__\n\nGrazie.",
+    "after": "Dragã __user__,\\n\\n__inviter__ ti invitã s-intri tu tabela \"__board__\" ti colaborari.\\n\\nTi pãrãcãlsescu s-urmeadzi ligãtura di ma njos:\\n\\n__url__\\n\\nHaristo.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
