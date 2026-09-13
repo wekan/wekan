@@ -87,7 +87,7 @@ including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original finding queues remain in Veps (452) and Standard Moroccan
+The largest original finding queues remain in Veps (433) and Standard Moroccan
 Tamazight (595). Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -99,8 +99,10 @@ Transifex: the evidence includes 4,061 pulled changes and 16,020 additional
 local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
-changes are implemented in local commit 02383540a; translation repairs have resumed with SMTP/S3 fixes. Latest translation
-fix is 5cf370063; progress counts are updated above. Latest full Node verification: 1,014 suites, zero failures;
+changes are implemented in local commit 02383540a; translation repairs have resumed. Latest translation fix is 9889016d7,
+covering date activities and reminders; progress counts are updated above.
+All correction/rendering checks pass. Latest full Node verification before
+that batch: 1,015 suites, zero failures;
 the final mirror retry adjustment also passes its targeted regression.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
