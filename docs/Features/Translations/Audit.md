@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 8,198 |
+| Corrected | 8,210 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 175 |
-| Pending review or repair | 7,649 |
+| Pending review or repair | 7,637 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **8,271** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **8,283** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `a792756794f95e6dbb59d197dee5f5a4bed6b7cd` — nine Khmer calendar findings repaired across three locale tags, including the shared-file alias. **Four findings per Khmer tag remain**. National, astronomical and lunar-observation variants remain distinct. Specialized terminology needs native-speaker review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `9ff2d8cafcc829643499ca9180d4eac584c4e08a` — twelve Khmer diagnostic, filter and storage findings repaired across three locale tags; **no flagged Khmer findings remain**. Filter examples and escapes are preserved. Specialized wording needs native-speaker review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
