@@ -80071,5 +80071,61 @@
     "before": "'%s' n'est pas un opérateur",
     "after": "%s du operatëer",
     "reason": "Replace French search controls and operator errors with Wolof. Preserve Enter key name, positive integer requirement, expected number versus received value and all percent/underscore tokens. Distinguish debug predicate, existence check, sort, status and unknown operator. Technical vocabulary and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "filter-on-desc",
+    "before": "Vous êtes en train de filtrer les cartes sur ce tableau. Cliquez ici pour modifier les filtres.",
+    "after": "Yaa ngi fëltar karta yi ci tablo bii. Bësal fii ngir soppi fëltar bi.",
+    "reason": "Replace French filter controls with Wolof using existing Fëltar terminology. Preserve card-or-list scope, today/this-week/next-week due conditions, absent custom fields, archived lists and my assigned cards. Week/due adaptations and full grammar remain low confidence; advanced-filter syntax description remains pending."
+  },
+  {
+    "locale": "wo",
+    "key": "filter-cards",
+    "before": "Filtrer les cartes ou listes",
+    "after": "Fëltar karta yi walla limu yi",
+    "reason": "Replace French filter controls with Wolof using existing Fëltar terminology. Preserve card-or-list scope, today/this-week/next-week due conditions, absent custom fields, archived lists and my assigned cards. Week/due adaptations and full grammar remain low confidence; advanced-filter syntax description remains pending."
+  },
+  {
+    "locale": "wo",
+    "key": "filter-due-next-week",
+    "before": "Arrive à échéance semaine prochaine",
+    "after": "War na jeex ci ayu-bés bi di ñëw",
+    "reason": "Replace French filter controls with Wolof using existing Fëltar terminology. Preserve card-or-list scope, today/this-week/next-week due conditions, absent custom fields, archived lists and my assigned cards. Week/due adaptations and full grammar remain low confidence; advanced-filter syntax description remains pending."
+  },
+  {
+    "locale": "wo",
+    "key": "filter-due-this-week",
+    "before": "Arrive à échéance cette semaine",
+    "after": "War na jeex ci ayu-bés bii",
+    "reason": "Replace French filter controls with Wolof using existing Fëltar terminology. Preserve card-or-list scope, today/this-week/next-week due conditions, absent custom fields, archived lists and my assigned cards. Week/due adaptations and full grammar remain low confidence; advanced-filter syntax description remains pending."
+  },
+  {
+    "locale": "wo",
+    "key": "filter-due-today",
+    "before": "Arrive à échéance aujourd'hui",
+    "after": "War na jeex tey",
+    "reason": "Replace French filter controls with Wolof using existing Fëltar terminology. Preserve card-or-list scope, today/this-week/next-week due conditions, absent custom fields, archived lists and my assigned cards. Week/due adaptations and full grammar remain low confidence; advanced-filter syntax description remains pending."
+  },
+  {
+    "locale": "wo",
+    "key": "filter-no-custom-fields",
+    "before": "Pas de champs personnalisés",
+    "after": "Amul wàll yu dugal yu ñu def ci soxla",
+    "reason": "Replace French filter controls with Wolof using existing Fëltar terminology. Preserve card-or-list scope, today/this-week/next-week due conditions, absent custom fields, archived lists and my assigned cards. Week/due adaptations and full grammar remain low confidence; advanced-filter syntax description remains pending."
+  },
+  {
+    "locale": "wo",
+    "key": "filter-show-archive",
+    "before": "Montrer les listes archivées",
+    "after": "Wone limu yi ci àrsiw bi",
+    "reason": "Replace French filter controls with Wolof using existing Fëltar terminology. Preserve card-or-list scope, today/this-week/next-week due conditions, absent custom fields, archived lists and my assigned cards. Week/due adaptations and full grammar remain low confidence; advanced-filter syntax description remains pending."
+  },
+  {
+    "locale": "wo",
+    "key": "shortcut-filter-my-assigned-cards",
+    "before": "Filtrer mes cartes assignées",
+    "after": "Fëltar karta yi ñu ma sas",
+    "reason": "Replace French filter controls with Wolof using existing Fëltar terminology. Preserve card-or-list scope, today/this-week/next-week due conditions, absent custom fields, archived lists and my assigned cards. Week/due adaptations and full grammar remain low confidence; advanced-filter syntax description remains pending."
   }
 ]
