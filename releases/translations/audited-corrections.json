@@ -72014,5 +72014,47 @@
     "before": "Dhaba Baraa ISO-8601",
     "after": "Dhaha Baraa ISO-8601",
     "reason": "Replace foreign calendar wording using existing Oromo Dhaha Baraa terminology; country names supported by Oromo educational and government texts: https://education.mn.gov/mdeprod/idcplg?IdcService=GET_FILE&Rendition=primary&RevisionSelectionMethod=latestReleased&dDocName=MDE085563 . Correct ISO label typo; full grammar remains subject to native review."
+  },
+  {
+    "locale": "om",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Dhaha Baraa Jalali (Faaris)",
+    "reason": "Use existing Oromo Dhaha Baraa terminology and preserve calendar proper names. Hijraa is attested in government publication https://www.oromiacommunication.gov.et/pages/Kallacha%20Oromiyaa%20Bara%2031%20Lakk.%2022.pdf ; Ibrootaa in publisher https://www.jw.org/om/laayibrarii/Viidiyoo/Viidiyoowwan-Kitaabota-Kitaaba-Qulqulluu-Beeksisan/kitaaba-ibrootaa/ ; Faaris in Oromo text https://iiit.org/wp-content/uploads/%D8%B1%D9%88%D8%AD-%D8%A7%D9%84%D8%AD%D8%B6%D8%A7%D8%B1%D8%A9-%D8%A7%D9%84%D8%A5%D8%B3%D9%84%D8%A7%D9%85%D9%8A%D8%A9-AO-w.pdf . Full calendar-label grammar still needs native review."
+  },
+  {
+    "locale": "om",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Dhaha Baraa Itoophiyaa Amete Alem",
+    "reason": "Use existing Oromo Dhaha Baraa terminology and preserve calendar proper names. Hijraa is attested in government publication https://www.oromiacommunication.gov.et/pages/Kallacha%20Oromiyaa%20Bara%2031%20Lakk.%2022.pdf ; Ibrootaa in publisher https://www.jw.org/om/laayibrarii/Viidiyoo/Viidiyoowwan-Kitaabota-Kitaaba-Qulqulluu-Beeksisan/kitaaba-ibrootaa/ ; Faaris in Oromo text https://iiit.org/wp-content/uploads/%D8%B1%D9%88%D8%AD-%D8%A7%D9%84%D8%AD%D8%B6%D8%A7%D8%B1%D8%A9-%D8%A7%D9%84%D8%A5%D8%B3%D9%84%D8%A7%D9%85%D9%8A%D8%A9-AO-w.pdf . Full calendar-label grammar still needs native review."
+  },
+  {
+    "locale": "om",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Dhaha Baraa Ibrootaa",
+    "reason": "Use existing Oromo Dhaha Baraa terminology and preserve calendar proper names. Hijraa is attested in government publication https://www.oromiacommunication.gov.et/pages/Kallacha%20Oromiyaa%20Bara%2031%20Lakk.%2022.pdf ; Ibrootaa in publisher https://www.jw.org/om/laayibrarii/Viidiyoo/Viidiyoowwan-Kitaabota-Kitaaba-Qulqulluu-Beeksisan/kitaaba-ibrootaa/ ; Faaris in Oromo text https://iiit.org/wp-content/uploads/%D8%B1%D9%88%D8%AD-%D8%A7%D9%84%D8%AD%D8%B6%D8%A7%D8%B1%D8%A9-%D8%A7%D9%84%D8%A5%D8%B3%D9%84%D8%A7%D9%85%D9%8A%D8%A9-AO-w.pdf . Full calendar-label grammar still needs native review."
+  },
+  {
+    "locale": "om",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Dhaha Baraa Hijraa",
+    "reason": "Use existing Oromo Dhaha Baraa terminology and preserve calendar proper names. Hijraa is attested in government publication https://www.oromiacommunication.gov.et/pages/Kallacha%20Oromiyaa%20Bara%2031%20Lakk.%2022.pdf ; Ibrootaa in publisher https://www.jw.org/om/laayibrarii/Viidiyoo/Viidiyoowwan-Kitaabota-Kitaaba-Qulqulluu-Beeksisan/kitaaba-ibrootaa/ ; Faaris in Oromo text https://iiit.org/wp-content/uploads/%D8%B1%D9%88%D8%AD-%D8%A7%D9%84%D8%AD%D8%B6%D8%A7%D8%B1%D8%A9-%D8%A7%D9%84%D8%A5%D8%B3%D9%84%D8%A7%D9%85%D9%8A%D8%A9-AO-w.pdf . Full calendar-label grammar still needs native review."
+  },
+  {
+    "locale": "om",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Dhaha Baraa Hijraa (Umm al-Qura)",
+    "reason": "Use existing Oromo Dhaha Baraa terminology and preserve calendar proper names. Hijraa is attested in government publication https://www.oromiacommunication.gov.et/pages/Kallacha%20Oromiyaa%20Bara%2031%20Lakk.%2022.pdf ; Ibrootaa in publisher https://www.jw.org/om/laayibrarii/Viidiyoo/Viidiyoowwan-Kitaabota-Kitaaba-Qulqulluu-Beeksisan/kitaaba-ibrootaa/ ; Faaris in Oromo text https://iiit.org/wp-content/uploads/%D8%B1%D9%88%D8%AD-%D8%A7%D9%84%D8%AD%D8%B6%D8%A7%D8%B1%D8%A9-%D8%A7%D9%84%D8%A5%D8%B3%D9%84%D8%A7%D9%85%D9%8A%D8%A9-AO-w.pdf . Full calendar-label grammar still needs native review."
+  },
+  {
+    "locale": "om",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Dhaha Baraa Minguo",
+    "reason": "Use existing Oromo Dhaha Baraa terminology and preserve calendar proper names. Hijraa is attested in government publication https://www.oromiacommunication.gov.et/pages/Kallacha%20Oromiyaa%20Bara%2031%20Lakk.%2022.pdf ; Ibrootaa in publisher https://www.jw.org/om/laayibrarii/Viidiyoo/Viidiyoowwan-Kitaabota-Kitaaba-Qulqulluu-Beeksisan/kitaaba-ibrootaa/ ; Faaris in Oromo text https://iiit.org/wp-content/uploads/%D8%B1%D9%88%D8%AD-%D8%A7%D9%84%D8%AD%D8%B6%D8%A7%D8%B1%D8%A9-%D8%A7%D9%84%D8%A5%D8%B3%D9%84%D8%A7%D9%85%D9%8A%D8%A9-AO-w.pdf . Full calendar-label grammar still needs native review."
   }
 ]
