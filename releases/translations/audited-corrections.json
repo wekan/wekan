@@ -83711,5 +83711,26 @@
     "before": "Islamic",
     "after": "Kalandriye Hijri",
     "reason": "Replace English calendar adjectives with descriptive Wolof calendar framing and country/proper names; restore Hijri rather than broad Islamic label. Country-name spellings, calendar loanword and complete grammar remain low confidence; religious/epoch variants remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Kalandriye Hijri (waññ ak tablo, bisu tambali bu siwil)",
+    "reason": "Replace English Hijri variant labels with descriptive Wolof; retain tabular calculation, civil versus astronomical epoch as starting-date distinction and Saudi Arabia moon sighting. Civil/astronomical technical adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Kalandriye Hijri (waññ ak tablo, bisu tambali bu saytu asamaan)",
+    "reason": "Replace English Hijri variant labels with descriptive Wolof; retain tabular calculation, civil versus astronomical epoch as starting-date distinction and Saudi Arabia moon sighting. Civil/astronomical technical adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Kalandriye Hijri (Saudi Arabia, gis weer wi)",
+    "reason": "Replace English Hijri variant labels with descriptive Wolof; retain tabular calculation, civil versus astronomical epoch as starting-date distinction and Saudi Arabia moon sighting. Civil/astronomical technical adaptations and full grammar remain low confidence."
   }
 ]
