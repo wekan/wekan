@@ -104011,5 +104011,75 @@
     "before": "Awunawo amakhadi anezinsuku eziwumnqamulajuqu okwamanje.",
     "after": "Zwino a ni na makhadi a re na maḓuvha a u fhedza mushumo.",
     "reason": "Replace Zulu-seeded interface prose directly with Tshivenda; preserve source placeholders, permanent-loss warnings and both empty-list deletion conditions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "dueCards-noResults-title",
+    "before": "Awekho Amakhadi Okufanele Atholwe",
+    "after": "A hu ngo wanala makhadi a re na maḓuvha a u fhedza mushumo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source invitation placeholders, line breaks, permission boundaries and emphasis. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "dueCardsViewChange-choice-all-description",
+    "before": "Ibonisa wonke amakhadi angaphelele anedethi *Yomnqamulajuqu* evela emabhodini lapho umsebenzisi anemvume yawo.",
+    "after": "I sumbedza makhadi oṱhe a sa athu fhedzwa a re na ḓuvha ḽa *u fhedza mushumo* kha bodo dza Kanban dzine mushumisi a vha na thendelo yadzo.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source invitation placeholders, line breaks, permission boundaries and emphasis. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "email-invite-register-text",
+    "before": "Sawubona __user__,\n\n__inviter__ ukumema ebhodini le-kanban ukuze uthole ukusebenzisana.\n\nSicela ulandele isixhumanisi esingezansi:\n__url__\n\nFuthi ikhodi yakho yesimemo ithi: __icode__\n\nNgiyabonga.",
+    "after": "__user__ a funwaho,\n\n__inviter__ u khou ni ramba kha bodo ya Kanban u shumisana.\n\nTevhelani ḽinki i re afho fhasi:\n__url__\n\nKhoudu ya thambo yaṋu ndi: __icode__\n\nRo livhuwa.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source invitation placeholders, line breaks, permission boundaries and emphasis. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "email-invite-text",
+    "before": "Sawubona __user__,\n\nU-__inviter__ ukumema ukuthi ujoyine ibhodi \"__board__\" ukuze uthole ukusebenzisana.\n\nSicela ulandele isixhumanisi esingezansi:\n\n__url__\n\nNgiyabonga.",
+    "after": "__user__ a funwaho,\n\n__inviter__ u khou ni ramba u dzhena kha bodo ya Kanban \"__board__\" u shumisana.\n\nTevhelani ḽinki i re afho fhasi:\n\n__url__\n\nRo livhuwa.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source invitation placeholders, line breaks, permission boundaries and emphasis. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "export-card-attachment-image-previews",
+    "before": "Ukuhlola Kuqala Kwezithombe",
+    "after": "U vhona zwifanyiso hu sa athu bveledzwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source invitation placeholders, line breaks, permission boundaries and emphasis. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "export-card-details",
+    "before": "Imininingwane yekhadi (ikhadi ngalinye njengasekuthumeleni kwekhadi)",
+    "after": "Zwidodombedzwa zwa khadi (khadi ḽiṅwe na ḽiṅwe sa kha u bvisa khadi)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source invitation placeholders, line breaks, permission boundaries and emphasis. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "export-card-field-board-info",
+    "before": "Ulwazi Lwebhodi (Ibhodi, Uhlu, I-Swimlane)",
+    "after": "Mafhungo a bodo ya Kanban (bodo, mutevhe, ḽaini)",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source invitation placeholders, line breaks, permission boundaries and emphasis. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "filesystem-attachments",
+    "before": "Okunamathiselwe kwi-Filesystem",
+    "after": "Ṱumetshedzo dza sisiteme ya faela",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source invitation placeholders, line breaks, permission boundaries and emphasis. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "filter-cards",
+    "before": "Hlunga Amakhadi noma Uhlu",
+    "after": "Ṱalulani makhadi kana mitevhe",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source invitation placeholders, line breaks, permission boundaries and emphasis. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "filter-on-desc",
+    "before": "Uhlunga amakhadi kuleli bhodi. Chofoza lapha ukuze uhlele isihlungi.",
+    "after": "Ni khou ṱalula makhadi kha bodo iyi ya Kanban. Kiḽikani afha u shandula tsha u ṱalula.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source invitation placeholders, line breaks, permission boundaries and emphasis. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
