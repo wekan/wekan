@@ -86147,5 +86147,12 @@
     "before": "Islamic Umm al-Qura",
     "after": "Hijri ཟླ་ཐོ (Umm al-Qura)",
     "reason": "Replace English Islamic descriptors using source calendar identifier Hijri and Dzongkha calendar term ཟླ་ཐོ from https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/dz.xml . Preserve Umm al-Qura proper identifier. Do not treat ambiguous Muslim/Kashmir dictionary term as an attested calendar name. Assembled labels remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "dz",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "ཧེ་བྲུ་ཟླ་ཐོ",
+    "reason": "Replace English Hebrew label with Dzongkha ཧེ་བྲུ་ཟླ་ཐོ. Hebrew name is attested in language/script/numeral entries and calendar term ཟླ་ཐོ in https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/dz.xml . Assembled full calendar label remains low confidence; component evidence does not verify full phrase or native grammar."
   }
 ]
