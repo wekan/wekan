@@ -67842,5 +67842,75 @@
     "before": "La suppression est définitive. Vous perdrez toutes les actions associées à ce vote.",
     "after": "Peurbad eo an dilemel. Koll a reot an holl oberoù stag ouzh ar vot-mañ.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "warn-list-archived",
+    "before": "attention : cette carte est dans une liste archivée",
+    "after": "Diwallit: er roll dielloù emañ roll ar gartenn-mañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "webhook-token",
+    "before": "Jeton (optionnel pour l'authentification)",
+    "after": "Jetouer (diret evit an dilesadur)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "wipLimitErrorPopup-dialog-pt1",
+    "before": "Le nombre de cartes de cette liste est supérieur à la limite WIP que vous avez définie.",
+    "after": "Brasoc’h eo an niver a drevelloù er roll-mañ eget ar vevenn WIP hoc’h eus lakaet.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "advanced-filter-description",
+    "before": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A space is used as a separator between the Operators. You can filter for all Custom Fields by typing their names and values. For Example: Field1 == Value1. Note: If fields or values contains spaces, you need to encapsulate them into single quotes. For Example: 'Field 1' == 'Value 1'. For single control characters (' \\\\/) to be skipped, you can use \\\\. For example: Field1 == I\\\\'m. Also you can combine multiple conditions. For Example: F1 == V1 || F1 == V2. Normally all operators are interpreted from left to right. You can change the order by placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also you can search text fields using regex: F1 == /Tes.*/i",
+    "after": "Ar sil araokaet a aotre skrivañ ur chadenn gant an oberataerioù-mañ: == != <= >= && || ( ) Implijet e vez ur spas da zispartiañ an oberataerioù. Gallout a rit silañ an holl vaeziennoù personelaet en ur skrivañ o anvioù hag o zalvoudoù. Da skouer: Field1 == Value1. Notenn: ma vez spasoù er maeziennoù pe en talvoudoù, lakait anezho etre daouaskoù eeun. Da skouer: 'Field 1' == 'Value 1'. Evit tec'hout an arouezennoù kontroll eeun (' \\/), gallout a rit implijout \\. Da skouer: Field1 == I\\'m. Gallout a rit ivez kevrediñ meur a amplegad. Da skouer: F1 == V1 || F1 == V2. Dre ziouer e vez lennet an holl oberataerioù eus an tu kleiz d'an tu dehou. Gallout a rit kemmañ an urzh gant krommelloù. Da skouer: F1 == V1 && ( F2 == V2 || F2 == V3 ). Gallout a rit ivez enklask er maeziennoù testenn gant ur riñvenn reoliek: F1 == /Tes.*/i",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "import-board-instruction-trello",
+    "before": "In your Trello board, go to 'Menu', then 'More', 'Print and Export', 'Export JSON', and copy the resulting text",
+    "after": "En ho taolenn Trello, kit da « Menu », goude da « More », « Print and Export », « Export JSON », hag eilit an destenn a zeu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Deiziadur Hijri",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Deiziadur Hijri (taolennet, derou sivil)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Deiziadur Hijri (Arabia Saoudat, arsellerezh al loar)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Deiziadur Hijri (taolennet, derou steredoniel)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Deiziadur Hijri (Umm al-Qura)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
