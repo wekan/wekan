@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,846 |
+| Corrected | 11,850 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,000 |
+| Pending review or repair | 3,996 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,230** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,235** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `d59b9565640ba292ae4ff971d2f4ff18752e1dc3` — Tibetan Buddhist calendar label repaired using published Buddhist vocabulary/genitive wording and existing calendar terminology. Complete adapted label remains low confidence; other religious and Hijri variants still need review. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `9d8830fa3da891805e92043b627e4bd329d2ae18` — 5 Buryat labels repaired: calendar noun, Dangi, Hijri/Umm al-Qura and Minguo. Published Buryat newspaper wording supports литэ; retained name transliterations and adapted label grammar remain low confidence. Setting, religious/country and Hijri variants still need review. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
