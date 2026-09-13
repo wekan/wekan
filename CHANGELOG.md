@@ -82,10 +82,10 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 13,227 corrected, 4,058 restored pre-pull values awaiting
 validation, 178 reviewed and retained, and 2,618 pending review or repair.
-The correction inventory records 14,558 exact before/after values across
+The correction inventory records 14,608 exact before/after values across
 201 locale identifiers, including repairs outside the original findings.
-All 361 originally flagged Klingon findings are repaired. Another 176
-German-identical Klingon values need individual review after 653 further
+All 361 originally flagged Klingon findings are repaired. Another 126
+German-identical Klingon values need individual review after 703 further
 repairs; technical names and
 formats are not presumed wrong. Other substantial queues remain in Venda and regional
 locale files and Tamazight. Silesian database terminology and 17 Tigre
@@ -3148,6 +3148,17 @@ Set executable permissions on `releases/apt-install.sh`,
 `releases/npm-retry.sh` so maintainers can invoke them directly. Script contents
 are unchanged. Bash syntax checks and the eight npm retry and six Fossil
 regression checks pass. This permission change has no application UI behavior.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/69e4d836c">Update existing Fossil repositories incrementally</a>. Thanks to xet7.</summary>
+
+Running `releases/fossil.sh` again adds new Git commits to the existing local
+repository with `--incremental`, without force overwrite or required marks files.
+A real Fossil 2.28 regression verifies retained history, new commits and no
+duplicates on repeated runs. Failure, namespace and Bash syntax checks pass.
+The Fossil guide documents repeat exports and invalid interrupted repositories.
 
 </details>
 
