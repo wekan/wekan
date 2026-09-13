@@ -49446,5 +49446,89 @@
     "before": "Associa a un utent esistente",
     "after": "Attribuir ad in utilisader existent",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "mark-all-as-unread",
+    "before": "Segna tutto come no letto",
+    "after": "Marcar tut sco betg legì",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "max-avatar-filesize",
+    "before": "Max dimenscion di ciaria sumento dell'avatar in byte.",
+    "after": "Grondezza maximala da la datoteca d’avatar en bytes:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "migrate-all-to-filesystem",
+    "before": "Migra tutto sul filesystem",
+    "after": "Migrar tut en il sistem da datotecas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "migration-batch-size-description",
+    "before": "Numero di injuntes da elaborare in ogni batch (1-100)",
+    "after": "Dumber da las agiuntas da tractar en mintga gruppa (1-100)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "migration-delay-ms-description",
+    "before": "Ritardo tra i batch in millisecuntes (100-10000)",
+    "after": "Temp da spetga tranter las gruppas en millisecundas (100-10000)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "migration-not-needed",
+    "before": "Deguna migrazion necessaria",
+    "after": "Nagina migraziun necessaria",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "migration-pause-failed",
+    "before": "Impossibile mettere in pausa le migrazions",
+    "after": "Impussibel da metter las migraziuns en pausa",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "migration-paused",
+    "before": "Migrazions messe in pausa cun successo",
+    "after": "Migraziuns messas en pausa cun success",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "migration-resume-failed",
+    "before": "Impossibile riprendere la migrazion",
+    "after": "Impussibel da cuntinuar la migraziun",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "migration-start-failed",
+    "before": "Impossibile avviare le migrazions",
+    "after": "Impussibel da cumenzar las migraziuns",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "migration-started",
+    "before": "Migrazions avviate cun successo",
+    "after": "Migraziuns cumenzadas cun success",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "migration-stop-failed",
+    "before": "Impossibile arrestare le migrazions",
+    "after": "Impussibel da fermar las migraziuns",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
