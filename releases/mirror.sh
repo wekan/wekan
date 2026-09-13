@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Mirror changes from https://github.com/wekan/wekan to
+# GitLab, Codeberg and SourceForge.
+# Not to Bitbucket, it has Unauthorized errors.
+
 set -euo pipefail
 
 # Resolve the checkout from this script instead of assuming Linux's ~/repos path.
@@ -29,19 +33,23 @@ mirror() {
   git -C "$mirror_dir" push
 }
 
+# WeKan repo mirrors
+
+# GitLab
 # https://gitlab.com/wekan/wekan
 mirror "gitlab" "git@gitlab.com:wekan/wekan"
 
+# Bitbucket: Unauthorized error often, so not in use.
 # https://bitbucket.org/wekan/wekan
 # https://bitbucket.org/wekan/wekan/src/main/
 # Workspaces: https://bitbucket.org/account/workspaces/
-mirror "bitbucket" "git@bitbucket.org:wekan/wekan.git"
+#mirror "bitbucket" "git@bitbucket.org:wekan/wekan.git"
 
+# Codeberg:
 # https://codeberg.org/wekan/wekan
 mirror "codeberg" "git@codeberg.org:wekan/wekan"
 
-# SourceForge
+# SourceForge:
 # https://sourceforge.net/projects/wekan/
 # git clone ssh://wekan@git.code.sf.net/p/wekan/code wekan-sourceforge
 mirror "sourceforge" "wekan@git.code.sf.net/p/wekan/code"
-
