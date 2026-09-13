@@ -49817,5 +49817,110 @@
     "before": "elemento1,elemento2,elemento3",
     "after": "element1,element2,element3",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "r-schedule-weekday",
+    "before": "Ogni dé feriale (Lun–Ven)",
+    "after": "Mintga di da lavur (glindesdi–venderdi)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "r-set-date-relative",
+    "before": "Imposta data relativa ad adesso",
+    "after": "Definir la data relativamain al mument actual",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "r-w-checklist-added",
+    "before": "Viene ajontada una checklist",
+    "after": "Ina glista da controlla vegn agiuntada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "r-w-label-added",
+    "before": "Viene ajontada una qualsiasi eticheta",
+    "after": "In’etichetta vegn agiuntada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "r-w-label-removed",
+    "before": "Viene rimossa una qualsiasi eticheta",
+    "after": "In’etichetta vegn allontanada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "r-w-set-received-now",
+    "before": "Imposta la data di ricezione ad adesso",
+    "after": "Definir la data da recepziun sco il mument actual",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "r-when-scheduled",
+    "before": "Secondo una pianificazion",
+    "after": "Tenor in urari",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "read-assigned-only-desc",
+    "before": "Sono visibili mé le ciartes assegnate. No può mudare.",
+    "after": "Mo las cartas attribuidas èn visiblas. Modifitgar n’è betg pussaivel.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "recovery-no-events",
+    "before": "Nessun evento di ripristino registrato. Il banca dac ie integro.",
+    "after": "Nagins eveniments da restauraziun registrads. La banca da datas è en urden.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "remove-background-image",
+    "before": "Rimuovere immagine di sfondo",
+    "after": "Allontanar il maletg da fund",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "remove-cover",
+    "before": "Rimuovere immagine di copertina da minicard",
+    "after": "Allontanar il maletg da cuverta da la minicarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "remove-labels-multiselect",
+    "before": "La multi-selezione rimuove le etichetes 1-9",
+    "after": "La selecziun multipla allontanescha las etichettas 1-9",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "repair-broken-cards",
+    "before": "Ripara le ciartes danneggiate",
+    "after": "Reparar las cartas donnegiadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "s3-access-key-placeholder",
+    "before": "Inserisci l'access key S3",
+    "after": "Endateschar la clav d’access S3",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rm",
+    "key": "s3-region-description",
+    "before": "Regione AWS S3 (es. us-east-1)",
+    "after": "Regiun AWS S3 (p.ex. us-east-1)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
