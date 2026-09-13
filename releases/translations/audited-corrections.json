@@ -110752,5 +110752,89 @@
     "before": "Vista schede con scadenza",
     "after": "Vista de łe schede co scadensa",
     "reason": "Replace Italian-seeded Venetian settings and warning text; preserve default 27, linked-card deletion prerequisites, organization membership guard, irreversible deletion and permitted incomplete due-card scope. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "dueCardsViewChangePopup-title",
+    "before": "Vista schede con scadenza",
+    "after": "Vista de łe schede co scadensa",
+    "reason": "Replace Italian-seeded Venetian mail and date messages; preserve reset/verify/enroll distinctions, URL/user/site placeholders and email line breaks. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "duenow",
+    "before": "la data di scadenza attuale %s è oggi",
+    "after": "ła scadensa corente %s ła xe ancuo",
+    "reason": "Replace Italian-seeded Venetian mail and date messages; preserve reset/verify/enroll distinctions, URL/user/site placeholders and email line breaks. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "editTranslationPopup-title",
+    "before": "Modificare stringa di traduzione personalizzata",
+    "after": "Canbia ła stringa de tradusion personałizà",
+    "reason": "Replace Italian-seeded Venetian mail and date messages; preserve reset/verify/enroll distinctions, URL/user/site placeholders and email line breaks. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "editVoteEndDatePopup-title",
+    "before": "Cambia data di termine voto",
+    "after": "Canbia ła data de fine del voto",
+    "reason": "Replace Italian-seeded Venetian mail and date messages; preserve reset/verify/enroll distinctions, URL/user/site placeholders and email line breaks. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "email-enrollAccount-subject",
+    "before": "Creato un account per te su __siteName__",
+    "after": "Un conto creà par ti so __siteName__",
+    "reason": "Replace Italian-seeded Venetian mail and date messages; preserve reset/verify/enroll distinctions, URL/user/site placeholders and email line breaks. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "email-enrollAccount-text",
+    "before": "Ciao __user__,\n\nPer iniziare ad utilizzare il servizio, clicca sul link seguente:\n\n__url__\n\nGrazie.",
+    "after": "Ciao __user__,\n\nPar scominsiar a doparar el servisio, clica el łigamento qua soto.\n\n__url__\n\nGrasie.",
+    "reason": "Replace Italian-seeded Venetian mail and date messages; preserve reset/verify/enroll distinctions, URL/user/site placeholders and email line breaks. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "email-fail-text",
+    "before": "Errore nel tentativo di invio email",
+    "after": "Eror tentando de mandar ła email",
+    "reason": "Replace Italian-seeded Venetian mail and date messages; preserve reset/verify/enroll distinctions, URL/user/site placeholders and email line breaks. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "email-resetPassword-subject",
+    "before": "Ripristina la tua password su on __siteName__",
+    "after": "Reinposta ła to password so __siteName__",
+    "reason": "Replace Italian-seeded Venetian mail and date messages; preserve reset/verify/enroll distinctions, URL/user/site placeholders and email line breaks. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "email-resetPassword-text",
+    "before": "Ciao __user__,\n\nPer ripristinare la tua password, clicca sul link seguente:\n\n__url__\n\nGrazie.",
+    "after": "Ciao __user__,\n\nPar reinpostar ła to password, clica el łigamento qua soto.\n\n__url__\n\nGrasie.",
+    "reason": "Replace Italian-seeded Venetian mail and date messages; preserve reset/verify/enroll distinctions, URL/user/site placeholders and email line breaks. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "email-smtp-test-text",
+    "before": "E-mail inviata correttamente",
+    "after": "Te gà mandà na email co suceso",
+    "reason": "Replace Italian-seeded Venetian mail and date messages; preserve reset/verify/enroll distinctions, URL/user/site placeholders and email line breaks. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "email-verifyEmail-subject",
+    "before": "Verifica il tuo indirizzo email su __siteName__",
+    "after": "Verìfica el to indiriso email so __siteName__",
+    "reason": "Replace Italian-seeded Venetian mail and date messages; preserve reset/verify/enroll distinctions, URL/user/site placeholders and email line breaks. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "email-verifyEmail-text",
+    "before": "Ciao __user__,\n\nPer verificare il tuo account email, clicca sul link seguente:\n\n__url__\n\nGrazie.",
+    "after": "Ciao __user__,\n\nPar verificar ła email del to conto, clica el łigamento qua soto.\n\n__url__\n\nGrasie.",
+    "reason": "Replace Italian-seeded Venetian mail and date messages; preserve reset/verify/enroll distinctions, URL/user/site placeholders and email line breaks. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
