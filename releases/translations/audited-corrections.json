@@ -78755,5 +78755,33 @@
     "before": "Ajouter une image de fond",
     "after": "Yokk nataal ci gannaaw",
     "reason": "Replace French board display settings with Wolof. Preserve all-boards/minicard/subtask scope, background change rather than only color change, and background-image insertion. Full grammar and background/subtask/settings terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "list-label-modifiedAt",
+    "before": "Dernier accès",
+    "after": "Waxtu bi ñu ci dugge mujj",
+    "reason": "Replace French list sorting labels with Wolof. Restore missing manual-order meaning (French Votre manuel meant your manual), preserve last-access time versus list name and click-to-sort action. Last-access/manual-sort phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "list-label-title",
+    "before": "Nom de liste",
+    "after": "Turu limu bi",
+    "reason": "Replace French list sorting labels with Wolof. Restore missing manual-order meaning (French Votre manuel meant your manual), preserve last-access time versus list name and click-to-sort action. Last-access/manual-sort phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "list-label-sort",
+    "before": "Votre manuel",
+    "after": "Sa toftale ci loxo",
+    "reason": "Replace French list sorting labels with Wolof. Restore missing manual-order meaning (French Votre manuel meant your manual), preserve last-access time versus list name and click-to-sort action. Last-access/manual-sort phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "sort-desc",
+    "before": "Cliquez pour trier la liste",
+    "after": "Bësal ngir toftale limu bi",
+    "reason": "Replace French list sorting labels with Wolof. Restore missing manual-order meaning (French Votre manuel meant your manual), preserve last-access time versus list name and click-to-sort action. Last-access/manual-sort phrasing and full grammar remain low confidence."
   }
 ]
