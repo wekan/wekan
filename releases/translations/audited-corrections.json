@@ -104571,5 +104571,159 @@
     "before": "Uma ikhadi lihanjiswa kolunye uhlu",
     "after": "Musi khadi ḽi tshi pfuluselwa kha muṅwe mutevhe",
     "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, privacy/edit permission distinctions and top/bottom movement directions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "read-assigned-only-desc",
+    "before": "Amakhadi abelwe kuphela abonakalayo. Ayikwazi ukuhlela.",
+    "after": "Hu vhonala makhadi o avhelwaho fhedzi. A ni koni u khwinisa.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, migration scope and read-only permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "read-only-desc",
+    "before": "Angabuka amakhadi kuphela. Ayikwazi ukuhlela.",
+    "after": "Ni nga vhona makhadi fhedzi. A ni koni u khwinisa.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, migration scope and read-only permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "remove-cover",
+    "before": "Susa isithombe sekhava ekhadini elincane",
+    "after": "Bvisa tshifanyiso tsha khavara kha khadi ḽiṱuku",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, migration scope and read-only permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "remove-member-pop",
+    "before": "Susa u-__name__ (__username__) kusuka ku-__boardTitle__? Ilungu lizokhishwa kuwo wonke amakhadi akuleli bhodi. Bazothola isaziso.",
+    "after": "Bvisani __name__ (__username__) kha __boardTitle__? Muraḓo u ḓo bviswa kha makhadi oṱhe a bodo iyi ya Kanban. U ḓo ṱanganedza nḓivhadzo.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, migration scope and read-only permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "remove-team-from-table",
+    "before": "Uqinisekile ukuthi ufuna ukususa leli thimba ebhodini ?",
+    "after": "Ni na vhuṱanzi ha uri ni ṱoḓa u bvisa tshigwada itshi kha bodo ya Kanban?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, migration scope and read-only permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "restore-lost-cards-migration",
+    "before": "Buyisela Amakhadi Alahlekile",
+    "after": "Vhuyedzedza makhadi o xelaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, migration scope and read-only permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "restore-lost-cards-migration-description",
+    "before": "Ithola futhi ibuyisele amakhadi nezinhlu ezine-swimlaneId engekho noma i-listId. Idala indlela yokubhukuda 'Yamakhadi Alahlekile' ukuze wenze zonke izinto ezilahlekile zibonakale futhi.",
+    "after": "I wana na u vhuyedzedza makhadi na mitevhe i si na swimlaneId kana listId. I sika ḽaini ya 'Lost Cards' u ita uri zwithu zwoṱhe zwo xelaho zwi vhonale hafhu.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, migration scope and read-only permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "restore-lost-cards-nothing-to-restore",
+    "before": "Awekho ama-swimlanes alahlekile, izinhlu, noma amakhadi azobuyiselwa",
+    "after": "A hu na dziḽaini, mitevhe kana makhadi o xelaho a u vhuyedzedza",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, migration scope and read-only permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "run-delete-duplicate-empty-lists-migration-confirm",
+    "before": "Lokhu kuzoqale kuguqule noma iluphi uhlu olwabiwe lube uhlu lokubhukuda ngakunye, bese kusula uhlu olungenalutho olunohlu oluyimpinda olunesihloko esifanayo esiqukethe amakhadi. Uhlu olungenalutho olungadingeki ngempela kuphela oluzosuswa. Qhubeka?",
+    "after": "Izwi zwi ḓo thoma zwa shandula mitevhe yo kovhiwaho ya vha mitevhe ya ḽaini iṅwe na iṅwe, zwa kona u susa mitevhe i si na tshithu ine ya vha na muṅwe mutevhe wa dzina ḽithihi u re na makhadi. Hu ḓo bviswa fhedzi mitevhe i si na tshithu i sa ṱoḓei zwa vhukuma. Bvela phanḓa?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, migration scope and read-only permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "run-fix-all-file-urls-migration-confirm",
+    "before": "Lokhu kuzobuyekeza wonke ama-URL okunamathiselwe kwifayela kuleli bhodi ukuze kusetshenziswe isipele esilungile sesitoreji. Qhubeka?",
+    "after": "Izwi zwi ḓo shandula URL dzoṱhe dza ṱumetshedzo dza faela kha bodo iyi ya Kanban u shumisa nḓila yo teaho ya u vhulunga. Bvela phanḓa?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, migration scope and read-only permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "run-restore-lost-cards-migration-confirm",
+    "before": "Lokhu kuzodala indlela yokubhukuda ethi 'Amakhadi Alahlekile' futhi kubuyisele wonke amakhadi nezinhlu ezine-swimlaneId engekho noma i-listId. Lokhu kuthinta kuphela izinto ezingagciniwe. Qhubeka?",
+    "after": "Izwi zwi ḓo sika ḽaini ya 'Lost Cards' zwa vhuyedzedza makhadi oṱhe na mitevhe i si na swimlaneId kana listId. Izwi zwi kwama fhedzi zwithu zwi sa athu vhulungwa. Bvela phanḓa?",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, migration scope and read-only permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "shortcut-filter-my-assigned-cards",
+    "before": "Hlunga amakhadi engiwabelwe",
+    "after": "Ṱalula makhadi e nda avhelwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, migration scope and read-only permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "show-field-on-card",
+    "before": "Bonisa le nkambu ekhadini",
+    "after": "Sumbedza fhethu uhu ha data kha khadi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, migration scope and read-only permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "show-parent-in-minicard",
+    "before": "Bonisa umzali ekhadini elincane:",
+    "after": "Sumbedza khadi ḽa mubebi kha khadi ḽiṱuku:",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, migration scope and read-only permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "showChecklistAtMinicard",
+    "before": "Bonisa Uhlu Lokuhlola Ekhadini Elincane",
+    "after": "Sumbedza mutevhe wa u sedza kha khadi ḽiṱuku",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, migration scope and read-only permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "showLabel-field-on-card",
+    "before": "Bonisa ilebula yenkundla ekhadini elincane",
+    "after": "Sumbedza dzina ḽa fhethu ha data kha khadi ḽiṱuku",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, migration scope and read-only permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "showSum-field-on-list",
+    "before": "Bonisa isamba sezinkambu phezulu ohlwini",
+    "after": "Sumbedza ṱhanganyelo ya fhethu ha data mathomoni a mutevhe",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, migration scope and read-only permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "star-board-title",
+    "before": "Chofoza ukuze ufake inkanyezi leli bhodi. Izovela phezulu ohlwini lwakho lwamabhodi.",
+    "after": "Kiḽikani u vhea ṋaledzi kha bodo iyi ya Kanban. I ḓo vhonala mathomoni a mutevhe wa bodo dzaṋu.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, migration scope and read-only permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "starred-boards-description",
+    "before": "Amabhodi anenkanyezi avela phezulu ohlwini lwakho lwamabhodi.",
+    "after": "Bodo dza Kanban dzo vhewaho ṋaledzi dzi vhonala mathomoni a mutevhe wa bodo dzaṋu.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, migration scope and read-only permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "step-ensure-lost-cards-swimlane",
+    "before": "Qinisekisa Amakhadi Alahlekile Abhukuda",
+    "after": "Ita uri ḽaini ya makhadi o xelaho i vhe hone",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, migration scope and read-only permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "step-fix-attachment-urls",
+    "before": "Lungisa ama-URL Okunamathiselwe",
+    "after": "Lugisa URL dza ṱumetshedzo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, migration scope and read-only permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "step-fix-orphaned-cards",
+    "before": "Lungisa Amakhadi Ezintandane",
+    "after": "Lugisa makhadi a si na mubebi",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, migration scope and read-only permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
