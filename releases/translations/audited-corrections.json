@@ -104725,5 +104725,145 @@
     "before": "Lungisa Amakhadi Ezintandane",
     "after": "Lugisa makhadi a si na mubebi",
     "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal identifiers, migration scope and read-only permission boundaries. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "step-scan-files",
+    "before": "Ihlola okunamathiselwe kwefayela lebhodi",
+    "after": "U sedza ṱumetshedzo dza faela dza bodo ya Kanban",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, keyboard ranges, permission restrictions and technical Node/MongoDB terms. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "swimlane-archive-pop",
+    "before": "I-Swimlane ngeke ibonakale ebhodini ngemva kokufakwa kungobo yomlando.",
+    "after": "Ḽaini a ḽi tsha ḓo vhonala kha bodo ya Kanban musi ḽo vhulungwa.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, keyboard ranges, permission restrictions and technical Node/MongoDB terms. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "text-contains-trigger-description",
+    "before": "Iyahambisana lapho ikhadi lidalwa, noma isihloko noma incazelo yalo ishintshwa, futhi umbhalo omusha unalokhu (akunandaba nosayizi wezinhlamvu).",
+    "after": "I elana musi khadi ḽi tshi sikiwa, kana dzina kana ṱhaluso yaḽo i tshi shandulwa, nahone maipfi maswa a vha na izwi (hu sa sedzwi vhuhulwane ha maḽeḓere).",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, keyboard ranges, permission restrictions and technical Node/MongoDB terms. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "toggle-assignees",
+    "before": "Guqula abanikezwayo 1-9 ukuze uthole ikhadi (Nge-oda lokwengeza ebhodini).",
+    "after": "Shandula vho avhelwaho mushumo 1-9 kha khadi (nga mutevhe wa u engedzwa kha bodo ya Kanban).",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, keyboard ranges, permission restrictions and technical Node/MongoDB terms. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "toggle-labels",
+    "before": "Guqula amalebula angu-1-9 ekhadini. Ukukhetha Okuningi kwengeza amalebula 1-9",
+    "after": "Shandula dziḽeibuḽu 1-9 kha khadi. U nanga zwinzhi hu engedza dziḽeibuḽu 1-9",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, keyboard ranges, permission restrictions and technical Node/MongoDB terms. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "user-can-not-export-card-to-excel",
+    "before": "Umsebenzisi akakwazi ukuthekelisa ikhadi ku-Excel",
+    "after": "Mushumisi a nga si bvise khadi kha Excel",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, keyboard ranges, permission restrictions and technical Node/MongoDB terms. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "user-can-not-export-card-to-pdf",
+    "before": "Umsebenzisi akakwazi ukuthekelisa ikhadi ku-PDF",
+    "after": "Mushumisi a nga si bvise khadi kha PDF",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, keyboard ranges, permission restrictions and technical Node/MongoDB terms. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "worker-desc",
+    "before": "Ingakwazi ukuhambisa amakhadi kuphela, izinikeze ekhadini namazwana.",
+    "after": "A nga pfulusa makhadi fhedzi, a ḓiavhela khadi na u ṅwala mihumbulo.",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, keyboard ranges, permission restrictions and technical Node/MongoDB terms. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "Double-Bounce",
+    "before": "I-Double Bounce Wait Spinner",
+    "after": "Tshiga tsha u lindela tshi fhufhaho luvhili",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, keyboard ranges, permission restrictions and technical Node/MongoDB terms. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "MongoDB_Oplog_enabled",
+    "before": "I-MongoDB Oplog inikwe amandla",
+    "after": "MongoDB Oplog yo tendelwa",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, keyboard ranges, permission restrictions and technical Node/MongoDB terms. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "MongoDB_storage_engine",
+    "before": "Injini yokugcina ye-MongoDB",
+    "after": "Nḓila ya u vhulunga ya MongoDB",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, keyboard ranges, permission restrictions and technical Node/MongoDB terms. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "Mongo_sessions_count",
+    "before": "Ukubalwa kweseshini ye-Mongo",
+    "after": "Tshivhalo tsha sesheni dza Mongo",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, keyboard ranges, permission restrictions and technical Node/MongoDB terms. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Inqwaba ye-node: yenza i-zap udoti",
+    "after": "Node heap: i bvisa data i sa tsha shumiswaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, keyboard ranges, permission restrictions and technical Node/MongoDB terms. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "Node_heap_heap_size_limit",
+    "before": "Inqwaba yenodi: umkhawulo kasayizi wenqwaba",
+    "after": "Node heap: mukano wa vhuhulwane ha heap",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, keyboard ranges, permission restrictions and technical Node/MongoDB terms. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "Node_heap_malloced_memory",
+    "before": "Inqwaba ye-node: inkumbulo engalungile",
+    "after": "Node heap: muhumbulo wo avhelwaho nga malloc",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, keyboard ranges, permission restrictions and technical Node/MongoDB terms. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "Node_heap_number_of_detached_contexts",
+    "before": "Inqwaba yenodi: inani lezingqikithi ezihlukanisiwe",
+    "after": "Node heap: tshivhalo tsha nyimele dzo fhambanywaho",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, keyboard ranges, permission restrictions and technical Node/MongoDB terms. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "Node_heap_number_of_native_contexts",
+    "before": "Inqwaba yenodi: inani lezingqikithi zomdabu",
+    "after": "Node heap: tshivhalo tsha nyimele dza native",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, keyboard ranges, permission restrictions and technical Node/MongoDB terms. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Inqwaba ye-Node: inkumbulo engalungile ephezulu",
+    "after": "Node heap: muhumbulo munzhi u fhira woṱhe wo avhelwaho nga malloc",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, keyboard ranges, permission restrictions and technical Node/MongoDB terms. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "Node_heap_total_available_size",
+    "before": "Inqwaba yenodi: isamba sikasayizi otholakalayo",
+    "after": "Node heap: vhuhulwane hoṱhe vhu re hone",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, keyboard ranges, permission restrictions and technical Node/MongoDB terms. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "Node_heap_total_heap_size",
+    "before": "Inqwaba yenodi: usayizi wenqwaba isiyonke",
+    "after": "Node heap: vhuhulwane hoṱhe ha heap",
+    "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, keyboard ranges, permission restrictions and technical Node/MongoDB terms. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
