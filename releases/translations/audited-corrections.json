@@ -82115,5 +82115,47 @@
     "before": "Essayer de se reconnecter.",
     "after": "Jéemal a lëkkalewaat.",
     "reason": "Replace French with Wolof using existing date, account, member, organization and notification terminology; preserve first/approaching/past deadline distinctions and exact tokens, add-member actions rather than assignment, administrator announcement and reconnection. Reconnection phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "click-to-disable-auto-width",
+    "before": "Largeur de liste auto. activée. Cliquer pour désactiver.",
+    "after": "Yaatuwaayu limu bi mi ngi dox ci boppam. Bësal ngir taxawal ko.",
+    "reason": "Replace French with Wolof; preserve auto-width enabled/disabled actions, avatar maximum token, multiple-board calendar and custom clickable URL schemes one per line. Width root checked against https://lgidf.cnrs.fr/wolof-lexique-l; derived width noun, authentication/scheme phrasing, calendar loanword and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "click-to-enable-auto-width",
+    "before": "Largeur de liste auto. désactivée. Cliquer pour activer.",
+    "after": "Yaatuwaayu limu bi doxul ci boppam. Bësal ngir doxal ko.",
+    "reason": "Replace French with Wolof; preserve auto-width enabled/disabled actions, avatar maximum token, multiple-board calendar and custom clickable URL schemes one per line. Width root checked against https://lgidf.cnrs.fr/wolof-lexique-l; derived width noun, authentication/scheme phrasing, calendar loanword and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "avatar-too-big",
+    "before": "La taille du fichier de l'avatar est trop importante (__size__ au maximum)",
+    "after": "Avatar bi réy na lool (__size__ moo gën a bari)",
+    "reason": "Replace French with Wolof; preserve auto-width enabled/disabled actions, avatar maximum token, multiple-board calendar and custom clickable URL schemes one per line. Width root checked against https://lgidf.cnrs.fr/wolof-lexique-l; derived width noun, authentication/scheme phrasing, calendar loanword and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "board-view-multiboard-cal",
+    "before": "Calendrier (Tous les tableaux)",
+    "after": "Kalandriye bu ay tablo",
+    "reason": "Replace French with Wolof; preserve auto-width enabled/disabled actions, avatar maximum token, multiple-board calendar and custom clickable URL schemes one per line. Width root checked against https://lgidf.cnrs.fr/wolof-lexique-l; derived width noun, authentication/scheme phrasing, calendar loanword and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "authentication-method",
+    "before": "Méthode d'authentification",
+    "after": "Yoonu saytu ki dugg",
+    "reason": "Replace French with Wolof; preserve auto-width enabled/disabled actions, avatar maximum token, multiple-board calendar and custom clickable URL schemes one per line. Width root checked against https://lgidf.cnrs.fr/wolof-lexique-l; derived width noun, authentication/scheme phrasing, calendar loanword and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "automatic-linked-url-schemes",
+    "before": "Schémas d'URL personnalisés qui devraient être automatiquement cliquables. Un schéma d'URL par ligne",
+    "after": "Tëralinu URL yi ñu def ci soxla te ñu war a man a bës ci boppam. Benn tëralinu URL ci rëdd bu nekk",
+    "reason": "Replace French with Wolof; preserve auto-width enabled/disabled actions, avatar maximum token, multiple-board calendar and custom clickable URL schemes one per line. Width root checked against https://lgidf.cnrs.fr/wolof-lexique-l; derived width noun, authentication/scheme phrasing, calendar loanword and full grammar remain low confidence."
   }
 ]
