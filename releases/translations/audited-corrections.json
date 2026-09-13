@@ -71818,5 +71818,117 @@
     "before": "Jalur file kunci akun layanan",
     "after": "Rot fail kunci akun layanan",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Jalali (Peureusi)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Almanak Buddha",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Almanak Cina",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Almanak Koptik",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Almanak Dangi (Korea)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Almanak Ethiopia Amete Alem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Almanak Ethiopia",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Almanak Yahudi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Almanak nasional India",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Almanak Hijri",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Almanak Hijri (geuhitung ngon tabel, awai peuhitung sipil)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Almanak Hijri (Saudi Arabia, ngieng buleuen)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Almanak Hijri (geuhitung ngon tabel, awai peuhitung astronomi)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Almanak Hijri (Umm al-Qura)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Almanak Jeupang",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Almanak Minguo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
