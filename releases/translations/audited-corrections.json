@@ -94757,5 +94757,26 @@
     "before": "Jede Textzeile wird in einen Checklisteneintrag umgewandelt, ursprüngliche Reihenfolge",
     "after": "ghItlhHommey tetlh ghItlhHom moj Hoch ghItlh tlhegh; patlh choHlu'be'",
     "reason": "Replace German checklist newline-conversion instructions. checklists.js splits text at newline and optionally reverses top-position entries; preserve each-line-to-one-item meaning and unchanged order variant. tlhegh has dictionary line/rope senses (The Klingon Dictionary, https://engineering.thetafleet.net/Journals/Other/Franchise%20-%20The%20Klingon%20Dictionary.pdf); ghItlh tlhegh is a low-confidence textual-line extension, not independently attested prose. Reuse patlh order (https://tlhingan.org/word/patlh). Full phrases need fluent-speaker validation; preserve tokens."
+  },
+  {
+    "locale": "tlh",
+    "key": "keyboard-shortcuts",
+    "before": "Tastaturkürzel",
+    "after": "Qu' nom ta'meH nItlh 'echlet ra'mey",
+    "reason": "Replace German keyboard shortcut label and opposite enable/disable tooltips after reviewing sidebar.jade isKeyboardShortcuts condition. nItlh 'echlet is attested keyboard at https://www.kli.org/about-klingon/new-klingon-words/date/ (qepHom 13); shortcut is descriptively rendered as keyboard commands for quickly accomplishing tasks. Preserve ability-versus-inability and opposite click actions. Complete assembled software phrases are low confidence and need fluent-speaker validation; token inventory preserved."
+  },
+  {
+    "locale": "tlh",
+    "key": "keyboard-shortcuts-enabled",
+    "before": "Tastaturkürzel sind aktiviert. Klicke, um sie zu deaktivieren.",
+    "after": "Qu' nom ta'meH nItlh 'echlet ra'mey lulo'laH lo'wI'pu'. DuHvam Dachu'Ha'meH yIqIp.",
+    "reason": "Replace German keyboard shortcut label and opposite enable/disable tooltips after reviewing sidebar.jade isKeyboardShortcuts condition. nItlh 'echlet is attested keyboard at https://www.kli.org/about-klingon/new-klingon-words/date/ (qepHom 13); shortcut is descriptively rendered as keyboard commands for quickly accomplishing tasks. Preserve ability-versus-inability and opposite click actions. Complete assembled software phrases are low confidence and need fluent-speaker validation; token inventory preserved."
+  },
+  {
+    "locale": "tlh",
+    "key": "keyboard-shortcuts-disabled",
+    "before": "Tastaturkürzel sind deaktiviert. Klicke, um sie zu aktivieren.",
+    "after": "Qu' nom ta'meH nItlh 'echlet ra'mey lulo'laHbe' lo'wI'pu'. DuHvam Dachu'meH yIqIp.",
+    "reason": "Replace German keyboard shortcut label and opposite enable/disable tooltips after reviewing sidebar.jade isKeyboardShortcuts condition. nItlh 'echlet is attested keyboard at https://www.kli.org/about-klingon/new-klingon-words/date/ (qepHom 13); shortcut is descriptively rendered as keyboard commands for quickly accomplishing tasks. Preserve ability-versus-inability and opposite click actions. Complete assembled software phrases are low confidence and need fluent-speaker validation; token inventory preserved."
   }
 ]
