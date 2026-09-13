@@ -90928,5 +90928,68 @@
     "before": "Vous avez envoyé un courriel avec succès",
     "after": "Esedol penedi leäktronik ko benosek",
     "reason": "Replace French/Esperanto date-popup titles and French invitation/test-email messages with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests votükön (alter), dät (date), prim (beginning), fin (end), vögod/vögodam (vote/voting), vüd (invitation), sedön (send), and benosek (success). Follow existing repaired activity wording tüp for due time and dät getama for receipt date; getam is a derived noun. Distinguish start, receipt, due, end and voting-end dates; retain Planning Poker proper name and exact __inviter__ placeholder. Preserve sender/recipient roles and successful email sending. Assembled software wording and proper-name inflection remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "description-on-minicard",
+    "before": "Description sur la mini-carte",
+    "after": "Bepenam su kadil",
+    "reason": "Replace audited French account/invitation, visibility and loading text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests bepenam (description), kadil (small card), jafan (creator), jonön (show), däl (permission), vüd (invitation), pöl (error), sedön (send), stebedön (wait), klänedön (hide) and ba (perhaps); MediaWiki Volapük attests kal (account), privatik and nunädam (login). Registration is paraphrased as creating an account; preserve invitation error versus success, existing account condition, lack of page-view permission and merely possible access after login. Preserve HTML sign-in link and exact %s URL argument; all activities of all boards hidden now. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "display-card-creator",
+    "before": "Afficher le créateur de la carte",
+    "after": "Jonön jafani kada",
+    "reason": "Replace audited French account/invitation, visibility and loading text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests bepenam (description), kadil (small card), jafan (creator), jonön (show), däl (permission), vüd (invitation), pöl (error), sedön (send), stebedön (wait), klänedön (hide) and ba (perhaps); MediaWiki Volapük attests kal (account), privatik and nunädam (login). Registration is paraphrased as creating an account; preserve invitation error versus success, existing account condition, lack of page-view permission and merely possible access after login. Preserve HTML sign-in link and exact %s URL argument; all activities of all boards hidden now. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "error-notAuthorized",
+    "before": "Vous n'êtes pas autorisé à accéder à cette page.",
+    "after": "No labol däli ad logön padi at.",
+    "reason": "Replace audited French account/invitation, visibility and loading text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests bepenam (description), kadil (small card), jafan (creator), jonön (show), däl (permission), vüd (invitation), pöl (error), sedön (send), stebedön (wait), klänedön (hide) and ba (perhaps); MediaWiki Volapük attests kal (account), privatik and nunädam (login). Registration is paraphrased as creating an account; preserve invitation error versus success, existing account condition, lack of page-view permission and merely possible access after login. Preserve HTML sign-in link and exact %s URL argument; all activities of all boards hidden now. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "if-you-already-have-an-account",
+    "before": "Si vous avez déjà un compte",
+    "after": "If ya labol kali",
+    "reason": "Replace audited French account/invitation, visibility and loading text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests bepenam (description), kadil (small card), jafan (creator), jonön (show), däl (permission), vüd (invitation), pöl (error), sedön (send), stebedön (wait), klänedön (hide) and ba (perhaps); MediaWiki Volapük attests kal (account), privatik and nunädam (login). Registration is paraphrased as creating an account; preserve invitation error versus success, existing account condition, lack of page-view permission and merely possible access after login. Preserve HTML sign-in link and exact %s URL argument; all activities of all boards hidden now. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "invite-people-error",
+    "before": "Une erreur s'est produite lors de l'envoi de l'invitation à s'enregistrer",
+    "after": "Pöl dü sedam vüda ad jafön kali",
+    "reason": "Replace audited French account/invitation, visibility and loading text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests bepenam (description), kadil (small card), jafan (creator), jonön (show), däl (permission), vüd (invitation), pöl (error), sedön (send), stebedön (wait), klänedön (hide) and ba (perhaps); MediaWiki Volapük attests kal (account), privatik and nunädam (login). Registration is paraphrased as creating an account; preserve invitation error versus success, existing account condition, lack of page-view permission and merely possible access after login. Preserve HTML sign-in link and exact %s URL argument; all activities of all boards hidden now. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "invite-people-success",
+    "before": "Invitation à s'enregistrer envoyée avec succès",
+    "after": "Vüd ad jafön kali pesedon ko benosek",
+    "reason": "Replace audited French account/invitation, visibility and loading text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests bepenam (description), kadil (small card), jafan (creator), jonön (show), däl (permission), vüd (invitation), pöl (error), sedön (send), stebedön (wait), klänedön (hide) and ba (perhaps); MediaWiki Volapük attests kal (account), privatik and nunädam (login). Registration is paraphrased as creating an account; preserve invitation error versus success, existing account condition, lack of page-view permission and merely possible access after login. Preserve HTML sign-in link and exact %s URL argument; all activities of all boards hidden now. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "loading",
+    "before": "Chargement, merci de patienter.",
+    "after": "Palodon; begö, stebedolös.",
+    "reason": "Replace audited French account/invitation, visibility and loading text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests bepenam (description), kadil (small card), jafan (creator), jonön (show), däl (permission), vüd (invitation), pöl (error), sedön (send), stebedön (wait), klänedön (hide) and ba (perhaps); MediaWiki Volapük attests kal (account), privatik and nunädam (login). Registration is paraphrased as creating an account; preserve invitation error versus success, existing account condition, lack of page-view permission and merely possible access after login. Preserve HTML sign-in link and exact %s URL argument; all activities of all boards hidden now. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "now-activities-of-all-boards-are-hidden",
+    "before": "Les activités de tous les tableaux seront dorénavant cachées",
+    "after": "Nu jäfüds valik tabas valik peklänedons",
+    "reason": "Replace audited French account/invitation, visibility and loading text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests bepenam (description), kadil (small card), jafan (creator), jonön (show), däl (permission), vüd (invitation), pöl (error), sedön (send), stebedön (wait), klänedön (hide) and ba (perhaps); MediaWiki Volapük attests kal (account), privatik and nunädam (login). Registration is paraphrased as creating an account; preserve invitation error versus success, existing account condition, lack of page-view permission and merely possible access after login. Preserve HTML sign-in link and exact %s URL argument; all activities of all boards hidden now. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "page-maybe-private",
+    "before": "Cette page est peut-être privée. Vous pourrez peut-être la voir en vous <a href='%s'>connectant</a>.",
+    "after": "Pad at ba binon privatik. Ba kanol logön oni pos <a href='%s'>nunädam</a>.",
+    "reason": "Replace audited French account/invitation, visibility and loading text with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests bepenam (description), kadil (small card), jafan (creator), jonön (show), däl (permission), vüd (invitation), pöl (error), sedön (send), stebedön (wait), klänedön (hide) and ba (perhaps); MediaWiki Volapük attests kal (account), privatik and nunädam (login). Registration is paraphrased as creating an account; preserve invitation error versus success, existing account condition, lack of page-view permission and merely possible access after login. Preserve HTML sign-in link and exact %s URL argument; all activities of all boards hidden now. Assembled software wording remains low confidence pending native review."
   }
 ]
