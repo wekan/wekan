@@ -1354,8 +1354,8 @@
     "locale": "ak",
     "key": "calendar-system",
     "before": "Kalendar sistem (data görünüşü)",
-    "after": "Kalɛnna",
-    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+    "after": "Kalɛnna nhyehyɛeɛ (da a wɔkyerɛ)",
+    "reason": "Replace English with Akan and restore omitted calendar identities and qualifiers; preserve moon sighting, table calculation with astronomical starting date, Gregorian ISO weeks, Jalali, exact Umm al-Qura name and date-display setting. Epoch technical phrasing and complete grammar remain low confidence."
   },
   {
     "locale": "ak",
@@ -1368,8 +1368,8 @@
     "locale": "ak",
     "key": "calendar-system-jalali",
     "before": "Jalali (Fars)",
-    "after": "Pɛɛsiafoɔ Kalɛnda",
-    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+    "after": "Jalali Kalɛnda (Pɛɛsiafoɔ)",
+    "reason": "Replace English with Akan and restore omitted calendar identities and qualifiers; preserve moon sighting, table calculation with astronomical starting date, Gregorian ISO weeks, Jalali, exact Umm al-Qura name and date-display setting. Epoch technical phrasing and complete grammar remain low confidence."
   },
   {
     "locale": "as",
@@ -84082,5 +84082,33 @@
     "before": "ISO 8601",
     "after": "Gregoriana arapapaha (arapokõindy ISO 8601 rehegua)",
     "reason": "Replace English with Guarani using existing arapapaha/Hijri framing; preserve table-based civil versus astronomical starting epoch, Saudi lunar sighting and Gregorian ISO weeks omitted from local label. Epoch technical adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "ak",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Higyiri Kalɛnda (Saudi Arabia, ɔsram no a wɔhunu)",
+    "reason": "Replace English with Akan and restore omitted calendar identities and qualifiers; preserve moon sighting, table calculation with astronomical starting date, Gregorian ISO weeks, Jalali, exact Umm al-Qura name and date-display setting. Epoch technical phrasing and complete grammar remain low confidence."
+  },
+  {
+    "locale": "ak",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Higyiri Kalɛnda (wɔbu akontaa wɔ pon so, nsoromma ho nimdeɛ ahyɛaseɛ da)",
+    "reason": "Replace English with Akan and restore omitted calendar identities and qualifiers; preserve moon sighting, table calculation with astronomical starting date, Gregorian ISO weeks, Jalali, exact Umm al-Qura name and date-display setting. Epoch technical phrasing and complete grammar remain low confidence."
+  },
+  {
+    "locale": "ak",
+    "key": "calendar-system-iso8601",
+    "before": "ISO-8601 Kalɛnna",
+    "after": "Gregorian Kalɛnna (ISO 8601 nnawɔtwe)",
+    "reason": "Replace English with Akan and restore omitted calendar identities and qualifiers; preserve moon sighting, table calculation with astronomical starting date, Gregorian ISO weeks, Jalali, exact Umm al-Qura name and date-display setting. Epoch technical phrasing and complete grammar remain low confidence."
+  },
+  {
+    "locale": "ak",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Higyiri Kalɛnda (Ummm al-Kura)",
+    "after": "Higyiri Kalɛnda (Umm al-Qura)",
+    "reason": "Replace English with Akan and restore omitted calendar identities and qualifiers; preserve moon sighting, table calculation with astronomical starting date, Gregorian ISO weeks, Jalali, exact Umm al-Qura name and date-display setting. Epoch technical phrasing and complete grammar remain low confidence."
   }
 ]
