@@ -52582,5 +52582,47 @@
     "before": "Heap Node: memoria allocata (malloc)",
     "after": "Heap Node: memoria atribuida (malloc)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "Node_heap_number_of_detached_contexts",
+    "before": "Heap Node: numero di contesti scollegati",
+    "after": "Heap Node: numer de contesc destaché",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "Node_heap_number_of_native_contexts",
+    "before": "Heap Node: numero di contesti nativi",
+    "after": "Heap Node: numer de contesc nativi",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Heap Node: picco di memoria allocata (malloc)",
+    "after": "Heap Node: massim de memoria atribuida (malloc)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "Node_memory_usage_rss",
+    "before": "Uso memoria Node: resident set size",
+    "after": "Memoria adorada da Node: grandeza de la memoria residenta (RSS)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "Rotateplane",
+    "before": "Spinner di attesa Rotateplane",
+    "after": "Indicadour de atesa Rotateplane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "Scaleout",
+    "before": "Spinner di attesa Scaleout",
+    "after": "Indicadour de atesa Scaleout",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
