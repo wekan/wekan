@@ -84376,5 +84376,26 @@
     "before": "Gregoriana",
     "after": "iVolanivula Gregoriana",
     "reason": "Replace English calendar labels with Fijian iVolanivula terminology, preserve Dangi/Amete Alem/Gregorian identities and restore Saudi Hijri lunar sighting qualifier. Iciopea attested at https://www.jw.org/fj/ivakadinadina-i-jiova/veitaratara-mai/iciopea/; iVolanivula attested at https://www.jw.org/fj/ka-e-vakarautaki/ivolatabu/nwt/ikuri-b/iperiu-ivolanivula-ivolatabu/. Moon-sighting adaptation and full phrase grammar remain low confidence; Coptic and tabular civil/astronomical epoch terminology remain pending."
+  },
+  {
+    "locale": "ee",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Dangi kalenda",
+    "reason": "Replace English calendar labels with Ewe calendar noun kalenda, preserving Dangi/Hijri/Umm al-Qura identities. Noun and proper-name calendar pattern supported by https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/ee.xml (Gregorian kalenda, coptia kalenda). Complete adapted labels remain low confidence; tabular civil/astronomical epochs and Saudi moon sighting remain pending. Do not use CLDR provisional civil name to omit source epoch/table detail."
+  },
+  {
+    "locale": "ee",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Hijri kalenda",
+    "reason": "Replace English calendar labels with Ewe calendar noun kalenda, preserving Dangi/Hijri/Umm al-Qura identities. Noun and proper-name calendar pattern supported by https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/ee.xml (Gregorian kalenda, coptia kalenda). Complete adapted labels remain low confidence; tabular civil/astronomical epochs and Saudi moon sighting remain pending. Do not use CLDR provisional civil name to omit source epoch/table detail."
+  },
+  {
+    "locale": "ee",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Hijri kalenda (Umm al-Qura)",
+    "reason": "Replace English calendar labels with Ewe calendar noun kalenda, preserving Dangi/Hijri/Umm al-Qura identities. Noun and proper-name calendar pattern supported by https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/ee.xml (Gregorian kalenda, coptia kalenda). Complete adapted labels remain low confidence; tabular civil/astronomical epochs and Saudi moon sighting remain pending. Do not use CLDR provisional civil name to omit source epoch/table detail."
   }
 ]
