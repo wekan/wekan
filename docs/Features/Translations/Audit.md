@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,605 |
+| Corrected | 11,606 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,241 |
+| Pending review or repair | 4,240 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,950** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,951** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `641e7605c5d4db992c8ed3e19bab77bd14490f31` — 7 French accessibility/legal labels replaced with consistent descriptive Wolof. Enabled page versus missing information, title/content labels and continuing-acceptance prefix are preserved. Accessibility/legal phrasing and full grammar remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `083b6180355b365b6e228d13eb102fcdcf15e42d` — French advanced-filter instructions replaced with Wolof. Exact operators/examples, single quotes and backslash escaping, repeated-field OR, left-to-right evaluation, parentheses and regex example are preserved. Technical explanatory grammar and escaping terminology remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
