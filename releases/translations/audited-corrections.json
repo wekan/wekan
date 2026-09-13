@@ -90830,5 +90830,40 @@
     "before": "Date de création (Plus anciennes en premier)",
     "after": "Dät jafama (vönediküns balido)",
     "reason": "Replace audited French copy-many-cards JSON example/instruction and creation-date sort labels with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests lätik (last), nulik (new), vönedik (old), balido (firstly), tiäd (title), bepenam (description). Keep literal title/description property names and three valid JSON objects; translate only example values, preserving first/second/last card identity. Preserve destination titles/descriptions and opposite newest/oldest-first creation-date sorting. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "auto-list-width",
+    "before": "Largeur de liste auto.",
+    "after": "Vidot itjäfidik liseda",
+    "reason": "Replace French automatic-width controls, avatar size warning and reconnect action with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests vidot (width), itjäfidik (automatic), gebön (use), stopön (stop), gretik (large), steifülön (try) and yümön (connect); MediaWiki Volapük uses klikön for software clicking. List-header template selects disable when auto width is enabled and enable when disabled; preserve opposite current-state/action meanings. Preserve __size__ as an upper bound and reconnect as trying to connect again, not login. Avatar remains a technical borrowing; assembled software wording is low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "click-to-disable-auto-width",
+    "before": "Largeur de liste auto. activée. Cliquer pour désactiver.",
+    "after": "Vidot itjäfidik liseda pagebon. Klikolös ad stopön gebi.",
+    "reason": "Replace French automatic-width controls, avatar size warning and reconnect action with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests vidot (width), itjäfidik (automatic), gebön (use), stopön (stop), gretik (large), steifülön (try) and yümön (connect); MediaWiki Volapük uses klikön for software clicking. List-header template selects disable when auto width is enabled and enable when disabled; preserve opposite current-state/action meanings. Preserve __size__ as an upper bound and reconnect as trying to connect again, not login. Avatar remains a technical borrowing; assembled software wording is low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "click-to-enable-auto-width",
+    "before": "Largeur de liste auto. désactivée. Cliquer pour activer.",
+    "after": "Vidot itjäfidik liseda no pagebon. Klikolös ad gebön oni.",
+    "reason": "Replace French automatic-width controls, avatar size warning and reconnect action with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests vidot (width), itjäfidik (automatic), gebön (use), stopön (stop), gretik (large), steifülön (try) and yümön (connect); MediaWiki Volapük uses klikön for software clicking. List-header template selects disable when auto width is enabled and enable when disabled; preserve opposite current-state/action meanings. Preserve __size__ as an upper bound and reconnect as trying to connect again, not login. Avatar remains a technical borrowing; assembled software wording is low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "avatar-too-big",
+    "before": "La taille du fichier de l'avatar est trop importante (__size__ au maximum)",
+    "after": "Avatar binon tu gretik (no plu ka __size__).",
+    "reason": "Replace French automatic-width controls, avatar size warning and reconnect action with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests vidot (width), itjäfidik (automatic), gebön (use), stopön (stop), gretik (large), steifülön (try) and yümön (connect); MediaWiki Volapük uses klikön for software clicking. List-header template selects disable when auto width is enabled and enable when disabled; preserve opposite current-state/action meanings. Preserve __size__ as an upper bound and reconnect as trying to connect again, not login. Avatar remains a technical borrowing; assembled software wording is low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "app-try-reconnect",
+    "before": "Essayer de se reconnecter.",
+    "after": "Steifülön ad yümön dönu.",
+    "reason": "Replace French automatic-width controls, avatar size warning and reconnect action with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests vidot (width), itjäfidik (automatic), gebön (use), stopön (stop), gretik (large), steifülön (try) and yümön (connect); MediaWiki Volapük uses klikön for software clicking. List-header template selects disable when auto width is enabled and enable when disabled; preserve opposite current-state/action meanings. Preserve __size__ as an upper bound and reconnect as trying to connect again, not login. Avatar remains a technical borrowing; assembled software wording is low confidence pending native review."
   }
 ]
