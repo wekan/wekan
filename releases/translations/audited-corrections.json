@@ -92930,5 +92930,19 @@
     "before": "ursprüngliche Reihenfolge",
     "after": "patlh wa'DIch",
     "reason": "Replace four flagged German sorting/order labels with direct Klingon. https://tlhingan.org/word/patlh cites Okrand guidance that patlhmoH sorts the items within a list, not the list itself, and attests patlh as order (qepHom 2024). Accordingly use tetlh Dochmey list items or 'echletHommey cards as sorting objects. Sort criterion heading described as sorting data, original order as patlh wa'DIch (first order), and number sorting explicitly uses mI'mey. Existing qIp click/hit UI usage retained. Full software phrases and original-order paraphrase are low confidence and need fluent-speaker validation; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "title",
+    "before": "Titel",
+    "after": "pong",
+    "reason": "Replace German title/alphabetical-sort labels with direct Klingon. Title uses existing pong name terminology from activity-changedTitle. Alphabetical ordering described as ngutlhmey patlh (written-character order): https://tlhingan.org/word/ngutlh attests ngutlh letter/written character; https://tlhingan.org/word/patlh attests patlh order and documents alphabetical sorting. Avoid specifying native Klingon or Latin endpoints because the label does not determine runtime collation. Full compound wording and title-domain usage are low confidence and require fluent-speaker validation. Generic title repaired beyond flagged findings for consistency; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "title-alphabetically",
+    "before": "Überschrift (alphabetisch)",
+    "after": "pong (ngutlhmey patlh)",
+    "reason": "Replace German title/alphabetical-sort labels with direct Klingon. Title uses existing pong name terminology from activity-changedTitle. Alphabetical ordering described as ngutlhmey patlh (written-character order): https://tlhingan.org/word/ngutlh attests ngutlh letter/written character; https://tlhingan.org/word/patlh attests patlh order and documents alphabetical sorting. Avoid specifying native Klingon or Latin endpoints because the label does not determine runtime collation. Full compound wording and title-domain usage are low confidence and require fluent-speaker validation. Generic title repaired beyond flagged findings for consistency; no placeholders changed."
   }
 ]
