@@ -81576,5 +81576,54 @@
     "before": "Si une erreur survient en important le tableau, il se peut que l'import ait fonctionné, et que le tableau se trouve sur la page \"Tous les tableaux\".",
     "after": "Bu nga am ay njuumte bi ngay dugal tablo, yenn saa yi dugal gi dox na ba tey, te tablo bi nekk ci xët «Tablo yi yépp».",
     "reason": "Replace French with Wolof; retain loading wait, refresh data loss, server-stopped check and possible successful import despite errors with All Boards recovery. Technical loanwords and full sentence grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "just-invited",
+    "before": "Vous venez d'être invité à ce tableau",
+    "after": "Ñu ngi la sàkku nga bokk ci tablo bii",
+    "reason": "Replace French with Wolof using existing card/board/member/organization terminology; preserve confirmation scope, removal from every card, notification and exact placeholders. Invitation and complete sentence grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "muted-info",
+    "before": "Vous ne serez jamais averti des modifications effectuées dans ce tableau",
+    "after": "Doo jot benn yégle ci soppi yi ci tablo bii",
+    "reason": "Replace French with Wolof using existing card/board/member/organization terminology; preserve confirmation scope, removal from every card, notification and exact placeholders. Invitation and complete sentence grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "newLineNewItem",
+    "before": "Une ligne de texte = un élément de la check-list",
+    "after": "Benn rëdd bu mbind = benn mbir ci limu saytu",
+    "reason": "Replace French with Wolof using existing card/board/member/organization terminology; preserve confirmation scope, removal from every card, notification and exact placeholders. Invitation and complete sentence grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "leave-board-pop",
+    "before": "Êtes-vous sur de vouloir quitter __boardTitle__ ? Vous ne serez plus associé aux cartes de ce tableau.",
+    "after": "Ndax wóor na la ne bëgg nga génn __boardTitle__? Dinañu la dindi ci karta yépp ci tablo bii.",
+    "reason": "Replace French with Wolof using existing card/board/member/organization terminology; preserve confirmation scope, removal from every card, notification and exact placeholders. Invitation and complete sentence grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "remove-member-pop",
+    "before": "Supprimer __name__ (__username__) de __boardTitle__ ? Ce participant sera supprimé de toutes les cartes du tableau et recevra une notification.",
+    "after": "Dindi __name__ (__username__) ci __boardTitle__? Dinañu dindi bokkkat bi ci karta yépp ci tablo bii. Dina jot yégle.",
+    "reason": "Replace French with Wolof using existing card/board/member/organization terminology; preserve confirmation scope, removal from every card, notification and exact placeholders. Invitation and complete sentence grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "remove-organization-from-board",
+    "before": "Voulez-vous vraiment supprimer cette organisation de ce tableau ?",
+    "after": "Ndax wóor na la ne bëgg nga dindi kureel gii ci tablo bii?",
+    "reason": "Replace French with Wolof using existing card/board/member/organization terminology; preserve confirmation scope, removal from every card, notification and exact placeholders. Invitation and complete sentence grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "duplicate-board-confirm",
+    "before": "Êtes-vous sûr de vouloir dupliquer ce tableau ?",
+    "after": "Ndax wóor na la ne bëgg nga sotti tablo bii?",
+    "reason": "Replace French with Wolof using existing card/board/member/organization terminology; preserve confirmation scope, removal from every card, notification and exact placeholders. Invitation and complete sentence grammar remain low confidence."
   }
 ]
