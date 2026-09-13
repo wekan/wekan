@@ -91,6 +91,8 @@ The largest original finding queues remain in Veps (10) and Standard Moroccan
 Tamazight (593). Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
+Kashmiri reference review 0db69cf6c (2026-09-14) identifies provisional
+civil wording and unresolved sighting/tabular/epoch terminology; no values changed.
 
 [Translation audit status](docs/Features/Translations/Audit.md) is the short
 resume record; [detailed evidence](docs/Features/Translations/Audit-Evidence.md)
@@ -643,6 +645,15 @@ The audit records 749 pending original findings and wider unfinished validation.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0db69cf6c">Record Kashmiri calendar terminology review</a>. Thanks to xet7.</summary>
+
+Record provisional CLDR Islamic/civil names and missing sighting/tabular
+variant names. Full epoch qualifiers need further terminology research.
+No values changed; all 17,236 correction checks pass and 737 findings remain.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e07d2be5f">Repair Cherokee Hijri variant wording</a>. Thanks to xet7.</summary>
