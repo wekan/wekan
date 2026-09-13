@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 10,096 |
+| Corrected | 10,114 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 5,750 |
+| Pending review or repair | 5,732 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **10,174** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **10,192** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `58054be459c3215764c4cd96ceff7eea2939f294` — fourteen Acehnese checklist-trigger, role, removal, rescue-dialog and search messages repaired; **108 Acehnese findings remain**. Read-only restrictions, label range and description replacement semantics preserved. Grammar and borrowed technical terms remain low confidence. Exact-value, placeholder, JSON example, HTML-tag/entity, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `2728e778513961ca271419a869838cffba10393a` — eighteen Acehnese search, SMTP, diagnostic, shortcut and display-setting messages repaired; **90 Acehnese findings remain**. Exact diagnostic commands and membership-versus-assignment wording have regression coverage. Grammar and borrowed technical terms remain low confidence. Exact-value, placeholder, JSON example, HTML-tag/entity, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
