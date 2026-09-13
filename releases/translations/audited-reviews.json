@@ -1054,5 +1054,11 @@
     "key": "DDP_transport",
     "value": "Transport DDP (DDP_TRANSPORT)",
     "reason": "Transport is shared Silesian technical vocabulary; DDP and DDP_TRANSPORT are code identifiers. Retain this correct technical label rather than treating shared Polish spelling as proof of a wrong language."
+  },
+  {
+    "locale": "sc",
+    "key": "computer",
+    "value": "Computer",
+    "reason": "Retained as a valid Sardinian technical borrowing. https://sc.wikipedia.org/wiki/Computer uses computer in actual Sardinian article prose (Unu computer), alongside elaboradore and carculadore. Matching English alone does not make this existing translation wrong; capitalization suits the standalone UI label."
   }
 ]
