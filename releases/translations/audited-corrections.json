@@ -86042,5 +86042,19 @@
     "before": "Islamic Umm al-Qura",
     "after": "Ислаам халандаара (Umm al-Qura)",
     "reason": "Replace English calendar wording with exact Sakha CLDR Ислаам халандаара, https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/sah.xml . CLDR marks this term draft=provisional; confidence is limited, not native-speaker verified. Preserve proper variant identifier Umm al-Qura in parentheses."
+  },
+  {
+    "locale": "sah",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Dangi халандаара",
+    "reason": "Replace English descriptors with Sakha calendar wording халандаара, following existing locale and https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/sah.xml named calendar constructions. Preserve Dangi/Minguo as source proper identifiers without inventing transliterations. Assembled phrases are low confidence; searches did not establish these exact full labels; no native-speaker verification."
+  },
+  {
+    "locale": "sah",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Minguo халандаара",
+    "reason": "Replace English descriptors with Sakha calendar wording халандаара, following existing locale and https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/sah.xml named calendar constructions. Preserve Dangi/Minguo as source proper identifiers without inventing transliterations. Assembled phrases are low confidence; searches did not establish these exact full labels; no native-speaker verification."
   }
 ]
