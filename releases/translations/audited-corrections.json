@@ -77502,5 +77502,61 @@
     "before": "Cacher tous les éléments de la check-list",
     "after": "Nëbb mbiri limu bu seetlu bi yépp",
     "reason": "Replace French checklist action/confirmation/visibility values with Wolof. Distinguish removing a checklist item from removing its entire checklist, preserve %s order and all-versus-finished visibility. Reuse locale limu/yokk/far and vocabulary reference https://jangawolof.org/dictionary/ ; checklist terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "close-add-checklist-item",
+    "before": "Fermer ajouter un élément du formulaire checklist",
+    "after": "Tëj formileeru yokk mbir ci limu bu seetlu",
+    "reason": "Replace French checklist completion/form/newline instructions with Wolof. Preserve completed versus made incomplete state, add versus edit form closure, one item per line, original ordering and comma-separated input. Reuse locale checklist terminology; general vocabulary reference https://jangawolof.org/dictionary/ . Full grammar, order and comma terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "close-edit-checklist-item",
+    "before": "Fermer éditer un élément du formulaire checklist",
+    "after": "Tëj formileeru soppi mbir ci limu bu seetlu",
+    "reason": "Replace French checklist completion/form/newline instructions with Wolof. Preserve completed versus made incomplete state, add versus edit form closure, one item per line, original ordering and comma-separated input. Reuse locale checklist terminology; general vocabulary reference https://jangawolof.org/dictionary/ . Full grammar, order and comma terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-checklist-completed",
+    "before": "a complété la checklist %s de %s",
+    "after": "jeexal limu bu seetlu %s bu %s",
+    "reason": "Replace French checklist completion/form/newline instructions with Wolof. Preserve completed versus made incomplete state, add versus edit form closure, one item per line, original ordering and comma-separated input. Reuse locale checklist terminology; general vocabulary reference https://jangawolof.org/dictionary/ . Full grammar, order and comma terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-checklist-uncompleted",
+    "before": "a rendu incomplète la checklist %s de %s",
+    "after": "defaat limu bu seetlu %s bu %s ni lu jeexul",
+    "reason": "Replace French checklist completion/form/newline instructions with Wolof. Preserve completed versus made incomplete state, add versus edit form closure, one item per line, original ordering and comma-separated input. Reuse locale checklist terminology; general vocabulary reference https://jangawolof.org/dictionary/ . Full grammar, order and comma terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-checklist-uncompleted-card",
+    "before": "a décoché la checklist %s",
+    "after": "defaat limu bu seetlu %s ni lu jeexul",
+    "reason": "Replace French checklist completion/form/newline instructions with Wolof. Preserve completed versus made incomplete state, add versus edit form closure, one item per line, original ordering and comma-separated input. Reuse locale checklist terminology; general vocabulary reference https://jangawolof.org/dictionary/ . Full grammar, order and comma terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "newlineBecomesNewChecklistItem",
+    "before": "Chaque ligne de texte devient un élément de la check-list",
+    "after": "Rëdd wu nekk ci mbind mi dafay doon mbir ci limu bu seetlu bi",
+    "reason": "Replace French checklist completion/form/newline instructions with Wolof. Preserve completed versus made incomplete state, add versus edit form closure, one item per line, original ordering and comma-separated input. Reuse locale checklist terminology; general vocabulary reference https://jangawolof.org/dictionary/ . Full grammar, order and comma terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "before": "Chaque ligne de texte devient un élément de la check-list, l'ordre est respecté",
+    "after": "Rëdd wu nekk ci mbind mi dafay doon mbir ci limu bu seetlu bi, topp toftale gu njëkk gi",
+    "reason": "Replace French checklist completion/form/newline instructions with Wolof. Preserve completed versus made incomplete state, add versus edit form closure, one item per line, original ordering and comma-separated input. Reuse locale checklist terminology; general vocabulary reference https://jangawolof.org/dictionary/ . Full grammar, order and comma terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "r-checklist-note",
+    "before": "Note : les items de la checklist doivent être séparés par des virgules.",
+    "after": "Seetlu: mbiri limu bu seetlu bi dañu leen war a bind ni ay dayo yu wirgil teqale.",
+    "reason": "Replace French checklist completion/form/newline instructions with Wolof. Preserve completed versus made incomplete state, add versus edit form closure, one item per line, original ordering and comma-separated input. Reuse locale checklist terminology; general vocabulary reference https://jangawolof.org/dictionary/ . Full grammar, order and comma terminology remain low confidence."
   }
 ]
