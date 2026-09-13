@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,832 |
+| Corrected | 12,840 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 177 |
-| Pending review or repair | 3,013 |
+| Pending review or repair | 3,005 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,493** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,501** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `7a636ea2e4c691d7373a157fd2c9d453639e2724` — five German checklist-completion/instruction messages replaced with Klingon, preserving statuses, confirmation, comma separation and placeholder roles. Full software wording is low confidence and needs fluent-speaker validation.
+Latest translation fix: **2026-09-13**, local commit `0bb208c5ea1802ca99a2b2430fcf81b652e05f32` — eight German existence/validation errors replaced with Klingon, preserving object identities, duplicate-name distinctions, login and JSON checks. Full software wording is low confidence and needs fluent-speaker validation.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
