@@ -120335,5 +120335,26 @@
     "before": "Tämä suorittaa kattavan siirron, jolla tarkistetaan ja korjataan taulun tietojen eheys. Tämä voi kestää hetken. Jatketaanko?",
     "after": "Nece tegeb kaikenpoline migracii, miše kodvda da kohendada laudan andmusid, miše niil ei oliži vigoid. Nece voib otta vähän aigad. Jatkta?",
     "reason": "Replace Finnish migration/settings messages with Veps. Dictionary kodvda/koheta, eriži and vähän aigad preserve integrity repair, independent migrations and brief operation duration; retain list order, card positions and swimlane structure. Low confidence: composed integrity-purpose clauses, case agreement and technical structure borrowing require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "delete-duplicate-lists-confirm",
+    "before": "Oletko varma? Tämä poistaa kaikki ylimääräiset lista kopiot, joilla on sama nimi ja jotka eivät sisällä kortteja.",
+    "after": "Oled-ik tozi mugošt mel’t? Nece heittäb kaik lugetišiden dublikatad, kudambil om ühtejiččen nimi da kudambiš ei ole kartoid.",
+    "reason": "Replace Finnish duplicate-list warnings with Veps. Preserve empty-list AND same-name populated-duplicate conditions, initial shared-list conversion to per-swimlane lists and removal of only redundant lists. Current migration source confirms the order and populated-duplicate guard. Low confidence: composed safety/duplicate/assignment clauses and case agreement require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "delete-duplicate-empty-lists-migration-description",
+    "before": "Poistaa tyhjät kaksoiskappalelistat turvallisesti. Poistaa vain listat, joissa ei ole kortteja JA joilla on toinen samanniminen lista, joka sisältää kortteja.",
+    "after": "Heittäb tühjiden lugetišiden dublikatad ilman varuta. Heittäb vaiše lugetišed, kudambiš ei ole kartoid DA kudambil om toine ühtejiččen nimenke lugetiž, kudambas om kartoid.",
+    "reason": "Replace Finnish duplicate-list warnings with Veps. Preserve empty-list AND same-name populated-duplicate conditions, initial shared-list conversion to per-swimlane lists and removal of only redundant lists. Current migration source confirms the order and populated-duplicate guard. Low confidence: composed safety/duplicate/assignment clauses and case agreement require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "run-delete-duplicate-empty-lists-migration-confirm",
+    "before": "Tämä muuntaa ensin kaikki jaetut listat uimaratakohtaisiksi listoiksi ja poistaa sitten tyhjät listat, joissa on samanniminen kaksoiskappale, joka sisältää kortteja. Vain todella tarpeettomat tyhjät listat poistetaan. Jatketaanko?",
+    "after": "Nece vajehtab ezmäi kaik ühthižed lugetišed eriližihe lugetišihe kaikuččen ujundšoidun täht, sid’ heittäb tühjad lugetišed, kudambil om toine ühtejiččen nimenke lugetiž kartoidenke. Heittas vaiše todesižešti tarbhatomad tühjad lugetišed. Jatkta?",
+    "reason": "Replace Finnish duplicate-list warnings with Veps. Preserve empty-list AND same-name populated-duplicate conditions, initial shared-list conversion to per-swimlane lists and removal of only redundant lists. Current migration source confirms the order and populated-duplicate guard. Low confidence: composed safety/duplicate/assignment clauses and case agreement require fluent review."
   }
 ]

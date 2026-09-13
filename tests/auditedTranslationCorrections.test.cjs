@@ -2678,5 +2678,18 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(vepsTranslator.t('migrations-description'), /Kaikuččen migracijan voib tehta eriži/);
   assert.match(vepsTranslator.t('run-comprehensive-migration-confirm'), /voib otta vähän aigad.*Jatkta\?$/);
   assert.notEqual(vepsTranslator.t('board-migration'), vepsTranslator.t('board-migrations'));
+  const vepsDuplicateWarnings = {
+  "delete-duplicate-lists-confirm": "Oled-ik tozi mugošt mel’t? Nece heittäb kaik lugetišiden dublikatad, kudambil om ühtejiččen nimi da kudambiš ei ole kartoid.",
+  "delete-duplicate-empty-lists-migration-description": "Heittäb tühjiden lugetišiden dublikatad ilman varuta. Heittäb vaiše lugetišed, kudambiš ei ole kartoid DA kudambil om toine ühtejiččen nimenke lugetiž, kudambas om kartoid.",
+  "run-delete-duplicate-empty-lists-migration-confirm": "Nece vajehtab ezmäi kaik ühthižed lugetišed eriližihe lugetišihe kaikuččen ujundšoidun täht, sid’ heittäb tühjad lugetišed, kudambil om toine ühtejiččen nimenke lugetiž kartoidenke. Heittas vaiše todesižešti tarbhatomad tühjad lugetišed. Jatkta?"
+};
+  for (const [key, value] of Object.entries(vepsDuplicateWarnings)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Oletko varma|poistaa|kaksoiskappale|turvallisesti|sisältää kortteja|muuntaa ensin|uimaratakohtaisiksi|tarpeettomat|Jatketaanko/, key);
+  }
+  assert.match(vepsTranslator.t('delete-duplicate-empty-lists-migration-description'), /ei ole kartoid DA.*ühtejiččen nimenke.*om kartoid/);
+  assert.match(vepsTranslator.t('run-delete-duplicate-empty-lists-migration-confirm'), /ezmäi.*ühthižed lugetišed.*kaikuččen ujundšoidun.*sid’ heittäb.*kartoidenke.*vaiše.*tarbhatomad.*Jatkta\?$/);
+  assert.match(vepsTranslator.t('delete-duplicate-lists-confirm'), /ühtejiččen nimi.*ei ole kartoid/);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
