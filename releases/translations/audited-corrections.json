@@ -53639,5 +53639,47 @@
     "before": "Impostazioni per utenti sconosciuti (nome utente inesistente)",
     "after": "Sitãri ti ufilisitori nicunuscuti (numã di ufilisitor tsi nu existã)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "activity-added-label",
+    "before": "ha aggiunto l'etichetta  '%s' a %s",
+    "after": "adãvgã eticheta '%s' la %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "activity-delete-attach",
+    "before": "rimosso un allegato da %s",
+    "after": "ashtiarsi un atashament di %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "activity-removed-label",
+    "before": "ha rimosso l'etichetta '%s' da %s",
+    "after": "scoasi eticheta '%s' di %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "activity-removed-label-card",
+    "before": "L' etichetta '%s' è stata rimossa.",
+    "after": "scoasi eticheta '%s'",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "add-custom-html-after-body-start",
+    "before": "Aggiungi codice HTML personalizzato dopo <body> inzio",
+    "after": "Adavgã HTML personalizat dupã ahurhita <body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "addmore-detail",
+    "before": "Aggiungi una descrizione più dettagliata",
+    "after": "Adavgã unã descriari cu ma multi detalii",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
