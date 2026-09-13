@@ -1219,6 +1219,19 @@ for this change.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d8b235642">Repair Veps scheduled-job notifications and dictionary inflection</a>. Thanks to xet7.</summary>
+
+Replace eleven Finnish values in the
+<a href="https://github.com/wekan/wekan/commit/f64d43aec">scheduled-job repair</a>,
+resolving ten original findings and one unflagged error. Preserve active jobs,
+deletion confirmation and separate success/failure outcomes for four actions.
+Dictionary review corrects radon/radod object forms. All 16,914 exact correction
+checks pass. Composed scheduling terminology needs fluent review; 922 original
+findings and restored-value validation remain unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/34708699c">Repair Veps migration steps and browser warning</a>. Thanks to xet7.</summary>
 
 Replace ten Finnish values, resolving one original finding and nine unflagged

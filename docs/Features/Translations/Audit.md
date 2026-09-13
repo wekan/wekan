@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 14,912 |
+| Corrected | 14,922 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 932 |
+| Pending review or repair | 922 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,903** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,914** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-13**, local commit `34708699c` — repaired **10** Veps migration-step/warning values, resolving **one** original finding and **nine** unflagged errors. Preserve distinct restore targets, update/validation actions and the browser warning: do not close, processing continues in the background, and completion may take longer. All **16,903** exact corrections pass runtime rendering, placeholder, JSON, key-order and human-preference checks. The original queue has **932** pending findings, including **191** Veps findings. **Low confidence:** composed technical warning/morphology and previously noted comment/import/login grammar need fluent-speaker review. Restored and unflagged values, wrong-language/script checks, keyboard shortcuts and remaining migration messages remain unfinished. No translations were pushed.
+Latest translation fix: **2026-09-13**, local commits `f64d43aec` and `d8b235642` — repaired **11** Veps scheduled-job values, resolving **ten** original findings and **one** unflagged error. Preserve active/scheduled jobs, deletion confirmation and distinct delete/pause/resume/start success/failure notifications. Follow-up dictionary review corrected job-object inflection to **radon/radod**. All **16,914** exact corrections pass runtime rendering, placeholder, JSON, key-order and human-preference checks. The original queue has **922** pending findings, including **181** Veps findings. **Low confidence:** composed scheduling terminology and technical warning/morphology need fluent-speaker review. Restored/unflagged values, wrong-language/script checks, keyboard shortcuts and remaining migration messages remain unfinished. No translations were pushed.
 
 **Build interruption (2026-09-13):** local commit `6cd193879` repairs the Meteor 3.6/Rspack 2 build's undeclared body-parser import using Meteor's existing Express parsers. Seven HTTP/build regressions pass. Meteor 3.6-beta.0/Rspack 2.2 and matching Docker metadata are committed locally (`35082f7d7`), and both previously failing version checks pass. All **1,015** Node suites pass. The actual Meteor bundle build remains under verification: the local beta tool is still starting before compilation. Translation counts and the latest translation commit remain unchanged.
 
