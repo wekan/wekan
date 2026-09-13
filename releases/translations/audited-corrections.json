@@ -85181,5 +85181,40 @@
     "before": "Republic of China",
     "after": "Likhalenda le-Minguo",
     "reason": "Replace foreign-language setting and English calendar labels with Swati using existing local Likhalenda/Lusuku terminology; retain Dangi, Hijri, Umm al-Qura and Minguo identities. Assembled Swati grammar remains low confidence. Searches for Swati calendar/country wording did not provide native attestation; https://en.wiktionary.org/wiki/ikhalenda covers Zulu and Southern Ndebele only and is explicitly not evidence for Swati. Other religious/country/calendar variant labels remain pending."
+  },
+  {
+    "locale": "ss",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Likhalenda laseChina",
+    "reason": "Replace English calendar labels with Swati descriptions using existing local Likhalenda and Liviki terminology; retain China, Japan, Ethiopia, Amete Alem and ISO identifiers and restore Gregorian ISO week detail. Swati vocabulary searches did not establish native country/complete phrase attestation, so retained country spellings, derived week plural and assembled grammar are explicitly low confidence. Search results in Xhosa/Zulu are not Swati validation. Religious, national and Hijri variant labels remain pending."
+  },
+  {
+    "locale": "ss",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Likhalenda laseJapan",
+    "reason": "Replace English calendar labels with Swati descriptions using existing local Likhalenda and Liviki terminology; retain China, Japan, Ethiopia, Amete Alem and ISO identifiers and restore Gregorian ISO week detail. Swati vocabulary searches did not establish native country/complete phrase attestation, so retained country spellings, derived week plural and assembled grammar are explicitly low confidence. Search results in Xhosa/Zulu are not Swati validation. Religious, national and Hijri variant labels remain pending."
+  },
+  {
+    "locale": "ss",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Likhalenda laseEthiopia",
+    "reason": "Replace English calendar labels with Swati descriptions using existing local Likhalenda and Liviki terminology; retain China, Japan, Ethiopia, Amete Alem and ISO identifiers and restore Gregorian ISO week detail. Swati vocabulary searches did not establish native country/complete phrase attestation, so retained country spellings, derived week plural and assembled grammar are explicitly low confidence. Search results in Xhosa/Zulu are not Swati validation. Religious, national and Hijri variant labels remain pending."
+  },
+  {
+    "locale": "ss",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Likhalenda le-Amete Alem laseEthiopia",
+    "reason": "Replace English calendar labels with Swati descriptions using existing local Likhalenda and Liviki terminology; retain China, Japan, Ethiopia, Amete Alem and ISO identifiers and restore Gregorian ISO week detail. Swati vocabulary searches did not establish native country/complete phrase attestation, so retained country spellings, derived week plural and assembled grammar are explicitly low confidence. Search results in Xhosa/Zulu are not Swati validation. Religious, national and Hijri variant labels remain pending."
+  },
+  {
+    "locale": "ss",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "Likhalenda le-Gregoriana (emaviki e-ISO 8601)",
+    "reason": "Replace English calendar labels with Swati descriptions using existing local Likhalenda and Liviki terminology; retain China, Japan, Ethiopia, Amete Alem and ISO identifiers and restore Gregorian ISO week detail. Swati vocabulary searches did not establish native country/complete phrase attestation, so retained country spellings, derived week plural and assembled grammar are explicitly low confidence. Search results in Xhosa/Zulu are not Swati validation. Religious, national and Hijri variant labels remain pending."
   }
 ]
