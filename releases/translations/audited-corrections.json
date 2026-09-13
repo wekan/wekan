@@ -86889,5 +86889,68 @@
     "before": "Ajouter le champ aux cartes nouvellement créées",
     "after": "Lüükön feli lü kads nulik",
     "reason": "Replace French card/minicard field display labels with directly assembled Volapük. Ralph Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kadil (small card, PDF page584), kad (card), jonön (show), fel (general field), ninädapenäd (label), lüükön (add), valik (all), nulik (new). Preserve card/minicard destination and all-cards versus new-cards scope. Applying small card to minicard and software-field sense, inflections and full phrases remain low confidence pending native review; preserve source tokens."
+  },
+  {
+    "locale": "vo",
+    "key": "team",
+    "before": "Teamo",
+    "after": "Kvip",
+    "reason": "Replace French or Esperanto team wording with Volapük. Midgley English/Volapük dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests kvip (team), mödot (quantity), guvan (administrator), kosikön (come into contact), ya (already), dono (below), begö (please); reuse jafön/lüükön/jonön/gebön/tuvön vocabulary. Preserve source lookup token and team-count trailing space. Software senses and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "teams",
+    "before": "Équipes",
+    "after": "Kvips",
+    "reason": "Replace French or Esperanto team wording with Volapük. Midgley English/Volapük dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests kvip (team), mödot (quantity), guvan (administrator), kosikön (come into contact), ya (already), dono (below), begö (please); reuse jafön/lüükön/jonön/gebön/tuvön vocabulary. Preserve source lookup token and team-count trailing space. Software senses and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "operator-team",
+    "before": "équipe",
+    "after": "kvip",
+    "reason": "Replace French or Esperanto team wording with Volapük. Midgley English/Volapük dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests kvip (team), mödot (quantity), guvan (administrator), kosikön (come into contact), ya (already), dono (below), begö (please); reuse jafön/lüükön/jonön/gebön/tuvön vocabulary. Preserve source lookup token and team-count trailing space. Software senses and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "add-teams",
+    "before": "Ajouter des équipes",
+    "after": "Lüükön kvipis",
+    "reason": "Replace French or Esperanto team wording with Volapük. Midgley English/Volapük dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests kvip (team), mödot (quantity), guvan (administrator), kosikön (come into contact), ya (already), dono (below), begö (please); reuse jafön/lüükön/jonön/gebön/tuvön vocabulary. Preserve source lookup token and team-count trailing space. Software senses and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "team-number",
+    "before": "Le nombre d'équipes est de :",
+    "after": "Mödot kvipas: ",
+    "reason": "Replace French or Esperanto team wording with Volapük. Midgley English/Volapük dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests kvip (team), mödot (quantity), guvan (administrator), kosikön (come into contact), ya (already), dono (below), begö (please); reuse jafön/lüükön/jonön/gebön/tuvön vocabulary. Preserve source lookup token and team-count trailing space. Software senses and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "error-teamname-taken",
+    "before": "Ce nom d'équipe est déjà utilisé",
+    "after": "Nem kvipa at ya pagebon",
+    "reason": "Replace French or Esperanto team wording with Volapük. Midgley English/Volapük dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests kvip (team), mödot (quantity), guvan (administrator), kosikön (come into contact), ya (already), dono (below), begö (please); reuse jafön/lüükön/jonön/gebön/tuvön vocabulary. Preserve source lookup token and team-count trailing space. Software senses and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "add-teams-label",
+    "before": "Les équipes ajoutées sont affichées ci-dessous :",
+    "after": "Kvips pelüüköl pajonons dono:",
+    "reason": "Replace French or Esperanto team wording with Volapük. Midgley English/Volapük dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests kvip (team), mödot (quantity), guvan (administrator), kosikön (come into contact), ya (already), dono (below), begö (please); reuse jafön/lüükön/jonön/gebön/tuvön vocabulary. Preserve source lookup token and team-count trailing space. Software senses and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "to-create-teams-contact-admin",
+    "before": "Pour créer des équipes, veuillez contacter l'administrateur.",
+    "after": "Ad jafön kvipis, begö! kosikön ko guvan.",
+    "reason": "Replace French or Esperanto team wording with Volapük. Midgley English/Volapük dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests kvip (team), mödot (quantity), guvan (administrator), kosikön (come into contact), ya (already), dono (below), begö (please); reuse jafön/lüükön/jonön/gebön/tuvön vocabulary. Preserve source lookup token and team-count trailing space. Software senses and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "team-name-not-found",
+    "before": "Équipe '%s' non trouvée.",
+    "after": "Kvip '%s' no petuvon.",
+    "reason": "Replace French or Esperanto team wording with Volapük. Midgley English/Volapük dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests kvip (team), mödot (quantity), guvan (administrator), kosikön (come into contact), ya (already), dono (below), begö (please); reuse jafön/lüükön/jonön/gebön/tuvön vocabulary. Preserve source lookup token and team-count trailing space. Software senses and assembled grammar remain low confidence; no native-speaker validation."
   }
 ]
