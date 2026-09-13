@@ -114231,5 +114231,152 @@
     "before": "häviti uindradan __swimlane__ laudal __board__",
     "after": "häviti ujundšoidun __swimlane__ laudal __board__",
     "reason": "Replace Finnish activity text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kart, laud, lugetiž, znam, ühtnik, sel’genzoituz/sel’genzoitta, ujund (swimming), šoid (strip), arhiv, ližata, importiruida and udištada. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests tehtud, heittud, sirttud, vajehtadud and udištadud. Compose ujundšoid for the kanban swimlane metaphor instead of the unsupported uindrada stem; keep action kind, entity/context, source/destination and every case-sensitive placeholder. Low confidence: kanban card/swimlane metaphors, compound terminology and composed UI grammar/inflections require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "checklist",
+    "before": "Tarkistuslista",
+    "after": "Kodvindlugetiž",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "checklists",
+    "before": "Tarkistuslistat",
+    "after": "Kodvindlugetišed",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "subtasks",
+    "before": "Alitehtävät",
+    "after": "Alategendad",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-checklist",
+    "before": "Lisää tarkistuslista",
+    "after": "Ližada kodvindlugetiž",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-checklist-item",
+    "before": "Lisää kohta tarkistuslistaan",
+    "after": "Ližada koht kodvindlugetišehe",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-subtask",
+    "before": "Lisää alitehtävä",
+    "after": "Ližada alategend",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "checklistActionsPopup-title",
+    "before": "Tarkistuslista toimet",
+    "after": "Kodvindlugetišen tegendad",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "checklistDeletePopup-title",
+    "before": "Poista tarkistuslista?",
+    "after": "Heitä kodvindlugetiž?",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "checklistItemDeletePopup-title",
+    "before": "Poista tarkistuslistan kohta?",
+    "after": "Heitä kodvindlugetišen koht?",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "hide-checked-items",
+    "before": "Piilota ruksatut kohdat",
+    "after": "Peitä znamoitud kohtad",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "checklist-count",
+    "before": "Kontroll-listan elementoiden lugu (0/0)",
+    "after": "Kodvindlugetišen kohtoiden lugu (0/0)",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "checklist-count-on-minicard",
+    "before": "Kontroll-listan elementoiden lugu (0/0) minikartal",
+    "after": "Kodvindlugetišen kohtoiden lugu (0/0) minikartal",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-addSubtask",
+    "before": "lisätty alitehtävä __subtask__ kortille __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
+    "after": "Ližadud alategend __subtask__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-addChecklist",
+    "before": "lisätty tarkistuslista __checklist__ kortille __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
+    "after": "Ližadud kodvindlugetiž __checklist__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-addChecklistItem",
+    "before": "lisätty tarkistuslistan kohta __checklistItem__ tarkistuslistalle __checklist__ kortilla __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
+    "after": "Ližadud koht __checklistItem__ kodvindlugetišehe __checklist__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-removeChecklist",
+    "before": "poistettu tarkistuslista __checklist__ kortilta __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
+    "after": "Heittud kodvindlugetiž __checklist__ kartaspäi __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-removeChecklistItem",
+    "before": "o bvisa tshiteṅwa __checklistItem__ kha mutevhe wa u sedza __checkList__ kha garaṱa __card__ kha mutevhe __list__ kha nḓila __swimlane__ kha bodo __board__",
+    "after": "Heittud koht __checklistItem__ kodvindlugetišespäi __checkList__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-checkedItem",
+    "before": "ruksattu __checklistItem__ tarkistuslistalla __checklist__ kortilla __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
+    "after": "Znamoitud koht __checklistItem__ kodvindlugetišes __checklist__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-uncheckedItem",
+    "before": "poistettu ruksi __checklistItem__ tarkistuslistalta __checklist__ kortilla __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
+    "after": "Heittud znam kohtaspäi __checklistItem__ kodvindlugetišes __checklist__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-completeChecklist",
+    "before": "valmistui tarkistuslista __checklist__ kortilla __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
+    "after": "Loptud kodvindlugetiž __checklist__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "act-uncompleteChecklist",
+    "before": "tehty ei valmistuneeksi tarkistuslista __checklist__ kortilla __card__ listalla __list__ uimaradalla __swimlane__ taululla __board__",
+    "after": "Kodvindlugetiž __checklist__ om märitadud kut lopmatoi kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+    "reason": "Replace Finnish/Venda or mixed checklist text with Veps. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), http://resources.krc.karelia.ru/illh/doc/rus-veps-sanakirja.pdf, attests kodvind (check), lugetiž (list), koht (document item), tegend (task), lopmatoi (unfinished), lopta (finish), znam (mark) and ližata. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests znamoitud (marked), tegendad, peitä, märitadud, and ala- in alalehtpol’ (subpage). Compose kodvindlugetiž/alategend for checklist/subtask; preserve add/remove, check/uncheck, completion/reopening, context and every case-sensitive placeholder, especially __checkList__. Preserve (0/0) counters and minicard context. Low confidence: composed kanban checklist/subtask terminology and UI inflection need fluent review."
   }
 ]

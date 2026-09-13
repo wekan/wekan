@@ -660,5 +660,43 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(vepsTranslator.t('act-unjoinMember', activitySlots), /^Heittud ühtnik MEMBER kartaspäi CARD/);
   assert.match(vepsTranslator.t('act-archivedCard', activitySlots), /om sirttud arhivaha$/);
   assert.doesNotMatch(vepsTranslator.t('act-restoredCard', activitySlots), /arhivaha/);
+  const vepsChecklistRepairs = {
+  "checklist": "Kodvindlugetiž",
+  "checklists": "Kodvindlugetišed",
+  "subtasks": "Alategendad",
+  "add-checklist": "Ližada kodvindlugetiž",
+  "add-checklist-item": "Ližada koht kodvindlugetišehe",
+  "add-subtask": "Ližada alategend",
+  "checklistActionsPopup-title": "Kodvindlugetišen tegendad",
+  "checklistDeletePopup-title": "Heitä kodvindlugetiž?",
+  "checklistItemDeletePopup-title": "Heitä kodvindlugetišen koht?",
+  "hide-checked-items": "Peitä znamoitud kohtad",
+  "checklist-count": "Kodvindlugetišen kohtoiden lugu (0/0)",
+  "checklist-count-on-minicard": "Kodvindlugetišen kohtoiden lugu (0/0) minikartal",
+  "act-addSubtask": "Ližadud alategend __subtask__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-addChecklist": "Ližadud kodvindlugetiž __checklist__ kartale __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-addChecklistItem": "Ližadud koht __checklistItem__ kodvindlugetišehe __checklist__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-removeChecklist": "Heittud kodvindlugetiž __checklist__ kartaspäi __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-removeChecklistItem": "Heittud koht __checklistItem__ kodvindlugetišespäi __checkList__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-checkedItem": "Znamoitud koht __checklistItem__ kodvindlugetišes __checklist__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-uncheckedItem": "Heittud znam kohtaspäi __checklistItem__ kodvindlugetišes __checklist__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-completeChecklist": "Loptud kodvindlugetiž __checklist__ kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__",
+  "act-uncompleteChecklist": "Kodvindlugetiž __checklist__ om märitadud kut lopmatoi kartal __card__ lugetišes __list__ ujundšoidul __swimlane__ laudal __board__"
+};
+  const checklistSlots = { ...activitySlots, checklist: 'CHECKLIST', checkList: 'SOURCE_CHECKLIST', checklistItem: 'ITEM', subtask: 'SUBTASK' };
+  for (const [key, value] of Object.entries(vepsChecklistRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key, checklistSlots), value.replace(/__([A-Za-z]+)__/g, (_, name) => checklistSlots[name]), key);
+    assert.doesNotMatch(value, /Tarkistuslista|tarkistuslist|lisätty|poistettu|Lisää|Alitehtävät|Poista|Piilota|ruksattu|ruksi|kortill|uimarad|taulull|Kontroll-listan|elementoiden|o bvisa|tshiteṅwa|mutevhe|garaṱa|nḓila/, key);
+  }
+  assert.match(vepsTranslator.t('act-addChecklistItem', checklistSlots), /ITEM kodvindlugetišehe CHECKLIST kartal CARD/);
+  assert.match(vepsTranslator.t('act-removeChecklistItem', checklistSlots), /ITEM kodvindlugetišespäi SOURCE_CHECKLIST kartal CARD/);
+  assert.match(vepsTranslator.t('act-uncheckedItem', checklistSlots), /^Heittud znam kohtaspäi ITEM/);
+  assert.doesNotMatch(vepsTranslator.t('act-checkedItem', checklistSlots), /Heittud znam/);
+  assert.match(vepsTranslator.t('act-uncompleteChecklist', checklistSlots), /CHECKLIST om märitadud kut lopmatoi/);
+  assert.match(vepsTranslator.t('act-completeChecklist', checklistSlots), /^Loptud kodvindlugetiž CHECKLIST/);
+  assert.match(vepsTranslator.t('act-addSubtask', checklistSlots), /SUBTASK kartale CARD/);
+  assert.match(cache['ve-PP']['checklist-count'], /\(0\/0\)$/);
+  assert.equal(cache['ve-PP']['checklist-count-on-minicard'], cache['ve-PP']['checklist-count'] + ' minikartal');
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
