@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,447 |
+| Corrected | 12,452 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,399 |
+| Pending review or repair | 3,394 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,999** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,005** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `5e591c43a71ca37b301711df7939aa46fbcd63d5` — nine Volapük account/invitation, display, permission and loading strings repaired. Success/failure, possible private-page access and sign-in HTML/URL placeholder preserved; assembled wording remains low confidence.
+Latest translation fix: **2026-09-13**, local commit `7168d9f1f16bfdd53a4dc14c4546b3ece88fb6b4` — seven Volapük selection, read/unread and keyboard-control strings repaired or aligned. Opposite states/actions and label/member distinctions preserved; descriptive software wording remains low confidence.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
