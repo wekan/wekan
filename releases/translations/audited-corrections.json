@@ -108190,5 +108190,215 @@
     "before": "Qedela ngokuzenzakalela i-emoji",
     "after": "Fhedzisa emoji nga yoṱhe",
     "reason": "Replace Zulu-seeded prose directly with Tshivenda. Preserve source placeholders, literal troubleshooting commands, S3 URL/region examples, TLS and numeric-unit meanings. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "shortcut-autocomplete-members",
+    "before": "Qedela amalungu ngokuzenzakalelayo",
+    "after": "Fhedzisani madzina a miraḓo nga yoṱhe",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "shortcut-show-shortcuts",
+    "before": "Letha lolu hlu lwezinqamuleli",
+    "after": "Vulani uyu mutevhe wa zwipidzi zwa khiibodo",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "shortcut-toggle-filterbar",
+    "before": "Guqula ibha eseceleni yesihlungi",
+    "after": "Vulani kana valani phaneḽe ya u sefa ya nga thungo",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "shortcut-toggle-searchbar",
+    "before": "Guqula ibha eseceleni yosesho",
+    "after": "Vulani kana valani phaneḽe ya u ṱoḓa ya nga thungo",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "shortcut-toggle-sidebar",
+    "before": "Guqula ibha eseceleni yebhodi",
+    "after": "Vulani kana valani phaneḽe ya bodo ya nga thungo",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "show-at-all-boards-page",
+    "before": "Bonisa ekhasini elithi Wonke Amabhodi",
+    "after": "Sumbedzani kha siaṱari ḽa bodo dzoṱhe",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "show-board_members-avatar",
+    "before": "Bonisa ama-avatar amalungu eBhodi",
+    "after": "Sumbedzani zwifanyiso zwa miraḓo ya bodo",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "show-card-counter-per-list",
+    "before": "Bonisa isibalo samakhadi ngohlu ngalunye",
+    "after": "Sumbedzani tshivhalo tsha makhadi kha mutevhe muṅwe na muṅwe",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "show-cards-minimum-count",
+    "before": "Bonisa isibalo samakhadi uma uhlu luqukethe okungaphezu",
+    "after": "Sumbedzani tshivhalo tsha makhadi arali mutevhe u na makhadi a fhiraho",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "show-desktop-drag-handles",
+    "before": "Bonisa izibambi zokuhudula zedeskithophu",
+    "after": "Sumbedzani zwifaro zwa u kokodza kha dekhisithopo",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "show-list-on-minicard",
+    "before": "Bonisa Uhlu Kukhadi Elincane",
+    "after": "Sumbedzani mutevhe kha khadi ṱhukhu",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "show-subtasks-field",
+    "before": "Bonisa inkambu yemisebenzi engaphansi",
+    "after": "Sumbedzani fhethu ha mishumo miṱuku",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "show-week-of-year",
+    "before": "Bonisa iviki lonyaka (ISO 8601)",
+    "after": "Sumbedzani vhege ya ṅwaha (ISO 8601)",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "sign-in-to-upload",
+    "before": "Ngena ngemvume ukuze ulayishe amakhosombe",
+    "after": "Dzhena u itela u rumela zwivhulungi zwa khoudu",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "smtp-host-description",
+    "before": "Ikheli leseva ye-SMTP ephethe ama-imeyili akho.",
+    "after": "Ḓiresi ya seva ya SMTP ine ya langa imeiḽi dzanu.",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "smtp-port-description",
+    "before": "Imbobo esetshenziswa iseva yakho ye-SMTP kuma-imeyili aphumayo.",
+    "after": "Phothe ine seva yanu ya SMTP ya shumisa kha imeiḽi dzi rumelwaho.",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "smtp-tls-description",
+    "before": "Nika amandla usekelo lwe-TLS kuseva ye-SMTP",
+    "after": "Tendelani thikhedzo ya TLS kha seva ya SMTP",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "sort-desc",
+    "before": "Chofoza ukuze Hlunga Uhlu",
+    "after": "Kiḽikani u itela u vhekanya mutevhe",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "spent-time-hours",
+    "before": "Isikhathi esichithwe (amahora)",
+    "after": "Tshifhinga tsho shumiswaho (awara)",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "start-day-of-week",
+    "before": "Setha usuku lokuqala lweviki",
+    "after": "Vhekanyani ḓuvha ḽa u thoma ḽa vhege",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "step-delete-duplicate-empty-lists",
+    "before": "Susa Uhlu Olungenalutho Oluyimpinda",
+    "after": "Susani mitevhe i si na tshithu yo dovhololwaho",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "step-ensure-per-swimlane-lists",
+    "before": "Qinisekisa Uhlu Lwe-Per-Swimlane",
+    "after": "Khwaṱhisedzani mitevhe ya ḽaini iṅwe na iṅwe",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "step-fix-file-urls",
+    "before": "Ilungisa ama-URL wefayela",
+    "after": "U lugisa URL dza faela",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "step-fix-missing-ids",
+    "before": "Lungisa omazisi abangekho",
+    "after": "Lugisani ID dzi sa wanali",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "step-progress",
+    "before": "Isinyathelo Inqubekelaphambili",
+    "after": "Mvelaphanḓa ya ḽiga",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "step-restore-swimlanes",
+    "before": "Buyisela Izimoto Zokubhukuda",
+    "after": "Vhuyedzedzani dziḽaini",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "step-scan-users",
+    "before": "Ihlola ama-avatar elungu lebhodi",
+    "after": "U sedza zwifanyiso zwa miraḓo ya bodo",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "storage-distribution",
+    "before": "Ukusabalalisa Kwesitoreji",
+    "after": "U phaḓaladzwa ha fhethu ha u vhulunga",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "subtask-settings",
+    "before": "Izilungiselelo zemisebenzi engaphansi",
+    "after": "Nzudzanyo dza mishumo miṱuku",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve",
+    "key": "subtaskActionsPopup-title",
+    "before": "Izenzo Zomsebenzi Ongaphansi",
+    "after": "Nyito dza mushumo muṱuku",
+    "reason": "Replace Zulu-seeded text with Tshivenda; preserve display thresholds, SMTP/TLS terminology and migration actions. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
