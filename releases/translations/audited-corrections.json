@@ -120881,5 +120881,12 @@
     "before": "مستخدم",
     "after": "ⴰⵏⵙⵙⵎⵔⵙ",
     "reason": "Reviewed 2026-09-14: replace Arabic with exact native Standard Moroccan Tamazight UI wording from MediaWiki filehist-user message: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Remove controls discard a selected item/rule; Clear all filters is the same filter-reset action; anonymized fallback denotes user. Preserve unrelated correct translations."
+  },
+  {
+    "locale": "zgh",
+    "key": "deleteCommentPopup-title",
+    "before": "Supprimer le commentaire ?",
+    "after": "ⴽⴽⵙ ⴰⵖⴼⴰⵡⴰⵍ?",
+    "reason": "Reviewed 2026-09-14: replace French deletion prompt with directly composed Standard Moroccan Tamazight delete command ⴽⴽⵙ and comment noun ⴰⵖⴼⴰⵡⴰⵍ, attested in MediaWiki delete and filehist-comment: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve question marking and destructive-action meaning. LOW CONFIDENCE full prompt composition/definiteness requires fluent review; lexical references do not prove idiomatic full sentence."
   }
 ]
