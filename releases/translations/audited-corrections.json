@@ -112187,5 +112187,26 @@
     "before": "Jalali (Fars)",
     "after": "Jalali (Persijan kalendar')",
     "reason": "Replace English/Turkic calendar seed with native calendar wording. Unicode CLDR sah attests халандаара; Wikidata Q36155 indexes Sakha Коптик тыла and Q9168 indexes Sakha Перс тыла and Veps Persijan kelʹ. Preserve Jalali proper name. Composed calendar names require fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "organizations",
+    "before": "Organisaatiot",
+    "after": "Sebrad",
+    "reason": "Replace Finnish organization seed with attested Veps sebr organization, dictionary nominative plural and genitive plural sebroiden, lugu count, olda third-person om/connegative ole, and löuta passive past participle löutud. Kaikki Veps dictionary/Wiktionary inflection tables. Preserve %s placeholder. Composed diagnostic wording requires fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "org-number",
+    "before": "Organisaatioiden määrä on:",
+    "after": "Sebroiden lugu om: ",
+    "reason": "Replace Finnish organization seed with attested Veps sebr organization, dictionary nominative plural and genitive plural sebroiden, lugu count, olda third-person om/connegative ole, and löuta passive past participle löutud. Kaikki Veps dictionary/Wiktionary inflection tables. Preserve %s placeholder. Composed diagnostic wording requires fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "org-name-not-found",
+    "before": "Organisaatiota '%s' ei löydy.",
+    "after": "Sebr '%s' ei ole löutud.",
+    "reason": "Replace Finnish organization seed with attested Veps sebr organization, dictionary nominative plural and genitive plural sebroiden, lugu count, olda third-person om/connegative ole, and löuta passive past participle löutud. Kaikki Veps dictionary/Wiktionary inflection tables. Preserve %s placeholder. Composed diagnostic wording requires fluent review."
   }
 ]
