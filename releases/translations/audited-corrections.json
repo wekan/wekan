@@ -88695,5 +88695,26 @@
     "before": "Importer un fichier Excel CSV/TSV",
     "after": "Nüveigön Excel CSV/TSV",
     "reason": "Replace French export/import interface labels with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests seveigön (export), nüveigön (import); reuse existing user/card/field terminology. Preserve cannot-export permissions, card scope, field inclusion and unchanged Excel, PDF, Trello, CSV/TSV product/format names. Data-transfer adaptation and assembled wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "import-csv-placeholder",
+    "before": "Déposez ici vos données valides CSV/TSV",
+    "after": "Nüseitolös is nünädis lonöfik olik: CSV/TSV",
+    "reason": "Replace French import prompts/export-date label with Volapük using existing date/data terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nüseitön (insert), getön (receive), prim (start), tüp (due date). Preserve valid data, here/your instruction, exact CSV/TSV/JSON formats and created/received/start/due/end date inventory. Insert-to-paste software adaptation is low confidence, without claiming an attested clipboard-specific term; assembled wording needs native review."
+  },
+  {
+    "locale": "vo",
+    "key": "import-json-placeholder",
+    "before": "Collez ici les données JSON valides",
+    "after": "Nüseitolös is nünädis lonöfik olik: JSON",
+    "reason": "Replace French import prompts/export-date label with Volapük using existing date/data terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nüseitön (insert), getön (receive), prim (start), tüp (due date). Preserve valid data, here/your instruction, exact CSV/TSV/JSON formats and created/received/start/due/end date inventory. Insert-to-paste software adaptation is low confidence, without claiming an attested clipboard-specific term; assembled wording needs native review."
+  },
+  {
+    "locale": "vo",
+    "key": "export-card-field-dates",
+    "before": "Dates (Création, Réception, Début, Échéance, Fin)",
+    "after": "Däts (Jafam, Getam, Prim, Tüp, Fin)",
+    "reason": "Replace French import prompts/export-date label with Volapük using existing date/data terminology. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nüseitön (insert), getön (receive), prim (start), tüp (due date). Preserve valid data, here/your instruction, exact CSV/TSV/JSON formats and created/received/start/due/end date inventory. Insert-to-paste software adaptation is low confidence, without claiming an attested clipboard-specific term; assembled wording needs native review."
   }
 ]
