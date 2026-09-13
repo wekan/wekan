@@ -64139,5 +64139,75 @@
     "before": "Êtes-vous sûr de vouloir supprimer l'élément de la check-list ?",
     "after": "Ha sur oc’h e fell deoc’h dilemel elfenn ar roll kontroll ?",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "confirm-subtask-delete-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer la sous-tâche ?",
+    "after": "Ha sur oc’h e fell deoc’h dilemel an is-trevell ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "createTemplateContainerPopup-title",
+    "before": "Ajouter un conteneur de modèles",
+    "after": "Ouzhpennañ ur c’hendalc’her patromoù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "custom-field-dropdown-options-placeholder",
+    "before": "Appuyez sur Entrée pour ajouter d'autres options",
+    "after": "Pouezit war Enankañ evit ouzhpennañ dibarzhioù all",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "before": "Appuyez sur Entrée pour ajouter plus d'éléments",
+    "after": "Pouezit war Enankañ evit ouzhpennañ elfennoù all",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "custom-login-logo-image-url",
+    "before": "URL de l'image du logo de connexion personnalisé",
+    "after": "URL skeudenn al logo kennaskañ personelaet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "custom-login-logo-link-url",
+    "before": "Lien URL du logo de connexion personnalisé",
+    "after": "URL liamm al logo kennaskañ personelaet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "delete-all-notifications",
+    "before": "Supprimer toutes les notifications",
+    "after": "Dilemel an holl gemennadennoù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "delete-all-notifications-confirm",
+    "before": "Êtes-vous sûr de vouloir supprimer toutes les notifications ? Cette action est irréversible.",
+    "after": "Ha sur oc’h e fell deoc’h dilemel an holl gemennadennoù ? N’haller ket dizober an ober-mañ.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "delete-avatar-confirm",
+    "before": "Êtes-vous sûr de vouloir supprimer cet avatar ?",
+    "after": "Ha sur oc’h e fell deoc’h dilemel an avatar-mañ ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "delete-board-confirm-popup",
+    "before": "Toutes les listes, cartes, étiquettes et activités seront supprimées et vous ne pourrez pas retrouver le contenu du tableau. Cela est irréversible.",
+    "after": "Dilamet e vo an holl rolloù, kartennoù, tikedennoù hag obererezhioù ha ne c’hallot ket adkavout endalc’had an daolenn. N’haller ket dizober an ober-mañ.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
