@@ -88261,5 +88261,40 @@
     "before": "Toutes les actions seront supprimées du fil d'activité et il ne sera plus possible de les récupérer. Cela est irréversible.",
     "after": "Dunots valik pomoükons de lised dunotas, e no okanol getön dönu lisedi. Sädunam binon nemögik.",
     "reason": "Replace French history/deletion text with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jenotem (succession of events/history), distukön (destroy); MediaWiki Volapük software history labels use jenotem. Preserve all-card removal, history destruction, complete board-content deletion, activity-feed removal, inability to reopen/recover and absence of undo. Recovery expressed as getting back, avoiding health/cover-again false friends. Activity-feed adaptation and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "filter-on-desc",
+    "before": "Vous êtes en train de filtrer les cartes sur ce tableau. Cliquez ici pour modifier les filtres.",
+    "after": "Sulol kadis su tab at. Klikolös is ad votükön suli.",
+    "reason": "Replace French filter-interface wording with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests sul/sulön (filter), tiäd (title), klänedön (hide); reuse existing card/list/custom-field terminology and software click wording. Preserve card-or-list selection, title/custom-field criteria, active-filter editing and sidebar show/hide behavior. Sidebar compound and assembled software wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "filter-card-title-label",
+    "before": "Filtrer par titre de carte",
+    "after": "Sulön ma tiäd kada",
+    "reason": "Replace French filter-interface wording with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests sul/sulön (filter), tiäd (title), klänedön (hide); reuse existing card/list/custom-field terminology and software click wording. Preserve card-or-list selection, title/custom-field criteria, active-filter editing and sidebar show/hide behavior. Sidebar compound and assembled software wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "filter-cards",
+    "before": "Filtrer les cartes ou listes",
+    "after": "Sulön kadis u lisedis",
+    "reason": "Replace French filter-interface wording with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests sul/sulön (filter), tiäd (title), klänedön (hide); reuse existing card/list/custom-field terminology and software click wording. Preserve card-or-list selection, title/custom-field criteria, active-filter editing and sidebar show/hide behavior. Sidebar compound and assembled software wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "filter-custom-fields-label",
+    "before": "Filtrer par champs personnalisés",
+    "after": "Sulön ma fels lönik",
+    "reason": "Replace French filter-interface wording with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests sul/sulön (filter), tiäd (title), klänedön (hide); reuse existing card/list/custom-field terminology and software click wording. Preserve card-or-list selection, title/custom-field criteria, active-filter editing and sidebar show/hide behavior. Sidebar compound and assembled software wording remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "shortcut-toggle-filterbar",
+    "before": "Afficher/Masquer la barre latérale des filtres",
+    "after": "Jonön u klänedön flanapadi sulas",
+    "reason": "Replace French filter-interface wording with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests sul/sulön (filter), tiäd (title), klänedön (hide); reuse existing card/list/custom-field terminology and software click wording. Preserve card-or-list selection, title/custom-field criteria, active-filter editing and sidebar show/hide behavior. Sidebar compound and assembled software wording remain low confidence; native review unavailable."
   }
 ]
