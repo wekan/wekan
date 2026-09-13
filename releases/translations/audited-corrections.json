@@ -76914,5 +76914,68 @@
     "before": "Décocher tous les éléments d'une liste",
     "after": "Oister les markes di tos les cayets d' ene djivêye",
     "reason": "Replace French checkbox activity/control wording with Walloon, distinguishing marking from removing a mark and preserving checklist/card/list/swimlane/board scopes and source tokens. Native marker/marké terminology: https://dtw.walon.org/index.php?query=marker ; reuse existing Walloon checklist terms. Full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "allboards.add-subworkspace-prompt",
+    "before": "Nom du sous-espace de travail",
+    "after": "No do dzo-espåce di bouye",
+    "reason": "Replace French workspace labels and card-copy JSON prose with Walloon using existing locale workspace/card terminology; preserve markdown name and literal JSON title/description property names. Includes unflagged workspace headings. Full grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "allboards.add-workspace-prompt",
+    "before": "Nom de l'espace de travail",
+    "after": "No di l' espåce di bouye",
+    "reason": "Replace French workspace labels and card-copy JSON prose with Walloon using existing locale workspace/card terminology; preserve markdown name and literal JSON title/description property names. Includes unflagged workspace headings. Full grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "allboards.delete-workspace-confirm-check",
+    "before": "Confirmer la suppression de l'espace de travail",
+    "after": "Acertiner li disfaçaedje di l' espåce di bouye",
+    "reason": "Replace French workspace labels and card-copy JSON prose with Walloon using existing locale workspace/card terminology; preserve markdown name and literal JSON title/description property names. Includes unflagged workspace headings. Full grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "allboards.edit-workspace",
+    "before": "Modifier l'espace de travail",
+    "after": "Candjî l' espåce di bouye",
+    "reason": "Replace French workspace labels and card-copy JSON prose with Walloon using existing locale workspace/card terminology; preserve markdown name and literal JSON title/description property names. Includes unflagged workspace headings. Full grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "allboards.edit-workspace-icon",
+    "before": "Icône d'espace de travail (markdown)",
+    "after": "Imådjete di l' espåce di bouye (markdown)",
+    "reason": "Replace French workspace labels and card-copy JSON prose with Walloon using existing locale workspace/card terminology; preserve markdown name and literal JSON title/description property names. Includes unflagged workspace headings. Full grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "allboards.edit-workspace-name",
+    "before": "Nom de l'espace de travail",
+    "after": "No di l' espåce di bouye",
+    "reason": "Replace French workspace labels and card-copy JSON prose with Walloon using existing locale workspace/card terminology; preserve markdown name and literal JSON title/description property names. Includes unflagged workspace headings. Full grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "allboards.workspaces",
+    "before": "Espaces de travail",
+    "after": "Espåces di bouye",
+    "reason": "Replace French workspace labels and card-copy JSON prose with Walloon using existing locale workspace/card terminology; preserve markdown name and literal JSON title/description property names. Includes unflagged workspace headings. Full grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "allboards.workspace-color",
+    "before": "Couleur",
+    "after": "Coleur",
+    "reason": "Replace French workspace labels and card-copy JSON prose with Walloon using existing locale workspace/card terminology; preserve markdown name and literal JSON title/description property names. Includes unflagged workspace headings. Full grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"Titre de la première carte\", \"description\":\"Description de la première carte\"}, {\"title\":\"Titre de la seconde carte\",\"description\":\"Description de la seconde carte\"},{\"title\":\"Titre de la dernière carte\",\"description\":\"Description de la dernière carte\"} ]",
+    "after": "[{\"title\": \"Tite del prumire cåte\", \"description\": \"Discrijhaedje del prumire cåte\"}, {\"title\": \"Tite del deujhinme cåte\", \"description\": \"Discrijhaedje del deujhinme cåte\"}, {\"title\": \"Tite del dierinne cåte\", \"description\": \"Discrijhaedje del dierinne cåte\"}]",
+    "reason": "Replace French workspace labels and card-copy JSON prose with Walloon using existing locale workspace/card terminology; preserve markdown name and literal JSON title/description property names. Includes unflagged workspace headings. Full grammar remains low confidence."
   }
 ]
