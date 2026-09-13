@@ -81807,5 +81807,110 @@
     "before": "Cette opération convertira d'abord les listes partagées en listes par couloir, puis supprimera les listes vides qui ont une liste en double avec le même titre contenant des cartes. Seules les listes vides vraiment redondantes seront supprimées. Continuer ?",
     "after": "Lii dina njëkk a soppi limu yi ñu bokk ngir am limu bu yoon bu nekk, ba noppi far limu yu neen yi am beneen limu bu am benn tur bi te am ay karta. Limu yu neen yi dul soxla dëgg rekk lañuy dindi. Wéy?",
     "reason": "Replace French with Wolof; preserve missing swimlaneId/listId, non-archived-only lost-card repair, all archived types with automatic missing-ID repair and difficult undo, shared-list conversion before deleting only redundant empty lists with a same-title populated duplicate. Recovery terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "all-migrations",
+    "before": "Toutes les migrations",
+    "after": "Migration yépp",
+    "reason": "Replace French migration controls/status labels with Wolof using existing migration, start, stop, selection and status terminology; distinguish resumable pausing from stopping and automatic operation. Step/details/validation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "select-migration",
+    "before": "Sélectionner une migration",
+    "after": "Tànn migration",
+    "reason": "Replace French migration controls/status labels with Wolof using existing migration, start, stop, selection and status terminology; distinguish resumable pausing from stopping and automatic operation. Step/details/validation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "migration-starting",
+    "before": "Démarrage des migrations...",
+    "after": "Mi ngi tàmbali migration yi...",
+    "reason": "Replace French migration controls/status labels with Wolof using existing migration, start, stop, selection and status terminology; distinguish resumable pausing from stopping and automatic operation. Step/details/validation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "migration-pausing",
+    "before": "Mise en pause des migrations...",
+    "after": "Mi ngi taxawal migration yi ngir dellu ci ñoom...",
+    "reason": "Replace French migration controls/status labels with Wolof using existing migration, start, stop, selection and status terminology; distinguish resumable pausing from stopping and automatic operation. Step/details/validation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "migration-stopping",
+    "before": "Arrêt des migrations...",
+    "after": "Mi ngi taxawal migration yi...",
+    "reason": "Replace French migration controls/status labels with Wolof using existing migration, start, stop, selection and status terminology; distinguish resumable pausing from stopping and automatic operation. Step/details/validation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "migration-not-needed",
+    "before": "Aucune migration nécessaire",
+    "after": "Soxlawul benn migration",
+    "reason": "Replace French migration controls/status labels with Wolof using existing migration, start, stop, selection and status terminology; distinguish resumable pausing from stopping and automatic operation. Step/details/validation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "automatic-migration",
+    "before": "Migration automatique",
+    "after": "Migration bu dox ci boppam",
+    "reason": "Replace French migration controls/status labels with Wolof using existing migration, start, stop, selection and status terminology; distinguish resumable pausing from stopping and automatic operation. Step/details/validation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "board-migration",
+    "before": "Migration du tableau",
+    "after": "Migration bu tablo",
+    "reason": "Replace French migration controls/status labels with Wolof using existing migration, start, stop, selection and status terminology; distinguish resumable pausing from stopping and automatic operation. Step/details/validation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "board-migrations",
+    "before": "Migrations de tableau",
+    "after": "Migration yi ci tablo",
+    "reason": "Replace French migration controls/status labels with Wolof using existing migration, start, stop, selection and status terminology; distinguish resumable pausing from stopping and automatic operation. Step/details/validation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "run-migration",
+    "before": "Lancer la migration",
+    "after": "Doxal migration",
+    "reason": "Replace French migration controls/status labels with Wolof using existing migration, start, stop, selection and status terminology; distinguish resumable pausing from stopping and automatic operation. Step/details/validation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "migration-progress-current-step",
+    "before": "Étape courante",
+    "after": "Tànk bi ñuy def léegi",
+    "reason": "Replace French migration controls/status labels with Wolof using existing migration, start, stop, selection and status terminology; distinguish resumable pausing from stopping and automatic operation. Step/details/validation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "migration-progress-status",
+    "before": "Statut",
+    "after": "Nekkin",
+    "reason": "Replace French migration controls/status labels with Wolof using existing migration, start, stop, selection and status terminology; distinguish resumable pausing from stopping and automatic operation. Step/details/validation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "migration-progress-details",
+    "before": "Détails",
+    "after": "Benn-bennal yi",
+    "reason": "Replace French migration controls/status labels with Wolof using existing migration, start, stop, selection and status terminology; distinguish resumable pausing from stopping and automatic operation. Step/details/validation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "step-validate-migration",
+    "before": "Valider la migration",
+    "after": "Saytu migration bi ngir wóor ne jub na",
+    "reason": "Replace French migration controls/status labels with Wolof using existing migration, start, stop, selection and status terminology; distinguish resumable pausing from stopping and automatic operation. Step/details/validation phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "database-migrations",
+    "before": "Migrations base de données",
+    "after": "Migration yu database",
+    "reason": "Replace French migration controls/status labels with Wolof using existing migration, start, stop, selection and status terminology; distinguish resumable pausing from stopping and automatic operation. Step/details/validation phrasing and full grammar remain low confidence."
   }
 ]
