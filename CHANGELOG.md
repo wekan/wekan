@@ -1179,6 +1179,22 @@ and updates maintainer tooling:
 
 **Maintenance scripts** - explicit translation uploads and repository mirrors.
 
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9aae0ee30">Show immediate build stages and progress during quiet commands</a>. Thanks to xet7.</summary>
+
+The development bundle build announces dependency/cache removal, Meteor npm
+metadata updating, npm installation and compilation before running them.
+Quiet stages report elapsed time and process ID every 15 seconds; command
+output and stage exit codes stream to the terminal and timestamped build log.
+Required cleanup or installation failures stop compilation. Release bundle
+preparation uses the same reporting. Offline positive and negative fixtures
+verify immediate output, periodic progress and failure propagation; build-menu
+parity and release workflow checks pass. A full Meteor build was not rerun
+for this change.
+
+</details>
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c847829da">Repair Veps WIP limits and group controls</a>. Thanks to xet7.</summary>
 
