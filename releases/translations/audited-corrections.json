@@ -84523,5 +84523,12 @@
     "before": "ISO 8601",
     "after": "Feaillere Gregoiragh (shiaghtinyn ISO 8601)",
     "reason": "Restore Manx Indian national calendar and Gregorian ISO week identity omitted from existing labels; replace Gregorian foreign-style name. https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/engman.pdf attests Indian Injinagh (p286), national ashoonagh (p365), Gregorian Gregoiragh (p246), week shiaghtin (p629). Complete label grammar and derived week plural remain low confidence; Coptic and Hijri epoch/sighting details remain pending."
+  },
+  {
+    "locale": "gv",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Feaillere Hijri (Saudi Arabia, baght ny heayst)",
+    "reason": "Replace English Saudi Hijri label and restore missing moon-sighting detail in Manx. https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/engman.pdf attests observation baght (p378), moon eayst and genitive ny heayst in moonshine (p357), visual observation baght sooilley (p618). Complete adapted sighting phrase remains low confidence; Coptic and civil/astronomical tabular epoch labels remain pending."
   }
 ]
