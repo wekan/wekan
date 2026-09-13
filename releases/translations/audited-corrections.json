@@ -59197,5 +59197,145 @@
     "before": "Ajouter la carte en bas de la liste",
     "after": "Apondre la carta en bas de la lista",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "add-card-to-top-of-list",
+    "before": "Ajouter la carte en haut de la liste",
+    "after": "Apondre la carta en naut de la lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "add-cover",
+    "before": "Ajouter la vignette sur la mini-carte",
+    "after": "Apondre un imatge de cobertura a la minicarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "add-cron-job",
+    "before": "Ajouter un travail planifié",
+    "after": "Apondre un trabalh planificat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "add-custom-html-after-body-start",
+    "before": "Ajouter le HTML personnalisé après le début du <body>",
+    "after": "Apondre de HTML personalizat après la dobertura <body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "add-custom-html-before-body-end",
+    "before": "Ajouter le HTML personnalisé avant la fin du </body>",
+    "after": "Apondre de HTML personalizat abans la tampadura </body>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "add-organizations",
+    "before": "Ajouter des organisations",
+    "after": "Apondre d’organizacions",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "add-template-container",
+    "before": "Ajouter un conteneur de modèles",
+    "after": "Apondre un contenidor de modèls",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "addWorkspacePopup-title",
+    "before": "Ajouter un espace de travail",
+    "after": "Apondre un espaci de trabalh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "addmore-detail",
+    "before": "Ajouter une description plus détaillée",
+    "after": "Apondre una descripcion mai detalhada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "admin-desc",
+    "before": "Peut consulter et modifier les cartes, supprimer des participants et modifier les paramètres du tableau. Peut consulter les activités.\n ",
+    "after": "Pòt veire e modificar las cartas, levar de membres e cambiar los paramètres del tablèu. Pòt veire las activitats.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "admin-people-filter-locked",
+    "before": "Utilisateurs verrouillés seulement",
+    "after": "Solament los utilizaires blocats",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "admin-people-user-active",
+    "before": "L'utilisateur est activé - Cliquer pour le désactiver",
+    "after": "L’utilizaire es actiu — clicatz per lo desactivar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "admin-people-user-inactive",
+    "before": "L'utilisateur est désactivé - Cliquer pour l'activer",
+    "after": "L’utilizaire es inactiu — clicatz per l’activar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "allboards.add-subworkspace",
+    "before": "Ajouter un sous-espace de travail",
+    "after": "Apondre un sosespaci de trabalh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "allboards.add-workspace",
+    "before": "Ajouter un espace de travail",
+    "after": "Apondre un espaci de trabalh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "allboards.delete-workspace-confirm",
+    "before": "Êtes-vous sûr de vouloir supprimer cet espace de travail ?",
+    "after": "Volètz vertadièrament suprimir aqueste espaci de trabalh ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "allowNonBoardMembers",
+    "before": "Autoriser tous les utilisateurs authentifiés",
+    "after": "Autorizar totes los utilizaires connectats",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "always-field-on-card",
+    "before": "Ajouter le champ à toutes les cartes",
+    "after": "Apondre lo camp a totas las cartas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "archive-board-confirm",
+    "before": "Êtes-vous sûr de vouloir archiver ce tableau ?",
+    "after": "Volètz vertadièrament archivar aqueste tablèu ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "attachment-move-storage-fs",
+    "before": "Déplacer la pièce jointe vers le système de fichier",
+    "after": "Desplaçar la pèça junta cap al sistèma de fichièrs",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
