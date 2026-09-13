@@ -120909,5 +120909,12 @@
     "before": "Télécharger",
     "after": "ⵙⴽⵜⵔ ⴰⴼⴰⵢⵍⵓ",
     "reason": "Reviewed 2026-09-14: replace French upload label with exact native Standard Moroccan Tamazight Upload file command from MediaWiki upload: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Explicit file noun fits file-upload control and distinguishes upload from download. Not a full-locale fluent validation."
+  },
+  {
+    "locale": "qu",
+    "key": "color-orange",
+    "before": "Kay willaymi: orangeta",
+    "after": "killmu",
+    "reason": "Reviewed 2026-09-14: replace unrelated Quechua message wrapper around English orange with directly attested Quechua adjective killmu, orange-colored: https://en.wiktionary.org/wiki/killmu . Keep orange distinct from yellow q'illu. Dictionary evidence supports adjective meaning; wider dialect and palette validation remains open."
   }
 ]
