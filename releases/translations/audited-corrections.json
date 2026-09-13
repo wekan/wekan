@@ -84698,5 +84698,61 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "Kalenda ya Hijri (Saudi Arabia, okulaba omwezi)",
     "reason": "Replace English Buddhist/Indian national/Saudi Hijri labels with Luganda, restoring national and lunar sighting qualifiers. Ababuddha attested in publisher Luganda text https://www.practiceministries.org/wp-content/uploads/2019/04/Christian-Character-Leaderbook-Luganda-032819-1.pdf; Buyindi supported by CLDR lg.xml; omwezi attested at https://www.jw.org/lg/layibulale/bayibuli/nwt/awannyonnyolerwa-ebigambo/. Complete assembled grammar and sighting adaptation remain low confidence; Coptic and civil/astronomical tabular epoch labels remain pending."
+  },
+  {
+    "locale": "st",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Sistimi ea khalendara (pontšo ea letsatsi)",
+    "reason": "Replace foreign-language calendar setting and English labels with Sesotho using existing Khalendara/date/week terminology, preserve Dangi/Hijri/Umm al-Qura/Minguo identity and restore Gregorian ISO weeks. Chaena/Japane attested at https://www.jw.org/st/laebrari/limakasine/wp20151201/ho-utloisisa-bibele/. Complete assembled grammar and system/display adaptation remain low confidence; religious/country qualifiers and Hijri epoch/sighting variants remain pending."
+  },
+  {
+    "locale": "st",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Khalendara ea Chaena",
+    "reason": "Replace foreign-language calendar setting and English labels with Sesotho using existing Khalendara/date/week terminology, preserve Dangi/Hijri/Umm al-Qura/Minguo identity and restore Gregorian ISO weeks. Chaena/Japane attested at https://www.jw.org/st/laebrari/limakasine/wp20151201/ho-utloisisa-bibele/. Complete assembled grammar and system/display adaptation remain low confidence; religious/country qualifiers and Hijri epoch/sighting variants remain pending."
+  },
+  {
+    "locale": "st",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Khalendara ea Japane",
+    "reason": "Replace foreign-language calendar setting and English labels with Sesotho using existing Khalendara/date/week terminology, preserve Dangi/Hijri/Umm al-Qura/Minguo identity and restore Gregorian ISO weeks. Chaena/Japane attested at https://www.jw.org/st/laebrari/limakasine/wp20151201/ho-utloisisa-bibele/. Complete assembled grammar and system/display adaptation remain low confidence; religious/country qualifiers and Hijri epoch/sighting variants remain pending."
+  },
+  {
+    "locale": "st",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Khalendara ea Dangi",
+    "reason": "Replace foreign-language calendar setting and English labels with Sesotho using existing Khalendara/date/week terminology, preserve Dangi/Hijri/Umm al-Qura/Minguo identity and restore Gregorian ISO weeks. Chaena/Japane attested at https://www.jw.org/st/laebrari/limakasine/wp20151201/ho-utloisisa-bibele/. Complete assembled grammar and system/display adaptation remain low confidence; religious/country qualifiers and Hijri epoch/sighting variants remain pending."
+  },
+  {
+    "locale": "st",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Khalendara ea Hijri",
+    "reason": "Replace foreign-language calendar setting and English labels with Sesotho using existing Khalendara/date/week terminology, preserve Dangi/Hijri/Umm al-Qura/Minguo identity and restore Gregorian ISO weeks. Chaena/Japane attested at https://www.jw.org/st/laebrari/limakasine/wp20151201/ho-utloisisa-bibele/. Complete assembled grammar and system/display adaptation remain low confidence; religious/country qualifiers and Hijri epoch/sighting variants remain pending."
+  },
+  {
+    "locale": "st",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Khalendara ea Hijri (Umm al-Qura)",
+    "reason": "Replace foreign-language calendar setting and English labels with Sesotho using existing Khalendara/date/week terminology, preserve Dangi/Hijri/Umm al-Qura/Minguo identity and restore Gregorian ISO weeks. Chaena/Japane attested at https://www.jw.org/st/laebrari/limakasine/wp20151201/ho-utloisisa-bibele/. Complete assembled grammar and system/display adaptation remain low confidence; religious/country qualifiers and Hijri epoch/sighting variants remain pending."
+  },
+  {
+    "locale": "st",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Khalendara ea Minguo",
+    "reason": "Replace foreign-language calendar setting and English labels with Sesotho using existing Khalendara/date/week terminology, preserve Dangi/Hijri/Umm al-Qura/Minguo identity and restore Gregorian ISO weeks. Chaena/Japane attested at https://www.jw.org/st/laebrari/limakasine/wp20151201/ho-utloisisa-bibele/. Complete assembled grammar and system/display adaptation remain low confidence; religious/country qualifiers and Hijri epoch/sighting variants remain pending."
+  },
+  {
+    "locale": "st",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "Khalendara ea Gregoriana (libeke tsa ISO 8601)",
+    "reason": "Replace foreign-language calendar setting and English labels with Sesotho using existing Khalendara/date/week terminology, preserve Dangi/Hijri/Umm al-Qura/Minguo identity and restore Gregorian ISO weeks. Chaena/Japane attested at https://www.jw.org/st/laebrari/limakasine/wp20151201/ho-utloisisa-bibele/. Complete assembled grammar and system/display adaptation remain low confidence; religious/country qualifiers and Hijri epoch/sighting variants remain pending."
   }
 ]
