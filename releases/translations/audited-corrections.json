@@ -84656,5 +84656,26 @@
     "before": "Republic of China",
     "after": "Kalenda ya Minguo",
     "reason": "Replace foreign-language calendar setting, English names and literal English plus language-name filler with Luganda. Kalenda attested at https://www.jw.org/lg/layibulale/magazini/awake-no4-2016-august/tokoowa/; Cayina/Japani/Koreya/Esyopya supported by https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/lg.xml. Preserve Dangi/Amete Alem/Hijri/Umm al-Qura/Minguo identifiers. Complete assembled grammar remains low confidence; remaining religious/national and Hijri epoch/sighting labels need review."
+  },
+  {
+    "locale": "lg",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Kalenda ya Jalali (eya Buperusi)",
+    "reason": "Replace foreign/English Persian and Hebrew calendar labels with Luganda, preserve Jalali identity and restore Gregorian ISO week information. Buperusi attested at https://www.jw.org/lg/layibulale/magazini/wp201705/okunoonyereza-ku-bintu-ebyedda-obukakafu-tattenayi/; Abebbulaniya at https://www.jw.org/lg/layibulale/magazini/wp20130801/Yawonyezebwawo-nabalala-musanvu/; kalenda and wiiki at https://www.jw.org/lg/layibulale/magazini/awake-no4-2016-august/tokoowa/. Complete label grammar remains low confidence; Buddhist/Coptic/Indian national and Hijri epochs/sighting remain pending."
+  },
+  {
+    "locale": "lg",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Kalenda y’Abebbulaniya",
+    "reason": "Replace foreign/English Persian and Hebrew calendar labels with Luganda, preserve Jalali identity and restore Gregorian ISO week information. Buperusi attested at https://www.jw.org/lg/layibulale/magazini/wp201705/okunoonyereza-ku-bintu-ebyedda-obukakafu-tattenayi/; Abebbulaniya at https://www.jw.org/lg/layibulale/magazini/wp20130801/Yawonyezebwawo-nabalala-musanvu/; kalenda and wiiki at https://www.jw.org/lg/layibulale/magazini/awake-no4-2016-august/tokoowa/. Complete label grammar remains low confidence; Buddhist/Coptic/Indian national and Hijri epochs/sighting remain pending."
+  },
+  {
+    "locale": "lg",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "Kalenda ya Gregoriana (wiiki za ISO 8601)",
+    "reason": "Replace foreign/English Persian and Hebrew calendar labels with Luganda, preserve Jalali identity and restore Gregorian ISO week information. Buperusi attested at https://www.jw.org/lg/layibulale/magazini/wp201705/okunoonyereza-ku-bintu-ebyedda-obukakafu-tattenayi/; Abebbulaniya at https://www.jw.org/lg/layibulale/magazini/wp20130801/Yawonyezebwawo-nabalala-musanvu/; kalenda and wiiki at https://www.jw.org/lg/layibulale/magazini/awake-no4-2016-august/tokoowa/. Complete label grammar remains low confidence; Buddhist/Coptic/Indian national and Hijri epochs/sighting remain pending."
   }
 ]
