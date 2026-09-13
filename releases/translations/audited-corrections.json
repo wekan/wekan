@@ -55494,5 +55494,89 @@
     "before": "Token (facoltativo per l'autenticazione)",
     "after": "Token (optsional ti autentificari)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "wipLimitErrorPopup-dialog-pt1",
+    "before": "Il numero di compiti in questa lista è maggiore del limite di work in progress che hai definito in precedenza.",
+    "after": "Numirlu di lucrãri tu aesta listã easti ma mari di limita di lucru tu progres (WIP) tsi ai definitã.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "wipLimitErrorPopup-dialog-pt2",
+    "before": "Per favore, sposta alcuni dei compiti fuori da questa lista, oppure imposta un limite di work in progress più alto.",
+    "after": "Ti pãrãcãlsescu, mutã vãrã lucrãri nafoarã di aesta listã icã puni unã limitã WIP ma mari.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "wipLimitErrorPopup-title",
+    "before": "Limite Work In Progress non valido",
+    "after": "Limitã WIP nivalidã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "board-view-cal",
+    "before": "Calendar",
+    "after": "Calindar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "board-view-control-chart",
+    "before": "Control",
+    "after": "Controlu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "change-font",
+    "before": "Font",
+    "after": "Tip di scriari",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "changeFontPopup-title",
+    "before": "Font",
+    "after": "Tip di scriari",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "font",
+    "before": "Font",
+    "after": "Tip di scriari",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "custom-field-text",
+    "before": "Text",
+    "after": "Textu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "text-note-text",
+    "before": "Text",
+    "after": "Textu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "modal-title",
+    "before": "Dialog",
+    "after": "Dialogu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "theme-category-special",
+    "before": "Special",
+    "after": "Spetsial",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
