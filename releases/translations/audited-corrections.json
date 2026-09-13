@@ -119684,5 +119684,40 @@
     "before": "Poista kaikki luetut",
     "after": "Heitä kaik lugedud tedotuzed",
     "reason": "Replace Finnish notification controls with Veps; retain unread-only filtering, all-read/all-unread marking and deletion of read notifications only. Native MediaWiki vep markaspatrolledtext uses Znamoiče ... kut tarkištadud; existing card-has-unread-comments supplies ei ole lugedud. Dictionary lugeda and lugematoi; Heitä is existing deletion terminology. Low confidence: unread participle inflection and composed notification grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "avatars-path",
+    "before": "Profiilikuvien polku",
+    "after": "Kävutajan kuvan failoiden te",
+    "reason": "Replace Finnish file-storage labels, descriptions and invalid-filename guidance with Veps. Retain avatar-specific storage, writable paths, base directory and cancellation of either upload or rename. Reuse existing allowed-avatar-filetypes kuvan failoiden, attachments-path te and kaičusen täht; dictionary hodr, pä-, nimenvajehtuz and heitta; native MediaWiki illegal-filename supplies ei ole lasktud. Low confidence: composed base-folder terminology and cancellation grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "avatars-path-description",
+    "before": "Polku jossa profiilikuvat tallennetaan",
+    "after": "Te kävutajan kuvan failoiden kaičusen täht",
+    "reason": "Replace Finnish file-storage labels, descriptions and invalid-filename guidance with Veps. Retain avatar-specific storage, writable paths, base directory and cancellation of either upload or rename. Reuse existing allowed-avatar-filetypes kuvan failoiden, attachments-path te and kaičusen täht; dictionary hodr, pä-, nimenvajehtuz and heitta; native MediaWiki illegal-filename supplies ei ole lasktud. Low confidence: composed base-folder terminology and cancellation grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "writable-path",
+    "before": "Kirjoitettava polku",
+    "after": "Te, kudambale voib kirjutada",
+    "reason": "Replace Finnish file-storage labels, descriptions and invalid-filename guidance with Veps. Retain avatar-specific storage, writable paths, base directory and cancellation of either upload or rename. Reuse existing allowed-avatar-filetypes kuvan failoiden, attachments-path te and kaičusen täht; dictionary hodr, pä-, nimenvajehtuz and heitta; native MediaWiki illegal-filename supplies ei ole lasktud. Low confidence: composed base-folder terminology and cancellation grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "writable-path-description",
+    "before": "Perushakemistopolku tiedostojen tallennukseen",
+    "after": "Pähodran te failoiden kaičusen täht",
+    "reason": "Replace Finnish file-storage labels, descriptions and invalid-filename guidance with Veps. Retain avatar-specific storage, writable paths, base directory and cancellation of either upload or rename. Reuse existing allowed-avatar-filetypes kuvan failoiden, attachments-path te and kaičusen täht; dictionary hodr, pä-, nimenvajehtuz and heitta; native MediaWiki illegal-filename supplies ei ole lasktud. Low confidence: composed base-folder terminology and cancellation grammar need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "invalid-file",
+    "before": "Jos tiedostonimi ei kelpaa, liittäminen tai uudelleennimeäminen perutaan.",
+    "after": "Ku failan nimi ei ole lasktud, samine libo nimenvajehtuz heittas.",
+    "reason": "Replace Finnish file-storage labels, descriptions and invalid-filename guidance with Veps. Retain avatar-specific storage, writable paths, base directory and cancellation of either upload or rename. Reuse existing allowed-avatar-filetypes kuvan failoiden, attachments-path te and kaičusen täht; dictionary hodr, pä-, nimenvajehtuz and heitta; native MediaWiki illegal-filename supplies ei ole lasktud. Low confidence: composed base-folder terminology and cancellation grammar need fluent review."
   }
 ]

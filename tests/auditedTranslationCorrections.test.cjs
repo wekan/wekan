@@ -2422,5 +2422,22 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(vepsTranslator.t('remove-all-read'), /^Heitä kaik lugedud tedotuzed$/);
   assert.equal(new Set(Object.values(vepsNotificationReadState)).size, 4);
   assert.equal(cache['ve-PP']['card-has-unread-comments'], 'Om sel’genzoitusid, miččid ei ole lugedud', 'retain the existing correct unread-comment phrase');
+  const vepsFileStorageGuidance = {
+  "avatars-path": "Kävutajan kuvan failoiden te",
+  "avatars-path-description": "Te kävutajan kuvan failoiden kaičusen täht",
+  "writable-path": "Te, kudambale voib kirjutada",
+  "writable-path-description": "Pähodran te failoiden kaičusen täht",
+  "invalid-file": "Ku failan nimi ei ole lasktud, samine libo nimenvajehtuz heittas."
+};
+  for (const [key, value] of Object.entries(vepsFileStorageGuidance)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Profiilikuvien|polku|Polku jossa|tallennetaan|Kirjoitettava|Perushakemisto|tallennukseen|Jos tiedostonimi|liittäminen|uudelleennimeäminen|perutaan/, key);
+  }
+  assert.match(vepsTranslator.t('avatars-path-description'), /kävutajan kuvan failoiden kaičusen/);
+  assert.match(vepsTranslator.t('writable-path'), /voib kirjutada/);
+  assert.match(vepsTranslator.t('writable-path-description'), /^Pähodran te/);
+  assert.match(vepsTranslator.t('invalid-file'), /^Ku failan nimi ei ole lasktud, samine libo nimenvajehtuz heittas\.$/);
+  assert.equal(cache['ve-PP']['attachments-path'], 'Tartutadud failoiden te', 'retain the correct existing attachment path');
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
