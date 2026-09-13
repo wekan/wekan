@@ -93280,5 +93280,33 @@
     "before": "Kartensortierung nach Nummer auf Minikarte",
     "after": "'echletHom machDaq mI'mey lo'lu'taHvIS 'echletHommey lupatlhmoHlu'",
     "reason": "Replace audited German subtask destination/deletion, PDF export limitation, or minicard numeric sorting with Klingon. Reuse repaired Qu-Hom, PDF export ngeH, and patlhmoH terminology; preserve this-board/added-here destination, confirmation certainty, negative export ability, and numeric-on-minicard qualification. The destination list is described as the list for subtasks added here. Full software wording is assembled, low confidence, and requires fluent-speaker validation. Use lu- with indefinite-subject -lu- and plural objects Qu-Hommey / echletHommey, as documented at https://www.kli.org/duolingo/use-unknown-subjects/. This corrects plural agreement in the assembled wording; full phrase still needs fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "filter-on-desc",
+    "before": "Sie filtern die Karten in diesem Board. Klicken Sie, um den Filter zu bearbeiten.",
+    "after": "raSvamDaq 'echletHommey DawIvtaH. wIvmeH De' DachoHmeH naDev yIqIp.",
+    "reason": "Replace German filter-status, personal assignment filter, filter clearing, and My Cards label with Klingon. Reuse repaired wIv selection terminology; preserve this-board context, click-to-edit instruction, cards assigned to me via the descriptive given-to-me nob construction, clearing criteria rather than deleting cards, and first-person possession. Full software wording and assignment metaphor are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "shortcut-filter-my-assigned-cards",
+    "before": "Meine zugewiesenen Karten filtern",
+    "after": "jIHvaD lunoblu'bogh 'echletHommey tIwIv",
+    "reason": "Replace German filter-status, personal assignment filter, filter clearing, and My Cards label with Klingon. Reuse repaired wIv selection terminology; preserve this-board context, click-to-edit instruction, cards assigned to me via the descriptive given-to-me nob construction, clearing criteria rather than deleting cards, and first-person possession. Full software wording and assignment metaphor are assembled, low confidence, and need fluent-speaker validation. Plural-object lu- with indefinite -lu- follows https://www.kli.org/duolingo/use-unknown-subjects/."
+  },
+  {
+    "locale": "tlh",
+    "key": "filter-clear",
+    "before": "Filter entfernen",
+    "after": "wIvmeH De' yIteq",
+    "reason": "Replace German filter-status, personal assignment filter, filter clearing, and My Cards label with Klingon. Reuse repaired wIv selection terminology; preserve this-board context, click-to-edit instruction, cards assigned to me via the descriptive given-to-me nob construction, clearing criteria rather than deleting cards, and first-person possession. Full software wording and assignment metaphor are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "my-cards",
+    "before": "Meine Karten",
+    "after": "'echletHommeywIj",
+    "reason": "Replace German filter-status, personal assignment filter, filter clearing, and My Cards label with Klingon. Reuse repaired wIv selection terminology; preserve this-board context, click-to-edit instruction, cards assigned to me via the descriptive given-to-me nob construction, clearing criteria rather than deleting cards, and first-person possession. Full software wording and assignment metaphor are assembled, low confidence, and need fluent-speaker validation."
   }
 ]
