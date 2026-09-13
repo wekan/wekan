@@ -84054,5 +84054,33 @@
     "before": "Ikhalenda kaGregorian",
     "after": "Ikhalenda kaGregorian (iiveki ze-ISO 8601)",
     "reason": "Replace English with Xhosa using existing Hijri/Gregorian calendar terminology; retain tabular calculation, civil versus astronomical starting epoch, Saudi moon sighting and restore omitted ISO 8601 weeks. Epoch technical adaptations and complete grammar remain low confidence."
+  },
+  {
+    "locale": "gn",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Hijri arapapaha (tabla rupive, ára ñepyrũ tetãyguáva)",
+    "reason": "Replace English with Guarani using existing arapapaha/Hijri framing; preserve table-based civil versus astronomical starting epoch, Saudi lunar sighting and Gregorian ISO weeks omitted from local label. Epoch technical adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "gn",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Hijri arapapaha (Arabia Saudita, jasy jehecha)",
+    "reason": "Replace English with Guarani using existing arapapaha/Hijri framing; preserve table-based civil versus astronomical starting epoch, Saudi lunar sighting and Gregorian ISO weeks omitted from local label. Epoch technical adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "gn",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Hijri arapapaha (tabla rupive, ára ñepyrũ mbyjakuéra rehegua)",
+    "reason": "Replace English with Guarani using existing arapapaha/Hijri framing; preserve table-based civil versus astronomical starting epoch, Saudi lunar sighting and Gregorian ISO weeks omitted from local label. Epoch technical adaptations and full grammar remain low confidence."
+  },
+  {
+    "locale": "gn",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "Gregoriana arapapaha (arapokõindy ISO 8601 rehegua)",
+    "reason": "Replace English with Guarani using existing arapapaha/Hijri framing; preserve table-based civil versus astronomical starting epoch, Saudi lunar sighting and Gregorian ISO weeks omitted from local label. Epoch technical adaptations and full grammar remain low confidence."
   }
 ]
