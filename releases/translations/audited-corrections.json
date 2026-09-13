@@ -110360,5 +110360,145 @@
     "before": "Aggiungere immagine di sfondo",
     "after": "Zonta na imàjine de sfondo",
     "reason": "Replace Italian-seeded activity text with Venetian; restore completed/uncompleted and set/unset action meanings, preserving ordered percent placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "add-custom-html-before-body-end",
+    "before": "Aggiunti il codice HTML prima di </body> fine",
+    "after": "Zonta HTML personałizà prima de ła fine de </body>",
+    "reason": "Replace Italian-seeded admin, archive and upload labels with Venetian; preserve active/inactive states, offline data-loss warning, HTML and size placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "add-organizations-label",
+    "before": "Le organizzazioni aggiunte sono mostrate sotto:",
+    "after": "Łe organisasion zontà łe vien mostrà qua soto:",
+    "reason": "Replace Italian-seeded admin, archive and upload labels with Venetian; preserve active/inactive states, offline data-loss warning, HTML and size placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "add-teams-label",
+    "before": "I team aggiunti sono i seguenti:",
+    "after": "I grupi zontài i vien mostrài qua soto:",
+    "reason": "Replace Italian-seeded admin, archive and upload labels with Venetian; preserve active/inactive states, offline data-loss warning, HTML and size placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "admin-announcement-active",
+    "before": "Attiva annunci di sistema",
+    "after": "Anunsio ativo par tuto el sistema",
+    "reason": "Replace Italian-seeded admin, archive and upload labels with Venetian; preserve active/inactive states, offline data-loss warning, HTML and size placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "admin-announcement-title",
+    "before": "Annunci dell'Amministratore",
+    "after": "Anunsio dal aministrador",
+    "reason": "Replace Italian-seeded admin, archive and upload labels with Venetian; preserve active/inactive states, offline data-loss warning, HTML and size placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "admin-panel",
+    "before": "Pannello dell'amministratore",
+    "after": "Paneło de aministrasion",
+    "reason": "Replace Italian-seeded admin, archive and upload labels with Venetian; preserve active/inactive states, offline data-loss warning, HTML and size placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "admin-people-user-active",
+    "before": "L'utente è attivo - clicca per disattivarlo",
+    "after": "El utente el xe ativo - clica par disativarlo",
+    "reason": "Replace Italian-seeded admin, archive and upload labels with Venetian; preserve active/inactive states, offline data-loss warning, HTML and size placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "admin-people-user-inactive",
+    "before": "L'utente è inattivo: clicca per attivarlo",
+    "after": "El utente no el xe ativo - clica par ativarlo",
+    "reason": "Replace Italian-seeded admin, archive and upload labels with Venetian; preserve active/inactive states, offline data-loss warning, HTML and size placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "allBoardsChangeBackgroundImagePopup-title",
+    "before": "Modificare immagine di sfondo",
+    "after": "Canbia ła imàjine de sfondo",
+    "reason": "Replace Italian-seeded admin, archive and upload labels with Venetian; preserve active/inactive states, offline data-loss warning, HTML and size placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "allowed-avatar-filetypes",
+    "before": "I tipi di file consentiti per l'avatar sono:",
+    "after": "Tipi de file par avatar permessi:",
+    "reason": "Replace Italian-seeded admin, archive and upload labels with Venetian; preserve active/inactive states, offline data-loss warning, HTML and size placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "allowed-upload-filetypes",
+    "before": "I tipi di file consentiti per l'upload sono:",
+    "after": "Tipi de file permessi par el caricamento:",
+    "reason": "Replace Italian-seeded admin, archive and upload labels with Venetian; preserve active/inactive states, offline data-loss warning, HTML and size placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "almostdue",
+    "before": "la data di scadenza attuale %s si sta avvicinando",
+    "after": "ła scadensa corente %s ła xe vizina",
+    "reason": "Replace Italian-seeded admin, archive and upload labels with Venetian; preserve active/inactive states, offline data-loss warning, HTML and size placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "app-is-offline",
+    "before": "Caricamento, attendere prego. Aggiornare la pagina porterà ad una perdita dei dati. Se il caricamento non dovesse funzionare, per favore controlla che il server non sia stato fermato.",
+    "after": "Caricamento, speta par piazer. Ajornar ła pàjina el farà pèrdar dati. Se el caricamento no el funsiona, controła che el server no el se sia fermà.",
+    "reason": "Replace Italian-seeded admin, archive and upload labels with Venetian; preserve active/inactive states, offline data-loss warning, HTML and size placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "archive-all",
+    "before": "Sposta tutto nell'archivio",
+    "after": "Sposta tuto inte el archivio",
+    "reason": "Replace Italian-seeded admin, archive and upload labels with Venetian; preserve active/inactive states, offline data-loss warning, HTML and size placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "archive-list",
+    "before": "Sposta lista nell'archivio",
+    "after": "Sposta ła lista inte el archivio",
+    "reason": "Replace Italian-seeded admin, archive and upload labels with Venetian; preserve active/inactive states, offline data-loss warning, HTML and size placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "archive-selection",
+    "before": "Sposta elementi selezionati nell'archivio",
+    "after": "Sposta ła sełesion inte el archivio",
+    "reason": "Replace Italian-seeded admin, archive and upload labels with Venetian; preserve active/inactive states, offline data-loss warning, HTML and size placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "archive-swimlane",
+    "before": "Sposta swimlane nell'archivio",
+    "after": "Sposta ła corsia inte el archivio",
+    "reason": "Replace Italian-seeded admin, archive and upload labels with Venetian; preserve active/inactive states, offline data-loss warning, HTML and size placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "auto-list-width",
+    "before": "Larghezza lista automatica ",
+    "after": "Łarghesa automàtica de ła lista",
+    "reason": "Replace Italian-seeded admin, archive and upload labels with Venetian; preserve active/inactive states, offline data-loss warning, HTML and size placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "auto-watch",
+    "before": "Segui automaticamente le bacheche quando vengono create.",
+    "after": "Segui in automatico i quadri co i vien creài",
+    "reason": "Replace Italian-seeded admin, archive and upload labels with Venetian; preserve active/inactive states, offline data-loss warning, HTML and size placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "avatar-too-big",
+    "before": "L'avatar è troppo grande (__size__ max)",
+    "after": "El avatar el xe massa grando (__size__ al màsimo)",
+    "reason": "Replace Italian-seeded admin, archive and upload labels with Venetian; preserve active/inactive states, offline data-loss warning, HTML and size placeholders. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
