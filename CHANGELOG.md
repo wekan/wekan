@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,096 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 748 pending review or repair.
-The correction inventory records 17,206 exact before/after values,
+The correction inventory records 17,208 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -100,8 +100,8 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 55c197366 (2026-09-14), replacing the Finnish MongoDB
-storage-engine label with Veps terminology. The original Neapolitan queue is empty. All correction/rendering checks
+Latest translation fix is 85de9ea7d (2026-09-14), replacing two unflagged Finnish
+zoom actions with distinct Veps increase/decrease terminology. The original Neapolitan queue is empty. All correction/rendering checks
 pass; low-confidence technical terminology remains explicitly tracked.
 Member assignment popup handlers need separate review for apparent reversed
 operations. The 1,015-suite Node result is historical and predates the latest batches.
@@ -640,6 +640,17 @@ The audit records 749 pending original findings and wider unfinished validation.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/85de9ea7d">Repair Veps zoom directions</a>. Thanks to xet7.</summary>
+
+Replace two unflagged Finnish labels with distinct Veps increase/decrease
+commands based on dictionary verbs. Preserve zoom handlers and their limits.
+All 17,208 correction/rendering checks pass; technical usage and imperative
+forms need fluent review. Zoom-level/range labels remain unresolved, and live
+browser verification was not run. Original pending findings remain at 748.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/55c197366">Repair Veps MongoDB storage-engine terminology</a>. Thanks to xet7.</summary>
