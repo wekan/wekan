@@ -61661,5 +61661,145 @@
     "before": "Chercher dans tous les tableaux",
     "after": "Cercar dins totes los tablèus",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "has-overtime-cards",
+    "before": "A des cartes avec du temps supplémentaire",
+    "after": "Conten de cartas amb un despassament de temps",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "has-spenttime-cards",
+    "before": "A des cartes avec du temps passé",
+    "after": "Conten de cartas amb de temps passat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "hide-checked-items",
+    "before": "Cacher les éléments cochés",
+    "after": "Amagar los elements marcats",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "hide-list-on-minicard",
+    "before": "Masquer la liste sur la mini-carte",
+    "after": "Amagar la lista sus la minicarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "hide-minicard-label-text",
+    "before": "Cacher l'étiquette de la mini-carte",
+    "after": "Amagar lo tèxt de las etiquetas sus la minicarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "if-you-already-have-an-account",
+    "before": "Si vous avez déjà un compte",
+    "after": "Se avètz ja un compte",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "import-board-instruction-csv",
+    "before": "Déposez vos données en CSV (valeurs séparées par des virgules) ou TSV (valeurs séparées par des tabulations).",
+    "after": "Pegatz vòstras valors separadas per de virgulas (CSV) o per de tabulacions (TSV).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "import-csv-placeholder",
+    "before": "Déposez ici vos données valides CSV/TSV",
+    "after": "Pegatz aicí vòstras donadas CSV/TSV validas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "import-show-user-mapping",
+    "before": "Contrôler l'assignation des participants",
+    "after": "Revisar la correspondéncia dels membres",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "invalid-file",
+    "before": "Si le nom de fichier est invalide, le téléchargement ou le renommage sera annulé.",
+    "after": "Se lo nom del fichièr es invalid, lo mandadís o lo cambiament de nom es anullat.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "invite-people-error",
+    "before": "Une erreur s'est produite lors de l'envoi de l'invitation à s'enregistrer",
+    "after": "Error pendent lo mandadís de l’invitacion a s’inscriure",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "invite-people-success",
+    "before": "Invitation à s'enregistrer envoyée avec succès",
+    "after": "Invitacion a s’inscriure mandada amb succès",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "keyboard-shortcuts-disabled",
+    "before": "Raccourcis clavier désactivés. Cliquer pour activer.",
+    "after": "Acorchis de clavièr desactivats. Clicatz per los activar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "keyboard-shortcuts-enabled",
+    "before": "Raccourcis clavier activés. Cliquer pour désactiver.",
+    "after": "Acorchis de clavièr activats. Clicatz per los desactivar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "label-color-not-found",
+    "before": "Étiquette de couleur '%s' non trouvée",
+    "after": "Color d’etiqueta %s pas trobada.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "label-delete-pop",
+    "before": "Cette action est irréversible. Elle supprimera cette étiquette de toutes les cartes ainsi que l'historique associé.",
+    "after": "Aquesta accion se pòt pas anullar. Suprimirà aquesta etiqueta de totas las cartas e destruirà son istoric.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "label-not-found",
+    "before": "Étiquette '%s' non trouvée.",
+    "after": "Etiqueta '%s' pas trobada.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "last-admin-desc",
+    "before": "Vous ne pouvez pas changer les rôles car il doit y avoir au moins un administrateur.",
+    "after": "Podètz pas cambiar los ròtles perque i deu aver almens un administrator.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "left-of-list",
+    "before": "À gauche de la liste sélectionnée",
+    "after": "A esquèrra de la lista seleccionada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "link-to-search",
+    "before": "Lien vers cette recherche",
+    "after": "Ligam cap a aquesta recèrca",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
