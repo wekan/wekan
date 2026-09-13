@@ -1,3 +1,4 @@
+import { repositoryArchive, organization, repository } from './mirror-repository.mjs';
 import fs from 'node:fs';
 import { spawn } from 'node:child_process';
 import path from 'node:path';
@@ -32,7 +33,21 @@ export async function sync(settings, { preview = false, run = streamCommand, dir
   fs.mkdirSync(temporary, { recursive: true });
   const work = fs.mkdtempSync(path.join(temporary, 'mirror-menu-'));
   const engine = path.join(directory, 'tools/mirror-active-forges.mjs');
-  const snapshot = sourceSnapshotFile || path.join(work, 'source.json');
+  const base = repositoryArchive(directory, environment.WEKAN_MIRROR_REPOSITORY || repository, environment.WEKAN_MIRROR_ORGANIZATION || organization, 'github.com');
+  const progressFile = path.join(base, 'sync-progress.json');
+  const durableSnapshot = path.join(base, 'source-manifest.json');
+  const track = settings.source === 'github' && !preview;
+  const identity = JSON.stringify({source:settings.source,mirrors:settings.mirrors});
+  const prior = track && fs.existsSync(progressFile) ? JSON.parse(fs.readFileSync(progressFile, 'utf8')) : undefined;
+  const resume = prior?.version === 1 && prior.identity === identity && !prior.complete;
+  const progress = resume ? prior : {version:1,identity,sourceReady:false,archiveDone:false,targetsDone:[],complete:false};
+  let snapshot = resume && progress.sourceReady && fs.existsSync(durableSnapshot) ? durableSnapshot : sourceSnapshotFile || path.join(work, 'source.json');
+  const saveProgress = () => {
+    if (!track) return;
+    fs.mkdirSync(base, {recursive:true});
+    const incoming = `${progressFile}.incoming-${process.pid}`;
+    fs.writeFileSync(incoming, JSON.stringify(progress,null,2)+'\n'); fs.renameSync(incoming,progressFile);
+  };
   const execute = async (tool, args) => {
     const started = Date.now();
     const timer = setInterval(() => log(`[mirror] Still running this stage (${Math.floor((Date.now() - started) / 1000)} seconds elapsed)`), heartbeatMs);
@@ -44,12 +59,16 @@ export async function sync(settings, { preview = false, run = streamCommand, dir
   let failed = false;
   try {
     log(`[mirror] ${preview ? 'Checking' : 'Starting sync'} from ${forges[settings.source].name} to ${settings.mirrors.map(m => forges[m].name).join(', ')}`);
+    saveProgress();
     log(`[mirror] Reading source issues, pull requests, comments and releases`);
-    if (!sourceSnapshotFile) await execute(process.execPath, [engine, '--source', settings.source, '--export-source', snapshot]);
+    if (resume && progress.sourceReady && snapshot === durableSnapshot) log('[mirror] Resuming saved source snapshot; completed collection is reused');
+    else if (!sourceSnapshotFile) await execute(process.execPath, [engine, '--source', settings.source, '--export-source', snapshot, ...(settings.source === 'github' ? ['--incremental', ...(preview ? ['--cache-only'] : [])] : [])]);
+    progress.sourceReady = fs.existsSync(durableSnapshot); saveProgress();
     log('[mirror] Updating local archive and static pages');
-    try { await execute(process.execPath, [engine, '--source', settings.source, '--archive-only', ...(preview ? [] : ['--apply']), '--snapshot', snapshot]); }
+    try { if (!progress.archiveDone) await execute(process.execPath, [engine, '--source', settings.source, '--archive-only', ...(preview ? [] : ['--apply']), '--snapshot', snapshot]); progress.archiveDone = true; saveProgress(); }
     catch (error) { failed = true; log(`[archive] failed: ${error.message}`); }
     for (const target of settings.mirrors) {
+      if (progress.targetsDone.includes(target)) { log(`[mirror] ${forges[target].name}: already completed; skipping`); continue; }
       log(`[mirror] ${preview ? 'Checking' : 'Syncing'} ${forges[target].name}`);
       try {
         const args = [...(preview ? ['--preview'] : []), '--source', settings.source, '--snapshot', snapshot, '--skip-archive'];
@@ -59,9 +78,11 @@ export async function sync(settings, { preview = false, run = streamCommand, dir
           if (parts.some(p => /["%!\r\n]/.test(p))) throw new Error('Unsupported command characters in checkout path');
           await execute('cmd.exe', ['/d', '/s', '/c', `call ${parts.map(p => `"${p}"`).join(' ')}`]);
         } else await execute('bash', [path.join(directory, `releases/mirror-${target}.sh`), ...args]);
+        progress.targetsDone.push(target); saveProgress();
       } catch (error) { failed = true; log(`[${target}] failed: ${error.message}`); }
     }
   } finally { fs.rmSync(work, { recursive: true, force: true }); }
+  progress.complete = !failed; saveProgress();
   log(`[mirror] ${failed ? 'Finished with failures' : 'Finished successfully'}`);
   return !failed;
 }

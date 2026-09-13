@@ -75,11 +75,28 @@ local changes, and aborts conflicting merges. Other divergent branches/tags
 are reported for manual resolution.
 Run the forge CLI installer in the build menu first on a new machine.
 
-The all-mirror launcher reads one fresh, fully paginated selected-source snapshot for
-the run, archives its files once, then passes the snapshot to each destination. Individual scripts read a fresh snapshot when run separately. The
-snapshot includes open/closed issues and PRs, issue comments, inline
-review comments and review summaries, labels, milestones, releases and their
-fully paginated assets.
+The GitHub menu and organization launcher save each API item directly beneath
+`.tools/mirror/github.com/<organization>/<repo>/`. Issues use `issues/<number>/`,
+pull requests use `pulls/<number>/`, and releases use `releases/<tag>/`.
+`source-item.json` preserves each item; comment and review directories preserve
+individual responses and attachments. Issue HTML is available during collection.
+
+`source-manifest.json` stores file references and pagination checkpoints. Collection
+holds one API page or conversation at a time rather than the entire repository.
+Ctrl+C preserves completed pages, items and downloaded files. Restarting resumes
+the interrupted page; that page may be fetched again to finish it safely. Completed
+pages are reused. `sync-progress.json` also records finished destination stages,
+so an interrupted synchronization skips destinations already completed. A fully
+completed synchronization starts a fresh inventory on the next run.
+
+Incomplete inventories never retire items that have not yet been fetched. Changed
+content retains its previous version under `old-YYYY-MM-DD_HH-MM-SS-...`.
+Checkpoint bookkeeping is replaced atomically. Failed attachment downloads remain
+retryable from the saved source data. GitHub previews save raw metadata checkpoints
+but do not download attachment archives or write to destinations. Individual scripts
+without incremental export still collect their own source snapshot. The data includes
+open/closed issues and PRs, comments, reviews, labels, milestones, releases and
+fully paginated release assets.
 
 | Data | GitHub | GitLab | Codeberg | SourceForge |
 | --- | --- | --- | --- | --- |
@@ -173,7 +190,8 @@ subgroup namespaces retain their path segments. Switching source preserves every
 previous source archive. The previous flat WeKan GitHub archive is migrated on an
 apply run: existing files are moved into the new namespace; collisions retain the
 new file and move the previous file under an `old-...` name. Manual files and
-historical versions are kept. Preview does not migrate or create archive files.
+historical versions are kept. Preview does not migrate archives or download attachment files; GitHub incremental
+collection does preserve raw metadata and checkpoint files.
 
 ## Organizations and destination namespaces
 

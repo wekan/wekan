@@ -37,13 +37,14 @@ export function attachmentLinks(directory, prefix = '') {
   if (!fs.existsSync(index)) return [];
   return JSON.parse(fs.readFileSync(index, 'utf8')).files.filter(f => f.kind === 'attachment' && !f.fetchFailed && fs.existsSync(path.join(directory, f.name))).map(f => ({ name: f.name, source: f.source, href: href(prefix + f.name), sha256: f.sha256, size: f.size }));
 }
-export function generateStatic(snapshot, base, write) {
+export function generateStatic(snapshot, base, write, { listings = true } = {}) {
+  const listingWrite = listings ? write : () => {};
   fs.mkdirSync(base, { recursive: true });
   const repository = `${snapshot.organization || 'wekan'}/${snapshot.repository || 'wekan'}`;
   const releasePath = release => {const folder=path.join(base,'releases');if(fs.existsSync(folder))for(const name of fs.readdirSync(folder)){const index=path.join(folder,name,'mirror-index.json');if(fs.existsSync(index)&&String(JSON.parse(fs.readFileSync(index,'utf8')).key)===String(release.tag_name))return `releases/${name}/index.html`;}return '';};
   const navigation = `<nav>${['issues','pulls','releases','projects'].map(t => `<a href="${t}/index.html">${t}</a>`).join(' · ')}</nav>`;
-  write(path.join(base, 'index.csv'), csv([['type','number','title','state','source','local_path'], ...snapshot.issues.map(i => [i.pull_request || i.pullMetadata ? 'pulls' : 'issues', i.number, i.title, i.state, i.html_url, `${i.pull_request || i.pullMetadata ? 'pulls' : 'issues'}/${i.number}/index.html`]), ...snapshot.releases.map(r => ['releases',r.tag_name,r.name,'',r.html_url,releasePath(r)])]));
-  write(path.join(base, 'index.html'), page(repository, navigation + `<article><h2>${escapeHtml(snapshot.repositoryMetadata?.description || 'Repository mirror')}</h2><p>Offline archive of repository issues, pull requests, releases and linked files.</p><a href="index.csv">Download CSV index</a>${snapshot.projectPageUrl ? '<p><a download href="repository/metadata/projects-page.html">Public projects webpage snapshot</a></p>' : ''}</article>`, 'index.html'));
+  listingWrite(path.join(base, 'index.csv'), csv([['type','number','title','state','source','local_path'], ...snapshot.issues.map(i => [i.pull_request || i.pullMetadata ? 'pulls' : 'issues', i.number, i.title, i.state, i.html_url, `${i.pull_request || i.pullMetadata ? 'pulls' : 'issues'}/${i.number}/index.html`]), ...snapshot.releases.map(r => ['releases',r.tag_name,r.name,'',r.html_url,releasePath(r)])]));
+  listingWrite(path.join(base, 'index.html'), page(repository, navigation + `<article><h2>${escapeHtml(snapshot.repositoryMetadata?.description || 'Repository mirror')}</h2><p>Offline archive of repository issues, pull requests, releases and linked files.</p><a href="index.csv">Download CSV index</a>${snapshot.projectPageUrl ? '<p><a download href="repository/metadata/projects-page.html">Public projects webpage snapshot</a></p>' : ''}</article>`, 'index.html'));
   for (const type of ['issues','pulls']) {
     const items = snapshot.issues.filter(i => Boolean(i.pull_request || i.pullMetadata) === (type === 'pulls'));
     const folder = path.join(base, type); fs.mkdirSync(folder, { recursive: true });
@@ -64,8 +65,8 @@ export function generateStatic(snapshot, base, write) {
       write(path.join(directory, 'index.csv'), csv(commentRows));
       write(path.join(directory, 'index.html'), page(`#${item.number} ${item.title}`, `<p>${escapeHtml(item.state)}</p><a href="index.csv">Comment and attachment CSV</a>${article}`, '../../index.html'));
     }
-    write(path.join(folder,'index.csv'),csv(rows));
-    write(path.join(folder,'index.html'),page(`${repository} ${type}`, `<a href="index.csv">Download CSV index</a>${table}</table>`));
+    listingWrite(path.join(folder,'index.csv'),csv(rows));
+    listingWrite(path.join(folder,'index.html'),page(`${repository} ${type}`, `<a href="index.csv">Download CSV index</a>${table}</table>`));
   }
   for (const type of ['releases','projects']) {
     const folder = path.join(base,type); fs.mkdirSync(folder,{recursive:true});
@@ -74,14 +75,16 @@ export function generateStatic(snapshot, base, write) {
       const directory = path.join(folder,name); if (!fs.statSync(directory).isDirectory()) continue;
       const metadata = path.join(directory,type === 'projects' ? 'project.json' : 'release.json');
       if (!fs.existsSync(metadata)) continue;
-      const item = JSON.parse(fs.readFileSync(metadata,'utf8')), title = item.title || item.name || item.tag_name;
+      const item = JSON.parse(fs.readFileSync(metadata,'utf8'));
+      if (!listings && !Array.from(snapshot.releases).some(r => r.tag_name === item.tag_name)) continue;
+      const title = item.title || item.name || item.tag_name;
       rows.push([item.number || item.tag_name,title,item.url || item.html_url,`${name}/index.html`]);
       table += `<tr><td><a href="${href(name)}/index.html">${escapeHtml(title)}</a></td></tr>`;
       const files = JSON.parse(fs.readFileSync(path.join(directory,'mirror-index.json'),'utf8')).files;
       write(path.join(directory,'index.csv'),csv([['name','source','kind','sha256','size'],...files.map(f=>[f.name,f.source,f.kind,f.sha256,f.size])]));
       write(path.join(directory,'index.html'),page(title, `<pre>${escapeHtml(item.body || item.readme || '')}</pre>${files.map(f=>`<p><a download href="${href(f.name)}">${escapeHtml(f.name)}</a></p>`).join('')}`, '../../index.html'));
     }
-    write(path.join(folder,'index.csv'),csv(rows)); write(path.join(folder,'index.html'),page(`${repository} ${type}`,`<a href="index.csv">Download CSV index</a>${table}</table>`));
+    listingWrite(path.join(folder,'index.csv'),csv(rows)); listingWrite(path.join(folder,'index.html'),page(`${repository} ${type}`,`<a href="index.csv">Download CSV index</a>${table}</table>`));
   }
 }
 

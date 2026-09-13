@@ -7,6 +7,7 @@ import { spawnSync } from 'node:child_process';
 import { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 import { createHash } from 'node:crypto';
+import { collectGithub, diskSnapshot, DiskItems } from './mirror-disk-snapshot.mjs';
 import { archiveSnapshot, archivedAssets, downloadUrl, resolveFileLinks, archivedCommentFiles } from './mirror-archive.mjs';
 import { limitedFetch, limitedCliJson, commandHost, waitCommand, noteCommandFailure } from './mirror-rate-limits.mjs';
 import { githubJson, githubRequest } from './mirror-github.mjs';
@@ -634,17 +635,24 @@ export async function main(args = process.argv.slice(2)) {
     console.log('node tools/mirror-active-forges.mjs [--apply] [--code] [--source github|gitlab|codeberg|sourceforge] [--target github|gitlab|codeberg|sourceforge]\nDefault: read-only preview. --apply archives source files and copies missing issues/PR conversations, labels, milestones, releases and assets. --code also synchronizes selected-source branches/tags. --archive-only --apply updates local files only. Uses .tools/mirror/settings.txt, falling back to the active registry in releases/mirror.sh. See releases/mirror.md.'); return;
   }
   let target, snapshotFile, exportFile, selectedSource;
+  const incremental = args.includes('--incremental');
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--target') { target = args[++i]; if (!target) throw new Error('--target needs a mirror name'); }
     else if (args[i] === '--source') { selectedSource = args[++i]; if (!Object.hasOwn(forges, selectedSource)) throw new Error('--source needs a known forge name'); }
     else if (args[i] === '--snapshot') { snapshotFile = args[++i]; if (!snapshotFile) throw new Error('--snapshot needs a filename'); }
     else if (args[i] === '--export-source') { exportFile = args[++i]; if (!exportFile) throw new Error('--export-source needs a filename'); }
-    else if (!['--apply', '--code', '--archive-only', '--skip-archive'].includes(args[i])) throw new Error(`Unknown argument ${args[i]}`);
+    else if (!['--apply', '--code', '--archive-only', '--skip-archive', '--incremental', '--cache-only'].includes(args[i])) throw new Error(`Unknown argument ${args[i]}`);
   }
   const settings = loadSettings(root, activeMirrors(fs.readFileSync(path.join(root, 'releases/mirror.sh'), 'utf8')).map(m => m.name));
   selectedSource ||= settings.source;
   if (exportFile) {
     if (snapshotFile || args.includes('--apply')) throw new Error('--export-source is read-only and cannot be combined with --apply or --snapshot');
+    if (incremental) {
+      if (selectedSource !== 'github') throw Error('Incremental export currently requires GitHub source');
+      const manifest = await collectGithub({ root, api: endpoint => cliApi('github', endpoint), exportFile: path.resolve(exportFile), downloadAsset, cacheOnly: args.includes('--cache-only') });
+      console.log(`GitHub disk snapshot: ${manifest.issueFiles.length} issues/PRs, ${manifest.releaseFiles.length} releases → ${exportFile}`);
+      return;
+    }
     const snapshot = await selectedSnapshot(selectedSource);
     fs.mkdirSync(path.dirname(path.resolve(exportFile)), { recursive: true });
     fs.writeFileSync(exportFile, JSON.stringify(snapshot));
@@ -668,19 +676,21 @@ export async function main(args = process.argv.slice(2)) {
     fs.writeFileSync(path.join(logdir, 'report.json'), JSON.stringify(report, null, 2) + '\n'); lastSave = Date.now();
   };
   log(`${apply ? 'APPLY' : 'PREVIEW'}: ${forges[selectedSource].name} → ${mirrors.map(m => m.name).join(', ')}\nReport: ${logdir}`);
-  let snapshot;
+  let snapshot, snapshotData;
   try {
-    snapshot = snapshotFile ? JSON.parse(fs.readFileSync(snapshotFile, 'utf8')) : await selectedSnapshot(selectedSource);
-    if (!Array.isArray(snapshot.issues) || !Array.isArray(snapshot.releases) || !Array.isArray(snapshot.labels) || !Array.isArray(snapshot.milestones) || !snapshot.capturedAt) throw new Error('Invalid GitHub snapshot');
+    snapshotData = snapshotFile ? JSON.parse(fs.readFileSync(snapshotFile, 'utf8')) : await selectedSnapshot(selectedSource);
+    if (snapshotData.diskSnapshot === 1 && path.resolve(snapshotData.base) !== repositoryArchive(root, repository, organization, 'github.com')) throw Error('Disk snapshot archive does not match selected repository');
+    snapshot = snapshotData.diskSnapshot === 1 ? diskSnapshot(snapshotData) : snapshotData;
+    if (!(Array.isArray(snapshot.issues) || snapshot.issues instanceof DiskItems) || !(Array.isArray(snapshot.releases) || snapshot.releases instanceof DiskItems) || !Array.isArray(snapshot.labels) || !Array.isArray(snapshot.milestones) || !snapshot.capturedAt) throw new Error('Invalid GitHub snapshot');
     if ((snapshot.organization || 'wekan') !== organization) throw new Error('Snapshot does not match selected organization');
     if ((snapshot.repository || 'wekan') !== repository) throw new Error('Snapshot does not match selected repository');
     if ((snapshot.sourceName || 'github') !== selectedSource) throw new Error('Snapshot does not match selected source');
-    fs.writeFileSync(path.join(logdir, 'source.json'), JSON.stringify(snapshot));
+    fs.writeFileSync(path.join(logdir, 'source.json'), JSON.stringify(snapshotData));
   }
   catch (error) { report.sourceError = error.message; save(); throw error; }
   const archiveRecord = (status, detail) => { report.archive.push({ status, detail }); log(`[archive] ${status}: ${detail}`); save(false); };
   if (!args.includes('--skip-archive')) {
-    try { await archiveSnapshot(snapshot, { root, apply, record: archiveRecord, downloadAsset }); }
+    try { await archiveSnapshot(snapshot, { root, apply, record: archiveRecord, downloadAsset, reconcileOnly: snapshotData.archiveComplete === true }); }
     catch (error) { archiveRecord('failed', error.message); }
   }
   log(`[archive] Summary: ${report.archive.filter(e => e.status === 'copied').length} added/updated; ${report.archive.filter(e => e.status === 'retired').length} renamed old; ${report.archive.filter(e => e.status === 'failed').length} failed.`);
@@ -691,12 +701,15 @@ export async function main(args = process.argv.slice(2)) {
   }
   let archive = { assets: new Map(), sources: new Map() };
   try { archive = archivedAssets(root, snapshot.releases, selectedSource, repository); } catch (error) { archiveRecord('failed', error.message); }
-  for (const release of snapshot.releases) {
+  const decorateRelease = release => {
     release.sourceFiles = (archive.sources.get(release.tag_name) || []).map(({ local, ...file }) => {
       const id = `archive:${release.tag_name}:${file.name}`;
       archive.assets.set(id, local); return { ...file, id };
     });
-  }
+    return release;
+  };
+  if (snapshot.releases instanceof DiskItems) snapshot.releases.decorate = decorateRelease;
+  else for (const release of snapshot.releases) decorateRelease(release);
   const download = asset => archive.assets.get(asset.id) || downloadAsset(asset, temporary);
   for (const mirror of mirrors) {
     const entries = report.mirrors[mirror.name] = [];

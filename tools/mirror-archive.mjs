@@ -13,7 +13,7 @@ import { pipeline } from 'node:stream/promises';
 import { Readable } from 'node:stream';
 
 const indexName = 'mirror-index.json';
-const reserved = new Set([indexName, 'issue.json', 'comments.json', 'pull-request.json', 'pull-request.patch', 'reviews.json', 'release.json', 'README.md', 'source-code.zip', 'source-code.tar.gz']);
+const reserved = new Set([indexName, 'issue.json', 'comments.json', 'pull-request.json', 'pull-request.patch', 'reviews.json', 'release.json', 'README.md', 'source-code.zip', 'source-code.tar.gz', 'source-item.json', 'source-comment.json', 'source-review.json', 'source-comment-files.json', 'source-review-files.json', 'source-assets.json']);
 export function archiveName(value) {
   const name = String(value).replace(/[<>:"/\\|?*\u0000-\u001f]/g, '_').replace(/[. ]+$/, '');
   if (!name || name === '.' || name === '..') throw new Error('Empty or unsafe archive filename');
@@ -298,7 +298,7 @@ export function migrateLegacyArchive(root,base,now,record=()=>{}) {
   for(const type of ['issues','pulls','releases','projects','repository'])if(fs.existsSync(path.join(legacy,type)))merge(path.join(legacy,type),path.join(base,type));
 }
 
-async function archiveUnlockedSnapshot(snapshot, { root, apply = true, downloadAsset, fetchFile = downloadUrl, record = () => {}, now = new Date() } = {}) {
+async function archiveUnlockedSnapshot(snapshot, { root, apply = true, downloadAsset, fetchFile = downloadUrl, record = () => {}, now = new Date(), partial = false, reconcileOnly = false } = {}) {
   const base = archiveBase(root, snapshot.sourceName, snapshot.repository, snapshot.organization), temporary = path.join(root, '.tools/tmp/mirror-archive');
   if (apply) {
     fs.mkdirSync(temporary, { recursive: true });
@@ -312,13 +312,13 @@ async function archiveUnlockedSnapshot(snapshot, { root, apply = true, downloadA
   if (snapshot.projects !== undefined) await archiveProjects(base, snapshot.projects, options);
   const isPull = issue => Boolean(issue.pull_request || issue.pullMetadata);
   const present = { issues: new Set(snapshot.issues.filter(i => !isPull(i)).map(i => String(i.number))), pulls: new Set(snapshot.issues.filter(isPull).map(i => String(i.number))), releases: new Set(snapshot.releases.map(r => String(r.tag_name))) };
-  for (const issue of snapshot.issues) {
+  for (const issue of reconcileOnly ? [] : snapshot.issues) {
     const type = isPull(issue) ? 'pulls' : 'issues';
     try {
       if (!Number.isSafeInteger(issue.number) || issue.number < 1) throw new Error('Invalid GitHub issue number');
       const { commentsToMirror = [], pullMetadata, reviews = [], originalBody, ...raw } = issue;
       if (originalBody !== undefined) raw.body = originalBody;
-      const files = [{ key: 'issue', name: 'issue.json', kind: 'metadata', bytes: serialized(raw) }, { key: 'notes', name: 'README.md', kind: 'metadata', bytes: Buffer.from(`# ${raw.title}\n\n${raw.body || ''}\n\nSource: ${issue.html_url}\n`) }, { key: 'comments', name: 'comments.json', kind: 'metadata', bytes: serialized(commentsToMirror) }, ...issueFiles(issue)];
+      const files = [{ key: 'issue', name: 'issue.json', kind: 'metadata', bytes: serialized(raw) }, ...(snapshot.diskSnapshot ? [{key:'source-snapshot',name:'source-item.json',kind:'metadata',bytes:serialized(issue)}] : []), { key: 'notes', name: 'README.md', kind: 'metadata', bytes: Buffer.from(`# ${raw.title}\n\n${raw.body || ''}\n\nSource: ${issue.html_url}\n`) }, { key: 'comments', name: 'comments.json', kind: 'metadata', bytes: serialized(commentsToMirror) }, ...issueFiles(issue)];
       if (pullMetadata) files.push({ key: 'pull', name: 'pull-request.json', kind: 'metadata', bytes: serialized(pullMetadata) }, { key: 'reviews', name: 'reviews.json', kind: 'metadata', bytes: serialized(reviews) }, { key: 'patch', name: 'pull-request.patch', kind: 'patch', source: pullMetadata.patch_url || `${issue.html_url}.patch` });
       await archiveItem(base, type, issue.number, issue.html_url, files, options);
       const directory = itemDirectory(base, type, issue.number);
@@ -331,6 +331,7 @@ async function archiveUnlockedSnapshot(snapshot, { root, apply = true, downloadA
         await archiveItem(directory, 'comments', id, comment.html_url || issue.html_url, [
           {key:'comment',name:'comment.json',kind:'metadata',bytes:serialized(archivedComment)},
           {key:'listing',name:'index.html',kind:'metadata',bytes:Buffer.alloc(0)},
+          ...['source-comment.json','source-review.json'].filter(name=>fs.existsSync(path.join(directory,id,name))).map(name=>({key:name,name,kind:'metadata',bytes:fs.readFileSync(path.join(directory,id,name))})),
           ...linked,
         ],options);
         if (apply) {
@@ -351,10 +352,10 @@ async function archiveUnlockedSnapshot(snapshot, { root, apply = true, downloadA
 
     } catch (error) { record('failed', `${type}/${issue.number}: ${error.message}`); }
   }
-  for (const release of snapshot.releases) {
+  for (const release of reconcileOnly ? [] : snapshot.releases) {
     try {
       const used = new Set([...reserved].map(n => n.toLowerCase()));
-      const files = [{ key: 'release', name: 'release.json', kind: 'metadata', bytes: serialized(release) }, { key: 'notes', name: 'README.md', kind: 'metadata', bytes: Buffer.from(`${release.body || ''}\n\nSource: ${release.html_url}\n`) }];
+      const files = [{ key: 'release', name: 'release.json', kind: 'metadata', bytes: serialized(release) }, ...(snapshot.diskSnapshot ? [{key:'source-snapshot',name:'source-item.json',kind:'metadata',bytes:serialized(release)}] : []), { key: 'notes', name: 'README.md', kind: 'metadata', bytes: Buffer.from(`${release.body || ''}\n\nSource: ${release.html_url}\n`) }];
       for (const asset of release.assets || []) {
         let name = archiveName(asset.name);
         if (used.has(name.toLowerCase())) name = `${asset.id}-${name}`;
@@ -367,7 +368,7 @@ async function archiveUnlockedSnapshot(snapshot, { root, apply = true, downloadA
   }
   // The full snapshot is authoritative for removed issues/releases. Only
   // tracked files are renamed; user-added files and historical versions stay.
-  for (const type of ['issues', 'pulls', 'releases']) {
+  for (const type of partial ? [] : ['issues', 'pulls', 'releases']) {
     const directory = path.join(base, type);
     if (!fs.existsSync(directory)) continue;
     for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
@@ -383,8 +384,8 @@ async function archiveUnlockedSnapshot(snapshot, { root, apply = true, downloadA
     }
   }
   if (apply) {
-    generateStatic(snapshot, base, (file, content) => writeBytes(file, Buffer.from(content), now));
-    generateCatalog(root, (file, content) => writeBytes(file, Buffer.from(content), now));
+    generateStatic(snapshot, base, (file, content) => writeBytes(file, Buffer.from(content), now), { listings: !partial });
+    if (!partial) generateCatalog(root, (file, content) => writeBytes(file, Buffer.from(content), now));
   }
 }
 export async function archiveSnapshot(snapshot, options = {}) {

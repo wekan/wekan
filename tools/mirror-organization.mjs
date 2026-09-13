@@ -1,4 +1,5 @@
 // Human-run organization mirroring. Every external operation is injectable.
+import { readSnapshot } from './mirror-disk-snapshot.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { command, cliApi, httpJson, root } from './mirror-active-forges.mjs';
@@ -164,9 +165,15 @@ export async function syncOrganization(settings,{preview=false,api=cliApi,http=h
       const environment = {WEKAN_MIRROR_ORGANIZATION:owner,WEKAN_MIRROR_GITLAB_NAMESPACE:destinations.gitlab,WEKAN_MIRROR_CODEBERG_NAMESPACE:destinations.codeberg,WEKAN_MIRROR_SOURCEFORGE_NAMESPACE:destinations.sourceforge,WEKAN_MIRROR_REPOSITORY:repo.name,WEKAN_MIRROR_DEFAULT_BRANCH:repo.default_branch || 'main',WEKAN_MIRROR_HAS_ISSUES:String(repo.has_issues)};
       const file = path.join(work,`${repo.name}.json`);
       try {
-        run(process.execPath,[path.join(directory,'tools/mirror-active-forges.mjs'),'--source','github','--export-source',file],undefined,{env:{...process.env,...environment}});
-        const snapshot = JSON.parse(fs.readFileSync(file,'utf8'));
-        if (snapshot.repository!==repo.name || !Array.isArray(snapshot.issues) || !Array.isArray(snapshot.releases)) throw new Error('Incomplete repository snapshot');
+        const savedBase = repositoryArchive(directory,repo.name,owner,'github.com');
+        const progressFile = path.join(savedBase,'sync-progress.json'), savedSource = path.join(savedBase,'source-manifest.json');
+        const progress = !preview && fs.existsSync(progressFile) ? JSON.parse(fs.readFileSync(progressFile,'utf8')) : undefined;
+        const expectedIdentity = JSON.stringify({source:'github',mirrors:targets});
+        if (progress?.version===1 && progress.identity===expectedIdentity && !progress.complete && progress.sourceReady && fs.existsSync(savedSource)) fs.copyFileSync(savedSource,file);
+        else run(process.execPath,[path.join(directory,'tools/mirror-active-forges.mjs'),'--source','github','--incremental',...(preview?['--cache-only']:[]),'--export-source',file],undefined,{env:{...process.env,...environment}});
+        const snapshotData = JSON.parse(fs.readFileSync(file,'utf8'));
+        const snapshot = readSnapshot(file);
+        if (snapshot.repository!==repo.name || !snapshot.issues || !snapshot.releases) throw new Error('Incomplete repository snapshot');
         snapshot.organization=owner; snapshot.repositoryMetadata=repo;
         if (repo.has_projects) {
           try { snapshot.projects=await projects(repo.name,undefined,owner); } catch(error) {
@@ -176,7 +183,7 @@ export async function syncOrganization(settings,{preview=false,api=cliApi,http=h
             } else record('failed',`${repo.name}: projects inventory: ${error.message}`);
           }
         } else record('skipped',`${repo.name}: projects disabled`);
-        fs.writeFileSync(file,JSON.stringify(snapshot));
+        fs.writeFileSync(file,JSON.stringify(snapshotData.diskSnapshot === 1 ? {...snapshotData,organization:owner,repositoryMetadata:repo,...(snapshot.projects!==undefined?{projects:snapshot.projects}:{}),...(snapshot.projectPageUrl?{projectPageUrl:snapshot.projectPageUrl}:{})} : snapshot));
         const ready=[];
         for (const target of targets) {
           try { if (await ensureRepository(target,repo,{apply:!preview,api,http,record,destinations})) ready.push(target); }
