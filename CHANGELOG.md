@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 14,881 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 963 pending review or repair.
-The correction inventory records 16,824 exact before/after values,
+findings: 14,889 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 955 pending review or repair.
+The correction inventory records 16,846 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original finding queues remain in Veps (222) and Standard Moroccan
+The largest original finding queues remain in Veps (214) and Standard Moroccan
 Tamazight (595). Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -99,8 +99,8 @@ Transifex: the evidence includes 4,061 pulled changes and 16,020 additional
 local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
-changes are implemented in local commit 02383540a; translation repairs have resumed. Latest translation fix is c847829da,
-covering WIP limits, warnings and group controls;
+changes are implemented in local commit 02383540a; translation repairs have resumed. Latest translation fix is 700147477,
+covering board visibility, permission descriptions and search predicates;
 progress counts are updated above.
 All correction/rendering checks pass. Latest full Node verification before
 that batch: 1,015 suites, zero failures;
@@ -1192,6 +1192,20 @@ preparation uses the same reporting. Offline positive and negative fixtures
 verify immediate output, periodic progress and failure propagation; build-menu
 parity and release workflow checks pass. A full Meteor build was not rerun
 for this change.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/700147477">Repair Veps board visibility and search predicates</a>. Thanks to xet7.</summary>
+
+Repair 22 values, including eight original findings and 14 related unflagged
+errors. Preserve private/public viewing and editing permissions, custom/default
+visibility descriptions, localized status predicates, HTML and sign-in URLs.
+All 16,846 exact correction and runtime checks pass, including production Query
+parsing with the actual locale and rejection of invalid visibility values.
+There are 955 pending original findings, including 214 Veps findings.
+Composed visibility/search-engine wording and case grammar are low confidence;
+fluent-speaker and browser verification remain pending.
 
 </details>
 
