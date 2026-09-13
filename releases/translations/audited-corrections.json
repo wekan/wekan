@@ -53597,5 +53597,47 @@
     "before": "Mostra solo gli utenti bloccati",
     "after": "Aratã mash ufilisitorlji blocats",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "accounts-lockout-info",
+    "before": "Queste impostazioni controllano il modo in cui i tentativi di accesso vengono protetti dagli attacchi di forza bruta.",
+    "after": "Aesti sitãri controleadzã cum suntu apãrati probili di intrari contra atacurilor cu fortsã brutã.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "accounts-lockout-known-users",
+    "before": "Impostazioni per utenti noti (nome utente corretto, password errata)",
+    "after": "Sitãri ti ufilisitori cunuscuti (numã di ufilisitor corectã, zbor di intrari greshitu)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "accounts-lockout-locked-users-info",
+    "before": "Utenti attualmente bloccati a causa di troppi tentativi di accesso non riusciti ",
+    "after": "Ufilisitori blocats tora di cauzã cã featsirã prea multi probi di intrari fãrã sucses",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "accounts-lockout-settings",
+    "before": "Impostazioni di protezione dalla forza bruta",
+    "after": "Sitãri di apãrari contra fortsãljei bruti",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "accounts-lockout-settings-updated",
+    "before": "Le impostazioni di protezione dalla forza bruta sono state aggiornate",
+    "after": "Sitãrili di apãrari contra fortsãljei bruti furã actualizati",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "accounts-lockout-unknown-users",
+    "before": "Impostazioni per utenti sconosciuti (nome utente inesistente)",
+    "after": "Sitãri ti ufilisitori nicunuscuti (numã di ufilisitor tsi nu existã)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
