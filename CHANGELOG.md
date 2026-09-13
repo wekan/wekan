@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 14,509 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 1,335 pending review or repair.
-The correction inventory records 16,118 exact before/after values,
+The correction inventory records 16,124 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -1099,6 +1099,15 @@ Bitbucket was tried during development and is now disabled because of
 Unauthorized errors. Repository paths remain resolved from the script's
 checkout. Syntax validation does not contact or certify remote mirrors;
 no mirroring or publishing commands were executed for this audit.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a14b0ffc4">Repair Veps navigation and error labels</a>. Thanks to xet7.</summary>
+
+Replace six Finnish labels with native software terminology, including the
+verified distinct plural for errors. Vocabulary, rejected Finnish and full
+correction inventory checks pass; fluent and browser reviews remain pending.
 
 </details>
 
