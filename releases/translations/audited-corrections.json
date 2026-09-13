@@ -120916,5 +120916,12 @@
     "before": "Kay willaymi: orangeta",
     "after": "killmu",
     "reason": "Reviewed 2026-09-14: replace unrelated Quechua message wrapper around English orange with directly attested Quechua adjective killmu, orange-colored: https://en.wiktionary.org/wiki/killmu . Keep orange distinct from yellow q'illu. Dictionary evidence supports adjective meaning; wider dialect and palette validation remains open."
+  },
+  {
+    "locale": "qu",
+    "key": "color-sky",
+    "before": "Kay willaymi: skyta",
+    "after": "qhusi",
+    "reason": "Reviewed 2026-09-14: replace unrelated message wrapper around English sky with directly attested Quechua sky-blue adjective qhusi: https://en.wiktionary.org/wiki/qhusi . Entry also glosses turquoise, but does not establish pale-turquoise qualifier; retain separate palette variants for further research. Not to be confused with qusi. Wider dialect/palette validation remains open."
   }
 ]
