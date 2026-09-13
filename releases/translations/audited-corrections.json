@@ -88219,5 +88219,47 @@
     "before": "Supprimer __name__ (__username__) de __boardTitle__ ? Ce participant sera supprimé de toutes les cartes du tableau et recevra une notification.",
     "after": "Moükön __name__ (__username__) de __boardTitle__? Liman pomoükon de kads valik su tab at. Ogeton nunädi.",
     "reason": "Replace French archive/restoration and membership messages with Volapük using existing terminology and Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf topätükön (move), dakipön (keep), ragiv (archive), dutön lü (belong to), nunäd (notification). Express restoration as moving back from archive, avoiding dictionary restore senses limited to health/repair. Preserve activity retention, settings location, at-least-one-user deletion block, member removal from all cards and notification; exact source tokens retained. Assembled wording and software adaptations remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "history",
+    "before": "Historique",
+    "after": "Jenotem",
+    "reason": "Replace French history/deletion text with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jenotem (succession of events/history), distukön (destroy); MediaWiki Volapük software history labels use jenotem. Preserve all-card removal, history destruction, complete board-content deletion, activity-feed removal, inability to reopen/recover and absence of undo. Recovery expressed as getting back, avoiding health/cover-again false friends. Activity-feed adaptation and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "custom-field-delete-pop",
+    "before": "Cette action est irréversible. Elle supprimera ce champ personnalisé de toutes les cartes et détruira son historique.",
+    "after": "Sädunam binon nemögik. Fel lönik at pomoükon de kads valik, e jenotem ona podistukon.",
+    "reason": "Replace French history/deletion text with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jenotem (succession of events/history), distukön (destroy); MediaWiki Volapük software history labels use jenotem. Preserve all-card removal, history destruction, complete board-content deletion, activity-feed removal, inability to reopen/recover and absence of undo. Recovery expressed as getting back, avoiding health/cover-again false friends. Activity-feed adaptation and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "label-delete-pop",
+    "before": "Cette action est irréversible. Elle supprimera cette étiquette de toutes les cartes ainsi que l'historique associé.",
+    "after": "Sädunam binon nemögik. Ninädapenäd at pomoükon de kads valik, e jenotem ona podistukon.",
+    "reason": "Replace French history/deletion text with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jenotem (succession of events/history), distukön (destroy); MediaWiki Volapük software history labels use jenotem. Preserve all-card removal, history destruction, complete board-content deletion, activity-feed removal, inability to reopen/recover and absence of undo. Recovery expressed as getting back, avoiding health/cover-again false friends. Activity-feed adaptation and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "delete-board-confirm-popup",
+    "before": "Toutes les listes, cartes, étiquettes et activités seront supprimées et vous ne pourrez pas retrouver le contenu du tableau. Cela est irréversible.",
+    "after": "Liseds, kads, ninädapenäds e dunots valik poradons, e no okanol getön dönu ninädi taba. Sädunam binon nemögik.",
+    "reason": "Replace French history/deletion text with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jenotem (succession of events/history), distukön (destroy); MediaWiki Volapük software history labels use jenotem. Preserve all-card removal, history destruction, complete board-content deletion, activity-feed removal, inability to reopen/recover and absence of undo. Recovery expressed as getting back, avoiding health/cover-again false friends. Activity-feed adaptation and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "card-delete-pop",
+    "before": "Toutes les actions vont être supprimées du suivi d'activités et vous ne pourrez plus utiliser cette carte. Cela est irréversible.",
+    "after": "Dunots valik pomoükons de lised dunotas, e no okanol maifükön dönu kadi. Sädunam binon nemögik.",
+    "reason": "Replace French history/deletion text with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jenotem (succession of events/history), distukön (destroy); MediaWiki Volapük software history labels use jenotem. Preserve all-card removal, history destruction, complete board-content deletion, activity-feed removal, inability to reopen/recover and absence of undo. Recovery expressed as getting back, avoiding health/cover-again false friends. Activity-feed adaptation and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "list-delete-pop",
+    "before": "Toutes les actions seront supprimées du fil d'activité et il ne sera plus possible de les récupérer. Cela est irréversible.",
+    "after": "Dunots valik pomoükons de lised dunotas, e no okanol getön dönu lisedi. Sädunam binon nemögik.",
+    "reason": "Replace French history/deletion text with Volapük. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests jenotem (succession of events/history), distukön (destroy); MediaWiki Volapük software history labels use jenotem. Preserve all-card removal, history destruction, complete board-content deletion, activity-feed removal, inability to reopen/recover and absence of undo. Recovery expressed as getting back, avoiding health/cover-again false friends. Activity-feed adaptation and assembled grammar remain low confidence; native review unavailable."
   }
 ]
