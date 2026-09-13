@@ -84775,5 +84775,33 @@
     "before": "Jalali (Fars)",
     "after": "Khalendara ea Jalali (ea Bapersia)",
     "reason": "Replace English/foreign Buddhist Hebrew and Jalali/Persian calendar labels with Sesotho while preserving Jalali identity. Mabuddha attested at https://www.jw.org/st/laebrari/limakasine/tsoha-no2-2020-jul-aug/seo-batho-ba-bang-ba-se-lumelang-ka-ho-utloa-bohloko/; Hebrew calendar terminology at https://www.jw.org/st-za/laebrari/dimakasine/tora-ya-ho-lebela-e-ithutwang-ya-june-2022/na-o-ne-o-tseba-june-2022-2/; Bapersia at https://wol.jw.org/st/wol/d/r21/lp-su/1001060428. Adapted complete grammar remains low confidence; remaining Coptic/Ethiopic/national and Hijri variant labels need review."
+  },
+  {
+    "locale": "st",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Khalendara ea Ethiopia",
+    "reason": "Replace English Ethiopic/Amete Alem/Indian national/Saudi Hijri calendar labels with Sesotho, retaining proper names and restoring national and moon-sighting qualifiers. Reuse existing khalendara terminology; khoeli as moon attested at https://wol.jw.org/st/wol/b/r21/lp-su/bi12/66/12 and India at https://www.jw.org/st/laebrari/limakasine/wp20151201/ho-utloisisa-bibele/. Complete assembled grammar and sighting adaptation remain low confidence; Coptic and tabular civil/astronomical epoch labels remain pending."
+  },
+  {
+    "locale": "st",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Khalendara ea Amete Alem ea Ethiopia",
+    "reason": "Replace English Ethiopic/Amete Alem/Indian national/Saudi Hijri calendar labels with Sesotho, retaining proper names and restoring national and moon-sighting qualifiers. Reuse existing khalendara terminology; khoeli as moon attested at https://wol.jw.org/st/wol/b/r21/lp-su/bi12/66/12 and India at https://www.jw.org/st/laebrari/limakasine/wp20151201/ho-utloisisa-bibele/. Complete assembled grammar and sighting adaptation remain low confidence; Coptic and tabular civil/astronomical epoch labels remain pending."
+  },
+  {
+    "locale": "st",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Khalendara ea naha ea India",
+    "reason": "Replace English Ethiopic/Amete Alem/Indian national/Saudi Hijri calendar labels with Sesotho, retaining proper names and restoring national and moon-sighting qualifiers. Reuse existing khalendara terminology; khoeli as moon attested at https://wol.jw.org/st/wol/b/r21/lp-su/bi12/66/12 and India at https://www.jw.org/st/laebrari/limakasine/wp20151201/ho-utloisisa-bibele/. Complete assembled grammar and sighting adaptation remain low confidence; Coptic and tabular civil/astronomical epoch labels remain pending."
+  },
+  {
+    "locale": "st",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Khalendara ea Hijri (Saudi Arabia, ho bona khoeli)",
+    "reason": "Replace English Ethiopic/Amete Alem/Indian national/Saudi Hijri calendar labels with Sesotho, retaining proper names and restoring national and moon-sighting qualifiers. Reuse existing khalendara terminology; khoeli as moon attested at https://wol.jw.org/st/wol/b/r21/lp-su/bi12/66/12 and India at https://www.jw.org/st/laebrari/limakasine/wp20151201/ho-utloisisa-bibele/. Complete assembled grammar and sighting adaptation remain low confidence; Coptic and tabular civil/astronomical epoch labels remain pending."
   }
 ]
