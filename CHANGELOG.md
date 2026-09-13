@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,116 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 728 pending review or repair.
-The correction inventory records 17,295 exact before/after values,
+The correction inventory records 17,297 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is f0d42d57f (2026-09-14), localizing Tamazight
-Persian calendar wording and the Excel card-export command. The complete
-export phrase and earlier user-existence sentences remain low confidence.
+Latest translation fix is 9443ef3ae (2026-09-14), replacing Arabic
+Tamazight text and number field labels. The number adaptation, earlier
+export phrase and user-existence sentences remain low confidence.
 Greenlandic CLDR-unconfirmed wording and twelve Quechua color wrappers
 still need review, alongside the wider restored and unflagged values.
 Tamazight calendar review dd2aaa19a (2026-09-14) records provisional
@@ -684,6 +684,17 @@ The audit records 749 pending original findings and wider unfinished validation.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9443ef3ae">Use native Tamazight text and number field labels</a>. Thanks to xet7.</summary>
+
+Replace Arabic field-type labels with native terminology. The text noun is
+attested in MediaWiki; the standalone number form and numeric field-type
+usage remain low confidence pending fluent review. All 17,297 correction
+checks pass. These additional unflagged repairs leave the original 728
+pending findings unchanged; wider language validation remains open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f0d42d57f">Localize Tamazight Persian and Excel export wording</a>. Thanks to xet7.</summary>
