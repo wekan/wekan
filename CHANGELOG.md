@@ -1245,6 +1245,17 @@ for this change.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/852c7d8ef">Repair Veps export fields and checklist line instructions</a>. Thanks to xet7.</summary>
+
+Replace six Finnish values, resolving five original findings and one unflagged
+owner label. Preserve four people roles, board/list/swimlane fields, one
+checklist item per text line and original order. All 16,958 exact correction
+checks and positive/negative runtime assertions pass. Technical grammar needs
+fluent review; 891 original findings and restored-value validation remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/201162037">Repair Veps card copying, sorting and permissions</a>. Thanks to xet7.</summary>
 
 The <a href="https://github.com/wekan/wekan/commit/2d7a83106">nine-value repair</a>

@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 14,948 |
+| Corrected | 14,953 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 896 |
+| Pending review or repair | 891 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,952** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,958** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commits `2d7a83106` and `201162037` — repaired **nine** original Veps findings in card sorting, checklist-template copying, bulk-card JSON examples and member permissions. Dictionary follow-up uses **nomeran** for numbered-item sorting. Preserve literal JSON fields, first/second/last examples, minicard placement, the settings prohibition and at least one administrator. All **16,952** exact corrections pass runtime rendering, placeholder, JSON, key-order and human-preference checks. The original queue has **896** pending findings, including **155** Veps findings. **Low confidence:** composed technical grammar/case, relative clauses and scheduling/migration wording need fluent-speaker review. Restored/unflagged values, wrong-language/script checks, keyboard shortcuts and remaining migration/search messages remain unfinished. No translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `852c7d8ef` — repaired **six** Veps export-field/owner/checklist-line values, resolving **five** original findings and **one** unflagged error. Preserve four distinct people roles, board/list/swimlane fields, one checklist item per text line and original order. All **16,958** exact corrections pass runtime rendering, placeholder, JSON, key-order and human-preference checks. The original queue has **891** pending findings, including **150** Veps findings. **Low confidence:** composed technical grammar/case, relative clauses and scheduling/migration wording need fluent-speaker review. Restored/unflagged values, wrong-language/script checks, keyboard shortcuts and remaining migration/search messages remain unfinished. No translations were pushed.
 
 **Build logging update (2026-09-14):** `5f8f22f8c` unifies all logger entry points managed by build.sh/build.bat under operation/date/time directories. Repeated runs stay separate; same-second starts reserve numeric suffixes. Twelve targeted test entries pass; native Windows execution was unavailable. Translation counts and remaining review work are unchanged; translation repairs remain unfinished.
 
