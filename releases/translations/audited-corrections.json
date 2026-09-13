@@ -112593,5 +112593,26 @@
     "before": "Käyttäjän lukitus on avattu onnistuneesti",
     "after": "Kävutajan saubatuz om heittud hüvin.",
     "reason": "Replace Finnish lockout text with Veps. Dictionary at https://kaikki.org/dictionary/Veps/index.html confirms teta passive tetud (known), tundmatoi genitive plural tundmatomiden (unknown), and oiged/vär. Software reference https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests saubatud, kävutai/kävutajid, valičused, peitsana, saubatuz om heittud, and hüvin. Keep known/unknown username/password conditions and successful-unlock meaning. Composed settings/warning grammar needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accounts-lockout-confirm-unlock",
+    "before": "Haluatko varmasti avata tämän käyttäjän lukituksen?",
+    "after": "Tozi-ik sinä tahtoid heitta necen kävutajan saubatust?",
+    "reason": "Replace Finnish unlock confirmation/all action text with direct Veps compositions. https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Tozi-ik sinä tahtoid confirmation syntax, heitta ... saubatust unlock semantics, and saubatusid plural. Preserve this-user versus all-locked-users scope and the all action. Composed grammar and plural usage need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "before": "Haluatko varmasti avata kaikkien lukittujen käyttäjien lukituksen?",
+    "after": "Tozi-ik sinä tahtoid heitta kaikiden saubatud kävutajiden saubatusid?",
+    "reason": "Replace Finnish unlock confirmation/all action text with direct Veps compositions. https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Tozi-ik sinä tahtoid confirmation syntax, heitta ... saubatust unlock semantics, and saubatusid plural. Preserve this-user versus all-locked-users scope and the all action. Composed grammar and plural usage need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accounts-lockout-unlock-all",
+    "before": "Avaa lukitus kaikista",
+    "after": "Heitä kaik saubatused",
+    "reason": "Replace Finnish unlock confirmation/all action text with direct Veps compositions. https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Tozi-ik sinä tahtoid confirmation syntax, heitta ... saubatust unlock semantics, and saubatusid plural. Preserve this-user versus all-locked-users scope and the all action. Composed grammar and plural usage need fluent review."
   }
 ]

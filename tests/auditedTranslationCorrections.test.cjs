@@ -264,5 +264,10 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['accounts-lockout-known-users'], /oiged.*nimi, vär peitsana/);
   assert.match(cache['ve-PP']['accounts-lockout-unknown-users'], /nimed ei ole/);
   assert.match(cache['ve-PP']['accounts-lockout-user-unlocked'], /heittud hüvin/);
+  assert.equal(cache['ve-PP']['accounts-lockout-confirm-unlock'], 'Tozi-ik sinä tahtoid heitta necen kävutajan saubatust?');
+  assert.equal(cache['ve-PP']['accounts-lockout-confirm-unlock-all'], 'Tozi-ik sinä tahtoid heitta kaikiden saubatud kävutajiden saubatusid?');
+  assert.equal(cache['ve-PP']['accounts-lockout-unlock-all'], 'Heitä kaik saubatused');
+  assert.notEqual(cache['ve-PP']['accounts-lockout-confirm-unlock'], cache['ve-PP']['accounts-lockout-confirm-unlock-all']);
+  assert.doesNotMatch(cache['ve-PP']['accounts-lockout-confirm-unlock-all'], /Haluatko|käyttäj|lukit/i);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
