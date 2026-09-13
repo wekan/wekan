@@ -112299,5 +112299,33 @@
     "before": "Japanese",
     "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ⵏ ⵍⵢⴰⴱⴰⵏ",
     "reason": "Replace English calendar name with Standard Moroccan Tamazight Tifinagh. Unicode CLDR 47 zgh gives the exact Islamic calendar name and attests country constructions n ccинwa/n lyaban in Chinese/Japanese currency labels; use the existing calendar-of-country pattern (also attested Ethiopic). Composed Chinese/Japanese calendar names need fluent review. https://www.unicode.org/cldr/charts/47/summary/zgh.html"
+  },
+  {
+    "locale": "ve-PP",
+    "key": "allboards.workspace-color",
+    "before": "Väri",
+    "after": "Muja",
+    "reason": "Replace Finnish Väri/vuosi and Latvian Dzina seeds with Veps muja (color), vozʹ (year), and nimi (name); vocabulary verified against the Veps dictionary at https://kaikki.org/dictionary/Veps/index.html. Preserve existing correct Veps name and Gantt-year translations."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "dependency-color",
+    "before": "Väri",
+    "after": "Muja",
+    "reason": "Replace Finnish Väri/vuosi and Latvian Dzina seeds with Veps muja (color), vozʹ (year), and nimi (name); vocabulary verified against the Veps dictionary at https://kaikki.org/dictionary/Veps/index.html. Preserve existing correct Veps name and Gantt-year translations."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "predicate-year",
+    "before": "vuosi",
+    "after": "vozʹ",
+    "reason": "Replace Finnish Väri/vuosi and Latvian Dzina seeds with Veps muja (color), vozʹ (year), and nimi (name); vocabulary verified against the Veps dictionary at https://kaikki.org/dictionary/Veps/index.html. Preserve existing correct Veps name and Gantt-year translations."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "event-bleed",
+    "before": "Dzina",
+    "after": "Nimi",
+    "reason": "Replace Finnish Väri/vuosi and Latvian Dzina seeds with Veps muja (color), vozʹ (year), and nimi (name); vocabulary verified against the Veps dictionary at https://kaikki.org/dictionary/Veps/index.html. Preserve existing correct Veps name and Gantt-year translations."
   }
 ]
