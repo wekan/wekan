@@ -88464,5 +88464,26 @@
     "before": "Envoyer un courriel de test à vous-même",
     "after": "Sedön penedi leäktronik blufa lü ol it",
     "reason": "Replace French upload/file-limit/test-email labels with Volapük. Primary MediaWiki Volapük source https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json attests nüned (file), löpiokopiedam (upload), jölät (byte) and software file-size wording; Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests gretot (size). Preserve allowed file types, avatar versus upload limits, maximum size in bytes, completed upload and self-addressed test email. Assembled compounds and grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "allboards.add-subworkspace",
+    "before": "Ajouter un sous-espace de travail",
+    "after": "Lüükön donavobaspadi",
+    "reason": "Replace French subworkspace/icon labels with Volapük. Reuse existing vobaspad workspace term; Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests dona- compounds for subordinate/lower entities. MediaWiki Volapük https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json attests sümbol (symbol). Preserve subworkspace hierarchy and exact markdown format name. Donavobaspad compound and symbol-to-icon adaptation remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "allboards.add-subworkspace-prompt",
+    "before": "Nom du sous-espace de travail",
+    "after": "Nem donavobaspada",
+    "reason": "Replace French subworkspace/icon labels with Volapük. Reuse existing vobaspad workspace term; Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests dona- compounds for subordinate/lower entities. MediaWiki Volapük https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json attests sümbol (symbol). Preserve subworkspace hierarchy and exact markdown format name. Donavobaspad compound and symbol-to-icon adaptation remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "allboards.edit-workspace-icon",
+    "before": "Icône d'espace de travail (markdown)",
+    "after": "Sümbol vobaspada (markdown)",
+    "reason": "Replace French subworkspace/icon labels with Volapük. Reuse existing vobaspad workspace term; Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests dona- compounds for subordinate/lower entities. MediaWiki Volapük https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json attests sümbol (symbol). Preserve subworkspace hierarchy and exact markdown format name. Donavobaspad compound and symbol-to-icon adaptation remain low confidence; native review unavailable."
   }
 ]
