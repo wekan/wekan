@@ -54801,5 +54801,54 @@
     "before": "È possibile specificare più operatori.",
     "after": "Pot s-hibã specificats ma multi operatori.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "globalSearch-instructions-notes-2",
+    "before": "Valori diversi dello stesso criterio di ricerca vengono combinati tramite *OR*. Vengono quindi selezionate tutte le schede che soddisfano almeno uno dei criteri. `__operator_list__:Available __operator_list__:Blocked` selezionerà le schede contenute in qualsiasi lista chiamata *Blocked* o *Available*.",
+    "after": "Operatorlji similari s-combinã cu *OR*. Suntu arãtati cãrtsãli tsi corespundu la vãrã unã di conditsii.\n`__operator_list__:Available __operator_list__:Blocked` aratã cãrtsãli di listili numiti *Blocked* icã *Available*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "globalSearch-instructions-notes-3-2",
+    "before": "I giorni possono essere specificati come numeri interi positivi/negativi oppure utilizzando `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` oppure `__predicate_year__` per il periodo corrente.",
+    "after": "Dzãlili pot s-hibã specificati ca numir întreg pozitiv icã negativ, icã cu `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` icã `__predicate_year__` ti perioada curentã.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<username>` - schede dove *<username>* è un *assegnatario*",
+    "after": "`__operator_assignee__:<username>` - cãrtsã iu *<username>* easti unã *persoanã atribuitã*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "globalSearch-instructions-operator-at",
+    "before": "`__operator_user_abbrev__username` - abbreviazione per `user:<username>`",
+    "after": "`__operator_user_abbrev__username` - formã scurtã ti `user:<username>`",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "globalSearch-instructions-operator-board",
+    "before": "`__operator_board__:<title>` - schede nelle bacheche corrispondenti a *<title>*",
+    "after": "`__operator_board__:<title>` - cãrtsã tu tabelili tsi corespundu la *<title>* specificat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "globalSearch-instructions-operator-comment",
+    "before": "`__operator_comment__:<text>` - schede con commenti contenenti *<text>*.",
+    "after": "`__operator_comment__:<text>` - cãrtsã cu un comentariu tsi ari *<text>*.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "globalSearch-instructions-operator-created",
+    "before": "`__operator_created__:<n>` - schede create *<n>* giorni fa o prima",
+    "after": "`__operator_created__:<n>` - cãrtsã creati cu *<n>* dzãli ninti icã ma recent",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
