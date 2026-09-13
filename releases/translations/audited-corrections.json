@@ -120895,5 +120895,12 @@
     "before": "Autoriser le changement d'identifiant",
     "after": "ⵙⵏⴼⵍ ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ",
     "reason": "Reviewed 2026-09-14: English source is Username Change, not the French allow-change paraphrase. Compose Standard Moroccan Tamazight change verb ⵙⵏⴼⵍ from MediaWiki changepassword and username noun from userlogin-yourname: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE combined setting-label grammar requires fluent review. Preserve the source meaning and established username terminology; do not claim exact full-phrase reference."
+  },
+  {
+    "locale": "zgh",
+    "key": "settingsUserPopup-title",
+    "before": "Paramètres de l'utilisateur",
+    "after": "ⵉⵙⵎⵏⵢⵉⴼⵏ ⵏ ⵓⵏⵙⵙⵎⵔⵙ",
+    "reason": "Reviewed 2026-09-14: replace French User Settings using native preference terminology ⵉⵙⵎⵏⵢⵉⴼⵏ from MediaWiki mypreferences and established user genitive ⵏ ⵓⵏⵙⵙⵎⵔⵙ from userlogin-yourname: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE composed heading and preference-to-settings terminology adaptation require fluent UI review; full phrase is not directly attested."
   }
 ]
