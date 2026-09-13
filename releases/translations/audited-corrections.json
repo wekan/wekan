@@ -77733,5 +77733,110 @@
     "before": "Ajouter le champ aux cartes nouvellement créées",
     "after": "Yokk wàllu dugal bi ci karta yu bees yi",
     "reason": "Replace French minicard/board visibility and field insertion controls with Wolof, preserving small-card versus full-card location, all-boards page, member avatars and all-cards versus new-cards scope. Describe field as input section; field/member vocabulary and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "add-label",
+    "before": "Ajouter une étiquette",
+    "after": "Yokk etiket",
+    "reason": "Replace French label controls/errors with Wolof using existing etiket terminology. Correct remove-all-labels wrong dwelling terminology; distinguish label color from a colored label, preserve %s placeholders and whole-card label scope. Full grammar remains low confidence; includes unflagged faulty label controls."
+  },
+  {
+    "locale": "wo",
+    "key": "card-edit-labels",
+    "before": "Gérer les étiquettes",
+    "after": "Soppi etiket yi",
+    "reason": "Replace French label controls/errors with Wolof using existing etiket terminology. Correct remove-all-labels wrong dwelling terminology; distinguish label color from a colored label, preserve %s placeholders and whole-card label scope. Full grammar remains low confidence; includes unflagged faulty label controls."
+  },
+  {
+    "locale": "wo",
+    "key": "card-labels-title",
+    "before": "Modifier les étiquettes de la carte.",
+    "after": "Soppi etiketi karta bi.",
+    "reason": "Replace French label controls/errors with Wolof using existing etiket terminology. Correct remove-all-labels wrong dwelling terminology; distinguish label color from a colored label, preserve %s placeholders and whole-card label scope. Full grammar remains low confidence; includes unflagged faulty label controls."
+  },
+  {
+    "locale": "wo",
+    "key": "cardLabelsPopup-title",
+    "before": "Étiquettes",
+    "after": "Etiket yi",
+    "reason": "Replace French label controls/errors with Wolof using existing etiket terminology. Correct remove-all-labels wrong dwelling terminology; distinguish label color from a colored label, preserve %s placeholders and whole-card label scope. Full grammar remains low confidence; includes unflagged faulty label controls."
+  },
+  {
+    "locale": "wo",
+    "key": "createLabelPopup-title",
+    "before": "Créer une étiquette",
+    "after": "Sos etiket",
+    "reason": "Replace French label controls/errors with Wolof using existing etiket terminology. Correct remove-all-labels wrong dwelling terminology; distinguish label color from a colored label, preserve %s placeholders and whole-card label scope. Full grammar remains low confidence; includes unflagged faulty label controls."
+  },
+  {
+    "locale": "wo",
+    "key": "deleteLabelPopup-title",
+    "before": "Supprimer l'étiquette ?",
+    "after": "Far etiket bi?",
+    "reason": "Replace French label controls/errors with Wolof using existing etiket terminology. Correct remove-all-labels wrong dwelling terminology; distinguish label color from a colored label, preserve %s placeholders and whole-card label scope. Full grammar remains low confidence; includes unflagged faulty label controls."
+  },
+  {
+    "locale": "wo",
+    "key": "editLabelPopup-title",
+    "before": "Modifier l'étiquette",
+    "after": "Soppi etiket bi",
+    "reason": "Replace French label controls/errors with Wolof using existing etiket terminology. Correct remove-all-labels wrong dwelling terminology; distinguish label color from a colored label, preserve %s placeholders and whole-card label scope. Full grammar remains low confidence; includes unflagged faulty label controls."
+  },
+  {
+    "locale": "wo",
+    "key": "activity-removed-label",
+    "before": "a supprimé l'étiquette '%s' de %s",
+    "after": "dindi etiket '%s' ci %s",
+    "reason": "Replace French label controls/errors with Wolof using existing etiket terminology. Correct remove-all-labels wrong dwelling terminology; distinguish label color from a colored label, preserve %s placeholders and whole-card label scope. Full grammar remains low confidence; includes unflagged faulty label controls."
+  },
+  {
+    "locale": "wo",
+    "key": "r-remove-all-labels",
+    "before": "Dindi dëkkukaay yépp ci kart bi",
+    "after": "Dindi etiketi karta bi yépp",
+    "reason": "Replace French label controls/errors with Wolof using existing etiket terminology. Correct remove-all-labels wrong dwelling terminology; distinguish label color from a colored label, preserve %s placeholders and whole-card label scope. Full grammar remains low confidence; includes unflagged faulty label controls."
+  },
+  {
+    "locale": "wo",
+    "key": "r-d-add-label",
+    "before": "Ajouter une étiquette",
+    "after": "Yokk etiket",
+    "reason": "Replace French label controls/errors with Wolof using existing etiket terminology. Correct remove-all-labels wrong dwelling terminology; distinguish label color from a colored label, preserve %s placeholders and whole-card label scope. Full grammar remains low confidence; includes unflagged faulty label controls."
+  },
+  {
+    "locale": "wo",
+    "key": "r-d-remove-label",
+    "before": "Supprimer l'étiquette",
+    "after": "Dindi etiket",
+    "reason": "Replace French label controls/errors with Wolof using existing etiket terminology. Correct remove-all-labels wrong dwelling terminology; distinguish label color from a colored label, preserve %s placeholders and whole-card label scope. Full grammar remains low confidence; includes unflagged faulty label controls."
+  },
+  {
+    "locale": "wo",
+    "key": "label-not-found",
+    "before": "Étiquette '%s' non trouvée.",
+    "after": "Giseesul etiket '%s'.",
+    "reason": "Replace French label controls/errors with Wolof using existing etiket terminology. Correct remove-all-labels wrong dwelling terminology; distinguish label color from a colored label, preserve %s placeholders and whole-card label scope. Full grammar remains low confidence; includes unflagged faulty label controls."
+  },
+  {
+    "locale": "wo",
+    "key": "label-color-not-found",
+    "before": "Étiquette de couleur '%s' non trouvée",
+    "after": "Giseesul melo etiket %s.",
+    "reason": "Replace French label controls/errors with Wolof using existing etiket terminology. Correct remove-all-labels wrong dwelling terminology; distinguish label color from a colored label, preserve %s placeholders and whole-card label scope. Full grammar remains low confidence; includes unflagged faulty label controls."
+  },
+  {
+    "locale": "wo",
+    "key": "label-colors",
+    "before": "Couleurs d'étiquette",
+    "after": "Meloy etiket yi",
+    "reason": "Replace French label controls/errors with Wolof using existing etiket terminology. Correct remove-all-labels wrong dwelling terminology; distinguish label color from a colored label, preserve %s placeholders and whole-card label scope. Full grammar remains low confidence; includes unflagged faulty label controls."
+  },
+  {
+    "locale": "wo",
+    "key": "label-names",
+    "before": "Noms d'étiquette",
+    "after": "Turi etiket yi",
+    "reason": "Replace French label controls/errors with Wolof using existing etiket terminology. Correct remove-all-labels wrong dwelling terminology; distinguish label color from a colored label, preserve %s placeholders and whole-card label scope. Full grammar remains low confidence; includes unflagged faulty label controls."
   }
 ]
