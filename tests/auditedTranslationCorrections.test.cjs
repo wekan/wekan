@@ -1914,5 +1914,36 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['cron-job-delete-confirm'], /\?$/);
   assert.doesNotMatch(Object.values(vepsScheduledJobs).join(' '), /radan|radad/);
   assert.match(cache['ve-PP']['cron-job-delete-confirm'], /radon/);
+  const vepsSearchEntities = {
+  "operator-board": "laud",
+  "operator-list": "lugetiž",
+  "operator-swimlane": "ujundšoid",
+  "operator-member": "ühtnik",
+  "operator-assignee": "märitud",
+  "globalSearch-instructions-operator-board": "`__operator_board__:<title>` - kartad laudoil, miččiden nimes om *<title>*",
+  "globalSearch-instructions-operator-list": "`__operator_list__:<title>` - kartad lugetišil, miččiden nimes om *<title>*",
+  "globalSearch-instructions-operator-swimlane": "`__operator_swimlane__:<title>` - kartad ujundšoiduil, miččiden nimes om *<title>*",
+  "globalSearch-instructions-operator-member": "`__operator_member__:<username>` - kartad, miččil *<username>* om *ühtnik*",
+  "globalSearch-instructions-operator-assignee": "`__operator_assignee__:<username>` - kartad, miččil *<username>* om *märitud kävutai*",
+  "globalSearch-instructions-status-all": "`__predicate_all__` - kaik arhivaha sirttud kartad da kaik toižed kartad"
+};
+  for (const [key, value] of Object.entries(vepsSearchEntities)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.doesNotMatch(value, /kortit|tauluilla|listoilla|uimaradoilla|joilla|joissa|jäsen|käsittelijä|kaikki arkistoidut|taulu|uimarata/, key);
+  }
+  for (const [operator, token] of [['board', 'laud'], ['list', 'lugetiž'], ['swimlane', 'ujundšoid'], ['member', 'ühtnik'], ['assignee', 'märitud']]) {
+    assert.equal(cache['ve-PP'][`operator-${operator}`], token);
+    const parsed = new visibilityContext.Query();
+    parsed.buildParams(`${token}:"SEARCH TEXT"`);
+    assert.equal(parsed.hasErrors(), false, operator);
+    assert.equal(parsed.getQueryParams().getPredicate({ member: 'members', assignee: 'assignees' }[operator] || operator), 'SEARCH TEXT', operator);
+    const key = `globalSearch-instructions-operator-${operator}`;
+    assert.equal(vepsTranslator.t(key, { [`operator_${operator}`]: token }), cache['ve-PP'][key].replace(`__operator_${operator}__`, token));
+  }
+  assert.notEqual(cache['ve-PP']['operator-member'], cache['ve-PP']['operator-assignee']);
+  assert.match(cache['ve-PP']['globalSearch-instructions-status-all'], /kaik arhivaha sirttud kartad da kaik toižed kartad/);
+  const invalidSpacedOperator = new visibilityContext.Query();
+  invalidSpacedOperator.buildParams('märitud kävutai:SEARCH_TEXT');
+  assert.equal(invalidSpacedOperator.hasErrors(), true);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

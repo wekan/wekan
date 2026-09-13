@@ -118396,5 +118396,82 @@
     "before": "Aikataulu työ aloitettu onnistuneesti",
     "after": "Märitud aiganke rad om hüvin zavoditud",
     "reason": "Replace Finnish scheduled-job notifications with Veps dictionary action verbs. Preserve assigned-time job meaning, active jobs, deletion confirmation and four distinct success/failure pairs. Composed scheduling terminology and inflection remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-board",
+    "before": "taulu",
+    "after": "laud",
+    "reason": "Replace Finnish/mixed search wording with Veps using existing board/list/swimlane and assigned-user labels. Preserve operator placeholders, title/user examples and all archived/unarchived cards. Technical relative-clause/case morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-list",
+    "before": "lista",
+    "after": "lugetiž",
+    "reason": "Replace Finnish/mixed search wording with Veps using existing board/list/swimlane and assigned-user labels. Preserve operator placeholders, title/user examples and all archived/unarchived cards. Technical relative-clause/case morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-swimlane",
+    "before": "uimarata",
+    "after": "ujundšoid",
+    "reason": "Replace Finnish/mixed search wording with Veps using existing board/list/swimlane and assigned-user labels. Preserve operator placeholders, title/user examples and all archived/unarchived cards. Technical relative-clause/case morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-member",
+    "before": "jäsen",
+    "after": "ühtnik",
+    "reason": "Replace Finnish/mixed search wording with Veps using existing board/list/swimlane and assigned-user labels. Preserve operator placeholders, title/user examples and all archived/unarchived cards. Technical relative-clause/case morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-assignee",
+    "before": "käsittelijä",
+    "after": "märitud",
+    "reason": "Replace Finnish/mixed search wording with Veps using existing board/list/swimlane and assigned-user labels. Preserve operator placeholders, title/user examples and all archived/unarchived cards. Technical relative-clause/case morphology remains low confidence pending fluent review. Production Query rejects spaces in operator names; use single-word märitud (assigned), keeping full assigned-user wording in prose."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-operator-board",
+    "before": "`__operator_board__:<title>` - kortit tauluilla jotka täsmää määritettyyn *<title>*",
+    "after": "`__operator_board__:<title>` - kartad laudoil, miččiden nimes om *<title>*",
+    "reason": "Replace Finnish/mixed search wording with Veps using existing board/list/swimlane and assigned-user labels. Preserve operator placeholders, title/user examples and all archived/unarchived cards. Technical relative-clause/case morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-operator-list",
+    "before": "`__operator_list__:<title>` - kortit listoilla jotka täsmää määritettyyn *<title>*",
+    "after": "`__operator_list__:<title>` - kartad lugetišil, miččiden nimes om *<title>*",
+    "reason": "Replace Finnish/mixed search wording with Veps using existing board/list/swimlane and assigned-user labels. Preserve operator placeholders, title/user examples and all archived/unarchived cards. Technical relative-clause/case morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-operator-swimlane",
+    "before": "`__operator_swimlane__:<title>` - kortit uimaradoilla jotka täsmää määritettyyn *<title>*",
+    "after": "`__operator_swimlane__:<title>` - kartad ujundšoiduil, miččiden nimes om *<title>*",
+    "reason": "Replace Finnish/mixed search wording with Veps using existing board/list/swimlane and assigned-user labels. Preserve operator placeholders, title/user examples and all archived/unarchived cards. Technical relative-clause/case morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-operator-member",
+    "before": "`__operator_member__:<username>` - cards joilla *<username>* on *jäsen*",
+    "after": "`__operator_member__:<username>` - kartad, miččil *<username>* om *ühtnik*",
+    "reason": "Replace Finnish/mixed search wording with Veps using existing board/list/swimlane and assigned-user labels. Preserve operator placeholders, title/user examples and all archived/unarchived cards. Technical relative-clause/case morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<username>` - kortit joilla *<username>* on *käsittelijä*",
+    "after": "`__operator_assignee__:<username>` - kartad, miččil *<username>* om *märitud kävutai*",
+    "reason": "Replace Finnish/mixed search wording with Veps using existing board/list/swimlane and assigned-user labels. Preserve operator placeholders, title/user examples and all archived/unarchived cards. Technical relative-clause/case morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-status-all",
+    "before": "`__predicate_all__` - kaikki arkistoidut ja arkistoimattomat kortit",
+    "after": "`__predicate_all__` - kaik arhivaha sirttud kartad da kaik toižed kartad",
+    "reason": "Replace Finnish/mixed search wording with Veps using existing board/list/swimlane and assigned-user labels. Preserve operator placeholders, title/user examples and all archived/unarchived cards. Technical relative-clause/case morphology remains low confidence pending fluent review."
   }
 ]
