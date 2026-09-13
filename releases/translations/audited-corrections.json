@@ -67002,5 +67002,89 @@
     "before": "Préférence du participant",
     "after": "Arventennoù an ezel",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "memberPopup-title",
+    "before": "Préférence du participant",
+    "after": "Arventennoù an ezel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "memory-usage",
+    "before": "Utilisation de la mémoire",
+    "after": "Implij ar vemor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "migration-not-needed",
+    "before": "Aucune migration nécessaire",
+    "after": "N’eus ket ezhomm da dreuzkas roadennoù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "migration-pausing",
+    "before": "Mise en pause des migrations...",
+    "after": "Oc’h ehanañ an treuzkasoù roadennoù...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "migration-starting",
+    "before": "Démarrage des migrations...",
+    "after": "O loc’hañ an treuzkasoù roadennoù...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "migration-successful",
+    "before": "Migration terminée avec succès",
+    "after": "Echuet eo treuzkas ar roadennoù gant berzh",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "mobile-desktop-toggle",
+    "before": "Basculer entre le mode mobile et le mode bureau",
+    "after": "Cheñch etre ar mod hezoug hag ar mod burev",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "multi-selection-active",
+    "before": "Cliquez sur les cases à cocher pour sélectionner les tableaux",
+    "after": "Klikit war ar c’hestoù da gevaskañ evit diuzañ taolennoù",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "multi-selection-label",
+    "before": "Définir l'étiquette pour la sélection",
+    "after": "Lakaat un dikedenn evit an diuzad",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "multi-selection-member",
+    "before": "Définir le participant pour la sélection",
+    "after": "Lakaat un ezel evit an diuzad",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "newTranslationPopup-title",
+    "before": "Nouvelle traduction personnalisée",
+    "after": "Chadenn destenn troet personelaet nevez",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "no-comments-desc",
+    "before": "Impossible de voir les commentaires.",
+    "after": "Ne c’haller ket gwelet an evezhiadennoù.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
