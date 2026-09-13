@@ -53786,5 +53786,47 @@
     "before": "Sei sicuro di voler duplicare questa bacheca?",
     "after": "Esht sigur cã vrei s-duplichedzi aesta tabelã?",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "delete-linked-card-before-this-card",
+    "before": "Non puoi eliminare questa scheda prima di avere eliminato una scheda collegata che ha",
+    "after": "Nu pots s-ashtardzi aesta cartã ninti s-ashtardzi carta ligatã tsi ari",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "edit-wip-limit",
+    "before": "Modifica limite Work In Progress",
+    "after": "Alãxea limita di lucru tu progres (WIP)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "error-board-doesNotExist",
+    "before": "Questa bacheca non esiste",
+    "after": "Aesta tabelã nu existã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "error-board-notAMember",
+    "before": "Devi essere un membro di questa bacheca per poterlo fare",
+    "after": "Lipsea s-hii membru a aestãljei tabeli ti s-fatsi aesta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "error-board-notAdmin",
+    "before": "Devi essere admin di questa bacheca per poterlo fare",
+    "after": "Lipsea s-hii administrator a aestãljei tabeli ti s-fatsi aesta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "filter-on-desc",
+    "before": "Stai filtrando le schede su questa bacheca. Clicca qui per modificare il filtro,",
+    "after": "Filtrezi cãrtsãli di aesta tabelã. Clicã aua ti s-alãxezi filtru.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
