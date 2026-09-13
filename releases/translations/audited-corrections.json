@@ -90354,5 +90354,89 @@
     "before": "Glisser le tableau",
     "after": "Tränön tabi",
     "reason": "Replace audited French board navigation/favorite instructions with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests tränön (drag), pladön (place), stel (star), mäkön (mark), magod (image), maifükön (open). Preserve drag-and-drop sorting versus click-to-open and opposite star/unstar actions. Use image descriptively for board icon and marked-with-star for favorites. Software adaptation and assembled phrases remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "act-activity-notify",
+    "before": "Agado Sciigo",
+    "after": "Nunäd dunota",
+    "reason": "Replace foreign or malformed notification/watch wording with Volapük. MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json directly uses Galädön/Negalädön for software watch/unwatch. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests itjäfidik (automatic), nunäd (notification), jafan (creator), liman (member), refudön (refuse), steifül (attempt). Preserve watched board/list/card scope, creator/member participation, all changes and automatic watching on creation. Disable-setting description retains enabled-means-disabled, rejected level changes and default off. Assembled wording and watch-level software adaptation remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "auto-watch",
+    "before": "Surveiller automatiquement les tableaux quand ils sont créés",
+    "after": "Galädön tabis itjäfidiko ven pajafons",
+    "reason": "Replace foreign or malformed notification/watch wording with Volapük. MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json directly uses Galädön/Negalädön for software watch/unwatch. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests itjäfidik (automatic), nunäd (notification), jafan (creator), liman (member), refudön (refuse), steifül (attempt). Preserve watched board/list/card scope, creator/member participation, all changes and automatic watching on creation. Disable-setting description retains enabled-means-disabled, rejected level changes and default off. Assembled wording and watch-level software adaptation remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "error-watch-disabled",
+    "before": "Le suivi des tableaux et des cartes est désactivé par l'administrateur",
+    "after": "Galädam tabas e kadas perefudon fa guvan",
+    "reason": "Replace foreign or malformed notification/watch wording with Volapük. MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json directly uses Galädön/Negalädön for software watch/unwatch. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests itjäfidik (automatic), nunäd (notification), jafan (creator), liman (member), refudön (refuse), steifül (attempt). Preserve watched board/list/card scope, creator/member participation, all changes and automatic watching on creation. Disable-setting description retains enabled-means-disabled, rejected level changes and default off. Assembled wording and watch-level software adaptation remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "muted",
+    "before": "Silencieux",
+    "after": "Nen nunäds",
+    "reason": "Replace foreign or malformed notification/watch wording with Volapük. MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json directly uses Galädön/Negalädön for software watch/unwatch. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests itjäfidik (automatic), nunäd (notification), jafan (creator), liman (member), refudön (refuse), steifül (attempt). Preserve watched board/list/card scope, creator/member participation, all changes and automatic watching on creation. Disable-setting description retains enabled-means-disabled, rejected level changes and default off. Assembled wording and watch-level software adaptation remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "notify-participate",
+    "before": "Recevoir les mises à jour de toutes les cartes auxquelles vous participez en tant que créateur ou que participant",
+    "after": "Getön nunädis tefü votükams kadas, su kels binol jafan u liman",
+    "reason": "Replace foreign or malformed notification/watch wording with Volapük. MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json directly uses Galädön/Negalädön for software watch/unwatch. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests itjäfidik (automatic), nunäd (notification), jafan (creator), liman (member), refudön (refuse), steifül (attempt). Preserve watched board/list/card scope, creator/member participation, all changes and automatic watching on creation. Disable-setting description retains enabled-means-disabled, rejected level changes and default off. Assembled wording and watch-level software adaptation remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "notify-watch",
+    "before": "Recevoir les mises à jour de tous les tableaux, listes ou cartes que vous suivez",
+    "after": "Getön nunädis tefü votükams tabas, lisedas u kadas, kelis galädol",
+    "reason": "Replace foreign or malformed notification/watch wording with Volapük. MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json directly uses Galädön/Negalädön for software watch/unwatch. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests itjäfidik (automatic), nunäd (notification), jafan (creator), liman (member), refudön (refuse), steifül (attempt). Preserve watched board/list/card scope, creator/member participation, all changes and automatic watching on creation. Disable-setting description retains enabled-means-disabled, rejected level changes and default off. Assembled wording and watch-level software adaptation remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "unwatch",
+    "before": "Arrêter de suivre",
+    "after": "Negalädön",
+    "reason": "Replace foreign or malformed notification/watch wording with Volapük. MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json directly uses Galädön/Negalädön for software watch/unwatch. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests itjäfidik (automatic), nunäd (notification), jafan (creator), liman (member), refudön (refuse), steifül (attempt). Preserve watched board/list/card scope, creator/member participation, all changes and automatic watching on creation. Disable-setting description retains enabled-means-disabled, rejected level changes and default off. Assembled wording and watch-level software adaptation remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "watch",
+    "before": "Rigardi",
+    "after": "Galädön",
+    "reason": "Replace foreign or malformed notification/watch wording with Volapük. MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json directly uses Galädön/Negalädön for software watch/unwatch. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests itjäfidik (automatic), nunäd (notification), jafan (creator), liman (member), refudön (refuse), steifül (attempt). Preserve watched board/list/card scope, creator/member participation, all changes and automatic watching on creation. Disable-setting description retains enabled-means-disabled, rejected level changes and default off. Assembled wording and watch-level software adaptation remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "watching",
+    "before": "Rigardante",
+    "after": "Galädöl",
+    "reason": "Replace foreign or malformed notification/watch wording with Volapük. MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json directly uses Galädön/Negalädön for software watch/unwatch. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests itjäfidik (automatic), nunäd (notification), jafan (creator), liman (member), refudön (refuse), steifül (attempt). Preserve watched board/list/card scope, creator/member participation, all changes and automatic watching on creation. Disable-setting description retains enabled-means-disabled, rejected level changes and default off. Assembled wording and watch-level software adaptation remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "watching-info",
+    "before": "Vous serez notifié de toute modification dans ce tableau",
+    "after": "Pogivon ole nunäd tefü votükam alik in tab at",
+    "reason": "Replace foreign or malformed notification/watch wording with Volapük. MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json directly uses Galädön/Negalädön for software watch/unwatch. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests itjäfidik (automatic), nunäd (notification), jafan (creator), liman (member), refudön (refuse), steifül (attempt). Preserve watched board/list/card scope, creator/member participation, all changes and automatic watching on creation. Disable-setting description retains enabled-means-disabled, rejected level changes and default off. Assembled wording and watch-level software adaptation remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "disable-watch",
+    "before": "Neaktivükön luki",
+    "after": "Refudön galädami",
+    "reason": "Replace foreign or malformed notification/watch wording with Volapük. MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json directly uses Galädön/Negalädön for software watch/unwatch. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests itjäfidik (automatic), nunäd (notification), jafan (creator), liman (member), refudön (refuse), steifül (attempt). Preserve watched board/list/card scope, creator/member participation, all changes and automatic watching on creation. Disable-setting description retains enabled-means-disabled, rejected level changes and default off. Assembled wording and watch-level software adaptation remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "disable-watch-description",
+    "before": "Ven aktivik, lukisärvot pasiston — gebans no kanons abonön tabis, liseds u kads ad getön sususiamis, e alik nedam ad votükön lukanivodi parefudon. Defaultik binon neaktivik.",
+    "after": "Ven väl at binon dunik, galädam parefudon: gebans no kanons galädön tabis, lisedis u kadis ad getön nunädis, e steifül alik ad votükön nivodi galädama parefudon. Kösömo väl at no binon dunik.",
+    "reason": "Replace foreign or malformed notification/watch wording with Volapük. MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json directly uses Galädön/Negalädön for software watch/unwatch. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests itjäfidik (automatic), nunäd (notification), jafan (creator), liman (member), refudön (refuse), steifül (attempt). Preserve watched board/list/card scope, creator/member participation, all changes and automatic watching on creation. Disable-setting description retains enabled-means-disabled, rejected level changes and default off. Assembled wording and watch-level software adaptation remain low confidence pending native review."
   }
 ]
