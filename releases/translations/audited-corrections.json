@@ -66218,5 +66218,117 @@
     "before": "Préciser l'action sur le participant",
     "after": "Resisaat an ober war an ezel",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "display-authentication-method",
+    "before": "Afficher la méthode d'authentification",
+    "after": "Diskouez an doare dilesadur",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "display-card-creator",
+    "before": "Afficher le créateur de la carte",
+    "after": "Diskouez krouer ar gartenn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "dueCards-noResults-description",
+    "before": "Vous n'avez aucune carte avec échéance en ce moment.",
+    "after": "N’hoc’h eus kartenn ebet gant un deiziad termen evit ar mare.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "dueCards-noResults-title",
+    "before": "Aucune carte avec échéance trouvée",
+    "after": "N’eo bet kavet kartenn ebet gant un deiziad termen",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "duenow",
+    "before": "La date d'échéance %s est aujourd'hui",
+    "after": "Hiziv eo an eur termen %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "editCardDueDatePopup-title",
+    "before": "Modifier la date d'échéance",
+    "after": "Kemmañ an deiziad termen",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "editCardReceivedDatePopup-title",
+    "before": "Modifier la date de réception",
+    "after": "Kemmañ an deiziad degemer",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "editCardStartDatePopup-title",
+    "before": "Modifier la date de début",
+    "after": "Kemmañ an deiziad kregiñ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "editCustomFieldPopup-title",
+    "before": "Éditer le champ personnalisé",
+    "after": "Kemmañ ar maezienn",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "editPokerEndDatePopup-title",
+    "before": "Changer la date de fin de vote du planning poker",
+    "after": "Kemmañ deiziad dibenn vot ar Planning Poker",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "editTranslationPopup-title",
+    "before": "Éditer la traduction personnalisée",
+    "after": "Kemmañ ar chadenn destenn troet personelaet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "editVoteEndDatePopup-title",
+    "before": "Modifier la date de fin de vote",
+    "after": "Kemmañ deiziad dibenn ar vot",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "email-enrollAccount-subject",
+    "before": "Un compte a été créé pour vous sur __siteName__",
+    "after": "Krouet eo bet ur gont evidoc’h war __siteName__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "email-enrollAccount-text",
+    "before": "Bonjour __user__,\n\nPour commencer à utiliser ce service, il suffit de cliquer sur le lien ci-dessous.\n\n__url__\n\nMerci.",
+    "after": "Demat __user__,\n\nEvit kregiñ da implijout ar servij, klikit war al liamm amañ dindan.\n\n__url__\n\nTrugarez.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "email-fail",
+    "before": "Échec de l'envoi du courriel.",
+    "after": "C’hwitet eo kas ar postel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "email-fail-text",
+    "before": "Une erreur est survenue en tentant d'envoyer l'email",
+    "after": "Ur fazi zo bet en ur glask kas ar postel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
