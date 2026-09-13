@@ -70768,5 +70768,117 @@
     "before": "Pindah semua kartu ke daftar ini",
     "after": "Pinah mandum kad bak senarai nyoe",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "list-select-cards",
+    "before": "Pilih semua kartu di daftar ini",
+    "after": "Pileh mandum kad bak senarai nyoe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "loading",
+    "before": "Sedang memuat, harap tunggu.",
+    "after": "Teungoh geumuat, neupreh.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "map-to-existing-user-desc",
+    "before": "Pilih pengguna sebenar yang sebenarnya diwakili oleh ahli (maya) yang diimport ini. Kad, komen dan aktivitinya akan berpindah kepada pengguna itu. Cari sesiapa sahaja; pengguna yang belum ada di papan ini ditambah dengan peranan ahli yang diimport itu sendiri, jadi pemetaan ini tidak akan sesekali memberi kebenaran lebih daripada yang diberi oleh import.",
+    "after": "Pileh ureueng ngui beutoi nyang jeuet keu anggota virtual nyang geupeutamong nyoe. Kad, komen ngon aktivitas jih geupinah u ureueng ngui nyan. Mita keu teumeung soe mantong; ureueng ngui nyang gohlom na bak papan nyoe geutamah ngon peran anggota nyang geupeutamong, jadi peupadan hana jeuet bri izin leubeh nibak nyang geubri le impor.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "map-to-existing-user-none",
+    "before": "Belum ada ahli sebenar lain di papan ini. Cari di atas untuk mencari mana-mana pengguna.",
+    "after": "Gohlom na anggota beutoi laen bak papan nyoe. Mita di ateueh keu teumeung soe mantong ureueng ngui.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "mark-all-as-read",
+    "before": "Tandai semua telah dibaca",
+    "after": "Tanda mandum ka geubeuet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "max-avatar-filesize",
+    "before": "Maksimal avatar ukuran berkas dalam byte",
+    "after": "Ukoran fail avatar nyang paleng rayek lam byte:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "max-upload-filesize",
+    "before": "Maksimal ukuran file unggahan dalam bytes",
+    "after": "Ukoran fail unggah nyang paleng rayek lam byte:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "mobile-desktop-toggle",
+    "before": "Tukar antara mod mudah alih dan desktop",
+    "after": "Tuka antara mode Mobile ngon Desktop",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "move-all-attachments-of-board-to-fs",
+    "before": "Pindah semua lampiran papan ini ke sistem fail",
+    "after": "Pinah mandum lampiran papan u sistem fail",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "move-all-attachments-of-board-to-gridfs",
+    "before": "Pindah semua lampiran papan kepada GridFS",
+    "after": "Pinah mandum lampiran papan u GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "move-all-attachments-to-fs",
+    "before": "Pindah semua lampiran ke sistem fail",
+    "after": "Pinah mandum lampiran u sistem fail",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "move-all-attachments-to-gridfs",
+    "before": "Pindah semua lampiran ke GridFS",
+    "after": "Pinah mandum lampiran u GridFS",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "multi-selection-active",
+    "before": "Klik kotak semak untuk pilih papan",
+    "after": "Klik kotak cek keu pileh papan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "multi-selection-off",
+    "before": "Matikan pilihan berbilang",
+    "after": "Peumate pilehan le papan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "muted",
+    "before": "Pemberitahuan tidak aktif",
+    "after": "Notifikasi geupeumate",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ace",
+    "key": "muted-info",
+    "before": "Anda tidak akan pernah dinotifikasi semua perubahan di panel ini",
+    "after": "Droeneueh hana akan geubri notifikasi peue mantong perubahan bak papan nyoe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
