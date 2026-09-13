@@ -90473,5 +90473,40 @@
     "before": "Veuillez enlever des cartes de cette liste, ou définir une limite WIP plus importante.",
     "after": "Begö! Topätükolös bligädis anik plödü lised at, u lonolös miedi WIP geilikum.",
     "reason": "Replace audited French imported-member search hint, invitation, favorites and WIP warning with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests vüdön (invite), stel (star), mäkön (mark), bligäd (task), löpü (above), plödü (outside). Reuse dictionary-based local invitation wording. Preserve source tokens and eight actual invitation newlines, no-other-members-yet search, favorite positioning and alternative move-tasks/raise-WIP-limit actions. Describe shortcut as a link in the row rather than a keyboard shortcut. Assembled software wording remains low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "private-desc",
+    "before": "Ce tableau est privé. Seuls les membres peuvent y accéder et le modifier.",
+    "after": "Tab at binon privatik. Te mens lü tab pelüüköl kanons logön e votükön oni.",
+    "reason": "Replace audited French board visibility, card search, username length and support-access wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests privatik (restricted/private), notidik (public access), sukön (search), bepenam (description), nemu (at least). MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses Gebananem and sümbol for software character. Preserve added-members-only editing, private viewing restrictions, public link/search discovery including Google, all search fields, three-character minimum and logged-in-only support. Search-engine paraphrase and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "public-desc",
+    "before": "Ce tableau est public. Il est accessible par toutes les personnes disposant du lien et apparaîtra dans les résultats des moteurs de recherche tels que Google. Seuls les membres peuvent le modifier.",
+    "after": "Tab at binon notidik. Mens valik ko yüm kanons logön oni, e pojonon in programs suka, äs Google. Te mens lü tab pelüüköl kanons votükön oni.",
+    "reason": "Replace audited French board visibility, card search, username length and support-access wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests privatik (restricted/private), notidik (public access), sukön (search), bepenam (description), nemu (at least). MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses Gebananem and sümbol for software character. Preserve added-members-only editing, private viewing restrictions, public link/search discovery including Google, all search fields, three-character minimum and logged-in-only support. Search-engine paraphrase and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "search-cards",
+    "before": "Rechercher parmi les titres, descriptions et champs personnalisés des cartes/listes de ce tableau",
+    "after": "Sukön in tiäds e bepenams kadas/lisedas e fels lönik su tab at",
+    "reason": "Replace audited French board visibility, card search, username length and support-access wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests privatik (restricted/private), notidik (public access), sukön (search), bepenam (description), nemu (at least). MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses Gebananem and sümbol for software character. Preserve added-members-only editing, private viewing restrictions, public link/search discovery including Google, all search fields, three-character minimum and logged-in-only support. Search-engine paraphrase and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "username-too-short",
+    "before": "Le nom d'utilisateur doit comporter au moins 3 caractères",
+    "after": "Gebananem muton labön nemu sümbolis 3",
+    "reason": "Replace audited French board visibility, card search, username length and support-access wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests privatik (restricted/private), notidik (public access), sukön (search), bepenam (description), nemu (at least). MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses Gebananem and sümbol for software character. Preserve added-members-only editing, private viewing restrictions, public link/search discovery including Google, all search fields, three-character minimum and logged-in-only support. Search-engine paraphrase and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "support-info-only-for-logged-in-users",
+    "before": "Les informations d'assistance sont réservées aux utilisateurs connectés.",
+    "after": "Nuns yufa binons te pro gebans pos nunädam.",
+    "reason": "Replace audited French board visibility, card search, username length and support-access wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests privatik (restricted/private), notidik (public access), sukön (search), bepenam (description), nemu (at least). MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json uses Gebananem and sümbol for software character. Preserve added-members-only editing, private viewing restrictions, public link/search discovery including Google, all search fields, three-character minimum and logged-in-only support. Search-engine paraphrase and assembled software wording remain low confidence pending native review. Express after login explicitly; do not use passive notification wording for logged-in state."
   }
 ]
