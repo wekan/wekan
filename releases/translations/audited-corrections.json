@@ -72966,5 +72966,152 @@
     "before": "a supprimé le participant __member__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
     "after": "a oisté l' mimbe __member__ del cåte __card__ del djivêye __list__ do coridôr __swimlane__ do tåvlea __board__",
     "reason": "Replace audited French activity message with Walloon using existing card/list/swimlane, checklist, attachment and comment terminology. Creation verb: https://dtw.walon.org/index.php?query=askepy%C3%AE ; movement verb: https://dtw.walon.org/index.php?query=bodj%C3%AE . All activity context placeholders retained exactly; full sentence grammar remains low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "act-completeChecklist",
+    "before": "a complété la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a fini l' djivêye di verifiaedje __checklist__ del cåte __card__ del djivêye __list__ do coridôr __swimlane__ do tåvlea __board__",
+    "reason": "Replace audited French checklist wording with Walloon. Finish/complete and feminine fineye attested: https://dtw.walon.org/index.php?query=fini ; item vocabulary https://dtw.walon.org/index.php?query=cayet plus existing checklist terminology. Restore removed-item meaning where French omitted the item; keep completed and uncompleted states distinct. Full sentence grammar remains low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "act-uncompleteChecklist",
+    "before": "a rendu incomplet la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a rimetou l' djivêye di verifiaedje __checklist__ come nén fineye del cåte __card__ del djivêye __list__ do coridôr __swimlane__ do tåvlea __board__",
+    "reason": "Replace audited French checklist wording with Walloon. Finish/complete and feminine fineye attested: https://dtw.walon.org/index.php?query=fini ; item vocabulary https://dtw.walon.org/index.php?query=cayet plus existing checklist terminology. Restore removed-item meaning where French omitted the item; keep completed and uncompleted states distinct. Full sentence grammar remains low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-checklist-completed-card",
+    "before": "a complété la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "a fini l' djivêye di verifiaedje __checklist__ del cåte __card__ del djivêye __list__ do coridôr __swimlane__ do tåvlea __board__",
+    "reason": "Replace audited French checklist wording with Walloon. Finish/complete and feminine fineye attested: https://dtw.walon.org/index.php?query=fini ; item vocabulary https://dtw.walon.org/index.php?query=cayet plus existing checklist terminology. Restore removed-item meaning where French omitted the item; keep completed and uncompleted states distinct. Full sentence grammar remains low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-checklist-added",
+    "before": "a ajouté une checklist à %s",
+    "after": "a radjouté ene djivêye di verifiaedje a %s",
+    "reason": "Replace audited French checklist wording with Walloon. Finish/complete and feminine fineye attested: https://dtw.walon.org/index.php?query=fini ; item vocabulary https://dtw.walon.org/index.php?query=cayet plus existing checklist terminology. Restore removed-item meaning where French omitted the item; keep completed and uncompleted states distinct. Full sentence grammar remains low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-checklist-item-added",
+    "before": "a ajouté un élément à la checklist '%s' dans %s",
+    "after": "a radjouté on cayet a '%s' dins %s",
+    "reason": "Replace audited French checklist wording with Walloon. Finish/complete and feminine fineye attested: https://dtw.walon.org/index.php?query=fini ; item vocabulary https://dtw.walon.org/index.php?query=cayet plus existing checklist terminology. Restore removed-item meaning where French omitted the item; keep completed and uncompleted states distinct. Full sentence grammar remains low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-checklist-item-removed",
+    "before": "a supprimé une checklist de '%s' dans %s",
+    "after": "a oisté on cayet di '%s' dins %s",
+    "reason": "Replace audited French checklist wording with Walloon. Finish/complete and feminine fineye attested: https://dtw.walon.org/index.php?query=fini ; item vocabulary https://dtw.walon.org/index.php?query=cayet plus existing checklist terminology. Restore removed-item meaning where French omitted the item; keep completed and uncompleted states distinct. Full sentence grammar remains low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-checklist-removed",
+    "before": "a supprimé une checklist de %s",
+    "after": "a oisté ene djivêye di verifiaedje di %s",
+    "reason": "Replace audited French checklist wording with Walloon. Finish/complete and feminine fineye attested: https://dtw.walon.org/index.php?query=fini ; item vocabulary https://dtw.walon.org/index.php?query=cayet plus existing checklist terminology. Restore removed-item meaning where French omitted the item; keep completed and uncompleted states distinct. Full sentence grammar remains low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "add-checklist-item",
+    "before": "Ajouter un élément à la checklist",
+    "after": "Radjouter on cayet al djivêye di verifiaedje",
+    "reason": "Replace audited French checklist wording with Walloon. Finish/complete and feminine fineye attested: https://dtw.walon.org/index.php?query=fini ; item vocabulary https://dtw.walon.org/index.php?query=cayet plus existing checklist terminology. Restore removed-item meaning where French omitted the item; keep completed and uncompleted states distinct. Full sentence grammar remains low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "checklistItemDeletePopup-title",
+    "before": "Supprimer l'élément de la check-list ?",
+    "after": "Disfacer li cayet del djivêye di verifiaedje?",
+    "reason": "Replace audited French checklist wording with Walloon. Finish/complete and feminine fineye attested: https://dtw.walon.org/index.php?query=fini ; item vocabulary https://dtw.walon.org/index.php?query=cayet plus existing checklist terminology. Restore removed-item meaning where French omitted the item; keep completed and uncompleted states distinct. Full sentence grammar remains low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "confirm-checklist-delete-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer la checklist ?",
+    "after": "Estoz vs seur di voleur disfacer li djivêye di verifiaedje?",
+    "reason": "Replace audited French checklist wording with Walloon. Finish/complete and feminine fineye attested: https://dtw.walon.org/index.php?query=fini ; item vocabulary https://dtw.walon.org/index.php?query=cayet plus existing checklist terminology. Restore removed-item meaning where French omitted the item; keep completed and uncompleted states distinct. Full sentence grammar remains low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "confirm-checklist-item-delete-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer l'élément de la check-list ?",
+    "after": "Estoz vs seur di voleur disfacer li cayet del djivêye di verifiaedje?",
+    "reason": "Replace audited French checklist wording with Walloon. Finish/complete and feminine fineye attested: https://dtw.walon.org/index.php?query=fini ; item vocabulary https://dtw.walon.org/index.php?query=cayet plus existing checklist terminology. Restore removed-item meaning where French omitted the item; keep completed and uncompleted states distinct. Full sentence grammar remains low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "hide-finished-checklist",
+    "before": "Cacher la check-list terminée",
+    "after": "Catchî l' djivêye di verifiaedje fineye",
+    "reason": "Replace audited French checklist wording with Walloon. Finish/complete and feminine fineye attested: https://dtw.walon.org/index.php?query=fini ; item vocabulary https://dtw.walon.org/index.php?query=cayet plus existing checklist terminology. Restore removed-item meaning where French omitted the item; keep completed and uncompleted states distinct. Full sentence grammar remains low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "hideAllChecklistItems",
+    "before": "Cacher tous les éléments de la check-list",
+    "after": "Catchî tos les cayets del djivêye di verifiaedje",
+    "reason": "Replace audited French checklist wording with Walloon. Finish/complete and feminine fineye attested: https://dtw.walon.org/index.php?query=fini ; item vocabulary https://dtw.walon.org/index.php?query=cayet plus existing checklist terminology. Restore removed-item meaning where French omitted the item; keep completed and uncompleted states distinct. Full sentence grammar remains low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "newlineBecomesNewChecklistItem",
+    "before": "Chaque ligne de texte devient un élément de la check-list",
+    "after": "Tchaeke roye di tecse divént on cayet del djivêye di verifiaedje",
+    "reason": "Replace audited French checklist wording with Walloon. Finish/complete and feminine fineye attested: https://dtw.walon.org/index.php?query=fini ; item vocabulary https://dtw.walon.org/index.php?query=cayet plus existing checklist terminology. Restore removed-item meaning where French omitted the item; keep completed and uncompleted states distinct. Full sentence grammar remains low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "before": "Chaque ligne de texte devient un élément de la check-list, l'ordre est respecté",
+    "after": "Tchaeke roye di tecse divént on cayet del djivêye di verifiaedje, dins l' ôre di cmince",
+    "reason": "Replace audited French checklist wording with Walloon. Finish/complete and feminine fineye attested: https://dtw.walon.org/index.php?query=fini ; item vocabulary https://dtw.walon.org/index.php?query=cayet plus existing checklist terminology. Restore removed-item meaning where French omitted the item; keep completed and uncompleted states distinct. Full sentence grammar remains low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "showChecklistAtMinicard",
+    "before": "Afficher la check-list dans la minicarte",
+    "after": "Mostrer l' djivêye di verifiaedje sol minicåte",
+    "reason": "Replace audited French checklist wording with Walloon. Finish/complete and feminine fineye attested: https://dtw.walon.org/index.php?query=fini ; item vocabulary https://dtw.walon.org/index.php?query=cayet plus existing checklist terminology. Restore removed-item meaning where French omitted the item; keep completed and uncompleted states distinct. Full sentence grammar remains low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-checklist-completed",
+    "before": "a complété la checklist %s de %s",
+    "after": "a fini l' djivêye di verifiaedje %s di %s",
+    "reason": "Replace audited French checklist wording with Walloon. Finish/complete and feminine fineye attested: https://dtw.walon.org/index.php?query=fini ; item vocabulary https://dtw.walon.org/index.php?query=cayet plus existing checklist terminology. Restore removed-item meaning where French omitted the item; keep completed and uncompleted states distinct. Full sentence grammar remains low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-checklist-uncompleted",
+    "before": "a rendu incomplète la checklist %s de %s",
+    "after": "a rimetou l' djivêye di verifiaedje %s di %s come nén fineye",
+    "reason": "Replace audited French checklist wording with Walloon. Finish/complete and feminine fineye attested: https://dtw.walon.org/index.php?query=fini ; item vocabulary https://dtw.walon.org/index.php?query=cayet plus existing checklist terminology. Restore removed-item meaning where French omitted the item; keep completed and uncompleted states distinct. Full sentence grammar remains low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "activity-checklist-uncompleted-card",
+    "before": "a décoché la checklist %s",
+    "after": "a rimetou l' djivêye di verifiaedje %s come nén fineye",
+    "reason": "Replace audited French checklist wording with Walloon. Finish/complete and feminine fineye attested: https://dtw.walon.org/index.php?query=fini ; item vocabulary https://dtw.walon.org/index.php?query=cayet plus existing checklist terminology. Restore removed-item meaning where French omitted the item; keep completed and uncompleted states distinct. Full sentence grammar remains low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "copyChecklistFromTemplate",
+    "before": "Copier la checklist - Modèle",
+    "after": "Copyî l' djivêye di verifiaedje a pårti do modele",
+    "reason": "Replace audited French checklist wording with Walloon. Finish/complete and feminine fineye attested: https://dtw.walon.org/index.php?query=fini ; item vocabulary https://dtw.walon.org/index.php?query=cayet plus existing checklist terminology. Restore removed-item meaning where French omitted the item; keep completed and uncompleted states distinct. Full sentence grammar remains low confidence; placeholders preserved."
+  },
+  {
+    "locale": "wa",
+    "key": "copyChecklistFromTemplatePopup-title",
+    "before": "Copier la checklist - Modèle",
+    "after": "Copyî l' djivêye di verifiaedje a pårti do modele",
+    "reason": "Replace audited French checklist wording with Walloon. Finish/complete and feminine fineye attested: https://dtw.walon.org/index.php?query=fini ; item vocabulary https://dtw.walon.org/index.php?query=cayet plus existing checklist terminology. Restore removed-item meaning where French omitted the item; keep completed and uncompleted states distinct. Full sentence grammar remains low confidence; placeholders preserved."
   }
 ]
