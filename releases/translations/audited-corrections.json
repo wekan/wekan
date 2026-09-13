@@ -57454,5 +57454,124 @@
     "before": "Continuando, accetti il nostro",
     "after": "Si cuntinue, accette 'e nnostre",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "la",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Ratio calendarii (ostensio diei)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "la",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Calendarium Jalali (Persicum)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "la",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Calendarium Buddhisticum",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "la",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Calendarium Sinicum",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "la",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Calendarium Copticum",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "la",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Calendarium Dangi (Coreanum)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "la",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Calendarium Aethiopicum Amete Alem",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "la",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Calendarium Aethiopicum",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "la",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Calendarium Hebraicum",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "la",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Calendarium nationale Indicum",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "la",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Calendarium Hijri",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "la",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Calendarium Hijri (tabulare, epocha civilis)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "la",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Calendarium Hijri (Arabia Saudiana, observatio lunae)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "la",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Calendarium Hijri (tabulare, epocha astronomica)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "la",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Calendarium Hijri (Umm al-Qura)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "la",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Calendarium Iaponicum",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "la",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Calendarium Minguo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
