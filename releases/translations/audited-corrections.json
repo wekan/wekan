@@ -112999,5 +112999,82 @@
     "before": "Sähköpostin lähettäminen epäonnistui",
     "after": "Email-kirjeižen oigendamižen viga",
     "reason": "Replace Finnish Veps upload/email seed with native software terminology from MediaWiki Veps uploaderror, uploadstash, upload-permitted, upload-maxfilesize, upload-dialog-button-done and mailerror; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Preserve upload/error/completed distinction and byte unit (baitad in uploadstash-file-too-large). LOW CONFIDENCE: composed allowed-filetypes and byte-unit inflection need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "email-address",
+    "before": "Sähköpostiosoite",
+    "after": "Email-počtan adres",
+    "reason": "Replace Finnish Veps seed using native software terminology: MediaWiki Veps email, passwordreset-email, cannotchangeemail, emailsent, mailerror, emailsend/email-legend and tags-active-header; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Existing native inactive-member attests Ei-aktivine. Preserve plural addresses and SMTP acronym. LOW CONFIDENCE: composed SMTP test subject needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "email-addresses",
+    "before": "Sähköpostiosoite",
+    "after": "Email-počtan adresad",
+    "reason": "Replace Finnish Veps seed using native software terminology: MediaWiki Veps email, passwordreset-email, cannotchangeemail, emailsent, mailerror, emailsend/email-legend and tags-active-header; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Existing native inactive-member attests Ei-aktivine. Preserve plural addresses and SMTP acronym. LOW CONFIDENCE: composed SMTP test subject needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "email-sent",
+    "before": "Sähköposti lähetetty",
+    "after": "Email-kirjeine om oigetud",
+    "reason": "Replace Finnish Veps seed using native software terminology: MediaWiki Veps email, passwordreset-email, cannotchangeemail, emailsent, mailerror, emailsend/email-legend and tags-active-header; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Existing native inactive-member attests Ei-aktivine. Preserve plural addresses and SMTP acronym. LOW CONFIDENCE: composed SMTP test subject needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "email-fail-text",
+    "before": "Virhe yrittäessä lähettää sähköpostia",
+    "after": "Email-kirjeižen oigendamižen viga",
+    "reason": "Replace Finnish Veps seed using native software terminology: MediaWiki Veps email, passwordreset-email, cannotchangeemail, emailsent, mailerror, emailsend/email-legend and tags-active-header; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Existing native inactive-member attests Ei-aktivine. Preserve plural addresses and SMTP acronym. LOW CONFIDENCE: composed SMTP test subject needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "email-invalid",
+    "before": "Virheellinen sähköposti",
+    "after": "Vär email-počt",
+    "reason": "Replace Finnish Veps seed using native software terminology: MediaWiki Veps email, passwordreset-email, cannotchangeemail, emailsent, mailerror, emailsend/email-legend and tags-active-header; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Existing native inactive-member attests Ei-aktivine. Preserve plural addresses and SMTP acronym. LOW CONFIDENCE: composed SMTP test subject needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-send-email",
+    "before": "Lähetä sähköposti",
+    "after": "Oigenda email-kirjeine",
+    "reason": "Replace Finnish Veps seed using native software terminology: MediaWiki Veps email, passwordreset-email, cannotchangeemail, emailsent, mailerror, emailsend/email-legend and tags-active-header; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Existing native inactive-member attests Ei-aktivine. Preserve plural addresses and SMTP acronym. LOW CONFIDENCE: composed SMTP test subject needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-d-send-email",
+    "before": "Lähetä sähköposti",
+    "after": "Oigenda email-kirjeine",
+    "reason": "Replace Finnish Veps seed using native software terminology: MediaWiki Veps email, passwordreset-email, cannotchangeemail, emailsent, mailerror, emailsend/email-legend and tags-active-header; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Existing native inactive-member attests Ei-aktivine. Preserve plural addresses and SMTP acronym. LOW CONFIDENCE: composed SMTP test subject needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "email-smtp-test-subject",
+    "before": "SMTP-testisähköposti",
+    "after": "SMTP email-počtan test",
+    "reason": "Replace Finnish Veps seed using native software terminology: MediaWiki Veps email, passwordreset-email, cannotchangeemail, emailsent, mailerror, emailsend/email-legend and tags-active-header; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Existing native inactive-member attests Ei-aktivine. Preserve plural addresses and SMTP acronym. LOW CONFIDENCE: composed SMTP test subject needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "active",
+    "before": "Aktiivinen",
+    "after": "Aktivine",
+    "reason": "Replace Finnish Veps seed using native software terminology: MediaWiki Veps email, passwordreset-email, cannotchangeemail, emailsent, mailerror, emailsend/email-legend and tags-active-header; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Existing native inactive-member attests Ei-aktivine. Preserve plural addresses and SMTP acronym. LOW CONFIDENCE: composed SMTP test subject needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "admin-people-filter-active",
+    "before": "Aktiivinen",
+    "after": "Aktivine",
+    "reason": "Replace Finnish Veps seed using native software terminology: MediaWiki Veps email, passwordreset-email, cannotchangeemail, emailsent, mailerror, emailsend/email-legend and tags-active-header; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Existing native inactive-member attests Ei-aktivine. Preserve plural addresses and SMTP acronym. LOW CONFIDENCE: composed SMTP test subject needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "admin-people-filter-inactive",
+    "before": "Ei aktiivinen",
+    "after": "Ei-aktivine",
+    "reason": "Replace Finnish Veps seed using native software terminology: MediaWiki Veps email, passwordreset-email, cannotchangeemail, emailsent, mailerror, emailsend/email-legend and tags-active-header; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Existing native inactive-member attests Ei-aktivine. Preserve plural addresses and SMTP acronym. LOW CONFIDENCE: composed SMTP test subject needs fluent review."
   }
 ]

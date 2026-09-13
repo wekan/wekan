@@ -343,5 +343,18 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   }
   assert.notEqual(cache['ve-PP']['upload-failed'], cache['ve-PP']['upload-completed']);
   assert.match(cache['ve-PP']['max-upload-filesize'], /baitoiš/);
+  for (const [key, value] of Object.entries({
+    'email-address': 'Email-počtan adres', 'email-addresses': 'Email-počtan adresad',
+    'email-sent': 'Email-kirjeine om oigetud', 'email-fail-text': 'Email-kirjeižen oigendamižen viga',
+    'email-invalid': 'Vär email-počt', 'r-send-email': 'Oigenda email-kirjeine',
+    'r-d-send-email': 'Oigenda email-kirjeine', 'email-smtp-test-subject': 'SMTP email-počtan test',
+    active: 'Aktivine', 'admin-people-filter-active': 'Aktivine',
+    'admin-people-filter-inactive': 'Ei-aktivine',
+  })) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.doesNotMatch(cache['ve-PP'][key], /Sähköposti|sähköposti|lähetetty|Virhe|yrittäessä|lähettää|Lähetä|Aktiivinen|aktiivinen/, key);
+  }
+  assert.notEqual(cache['ve-PP']['email-address'], cache['ve-PP']['email-addresses']);
+  assert.notEqual(cache['ve-PP']['admin-people-filter-active'], cache['ve-PP']['admin-people-filter-inactive']);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
