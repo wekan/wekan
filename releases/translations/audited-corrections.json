@@ -95436,5 +95436,635 @@
     "before": "Alle Karten dieser Liste werden vom Board entfernt. Um Karten im Papierkorb anzuzeigen und wiederherzustellen, klicken Sie auf \"Menü\" > \"Archiv\".",
     "after": "raSvo' tetlhvam Hoch 'echletHommey teqlu'. polmeH DaqDaq 'echletHommey DabejmeH 'ej raSDaq DachelmeH, 'Menu' > 'Archive' yI'uy.",
     "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "list-delete-pop",
+    "before": "Alle Aktionen werden aus dem Verlauf gelöscht und die Liste kann nicht wiederhergestellt werden.",
+    "after": "ta'mey tetlhvo' Hoch ta'mey teqlu'; tetlh DachellaHqa'be'. mIwvam DaqIlHa'laHbe'.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "list-delete-suggest-archive",
+    "before": "Listen können ins Archiv verschoben werden, um sie aus dem Board zu entfernen und die Aktivitäten zu behalten.",
+    "after": "raSvo' tetlh DateqmeH 'ej ta'mey DapolmeH, polmeH DaqDaq DavIHmoHlaH.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "migration-cpu-threshold-description",
+    "before": "Unterbreche Migration, wenn CPU Benutzung diesen Wert überschreitet (10-90%)",
+    "after": "CPU lo'lu'bogh vatlhvI' mI'vam juSlu'chugh, De' vIHmoHmeH mIw yIyev (10-90)",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "migration-info-text",
+    "before": "Datenbankmigrationen werden einmal durchgeführt und verbessern die Systemperformanz. Dieser Vorgang läuft im Hintergrund weiter, auch wenn Sie den Browser schließen.",
+    "after": "De' pat wa'logh choHlu'; nom QapchoH pat. browser DaSoQmoHchugh je, leS De' vIHmoHtaH pat.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "migration-warning-text",
+    "before": "Bitte schließen Sie nicht den Browser während der Migration. Der Vorgang wird zwar im Hintergrund fortgesetzt, braucht aber länger.",
+    "after": "De' vIHmoHlu'taHvIS browser yISoQmoHQo'. leS QaptaH mIw, 'ach poH nI' poQlaH.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "newLineNewItem",
+    "before": "Eine Textzeile = ein Checklisteneintrag",
+    "after": "ghItlh tlhegh wa' = ta'meH tetlh Qu' wa'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "normal-assigned-only-desc",
+    "before": "Nur zugewiesene Karten sichtbar. Änderung als normaler Benutzer.",
+    "after": "SoHvaD noblu'bogh 'echletHommey neH 'anglu'. motlhbogh lo'wI' rur choHmeH chaw'.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "normal-desc",
+    "before": "Kann Karten anzeigen und bearbeiten, aber keine Einstellungen ändern.",
+    "after": "'echletHommey bejlaH 'ej choHlaH. DuHmey choHlaHbe'.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "notify-participate",
+    "before": "Benachrichtigungen zu allen Karten erhalten, bei denen Sie Ersteller oder Mitglied sind",
+    "after": "'echletHom DachenmoHbogh pagh lo'wI' SoHbogh choHlu'DI' QInmey yIHev",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "page-maybe-private",
+    "before": "Diese Seite könnte privat sein. Vielleicht können Sie sie sehen, wenn Sie sich <a href='%s'>einloggen</a>.",
+    "after": "chaq pegh navvam. <a href='%s'>bI'elchugh</a> chaq DabejlaH.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "private-desc",
+    "before": "Dieses Board ist privat. Nur Nutzer, die zu dem Board gehören, können es anschauen und bearbeiten.",
+    "after": "pegh raSvam. raSvaD chellu'bogh lo'wI'pu' neH bejlaH 'ej choHlaH.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "public-desc",
+    "before": "Dieses Board ist öffentlich. Es ist für jeden, der den Link kennt, sichtbar und taucht in Suchmaschinen wie Google auf. Nur Nutzer, die zum Board hinzugefügt wurden, können es bearbeiten.",
+    "after": "HochvaD 'anglu' raSvam. rarwI' ghajbogh Hoch bejlaH; Google rur nejwI' patmeyDaq 'anglu'. raSvaD chellu'bogh lo'wI'pu' neH choHlaH.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "r-d-archive",
+    "before": "Karte ins Archiv verschieben",
+    "after": "'echletHom polmeH DaqDaq vIHmoH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "r-d-check-all",
+    "before": "Alle Elemente der Liste markieren",
+    "after": "tetlh Hoch Qu'mey ta'lu' net per",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "r-d-move-to-bottom-gen",
+    "before": "Karte nach unten in die Liste verschieben",
+    "after": "tetlhDaj pIrmuSDaq 'echletHom vIHmoH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "Karte an das Ende der Liste verschieben",
+    "after": "tetlh pIrmuSDaq 'echletHom vIHmoH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "r-d-move-to-top-gen",
+    "before": "Karte nach oben in die Liste verschieben",
+    "after": "tetlhDaj yorDaq 'echletHom vIHmoH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "r-d-move-to-top-spec",
+    "before": "Karte an den Anfang der Liste verschieben",
+    "after": "tetlh yorDaq 'echletHom vIHmoH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "r-d-unarchive",
+    "before": "Karte aus dem Archiv wiederherstellen",
+    "after": "polmeH Daqvo' 'echletHom chelqa'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "r-d-uncheck-all",
+    "before": "Alle Element der Liste abwählen",
+    "after": "tetlh Hoch Qu'mey ta'lu'be' net per",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "r-remove-all",
+    "before": "Entferne alle Mitglieder von der Karte",
+    "after": "'echletHomvo' Hoch lo'wI'pu' teq",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "r-when-a-card-is-moved",
+    "before": "Wenn eine Karte in eine andere Liste verschoben wird",
+    "after": "latlh tetlhDaq 'echletHom vIHmoHlu'DI'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "r-when-a-checklist",
+    "before": "Wenn eine Checkliste wird",
+    "after": "ta'meH tetlh",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "r-when-a-item",
+    "before": "Wenn ein Checklisteneintrag wird",
+    "after": "ta'meH tetlh Qu'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "r-when-the-item",
+    "before": "Wenn der Checklisteneintrag",
+    "after": "ta'meH tetlh Qu'vam",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "remove-labels-multiselect",
+    "before": "Labels 1-9 bei Karten-Mehrfachauswahl entfernen",
+    "after": "law' wIvlu'DI' 1-9 permey teqlu'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "remove-member-pop",
+    "before": "__name__ (__username__) von __boardTitle__ entfernen? Das Mitglied wird von allen Karten auf diesem Board entfernt. Es erhält eine Benachrichtigung.",
+    "after": "__boardTitle__vo' __name__ (__username__) Dateq DaneH'a'? Hoch raSvam 'echletHommeyvo' lo'wI' teqlu'. QIn Hev.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "rescue-card-description",
+    "before": "Zeige eine Sicherheitsmeldung, bevor die Kartenbeschreibung ungespeichert geschlossen wird.",
+    "after": "'echletHom DelmeH De' polbe'lu'chugh, SoQmoHpa' polmeH QIn yI'ang",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "restore-all-archived-migration-description",
+    "before": "Stellt alle archivierten Swimmlanes, Listen und Karten wieder her. Repariert automatisch jede fehlende swimlaneId oder listId um sie sichtbar zu machen.",
+    "after": "Hoch polmeH Daq Hemey, tetlhmey, 'echletHommey je chelqa'. Hutlhbogh swimlaneId listId ghap tI'; De' 'anglu'qa'.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "restore-lost-cards-migration",
+    "before": "Verlorene Karten wiederherstellen",
+    "after": "chIllu'bogh 'echletHommey chelqa'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "restore-lost-cards-migration-description",
+    "before": "Findet Karten und Listen mit fehlender swimlaneId oder listID und stellt sie wieder her. Erstellt eine 'LostCards' Swimlane um die verlorenen Dinge wieder sichtbar zu machen.",
+    "after": "swimlaneId listId ghap Hutlhbogh 'echletHommey tetlhmey je nej 'ej chelqa'. 'Lost Cards' He chenmoH; chIllu'bogh De' 'anglu'qa'.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "run-comprehensive-migration-confirm",
+    "before": "Dadurch wird eine umfassende Migration durchgeführt, um die Integrität der Board-Daten zu überprüfen und gegebenenfalls zu korrigieren. Dies kann einen Moment dauern. Möchten Sie fortfahren?",
+    "after": "Hoch raS De' lugh 'e' 'olmeH 'ej tI'meH De' vIHmoHlu'. chaq poH poQ. bItaH DaneH'a'?",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "run-delete-duplicate-empty-lists-migration-confirm",
+    "before": "Dadurch werden zunächst alle gemeinsam genutzten Listen in Listen pro Swimlane umgewandelt und anschließend leere Listen gelöscht, für die es eine doppelte Liste mit demselben Titel gibt, die Karten enthält. Es werden nur wirklich überflüssige leere Listen entfernt. Möchten Sie fortfahren?",
+    "after": "wa'DIch Hoch Hemey lo'bogh tetlhmey choHlu'; He wa'vaD tetlh noblu'. ghIq chImbogh tetlhmey nIb Qaw'lu', 'echletHommey ghajbogh latlh tetlh pong rap tu'lu'chugh. lo'be'lu'bogh tetlhmey neH Qaw'lu'. bItaH DaneH'a'?",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "search-cards",
+    "before": "Suche nach Karten-/Listentiteln, Beschreibungen und personalisierten Feldern auf diesem Board",
+    "after": "raSvamDaq 'echletHom/tetlh pongmey, DelmeH De', De' le' je nej",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "set-wip-limit-value",
+    "before": "Setzen Sie ein Limit für die maximale Anzahl von Aufgaben in dieser Liste",
+    "after": "tetlhvam Qu'mey mI' 'aqroS yIcher",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "shortcut-add-self",
+    "before": "Füge dich selbst zur Karte hinzu",
+    "after": "DaH 'echletHomvaD yIchel'egh",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "shortcut-assign-self",
+    "before": "Fügen Sie sich zur aktuellen Karte hinzu",
+    "after": "DaH 'echletHom Qu' yInob'egh",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "shortcut-show-shortcuts",
+    "before": "Liste der Tastaturkürzel anzeigen",
+    "after": "nom vangmeH leQmey tetlhvam yI'ang",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "show-cards-minimum-count",
+    "before": "Zeigt die Kartenanzahl an, wenn die Liste mehr enthält als",
+    "after": "mI'vam juSchugh tetlh 'echletHommey mI', 'echletHommey mI' yI'ang",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "showSum-field-on-list",
+    "before": "Zeige Summe der Felder oben in der Liste",
+    "after": "tetlh yorDaq De' mI' boqlu'bogh yI'ang",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "support-info-not-added-yet",
+    "before": "Supportinfo wurde noch nicht hinzugefügt",
+    "after": "QaHmeH De' chellu'be'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "support-info-only-for-logged-in-users",
+    "before": "Supportinfo ist nur für angemeldete Benutzer",
+    "after": "'elpu'bogh lo'wI'pu'vaD neH QaHmeH De' 'anglu'.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "toggle-assignees",
+    "before": "Schalte Zugewiesene 1–9 für die Karte um (in der Reihenfolge der Hinzufügung zum Board).",
+    "after": "'echletHom Qu' Hevbogh lo'wI'pu' 1-9 yIchoH (raSvaD chellu'bogh mIw lo'lu').",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "toggle-labels",
+    "before": "Label 1-9 zur Karte hinzufügen. Bei Mehrfachauswahl Label 1-9 hinzufügen",
+    "after": "'echletHom permey 1-9 yIchoH. law' wIvlu'DI' permey 1-9 chellu'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "tracking-info",
+    "before": "Sie werden über alle Änderungen an Karten benachrichtigt, an denen Sie als Ersteller oder Mitglied beteiligt sind.",
+    "after": "'echletHom DachenmoHbogh pagh lo'wI' SoHbogh choHlu'DI' QIn DaHev.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "vote-delete-pop",
+    "before": "Löschen ist unwiderruflich. Alle Aktionen die dieser Karte zugeordnet sind werden ebenfalls gelöscht.",
+    "after": "Qaw'lu'DI' ratlhbe'. Hoch wIvvam ta'mey DachIl.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "warn-list-archived",
+    "before": "Warnung: Diese Karte befindet sich in einer Liste im Archiv",
+    "after": "ghuH: polmeH DaqDaq tetlh 'echletHomvam ngaS",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "wipLimitErrorPopup-dialog-pt1",
+    "before": "Die Anzahl von Aufgaben in dieser Liste ist größer als das von Ihnen definierte WIP-Limit.",
+    "after": "WIP 'aqroS Dachurbogh juS tetlhvam Qu'mey mI'.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "wipLimitErrorPopup-dialog-pt2",
+    "before": "Bitte verschieben Sie einige Aufgaben aus dieser Liste oder setzen Sie ein grösseres WIP-Limit.",
+    "after": "tetlhvamvo' Qu'mey yIvIHmoH pagh Qu'mey 'aqroS yItInmoH.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "worker-desc",
+    "before": "Kann Karten nur verschieben, sich selbst zuweisen und kommentieren.",
+    "after": "'echletHommey vIHmoHlaH, 'echletHom Qu' nob'eghlaH, QInHom ghItlhlaH neH.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "Cube-Grid",
+    "before": "Würfel-Gitter-Warte-Symbol",
+    "after": "buq jengva' loSmeH DIng",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Node-Heap: verwendet „Zap-Garbage“",
+    "after": "Node qawHaq: De' lo'be'lu'bogh Qaw''a'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "Node_heap_heap_size_limit",
+    "before": "Node-Heap: Heap-Größen-Limit",
+    "after": "Node qawHaq: qawHaq tIq 'aqroS",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "Node_heap_malloced_memory",
+    "before": "Node-Heap: malloc-belegter Speicher",
+    "after": "Node qawHaq: noblu'bogh qawHaq",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "Node_heap_number_of_detached_contexts",
+    "before": "Node-Heap: Anzahl losgelöster Kontexte",
+    "after": "Node qawHaq: teqlu'bogh De' ghu'mey mI'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "Node_heap_number_of_native_contexts",
+    "before": "Node-Heap: Anzahl nativer Kontexte",
+    "after": "Node qawHaq: pat De' ghu'mey mI'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Node-Heap: Maximum des malloc-belegten Speichers",
+    "after": "Node qawHaq: noblu'bogh qawHaq 'aqroS",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "Node_heap_total_available_size",
+    "before": "Node-Heap: gesamte verfügbare Größe",
+    "after": "Node qawHaq: Hoch lo'laHbogh qawHaq tIq",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "Node_heap_total_heap_size",
+    "before": "Node-Heap: gesamte Heap-Größe",
+    "after": "Node qawHaq: Hoch qawHaq tIq",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "Node_heap_total_heap_size_executable",
+    "before": "Node-Heap: gesamte Heap-Größe (Executable)",
+    "after": "Node qawHaq: QaplaHbogh qawHaq tIq",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "Node_heap_total_physical_size",
+    "before": "Node-Heap: gesamte physische Größe",
+    "after": "Node qawHaq: Hoch qawHaq tak tIq",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "Node_heap_used_heap_size",
+    "before": "Node-Heap: benutzte Heap-Größe",
+    "after": "Node qawHaq: lo'lu'bogh qawHaq tIq",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "Node_memory_usage_external",
+    "before": "Node-Speicherverbrauch: extern",
+    "after": "Node qawHaq lo'lu': Hur",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "Node_memory_usage_heap_total",
+    "before": "Node-Speicherverbrauch: gesamte Größe des belegten Heaps",
+    "after": "Node qawHaq lo'lu': noblu'bogh qawHaq tIq",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "Node_memory_usage_heap_used",
+    "before": "Node-Speicherverbrauch: tatsächlicher Speicherverbrauch",
+    "after": "Node qawHaq lo'lu': lo'lu'bogh qawHaq tIq",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "Node_memory_usage_rss",
+    "before": "Node-Speicherverbrauch: Resident Set-Größe",
+    "after": "Node qawHaq lo'lu': ratlhbogh qawHaq tIq",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "OS_Arch",
+    "before": "Betriebssystem-Architektur",
+    "after": "OS pat Segh",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "OS_Release",
+    "before": "Version des Betriebssystem",
+    "after": "OS nIqHom mI'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "a-dueAt",
+    "before": "hat Fälligkeit geändert auf",
+    "after": "qaSmeH poH choHlu'pu'; DaH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "a-receivedAt",
+    "before": "hat Empfangszeit geändert auf",
+    "after": "HevmeH poH choHlu'pu'; DaH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "a-startAt",
+    "before": "hat Startzeit geändert auf",
+    "after": "taghmeH poH choHlu'pu'; DaH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "acceptance_of_our_legalNotice",
+    "before": "Durch das Einloggen akzeptieren Sie unser",
+    "after": "bItaHchugh, chutmaj QIn Dalaj",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "accessibility-page-enabled",
+    "before": "Bedienungshilfe Seite freigeschaltet",
+    "after": "lo'laHchu'meH nav chu'lu'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "account-locked",
+    "before": "Das Konto wurde aufgrund zu vieler fehlgeschlagener Anmeldeversuche vorübergehend gesperrt. Bitte versuche es später erneut.",
+    "after": "'elmeH nIDmey law' Qapbe'mo' lo'wI' ru' botlu'. ghIq yInIDqa'.",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "accounts-allowEmailChange",
+    "before": "Ändern der E-Mailadresse erlauben",
+    "after": "jabbI'ID pong choHmeH chaw'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "accounts-lockout-failures-before",
+    "before": "Fehler vor einer Sperrung",
+    "after": "botpa' Qapbe'bogh nIDmey mI'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "accounts-lockout-period",
+    "before": "Dauer der Sperrung (Sekunden)",
+    "after": "botmeH poH (lupmey)",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-a-dueAt",
+    "before": "hat Fälligkeit geändert auf\nWann: __timeValue__\nWo: __card__\nvorheriger Fälligkeitszeitpunkt war __timeOldValue__",
+    "after": "qaSmeH poH choHlu'pu'\npoH: __timeValue__\nDaq: __card__\nqaSmeH poH ngo' __timeOldValue__",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-a-endAt",
+    "before": "hat Ende auf __timeValue__ von (__timeOldValue__) geändert",
+    "after": "bertlham poH choHlu'pu'; __timeValue__ choHlu', ngo' (__timeOldValue__)",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-a-receivedAt",
+    "before": "hat Empfangszeit auf __timeValue__ von (__timeOldValue__) geändert",
+    "after": "HevmeH poH choHlu'pu'; __timeValue__ choHlu', ngo' (__timeOldValue__)",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-a-startAt",
+    "before": "hat Start auf __timeValue__ von (__timeOldValue__) geändert",
+    "after": "taghmeH poH choHlu'pu'; __timeValue__ choHlu', ngo' (__timeOldValue__)",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-almostdue",
+    "before": "erinnernd an das aktuelle Fälligkeitszeitpunkt (__timeValue__) von __card__ ist bevorstehend",
+    "after": "__card__ qaSmeH poH (__timeValue__) ghoS net ghuHmoH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-archivedBoard",
+    "before": "hat Board __board__ ins Archiv verschoben",
+    "after": "__board__ raS polmeH DaqDaq vIHmoHlu'pu'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-archivedSwimlane",
+    "before": "hat Swimlane __swimlane__ von Board __board__ ins Archiv verschoben",
+    "after": "__board__ raSvo' __swimlane__ He polmeH DaqDaq vIHmoHlu'pu'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-createCustomField",
+    "before": "hat benutzerdefiniertes Feld __customField__ in Board __board__ angelegt",
+    "after": "__board__ raSDaq __customField__ De' le' chenmoHlu'pu'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-createSwimlane",
+    "before": "hat Swimlane __swimlane__ in Board __board__ erstellt",
+    "after": "__board__ raSvaD __swimlane__ He chenmoHlu'pu'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-deleteCustomField",
+    "before": "hat benutzerdefiniertes Feld __customField__ in Board __board__ gelöscht",
+    "after": "__board__ raSDaq __customField__ De' le' Qaw'lu'pu'",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-duenow",
+    "before": "erinnernd an das aktuelle Fälligkeitszeitpunkt (__timeValue__) von __card__ ist jetzt",
+    "after": "__card__ qaSmeH poH (__timeValue__) DaH qaS net ghuHmoH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-newDue",
+    "before": "__list__/__card__ hat seine 1. fällige Erinnerung [__board__]",
+    "after": "__list__/__card__ qaSmeH poH ghuH QIn wa'DIch ghaj [__board__]",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "tlh",
+    "key": "act-pastdue",
+    "before": "erinnernd an das aktuelle Fälligkeitszeitpunkt (__timeValue__) von __card__ ist vorbei",
+    "after": "__card__ qaSmeH poH (__timeValue__) juSlu'pu' net ghuHmoH",
+    "reason": "Replace wrong-language prose directly; preserve source placeholders and literal syntax. Low-confidence Klingon wording; fluent-speaker validation outstanding."
   }
 ]
