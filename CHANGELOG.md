@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 14,545 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 1,299 pending review or repair.
-The correction inventory records 16,201 exact before/after values,
+findings: 14,555 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 1,289 pending review or repair.
+The correction inventory records 16,213 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -98,8 +98,8 @@ retains the categorized findings. Not all wrong translations originated on
 Transifex: the evidence includes 4,061 pulled changes and 16,020 additional
 local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
-The requested mirror-menu interruption is completed; translation repairs are
-ready to continue. Latest full Node verification: 1,011 suites, zero failures;
+The requested mirror-menu interruption is completed; translation repairs have
+resumed with 12 Veps list-control fixes in local commit 198f7a0f5. Latest full Node verification: 1,011 suites, zero failures;
 the final mirror retry adjustment also passes its targeted regression.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
@@ -1096,6 +1096,18 @@ and updates the test dependency:
 and updates maintainer tooling:
 
 **Maintenance scripts** - explicit translation uploads and repository mirrors.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/198f7a0f5">Repair Veps list positions, sorting and duplicate cleanup</a>. Thanks to xet7.</summary>
+
+Replace 12 Finnish values with dictionary-backed Veps, resolving 10 original
+findings. Preserve selected-list left/right positions and distinguish empty-only
+cleanup from all duplicate-list cleanup. Exact correction, source token,
+key-order and actual i18next rendering regressions pass. Composed UI grammar
+and derived plural genitives need fluent review. Audit progress records
+14,555 corrected findings, 1,289 pending and 16,213 exact repair records.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/675ca5d95">Add saved mirror menu and selectable forge sources</a>. Thanks to xet7.</summary>
