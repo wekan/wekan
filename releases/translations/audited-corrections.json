@@ -63579,5 +63579,75 @@
     "before": "a importé la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
     "after": "enporzhiet ar gartenn __card__ er roll __list__ en trepas __swimlane__ en daolenn __board__",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-importList",
+    "before": "a importé la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "enporzhiet ar roll __list__ en trepas __swimlane__ en daolenn __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-joinMember",
+    "before": "a ajouté le participant __member__ à la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "ouzhpennet an ezel __member__ d’ar gartenn __card__ er roll __list__ en trepas __swimlane__ en daolenn __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-moveCard",
+    "before": "a déplacé la carte __card__ du tableau __board__ de la liste __oldList__ du couloir __oldSwimlane__ vers la liste __list__ du couloir __swimlane__",
+    "after": "dilec’hiet ar gartenn __card__ en daolenn __board__ eus ar roll __oldList__ en trepas __oldSwimlane__ d’ar roll __list__ en trepas __swimlane__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-moveCardToOtherBoard",
+    "before": "a déplacé la carte __card__ de la liste __oldList__ du couloir __oldSwimlane__ du tableau __oldBoard__ vers la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "dilec’hiet ar gartenn __card__ eus ar roll __oldList__ en trepas __oldSwimlane__ en daolenn __oldBoard__ d’ar roll __list__ en trepas __swimlane__ en daolenn __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-removeBoardMember",
+    "before": "a supprimé le participant __member__ du tableau __board__",
+    "after": "tennet an ezel __member__ eus an daolenn __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-removeChecklist",
+    "before": "a supprimé la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "tennet ar roll kontroll __checklist__ eus ar gartenn __card__ er roll __list__ en trepas __swimlane__ en daolenn __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-removeLabel",
+    "before": "a enlevé l'étiquette __label__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "tennet an dikedenn __label__ eus ar gartenn __card__ er roll __list__ en trepas __swimlane__ en daolenn __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-removedLabel",
+    "before": "a enlevé l'étiquette __label__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "tennet an dikedenn __label__ eus ar gartenn __card__ er roll __list__ en trepas __swimlane__ en daolenn __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-restoredCard",
+    "before": "a restauré la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "adkaset ar gartenn __card__ d’ar roll __list__ en trepas __swimlane__ en daolenn __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "act-uncheckedItem",
+    "before": "a décoché __checklistItem__ de la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "diverket an elfenn __checklistItem__ eus ar roll kontroll __checklist__ er gartenn __card__ er roll __list__ en trepas __swimlane__ en daolenn __board__",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
