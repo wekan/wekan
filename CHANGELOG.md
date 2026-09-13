@@ -947,6 +947,22 @@ pass. Live FerretDB verification remains in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/00073c3f5">Wait for cookie resume and verify voting and board actions</a>. Thanks to xet7.</summary>
+
+The browser login fixture could start a second login before asynchronous
+cookie retrieval completed, intermittently losing the published user
+profile and selected calendar. Wait for the initial cookie resume and
+reuse an authenticated user; explicit token login remains available for
+an already-loaded logged-out page. Three executable fixture regressions
+cover those paths, and six repeated browser probes retain the profile.
+Voting tests require visible controls and persisted votes. Board rename
+uses the title in the top header, and the member menu archive test verifies
+the archive route and archived board. Six focused Chromium checks pass.
+The fresh complete EVERYTHING rerun remains in progress.
+
+</details>
+
 **Source and test parity** - preserve current behavior and reject real regressions.
 
 <details>
