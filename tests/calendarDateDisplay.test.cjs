@@ -54,6 +54,41 @@ const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
     end: { year: 2026, month: 2, day: 22 }, defaultSeparator: ' – ' }), '1405-01-01 – 1405-01-02');
   assert.equal(options.listDaySideFormat(), '');
 
+  assert.equal(options.initialView, 'selectedCalendarMonth');
+  assert.equal(options.views.selectedCalendarMonth.type, 'dayGrid');
+  assert.equal(options.views.selectedCalendarMonth.duration, undefined,
+    'a fixed Gregorian duration must not override the chosen calendar range');
+  const range = options.views.selectedCalendarMonth.visibleRange(date);
+  assert.equal(display(range.start, false), '1405-01-01');
+  assert.equal(display(new Date(range.end.getTime() - 1), false), '1405-01-31');
+  assert.equal(options.views.selectedCalendarListMonth.type, 'list');
+  assert.equal(options.views.selectedCalendarListMonth.duration, undefined);
+  assert.equal(options.views.selectedCalendarListMonth.visibleRange(date).start.getTime(), range.start.getTime());
+  assert.equal(options.dayHeaderContent({ date, text: 'Sat', view: { type: 'selectedCalendarMonth' } }), 'Sat');
+  let moved;
+  const calendar = {
+    view: { type: 'selectedCalendarMonth' }, getDate: () => date,
+    gotoDate: value => { moved = value; },
+    changeView: value => { calendar.view.type = value; },
+    prev: () => { moved = 'native-prev'; }, next: () => { moved = 'native-next'; },
+  };
+  context.document = { getElementById: () => ({ _wekanCalendar: calendar }) };
+  options.customButtons.next.click();
+  assert.equal(display(moved, false), '1405-02-01');
+  options.customButtons.prev.click();
+  assert.equal(display(moved, false), '1404-12-29');
+  options.customButtons.listMonth.click();
+  assert.equal(calendar.view.type, 'selectedCalendarListMonth');
+  options.customButtons.next.click();
+  assert.equal(display(moved, false), '1405-02-01');
+  options.customButtons.dayGridMonth.click();
+  assert.equal(calendar.view.type, 'selectedCalendarMonth');
+  calendar.view.type = 'timeGridWeek';
+  options.customButtons.prev.click();
+  assert.equal(moved, 'native-prev', 'week navigation must retain native seven-day intervals');
+  options.customButtons.next.click();
+  assert.equal(moved, 'native-next');
+
   const available = calendars.availableCalendarSystems();
   assert.deepEqual(available.slice(0, 2).map(item => item.value), ['gregorian', 'jalali']);
   for (const calendar of Intl.supportedValuesOf('calendar')) {

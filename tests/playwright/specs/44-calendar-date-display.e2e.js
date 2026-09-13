@@ -81,6 +81,8 @@ test('Jalali mouse and keyboard selection saves the same native instant in an En
   const movedBounds = await popup.boundingBox();
   expect(movedBounds.x).toBeCloseTo(originalBounds.x - 60, 0);
   await expect(popup).toBeVisible();
+  // Compare controls in the same idle state; the drag may end over a button.
+  await page.mouse.move(0, 0);
   const buttonStyles = await popup.evaluate(el => {
     const save = getComputedStyle(el.querySelector('.js-submit-date'));
     return [...el.querySelectorAll('.selected-calendar-heading button, .js-calendar-day')].every(button => {
@@ -145,8 +147,19 @@ test('Jalali month view has actual month boundaries and a single calendar title'
   await expect(page.locator('#calendar-view .fc-toolbar-title')).toContainText('1405-01-01');
   await expect(page.locator('#calendar-view .fc-toolbar-title')).not.toContainText('2026');
   await expect(page.locator('#calendar-view td[data-date="2026-03-21"] .fc-daygrid-day-number')).toHaveText('1');
+  const boundaries = await page.evaluate(() => {
+    const view = document.getElementById('calendar-view')._wekanCalendar.view;
+    const nativeDate = date => [date.getFullYear(), date.getMonth() + 1, date.getDate()];
+    return { start: nativeDate(view.currentStart), end: nativeDate(view.currentEnd) };
+  });
+  expect(boundaries).toEqual({ start: [2026, 3, 21], end: [2026, 4, 21] });
   await page.locator('#calendar-view .fc-next-button').click();
   await expect(page.locator('#calendar-view .fc-toolbar-title')).toContainText('1405-02-01');
+  await page.locator('#calendar-view .fc-listMonth-button').click();
+  await expect(page.locator('#calendar-view .fc-toolbar-title')).toContainText('1405-02-01');
+  await page.locator('#calendar-view .fc-prev-button').click();
+  await expect(page.locator('#calendar-view .fc-toolbar-title')).toContainText('1405-01-01');
+  await expect(page.locator('#calendar-view .fc-toolbar-title')).not.toContainText('2026');
 });
 
 for (const calendarSystem of ['gregorian', 'buddhist']) {

@@ -1182,10 +1182,11 @@ Template.calendarView.helpers({
       currentUser ? currentUser.getStartDayOfWeek() : 1,
     );
 
+    const displayOptions = calendarDateDisplayOptions('calendar-view');
     return {
       id: 'calendar-view',
-      ...calendarDateDisplayOptions('calendar-view'),
-      initialView: 'dayGridMonth',
+      ...displayOptions,
+      initialView: displayOptions.initialView || 'dayGridMonth',
       firstDay,
       editable: true,
       selectable: true,

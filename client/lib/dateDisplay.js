@@ -65,7 +65,7 @@ export function calendarDateDisplayOptions(calendarId) {
   const navigate = direction => {
     const calendar = document.getElementById(calendarId)?._wekanCalendar;
     if (!calendar) return;
-    if (calendar.view.type !== 'dayGridMonth') {
+    if (!['selectedCalendarMonth', 'selectedCalendarListMonth'].includes(calendar.view.type)) {
       calendar[direction < 0 ? 'prev' : 'next']();
       return;
     }
@@ -73,10 +73,25 @@ export function calendarDateDisplayOptions(calendarId) {
     calendar.gotoDate(direction < 0 ? shiftedDay(range.start, -1) : range.end);
   };
   return {
+    // Built-in month views have a fixed Gregorian duration that takes
+    // precedence over visibleRange. Inherit the duration-free base views.
+    initialView: 'selectedCalendarMonth',
     views: {
-      dayGridMonth: { visibleRange: date => calendarMonthRange(date, system.intl) },
+      selectedCalendarMonth: {
+        type: 'dayGrid', monthMode: true, fixedWeekCount: false,
+        visibleRange: date => calendarMonthRange(date, system.intl),
+      },
+      selectedCalendarListMonth: {
+        type: 'list', visibleRange: date => calendarMonthRange(date, system.intl),
+      },
     },
     customButtons: {
+      dayGridMonth: { text: TAPi18n.__('month'), click: () => {
+        document.getElementById(calendarId)?._wekanCalendar.changeView('selectedCalendarMonth');
+      } },
+      listMonth: { text: TAPi18n.__('list'), click: () => {
+        document.getElementById(calendarId)?._wekanCalendar.changeView('selectedCalendarListMonth');
+      } },
       prev: { text: TAPi18n.__('previous'), click: () => navigate(-1) },
       next: { text: TAPi18n.__('next'), click: () => navigate(1) },
     },
@@ -100,7 +115,7 @@ export function calendarDateDisplayOptions(calendarId) {
     },
     dayHeaderContent(info) {
       // Month-view column headings contain weekdays, with no date to convert.
-      return info.view.type === 'dayGridMonth'
+      return ['dayGridMonth', 'selectedCalendarMonth'].includes(info.view.type)
         ? info.text : formatDateForDisplay(info.date, false);
     },
     listDayFormat(info) { return displayMarker(info.date); },
