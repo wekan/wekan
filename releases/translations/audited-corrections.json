@@ -108799,5 +108799,96 @@
     "before": "Republic of China",
     "after": "Khalenda ya Minguo",
     "reason": "Replace English calendar labels and unflagged Afrikaans selector text with Tshivenda. Preserve calendar identities and Hijri calculation variants. Low-confidence specialized terminology; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "accounts-allowEmailChange",
+    "before": "Permetti modifica dell'email",
+    "after": "Permeti de canbiar ła email",
+    "reason": "Replace Italian account-control text with Venetian, preserving known/unknown user distinctions and lockout protection. Direct low-confidence wording; fluent-speaker validation outstanding. Venetian orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "accounts-allowUserDelete",
+    "before": "Permetti agli utenti di cancellare il loro profilo",
+    "after": "Scanceła el proprio conto utente",
+    "reason": "Replace Italian account-control text with Venetian, preserving known/unknown user distinctions and lockout protection. Direct low-confidence wording; fluent-speaker validation outstanding. Venetian orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "accounts-allowUserNameChange",
+    "before": "Consenti la modifica del nome utente",
+    "after": "Canbio del nome utente",
+    "reason": "Replace Italian account-control text with Venetian, preserving known/unknown user distinctions and lockout protection. Direct low-confidence wording; fluent-speaker validation outstanding. Venetian orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "accounts-lockout-all-users-unlocked",
+    "before": "Tutti gli utenti bloccati sono stati sbloccati",
+    "after": "Tuti i utenti blocài i xe stà sblocài",
+    "reason": "Replace Italian account-control text with Venetian, preserving known/unknown user distinctions and lockout protection. Direct low-confidence wording; fluent-speaker validation outstanding. Venetian orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "before": "Vuoi davvero sbloccare tutti gli utenti bloccati?",
+    "after": "Sito seguro de vołer sblocar tuti i utenti blocài?",
+    "reason": "Replace Italian account-control text with Venetian, preserving known/unknown user distinctions and lockout protection. Direct low-confidence wording; fluent-speaker validation outstanding. Venetian orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "accounts-lockout-info",
+    "before": "Queste impostazioni controllano il modo in cui i tentativi di accesso vengono protetti dagli attacchi di forza bruta.",
+    "after": "Ste inpostasion łe controła come i tentativi de intrar i vien proteti dai atachi de forsa bruta.",
+    "reason": "Replace Italian account-control text with Venetian, preserving known/unknown user distinctions and lockout protection. Direct low-confidence wording; fluent-speaker validation outstanding. Venetian orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "accounts-lockout-known-users",
+    "before": "Impostazioni per utenti noti (nome utente corretto, password errata)",
+    "after": "Inpostasion par utenti conosùi (nome utente giusto, password sbalià)",
+    "reason": "Replace Italian account-control text with Venetian, preserving known/unknown user distinctions and lockout protection. Direct low-confidence wording; fluent-speaker validation outstanding. Venetian orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "accounts-lockout-locked-users-info",
+    "before": "Utenti attualmente bloccati a causa di troppi tentativi di accesso non riusciti ",
+    "after": "Utenti blocài par massa tentativi de intrar falìi",
+    "reason": "Replace Italian account-control text with Venetian, preserving known/unknown user distinctions and lockout protection. Direct low-confidence wording; fluent-speaker validation outstanding. Venetian orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "accounts-lockout-no-locked-users",
+    "before": "Al momento non ci sono utenti bloccati",
+    "after": "Deso no ghe xe utenti blocài",
+    "reason": "Replace Italian account-control text with Venetian, preserving known/unknown user distinctions and lockout protection. Direct low-confidence wording; fluent-speaker validation outstanding. Venetian orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "accounts-lockout-settings",
+    "before": "Impostazioni di protezione dalla forza bruta",
+    "after": "Inpostasion de protesion dała forsa bruta",
+    "reason": "Replace Italian account-control text with Venetian, preserving known/unknown user distinctions and lockout protection. Direct low-confidence wording; fluent-speaker validation outstanding. Venetian orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "accounts-lockout-settings-updated",
+    "before": "Le impostazioni di protezione dalla forza bruta sono state aggiornate",
+    "after": "Łe inpostasion de protesion dała forsa bruta łe xe stà ajornà",
+    "reason": "Replace Italian account-control text with Venetian, preserving known/unknown user distinctions and lockout protection. Direct low-confidence wording; fluent-speaker validation outstanding. Venetian orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "accounts-lockout-show-locked-users",
+    "before": "Mostra solo gli utenti bloccati",
+    "after": "Mostra soło i utenti blocài",
+    "reason": "Replace Italian account-control text with Venetian, preserving known/unknown user distinctions and lockout protection. Direct low-confidence wording; fluent-speaker validation outstanding. Venetian orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
+  },
+  {
+    "locale": "ve-CC",
+    "key": "accounts-lockout-unknown-users",
+    "before": "Impostazioni per utenti sconosciuti (nome utente inesistente)",
+    "after": "Inpostasion par utenti sconosùi (nome utente che no el esiste)",
+    "reason": "Replace Italian account-control text with Venetian, preserving known/unknown user distinctions and lockout protection. Direct low-confidence wording; fluent-speaker validation outstanding. Venetian orthography reference: https://vec.wordpress.org/la-tradusion-veneta/"
   }
 ]
