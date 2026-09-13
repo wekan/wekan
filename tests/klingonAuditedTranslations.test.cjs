@@ -21,4 +21,9 @@ for (const card of JSON.parse(data['copyManyCardsPopup-format'])) {
   assert.match(card.title, /'echletHom/);
 }
 assert.ok(data['advanced-filter-description'].includes("Field1 == I\\'m"));
+// KLI Gregorian mapping: Saturday has two synonyms; Sunday is numbered day one.
+// https://www.kli.org/duolingo/say-when-an-event-was-2/
+assert.equal(data.saturday, 'ghInjaj');
+assert.equal(data.sunday, "jaj wa'");
+assert.notEqual(data.saturday, data.sunday, 'Sunday must not reuse the Saturday synonym');
 console.log(`klingonAuditedTranslations: ${records.length} recorded values, security states and destructive warnings verified`);
