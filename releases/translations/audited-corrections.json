@@ -80547,5 +80547,26 @@
     "before": "Impossible de supprimer cette organisation, au moins un utilisateur lui appartient",
     "after": "Mëneesul far kureel gii, am na lu néew benn jëfandikukat bu bokk ci",
     "reason": "Replace French organization controls with Wolof using kureel organization/group, attested in Senegal Wolof terminology guide (https://senprof.education.sn/PROGRAMME%20LECTURE%20POUR%20TOUS/documentation/Terminologies/Terminologie%20wolof%20fusion.pdf) and linguistic research. Preserve no undo and at least one member blocking deletion. Full grammar and organization adaptation remain low confidence; team vocabulary remains pending."
+  },
+  {
+    "locale": "wo",
+    "key": "minicard-settings",
+    "before": "Paramètres de la minicarte",
+    "after": "Jekkal yi ci karta bu ndaw bi",
+    "reason": "Replace French minicard/organization/user settings titles with Wolof using existing Jekkal yi ci settings pattern and repaired karta bu ndaw/kureel/jëfandikukat terminology. Preserve distinct settings targets. Settings adaptation and full grammar remain low confidence; custom translation controls remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "settingsOrgPopup-title",
+    "before": "Paramètres de l'organisation",
+    "after": "Jekkal yi ci kureel gi",
+    "reason": "Replace French minicard/organization/user settings titles with Wolof using existing Jekkal yi ci settings pattern and repaired karta bu ndaw/kureel/jëfandikukat terminology. Preserve distinct settings targets. Settings adaptation and full grammar remain low confidence; custom translation controls remain pending."
+  },
+  {
+    "locale": "wo",
+    "key": "settingsUserPopup-title",
+    "before": "Paramètres de l'utilisateur",
+    "after": "Jekkal yi ci jëfandikukat bi",
+    "reason": "Replace French minicard/organization/user settings titles with Wolof using existing Jekkal yi ci settings pattern and repaired karta bu ndaw/kureel/jëfandikukat terminology. Preserve distinct settings targets. Settings adaptation and full grammar remain low confidence; custom translation controls remain pending."
   }
 ]
