@@ -76221,5 +76221,215 @@
     "before": "Filtrer par titre de carte",
     "after": "Passer pa tite di cåte",
     "reason": "Replace audited French scheduled-job/customization/error controls with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve resume/start failure versus success, assetlinks.json/HTML/JSON tag names, default logo height and authorization prohibition. Full grammar and specialized web customization terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "filter-assignee-label",
+    "before": "Filtrer par personne assignée",
+    "after": "Passer pa djin avou l' cåte dinêye",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "filter-creator-label",
+    "before": "Filtrer par personne Créateur",
+    "after": "Passer pa askepieu",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "filter-cards",
+    "before": "Filtrer les cartes ou listes",
+    "after": "Passer les cåtes ou les djivêyes",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "header-logo-title",
+    "before": "Retourner à la page des tableaux",
+    "after": "Rivni a vosse pådje di tåvleas.",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "label-color-not-found",
+    "before": "Étiquette de couleur '%s' non trouvée",
+    "after": "Li coleur d' etikète %s n' a nén stî trovêye.",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "label-not-found",
+    "before": "Étiquette '%s' non trouvée.",
+    "after": "L' etikète '%s' n' a nén stî trovêye.",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "left-of-list",
+    "before": "À gauche de la liste sélectionnée",
+    "after": "A hintche del djivêye tchoezeye",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "list-filter-label",
+    "before": "Filtrer la liste par titre",
+    "after": "Passer l' djivêye pa tite",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "list-select-cards",
+    "before": "Sélectionner toutes les cartes de cette liste",
+    "after": "Tchoezi totes les cåtes di cisse djivêye ci",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "listImportCardPopup-title",
+    "before": "Importer une carte Trello",
+    "after": "Abaguer ene cåte Trello",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "listImportCardsTsvPopup-title",
+    "before": "Importer un fichier Excel CSV/TSV",
+    "after": "Abaguer do Excel CSV/TSV",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "loading",
+    "before": "Chargement, merci de patienter.",
+    "after": "Tcherdjaedje, ratindoz.",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "mark-all-as-unread",
+    "before": "Tout marquer comme non lu",
+    "after": "Marker tot come nén léjhou",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "multi-selection-label",
+    "before": "Définir l'étiquette pour la sélection",
+    "after": "Defini l' etikète po l' tchuze",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "multi-selection-member",
+    "before": "Définir le participant pour la sélection",
+    "after": "Defini l' mimbe po l' tchuze",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "newTranslationPopup-title",
+    "before": "Nouvelle traduction personnalisée",
+    "after": "Novele chinne di ratournaedje da vosse",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "no-parent",
+    "before": "Ne pas afficher le parent",
+    "after": "Ni nén mostrer l' parint",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "normal-assigned-only",
+    "before": "Assigné uniquement Normal",
+    "after": "Normål, cåtes dinêyes seulmint",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "not-accepted-yet",
+    "before": "L'invitation n'a pas encore été acceptée",
+    "after": "Invitåcion nén co acceptêye",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "notify-participate",
+    "before": "Recevoir les mises à jour de toutes les cartes auxquelles vous participez en tant que créateur ou que participant",
+    "after": "Rçu les metes a djoû des cåtes ki vos nd estoz l' askepieu ou on mimbe",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "now-activities-of-all-boards-are-hidden",
+    "before": "Les activités de tous les tableaux seront dorénavant cachées",
+    "after": "Asteure totes les activités di tos les tåvleas sont catchêyes",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "oidc-button-text",
+    "before": "Personnaliser le texte du bouton OIDC",
+    "after": "Candjî a vosse môde li tecse do boton OIDC",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "open-many-cards-at-once",
+    "before": "Ouvrir plusieurs cartes à la fois",
+    "after": "Drovî bråmint des cåtes a on côp",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "operator-limit-invalid",
+    "before": "%s n'est pas une limite valide. La limite doit être un entier positif.",
+    "after": "%s n' est nén ene limite valåbe. Li limite doet esse on nombe etîr pozitif.",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "operator-number-expected",
+    "before": "L'opérateur __operator__ n'attend pas '__value__' mais un nombre",
+    "after": "L' operateur __operator__ ratindeut on nombe, mins a rçu '__value__'",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "operator-sort-invalid",
+    "before": "'%s' n'est pas valide pour le tri",
+    "after": "Li rindaedje di '%s' n' est nén valåbe",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "operator-status-invalid",
+    "before": "'%s' n'est pas un statut valide",
+    "after": "'%s' n' est nén on statut valåbe",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "operator-unknown-error",
+    "before": "'%s' n'est pas un opérateur",
+    "after": "%s n' est nén on operateur",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "org-name-not-found",
+    "before": "Organisation '%s' non trouvée.",
+    "after": "L' organizåcion '%s' n' a nén stî trovêye.",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "org-number",
+    "before": "Le nombre d'organisations est de :",
+    "after": "Li nombe d' organizåcions est: ",
+    "reason": "Replace audited French filtering/selection/search error wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve creator/assignee distinction, all-card selection, notification participation, positive-integer limit and operator/value tokens. Full grammar and specialized filtering terminology remain low confidence."
   }
 ]
