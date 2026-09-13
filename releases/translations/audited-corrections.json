@@ -51679,5 +51679,61 @@
     "before": "Tutte le azioni saranno rimosse dal flusso attività e non sarai in grado di recuperare la lista. Non potrai tornare indietro.",
     "after": "Tutte l’azzioni seranu cacciate da u filu d’attività è ùn puderete micca ricuperà a lista. Ùn si pò annullà.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "location-detect-from-map",
+    "before": "Rileva la posizione da qualsiasi link di mappa",
+    "after": "Truvà u locu da qualsiasi ligame di carta geografica",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "map-provider-saved",
+    "before": "Servizio di mappe predefinito salvato.",
+    "after": "Serviziu di carte geografiche predefinitu arregistratu.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "mark-all-as-unread",
+    "before": "Segna tutto come non letto",
+    "after": "Marcà tuttu cum’è micca lettu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "migration-batch-size-description",
+    "before": "Numero di allegati da elaborare in ogni batch (1-100)",
+    "after": "Numeru d’allegati da trattà in ogni gruppu (1-100)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "migration-delay-ms-description",
+    "before": "Ritardo tra i batch in millisecondi (100-10000)",
+    "after": "Tempu d’attesa trà i gruppi in milliseconde (100-10000)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "migration-not-needed",
+    "before": "Nessuna migrazione necessaria",
+    "after": "Nisuna migrazione necessaria",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "migration-pause-failed",
+    "before": "Impossibile mettere in pausa le migrazioni",
+    "after": "Ùn hè statu pussibule di mette in pausa e migrazioni",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "migration-resume-failed",
+    "before": "Impossibile riprendere la migrazione",
+    "after": "Ùn hè statu pussibule di ripiglià a migrazione",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
