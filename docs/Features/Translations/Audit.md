@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,997 |
+| Corrected | 12,001 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,849 |
+| Pending review or repair | 3,845 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,403** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,407** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `641a3d7ece39b54e3ccd9081063ab5b40e785d16` — six French notification, card/checklist-addition and attachment action labels replaced with Volapük using [Midgley dictionary vocabulary](https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf), preserving action scopes. Derived compounds and assembled grammar remain low confidence. Exact-value, token, JSON-example, key-order and idempotency checks pass; native-speaker and browser verification remain unavailable.
+Latest translation fix: **2026-09-13**, local commit `e402be0f5acc39f5faba8823c1acac04428ca698` — four French account-lock labels replaced with Volapük using [Midgley dictionary vocabulary](https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf), preserving unlocking and locked-users-only scope. Software-lock terminology and assembled grammar remain low confidence. Exact-value, token, JSON-example, key-order and idempotency checks pass; native-speaker and browser verification remain unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending because available evidence does not distinguish its wording sufficiently from Polish.
 
