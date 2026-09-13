@@ -62501,5 +62501,145 @@
     "before": "Assurer le couloir des cartes perdues",
     "after": "Assegurar l’existéncia del corredor de las cartas perdudas",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "step-ensure-per-swimlane-lists",
+    "before": "Assurer les listes par couloir",
+    "after": "Assegurar l’existéncia de listas per corredor",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "step-fix-attachment-urls",
+    "before": "Corriger les URL des pièces jointes",
+    "after": "Corregir los URL de las pèças juntas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "step-fix-avatar-urls",
+    "before": "Corriger les URLs d'avatar",
+    "after": "Corregir los URL dels avatars",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "step-fix-file-urls",
+    "before": "Réparation des URL de fichier",
+    "after": "Correccion dels URL dels fichièrs",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "step-fix-missing-ids",
+    "before": "Réparation des IDs manquants",
+    "after": "Corregir los identificants mancants",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "step-fix-orphaned-cards",
+    "before": "Corriger les cartes orphelines",
+    "after": "Corregir las cartas orfanèlas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "subtext-with-full-path",
+    "before": "Sous-titre avec le chemin complet",
+    "after": "Tèxt segondari amb lo camin complet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "subtext-with-parent",
+    "before": "Sous-titre avec le parent",
+    "after": "Tèxt segondari amb lo parent",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "support-info-not-added-yet",
+    "before": "Les informations d'assistance n'ont pas encore été ajoutées",
+    "after": "Las informacions d’assisténcia son pas encara apondudas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "support-page-enabled",
+    "before": "Page d'assistance activée",
+    "after": "Pagina d’assisténcia activada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "swimlane-delete-pop",
+    "before": "Toutes les actions vont être supprimées du suivi d'activités et vous ne pourrez plus utiliser ce couloir. Cela est irréversible.",
+    "after": "Totas las accions seràn suprimidas del fil d’activitat e poiretz pas recuperar lo corredor. Aquesta accion se pòt pas anullar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "swimlane-height-error-message",
+    "before": "La hauteur du couloir doit être un entier positif",
+    "after": "La nautor del corredor deu èsser un nombre entièr positiu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "tableVisibilityMode-allowPrivateOnly",
+    "before": "Visibilité des tableaux: N'autoriser que des tableaux privés",
+    "after": "Visibilitat dels tablèus : autorizar solament de tablèus privats",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "team-number",
+    "before": "Le nombre d'équipes est de :",
+    "after": "Lo nombre d’equipas es :",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "toggle-labels",
+    "before": "Afficher/Masquer les étiquettes 1-9 sur les cartes. La sélection multiple ajoute les étiquettes 1-9",
+    "after": "Activar/desactivar las etiquetas 1-9 per la carta. La seleccion multipla apond las etiquetas 1-9",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "tracking-info",
+    "before": "Vous serez notifié de toute modification concernant les cartes pour lesquelles vous êtes impliqué en tant que créateur ou participant.",
+    "after": "Seretz avertit de tota modificacion de las cartas ont participatz coma creator o membre.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "translation-number",
+    "before": "Le nombre de traductions personnalisées est de :",
+    "after": "Lo nombre de cadenas de traduccion personalizadas es :",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "unsaved-description",
+    "before": "Vous avez une description non sauvegardée",
+    "after": "Avètz una descripcion pas enregistrada.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "upload-completed",
+    "before": "Le chargement est terminé",
+    "after": "Mandadís acabat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "upload-repository",
+    "before": "Téléverser/Mettre à jour le dépôt",
+    "after": "Mandar/metre a jorn lo depaus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
