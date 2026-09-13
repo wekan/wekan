@@ -83347,5 +83347,19 @@
     "before": "Comme « Liste d'envies  » par exemple",
     "after": "Yu mel ni «Limu yi nga bëgg a def» ci misaal",
     "reason": "Replace French with Wolof; retain literal list:Blocked and quoted operator example, colon syntax, cards contained in named list rather than cards containing list, double-quote requirement, OS uptime, planning-poker start and bucket-list example. Search/quotation technical terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "map-to-existing-user-desc",
+    "before": "Choisissez l'utilisateur réel que ce membre (virtuel) importé est en réalité. Ses cartes, commentaires et activités passent à cet utilisateur. Cherchez pour trouver n'importe qui ; un utilisateur qui n'est pas encore sur ce tableau est ajouté avec le rôle propre du membre importé, si bien que la correspondance ne peut jamais accorder plus de droits que l'import n'en a donnés.",
+    "after": "Tànnal jëfandikukat bi am dëgg te bokkkat bii ñu dugal (bu ñu def ci sistem bi rekk) di wone. Kartaam yi, waxam yi ak jëfam yi dañuy dem ci jëfandikukat boobu. Seetal ngir gis ku nekk; jëfandikukat bu bokkagul ci tablo bii, dinañu ko yokk ak cër bi bokkkat bi ñu dugal amoon, ba tax boole gi du man a may sañ-sañ yu ëpp yi dugal gi mayoon.",
+    "reason": "Replace French with Wolof; preserve virtual imported member versus real user, card/comment/activity transfer, unrestricted user search, adding non-board user with imported member role and prohibition on increased permissions. Mapping/virtual/role terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "map-to-existing-user-none",
+    "before": "Il n'y a pas encore d'autres membres réels sur ce tableau. Cherchez ci-dessus pour trouver n'importe quel utilisateur.",
+    "after": "Amagul beneen bokkkat bu am dëgg ci tablo bii. Seetal ci kaw ngir gis jëfandikukat bu nekk.",
+    "reason": "Replace French with Wolof; preserve virtual imported member versus real user, card/comment/activity transfer, unrestricted user search, adding non-board user with imported member role and prohibition on increased permissions. Mapping/virtual/role terminology and full grammar remain low confidence."
   }
 ]
