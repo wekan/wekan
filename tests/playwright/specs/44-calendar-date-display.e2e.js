@@ -2,7 +2,7 @@
 
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
-const { loginWithToken, openBoard } = require('../helpers/auth');
+const { loginWithToken, openBoard, navigateInApp } = require('../helpers/auth');
 const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
 
@@ -162,7 +162,7 @@ test(`Jalali ${viewPreference} has actual month boundaries and a single calendar
     'profile.language': 'en', 'profile.calendarSystem': 'jalali', 'profile.boardView': viewPreference,
   } });
   await loginWithToken(page, user.id, user.token);
-  await openBoard(page, board.boardId, board.slug);
+  await navigateInApp(page, `/b/${board.boardId}/${board.slug}`);
   await page.waitForFunction(id => Boolean(document.getElementById(id)?._wekanCalendar), calendarId);
   await page.evaluate(id => document.getElementById(id)._wekanCalendar.gotoDate(new Date(2026, 2, 21)), calendarId);
   await expect(page.locator(`#${calendarId} .fc-toolbar-title`)).toContainText('1405-01-01');
