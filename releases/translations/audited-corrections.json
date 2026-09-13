@@ -112439,5 +112439,12 @@
     "before": "Virheellinen aika",
     "after": "Vär aig",
     "reason": "Replace Finnish Virheellinen aika with Veps vär (incorrect/wrong) and aig (time), attested in https://kaikki.org/dictionary/Veps/index.html; composed warning needs fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "invalid-year",
+    "before": "Unyaka ongavumelekile. Thayipha zonke izinombolo ezine, isibonelo 2026.",
+    "after": "Vär vozʹ. Kirjuta kaik nelʹlʹ cifrad, ozutesikš 2026.",
+    "reason": "Replace the unrelated Zulu year warning with a direct Veps composition. Dictionary at https://kaikki.org/dictionary/Veps/index.html confirms vär, vozʹ, kirjuta, kaik, nelʹlʹ; ozutesikš is attested in the Veps Wikipedia Korean-language article. Keep all-four-digit instruction and 2026 example. LOW CONFIDENCE: cifrad digit terminology and sentence grammar lack independent verification and require fluent review."
   }
 ]
