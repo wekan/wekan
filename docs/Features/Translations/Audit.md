@@ -14,7 +14,7 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,254** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `10a847efb995354d54332a5fdf181529a09b511e` — four German/English checklist labels and an activity message replaced with Klingon using existing checklist wording, preserving the destination placeholder. Descriptive terminology and full phrases are low confidence and need fluent-speaker validation.
+Latest translation fix: **2026-09-13**, local commit `10a847efb995354d54332a5fdf181529a09b511e` — four German/English checklist strings, including an activity message replaced with Klingon using existing checklist wording, preserving the destination placeholder. Descriptive terminology and full phrases are low confidence and need fluent-speaker validation.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
