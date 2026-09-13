@@ -86028,5 +86028,19 @@
     "before": "Gregoriana",
     "after": "Kalender gregorek",
     "reason": "Replace foreign Gregoriana with Cornish Kalender gregorek. Kalender follows the previously recorded Akademi SWF dictionary; gregorek is the calendar adjective in https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/kw.xml (Kalans gregorek, draft=unconfirmed). Adapted phrase remains low confidence, without native-speaker verification."
+  },
+  {
+    "locale": "sah",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Ислаам халандаара",
+    "reason": "Replace English calendar wording with exact Sakha CLDR Ислаам халандаара, https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/sah.xml . CLDR marks this term draft=provisional; confidence is limited, not native-speaker verified. Preserve proper variant identifier Umm al-Qura in parentheses."
+  },
+  {
+    "locale": "sah",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Ислаам халандаара (Umm al-Qura)",
+    "reason": "Replace English calendar wording with exact Sakha CLDR Ислаам халандаара, https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/sah.xml . CLDR marks this term draft=provisional; confidence is limited, not native-speaker verified. Preserve proper variant identifier Umm al-Qura in parentheses."
   }
 ]
