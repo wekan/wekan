@@ -69522,5 +69522,26 @@
     "before": "Sterta Node: czyszczenie śmieci (zap garbage)",
     "after": "Sterta Node: nadpisanie niyużywanyj pamiyńci bitowym wzorym (zap garbage)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "Node_heap_used_heap_size",
+    "before": "Sterta Node: użyty rozmiar sterty",
+    "after": "Sterta Node: używanŏ pamiyńć sterty",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "Reactivity_mode",
+    "before": "Tryb reaktywności (changeStreams / oplog / polling)",
+    "after": "Sztelōnek reaktywności (changeStreams / oplog / polling)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "globalSearch-instructions-status-archived",
+    "before": "`__predicate_archived__` - karty zarchiwizowane",
+    "after": "`__predicate_archived__` - karty we archiwum",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
