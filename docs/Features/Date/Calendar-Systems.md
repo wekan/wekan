@@ -65,7 +65,9 @@ and Tab navigation.
 ## Calendar views and storage
 
 Single-board and multi-board month views use the selected calendar's actual
-month boundaries. Previous/next navigation moves between those months,
+month boundaries in both the grid and list month views. Their day grids
+align each date with the member's selected weekday start, including months
+with 29, 30 or 31 days. Previous/next navigation moves between those months,
 including short months and leap months. Week and day views retain their
 existing start-of-week and time-grid behavior, with dates rendered in the
 selected calendar. Choosing, dragging or resizing an event still represents
@@ -91,6 +93,8 @@ translations are preserved.
 
 `tests/calendarDateDisplay.test.cjs` covers calendar availability, independent
 language/preferences, date displays and native storage boundaries.
+`tests/calendarMonthWeekAlignment.test.cjs` covers month-grid alignment
+without changing the underlying month boundaries.
 `tests/calendarPickerControls.test.cjs` covers real month grids, leap days,
 click selection, keyboard/RTL navigation and time selection. The Playwright
 calendar-display spec covers rendered badges, popup selection and saving;

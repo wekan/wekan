@@ -136,38 +136,43 @@ test('Member Settings offers supported calendars and displays only the saved sel
   await expect(badge).not.toContainText('1405');
 });
 
-test('Jalali month view has actual month boundaries and a single calendar title', async ({ page, user, board }) => {
+for (const [viewPreference, calendarId] of [
+  ['board-view-cal', 'calendar-view'],
+  ['board-view-multiboard-cal', 'multiboard-calendar-view'],
+]) {
+test(`Jalali ${viewPreference} has actual month boundaries and a single calendar title`, async ({ page, user, board }) => {
   db.updateOne('users', { _id: user.id }, { $set: {
-    'profile.language': 'en', 'profile.calendarSystem': 'jalali', 'profile.boardView': 'board-view-cal',
+    'profile.language': 'en', 'profile.calendarSystem': 'jalali', 'profile.boardView': viewPreference,
   } });
   await loginWithToken(page, user.id, user.token);
   await openBoard(page, board.boardId, board.slug);
-  await page.waitForFunction(() => Boolean(document.getElementById('calendar-view')?._wekanCalendar));
-  await page.evaluate(() => document.getElementById('calendar-view')._wekanCalendar.gotoDate(new Date(2026, 2, 21)));
-  await expect(page.locator('#calendar-view .fc-toolbar-title')).toContainText('1405-01-01');
-  await expect(page.locator('#calendar-view .fc-toolbar-title')).not.toContainText('2026');
-  await expect(page.locator('#calendar-view td[data-date="2026-03-21"] .fc-daygrid-day-number')).toHaveText('1');
-  const boundaries = await page.evaluate(() => {
-    const view = document.getElementById('calendar-view')._wekanCalendar.view;
+  await page.waitForFunction(id => Boolean(document.getElementById(id)?._wekanCalendar), calendarId);
+  await page.evaluate(id => document.getElementById(id)._wekanCalendar.gotoDate(new Date(2026, 2, 21)), calendarId);
+  await expect(page.locator(`#${calendarId} .fc-toolbar-title`)).toContainText('1405-01-01');
+  await expect(page.locator(`#${calendarId} .fc-toolbar-title`)).not.toContainText('2026');
+  await expect(page.locator(`#${calendarId} td[data-date="2026-03-21"] .fc-daygrid-day-number`)).toHaveText('1');
+  const boundaries = await page.evaluate(id => {
+    const view = document.getElementById(id)._wekanCalendar.view;
     const nativeDate = date => [date.getFullYear(), date.getMonth() + 1, date.getDate()];
     return { start: nativeDate(view.currentStart), end: nativeDate(view.currentEnd) };
-  });
+  }, calendarId);
   expect(boundaries).toEqual({ start: [2026, 3, 21], end: [2026, 4, 21] });
-  await page.locator('#calendar-view .fc-next-button').click();
-  await expect(page.locator('#calendar-view .fc-toolbar-title')).toContainText('1405-02-01');
+  await page.locator(`#${calendarId} .fc-next-button`).click();
+  await expect(page.locator(`#${calendarId} .fc-toolbar-title`)).toContainText('1405-02-01');
   // Ordibehesht's 31 days cross Gregorian month boundaries. Its first day
   // must occupy Tuesday's column rather than the first weekday column.
-  const firstCell = page.locator('#calendar-view td[data-date="2026-04-21"]');
+  const firstCell = page.locator(`#${calendarId} td[data-date="2026-04-21"]`);
   await expect(firstCell.locator('.fc-daygrid-day-number')).toHaveText('1');
   const column = await firstCell.evaluate(cell => cell.cellIndex);
-  const headerClass = await page.locator('#calendar-view th.fc-col-header-cell').nth(column).getAttribute('class');
+  const headerClass = await page.locator(`#${calendarId} th.fc-col-header-cell`).nth(column).getAttribute('class');
   expect(headerClass).toContain('fc-day-tue');
-  await page.locator('#calendar-view .fc-listMonth-button').click();
-  await expect(page.locator('#calendar-view .fc-toolbar-title')).toContainText('1405-02-01');
-  await page.locator('#calendar-view .fc-prev-button').click();
-  await expect(page.locator('#calendar-view .fc-toolbar-title')).toContainText('1405-01-01');
-  await expect(page.locator('#calendar-view .fc-toolbar-title')).not.toContainText('2026');
+  await page.locator(`#${calendarId} .fc-listMonth-button`).click();
+  await expect(page.locator(`#${calendarId} .fc-toolbar-title`)).toContainText('1405-02-01');
+  await page.locator(`#${calendarId} .fc-prev-button`).click();
+  await expect(page.locator(`#${calendarId} .fc-toolbar-title`)).toContainText('1405-01-01');
+  await expect(page.locator(`#${calendarId} .fc-toolbar-title`)).not.toContainText('2026');
 });
+}
 
 for (const calendarSystem of ['gregorian', 'buddhist']) {
   test(`${calendarSystem} popup opens a full-width calendar with only hour/minute controls`, async ({ page, user, board }, testInfo) => {
