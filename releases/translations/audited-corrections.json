@@ -68248,5 +68248,89 @@
     "before": "Azure Portal → Storage accounts → twoje konto → Security + networking → Access keys → key1 → Show → Key.",
     "after": "Azure Portal → Storage accounts → twoje kōnto → Security + networking → Access keys → key1 → Show → Key.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "azure-connection-string-description",
+    "before": "Opcjonalnie: użyj pełnego ciągu połączenia zamiast nazwy i klucza konta.",
+    "after": "Ôpcyjōnalnie: użyj cołkigo ciōngu połōnczyniŏ zamiast miana i klucza kōnta.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "azure-connection-string-menu-path",
+    "before": "Azure Portal → Storage accounts → twoje konto → Security + networking → Access keys → key1 → Connection string → Show.",
+    "after": "Azure Portal → Storage accounts → twoje kōnto → Security + networking → Access keys → key1 → Connection string → Show.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "backup-day-of-month",
+    "before": "Dzień miesiąca (co miesiąc, 1-28)",
+    "after": "Dziyń miesiōnca (co miesiōnc, 1-28)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "backup-day-of-week",
+    "before": "Dzień tygodnia (co tydzień)",
+    "after": "Dziyń tydnia (co tydziyń)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "backup-done",
+    "before": "Kopia zapasowa zakończona",
+    "after": "Kopijŏ zapasowŏ skōńczōnŏ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "backup-schedule",
+    "before": "Zaplanowane kopie zapasowe",
+    "after": "Zaplanowane kopije zapasowe",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "board-background-delete-pop",
+    "before": "Czy na pewno chcesz usunąć ten obraz tła?",
+    "after": "Na isto chcesz wyciepać tyn ôbrŏz tła?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "board-status-cards-with-time",
+    "before": "Karty ze spędzonym czasem",
+    "after": "Karty ze zapisanym czasym",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "board-status-time-summary",
+    "before": "Podsumowanie spędzonego czasu",
+    "after": "Podsumowanie zapisanygo czasu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "bucket-example",
+    "before": "Na przykład \"Lista rzeczy do zrobienia\"",
+    "after": "Na przikłŏd « Lista życzyń »",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Jalali (perski)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "card-aging",
+    "before": "Starzenie kart (wygaszanie starych kart)",
+    "after": "Starzynie kart (przigŏszanie starych kart)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
