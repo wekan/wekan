@@ -109891,5 +109891,145 @@
     "before": "Caro __user__,\n\n__inviter__ ti ha invitato ad unirti alla bacheca \"__board__\" per collaborare.\n\nPer favore clicca sul link seguente:\n\n__url__\n\nGrazie.",
     "after": "Caro __user__,\n\n__inviter__ te invita a intrar inte el quadro \"__board__\" par łavorar insieme.\n\nSegui el łigamento qua soto:\n\n__url__\n\nGrasie.",
     "reason": "Replace Italian-seeded membership, list and visibility messages with Venetian; preserve access restrictions, archive recovery, newline/comma behavior and invitation placeholders. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "Muovi la scheda in fondo alla lista",
+    "after": "Sposta ła scheda in fondo a ła lista",
+    "reason": "Replace Italian-seeded Venetian rule, membership and display labels; preserve top/bottom placement, add/assign distinction, removal notification and numeric threshold. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "r-d-move-to-top-gen",
+    "before": "Sposta la scheda in cima alla sua lista",
+    "after": "Sposta ła scheda in sima a ła so lista",
+    "reason": "Replace Italian-seeded Venetian rule, membership and display labels; preserve top/bottom placement, add/assign distinction, removal notification and numeric threshold. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "r-d-move-to-top-spec",
+    "before": "Sposta la scheda in cima alla lista",
+    "after": "Sposta ła scheda in sima a ła lista",
+    "reason": "Replace Italian-seeded Venetian rule, membership and display labels; preserve top/bottom placement, add/assign distinction, removal notification and numeric threshold. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "r-d-unarchive",
+    "before": "Ripristina la scheda dall'archivio",
+    "after": "Rimete ła scheda dal archivio",
+    "reason": "Replace Italian-seeded Venetian rule, membership and display labels; preserve top/bottom placement, add/assign distinction, removal notification and numeric threshold. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "r-remove-all",
+    "before": "Rimuovi tutti i membri dalla scheda",
+    "after": "Cava tuti i membri da ła scheda",
+    "reason": "Replace Italian-seeded Venetian rule, membership and display labels; preserve top/bottom placement, add/assign distinction, removal notification and numeric threshold. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "r-when-a-card-is-moved",
+    "before": "Quando una scheda viene spostata in un'altra lista",
+    "after": "Co na scheda ła vien spostà in n'altra lista",
+    "reason": "Replace Italian-seeded Venetian rule, membership and display labels; preserve top/bottom placement, add/assign distinction, removal notification and numeric threshold. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "r-when-a-item",
+    "before": "Quando un elemento della checklist è",
+    "after": "Co na voze de ła lista de controło ła xe",
+    "reason": "Replace Italian-seeded Venetian rule, membership and display labels; preserve top/bottom placement, add/assign distinction, removal notification and numeric threshold. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "r-when-the-item",
+    "before": "Quando un elemento della checklist",
+    "after": "Co ła voze de ła lista de controło",
+    "reason": "Replace Italian-seeded Venetian rule, membership and display labels; preserve top/bottom placement, add/assign distinction, removal notification and numeric threshold. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "remove-all-read",
+    "before": "Rimuovi tutti i già letti",
+    "after": "Cava tute quełe dezà łete",
+    "reason": "Replace Italian-seeded Venetian rule, membership and display labels; preserve top/bottom placement, add/assign distinction, removal notification and numeric threshold. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "remove-member-pop",
+    "before": "Rimuovere __name__ (__username__) da __boardTitle__? L'utente sarà rimosso da tutte le schede in questa bacheca. Riceveranno una notifica.",
+    "after": "Cavar __name__ (__username__) da __boardTitle__? El membro el vegnarà cavà da tute łe schede de sto quadro. El ricevarà na notifica.",
+    "reason": "Replace Italian-seeded Venetian rule, membership and display labels; preserve top/bottom placement, add/assign distinction, removal notification and numeric threshold. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "search-cards",
+    "before": "Ricerca per titolo, descrizione scheda/lista e campi personalizzati su questa bacheca",
+    "after": "Serca inte i tìtołi, łe descrision e i canpi personałizài de schede e liste de sto quadro",
+    "reason": "Replace Italian-seeded Venetian rule, membership and display labels; preserve top/bottom placement, add/assign distinction, removal notification and numeric threshold. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "set-swimlane-height",
+    "before": "Impostare l'altezza della corsia",
+    "after": "Inposta ła altesa de ła corsia",
+    "reason": "Replace Italian-seeded Venetian rule, membership and display labels; preserve top/bottom placement, add/assign distinction, removal notification and numeric threshold. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "set-swimlane-height-value",
+    "before": "Altezza della corsia (in pixel)",
+    "after": "Altesa de ła corsia (pixel)",
+    "reason": "Replace Italian-seeded Venetian rule, membership and display labels; preserve top/bottom placement, add/assign distinction, removal notification and numeric threshold. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "setSwimlaneHeightPopup-title",
+    "before": "Impostare l'altezza della corsia",
+    "after": "Inposta ła altesa de ła corsia",
+    "reason": "Replace Italian-seeded Venetian rule, membership and display labels; preserve top/bottom placement, add/assign distinction, removal notification and numeric threshold. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "settingsOrgPopup-title",
+    "before": "Impostazioni organizzazione",
+    "after": "Inpostasion de ła organisasion",
+    "reason": "Replace Italian-seeded Venetian rule, membership and display labels; preserve top/bottom placement, add/assign distinction, removal notification and numeric threshold. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "shortcut-add-self",
+    "before": "Aggiungi te stesso alla scheda corrente",
+    "after": "Zòntate a ła scheda corente",
+    "reason": "Replace Italian-seeded Venetian rule, membership and display labels; preserve top/bottom placement, add/assign distinction, removal notification and numeric threshold. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "shortcut-assign-self",
+    "before": "Assegna te stesso alla scheda corrente",
+    "after": "Asègnate ła scheda corente",
+    "reason": "Replace Italian-seeded Venetian rule, membership and display labels; preserve top/bottom placement, add/assign distinction, removal notification and numeric threshold. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "shortcut-toggle-sidebar",
+    "before": "Apri/chiudi la barra laterale della bacheca",
+    "after": "Verzi o sera ła bara łaterałe del quadro",
+    "reason": "Replace Italian-seeded Venetian rule, membership and display labels; preserve top/bottom placement, add/assign distinction, removal notification and numeric threshold. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "show-cards-minimum-count",
+    "before": "Mostra il contatore delle schede se la lista ne contiene più di",
+    "after": "Mostra el nùmaro de schede se ła lista ła ne gà pì de",
+    "reason": "Replace Italian-seeded Venetian rule, membership and display labels; preserve top/bottom placement, add/assign distinction, removal notification and numeric threshold. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "show-field-on-card",
+    "before": "Visualizza questo campo sulla scheda",
+    "after": "Mostra sto canpo so ła scheda",
+    "reason": "Replace Italian-seeded Venetian rule, membership and display labels; preserve top/bottom placement, add/assign distinction, removal notification and numeric threshold. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
