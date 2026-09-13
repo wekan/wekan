@@ -101,6 +101,7 @@ mkdir -p "$WEKAN_LOG_ROOT"
 WEKAN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WEKAN_TOOLS_DIR="$WEKAN_DIR/.tools"
 export WEKAN_DIR WEKAN_TOOLS_DIR
+export PATH="$WEKAN_TOOLS_DIR/bin:${GOBIN:+$GOBIN:}$PATH"
 . "$WEKAN_DIR/releases/ensure-tools.sh"
 
 # Prefer the repository-local toolchain installed under .tools. A fresh shell
@@ -1798,55 +1799,60 @@ function forge_list(){
 }
 
 function install_forge_tools(){
-	echo
-	echo "Installing gh-like forge CLIs: gh, glab, tea, git-bug, forge (git-pkgs/forge)."
-	echo "Already-installed tools are skipped. Package manager is auto-detected."
-	local PM=""
-	local forge_install_status=0
-	if command -v brew >/dev/null 2>&1; then PM=brew
-	elif command -v apt  >/dev/null 2>&1; then PM=apt
-	elif command -v dnf  >/dev/null 2>&1; then PM=dnf
-	elif command -v yum  >/dev/null 2>&1; then PM=yum
-	elif command -v apk  >/dev/null 2>&1; then PM=apk
-	elif command -v pacman >/dev/null 2>&1; then PM=pacman
-	fi
-	echo "Detected package manager: ${PM:-none}"
-
-	# gh - GitHub CLI (source forge)
-	if command -v gh >/dev/null 2>&1; then echo "OK: gh present"
-	else ensure_tools gh || echo "Install gh manually: https://github.com/cli/cli#installation"; fi
-
-	# glab - GitLab CLI
-	if command -v glab >/dev/null 2>&1; then echo "OK: glab present"
-	else ensure_tools glab || echo "Install glab manually: https://gitlab.com/gitlab-org/cli/-/releases"; fi
-	# tea - Gitea/Forgejo CLI (covers Codeberg, Forgejo, Gitea)
-	if command -v tea >/dev/null 2>&1; then echo "OK: tea present"
-	elif [ "$PM" = brew ]; then brew install tea
-	elif command -v go >/dev/null 2>&1; then
-		go install gitea.dev/tea@latest || {
-			echo "tea installation failed; see https://gitea.com/gitea/tea#installation"
+	local tool module forge_install_status=0
+	local forge_bin="${GOBIN:-$WEKAN_TOOLS_DIR/bin}"
+	mkdir -p "$forge_bin" "$WEKAN_TOOLS_DIR/tmp" || return 1
+	export TMPDIR="$WEKAN_TOOLS_DIR/tmp"
+	export PATH="$forge_bin:$PATH"
+	echo "Installing tools for GitHub, GitLab, Codeberg and SourceForge mirrors."
+	echo "Native packages are preferred; missing Go CLIs are built for this host CPU."
+	# SourceForge uses Git/SSH, HTTP APIs and SCP/SFTP release transfers.
+	# Node runs the existing issue/PR/CI mirror helper; Go builds missing CLIs.
+	for tool in git ssh scp sftp curl jq rsync node go; do
+		if ! command -v "$tool" >/dev/null 2>&1; then
+			ensure_tools "$tool" || echo "Package installation failed for $tool."
+		fi
+	done
+	ensure_forge_go || echo "A current native Go toolchain could not be prepared."
+	for tool in gh glab tea git-bug forge; do
+		if command -v "$tool" >/dev/null 2>&1; then
+			echo "OK: $tool present"
+			continue
+		fi
+		# Brew has maintained Tea/git-bug packages; gh/glab use distro packages.
+		case "$tool" in
+			gh|glab) ensure_tools "$tool" || true ;;
+			tea|git-bug)
+				if [ "$(_et_os)" = macos ]; then ensure_tools "$tool" || true; fi ;;
+		esac
+		command -v "$tool" >/dev/null 2>&1 && continue
+		case "$tool" in
+			gh) module=github.com/cli/cli/v2/cmd/gh ;;
+			glab) module=gitlab.com/gitlab-org/cli/cmd/glab ;;
+			tea) module=gitea.dev/tea ;;
+			git-bug) module=github.com/git-bug/git-bug ;;
+			forge) module=github.com/git-pkgs/forge/cmd/forge ;;
+		esac
+		if command -v go >/dev/null 2>&1; then
+			GOBIN="$forge_bin" go install "$module@latest" || {
+				echo "$tool installation failed ($module); check the Go version and host CPU support."
+			}
+		else
+			echo "Cannot build $tool: Go installation failed."
+		fi
+	done
+	echo "Mirror tool status:"
+	for tool in git ssh scp sftp curl jq rsync node go gh glab tea git-bug forge; do
+		if command -v "$tool" >/dev/null 2>&1; then
+			echo "  OK $tool: $(command -v "$tool")"
+		else
+			echo "  MISSING $tool"
 			forge_install_status=1
-		}
-	else echo "Install tea manually: https://gitea.com/gitea/tea/releases (or 'brew install tea')"; fi
-
-	# git-bug - distributed issue tracker / bridges
-	if command -v git-bug >/dev/null 2>&1; then echo "OK: git-bug present"
-	elif [ "$PM" = brew ]; then brew install git-bug
-	elif command -v go >/dev/null 2>&1; then go install github.com/git-bug/git-bug@latest
-	else echo "Install git-bug manually: https://github.com/git-bug/git-bug/releases"; fi
-
-	# forge - git-pkgs/forge unified multi-forge CLI
-	if command -v forge >/dev/null 2>&1; then echo "OK: forge present"
-	elif command -v go >/dev/null 2>&1; then
-		go install github.com/git-pkgs/forge/cmd/forge@latest || {
-			echo "forge installation failed; see https://github.com/git-pkgs/forge#cli"
-			forge_install_status=1
-		}
-	else echo "Install forge manually (needs Go): https://github.com/git-pkgs/forge"; fi
-
-	echo
-	echo "Authenticate before mirroring:  gh auth login | glab auth login | tea login add"
-	command -v go >/dev/null 2>&1 && echo "Note: Go tools install to GOBIN, or \$(go env GOPATH)/bin when GOBIN is unset — ensure it is on your PATH."
+		fi
+	done
+	echo "Go CLI directory: $forge_bin (added to this build session's PATH)."
+	echo "Authenticate separately: gh auth login; glab auth login; tea login add."
+	echo "SourceForge uses your project account with SSH/SFTP and its API credentials."
 	return "$forge_install_status"
 }
 

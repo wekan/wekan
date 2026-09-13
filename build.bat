@@ -1,5 +1,6 @@
 @ECHO OFF
 SETLOCAL EnableDelayedExpansion
+set "PATH=%~dp0.tools\bin;%GOBIN%;%PATH%"
 
 REM ============================================================================
 REM  WeKan rebuild / run / test helper for Windows.
@@ -1423,48 +1424,11 @@ goto end
 
 REM ===========================================================================
 :install_forge_tools
-echo.
-echo Installing gh-like forge CLIs: gh, glab, tea, git-bug, forge ^(git-pkgs/forge^).
-echo Already-installed tools are skipped.
-set "HASWINGET="
-set "HASGO="
-where /q winget && set "HASWINGET=1"
-where /q go && set "HASGO=1"
-
-where /q gh
-if %errorlevel%==0 (
-	echo OK: gh present
-) else (
-	if defined HASWINGET ( winget install --id GitHub.cli -e --source winget ) else ( echo Install gh manually: https://github.com/cli/cli#installation )
-)
-where /q glab
-if %errorlevel%==0 (
-	echo OK: glab present
-) else (
-	if defined HASWINGET ( winget install --id GLab.GLab -e --source winget ) else ( echo Install glab manually: https://gitlab.com/gitlab-org/cli#installation )
-)
-where /q tea
-if %errorlevel%==0 (
-	echo OK: tea present
-) else (
-	if defined HASGO ( go install gitea.dev/tea@latest ) else ( echo Install tea manually: https://gitea.com/gitea/tea/releases )
-)
-where /q git-bug
-if %errorlevel%==0 (
-	echo OK: git-bug present
-) else (
-	if defined HASGO ( go install github.com/git-bug/git-bug@latest ) else ( echo Install git-bug manually: https://github.com/git-bug/git-bug/releases )
-)
-where /q forge
-if %errorlevel%==0 (
-	echo OK: forge present
-) else (
-	if defined HASGO ( go install github.com/git-pkgs/forge/cmd/forge@latest ) else ( echo Install forge manually ^(needs Go^): https://github.com/git-pkgs/forge )
-)
-echo.
-echo Authenticate before mirroring: gh auth login ^| glab auth login ^| tea login add
-if defined HASGO echo Note: Go tools install to %%GOPATH%%\bin - ensure it is on your PATH.
-goto end
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0tools\install-forge-tools.ps1"
+set "FORGE_INSTALL_STATUS=%errorlevel%"
+for /f "usebackq delims=" %%P in (`powershell.exe -NoProfile -Command "[Environment]::GetEnvironmentVariable('Path','Machine') + ';' + [Environment]::GetEnvironmentVariable('Path','User')"`) do set "PATH=%~dp0.tools\bin;%GOBIN%;%%P;%PATH%"
+if not "%FORGE_INSTALL_STATUS%"=="0" echo One or more mirror tools could not be installed. See MISSING entries above.
+exit /b %FORGE_INSTALL_STATUS%
 
 REM ===========================================================================
 :mirror_forge

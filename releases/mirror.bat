@@ -16,6 +16,8 @@ if errorlevel 1 exit /b %errorlevel%
 call :mirror gitlab git@gitlab.com:wekan/wekan
 if errorlevel 1 exit /b %errorlevel%
 call :mirror codeberg git@codeberg.org:wekan/wekan
+if errorlevel 1 exit /b %errorlevel%
+call :mirror sourceforge ssh://wekan@git.code.sf.net/p/wekan/code
 exit /b %errorlevel%
 
 :mirror

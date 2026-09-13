@@ -48,3 +48,5 @@ test('both configured mirrors use their SSH clone URLs', () => {
 });
 
 console.log(`\ngitMirrorUpdateScripts: ${passed} tests passed`);
+
+assert.ok(batch.includes('call :mirror sourceforge ssh://wekan@git.code.sf.net/p/wekan/code'), 'Windows includes the active SourceForge mirror');

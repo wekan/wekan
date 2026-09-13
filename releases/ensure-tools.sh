@@ -99,6 +99,9 @@ ensure_tools() {
                 sudo snap install snapcraft --classic
                 ;;
               g++) package=gcc-c++ ; sudo "$pm" install -y "$package" ;;
+              go) sudo "$pm" install -y golang ;;
+              ssh|scp|sftp) sudo "$pm" install -y openssh-clients ;;
+              node) sudo "$pm" install -y nodejs ;;
               7zip) [ "$family" = fedora ] && package=7zip || package=p7zip; sudo "$pm" install -y "$package" ;;
               *) sudo "$pm" install -y "$tool" ;;
             esac
@@ -106,6 +109,8 @@ ensure_tools() {
           alpine)
             case "$tool" in
               gh) package=github-cli ;;
+              ssh|scp|sftp) package=openssh-client ;;
+              node) package=nodejs ;;
               awk) package=gawk ;;
               pip3|python3-pip) package=py3-pip ;;
               7zip) package=p7zip ;;
@@ -117,6 +122,8 @@ ensure_tools() {
           arch)
             case "$tool" in
               gh) package=github-cli ;;
+              ssh|scp|sftp) package=openssh ;;
+              node) package=nodejs ;;
               python3) package=python ;;
               g++) package=gcc ;;
               awk) package=gawk ;;
@@ -130,6 +137,9 @@ ensure_tools() {
           debian)
             case "$tool" in
               gh) _et_apt_gh ;;
+              go) sudo apt-get update && sudo apt-get install -y golang-go ;;
+              ssh|scp|sftp) sudo apt-get update && sudo apt-get install -y openssh-client ;;
+              node) sudo apt-get update && sudo apt-get install -y nodejs ;;
               snapcraft) sudo apt-get update; sudo apt-get install -y snapd; sudo systemctl enable --now snapd.socket; sudo snap install snapcraft --classic ;;
               *) sudo apt-get update && sudo apt-get install -y "$tool" ;;
             esac
@@ -145,6 +155,7 @@ ensure_tools() {
           g++) package=gcc ;;
           7zip) package=sevenzip ;;
           npm) package=node ;;
+          ssh|scp|sftp) package=openssh ;;
           *) package="$tool" ;;
         esac
         brew install "$package"
@@ -154,6 +165,52 @@ ensure_tools() {
         ;;
     esac
   done
+}
+
+_forge_go_arch() {
+  case "$1" in
+    x86_64|amd64) echo amd64 ;;
+    aarch64|arm64) echo arm64 ;;
+    i386|i486|i586|i686|x86) echo 386 ;;
+    armv6l|armv7l|armv8l) echo armv6l ;;
+    ppc64le|ppc64el) echo ppc64le ;;
+    loongarch64|loong64) echo loong64 ;;
+    *) echo "$1" ;;
+  esac
+}
+
+# Older Debian/Ubuntu Go packages cannot download newer module toolchains.
+# Bootstrap from the official current stable archive when Go predates 1.21.
+ensure_forge_go() {
+  local version minor os arch metadata filename checksum archive actual go_dir
+  if command -v go >/dev/null 2>&1; then
+    version="$(go env GOVERSION 2>/dev/null)"
+    minor="${version#go1.}"; minor="${minor%%.*}"
+    case "$minor" in ''|*[!0-9]*) ;; *) [ "$minor" -ge 21 ] && return 0 ;; esac
+  fi
+  os="$(_et_os)"; [ "$os" = macos ] && os=darwin
+  arch="$(_forge_go_arch "$(uname -m)")"
+  metadata="$(curl -fsSL 'https://go.dev/dl/?mode=json')" || return 1
+  filename="$(printf '%s' "$metadata" | jq -r --arg os "$os" --arg arch "$arch" '[.[] | select(.stable) | .files[] | select(.os == $os and .arch == $arch and .kind == "archive")][0].filename // empty')"
+  checksum="$(printf '%s' "$metadata" | jq -r --arg file "$filename" '[.[].files[] | select(.filename == $file)][0].sha256 // empty')"
+  case "$filename" in *[!a-zA-Z0-9._-]*) return 1 ;; esac
+  case "$filename" in go*.*.tar.gz) ;; *) echo "No official Go archive for $os/$arch; install a supported native Go toolchain." >&2; return 1 ;; esac
+  [ "${#checksum}" -eq 64 ] || return 1
+  go_dir="$WEKAN_TOOLS_DIR/forge-go/${filename%.tar.gz}"
+  if [ ! -x "$go_dir/go/bin/go" ]; then
+    mkdir -p "$go_dir" "$WEKAN_TOOLS_DIR/tmp" || return 1
+    archive="$WEKAN_TOOLS_DIR/tmp/$filename"
+    curl -fL "https://go.dev/dl/$filename" -o "$archive" || return 1
+    if command -v sha256sum >/dev/null 2>&1; then actual="$(sha256sum "$archive")"
+    elif command -v shasum >/dev/null 2>&1; then actual="$(shasum -a 256 "$archive")"
+    else echo "A SHA-256 tool is required to verify Go." >&2; return 1; fi
+    [ "${actual%% *}" = "$checksum" ] || { echo "Go archive checksum mismatch." >&2; return 1; }
+    tar -xzf "$archive" -C "$go_dir" || return 1
+    rm -f "$archive"
+  fi
+  export GOROOT="$go_dir/go"
+  export PATH="$go_dir/go/bin:$PATH"
+  "$go_dir/go/bin/go" version
 }
 
 
