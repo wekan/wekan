@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 14,871 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 973 pending review or repair.
-The correction inventory records 16,802 exact before/after values,
+findings: 14,878 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 966 pending review or repair.
+The correction inventory records 16,811 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original finding queues remain in Veps (232) and Standard Moroccan
+The largest original finding queues remain in Veps (225) and Standard Moroccan
 Tamazight (595). Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -99,8 +99,8 @@ Transifex: the evidence includes 4,061 pulled changes and 16,020 additional
 local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
-changes are implemented in local commit 02383540a; translation repairs have resumed. Latest translation fix is eef786892,
-covering archive and recovery controls, scope and warnings;
+changes are implemented in local commit 02383540a; translation repairs have resumed. Latest translation fix is 6cc4055af,
+covering migration retries, continuation and status distinctions;
 progress counts are updated above.
 All correction/rendering checks pass. Latest full Node verification before
 that batch: 1,015 suites, zero failures;
@@ -1166,6 +1166,20 @@ verification; the local tool is still starting before compilation.
 and updates maintainer tooling:
 
 **Maintenance scripts** - explicit translation uploads and repository mirrors.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6cc4055af">Repair Veps migration retry and continuation status</a>. Thanks to xet7.</summary>
+
+Replace nine Finnish values, resolving seven original findings and two related
+unflagged errors. Preserve failed-only retries, paused-only continuation,
+empty queues, successful action responses, all-error clearing, and errors
+versus warnings. Existing native pause/completion/resume values remain unchanged.
+All 16,811 corrections and positive/negative runtime rendering and placeholder
+checks pass. There are 966 pending original findings, including 225 Veps
+findings. Composed failure-status grammar and plural/case forms need fluent-
+speaker review; browser and restored/unflagged validation remain outstanding.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/eef786892">Repair Veps archive and recovery controls</a>. Thanks to xet7.</summary>
