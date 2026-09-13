@@ -55942,5 +55942,75 @@
     "before": "Heap Node: picco di memoria allocata (malloc)",
     "after": "Heap Node: picco 'e memoria allucata (malloc)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "Node_heap_total_heap_size",
+    "before": "Heap Node: dimensione totale dell'heap",
+    "after": "Heap Node: dimenzione tutale 'e ll'heap",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "Node_heap_total_heap_size_executable",
+    "before": "Heap Node: dimensione totale dell'heap eseguibile",
+    "after": "Heap Node: dimenzione tutale 'e ll'heap eseguibbile",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "Node_heap_total_physical_size",
+    "before": "Heap Node: dimensione fisica totale",
+    "after": "Heap Node: dimenzione fisica tutale",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "Node_heap_used_heap_size",
+    "before": "Heap Node: dimensione dell'heap utilizzata",
+    "after": "Heap Node: dimenzione 'e ll'heap aduprata",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "Node_memory_usage_heap_total",
+    "before": "Uso memoria Node: dimensione totale dell'heap allocato",
+    "after": "Memoria aduprata da Node: dimenzione tutale 'e ll'heap allucato",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "Node_memory_usage_rss",
+    "before": "Uso memoria Node: resident set size",
+    "after": "Memoria aduprata da Node: dimenzione d'a memoria residente (RSS)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "Reactivity_mode",
+    "before": "Modalità di reattività (changeStreams / oplog / polling)",
+    "after": "Mudaletà 'e reattività (changeStreams / oplog / polling)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "Reactivity_order",
+    "before": "Ordine di reattività (METEOR_REACTIVITY_ORDER)",
+    "after": "Ordine 'e reattività (METEOR_REACTIVITY_ORDER)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "Rotateplane",
+    "before": "Spinner di attesa Rotateplane",
+    "after": "Indicatore 'e attesa Rotateplane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "Scaleout",
+    "before": "Spinner di attesa Scaleout",
+    "after": "Indicatore 'e attesa Scaleout",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
