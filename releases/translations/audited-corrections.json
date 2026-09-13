@@ -79910,5 +79910,54 @@
     "before": "Temps restant",
     "after": "Waxtu wi des",
     "reason": "Repair Wolof date/time controls and French labels. Reuse Bis/Waxtu; remove unrelated custom-field prose from Date type. Restore literal YYYY/MM/DD format tokens instead of French AAAA/JJ. Preserve no-due-date, invalid date versus time, remaining-time distinctions. Full grammar and date-format adaptation remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "r-when-a-due-date-changed",
+    "before": "À échéance: bis bi soppiku",
+    "after": "Bu ñu def walla soppi bis bi ñu war a jeexal",
+    "reason": "Replace French or mixed-language rule date labels with Wolof. Restore both setting and changing trigger cases, distinguish due/start/end/received dates, current date/time and date field. Reuse established Bis/Waxtu terminology; normalize unflagged ci date scheduling fragment. Full grammar and rule/date adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "r-when-a-start-date-changed",
+    "before": "Début: bis bi soppiku",
+    "after": "Bu ñu def walla soppi bisu tambali bi",
+    "reason": "Replace French or mixed-language rule date labels with Wolof. Restore both setting and changing trigger cases, distinguish due/start/end/received dates, current date/time and date field. Reuse established Bis/Waxtu terminology; normalize unflagged ci date scheduling fragment. Full grammar and rule/date adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "r-when-a-end-date-changed",
+    "before": "Fin: bis bi soppiku",
+    "after": "Bu ñu def walla soppi bisu jeex bi",
+    "reason": "Replace French or mixed-language rule date labels with Wolof. Restore both setting and changing trigger cases, distinguish due/start/end/received dates, current date/time and date field. Reuse established Bis/Waxtu terminology; normalize unflagged ci date scheduling fragment. Full grammar and rule/date adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "r-when-a-received-date-changed",
+    "before": "Reçue: bis bi soppiku",
+    "after": "Bu ñu def walla soppi bisu jot bi",
+    "reason": "Replace French or mixed-language rule date labels with Wolof. Restore both setting and changing trigger cases, distinguish due/start/end/received dates, current date/time and date field. Reuse established Bis/Waxtu terminology; normalize unflagged ci date scheduling fragment. Full grammar and rule/date adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "r-datefield",
+    "before": "champ date",
+    "after": "wàllu bis",
+    "reason": "Replace French or mixed-language rule date labels with Wolof. Restore both setting and changing trigger cases, distinguish due/start/end/received dates, current date/time and date field. Reuse established Bis/Waxtu terminology; normalize unflagged ci date scheduling fragment. Full grammar and rule/date adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "r-to-current-datetime",
+    "before": "à la date/heure courante",
+    "after": "ci bis ak waxtu wi léegi",
+    "reason": "Replace French or mixed-language rule date labels with Wolof. Restore both setting and changing trigger cases, distinguish due/start/end/received dates, current date/time and date field. Reuse established Bis/Waxtu terminology; normalize unflagged ci date scheduling fragment. Full grammar and rule/date adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "r-schedule-on-date",
+    "before": "ci date",
+    "after": "ci bis",
+    "reason": "Replace French or mixed-language rule date labels with Wolof. Restore both setting and changing trigger cases, distinguish due/start/end/received dates, current date/time and date field. Reuse established Bis/Waxtu terminology; normalize unflagged ci date scheduling fragment. Full grammar and rule/date adaptations remain low confidence."
   }
 ]
