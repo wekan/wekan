@@ -12,9 +12,9 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 **Repairs remain unfinished.** Restored and unflagged values still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,183** exact before/after values, including repairs outside the audit.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **13,185** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `f42bab7f5b960fd5e8b5190aed614aac7fb31dc2` — two Sardinian work-progress chart labels localized using existing vocabulary, retaining Burndown/Burnup identifiers. Assembled labels need native-speaker validation; Computer was reviewed and retained as an attested Sardinian borrowing; magenta remains under review.
+Latest translation fix: **2026-09-13**, local commit `8d8072ad7820baa2ed5026a28f670deb6db0f882` — two unflagged Italian workspace and remaining-time labels corrected in Sardinian using existing locale wording. Assembled wording needs native-speaker validation; magenta remains under review.
 
 **Verification:** correction and progress tests pass. Native-speaker and browser checks remain outstanding.
 
