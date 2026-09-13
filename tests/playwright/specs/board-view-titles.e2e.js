@@ -7,6 +7,7 @@ test.describe.configure({ mode: 'serial' });
 for (const view of [
   { name: 'timeline', menu: '.js-open-timeline-view', title: '.timeline-card-title' },
   { name: 'assignee', menu: '.js-open-group-by-assignee-view', title: '.group-by-assignee-card-title' },
+  { name: 'cumulative flow', menu: '.js-open-cumulative-flow-view', title: '.chart-data-table thead th' },
   { name: 'DHTMLX Gantt', menu: '.js-open-gantt-dhtmlx-view', title: '.gantt_tree_content' },
 ]) {
   for (const policy of ['formatted', 'plain-links', 'plain-source']) {
@@ -24,6 +25,11 @@ for (const view of [
           title: '# Demo [card](https://example.com/) :thumbsup:',
           startAt: new Date(), dueAt: new Date(Date.now() + 86400000),
         } });
+        if (view.name === 'cumulative flow') {
+          db.updateOne('lists', { _id: card.listId }, { $set: {
+            title: '# Demo [card](https://example.com/) :thumbsup:',
+          } });
+        }
         await loginWithToken(page, user.id, user.token);
         await openBoard(page, board.boardId, board.slug);
         await page.locator(view.menu).first().click();

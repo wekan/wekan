@@ -59,7 +59,12 @@ test('no Template.currentData()/Template.instance() call inside any afterFlush b
 
 test('the dataset title is read from the autorun-captured data context', () => {
   assert.ok(/const data = Template\.currentData\(\);\s*\n\s*const chartKey = data\.chartKey;\s*\n\s*const titleKey = data\.titleKey;/.test(src));
-  assert.ok(/label: TAPi18n\.__\(titleKey\)/.test(src));
+  assert.match(src, /const datasetTitle = titleViewerText\(TAPi18n\.__\(titleKey\)\)/);
+  assert.match(src, /label: datasetTitle/);
+  assert.match(src, /const labels = rows.map\(row => titleViewerText\(row.label\)\)/);
+  for (const body of afterFlushBodies(src)) {
+    assert.doesNotMatch(body, /titleViewerText\(/, 'policy reads belong to the reactive computation');
+  }
 });
 
 console.log(`\nboardChartsAfterFlushContext: ${passed} tests passed`);

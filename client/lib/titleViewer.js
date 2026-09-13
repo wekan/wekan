@@ -21,8 +21,12 @@ export function escapeTitleText(value) {
 
 // SVG text labels cannot contain HTML blocks. Keep the viewer's rendered
 // text/emoji, escaping it because Frappe inserts the label via innerHTML.
-export function titleViewerSvgText(value) {
+export function titleViewerText(value) {
   const container = document.createElement('div');
   container.innerHTML = titleViewerHtml(value);
-  return escapeTitleText(container.textContent);
+  return container.textContent;
+}
+
+export function titleViewerSvgText(value) {
+  return escapeTitleText(titleViewerText(value));
 }

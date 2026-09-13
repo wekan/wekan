@@ -1,3 +1,8 @@
+import { titleViewerText } from '/client/lib/titleViewer';
+import { Template } from 'meteor/templating';
+import { Meteor } from 'meteor/meteor';
+import { Session } from 'meteor/session';
+import { Tracker } from 'meteor/tracker';
 import { TAPi18n } from '/imports/i18n';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Utils } from '/client/lib/utils';
@@ -108,6 +113,10 @@ Template.boardChartView.onRendered(function() {
       const chartKey = data.chartKey;
       const titleKey = data.titleKey;
       const rows = computeBarRows(chartKey, templateInstance.chartData.get());
+      // Canvas accepts text, not HTML. Preserve viewer text and emoji while
+      // tracking policies before the nonreactive afterFlush callback.
+      const labels = rows.map(row => titleViewerText(row.label));
+      const datasetTitle = titleViewerText(TAPi18n.__(titleKey));
       // The `<canvas>` only exists in the DOM once isLoading/hasNoData flip
       // jade to the "else" branch - a sibling reactive change driven by the
       // SAME chartData update this autorun also depends on, with no
@@ -128,9 +137,9 @@ Template.boardChartView.onRendered(function() {
         templateInstance.chartJsInstance = new Chart(canvas, {
           type: 'bar',
           data: {
-            labels: rows.map(row => row.label),
+            labels,
             datasets: [{
-              label: TAPi18n.__(titleKey),
+              label: datasetTitle,
               data: rows.map(row => row.value),
               backgroundColor: BAR_COLOR,
             }],

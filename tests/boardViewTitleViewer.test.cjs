@@ -13,6 +13,7 @@ test('new board fields use the shared policy-aware viewer', () => {
     ['boards/bigboardView.jade', ['title']],
     ['boards/originalPositionsView.jade', ['originalTitle']],
     ['boards/tableView.jade', ['row.title', 'row.listTitle', 'row.swimlaneTitle']],
+    ['boards/charts/boardCharts.jade', ['header', 'cell']],
     ['lists/listHeader.jade', ['title']],
   ]) {
     const source = read(`client/components/${file}`);
@@ -40,8 +41,10 @@ test('chart title adapter delegates HTML, escapes SVG markup and observes settin
   assert.equal(context.titleViewerHtml('# Demo :thumbsup:'), '<div>Demo &amp; 👍</div>');
   assert.equal(calls[0], 'settings');
   assert.equal(calls[1][1], '# Demo :thumbsup:');
+  assert.equal(context.titleViewerText('title'), 'Demo & 👍 <script>');
   assert.equal(context.titleViewerSvgText('title'), 'Demo &amp; 👍 &lt;script&gt;');
   assert.equal(context.escapeTitleText('"\'&<>'), '&quot;&#39;&amp;&lt;&gt;');
+  assert.match(read('client/components/boards/charts/boardCharts.jade'), /\+viewer\n\s+\| \{\{ chartTitle \}\}/);
   assert.match(read('client/lib/titleViewer.jade'), /\+viewer\n\s+= value/);
   assert.match(read('client/components/gantt/dhtmlxGantt.js'), /text: titleViewerHtml\(card.title \|\| card._id\)/);
   assert.match(read('client/components/gantt/frappeGantt.js'), /name: titleViewerSvgText\(card.title \|\| card._id\)/);

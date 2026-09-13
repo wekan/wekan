@@ -1,7 +1,9 @@
 template(name="boardChartView")
   .stats-view
     .stats-view-content.chart-view-content
-      h1.stats-view-title {{ chartTitle }}
+      .stats-view-title
+        +viewer
+          | {{ chartTitle }}
       .chart-export-buttons
         a.chart-export-button.js-export-chart(href="#" data-chart-key="{{chartKey}}")
           i.fa.fa-share-square-o
@@ -22,9 +24,13 @@ template(name="boardChartView")
           thead
             tr
               each header in tableHeaders
-                th {{ header }}
+                th
+                  +viewer
+                    = header
           tbody
             each row in tableRows
               tr
                 each cell in row
-                  td {{ cell }}
+                  td
+                    +viewer
+                      = cell
