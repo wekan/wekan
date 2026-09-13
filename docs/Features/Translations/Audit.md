@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,249 |
+| Corrected | 11,254 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,597 |
+| Pending review or repair | 4,592 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,510** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **11,517** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `d34bb4658160ebe0ec2e7f5dbf34de312f1de4b9` — 3 French settings titles replaced with Wolof, retaining distinct minicard/organization/user targets and the existing settings pattern. Settings terminology and full grammar remain low confidence; custom-translation controls remain pending. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `de0b55e88d429bf4f08fc3fb07e7d34695775198` — 7 French custom-translation controls replaced with Wolof, preserving string/count/new/edit/delete distinctions and no undo. Translation vocabulary was checked; full custom-string phrasing and grammar remain low confidence. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
