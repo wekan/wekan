@@ -83361,5 +83361,54 @@
     "before": "Il n'y a pas encore d'autres membres réels sur ce tableau. Cherchez ci-dessus pour trouver n'importe quel utilisateur.",
     "after": "Amagul beneen bokkkat bu am dëgg ci tablo bii. Seetal ci kaw ngir gis jëfandikukat bu nekk.",
     "reason": "Replace French with Wolof; preserve virtual imported member versus real user, card/comment/activity transfer, unrestricted user search, adding non-board user with imported member role and prohibition on increased permissions. Mapping/virtual/role terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "memory-usage",
+    "before": "Utilisation de la mémoire",
+    "after": "Jëfandikoo memwaar",
+    "reason": "Replace French memory metric labels with Wolof framing; preserve Node, heap, RSS/resident-set technical names and external/allocated-total/actually-used distinctions rather than translating heap as ordinary pile. Memory loanword and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "Node_memory_usage_heap_used",
+    "before": "Utilisation mémoire de Node : mémoire réellement utilisée",
+    "after": "Jëfandikoo memwaar bu Node: memwaar bi ñuy jëfandikoo dëgg",
+    "reason": "Replace French memory metric labels with Wolof framing; preserve Node, heap, RSS/resident-set technical names and external/allocated-total/actually-used distinctions rather than translating heap as ordinary pile. Memory loanword and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "Node_memory_usage_external",
+    "before": "Utilisation mémoire de Node: externe",
+    "after": "Jëfandikoo memwaar bu Node: bu biti",
+    "reason": "Replace French memory metric labels with Wolof framing; preserve Node, heap, RSS/resident-set technical names and external/allocated-total/actually-used distinctions rather than translating heap as ordinary pile. Memory loanword and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "Node_memory_usage_heap_total",
+    "before": "Utilisation mémoire de Node : taille totale du tas alloué",
+    "after": "Jëfandikoo memwaar bu Node: réyaayu heap bi ñu jagleel yépp",
+    "reason": "Replace French memory metric labels with Wolof framing; preserve Node, heap, RSS/resident-set technical names and external/allocated-total/actually-used distinctions rather than translating heap as ordinary pile. Memory loanword and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "Node_memory_usage_rss",
+    "before": "Utilisation mémoire de Node : taille de l'ensemble résident",
+    "after": "Jëfandikoo memwaar bu Node: réyaayu resident set (RSS)",
+    "reason": "Replace French memory metric labels with Wolof framing; preserve Node, heap, RSS/resident-set technical names and external/allocated-total/actually-used distinctions rather than translating heap as ordinary pile. Memory loanword and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "Node_heap_used_heap_size",
+    "before": "Tas de Node : taille du tas utilisé",
+    "after": "Heap bu Node: réyaayu heap bi ñuy jëfandikoo",
+    "reason": "Replace French memory metric labels with Wolof framing; preserve Node, heap, RSS/resident-set technical names and external/allocated-total/actually-used distinctions rather than translating heap as ordinary pile. Memory loanword and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "Node_heap_total_heap_size",
+    "before": "Tas de Node : taille totale du tas",
+    "after": "Heap bu Node: réyaayu heap bi yépp",
+    "reason": "Replace French memory metric labels with Wolof framing; preserve Node, heap, RSS/resident-set technical names and external/allocated-total/actually-used distinctions rather than translating heap as ordinary pile. Memory loanword and full grammar remain low confidence."
   }
 ]
