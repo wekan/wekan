@@ -63299,5 +63299,75 @@
     "before": "Republic of China",
     "after": "Minguo arapapaha",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "account-locked",
+    "before": "Le compte est temporairement verrouillé en raison de trop de tentatives de connexion échouées. Veuillez réessayer plus tard.",
+    "after": "Stanket eo ar gont evit ur pennad abalamour da re a daolioù kennaskañ c’hwitet. Klaskit en-dro diwezhatoc’h.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "accounts-allowUserDelete",
+    "before": "Autoriser les utilisateurs à supprimer leur compte",
+    "after": "Dilemel e gont implijer e-unan",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "accounts-lockout-all-users-unlocked",
+    "before": "Tous les utilisateurs bloqués ont été déverrouillés",
+    "after": "Distanket eo bet an holl implijerien stanket",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "accounts-lockout-click-to-unlock",
+    "before": "Cliquer pour déverrouiller cet utilisateur",
+    "after": "Klikit evit distankañ an implijer-mañ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "accounts-lockout-confirm-unlock",
+    "before": "Êtes-vous sûr de vouloir déverrouiller cet utilisateur ?",
+    "after": "Ha sur oc’h e fell deoc’h distankañ an implijer-mañ ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "before": "Êtes-vous sûr de vouloir déverrouiller tous les utilisateurs verrouillés ?",
+    "after": "Ha sur oc’h e fell deoc’h distankañ an holl implijerien stanket ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "accounts-lockout-info",
+    "before": "Ces paramètres contrôlent comment les tentatives de connexion sont protégés des attaques par force brute.",
+    "after": "Arventennoù-mañ a reol penaos e vez gwarezet an taolioù kennaskañ ouzh argadennoù dre nerzh kriz.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "accounts-lockout-known-users",
+    "before": "Paramètres pour les utilisateurs connus (utilisateur existant, mot de passe incorrect)",
+    "after": "Arventennoù evit an implijerien anavezet (anv implijer reizh, ger-tremen direizh)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "accounts-lockout-locked-users-info",
+    "before": "Utilisateurs actuellement verrouillés pour trop de tentatives de connexion en échec",
+    "after": "Implijerien stanket bremañ abalamour da re a daolioù kennaskañ c’hwitet",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "br",
+    "key": "accounts-lockout-no-locked-users",
+    "before": "Il n'y a actuellement aucun utilisateur verrouillé",
+    "after": "N’eus implijer stanket ebet evit ar mare",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
