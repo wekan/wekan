@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 12,107 |
+| Corrected | 12,113 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,739 |
+| Pending review or repair | 3,733 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,554** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,560** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `0a825156ec2dd7ead485a33a4ead8dc9b2a41478` — three French limit/sort/status warnings repaired in Volapük using [Midgley dictionary terminology](https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf), including the attested whole-number term. Positive-integer meaning and placeholders preserved; assembled wording remains low confidence.
+Latest translation fix: **2026-09-13**, local commit `2b043dbb1c4fb299025c4aa409761f1dddf8aa36` — six French account-unlock/self-deletion strings repaired in Volapük using existing terminology and [Midgley vocabulary](https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf). Preserved confirmation, all-users scope and deletion permission; assembled wording and software lock adaptation remain low confidence.
 
 **Verification:** exact values, placeholders, JSON examples, key order and progress-update checks pass. Native-speaker and browser verification remain unavailable.
 
