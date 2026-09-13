@@ -93000,5 +93000,61 @@
     "before": "Erlaube Benutzern ihr Benutzerkonto selbst zu löschen",
     "after": "accountDaj Qaw' lo'wI' 'e' yIchaw'",
     "reason": "Replace German account self-deletion permission with Klingon: allow the user to delete their own account. Retain existing technical borrowing account, third-person possessive -Daj, object-verb-subject clause, and permission rather than a direct delete command. Full software phrase is assembled, low confidence, and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "accounts",
+    "before": "Konten",
+    "after": "accountmey",
+    "reason": "Replace German/French account and login controls with Klingon, retaining account creation versus failed creation, existing possession, and ability to sign in now. Reuse the existing technical borrowing account. https://klingonska.org/klo/ordlista-01.html attests chenmoH (create), luj (fail), and apostrophe-el (enter); software use of entering and assembled phrases is low confidence and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "if-you-already-have-an-account",
+    "before": "Wenn Sie bereits ein Benutzerkonto haben",
+    "after": "account DaghajtaHchugh",
+    "reason": "Replace German/French account and login controls with Klingon, retaining account creation versus failed creation, existing possession, and ability to sign in now. Reuse the existing technical borrowing account. https://klingonska.org/klo/ordlista-01.html attests chenmoH (create), luj (fail), and apostrophe-el (enter); software use of entering and assembled phrases is low confidence and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "create-account",
+    "before": "Konto erstellen",
+    "after": "account yIchenmoH",
+    "reason": "Replace German/French account and login controls with Klingon, retaining account creation versus failed creation, existing possession, and ability to sign in now. Reuse the existing technical borrowing account. https://klingonska.org/klo/ordlista-01.html attests chenmoH (create), luj (fail), and apostrophe-el (enter); software use of entering and assembled phrases is low confidence and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "already-account",
+    "before": "Hast du schon ein Konto? Anmelden",
+    "after": "account DaghajtaH'a'? yI'el",
+    "reason": "Replace German/French account and login controls with Klingon, retaining account creation versus failed creation, existing possession, and ability to sign in now. Reuse the existing technical borrowing account. https://klingonska.org/klo/ordlista-01.html attests chenmoH (create), luj (fail), and apostrophe-el (enter); software use of entering and assembled phrases is low confidence and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "account-created",
+    "before": "Compte créé ! Vous pouvez maintenant vous connecter.",
+    "after": "account chenmoHlu'pu'! DaH bI'ellaH.",
+    "reason": "Replace German/French account and login controls with Klingon, retaining account creation versus failed creation, existing possession, and ability to sign in now. Reuse the existing technical borrowing account. https://klingonska.org/klo/ordlista-01.html attests chenmoH (create), luj (fail), and apostrophe-el (enter); software use of entering and assembled phrases is low confidence and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "account-creation-failed",
+    "before": "Échec de la création du compte",
+    "after": "account chenmoHmeH Qu' lujpu'",
+    "reason": "Replace German/French account and login controls with Klingon, retaining account creation versus failed creation, existing possession, and ability to sign in now. Reuse the existing technical borrowing account. https://klingonska.org/klo/ordlista-01.html attests chenmoH (create), luj (fail), and apostrophe-el (enter); software use of entering and assembled phrases is low confidence and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "login",
+    "before": "Connexion",
+    "after": "'elmeH Qu'",
+    "reason": "Replace German/French account and login controls with Klingon, retaining account creation versus failed creation, existing possession, and ability to sign in now. Reuse the existing technical borrowing account. https://klingonska.org/klo/ordlista-01.html attests chenmoH (create), luj (fail), and apostrophe-el (enter); software use of entering and assembled phrases is low confidence and requires fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "log-in",
+    "before": "Einloggen",
+    "after": "yI'el",
+    "reason": "Replace German/French account and login controls with Klingon, retaining account creation versus failed creation, existing possession, and ability to sign in now. Reuse the existing technical borrowing account. https://klingonska.org/klo/ordlista-01.html attests chenmoH (create), luj (fail), and apostrophe-el (enter); software use of entering and assembled phrases is low confidence and requires fluent-speaker validation."
   }
 ]
