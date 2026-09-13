@@ -85643,5 +85643,26 @@
     "before": "Republic of China",
     "after": "Minguo литэ",
     "reason": "Replace English named calendar labels and Mongolian-style Хуанли calendar noun with attested Buryat литэ; retain Dangi/Hijri/Umm al-Qura/Minguo identities. Buryat newspaper calendar labels Бураад литэ and Европын литэ appear at https://burunen.storage.yandexcloud.net/iblock/f30/f30f6193c9ab8a04f4e453d8d339544c/fec11ec226f5a0b161d044ce20e2feaf.pdf . Proper calendar identities retained in Latin script pending supported transliteration. Complete adapted label grammar remains low confidence; setting, religious/country and Hijri variants still need review."
+  },
+  {
+    "locale": "bua",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Хитадай литэ",
+    "reason": "Replace English Chinese/Japanese calendar labels with Buryat and restore Gregorian ISO week detail missing from bare ISO label. Хитадай and Японой country genitives attested at https://burunen.ru/bur/news/sports/101623-ana-andaa-kh-rebeg-y/ ; литэ and долоон хоног wording supported at https://burunen.ru/bur/news/society/135207-manay-lite/ . Retain Gregorian identity in Latin spelling pending established Buryat rendering. Complete adapted label grammar remains low confidence; setting, other religious/country and Hijri variant labels remain pending."
+  },
+  {
+    "locale": "bua",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Японой литэ",
+    "reason": "Replace English Chinese/Japanese calendar labels with Buryat and restore Gregorian ISO week detail missing from bare ISO label. Хитадай and Японой country genitives attested at https://burunen.ru/bur/news/sports/101623-ana-andaa-kh-rebeg-y/ ; литэ and долоон хоног wording supported at https://burunen.ru/bur/news/society/135207-manay-lite/ . Retain Gregorian identity in Latin spelling pending established Buryat rendering. Complete adapted label grammar remains low confidence; setting, other religious/country and Hijri variant labels remain pending."
+  },
+  {
+    "locale": "bua",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "Gregoriana литэ (ISO 8601 долоон хоног)",
+    "reason": "Replace English Chinese/Japanese calendar labels with Buryat and restore Gregorian ISO week detail missing from bare ISO label. Хитадай and Японой country genitives attested at https://burunen.ru/bur/news/sports/101623-ana-andaa-kh-rebeg-y/ ; литэ and долоон хоног wording supported at https://burunen.ru/bur/news/society/135207-manay-lite/ . Retain Gregorian identity in Latin spelling pending established Buryat rendering. Complete adapted label grammar remains low confidence; setting, other religious/country and Hijri variant labels remain pending."
   }
 ]
