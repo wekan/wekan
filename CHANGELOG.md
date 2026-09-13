@@ -640,6 +640,17 @@ and improves the following Time view rendering:
 **Time view** - Security-aware card-title display.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a7b333dad">Cover Time view plain-link security modes</a>. Thanks to xet7.</summary>
+
+The shared viewer also obeys Admin Panel / Problems / Security / Render links
+as plain text. When enabled, title links are non-clickable while Markdown
+and emojis still render unless all-code plain-text mode is enabled. The
+report guard passes; browser tests for both link modes are registered and
+syntax-checked, not run live.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/dc0855711">Use the shared viewer for Time view card titles</a>. Thanks to xet7.</summary>
 
 Card titles now use the same Markdown and emoji viewer as other view fields.

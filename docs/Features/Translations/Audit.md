@@ -30,7 +30,7 @@ Latest translation fix: **2026-09-14**, local commit `b5db9509e` — replaced th
 
 **Security interruption (2026-09-14):** `c1246d720` reviews both saved `.tools/wekansec20` alerts and hardens exact archive-host checks and shell-free mirror dispatch, including direct Windows Node execution. All 25 focused mirror test entries pass; native Windows and remote CodeQL rescanning remain unverified. Translation counts and remaining validation are unchanged.
 
-**Time view interruption (2026-09-14):** local commit `dc0855711` renders card titles through the shared Markdown/emoji viewer, respecting Admin Panel plain-text security mode. The report regression passes; both browser modes are added and syntax-checked, not run live. Translation counts remain unchanged.
+**Time view interruption (2026-09-14):** local commit `dc0855711` renders card titles through the shared Markdown/emoji viewer, respecting Admin Panel plain-text security mode. The report regression passes; both browser modes are added and syntax-checked, not run live. The shared viewer also obeys Admin Panel plain-link mode; `a7b333dad` adds both clickable/non-clickable browser regressions, syntax-checked but not run live. Translation counts remain unchanged.
 
 **Calendar interruption (2026-09-14):** local commit `ef12548a9` replaces the rejected FullCalendar 5 `isRTL` option with `direction` in both board calendars. Four focused calendar test entries pass, including RTL/LTR and negative legacy-option checks. Browser regressions are added and syntax-checked, not run live. Translation counts and remaining language validation are unchanged.
 
