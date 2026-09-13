@@ -82157,5 +82157,82 @@
     "before": "Schémas d'URL personnalisés qui devraient être automatiquement cliquables. Un schéma d'URL par ligne",
     "after": "Tëralinu URL yi ñu def ci soxla te ñu war a man a bës ci boppam. Benn tëralinu URL ci rëdd bu nekk",
     "reason": "Replace French with Wolof; preserve auto-width enabled/disabled actions, avatar maximum token, multiple-board calendar and custom clickable URL schemes one per line. Width root checked against https://lgidf.cnrs.fr/wolof-lexique-l; derived width noun, authentication/scheme phrasing, calendar loanword and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "createCustomField",
+    "before": "Créer un champ personnalisé",
+    "after": "Sos wàllu dugal",
+    "reason": "Replace French with Wolof using existing date, custom input, retry/resume and authentication terminology; preserve sort direction, irreversible all-card custom-field/history removal, default versus display authentication and due-today token. Default/authentication phrasing and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "created-at-newest-first",
+    "before": "Date de création (Plus récentes en premier)",
+    "after": "Bisu sos (yi gën a bees ñoo jiitu)",
+    "reason": "Replace French with Wolof using existing date, custom input, retry/resume and authentication terminology; preserve sort direction, irreversible all-card custom-field/history removal, default versus display authentication and due-today token. Default/authentication phrasing and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "created-at-oldest-first",
+    "before": "Date de création (Plus anciennes en premier)",
+    "after": "Bisu sos (yi gën a yàgg ñoo jiitu)",
+    "reason": "Replace French with Wolof using existing date, custom input, retry/resume and authentication terminology; preserve sort direction, irreversible all-card custom-field/history removal, default versus display authentication and due-today token. Default/authentication phrasing and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "cron-resume-paused",
+    "before": "Reprendre les migrations en pause",
+    "after": "Dellu ci migration yi ñu taxawal",
+    "reason": "Replace French with Wolof using existing date, custom input, retry/resume and authentication terminology; preserve sort direction, irreversible all-card custom-field/history removal, default versus display authentication and due-today token. Default/authentication phrasing and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "cron-retry-failed",
+    "before": "Réessayer les migrations échouées",
+    "after": "Jéemaat migration yi antuwul",
+    "reason": "Replace French with Wolof using existing date, custom input, retry/resume and authentication terminology; preserve sort direction, irreversible all-card custom-field/history removal, default versus display authentication and due-today token. Default/authentication phrasing and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "custom-field-delete-pop",
+    "before": "Cette action est irréversible. Elle supprimera ce champ personnalisé de toutes les cartes et détruira son historique.",
+    "after": "Amul neenal. Lii dina dindi wàllu dugal bu ñu def ci soxla bii ci karta yépp te far jaar-jaaram.",
+    "reason": "Replace French with Wolof using existing date, custom input, retry/resume and authentication terminology; preserve sort direction, irreversible all-card custom-field/history removal, default versus display authentication and due-today token. Default/authentication phrasing and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "default-authentication-method",
+    "before": "Méthode d'authentification par défaut",
+    "after": "Yoonu saytu ki dugg bi ñu jëfandikoo bu ñu tànnul beneen",
+    "reason": "Replace French with Wolof using existing date, custom input, retry/resume and authentication terminology; preserve sort direction, irreversible all-card custom-field/history removal, default versus display authentication and due-today token. Default/authentication phrasing and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "display-authentication-method",
+    "before": "Afficher la méthode d'authentification",
+    "after": "Wone yoonu saytu ki dugg",
+    "reason": "Replace French with Wolof using existing date, custom input, retry/resume and authentication terminology; preserve sort direction, irreversible all-card custom-field/history removal, default versus display authentication and due-today token. Default/authentication phrasing and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "duenow",
+    "before": "La date d'échéance %s est aujourd'hui",
+    "after": "waxtu jeexal bi %s mooy tey",
+    "reason": "Replace French with Wolof using existing date, custom input, retry/resume and authentication terminology; preserve sort direction, irreversible all-card custom-field/history removal, default versus display authentication and due-today token. Default/authentication phrasing and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "editCardDueDatePopup-title",
+    "before": "Modifier la date d'échéance",
+    "after": "Soppi bis bi ñu war a jeexal",
+    "reason": "Replace French with Wolof using existing date, custom input, retry/resume and authentication terminology; preserve sort direction, irreversible all-card custom-field/history removal, default versus display authentication and due-today token. Default/authentication phrasing and complete grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "editCardReceivedDatePopup-title",
+    "before": "Modifier la date de réception",
+    "after": "Soppi bisu jot",
+    "reason": "Replace French with Wolof using existing date, custom input, retry/resume and authentication terminology; preserve sort direction, irreversible all-card custom-field/history removal, default versus display authentication and due-today token. Default/authentication phrasing and complete grammar remain low confidence."
   }
 ]
