@@ -60051,5 +60051,110 @@
     "before": "Déplacer la carte en haut de sa liste",
     "after": "Desplaçar la carta en naut de sa lista",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "r-d-move-to-top-spec",
+    "before": "Déplacer la carte en haut de la liste",
+    "after": "Desplaçar la carta en naut de la lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "r-d-remove-all-member",
+    "before": "Supprimer tous les participants",
+    "after": "Levar totes los membres",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "r-remove-all",
+    "before": "Supprimer tous les membres de la carte",
+    "after": "Levar totes los membres de la carta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "r-when-a-card-is-moved",
+    "before": "Quand une carte est déplacée vers une autre liste",
+    "after": "Quand una carta es desplaçada cap a una autra lista",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "r-when-a-item",
+    "before": "Quand un élément de la check-list est",
+    "after": "Quand un element de la lista de contraròtle es",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "r-when-the-item",
+    "before": "Quand l'élément de la check-list",
+    "after": "Quand l’element de la lista de contraròtle",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "remove-background-image",
+    "before": "Supprimer l'image de fond",
+    "after": "Levar l’imatge de fons",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "remove-cover",
+    "before": "Supprimer la vignette de la mini-carte",
+    "after": "Levar l’imatge de cobertura de la minicarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "remove-member-pop",
+    "before": "Supprimer __name__ (__username__) de __boardTitle__ ? Ce participant sera supprimé de toutes les cartes du tableau et recevra une notification.",
+    "after": "Levar __name__ (__username__) de __boardTitle__ ? Lo membre serà levat de totas las cartas d’aqueste tablèu. Recebrà una notificacion.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "remove-organization-from-board",
+    "before": "Voulez-vous vraiment supprimer cette organisation de ce tableau ?",
+    "after": "Volètz vertadièrament levar aquesta organizacion d’aqueste tablèu ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "remove-team-from-table",
+    "before": "Voulez-vous vraiment supprimer cette équipe du tableau ?",
+    "after": "Volètz vertadièrament levar aquesta equipa del tablèu ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "removeMemberPopup-title",
+    "before": "Supprimer le participant ?",
+    "after": "Levar lo membre ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "run-comprehensive-migration-confirm",
+    "before": "Cette opération effectuera une migration complète pour vérifier et corriger l'intégrité des données du tableau. Cela peut prendre quelques instants. Continuer ?",
+    "after": "Aquò executarà una migracion completa per verificar e corregir l’integritat de las donadas del tablèu. Aquò pòt prene qualques instants. Contunhar ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "run-fix-all-file-urls-migration-confirm",
+    "before": "Cette opération mettra à jour toutes les URL des pièces jointes de ce tableau pour utiliser le bon backend de stockage. Continuer ?",
+    "after": "Aquò actualizarà totas las URL de las pèças juntas d’aqueste tablèu per utilizar lo sistèma de conservacion corrècte. Contunhar ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "Cette opération mettra à jour les URL des avatars des participants du tableau pour utiliser le bon backend de stockage. Continuer ?",
+    "after": "Aquò actualizarà las URL dels avatars dels membres del tablèu per utilizar lo sistèma de conservacion corrècte. Contunhar ?",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
