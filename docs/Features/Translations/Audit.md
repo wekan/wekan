@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,924 |
+| Corrected | 11,925 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 3,922 |
+| Pending review or repair | 3,921 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,314** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,315** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `3685fe80df2b726b42c1714aaeebb95b57701fab` — Dzongkha Jalali designation repaired using [CLDR calendar and Persian terminology](https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/dz.xml). Adapted wording remains low confidence. Exact-value, token, JSON-example, key-order and idempotency checks pass; native-speaker and browser verification remain unavailable.
+Latest translation fix: **2026-09-13**, local commit `3e6c1780406621e9781a45e23d69f3fbe02fcbeb` — Dzongkha Indian national calendar label repaired using official dictionary national terminology and CLDR country/calendar names. Assembled wording remains low confidence. Exact-value, token, JSON-example, key-order and idempotency checks pass; native-speaker and browser verification remain unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending because available evidence does not distinguish its wording sufficiently from Polish.
 
