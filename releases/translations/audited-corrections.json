@@ -118753,5 +118753,110 @@
     "before": "Vienti Exceliin ei onnistu: levytilaa ei ole riittävästi",
     "after": "Ei voi tehta Excel-irdalevendad: diskal ei ole külläks joudajad tilad",
     "reason": "Replace Finnish board/workspace confirmations or disk-space warning with Veps dictionary lähtta, kopiruida, külläks and joudai. Preserve boardTitle placeholder, removal from every board card, duplication and insufficient available disk space. Composed technical inflection remains low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-top-left-corner-logo-image-url",
+    "before": "Mukautettu oikean yläkulman logo kuvan URL",
+    "after": "Kävutajan märitud ülähäižen huran čogan logokuvan URL",
+    "reason": "Replace flagged Finnish customization labels with Veps dictionary hura, ülähäine, čoga, korktuz, südäimuz, juridi-ne and existing terminology. Correct top-right mistranslation to top-left. Preserve URL/HTML/JSON, head/link/meta distinctions, assetlinks.json and default height 27. Adapted technical loans and composed morphology remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-top-left-corner-logo-link-url",
+    "before": "Mukautettu oikean yläkulma logon linkki URL",
+    "after": "Kävutajan märitud ülähäižen huran čogan logon linkan URL",
+    "reason": "Replace flagged Finnish customization labels with Veps dictionary hura, ülähäine, čoga, korktuz, südäimuz, juridi-ne and existing terminology. Correct top-right mistranslation to top-left. Preserve URL/HTML/JSON, head/link/meta distinctions, assetlinks.json and default height 27. Adapted technical loans and composed morphology remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-top-left-corner-logo-height",
+    "before": "Mukautettu oikean yläkulman logokuvan korkeus. Oletus: 27",
+    "after": "Kävutajan märitud ülähäižen huran čogan logon korktuz’. Sanumata: 27",
+    "reason": "Replace flagged Finnish customization labels with Veps dictionary hura, ülähäine, čoga, korktuz, südäimuz, juridi-ne and existing terminology. Correct top-right mistranslation to top-left. Preserve URL/HTML/JSON, head/link/meta distinctions, assetlinks.json and default height 27. Adapted technical loans and composed morphology remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-login-logo-image-url",
+    "before": "Mukautettu kirjautumis logo kuvan URL",
+    "after": "Kävutajan märitud sistemaha tulendan logokuvan URL",
+    "reason": "Replace flagged Finnish customization labels with Veps dictionary hura, ülähäine, čoga, korktuz, südäimuz, juridi-ne and existing terminology. Correct top-right mistranslation to top-left. Preserve URL/HTML/JSON, head/link/meta distinctions, assetlinks.json and default height 27. Adapted technical loans and composed morphology remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-login-logo-link-url",
+    "before": "Mukautettu kirjautumis logon linkki URL",
+    "after": "Kävutajan märitud sistemaha tulendan logon linkan URL",
+    "reason": "Replace flagged Finnish customization labels with Veps dictionary hura, ülähäine, čoga, korktuz, südäimuz, juridi-ne and existing terminology. Correct top-right mistranslation to top-left. Preserve URL/HTML/JSON, head/link/meta distinctions, assetlinks.json and default height 27. Adapted technical loans and composed morphology remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-help-link-url",
+    "before": "Mukautettu Ohje linkki URL",
+    "after": "Kävutajan märitud abun linkan URL",
+    "reason": "Replace flagged Finnish customization labels with Veps dictionary hura, ülähäine, čoga, korktuz, südäimuz, juridi-ne and existing terminology. Correct top-right mistranslation to top-left. Preserve URL/HTML/JSON, head/link/meta distinctions, assetlinks.json and default height 27. Adapted technical loans and composed morphology remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "text-below-custom-login-logo",
+    "before": "Teksti mukautetun kirjautumis logon alla",
+    "after": "Tekst kävutajan märitud sistemaha tulendan logon al",
+    "reason": "Replace flagged Finnish customization labels with Veps dictionary hura, ülähäine, čoga, korktuz, südäimuz, juridi-ne and existing terminology. Correct top-right mistranslation to top-left. Preserve URL/HTML/JSON, head/link/meta distinctions, assetlinks.json and default height 27. Adapted technical loans and composed morphology remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-head-tags-enabled",
+    "before": "Ota käytöön mukautetut head tagit",
+    "after": "Pane päle kävutajan märitud head-tagad",
+    "reason": "Replace flagged Finnish customization labels with Veps dictionary hura, ülähäine, čoga, korktuz, südäimuz, juridi-ne and existing terminology. Correct top-right mistranslation to top-left. Preserve URL/HTML/JSON, head/link/meta distinctions, assetlinks.json and default height 27. Adapted technical loans and composed morphology remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-head-meta-tags",
+    "before": "Mukautetut meta tagit (HTML)",
+    "after": "Kävutajan märitud meta-tagad (HTML)",
+    "reason": "Replace flagged Finnish customization labels with Veps dictionary hura, ülähäine, čoga, korktuz, südäimuz, juridi-ne and existing terminology. Correct top-right mistranslation to top-left. Preserve URL/HTML/JSON, head/link/meta distinctions, assetlinks.json and default height 27. Adapted technical loans and composed morphology remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-head-link-tags",
+    "before": "Mukautetut link tagit (HTML)",
+    "after": "Kävutajan märitud link-tagad (HTML)",
+    "reason": "Replace flagged Finnish customization labels with Veps dictionary hura, ülähäine, čoga, korktuz, südäimuz, juridi-ne and existing terminology. Correct top-right mistranslation to top-left. Preserve URL/HTML/JSON, head/link/meta distinctions, assetlinks.json and default height 27. Adapted technical loans and composed morphology remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-manifest-enabled",
+    "before": "Ota käyttöön mukautettu web manifest",
+    "after": "Pane päle kävutajan märitud web-manifest",
+    "reason": "Replace flagged Finnish customization labels with Veps dictionary hura, ülähäine, čoga, korktuz, südäimuz, juridi-ne and existing terminology. Correct top-right mistranslation to top-left. Preserve URL/HTML/JSON, head/link/meta distinctions, assetlinks.json and default height 27. Adapted technical loans and composed morphology remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-head-manifest-content",
+    "before": "Mukautettu web manifest sisältö (JSON)",
+    "after": "Kävutajan märitud web-manifestan südäimuz (JSON)",
+    "reason": "Replace flagged Finnish customization labels with Veps dictionary hura, ülähäine, čoga, korktuz, südäimuz, juridi-ne and existing terminology. Correct top-right mistranslation to top-left. Preserve URL/HTML/JSON, head/link/meta distinctions, assetlinks.json and default height 27. Adapted technical loans and composed morphology remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-assetlinks-enabled",
+    "before": "Ota käyttöön mukautettu assetlinks.json",
+    "after": "Pane päle kävutajan märitud assetlinks.json",
+    "reason": "Replace flagged Finnish customization labels with Veps dictionary hura, ülähäine, čoga, korktuz, südäimuz, juridi-ne and existing terminology. Correct top-right mistranslation to top-left. Preserve URL/HTML/JSON, head/link/meta distinctions, assetlinks.json and default height 27. Adapted technical loans and composed morphology remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-assetlinks-content",
+    "before": "Mukautettu assetlinks.json sisältö (JSON)",
+    "after": "Kävutajan märitud assetlinks.json südäimuz (JSON)",
+    "reason": "Replace flagged Finnish customization labels with Veps dictionary hura, ülähäine, čoga, korktuz, südäimuz, juridi-ne and existing terminology. Correct top-right mistranslation to top-left. Preserve URL/HTML/JSON, head/link/meta distinctions, assetlinks.json and default height 27. Adapted technical loans and composed morphology remain low confidence pending fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-legal-notice-link-url",
+    "before": "Muokatun oikeudellisen huomautuksen sivun URL",
+    "after": "Kävutajan märitud juridižen homaičusen lehtpolen URL",
+    "reason": "Replace flagged Finnish customization labels with Veps dictionary hura, ülähäine, čoga, korktuz, südäimuz, juridi-ne and existing terminology. Correct top-right mistranslation to top-left. Preserve URL/HTML/JSON, head/link/meta distinctions, assetlinks.json and default height 27. Adapted technical loans and composed morphology remain low confidence pending fluent review."
   }
 ]

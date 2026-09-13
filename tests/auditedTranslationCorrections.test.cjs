@@ -2064,5 +2064,34 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['leave-board-pop'], /kaikiš necen laudan kartoišpäi/);
   assert.match(cache['ve-PP']['export-card-excel-no-disk-space'], /^Ei voi.*diskal ei ole külläks/);
   assert.match(cache['ve-PP']['duplicate-board-confirm'], /kopiruida.*laudan/);
+  const vepsCustomizationLabels = {
+  "custom-top-left-corner-logo-image-url": "Kävutajan märitud ülähäižen huran čogan logokuvan URL",
+  "custom-top-left-corner-logo-link-url": "Kävutajan märitud ülähäižen huran čogan logon linkan URL",
+  "custom-top-left-corner-logo-height": "Kävutajan märitud ülähäižen huran čogan logon korktuz’. Sanumata: 27",
+  "custom-login-logo-image-url": "Kävutajan märitud sistemaha tulendan logokuvan URL",
+  "custom-login-logo-link-url": "Kävutajan märitud sistemaha tulendan logon linkan URL",
+  "custom-help-link-url": "Kävutajan märitud abun linkan URL",
+  "text-below-custom-login-logo": "Tekst kävutajan märitud sistemaha tulendan logon al",
+  "custom-head-tags-enabled": "Pane päle kävutajan märitud head-tagad",
+  "custom-head-meta-tags": "Kävutajan märitud meta-tagad (HTML)",
+  "custom-head-link-tags": "Kävutajan märitud link-tagad (HTML)",
+  "custom-manifest-enabled": "Pane päle kävutajan märitud web-manifest",
+  "custom-head-manifest-content": "Kävutajan märitud web-manifestan südäimuz (JSON)",
+  "custom-assetlinks-enabled": "Pane päle kävutajan märitud assetlinks.json",
+  "custom-assetlinks-content": "Kävutajan märitud assetlinks.json südäimuz (JSON)",
+  "custom-legal-notice-link-url": "Kävutajan märitud juridižen homaičusen lehtpolen URL"
+};
+  for (const [key, value] of Object.entries(vepsCustomizationLabels)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Mukautettu|mukautetun|Muokatun|oikean yläkulman|Ota käyttöön|Ota käytöön|sisältö|kirjautumis/, key);
+  }
+  for (const key of ['custom-top-left-corner-logo-image-url', 'custom-top-left-corner-logo-link-url', 'custom-top-left-corner-logo-height']) assert.match(cache['ve-PP'][key], /ülähäižen huran čogan/);
+  assert.match(cache['ve-PP']['custom-top-left-corner-logo-height'], /Sanumata: 27$/);
+  assert.match(cache['ve-PP']['custom-assetlinks-content'], /assetlinks\.json.*JSON/);
+  assert.match(cache['ve-PP']['custom-head-link-tags'], /link-tagad.*HTML/);
+  assert.match(cache['ve-PP']['custom-head-meta-tags'], /meta-tagad.*HTML/);
+  assert.match(cache['ve-PP']['text-below-custom-login-logo'], /logon al$/);
+  assert.notEqual(cache['ve-PP']['custom-login-logo-image-url'], cache['ve-PP']['custom-login-logo-link-url']);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
