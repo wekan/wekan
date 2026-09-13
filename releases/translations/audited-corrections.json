@@ -54850,5 +54850,61 @@
     "before": "`__operator_created__:<n>` - schede create *<n>* giorni fa o prima",
     "after": "`__operator_created__:<n>` - cãrtsã creati cu *<n>* dzãli ninti icã ma recent",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "globalSearch-instructions-operator-label",
+    "before": "`__operator_label__:<color>` `__operator_label__:<name>` - schede aventi un'etichetta corrispondente a *<color>* oppure *<name>*",
+    "after": "`__operator_label__:<color>` `__operator_label__:<name>` - cãrtsã cu etichetã tsi corespundi la *<color>* icã *<name>",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "globalSearch-instructions-operator-list",
+    "before": "`__operator_list__:<title>` - schede nelle liste corrispondenti a *<title>*",
+    "after": "`__operator_list__:<title>` - cãrtsã tu listili tsi corespundu la *<title>* specificat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "globalSearch-instructions-operator-member",
+    "before": "`__operator_member__:<username>` - schede dove *<username>* è un *membro*",
+    "after": "`__operator_member__:<username>` - cãrtsã iu *<username>* easti un *membru*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "globalSearch-instructions-operator-modified",
+    "before": "`__operator_modified__:<n>` - schede modificate *<n>* giorni fa o prima",
+    "after": "`__operator_modified__:<n>` - cãrtsã alãxati cu *<n>* dzãli ninti icã ma recent",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "globalSearch-instructions-operator-status",
+    "before": "`__operator_status__:<status>` - dove *<status>* è uno dei seguenti:",
+    "after": "`__operator_status__:<status>` - iu *<status>* easti un di aestili:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "globalSearch-instructions-operator-swimlane",
+    "before": "`__operator_swimlane__:<title>` - schede in swimlane corrispondenti a *<title>*",
+    "after": "`__operator_swimlane__:<title>` - cãrtsã tu culoarili tsi corespundu la *<title>* specificat",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "globalSearch-instructions-operator-user",
+    "before": "`__operator_user__:<username>` - schede dove *<username>* è un *membro* oppure *assegnatario*",
+    "after": "`__operator_user__:<username>` - cãrtsã iu *<username>* easti *membru* icã *persoanã atribuitã*",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "globalSearch-instructions-status-all",
+    "before": "`__predicate_all__` - tutte le schede archiviate e non archiviate",
+    "after": "`__predicate_all__` - tuti cãrtsãli arhivati shi niarhivati",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
