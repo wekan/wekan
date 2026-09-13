@@ -580,7 +580,8 @@ Neapolitan rule-item labels and examples use dictionary-attested terminology.
 Calendar, list and time labels reuse existing wording. Multiple-board calendars,
 current-time actions and comma-separated examples retain their distinctions.
 Fulah and Bambara Persian calendar qualifiers use Unicode locale terminology.
-The audit records verified repairs and remaining language reviews.
+The audit records verified repairs and remaining language reviews. A Meteor
+skills review documents current safeguards and remaining code improvements.
 
 This release adds the following translation improvements:
 
@@ -682,6 +683,21 @@ Production rendering and all 17,112 correction regressions pass, preserving
 placeholders, JSON, key order and newer correct translations. View-name grammar
 and collapse terminology have low confidence and need fluent review. Live
 browser checks were not run. The original queue has 794 pending findings.
+
+</details>
+
+This release adds the following developer documentation:
+
+**Developer documentation** - Meteor skills audit and remaining improvements.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/82666385e">Document Meteor skills review findings and verification limits</a>. Thanks to xet7.</summary>
+
+Record four confirmed search, browser-policy and multi-card popup findings,
+publication and permission review candidates, and existing safeguards in
+docs/Security/Skills/Audit.md. Seven focused Node test entries pass. Full
+builds, live DDP and browser tests remain open for this audit. This entry
+documents recommendations; it does not claim application fixes.
 
 </details>
 
