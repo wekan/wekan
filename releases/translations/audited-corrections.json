@@ -51399,5 +51399,61 @@
     "before": "Persone (Creatore, Proprietario, Membri, Assegnatari)",
     "after": "Persone (Creatore, Pruprietariu, Membri, Risponsabili)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "filesystem-disabled",
+    "before": "Storage su filesystem disabilitato",
+    "after": "Arregistramentu in u sistema di schedarii disattivatu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "filesystem-enabled",
+    "before": "Storage su filesystem abilitato",
+    "after": "Arregistramentu in u sistema di schedarii attivatu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "filter-assignee-label",
+    "before": "Filtra secondo l'assegnatario",
+    "after": "Filtrà secondu u risponsabile",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "filter-custom-fields-label",
+    "before": "Filtra secondo campi personalizzati",
+    "after": "Filtrà secondu i campi persunalizati",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "filter-due-next-week",
+    "before": "Scadenza prossima settimana",
+    "after": "Scadenza a settimana prossima",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "filter-labels-label",
+    "before": "Filtra secondo l'etichetta",
+    "after": "Filtrà secondu l’etichetta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "filter-no-custom-fields",
+    "before": "Nessun campo personalizzato",
+    "after": "Nisun campu persunalizatu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "fixed-list-width",
+    "before": "Stessa larghezza per tutte le liste",
+    "after": "A listessa larghezza per tutte e liste",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
