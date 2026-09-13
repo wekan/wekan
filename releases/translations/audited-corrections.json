@@ -93777,5 +93777,47 @@
     "before": "Impossible de voir les commentaires.",
     "after": "QInHommey leghlaHbe'.",
     "reason": "Replace German/French read/comment permission labels and descriptions with Klingon. Preserve viewing versus commenting, inability to edit, assigned-card-only visibility, and inability to see comments. Reuse repaired QInHom and card terms; assignment is described as cards given to the user, with plural indefinite lu-noblu agreement. Full role/software wording and assignment metaphor are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "list-move-cards",
+    "before": "Alle Karten in dieser Liste verschieben",
+    "after": "tetlhvamvo' Hoch 'echletHommey tIvIHmoH",
+    "reason": "Replace German list/card movement, selection, addition and import controls with Klingon. Preserve all cards of this list versus a single added list/card, retain Trello as the card import source, and distinguish board import. Reuse repaired vIHmoH, wIv, qem, tetlh, card and board terminology with appropriate plural/singular imperatives. Full software phrasing and import metaphor are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "list-select-cards",
+    "before": "Alle Karten in dieser Liste auswählen",
+    "after": "tetlhvamDaq Hoch 'echletHommey tIwIv",
+    "reason": "Replace German list/card movement, selection, addition and import controls with Klingon. Preserve all cards of this list versus a single added list/card, retain Trello as the card import source, and distinguish board import. Reuse repaired vIHmoH, wIv, qem, tetlh, card and board terminology with appropriate plural/singular imperatives. Full software phrasing and import metaphor are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "listImportCardPopup-title",
+    "before": "Eine Trello-Karte importieren",
+    "after": "Trello 'echletHom yIqem",
+    "reason": "Replace German list/card movement, selection, addition and import controls with Klingon. Preserve all cards of this list versus a single added list/card, retain Trello as the card import source, and distinguish board import. Reuse repaired vIHmoH, wIv, qem, tetlh, card and board terminology with appropriate plural/singular imperatives. Full software phrasing and import metaphor are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "add-list",
+    "before": "Liste hinzufügen",
+    "after": "tetlh yIchel",
+    "reason": "Replace German list/card movement, selection, addition and import controls with Klingon. Preserve all cards of this list versus a single added list/card, retain Trello as the card import source, and distinguish board import. Reuse repaired vIHmoH, wIv, qem, tetlh, card and board terminology with appropriate plural/singular imperatives. Full software phrasing and import metaphor are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "add-card",
+    "before": "Karte hinzufügen",
+    "after": "'echletHom yIchel",
+    "reason": "Replace German list/card movement, selection, addition and import controls with Klingon. Preserve all cards of this list versus a single added list/card, retain Trello as the card import source, and distinguish board import. Reuse repaired vIHmoH, wIv, qem, tetlh, card and board terminology with appropriate plural/singular imperatives. Full software phrasing and import metaphor are assembled, low confidence, and need fluent-speaker validation."
+  },
+  {
+    "locale": "tlh",
+    "key": "import-board",
+    "before": "Board importieren",
+    "after": "raS yIqem",
+    "reason": "Replace German list/card movement, selection, addition and import controls with Klingon. Preserve all cards of this list versus a single added list/card, retain Trello as the card import source, and distinguish board import. Reuse repaired vIHmoH, wIv, qem, tetlh, card and board terminology with appropriate plural/singular imperatives. Full software phrasing and import metaphor are assembled, low confidence, and need fluent-speaker validation."
   }
 ]
