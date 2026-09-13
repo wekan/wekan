@@ -56691,5 +56691,180 @@
     "before": "C'è stato un errore mentre provavi ad effettuare il login",
     "after": "Ce sta stato 'n errore mentre pruvave a trasì",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "expand-checklist",
+    "before": "Espandi la lista di controllo",
+    "after": "Arape 'a lista 'e cuntrollo",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "export-card-excel-no-disk-space",
+    "before": "Impossibile esportare in Excel: spazio su disco insufficiente",
+    "after": "Nun se pò esportà a Excel: nun ce sta abbastanza spazio libero ncopp'o disco",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "export-card-field-dates",
+    "before": "Date (Creazione, Ricezione, Inizio, Scadenza, Fine)",
+    "after": "Date (Criazzione, Ricezzione, Inizio, Scadenza, Fine)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "export-card-field-people",
+    "before": "Persone (Creatore, Proprietario, Membri, Assegnatari)",
+    "after": "Perzone (Criatore, Prupietario, Membre, Assegnatarie)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "filesystem-disabled",
+    "before": "Storage su filesystem disabilitato",
+    "after": "Memorizzazzione ncopp'o filesystem disattivata",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "filesystem-enabled",
+    "before": "Storage su filesystem abilitato",
+    "after": "Memorizzazzione ncopp'o filesystem attivata",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "filter-assignee-label",
+    "before": "Filtra secondo l'assegnatario",
+    "after": "Filtra pe assegnatario",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "filter-custom-fields-label",
+    "before": "Filtra secondo campi personalizzati",
+    "after": "Filtra pe campe personalizzate",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "filter-due-next-week",
+    "before": "Scadenza prossima settimana",
+    "after": "Scadenza 'a semmana ca vene",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "filter-labels-label",
+    "before": "Filtra secondo l'etichetta",
+    "after": "Filtra pe etichetta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "filter-no-custom-fields",
+    "before": "Nessun campo personalizzato",
+    "after": "Nun ce stanno campe personalizzate",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "fix-avatar-urls-migration",
+    "before": "Correggi URL degli avatar",
+    "after": "Accuncia ll'URL d'e avatar",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "font-default",
+    "before": "Predefinito (nessun font personalizzato)",
+    "after": "Predefinito (nisciun carattere personalizzato)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "font-preview-text",
+    "before": "Ma la volpe, col suo balzo, ha raggiunto il quieto Fido 0123456789",
+    "after": "'A volpe marrone svelta zompa ncopp'o cane pegro 0123456789",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "gcs-bucket",
+    "before": "Contenitore di archiviazione",
+    "after": "Cuntenitore 'e memorizzazzione",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "gcs-credentials",
+    "before": "Credenziali dell'account di servizio (JSON)",
+    "after": "Credenziale 'e ll'account 'e servizio (JSON)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "gcs-storage-description",
+    "before": "Archiviazione Google Cloud.",
+    "after": "Memorizzazzione Google Cloud.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "globalSearch-instructions-operator-status",
+    "before": "`__operator_status__:<status>` - dove *<status>* è uno dei seguenti:",
+    "after": "`__operator_status__:<status>` - addó *<status>* è uno 'e chiste:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "hide-checked-items",
+    "before": "Nascondi articoli controllati",
+    "after": "Annascunne ll'elemente spuntate",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "hide-finished-checklist",
+    "before": "Nascondi la lista di controllo completata",
+    "after": "Annascunne 'a lista 'e cuntrollo cumpletata",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "hide-minicard-label-text",
+    "before": "Nascondi etichetta minicard",
+    "after": "Annascunne 'o testo 'e ll'etichetta d'a minicarta",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "impersonationReportTitle",
+    "before": "Report impersonificazione",
+    "after": "Rapporto 'e impersonazzione",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "import-attachments-zip",
+    "before": "ZIP degli allegati di Trello (facoltativo, da Trello Card Attachments Downloader)",
+    "after": "ZIP d'e allegati Trello (facoltativo, da Trello Card Attachments Downloader)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "import-board-instruction-csv",
+    "before": "Incolla in Comma Separated Values (CSV) / Tab Separated Values (TSV) .",
+    "after": "Ncòlla 'e valore separate da virgole (CSV) o da tabulazzione (TSV).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "nap",
+    "key": "import-show-user-mapping",
+    "before": "Rivedi la mappatura dei membri",
+    "after": "Cuntrolla 'a currispunnenza d'e membre",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
