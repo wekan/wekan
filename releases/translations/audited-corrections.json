@@ -67940,5 +67940,26 @@
     "before": "Sterta Node: szczytowa zaalokowana pamięć (malloc)",
     "after": "Sterta Node: nojwiynkszŏ przidzielōnŏ pamiyńć (malloc)",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "MongoDB_version",
+    "before": "Wersja kompatybilna z MongoDB",
+    "after": "Wersyjŏ zgŏdnŏ z MongoDB",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "Node_heap_number_of_detached_contexts",
+    "before": "Sterta Node: liczba odłączonych kontekstów",
+    "after": "Sterta Node: wielość ôdłōnczōnych kōntekstōw",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "Node_heap_number_of_native_contexts",
+    "before": "Sterta Node: liczba kontekstów natywnych",
+    "after": "Sterta Node: wielość natywnych kōntekstōw",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
