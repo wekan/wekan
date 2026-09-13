@@ -44,6 +44,10 @@ test('chart title adapter delegates HTML, escapes SVG markup and observes settin
   assert.equal(context.titleViewerText('title'), 'Demo & 👍 <script>');
   assert.equal(context.titleViewerSvgText('title'), 'Demo &amp; 👍 &lt;script&gt;');
   assert.equal(context.escapeTitleText('"\'&<>'), '&quot;&#39;&amp;&lt;&gt;');
+  for (const chart of ['cumulativeFlow', 'controlChart']) {
+    assert.match(read('client/components/boards/chartPlaceholderViews.jade'),
+      new RegExp(`\\+boardChartView\\(chartKey="${chart}"`));
+  }
   assert.match(read('client/components/boards/charts/boardCharts.jade'), /\+viewer\n\s+\| \{\{ chartTitle \}\}/);
   assert.match(read('client/lib/titleViewer.jade'), /\+viewer\n\s+= value/);
   assert.match(read('client/components/gantt/dhtmlxGantt.js'), /text: titleViewerHtml\(card.title \|\| card._id\)/);

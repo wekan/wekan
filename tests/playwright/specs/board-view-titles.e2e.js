@@ -7,6 +7,7 @@ test.describe.configure({ mode: 'serial' });
 for (const view of [
   { name: 'timeline', menu: '.js-open-timeline-view', title: '.timeline-card-title' },
   { name: 'assignee', menu: '.js-open-group-by-assignee-view', title: '.group-by-assignee-card-title' },
+  { name: 'control chart', menu: '.js-open-control-chart-view', title: '.chart-data-table tbody td' },
   { name: 'cumulative flow', menu: '.js-open-cumulative-flow-view', title: '.chart-data-table thead th' },
   { name: 'DHTMLX Gantt', menu: '.js-open-gantt-dhtmlx-view', title: '.gantt_tree_content' },
 ]) {
@@ -23,7 +24,8 @@ for (const view of [
       try {
         db.updateOne('cards', { _id: card._id }, { $set: {
           title: '# Demo [card](https://example.com/) :thumbsup:',
-          startAt: new Date(), dueAt: new Date(Date.now() + 86400000),
+          startAt: new Date(Date.now() - 86400000), dueAt: new Date(Date.now() + 86400000),
+          endAt: new Date(),
         } });
         if (view.name === 'cumulative flow') {
           db.updateOne('lists', { _id: card.listId }, { $set: {
@@ -33,6 +35,10 @@ for (const view of [
         await loginWithToken(page, user.id, user.token);
         await openBoard(page, board.boardId, board.slug);
         await page.locator(view.menu).first().click();
+        if (['control chart', 'cumulative flow'].includes(view.name)) {
+          await expect(page.locator('.stats-view-title > .viewer')).toBeVisible();
+          await expect(page.locator('.stats-view-title pre')).toHaveCount(policy === 'plain-source' ? 1 : 0);
+        }
         const title = page.locator(view.title).filter({ hasText: 'Demo' }).first();
         if (policy === 'plain-source') {
           await expect(title.locator('pre')).toHaveText('# Demo [card](https://example.com/) :thumbsup:');
