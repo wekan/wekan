@@ -82052,5 +82052,68 @@
     "before": "Dans votre tableau, allez dans 'Menu', puis 'Exporter un tableau', et copier le texte du fichier téléchargé.",
     "after": "Ci sa tablo, demal ci «Limu tànneef», ba noppi «Génne tablo», te sotti mbind mi ci fiise bi nga yeb.",
     "reason": "Replace French with Wolof; preserve approaching-versus-now deadline distinction and exact card/time tokens, Trello external menu labels and instruction order, and existing local WeKan menu/export labels with downloaded-file copying. Full grammar remains low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-newDue",
+    "before": "__list__/__card__ a un 1er rappel d'échéance [__board__]",
+    "after": "__list__/__card__ am na fàttali bu njëkk ci bis bi ñu war a jeexal [__board__]",
+    "reason": "Replace French with Wolof using existing date, account, member, organization and notification terminology; preserve first/approaching/past deadline distinctions and exact tokens, add-member actions rather than assignment, administrator announcement and reconnection. Reconnection phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "act-pastdue",
+    "before": "rappelle que l'échéance (__timeValue__) de __card__  est passée",
+    "after": "fàttali ne bis bi ñu war a jeexal (__timeValue__) bu __card__ weesu na",
+    "reason": "Replace French with Wolof using existing date, account, member, organization and notification terminology; preserve first/approaching/past deadline distinctions and exact tokens, add-member actions rather than assignment, administrator announcement and reconnection. Reconnection phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "almostdue",
+    "before": "La date d'échéance %s approche",
+    "after": "waxtu jeexal bi %s mi ngi jegesi",
+    "reason": "Replace French with Wolof using existing date, account, member, organization and notification terminology; preserve first/approaching/past deadline distinctions and exact tokens, add-member actions rather than assignment, administrator announcement and reconnection. Reconnection phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "add-members",
+    "before": "Assigner des participants",
+    "after": "Yokk bokkkat yi",
+    "reason": "Replace French with Wolof using existing date, account, member, organization and notification terminology; preserve first/approaching/past deadline distinctions and exact tokens, add-member actions rather than assignment, administrator announcement and reconnection. Reconnection phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "addMemberPopup-title",
+    "before": "Assigner des participants",
+    "after": "Yokk bokkkat yi",
+    "reason": "Replace French with Wolof using existing date, account, member, organization and notification terminology; preserve first/approaching/past deadline distinctions and exact tokens, add-member actions rather than assignment, administrator announcement and reconnection. Reconnection phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "add-organizations-label",
+    "before": "Les organisations ajoutées sont affichées ci-dessous :",
+    "after": "Kureel yi ñu yokk ñu ngi feeñ ci suuf:",
+    "reason": "Replace French with Wolof using existing date, account, member, organization and notification terminology; preserve first/approaching/past deadline distinctions and exact tokens, add-member actions rather than assignment, administrator announcement and reconnection. Reconnection phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "admin-announcement-title",
+    "before": "Annonce de l'administrateur",
+    "after": "Yégle bu saytukat bi",
+    "reason": "Replace French with Wolof using existing date, account, member, organization and notification terminology; preserve first/approaching/past deadline distinctions and exact tokens, add-member actions rather than assignment, administrator announcement and reconnection. Reconnection phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "already-account",
+    "before": "Vous avez déjà un compte ? Se connecter",
+    "after": "Am nga kont ba noppi? Dugg",
+    "reason": "Replace French with Wolof using existing date, account, member, organization and notification terminology; preserve first/approaching/past deadline distinctions and exact tokens, add-member actions rather than assignment, administrator announcement and reconnection. Reconnection phrasing and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "app-try-reconnect",
+    "before": "Essayer de se reconnecter.",
+    "after": "Jéemal a lëkkalewaat.",
+    "reason": "Replace French with Wolof using existing date, account, member, organization and notification terminology; preserve first/approaching/past deadline distinctions and exact tokens, add-member actions rather than assignment, administrator announcement and reconnection. Reconnection phrasing and full grammar remain low confidence."
   }
 ]
