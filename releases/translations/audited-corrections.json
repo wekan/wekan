@@ -109240,5 +109240,138 @@
     "before": "Aggiungi un elemento alla checklist",
     "after": "Zonta na voze a ła lista de controło",
     "reason": "Replace Italian-seeded activity and insertion text with Venetian; distinguish checked/unchecked and complete/incomplete actions, preserve placeholders and remove stray digit before subtask placeholder. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "add-cover",
+    "before": "Aggiungi immagine di copertina a minicard",
+    "after": "Zonta na imàjine de covertina a ła scheda picenina",
+    "reason": "Replace Italian-seeded labels with Venetian; preserve irreversible loss warnings, logged-in access meaning and HTML tags. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "add-custom-html-after-body-start",
+    "before": "Aggiungi codice HTML personalizzato dopo <body> inzio",
+    "after": "Zonta HTML personałizà dopo el inisio de <body>",
+    "reason": "Replace Italian-seeded labels with Venetian; preserve irreversible loss warnings, logged-in access meaning and HTML tags. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "add-template-container",
+    "before": "Aggiungi contenitore di Template",
+    "after": "Zonta un contenidor de modełi",
+    "reason": "Replace Italian-seeded labels with Venetian; preserve irreversible loss warnings, logged-in access meaning and HTML tags. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "addmore-detail",
+    "before": "Aggiungi una descrizione più dettagliata",
+    "after": "Zonta na descrision pì detajà",
+    "reason": "Replace Italian-seeded labels with Venetian; preserve irreversible loss warnings, logged-in access meaning and HTML tags. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "allowNonBoardMembers",
+    "before": "Consenti tutti gli utenti registrati",
+    "after": "Permeti tuti i utenti che i gà fato el acesso",
+    "reason": "Replace Italian-seeded labels with Venetian; preserve irreversible loss warnings, logged-in access meaning and HTML tags. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "always-field-on-card",
+    "before": "Aggiungi campo a tutte le schede",
+    "after": "Zonta el canpo a tute łe schede",
+    "reason": "Replace Italian-seeded labels with Venetian; preserve irreversible loss warnings, logged-in access meaning and HTML tags. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "archive-board",
+    "before": "Sposta la bacheca nell'archivio",
+    "after": "Sposta el quadro inte el archivio",
+    "reason": "Replace Italian-seeded labels with Venetian; preserve irreversible loss warnings, logged-in access meaning and HTML tags. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "archive-board-confirm",
+    "before": "Sei sicuro di voler spostare questa bacheca nell'archivio?",
+    "after": "Sito seguro de vołer meter sto quadro inte el archivio?",
+    "reason": "Replace Italian-seeded labels with Venetian; preserve irreversible loss warnings, logged-in access meaning and HTML tags. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "archive-card",
+    "before": "Sposta scheda nell'archivio",
+    "after": "Sposta ła scheda inte el archivio",
+    "reason": "Replace Italian-seeded labels with Venetian; preserve irreversible loss warnings, logged-in access meaning and HTML tags. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "archiveBoardPopup-title",
+    "before": "Spostare bacheca nell'archivio?",
+    "after": "Spostar el quadro inte el archivio?",
+    "reason": "Replace Italian-seeded labels with Venetian; preserve irreversible loss warnings, logged-in access meaning and HTML tags. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "attachment-delete-pop",
+    "before": "L'eliminazione di un allegato è permanente. Non è possibile tornare indietro.",
+    "after": "Scancełar un file łigà el xe definitivo. No se po tornar indrìo.",
+    "reason": "Replace Italian-seeded labels with Venetian; preserve irreversible loss warnings, logged-in access meaning and HTML tags. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "attachment-move-storage-gridfs",
+    "before": "Sposta allegato su GridFS",
+    "after": "Sposta el file łigà so GridFS",
+    "reason": "Replace Italian-seeded labels with Venetian; preserve irreversible loss warnings, logged-in access meaning and HTML tags. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "autoAddUsersWithDomainName",
+    "before": "Aggiungi automaticamente utenti con il nome di dominio",
+    "after": "Zonta in automatico i utenti col nome de dominio",
+    "reason": "Replace Italian-seeded labels with Venetian; preserve irreversible loss warnings, logged-in access meaning and HTML tags. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "automatically-field-on-card",
+    "before": "Aggiungi campo alle nuove schede",
+    "after": "Zonta el canpo a łe schede nove",
+    "reason": "Replace Italian-seeded labels with Venetian; preserve irreversible loss warnings, logged-in access meaning and HTML tags. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "board-archived",
+    "before": "Questa bacheca è stata spostata nell'archivio",
+    "after": "Sto quadro el xe stà spostà inte el archivio.",
+    "reason": "Replace Italian-seeded labels with Venetian; preserve irreversible loss warnings, logged-in access meaning and HTML tags. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "board-delete-notice",
+    "before": "L'eliminazione è permanente. Tutte le azioni, liste e schede associate a questa bacheca andranno perse.",
+    "after": "Scancełar el xe definitivo. Te perderè tute łe liste, łe schede e łe asion łigà a sto quadro.",
+    "reason": "Replace Italian-seeded labels with Venetian; preserve irreversible loss warnings, logged-in access meaning and HTML tags. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "board-info-on-my-boards",
+    "before": "Impostazioni di tutte le bacheche",
+    "after": "Inpostasion de tuti i quadri",
+    "reason": "Replace Italian-seeded labels with Venetian; preserve irreversible loss warnings, logged-in access meaning and HTML tags. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "board-private-info",
+    "before": "Questa bacheca sarà <strong>privata</strong>.",
+    "after": "Sto quadro el sarà <strong>privà</strong>.",
+    "reason": "Replace Italian-seeded labels with Venetian; preserve irreversible loss warnings, logged-in access meaning and HTML tags. Low-confidence wording; fluent-speaker validation outstanding."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "board-public-info",
+    "before": "Questa bacheca sarà <strong>pubblica</strong>.",
+    "after": "Sto quadro el sarà <strong>pùblico</strong>.",
+    "reason": "Replace Italian-seeded labels with Venetian; preserve irreversible loss warnings, logged-in access meaning and HTML tags. Low-confidence wording; fluent-speaker validation outstanding."
   }
 ]
