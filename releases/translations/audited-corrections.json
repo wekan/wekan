@@ -52295,5 +52295,61 @@
     "before": "Sincronizza i membri dal provider di autenticazione",
     "after": "Sincrunizà i membri da u furnitore d’autentificazione",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "text-below-custom-login-logo",
+    "before": "Testo sotto il logo personalizzato per il login",
+    "after": "Testu sottu à u logò di cunnessione persunalizatu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "theme-default",
+    "before": "Predefinito (nessuna personalizzazione)",
+    "after": "Predefinitu (senza rimpiazzamentu)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "theme-override-all-tenants",
+    "before": "Sostituzione valida per tutti i tenant",
+    "after": "Rimpiazzamentu chì s’applica à tutti i tenants",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "to-create-organizations-contact-admin",
+    "before": "Per creare organizzazioni, cortesemente contattare l'amministratore.",
+    "after": "Per creà urganisazioni, cuntattate l’amministratore.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "to-create-teams-contact-admin",
+    "before": "Per creare team, contatta l'amministratore.",
+    "after": "Per creà squadre, cuntattate l’amministratore.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "translation-number",
+    "before": "Il numero di stringhe di traduzione personalizzate è:",
+    "after": "U numeru di stringhe di traduzzione persunalizate hè:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "trello-api-credentials-required",
+    "before": "Inserisci sia la chiave API sia il token di Trello.",
+    "after": "Inserite sia a chjave API sia u token di Trello.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "co",
+    "key": "trello-api-key",
+    "before": "Chiave API di Trello (da https://trello.com/app-key)",
+    "after": "Chjave API di Trello (da https://trello.com/app-key)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
