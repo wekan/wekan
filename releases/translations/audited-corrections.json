@@ -61801,5 +61801,145 @@
     "before": "Lien vers cette recherche",
     "after": "Ligam cap a aquesta recèrca",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "list-delete-pop",
+    "before": "Toutes les actions seront supprimées du fil d'activité et il ne sera plus possible de les récupérer. Cela est irréversible.",
+    "after": "Totas las accions seràn suprimidas del fil d’activitat e poiretz pas recuperar la lista. Aquesta accion se pòt pas anullar.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "list-filter-label",
+    "before": "Filtrer la liste par titre",
+    "after": "Filtrar la lista pel títol",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "listImportCardsTsvPopup-title",
+    "before": "Importer un fichier Excel CSV/TSV",
+    "after": "Importar Excel CSV/TSV",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "loading",
+    "before": "Chargement, merci de patienter.",
+    "after": "Cargament, esperatz un moment.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "mark-all-as-unread",
+    "before": "Tout marquer comme non lu",
+    "after": "Marcar tot coma pas legit",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "max-avatar-filesize",
+    "before": "Taille maximum du fichier de l'avatar en octets :",
+    "after": "Talha maximala del fichièr d’avatar en octets :",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "max-upload-filesize",
+    "before": "Taille maximum du fichier à uploader en octets : ",
+    "after": "Talha maximala del fichièr de mandar en octets :",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "memory-usage",
+    "before": "Utilisation de la mémoire",
+    "after": "Utilizacion de la memòria",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "migration-not-needed",
+    "before": "Aucune migration nécessaire",
+    "after": "Cap de migracion necessària",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "migration-pausing",
+    "before": "Mise en pause des migrations...",
+    "after": "Mesa en pausa de las migracions…",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "migration-starting",
+    "before": "Démarrage des migrations...",
+    "after": "Aviada de las migracions…",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "migration-successful",
+    "before": "Migration terminée avec succès",
+    "after": "Migracion acabada amb succès",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "mobile-desktop-toggle",
+    "before": "Basculer entre le mode mobile et le mode bureau",
+    "after": "Alternar entre lo mòde mobil e lo mòde burèu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "multi-selection-active",
+    "before": "Cliquez sur les cases à cocher pour sélectionner les tableaux",
+    "after": "Clicatz sus las casas de marcar per seleccionar de tablèus",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "multi-selection-label",
+    "before": "Définir l'étiquette pour la sélection",
+    "after": "Definir l’etiqueta de la seleccion",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "multi-selection-member",
+    "before": "Définir le participant pour la sélection",
+    "after": "Definir lo membre de la seleccion",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "newTranslationPopup-title",
+    "before": "Nouvelle traduction personnalisée",
+    "after": "Novèla cadena de traduccion personalizada",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "no-comments-desc",
+    "before": "Impossible de voir les commentaires.",
+    "after": "Se pòdon pas veire los comentaris.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "no-parent",
+    "before": "Ne pas afficher le parent",
+    "after": "Mostrar pas lo parent",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "normal-assigned-only",
+    "before": "Assigné uniquement Normal",
+    "after": "Normal, solament las cartas assignadas",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
