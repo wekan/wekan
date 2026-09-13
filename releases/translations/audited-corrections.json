@@ -111921,5 +111921,19 @@
     "before": "Lisätty",
     "after": "Ližatud",
     "reason": "Replace Finnish-seeded Add/Added labels with Veps imperative ližada and past passive participle ližatud, attested in the conjugation of ližata (Zajceva/Mullonen 2007 dictionary). Source: https://en.wiktionary.org/wiki/li%C5%BEata ."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accounts-lockout-show-locked-users",
+    "before": "Näytä vain lukitut käyttäjät",
+    "after": "Ozuta vaiše saubatud kävutajad",
+    "reason": "Replace Finnish-seeded Veps locked-user messages. Attested vocabulary: ozutada/show and imperative ozuta, vaiše/only, kaik/all, avaita/unlock and passive avaitud (https://kaikki.org/dictionary/Veps/); saubatud is attested in https://dictorpus.krc.karelia.ru/en/corpus/text/2075; kävutai/user is the Veps MediaWiki namespace (https://doc.wikimedia.org/mediawiki-core/master/php/MessagesVep_8php_source.html). Composed plural/technical account wording has low confidence and needs fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accounts-lockout-all-users-unlocked",
+    "before": "Kaikki lukitut käyttäjät on avattu",
+    "after": "Kaik saubatud kävutajad oma avaitud",
+    "reason": "Replace Finnish-seeded Veps locked-user messages. Attested vocabulary: ozutada/show and imperative ozuta, vaiše/only, kaik/all, avaita/unlock and passive avaitud (https://kaikki.org/dictionary/Veps/); saubatud is attested in https://dictorpus.krc.karelia.ru/en/corpus/text/2075; kävutai/user is the Veps MediaWiki namespace (https://doc.wikimedia.org/mediawiki-core/master/php/MessagesVep_8php_source.html). Composed plural/technical account wording has low confidence and needs fluent-speaker review."
   }
 ]

@@ -114,5 +114,9 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(cache['ve-PP'].added, 'Ližatud');
   assert.notEqual(cache['ve-PP'].add, 'Lisää');
   assert.notEqual(cache['ve-PP'].added, 'Lisätty');
+  assert.match(veps['accounts-lockout-show-locked-users'], /^Ozuta vaiše saubatud kävutajad$/);
+  assert.doesNotMatch(veps['accounts-lockout-show-locked-users'], /Näytä|käyttäjät/);
+  assert.match(veps['accounts-lockout-all-users-unlocked'], /oma avaitud$/);
+  assert.notEqual(veps['accounts-lockout-show-locked-users'], veps['accounts-lockout-all-users-unlocked']);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
