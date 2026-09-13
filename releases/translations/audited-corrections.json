@@ -78531,5 +78531,26 @@
     "before": "Autoriser les utilisateurs à supprimer leur compte",
     "after": "Far sa kontu jëfandikukat ci sa bopp",
     "reason": "Replace French account protection descriptions with Wolof. Preserve temporary lockout after excessive failed login attempts, retry later, known users with correct username and wrong password versus unknown nonexistent username, current lockout state and self-account deletion. Full grammar and password/settings terminology remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accounts-lockout-info",
+    "before": "Ces paramètres contrôlent comment les tentatives de connexion sont protégés des attaques par force brute.",
+    "after": "Jekkal yii dañuy saytu naka lañuy aar jéem yi ngir dugg ci song yu jéem ay baatu jall yu bari.",
+    "reason": "Replace French brute-force login-protection settings with Wolof descriptive wording about attacks trying many passwords. Preserve login-attempt protection/settings versus settings-updated status. Specialized security/password terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accounts-lockout-settings",
+    "before": "Paramètres de protection contre la force brute",
+    "after": "Jekkal yi ngir aar ci song yu jéem ay baatu jall yu bari",
+    "reason": "Replace French brute-force login-protection settings with Wolof descriptive wording about attacks trying many passwords. Preserve login-attempt protection/settings versus settings-updated status. Specialized security/password terminology and full grammar remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "accounts-lockout-settings-updated",
+    "before": "Les paramètres de protection contre la force brute ont été mis à jour",
+    "after": "Yeesal nañu jekkal yi ngir aar ci song yu jéem ay baatu jall yu bari",
+    "reason": "Replace French brute-force login-protection settings with Wolof descriptive wording about attacks trying many passwords. Preserve login-attempt protection/settings versus settings-updated status. Specialized security/password terminology and full grammar remain low confidence."
   }
 ]
