@@ -83,34 +83,18 @@ test.describe('Board-level actions', () => {
     const errors = [];
     boardPage.on('pageerror', e => errors.push(e.message));
 
-    // a.board-header-btn.js-edit-board-title opens boardChangeTitle popup
-    const editTitleBtn = boardPage.locator('a.js-edit-board-title').first();
-    if (await editTitleBtn.count() > 0) {
-      await editTitleBtn.click();
-      const pop = boardPage.locator('.js-pop-over');
-      await expect(pop).toBeVisible({ timeout: 6_000 });
-
-      // boardChangeTitlePopup has input.js-board-name
-      const titleInput = pop.locator('input.js-board-name').first();
-      if (await titleInput.count() > 0) {
-        await titleInput.click({ clickCount: 3 });
-        await titleInput.fill('Renamed Test Board');
-        // Submit is input.primary.wide[type=submit]
-        await pop.locator('input[type=submit], button[type=submit]').first().click();
-        await boardPage.waitForTimeout(800);
-
-        // The edit-title button stores the current board title in its value attribute
-        const editBtn = boardPage.locator('a.js-edit-board-title').first();
-        if (await editBtn.count() > 0) {
-          const newTitle = await editBtn.getAttribute('value');
-          expect(newTitle).toBe('Renamed Test Board');
-        }
-      } else {
-        await expect(pop).toBeVisible({ timeout: 3_000 });
-      }
-    } else {
-      console.log('Note: js-edit-board-title button not found; board admin check may have failed');
-    }
+    // The board name in the main header opens the existing rename form.
+    const editTitle = boardPage.locator('#header-quick-access .js-edit-board-title');
+    await expect(editTitle).toBeVisible();
+    await editTitle.click();
+    const pop = boardPage.locator('.js-pop-over');
+    await expect(pop).toBeVisible();
+    const renamedTitle = `Renamed ${board.boardId}`;
+    await pop.locator('input.js-board-name').fill(renamedTitle);
+    await pop.locator('input[type=submit]').click();
+    await expect.poll(() => db.findOne('boards', { _id: board.boardId }).title)
+      .toBe(renamedTitle);
+    await expect(boardPage.locator('#header-quick-access .header-page-title')).toHaveText(renamedTitle);
 
     const critical = errors.filter(
       e => !e.includes('ResizeObserver') && !e.includes('Non-Error promise rejection'),
@@ -168,19 +152,20 @@ test.describe('Board-level actions', () => {
     expect(critical).toHaveLength(0);
   });
 
-  test('archived items view opens via board header button', async ({ boardPage, board }) => {
+  test('member menu opens Boards in Archive and shows archived boards', async ({ boardPage, board }) => {
     const errors = [];
     boardPage.on('pageerror', e => errors.push(e.message));
 
-    // a.board-header-btn.js-open-archived-board opens the archived items sidebar
-    const archiveBtn = boardPage.locator('a.js-open-archived-board').first();
-    if (await archiveBtn.count() > 0) {
-      await archiveBtn.click();
-      // The archived items panel is typically .board-sidebar with archive content
-      const sidebar = boardPage.locator('.board-sidebar').first();
-      await expect(sidebar).toBeVisible({ timeout: 6_000 });
-    } else {
-      console.log('Note: js-open-archived-board button not found in board header');
+    const archived = db.seedBoard({ ownerId: board.owner.id, title: `Archived ${board.boardId}` });
+    db.updateOne('boards', { _id: archived.boardId }, { $set: { archived: true } });
+    try {
+      await boardPage.locator('.js-open-header-member-menu').click();
+      await boardPage.locator('.js-pop-over .js-open-archived-board').click();
+      await expect(boardPage).toHaveURL(/\/allboards\/archive(?:[?#]|$)/);
+      await expect(boardPage.locator(`.js-board.${archived.boardId}`)).toBeVisible();
+      await expect(boardPage.locator(`.js-board.${board.boardId}`)).toHaveCount(0);
+    } finally {
+      db.cleanup({ boardIds: [archived.boardId] });
     }
 
     const critical = errors.filter(

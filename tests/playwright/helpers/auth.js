@@ -72,6 +72,11 @@ async function loginWithToken(page, userId, token) {
   if (!onLoadedApp) {
     await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'commit' });
     await waitForMeteor(page);
+    // Cookie retrieval precedes Accounts.loggingIn(). Wait for the resume itself,
+    // rather than interpreting that initial false value as a finished login.
+    await page.waitForFunction(
+      id => Meteor.userId() === id && !Meteor.loggingIn(), userId, { timeout: 15_000 },
+    );
   }
 
   // Wait for any stored-session resume that is still in flight to finish, so the
@@ -147,7 +152,10 @@ async function loginWithToken(page, userId, token) {
     } catch (_error) { /* a page without storage access is already resume-free */ }
   });
 
-  const result = await page.evaluate(
+  // Cookie authentication may already have resumed this exact user. A second
+  // login rebuilds subscriptions and can lose the published profile (#6677).
+  const alreadyAuthenticated = await page.evaluate(id => Meteor.userId() === id, userId);
+  const result = alreadyAuthenticated ? { error: null, userId } : await page.evaluate(
     ({ tok, expectedId }) =>
       new Promise(resolve => {
         Meteor.loginWithToken(tok, err => {
