@@ -92405,5 +92405,33 @@
     "before": "Alle Fehlermeldungen löschen",
     "after": "Qaghmey Hoch yIQaw'",
     "reason": "Replace German password, SMTP-test or error-clearing wording with direct Klingon. Includes unflagged German password labels found during contextual review. pegh mu' follows reviewed password-mismatch terminology (secret-word expression attested in KLI Password-game discussion https://www.kli.org/tlhIngan-Hol/1998/July/msg00808.html); https://klingonska.org/klo/ordlista-01.html attests waH for test and choH for change. Reuse existing QIn and Qaghmey terminology. Full software phrases and imperative constructions are assembled and low confidence; fluent-speaker validation remains required. SMTP identifier retained, no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "disable-webhook",
+    "before": "Diesen Webhook deaktivieren",
+    "after": "webhookvam yIchu'Ha'",
+    "reason": "Replace German webhook action/direction labels and French webhook title with directly assembled Klingon. Keep webhook as a software technical borrowing, localizing this (-vam), plural (-mey), new (chu'), name (pong) and sending purpose (ngeHmeH). Existing locale ngeH/pong terminology retained. https://www.kli.org/tlhIngan-Hol/1997/May/msg00733.html attests chu'Ha' deactivate/disengage a device. Full software phrases and borrowed-noun suffix use are low confidence and require fluent-speaker validation; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "new-outgoing-webhook",
+    "before": "Neuer ausgehender Webhook",
+    "after": "ngeHmeH webhook chu'",
+    "reason": "Replace German webhook action/direction labels and French webhook title with directly assembled Klingon. Keep webhook as a software technical borrowing, localizing this (-vam), plural (-mey), new (chu'), name (pong) and sending purpose (ngeHmeH). Existing locale ngeH/pong terminology retained. https://www.kli.org/tlhIngan-Hol/1997/May/msg00733.html attests chu'Ha' deactivate/disengage a device. Full software phrases and borrowed-noun suffix use are low confidence and require fluent-speaker validation; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "outgoing-webhooks",
+    "before": "Ausgehende Webhooks",
+    "after": "ngeHmeH webhookmey",
+    "reason": "Replace German webhook action/direction labels and French webhook title with directly assembled Klingon. Keep webhook as a software technical borrowing, localizing this (-vam), plural (-mey), new (chu'), name (pong) and sending purpose (ngeHmeH). Existing locale ngeH/pong terminology retained. https://www.kli.org/tlhIngan-Hol/1997/May/msg00733.html attests chu'Ha' deactivate/disengage a device. Full software phrases and borrowed-noun suffix use are low confidence and require fluent-speaker validation; no placeholders changed."
+  },
+  {
+    "locale": "tlh",
+    "key": "webhook-title",
+    "before": "Nom du webhook",
+    "after": "webhook pong",
+    "reason": "Replace German webhook action/direction labels and French webhook title with directly assembled Klingon. Keep webhook as a software technical borrowing, localizing this (-vam), plural (-mey), new (chu'), name (pong) and sending purpose (ngeHmeH). Existing locale ngeH/pong terminology retained. https://www.kli.org/tlhIngan-Hol/1997/May/msg00733.html attests chu'Ha' deactivate/disengage a device. Full software phrases and borrowed-noun suffix use are low confidence and require fluent-speaker validation; no placeholders changed."
   }
 ]
