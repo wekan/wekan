@@ -75122,5 +75122,180 @@
     "before": "Pour créer des équipes, veuillez contacter l'administrateur.",
     "after": "Po askepyî des ekipes, atôtchîz l' manaedjeu.",
     "reason": "Replace audited French rule/workspace/display wording with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve top/bottom direction, remove-all scope, WIP movement out of list, username length and watched/muted opposition. Full grammar and notification/rule terminology remain low confidence; source tokens retained."
+  },
+  {
+    "locale": "wa",
+    "key": "email-invite-text",
+    "before": "Cher/Chère __user__,\n\n__inviter__ vous invite à rejoindre le tableau \"__board__\" pour collaborer.\n\nVeuillez suivre le lien ci-dessous :\n\n__url__\n\nMerci.",
+    "after": "__user__,\n\n__inviter__ vos invite a rdjonde li tåvlea \"__board__\" po bouter eshonne.\n\nShuvoz l' hårdêye pa dzo:\n\n__url__\n\nGråces.",
+    "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "push-invite-text",
+    "before": "Cher/Chère __user__,\n\n__inviter__ vous invite à rejoindre le tableau \"__board__\" pour collaborer.\n\nVeuillez suivre le lien ci-dessous :\n\n__url__\n\nMerci.",
+    "after": "__user__,\n\n__inviter__ vos invite a rdjonde li tåvlea \"__board__\" po bouter eshonne.\n\nShuvoz l' hårdêye pa dzo:\n\n__url__\n\nGråces.",
+    "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "email-invite-register-text",
+    "before": "Cher/Chère __user__,\n\n__inviter__ vous invite à le rejoindre sur le tableau kanban pour collaborer.\n\nVeuillez suivre le lien ci-dessous :\n__url__\n\nVotre code d'invitation est : __icode__\n\nMerci.",
+    "after": "__user__,\n\n__inviter__ vos invite a on tåvlea kanban po bouter eshonne.\n\nShuvoz l' hårdêye pa dzo:\n__url__\n\nVosse côde d' invitåcion est: __icode__\n\nGråces.",
+    "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "email-enrollAccount-subject",
+    "before": "Un compte a été créé pour vous sur __siteName__",
+    "after": "On conte askepyî po vos so __siteName__",
+    "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "email-enrollAccount-text",
+    "before": "Bonjour __user__,\n\nPour commencer à utiliser ce service, il suffit de cliquer sur le lien ci-dessous.\n\n__url__\n\nMerci.",
+    "after": "Bondjoû __user__,\n\nPo cmincî a eployî l' siervice, clitchîz sol hårdêye pa dzo.\n\n__url__\n\nGråces.",
+    "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "email-resetPassword-subject",
+    "before": "Réinitialiser votre mot de passe sur __siteName__",
+    "after": "Rimete vosse sicret so __siteName__",
+    "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "email-resetPassword-text",
+    "before": "Bonjour __user__,\n\nPour réinitialiser votre mot de passe, cliquez sur le lien ci-dessous.\n\n__url__\n\nMerci.",
+    "after": "Bondjoû __user__,\n\nPo rimete vosse sicret, clitchîz sol hårdêye pa dzo.\n\n__url__\n\nGråces.",
+    "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "email-verifyEmail-subject",
+    "before": "Vérifier votre adresse de courriel sur __siteName__",
+    "after": "Verifyî vosse adresse emile so __siteName__",
+    "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "email-verifyEmail-text",
+    "before": "Bonjour __user__,\n\nPour vérifier votre compte courriel, il suffit de cliquer sur le lien ci-dessous.\n\n__url__\n\nMerci.",
+    "after": "Bondjoû __user__,\n\nPo verifyî l' adresse emile di vosse conte, clitchîz sol hårdêye pa dzo.\n\n__url__\n\nGråces.",
+    "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "email-invite-register-subject",
+    "before": "__inviter__ vous a envoyé une invitation",
+    "after": "__inviter__ vos a evoyî ene invitåcion",
+    "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "email-invite-subject",
+    "before": "__inviter__ vous a envoyé une invitation",
+    "after": "__inviter__ vos a evoyî ene invitåcion",
+    "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "push-invite-title",
+    "before": "__inviter__ vous a envoyé une invitation",
+    "after": "__inviter__ vos a evoyî ene invitåcion",
+    "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "email-fail",
+    "before": "Échec de l'envoi du courriel.",
+    "after": "L' evoyaedje d' emile n' a nén reüssi",
+    "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "email-fail-text",
+    "before": "Une erreur est survenue en tentant d'envoyer l'email",
+    "after": "Aroke å moumint di sayî d' evoyî èn emile",
+    "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "email-invalid",
+    "before": "Adresse e-mail incorrecte.",
+    "after": "Emile nén valåbe",
+    "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "email-smtp-test-text",
+    "before": "Vous avez envoyé un mail avec succès",
+    "after": "Vos avoz bén evoyî èn emile",
+    "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "error-email-taken",
+    "before": "Cette adresse mail est déjà utilisée",
+    "after": "Cisse adresse emile ci est dedja prise",
+    "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "invite-people-error",
+    "before": "Une erreur s'est produite lors de l'envoi de l'invitation à s'enregistrer",
+    "after": "Aroke å moumint d' evoyî l' invitåcion a s' edjîstrer",
+    "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "invite-people-success",
+    "before": "Invitation à s'enregistrer envoyée avec succès",
+    "after": "Li invitåcion a s' edjîstrer a stî bén evoyeye",
+    "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "leave-board-pop",
+    "before": "Êtes-vous sur de vouloir quitter __boardTitle__ ? Vous ne serez plus associé aux cartes de ce tableau.",
+    "after": "Estoz vs seur di voleur cwiter __boardTitle__? Vos serez oisté di totes les cåtes di ci tåvlea ci.",
+    "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "delete-all-notifications",
+    "before": "Supprimer toutes les notifications",
+    "after": "Disfacer tos les notifiaedjes",
+    "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "delete-all-notifications-confirm",
+    "before": "Êtes-vous sûr de vouloir supprimer toutes les notifications ? Cette action est irréversible.",
+    "after": "Estoz vs seur di voleur disfacer tos les notifiaedjes? On n' pout nén disfé çoula.",
+    "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "auto-watch",
+    "before": "Surveiller automatiquement les tableaux quand ils sont créés",
+    "after": "Shuve otomatikmint les tåvleas cwand i sont askepyîs",
+    "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "notify-watch",
+    "before": "Recevoir les mises à jour de tous les tableaux, listes ou cartes que vous suivez",
+    "after": "Rçu les metes a djoû des tåvleas, djivêyes ou cåtes ki vos shuvoz",
+    "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
+  },
+  {
+    "locale": "wa",
+    "key": "app-is-offline",
+    "before": "Chargement en cours, veuillez patienter. Vous risquez de perdre des données si vous rechargez la page. Si le chargement échoue, veuillez vérifier que le serveur n'est pas arrêté.",
+    "after": "Tcherdjaedje, ratindoz. Rafristi l' pådje va fé pierde des dnêyes. Si l' tcherdjaedje ni rote nén, verifyîz ki l' sierveu n' est nén aresté.",
+    "reason": "Replace audited French invitations/email/notification prose with Walloon using existing native vocabulary and computing terminology https://raw.githubusercontent.com/KDE/kxmlgui/master/po/wa/kxmlgui6.po . Preserve every invitation, URL, site and username token; retain password reset versus email verification, board departure scope and offline data-loss warning. Full grammar and invitation terminology remain low confidence."
   }
 ]
