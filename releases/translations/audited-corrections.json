@@ -68913,5 +68913,89 @@
     "before": "Zatrzymywanie migracji...",
     "after": "Zatrzimowanie migracyjōw...",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "mobile-desktop-toggle",
+    "before": "Przełącz między trybem mobilnym a komputerowym",
+    "after": "Przełōncz miyndzy trybym mobilnym a kōmputerowym",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "mongodb-compact-run",
+    "before": "Uruchom kompaktowanie MongoDB",
+    "after": "Puść compact MongoDB",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "mongodb-compact-running",
+    "before": "Trwa kompaktowanie, może to potrwać kilka minut...",
+    "after": "Trwŏ compact, może to potrwać pora minut...",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "mongodb-compact-success",
+    "before": "Kompaktowanie zakończone. Skompaktowane kolekcje:",
+    "after": "Compact skōńczōny. Skompaktowane kolekcyje:",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "newLineNewItem",
+    "before": "Jeden wiersz tekstu = jedna pozycja checklisty",
+    "after": "Jedna linijŏ tekstu = jedyn elymynt listy kōntrolnyj",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "newTranslationPopup-title",
+    "before": "Nowe hasło do przetłumaczenia",
+    "after": "Nowy włŏsny tekst tłōmaczyniŏ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "no-shared-templates",
+    "before": "Brak udostępnionych szablonów",
+    "after": "Niy ma udostympniōnych szablōnōw",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "not-accepted-yet",
+    "before": "Zaproszenie jeszcze niezaakceptowane",
+    "after": "Zaproszynie jeszcze niyzaakceptowane",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "oidc-button-text",
+    "before": "Własny tekst przycisku OIDC",
+    "after": "Przipasuj tekst knefla OIDC",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "open-many-cards-at-once",
+    "before": "Otwieraj wiele kart naraz",
+    "after": "Ôtwiyrŏj wiele kart narŏz",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "operator-number-expected",
+    "before": "operator __operator__ oczekiwał wartości cyfrowej, otrzymał '__value__'",
+    "after": "ôperatōr __operator__ ôczekiwŏł liczby, dostŏł « __value__ »",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "szl",
+    "key": "r-board-note",
+    "before": "Uwaga: pozostaw pole puste, aby każda wartość była brana pod uwagę.",
+    "after": "Pozōr: ôstŏw pole puste, coby dopasować kożdŏ możliwŏ wartość. ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
