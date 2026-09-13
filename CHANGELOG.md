@@ -976,6 +976,21 @@ the default action is prevented. Fresh compiled verification is pending.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2c5d483a7">Keep native cookie sessions working behind a URL prefix</a>. Thanks to xet7.</summary>
+
+Meteor's cookie client requests origin-root endpoints, so a deployment
+under a ROOT_URL path could not resume its session. Prefix only the cookie
+set, refresh and clear requests, retaining same-origin requests, native
+server validation, HttpOnly cookies, memory-only credentials and unchanged
+root-deployment methods. Browser fixture navigation retains the configured
+base path without duplicating it. Executable regressions cover root and
+nested prefixes, missing/invalid cookies, rejected login and offline
+requests. The existing URL-prefix color regression will run on a separate
+fresh compiled server in all three browsers. Verification is in progress.
+
+</details>
+
 **Source and test parity** - preserve current behavior and reject real regressions.
 
 <details>
