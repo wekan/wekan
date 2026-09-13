@@ -52526,5 +52526,26 @@
     "before": "Republic of China",
     "after": "Calendariu Minguo",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Sistem de calendèr (visualisazion de la data)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "activity-checklist-item-added",
+    "before": "Aggiunto l'elemento checklist a '%s' in %s",
+    "after": "à ajontà n element de la lista de control a '%s' te %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "lld",
+    "key": "activity-checklist-removed",
+    "before": "È stata rimossa una checklist da%s",
+    "after": "à cavà na lista de control da %s",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
