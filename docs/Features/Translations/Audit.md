@@ -14,7 +14,7 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **9,163** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `f25115fa0d3771805c9e126ae7f6201b79ab37c2` — ten Breton checklist-confirmation, favorite and migration findings repaired; **538 Breton findings remain**. Checklist/item distinctions, favorite toggles and data-integrity checks are preserved. Specialized terminology and grammatical wording need language review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `c4f4d86e7b2fafa781a267fe4be566b6d2f32685` (follow-up to `f25115fa0`) — ten Breton checklist-confirmation, favorite and migration findings repaired; **538 Breton findings remain**. Checklist/item distinctions and data-integrity checks are preserved; follow-up review clarifies star actions and data transfer terminology. Specialized terminology and grammatical wording need language review. Exact-value, placeholder, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Origin:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors already existed in local commit `bdb3b15886a749b725b5290ba0109fcba955f983`. Other ultimate origins remain unverified.
 
