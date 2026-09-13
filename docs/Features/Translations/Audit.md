@@ -4,19 +4,21 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 14,472 |
+| Corrected | 14,473 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 1,372 |
+| Pending review or repair | 1,371 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,000** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **16,004** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-13**, local commit `6db460891` — reviewed all nine Colombian Spanish alias differences, repaired both incomplete ISO-calendar labels and the alias clock-hour label used for a time-spent view; retained seven valid Spanish wording alternatives. Positive/negative correction regressions pass. Previous `462f3bb78` repaired two Veps calendar labels. Remaining original findings and restored/unflagged values still require review.
+Latest translation fix: **2026-09-13**, local commit `d5363a26b` — repaired three unflagged Veps board/username labels and one flagged unlock instruction using dictionary forms; preserved valid shared Nimi. Positive/negative regressions pass; composed wording has low confidence. Original findings and restored/unflagged values remain under review.
 
 **Upload workflow repair (2026-09-13):** local commit `27a566a0d` maps Colombian Spanish `es-CO` to supported Transifex `es_CO`, reports the legacy `es_CO` alias and uploads each distinct target once. Offline regressions pass; no upload was run. All nine differences were reviewed in `6db460891`; seven valid wording alternatives remain intentionally distinct.
+
+**Popup and upload fixes (2026-09-13):** `8549b6c4c` verifies all 245 popup locales and translation-file wiring, adds country-then-language flags and corrects legacy/script exceptions. Helper/wiring checks pass; browser test is added and syntax-checked, execution pending. `cb6830505` fixes French Belgium/Canada, Khmer and Guarani Transifex codes; offline upload tests pass. Manx and Ladin are absent from the public catalogue and remain reported failures. No uploads were run.
 
 **Verification (2026-09-13):** **1,002 Node suites, zero failures**; the original 19 failures are resolved. The first complete EVERYTHING run passes all four stages: Meteor (**527**), import (**10**), Node E2E (**10**), three browsers, **103** conformance cases on each of SQLite/PostgreSQL/MySQL/MariaDB and FerretDB unit/vet/integration. Separate URL-prefix preference/logout/invalid-cookie checks pass in all browsers. Two WebKit retries exposed refresh readiness and competing template autofocus; both are repaired, and the refresh check passes ten repetitions without retries. #6691 partial-profile/impersonation regression passes in all three browsers without retries. Fresh EVERYTHING verification is running; an added Fossil script required menu registration, now fixed and checked. Fluent-speaker checks remain outstanding; translation repairs have resumed.
 

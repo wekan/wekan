@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 14,472 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 1,372 pending review or repair.
-The correction inventory records 16,000 exact before/after values across
+findings: 14,473 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 1,371 pending review or repair.
+The correction inventory records 16,004 exact before/after values across
 201 locale identifiers, including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired 828 and retained the Cron tool name.
@@ -1098,6 +1098,18 @@ Bitbucket was tried during development and is now disabled because of
 Unauthorized errors. Repository paths remain resolved from the script's
 checkout. Syntax validation does not contact or certify remote mirrors;
 no mirroring or publishing commands were executed for this audit.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8549b6c4c">Show country and language flags in the language popup</a>. Thanks to xet7.</summary>
+
+Check all 245 popup locales and every translation file. Regional entries show
+country then language flags, including RTL layouts, with legacy and script-tag
+exceptions. Unit checks pass; browser coverage is added and syntax-checked,
+with execution pending. Fix French, Khmer and Guarani upload identifiers in
+<a href="https://github.com/wekan/wekan/commit/cb6830505">the Transifex mapping repair</a>; offline upload checks pass.
+Manx and Ladin remain reported as unsupported catalogue languages.
 
 </details>
 
@@ -10971,7 +10983,7 @@ overtime tracking, numbered assignee and label shortcuts, uploads, custom logos
 and URL schemes, watching and welcome templates. All values required
 translation, with low confidence in some explanatory grammar pending human
 refinement. Tests retain numeric ranges, logo height, URL and WIP terms. This
-leaves 68,818 actionable values across 32 languages, including 1,372 in Tigre.
+leaves 68,818 actionable values across 32 languages, including 1,371 in Tigre.
 
 </details>
 
@@ -11496,7 +11508,7 @@ and overtime tracking, assignee and label shortcuts, uploads, custom logos and
 URL schemes, welcome content and template swimlanes. All values required
 translation. Tests retain numeric shortcut ranges, logo height and URL Scheme
 and WIP terminology. This leaves 70,992 actionable values across 33 languages,
-including 1,372 in Tigrinya.
+including 1,371 in Tigrinya.
 
 </details>
 
@@ -12022,7 +12034,7 @@ overtime tracking, assignee and label shortcuts, uploads, custom logo, help and
 URL settings, welcome-board content and card, list and board templates. All
 values required translation. Tests retain shortcut ranges, upload completion,
 logo height and URL terminology. This leaves 73,166 actionable values across 34
-languages, including 1,372 in Tajik.
+languages, including 1,371 in Tajik.
 
 </details>
 
@@ -12626,7 +12638,7 @@ spent and overtime tracking, assignee and label shortcuts, file and avatar
 uploads, custom logos and URL schemes, watching, welcome content and template
 swimlanes. All values required translation. Tests pin numeric shortcut and logo
 height limits and representative upload and welcome wording. This leaves 75,340
-actionable values across 35 languages, including 1,372 in Southern Sotho.
+actionable values across 35 languages, including 1,371 in Southern Sotho.
 
 </details>
 
