@@ -83774,5 +83774,61 @@
     "before": "Mode reaktivitas (changeStreams / oplog / polling)",
     "after": "Cara reaktivitas (changeStreams / oplog / polling)",
     "reason": "Replace Indonesian mode framing with Acehnese cara while preserving changeStreams/oplog/polling and existing reaktivitas technical loan. Loan acceptability remains low confidence; service-account credentials require dictionary review and remain pending."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Sistema han kalendaryo (pagpakita han petsa)",
+    "reason": "Registry declares Waray-Waray, not Walloon. Replace Turkish/English calendar labels with Waray framing, preserving Dangi/Amete Alem/Umm al-Qura/Minguo proper names and Hijri/Ethiopian/Japanese meanings. Complete grammar remains low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Kalendaryo nga Dangi",
+    "reason": "Registry declares Waray-Waray, not Walloon. Replace Turkish/English calendar labels with Waray framing, preserving Dangi/Amete Alem/Umm al-Qura/Minguo proper names and Hijri/Ethiopian/Japanese meanings. Complete grammar remains low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Kalendaryo nga Amete Alem han Etiopia",
+    "reason": "Registry declares Waray-Waray, not Walloon. Replace Turkish/English calendar labels with Waray framing, preserving Dangi/Amete Alem/Umm al-Qura/Minguo proper names and Hijri/Ethiopian/Japanese meanings. Complete grammar remains low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Kalendaryo han Etiopia",
+    "reason": "Registry declares Waray-Waray, not Walloon. Replace Turkish/English calendar labels with Waray framing, preserving Dangi/Amete Alem/Umm al-Qura/Minguo proper names and Hijri/Ethiopian/Japanese meanings. Complete grammar remains low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Kalendaryo nga Hijri",
+    "reason": "Registry declares Waray-Waray, not Walloon. Replace Turkish/English calendar labels with Waray framing, preserving Dangi/Amete Alem/Umm al-Qura/Minguo proper names and Hijri/Ethiopian/Japanese meanings. Complete grammar remains low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Kalendaryo nga Hijri (Umm al-Qura)",
+    "reason": "Registry declares Waray-Waray, not Walloon. Replace Turkish/English calendar labels with Waray framing, preserving Dangi/Amete Alem/Umm al-Qura/Minguo proper names and Hijri/Ethiopian/Japanese meanings. Complete grammar remains low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Kalendaryo nga Minguo",
+    "reason": "Registry declares Waray-Waray, not Walloon. Replace Turkish/English calendar labels with Waray framing, preserving Dangi/Amete Alem/Umm al-Qura/Minguo proper names and Hijri/Ethiopian/Japanese meanings. Complete grammar remains low confidence."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Kalendaryo han Hapon",
+    "reason": "Registry declares Waray-Waray, not Walloon. Replace Turkish/English calendar labels with Waray framing, preserving Dangi/Amete Alem/Umm al-Qura/Minguo proper names and Hijri/Ethiopian/Japanese meanings. Complete grammar remains low confidence."
   }
 ]
