@@ -54080,5 +54080,68 @@
     "before": "Rimuovi tutti i già letti",
     "after": "Scoati tuti tsi furã dghivãsiti",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "public-desc",
+    "before": "Questa bacheca è pubblica. È visibile a chiunque abbia il link e sarà mostrata dai motori di ricerca come Google. Solo le persone aggiunte alla bacheca possono modificarla.",
+    "after": "Aesta tabelã easti publicã. Poati s-u vedzã catsi ari ligãtura shi va s-aparã tu motoari di cãutari ca Google. Mash persoanili adãvgati la tabelã pot s-u alãxeascã.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "quick-access-description",
+    "before": "Stella una bacheca per aggiungere una scorciatoia in questa barra.",
+    "after": "Marcheadzã unã tabelã cu stealã ti s-adãvghi unã scurtãturã tu aesta barã.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "remove-member-pop",
+    "before": "Rimuovere __name__ (__username__) da __boardTitle__? L'utente sarà rimosso da tutte le schede in questa bacheca. Riceveranno una notifica.",
+    "after": "Scoati __name__ (__username__) di __boardTitle__? Membrul va s-hibã scos di tuti cãrtsãli di aesta tabelã. Va s-primascã unã notificare.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "settingsOrgPopup-title",
+    "before": "Impostazioni organizzazione",
+    "after": "Sitãri di organizatsie",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "shortcut-add-self",
+    "before": "Aggiungi te stesso alla scheda corrente",
+    "after": "Adavgã-ti la carta curentã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "shortcut-assign-self",
+    "before": "Assegna te stesso alla scheda corrente",
+    "after": "Atribui-ti carta curentã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "shortcut-toggle-sidebar",
+    "before": "Apri/chiudi la barra laterale della bacheca",
+    "after": "Dishcljidi/încljidi bara lateralã a tabelãljei",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "show-cards-minimum-count",
+    "before": "Mostra il contatore delle schede se la lista ne contiene più di",
+    "after": "Aratã numirlu di cãrtsã dacã lista ari ma multi di",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "rup",
+    "key": "show-field-on-card",
+    "before": "Visualizza questo campo sulla scheda",
+    "after": "Aratã aestu cãmpu pi cartã",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
