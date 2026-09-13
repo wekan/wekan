@@ -79630,5 +79630,96 @@
     "before": "Waxtaan ci minikaart",
     "after": "Xalaat yi ci karta bu ndaw bi",
     "reason": "Replace French comment controls and align unflagged minicard/unread comment wording with existing xalaat terminology. Unread means not read, not new attachments. Preserve assigned-card-only role and search text %s. Existing Wolof reply controls retained. Full grammar and role adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "attachment",
+    "before": "Pièce jointe",
+    "after": "Takkaay",
+    "reason": "Replace French attachment controls with Wolof, reusing existing takkaay and storage-move terminology. Preserve all-attachments versus board-only scopes, filesystem/GridFS/S3 destinations, minicard attachment count and rename action. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "my-attachments",
+    "before": "Mes Pièces jointes",
+    "after": "Samay takkaay",
+    "reason": "Replace French attachment controls with Wolof, reusing existing takkaay and storage-move terminology. Preserve all-attachments versus board-only scopes, filesystem/GridFS/S3 destinations, minicard attachment count and rename action. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "attachmentActionsPopup-title",
+    "before": "Actions sur les pièces jointes",
+    "after": "Jëf yi ci takkaay yi",
+    "reason": "Replace French attachment controls with Wolof, reusing existing takkaay and storage-move terminology. Preserve all-attachments versus board-only scopes, filesystem/GridFS/S3 destinations, minicard attachment count and rename action. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "attachment-move",
+    "before": "Déplacer la pièce jointe",
+    "after": "Yóbbu takkaay bi",
+    "reason": "Replace French attachment controls with Wolof, reusing existing takkaay and storage-move terminology. Preserve all-attachments versus board-only scopes, filesystem/GridFS/S3 destinations, minicard attachment count and rename action. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "badge-attachment-on-minicard",
+    "before": "Compteur de pièces jointes sur la mini-carte",
+    "after": "Limu takkaay yi ci karta bu ndaw bi",
+    "reason": "Replace French attachment controls with Wolof, reusing existing takkaay and storage-move terminology. Preserve all-attachments versus board-only scopes, filesystem/GridFS/S3 destinations, minicard attachment count and rename action. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "s3-attachments",
+    "before": "Pièces jointes S3",
+    "after": "Takkaay yu S3",
+    "reason": "Replace French attachment controls with Wolof, reusing existing takkaay and storage-move terminology. Preserve all-attachments versus board-only scopes, filesystem/GridFS/S3 destinations, minicard attachment count and rename action. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "attachmentRenamePopup-title",
+    "before": "Renommer",
+    "after": "Soppi tur bi",
+    "reason": "Replace French attachment controls with Wolof, reusing existing takkaay and storage-move terminology. Preserve all-attachments versus board-only scopes, filesystem/GridFS/S3 destinations, minicard attachment count and rename action. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "move-all-attachments-to-fs",
+    "before": "Déplacer toutes les pièces jointes vers le système de fichier",
+    "after": "Yóbbu takkaay yi yépp ci sistemu fiise yi",
+    "reason": "Replace French attachment controls with Wolof, reusing existing takkaay and storage-move terminology. Preserve all-attachments versus board-only scopes, filesystem/GridFS/S3 destinations, minicard attachment count and rename action. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "move-all-attachments-of-board-to-fs",
+    "before": "Déplacer toutes les pièces jointes du tableau vers le système de fichier",
+    "after": "Yóbbu takkaay yi yépp ci tablo bi ci sistemu fiise yi",
+    "reason": "Replace French attachment controls with Wolof, reusing existing takkaay and storage-move terminology. Preserve all-attachments versus board-only scopes, filesystem/GridFS/S3 destinations, minicard attachment count and rename action. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "move-all-attachments-to-gridfs",
+    "before": "Déplacer toutes les pièces jointes vers GridFS",
+    "after": "Yóbbu takkaay yi yépp ci GridFS",
+    "reason": "Replace French attachment controls with Wolof, reusing existing takkaay and storage-move terminology. Preserve all-attachments versus board-only scopes, filesystem/GridFS/S3 destinations, minicard attachment count and rename action. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "move-all-attachments-of-board-to-gridfs",
+    "before": "Déplacer toutes les pièces jointes du tableau vers GridFS",
+    "after": "Yóbbu takkaay yi yépp ci tablo bi ci GridFS",
+    "reason": "Replace French attachment controls with Wolof, reusing existing takkaay and storage-move terminology. Preserve all-attachments versus board-only scopes, filesystem/GridFS/S3 destinations, minicard attachment count and rename action. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "move-all-attachments-to-s3",
+    "before": "Déplacer toutes les pièces jointes vers S3",
+    "after": "Yóbbu takkaay yi yépp ci S3",
+    "reason": "Replace French attachment controls with Wolof, reusing existing takkaay and storage-move terminology. Preserve all-attachments versus board-only scopes, filesystem/GridFS/S3 destinations, minicard attachment count and rename action. Full grammar and computing adaptations remain low confidence."
+  },
+  {
+    "locale": "wo",
+    "key": "move-all-attachments-of-board-to-s3",
+    "before": "Déplacer toutes les pièces jointes du tableau vers S3",
+    "after": "Yóbbu takkaay yi yépp ci tablo bi ci S3",
+    "reason": "Replace French attachment controls with Wolof, reusing existing takkaay and storage-move terminology. Preserve all-attachments versus board-only scopes, filesystem/GridFS/S3 destinations, minicard attachment count and rename action. Full grammar and computing adaptations remain low confidence."
   }
 ]
