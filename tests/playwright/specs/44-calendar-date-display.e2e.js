@@ -6,6 +6,16 @@ const { loginWithToken, openBoard } = require('../helpers/auth');
 const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
 
+async function expectCalendarOption(page, selector, calendar, label) {
+  const supported = await page.evaluate(value => {
+    try { return new Intl.DateTimeFormat('en', { calendar: value }).resolvedOptions().calendar === value; }
+    catch { return false; }
+  }, calendar);
+  const option = selector.locator(`option[value="${calendar}"]`);
+  await expect(option).toHaveCount(supported ? 1 : 0);
+  if (supported) await expect(option).toHaveText(label);
+}
+
 test('RTL date popup keeps its bottom-right grip and moves with physical pointer coordinates', async ({ page, user, board }) => {
   const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
   db.updateOne('users', { _id: user.id }, { $set: {
@@ -273,8 +283,8 @@ test('Latvian Member Settings shows repaired calendar terminology', async ({ pag
   await page.locator('.js-pop-over .js-change-settings').click();
   const selector = page.locator('.js-pop-over #calendar-system');
   await expect(selector).toBeVisible();
-  await expect(selector.locator('option[value="islamic-rgsa"]')).toHaveText('Hidžras kalendārs (Saūda Arābija, pēc novērojumiem)');
-  await expect(selector.locator('option[value="islamic-tbla"]')).toHaveText('Hidžras kalendārs (tabulārs, astronomiskā epoha)');
+  await expectCalendarOption(page, selector, 'islamic-rgsa', 'Hidžras kalendārs (Saūda Arābija, pēc novērojumiem)');
+  await expectCalendarOption(page, selector, 'islamic-tbla', 'Hidžras kalendārs (tabulārs, astronomiskā epoha)');
 });
 
 for (const language of ['ro', 'ro-RO']) {
@@ -286,8 +296,8 @@ for (const language of ['ro', 'ro-RO']) {
     await page.locator('.js-pop-over .js-change-settings').click();
     const selector = page.locator('.js-pop-over #calendar-system');
     await expect(selector).toBeVisible();
-    await expect(selector.locator('option[value="islamic-rgsa"]')).toHaveText('Calendar Hijri (Arabia Saudită, observarea lunii)');
-    await expect(selector.locator('option[value="islamic-tbla"]')).toHaveText('Calendar Hijri (tabular, epocă astronomică)');
+    await expectCalendarOption(page, selector, 'islamic-rgsa', 'Calendar Hijri (Arabia Saudită, observarea lunii)');
+    await expectCalendarOption(page, selector, 'islamic-tbla', 'Calendar Hijri (tabular, epocă astronomică)');
     await expect(selector).not.toContainText('Islamic (Saudi Arabia)');
     await expect(selector).not.toContainText('Islamic tabular');
   });
@@ -305,8 +315,8 @@ for (const [language, sighting, tabular] of [
     await page.locator('.js-pop-over .js-change-settings').click();
     const selector = page.locator('.js-pop-over #calendar-system');
     await expect(selector).toBeVisible();
-    await expect(selector.locator('option[value="islamic-rgsa"]')).toHaveText(sighting);
-    await expect(selector.locator('option[value="islamic-tbla"]')).toHaveText(tabular);
+    await expectCalendarOption(page, selector, 'islamic-rgsa', sighting);
+    await expectCalendarOption(page, selector, 'islamic-tbla', tabular);
     await expect(selector).not.toContainText('Islamic (Saudi Arabia)');
   });
 }
