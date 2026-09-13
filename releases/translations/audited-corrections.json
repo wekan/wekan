@@ -57692,5 +57692,110 @@
     "before": "Republic of China",
     "after": "Миньго календаре",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ckb",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "ڕۆژژمێری بودایی",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ckb",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "ڕۆژژمێری چینی",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ckb",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "ڕۆژژمێری قیبطی",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ckb",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "ڕۆژژمێری دانگی (کۆریایی)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ckb",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "ڕۆژژمێری ئەسیوپی ئامەتە ئالەم",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ckb",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "ڕۆژژمێری ئەسیوپی",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ckb",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "ڕۆژژمێری عیبری",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ckb",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "ڕۆژژمێری نەتەوەیی هیندستان",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ckb",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "ڕۆژژمێری کۆچی",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ckb",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "ڕۆژژمێری کۆچی (خشتەیی، دەستپێکی مەدەنی)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ckb",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "ڕۆژژمێری کۆچی (عەرەبستانی سعودی، بینینی مانگ)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ckb",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "ڕۆژژمێری کۆچی (خشتەیی، دەستپێکی ئەستێرەناسی)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ckb",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "ڕۆژژمێری کۆچی (ئوم ئەلقورا)",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ckb",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "ڕۆژژمێری ژاپۆنی",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "ckb",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "ڕۆژژمێری مینگۆ",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
