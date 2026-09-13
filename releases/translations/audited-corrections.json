@@ -117612,5 +117612,68 @@
     "before": "Palauta kadonneet kortit",
     "after": "Endišta kadonu kartad",
     "reason": "Replace Finnish with Veps; preserve board/card/swimlane archive destinations, later recovery and retained activity, ALL archived versus non-archived lost-item scope, exact swimlaneId/listId and named Lost Cards identifiers, automatic repair and cannot-easily-undo wording. Lexical references: Zaiceva/Mullonen 2007 dictionary; https://en.wiktionary.org/wiki/kadoda (kadonu), https://en.wiktionary.org/wiki/kaita (kaitud, preservation), native archive/restore vocabulary from https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json . Low confidence: composed recovery grammar and plural/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-retry-failed",
+    "before": "Yritä uudelleen epäonnistuneita siirtoja",
+    "after": "Tošta migracijad, miččed ei olgoi satusekhad",
+    "reason": "Replace Finnish migration status text with Veps. Preserve failed-only retries versus paused-only continuation, empty queues, successful action responses, all-error clearing, and errors versus warnings. Existing native migration-paused, migration-successful and migration-resumed values retained. Zaiceva/Mullonen 2007 dictionary: azotada, jatkata/jatktand, satusekaz (-han), viga, varutuz; https://en.wiktionary.org/wiki/to%C5%A1tta confirms past passive tošttud. Low confidence: composed failure-status grammar and plural/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-resume-paused",
+    "before": "Jatka keskeytettyjä siirtoja",
+    "after": "Jatkta azotadud migracijad",
+    "reason": "Replace Finnish migration status text with Veps. Preserve failed-only retries versus paused-only continuation, empty queues, successful action responses, all-error clearing, and errors versus warnings. Existing native migration-paused, migration-successful and migration-resumed values retained. Zaiceva/Mullonen 2007 dictionary: azotada, jatkata/jatktand, satusekaz (-han), viga, varutuz; https://en.wiktionary.org/wiki/to%C5%A1tta confirms past passive tošttud. Low confidence: composed failure-status grammar and plural/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-no-failed-migrations",
+    "before": "Ei epäonnistuneita siirtoja joita yrittää uudelleen",
+    "after": "Ei ole toštamižen täht migracijoid, miččed ei olgoi satusekhad",
+    "reason": "Replace Finnish migration status text with Veps. Preserve failed-only retries versus paused-only continuation, empty queues, successful action responses, all-error clearing, and errors versus warnings. Existing native migration-paused, migration-successful and migration-resumed values retained. Zaiceva/Mullonen 2007 dictionary: azotada, jatkata/jatktand, satusekaz (-han), viga, varutuz; https://en.wiktionary.org/wiki/to%C5%A1tta confirms past passive tošttud. Low confidence: composed failure-status grammar and plural/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-no-paused-migrations",
+    "before": "Ei keskeytettyjä siirtoja joita jatkaa",
+    "after": "Ei ole azotadud migracijoid jatktamižen täht",
+    "reason": "Replace Finnish migration status text with Veps. Preserve failed-only retries versus paused-only continuation, empty queues, successful action responses, all-error clearing, and errors versus warnings. Existing native migration-paused, migration-successful and migration-resumed values retained. Zaiceva/Mullonen 2007 dictionary: azotada, jatkata/jatktand, satusekaz (-han), viga, varutuz; https://en.wiktionary.org/wiki/to%C5%A1tta confirms past passive tošttud. Low confidence: composed failure-status grammar and plural/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-migrations-resumed",
+    "before": "Siirrot jatkuu onnistuneesti",
+    "after": "Migracijad oma hüvin jatktud",
+    "reason": "Replace Finnish migration status text with Veps. Preserve failed-only retries versus paused-only continuation, empty queues, successful action responses, all-error clearing, and errors versus warnings. Existing native migration-paused, migration-successful and migration-resumed values retained. Zaiceva/Mullonen 2007 dictionary: azotada, jatkata/jatktand, satusekaz (-han), viga, varutuz; https://en.wiktionary.org/wiki/to%C5%A1tta confirms past passive tošttud. Low confidence: composed failure-status grammar and plural/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-migrations-retried",
+    "before": "Epäonnistuneet siirrot jatkuu onnistuneesti",
+    "after": "Migracijad, miččed ei olgoi satusekhad, oma hüvin tošttud",
+    "reason": "Replace Finnish migration status text with Veps. Preserve failed-only retries versus paused-only continuation, empty queues, successful action responses, all-error clearing, and errors versus warnings. Existing native migration-paused, migration-successful and migration-resumed values retained. Zaiceva/Mullonen 2007 dictionary: azotada, jatkata/jatktand, satusekaz (-han), viga, varutuz; https://en.wiktionary.org/wiki/to%C5%A1tta confirms past passive tošttud. Low confidence: composed failure-status grammar and plural/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-migration-errors",
+    "before": "Siirto virheet",
+    "after": "Migracijoiden vigad",
+    "reason": "Replace Finnish migration status text with Veps. Preserve failed-only retries versus paused-only continuation, empty queues, successful action responses, all-error clearing, and errors versus warnings. Existing native migration-paused, migration-successful and migration-resumed values retained. Zaiceva/Mullonen 2007 dictionary: azotada, jatkata/jatktand, satusekaz (-han), viga, varutuz; https://en.wiktionary.org/wiki/to%C5%A1tta confirms past passive tošttud. Low confidence: composed failure-status grammar and plural/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-migration-warnings",
+    "before": "Siirto varoitukset",
+    "after": "Migracijoiden varutused",
+    "reason": "Replace Finnish migration status text with Veps. Preserve failed-only retries versus paused-only continuation, empty queues, successful action responses, all-error clearing, and errors versus warnings. Existing native migration-paused, migration-successful and migration-resumed values retained. Zaiceva/Mullonen 2007 dictionary: azotada, jatkata/jatktand, satusekaz (-han), viga, varutuz; https://en.wiktionary.org/wiki/to%C5%A1tta confirms past passive tošttud. Low confidence: composed failure-status grammar and plural/case forms require fluent-speaker review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-errors-cleared",
+    "before": "Kaikki virheet tyhjennetty onnistuneesti",
+    "after": "Kaik vigad oma hüvin heittud",
+    "reason": "Replace Finnish migration status text with Veps. Preserve failed-only retries versus paused-only continuation, empty queues, successful action responses, all-error clearing, and errors versus warnings. Existing native migration-paused, migration-successful and migration-resumed values retained. Zaiceva/Mullonen 2007 dictionary: azotada, jatkata/jatktand, satusekaz (-han), viga, varutuz; https://en.wiktionary.org/wiki/to%C5%A1tta confirms past passive tošttud. Low confidence: composed failure-status grammar and plural/case forms require fluent-speaker review."
   }
 ]

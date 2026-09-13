@@ -1606,5 +1606,40 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(cache['ve-PP']['run-restore-all-archived-migration-confirm'], /ei sa kebnašti pördutada/);
   assert.doesNotMatch(cache['ve-PP']['run-restore-all-archived-migration-confirm'], /ei sa pördutada/);
   for (const key of ['run-restore-lost-cards-migration-confirm', 'run-restore-all-archived-migration-confirm']) assert.match(cache['ve-PP'][key], /Jatkta[?]$/);
+  const vepsMigrationStatusRepairs = {
+  "cron-retry-failed": "Tošta migracijad, miččed ei olgoi satusekhad",
+  "cron-resume-paused": "Jatkta azotadud migracijad",
+  "cron-no-failed-migrations": "Ei ole toštamižen täht migracijoid, miččed ei olgoi satusekhad",
+  "cron-no-paused-migrations": "Ei ole azotadud migracijoid jatktamižen täht",
+  "cron-migrations-resumed": "Migracijad oma hüvin jatktud",
+  "cron-migrations-retried": "Migracijad, miččed ei olgoi satusekhad, oma hüvin tošttud",
+  "cron-migration-errors": "Migracijoiden vigad",
+  "cron-migration-warnings": "Migracijoiden varutused",
+  "cron-errors-cleared": "Kaik vigad oma hüvin heittud"
+};
+  for (const [key, value] of Object.entries(vepsMigrationStatusRepairs)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.equal(vepsTranslator.t(key), value, key);
+    assert.doesNotMatch(value, /Yritä uudelleen|epäonnistuneita|keskeytettyjä|Siirrot jatkuu|onnistuneesti|Epäonnistuneet siirrot|Siirto virheet|Siirto varoitukset|Kaikki virheet|tyhjennetty/i, key);
+  }
+  for (const key of ['cron-retry-failed', 'cron-no-failed-migrations', 'cron-migrations-retried']) {
+    assert.match(cache['ve-PP'][key], /miččed ei olgoi satusekhad/);
+    assert.doesNotMatch(cache['ve-PP'][key], /azotadud/);
+  }
+  for (const key of ['cron-resume-paused', 'cron-no-paused-migrations']) {
+    assert.match(cache['ve-PP'][key], /azotadud/);
+    assert.doesNotMatch(cache['ve-PP'][key], /satusekhad/);
+  }
+  assert.match(cache['ve-PP']['cron-no-failed-migrations'], /^Ei ole/);
+  assert.match(cache['ve-PP']['cron-no-paused-migrations'], /^Ei ole/);
+  assert.match(cache['ve-PP']['cron-migrations-resumed'], /hüvin jatktud$/);
+  assert.match(cache['ve-PP']['cron-migrations-retried'], /hüvin tošttud$/);
+  assert.doesNotMatch(cache['ve-PP']['cron-migrations-retried'], /toštud/);
+  assert.equal(cache['ve-PP']['cron-migration-errors'], 'Migracijoiden vigad');
+  assert.equal(cache['ve-PP']['cron-migration-warnings'], 'Migracijoiden varutused');
+  assert.match(cache['ve-PP']['cron-errors-cleared'], /^Kaik vigad.*hüvin heittud$/);
+  assert.equal(cache['ve-PP']['migration-paused'], 'Migracijad oma hüvin azotadud.');
+  assert.equal(cache['ve-PP']['migration-successful'], 'Migracii om hüvin loptud.');
+  assert.equal(cache['ve-PP']['migration-resumed'], 'Migracii om jatktud.');
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
