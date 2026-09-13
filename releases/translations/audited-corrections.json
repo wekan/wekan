@@ -90655,5 +90655,68 @@
     "before": "Annonce de l'administrateur",
     "after": "Nunäd de guvan",
     "reason": "Replace audited French date/time activity, account-created and administrator announcement wording with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nunäd (announcement), getön (receive), prim (beginning), fin (end), dät (date), tim (time), jafön (create). MediaWiki uses Kal for account and nunädön oki for login. Preserve new __timeValue__ versus parenthesized old __timeOldValue__; activities.jade passes receivedDate as first %s and cardLink as second, so do not treat them as two dates. Derived getam (receipt) and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "allboards.workspace-menu",
+    "before": "Menu de l'espace de travail",
+    "after": "Lised välas vobaspada",
+    "reason": "Replace audited French workspace/account/card controls with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kadil (small card), jafan (creator), jonidükön (assign), primön (begin), num (number), lönik (own/custom adaptation). Reuse local Lised välas, vobaspad and ninädapenäd terminology. Preserve card labels, numeric minicard sorting, custom fields, member assignment and hierarchy parent rather than biological parent; retain planning poker feature name. Workspace/custom-field/hierarchy adaptation and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "already-account",
+    "before": "Vous avez déjà un compte ? Se connecter",
+    "after": "Ya labol kali-li? Nunädolös oki",
+    "reason": "Replace audited French workspace/account/card controls with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kadil (small card), jafan (creator), jonidükön (assign), primön (begin), num (number), lönik (own/custom adaptation). Reuse local Lised välas, vobaspad and ninädapenäd terminology. Preserve card labels, numeric minicard sorting, custom fields, member assignment and hierarchy parent rather than biological parent; retain planning poker feature name. Workspace/custom-field/hierarchy adaptation and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "assign-member",
+    "before": "Attribuer à un participant",
+    "after": "Jonidükön limani",
+    "reason": "Replace audited French workspace/account/card controls with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kadil (small card), jafan (creator), jonidükön (assign), primön (begin), num (number), lönik (own/custom adaptation). Reuse local Lised välas, vobaspad and ninädapenäd terminology. Preserve card labels, numeric minicard sorting, custom fields, member assignment and hierarchy parent rather than biological parent; retain planning poker feature name. Workspace/custom-field/hierarchy adaptation and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "card-labels-title",
+    "before": "Modifier les étiquettes de la carte.",
+    "after": "Votükön ninädapenädis kada.",
+    "reason": "Replace audited French workspace/account/card controls with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kadil (small card), jafan (creator), jonidükön (assign), primön (begin), num (number), lönik (own/custom adaptation). Reuse local Lised välas, vobaspad and ninädapenäd terminology. Preserve card labels, numeric minicard sorting, custom fields, member assignment and hierarchy parent rather than biological parent; retain planning poker feature name. Workspace/custom-field/hierarchy adaptation and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "card-sorting-by-number-on-minicard",
+    "before": "Tri numérique des cartes sur la mini-carte",
+    "after": "Sotam kadas bai num su kadil",
+    "reason": "Replace audited French workspace/account/card controls with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kadil (small card), jafan (creator), jonidükön (assign), primön (begin), num (number), lönik (own/custom adaptation). Reuse local Lised välas, vobaspad and ninädapenäd terminology. Preserve card labels, numeric minicard sorting, custom fields, member assignment and hierarchy parent rather than biological parent; retain planning poker feature name. Workspace/custom-field/hierarchy adaptation and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "cardCustomFieldsPopup-title",
+    "before": "Éditer les champs personnalisés",
+    "after": "Votükön felis lönik",
+    "reason": "Replace audited French workspace/account/card controls with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kadil (small card), jafan (creator), jonidükön (assign), primön (begin), num (number), lönik (own/custom adaptation). Reuse local Lised välas, vobaspad and ninädapenäd terminology. Preserve card labels, numeric minicard sorting, custom fields, member assignment and hierarchy parent rather than biological parent; retain planning poker feature name. Workspace/custom-field/hierarchy adaptation and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "cardStartPlanningPokerPopup-title",
+    "before": "Démarrer un planning poker",
+    "after": "Primön eli «planning poker»",
+    "reason": "Replace audited French workspace/account/card controls with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kadil (small card), jafan (creator), jonidükön (assign), primön (begin), num (number), lönik (own/custom adaptation). Reuse local Lised välas, vobaspad and ninädapenäd terminology. Preserve card labels, numeric minicard sorting, custom fields, member assignment and hierarchy parent rather than biological parent; retain planning poker feature name. Workspace/custom-field/hierarchy adaptation and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "change-card-parent",
+    "before": "Changer le parent de la carte",
+    "after": "Votükön kadi löpikum kada",
+    "reason": "Replace audited French workspace/account/card controls with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kadil (small card), jafan (creator), jonidükön (assign), primön (begin), num (number), lönik (own/custom adaptation). Reuse local Lised välas, vobaspad and ninädapenäd terminology. Preserve card labels, numeric minicard sorting, custom fields, member assignment and hierarchy parent rather than biological parent; retain planning poker feature name. Workspace/custom-field/hierarchy adaptation and assembled software wording remain low confidence pending native review."
+  },
+  {
+    "locale": "vo",
+    "key": "creator-on-minicard",
+    "before": "Créateur sur la mini-carte",
+    "after": "Jafan su kadil",
+    "reason": "Replace audited French workspace/account/card controls with Volapük. Midgley https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests kadil (small card), jafan (creator), jonidükön (assign), primön (begin), num (number), lönik (own/custom adaptation). Reuse local Lised välas, vobaspad and ninädapenäd terminology. Preserve card labels, numeric minicard sorting, custom fields, member assignment and hierarchy parent rather than biological parent; retain planning poker feature name. Workspace/custom-field/hierarchy adaptation and assembled software wording remain low confidence pending native review."
   }
 ]
