@@ -112165,7 +112165,7 @@
     "key": "calendar-system-islamic-civil",
     "before": "Islamic civil",
     "after": "اِسلٲمی اِجتمٲیی کیلنڑَر",
-    "reason": "Replace English Islamic civil with exact Kashmiri Islamic civil calendar display name attested in Unicode CLDR 47 ks, calendar-islamic-civil: https://www.unicode.org/cldr/charts/47/summary/ks.html . Official localized name distinguishes the civil variant; other Hijri variants remain pending."
+    "reason": "Replace English Islamic civil with exact Kashmiri Islamic civil calendar display name attested in Unicode CLDR 47 ks, calendar-islamic-civil: https://www.unicode.org/cldr/charts/47/summary/ks.html . Official localized name distinguishes the civil variant; other Hijri variants remain pending. Review 2026-09-14: current Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/ks.xml marks Islamic/civil names provisional and has no islamic-rgsa or islamic-tbla entries. Existing civil wording does not establish full tabular/civil-epoch qualifiers; those qualifiers and pending sighting/astronomical labels need explicit Kashmiri technical terminology research. Retain current value during this bounded reference review, without claiming fluent or semantic completion."
   },
   {
     "locale": "sah",
