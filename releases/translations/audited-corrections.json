@@ -112614,5 +112614,61 @@
     "before": "Avaa lukitus kaikista",
     "after": "Heitä kaik saubatused",
     "reason": "Replace Finnish unlock confirmation/all action text with direct Veps compositions. https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json attests Tozi-ik sinä tahtoid confirmation syntax, heitta ... saubatust unlock semantics, and saubatusid plural. Preserve this-user versus all-locked-users scope and the all action. Composed grammar and plural usage need fluent review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "email",
+    "before": "Sähköposti",
+    "after": "Email-počt",
+    "reason": "Replace Finnish/Zulu authentication and confirmation labels using directly fetched native Veps software vocabulary at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: email, pt-login-button, logout, htmlform-yes, ok, confirm. Use the sign-in button imperative Tule. Preserve existing correct Veps Ei for No."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "logout",
+    "before": "Kirjaudu ulos",
+    "after": "Lähte",
+    "reason": "Replace Finnish/Zulu authentication and confirmation labels using directly fetched native Veps software vocabulary at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: email, pt-login-button, logout, htmlform-yes, ok, confirm. Use the sign-in button imperative Tule. Preserve existing correct Veps Ei for No."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "log-out",
+    "before": "Kirjaudu ulos",
+    "after": "Lähte",
+    "reason": "Replace Finnish/Zulu authentication and confirmation labels using directly fetched native Veps software vocabulary at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: email, pt-login-button, logout, htmlform-yes, ok, confirm. Use the sign-in button imperative Tule. Preserve existing correct Veps Ei for No."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "login",
+    "before": "Kirjaudu sisään",
+    "after": "Tule",
+    "reason": "Replace Finnish/Zulu authentication and confirmation labels using directly fetched native Veps software vocabulary at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: email, pt-login-button, logout, htmlform-yes, ok, confirm. Use the sign-in button imperative Tule. Preserve existing correct Veps Ei for No."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "log-in",
+    "before": "Kirjaudu sisään",
+    "after": "Tule",
+    "reason": "Replace Finnish/Zulu authentication and confirmation labels using directly fetched native Veps software vocabulary at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: email, pt-login-button, logout, htmlform-yes, ok, confirm. Use the sign-in button imperative Tule. Preserve existing correct Veps Ei for No."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "yes",
+    "before": "Kyllä",
+    "after": "Ka",
+    "reason": "Replace Finnish/Zulu authentication and confirmation labels using directly fetched native Veps software vocabulary at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: email, pt-login-button, logout, htmlform-yes, ok, confirm. Use the sign-in button imperative Tule. Preserve existing correct Veps Ei for No."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "ok",
+    "before": "KULUNGILE",
+    "after": "KA",
+    "reason": "Replace Finnish/Zulu authentication and confirmation labels using directly fetched native Veps software vocabulary at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: email, pt-login-button, logout, htmlform-yes, ok, confirm. Use the sign-in button imperative Tule. Preserve existing correct Veps Ei for No."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "confirm",
+    "before": "Varmista",
+    "after": "Vahvištoita",
+    "reason": "Replace Finnish/Zulu authentication and confirmation labels using directly fetched native Veps software vocabulary at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json: email, pt-login-button, logout, htmlform-yes, ok, confirm. Use the sign-in button imperative Tule. Preserve existing correct Veps Ei for No."
   }
 ]
