@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Audit keys |
 | --- | ---: |
-| Explicitly corrected | 7,342 |
+| Explicitly corrected | 7,350 |
 | Restored pre-pull values awaiting further validation | 4,059 |
 | Reviewed and retained unchanged | 175 |
-| Pending review or repair | 8,505 |
+| Pending review or repair | 8,497 |
 | Total tracked | 20,081 |
 
 **Translation repairs remain unfinished.** These counts cover flagged findings; unflagged strings and restored values are not certified as correct.
 
-Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **7,415 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
+Fixes cover wrong-language text, terminology, warnings, JSON examples, placeholders and calendar/search formatting. The correction history records **7,423 values**, including fixes outside the audit. Per-language remaining work is available through the command below.
 
-Latest fix: [d4ffd8c02](https://github.com/wekan/wekan/commit/d4ffd8c026eb0bb01fab1fbe4abfede40ee0f1f7), **2026-09-13** — eight Corsican search-validation and OIDC values repaired; **90 Corsican findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
+Latest fix: [8cd048ded](https://github.com/wekan/wekan/commit/8cd048deda3756c17b7df55a78aa0855743e6e5a), **2026-09-13** — eight Corsican private-page, migration and rule values repaired; **82 Corsican findings remain**. Exact-value, placeholder, key-order and idempotency checks pass. Wording needs native-speaker review; live browser verification remains unavailable.
 
 **Provenance:** not all errors came from Transifex. The captured pull changed 4,061 values; the local audit added 16,020 findings. Bosnian errors predated that pull in a [local completion commit](https://github.com/wekan/wekan/commit/bdb3b15886a749b725b5290ba0109fcba955f983). Other ultimate origins remain unverified.
 
