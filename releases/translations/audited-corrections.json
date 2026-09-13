@@ -60310,5 +60310,75 @@
     "before": "Pour créer des organisations, veuillez contacter l'administrateur.",
     "after": "Per crear d’organizacions, contactatz l’administrador.",
     "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "to-create-teams-contact-admin",
+    "before": "Pour créer des équipes, veuillez contacter l'administrateur.",
+    "after": "Per crear d’equipas, contactatz l’administrador.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "toggle-assignees",
+    "before": "Changer les intervenants 1-9 sur une carte (par ordre d'ajout au tableau)",
+    "after": "Activar/desactivar los assignataris 1-9 de la carta (segon l’òrdre d’apondon al tablèu).",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "user-can-not-export-card-to-excel",
+    "before": "L'utilisateur ne peut pas exporter la carte vers Excel",
+    "after": "L’utilizaire pòt pas exportar la carta cap a Excel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "user-can-not-export-card-to-pdf",
+    "before": "L'utilisateur ne peut pas exporter de carte en PDF",
+    "after": "L’utilizaire pòt pas exportar la carta en PDF",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "user-can-not-export-excel",
+    "before": "L'utilisateur ne peut pas exporter vers Excel",
+    "after": "L’utilizaire pòt pas exportar cap a Excel",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "user-exists",
+    "before": "L'utilisateur existe déjà",
+    "after": "L’utilizaire existís ja",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "user-username-not-found",
+    "before": "Utilisateur '%s' non trouvé.",
+    "after": "Nom d'utilizaire '%s' pas trobat.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "username-password-required",
+    "before": "Nom d'utilisateur et mot de passe requis",
+    "after": "Lo nom d’utilizaire e lo senhal son obligatòris",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "username-too-short",
+    "before": "Le nom d'utilisateur doit comporter au moins 3 caractères",
+    "after": "Lo nom d’utilizaire deu conténer almens 3 caractèrs",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+  },
+  {
+    "locale": "oc",
+    "key": "watching-info",
+    "before": "Vous serez notifié de toute modification dans ce tableau",
+    "after": "Seretz notificat de tota modificacion d’aqueste tablèu",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
   }
 ]
