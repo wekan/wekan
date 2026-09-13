@@ -85972,5 +85972,33 @@
     "before": "Republic of China",
     "after": "Haatumeere Minguo",
     "reason": "Replace English calendar labels with Fulah Haatumeere; specific calendar usage Haatumeere Lislaam directly attested in Pulaar article https://www.boolumbal.org/GANNDE-KESE-Jaa%C9%93ngal-waktuuji-Njuulu-Muslim-Pro-yaltii-e-%C9%97emngal-Pulaar_a18834.html . General dictionary Haatumeere also means chart/grid, so calendar usage relies on article context. Preserve Dangi/Umm al-Qura/Minguo identities. Assembled labels and proper-name forms remain low confidence, not native-speaker verified."
+  },
+  {
+    "locale": "ff",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Haatumeere Siin",
+    "reason": "Replace English calendar names using existing Fulah Haatumeere (calendar usage previously verified in Pulaar publication), and Fulah country names Siin/Sapoo/Ecoppi from https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/ff.xml . Preserve Amete Alem identity. Assembled noun/country phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "ff",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Haatumeere Sapoo",
+    "reason": "Replace English calendar names using existing Fulah Haatumeere (calendar usage previously verified in Pulaar publication), and Fulah country names Siin/Sapoo/Ecoppi from https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/ff.xml . Preserve Amete Alem identity. Assembled noun/country phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "ff",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Haatumeere Ecoppi",
+    "reason": "Replace English calendar names using existing Fulah Haatumeere (calendar usage previously verified in Pulaar publication), and Fulah country names Siin/Sapoo/Ecoppi from https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/ff.xml . Preserve Amete Alem identity. Assembled noun/country phrases remain low confidence; no native-speaker verification."
+  },
+  {
+    "locale": "ff",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Haatumeere Amete Alem Ecoppi",
+    "reason": "Replace English calendar names using existing Fulah Haatumeere (calendar usage previously verified in Pulaar publication), and Fulah country names Siin/Sapoo/Ecoppi from https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/ff.xml . Preserve Amete Alem identity. Assembled noun/country phrases remain low confidence; no native-speaker verification."
   }
 ]
