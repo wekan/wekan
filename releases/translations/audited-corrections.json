@@ -85221,8 +85221,8 @@
     "locale": "ss",
     "key": "calendar-system-hebrew",
     "before": "Hebrew",
-    "after": "Likhalenda lemaHebheru",
-    "reason": "Replace English Hebrew calendar and foreign Fars label with Swati descriptions using existing Likhalenda terminology. ema Hebheru vocabulary appears in Swati Exodus at https://doc-files.bibleineverylanguage.org/ss-reg-exo_lbo_1c_chapter.pdf . Retain Jalali and Persia identities; no native Persian country spelling established by searches. Complete assembled grammar and retained Persia spelling remain low confidence; Buddhist, Coptic, Indian national and Hijri variant labels remain pending."
+    "after": "Ikhalenda yesiHebheru",
+    "reason": "Refine prior assembled Swati Hebrew calendar wording to exact published native label Ikhalenda YesiHebheru (sentence capitalization): https://www.jw.org/ss/luhla-lwetintfo-letitfolakalako/libhayibheli/nwt/sandzisanchazo-b/ikhalenda-yesihebheru-lesebhayibhelini/ . Preserve original before value in correction record. This attestation applies to this label, not all Swati grammar."
   },
   {
     "locale": "ss",
@@ -85244,5 +85244,47 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "Likhalenda le-Hijri (Saudi Arabia, kubonwa kwenyanga)",
     "reason": "Replace English Indian national calendar and Saudi Islamic label with Swati descriptions; preserve India/Saudi Arabia/Hijri identities, national distinction and omitted moon-sighting detail. Existing Likhalenda terminology retained. Swati moon inyanga appears in https://glosbe.com/zu/ss/inyanga ; this lexical evidence does not validate full grammar. Retained country spellings, national descriptor and complete sighting grammar remain low confidence. Buddhist, Coptic and tabular epoch variants remain pending."
+  },
+  {
+    "locale": "nd",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Uhlelo lwekhalenda (ukuvezwa kwelanga)",
+    "reason": "Replace foreign setting and English calendar labels with Northern Ndebele, using existing Ikhalenda/Ilanga terminology and preserving Dangi/Hijri/Umm al-Qura/Minguo identities. Exact Ikhalenda YamaHebheru attested at https://wol.jw.org/nd/wol/d/r357/lp-nbz/1001061237 . Other assembled setting/label grammar remains low confidence; religious/country/tabular variant labels remain pending. nd is Northern Ndebele, not Southern Ndebele nr."
+  },
+  {
+    "locale": "nd",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Ikhalenda yamaHebheru",
+    "reason": "Replace foreign setting and English calendar labels with Northern Ndebele, using existing Ikhalenda/Ilanga terminology and preserving Dangi/Hijri/Umm al-Qura/Minguo identities. Exact Ikhalenda YamaHebheru attested at https://wol.jw.org/nd/wol/d/r357/lp-nbz/1001061237 . Other assembled setting/label grammar remains low confidence; religious/country/tabular variant labels remain pending. nd is Northern Ndebele, not Southern Ndebele nr."
+  },
+  {
+    "locale": "nd",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Ikhalenda ye-Dangi",
+    "reason": "Replace foreign setting and English calendar labels with Northern Ndebele, using existing Ikhalenda/Ilanga terminology and preserving Dangi/Hijri/Umm al-Qura/Minguo identities. Exact Ikhalenda YamaHebheru attested at https://wol.jw.org/nd/wol/d/r357/lp-nbz/1001061237 . Other assembled setting/label grammar remains low confidence; religious/country/tabular variant labels remain pending. nd is Northern Ndebele, not Southern Ndebele nr."
+  },
+  {
+    "locale": "nd",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Ikhalenda ye-Hijri",
+    "reason": "Replace foreign setting and English calendar labels with Northern Ndebele, using existing Ikhalenda/Ilanga terminology and preserving Dangi/Hijri/Umm al-Qura/Minguo identities. Exact Ikhalenda YamaHebheru attested at https://wol.jw.org/nd/wol/d/r357/lp-nbz/1001061237 . Other assembled setting/label grammar remains low confidence; religious/country/tabular variant labels remain pending. nd is Northern Ndebele, not Southern Ndebele nr."
+  },
+  {
+    "locale": "nd",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Ikhalenda ye-Hijri (Umm al-Qura)",
+    "reason": "Replace foreign setting and English calendar labels with Northern Ndebele, using existing Ikhalenda/Ilanga terminology and preserving Dangi/Hijri/Umm al-Qura/Minguo identities. Exact Ikhalenda YamaHebheru attested at https://wol.jw.org/nd/wol/d/r357/lp-nbz/1001061237 . Other assembled setting/label grammar remains low confidence; religious/country/tabular variant labels remain pending. nd is Northern Ndebele, not Southern Ndebele nr."
+  },
+  {
+    "locale": "nd",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Ikhalenda ye-Minguo",
+    "reason": "Replace foreign setting and English calendar labels with Northern Ndebele, using existing Ikhalenda/Ilanga terminology and preserving Dangi/Hijri/Umm al-Qura/Minguo identities. Exact Ikhalenda YamaHebheru attested at https://wol.jw.org/nd/wol/d/r357/lp-nbz/1001061237 . Other assembled setting/label grammar remains low confidence; religious/country/tabular variant labels remain pending. nd is Northern Ndebele, not Southern Ndebele nr."
   }
 ]
