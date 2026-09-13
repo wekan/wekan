@@ -88009,5 +88009,54 @@
     "before": "Fenêtre des échecs (secondes)",
     "after": "Tim pro lepöks (sekuns)",
     "reason": "Replace French or Esperanto login/lockout wording with Volapük. MediaWiki Volapük source https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json attests nunädön oki for software login; Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf attests nelaidüpo (temporarily), steifül (attempt), sekun (second), lepök (failure). Preserve temporary lock, excessive failed-login cause, later retry and seconds units. Failure-window wording and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "act-createBoard",
+    "before": "a créé le tableau __board__",
+    "after": "ejafon tabi __board__",
+    "reason": "Replace French board activity text with Volapük, using existing tab/liman/fel lönik terminology and existing activity perfect-tense style. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf supplies jafön (create), lüükön (add), moükön (remove), radön (erase), topätükön (move), ragiv (archive), nüveigön (import). Preserve each board/member/custom-field placeholder role and archive destination. Data import/custom-field adaptations and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "act-createCustomField",
+    "before": "a créé le champ personnalisé __customField__ du tableau __board__",
+    "after": "ejafon feli lönik: __customField__ su tab: __board__",
+    "reason": "Replace French board activity text with Volapük, using existing tab/liman/fel lönik terminology and existing activity perfect-tense style. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf supplies jafön (create), lüükön (add), moükön (remove), radön (erase), topätükön (move), ragiv (archive), nüveigön (import). Preserve each board/member/custom-field placeholder role and archive destination. Data import/custom-field adaptations and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "act-deleteCustomField",
+    "before": "a supprimé le champ personnalisé __customField__ du tableau __board__",
+    "after": "eradon feli lönik: __customField__ su tab: __board__",
+    "reason": "Replace French board activity text with Volapük, using existing tab/liman/fel lönik terminology and existing activity perfect-tense style. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf supplies jafön (create), lüükön (add), moükön (remove), radön (erase), topätükön (move), ragiv (archive), nüveigön (import). Preserve each board/member/custom-field placeholder role and archive destination. Data import/custom-field adaptations and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "act-addBoardMember",
+    "before": "a ajouté le participant __member__ au tableau __board__",
+    "after": "elüükon limani __member__ lü tab: __board__",
+    "reason": "Replace French board activity text with Volapük, using existing tab/liman/fel lönik terminology and existing activity perfect-tense style. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf supplies jafön (create), lüükön (add), moükön (remove), radön (erase), topätükön (move), ragiv (archive), nüveigön (import). Preserve each board/member/custom-field placeholder role and archive destination. Data import/custom-field adaptations and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "act-removeBoardMember",
+    "before": "a supprimé le participant __member__ du tableau __board__",
+    "after": "emoükon limani __member__ de tab: __board__",
+    "reason": "Replace French board activity text with Volapük, using existing tab/liman/fel lönik terminology and existing activity perfect-tense style. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf supplies jafön (create), lüükön (add), moükön (remove), radön (erase), topätükön (move), ragiv (archive), nüveigön (import). Preserve each board/member/custom-field placeholder role and archive destination. Data import/custom-field adaptations and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "act-archivedBoard",
+    "before": "Le tableau __board__ a été déplacé vers les archives",
+    "after": "Tab __board__ petopätükon lü ragiv",
+    "reason": "Replace French board activity text with Volapük, using existing tab/liman/fel lönik terminology and existing activity perfect-tense style. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf supplies jafön (create), lüükön (add), moükön (remove), radön (erase), topätükön (move), ragiv (archive), nüveigön (import). Preserve each board/member/custom-field placeholder role and archive destination. Data import/custom-field adaptations and assembled grammar remain low confidence; native review unavailable."
+  },
+  {
+    "locale": "vo",
+    "key": "act-importBoard",
+    "before": "a importé le tableau __board__",
+    "after": "enüveigon tabi __board__",
+    "reason": "Replace French board activity text with Volapük, using existing tab/liman/fel lönik terminology and existing activity perfect-tense style. Midgley dictionary https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf supplies jafön (create), lüükön (add), moükön (remove), radön (erase), topätükön (move), ragiv (archive), nüveigön (import). Preserve each board/member/custom-field placeholder role and archive destination. Data import/custom-field adaptations and assembled grammar remain low confidence; native review unavailable."
   }
 ]
