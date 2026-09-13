@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,110 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 734 pending review or repair.
-The correction inventory records 17,275 exact before/after values,
+The correction inventory records 17,276 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,8 +102,8 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is c149ce516 (2026-09-14), repairing the unflagged
-Quechua sky-blue wrapper; thirteen color wrappers remain. Composed headings
+Latest translation fix is 114c5d992 (2026-09-14), repairing the unflagged
+Quechua crimson wrapper; twelve color wrappers and exact-hue review remain. Composed headings
 need fluent review.
 Tamazight calendar review dd2aaa19a (2026-09-14) records provisional
 Islamic naming and missing variant terminology; no values changed. Previous fix e07d2be5f replaced two English
@@ -649,6 +649,16 @@ The audit records 749 pending original findings and wider unfinished validation.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/114c5d992">Repair Quechua crimson wording</a>. Thanks to xet7.</summary>
+
+Replace unrelated English message wrapper with dictionary-attested adjective
+sañi. Its polysemous color range requires dialect/exact-hue review. All
+17,276 correction checks pass; 734 original findings, twelve wrappers and
+broader linguistic validation remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c149ce516">Repair Quechua sky blue wording</a>. Thanks to xet7.</summary>
