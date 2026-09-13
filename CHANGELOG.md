@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,051 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 793 pending review or repair.
-The correction inventory records 17,114 exact before/after values,
+findings: 15,053 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 791 pending review or repair.
+The correction inventory records 17,118 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original finding queues remain in Veps (53) and Standard Moroccan
+The largest original finding queues remain in Veps (51) and Standard Moroccan
 Tamazight (595). Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -100,10 +100,11 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 60579f376 (2026-09-14), covering two Neapolitan
-rule-item values. The original Neapolitan queue is empty. All correction/rendering checks
+Latest translation fix is 655066430 (2026-09-14), covering four Veps
+action-choice values. The original Neapolitan queue is empty. All correction/rendering checks
 pass; low-confidence technical terminology remains explicitly tracked.
-The 1,015-suite Node result is historical and predates the latest batches.
+Member assignment popup handlers need separate review for apparent reversed
+operations. The 1,015-suite Node result is historical and predates the latest batches.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -581,6 +582,19 @@ current-time actions and comma-separated examples retain their distinctions.
 The audit records verified repairs and remaining language reviews.
 
 This release adds the following translation improvements:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/655066430">Repair Veps multi-selection action choice translations</a>. Thanks to xet7.</summary>
+
+Replace four Finnish popup values with Veps, preserving label/member action
+choices and member removal from cards. Retain existing assignment and
+label-removal wording. Production rendering and all 17,118 correction checks
+pass, including tokens, JSON, key order and newer translations. Popup-title
+grammar needs fluent review; apparent reversed member handlers need separate
+runtime review. Live browser checks were not run for this batch.
+The original queue has 791 pending findings; wider validation is unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/60579f376">Repair Neapolitan rule item label and list example</a>. Thanks to xet7.</summary>
