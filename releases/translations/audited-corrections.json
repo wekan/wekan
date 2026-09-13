@@ -87484,5 +87484,75 @@
     "before": "Nouveau",
     "after": "Nulik",
     "reason": "Replace French/Esperanto member-control and common labels with Volapük. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests geban (user), nem (name), kal (account, originally financial); reuse checked kvip/klubäd, väls, nulik and confirmation/delete/remove vocabulary. Correct username warning to name rather than user, preserve %s and irreversible account deletion versus organization board-removal meaning. Derived gebananem, financial-account-to-software adaptation, board sense and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "invalid-credentials",
+    "before": "Nom d'utilisateur ou mot de passe invalide",
+    "after": "Gebananem u letavöd neveräton",
+    "reason": "Replace French/Esperanto password, credentials and email-address labels/warnings with Volapük. Primary MediaWiki Volapük source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests Letavöd (userlogin-yourpassword), Gebananem u letavöd neveräton (wrongpassword), no leigons (badretype), Ladet leäktronik (createacct-emailrequired) and ya pagebon (userexists). Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests zesüdik (necessary). Preserve invalid-versus-required-versus-mismatch and already-used address meanings; assembled warning grammar remains low confidence, with no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "username-password-required",
+    "before": "Nom d'utilisateur et mot de passe requis",
+    "after": "Gebananem e letavöd binons zesüdik",
+    "reason": "Replace French/Esperanto password, credentials and email-address labels/warnings with Volapük. Primary MediaWiki Volapük source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests Letavöd (userlogin-yourpassword), Gebananem u letavöd neveräton (wrongpassword), no leigons (badretype), Ladet leäktronik (createacct-emailrequired) and ya pagebon (userexists). Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests zesüdik (necessary). Preserve invalid-versus-required-versus-mismatch and already-used address meanings; assembled warning grammar remains low confidence, with no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "password-mismatch",
+    "before": "Les mots de passe ne correspondent pas",
+    "after": "Letavöds no leigons",
+    "reason": "Replace French/Esperanto password, credentials and email-address labels/warnings with Volapük. Primary MediaWiki Volapük source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests Letavöd (userlogin-yourpassword), Gebananem u letavöd neveräton (wrongpassword), no leigons (badretype), Ladet leäktronik (createacct-emailrequired) and ya pagebon (userexists). Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests zesüdik (necessary). Preserve invalid-versus-required-versus-mismatch and already-used address meanings; assembled warning grammar remains low confidence, with no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "password",
+    "before": "Pasvorto",
+    "after": "Letavöd",
+    "reason": "Replace French/Esperanto password, credentials and email-address labels/warnings with Volapük. Primary MediaWiki Volapük source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests Letavöd (userlogin-yourpassword), Gebananem u letavöd neveräton (wrongpassword), no leigons (badretype), Ladet leäktronik (createacct-emailrequired) and ya pagebon (userexists). Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests zesüdik (necessary). Preserve invalid-versus-required-versus-mismatch and already-used address meanings; assembled warning grammar remains low confidence, with no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "smtp-password",
+    "before": "Pasvorto",
+    "after": "Letavöd",
+    "reason": "Replace French/Esperanto password, credentials and email-address labels/warnings with Volapük. Primary MediaWiki Volapük source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests Letavöd (userlogin-yourpassword), Gebananem u letavöd neveräton (wrongpassword), no leigons (badretype), Ladet leäktronik (createacct-emailrequired) and ya pagebon (userexists). Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests zesüdik (necessary). Preserve invalid-versus-required-versus-mismatch and already-used address meanings; assembled warning grammar remains low confidence, with no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "change-password",
+    "before": "Ŝangi pasvorton",
+    "after": "Votükön letavödi",
+    "reason": "Replace French/Esperanto password, credentials and email-address labels/warnings with Volapük. Primary MediaWiki Volapük source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests Letavöd (userlogin-yourpassword), Gebananem u letavöd neveräton (wrongpassword), no leigons (badretype), Ladet leäktronik (createacct-emailrequired) and ya pagebon (userexists). Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests zesüdik (necessary). Preserve invalid-versus-required-versus-mismatch and already-used address meanings; assembled warning grammar remains low confidence, with no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "email",
+    "before": "Retpoŝtadreso",
+    "after": "Ladet leäktronik",
+    "reason": "Replace French/Esperanto password, credentials and email-address labels/warnings with Volapük. Primary MediaWiki Volapük source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests Letavöd (userlogin-yourpassword), Gebananem u letavöd neveräton (wrongpassword), no leigons (badretype), Ladet leäktronik (createacct-emailrequired) and ya pagebon (userexists). Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests zesüdik (necessary). Preserve invalid-versus-required-versus-mismatch and already-used address meanings; assembled warning grammar remains low confidence, with no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "email-address",
+    "before": "Adresse de courriel",
+    "after": "Ladet leäktronik",
+    "reason": "Replace French/Esperanto password, credentials and email-address labels/warnings with Volapük. Primary MediaWiki Volapük source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests Letavöd (userlogin-yourpassword), Gebananem u letavöd neveräton (wrongpassword), no leigons (badretype), Ladet leäktronik (createacct-emailrequired) and ya pagebon (userexists). Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests zesüdik (necessary). Preserve invalid-versus-required-versus-mismatch and already-used address meanings; assembled warning grammar remains low confidence, with no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "email-addresses",
+    "before": "Adresses de courriel",
+    "after": "Ladets leäktronik",
+    "reason": "Replace French/Esperanto password, credentials and email-address labels/warnings with Volapük. Primary MediaWiki Volapük source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests Letavöd (userlogin-yourpassword), Gebananem u letavöd neveräton (wrongpassword), no leigons (badretype), Ladet leäktronik (createacct-emailrequired) and ya pagebon (userexists). Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests zesüdik (necessary). Preserve invalid-versus-required-versus-mismatch and already-used address meanings; assembled warning grammar remains low confidence, with no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "error-email-taken",
+    "before": "Cette adresse de courriel est déjà utilisée",
+    "after": "Ladet leäktronik at ya pagebon",
+    "reason": "Replace French/Esperanto password, credentials and email-address labels/warnings with Volapük. Primary MediaWiki Volapük source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests Letavöd (userlogin-yourpassword), Gebananem u letavöd neveräton (wrongpassword), no leigons (badretype), Ladet leäktronik (createacct-emailrequired) and ya pagebon (userexists). Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests zesüdik (necessary). Preserve invalid-versus-required-versus-mismatch and already-used address meanings; assembled warning grammar remains low confidence, with no native-speaker validation."
   }
 ]
