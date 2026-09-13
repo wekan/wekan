@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-13**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 11,685 |
+| Corrected | 11,689 |
 | Restored pre-pull; awaiting validation | 4,059 |
 | Reviewed; retained unchanged | 176 |
-| Pending review or repair | 4,161 |
+| Pending review or repair | 4,157 |
 | Total tracked | 20,081 |
 
 **Repairs remain unfinished.** Counts cover flagged findings; restored and unflagged translations are not certified as correct.
 
-Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,049** exact before/after values, including repairs outside the audit.
+Fixes address wrong-language text, terminology, warnings, placeholders, JSON examples and calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **12,054** exact before/after values, including repairs outside the audit.
 
-Latest translation fix: **2026-09-13**, local commit `daa2a5d079879536f09010016b2b96e632005b8e` — 11 Fijian calendar labels repaired, including the foreign-language setting, Persian/Buddhist/Chinese/Hebrew/Indian/Japanese, Hijri/Umm al-Qura, Minguo and Gregorian ISO weeks. Sources attest terminology; complete adapted label grammar remains low confidence. Coptic/Ethiopic/Dangi and Hijri epoch/sighting labels remain pending. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
+Latest translation fix: **2026-09-13**, local commit `ee319ddc535c4a601e82dfb7101fbcfde4ee78cd` — 5 Fijian calendar labels repaired: Dangi, Ethiopic/Amete Alem, Saudi Hijri moon sighting and Gregorian. Iciopea and calendar terminology are attested; sighting adaptation and full phrase grammar remain low confidence. Coptic and Hijri civil/astronomical epoch labels remain pending. Exact-value, placeholder, JSON-example, key-order and idempotency checks pass; live browser verification is unavailable.
 
 **Review follow-up:** Silesian `sandstorm-raw-mongodb` remains pending: its wording overlaps Polish and existing Silesian technical strings, but dictionary searches did not establish the full phrase as correct Silesian. Keep the current value until stronger language evidence supports retaining or replacing it.
 
