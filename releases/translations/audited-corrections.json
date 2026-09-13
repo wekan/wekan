@@ -87722,5 +87722,54 @@
     "before": "Filtrer la liste par titre",
     "after": "Sulön lisedi ma tiäd",
     "reason": "Replace French list action/activity/display/filter labels with Volapük and remove stray 1 before %s in list-renaming activity. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests votanemükön (rename), sulön (filter); primary MediaWiki Volapük source (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vo.json) attests list/show/hide/change vocabulary. Reuse checked lised/kad/kadil/kontrolalised, tiäd, archive movement and activity tense patterns. Preserve __list__, __board__, %s, all-cards-in-this-list and card-versus-minicard scope. Software senses, derived checklist and assembled activity grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "close-add-checklist-item",
+    "before": "Fermer ajouter un élément du formulaire check-list",
+    "after": "Färmükön fometi ad lüükön noteti lü kontrolalised",
+    "reason": "Replace French checklist close-form, delete confirmation and line/comma instructions with Volapük after checking inline close links and newline order options in checklists.jade/js. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests färmükön (close), fomet (printed form), rigik (original), liunül (comma); primary MediaWiki terminology supplies lien (text line). Reuse checked checklist/item/text/order/confirmation vocabulary. Preserve add-versus-edit, checklist-versus-item deletion, line-to-item mapping, original order and comma separation meaning. Form software adaptation, derived checklist and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "close-edit-checklist-item",
+    "before": "Fermer éditer un élément du formulaire check-list",
+    "after": "Färmükön fometi ad votükön noteti kontrolaliseda",
+    "reason": "Replace French checklist close-form, delete confirmation and line/comma instructions with Volapük after checking inline close links and newline order options in checklists.jade/js. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests färmükön (close), fomet (printed form), rigik (original), liunül (comma); primary MediaWiki terminology supplies lien (text line). Reuse checked checklist/item/text/order/confirmation vocabulary. Preserve add-versus-edit, checklist-versus-item deletion, line-to-item mapping, original order and comma separation meaning. Form software adaptation, derived checklist and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "confirm-checklist-delete-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer la check-list ?",
+    "after": "Fümol-li, das vilol radön kontrolalisedi?",
+    "reason": "Replace French checklist close-form, delete confirmation and line/comma instructions with Volapük after checking inline close links and newline order options in checklists.jade/js. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests färmükön (close), fomet (printed form), rigik (original), liunül (comma); primary MediaWiki terminology supplies lien (text line). Reuse checked checklist/item/text/order/confirmation vocabulary. Preserve add-versus-edit, checklist-versus-item deletion, line-to-item mapping, original order and comma separation meaning. Form software adaptation, derived checklist and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "confirm-checklist-item-delete-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer l'élément de la check-list ?",
+    "after": "Fümol-li, das vilol radön noteti kontrolaliseda?",
+    "reason": "Replace French checklist close-form, delete confirmation and line/comma instructions with Volapük after checking inline close links and newline order options in checklists.jade/js. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests färmükön (close), fomet (printed form), rigik (original), liunül (comma); primary MediaWiki terminology supplies lien (text line). Reuse checked checklist/item/text/order/confirmation vocabulary. Preserve add-versus-edit, checklist-versus-item deletion, line-to-item mapping, original order and comma separation meaning. Form software adaptation, derived checklist and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "newlineBecomesNewChecklistItem",
+    "before": "Chaque ligne de texte devient un élément de la check-list",
+    "after": "Lien alik vödema vedon notet kontrolaliseda",
+    "reason": "Replace French checklist close-form, delete confirmation and line/comma instructions with Volapük after checking inline close links and newline order options in checklists.jade/js. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests färmükön (close), fomet (printed form), rigik (original), liunül (comma); primary MediaWiki terminology supplies lien (text line). Reuse checked checklist/item/text/order/confirmation vocabulary. Preserve add-versus-edit, checklist-versus-item deletion, line-to-item mapping, original order and comma separation meaning. Form software adaptation, derived checklist and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "before": "Chaque ligne de texte devient un élément de la check-list, l'ordre est respecté",
+    "after": "Lien alik vödema vedon notet kontrolaliseda, ma söket rigik",
+    "reason": "Replace French checklist close-form, delete confirmation and line/comma instructions with Volapük after checking inline close links and newline order options in checklists.jade/js. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests färmükön (close), fomet (printed form), rigik (original), liunül (comma); primary MediaWiki terminology supplies lien (text line). Reuse checked checklist/item/text/order/confirmation vocabulary. Preserve add-versus-edit, checklist-versus-item deletion, line-to-item mapping, original order and comma separation meaning. Form software adaptation, derived checklist and assembled grammar remain low confidence; no native-speaker validation."
+  },
+  {
+    "locale": "vo",
+    "key": "r-checklist-note",
+    "before": "Note : les éléments de la check-list doivent être séparés par des virgules.",
+    "after": "Noet: notetis kontrolaliseda mutol penön e dilädön me liunüls.",
+    "reason": "Replace French checklist close-form, delete confirmation and line/comma instructions with Volapük after checking inline close links and newline order options in checklists.jade/js. Midgley dictionary (https://www.markfoster.net/dcf/Volapuk_Dictionary.pdf) attests färmükön (close), fomet (printed form), rigik (original), liunül (comma); primary MediaWiki terminology supplies lien (text line). Reuse checked checklist/item/text/order/confirmation vocabulary. Preserve add-versus-edit, checklist-versus-item deletion, line-to-item mapping, original order and comma separation meaning. Form software adaptation, derived checklist and assembled grammar remain low confidence; no native-speaker validation."
   }
 ]
