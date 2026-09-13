@@ -12,7 +12,7 @@ async function check({ loaded, resumed }, baseUrl = 'http://localhost:3000') {
   const context = {
     module: { exports: {} }, exports: {}, require,
     process: { env: { WEKAN_BASE_URL: baseUrl } },
-    setTimeout, Date, Promise, window: { localStorage: storage },
+    setTimeout, Date, Promise, URL, window: { localStorage: storage },
     localStorage: storage,
     Meteor: {
       subscribe() {}, loggingIn: () => false, userId: () => id,
