@@ -94715,5 +94715,33 @@
     "before": "Télécharger",
     "after": "De' yIngeH",
     "reason": "Replace German/French upload, download and loading wording with Klingon after reviewing English source and upload UI usages. Distinguish ongoing transfer, failed transfer and completed transfer; retain avatar technical borrowing. De' ghItlhmey describes data documents rather than physical rasp teywI'. Software terminology and full phrases are low confidence, requiring fluent-speaker validation. Preserve source tokens."
+  },
+  {
+    "locale": "tlh",
+    "key": "hideAllChecklistItems",
+    "before": "Verberge alle Checklisteneinträge",
+    "after": "ghItlhHommey tetlhDaq Hoch ghItlhHommey tISo'",
+    "reason": "Replace German visibility and duplicate-empty-list messages with Klingon. Reviewed checklist isFinished/hideCheckedChecklistItems usages in minicard.js and checklists.jade: checked means completed here. Preserve all-versus-completed distinction, all-board scope, and both duplicate and empty list conditions. Reuse previously repaired delete-duplicate-empty-lists-migration wording. Full software phrases are low confidence and require fluent-speaker validation; source token inventory preserved."
+  },
+  {
+    "locale": "tlh",
+    "key": "hideCheckedChecklistItems",
+    "before": "Erledigte Checklisteneinträge ausblenden",
+    "after": "ghItlhHommey tetlhDaq rInbogh ghItlhHommey tISo'",
+    "reason": "Replace German visibility and duplicate-empty-list messages with Klingon. Reviewed checklist isFinished/hideCheckedChecklistItems usages in minicard.js and checklists.jade: checked means completed here. Preserve all-versus-completed distinction, all-board scope, and both duplicate and empty list conditions. Reuse previously repaired delete-duplicate-empty-lists-migration wording. Full software phrases are low confidence and require fluent-speaker validation; source token inventory preserved."
+  },
+  {
+    "locale": "tlh",
+    "key": "step-delete-duplicate-empty-lists",
+    "before": "Lösche doppelte leere Listen",
+    "after": "rapbogh tetlhmey chIm tIQaw'",
+    "reason": "Replace German visibility and duplicate-empty-list messages with Klingon. Reviewed checklist isFinished/hideCheckedChecklistItems usages in minicard.js and checklists.jade: checked means completed here. Preserve all-versus-completed distinction, all-board scope, and both duplicate and empty list conditions. Reuse previously repaired delete-duplicate-empty-lists-migration wording. Full software phrases are low confidence and require fluent-speaker validation; source token inventory preserved."
+  },
+  {
+    "locale": "tlh",
+    "key": "now-activities-of-all-boards-are-hidden",
+    "before": "Alle Aktivitäten von allen Boards sind nun verborgen",
+    "after": "DaH Hoch raSmeyDaq Hoch ta'mey luSo'lu'",
+    "reason": "Replace German visibility and duplicate-empty-list messages with Klingon. Reviewed checklist isFinished/hideCheckedChecklistItems usages in minicard.js and checklists.jade: checked means completed here. Preserve all-versus-completed distinction, all-board scope, and both duplicate and empty list conditions. Reuse previously repaired delete-duplicate-empty-lists-migration wording. Full software phrases are low confidence and require fluent-speaker validation; source token inventory preserved."
   }
 ]
