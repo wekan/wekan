@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,561 |
-| Restored pre-pull; awaiting validation | 1,403 |
-| Reviewed; retained unchanged | 2,809 |
+| Restored pre-pull; awaiting validation | 1,373 |
+| Reviewed; retained unchanged | 2,839 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -18,13 +18,13 @@ source references, confidence limits and archived progress notes.
 Latest translation fix: **2026-09-14**, local commit `54fdfd33c` —
 repaired four Galician automation date triggers, replacing Portuguese wording
 and restoring both setting and changing dates. Retained 39 correct automation
-and HTML-placement values. All **18,161** correction and **2,809** review
+and HTML-placement values. All **18,161** correction and **2,839** review
 records pass. Attachment/member rule participles need context-specific
 agreement: shared feminine labels currently follow masculine subjects.
 Three Esperanto restored findings remain: lime color and two Complete labels.
 Broader language and browser verification remain open; nothing pushed.
-Latest unchanged review: **2026-09-14**, commit `e5e09f52c` — retained
-30 correct Galician calendar, date and voting controls.
+Latest unchanged review: **2026-09-14**, commit `47fb0f277` — retained
+30 correct Galician estimation, automatic-width and color controls.
 Galician Complete and migration-complete wording remain open pending context.
 Card-show-lists context is verified against its settings row and toggle.
 

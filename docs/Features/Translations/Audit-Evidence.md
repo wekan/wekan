@@ -22123,3 +22123,16 @@ permanent loss of all associated actions. Wish-list example retains meaning.
 Review checks pass: 15,561 corrected, 1,403 restored awaiting validation,
 2,809 reviewed unchanged and 308 pending. Broader language and browser
 validation remain open. Nothing pushed.
+
+
+### 2026-09-14 — Galician estimation controls and color labels
+
+Local commit `47fb0f277` retains 30 directly reviewed values unchanged.
+Planning Poker remains the named estimation practice; vote end-date,
+replay/edit/delete and dependency/template controls preserve action meaning.
+CAS, avatar confirmations and clipboard alternatives retain meaning.
+Automatic-width labels invert current state and click action correctly.
+Color labels preserve hue and pale distinctions, including verde lima.
+Review checks pass: 15,561 corrected, 1,373 restored awaiting validation,
+2,839 reviewed unchanged and 308 pending. Broader language and browser
+validation remain open. Nothing pushed.
