@@ -1,5 +1,14 @@
 # Detailed translation audit evidence
 
+2026-09-14 (`04df440db`): restored Danish Scaleout's outward qualifier;
+`spinner_scaleout.css` grows from scale(0) to scale(1). Retained 29 correct
+values, preserving sorting direction, creator roles, %{value}, spinner shapes
+and ticket states. Danish review total 349: 346 retained, three repaired.
+Overall corrected 15,539, retained 525, restored awaiting validation 3,709,
+pending 308; correction inventory 18,134. Review remains incomplete and
+the maintainer's wekansec21 security request is now prioritized.
+
+
 2026-09-14 (`c6d3b9e0e`): retained thirty correct Danish restored values.
 Review preserves similar-operator OR versus differing-operator AND, literal
 examples, list/swimlane title matching, comments containing text, label

@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,538 corrected, 3,739 restored pre-pull values awaiting
-validation, 496 reviewed and retained, and 308 pending review or repair.
-The correction inventory records 18,133 exact before/after values,
+findings: 15,539 corrected, 3,709 restored pre-pull values awaiting
+validation, 525 reviewed and retained, and 308 pending review or repair.
+The correction inventory records 18,134 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,11 +102,11 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is e5d7da30e (2026-09-14), repairing Danish peak
-malloc allocation and bit-pattern garbage overwriting. Restored Danish
-review c6d3b9e0e retained 30 more Boolean search instructions and labels.
-Of 319 Danish restored values reviewed, 317 are retained and two repaired.
-Ambiguous export free wording and wider language review remain open.
+Latest translation fix is 04df440db (2026-09-14), restoring the Danish
+outward-spinner qualifier and retaining 29 correct values. Of 349 Danish
+restored values reviewed, 346 are retained and three repaired. Ambiguous
+export wording remains open. Requested wekansec21 security repairs are
+prioritized while remaining translation review stays open.
 Archive provenance follow-up fbe388603 (2026-09-14) directly inspects the
 native Archives du Maroc logo in a university PDF, corroborating the noun
 beyond indexed evidence. Nine records updated; no values/counts changed.
@@ -652,10 +652,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,538 original findings are
-corrected, 496 reviewed and retained, 3,739 restored values await validation,
+Translation audit progress as of 2026-09-14: 15,539 original findings are
+corrected, 525 reviewed and retained, 3,709 restored values await validation,
 and 308 remain pending across 17 locales, including 173 Tamazight findings.
-The ledger contains 18,133 correction records, including unflagged repairs.
+The ledger contains 18,134 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/193b22520">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>

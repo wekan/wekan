@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,538 |
-| Restored pre-pull; awaiting validation | 3,739 |
-| Reviewed; retained unchanged | 496 |
+| Corrected | 15,539 |
+| Restored pre-pull; awaiting validation | 3,709 |
+| Reviewed; retained unchanged | 525 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,133** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,134** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `e5d7da30e` — repaired two Danish heap diagnostics: peak malloc allocation and heap garbage overwriting with a bit pattern. Retained 28 correct Danish values unchanged. All **18,133** correction records pass structural verification; **308** original findings remain pending across **17** locales, including **173** Tamazight. The **3,739** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `04df440db` — restored the outward scaling qualifier in Danish Scaleout Wait Spinner, confirmed by its CSS growth from scale 0 to 1. Retained 29 correct values unchanged. All **18,134** correction records pass structural verification; **308** original findings remain pending across **17** locales, including **173** Tamazight. The **3,709** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Latest syntax repair (2026-09-14, `d0c247094`, follow-up `cd563cce5`):** Veps filter help now
 preserves canonical comparison, escaping, quoted field/value and Boolean
@@ -184,9 +184,10 @@ English underscore/percent placeholder inventory. Regression coverage now
 checks this separately and keeps these values awaiting language validation.
 No translation values or completion counts changed.
 
-Restored Danish wording review (2026-09-14, latest `c6d3b9e0e`): reviewed
-319 values: 317 retained unchanged and two diagnostic meanings repaired.
-Latest review preserves OR versus AND search logic, literal examples, matching
-scopes, pagination and date predicates. Ambiguous export free remains open.
-Now 496 original findings are reviewed/retained and 3,739 restored values
-await validation. All remaining language review stays open.
+Restored Danish wording review (2026-09-14, latest `04df440db`): reviewed
+349 values: 346 retained unchanged and three meanings repaired. Latest review
+preserves sort directions, creator roles, string-template tokens, spinner
+shapes and ticket states. Ambiguous export free remains open. Now 525 original
+findings are reviewed/retained and 3,709 restored values await validation.
+Translation work remains open while the requested wekansec21 security
+repairs are prioritized.
