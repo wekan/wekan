@@ -124885,5 +124885,12 @@
     "before": "ⴰⵎⴹⴰⵏ ⵏ ⵉⴼⴻⵔⴷⵉⵙⴻⵏ ⵏ ⵓⵎⵓⵖ ⵏ ⵓⵙⴻⵏⵇⴻⴷ (0/0)",
     "after": "ⵓⵟⵟⵓⵏ ⵏ ⵉⴼⵔⴷⵉⵙⵏ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ (0/0)",
     "reason": "2026-09-14: Align checklist item count with native MediaWiki pageinfo-watchers u ttun Count and transaction-duration-limit-exceeded ifrdisn Elements rather than divergent seeded noun spellings. Preserve literal (0/0) unchanged and plural counted items. Proposed checklist List of Verification noun ussidd and complete noun chain remain LOW CONFIDENCE for fluent Standard Moroccan review; native count/item components do not independently attest the complete checklist term. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "checklist-count-on-minicard",
+    "before": "ⴰⵎⴹⴰⵏ ⵏ ⵉⴼⴻⵔⴷⵉⵙⴻⵏ ⵏ ⵓⵎⵓⵖ ⵏ ⵓⵙⴻⵏⵇⴻⴷ (0/0) ⵖⴻⴼ ⵜⴽⴰⵔⴹⴰ ⵜⴰⵎⴻⵥⵥⵢⴰⵏⵜ",
+    "after": "ⵓⵟⵟⵓⵏ ⵏ ⵉⴼⵔⴷⵉⵙⵏ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ (0/0) ⵅⴼ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵣⵢⴰⵏⵜ",
+    "reason": "2026-09-14: Align minicard checklist count with reviewed native Count and plural Item components, retaining literal (0/0) and explicit on-minicard scope. Use x f On from native MediaWiki usage and proposed Small Card paraphrase, adapting feminine singular tamzyant from transaction-duration-limit-exceeded timzyanin Small. LOW CONFIDENCE singular adjective derivation/agreement, bound card spelling, Small Card UI adaptation, verification noun ussidd and full phrase require fluent Standard Moroccan review. No exact native minicard/checklist compound is established. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
