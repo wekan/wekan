@@ -27,3 +27,16 @@ const toggleTitle = `${translated['sidebar-open']} ${translated.or} ${translated
 assert.match(toggleTitle, / ⵏⵖ /);
 assert.doesNotMatch(toggleTitle, /\bou\b/);
 console.log('Tamazight sidebar alternatives use the native conjunction');
+
+const boardControls = {
+  'add-swimlane': 'ⵔⵏⵓ ⴰⴱⵔⵉⴷ',
+  'r-add-swimlane': 'ⵔⵏⵓ ⴰⴱⵔⵉⴷ',
+  'listActionPopup-title': 'ⵜⵉⴳⴰⵡⵉⵏ ⵏ ⵜⵍⴳⴰⵎⵜ',
+  'swimlaneActionPopup-title': 'ⵜⵉⴳⴰⵡⵉⵏ ⵏ ⵓⴱⵔⵉⴷ',
+};
+for (const [key, value] of Object.entries(boardControls)) {
+  assert.strictEqual(translated[key], value);
+  assert.doesNotMatch(translated[key], /Ajouter|Actions|couloir|[\u0600-\u06ff]/u);
+}
+assert.notStrictEqual(translated['listActionPopup-title'], translated['swimlaneActionPopup-title']);
+console.log('Tamazight board controls preserve distinct add/action and list/lane meanings');

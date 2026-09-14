@@ -131829,5 +131829,33 @@
     "before": "ou",
     "after": "ⵏⵖ",
     "reason": "2026-09-14: Replace unflagged French conjunction ou with native Standard Moroccan Tamazight ⵏⵖ, directly attested in MediaWiki category-empty as alternative between media and pages. Header sidebar toggle composes sidebar-open + or + sidebar-close. This lexical repair does not validate the full sidebar compounds."
+  },
+  {
+    "locale": "zgh",
+    "key": "add-swimlane",
+    "before": "Ajouter un couloir",
+    "after": "ⵔⵏⵓ ⴰⴱⵔⵉⴷ",
+    "reason": "2026-09-14: Replace French/Arabic board controls with Tamazight draft. Native MediaWiki actions ⵜⵉⴳⴰⵡⵉⵏ and create-local ⵔⵏⵓ, native list noun talgamt and existing abrid swimlane convention. Preserve add versus actions and list versus swimlane. Low confidence: construct-state phrases and software swimlane metaphor need native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-add-swimlane",
+    "before": "Ajouter un couloir",
+    "after": "ⵔⵏⵓ ⴰⴱⵔⵉⴷ",
+    "reason": "2026-09-14: Replace French/Arabic board controls with Tamazight draft. Native MediaWiki actions ⵜⵉⴳⴰⵡⵉⵏ and create-local ⵔⵏⵓ, native list noun talgamt and existing abrid swimlane convention. Preserve add versus actions and list versus swimlane. Low confidence: construct-state phrases and software swimlane metaphor need native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "listActionPopup-title",
+    "before": "قائمة الإجراءات",
+    "after": "ⵜⵉⴳⴰⵡⵉⵏ ⵏ ⵜⵍⴳⴰⵎⵜ",
+    "reason": "2026-09-14: Replace French/Arabic board controls with Tamazight draft. Native MediaWiki actions ⵜⵉⴳⴰⵡⵉⵏ and create-local ⵔⵏⵓ, native list noun talgamt and existing abrid swimlane convention. Preserve add versus actions and list versus swimlane. Low confidence: construct-state phrases and software swimlane metaphor need native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "swimlaneActionPopup-title",
+    "before": "Actions du couloir",
+    "after": "ⵜⵉⴳⴰⵡⵉⵏ ⵏ ⵓⴱⵔⵉⴷ",
+    "reason": "2026-09-14: Replace French/Arabic board controls with Tamazight draft. Native MediaWiki actions ⵜⵉⴳⴰⵡⵉⵏ and create-local ⵔⵏⵓ, native list noun talgamt and existing abrid swimlane convention. Preserve add versus actions and list versus swimlane. Low confidence: construct-state phrases and software swimlane metaphor need native review."
   }
 ]
