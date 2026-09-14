@@ -29314,3 +29314,20 @@ No source caller of this exact key was found in targeted client settings
 searches; this does not prove absence in dynamic integrations. No live UI
 verification or locale edit was performed. Ledger 19,874 and tracked
 pending 149 remain unchanged; broader grammar review is open.
+
+
+2026-09-15 — `bf9a929e1`: unflagged French failed-attempts label replaced
+with ⵜⵉⵙⵉⵔⴰⵎ ⵙ ⵉⵣⴳⴰⵍⵏ, literally trials with failures.
+IRCAM entry 12953 tisirimt testing/trial attests plural tisiram; failure
+azgal entry 5372 supports existing izgaln in failures-before. This is a
+software attempt adaptation, not independent attestation of the whole
+phrase. The previous review's pending French wording is now replaced;
+trial sense and full attributive phrase still remain low confidence.
+Restaurant homonym search hits do not validate this draft. Court,
+assassination-attempt and technical server-rupture vocabulary are excluded.
+A more idiomatic arm-based phrase remains a possible native improvement;
+no native speaker verification is claimed. Four focused suites pass for
+exact value, wrong-language/domain negatives and placeholder inventories.
+No live UI test ran; no targeted source caller was found for this key.
+Ledger 19,875; tracked pending 149 unchanged because finding was unflagged.
+Full native fluency review remains open.

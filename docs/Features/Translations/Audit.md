@@ -16,15 +16,16 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `e908ec0a2` — replace unflagged
-French Locked Users navigation label with existing Tamazight plural wording.
-Four focused suites pass. Ledger 19,874; tracked pending remains 149
-(Tamazight 56), restored 4 unchanged. Existing passive participle grammar
-remains under contextual review. Numeric due cutoff and list-popup source
-wording conflicts, plus broader grammar reviews, remain open.
+Latest translation fix: **2026-09-15**, `bf9a929e1` — replace unflagged
+French Failed Attempts label with a Tamazight trials-with-failures draft.
+Four focused suites pass. Ledger 19,875; tracked pending remains 149
+(Tamazight 56), restored 4 unchanged. Trial-to-software-attempt adaptation
+and full attributive phrase remain low confidence. Numeric due cutoff and
+list-popup source wording conflicts, plus broader grammar reviews, remain
+open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,874** exact before/after values, including unflagged
+records contain **19,875** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

@@ -1049,6 +1049,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bf9a929e1">Repair Tamazight failed-attempts label</a></summary>
+
+Replace unflagged French text with trial and failure terminology. Four
+focused suites pass. Software attempt adaptation and complete phrase
+remain low confidence and open to contextual improvement.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
