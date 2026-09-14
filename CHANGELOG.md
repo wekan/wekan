@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8d3dca66a">Repair Tamazight locked-users description</a>. Thanks to xet7.</summary>
+
+The full French description becomes a Tamazight draft retaining plural
+blocked users, current state and repeated login-failure reason. Four locale
+suites pass with tokens and correct translations preserved. Native causal
+phrasing remains low confidence; no browser rendering is claimed.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b54bc8935">Repair Tamazight temporary account lockout message</a>. Thanks to xet7.</summary>
 
 The full French warning becomes a Tamazight draft retaining the temporary

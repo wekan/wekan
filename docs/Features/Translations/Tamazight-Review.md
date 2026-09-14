@@ -1957,3 +1957,26 @@ findings remain within scope. Bounded searches supplied no trustworthy
 native brute-force technical term, so those messages remain unresolved.
 Source:
 https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+
+
+Locked-users description repair **2026-09-14**, `8d3dca66a`:
+accounts-lockout-locked-users-info replaces the complete French value
+with a Tamazight draft. It preserves the existing localized plural
+blocked-users subject and ghila/currently, followed by the reason that
+login failed many times. The individual account-locked and no-locked-users
+messages stay distinct and unchanged. Native MediaWiki blockedtext supports
+block/login vocabulary; the existing correct-language plural empty-state
+supplies the blocked-users construction. Full causal phrasing and the
+per-user interpretation remain low confidence, not accepted as native
+fluency solely from component terms. Four locale suites pass, including
+concept retention, French/Arabic rejection, exact token inventories,
+English key order and newer correct-language translation preference.
+A bounded search found no active Jade reference to this description key.
+No UI code was added to expose a dormant catalogue message; no browser
+verification is claimed. lockedUsersBody.js obtains remainingLockTime
+from getLockedUsers; this source check does not prove this key is rendered.
+Ledger 18,852; original corrected 15,676; pending 227 → 226,
+zgh 120 → 119; restored 4 unchanged. All remaining full phrases and
+prior low-confidence values remain within the audit scope.
+Source:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
