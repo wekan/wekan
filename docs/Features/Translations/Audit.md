@@ -79,4 +79,8 @@ Not all errors came from Transifex: 4,061 findings concern pulled changes;
 completed categories and reviews, including Klingon, Danish, Silesian and
 unflagged native-term retentions. Calendar epochs/sighting, diagnostics,
 authentication, commands and other uncertain phrases remain under review.
-Live browser verification is not complete. Translation work continues.
+Browser coverage added **2026-09-14**, `c8bcfb258`: spec 03 verifies the
+Tamazight numeric tooltip and excludes a display-disabled field from its
+sum. Syntax and registration pass; localhost:3000 has no running app, so
+execution remains pending. Live browser verification is not complete.
+Translation work continues.

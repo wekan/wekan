@@ -1109,3 +1109,15 @@ imperative meanings and distinguishes the exceedance warning. Four suites
 pass with token, order and human-preference protection. Low confidence:
 maximum-of-count compound, construct grammar and full software phrase;
 browser not run. Pending 257 → 256, Tamazight 144 → 143; ledger 18,761.
+
+
+Browser coverage — 2026-09-14, local commit `c8bcfb258`.
+Spec 03 seeds numeric fields valued 7 and 100, enables display only for 7,
+sets zgh profile language and checks the rendered total and translated
+tooltip. Negative assertions reject 107 and obsolete aggregate/top words.
+Syntax and Playwright discovery pass. Default HTML reporter encountered
+an existing report-file permission error during discovery; line reporter
+discovery succeeded without changing ownership or claiming execution.
+HTTP probe to localhost:3000 failed connection: no app was running there.
+The browser regression is registered, not executed, and no native fluency
+acceptance or pending-count reduction is made.

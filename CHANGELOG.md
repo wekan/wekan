@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c8bcfb258">Add Tamazight numeric tooltip browser regression</a>. Thanks to xet7.</summary>
+
+Verify translated tooltip and exclusion of a display-disabled numeric
+field from the sum. Syntax and test discovery pass; browser execution
+remains pending because the local application is not running.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6e1292cd0">Repair Tamazight maximum WIP count setting</a>. Thanks to xet7.</summary>
 
 Replace French with imperative define/limit and maximum task-count wording.
