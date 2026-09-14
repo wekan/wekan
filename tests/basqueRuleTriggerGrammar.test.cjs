@@ -8,6 +8,10 @@ const read = locale => JSON.parse(fs.readFileSync(path.join(root, `imports/i18n/
 const eu = read('eu');
 assert.equal(eu['r-by'], 'Nork:');
 assert.notEqual(eu['r-by'], 'por');
+assert.equal(read('th')['r-is'], 'คือ', 'retain the correct noun-identification translation');
+for (const locale of ['th', 'th-TH', 'th_TH', 'TH']) {
+  assert.equal(ruleTriggerCopula(locale, 'คือ'), '');
+}
 assert.equal(eu['r-is'], 'da');
 assert.notEqual(eu['r-is'], 'es');
 for (const locale of ['eu', 'eu-ES', 'eu_ES', 'EU']) assert.equal(ruleTriggerCopula(locale, 'da'), '');
@@ -40,6 +44,8 @@ activeLanguage = 'en';
 assert.equal(helpers.ruleTriggerCopula(), 'is', 'helper reads current language on every render');
 activeLanguage = 'eu';
 assert.equal(helpers.ruleTriggerCopula(), '');
+activeLanguage = 'th';
+assert.equal(helpers.ruleTriggerCopula(), '');
 const assemble = (locale, subject, action, name = '') => {
   const d = read(locale);
   return [d[subject], name, ruleTriggerCopula(locale, d['r-is']), d[action], d['r-a-card']].filter(Boolean).join(' ');
@@ -54,4 +60,10 @@ for (const noun of ['member', 'assignee']) {
 }
 assert.equal(assemble('en', 'r-when-the-member', 'r-added-to', 'Ana'), 'When the member Ana is Added to a card');
 assert.equal(assemble('gl', 'r-when-the-member', 'r-added-to', 'Ana'), 'Cando a persoa membro Ana é Engadida a unha tarxeta');
+for (const action of ['r-added-to', 'r-removed-from', 'r-checked',
+  'r-unchecked', 'r-completed', 'r-made-incomplete', 'r-is-moved']) {
+  const sentence = assemble('th', 'r-when-the-member', action, 'Ana');
+  assert.doesNotMatch(sentence, /คือ/, 'no equative copula before a Thai action');
+  assert.ok(sentence.includes(read('th')[action]));
+}
 console.log('Basque rule grammar: actual trigger wiring, linking-verb omission and other-locale preservation checked; full fluency/browser execution remain open');

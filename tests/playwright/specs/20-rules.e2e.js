@@ -214,7 +214,7 @@ test.describe('Rules', () => {
 });
 
 
-for (const language of ['eu', 'en']) {
+for (const language of ['eu', 'th', 'en']) {
   test(`${language} named-member rule trigger uses its own verb composition`, async ({ page, user, board }) => {
     db.updateOne('users', { _id: user.id }, { $set: { 'profile.language': language } });
     await loginWithToken(page, user.id, user.token);
@@ -229,6 +229,10 @@ for (const language of ['eu', 'en']) {
       expect(fragments.map(text => text.trim())).not.toContain('es');
       expect(fragments.map(text => text.trim())).not.toContain('da');
       await expect(content.locator('#spec-member-action option[value="added"]')).toHaveText('Gehitzen denean hona:');
+    } else if (language === 'th') {
+      expect(fragments.map(text => text.trim())).not.toContain('คือ');
+      await expect(content.locator('#spec-member-action option[value="added"]')).toHaveText('ถูกเพิ่มใน');
+      await expect(content.locator('#spec-member-action option[value="removed"]')).toHaveText('ถูกนำออกจาก');
     } else {
       expect(fragments.map(text => text.trim())).toContain('is');
     }
