@@ -54,3 +54,42 @@ for (const policy of ['formatted', 'plain-links', 'plain-source']) {
     }
   });
 }
+
+test('card and sidebar activity labels use the card badge palette', async ({ boardPage, board, user }) => {
+  const activityId = db.uid('label-activity');
+  const labelId = db.uid('activity-label');
+  const original = db.findOne('boards', { _id: board.boardId });
+  const cardId = db.findCardIdByTitle({ boardId: board.boardId, title: 'Alpha Card' });
+  try {
+    db.updateOne('boards', { _id: board.boardId }, { $push: { labels: {
+      _id: labelId, name: 'Feature :thumbsup:', color: '#ffdab9',
+    } } });
+    db.insertOne('activities', {
+      _id: activityId, activityType: 'addedLabel', labelId,
+      boardId: board.boardId, userId: user.id, cardId,
+      listId: board.listIds[0], createdAt: new Date(),
+    });
+    await boardPage.reload();
+    const bp = new BoardPage(boardPage);
+    await bp.openSidebar();
+    if (!(await boardPage.locator(`.board-sidebar .activity[data-id="${activityId}"]`).count())) {
+      await boardPage.locator('.js-toggle-show-activities').first().click();
+    }
+    await bp.clickCard(board.listIds[0], 'Alpha Card');
+    const cp = new CardPage(boardPage);
+    await cp.waitForOpen();
+    await cp.root.locator('.js-toggle-card-section[data-section="activities"]').click();
+    for (const root of [boardPage.locator('.board-sidebar'), cp.root]) {
+      const badge = root.locator(`.activity[data-id="${activityId}"] .activity-label`);
+      await expect(badge).toBeVisible();
+      const style = await badge.evaluate(el => {
+        const css = getComputedStyle(el);
+        return { background: css.backgroundColor, color: css.color, radius: css.borderRadius };
+      });
+      expect(style).toEqual({ background: 'rgb(255, 218, 185)', color: 'rgb(0, 0, 0)', radius: '4px' });
+    }
+  } finally {
+    db.deleteOne('activities', { _id: activityId });
+    db.updateOne('boards', { _id: board.boardId }, { $set: { labels: original.labels || [] } });
+  }
+});

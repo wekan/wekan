@@ -646,6 +646,17 @@ This release documents the following translation fixes:
 **Developer tooling** - Mirror Git progress.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1896660a9">Match activity label badges to card labels</a>. Thanks to xet7.</summary>
+
+Opened-card and sidebar label activities use the same rounded label badges,
+named palette and custom-color text contrast as cards. Prose and rich label
+content stay sanitized; only the trusted badge wrapper retains color styling.
+Missing labels no longer throw. Positive/negative sanitization and palette
+checks pass; the browser computed-color case was syntax checked, not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/95f026889">Render opened-card List dropdown titles</a>. Thanks to xet7.</summary>
 
 The List picker renders its selected title and choices through the shared
