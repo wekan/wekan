@@ -126985,5 +126985,12 @@
     "before": "Premu Enen por aldoni pliajn erojn",
     "after": "Premu la klavon Enter por aldoni pliajn erojn",
     "reason": "Replace the unrelated direction Enen with the literal Enter keyboard key in Esperanto prose, preserving the addition of more items."
+  },
+  {
+    "locale": "eo",
+    "key": "boardChangeWatchPopup-title",
+    "before": "Ŝanĝi rigardadon",
+    "after": "Ŝanĝi observadon",
+    "reason": "The popup configures ongoing watch/notification subscription, not merely viewing. Align observado with existing Esperanto observation terminology and repaired watch controls."
   }
 ]

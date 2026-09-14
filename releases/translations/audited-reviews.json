@@ -7720,5 +7720,203 @@
     "key": "archive-list",
     "value": "Movi liston al Arkivo",
     "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-subtask-added",
+    "value": "aldonis subtaskon al %s",
+    "reason": "Direct Esperanto review: tasko is assigned work (ReVo task source https://raw.githubusercontent.com/revuloj/revo-fonto/master/revo/task.xml). Subtasko is a transparent subordinate-task compound, with correct plural/accusative forms in the action and deposit/settings wording. Preserve original correct wording and all placeholders."
+  },
+  {
+    "locale": "eo",
+    "key": "add-subtask",
+    "value": "Aldoni subtaskon",
+    "reason": "Direct Esperanto review: tasko is assigned work (ReVo task source https://raw.githubusercontent.com/revuloj/revo-fonto/master/revo/task.xml). Subtasko is a transparent subordinate-task compound, with correct plural/accusative forms in the action and deposit/settings wording. Preserve original correct wording and all placeholders."
+  },
+  {
+    "locale": "eo",
+    "key": "default-subtasks-board",
+    "value": "Subtaskoj por tabulo __board__",
+    "reason": "Direct Esperanto review: tasko is assigned work (ReVo task source https://raw.githubusercontent.com/revuloj/revo-fonto/master/revo/task.xml). Subtasko is a transparent subordinate-task compound, with correct plural/accusative forms in the action and deposit/settings wording. Preserve original correct wording and all placeholders."
+  },
+  {
+    "locale": "eo",
+    "key": "subtask-settings",
+    "value": "Agordoj de subtaskoj",
+    "reason": "Direct Esperanto review: tasko is assigned work (ReVo task source https://raw.githubusercontent.com/revuloj/revo-fonto/master/revo/task.xml). Subtasko is a transparent subordinate-task compound, with correct plural/accusative forms in the action and deposit/settings wording. Preserve original correct wording and all placeholders."
+  },
+  {
+    "locale": "eo",
+    "key": "boardSubtaskSettingsPopup-title",
+    "value": "Agordoj de subtaskoj",
+    "reason": "Direct Esperanto review: tasko is assigned work (ReVo task source https://raw.githubusercontent.com/revuloj/revo-fonto/master/revo/task.xml). Subtasko is a transparent subordinate-task compound, with correct plural/accusative forms in the action and deposit/settings wording. Preserve original correct wording and all placeholders."
+  },
+  {
+    "locale": "eo",
+    "key": "deposit-subtasks-board",
+    "value": "Meti subtaskojn en ĉi tiun tabulon:",
+    "reason": "Direct Esperanto review: tasko is assigned work (ReVo task source https://raw.githubusercontent.com/revuloj/revo-fonto/master/revo/task.xml). Subtasko is a transparent subordinate-task compound, with correct plural/accusative forms in the action and deposit/settings wording. Preserve original correct wording and all placeholders."
+  },
+  {
+    "locale": "eo",
+    "key": "deposit-subtasks-list",
+    "value": "Cela listo por subtaskoj metitaj ĉi tien:",
+    "reason": "Direct Esperanto review: tasko is assigned work (ReVo task source https://raw.githubusercontent.com/revuloj/revo-fonto/master/revo/task.xml). Subtasko is a transparent subordinate-task compound, with correct plural/accusative forms in the action and deposit/settings wording. Preserve original correct wording and all placeholders."
+  },
+  {
+    "locale": "eo",
+    "key": "archive-swimlane",
+    "value": "Movi naĝlinion al Arkivo",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "archive-selection",
+    "value": "Movi elekton al Arkivo",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "template",
+    "value": "Ŝablono",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "templates",
+    "value": "Ŝablonoj",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "template-container",
+    "value": "Ŝablonujo",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "assign-member",
+    "value": "Atribui membron",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "attached",
+    "value": "aldonita",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "attachment",
+    "value": "Aldonaĵo",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "attachment-delete-pop",
+    "value": "Forigo de aldonaĵo estas definitiva. Ne eblas malfari.",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "attachmentDeletePopup-title",
+    "value": "Ĉu forigi aldonaĵon?",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "attachments",
+    "value": "Aldonaĵoj",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "avatar-too-big",
+    "value": "La avataro estas tro granda (maks. __size__)",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "board-change-background-image",
+    "value": "Ŝanĝi fonbildon",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "board-background-image-url",
+    "value": "URL de fonbildo",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "remove-background-image",
+    "value": "Forigi fonbildon",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "board_members",
+    "value": "Ĉiuj tabulanoj",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "card_members",
+    "value": "Ĉiuj membroj de la nuna karto en ĉi tiu tabulo",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "board_assignees",
+    "value": "Ĉiuj atribuitoj de ĉiuj kartoj en ĉi tiu tabulo",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "card_assignees",
+    "value": "Ĉiuj atribuitoj de la nuna karto en ĉi tiu tabulo",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "board-nb-stars",
+    "value": "%s steloj",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "boardChangeBackgroundImagePopup-title",
+    "value": "Ŝanĝi fonbildon",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "allBoardsChangeBackgroundImagePopup-title",
+    "value": "Ŝanĝi fonbildon",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "boardChangeVisibilityPopup-title",
+    "value": "Ŝanĝi videblecon",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "desktop-mode",
+    "value": "Labortabla reĝimo",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "mobile-mode",
+    "value": "Poŝtelefona reĝimo",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "mobile-desktop-toggle",
+    "value": "Ŝalti inter poŝtelefona kaj labortabla reĝimo",
+    "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
   }
 ]
