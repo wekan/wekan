@@ -22312,5 +22312,107 @@
     "key": "r-name",
     "value": "izena",
     "reason": "Inspected Basque end/receipt dates, requester/assigner nouns, parent-card prefix/subtext presentation, custom-field set/clear activities and standalone rule labels. Parent refers to parentCardName in minicard.jade; unset activity clears the value, not the field definition. Full-path distinctions, negation and all source sprintf tokens preserved. Compound when/moved trigger fragments excluded pending full phrase review."
+  },
+  {
+    "locale": "eu",
+    "key": "r-label",
+    "value": "etiketa",
+    "reason": "Inspected standalone Basque rule action labels and date-field selectors: mark/unmark and all-item scopes remain distinct; swimlane uses existing errail terminology; start, due, end and current date/time retain field distinctions. Compound conditional and top/bottom relational fragments deliberately excluded; shared r-is is Spanish es and needs a coordinated Basque phrase repair."
+  },
+  {
+    "locale": "eu",
+    "key": "r-member",
+    "value": "kidea",
+    "reason": "Inspected standalone Basque rule action labels and date-field selectors: mark/unmark and all-item scopes remain distinct; swimlane uses existing errail terminology; start, due, end and current date/time retain field distinctions. Compound conditional and top/bottom relational fragments deliberately excluded; shared r-is is Spanish es and needs a coordinated Basque phrase repair."
+  },
+  {
+    "locale": "eu",
+    "key": "r-set-color",
+    "value": "Ezarri kolorea:",
+    "reason": "Inspected standalone Basque rule action labels and date-field selectors: mark/unmark and all-item scopes remain distinct; swimlane uses existing errail terminology; start, due, end and current date/time retain field distinctions. Compound conditional and top/bottom relational fragments deliberately excluded; shared r-is is Spanish es and needs a coordinated Basque phrase repair."
+  },
+  {
+    "locale": "eu",
+    "key": "r-check-all",
+    "value": "Markatu guztiak",
+    "reason": "Inspected standalone Basque rule action labels and date-field selectors: mark/unmark and all-item scopes remain distinct; swimlane uses existing errail terminology; start, due, end and current date/time retain field distinctions. Compound conditional and top/bottom relational fragments deliberately excluded; shared r-is is Spanish es and needs a coordinated Basque phrase repair."
+  },
+  {
+    "locale": "eu",
+    "key": "r-uncheck-all",
+    "value": "Desmarkatu guztiak",
+    "reason": "Inspected standalone Basque rule action labels and date-field selectors: mark/unmark and all-item scopes remain distinct; swimlane uses existing errail terminology; start, due, end and current date/time retain field distinctions. Compound conditional and top/bottom relational fragments deliberately excluded; shared r-is is Spanish es and needs a coordinated Basque phrase repair."
+  },
+  {
+    "locale": "eu",
+    "key": "r-check",
+    "value": "Markatu",
+    "reason": "Inspected standalone Basque rule action labels and date-field selectors: mark/unmark and all-item scopes remain distinct; swimlane uses existing errail terminology; start, due, end and current date/time retain field distinctions. Compound conditional and top/bottom relational fragments deliberately excluded; shared r-is is Spanish es and needs a coordinated Basque phrase repair."
+  },
+  {
+    "locale": "eu",
+    "key": "r-uncheck",
+    "value": "Desmarkatu",
+    "reason": "Inspected standalone Basque rule action labels and date-field selectors: mark/unmark and all-item scopes remain distinct; swimlane uses existing errail terminology; start, due, end and current date/time retain field distinctions. Compound conditional and top/bottom relational fragments deliberately excluded; shared r-is is Spanish es and needs a coordinated Basque phrase repair."
+  },
+  {
+    "locale": "eu",
+    "key": "r-item",
+    "value": "elementua",
+    "reason": "Inspected standalone Basque rule action labels and date-field selectors: mark/unmark and all-item scopes remain distinct; swimlane uses existing errail terminology; start, due, end and current date/time retain field distinctions. Compound conditional and top/bottom relational fragments deliberately excluded; shared r-is is Spanish es and needs a coordinated Basque phrase repair."
+  },
+  {
+    "locale": "eu",
+    "key": "r-send-email",
+    "value": "Bidali e-posta bat",
+    "reason": "Inspected standalone Basque rule action labels and date-field selectors: mark/unmark and all-item scopes remain distinct; swimlane uses existing errail terminology; start, due, end and current date/time retain field distinctions. Compound conditional and top/bottom relational fragments deliberately excluded; shared r-is is Spanish es and needs a coordinated Basque phrase repair."
+  },
+  {
+    "locale": "eu",
+    "key": "r-rule-details",
+    "value": "Arauaren xehetasunak",
+    "reason": "Inspected standalone Basque rule action labels and date-field selectors: mark/unmark and all-item scopes remain distinct; swimlane uses existing errail terminology; start, due, end and current date/time retain field distinctions. Compound conditional and top/bottom relational fragments deliberately excluded; shared r-is is Spanish es and needs a coordinated Basque phrase repair."
+  },
+  {
+    "locale": "eu",
+    "key": "r-in-swimlane",
+    "value": "errail honetan",
+    "reason": "Inspected standalone Basque rule action labels and date-field selectors: mark/unmark and all-item scopes remain distinct; swimlane uses existing errail terminology; start, due, end and current date/time retain field distinctions. Compound conditional and top/bottom relational fragments deliberately excluded; shared r-is is Spanish es and needs a coordinated Basque phrase repair."
+  },
+  {
+    "locale": "eu",
+    "key": "r-add-swimlane",
+    "value": "Gehitu erraila",
+    "reason": "Inspected standalone Basque rule action labels and date-field selectors: mark/unmark and all-item scopes remain distinct; swimlane uses existing errail terminology; start, due, end and current date/time retain field distinctions. Compound conditional and top/bottom relational fragments deliberately excluded; shared r-is is Spanish es and needs a coordinated Basque phrase repair."
+  },
+  {
+    "locale": "eu",
+    "key": "r-datefield",
+    "value": "data-eremua",
+    "reason": "Inspected standalone Basque rule action labels and date-field selectors: mark/unmark and all-item scopes remain distinct; swimlane uses existing errail terminology; start, due, end and current date/time retain field distinctions. Compound conditional and top/bottom relational fragments deliberately excluded; shared r-is is Spanish es and needs a coordinated Basque phrase repair."
+  },
+  {
+    "locale": "eu",
+    "key": "r-df-start-at",
+    "value": "hasiera",
+    "reason": "Inspected standalone Basque rule action labels and date-field selectors: mark/unmark and all-item scopes remain distinct; swimlane uses existing errail terminology; start, due, end and current date/time retain field distinctions. Compound conditional and top/bottom relational fragments deliberately excluded; shared r-is is Spanish es and needs a coordinated Basque phrase repair."
+  },
+  {
+    "locale": "eu",
+    "key": "r-df-due-at",
+    "value": "epemuga",
+    "reason": "Inspected standalone Basque rule action labels and date-field selectors: mark/unmark and all-item scopes remain distinct; swimlane uses existing errail terminology; start, due, end and current date/time retain field distinctions. Compound conditional and top/bottom relational fragments deliberately excluded; shared r-is is Spanish es and needs a coordinated Basque phrase repair."
+  },
+  {
+    "locale": "eu",
+    "key": "r-df-end-at",
+    "value": "amaiera",
+    "reason": "Inspected standalone Basque rule action labels and date-field selectors: mark/unmark and all-item scopes remain distinct; swimlane uses existing errail terminology; start, due, end and current date/time retain field distinctions. Compound conditional and top/bottom relational fragments deliberately excluded; shared r-is is Spanish es and needs a coordinated Basque phrase repair."
+  },
+  {
+    "locale": "eu",
+    "key": "r-to-current-datetime",
+    "value": "uneko data/ordura",
+    "reason": "Inspected standalone Basque rule action labels and date-field selectors: mark/unmark and all-item scopes remain distinct; swimlane uses existing errail terminology; start, due, end and current date/time retain field distinctions. Compound conditional and top/bottom relational fragments deliberately excluded; shared r-is is Spanish es and needs a coordinated Basque phrase repair."
   }
 ]
