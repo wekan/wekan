@@ -595,8 +595,9 @@ the Markdown commit as the template.
 **In short:** Card and sidebar activity values render Markdown, emojis and
 permitted HTML through the shared security-aware viewer. Plain-source and
 plain-link settings apply, with existing sanitization and source-URL checks.
-Tamazight description and due-card view labels replace French and Arabic;
-complete translation wording still needs fluent review.
+Tamazight description, all-users and member labels replace French and Arabic.
+The text-editing label removes an extra qualifier. Composed translation
+wording and Moroccan checklist terminology still need fluent review.
 
 This release fixes the following activity rendering:
 
@@ -614,6 +615,15 @@ live. No sanitizer permissions or URL schemes were broadened.
 </details>
 
 This release adds the following translation improvements:
+
+Translation audit progress as of 2026-09-14: 15,151 original findings are
+corrected, 179 are reviewed and retained, 4,058 restored values await
+validation, and 693 original findings remain pending across 18 locales.
+Of those pending findings, 550 are Tamazight. Repairs found outside the
+original audit are also recorded. Passing regression checks validate
+placeholders, rendering and merge behavior; they do not establish fluency.
+See <a href="docs/Features/Translations/Audit.md">the translation audit</a>
+for the remaining review scope and low-confidence wording.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4ca8e5d1b">Translate Tamazight member labels</a>. Thanks to xet7.</summary>
