@@ -131164,5 +131164,12 @@
     "before": "Vous venez d'être invité à ce tableau",
     "after": "ⴰⵙⵉⴳⵔ ⴰⵎⴰⵢⵏⵓ ⵉⴽ ⵙ ⵜⴼⵍⵡⵉⵜ ⴰⴷ",
     "reason": "Replace French just-invited with a new invitation for you to this board. IRCAM 2019 entry 4358 invitation; existing new/board vocabulary reused. Low confidence: just-invited recency is rendered as new invitation; possession/preposition and full nominal notification need native/browser review. Do not conflate with not-accepted-yet."
+  },
+  {
+    "locale": "zgh",
+    "key": "support-page-enabled",
+    "before": "Page d'assistance activée",
+    "after": "ⵜⴰⵙⵏⴰ ⵏ ⵜⵡⵉⵙⵉ ⵜⵜⵢⴰⵙⵙⵔⴼⵓ",
+    "reason": "Replace French support-page enabled label with Tamazight page/help/activated wording. IRCAM 2019 entry 13033 help/assistance tiwisi and bound twisi; entry 10106 activate. Reuse existing support vocabulary rather than physical beam/support sense. Low confidence: passive activated form and full page-status grammar require native/browser review."
   }
 ]

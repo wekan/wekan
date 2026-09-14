@@ -226,3 +226,7 @@ assert.doesNotMatch(locales.zgh['smtp-host'], /[\u0600-\u06ff]/);
 assert.equal(locales.zgh['just-invited'], 'ⴰⵙⵉⴳⵔ ⴰⵎⴰⵢⵏⵓ ⵉⴽ ⵙ ⵜⴼⵍⵡⵉⵜ ⴰⴷ');
 assert.doesNotMatch(locales.zgh['just-invited'], /Vous venez|invité/);
 assert.notEqual(locales.zgh['just-invited'], locales.zgh['not-accepted-yet']);
+
+assert.equal(locales.zgh['support-page-enabled'], 'ⵜⴰⵙⵏⴰ ⵏ ⵜⵡⵉⵙⵉ ⵜⵜⵢⴰⵙⵙⵔⴼⵓ');
+assert.doesNotMatch(locales.zgh['support-page-enabled'], /Page|assistance|activée/);
+assert.match(locales.zgh['support-page-enabled'], /ⵜⵡⵉⵙⵉ/);
