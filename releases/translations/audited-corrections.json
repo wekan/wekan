@@ -123478,5 +123478,12 @@
     "before": "Afficher le créateur de la carte",
     "after": "ⵙⴽⵏ ⴰⵎⵙⵏⴼⵍⵓⵍ ⵏ ⵜⴽⴰⵕⴹⴰ",
     "reason": "Replace French Display Card Creator setting. Native MediaWiki view supplies skn and pageinfo-firstuser supplies amsnflul n tasna creator of page: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve existing Creator terminology and adapt page ownership to card. LOW CONFIDENCE full software label and existing card noun adaptation require fluent review; generic masculine creator label follows existing reference. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "Node_memory_usage_external",
+    "before": "Utilisation mémoire de Node: externe",
+    "after": "Node: ⴰⵙⵙⵎⵔⵙ ⵏ ⵜⴽⴰⵜⵓⵜ: ⵢⴼⴼⵖⵏ",
+    "reason": "Replace French Node external memory usage label, preserving Node and external qualifier. CNAM computing lexicon https://cedric.cnam.fr/~bouzefra/books/amawal.pdf gives Takatut MC (PDF 89/printed85), bound tkatut examples, and external yeffghen MAT in memory, interrupt and reference examples (PDF90/printed86 and PDF77/printed73). Native MediaWiki poolcounter-usage-error supplies bound ussmrs usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE free usage noun, Tifinagh transcription of external and complete mixed-source Standard Moroccan adaptation require fluent review. External storage example supports adjective vocabulary only: this Node statistic must not be described as disk or external-device storage. Reviewed 2026-09-14."
   }
 ]

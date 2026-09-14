@@ -1972,7 +1972,7 @@
   "Node_memory_usage_rss": "Utilisation mémoire de Node : taille de l'ensemble résident",
   "Node_memory_usage_heap_total": "Utilisation mémoire de Node : taille totale du tas alloué",
   "Node_memory_usage_heap_used": "Utilisation mémoire de Node : mémoire réellement utilisée",
-  "Node_memory_usage_external": "Utilisation mémoire de Node: externe",
+  "Node_memory_usage_external": "Node: ⴰⵙⵙⵎⵔⵙ ⵏ ⵜⴽⴰⵜⵓⵜ: ⵢⴼⴼⵖⵏ",
   "add-organizations": "ⵔⵏⵓ ⵜⵓⴷⴷⵙⵉⵡⵉⵏ",
   "add-organizations-label": "ⵜⵓⴷⴷⵙⵉⵡⵉⵏ ⵉⵜⵜⵡⴰⵔⵏⵉⵏ ⵜⵜⵡⴰⵙⴽⵏⴰⵏⵜ ⴳ ⴷⴷⴰⵡ ⴷⴰ:",
   "remove-organization-from-board": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⵜⵓⴷⴷⵙⴰ ⴰⴷ ⵙⴳ ⵜⴼⵍⵡⵉⵜ ⴰⴷ?",
