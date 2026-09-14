@@ -7438,5 +7438,287 @@
     "key": "activity-changedListTitle",
     "value": "renomis liston al %s",
     "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-customfield-created",
+    "value": "kreis propran kampon %s",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-excluded",
+    "value": "ekskludis %s el %s",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-imported",
+    "value": "importis %s en %s el %s",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-imported-board",
+    "value": "importis %s el %s",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-joined",
+    "value": "aliĝis al %s",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-moved",
+    "value": "movis %s el %s al %s",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-unjoined",
+    "value": "foriĝis el %s",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-checked-item",
+    "value": "markis %s en kontrollisto %s de %s",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-unchecked-item",
+    "value": "malmarkis %s en kontrollisto %s de %s",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-checklist-item-added",
+    "value": "aldonis kontrollistan eron al '%s' en %s",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-checked-item-card",
+    "value": "markis %s en kontrollisto %s",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-unchecked-item-card",
+    "value": "malmarkis %s en kontrollisto %s",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-receivedDate",
+    "value": "redaktis ricevdaton al %s de %s",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-startDate",
+    "value": "redaktis komencdaton al %s de %s",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "allboards.starred",
+    "value": "Steligitaj",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "allboards.templates",
+    "value": "Ŝablonoj",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "allboards.remaining",
+    "value": "Restantaj",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "allboards.workspaces",
+    "value": "Laborspacoj",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "allboards.add-workspace",
+    "value": "Aldoni laborspacon",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "allboards.add-workspace-prompt",
+    "value": "Nomo de laborspaco",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "allboards.add-subworkspace",
+    "value": "Aldoni sublaborspacon",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "allboards.add-subworkspace-prompt",
+    "value": "Nomo de sublaborspaco",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "allboards.edit-workspace",
+    "value": "Redakti laborspacon",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "allboards.edit-workspace-name",
+    "value": "Nomo de laborspaco",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "allboards.edit-workspace-icon",
+    "value": "Piktogramo de laborspaco (markdown)",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "allboards.workspace-menu",
+    "value": "Menuo de laborspaco",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "workspace-settings",
+    "value": "Agordoj de laborspaco",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "workspaceActionsPopup-title",
+    "value": "Agordoj de laborspaco",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "addWorkspacePopup-title",
+    "value": "Aldoni laborspacon",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "allboards.workspace-color",
+    "value": "Koloro",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "allboards.delete-workspace-confirm",
+    "value": "Ĉu vi certas, ke vi volas forigi ĉi tiun laborspacon?",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "allboards.delete-workspace-confirm-check",
+    "value": "Konfirmi forigon de laborspaco",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "multi-selection-active",
+    "value": "Alklaku la markobutonojn por elekti tabulojn",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-dueDate",
+    "value": "redaktis limdaton al %s de %s",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-endDate",
+    "value": "redaktis findaton al %s de %s",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "set-swimlane-height-value",
+    "value": "Alto de naĝlinio (rastrumeroj)",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "swimlane-height-error-message",
+    "value": "Alto de naĝlinio devas esti pozitiva entjero",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "checklist",
+    "value": "Kontrollisto",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "close-edit-checklist-item",
+    "value": "Fermi la formularon por redakti eron de kontrollisto",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "admin",
+    "value": "Administranto",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "admin-desc",
+    "value": "Povas vidi kaj redakti kartojn, forigi membrojn kaj ŝanĝi agordojn de la tabulo. Povas vidi aktivaĵojn.",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "admin-announcement",
+    "value": "Anonco",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "app-is-offline",
+    "value": "Ŝargado, bonvolu atendi. Reŝargi la paĝon kaŭzos perdon de datumoj. Se la ŝargado ne funkcias, bonvolu kontroli, ke la servilo ne haltis.",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "app-try-reconnect",
+    "value": "Provi rekonekti.",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "archive",
+    "value": "Movi al Arkivo",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "archive-all",
+    "value": "Movi ĉion al Arkivo",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "archive-list",
+    "value": "Movi liston al Arkivo",
+    "reason": "Direct Esperanto review confirms activity action and date distinctions, workspace/subworkspace naming, administrator powers, reconnect controls and archive actions. Preserve received/start/due/end dates, import source/destination order, check/uncheck polarity, workspace deletion confirmation, positive-integer height requirement and the loading warning that refreshing causes data loss. Placeholders and pixel units remain intact."
   }
 ]
