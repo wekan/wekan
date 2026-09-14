@@ -24712,5 +24712,41 @@
     "key": "card-recurrence-interval-monthly",
     "value": "كل شهر",
     "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "text-note-text",
+    "value": "Testu",
+    "reason": "Asturian Testu correctly names text in the text-note control. Shared Romance vocabulary is not evidence of a wrong language."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "no-assignee",
+    "value": "Ensin asignar",
+    "reason": "Asturian Ensin asignar correctly expresses unassigned, preserving absence of an assignee."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "no-label",
+    "value": "Ensin etiqueta",
+    "reason": "Asturian Ensin etiqueta correctly expresses no label, preserving the negative scope."
+  },
+  {
+    "locale": "ta",
+    "key": "poker-result-who",
+    "value": "யார்",
+    "reason": "Tamil யார் is the interrogative who used as the planning-poker participant column heading. No English prose or malformed placeholder is present."
+  },
+  {
+    "locale": "te-IN",
+    "key": "poker-result-who",
+    "value": "ఎవరు",
+    "reason": "Telugu ఎవరు is the interrogative who used as the planning-poker participant column heading. Correct Telugu wording remains unchanged."
+  },
+  {
+    "locale": "ug",
+    "key": "copyManyCardsPopup-format",
+    "value": "[ {\"title\": \"بىرىنچى كارتا ماۋزۇسى\", \"description\":\"بىرىنچى كارتا چۈشەندۈرۈشى\"}, {\"title\":\"ئىككىنچى كارتا ماۋزۇسى\",\"description\":\"ئىككىنچى كارتا چۈشەندۈرۈشى\"},{\"title\":\"ئاخىرقى كارتا ماۋزۇسى\",\"description\":\"ئاخىرقى كارتا چۈشەندۈرۈشى\"} ]",
+    "reason": "Uyghur example titles and descriptions name first, second and last cards. Literal JSON property names title and description remain English code identifiers; the three-object array is valid JSON and is not wrong-language prose."
   }
 ]
