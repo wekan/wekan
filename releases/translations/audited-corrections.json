@@ -124017,5 +124017,19 @@
     "before": "تعديل الأعضاء",
     "after": "ⵙⵏⴼⵍ ⵉⴳⵎⴰⵎⵏ",
     "reason": "2026-09-14: Replace Arabic label, preserving Edit members action, plural members, preserving edit rather than add. Native Mastodon account.edit_profile supports snfl/Edit and column_header.show_settings supports tisghal/Settings; native MediaWiki nmembers supplies ugmam/igmamn member forms. Reuse existing WeKan board noun. LOW CONFIDENCE complete kanban heading/action and bound-state adaptation: component references do not establish full phrasing; fluent contextual review remains required. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "server-error",
+    "before": "خطأ بالخادم",
+    "after": "ⴰⵣⴳⴰⵍ ⵏ ⵓⵎⵙⵙⵉⴹⵏ",
+    "reason": "2026-09-14: Replace Arabic software label. Native MediaWiki poolcounter-usage-error supports azgal/error and pool-servererror directly supports bound server umssiḍn. LOW CONFIDENCE composed Server Error heading: component evidence does not establish the complete noun phrase; fluent review remains required. Do not substitute server-service-unavailable sentence, usage error, or alter separate troubleshooting commands. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "closed",
+    "before": "مقفل",
+    "after": "ⵉⵜⵜⵓⵔⴳⵍ",
+    "reason": "2026-09-14: Replace Arabic software label. Native Mastodon poll.closed directly supplies the completed closed-state wording. Preserve status Closed, not imperative Close, Resolved or Cancelled. Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json (poll.closed)."
   }
 ]
