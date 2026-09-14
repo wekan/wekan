@@ -42,7 +42,8 @@ if [ -n "${ZSH_VERSION:-}" ]; then exec /bin/bash "$0" "$@"; fi
 #
 # Release notes summarize translation details as updated language names.
 # Add **Languages updated:** metadata beneath the Translations group label.
-# Other notes come from the selected CHANGELOG.md section. Never append
+# Notes include only In short, Security, translation languages, thanks and
+# the changelog link. Other details stay in CHANGELOG.md. Never append
 # "Binaries in these bundles" or a provenance table; retain provenance.tsv
 # build artifacts and checksum verification separately.
 #

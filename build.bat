@@ -246,7 +246,7 @@ goto menu_releases
 
 REM ---------------------------------------------------------------------------
 :rel_release
-REM Release notes list only affected translation languages; other changelog details remain.
+REM Release notes: In short, Security, translation languages, thanks and changelog link.
 REM Binary provenance stays in build artifacts.
 echo.
 echo -- Releases / Release --   ^(0 = Back^)

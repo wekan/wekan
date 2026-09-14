@@ -2401,7 +2401,8 @@ choose() {
 # snap/bundle, not on a maintainer's machine) and the superseded old-*.sh and
 # translations/fill_translations.py.
 # Release notes summarize translations as affected languages; other changelog
-# details remain. Binary provenance remains
+# details stay in CHANGELOG.md. Notes include only In short, Security,
+# Translations language list, thanks and the changelog link. Binary provenance remains
 # a build artifact and must not be appended by any release entry point.
 RELEASE_SCRIPTS=(	"Release|Release ALL platforms: push CHANGELOG, trigger release-all.yml|releases/release-all.sh|||"
 	"Release|Release (older local flow), for one version|releases/release.sh|WeKan version, e.g. 10.50||"

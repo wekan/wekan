@@ -35,7 +35,8 @@ pins.
 release notes.** Release notes list only updated languages for each Translations group.
 Add `**Languages updated:** Esperanto, Galician` below that group label
 with the actual affected full language names. Detailed entries stay here;
-other release-note sections keep their changelog details.
+release notes include only In short, Security, translation languages,
+the standard thanks line and a More details at ChangeLog release anchor link.
 Keep checksum verification and `provenance.tsv` build artifacts separately;
 never append `releases/provenance-table.sh` output to release notes.
 

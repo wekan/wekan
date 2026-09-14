@@ -15,23 +15,30 @@ function run(text, version = '99.99') {
   });
 }
 try {
-  const intro = '# Status\nReference to `# Upcoming WeKan ® release` is not a heading.\n\n# Upcoming WeKan ® release\n\nSummary.\n\n';
+  const intro = '# Status\nReference to `# Upcoming WeKan ® release` is not a heading.\n\n# Upcoming WeKan ® release\n\n**In short:** Summary.\n\n';
   const translations = '**Translations** - Repairs.\n\n**Languages updated:** Galician, Esperanto, Galician\n\n<details>\n<summary>Private translation details</summary>\nand this is wrapped prose, not a section boundary.\n<details>nested details</details>\n</details>\n\n';
   const other = 'and fixes the following bugs:\n\n**Authentication** - Login.\n\n<details>\n<summary>Keep non-translation detail</summary>\nSecurity fix.\n</details>\n\nThanks to above GitHub users.\n';
   const result = run(intro + translations + other + '\n# v1.00 date WeKan ® release\nOld release.\n');
   assert.equal(result.status, 0, result.stderr);
-  assert.match(result.stdout, /\*\*Translations\*\*\n\n- Esperanto\n- Galician\n/);
+  assert.match(result.stdout, /## Translations\n\n- Esperanto\n- Galician\n/);
   assert.doesNotMatch(result.stdout, /Private translation details|wrapped prose|nested details|Reference to|Old release/);
-  assert.match(result.stdout, /Keep non-translation detail/);
+  assert.doesNotMatch(result.stdout, /Keep non-translation detail|Security fix/);
+  assert.deepEqual(result.stdout.match(/^## .+$/gm), ['## In short', '## Security', '## Translations']);
+  assert.match(result.stdout, /More details at ChangeLog/);
   assert.equal((result.stdout.match(/- Galician/g) || []).length, 1);
   const missing = run(intro + translations.replace('**Languages updated:** Galician, Esperanto, Galician\n', '') + other);
   assert.notEqual(missing.status, 0);
   assert.match(missing.stderr, /Translations group needs/);
-  const selected = run(intro + translations + other + '\n# v2.00 date WeKan ® release\nVersion-specific non-translation note.\n', '2.00');
+  const selected = run(intro + translations + other + '\n# v2.00 2026-09-14 WeKan ® release\n\n**In short:** Version-specific summary.\n', '2.00');
   assert.equal(selected.status, 0, selected.stderr);
   assert.match(selected.stdout, /Version-specific/);
-  assert.doesNotMatch(selected.stdout, /Translations|Galician/);
-  console.log('releaseTranslationSummary: languages only, nested details removed, other groups retained, explicit metadata required, headings anchored');
+  assert.doesNotMatch(selected.stdout, /Galician|Private translation details/);
+  assert.match(selected.stdout, /CHANGELOG\.md#v200-2026-09-14-wekan--release/);
+  const security = run(intro + translations + 'This release fixes the following CRITICAL SECURITY ISSUES:\n\n**Security** - Board boundaries.\n\n<details>\n<summary>Security fix retained</summary>\nand wrapped security prose.\n</details>\n\n' + other);
+  assert.equal(security.status, 0, security.stderr);
+  assert.match(security.stdout, /Security fix retained|wrapped security prose/);
+  assert.doesNotMatch(security.stdout, /Keep non-translation detail|Private translation details/);
+  console.log('releaseTranslationSummary: languages only, nested details removed, only requested sections retained, explicit metadata required, headings anchored');
 } finally {
   fs.rmSync(dir, { recursive: true, force: true });
 }

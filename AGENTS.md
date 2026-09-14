@@ -561,7 +561,9 @@ directly after the merge.
   Release notes summarize each Translations group as only a list of updated
   languages. Add `**Languages updated:**` with comma-separated full language
   names below the group label; keep detailed entries in the changelog and audit.
-  Other release-note groups retain changelog details. Keep download
+  Release notes have only In short, Security, Translations (language list),
+  the standard thanks line and More details at ChangeLog with the release
+  anchor link. Other details stay in CHANGELOG.md. Keep download
   verification and `provenance.tsv` build artifacts for diagnostics; do not
   append their contents or `releases/provenance-table.sh` output to notes.
 - **Inside a subsection, entries are GROUPED BY TOPIC/AREA.** A release touches a handful
