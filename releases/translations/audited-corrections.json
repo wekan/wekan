@@ -124185,5 +124185,33 @@
     "before": "قائمة",
     "after": "ⵜⴰⵍⴳⴰⵎⵜ",
     "reason": "2026-09-14: Replace Arabic search/rule label. Use native singular talgamt List present in Mastodon lists.edit and lists.delete, preserving singular rather than plural lists. These translated search operators are consumed by globalSearch; rule labels are used in board triggers/card actions. Do not replace operator abbreviations as part of this noun repair. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "cardType-card",
+    "before": "بطاقة",
+    "after": "ⵜⴰⴽⴰⵕⴹⴰ",
+    "reason": "2026-09-14: Replace Arabic card popup/type wording. Reuse existing card noun takarda; preserve ordinary Card type rather than linked card. LOW CONFIDENCE software card/label terminology extension and complete adapted heading or bound phrase still need fluent review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "cardDeletePopup-title",
+    "before": "حذف البطاقة ?",
+    "after": "ⴽⴽⵙ ⵜⴰⴽⴰⵕⴹⴰ?",
+    "reason": "2026-09-14: Replace Arabic card popup/type wording. Use native delete imperative kks, retain singular card and question punctuation; do not substitute archive or omit question scope. LOW CONFIDENCE software card/label terminology extension and complete adapted heading or bound phrase still need fluent review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "cardDetailsActionsPopup-title",
+    "before": "إجراءات على البطاقة",
+    "after": "ⵜⵉⴳⴰⵡⵉⵏ ⵏ ⵜⴽⴰⵕⴹⴰ",
+    "reason": "2026-09-14: Replace Arabic card popup/type wording. Native MediaWiki actions supplies tigawin plural Actions; compose with singular bound card noun. LOW CONFIDENCE software card/label terminology extension and complete adapted heading or bound phrase still need fluent review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "cardLabelsPopup-title",
+    "before": "علامات",
+    "after": "ⵉⵔⵛⵓⵎⵏ",
+    "reason": "2026-09-14: Replace Arabic card popup/type wording. Native MediaWiki tag-list-wrapper supplies plural irchumn Tags; use existing WeKan software-label adaptation. LOW CONFIDENCE software card/label terminology extension and complete adapted heading or bound phrase still need fluent review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
   }
 ]
