@@ -1,5 +1,13 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `12163bc6b`: workspace icon label repaired from French,
+preserving literal markdown. Direct inspection of CNAM Amawal PDF page 71
+shows Icon Tignit*, diminutive of silhouette tigni with MC£ marker, not
+Central Moroccan authority. Asterisk marks a proposal. Reuse existing WeKan
+icon/workspace terms; cross-variety borrowing and full phrase remain low
+confidence. All 18,094 correction checks pass; 324 original findings remain
+pending, including 189 Tamazight. Source: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf
+
 2026-09-14 — `d1b8f6ca1`: workspace deletion confirmation checkbox repaired
 from French. MediaWiki userlogin-reauth supports Verify and dellogpage supports
 Deletion. Adapt Verify as Confirm, retaining local workspace terminology;

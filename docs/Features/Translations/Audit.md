@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,519 |
+| Corrected | 15,520 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 325 |
+| Pending review or repair | 324 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,093** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,094** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `d1b8f6ca1` — replaced French workspace deletion confirmation text, preserving the confirmation action and workspace scope. Native Verify and Deletion support components; full phrase and workspace adaptation remain **low confidence**. All **18,093** correction checks pass; **325** findings remain pending across **17** locales, including **190** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `12163bc6b` — replaced French workspace icon text, preserving literal markdown. Directly inspected CNAM Icon is a starred cross-variety proposal with MC£ source marker, not normative Moroccan evidence. Reuse existing WeKan icon/workspace terms; full wording remains **low confidence**. All **18,094** correction checks pass; **324** findings remain pending across **17** locales, including **189** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Format review (2026-09-14):** indexed HACA terminology supports a native
 Format noun candidate; direct PDF retrieval failed. Full placeholder wording
