@@ -22760,3 +22760,10 @@ technical-label glossary. All 18,203 correction and 4,156 review records
 pass; 32 restored and 304 pending findings remain. Searches did not establish
 connection-success or assignee replacements. Broader mixed filters, native
 terminology and browser review remain open.
+
+Reference review, 2026-09-14: Nahuatl-Review.md records dictionary and
+UNAM evidence distinguishing historical calendar counts. No blanket generic
+modern-calendar meaning is established for tonalpohualli; tlamantli alone
+does not attest a software compound. All 17 Nahuatl findings stay pending;
+no locale changes or unchanged acceptances were made. Modern/dialect wording
+and full Hijri variant distinctions still require translation and validation.
