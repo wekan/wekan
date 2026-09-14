@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,589 |
-| Restored pre-pull; awaiting validation | 33 |
-| Reviewed; retained unchanged | 4,155 |
+| Restored pre-pull; awaiting validation | 32 |
+| Reviewed; retained unchanged | 4,156 |
 | Pending review or repair | 304 |
 | Total tracked | 20,081 |
 
@@ -17,22 +17,19 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,202** exact before/after values, including unflagged repairs.
+contain **18,203** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `c5c91129b` —
-Manx Coptic calendar placeholder becomes Feaillere Coptagh. Feaillere is
-dictionary-attested; Coptagh is a provisional coinage with no dictionary
-attestation found. Native terminology review remains open despite the queue
-status. All **18,202** correction records and calendar checks pass.
-Galician completion actions were repaired in `f52ab6adf`.
-Latest unchanged review: **2026-09-14**, commit `4ddcb81c9` — three
-Valencian S3 descriptions retain correct prose and protocol terms bucket/
-endpoint. Actual settings controls distinguish name, URL and numeric port;
-example hostnames remain literal. All **4,155** exact reviews pass.
-Storage connectivity and browser verification are not established by this review.
-Shared trigger grammar and remaining technical wording are still under review.
+Latest translation fix: **2026-09-14**, local commit `66a3da76c` —
+unflagged Acehnese no-label filter replaces Indonesian Tidak ada label with
+existing Hana label. Latest unchanged review: **2026-09-14**, same commit —
+Acehnese no-label retained for absence semantics. All **18,203** correction
+and **4,156** review records pass. Native technical terminology and live
+browser validation remain open. Connection-success and assignee wording
+still need stronger evidence; mixed-language filters need wider review.
+Manx Coptagh in `c5c91129b` remains provisional without dictionary attestation;
+its calendar noun feaillere is attested. Full language review remains open.
 Card-show-lists context is verified against its settings row and toggle.
 
 

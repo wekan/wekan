@@ -22750,3 +22750,13 @@ https://docs.aws.amazon.com/AmazonS3/latest/developerguide/RESTAPI.html
 confirms endpoint/bucket distinction. All 4,155 review records pass; 33 restored
 and 304 pending findings remain. This does not verify storage connectivity
 or live browser behavior. Other technical and grammar review remains open.
+
+Dated repair/review, 2026-09-14, local commit `66a3da76c`: retained
+Acehnese no-label Hana label and replaced unflagged Indonesian filter-no-label
+Tidak ada label with that existing Acehnese wording. Primary dictionary
+https://kamusbbpa.kemendikdasmen.go.id/index.php/kamus/Aceh/T?page=2
+uses hana in a negated example. This supports absence negation, not a native
+technical-label glossary. All 18,203 correction and 4,156 review records
+pass; 32 restored and 304 pending findings remain. Searches did not establish
+connection-success or assignee replacements. Broader mixed filters, native
+terminology and browser review remain open.

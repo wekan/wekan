@@ -668,7 +668,17 @@ The empty wrongly placed Git directory was removed locally.
 
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
-**Languages updated:** Basque, Esperanto, Galician, Greenlandic, Manx, Swedish, Valencian
+**Languages updated:** Acehnese, Basque, Esperanto, Galician, Greenlandic, Manx, Swedish, Valencian
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/66a3da76c">Repair Acehnese no-label filter language</a>. Thanks to xet7.</summary>
+
+Replace Indonesian filter wording with the existing Acehnese absence label,
+which is retained unchanged. Exact correction/review and placeholder checks
+pass. Native technical terminology, other mixed filters and browser review
+remain open in the dated audit.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4ddcb81c9">Validate Valencian S3 descriptions</a>. Thanks to xet7.</summary>
