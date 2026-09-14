@@ -1073,3 +1073,14 @@ preserve those components and reject previous aggregate/top wording.
 Four suites pass with exact tokens, JSON order and human preference.
 Low confidence: plural genitive, passive marking and full relative clause;
 browser not run. Original pending remains 258; ledger grows to 18,758.
+
+
+Tamazight custom-field creation — 2026-09-14, local commit `b2f574536`.
+Unflagged activity-customfield-created Arabic is replaced with Tamazight
+isnulfa igr izlin %s. IRCAM PDF page 509 entry 9599 supplies create/invent
+and its preterite stem; existing singular custom-field terminology is
+reused. activities.jade passes activityValue(customField), so the lone
+%s denotes the field value, with actor rendered separately. Tests retain
+that inventory and reject Arabic prose; four suites pass. Low confidence:
+finite-verb morphology and full activity fragment. Browser not run.
+Original pending remains 258; correction ledger grows to 18,759.

@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b2f574536">Repair Tamazight custom-field creation activity</a>. Thanks to xet7.</summary>
+
+Replace Arabic activity prose with Tamazight creation wording, preserving
+the field-value placeholder. Four suites pass; native verb morphology
+and browser verification remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/318e5030b">Repair Tamazight numeric-field total description</a>. Thanks to xet7.</summary>
 
 Restore aggregate and numeric custom-field wording, including display
