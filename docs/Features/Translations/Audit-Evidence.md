@@ -22633,3 +22633,10 @@ taablagh; C.html supports shivoil and A.html supports rollageagh. Epoch is
 described as dait toshee, starting date; this technical phrase is provisional
 and needs native review. Coptic naming remains pending. Distinct-variant
 regression and all 18,188 exact correction checks pass; no browser claim.
+
+Reference review, 2026-09-14: first 25 pending zgh values inspected and
+confirmed French prose. Tamazight-Review.md records three searchable
+IRCAM-derived dictionary leads and explicit primary-source/grammar checks.
+The primary dictionary returned 502; scraped vocabulary is not accepted as
+verified, and no correction or unchanged acceptance was added. Mapping-role,
+lockout, warning negation and placeholder requirements remain mandatory.

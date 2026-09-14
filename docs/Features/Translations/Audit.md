@@ -10,7 +10,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Pending review or repair | 305 |
 | Total tracked | 20,081 |
 
-Review is ongoing. The [correction ledger](../../../releases/translations/audited-corrections.json)
+Review is ongoing. [Tamazight reference review](Tamazight-Review.md) confirms
+French prose in the first 25 pending entries and records a new dictionary
+lead requiring primary-source cross-checks. No values accepted from that lead.
+ The [correction ledger](../../../releases/translations/audited-corrections.json)
 contain **18,188** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
