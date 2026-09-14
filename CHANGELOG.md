@@ -738,6 +738,16 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0dc75532b">Repair Breton WIP group and swimlane controls</a>. Thanks to xet7.</summary>
+
+Four French or mixed labels become distinct Breton application, group
+creation and swimlane actions using native software terminology. Focused
+translation and template checks pass. Adapted full phrases and browser review
+remain open in the dated audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a0aacc7a9">Preserve native Silesian raw database wording</a>. Thanks to xet7.</summary>
 
 Native vocabulary evidence supports retaining the shared raw-file label and

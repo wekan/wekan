@@ -28,7 +28,7 @@ Exact standardized compound and browser review remain open.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,609** exact before/after values, including unflagged repairs.
+contain **18,613** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
@@ -45,14 +45,14 @@ remains open. Latin Inuktitut spelling is valid; original script warnings
 require vocabulary/context review rather than automatic replacement.
 Pending/restored counts after the latest review are 289/12.
 
-Latest translation fix: **2026-09-14**, local commit `1ba55107f` —
-four Breton date/activity/execution labels replace French prose. Native
-software sources support modification and execution vocabulary; native statistics
-documentation supports the last-activity phrase. Adapted timestamp prefixes and
-runtime/browser formatting remain open. All **18,609** corrections, **4,167**
-unchanged reviews, focused locale and completeness checks pass. These unflagged
-repairs leave 289 pending and 13 restored findings unchanged. Earlier Inuktitut
-LDAP failure repair is in `ea1df33fa`, with full native grammar review open.
+Latest translation fix: **2026-09-14**, local commit `0dc75532b` —
+four Breton WIP group/swimlane controls replace French or mixed wording.
+Native application terminology and existing locale nouns preserve distinct
+creation, enablement, selection and quick-apply actions. All 18,613 corrections,
+4,169 unchanged reviews and focused translation checks pass. Full adapted
+compounds and browser review remain open. Unflagged repairs leave 288 pending
+and 12 restored findings unchanged. Earlier Breton date/activity repairs
+are in `1ba55107f`, with timestamp phrasing and runtime formatting still open.
 Latest unchanged review: **2026-09-14**, local commit `a0aacc7a9` —
 Silesian raw MongoDB 3 files retains native shared vocabulary, resolving its
 last flagged finding. All 4,169 unchanged reviews and focused translation

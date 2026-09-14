@@ -23842,3 +23842,24 @@ call is currently commented out. Browser and broader language review remain
 open. Focused exact-value/technical-identity and negative export coverage pass,
 as do 4,169 unchanged reviews, 18,609 corrections and completeness checks.
 One pending finding resolves: 288 pending and 12 restored remain.
+
+### 2026-09-14 — Breton WIP group/swimlane repairs
+
+Local commit `0dc75532b` replaces four unflagged French/mixed values:
+`apply` becomes `Arloañ`; group creation becomes
+`Ouzhpennañ ur strollad bevennoù WIP`; swimlane selection becomes
+`Dibab ur vandenn`; quick application becomes `Arloañ ouzh ar vandenn`.
+[An Drouizig's native computing glossary](https://www.drouizig.org/images/stories/dafar/geriaduriaou/Gerva-an-Drouizig-2017.pdf),
+printed page 4, attests applying an operation with `arloañ ouzh`. Existing
+Breton group/limit and swimlane nouns supply product terminology. Compounds
+are direct adaptations; native full-phrase and browser review remain open.
+Actual sidebar controls distinguish creation from enablement, selection and
+quick application. The latter preselects a swimlane's list checkboxes; group
+creation is still a separate submit action. Exact-value, foreign-prose and
+actual template checks pass with 18,613 corrections, 4,169 unchanged reviews
+and 234-locale completeness. Pending/restored totals remain 288/12.
+
+Calendar reference follow-up did not establish Greenlandic Coptic or complete
+Hijri qualifiers. CLDR's Greenlandic file contains an unconfirmed generic
+calendar noun and Gregorian entry, not those missing phrases. No acceptance
+was made from that incomplete evidence. All four findings remain open.
