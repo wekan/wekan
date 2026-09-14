@@ -127419,5 +127419,12 @@
     "before": "Tidak ada label",
     "after": "Hana label",
     "reason": "Unflagged Indonesian Tidak ada label replaced with existing correct Acehnese Hana label, preserving absence semantics and consistency with no-label."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "twoFactorCode-cancel",
+    "before": "Hül'gäta",
+    "after": "Heitä",
+    "reason": "Use Veps software Cancel imperative attested in MediaWiki vep.json cancel, userlogin-authpopup-cancel and resetpass-submit-cancel, matching existing general WeKan cancel. Replaces restored Hül'gäta with context-specific authentication cancellation wording; live authentication browser behavior not verified by lexical review."
   }
 ]
