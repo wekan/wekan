@@ -17386,5 +17386,185 @@
     "key": "list-label-modifiedAt",
     "value": "Hora do último acceso",
     "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "list-label-title",
+    "value": "Nome da lista",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "list-label-sort",
+    "value": "A túa orde manual",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "filter-no-due-date",
+    "value": "Sen data límite",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "filter-overdue",
+    "value": "Vencidas",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "filter-due-today",
+    "value": "Vencen hoxe",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "filter-due-this-week",
+    "value": "Vencen esta semana",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "filter-due-next-week",
+    "value": "Vencen a próxima semana",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "filter-due-tomorrow",
+    "value": "Vencen mañá",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "list-filter-label",
+    "value": "Filtrar as listas por título",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "filter-clear",
+    "value": "Limpar o filtro",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "filter-assignee-label",
+    "value": "Filtrar por responsable",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "filter-no-assignee",
+    "value": "Sen responsable",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "filter-no-custom-fields",
+    "value": "Sen campos personalizados",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "filter-show-archive",
+    "value": "Mostrar as listas arquivadas",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "filter-hide-empty",
+    "value": "Agochar as listas baleiras",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "filter-to-selection",
+    "value": "Filtrar á selección",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "advanced-filter-label",
+    "value": "Filtro avanzado",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "show-activities",
+    "value": "Mostrar actividades",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "hide-activities",
+    "value": "Agochar actividades",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "impersonate-user",
+    "value": "Suplantar usuario",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "link",
+    "value": "Ligazón",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "import-board-instruction-csv",
+    "value": "Pega os teus valores separados por comas (CSV) / valores separados por tabulacións (TSV).",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "import-json-placeholder",
+    "value": "Pega aquí os teus datos JSON válidos",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "import-csv-placeholder",
+    "value": "Pega aquí os teus datos CSV/TSV válidos",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "import-trello-zip-too-large",
+    "value": "O .zip é demasiado grande para importalo.",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "trello-cancel",
+    "value": "Cancelar a importación",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "import-map-members",
+    "value": "Asociar membros",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "import-show-user-mapping",
+    "value": "Revisar a asociación de membros",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "import-user-select",
+    "value": "Escolle o usuario existente que queres usar como este membro",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "importMapMembersAddPopup-title",
+    "value": "Seleccionar membro",
+    "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
   }
 ]
