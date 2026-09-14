@@ -18106,5 +18106,173 @@
     "key": "showSum-field-on-list",
     "value": "Mostrar a suma dos campos na parte superior da lista",
     "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "accounts-allowEmailChange",
+    "value": "Permitir cambiar o correo electrónico",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "accounts-allowUserNameChange",
+    "value": "Permitir cambiar o nome de usuario",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "createdAt",
+    "value": "Creado o",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "modifiedAt",
+    "value": "Modificado o",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "active-team",
+    "value": "Equipo activo",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "active-org",
+    "value": "Organización activa",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "active-person",
+    "value": "Persoa activa",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "card-end-on",
+    "value": "Remata o",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "editCardReceivedDatePopup-title",
+    "value": "Cambiar a data de recepción",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "editCardEndDatePopup-title",
+    "value": "Cambiar a data de fin",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "setCardColorPopup-title",
+    "value": "Establecer cor",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "setSelectionColorPopup-title",
+    "value": "Establecer a cor da selección",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "setCardActionsColorPopup-title",
+    "value": "Escolle unha cor",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "setSwimlaneColorPopup-title",
+    "value": "Escolle unha cor",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "setListColorPopup-title",
+    "value": "Escolle unha cor",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "assigned-by",
+    "value": "Asignado por",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "requested-by",
+    "value": "Solicitado por",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "delete-all-notifications",
+    "value": "Eliminar todas as notificacións",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "delete-duplicate-lists",
+    "value": "Eliminar listas duplicadas",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "default",
+    "value": "Predeterminado",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "defaultdefault",
+    "value": "Predeterminado",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "queue",
+    "value": "Cola",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "subtask-settings",
+    "value": "Configuración das subtarefas",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "boardSubtaskSettingsPopup-title",
+    "value": "Configuración das subtarefas",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "deposit-subtasks-list",
+    "value": "Lista de destino das subtarefas depositadas aquí:",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "prefix-with-full-path",
+    "value": "Prefixo coa ruta completa",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "prefix-with-parent",
+    "value": "Prefixo co pai",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "subtext-with-full-path",
+    "value": "Subtexto coa ruta completa",
+    "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
   }
 ]
