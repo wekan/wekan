@@ -23547,3 +23547,19 @@ Ledger 18,582; original corrected 15,606, restored 17, retained 4,163, pending
 295. Inuktitut pending 46; weekly terms and longer phrases remain open.
 Veps keyboard terminology search did not provide new native evidence; its ten
 original findings remain open. No translation service, subagents or remote push.
+
+### 2026-09-14 — Inuktitut weekly frequencies (06af4a4a8)
+
+Two original pending findings repaired: card-recurrence-interval-weekly and
+checklist-reset-interval-weekly → ᐱᓇᓱᐊᕈᓯᑕᒫᑦ. This matches the existing
+backup-frequency-weekly, while daily/monthly remain distinct.
+[Qikiqtani Inuit Association bilingual training application](https://www.qia.ca/applications/qstep-heavy-equipment-training/)
+directly pairs Gross weekly rate of Employment Insurance with a native
+phrase containing the term. This supports weekly meaning and spelling;
+longer interface grammar and live scheduler/browser behavior are not proven.
+Focused regression verifies both contexts, rejects the Greenlandic seed, and
+protects three distinct frequencies. Exact correction/review ledger and all
+locale-completeness checks pass. Ledger 18,584; original corrected 15,608,
+restored 17, retained 4,163, pending 293; Inuktitut pending 44.
+Broader native review and previous low-confidence compounds remain open.
+No translation service, subagents or remote writes.

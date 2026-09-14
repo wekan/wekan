@@ -694,6 +694,18 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/06af4a4a8">Repair Inuktitut weekly frequency labels</a>. Thanks to xet7.</summary>
+
+Card recurrence and checklist reset replace Greenlandic weekly wording with
+the native Inuktitut term attested in a bilingual Inuit Association form.
+Existing backup wording agrees; daily/weekly/monthly meanings stay distinct.
+Exact ledgers, positive/negative frequency checks and completeness pass.
+The dated audit records two resolved findings and retains longer phrase,
+low-confidence and live browser verification work.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9a511101d">Repair Inuktitut daily and monthly frequencies</a>. Thanks to xet7.</summary>
 
 Card recurrence and checklist reset use native Inuktitut daily/monthly labels
