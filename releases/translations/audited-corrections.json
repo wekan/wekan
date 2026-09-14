@@ -123436,5 +123436,12 @@
     "before": "Une erreur s'est produite lors de la tentative de connexion",
     "after": "ⵉⵍⵍⴰ ⴽⵔⴰ ⵏ ⵓⵣⴳⴰⵍ ⴰⴷⴷⴰⵢ ⵜⴰⵔⵎⴷ ⴰⴷ ⵜⴽⵛⵎⴷ",
     "reason": "Replace French error-during-login-attempt message; preserve error occurrence, trying and login context without claiming wrong password or adding LDAP diagnosis. Native MediaWiki externaldberror supplies illa kra n uzgal, view-pool-error supplies tarmd/try, and userlogin-reauth supplies ad ... tkchmd/to login: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse earlier when adday. LOW CONFIDENCE full temporal/attempt clause, tense and generic masculine address require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "restore",
+    "before": "استعادة",
+    "after": "ⵙⵙⵓⴽⵏ",
+    "reason": "Replace unflagged Arabic Restore control. Native MediaWiki logentry-delete-restore uses issukn/tssukn restoration forms: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Adapt base ssukn to a command; preserve restore action rather than show deleted content or rollback edits. LOW CONFIDENCE imperative adaptation and generic WeKan restoration context require fluent review. Archive-specific rule phrases remain pending: indexed IRCAM searches did not establish an Archive noun and do not prove absence; do not substitute storage or deletion."
   }
 ]
