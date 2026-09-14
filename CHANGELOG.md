@@ -1159,6 +1159,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ec1f2cb21">Repair Tamazight top-left logo URL labels</a></summary>
+
+Replace French image and link labels using existing Tamazight logo patterns,
+preserving the two URL meanings. Four focused suites pass; full spatial
+chain and computing compounds remain under contextual review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

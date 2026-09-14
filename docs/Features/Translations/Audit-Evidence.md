@@ -29522,3 +29522,18 @@ Earlier heap, memory, capability, temporal and nominal grammar reviews and
 native/detached technical loan localization remain open. Full goal remains
 incomplete alongside the remaining locale queue and unflagged reviews.
 https://nodejs.org/api/v8.html#v8getheapstatistics
+
+
+2026-09-15 — `ec1f2cb21`: two French top-left logo URL labels replaced
+using existing custom-login-logo-image/link-url noun patterns, adapting
+location. IRCAM 11729 taghmrt corner (bound tghmrt); 1008 aflla top
+(uflla); 4507 left justification uses ghr uẓlmaḍ with emphatic ẓ, not z.
+Full top-left spatial chain and logo software compounds remain low
+confidence. URL stays literal. Image resource and click destination remain
+distinct: settingBody.jade binds customTopLeftCornerLogoImageUrl and
+customTopLeftCornerLogoLinkUrl separately. No settings behavior changed.
+Four focused suites pass for exact values, image/link distinction,
+negative French/Arabic wording and all token inventories. No live logo
+settings UI test ran. Ledger 19,891; corrected 15,770, pending 133
+(zgh 40), restored 4 unchanged. Height/default label and unflagged hide-logo
+and header-logo-title still need repair; broader contextual review is open.
