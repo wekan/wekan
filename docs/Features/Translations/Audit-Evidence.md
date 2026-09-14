@@ -1,5 +1,13 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `9685a1107`: two permitted-file-type labels repaired from Arabic.
+MediaWiki file-info-size supplies Type and File, permissionserrorstext-withaction
+supplies Permission, and uploadlogpage supplies Upload. Allowed is adapted
+as with Permission; retain distinct upload and avatar-file scopes and colons.
+Plural forms, profile-image adaptation and full permission constructions
+remain low confidence. All 18,089 correction checks pass; 326 original
+findings remain pending, including 191 Tamazight.
+
 2026-09-14 — `c863bb1a2`: earlier Hide All Checklist Items repair refined.
 MediaWiki rcfilters-activefilters-hide directly attests command `ⵙⵙⵏⵜⵍ`,
 replacing the earlier derived `ⵏⵜⵍ`. Retain ALL, distinct from checked-only

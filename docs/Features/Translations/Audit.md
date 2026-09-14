@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,516 |
+| Corrected | 15,518 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 328 |
+| Pending review or repair | 326 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,087** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,089** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `c863bb1a2` — refined the earlier Hide All Checklist Items repair with the directly attested native Hide command. Preserve ALL scope, distinct from checked-only visibility repaired in `93d592c07`, and original Arabic provenance. Checklist compound and full grammar remain **low confidence**. All **18,087** correction checks pass; counts unchanged: **328** findings remain pending across **17** locales, including **193** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `9685a1107` — replaced two Arabic permitted-file-type labels, preserving upload versus avatar scope and colons. Native Type, File, Permission and Upload support components; plural forms and full permission constructions remain **low confidence**. All **18,089** correction checks pass; **326** findings remain pending across **17** locales, including **191** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Format review (2026-09-14):** indexed HACA terminology supports a native
 Format noun candidate; direct PDF retrieval failed. Full placeholder wording
