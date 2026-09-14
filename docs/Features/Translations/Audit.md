@@ -27,10 +27,10 @@ repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
-Latest terminology review: **2026-09-14**, `ac5a9f69b` — primary
-Tamazight permanent wording is distinguished from account-enabled status.
-Active/inactive tooltips still need complete native clauses; no acceptance
-is recorded in [Tamazight review](Tamazight-Review.md).
+Latest terminology review: **2026-09-14**, `8ba8134b9` — official
+Greenlandic table/start-date terms and ICU epoch definitions are recorded
+in [calendar review](Greenlandic-Calendar-Review.md). Both tabular Hijri
+labels remain pending; complete native phrases are not yet accepted.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

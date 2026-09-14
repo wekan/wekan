@@ -656,6 +656,14 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8ba8134b9">Document Greenlandic calendar epoch terminology evidence</a>. Thanks to xet7.</summary>
+
+Record approved table and start-date terms and the distinct ICU epochs.
+Keep both incomplete translations pending for full native wording review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/602ea4090">Translate Greenlandic Saudi Hijri sighting label</a>. Thanks to xet7.</summary>
 
 Retain calendar identity, Saudi Arabia and moon sighting in a complete draft.
