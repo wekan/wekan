@@ -24105,3 +24105,21 @@ option wiring, all 18,659 corrections, 4,170 retained reviews and completeness
 for 234 locales pass. Original counts are 15,613 corrected, 10 restored,
 4,170 retained and 288 pending. Full named-clause grammar, runtime discrepancy
 and browser execution remain open; the source does not quote this full clause.
+
+## Wrong-language date-format labels, 2026-09-14
+
+Local repair commit `b8c6fed39` changes three date-format labels in each of
+ak, bs, sl, sl_SI, br and zgh (18 values). Akan had unrelated repeated prose;
+Bosnian and Slovenian used Serbian Cyrillic date words; Breton and Tamazight
+had French AAAA/JJ notation. Labels now show YYYY-MM-DD, DD-MM-YYYY and
+MM-DD-YYYY, matching the actual option values in cardDetails.jade.
+
+These are display labels rather than a change to date formatting. Correct
+localized notation in other languages remains protected: focused regression
+checks retain Danish and Basque notation. No human correct-language values
+were overwritten. All 18,677 correction records, 4,170 retained reviews,
+234-locale completeness and focused format/option/distinction checks pass.
+The existing fill workflow already protects literal format patterns from
+placeholder translation. No dependency or external service is introduced.
+These unflagged repairs leave 288 original pending and 10 restored findings.
+Browser rendering and broader native-language review remain open.

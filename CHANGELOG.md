@@ -738,6 +738,15 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b8c6fed39">Repair wrong-language date-format labels</a>. Thanks to xet7.</summary>
+
+Akan, Bosnian, Slovenian, Breton and Tamazight date-format choices show the
+actual selectable patterns. Correct localized notation elsewhere is kept.
+Focused checks pass; the dated audit records the 18 repairs and UI limits.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/33cc02ced">Clarify Basque incomplete checklist predicate</a>. Thanks to xet7.</summary>
 
 The incomplete trigger describes marking incomplete rather than leaving

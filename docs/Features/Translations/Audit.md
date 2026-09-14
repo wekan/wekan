@@ -30,7 +30,7 @@ cross-checks calendar, user and click components in native Moroccan sources.
 Full phrases, warnings and invalidated Tuareg records remain open; no pending
 finding was accepted from component evidence.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,659** exact before/after values, including unflagged repairs.
+contain **18,677** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
@@ -49,14 +49,13 @@ remains open. Latin Inuktitut spelling is valid; original script warnings
 require vocabulary/context review rather than automatic replacement.
 Current pending/restored counts are 288/10.
 
-Latest translation fix: **2026-09-14**, local commit `33cc02ced` —
-Basque incomplete checklist predicate now expresses marking incomplete,
-rather than leaving work unfinished. Native Moodle status evidence supports
-the adapted clause; named-noun grammar and browser review remain open.
-All 18,659 corrections and focused checks pass. One restored finding is
-corrected; current counts are 288 pending and 10 restored.
-Earlier Tamazight layout repair is in `9024c6cf8`, Breton string-template
-repair in `65a0f76ab`. Full language review remains ongoing.
+Latest translation fix: **2026-09-14**, local commit `b8c6fed39` —
+Eighteen wrong-language/unrelated date-format labels in Akan, Bosnian,
+Slovenian (both files), Breton and Tamazight now show selectable patterns.
+Correct Danish/Basque notation remains unchanged. All 18,677 corrections
+and focused checks pass. These were unflagged; current counts remain
+288 pending and 10 restored. Browser and broader native review remain open.
+Earlier Basque incomplete predicate repair is in `33cc02ced`.
 Latest unchanged review: **2026-09-14**, local commit `5bf97e219` —
 Basque S3 bucket-a retains a technical loan used in native ZIUR storage
 specifications. Focused field-context checks and all 4,170 retained reviews
