@@ -921,6 +921,17 @@ No release was published; native Windows execution was not tested.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8db16132c">Summarize release-note translations as updated languages</a>. Thanks to xet7.</summary>
+
+Release notes list only affected languages for translation updates. Keep
+full translation entries in the changelog and audit; preserve other release
+sections. Explicit language metadata prevents guessed names. Offline tests
+verify nested detail removal, non-translation preservation, missing metadata
+and exact release-heading selection. No release was published.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.77 2026-09-14 WeKan ® release
