@@ -1878,3 +1878,28 @@ registered-but-unrun notes are superseded by the dated successful Basque
 and Tamazight Chromium executions already recorded in their reviews.
 Full clauses and other UI paths remain open; no additional browser run is
 claimed by this documentation correction.
+
+
+Troubleshooting repair **2026-09-14**, local commit `1f0d46494`:
+server-error-troubleshooting replaces the full French message with a
+Tamazight draft asking the user to submit the server-generated error,
+then giving separate Snap and Docker installation instructions. Native
+MediaWiki wrongpassword attests the please phrase; emailuser and
+htmlform-submit attest send; internalerror attests error. Its blockedtext
+also attests using a feature. IRCAM General Dictionary page 120 entry 2157
+attests computer server amakkay asnmalay; page 246 entry 4749 attests
+installation asrus, with bound form usrus. The instruction uses commands
+rather than translating their code. Both literal backtick command bodies
+match English exactly, including wekan.wekan and wekan-app; three separate
+lines are retained. globalSearch.jade uses this actual translation key.
+Four locale suites pass, including rejection of French/Arabic prose,
+command inventory, distinct installation lines, placeholders, key order
+and newer correct-language preference. No browser error-path execution is
+claimed. Low confidence: the full relative clause and instruction grammar
+remain open for native review; lexical evidence alone is not full fluency.
+Ledger 18,848; corrected original findings 15,674; pending 229 → 228,
+zgh 122 → 121; restored 4 unchanged. Other remaining French, Arabic,
+calendar, diagnostic and prior uncertain values remain in the full scope.
+Sources:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339

@@ -656,6 +656,17 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1f0d46494">Repair Tamazight server troubleshooting instructions</a>. Thanks to xet7.</summary>
+
+The full French message becomes a Tamazight draft with separate Snap and
+Docker instructions. Exact shell commands, placeholders and correct
+translations are preserved. Four locale suites pass; full native clause
+grammar remains low confidence in the dated review. Pending findings
+fall to 228, including 121 Tamazight entries.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/69d9adb6c">Repair Tamazight architecture diagnostic label</a>. Thanks to xet7.</summary>
 
 IRCAM architecture terminology replaces Arabic while retaining the CPU
