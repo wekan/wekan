@@ -127370,5 +127370,12 @@
     "before": "Berreskuratu txartela biltegitik",
     "after": "Berreskuratu txartela artxibotik",
     "reason": "Use Basque artxibo archive terminology consistently with corrected r-archived/r-unarchived instead of biltegi warehouse/storage. Preserve imperative, restored-from direction and when-trigger meaning."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "my-attachments",
+    "before": "Les meves Adjunts",
+    "after": "Els meus adjunts",
+    "reason": "Repair feminine Les meves modifying masculine plural adjunts. Els meus adjunts preserves first-person ownership and existing attachment noun. Catalan possessive agreement reference https://aoe.iec.cat/els-possessius/ . Regional meves/meues elsewhere is not automatically wrong-language."
   }
 ]
