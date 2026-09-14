@@ -127734,5 +127734,103 @@
     "before": "Archives",
     "after": "Dielloù",
     "reason": "Unflagged French archive action/title/state replaced directly with Breton diellañ/dielloù, preserving archive versus permanent-delete distinction, target object and confirmation/empty-state meanings. Existing archive-board-confirm uses diellañ; official Breton Meurgorf diell entry and native Brezhoneg21 archive terminology support lexemes. Whole UI phrases directly adapted; native inflection/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "template",
+    "before": "Modèle",
+    "after": "Patrom",
+    "reason": "Unflagged French/English copy, move, template, checklist or account title replaced with Breton. Reuse existing patrom/roll-gwiriañ/diuzad nouns; native MediaWiki br.json supports Eilañ, Dilec'hiañ and Krouiñ ur gont. Preserve copying versus moving/deleting and object/confirmation semantics. Direct article/initial-mutation adaptation; native full-phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "cardTemplatePopup-title",
+    "before": "Créer un modèle",
+    "after": "Krouiñ ur patrom",
+    "reason": "Unflagged French/English copy, move, template, checklist or account title replaced with Breton. Reuse existing patrom/roll-gwiriañ/diuzad nouns; native MediaWiki br.json supports Eilañ, Dilec'hiañ and Krouiñ ur gont. Preserve copying versus moving/deleting and object/confirmation semantics. Direct article/initial-mutation adaptation; native full-phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "copyCardPopup-title",
+    "before": "Copier la carte",
+    "after": "Eilañ ar gartenn",
+    "reason": "Unflagged French/English copy, move, template, checklist or account title replaced with Breton. Reuse existing patrom/roll-gwiriañ/diuzad nouns; native MediaWiki br.json supports Eilañ, Dilec'hiañ and Krouiñ ur gont. Preserve copying versus moving/deleting and object/confirmation semantics. Direct article/initial-mutation adaptation; native full-phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "copyListPopup-title",
+    "before": "Copier la liste",
+    "after": "Eilañ ar roll",
+    "reason": "Unflagged French/English copy, move, template, checklist or account title replaced with Breton. Reuse existing patrom/roll-gwiriañ/diuzad nouns; native MediaWiki br.json supports Eilañ, Dilec'hiañ and Krouiñ ur gont. Preserve copying versus moving/deleting and object/confirmation semantics. Direct article/initial-mutation adaptation; native full-phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "moveCardPopup-title",
+    "before": "Déplacer la carte",
+    "after": "Dilec’hiañ ar gartenn",
+    "reason": "Unflagged French/English copy, move, template, checklist or account title replaced with Breton. Reuse existing patrom/roll-gwiriañ/diuzad nouns; native MediaWiki br.json supports Eilañ, Dilec'hiañ and Krouiñ ur gont. Preserve copying versus moving/deleting and object/confirmation semantics. Direct article/initial-mutation adaptation; native full-phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "moveListPopup-title",
+    "before": "Déplacer la liste",
+    "after": "Dilec’hiañ ar roll",
+    "reason": "Unflagged French/English copy, move, template, checklist or account title replaced with Breton. Reuse existing patrom/roll-gwiriañ/diuzad nouns; native MediaWiki br.json supports Eilañ, Dilec'hiañ and Krouiñ ur gont. Preserve copying versus moving/deleting and object/confirmation semantics. Direct article/initial-mutation adaptation; native full-phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "moveSwimlanePopup-title",
+    "before": "Déplacer le couloir",
+    "after": "Dilec’hiañ ar vandenn",
+    "reason": "Unflagged French/English copy, move, template, checklist or account title replaced with Breton. Reuse existing patrom/roll-gwiriañ/diuzad nouns; native MediaWiki br.json supports Eilañ, Dilec'hiañ and Krouiñ ur gont. Preserve copying versus moving/deleting and object/confirmation semantics. Direct article/initial-mutation adaptation; native full-phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "signupPopup-title",
+    "before": "Créer un nouveau compte",
+    "after": "Krouiñ ur gont",
+    "reason": "Unflagged French/English copy, move, template, checklist or account title replaced with Breton. Reuse existing patrom/roll-gwiriañ/diuzad nouns; native MediaWiki br.json supports Eilañ, Dilec'hiañ and Krouiñ ur gont. Preserve copying versus moving/deleting and object/confirmation semantics. Direct article/initial-mutation adaptation; native full-phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "moveSelectionPopup-title",
+    "before": "Déplacer la sélection",
+    "after": "Dilec’hiañ an diuzad",
+    "reason": "Unflagged French/English copy, move, template, checklist or account title replaced with Breton. Reuse existing patrom/roll-gwiriañ/diuzad nouns; native MediaWiki br.json supports Eilañ, Dilec'hiañ and Krouiñ ur gont. Preserve copying versus moving/deleting and object/confirmation semantics. Direct article/initial-mutation adaptation; native full-phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "copySelectionPopup-title",
+    "before": "Copier la sélection",
+    "after": "Eilañ an diuzad",
+    "reason": "Unflagged French/English copy, move, template, checklist or account title replaced with Breton. Reuse existing patrom/roll-gwiriañ/diuzad nouns; native MediaWiki br.json supports Eilañ, Dilec'hiañ and Krouiñ ur gont. Preserve copying versus moving/deleting and object/confirmation semantics. Direct article/initial-mutation adaptation; native full-phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "checklist",
+    "before": "Check-list",
+    "after": "Roll-gwiriañ",
+    "reason": "Unflagged French/English copy, move, template, checklist or account title replaced with Breton. Reuse existing patrom/roll-gwiriañ/diuzad nouns; native MediaWiki br.json supports Eilañ, Dilec'hiañ and Krouiñ ur gont. Preserve copying versus moving/deleting and object/confirmation semantics. Direct article/initial-mutation adaptation; native full-phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "moveChecklistPopup-title",
+    "before": "Déplacer la checklist",
+    "after": "Dilec’hiañ ar roll-gwiriañ",
+    "reason": "Unflagged French/English copy, move, template, checklist or account title replaced with Breton. Reuse existing patrom/roll-gwiriañ/diuzad nouns; native MediaWiki br.json supports Eilañ, Dilec'hiañ and Krouiñ ur gont. Preserve copying versus moving/deleting and object/confirmation semantics. Direct article/initial-mutation adaptation; native full-phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "copyChecklistPopup-title",
+    "before": "Copier la checklist",
+    "after": "Eilañ ar roll-gwiriañ",
+    "reason": "Unflagged French/English copy, move, template, checklist or account title replaced with Breton. Reuse existing patrom/roll-gwiriañ/diuzad nouns; native MediaWiki br.json supports Eilañ, Dilec'hiañ and Krouiñ ur gont. Preserve copying versus moving/deleting and object/confirmation semantics. Direct article/initial-mutation adaptation; native full-phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "checklistDeletePopup-title",
+    "before": "Supprimer la checklist ?",
+    "after": "Dilemel ar roll-gwiriañ ?",
+    "reason": "Unflagged French/English copy, move, template, checklist or account title replaced with Breton. Reuse existing patrom/roll-gwiriañ/diuzad nouns; native MediaWiki br.json supports Eilañ, Dilec'hiañ and Krouiñ ur gont. Preserve copying versus moving/deleting and object/confirmation semantics. Direct article/initial-mutation adaptation; native full-phrase/browser review remains open."
   }
 ]
