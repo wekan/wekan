@@ -3528,6 +3528,18 @@ language correction. Tests passed; live browser verification was not run.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6dd41dd41">Prevent mirror attachment HTTP response crashes</a>. Thanks to xet7.</summary>
+
+Unsupported HTTP statuses and malformed response headers now reject the
+attachment download instead of throwing out of the callback and terminating
+mirroring. Rejected streams are closed; bodyless responses are drained.
+Eleven targeted archive, linked-file and HTTP adapter checks passed,
+including negative response cases and successful attachment downloads.
+No live remote mirroring was run during verification.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b91b63c53">Translation repairs: Tamazight authentication labels.</a></summary>
 
 2026-09-14: Replace four French labels, preserving method/type, default and
