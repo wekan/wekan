@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,129 |
+| Corrected | 15,131 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 715 |
+| Pending review or repair | 713 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,322** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,324** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `fef3c7e46` — replaced four unflagged French/Arabic Tamazight label-removal controls and comment-deletion activity text. The controls reuse native delete/tag nouns; the activity preserves `%s` and active narration. The full activity clause/default actor form and kanban label terminology remain **low confidence** or awaiting fluent review. All **17,322** correction/rendering checks pass. Original counts remain **715** pending, including **572** Tamazight. Earlier lockout plural inflection, restored/unflagged values and other composed terminology still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `ad3a4f2dc` — replaced French Tamazight comment-deletion confirmation and self-account-deletion setting text. Preserve the confirmation question/action and the account owner's self-deletion meaning. Both full phrases are composed and **low confidence**, pending fluent morphology/usage review. All **17,324** correction/rendering checks pass. **713** originals remain pending, including **570** Tamazight. Earlier activity/default-actor and lockout-plural inflection, restored/unflagged values and other composed terminology still need validation. Live browser verification was not run; no translations were pushed.
 
 **Language validation (2026-09-14), local commit `e4e3aa590`:** Wiktionary’s Veps transitive inflection tables confirm `surenda` (make larger) and `penenda` (make smaller) as second-person singular commands. Their imperative morphology is now reference-supported; screen-zoom usage remains open. The original keyboard findings remain unresolved: searches and the cached dictionary did not establish reliable keyboard-shortcut terminology. Counts are unchanged. References and the remaining scope are recorded per key in the correction ledger.
 
