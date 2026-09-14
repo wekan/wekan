@@ -661,6 +661,18 @@ The browser assertion accepts whitespace between the regional flag and name.
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/54218b150">Repair Tamazight rule object and add-label wording</a></summary>
+
+Replace three unflagged French values using existing Tamazight card,
+checklist item and label terms. Preserve the distinct add/remove actions.
+Four focused suites pass. Dated audit records 19,797 corrections and 195
+original findings pending; contextual phrasing remains under native review.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/35dcd699a">Repair Tamazight checklist item and comma instructions</a></summary>
 
 Replace French checklist rule text with Tamazight drafts using IRCAM's

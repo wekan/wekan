@@ -2542,3 +2542,18 @@ placeholders, key order and newer human translation preference. Ledger
 19,794; original corrected 15,708, pending 195 (zgh 100), restored 4.
 The item label additionally repairs an unflagged value. Broader uncertain,
 restored and unflagged review remains open. No push.
+
+## Rule objects and add-label action — 2026-09-15
+
+Local commit `54218b150` replaces French r-card, r-item and r-d-add-label.
+Reuse the existing card noun, singular checklist-item noun and r-add plus
+r-label terminology. The object nouns remain separate from the action;
+add label remains distinct from remove label. checklistActions.jade uses
+r-item beside the selected check/uncheck action and item-name input.
+This consistency repair supplies no new independent lexical attestation.
+**Low confidence:** complete contextual rule wording remains under native
+review. Four focused suites pass for exact values, add/remove distinction,
+negative French checks, placeholders, key order and human preference. No
+live browser test ran. Ledger 19,797; original pending 195 (zgh 100),
+restored 4 unchanged: all three repairs were unflagged. Broader uncertain,
+restored and unflagged review remains open. No push.

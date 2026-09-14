@@ -16,14 +16,14 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `35dcd699a` — Tamazight checklist
-item and mandatory comma-separated input instructions replace French.
-Four focused suites pass. Ledger 19,794; original pending 195 (Tamazight
-100), restored 4 unchanged. Full checklist compound, note wording and
-between-items agreement remain low confidence; broader reviews stay open.
+Latest translation fix: **2026-09-15**, `54218b150` — Tamazight rule
+card/item nouns and add-label wording replace French using existing terms.
+Four focused suites pass. Ledger 19,797; original pending 195 (Tamazight
+100), restored 4 unchanged. These three unflagged repairs leave the
+original queue unchanged. Contextual phrasing and broader reviews stay open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,794** exact before/after values, including unflagged
+records contain **19,797** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
