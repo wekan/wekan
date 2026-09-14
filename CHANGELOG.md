@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/84bffe61a">Correct Veps card and list More popup titles</a>. Thanks to xet7.</summary>
+
+Both popup titles now use the same native Veps wording. Locale, token and
+translation-preference checks pass. Dated audit evidence records the repairs
+and keeps unresolved full phrases and browser verification open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/70d9264f1">Repair Veps title and page terminology</a>. Thanks to xet7.</summary>
 
 Three Finnish values now use native Veps nouns. Actual localized title

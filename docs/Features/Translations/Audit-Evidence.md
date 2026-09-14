@@ -26164,3 +26164,9 @@ three additional Finnish values repaired from native MediaWiki terminology.
 [Veps review](Veps-Review.md) records exact source keys and parser behavior.
 Seven tests across five files pass; 18,818 correction records, original
 pending count 233 unchanged. Live browser and longer phrase review remain open.
+
+Veps More popup-title repairs **2026-09-14**, local commit `84bffe61a`:
+two additional Finnish values replaced with native Enamba. Source and
+remaining phrase-research limits are recorded in [Veps review](Veps-Review.md).
+Seven tests across four files pass; correction ledger 18,820, original
+pending 233 unchanged. Broader phrase and browser review remains open.

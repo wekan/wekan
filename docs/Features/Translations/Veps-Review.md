@@ -184,3 +184,22 @@ All seven registered tests across five affected files pass, including
 exact correction/preference/token checks. These additional repairs leave
 the original ten Veps findings and full phrase/browser review open.
 Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+
+More popup-title repairs **2026-09-14**, local commit `84bffe61a`:
+`cardMorePopup-title` and `listMorePopup-title` now use **Enamba**,
+replacing Finnish Lisää. Native MediaWiki `moredotdotdot` provides
+Enamba...; the ellipsis is omitted to match English popup-title presentation.
+Seven tests across four files pass, including exact correction values,
+placeholder inventories and preference preservation. The ledger has 18,820
+records; ten original Veps findings remain pending.
+
+A fresh bounded native MediaWiki key search found no keyboard, shortcut,
+accessibility, vertical or scroll keys establishing those full instructions.
+The inspected secondary Wiktionary extraction also supplied no matching
+English glosses for those concepts or arithmetic sums. General web searches
+returned unrelated Finnish/medical meanings of Veps/VEPS; exclude them as
+terminology evidence. These searches are not proof that native terms do not
+exist. The Veps Wikipedia mathematics page opens but is not a primary
+terminology authority; the inspected computer-page endpoint failed.
+Further phrase, grammar and native technical-source review remains necessary.
+Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
