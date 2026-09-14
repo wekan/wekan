@@ -506,3 +506,9 @@ for (const key of ['smtp-tls', 'email-smtp-test-subject']) {
 assert.ok(translated['smtp-tls-description'].includes(translated['smtp-tls']));
 assert.ok(translated['send-smtp-test'].includes('ⵉⵎⴰⵢⵍ ⵏ ⵓⴽⴰⵢⴰⴷ'));
 console.log('Tamazight SMTP labels retain protocol identifiers and existing terminology');
+
+assert.strictEqual(translated['smtp-port'], 'Port SMTP');
+assert.strictEqual(translated['smtp-port-description'], 'Port ⵍⵍⵉ ⵉⵙⵙⵎⵔⵙ ⵓⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ SMTP ⵏⴽ ⵉ ⵓⵣⵏ ⵏ ⵜⵉⵎⵢⴰⵣⴰⵏⵉⵏ ⵜⵉⵍⵉⴽⵟⵕⵓⵏⵉⵜⵉⵏ.');
+assert.doesNotMatch(translated['smtp-port-description'], /Le port|[\u0600-\u06ff]|ⴰⴼⵜⴰⵙ/u);
+assert.ok(translated['smtp-port-description'].includes('ⵉ ⵓⵣⵏ'));
+console.log('Tamazight SMTP port description preserves outgoing-mail purpose');

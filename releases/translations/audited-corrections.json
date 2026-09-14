@@ -139067,5 +139067,19 @@
     "before": "E-mail de test SMTP",
     "after": "ⵉⵎⴰⵢⵍ ⵏ ⵓⴽⴰⵢⴰⴷ SMTP",
     "reason": "2026-09-15: Replace unflagged Arabic/French SMTP label using existing smtp-tls-description and send-smtp-test Tamazight patterns. TLS/SMTP identifiers preserved. TLS support rendered as use of TLS; computing terminology and complete phrase remain under contextual review."
+  },
+  {
+    "locale": "zgh",
+    "key": "smtp-port",
+    "before": "منفذ SMTP",
+    "after": "Port SMTP",
+    "reason": "2026-09-15: Replace Arabic port label and French description. Borrow Port as technical networking term rather than IRCAM harbour aftas. Description preserves your SMTP server using this port to send email, reusing smtp-host-description electronic-message phrase. IRCAM azn send entry 5476 and ssmrs use entry 9981; full computing phrase grammar low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "smtp-port-description",
+    "before": "Le port des mails sortants du serveur SMTP.",
+    "after": "Port ⵍⵍⵉ ⵉⵙⵙⵎⵔⵙ ⵓⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ SMTP ⵏⴽ ⵉ ⵓⵣⵏ ⵏ ⵜⵉⵎⵢⴰⵣⴰⵏⵉⵏ ⵜⵉⵍⵉⴽⵟⵕⵓⵏⵉⵜⵉⵏ.",
+    "reason": "2026-09-15: Replace Arabic port label and French description. Borrow Port as technical networking term rather than IRCAM harbour aftas. Description preserves your SMTP server using this port to send email, reusing smtp-host-description electronic-message phrase. IRCAM azn send entry 5476 and ssmrs use entry 9981; full computing phrase grammar low confidence."
   }
 ]
