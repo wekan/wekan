@@ -17,6 +17,7 @@ import { assertParentCardIsVisible } from '/server/lib/visibleBoardIds';
 import { computeSubtaskLabelIds } from '/models/lib/subtaskLabelInheritance';
 import Activities from '/models/activities';
 import Boards from '/models/boards';
+import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import Cards, {
   addCronJob,
   cardAssignees,
@@ -84,6 +85,21 @@ Meteor.methods({
     const boardTitle = (title && title.trim()) || card.title || '';
     if (!boardTitle) throw new Meteor.Error('invalid-title');
 
+    const privateOnly = await TableVisibilityModeSettings.findOneAsync(
+      'tableVisibilityMode-allowPrivateOnly',
+    );
+    const requestedPermission = sourceBoard.permission === 'public' ? 'public' : 'private';
+    const permission = privateOnly?.booleanValue ? 'private' : requestedPermission;
+    if (privateOnly?.booleanValue && requestedPermission === 'public') {
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'authz.board-visibility', action: 'blocked',
+          source: 'createBoardFromCard',
+          detail: 'Inherited public visibility overridden by private-only policy.',
+        });
+      } catch (e) { /* logging must never break the guard */ }
+    }
+
     const boardId = await Boards.insertAsync({
       title: boardTitle,
       slug: getSlug(boardTitle) || 'board',
@@ -97,7 +113,7 @@ Meteor.methods({
           isWorker: false,
         },
       ],
-      permission: sourceBoard.permission === 'public' ? 'public' : 'private',
+      permission,
       color: sourceBoard.color,
       migrationVersion: 1,
     });

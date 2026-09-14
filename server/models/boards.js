@@ -146,7 +146,7 @@ Meteor.methods({
     const {
       title,
       slug,
-      permission = 'private',
+      permission: requestedPermission = 'private',
       type = 'board',
       migrationVersion = 1,
       swimlanes = [],
@@ -180,6 +180,22 @@ Meteor.methods({
           'Board creation is restricted to admins.',
         );
       }
+    }
+
+    // Apply the instance visibility policy on this server-side insert too.
+    // Collection allow/deny does not run for insertAsync inside a method.
+    const privateOnly = await TableVisibilityModeSettings.findOneAsync(
+      'tableVisibilityMode-allowPrivateOnly',
+    );
+    const permission = privateOnly?.booleanValue ? 'private' : requestedPermission;
+    if (privateOnly?.booleanValue && requestedPermission === 'public') {
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'authz.board-visibility', action: 'blocked',
+          source: 'createBoardWithInitialSwimlanes',
+          detail: 'Public board creation overridden by private-only policy.',
+        });
+      } catch (e) { /* logging must never break the guard */ }
     }
 
     const boardId = await Boards.insertAsync({

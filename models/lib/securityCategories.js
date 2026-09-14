@@ -9,6 +9,7 @@
 // so both the server ESM code and the tests/*.test.cjs guards can load it.
 
 const CATALOG = {
+  'authz.board-visibility': { category: 'authz', bleed: 'VisibilityBleed', severity: 'medium', cwe: 'CWE-863' },
   'ssrf.redirect':   { category: 'ssrf', bleed: 'RedirectBleed', severity: 'high', cwe: 'CWE-918' },
   'ssrf.attachment': { category: 'ssrf', bleed: 'LiveBleed', severity: 'high', cwe: 'CWE-918' },
   'ssrf.fetch':      { category: 'ssrf', bleed: 'DnsBleed', severity: 'high', cwe: 'CWE-918' },
