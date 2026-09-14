@@ -84,7 +84,7 @@
   "add": "Rnu",
   "activity-checked-item-card": "a coché %s dans la checklist %s",
   "activity-unchecked-item-card": "a décoché %s dans la checklist %s",
-  "activity-checklist-completed-card": "isemed tabdart n usenqed __checklist__ deg takarḍa __card__, tabdart __list__, abrid __swimlane__, tafelwit __board__",
+  "activity-checklist-completed-card": "ⵉⵙⵎⴷ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ __checklist__ ⴳ ⵜⴽⴰⵔⴹⴰ __card__ ⴳ ⵜⵍⴳⴰⵎⵜ __list__ ⴳ ⵓⴱⵔⵉⴷ __swimlane__ ⴳ ⵜⴼⵍⵡⵉⵜ __board__",
   "activity-checklist-uncompleted-card": "ⵉⵙⵙⵔ ⴰⵙⵎⴰⴷ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ %s",
   "activity-editComment": "commentaire modifié %s",
   "activity-deleteComment": "ⵉⴽⴽⵙ ⴰⵖⴼⴰⵡⴰⵍ %s",
