@@ -671,6 +671,15 @@ The empty wrongly placed Git directory was removed locally.
 **Languages updated:** Acehnese, Bambara, Basque, Breton, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9f4e6a56f">Repair Breton voting control language</a>. Thanks to xet7.</summary>
+
+Six French-seeded voting/public-board labels become Breton. Preserve vote
+choices, deletion confirmation and board visibility. Structural checks pass;
+native phrasing and browser review remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/14cb8393b">Repair Breton organization and watch language</a>. Thanks to xet7.</summary>
 
 Eleven French-seeded organization, watch and read-notification controls reuse

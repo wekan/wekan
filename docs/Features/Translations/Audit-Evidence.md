@@ -22992,3 +22992,12 @@ Preserve watch/unwatch, read/unread and organization create/edit distinctions.
 All 18,389 correction and 4,158 unchanged checks pass. Complete phrase
 inflection and rendered interaction remain unverified; original pending and
 restored scope stays 300/27. Broader unflagged/native review remains open.
+
+Dated unflagged repair, 2026-09-14, local commit `9f4e6a56f`: six Breton
+voting/public-board labels replace French. Preserve for/against choices,
+visibility of who voted what, permanent deletion question and public visibility.
+Native MediaWiki uses a-enep in opposition/protection contexts and goulenn
+for questions/requests; full voting phrase adaptation remains unverified:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/br.json
+All 18,395 correction checks pass. Native phrasing and live voting/browser
+review remain open; original pending/restored scope stays 300/27.
