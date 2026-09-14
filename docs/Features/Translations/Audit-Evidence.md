@@ -23315,3 +23315,33 @@ Correction ledger: 18,513. Original queue remains 15,601 corrected,
 The eighteen repairs are outside the original flagged queue. Remaining
 restored, uncertain, unflagged, low-confidence and browser review is open.
 No external translation service, dependency, subagent or push was used.
+
+### 2026-09-14 — Breton creation, movement and entity names
+
+Local commit `d95b0dd5c` repairs fourteen French-seeded or mixed labels:
+label-create, linkCardToNewBoard, moveCardToBottom-title,
+moveCardToTop-title, r-move-card-to, r-create-card, create-task,
+move-swimlane, create-account, task, copy-swimlane, accounts,
+export-card-subtasks and add-existing-card-as-subtask-empty.
+Existing local entity nouns, direction and task/subtask terminology are
+reused. Native [Kuzul ar Brezhoneg account navigation](https://brezhoneg.org/bz/plan-site)
+uses Krouiñ ur gont nevez. The native Ofis
+[lein](https://niverel.brezhoneg.bzh/fr/meurgorf/19752) and
+[traoñ](https://niverel.brezhoneg.bzh/fr/meurgorf/29318) entries establish
+opposite top/bottom meanings. The computing glossary supports create/move/copy
+verbs; these references do not attest every adapted kanban compound.
+
+cardDetails.jade exposes the opposite top/bottom actions; boardActions.jade
+uses card creation/movement labels. The card-to-board command now identifies
+creation from this card explicitly. Swimlane move/copy remain distinct.
+Regression coverage protects these actions, account creation, task naming,
+subtask export consistency and rejection of French seeds. Four focused suites
+pass, including exact ledgers, tokens and all-locale completeness. Native
+whole-phrase and live browser validation remain open. Reaction/repository
+terminology needs more reference work and was not accepted in this batch.
+
+Correction ledger: 18,527. Original queue remains 15,601 corrected,
+19 restored awaiting validation, 4,162 retained and 299 pending (20,081 total).
+These fourteen repairs are outside the original flagged queue. Remaining
+restored, uncertain, unflagged and low-confidence reviews remain open.
+No external service, dependency, subagent or push was used.
