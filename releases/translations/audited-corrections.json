@@ -121644,5 +121644,33 @@
     "before": "champ date",
     "after": "ⵉⴳⵔ ⵏ ⵓⵙⴰⴽⵓⴷ",
     "reason": "Replace French date-field noun phrase. IRCAM attests igr/field; native MediaWiki upload-form-label-infoform-date attests asakud/date. Derive bound usakud after n/of. Actual rule actions choose a date field, not a calendar-system selector or a time-only field. LOW CONFIDENCE complete date-field compound, derived bound date form and software-field usage. References: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=130 ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "show-field-on-card",
+    "before": "Afficher ce champ sur la carte",
+    "after": "ⵙⴽⵏ ⵉⴳⵔ ⴰⴷ ⵖⴼ ⵜⴽⴰⵕⴹⴰ",
+    "reason": "Replace French. Use native MediaWiki skn/show, IRCAM igr/field and native demonstrative ad. Preserve this field on the full card, not a field label on a minicard. LOW CONFIDENCE software-field usage, full demonstrative/location phrase and bound card form. References: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=130 ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "automatically-field-on-card",
+    "before": "Ajouter le champ aux cartes nouvellement créées",
+    "after": "ⵔⵏⵓ ⵉⴳⵔ ⵉ ⵜⴽⴰⵕⴹⵉⵡⵉⵏ ⵜⵉⵎⴰⵢⵏⵓⵜⵉⵏ",
+    "reason": "Replace French. Native MediaWiki create-local attests rnu/add, IRCAM attests igr/field, and newpages directly attests feminine plural timaynutin/new. Use inherited card plural with a derived bound form after i/to. Preserve new-card scope, distinct from always-field-on-card/all cards. LOW CONFIDENCE complete phrase, software-field sense, card bound plural and adjective agreement. References: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=130 ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "always-field-on-card",
+    "before": "Ajouter le champ à toutes les cartes",
+    "after": "ⵔⵏⵓ ⵉⴳⵔ ⵉ ⵜⴽⴰⵕⴹⵉⵡⵉⵏ ⴰⴽⴽⵯ",
+    "reason": "Replace French using the same native add/field components as automatically-field-on-card; MediaWiki searchall directly attests akkʷ/all. Preserve all-card scope rather than only newly created cards. LOW CONFIDENCE complete all-cards phrase, software-field sense and derived card bound plural. References: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=130 ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "cardCustomField-datePopup-title",
+    "before": "تغير التاريخ",
+    "after": "ⵙⵏⴼⵍ ⴰⵙⴰⴽⵓⴷ",
+    "reason": "Replace Arabic. Native MediaWiki edit attests snfl/edit/change and upload-form-label-infoform-date directly attests asakud/date. Preserve date editing rather than calendar-system selection. LOW CONFIDENCE complete change-date phrase; component terms are attested but their combined popup usage needs fluent review. References: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=130 ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
