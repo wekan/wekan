@@ -128931,5 +128931,89 @@
     "before": "O tilemel al liñvel-mañ",
     "after": "O tilemel an dikedenn-mañ",
     "reason": "Repair French/misnamed Breton board/filter controls using existing prevez, titl, sil, rolloù goullo and tikedenn terminology. Full native phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "download",
+    "before": "Télécharger",
+    "after": "Pellgargañ",
+    "reason": "Replace French attachment/export/upload prose with existing Breton enkargañ versus pellgargañ, restr, ment and stagadennoù vocabulary. Full native preview/date-prefix phrasing and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "upload",
+    "before": "Télécharger",
+    "after": "Enkargañ",
+    "reason": "Replace French attachment/export/upload prose with existing Breton enkargañ versus pellgargañ, restr, ment and stagadennoù vocabulary. Full native preview/date-prefix phrasing and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "uploading",
+    "before": "Chargement",
+    "after": "O enkargañ",
+    "reason": "Replace French attachment/export/upload prose with existing Breton enkargañ versus pellgargañ, restr, ment and stagadennoù vocabulary. Full native preview/date-prefix phrasing and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "uploading-files",
+    "before": "Chargement des fichiers",
+    "after": "O enkargañ restroù",
+    "reason": "Replace French attachment/export/upload prose with existing Breton enkargañ versus pellgargañ, restr, ment and stagadennoù vocabulary. Full native preview/date-prefix phrasing and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "upload-failed",
+    "before": "Le chargement a échoué",
+    "after": "C’hwitet eo an enkargañ",
+    "reason": "Replace French attachment/export/upload prose with existing Breton enkargañ versus pellgargañ, restr, ment and stagadennoù vocabulary. Full native preview/date-prefix phrasing and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "attachmentRenamePopup-title",
+    "before": "Renommer",
+    "after": "Adenvel",
+    "reason": "Replace French attachment/export/upload prose with existing Breton enkargañ versus pellgargañ, restr, ment and stagadennoù vocabulary. Full native preview/date-prefix phrasing and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "export-card-attachment-filename",
+    "before": "Nom du fichier",
+    "after": "Anv ar restr",
+    "reason": "Replace French attachment/export/upload prose with existing Breton enkargañ versus pellgargañ, restr, ment and stagadennoù vocabulary. Full native preview/date-prefix phrasing and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "export-card-attachment-size",
+    "before": "Taille",
+    "after": "Ment",
+    "reason": "Replace French attachment/export/upload prose with existing Breton enkargañ versus pellgargañ, restr, ment and stagadennoù vocabulary. Full native preview/date-prefix phrasing and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "export-card-attachment-uploaded-by",
+    "before": "Téléversé par",
+    "after": "Enkarget gant",
+    "reason": "Replace French attachment/export/upload prose with existing Breton enkargañ versus pellgargañ, restr, ment and stagadennoù vocabulary. Full native preview/date-prefix phrasing and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "export-card-attachment-uploaded-at",
+    "before": "Téléversé le",
+    "after": "Enkarget d’an",
+    "reason": "Replace French attachment/export/upload prose with existing Breton enkargañ versus pellgargañ, restr, ment and stagadennoù vocabulary. Full native preview/date-prefix phrasing and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "export-card-attachment-image-previews",
+    "before": "Aperçus des images",
+    "after": "Alberzhioù ar skeudennoù",
+    "reason": "Replace French attachment/export/upload prose with existing Breton enkargañ versus pellgargañ, restr, ment and stagadennoù vocabulary. Full native preview/date-prefix phrasing and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "s3-attachments",
+    "before": "Pièces jointes S3",
+    "after": "Stagadennoù S3",
+    "reason": "Replace French attachment/export/upload prose with existing Breton enkargañ versus pellgargañ, restr, ment and stagadennoù vocabulary. Full native preview/date-prefix phrasing and browser validation remain open."
   }
 ]
