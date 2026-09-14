@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,619 |
+| Corrected | 15,620 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,175 |
-| Pending review or repair | 283 |
+| Pending review or repair | 282 |
 | Total tracked | 20,081 |
 
 [Aromanian color review](Aromanian-Review.md), local commit `4f63929ee`
@@ -50,7 +50,7 @@ cross-checks calendar, user and click components in native Moroccan sources.
 Full phrases, warnings and invalidated Tuareg records remain open; no pending
 finding was accepted from component evidence.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,704** exact before/after values, including unflagged repairs.
+contain **18,705** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
@@ -68,7 +68,13 @@ remains open. Latin Inuktitut spelling is valid; original script warnings
 require vocabulary/context review rather than automatic replacement.
 Current pending/restored counts are 283/4.
 
-Latest translation fix: **2026-09-14**, local commit `947366780` —
+Latest translation fix: **2026-09-14**, local commit `e424d4de6` —
+[Tamazight review](Tamazight-Review.md) replaces the French migration progress
+message. Four checks pass. The adapted clause remains low confidence for native
+grammar, courtesy and browser validation. Original pending/restored counts
+are now 282/4; corrected wording does not close those broader uncertainties.
+
+Previous daily-label fix: **2026-09-14**, local commit `947366780` —
 [Tamazight review](Tamazight-Review.md) aligns the active daily trigger clause
 with native references, preserving its time placeholder. Four checks pass.
 The adapted clause remains low confidence pending native grammar and browser

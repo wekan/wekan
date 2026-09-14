@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e424d4de6">Replace French Tamazight migration progress message</a>. Thanks to xet7.</summary>
+
+The progress popup uses adapted Tamazight prose preserving the wait and board
+migration meaning. Four checks pass. Native grammar, courtesy and browser
+validation remain explicitly low confidence and open in the audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/947366780">Align Tamazight daily schedule wording</a>. Thanks to xet7.</summary>
 
 The daily workflow label follows native lexical references and preserves the

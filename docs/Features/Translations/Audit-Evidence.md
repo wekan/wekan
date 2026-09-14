@@ -24369,3 +24369,11 @@ Local fix `947366780`: [primary forms and confidence limits](Tamazight-Review.md
 Active daily trigger wording follows native references and preserves __time__.
 Four checks pass; adapted full clause remains low confidence. No browser
 validation ran. Ledger: 18,704; original pending/restored remain 283/4.
+
+## Tamazight migration progress — 2026-09-14
+
+Local fix `e424d4de6`: [primary vocabulary and adapted clause limits](Tamazight-Review.md).
+French progress prose is replaced while preserving wait, board migration and
+latest structure meaning. Four checks pass; full native grammar, courtesy and
+browser validation remain low confidence/open. Ledger: 18,705. Original
+counts: 15,620 corrected, 282 pending, 4 restored, 4,175 retained.
