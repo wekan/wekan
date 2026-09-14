@@ -634,7 +634,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.78 2026-09-14 WeKan ® release
 
 **In short:** **Board views** use the full available width, and Frappe Gantt
 avoids a browser-blocking translation observer loop. **LDAP login** handles an
