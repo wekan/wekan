@@ -22948,3 +22948,12 @@ Me choice and An holl implijerien from that month label. Full article
 mutations and adapted phrase fluency remain open, as does browser validation.
 All 18,331 correction and 4,158 unchanged checks pass. Original pending
 and restored findings remain 300/27; unflagged review is not complete.
+
+Dated unflagged repair, 2026-09-14, local commit `000d7ee63`: 19 Breton
+rule/trigger/action/item labels replace French. Existing r-new-rule-name and
+r-edit-rule support reolenn; r-drop-trigger supports tarzher, r-action supports
+ober. Reuse established item names and Ouzhpennañ add controls. This does
+not certify the remaining assembled trigger clauses, which still contain
+French prefixes and shared grammatical constraints. Native article mutations,
+full phrase fluency and browser checks remain open. All 18,350 correction
+and 4,158 unchanged checks pass. Original pending/restored remains 300/27.
