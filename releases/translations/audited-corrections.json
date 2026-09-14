@@ -126838,5 +126838,19 @@
     "before": "ⴽⴽⴻⵙ ⴰⴼⵔⴰⵏ ⵖⴻⴼ ⴽⵓⵍⵍⴻⵛ",
     "after": "ⴽⴽⵙ ⴰⵙⵜⴰⵢ ⵙⴳ ⴰⴽⴽⵯ",
     "reason": "2026-09-14: repair additional Kabyle-derived select-all controls in Moroccan locale. Native MediaWiki compareselectedversions attests selected ittustayn root stay; native delete command kks and existing native All akkʷ reused. Preserve Select ALL versus REMOVE selection from ALL, not deletion of selected content. Derived imperative/action noun and complete unselection phrase remain LOW CONFIDENCE pending native review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "select-only-one-board",
+    "before": "Fren yiwet n tfelwit kan",
+    "after": "ⵙⵜⴰⵢ ⵖⴰⵙ ⵢⴰⵜ ⵏ ⵜⴼⵍⵡⵉⵜ",
+    "reason": "2026-09-14: replace Kabyle or Arabic selection instruction with Moroccan native software components. Reuse reviewed stay selection root; MediaWiki tooltip-pt-watchlist attests yat feminine one and Mastodon community.column_settings.local_only attests ghas Only, column.lists attests List plural. Preserve ONLY ONE BOARD versus ALL CARDS IN THIS LIST; latter Arabic omitted All. Imperative derivation, feminine agreement and full instruction remain LOW CONFIDENCE pending native review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "list-select-cards",
+    "before": "تحديد بطاقات هذه القائمة",
+    "after": "ⵙⵜⴰⵢ ⴰⴽⴽⵯ ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⴳ ⵜⴰⵍⴳⴰⵎⵜ ⴰⴷ",
+    "reason": "2026-09-14: replace Kabyle or Arabic selection instruction with Moroccan native software components. Reuse reviewed stay selection root; MediaWiki tooltip-pt-watchlist attests yat feminine one and Mastodon community.column_settings.local_only attests ghas Only, column.lists attests List plural. Preserve ONLY ONE BOARD versus ALL CARDS IN THIS LIST; latter Arabic omitted All. Imperative derivation, feminine agreement and full instruction remain LOW CONFIDENCE pending native review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
   }
 ]
