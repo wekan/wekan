@@ -123583,5 +123583,33 @@
     "before": "Changer la date de fin de vote du planning poker",
     "after": "ⵙⵏⴼⵍ ⴰⵙⴰⴽⵓⴷ ⵏ ⵜⵉⴳⵉⵔⴰ ⵏ ⵡⴰⵙⵜⴰⵢ ⵏ Planning Poker",
     "reason": "Replace French planning poker popup label, retaining the named estimation technique Planning Poker rather than treating it as generic voting. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json edit snfl, delete kks and demonstrative ad; reuse the explicitly provisional audited vote end-date title for edit. Preserve this deletion question and change vote end-date action. LOW CONFIDENCE full mixed-script named-technique composition, election-to-card-voting adaptation and bound singular wastay require fluent review. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "support",
+    "before": "دعم",
+    "after": "ⵜⵉⵡⵉⵙⵉ",
+    "reason": "Replace Arabic/French support page label with Tamazight assistance terminology. Primary native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json userlogin-helplink2 supplies tiwisi help; noarticletext supplies bound title uzwl and content-model/pageinfo-contentpage tumayt content. Use assistance rather than an unrelated physical support meaning. LOW CONFIDENCE adapting help to the support page, bound twisi and complete title/content noun phrases require fluent review. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "supportPopup-title",
+    "before": "دعم",
+    "after": "ⵜⵉⵡⵉⵙⵉ",
+    "reason": "Replace Arabic/French support page label with Tamazight assistance terminology. Primary native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json userlogin-helplink2 supplies tiwisi help; noarticletext supplies bound title uzwl and content-model/pageinfo-contentpage tumayt content. Use assistance rather than an unrelated physical support meaning. LOW CONFIDENCE adapting help to the support page, bound twisi and complete title/content noun phrases require fluent review. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "support-title",
+    "before": "Titre de l'assistance",
+    "after": "ⴰⵣⵡⵍ ⵏ ⵜⵡⵉⵙⵉ",
+    "reason": "Replace Arabic/French support page label with Tamazight assistance terminology. Primary native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json userlogin-helplink2 supplies tiwisi help; noarticletext supplies bound title uzwl and content-model/pageinfo-contentpage tumayt content. Use assistance rather than an unrelated physical support meaning. LOW CONFIDENCE adapting help to the support page, bound twisi and complete title/content noun phrases require fluent review. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "support-content",
+    "before": "Contenu de l'assistance",
+    "after": "ⵜⵓⵎⴰⵢⵜ ⵏ ⵜⵡⵉⵙⵉ",
+    "reason": "Replace Arabic/French support page label with Tamazight assistance terminology. Primary native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json userlogin-helplink2 supplies tiwisi help; noarticletext supplies bound title uzwl and content-model/pageinfo-contentpage tumayt content. Use assistance rather than an unrelated physical support meaning. LOW CONFIDENCE adapting help to the support page, bound twisi and complete title/content noun phrases require fluent review. Reviewed 2026-09-14."
   }
 ]
