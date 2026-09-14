@@ -25494,3 +25494,15 @@ diagnostic records. Original before/reason history retained; ledger stays
 diagnostic metaphor and complete migration genitive; browser not run.
 cron-errors-cleared still needs complete success semantics and plural
 agreement; account lockout failures remain separate semantic review.
+
+
+Tamazight successful clearing — 2026-09-14, `233955a45`.
+cron-errors-cleared now restores the omitted successful qualifier and
+attested error plural. IRCAM PDF 146 entry 2672 gives amurs success and
+construct umurs; PDF 418 entry 7924 gives delete/be deleted, PDF 658
+entry 12346 error plural. Earlier exact-arrow search missed the success
+entry because it has two glosses; the full-text/index search found it.
+Original ledger before and reason history preserved; four suites pass.
+Low confidence: mhant feminine plural and s umurs adverbial construction,
+complete status grammar and browser behavior. Components do not attest
+the whole sentence. Original pending remains 256; ledger remains 18,761.
