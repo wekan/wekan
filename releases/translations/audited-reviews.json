@@ -14332,5 +14332,155 @@
     "key": "toggle-assignees",
     "value": "Alternar os asignados 1-9 da tarxeta (por orde de engadido ao taboleiro).",
     "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
+  },
+  {
+    "locale": "gl",
+    "key": "toggle-labels",
+    "value": "Alternar as etiquetas 1-9 da tarxeta. A selección múltiple engade as etiquetas 1-9",
+    "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
+  },
+  {
+    "locale": "gl",
+    "key": "tracking-info",
+    "value": "Recibirás notificacións de calquera cambio nas tarxetas nas que participes como creador ou membro.",
+    "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
+  },
+  {
+    "locale": "gl",
+    "key": "unsaved-description",
+    "value": "Tes unha descrición sen gardar.",
+    "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
+  },
+  {
+    "locale": "gl",
+    "key": "upload-completed",
+    "value": "Subida completada",
+    "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
+  },
+  {
+    "locale": "gl",
+    "key": "go-to-board",
+    "value": "Ir ao taboleiro",
+    "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
+  },
+  {
+    "locale": "gl",
+    "key": "warn-list-archived",
+    "value": "aviso: esta tarxeta está nunha lista do Arquivo",
+    "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
+  },
+  {
+    "locale": "gl",
+    "key": "card-templates-swimlane",
+    "value": "Modelos de tarxeta",
+    "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
+  },
+  {
+    "locale": "gl",
+    "key": "board-templates-swimlane",
+    "value": "Modelos de taboleiro",
+    "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
+  },
+  {
+    "locale": "gl",
+    "key": "email-invite-register-text",
+    "value": "Estimado/a __user__,\n\n__inviter__ convídate a un taboleiro kanban para colaborar.\n\nSegue a ligazón de abaixo:\n__url__\n\nE o teu código de convite é: __icode__\n\nGrazas.",
+    "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
+  },
+  {
+    "locale": "gl",
+    "key": "error-invitation-code-not-exist",
+    "value": "O código de convite non existe",
+    "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
+  },
+  {
+    "locale": "gl",
+    "key": "error-notAuthorized",
+    "value": "Non tes autorización para ver esta páxina.",
+    "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
+  },
+  {
+    "locale": "gl",
+    "key": "boardCardTitlePopup-title",
+    "value": "Filtro do título da tarxeta",
+    "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
+  },
+  {
+    "locale": "gl",
+    "key": "show-field-on-card",
+    "value": "Mostrar este campo na tarxeta",
+    "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
+  },
+  {
+    "locale": "gl",
+    "key": "automatically-field-on-card",
+    "value": "Engadir o campo ás tarxetas novas",
+    "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
+  },
+  {
+    "locale": "gl",
+    "key": "always-field-on-card",
+    "value": "Engadir o campo a todas as tarxetas",
+    "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
+  },
+  {
+    "locale": "gl",
+    "key": "showLabel-field-on-card",
+    "value": "Mostrar a etiqueta do campo na minitarxeta",
+    "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
+  },
+  {
+    "locale": "gl",
+    "key": "tableVisibilityMode-allowPrivateOnly",
+    "value": "Visibilidade dos taboleiros: permitir só taboleiros privados",
+    "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
+  },
+  {
+    "locale": "gl",
+    "key": "tableVisibilityMode",
+    "value": "Visibilidade dos taboleiros",
+    "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
+  },
+  {
+    "locale": "gl",
+    "key": "card-sorting-by-number",
+    "value": "Ordenación de tarxetas por número",
+    "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
+  },
+  {
+    "locale": "gl",
+    "key": "board-delete-notice",
+    "value": "A eliminación é permanente. Perderás todas as listas, tarxetas e accións asociadas a este taboleiro.",
+    "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
+  },
+  {
+    "locale": "gl",
+    "key": "delete-board-confirm-popup",
+    "value": "Eliminaranse todas as listas, tarxetas, etiquetas e actividades, e non poderás recuperar o contido do taboleiro. Non se pode desfacer.",
+    "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
+  },
+  {
+    "locale": "gl",
+    "key": "boardDeletePopup-title",
+    "value": "Eliminar o taboleiro?",
+    "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
+  },
+  {
+    "locale": "gl",
+    "key": "delete-board",
+    "value": "Eliminar taboleiro",
+    "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
+  },
+  {
+    "locale": "gl",
+    "key": "delete-all-notifications-confirm",
+    "value": "Estás seguro de que queres eliminar todas as notificacións? Esta acción non se pode desfacer.",
+    "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
+  },
+  {
+    "locale": "gl",
+    "key": "delete-duplicate-lists-confirm",
+    "value": "Estás seguro? Isto eliminará todas as listas duplicadas que teñan o mesmo nome e non conteñan tarxetas.",
+    "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
   }
 ]
