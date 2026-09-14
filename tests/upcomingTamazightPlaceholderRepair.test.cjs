@@ -330,3 +330,14 @@ assert.ok(translated['toggle-assignees'].includes(translated.assignees));
 assert.match(translated['toggle-assignees'], /1-9 ⵉ ⵜⴽⴰⵕⴹⴰ/);
 assert.match(translated['toggle-assignees'], /ⵓⵏⵎⴰⵍⴰ ⵏ ⵓⵔⵏⵓ ⵖⵔ ⵜⴼⵍⵡⵉⵜ/);
 assert.doesNotMatch(translated['toggle-assignees'], /[\u0600-\u06ff]/);
+
+// Trigger state labels stay distinct from imperative checklist actions.
+assert.strictEqual(translated['r-checked'], 'ⵙ ⵜⵎⴰⵜⴰⵔⵜ');
+assert.strictEqual(translated['r-unchecked'], 'ⴱⵍⴰ ⵜⴰⵎⴰⵜⴰⵔⵜ');
+assert.notStrictEqual(translated['r-checked'], translated['r-check']);
+assert.notStrictEqual(translated['r-unchecked'], translated['r-uncheck']);
+assert.doesNotMatch(translated['r-checked'] + translated['r-unchecked'], /Coché|Décoché|[\u0600-\u06ff]/u);
+const checklistTriggers = fs.readFileSync(path.join(ROOT,
+  'client/components/rules/triggers/checklistTriggers.jade'), 'utf8');
+assert.match(checklistTriggers, /option\(value="checked"\).*r-checked/);
+assert.match(checklistTriggers, /option\(value="unchecked"\).*r-unchecked/);

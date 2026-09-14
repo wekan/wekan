@@ -138752,5 +138752,19 @@
     "before": "تبديل المخصصين من 1-9 للبطاقة (حسب ترتيب الإضافة إلى اللوحة).",
     "after": "ⵔⵏⵓ ⵏⵖ ⴽⴽⵙ ⵉⴼⴳⴰⵏⵏ ⵉ ⵎⵉ ⵜⵜⵓⴼⴽⴰⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ 1-9 ⵉ ⵜⴽⴰⵕⴹⴰ (ⵙ ⵓⵏⵎⴰⵍⴰ ⵏ ⵓⵔⵏⵓ ⵖⵔ ⵜⴼⵍⵡⵉⵜ).",
     "reason": "2026-09-15: replace Arabic assignee shortcut hint with Tamazight draft retaining toggle as add/remove, assignee rather than membership role, range 1-9, card scope and board-addition order. Reuse existing assignee clause, add/remove and documented order noun. Full relative clause, order-of-addition construction and contextual grammar remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-checked",
+    "before": "Coché",
+    "after": "ⵙ ⵜⵎⴰⵜⴰⵔⵜ",
+    "reason": "2026-09-15: Replace French checkbox-state labels with with/without a mark, distinct from imperative actions. IRCAM entries 11152 (sign/mark), 5800 (without); existing with preposition. Computing adaptation and full trigger-fragment grammar remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-unchecked",
+    "before": "Décoché",
+    "after": "ⴱⵍⴰ ⵜⴰⵎⴰⵜⴰⵔⵜ",
+    "reason": "2026-09-15: Replace French checkbox-state labels with with/without a mark, distinct from imperative actions. IRCAM entries 11152 (sign/mark), 5800 (without); existing with preposition. Computing adaptation and full trigger-fragment grammar remain low confidence."
   }
 ]
