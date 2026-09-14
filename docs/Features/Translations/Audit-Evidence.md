@@ -21227,3 +21227,13 @@ card-control translations. Past-tense verbs, accusative direct objects,
 old/new movement directions and interpolation tokens remain intact.
 Completion and subtask terms are excluded pending further terminology review.
 Unchanged-value ledger tests pass; browser rendering was not verified.
+
+
+### Esperanto watch and board-control review — 2026-09-14
+
+Local commit `1c4a07cde` repairs automatic-watch wording: observi expresses
+ongoing observation, consistent with existing observado terminology, whereas
+rigardi primarily means looking. Retained 59 directly reviewed controls and
+warnings, preserving deletion permanence, archive recovery, role limits and
+toggle polarity. Completion/subtask terminology remains open. Correction and
+unchanged-value ledger tests pass; browser behavior was not verified.
