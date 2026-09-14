@@ -121889,5 +121889,19 @@
     "before": "Appuyez sur Entrée pour ajouter plus d'éléments",
     "after": "ⵔⵏⵓ ⵉⴼⵔⴷⵉⵙⵏ ⵢⴰⴹⵏⵉⵏ ⵙ Enter",
     "reason": "Replace French. Use native MediaWiki Add/rnu and other qualifier components, with Enter retained as the physical key name. Reuse inherited local item noun ifrdisn without schwa transcription, keeping items distinct from dropdown options. Express adding more items with Enter, equivalent action/key scope to Press Enter to add more items. LOW CONFIDENCE inherited item terminology and dialect, plural qualifier, keyboard instrumental and full instruction; native add/other components do not establish Standard Moroccan item usage. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "account-created",
+    "before": "Compte créé ! Vous pouvez maintenant vous connecter.",
+    "after": "ⵉⵜⵜⵓⵙⵏⵓⵍⴼⴰ ⵓⵎⵉⴹⴰⵏ! ⵜⵥⴹⴰⵕⴷ ⴰ ⵜⴽⵛⵎⴷ ⴷⵖⵉⴽⴽ.",
+    "reason": "Replace French. Native MediaWiki accountcreated directly supplies the account-created clause; login, loginsuccess and search-ignored-headings supply sign-in, now and second-person capability components. Preserve completed creation followed by permission to sign in now, rather than claiming the user is already signed in. LOW CONFIDENCE full capability composition and conjugation; the account-created clause is directly attested. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "already-account",
+    "before": "Vous avez déjà un compte ? Se connecter",
+    "after": "ⵉⵙ ⵖⵓⵔⴽ ⵉⵍⵍⴰ ⵓⵎⵉⴹⴰⵏ ⵢⴰⴷ? ⴽⵛⵎ",
+    "reason": "Replace French. Adapt native MediaWiki userlogin-noaccount possession question to positive already-have-an-account scope; userexists attests yad/already and login directly attests the sign-in command. Retain the question and subsequent sign-in action. LOW CONFIDENCE positive question inflection, bound account noun and already modifier composition; the complete question is not directly attested. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
