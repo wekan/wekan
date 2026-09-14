@@ -82,3 +82,29 @@ do not validate or invalidate terminology. The metadata page describes
 historical field notes, not modern computer vocabulary. Further sources
 remain available for review; this is not a language-repair completion claim.
 Source: https://www.kielipankki.fi/lexical-conceptual-resources/vepsa/
+
+Expanded local-value review **2026-09-14** found additional unflagged
+wrong-language values. These remain repair work; they must not be hidden
+by the ten-row original-finding count.
+
+| Key | Current local value | Problem |
+| --- | --- | --- |
+| subtask-inherit-parent-labels | Ḓadzhela zwiredzo zwa khadi ya mubebi | Venda wording in the Veps locale; requires the complete label-inheritance instruction. |
+| accessibility | Saavutettavuus | Finnish, not Veps. |
+| accessibility-title | Saavutettavuus otsikko | Finnish, not Veps. |
+| accessibility-content | Saavutettavuus sisältö | Finnish, not Veps. |
+| parent-card | Ylätehtäväkortti | Finnish, not Veps. |
+| change-card-parent | Muuta kortin ylätehtävää | Finnish, not Veps. |
+| prefix-with-parent | Etuliite ylätehtävällä | Finnish, not Veps. |
+| subtext-with-parent | Aliteksti ylätehtävällä | Finnish, not Veps. |
+| no-parent | Älä näytä ylätehtävää | Finnish, not Veps; preserve display-only meaning. |
+| trello-parent-workspace-top | Ylä taso | Finnish, not Veps. |
+
+The source-language key `subtask-inherit-parent-labels` is
+“Inherit parent's labels”; local `labels` is `Znamad` and `card` is `Kart`.
+Those two nouns do not establish a native inheritance verb or the complete
+parent-card relationship phrase. No replacement is claimed by this review.
+Direct MediaWiki inspection also confirms `pageinfo-title` uses `Tedod`
+for information and `pageinfo-robot-index` / `pageinfo-robot-noindex` use
+`Lasktud` / `Kel'tüd` for enabled and disabled indexing. These support
+terminology, but do not validate the Finnish accessibility noun.

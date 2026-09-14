@@ -172,3 +172,9 @@ and wording validation remain active.
 **Origin:** not all errors came from Transifex. The audit covers 4,061 pulled changes and 16,020 additional local findings; Bosnian errors predate the pull (`bdb3b15886a749b725b5290ba0109fcba955f983`). Other origins remain unverified.
 
 [Detailed evidence](Audit-Evidence.md) retains categorized tables. Refresh counts after each repair batch with `node releases/translations/audit-progress.mjs --update-summary`, then record the fix commit and verification. No remote uploads performed.
+
+Expanded Veps review (2026-09-14): ten additional local keys remain
+wrong-language, including a Venda label-inheritance instruction and Finnish
+accessibility/parent-card controls. See [Veps review](Veps-Review.md) for
+exact values and semantic requirements. Original-finding counts are unchanged;
+these additional values remain within the repair scope.
