@@ -14,7 +14,7 @@ Do not accept a generic era or astronomical approach as the complete required ep
 
 The expanded search-index excerpt of the [IRCAM conjugation manual](https://www.temehu.com/imazighen/dictionaries/Amawals/manuel-de-conjugaison-Tamazight-Tifinagh-IRCAM.pdf), ending printed page 94, lists `ⴱⴷⴰ (ⴱⴷⵓ)` (class 4) and `ⴱⴷⵓ (ⴱⴷⴰ)` (class 12) for begin/start. Separately, emphatic `ⴱⴹⵓ` (class 12) means share/divide. Preserve plain `ⴷ` in `cardStartPlanningPokerPopup-title`; the emphatic spelling would change the action.
 
-Both direct browser access and curl currently redirect the PDF URL to an HTML dictionary catalogue. Thus the page number and entries are indexed-only evidence. The full Planning Poker command and imperative application remain low confidence and need direct/fluent review. No locale values or counts changed. The two French Subworkspace labels also remain pending; content-space vocabulary alone does not validate a hierarchical subworkspace term.
+Both direct browser access and curl currently redirect the PDF URL to an HTML dictionary catalogue. Thus the page number and entries are indexed-only evidence. The full Planning Poker command and imperative application remain low confidence and need direct/fluent review. No locale values or counts changed. The two French Subworkspace labels were subsequently repaired in `8dc2224c7` using an explicitly derived adu- compound. Native MediaWiki Subpages and indexed Brahim Hamek prefix analysis support the derivation pattern, not the exact organizational term; full compound, bound form and workspace extension remain low confidence. See the correction ledger for sources and direct-fetch limits.
 
 ## Tamazight authentication terminology review — 2026-09-14
 

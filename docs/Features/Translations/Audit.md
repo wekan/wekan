@@ -4,21 +4,21 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,359 |
+| Corrected | 15,361 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 485 |
+| Pending review or repair | 483 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,750** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,752** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `45650996e` — replaced Arabic Text/Profile/Delete List? labels with native components supported by MediaWiki and Mastodon, preserving the singular list and question punctuation. All **17,750** correction/rendering checks pass. These unflagged repairs leave **485** originals pending across **17** locales, including **350** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `8dc2224c7` — replaced French Subworkspace Add/Name labels using an explicitly derived sub- compound, preserving hierarchy and action versus prompt. New compound, bound form and workspace extension remain **low confidence** for fluent review; indexed prefix evidence does not attest the complete term. All **17,752** correction/rendering checks pass. **483** originals remain pending across **17** locales, including **348** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Bambara calendar review (2026-09-14, `5610dff52`):** current CLDR supplies date units and Era `tile`, but no native Hijri variant names. Era does not establish reference-date Epoch. Both tabular calendar findings remain pending; preserve civil versus astronomical epoch and seek full native terminology. [Evidence](Audit-Evidence.md) records limits; no values or counts changed.
 
-**Start spelling review (2026-09-14, `2219d5358`):** expanded indexed IRCAM entries distinguish plain `ⴱⴷⵓ` Begin/Start from emphatic `ⴱⴹⵓ` Share/Divide. Preserve the corrected spelling; direct PDF access redirects to HTML, so full command validation remains open. Subworkspace terminology also remains pending. [Evidence](Audit-Evidence.md) records limits; no values or counts changed.
+**Start spelling review (2026-09-14, `2219d5358`):** expanded indexed IRCAM entries distinguish plain `ⴱⴷⵓ` Begin/Start from emphatic `ⴱⴹⵓ` Share/Divide. Preserve the corrected spelling; direct PDF access redirects to HTML, so full command validation remains open. Subworkspace wording was subsequently repaired in `8dc2224c7`; the new compound and full phrases remain low confidence for validation. [Evidence](Audit-Evidence.md) records limits; no values or counts changed.
 
 **Authentication reference review (2026-09-14, `9bcb5e162`):** direct [dictionary](https://cedric.cnam.fr/~bouzefra/books/amawal.pdf) extraction marks `Asesteb`/`Sesteb` **MC£** (Tuareg); search-index **MCF** is a rendering discrepancy, not Moroccan proof. Keep authentication method/display/default findings and unflagged type wording under review, preserving authentication versus sign-in/authorization and all qualifiers. [Evidence](Audit-Evidence.md) records pages and limits; no values or counts changed.
 
