@@ -1,5 +1,14 @@
 # Detailed translation audit evidence
 
+2026-09-14 (`db8421e9b`): repaired the additional Arabic Tamazight
+Change Due Date popup title. Native MediaWiki `edit` supplies `ⵙⵏⴼⵍ`;
+existing Due Date is `ⴰⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ`. The title now follows the
+same Change imperative as start, received and end date popups. This
+repair does not validate approaching/overdue tooltips, which remain open.
+The existing Due Date terminology still belongs to wider fluent review.
+No original pending count changed; correction inventory increased to 18,128.
+
+
 2026-09-14: synchronized the changelog's current TODO Later and upcoming
 aggregate with authoritative audit-progress output: 15,536 corrected,
 4,058 restored awaiting validation, 179 retained, 308 pending; 18,127

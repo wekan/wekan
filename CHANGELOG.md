@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,536 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 308 pending review or repair.
-The correction inventory records 18,127 exact before/after values,
+The correction inventory records 18,128 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,10 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 9b11c99d9 (2026-09-14), repairing Parent Card
-and Don't Show Parent. The latter remains a display-only choice, without
-removing the relationship. Compound grammar remains low confidence.
-All 18,127 correction records pass structural verification; 308 original
+Latest translation fix is db8421e9b (2026-09-14), repairing the additional
+Arabic Change Due Date popup title using the native Change imperative and
+existing Due Date terminology. Wider fluent terminology review remains open.
+All 18,128 correction records pass structural verification; 308 original
 findings remain pending, including 173 Tamazight findings.
 Archive provenance follow-up fbe388603 (2026-09-14) directly inspects the
 native Archives du Maroc logo in a university PDF, corroborating the noun
@@ -655,7 +655,7 @@ remain open.
 Translation audit progress as of 2026-09-14: 15,536 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
 and 308 remain pending across 17 locales, including 173 Tamazight findings.
-The ledger contains 18,127 correction records, including unflagged repairs.
+The ledger contains 18,128 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/193b22520">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -3589,6 +3589,18 @@ a display choice and does not remove the relationship. Compound grammar
 remains low confidence pending fluent review. On 2026-09-14, 18,127 records
 pass structural verification and 308 original findings remain pending,
 including 173 Tamazight. Restored and uncertain wording still needs review.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/db8421e9b">Repair Tamazight due-date popup title</a></summary>
+
+Replaced the additional Arabic title with the native Change imperative
+and existing Due Date label, matching neighboring date popup wording.
+All 18,128 correction records pass structural verification. Wider fluent
+terminology review remains open; original pending counts are unchanged.
 
 Thanks to xet7 !
 
