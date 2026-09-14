@@ -381,3 +381,6 @@ assert.doesNotMatch(locales.zgh.domain, /ⵜⴰⵎⵏⴰⴹⵜ/);
 assert.match(locales.zgh['operator-limit-invalid'], /^%s: ⴰⵡⵜⵜⵓ ⵓⵔ ⵉⵙⵖⵣⵏ\./);
 assert.match(locales.zgh['operator-limit-invalid'], /ⵉⵅⵚⵚⴰ.*ⴰⵎⴹⴰⵏ ⵓⵎⵎⵉⴷ ⵓⵎⵏⵉⴳ/);
 assert.doesNotMatch(locales.zgh['operator-limit-invalid'], /valide|entier|ⴰⵏⴽⵔⵓⴼ/);
+
+assert.equal(locales.zgh['restore-lost-cards-migration'], 'ⵙⵙⵓⴽⵏ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵜⵉⵎⵏⵉⴷⵉⵏ');
+assert.doesNotMatch(locales.zgh['restore-lost-cards-migration'], /Restaurer|perdues|ⴰⵇⵕⴹⴰⵛ|ⴰⵎⵏⵏⵓⵔⵉ/);

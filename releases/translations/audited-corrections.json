@@ -131556,5 +131556,12 @@
     "before": "%s n'est pas une limite valide. La limite doit être un entier positif.",
     "after": "%s: ⴰⵡⵜⵜⵓ ⵓⵔ ⵉⵙⵖⵣⵏ. ⵉⵅⵚⵚⴰ ⴰⴷ ⵉⴳ ⵓⵡⵜⵜⵓ ⴰⵎⴹⴰⵏ ⵓⵎⵎⵉⴷ ⵓⵎⵏⵉⴳ.",
     "reason": "2026-09-14: Complete Tamazight draft preserving invalid-limit diagnosis, required positive integer and exact %s. MediaWiki zgh feed-invalid attests software not-valid construction: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . IRCAM PDF 270 entry 5271 awttu boundary/limit, 356 entry 6770 obligation, 450 entry 8544 positive; integer ummid has separate Algerian mathematics thesis PDF 59 provenance recorded in swimlane-height repair. Low confidence: assembled negative-valid and modal clauses, computing-boundary metaphor, noun state and cross-variety integer terminology; no native/browser acceptance. Excludes disability sense ankruf."
+  },
+  {
+    "locale": "zgh",
+    "key": "restore-lost-cards-migration",
+    "before": "Restaurer les cartes perdues",
+    "after": "ⵙⵙⵓⴽⵏ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵜⵉⵎⵏⵉⴷⵉⵏ",
+    "reason": "2026-09-14: Full restore-lost-cards action draft from IRCAM Amazigh-English PDF 534 entry 10051 ssukn restore/repair, PDF 575 entry 10775 tikarḍiwin cards, PDF 383 entry 7266 imnidi lost: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339 . Low confidence: feminine plural adjective timnidin adapted from lemma, software restoration metaphor and imperative context. No active consumer found in client/models/server; stored-language repair only, no migration restoration or native/browser acceptance."
   }
 ]

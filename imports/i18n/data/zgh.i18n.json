@@ -2423,7 +2423,7 @@
   "delete-duplicate-empty-lists-migration-description": "Supprime en toute sécurité les listes vides en double. Supprime uniquement les listes qui n'ont aucune carte ET qui ont une autre liste avec le même titre contenant des cartes.",
   "lost-cards": "Cartes perdues",
   "lost-cards-list": "Éléments restaurés",
-  "restore-lost-cards-migration": "Restaurer les cartes perdues",
+  "restore-lost-cards-migration": "ⵙⵙⵓⴽⵏ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵜⵉⵎⵏⵉⴷⵉⵏ",
   "restore-lost-cards-migration-description": "Recherche et restaure les cartes et listes avec un swimlaneId ou listId manquant. Crée un couloir 'Cartes perdues' pour rendre tous les éléments perdus à nouveau visibles.",
   "restore-all-archived-migration": "ⵙⵡⵔⵔⵉ ⴰⴽⴽⵯ ⵙⴳ ⴰⵔⵛⵉⴼ",
   "restore-all-archived-migration-description": "Restaure tous les couloirs, listes et cartes archivés. Corrige automatiquement les swimlaneId ou listId manquants pour rendre les éléments visibles.",
