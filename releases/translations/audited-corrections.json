@@ -122477,5 +122477,19 @@
     "before": "دعوة",
     "after": "ⵙⵏⵏⴼⵜⵖ",
     "reason": "Replace Arabic invitation email template body/subject labels or Invite action. Preserve invitation versus reception/computer prompt, email body text versus subject and verb action. University research attests tinnubga/invitation from inebgi/invited; this source discusses Kabyle school neologisms and is not blanket Standard Moroccan proof. Computing lexicon host notes Central Morocco senneftegh/invite; adapt to schwa-free imperative spelling. Native MediaWiki yourtext, email and subject support other components. LOW CONFIDENCE dialect adaptation of invitation noun and imperative spelling, bound noun and full mail label chain. References: https://dspace.ummto.dz/bitstreams/8dab07b5-09c9-427e-94b7-96a7279a40b5/download (printed p106 invitation derivation); https://cedric.cnam.fr/~bouzefra/books/amawal.pdf (host PDF p70, Central Morocco invite verb); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (yourtext, email, subject)."
+  },
+  {
+    "locale": "zgh",
+    "key": "invite-people-error",
+    "before": "Une erreur s'est produite lors de l'envoi de l'invitation à s'enregistrer",
+    "after": "ⵜⴰⵣⴳⵍⵜ ⴳ ⵓⵣⵏ ⵏ ⵜⵉⵏⵏⵓⴱⴳⴰ ⵉ ⵓⵙⵏⵓⵍⴼⵓ ⵏ ⵓⵎⵉⴹⴰⵏ.",
+    "reason": "Replace French registration-invitation sending diagnostics. Preserve error during send versus successful send and account-registration purpose, expressed as account creation rather than login; do not claim recipient acceptance. Reuse documented invitation adaptation tinnubga and native MediaWiki error/send/account-creation components; affirmative success derived from native negative ur yallfus. LOW CONFIDENCE derived sending/creation nouns and bound forms, affirmative success predicate, invitation dialect adaptation and full purpose phrase. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (errorpagetitle, emailuser, directorycreateerror, createaccount-title); https://dspace.ummto.dz/bitstreams/8dab07b5-09c9-427e-94b7-96a7279a40b5/download (printed p106 invitation term)."
+  },
+  {
+    "locale": "zgh",
+    "key": "invite-people-success",
+    "before": "Invitation à s'enregistrer envoyée avec succès",
+    "after": "ⵢⴰⵍⵍⴼⵓⵙ ⵓⵣⵏ ⵏ ⵜⵉⵏⵏⵓⴱⴳⴰ ⵉ ⵓⵙⵏⵓⵍⴼⵓ ⵏ ⵓⵎⵉⴹⴰⵏ.",
+    "reason": "Replace French registration-invitation sending diagnostics. Preserve error during send versus successful send and account-registration purpose, expressed as account creation rather than login; do not claim recipient acceptance. Reuse documented invitation adaptation tinnubga and native MediaWiki error/send/account-creation components; affirmative success derived from native negative ur yallfus. LOW CONFIDENCE derived sending/creation nouns and bound forms, affirmative success predicate, invitation dialect adaptation and full purpose phrase. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (errorpagetitle, emailuser, directorycreateerror, createaccount-title); https://dspace.ummto.dz/bitstreams/8dab07b5-09c9-427e-94b7-96a7279a40b5/download (printed p106 invitation term)."
   }
 ]
