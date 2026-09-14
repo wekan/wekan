@@ -127195,5 +127195,19 @@
     "before": "`__predicate_all__` - biltegiratutako eta biltegiratu gabeko txartel guztiak",
     "after": "`__predicate_all__` - artxibatutako eta artxibatu gabeko txartel guztiak",
     "reason": "Search status-all includes archived and unarchived cards, not stored and unstored cards. Use archive terminology consistently with dictionary-verified artxibo activity captions and retain __predicate_all__ exactly."
+  },
+  {
+    "locale": "eu",
+    "key": "r-archived",
+    "before": "Biltegira eraman da",
+    "after": "Artxibora eraman da",
+    "reason": "Replace generic storage biltegi with archive artxibo, consistent with reviewed Basque activity/search archive terminology and EHU archive dictionary https://www.ehu.eus/eeh/cgi/bila?h=artxibo. Retain archive versus restore direction. Shared r-is Spanish auxiliary and full conditional phrase composition remain unresolved; this lexical correction does not certify trigger grammar."
+  },
+  {
+    "locale": "eu",
+    "key": "r-unarchived",
+    "before": "Biltegitik berreskuratu da",
+    "after": "Artxibotik berreskuratu da",
+    "reason": "Replace generic storage biltegi with archive artxibo, consistent with reviewed Basque activity/search archive terminology and EHU archive dictionary https://www.ehu.eus/eeh/cgi/bila?h=artxibo. Retain archive versus restore direction. Shared r-is Spanish auxiliary and full conditional phrase composition remain unresolved; this lexical correction does not certify trigger grammar."
   }
 ]
