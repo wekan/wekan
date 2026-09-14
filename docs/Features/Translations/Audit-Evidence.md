@@ -23080,3 +23080,16 @@ English set-or-changed behavior is restored rather than only reporting changed.
 All 18,457 correction and 4,158 unchanged-review checks pass. Complete native
 phrase and browser validation remain open; original pending/restored scope
 stays 300/27. Shared trigger agreement remains a separate unresolved review.
+
+Dated unflagged repair, 2026-09-14, local commit `a9ea9d462`: three Breton
+completion-state labels replace French. Echu follows pomodoro-completed;
+Lakaet da vezañ diechu follows activity-checklist-uncompleted. Actual generic
+and named checklist completion dropdowns retain completed/uncompleted values.
+MediaWiki's native Breton confirmemail_html_par2 uses echu for completion:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/br.json
+This supports completion vocabulary, not the entire shared checklist-trigger
+clause. No diechu match was found in that external catalogue; the existing
+local uncompletion wording is reused pending full native verification.
+All 18,460 correction and 4,158 unchanged checks pass. Shared trigger grammar,
+full native phrase and browser review remain open; tracked pending/restored
+scope remains 300/27. Generic completed label remains in obsolete-key scope.
