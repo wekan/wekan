@@ -1121,26 +1121,27 @@ export const Utils = {
   getTriggerActionDesc(event, tempInstance) {
     const jqueryEl = tempInstance.$(event.currentTarget.parentNode);
     const triggerEls = jqueryEl.find('.trigger-content').children();
-    let finalString = '';
+    const parts = [];
     for (let i = 0; i < triggerEls.length; i++) {
       const element = tempInstance.$(triggerEls[i]);
+      let part = '';
       if (element.hasClass('trigger-text')) {
-        finalString += element.text().toLowerCase();
+        part = element.text().toLowerCase();
       } else if (element.hasClass('user-details')) {
         let username = element.find('input').val();
         if (username === undefined || username === '') {
           username = '*';
         }
-        finalString += `${element
+        part = `${element
           .find('.trigger-text')
           .text()
           .toLowerCase()} ${username}`;
       } else if (element.find('.js-calendar-toggle').length > 0) {
-        finalString += element.find('.js-calendar-toggle').text().trim();
+        part = element.find('.js-calendar-toggle').text().trim();
       } else if (element.find('.js-calendar-native-time').length > 0) {
-        finalString += element.find('.js-calendar-native-time').val();
+        part = element.find('.js-calendar-native-time').val();
       } else if (element.find('select').length > 0) {
-        finalString += element
+        part = element
           .find('select option:selected')
           .text()
           .toLowerCase();
@@ -1149,14 +1150,12 @@ export const Utils = {
         if (inputvalue === undefined || inputvalue === '') {
           inputvalue = '*';
         }
-        finalString += inputvalue;
+        part = inputvalue;
       }
-      // Add space
-      if (i !== length - 1) {
-        finalString += ' ';
-      }
+      // Buttons and omitted copulas contribute no text or separator.
+      if (part !== '') parts.push(part);
     }
-    return finalString;
+    return parts.join(' ');
   },
 
   fallbackCopyTextToClipboard(text) {

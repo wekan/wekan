@@ -228,3 +228,22 @@ control rows, a persisted checklist description and English ordering.
 It is syntax checked but not executed: localhost:3000 has no listening app.
 The four restored findings remain open pending browser and full native
 phrase verification; compilation alone does not prove their final acceptance.
+
+## 2026-09-14 — Saved-description execution verified
+
+The actual getTriggerActionDesc method was extracted and executed in a VM
+with DOM/jQuery controls modeled at its boundary. It initially threw because
+separator handling referenced the browser-global length. The method now joins
+nonempty control fragments, omitting buttons/empty linking-verb text without
+leading/trailing separators or depending on browser frame count. Input values,
+wildcards, option casing and existing date/time/user-detail branches are kept.
+
+Execution tests verify all four Basque subject phrases in name-first order,
+checked/unchecked predicates, literal name markup/emoji text, blank copulas,
+buttons, wildcards, user-details and date/time controls. English keeps its
+original noun-first order. All Jade templates compile; the browser spec is
+successfully registered by Playwright --list with the line reporter. Its
+initial default HTML reporter lacked permission to overwrite an existing
+report; changing only the reporter resolved registration without filesystem
+permission changes. Browser execution and full native fluency remain open.
+Four restored and 283 pending findings are not reclassified from VM checks.
