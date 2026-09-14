@@ -138780,5 +138780,12 @@
     "before": "Créer une nouvelle carte",
     "after": "ⵙⵏⵓⵍⴼⵓ ⵜⴰⴽⴰⵕⴹⴰ ⵜⴰⵎⴰⵢⵏⵓⵜ",
     "reason": "2026-09-15: Replace French board-rule action using existing card/move/create terms. Preserve destination preposition and new-card qualifier. IRCAM 9495 move, 9599 create, 2250 new; feminine adjective derived by the dictionary introduction rule. Full contextual grammar remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "poker-delete-pop",
+    "before": "La suppression est définitive. Vous perdrez toutes les actions associées à ce planning poker.",
+    "after": "ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⴰⵔⴷ ⴷ ⴰⵢⴰ. ⵔⴰⴷ ⵜⵜⵓⴽⴽⵙⵏⵜ ⵜⵉⴳⴰⵡⵉⵏ ⴰⴽⴽⵯ ⵏ Planning Poker ⴰⴷ.",
+    "reason": "2026-09-15: Replace French permanent-deletion and all-associated-actions warning using the existing card/vote warning construction and Planning Poker feature name. Irreversibility is paraphrased as inability to undo. Full grammar and association/permanence paraphrase remain low confidence."
   }
 ]

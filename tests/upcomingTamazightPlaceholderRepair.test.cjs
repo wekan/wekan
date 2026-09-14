@@ -349,3 +349,11 @@ const boardActionTemplate = fs.readFileSync(path.join(ROOT,
   'client/components/rules/actions/boardActions.jade'), 'utf8');
 assert.match(boardActionTemplate, /r-move-card-to/);
 assert.match(boardActionTemplate, /r-create-card/);
+
+const pokerWarning = translated['poker-delete-pop'];
+assert.ok(pokerWarning.startsWith(translated['card-delete-notice'].split('. ')[0] + '. '));
+assert.match(pokerWarning, /ⵜⵉⴳⴰⵡⵉⵏ ⴰⴽⴽⵯ ⵏ Planning Poker ⴰⴷ/);
+assert.doesNotMatch(pokerWarning, /La suppression|Vous perdrez|[\u0600-\u06ff]/u);
+const pokerTemplate = fs.readFileSync(path.join(ROOT,
+  'client/components/cards/cardDetails.jade'), 'utf8');
+assert.match(pokerTemplate, /template\(name="deletePokerPopup"\)\s+p.*poker-delete-pop/);
