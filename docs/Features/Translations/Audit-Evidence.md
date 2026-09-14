@@ -25865,3 +25865,20 @@ No locale value is changed or counted as corrected by this review.
 Outstanding work: faithful complete diagnosis, modal guidance, native
 syntax and runtime interpolation; do not translate %s or use disability
 terms merely because their dictionary English gloss includes “invalid”.
+
+Search-limit complete draft — 2026-09-14, `10b47a7ed`.
+French operator-limit-invalid becomes a full Tamazight draft: invalid
+limit diagnosis, required positive integer, exact %s. MediaWiki zgh
+feed-invalid supplies the software not-valid construction:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+IRCAM PDF 270 entry 5271 awttu limit, 356 entry 6770 obligation,
+450 entry 8544 positive; integer ummid retains separate mathematics
+thesis provenance from the height-error repair. Primary dictionary:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+Low confidence: assembled negative and modal clauses, noun state,
+software-boundary metaphor and cross-variety integer terminology.
+The earlier French-pending note is superseded by this draft, not native
+approval. Disability terminology stays excluded. Four translation checks
+pass, including complete components, exact token inventory and French/
+disability negatives. Native/browser acceptance remains open. Original
+corrected 15,661; pending 241 (zgh 133); correction ledger 18,794.

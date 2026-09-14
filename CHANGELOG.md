@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/10b47a7ed">Draft complete Tamazight search-limit error</a>. Thanks to xet7.</summary>
+
+Replace French with a full validation-error draft preserving the positive
+integer requirement and exact placeholder. Four translation checks pass;
+native grammar and software usage remain under review in the audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/08df9a347">Review search-limit terminology</a>. Thanks to xet7.</summary>
 
 Record why dictionary disability senses of invalid cannot be substituted

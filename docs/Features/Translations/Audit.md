@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,660 |
+| Corrected | 15,661 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,175 |
-| Pending review or repair | 242 |
+| Pending review or repair | 241 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,21 +16,21 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `da45e203a` —
-Tamazight computing domain replaces a geographic-region noun. Four focused
-checks pass; cross-variety native usage remains open. Automatic user-addition
-wording still needs a faithful email-domain condition. Pending: 242.
+Latest translation fix: **2026-09-14**, local commit `10b47a7ed` —
+complete Tamazight search-limit error draft preserves invalidity, required
+positive integer and %s. Four checks pass; assembled grammar and native
+software usage remain low confidence. Pending: 241.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,793** exact before/after values, including unflagged
+records contain **18,794** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-14**, `08df9a347` — Tamazight
-search-limit error remains pending. Primary disability senses of “invalid”
-are excluded from computing validation wording; the full diagnosis and
-positive-integer guidance still need native review. See [Tamazight review](Tamazight-Review.md).
+search-limit research excluded primary disability senses of “invalid”
+from computing validation wording. The subsequent complete draft still
+needs native review. See [Tamazight review](Tamazight-Review.md).
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:
@@ -40,7 +40,7 @@ restored values still await full native/browser validation.
 
 | Pending locale | Findings |
 | --- | ---: |
-| zgh — Standard Moroccan Tamazight | 134 |
+| zgh — Standard Moroccan Tamazight | 133 |
 | iu — Inuktitut | 38 |
 | nah — Nahuatl | 17 |
 | tig — Tigre | 17 |
