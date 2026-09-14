@@ -1,5 +1,15 @@
 # Detailed translation audit evidence
 
+2026-09-14 (`9abcbc424`): retained thirty more restored Danish values
+after direct full-meaning review. Exact keys/values are in audited-reviews.
+Verified irreversible team/organization deletion, automatic domain users,
+my-card sorting, all-user due-card views limited to incomplete cards from
+permitted boards, not-found subject distinctions, activity location chain
+and search/operator errors. Tokens, quotes and emphasis are preserved.
+Fifty Danish restored values are now reviewed in total; overall retained
+count is 229 and restored awaiting validation is 4,008. No wording changed.
+
+
 2026-09-14 (`159886821`): direct complete-meaning review retained twenty
 restored Danish values unchanged. Exact keys/values are in audited-reviews;
 these include Add Template, Move List, Currency Code, minicard description
