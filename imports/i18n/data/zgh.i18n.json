@@ -928,7 +928,7 @@
   "remove-member": "ⴽⴽⵙ ⴰⴳⵎⴰⵎ",
   "deleted-user": "ⴰⵎⵙⴻⵇⴷⴰⵛ ⵢⴻⵜⵜⵡⴰⵙⴼⴻⴹ",
   "remove-member-from-card": "حذف من البطاقة",
-  "remove-member-pop": "حذف __name__ (__username__) من __boardTitle__ ? سيتم حذف هذا العضو من جميع بطاقة اللوحة مع إرسال إشعار له بذاك.",
+  "remove-member-pop": "ⴽⴽⵙ __name__ (__username__) ⵙⴳ __boardTitle__? ⵔⴰⴷ ⵉⵜⵜⵓⴽⴽⵙ ⵓⴳⵎⴰⵎ ⵙⴳ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴰⴽⴽⵯ ⴳ ⵜⴼⵍⵡⵉⵜ ⴰⴷ. ⵔⴰⴷ ⵜⵜⵓⵙⵉⴼⴹ ⵜⴰⵏⵖⵎⵉⵙⵜ ⵉ ⵓⴳⵎⴰⵎ.",
   "sandstorm-remove-member-warning": "ⴰⵢⴰ ⴰⵔ ⵉⵜⵜⴼⴼⵔ ⴰⵎⵜⵜⴰⵡⵙ ⴳ WeKan ⴽⴰⵏ. ⵓⵔ ⵉⵜⵜⴽⴽⵙ ⴰⴷⴰⴼ ⵙ Sandstorm grain. ⴽⴽⵙ ⴰⴷⴰⴼ ⵏⵏⵙ ⴷⴰⵖ ⴳ ⵜⴰⵏⴰⴽⴰ ⵏ ⴱⴹⵓ ⵏ ⵓⴷⵓⴼ ⵏ Sandstorm.",
   "removeMemberPopup-title": "حذف العضو ?",
   "rename": "ⴰⵍⵙ ⵉ ⵉⵙⵎ",

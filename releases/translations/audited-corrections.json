@@ -139032,5 +139032,12 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ⵏ ⵍⵉⵙⵍⴰⵎ (Saudi Arabia, ⴰⵣⵍⴰⵎ ⵏ ⵡⴰⵢⵢⵓⵔ)",
     "reason": "2026-09-15: Replace English country-only seed with Islamic calendar base and attested spotting/seeing + moon components. Full sighting-calendar compound low confidence; country proper name borrowed."
+  },
+  {
+    "locale": "zgh",
+    "key": "remove-member-pop",
+    "before": "حذف __name__ (__username__) من __boardTitle__ ? سيتم حذف هذا العضو من جميع بطاقة اللوحة مع إرسال إشعار له بذاك.",
+    "after": "ⴽⴽⵙ __name__ (__username__) ⵙⴳ __boardTitle__? ⵔⴰⴷ ⵉⵜⵜⵓⴽⴽⵙ ⵓⴳⵎⴰⵎ ⵙⴳ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴰⴽⴽⵯ ⴳ ⵜⴼⵍⵡⵉⵜ ⴰⴷ. ⵔⴰⴷ ⵜⵜⵓⵙⵉⴼⴹ ⵜⴰⵏⵖⵎⵉⵙⵜ ⵉ ⵓⴳⵎⴰⵎ.",
+    "reason": "2026-09-15: Replace Arabic member-removal confirmation preserving all literal placeholders, all cards on this board and notification to member. Receive notification paraphrased as sent to member; passive/full grammar low confidence."
   }
 ]
