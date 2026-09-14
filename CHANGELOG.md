@@ -661,6 +661,17 @@ The browser assertion accepts whitespace between the regional flag and name.
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/af7388566">Wolaytta Dangi and Minguo calendar labels</a></summary>
+
+Replace English seeds with Wolaytta drafts preserving canonical calendar
+names and the native calendar noun. Four focused suites pass; complete
+proper-name compounds remain under native review.
+
+Thanks to xet7.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b7f18f9ce">Wolaytta Ethiopian calendar labels</a></summary>
 
 Replace English labels with Wolaytta drafts preserving the separate

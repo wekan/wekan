@@ -79,3 +79,23 @@ exact placeholders, provenance and newer human translations. No live
 calendar-selector UI run. Ledger 19,787; original corrected 15,702, pending
 201 (Wolaytta 15), restored 4 unchanged. Broader uncertain and unflagged
 review remains open; no remote push.
+
+## Wolaytta Dangi and Minguo drafts — 2026-09-15
+
+Local commit `af7388566` replaces English Dangi (Korean) and Republic of
+China seeds with Dangi/Minguo plus the attested native calendar noun
+wodiyaa qoodaa. The proper calendar names come directly from each English
+source key; they are not claimed as dictionary-attested Wolaytta spellings.
+The noun evidence remains
+[the native Gifaataa article](https://incubator.wikimedia.org/w/index.php?title=Wp/wal/Gifaataa_(baalaa)&oldid=5971248),
+which explicitly glosses wodiyaa qoodaa as calendar. Searches for country
+spellings returned unrelated languages, including Oromo; those results
+were excluded and did not justify these translations.
+
+**Low confidence:** complete proper-name/calendar construction and local
+proper-name adaptation require native review. Source names preserve both
+calendar identities without relying on unverified country adjectives. Four
+focused suites pass for distinct canonical names, noun, negative English
+seed checks, placeholders, provenance and newer translations. No live UI
+run. Ledger 19,789; original corrected 15,704, pending 199 (Wolaytta 13),
+restored 4 unchanged. All broader uncertain review remains open. No push.
