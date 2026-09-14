@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,274 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 570 pending review or repair.
-The correction inventory records 17,565 exact before/after values,
+findings: 15,275 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 569 pending review or repair.
+The correction inventory records 17,567 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (427) and
+The largest original queues are Standard Moroccan Tamazight (426) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,11 +102,11 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is c2206260c (2026-09-14), repairing three
-original search/import/received-date titles. Preserve all-board search,
-Trello card import and received-date scope. Derived imperative, dialect
-adaptation, bound nouns and full titles remain low confidence.
-Wider language review remains open.
+Latest translation fix is 054cdeab3 (2026-09-14), repairing the
+field-label/minicard instruction and an unflagged unclear board-admin-only
+visibility phrase. Preserve field label, minicard and visible-only-to-board-
+administrators scope. Derived passive, bound nouns and complete restriction
+remain low confidence. Wider language review remains open.
 Greenlandic CLDR-unconfirmed wording and twelve Quechua color wrappers
 still need review, alongside the wider restored and unflagged values.
 Tamazight calendar review dd2aaa19a (2026-09-14) records provisional
@@ -116,7 +116,7 @@ names and unresolved Coptic/tabular/epoch terminology; no values changed. Previo
 Cherokee Hijri labels with exact native-script CLDR variant names. Cherokee’s
 original queue is empty. Compact tabular epoch wording still needs fluent
 technical review. Quechua palette compounds and remaining color wrappers
-remain open. There are 427 Tamazight findings remaining.
+remain open. There are 426 Tamazight findings remaining.
 Silesian reference review (2026-09-14) confirms shared database/file terms
 in native MediaWiki messages; the full raw-file label remains pending.
 No translation value or finding count changed in that review.
@@ -626,10 +626,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,274 original findings are
+Translation audit progress as of 2026-09-14: 15,275 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 570 remain pending across 17 locales, including 427 Tamazight findings.
-The ledger contains 17,565 correction records, including unflagged repairs.
+and 569 remain pending across 17 locales, including 426 Tamazight findings.
+The ledger contains 17,567 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -912,6 +912,18 @@ dates. All 17,565 correction/rendering checks pass; 570 original findings
 remain. Native components support vocabulary; derived import imperative,
 board plural, reception dialect adaptation, bound nouns and full titles
 remain low confidence. Wider language and live browser validation remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/054cdeab3">Repair Tamazight field label and board-admin visibility wording</a>. Thanks to xet7.</summary>
+
+Replace the original French field-label instruction and an unflagged unclear
+visibility phrase. Preserve field label on minicard and visible only to board
+administrators. All 17,567 correction/rendering checks pass; 569 original
+findings remain. Native components support vocabulary; derived display
+passive, bound nouns, minicard composition and full restriction remain low
+confidence. Wider language and live browser validation remain open.
 
 </details>
 
