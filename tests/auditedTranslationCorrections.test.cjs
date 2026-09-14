@@ -35,6 +35,8 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     assert.doesNotMatch(cache.zgh[key], /Mot de passe|Nom d.utilisateur|requis/);
     assert.match(cache.zgh[key], /ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ/);
   }
+  assert.equal(cache.zgh['predicate-all'], 'ⴰⴽⴽⵯ');
+  assert.doesNotMatch(cache.zgh['predicate-all'], /[\s:]/, 'All remains a single query predicate token');
   assert.equal(cache.zgh.labels, 'ⵉⵔⵛⵓⵎⵏ');
   assert.equal(cache.zgh['no-results'], 'ⵓⵔ ⵍⵍⵉⵏⵜ ⵜⵢⴰⴼⵓⵜⵉⵏ');
   for (const key of ['user-username-not-found', 'label-not-found', 'label-color-not-found']) {
