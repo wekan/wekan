@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4659005b1">Locate native software translation resources</a>. Thanks to xet7.</summary>
+
+Record current Common Voice Tamazight resource paths for contextual review.
+Keep repository wording unresolved; obsolete URLs and project metadata do
+not establish native terminology. No additional repair is counted.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c831eb7e1">Review repository action terminology</a>. Thanks to xet7.</summary>
 
 Record native upload, login and update evidence while distinguishing data

@@ -27,10 +27,11 @@ repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
-Latest terminology review: **2026-09-14**, `c831eb7e1` — repository
-upload labels remain pending. Native upload/login/update evidence is
-recorded; data-warehouse nouns do not establish source-repository wording.
-Values and counts are unchanged. See [Tamazight review](Tamazight-Review.md).
+Latest terminology review: **2026-09-14**, `4659005b1` — current
+Common Voice Tamazight resources are located for contextual software review.
+Inspected files do not attest repository wording; obsolete paths and project
+metadata are excluded as lexical evidence. Values/counts are unchanged.
+See [Tamazight review](Tamazight-Review.md).
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:
