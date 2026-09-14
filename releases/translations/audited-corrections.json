@@ -126579,5 +126579,12 @@
     "before": "Durée de verrouillage (secondes)",
     "after": "ⵜⵉⵣⵉ ⵏ ⵓⴳⴷⴰⵍ (ⵜⵉⵙⵉⵏⵉⵏ)",
     "reason": "2026-09-14: Replace French lockout duration label. Actual known/unknown settings separately configure lockoutPeriod and failureWindow; preserve LOCKOUT PERIOD IN SECONDS, not failure counting window. Native MediaWiki transaction-duration-limit-exceeded Duration tizi and Second tasint components, native Mastodon Block gdl and local lockout noun reused: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Derived seconds plural and bound lockout/block noun and full duration label remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "accounts-lockout-failures-before",
+    "before": "Échecs avant verrouillage",
+    "after": "ⵉⵣⴳⴰⵍⵏ ⴷⴰⵜ ⵏ ⵓⴳⴷⴰⵍ",
+    "reason": "2026-09-14: Replace French lockout failure threshold label. IRCAM school lexicon indexed printed page 103 attests dat Before/Before-front: https://www.ircam.ma/sites/default/files/2021-02/amz_fr_ar.pdf . Native CNDH Errors izgaln supports failure-as-error adaptation; local lockout noun reused. Preserve FAILURES BEFORE LOCKOUT, a count threshold distinct from seconds-based failure window or lockout period. Indexed lexicon evidence is not direct PDF inspection. Failure-as-error technical adaptation, temporal Before use, bound lockout noun and full threshold label remain LOW CONFIDENCE."
   }
 ]

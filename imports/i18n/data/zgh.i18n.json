@@ -2136,7 +2136,7 @@
   "accounts-lockout-info": "Ces paramètres contrôlent comment les tentatives de connexion sont protégés des attaques par force brute.",
   "accounts-lockout-known-users": "ⵉⵙⵎⵏⵢⵉⴼⵏ ⵏ ⵉⵏⵙⵙⵎⵔⵙⵏ ⵉⵍⵍⴰⵏ (ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ ⵉⴱⵓⵏⵉ, ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⵓⵔ ⵜⴱⵓⵏⵉ)",
   "accounts-lockout-unknown-users": "ⵉⵙⵎⵏⵢⵉⴼⵏ ⵏ ⵉⵏⵙⵙⵎⵔⵙⵏ ⵓⵔ ⵉⵍⵍⵉⵏ (ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ ⵓⵔ ⵉⵍⵍⵉ)",
-  "accounts-lockout-failures-before": "Échecs avant verrouillage",
+  "accounts-lockout-failures-before": "ⵉⵣⴳⴰⵍⵏ ⴷⴰⵜ ⵏ ⵓⴳⴷⴰⵍ",
   "accounts-lockout-period": "ⵜⵉⵣⵉ ⵏ ⵓⴳⴷⴰⵍ (ⵜⵉⵙⵉⵏⵉⵏ)",
   "accounts-lockout-failure-window": "Fenêtre des échecs (secondes)",
   "accounts-lockout-settings-updated": "Les paramètres de protection contre la force brute ont été mis à jour",
