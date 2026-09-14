@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/da45e203a">Correct Tamazight computing domain terminology</a>. Thanks to xet7.</summary>
+
+Replace a geographic-region noun in email-domain and board-sharing labels
+with the documented computing term. Four translation checks pass. Record
+primary provenance and keep native usage and complete automatic-addition
+wording under review in the translation audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9978b92d2">Repair Tamazight automatic-width labels</a>. Thanks to xet7.</summary>
 
 Replace Arabic label and tooltips while retaining automatic width and

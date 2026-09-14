@@ -1412,3 +1412,20 @@ Four source checks pass, including Arabic negatives and protection
 against reversed click actions. No layout logic is changed. Two original
 findings corrected plus one unflagged label: original corrected 15,660,
 pending 242 (zgh 134); ledger 18,792. Native/browser review remains open.
+
+Computing domain — 2026-09-14, `da45e203a`.
+The unflagged domain label changes from geographic region to taɣult.
+Bouzefrane computer lexicon: PDF 52 domain (MW/CLH), 71 domain
+identifiers, 132 DNS, https://cedric.cnam.fr/~bouzefra/books/amawal.pdf
+These attestations are distinct from the invalidated Tuareg MC records.
+Consumers: sidebar.jade domain sharing and peopleBody.js email-domain
+column. Four focused translation checks pass; ledger 18,793. Original
+pending stays 242 (zgh 134); this is an additional unflagged repair.
+Cross-variety native software usage and browser review remain open.
+The autoAddUsersWithDomainName Arabic sentence remains pending: the
+orgsToAutoAddForEmail helper matches email domains exactly, ignores
+empty domains and does not match subdomains. The signup hook adds
+matching organization memberships. Its label is a text-input label,
+not a checkbox. A generic “add users using a domain name” draft would
+lose the condition; the documented domain noun alone does not validate
+that complete sentence. No automatic-addition behavior was changed.

@@ -16,13 +16,13 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `9978b92d2` —
-Arabic automatic-width label and tooltips become complete Tamazight
-drafts preserving automatic width and opposite click actions. Four checks
-pass; coined terminology and clause grammar remain low confidence. Pending: 242.
+Latest translation fix: **2026-09-14**, local commit `da45e203a` —
+Tamazight computing domain replaces a geographic-region noun. Four focused
+checks pass; cross-variety native usage remains open. Automatic user-addition
+wording still needs a faithful email-domain condition. Pending: 242.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,792** exact before/after values, including unflagged
+records contain **18,793** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
