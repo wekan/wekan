@@ -21805,3 +21805,14 @@ username AND password requirements, minimum three characters and byte units
 remain explicit. Cron/OTP/API/S3 names stay literal. All 2,149 reviews pass;
 2,069 restored values and 308 pending findings plus wider language/browser
 verification remain open.
+
+
+### Esperanto remaining basic labels — 2026-09-14
+
+Local commit `f523001c3` retains ten correct account-outcome and basic
+labels, preserving success/failure and sign-in/sign-out distinctions.
+Nine Esperanto restored findings remain uncertain: overtime variants,
+lime color, scrollbar, advanced filter, garbage zapping and two Complete
+labels. These are not certified by this basic-label batch. All 2,159 reviews
+pass; globally 2,059 restored and 308 pending findings plus broader
+language/browser verification remain open.

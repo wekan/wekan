@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,555 |
-| Restored pre-pull; awaiting validation | 2,069 |
-| Reviewed; retained unchanged | 2,149 |
+| Restored pre-pull; awaiting validation | 2,059 |
+| Reviewed; retained unchanged | 2,159 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -18,14 +18,14 @@ source references, confidence limits and archived progress notes.
 Latest translation fix: **2026-09-14**, local commit `6eaabcaea` —
 clarified the login-failure time window in Esperanto; retained 29 correct
 support, accessibility and account-state labels. All **18,151** correction
-and **2,149** review records pass. Browser verification was not run; no
+and **2,159** review records pass. Browser verification was not run; no
 translations were pushed. Overtime, lime-color, scrollbar, advanced-filter
 and garbage-zapping wording remains under review. Checklist completion was
 validated against ReVo komplet (`5b1ec70e9`).
-Latest unchanged review: **2026-09-14**, commit `9ba7cfcb8` — retained
-30 correct repository, storage and authentication labels. Temporary-lockout
-conditions, credential requirements and byte units remain intact. Complete
-and migration-complete remain context-dependent and unvalidated.
+Latest unchanged review: **2026-09-14**, commit `f523001c3` — retained
+10 correct account outcomes and basic labels. The remaining nine Esperanto
+restored findings are uncertain terminology/context; they remain open,
+including Complete and migration-complete.
 
 
 Fixed categories include wrong-language prose, terminology, warnings,

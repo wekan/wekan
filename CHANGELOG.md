@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,555 corrected, 2,069 restored pre-pull values awaiting
-validation, 2,149 reviewed and retained, and 308 pending review or repair.
+findings: 15,555 corrected, 2,059 restored pre-pull values awaiting
+validation, 2,159 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,151 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
@@ -108,8 +108,8 @@ changes are implemented in local commit 02383521a; translation repairs have
 resumed.
 Latest translation fix/review is 6eaabcaea (2026-09-14): Esperanto failure
 time window clarified; 29 correct support and account labels retained.
-Latest unchanged-value review is 9ba7cfcb8 (2026-09-14): 30 Esperanto
-repository, storage and authentication labels retained.
+Latest unchanged-value review is f523001c3 (2026-09-14): ten Esperanto
+account outcome and basic labels retained; nine uncertain findings remain.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
 Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
 retaining 156 correct Danish storage, migration and monitoring/account labels.
@@ -692,6 +692,15 @@ units. Review checks pass; broader validation remains open.
 Retain 30 correct labels and warnings. Preserve temporary lockout from
 failed logins, required credentials, minimum username length and byte units.
 Review checks pass; wider language and browser verification remains open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f523001c3">Validate Esperanto account outcomes and basic labels</a>. Thanks to xet7.</summary>
+
+Retain ten correct labels, preserving account creation success/failure and
+login/logout distinctions. Review checks pass; nine uncertain Esperanto
+findings and broader language/browser verification remain open.
 
 </details>
 
