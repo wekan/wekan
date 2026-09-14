@@ -25602,3 +25602,15 @@ Primary task/below components remain IRCAM PDF 605 entry 11328 and PDF
 Low confidence: below-task software compound and full prepositional/
 description grammar. Browser not run; original pending remains 254.
 Landing-list French phrase remains a separate complete repair.
+
+
+Tamazight subtask landing list — 2026-09-14, `d968e4bb2`.
+deposit-subtasks-list French is replaced with complete arrival-list,
+subtasks and deposited-here components. IRCAM PDF 265 entry 5164
+arrival/construct; PDF 469 entry 8866 here; PDF 464 set-down verb;
+PDF 605 entry 11328 task and PDF 315 entry 6099 below. Actual sidebar
+label precedes target-list selection. Four suites pass and preserve exact
+placeholders/order/newer human translations. Low confidence: landing-list
+metaphor, rsant relative-clause agreement and genitive subtask compounds;
+components do not certify full phrase, browser not run. Original pending
+254 → 253; Tamazight 142 → 141; correction ledger grows to 18,768.

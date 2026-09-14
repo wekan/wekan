@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d968e4bb2">Repair Tamazight subtask landing-list instruction</a>. Thanks to xet7.</summary>
+
+Replace French with arrival-list, subtask and deposited-here wording.
+Four suites pass; full native metaphor/relative-clause grammar and
+browser review remain open. Original pending findings: 253.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9515511af">Repair Tamazight subtask-board description and deposit label</a>. Thanks to xet7.</summary>
 
 Replace French description while preserving its board placeholder; reuse
