@@ -22609,3 +22609,11 @@ The people-panel action and confirmation target all locked users; the server
 selector removes existing account lockouts, supporting the contextual label.
 No values changed. Exact checks pass for 4,130 review records. Eleven
 restored Valencian values and wider language/browser validation remain open.
+
+Dated review, 2026-09-14, local commit `be334a5bf`: retained Valencian
+operator-checklist-text and predicate-checklist, both llistadecontrol.
+The joined values are parser tokens. Extended localizedSearchApostrophes
+executes actual config/search-const.js and config/query-classes.js with
+Valencian labels, checking quoted checklist text, present/absent checklist
+predicates and rejection of unknown fields. All cases pass. No locale values
+changed. Nine restored Valencian values and live browser review remain open.

@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,582 corrected, 61 restored pre-pull values awaiting
-validation, 4,130 reviewed and retained, and 308 pending review or repair.
+findings: 15,582 corrected, 59 restored pre-pull values awaiting
+validation, 4,132 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,185 exact before/after values,
 including repairs outside the original findings.
 Global completeness verification also identifies Veps `server` (currently
@@ -111,10 +111,10 @@ changes are implemented in local commit 02383521a; translation repairs have
 resumed.
 Latest translation fix is 93f284c8a (2026-09-14): three Swedish Due Cards
 labels now describe cards with due dates, including future deadlines.
-Latest unchanged-value review is 5c7199050 (2026-09-14): Valencian color
-names and contextual all-locked-user action retained. Eleven restored
-Valencian values, Uzbek Arabic-script and Breton wording, shared trigger
-grammar and live browser validation remain open.
+Latest unchanged-value review is be334a5bf (2026-09-14): two Valencian
+checklist search tokens retained after exercising the actual localized parser.
+Nine restored Valencian values, Uzbek Arabic-script and Breton wording,
+shared trigger grammar and live browser validation remain open.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
 Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
 retaining 156 correct Danish storage, migration and monitoring/account labels.
@@ -695,7 +695,7 @@ color/search terminology and wider language/browser review remain open.
 
 Retained 31 correct accessibility/storage, connection and scheduled-interval
 labels. Connection outcomes and interval frequencies remain intact. Exact
-review checks pass; eleven restored Valencian findings still need review.
+review checks pass; nine restored Valencian findings still need review.
 
 </details>
 
@@ -754,6 +754,16 @@ Retained Valencian indigo/mistyrose labels against dictionary meanings and
 Unlock All against its people-panel confirmation and server lockout selector.
 Exact review checks pass. Eleven restored Valencian findings and wider
 language/browser verification remain open; no locale values changed.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/be334a5bf">Verify localized checklist search syntax</a>. Thanks to xet7.</summary>
+
+Retained two joined Valencian search tokens. Regression exercises the actual
+parser for quoted checklist text and positive/negative checklist presence;
+unknown fields are rejected. Exact review checks pass. Nine restored Valencian
+values and wider language/browser verification remain open.
 
 </details>
 
