@@ -27,9 +27,12 @@ assert.equal(inuktitut.accept, 'ᐊᖏᖅᐸᕋ');
 for (const stem of ['card-recurrence-interval', 'checklist-reset-interval']) {
   assert.equal(inuktitut[`${stem}-daily`], 'ᖃᐅᑕᒫᑦ');
   assert.equal(inuktitut[`${stem}-monthly`], 'ᑕᖅᑭᑕᒫᑦ');
+  assert.equal(inuktitut[`${stem}-weekly`], 'ᐱᓇᓱᐊᕈᓯᑕᒫᑦ');
+  assert.equal(inuktitut[`${stem}-weekly`], inuktitut['backup-frequency-weekly']);
+  assert.equal(new Set(['daily', 'weekly', 'monthly'].map(f => inuktitut[`${stem}-${f}`])).size, 3);
   assert.notEqual(inuktitut[`${stem}-daily`], inuktitut[`${stem}-monthly`]);
-  for (const frequency of ['daily', 'monthly']) {
-    assert.doesNotMatch(inuktitut[`${stem}-${frequency}`], /Ullut|Taqqiit|tamaasa/);
+  for (const frequency of ['daily', 'weekly', 'monthly']) {
+    assert.doesNotMatch(inuktitut[`${stem}-${frequency}`], /Ullut|Taqqiit|Pinasuarutit|tamaasa/);
   }
 }
 assert.equal(inuktitut.board, 'ᐊᓪᓚᕕᒃ');

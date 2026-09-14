@@ -130072,5 +130072,19 @@
     "before": "Taqqiit tamaasa",
     "after": "ᑕᖅᑭᑕᒫᑦ",
     "reason": "Replace Greenlandic-seeded recurrence/reset frequency with native Inuktitut syllabic label. Nunavut Healthy Living IU source attests ᖃᐅᑕᒫᑦ in daily eating; bilingual Nunavut IQ sessions document attests ᑕᖅᑭᑕᒫᑦ alongside English monthly. Preserve distinct daily/monthly frequency and identical meanings across recurrence/reset; full browser execution remains open."
+  },
+  {
+    "locale": "iu",
+    "key": "card-recurrence-interval-weekly",
+    "before": "Pinasuarutit tamaasa",
+    "after": "ᐱᓇᓱᐊᕈᓯᑕᒫᑦ",
+    "reason": "Replace Greenlandic-seeded Pinasuarutit tamaasa with native Inuktitut weekly frequency. Qikiqtani Inuit Association bilingual application pairs weekly benefit/wage labels with ᐱᓇᓱᐊᕈᓯᑕᒫᑦ; existing Inuktitut backup weekly label agrees. Preserve weekly versus daily/monthly meanings; live browser/scheduler verification remains open."
+  },
+  {
+    "locale": "iu",
+    "key": "checklist-reset-interval-weekly",
+    "before": "Pinasuarutit tamaasa",
+    "after": "ᐱᓇᓱᐊᕈᓯᑕᒫᑦ",
+    "reason": "Replace Greenlandic-seeded Pinasuarutit tamaasa with native Inuktitut weekly frequency. Qikiqtani Inuit Association bilingual application pairs weekly benefit/wage labels with ᐱᓇᓱᐊᕈᓯᑕᒫᑦ; existing Inuktitut backup weekly label agrees. Preserve weekly versus daily/monthly meanings; live browser/scheduler verification remains open."
   }
 ]
