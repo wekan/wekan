@@ -130226,5 +130226,12 @@
     "before": "Una maligaq aturtitigit uvvaluunniit aturunnaitittigit",
     "after": "ᒪᓕᒐᖅ ᐅᓇ ᐊᑐᓕᖅᑎᓪᓗᒍ ᐅᕝᕙᓘᓐᓃᑦ ᖃᒥᓪᓗᒍ",
     "reason": "Replace unverified Latin-script rule-toggle wording with a direct syllabic Inuktitut adaptation. Reuse local rule noun and enable/turn-off vocabulary from keyboard toggles. NWAC Safe Passage Inuktitut guide explicitly uses ᖃᒥᓪᓗᒍ for Bluetooth and other apps; Traces native project terminology attests ᒪᓕᒐᖅ as a rule to be followed. Full rule enable/disable compound and command grammar are low confidence and remain open for native/browser review; preserve both alternatives and this-rule scope."
+  },
+  {
+    "locale": "iu",
+    "key": "ldap-test-connection-error",
+    "before": "Attaviguti asianngittuq: %s",
+    "after": "ᐊᑦᑕᕕᖃᕐᓂᖅ ᐃᑎᒐᖅᑐᖅ: %s",
+    "reason": "Replace unverified romanized LDAP failure message with direct syllabic adaptation, preserving the connection subject and exact %s details token. Microsoft Inuktitut localization style guide page 35 prescribes Itigaqtuq for Failed to/Failure of. Attaviqarniq is a connection/contact noun adaptation; precise network sense and full noun/verb command grammar remain low confidence and open for native/browser review. Does not assert user-login failure or success."
   }
 ]

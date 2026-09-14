@@ -1443,7 +1443,7 @@
   "ldap": "LDAP",
   "ldap-test-connection": "LDAP-mut attaviguti qaujigiaq",
   "ldap-test-connection-success": "Attaviguti iqqanaijammat",
-  "ldap-test-connection-error": "Attaviguti asianngittuq: %s",
+  "ldap-test-connection-error": "ᐊᑦᑕᕕᖃᕐᓂᖅ ᐃᑎᒐᖅᑐᖅ: %s",
   "oauth-providers-title": "OAuth ᐃᓯᕐᓂᕐᒧᑦ ᑐᓂᓯᔩᑦ",
   "oauth-providers-hint": "ᑐᓂᓯᔨ ᐊᑐᓂ ᐃᑯᒪᖅᑕᐅᔪᓐᓇᖅᑐᖅ ᐅᕙᓂ ᐅᕝᕙᓘᓐᓃᑦ OAUTH_*_ENABLED ᐊᕙᑎᒥ ᐊᓯᔾᔨᖅᑕᐅᔪᓐᓇᖅᑐᒥᒃ; ᐅᕙᓂ ᐋᖅᑭᒃᑕᐅᔪᖅ ᐊᕙᑎᒥ ᐊᓯᔾᔨᖅᑕᐅᔪᓐᓇᖅᑐᒥᒃ ᐊᓯᔾᔨᖅᓯᔪᖅ. ᐃᔨᖅᓯᒪᔪᖅ ᐱᓕᕆᕝᕕᒻᒥ ᑐᖅᑯᖅᑕᐅᓯᒪᔪᖅ ᑕᑯᒃᓴᐅᖏᓐᓇᖅᑐᖅ.",
   "oauth-provider-google": "Google",

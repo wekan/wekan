@@ -225,3 +225,8 @@ for (const key of ['r-rule-enabled', 'r-rule-disabled']) {
 assert.equal(inuktitut['r-toggle-rule-enabled'], 'ᒪᓕᒐᖅ ᐅᓇ ᐊᑐᓕᖅᑎᓪᓗᒍ ᐅᕝᕙᓘᓐᓃᑦ ᖃᒥᓪᓗᒍ');
 assert.match(inuktitut['r-toggle-rule-enabled'], /ᐊᑐᓕᖅᑎᓪᓗᒍ.*ᐅᕝᕙᓘᓐᓃᑦ.*ᖃᒥᓪᓗᒍ/, 'retain both enable and disable alternatives');
 assert.doesNotMatch(inuktitut['r-toggle-rule-enabled'], /Una maligaq|aturtitigit|uvvaluunniit|aturunnaitittigit/);
+
+assert.equal(inuktitut['ldap-test-connection-error'], 'ᐊᑦᑕᕕᖃᕐᓂᖅ ᐃᑎᒐᖅᑐᖅ: %s');
+assert.deepEqual(tokens(inuktitut['ldap-test-connection-error']), ['%s']);
+assert.doesNotMatch(inuktitut['ldap-test-connection-error'], /Attaviguti|asianngittuq/);
+assert.notEqual(inuktitut['ldap-test-connection-error'], inuktitut['ldap-test-connection-success']);
