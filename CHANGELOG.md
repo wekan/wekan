@@ -1312,6 +1312,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c117936ed">Fix Veps synchronization credential labels and status messages</a></summary>
+
+Replace wrong-language credential wording with Veps drafts, retaining set
+and not-set-yet states. Four focused test files pass. Full status grammar
+and credential paraphrase remain under review in the dated audit.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

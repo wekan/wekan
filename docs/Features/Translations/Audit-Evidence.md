@@ -29929,3 +29929,25 @@ distinct from failed sync; no unsupported translation for those was added.
 The checked MediaWiki key-name search did not provide never; this limited
 search does not establish that native wording is absent. Credentials and
 15-minute/immediate-check instructions still require complete repairs.
+
+
+2026-09-15 — `c117936ed`: list-sync-credential and its set/unset status
+messages replaced with direct Veps API-token/password paraphrases. The
+existing input placeholder states API token / password; preserve those
+actual credential options rather than assert that an account password is
+required. Existing Peitsana supplies password. Native primary MediaWiki
+source read today:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+supplies märitud/set-defined wording, völ/yet and ei ole/is not. The full
+assembled status grammar and explicit credential paraphrase remain low
+confidence; these components do not certify the complete sentences. Set
+and not-set-yet states remain distinct. Neither message asserts verified
+credentials, successful authentication or a completed synchronization.
+Four focused files pass (23 checks), including exact replacements,
+negative Tshivenda, distinct states, not-yet qualification and complete
+placeholder/key-order inventories. No live credential UI test ran.
+Ledger 19,920; original pending 126 (Veps 8), restored 4 unchanged.
+Remaining sync block includes description, not-synced, project-key label
+and never. The description must preserve external tracker, background
+15-minute checks and immediate Sync now. Other wrong-language 2FA values
+and prior low-confidence complete grammar remain within the audit scope.
