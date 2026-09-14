@@ -25,6 +25,13 @@ const examples = ['== != <= >= && || ( )', 'Field1 == Value1', "'Field 1' == 'Va
       assert.doesNotMatch(data['import-board-instruction-trello'], /In your Trello board/);
     }
   }
+  // Syntax-only repair: Finnish prose remains an open Veps language finding.
+  const vepsHelp = read('ve-PP')['advanced-filter-description'];
+  for (const example of examples) {
+    assert.ok(vepsHelp.includes(example), `Veps: exact executable example ${example}`);
+  }
+  assert.ok(result.pendingByLocale['ve-PP'] > 0, 'Veps language review stays open');
+  assert.ok(!vepsHelp.includes("Field1 = I"), 'Veps: reject malformed comparison');
   assert.match(read('lt')['advanced-filter-description'], /Išplėstinis filtras/);
   assert.match(read('mn')['advanced-filter-description'], /Нарийвчилсан шүүлтүүр/);
   assert.match(read('el')['advanced-filter-description'], /προηγμένο φίλτρο/);

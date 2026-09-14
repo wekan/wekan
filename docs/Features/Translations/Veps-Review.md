@@ -61,3 +61,10 @@ These provide native field terminology and inflected forms; they do not
 prove a complete Sum Of Fields At Top Of List translation. Mathematical
 Sum and the top-of-list position still need separate evidence and grammar
 review. Preserve all three concepts when repairing that label.
+
+Syntax repair applied **2026-09-14**: restored the comparison operator,
+source escape example, control-character group, quoted field/value example
+and parenthesized Boolean example. Regression coverage checks every canonical
+English executable example and explicitly asserts the Veps language queue
+remains open. Finnish prose is still awaiting full translation; this repair
+is not entered as a completed wrong-language correction.
