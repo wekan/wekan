@@ -80,5 +80,5 @@ Not all wrong values came from Transifex: the audit tracks 4,061 pulled
 changes and 16,020 additional local findings; some Bosnian errors predate
 the pull. Correct-language human translations remain preferred. Keep the
 full review scope open until language and browser validation is supported
-by evidence. Requested issue #6692 awaits actionable LDAP bind diagnostics;
-translation work continues independently.
+by evidence. Issue #6692 post-bind optional-filter TypeError is repaired in local commit
+`2c5cdd78a`; live LDAP login remains unverified. Translation work continues.

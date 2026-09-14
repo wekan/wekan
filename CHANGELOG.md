@@ -1091,6 +1091,25 @@ Thanks to xet7 !
 </details>
 
 
+and fixes the following bugs:
+
+**LDAP login** - Optional user search filter.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2c5cdd78a">Handle an unset filter after service-account binding.</a></summary>
+
+An unset optional LDAP_USER_SEARCH_FILTER caused an undefined-index TypeError
+before searching users. Configured restrictions remain active. Regression,
+encryption, connection-release and redacted error-logging checks pass.
+Live directory login remains unverified.
+
+Thanks to Nissulya and xet7 !
+
+Fixes #6692,
+
+</details>
+
+
 and improves the following developer tooling:
 
 **Release workflow** - Changelog-only release notes.
