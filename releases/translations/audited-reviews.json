@@ -11884,5 +11884,179 @@
     "key": "admin-people-filter-inactive",
     "value": "Neaktiva",
     "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "admin-people-active-status",
+    "value": "Aktiveca stato",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts-lockout-all-users-unlocked",
+    "value": "Ĉiuj ŝlositaj uzantoj estas malŝlositaj",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts-lockout-unlock-all",
+    "value": "Malŝlosi ĉiujn",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "active-cron-jobs",
+    "value": "Aktivaj planitaj taskoj",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "add-cron-job",
+    "value": "Aldoni planitan taskon",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "attachments-path",
+    "value": "Vojo de alligitaĵoj",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "cron-jobs",
+    "value": "Planitaj taskoj",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "cron-migrations",
+    "value": "Planitaj migradoj",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "cron-job-delete-confirm",
+    "value": "Ĉu vi certas, ke vi volas forigi ĉi tiun planitan taskon?",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "cron-job-resume-failed",
+    "value": "Malsukcesis daŭrigi planitan taskon",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "cron-job-resumed",
+    "value": "Planita tasko sukcese daŭrigita",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "cron-job-start-failed",
+    "value": "Malsukcesis startigi planitan taskon",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "cron-job-started",
+    "value": "Planita tasko sukcese startigita",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "cron-migration-errors",
+    "value": "Migradaj eraroj",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "cron-migration-warnings",
+    "value": "Migradaj avertoj",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "cron-no-errors",
+    "value": "Neniu eraro por montri",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "cron-error-severity",
+    "value": "Severeco",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "cron-error-message",
+    "value": "Erarmesaĝo",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "cron-error-details",
+    "value": "Detaloj",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "cron-clear-errors",
+    "value": "Forviŝi ĉiujn erarojn",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "cron-retry-failed",
+    "value": "Reprovi malsukcesajn migradojn",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "cron-resume-paused",
+    "value": "Daŭrigi paŭzigitajn migradojn",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "cron-errors-cleared",
+    "value": "Ĉiuj eraroj sukcese forviŝitaj",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "cron-no-failed-migrations",
+    "value": "Neniu malsukcesa migrado por reprovi",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "cron-no-paused-migrations",
+    "value": "Neniu paŭzigita migrado por daŭrigi",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "cron-migrations-resumed",
+    "value": "Migradoj sukcese daŭrigitaj",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "cron-migrations-retried",
+    "value": "Malsukcesaj migradoj sukcese reprovitaj",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "idle",
+    "value": "Senokupa",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "sandstorm-storage-item",
+    "value": "Konservejo",
+    "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
   }
 ]
