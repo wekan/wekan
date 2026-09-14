@@ -2,6 +2,27 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight authentication terminology review — 2026-09-14
+
+`authentication-method`, `display-authentication-method` and
+`default-authentication-method` remain French and pending; the unflagged
+`authentication-type` also remains French. Preserve authentication rather
+than substitute ordinary sign-in, authorization or verification alone;
+retain method/type, display and default distinctions.
+
+The downloaded [CNAM dictionary](https://cedric.cnam.fr/~bouzefra/books/amawal.pdf)
+PDF page 23/printed 19 directly gives `Asesteb` (authentication) and `Sesteb`
+(authenticate), both marked **MC£**. The search index renders this code as
+**MCF**, an extraction discrepancy. PDF page 12/printed 8 defines MC£ as
+Tuareg dictionary sources. Neither rendering establishes Standard Moroccan
+attestation; do not interpret indexed MCF as a Moroccan dialect abbreviation.
+Message/password-authentication compounds additionally use modern-lexicon
+and Kabyle components, which do not validate the complete Moroccan labels.
+
+This direct PDF verification rules out accepting the indexed term as
+Moroccan proof. Native authentication terminology and full method/type,
+display/default phrases still need review. No locale values or counts changed.
+
 ## Silesian raw-database label follow-up — 2026-09-14
 
 `sandstorm-raw-mongodb` remains pending. Preserve the existing file/database
