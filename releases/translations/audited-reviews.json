@@ -2080,5 +2080,185 @@
     "key": "s3-bucket-description",
     "value": "Navn på S3-bucket til lagring af filer",
     "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "s3-enabled-description",
+    "value": "Brug AWS S3 eller MinIO til fillagring",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "s3-port-description",
+    "value": "Portnummer for S3-endpoint",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "s3-secret-key-description",
+    "value": "AWS S3 hemmelig nøgle til godkendelse",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "s3-settings-save-failed",
+    "value": "Kunne ikke gemme S3-indstillinger",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "s3-ssl-enabled-description",
+    "value": "Brug SSL/TLS til S3-forbindelser",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "schedule-board-backup",
+    "value": "Planlæg sikkerhedskopiering af tavle",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "schedule-board-cleanup",
+    "value": "Planlæg oprydning af tavle",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "writable-path-description",
+    "value": "Basismappe til fillagring",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "add-job",
+    "value": "Tilføj job",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "attachment-migration",
+    "value": "Migrering af vedhæftninger",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "attachment-monitoring",
+    "value": "Overvågning af vedhæftninger",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "back-to-settings",
+    "value": "Tilbage til indstillinger",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "board-migrations",
+    "value": "Tavlemigreringer",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "comprehensive-board-migration",
+    "value": "Omfattende tavlemigrering",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "comprehensive-board-migration-description",
+    "value": "Udfører omfattende kontroller og rettelser af tavlens dataintegritet, herunder listerækkefølge, kortpositioner og svømmebanestruktur.",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "delete-duplicate-empty-lists-migration-description",
+    "value": "Sletter sikkert tomme duplikerede lister. Fjerner kun lister, som ikke har nogen kort OG hvor der findes en anden liste med samme titel, der indeholder kort.",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "restore-lost-cards-migration-description",
+    "value": "Finder og genskaber kort og lister med manglende swimlaneId eller listId. Opretter svømmebanen 'Mistede kort' for at gøre alle mistede elementer synlige igen.",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "restore-all-archived-migration",
+    "value": "Genskab alt arkiveret",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "restore-all-archived-migration-description",
+    "value": "Genskaber alle arkiverede svømmebaner, lister og kort. Retter automatisk manglende swimlaneId eller listId, så elementerne bliver synlige.",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "fix-missing-lists-migration-description",
+    "value": "Finder og reparerer manglende eller beskadigede lister i tavlens struktur.",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "fix-avatar-urls-migration-description",
+    "value": "Opdaterer avatar-URL'er for tavlens medlemmer til at bruge den korrekte lagrings-backend og retter ødelagte avatarreferencer.",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "fix-all-file-urls-migration-description",
+    "value": "Opdaterer alle URL'er for vedhæftede filer på denne tavle til at bruge den korrekte lagrings-backend og retter ødelagte filreferencer.",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "migrations-description",
+    "value": "Kør dataintegritetskontroller og reparationer for denne tavle. Hver migrering kan udføres enkeltvis.",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "run-comprehensive-migration-confirm",
+    "value": "Dette udfører en omfattende migrering for at kontrollere og rette tavlens dataintegritet. Det kan tage et øjeblik. Fortsæt?",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "run-delete-duplicate-empty-lists-migration-confirm",
+    "value": "Dette konverterer først alle delte lister til lister pr. svømmebane og sletter derefter tomme lister, som har en duplikeret liste med samme titel, der indeholder kort. Kun virkelig overflødige tomme lister fjernes. Fortsæt?",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "run-restore-lost-cards-migration-confirm",
+    "value": "Dette opretter svømmebanen 'Mistede kort' og genskaber alle kort og lister med manglende swimlaneId eller listId. Det påvirker kun elementer, der ikke er arkiveret. Fortsæt?",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "run-restore-all-archived-migration-confirm",
+    "value": "Dette genskaber ALLE arkiverede svømmebaner, lister og kort, så de bliver synlige igen. Alle elementer med manglende ID'er rettes automatisk. Dette kan ikke let fortrydes. Fortsæt?",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "run-fix-missing-lists-migration-confirm",
+    "value": "Dette finder og reparerer manglende eller beskadigede lister i tavlens struktur. Fortsæt?",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "value": "Dette opdaterer avatar-URL'er for tavlens medlemmer til at bruge den korrekte lagrings-backend. Fortsæt?",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "run-fix-all-file-urls-migration-confirm",
+    "value": "Dette opdaterer alle URL'er for vedhæftede filer på denne tavle til at bruge den korrekte lagrings-backend. Fortsæt?",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
   }
 ]
