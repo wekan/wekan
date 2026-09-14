@@ -661,6 +661,17 @@ The browser assertion accepts whitespace between the regional flag and name.
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/110c58002">Repair Irish, Serbian and Tagalog archive instructions</a>. Thanks to xet7.</summary>
+
+Point to Archive on All Boards using existing translated labels. Select the
+attested Irish bring-back sense, retain Serbian board vocabulary and replace
+mixed English in Tagalog. Five focused suites pass, including placeholders
+and human-translation preservation. Full Irish navigation syntax remains
+under native review; the broader translation audit continues.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/262f23764">Repair another 21 archive guidance locale files</a>. Thanks to xet7.</summary>
 
 Archive location guidance is repaired across additional languages and

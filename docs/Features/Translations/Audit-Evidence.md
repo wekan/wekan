@@ -26758,3 +26758,28 @@ Sources:
 https://learnwelsh.cymru/media/7687/uwch-2.pdf
 https://www.focloir.ie/en/dictionary/ei/restore
 https://www.focloir.ie/en/dictionary/ei/restoration
+
+
+### 2026-09-14 — Irish, Serbian and Tagalog archive guidance
+
+Local source commit `110c58002`; three additional unflagged corrections.
+Ledger 18,974, original pending 225 and four restored values unchanged.
+All three now name the existing Archive section and All Boards page rather
+than obsolete home-header/profile navigation. Serbian keeps the existing
+plural Списи vocabulary and actual localized menu/page names. Tagalog's
+mixed English prose is replaced with a complete instruction.
+
+Irish uses `a thabhairt ar ais` for bringing back/reinstating, supported by
+[Foras na Gaeilge: bring back](https://www.focloir.ie/en/dictionary/ei/bring%2Bback)
+and [restore](https://www.focloir.ie/en/dictionary/ei/restore).
+The previous `athchóiriú` corresponds to renovation/restoring original
+condition in that dictionary; this action makes an archived board available
+again. Dictionary senses support the choice, not full native navigation
+syntax certification; that derived phrase remains open to native review.
+
+Five suites pass: archive guidance, correction ledger (exact tokens, examples,
+key order, idempotency and newer human translations), unchanged reviews,
+translation completeness and All Boards URLs. No additional browser run in
+this batch; source routing and previously executed archive-popup coverage do
+not certify native fluency. Remaining locales and prior low-confidence
+findings remain in scope. No external translation service or remote push.
