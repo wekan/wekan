@@ -4,8 +4,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,585 |
-| Restored pre-pull; awaiting validation | 59 |
+| Corrected | 15,586 |
+| Restored pre-pull; awaiting validation | 58 |
 | Reviewed; retained unchanged | 4,132 |
 | Pending review or repair | 305 |
 | Total tracked | 20,081 |
@@ -14,20 +14,18 @@ Review is ongoing. [Tamazight reference review](Tamazight-Review.md) confirms
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,188** exact before/after values, including unflagged repairs.
+contain **18,189** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `cc3e80e8b` —
-two Manx tabular Hijri labels replace English placeholders while keeping
-civil and astronomical starting dates distinct. Dictionary vocabulary supports
-tabular/civil/astronomical; the technical starting-date phrase is provisional
-and needs native review. Coptic naming remains unresolved. All **18,188**
-correction and **4,132** review records pass. Greenlandic compound grammar
-from `ed5a0d879` also remains provisional.
+Latest translation fix: **2026-09-14**, local commit `d454a58ff` —
+Esperanto lime color now uses the explicit color term limekolora instead of
+limeda. Exact correction checks pass for **18,189** records; **4,132**
+unchanged reviews remain verified. Manx epoch phrasing and Greenlandic
+compound grammar remain provisional and need native review.
 Veps terminology, shared trigger grammar and browser validation remain open.
 Attachment/member rule participles still need context-specific agreement.
-Three Esperanto restored findings remain: lime color and two Complete labels.
+Two Esperanto restored findings remain: Complete labels.
 Broader language and browser verification remain open; nothing pushed.
 Latest unchanged review: **2026-09-14**, commit `be334a5bf` — retained
 two Valencian joined checklist search tokens. Regression executes the real
@@ -48,8 +46,7 @@ Klingon findings and the broader 829 German-identical values were repaired;
 the cron label retains the actual tool name Cron. Danish restored review
 validated 611 values: 606 retained unchanged and five meanings repaired.
 Four Danish context-dependent labels remain: free, Complete, Schedule and Days Old.
-Esperanto lime-color wording
-remains open.
+Esperanto lime-color wording was repaired in `d454a58ff`.
 Reviewed subtask actions/settings retain correct subordinate-task compounds.
 
 | Pending locale | Findings |

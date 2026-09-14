@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,585 corrected, 59 restored pre-pull values awaiting
+findings: 15,586 corrected, 58 restored pre-pull values awaiting
 validation, 4,132 reviewed and retained, and 305 pending review or repair.
-The correction inventory records 18,188 exact before/after values,
+The correction inventory records 18,189 exact before/after values,
 including repairs outside the original findings.
 Global completeness verification also identifies Veps `server` (currently
 English-identical “Server”) for terminology review; it is not accepted yet.
@@ -109,10 +109,9 @@ performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have
 resumed.
-Latest translation fix is cc3e80e8b (2026-09-14): Manx tabular Hijri
-variants replace English placeholders, preserving distinct epoch meanings.
-Starting-date terminology and Greenlandic compound grammar remain
-provisional and need native review.
+Latest translation fix is d454a58ff (2026-09-14): Esperanto lime color
+uses explicit limekolora. Manx epoch terminology and Greenlandic compound
+grammar remain provisional and need native review.
 Latest unchanged-value review is be334a5bf (2026-09-14): two Valencian
 checklist search tokens retained after exercising the actual localized parser.
 Nine restored Valencian values, Uzbek Arabic-script and Breton wording,
@@ -650,7 +649,7 @@ This release documents the following translation fixes:
 
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
-**Languages updated:** Greenlandic, Manx, Swedish, Valencian
+**Languages updated:** Esperanto, Greenlandic, Manx, Swedish, Valencian
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/264ca788c">Repair Valencian reflexive imperative and validate settings</a>. Thanks to xet7.</summary>
@@ -786,6 +785,15 @@ Manx Hijri labels use localized tabular, civil and astronomical vocabulary.
 Regression keeps the starting dates distinct and rejects English placeholders;
 exact correction checks pass. Technical epoch phrasing is provisional and
 needs native review; Coptic naming and browser verification remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d454a58ff">Clarify lime-color terminology</a>. Thanks to xet7.</summary>
+
+Esperanto uses the explicit color term limekolora. Exact correction checks
+pass, preserving placeholders and newer translations. Two restored Complete
+labels and wider language/browser verification remain open.
 
 </details>
 

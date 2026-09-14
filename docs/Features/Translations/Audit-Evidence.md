@@ -22640,3 +22640,11 @@ IRCAM-derived dictionary leads and explicit primary-source/grammar checks.
 The primary dictionary returned 502; scraped vocabulary is not accepted as
 verified, and no correction or unchanged acceptance was added. Mapping-role,
 lockout, warning negation and placeholder requirements remain mandatory.
+
+Dated repair, 2026-09-14, local commit `d454a58ff`: Esperanto color-lime
+changes limeda to explicit limekolora. Reference
+https://en.wiktionary.org/wiki/verdo lists limekolora among Esperanto colors.
+All 18,189 exact correction checks pass. Two Esperanto Complete labels
+remain unresolved. IRCAM primary dictionary cross-check still failed: web
+fetch returned 502 and verified Python HTTPS reported a certificate-chain
+error. Tamazight scraped entries were not accepted as verified.
