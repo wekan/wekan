@@ -4,25 +4,24 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,551 |
-| Restored pre-pull; awaiting validation | 2,615 |
-| Reviewed; retained unchanged | 1,607 |
+| Corrected | 15,552 |
+| Restored pre-pull; awaiting validation | 2,600 |
+| Reviewed; retained unchanged | 1,621 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
 Review is ongoing. The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,146** exact before/after values, including unflagged repairs.
+contain **18,148** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix/review: **2026-09-14**, local commit `5ef075987` —
-repaired Esperanto Unwatch subscription wording and retained 37 correct
-shortcut, upload, invitation and SMTP values. All **18,146** correction
-records and unchanged-value/progress checks pass. Latest review:
-**2026-09-14**, local commit `e4e614f29` — retained 40 correct webhook,
-policy and date labels. Browser verification was
-not run; no translations were pushed. Completion, pronoun, overtime,
-lime-color, scrollbar and advanced-filter wording remains under review.
+Latest translation fix: **2026-09-14**, local commit `fbc39261f` —
+repaired Esperanto singular member-notification wording and the subtask
+activity verb/swimlane term; retained 14 correct rule and filter labels.
+All **18,148** correction records and unchanged-value checks pass.
+Browser verification was not run; no translations were pushed.
+Completion, overtime, lime-color, scrollbar and advanced-filter wording
+remains under review.
 
 
 Fixed categories include wrong-language prose, terminology, warnings,
@@ -31,7 +30,7 @@ Klingon findings and the broader 829 German-identical values were repaired;
 the cron label retains the actual tool name Cron. Danish restored review
 validated 611 values: 606 retained unchanged and five meanings repaired.
 Four Danish context-dependent labels remain: free, Complete, Schedule and Days Old.
-Esperanto completion, member-pronoun, overtime and lime-color wording
+Esperanto completion, overtime and lime-color wording
 remains open.
 Reviewed subtask actions/settings retain correct subordinate-task compounds.
 

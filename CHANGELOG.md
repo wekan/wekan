@@ -80,19 +80,22 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,551 corrected, 2,615 restored pre-pull values awaiting
-validation, 1,607 reviewed and retained, and 308 pending review or repair.
-The correction inventory records 18,146 exact before/after values,
+findings: 15,552 corrected, 2,600 restored pre-pull values awaiting
+validation, 1,621 reviewed and retained, and 308 pending review or repair.
+The correction inventory records 18,148 exact before/after values,
 including repairs outside the original findings.
-All 361 originally flagged Klingon findings are repaired. The broader review of 829
+All 361 originally flagged Klingon findings are repaired. The broader review
+of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
 The largest original queues are Standard Moroccan Tamazight (173) and
-Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
+Inuktitut (50); Veps retains 10 original findings. Silesian database
+terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
 Kashmiri reference review 0db69cf6c (2026-09-14) identifies provisional
-civil wording and unresolved sighting/tabular/epoch terminology; no values changed.
+civil wording and unresolved sighting/tabular/epoch terminology; no values
+changed.
 
 [Translation audit status](docs/Features/Translations/Audit.md) is the short
 resume record; [detailed evidence](docs/Features/Translations/Audit-Evidence.md)
@@ -101,15 +104,18 @@ Transifex: the evidence includes 4,061 pulled changes and 16,020 additional
 local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
-changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix/review is 5ef075987 (2026-09-14): Esperanto Unwatch
-wording repaired; 37 correct shortcut, upload and mail values retained.
+changes are implemented in local commit 02383521a; translation repairs have
+resumed.
+Latest translation fix/review is fbc39261f (2026-09-14): Esperanto member
+notification and subtask activity repaired; 14 correct labels retained.
 Latest unchanged-value review is e4e614f29 (2026-09-14): 40 correct
 Esperanto webhook, policy and date labels retained.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
 Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
-retaining 156 correct Danish storage, migration and monitoring/account labels. Ambiguous
-export and Complete wording remains open. Requested wekansec21 security repairs are
+retaining 156 correct Danish storage, migration and monitoring/account labels.
+Ambiguous
+export and Complete wording remains open. Requested wekansec21 security
+repairs are
 prioritized while remaining translation review stays open.
 Archive provenance follow-up fbe388603 (2026-09-14) directly inspects the
 native Archives du Maroc logo in a university PDF, corroborating the noun
@@ -120,10 +126,12 @@ cross-variety preface to two earlier URL records. Native caption evidence
 remains separate; full labels stay low confidence. No values/counts changed.
 Conversion review ecae7d919 (2026-09-14) distinguishes native Return/date-back
 from the proposed checklist Become verb; confidence remains low and the
-original-order variant is repaired in 996cc65c7 with low-confidence candidates. No values/counts changed.
+original-order variant is repaired in 996cc65c7 with low-confidence
+candidates. No values/counts changed.
 Checklist completion evidence follow-ups 9de9f2c15 and 4139001a3 distinguish
 legal supplementation from directly attested software Complete Login. Past
-actor form and full checklist grammar remain low confidence. Values/counts unchanged.
+actor form and full checklist grammar remain low confidence. Values/counts
+unchanged.
 Start spelling follow-up 2219d5358 distinguishes plain Begin/Start from
 emphatic Share/Divide in indexed IRCAM entries; direct PDF and full command
 verification remain open. No values or counts changed.
@@ -146,7 +154,8 @@ all three browsers, four database conformance runs and FerretDB tests.
 The second EVERYTHING run passed #6691 in all three browsers, but Chromium
 board-export popup readiness remains unresolved; the Fossil menu check is fixed.
 Live external identity-provider validation and fluent-speaker translation review
-remain outstanding. The latest full Node run passes **1,010 suites, zero failures**, including
+remain outstanding. The latest full Node run passes **1,010 suites, zero
+failures**, including
 mirror-script and offline archive checks; no
 remote mirror or translation upload was executed.
 
@@ -613,7 +622,8 @@ use for import/export that WeKan does not read or write yet. Each new format
 costs roughly what Markdown (this round's new format) cost: a parser, a
 formatter, tests, UI wiring in the import picker and export menu, and - since
 every user-visible string needs one - a new translated string across all 234
-locale files, not just an English placeholder (tests/allTranslationCompleteness.test.cjs
+locale files, not just an English placeholder
+(tests/allTranslationCompleteness.test.cjs
 enforces that). Not attempted as a batch; take them one at a time, following
 the Markdown commit as the template.
 
@@ -833,10 +843,19 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,551 original findings are
-corrected, 1,607 reviewed and retained, 2,615 restored values await validation,
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fbc39261f">Repair Esperanto member notification and subtask activity</a>. Thanks to xet7.</summary>
+
+Use a singular member reference and the finite past verb with the existing
+swimlane term. Retain 14 correct rule and filter labels. Correction and
+review checks pass; wider language and browser validation remains open.
+
+</details>
+
+Translation audit progress as of 2026-09-14: 15,552 original findings are
+corrected, 1,621 reviewed and retained, 2,600 restored values await validation,
 and 308 remain pending across 17 locales, including 173 Tamazight findings.
-The ledger contains 18,146 correction records, including unflagged repairs.
+The ledger contains 18,148 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/193b22520">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>

@@ -21610,3 +21610,15 @@ labels and time units, field sums at top of list, private-only board policy,
 received/end date distinctions, assignment/request attribution and the
 notification deletion cannot-undo warning. Unchanged-value tests pass;
 uncertain terminology and browser validation remain open.
+
+
+### Esperanto member and subtask repair — 2026-09-14
+
+Local commit `fbc39261f` replaces plural Ili in the singular member-removal
+notice with La membro. The unflagged act-addSubtask replaces passive
+aldonita with finite past aldonis and erroneous naĝotubo with the established
+locale swimlane term naĝlinio. Fourteen rule/filter/deletion labels retained
+unchanged after direct semantic review. All source interpolation tokens
+remain intact. Original tracked counts: 15,552 corrected, 2,600 restored,
+1,621 retained, 308 pending; 18,148 exact correction records. Browser and
+remaining language validation are still open.
