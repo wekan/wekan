@@ -14,6 +14,14 @@ for (const direction of ['ltr', 'rtl']) {
     await boardPage.locator('.js-change-language').click();
     const popup = boardPage.locator(".pop-over[data-popup='changeLanguagePopup']");
     await expect(popup).toBeVisible();
+    const bounds = await popup.boundingBox();
+    expect(bounds.x).toBeCloseTo(0, 0);
+    expect(bounds.width).toBeCloseTo(boardPage.viewportSize().width, 0);
+    for (const width of [1280, 375]) {
+      await boardPage.setViewportSize({width,height:900});
+      expect(await popup.locator('.js-set-language').evaluateAll(entries => entries.every(entry => entry.scrollWidth <= entry.clientWidth + 1))).toBe(true);
+    }
+    await boardPage.setViewportSize({width:1280,height:900});
     await expect(popup.locator('.js-set-language')).toHaveCount(rows.length);
     for (const row of rows) {
       await expect(popup.locator(`.js-set-language[data-language="${row[2]}"]`)).toHaveCount(1);
@@ -40,11 +48,11 @@ for (const direction of ['ltr', 'rtl']) {
     ]);
     if (direction === 'ltr') {
       expect(flag.x).toBeLessThan(name.x);
-      expect(name.x).toBeLessThan(region.x);
+      expect(region.y).toBeGreaterThan(name.y);
       expect(country.x).toBeLessThan(regionName.x);
     } else {
       expect(flag.x).toBeGreaterThan(name.x);
-      expect(name.x).toBeGreaterThan(region.x);
+      expect(region.y).toBeGreaterThan(name.y);
       expect(country.x).toBeGreaterThan(regionName.x);
     }
   });

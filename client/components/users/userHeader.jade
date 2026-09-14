@@ -244,8 +244,9 @@ template(name="changeLanguagePopup")
       li(class="{{# if isCurrentLanguage}}active{{/if}}")
         a.js-set-language(href="#" dir="{{languageDirection}}" data-language="{{tag}}")
           span.language-label
-            span.emoji-icon.language-flags(dir="ltr" aria-hidden="true") {{languageFlag}}
-            bdi.language-name {{languageName}}
+            span.language-main-line
+              span.emoji-icon.language-flags(dir="ltr" aria-hidden="true") {{languageFlag}}
+              bdi.language-name {{languageName}}
             if countryFlag
               span.language-region
                 | (

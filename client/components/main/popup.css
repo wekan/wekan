@@ -237,7 +237,7 @@
   /* Auto-filling columns so as many languages as possible are visible at once when
      there is browser width; collapses to a single column on narrow windows. */
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
   align-content: start;
   column-gap: 4px;
 }
@@ -389,12 +389,11 @@
   position: fixed !important;
   bottom: 0 !important;
   top: auto !important;
-  inset-inline-start: auto !important;
-  inset-inline-end: 20px !important;
-  /* Wide enough for multiple language columns when the browser is wide, but never
-     wider than ~90% of the viewport (falls back to a single narrow column). */
-  width: min(90vw, 1100px) !important;
-  max-width: 90vw !important;
+  inset-inline-start: 0 !important;
+  inset-inline-end: 0 !important;
+  box-sizing: border-box;
+  width: 100vw !important;
+  max-width: 100vw !important;
   height: 100vh !important;
   max-height: 100vh !important;
   min-height: 300px !important;
@@ -1295,10 +1294,36 @@ body.mobile-mode .pop-over .content-wrapper {
 }
 
 .pop-over[data-popup='changeLanguagePopup'] .language-label {
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15em;
+  min-width: 0;
+  width: 100%;
+}
+.pop-over[data-popup='changeLanguagePopup'] .language-main-line {
+  display: flex;
   align-items: baseline;
   gap: 0.25em;
 }
+.pop-over[data-popup='changeLanguagePopup'] .pop-over-list li > a {
+  display: flex;
+  align-items: flex-start;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  height: auto;
+}
+.pop-over[data-popup='changeLanguagePopup'] .pop-over-list li,
+.pop-over[data-popup='changeLanguagePopup'] .language-name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.pop-over[data-popup='changeLanguagePopup'] .language-region {
+  display: block;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
 .pop-over[data-popup='changeLanguagePopup'] .language-region {
   unicode-bidi: isolate;
 }

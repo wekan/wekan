@@ -22,14 +22,14 @@ function block(sel) {
 
 test('language popup is responsively wide (not a fixed 450px)', () => {
   const p = block(".pop-over[data-popup='changeLanguagePopup']");
-  assert.ok(/width:\s*min\(90vw,\s*1100px\)/.test(p), 'responsive width up to 1100px');
+  assert.ok(/width:\s*100vw/.test(p), 'full viewport width');
   assert.ok(!/max-width:\s*450px/.test(p), 'no longer capped at 450px');
 });
 
 test('language list is an auto-filling multi-column grid', () => {
   const list = block(".pop-over[data-popup='changeLanguagePopup'] .pop-over-list");
   assert.ok(/display:\s*grid/.test(list), 'grid layout');
-  assert.ok(/grid-template-columns:\s*repeat\(auto-fill,\s*minmax\(170px,\s*1fr\)\)/.test(list),
+  assert.ok(/grid-template-columns:\s*repeat\(auto-fill,\s*minmax\(min\(100%,\s*280px\),\s*1fr\)\)/.test(list),
     'auto-fill columns (many when wide, one when narrow)');
 });
 
@@ -87,3 +87,8 @@ assert.match(jade, /span\.language-region[\s\S]*?language-country-flag[^\n]*\{\{
 assert.doesNotMatch(jade, /language-flags[^\n]*countryFlag/);
 assert.match(jade, /dir="\{\{languageDirection\}\}"/);
 console.log(`changeLanguageColumns: all ${rows.length} popup locales and separate language/region flag placement verified`);
+
+assert.match(block(".pop-over[data-popup='changeLanguagePopup'] .language-label"), /flex-direction: column/);
+assert.match(block(".pop-over[data-popup='changeLanguagePopup'] .pop-over-list li > a"), /overflow: visible/);
+assert.match(block(".pop-over[data-popup='changeLanguagePopup'] .pop-over-list li > a"), /white-space: normal/);
+assert.match(jade, /span\.language-main-line\n\s+span\.emoji-icon\.language-flags/);
