@@ -123282,5 +123282,40 @@
     "before": "Corriger les URLs d'avatar",
     "after": "ⵙⵖⵜⵓ URL ⵏ ⵜⵉⵎⴻⵔⵖⵉⵡⵉⵏ",
     "reason": "Replace French avatar URL repair title. Computing lexicon CNAM https://cedric.cnam.fr/~bouzefra/books/amawal.pdf printed page 38 gives correction Aseɣti and verb seɣtu (MW/Mammeri source); reuse earlier repair imperative sghtu with retained URL identifier. Preserve existing avatars noun timerghiwin from local avatars key without claiming independent linguistic validation. Full avatar-specific phrase and schwa-heavy existing noun remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-startDate",
+    "before": "date de début éditée de %s à %s",
+    "after": "ⵉⵙⵏⴼⵍ ⴰⵙⴰⴽⵓⴷ ⵏ ⵜⵓⴷⴷⵎⴰ ⵖⵔ %s ⵏ %s",
+    "reason": "Replace French/Arabic date editing text. Preserve start/end/received distinctions and, for activities, first %s destination date and second %s owning card (not old-to-new dates). Native MediaWiki edit/skin-view-edit, listfiles_date and blockedtext start/expiration terms support components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reception Tarmest MW/MC is in https://cedric.cnam.fr/~bouzefra/books/amawal.pdf PDF page 120. Reuse local date, card-start/end and received-date popup terms. LOW CONFIDENCE full composition, generic actor gender and block-time-to-card date terminology adaptation; needs fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-endDate",
+    "before": "date de fin éditée de %s à %s",
+    "after": "ⵉⵙⵏⴼⵍ ⴰⵙⴰⴽⵓⴷ ⵏ ⵜⵉⴳⵉⵔⴰ ⵖⵔ %s ⵏ %s",
+    "reason": "Replace French/Arabic date editing text. Preserve start/end/received distinctions and, for activities, first %s destination date and second %s owning card (not old-to-new dates). Native MediaWiki edit/skin-view-edit, listfiles_date and blockedtext start/expiration terms support components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reception Tarmest MW/MC is in https://cedric.cnam.fr/~bouzefra/books/amawal.pdf PDF page 120. Reuse local date, card-start/end and received-date popup terms. LOW CONFIDENCE full composition, generic actor gender and block-time-to-card date terminology adaptation; needs fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-receivedDate",
+    "before": "date de réception éditée de %s à %s",
+    "after": "ⵉⵙⵏⴼⵍ ⴰⵙⴰⴽⵓⴷ ⵏ ⵜⴰⵔⵎⵙⵜ ⵖⵔ %s ⵏ %s",
+    "reason": "Replace French/Arabic date editing text. Preserve start/end/received distinctions and, for activities, first %s destination date and second %s owning card (not old-to-new dates). Native MediaWiki edit/skin-view-edit, listfiles_date and blockedtext start/expiration terms support components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reception Tarmest MW/MC is in https://cedric.cnam.fr/~bouzefra/books/amawal.pdf PDF page 120. Reuse local date, card-start/end and received-date popup terms. LOW CONFIDENCE full composition, generic actor gender and block-time-to-card date terminology adaptation; needs fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "editCardStartDatePopup-title",
+    "before": "تغيير تاريخ البدء",
+    "after": "ⵙⵏⴼⵍ ⴰⵙⴰⴽⵓⴷ ⵏ ⵜⵓⴷⴷⵎⴰ",
+    "reason": "Replace French/Arabic date editing text. Preserve start/end/received distinctions and, for activities, first %s destination date and second %s owning card (not old-to-new dates). Native MediaWiki edit/skin-view-edit, listfiles_date and blockedtext start/expiration terms support components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reception Tarmest MW/MC is in https://cedric.cnam.fr/~bouzefra/books/amawal.pdf PDF page 120. Reuse local date, card-start/end and received-date popup terms. LOW CONFIDENCE full composition, generic actor gender and block-time-to-card date terminology adaptation; needs fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "editCardEndDatePopup-title",
+    "before": "Modifier la date de fin",
+    "after": "ⵙⵏⴼⵍ ⴰⵙⴰⴽⵓⴷ ⵏ ⵜⵉⴳⵉⵔⴰ",
+    "reason": "Replace French/Arabic date editing text. Preserve start/end/received distinctions and, for activities, first %s destination date and second %s owning card (not old-to-new dates). Native MediaWiki edit/skin-view-edit, listfiles_date and blockedtext start/expiration terms support components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reception Tarmest MW/MC is in https://cedric.cnam.fr/~bouzefra/books/amawal.pdf PDF page 120. Reuse local date, card-start/end and received-date popup terms. LOW CONFIDENCE full composition, generic actor gender and block-time-to-card date terminology adaptation; needs fluent review."
   }
 ]
