@@ -3703,3 +3703,34 @@ remain low confidence. Four focused suites pass for exact wording and
 placeholder/translation invariants. No live UI test ran. Ledger 19,858;
 original corrected 15,743, pending 160 (zgh 65), restored 4 unchanged.
 Broader review remains open; no remote writes were made.
+
+
+## Clipboard-image gesture instruction — review 2026-09-15
+
+French paste-or-dragdrop remains pending. attachments.jade line 25 places
+literal kbd Ctrl + V before the localized fragment. Preserve this as a
+continuation of the shortcut instruction, not a second independently
+invented keyboard shortcut. The source image-only qualifier restricts file
+type; do not render it as a guarantee that only one image can be uploaded.
+
+Actual attachments.js previewClipboardImagePopup onRendered handler
+checks `results.dataURL.startsWith('data:image/')` before setting the
+preview/pastedResults. Both document-body pasteImageReader and
+dropImageReader use this same handler. The accepted image may be shrunk
+before preview when MAX_IMAGE_PIXEL is configured. This proves the
+inspected handler's image-type gate, not every upload path's restrictions.
+Do not imply general attachments can only be images or that every gesture
+is restricted to the preview image element.
+
+IRCAM page 81 entry 1298 akrer and page 336 entry 6439 kriru mean drag.
+Page 541 entry 10175 stutti means drop something; physical UI adaptation
+needs review. Page 307 entry 5992 specifically drops on the ground;
+liquid-drop entries 11206/11484/12745 do not describe a UI drop gesture.
+Paste remains supported by entry 9393 slɣ, distinct from food-paste senses.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+Next action is to compose paste OR drag-and-drop an image file here,
+retaining both gesture steps and image-type-only meaning. Full software
+gesture compound, placement and grammar remain open. No translation or
+counts changed. Pending 161 original findings. No live clipboard/drop UI
+test ran and no remote writes were made.

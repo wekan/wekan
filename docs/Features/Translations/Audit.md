@@ -29,10 +29,10 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Tamazight linked-card deletion](Tamazight-Review.md) confirms incoming
-references and the literal diagnostic continuation. List checks exclude
-linked cards within the same list. Preserve dependency direction and do
-not add permanent-deletion claims. No translations or counts changed.
+[Tamazight image gestures](Tamazight-Review.md) confirms the Ctrl+V
+continuation and shared paste/drop image-type gate. Preserve both gesture
+steps and image-only type, not a one-image count. Dictionary verbs supply
+candidates; full UI compound remains open. No translations or counts changed.
 Earlier reviews remain in detailed evidence.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
