@@ -129141,5 +129141,33 @@
     "before": "Temps restant estimé",
     "after": "Amzer a chom brasjedet",
     "reason": "Replace French migration/status/date prose with Breton using existing Dielfennañ, restoration Adsevel, time and recurrence vocabulary. Estimated remaining-time phrasing is provisional pending native review; full migration/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "restore-board",
+    "before": "Restaurer le tableau",
+    "after": "Adsevel an daolenn",
+    "reason": "Replace French restore controls with existing Breton Adsevel from archive/migration labels; preserve board/all-data scope. Full native phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "restore",
+    "before": "Restaurer",
+    "after": "Adsevel",
+    "reason": "Replace French restore controls with existing Breton Adsevel from archive/migration labels; preserve board/all-data scope. Full native phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "restore-all",
+    "before": "Tout restaurer",
+    "after": "Adsevel pep tra",
+    "reason": "Replace French restore controls with existing Breton Adsevel from archive/migration labels; preserve board/all-data scope. Full native phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "backup-restore",
+    "before": "Restaurer",
+    "after": "Adsevel",
+    "reason": "Replace French restore controls with existing Breton Adsevel from archive/migration labels; preserve board/all-data scope. Full native phrase/browser validation remains open."
   }
 ]
