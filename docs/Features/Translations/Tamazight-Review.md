@@ -850,3 +850,23 @@ not by weakening the gate or reintroducing malformed escapes. Native/browser
 validation was not run. Recount: 15,637 corrected, 265 pending (152 Tamazight),
 four restored, 4,175 retained and 18,736 correction records. Full uncertain
 and broader runtime/native review remains open.
+
+## Filter punctuation terminology revision — 2026-09-14
+
+Local commit `ac4b1dcdc` revises the prior direct filter-help repair after
+primary evidence exposed unsupported conflated quote/bracket forms.
+IRCAM 2019 PDF page 633 entry 11892 attests quotation marks and plural
+taskarin; page 687 entry 12948 attests parentheses/brackets and plural
+tiskiwin. Page 212 entry 4045 attests space and plural isayrarn; applying
+this to whitespace remains an adaptation. These exact nouns replace the
+previous unverified forms. Source:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+Tests require distinct quotation-mark and grouped-expression nouns,
+reject old conflated forms, and preserve all literal syntax examples.
+Original ledger before value is preserved; its after/reason are revised,
+not duplicated. Four focused checks pass and completeness stays green.
+**Low confidence** remains for single modifier, plural case/agreement,
+operator/value and advanced adaptations, full software prose and grammar.
+No native/browser validation was run. Original pending count remains 265;
+ledger records remain 18,736. Broader validation remains open.

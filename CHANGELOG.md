@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ac4b1dcdc">Distinguish Tamazight filter quote and bracket terminology</a>. Thanks to xet7.</summary>
+
+Replace conflated unsupported forms with distinct dictionary nouns and
+revise whitespace wording. Four focused checks pass, preserving syntax.
+Full grammatical/software adaptation review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/04aba67e0">Translate Tamazight advanced-filter help and label</a>. Thanks to xet7.</summary>
 
 Translate full prose while preserving exact examples and escaping. Four
