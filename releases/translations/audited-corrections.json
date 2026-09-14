@@ -122757,5 +122757,33 @@
     "before": "%s تعليقات لهذه البطاقة",
     "after": "%s ⵉⵖⴼⴰⵡⴰⵍⵏ ⵉ ⵜⴽⴰⵕⴹⴰ ⴰⴷ",
     "reason": "Replace French/Arabic comment search/error/header wording with Tamazight. Preserve missing-card negation, comment containing the queried text rather than missing comment alone, card scope and exact %s placeholder. Native MediaWiki zgh filehist-comment supplies aghfawal; metadata-help supplies contains root yuma; red-link-title supplies feminine missing-page negation: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse local comment-search instruction vocabulary. LOW CONFIDENCE: comment plural ighfawaln, bound nouns, feminine card negation, containing relative and complete header/error phrases require fluent review; tests verify placeholders/rendering, not fluency."
+  },
+  {
+    "locale": "zgh",
+    "key": "organizations",
+    "before": "Organisations",
+    "after": "ⵜⵓⴷⴷⵙⵉⵡⵉⵏ",
+    "reason": "Replace French organization labels/error with Tamazight. Preserve plural organization/add actions, singular organization settings and missing named organization with exact %s placeholder. Saad-Buzefran computing lexicon p104 (printed100) Organization entry gives Tuddsa, plural tuddsiwin, explicitly MW (Mammeri Amawal) and includes ISO/Internet organization entity examples: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . Reuse local native settings and MediaWiki zgh add/feminine missing-page negation components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: MW vocabulary is not blanket Standard Moroccan attestation; dialect adaptation, Tifinagh spelling, feminine organization negation and full settings/error phrases require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "add-organizations",
+    "before": "Ajouter des organisations",
+    "after": "ⵔⵏⵓ ⵜⵓⴷⴷⵙⵉⵡⵉⵏ",
+    "reason": "Replace French organization labels/error with Tamazight. Preserve plural organization/add actions, singular organization settings and missing named organization with exact %s placeholder. Saad-Buzefran computing lexicon p104 (printed100) Organization entry gives Tuddsa, plural tuddsiwin, explicitly MW (Mammeri Amawal) and includes ISO/Internet organization entity examples: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . Reuse local native settings and MediaWiki zgh add/feminine missing-page negation components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: MW vocabulary is not blanket Standard Moroccan attestation; dialect adaptation, Tifinagh spelling, feminine organization negation and full settings/error phrases require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "settingsOrgPopup-title",
+    "before": "Paramètres de l'organisation",
+    "after": "ⵜⵉⵙⵖⴰⵍ ⵏ ⵜⵓⴷⴷⵙⴰ",
+    "reason": "Replace French organization labels/error with Tamazight. Preserve plural organization/add actions, singular organization settings and missing named organization with exact %s placeholder. Saad-Buzefran computing lexicon p104 (printed100) Organization entry gives Tuddsa, plural tuddsiwin, explicitly MW (Mammeri Amawal) and includes ISO/Internet organization entity examples: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . Reuse local native settings and MediaWiki zgh add/feminine missing-page negation components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: MW vocabulary is not blanket Standard Moroccan attestation; dialect adaptation, Tifinagh spelling, feminine organization negation and full settings/error phrases require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "org-name-not-found",
+    "before": "Organisation '%s' non trouvée.",
+    "after": "ⵓⵔ ⵜⵍⵍⵉ ⵜⵓⴷⴷⵙⴰ '%s'.",
+    "reason": "Replace French organization labels/error with Tamazight. Preserve plural organization/add actions, singular organization settings and missing named organization with exact %s placeholder. Saad-Buzefran computing lexicon p104 (printed100) Organization entry gives Tuddsa, plural tuddsiwin, explicitly MW (Mammeri Amawal) and includes ISO/Internet organization entity examples: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . Reuse local native settings and MediaWiki zgh add/feminine missing-page negation components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: MW vocabulary is not blanket Standard Moroccan attestation; dialect adaptation, Tifinagh spelling, feminine organization negation and full settings/error phrases require fluent review."
   }
 ]
