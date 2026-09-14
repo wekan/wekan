@@ -1258,6 +1258,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3658f1755">Fix Tshivenda rule-state text in Veps translations</a></summary>
+
+Replace two wrong-language rule messages with Veps drafts while preserving
+both toggle actions and the existing enabled label. Four focused test files
+pass. Full assembled grammar remains under review in the dated audit.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

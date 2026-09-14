@@ -29816,3 +29816,26 @@ button rulesList.jade:37 uses r-toggle-rule-enabled, so its tooltip must
 retain both enabling and disabling rather than become a rules heading.
 Scrollbar native terminology was not established by the checked MediaWiki
 key-name search; the original Finnish scrollbar label remains open.
+
+
+2026-09-15 — `3658f1755`: r-rule-disabled and r-toggle-rule-enabled
+Tshivenda replaced with direct Veps drafts. Preserve existing r-rule-enabled
+= Päl. Native primary MediaWiki source read today:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+specialmute-label-mute-email uses Kel'dä for disabling/muting mail;
+authmanager-autocreate-exception uses kel'düd for a disabled automatic
+account. Existing custom-head-tags-enabled supplies Pane päle (turn on).
+The toggle combines both actions with libo (or), nece sänd (this rule)
+and sidä (it). Full assembled imperative/object grammar and suitability
+of the prohibition-based disable verb for rule activation remain low
+confidence; these are drafts, not claimed human translations. Source
+rulesList.jade:37-43 has separate enabled/disabled labels on a toggle
+button with the dual-action tooltip, so do not replace the tooltip with
+a one-way action or a bare rules noun. Four focused files pass (18 checks),
+including both replacements, negative Tshivenda, distinct states, retained
+existing enabled value and full placeholder inventories/key order.
+No live rules UI test ran. Ledger 19,903; original pending 126 (Veps 8),
+restored 4 unchanged. Previous finding list's two rule keys are now repaired;
+the twoFactorAuth-enable/enabled and list-sync-enabled wrong-language
+values still need repairs. Original eight-row queue does not cover these
+additional findings or full prior low-confidence wording.

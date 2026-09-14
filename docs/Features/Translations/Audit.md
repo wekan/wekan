@@ -16,14 +16,14 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `29bf7aa22` — replace unflagged
-Finnish Veps rules heading with native Sändod. Four focused files pass
-(17 checks). Ledger 19,901; original pending remains 126 (Veps 8), restored
-4 unchanged. Additional mixed-language rule/2FA messages require repairs;
-scrollbar terminology and broader native grammar review remain open.
+Latest translation fix: **2026-09-15**, `3658f1755` — replace two
+unflagged Tshivenda rule messages in Veps with native-wording drafts.
+Four focused files pass (18 checks). Ledger 19,903; original pending
+remains 126 (Veps 8), restored 4 unchanged. Existing enabled label retained;
+assembled rule-object grammar and other wrong-language values remain open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,901** exact before/after values, including unflagged
+records contain **19,903** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
