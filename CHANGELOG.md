@@ -636,8 +636,6 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-
-
 **In short:** **Checklist deadlines** add a shared-calendar date picker and
 REST deadline access. **Multi-selection** correctly applies labels and members
 without reversing the action. **Swedish and Valencian translations** clarify
