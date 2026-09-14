@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bc406fcae">Review domain-label possession syntax</a>. Thanks to xet7.</summary>
+
+Record primary Amazigh grammar evidence for possession constructions.
+Keep plural relative agreement and full software-label wording under
+review; no additional translation is counted as repaired.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/94205ae5f">Draft conditional automatic user addition label</a>. Thanks to xet7.</summary>
 
 Replace Arabic with complete Tamazight wording preserving automatic
