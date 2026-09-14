@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,218 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 626 pending review or repair.
-The correction inventory records 17,479 exact before/after values,
+findings: 15,220 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 624 pending review or repair.
+The correction inventory records 17,481 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (483) and
+The largest original queues are Standard Moroccan Tamazight (481) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,10 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is fd6ae82a5 (2026-09-14), repairing three unflagged
-rule report/details/import-export popup values. Preserve singular/plural
-and transfer directions; import derivation and full software phrases
-remain low confidence pending fluent review. Original counts are unchanged.
+Latest translation fix is 5417ab3ca (2026-09-14), replacing two French
+search notes and correcting the optional interpretation of OR. Preserve
+OR/any versus AND/all scopes and operator tokens. Full logical phrasing
+and derived forms remain low confidence pending fluent review.
 Greenlandic CLDR-unconfirmed wording and twelve Quechua color wrappers
 still need review, alongside the wider restored and unflagged values.
 Tamazight calendar review dd2aaa19a (2026-09-14) records provisional
@@ -115,7 +115,7 @@ names and unresolved Coptic/tabular/epoch terminology; no values changed. Previo
 Cherokee Hijri labels with exact native-script CLDR variant names. Cherokee’s
 original queue is empty. Compact tabular epoch wording still needs fluent
 technical review. Quechua palette compounds and remaining color wrappers
-remain open. There are 483 Tamazight findings remaining.
+remain open. There are 481 Tamazight findings remaining.
 Silesian reference review (2026-09-14) confirms shared database/file terms
 in native MediaWiki messages; the full raw-file label remains pending.
 No translation value or finding count changed in that review.
@@ -609,6 +609,23 @@ the original pending count is unchanged. Wider language validation and live
 browser verification remain open.
 
 </details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5417ab3ca">Repair Tamazight search OR and AND explanations</a>. Thanks to xet7.</summary>
+
+Replace two French search notes and correct the mistaken optional
+interpretation of OR. Preserve OR/any versus AND/all, literal example names,
+markdown and exact operator placeholders. Full logical phrases, derived
+adjectives and return conjugations remain low confidence. All 17,481
+correction checks pass; wider language validation and live browser checks
+remain open.
+
+</details>
+
+Translation audit progress as of 2026-09-14: 15,220 original findings are
+corrected, 179 reviewed and retained, 4,058 restored values await validation,
+and 624 remain pending across 17 locales, including 481 Tamazight findings.
+The ledger contains 17,481 correction records, including unflagged repairs.
 
 Thanks to above GitHub users for their contributions and xet7 for maintaining WeKan !
 

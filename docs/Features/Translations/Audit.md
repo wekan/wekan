@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,218 |
+| Corrected | 15,220 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 626 |
+| Pending review or repair | 624 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,479** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,481** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `fd6ae82a5` — repaired three unflagged rule report/details/import-export popup values. Preserve singular report, plural rules, singular rule details and both transfer directions. Native CNDH, MediaWiki and IRCAM components support the vocabulary; import imperative derivation and full software phrases remain **low confidence** pending fluent review. All **17,479** correction/rendering checks pass. **626** originals remain pending across **17** locales, including **483** Tamazight; these unflagged repairs do not reduce that queue. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `5417ab3ca` — replaced two French search notes and corrected the mistaken optional interpretation of OR. Preserve OR/any versus AND/all scopes, example names and operator placeholders. Native UI and mixed computing lexicon components support the vocabulary; full logical phrases, derived adjectives and return conjugations remain **low confidence** pending fluent review. All **17,481** correction/rendering checks pass. **624** originals remain pending across **17** locales, including **481** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Build interruption follow-up (2026-09-14):** `.tools/wekan22` contains the old v11.75 missing-Moment failure, already repaired in `43adfe1a7`. A fresh Meteor 3.6-beta.0 bundle build passes on Linux arm64, and six assignee/calendar/release-preflight Node test entries pass. Log: `.tools/log/build-dev-bundle/2026-09-14/04-25-58/dev.txt`. Native amd64 and live browser checks were not run. Translation counts and the remaining validation scope above are unchanged.
 
