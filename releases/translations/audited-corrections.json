@@ -125074,5 +125074,12 @@
     "before": "par",
     "after": "ⵙ",
     "reason": "Replace French par in rule actor qualifier with Tamazight agent/instrument preposition s. Preserve BY before the separately supplied user name in checklistTriggers.jade rather than FROM or TO. LOW CONFIDENCE: fragment grammar across assembled passive rule predicates requires fluent review. Current MediaWiki blockedtext-made-by rephrases agency as an active clause rather than independently attesting this isolated preposition; do not claim it proves the complete rule grammar. Reference for native agency contrast: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "migration-starting",
+    "before": "Démarrage des migrations...",
+    "after": "ⴰⵔ ⵜⵜⵓⵙⵙⵏⵜⵉⵏ ⵉⵙⵎⵓⵜⵜⵢⵏ...",
+    "reason": "Replace French Starting migrations progress with Standard Moroccan Tamazight. Native MediaWiki view-missing-pages/newarticletext attest ssnti Start/Begin: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve plural migrations and ongoing starting status, with literal ... rather than completed or imperative Start. LOW CONFIDENCE: derived ongoing plural passive ttussntin from attested imperative, derived software Migration plural from Move and complete clause require fluent review; native source does not attest full migration progress phrase."
   }
 ]
