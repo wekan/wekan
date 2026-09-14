@@ -24232,5 +24232,305 @@
     "key": "cron",
     "value": "Cron",
     "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "th",
+    "key": "template",
+    "value": "เทมเพลต",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "board-view-cal",
+    "value": "ปฏิทิน",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "cards-count-one",
+    "value": "การ์ด",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "cardType-card",
+    "value": "การ์ด",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "custom-field-number",
+    "value": "ตัวเลข",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "export-card-attachment-type",
+    "value": "ประเภท",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "calendar",
+    "value": "ปฏิทิน",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "type",
+    "value": "ประเภท",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "invite",
+    "value": "เชิญ",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "send-from",
+    "value": "จาก",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "days",
+    "value": "วัน",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "hours",
+    "value": "ชั่วโมง",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "minutes",
+    "value": "นาที",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "seconds",
+    "value": "วินาที",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "yes",
+    "value": "ใช่",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "r-board",
+    "value": "บอร์ด",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "r-sort-by",
+    "value": "โดย",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "r-sort-name",
+    "value": "ชื่อ",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "r-the-board",
+    "value": "บอร์ด",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "r-a-card",
+    "value": "การ์ด",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "r-name",
+    "value": "ชื่อ",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "r-card",
+    "value": "การ์ด",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "r-remove",
+    "value": "นำออก",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "r-label",
+    "value": "ป้ายกำกับ",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "r-check",
+    "value": "ทำเครื่องหมาย",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "r-item",
+    "value": "รายการ",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "r-to",
+    "value": "ไปยัง",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "r-of",
+    "value": "ของ",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "r-d-send-email-to",
+    "value": "ถึง",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "r-by",
+    "value": "โดย",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "r-set",
+    "value": "ตั้งค่า",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "new",
+    "value": "ใหม่",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "card",
+    "value": "การ์ด",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "board",
+    "value": "บอร์ด",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "dueCardsViewChange-choice-me",
+    "value": "ฉัน",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "operator-board",
+    "value": "บอร์ด",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "operator-label",
+    "value": "ป้ายกำกับ",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "operator-has",
+    "value": "มี",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "operator-description",
+    "value": "คำอธิบาย",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "predicate-open",
+    "value": "เปิด",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "predicate-week",
+    "value": "สัปดาห์",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "predicate-quarter",
+    "value": "ไตรมาส",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "predicate-year",
+    "value": "ปี",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "predicate-description",
+    "value": "คำอธิบาย",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "number",
+    "value": "ตัวเลข",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "remove-btn",
+    "value": "นำออก",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "stats-scope",
+    "value": "ประเภท",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "of",
+    "value": "ของ",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "azure-blob-storage-description",
+    "value": "Microsoft Azure Blob Storage.",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "th",
+    "key": "gcs-storage-description",
+    "value": "Google Cloud Storage.",
+    "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
   }
 ]
