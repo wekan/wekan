@@ -25707,3 +25707,19 @@ this repairs stored translation data, not proof of a visible active UI.
 Four source checks pass; native/browser review remains open. Corrected
 original findings 15,651; pending 251 (zgh 139); ledger 18,780. Earlier
 dated notes leaving this title French are superseded by this draft.
+
+Shared-list conversion repair — 2026-09-14, `7817aa29f`.
+French step-convert-shared-lists becomes a complete Tamazight draft,
+with exact value in the correction ledger. IRCAM Amazigh-English gives
+ssnfl transitively change/transform (PDF 532, entry 10003), talgamt list
+and plural tilgamin (589, 11039), ssur be common/be shared (535, 10073).
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+Low confidence: applying transformation to software conversion and
+feminine plural ssurnt in the relative clause. The label retains shared
+status; it does not mean public/general lists or partition the lists.
+Only stored translation data changes; no obsolete migration is restored.
+Four source checks pass, covering exact full components and wrong-language
+negatives alongside tokens, ordering and human preference. An initial
+command had a misspelled suite filename; corrected invocation passed.
+Native/browser context review remains open. Corrected original findings
+15,652; pending 250 (zgh 138); correction ledger 18,781.

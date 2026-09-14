@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7817aa29f">Repair Tamazight shared-list conversion label</a>. Thanks to xet7.</summary>
+
+Replace French with a complete draft retaining conversion and shared status.
+Record primary vocabulary and low-confidence relative-clause morphology.
+Four translation checks pass; native and browser review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4091c14e4">Repair Tamazight comprehensive migration title</a>. Thanks to xet7.</summary>
 
 Replace French with a full board migration draft using a scope modifier.
