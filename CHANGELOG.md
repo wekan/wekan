@@ -661,6 +661,17 @@ The browser assertion accepts whitespace between the regional flag and name.
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2070173c0">Correct archive instructions in eight additional languages</a>. Thanks to xet7.</summary>
+
+Use Archive on All Boards in Malayalam, Marathi, Gujarati, Punjabi, Nepali,
+Sinhala, Mongolian and Kazakh. Preserve existing restoration terms and place
+labels; replace Sinhala's English Archive label. Five focused suites pass,
+including placeholder and newer human-translation preservation. Full native
+collocations and remaining archive locales stay under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/110c58002">Repair Irish, Serbian and Tagalog archive instructions</a>. Thanks to xet7.</summary>
 
 Point to Archive on All Boards using existing translated labels. Select the

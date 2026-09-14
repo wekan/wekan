@@ -26783,3 +26783,31 @@ translation completeness and All Boards URLs. No additional browser run in
 this batch; source routing and previously executed archive-popup coverage do
 not certify native fluency. Remaining locales and prior low-confidence
 findings remain in scope. No external translation service or remote push.
+
+
+### 2026-09-14 — Eight additional archive instruction repairs
+
+Source commit `2070173c0`: Malayalam (ml), Marathi (mr), Gujarati (gu-IN),
+Punjabi (pa), Nepali (ne), Sinhala (si), Mongolian (mn), Kazakh (kk).
+Eight previously unflagged location errors repaired; ledger 18,982.
+Original tracked pending 225 and four restored values remain unchanged.
+
+Complete instructions now describe the Archive section on All Boards,
+using exact existing localized place labels and restoration terminology.
+Sinhala's English Archive label was replaced with සංරක්ෂිතය. No independent
+regional sentence was overwritten; matching regional candidates were checked,
+and only these eight files required this batch. Correct-language prose was
+preserved where possible while the obsolete header location was corrected.
+
+Five focused suites pass: archive guidance (including negative old-header and
+English-label checks), correction ledger (tokens, examples, ordering,
+idempotency and newer human values), unchanged reviews, completeness and
+All Boards URLs. Native full-sentence collocations remain reviewable; exact
+label/script tests do not certify fluency. No new browser run in this batch.
+
+Remaining archive guidance includes Scottish Gaelic, Faroese, Veps and other
+locales. Uzbek All Boards currently says Barcha kengashlar (all councils),
+so its place label must be reviewed with the instruction rather than copied
+as though correct. Khmer's board-of-directors wording needs the same review.
+These unflagged issues and all prior low-confidence findings stay in scope.
+No external translation service and no remote push.
