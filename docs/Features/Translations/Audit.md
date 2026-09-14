@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,571 |
-| Restored pre-pull; awaiting validation | 507 |
-| Reviewed; retained unchanged | 3,695 |
+| Restored pre-pull; awaiting validation | 506 |
+| Reviewed; retained unchanged | 3,696 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -18,13 +18,13 @@ source references, confidence limits and archived progress notes.
 Latest translation fix: **2026-09-14**, local commit `9910a2c13` —
 clarified Basque archived/unarchived wording in all-status search help.
 Retained 29 correct search instructions, labels and troubleshooting values.
-All **18,171** correction and **3,695** review records pass.
+All **18,171** correction and **3,696** review records pass.
 Attachment/member rule participles still need context-specific agreement.
 Three Esperanto restored findings remain: lime color and two Complete labels.
 Broader language and browser verification remain open; nothing pushed.
-Latest unchanged review: **2026-09-14**, commit `a076987c9` — retained
-28 Basque date, upload, navigation and webhook values. Free and impersonation
-wording remain pending. Nine Galician restored findings remain context-dependent.
+Latest unchanged review: **2026-09-14**, commit `f29c14def` — retained
+Basque impersonation wording after dictionary and actual handler inspection.
+Basque free wording and nine Galician restored findings remain context-dependent.
 Galician export free wording remains open pending context.
 Galician Complete and migration-complete wording remain open pending context.
 Card-show-lists context is verified against its settings row and toggle.

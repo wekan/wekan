@@ -22447,3 +22447,10 @@ navigation, upload outcome, URL scheme, milestone and webhook/database values.
 50-300%, one scheme per line, receipt-date meaning and source tokens remain.
 Free and impersonation wording are excluded pending contextual review.
 Exact unchanged reviews pass; full language/browser scope remains open.
+
+**2026-09-14 — Basque impersonation review (`f29c14def`).**
+
+Retained `impersonate-user`: Euskadi dictionary includes acting in another
+person’s place in `ordezkatu`, matching the actual administrator handler.
+Source: https://www.euskadi.eus/web01-a2lurhiz/es/contenidos/termino/_c04593/eu_o_1340/o1340.html
+All 3,696 exact review records pass; broader repairs remain open.
