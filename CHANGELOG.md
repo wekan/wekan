@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,530 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 314 pending review or repair.
-The correction inventory records 18,105 exact before/after values,
+The correction inventory records 18,107 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,11 +102,11 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is a6647173f (2026-09-14), replacing the French
-Analyze Board Structure command after directly inspecting rendered
-dictionary letters. Cross-variety terminology, Tifinagh adaptation and full
-grammar remain low confidence. All 18,105 correction checks pass; 314
-pending findings remain, including 179 Tamazight.
+Latest translation fix is a56e507e9 (2026-09-14), repairing two additional
+wrong-language Import and Import Board labels outside the original queue.
+Native import terminology supports the root; action noun and full command
+remain low confidence. All 18,107 correction checks pass; 314 original
+findings remain pending, including 179 Tamazight.
 Archive provenance follow-up fbe388603 (2026-09-14) directly inspects the
 native Archives du Maroc logo in a university PDF, corroborating the noun
 beyond indexed evidence. Nine records updated; no values/counts changed.
@@ -655,7 +655,7 @@ remain open.
 Translation audit progress as of 2026-09-14: 15,530 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
 and 314 remain pending across 17 locales, including 179 Tamazight findings.
-The ledger contains 18,105 correction records, including unflagged repairs.
+The ledger contains 18,107 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -3438,6 +3438,17 @@ preserving Analyze, Structure and Board. Cross-variety terminology,
 Tifinagh adaptation and complete grammar remain low confidence pending
 native review. All 18,105 correction checks pass; live browser verification
 was not run. The audit now has 314 pending original findings.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a56e507e9">Repair wrong-language Tamazight import labels</a>. Thanks to xet7.</summary>
+
+Replace Kter and Arabic import labels, preserving generic Import versus
+Import Board. Native terminology supports the root; action noun and full
+command remain low confidence pending native review. Two additional repairs
+bring the inventory to 18,107 passing correction checks; original pending
+counts remain 314. Live browser verification was not run.
 
 </details>
 

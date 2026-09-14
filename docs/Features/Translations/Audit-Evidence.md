@@ -1,5 +1,15 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `a56e507e9`: broader unflagged review repairs generic
+Import (`Kter`) and Import Board (Arabic). Native MediaWiki zgh
+`importlogpage` supplies the import root; existing WeKan Import Usernames
+uses the command. Preserve generic action versus board-specific action.
+Singular action noun and full command are LOW CONFIDENCE adaptations,
+not independently verified native phrases. Two additional correction records;
+original progress counts unchanged: 314 pending, 179 Tamazight. All 18,107
+correction checks pass; restored/unflagged and earlier low-confidence review
+remain open. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+
 2026-09-14 — visual source-marker and authentication follow-up:
 directly inspected rendered CNAM PDF pages 12, 23 and 91. The bibliography
 prints MCΓ for the Tuareg dictionaries; `MC£` was a legacy extraction
