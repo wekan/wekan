@@ -121215,15 +121215,15 @@
     "locale": "zgh",
     "key": "admin-people-filter-locked",
     "before": "Utilisateurs verrouillés seulement",
-    "after": "ⵖⴰⵙ ⵉⵏⵙⵙⵎⵔⵙⵏ ⵉⵜⵜⵓⴳⴷⴰⵍⵏⵉⵏ",
-    "reason": "Replace French login-lockout text with Standard Moroccan Tamazight. Native MediaWiki login-userblocked directly attests ittugdal unssmrs (user is blocked); omit ad/this because the source is generic. Login blocked is the intended account-lockout sense, rather than page protection. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json LOW CONFIDENCE composed plural filter: user plural inssmrsn from native diff-multi-otherusers; skn/show and ghas/only from tool-link-userrights-readonly and protect-level-sysop. Plural blocked participle ittugdalnin is derived, not directly attested in the source; its inflection and complete filter phrase need fluent review."
+    "after": "ⵖⴰⵙ ⵉⵏⵙⵙⵎⵔⵙⵏ ⵜⵜⵓⴳⴷⵍⵏⵉⵏ",
+    "reason": "Refine the earlier French lockout repair using the exact native Mastodon column.blocks phrase for blocked users, replacing the previously derived plural participle. Only/ghas and show/skn are attested in MediaWiki protect-level-sysop/tool-link-userrights-readonly. Preserve login-lockout meaning. The plural noun/participle sequence is directly attested; complete combined filter usage remains LOW CONFIDENCE pending fluent review. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   },
   {
     "locale": "zgh",
     "key": "accounts-lockout-show-locked-users",
     "before": "Afficher les utilisateurs verrouillés seulement",
-    "after": "ⵙⴽⵏ ⵖⴰⵙ ⵉⵏⵙⵙⵎⵔⵙⵏ ⵉⵜⵜⵓⴳⴷⴰⵍⵏⵉⵏ",
-    "reason": "Replace French login-lockout text with Standard Moroccan Tamazight. Native MediaWiki login-userblocked directly attests ittugdal unssmrs (user is blocked); omit ad/this because the source is generic. Login blocked is the intended account-lockout sense, rather than page protection. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json LOW CONFIDENCE composed plural filter: user plural inssmrsn from native diff-multi-otherusers; skn/show and ghas/only from tool-link-userrights-readonly and protect-level-sysop. Plural blocked participle ittugdalnin is derived, not directly attested in the source; its inflection and complete filter phrase need fluent review."
+    "after": "ⵙⴽⵏ ⵖⴰⵙ ⵉⵏⵙⵙⵎⵔⵙⵏ ⵜⵜⵓⴳⴷⵍⵏⵉⵏ",
+    "reason": "Refine the earlier French lockout repair using the exact native Mastodon column.blocks phrase for blocked users, replacing the previously derived plural participle. Only/ghas and show/skn are attested in MediaWiki protect-level-sysop/tool-link-userrights-readonly. Preserve login-lockout meaning. The plural noun/participle sequence is directly attested; complete combined filter usage remains LOW CONFIDENCE pending fluent review. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   },
   {
     "locale": "zgh",
@@ -121257,8 +121257,8 @@
     "locale": "zgh",
     "key": "comment-delete",
     "before": "Êtes-vous sûr de vouloir supprimer le commentaire ?",
-    "after": "ⵉⵙ ⵜⵏⵥⵉⴷ ⵜⵔⵉⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⴰⵖⴼⴰⵡⴰⵍ?",
-    "reason": "LOW CONFIDENCE composed confirmation: native MediaWiki confirmable-confirm attests is tnzid/are you sure, delete attests kks/delete, and filehist-comment attests aghfawal/comment. Compose want-to-delete as trid ad tkksd, preserving confirmation and desired action rather than shortening to a generic question. Want/delete second-person morphology and complete subordinate phrase require fluent review. Replace French. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+    "after": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⴰⵖⴼⴰⵡⴰⵍ?",
+    "reason": "Refine the French comment-deletion repair with the complete native Mastodon confirmations.delete.message question pattern, adapting only the object from this post to comment (native MediaWiki filehist-comment). Want/delete second-person clause morphology is now directly attested rather than derived. LOW CONFIDENCE object-substitution and complete comment UI usage still require fluent review. Preserve confirmation/action and original French before value in the ledger. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   },
   {
     "locale": "zgh",
