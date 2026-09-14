@@ -1701,3 +1701,17 @@ and browser output remain unverified. Four translation checks pass for
 consistency, field distinctions, wrong-language negatives, tokens and
 protected newer values. Three unflagged repairs; original pending stays
 233 (zgh 125), ledger 18,812. No date calculation or query mapping changes.
+
+Received-time activity revision — 2026-09-14, `e3ae37bc5`.
+Two prior drafts act-a-receivedAt/a-receivedAt replace derived bound
+tarmest with primary IRCAM reception imiẓ, PDF 382 entry 7245:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+This aligns reception vocabulary with received-date labels. The old MW
+reception entry was not itself Tuareg-marked; the supporting root had
+been misattributed. Preserve that distinction and all earlier evidence.
+Original before values stay unchanged; current after values and revision
+reasons update in place. Four translation checks pass for new noun,
+old-term negatives and complete previous/new time token inventories.
+Genitive form, finite activity clause and software reception remain low
+confidence. Native/browser review remains open. No extra repair record is
+added; ledger remains 18,812 and original pending 233 (zgh 125).

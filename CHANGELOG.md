@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e3ae37bc5">Revise received-time activity terminology</a>. Thanks to xet7.</summary>
+
+Use a primary reception noun in two earlier Tamazight activity drafts.
+Preserve time placeholders and provenance history. Four translation
+checks pass; complete clause and native/browser review remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/822d6dfb5">Draft consistent received and due labels</a>. Thanks to xet7.</summary>
 
 Replace three French/Arabic Tamazight date labels while preserving field

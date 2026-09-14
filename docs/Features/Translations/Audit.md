@@ -16,10 +16,10 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `822d6dfb5` —
-three unflagged French/Arabic received and due labels become consistent
-Tamazight drafts. Four checks pass; reception and deadline software semantics
-remain low confidence. Original pending: 233.
+Latest translation fix: **2026-09-14**, local commit `e3ae37bc5` —
+two prior received-time activity drafts now use primary reception terminology.
+Four checks pass; full clause/genitive grammar remains low confidence.
+Original pending and ledger counts are unchanged: 233 and 18,812.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
 records contain **18,812** exact before/after values, including unflagged
