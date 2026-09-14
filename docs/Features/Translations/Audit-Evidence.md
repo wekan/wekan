@@ -1,5 +1,16 @@
 # Detailed translation audit evidence
 
+2026-09-14 — zoom control terminology review: directly inspected local
+renders of CNAM Amawal PDF pages 98 and 154. Level is Aswir MW (modern
+lexicon, not MediaWiki); Zoom is retained as a loan, with Zoom ɣer deffir
+for Zoom Out and Zoom ɣer zdat for Zoom In, both KBL. These are cross-variety
+software candidates, not normative Moroccan phrases. The rendered images
+confirm ɣ rather than the extracted dollar sign. Current zoom-in/out,
+zoom-level and enter-zoom-level are French and need repair; keep the literal
+50-300% range and input command. Tifinagh adaptation and full level command
+require review. No translation values, records or original counts changed.
+Reference: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf
+
 2026-09-14 — `ca3ba7006`: three additional labels repaired. Native
 Mastodon account.muted directly attests the Muted label and
 column.notifications/notifications.clear attest Notifications. Replace Arabic

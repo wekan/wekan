@@ -16,6 +16,12 @@ Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calenda
 
 Latest translation fix: **2026-09-14**, local commit `ca3ba7006` — repaired three additional Muted/Notifications labels using directly attested native software wording, aligning existing notification terminology. Board-specific Muted adaptation and its full warning still need review. All **18,111** correction checks pass; **313** original findings remain pending across **17** locales, including **178** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
+**Zoom control review (2026-09-14):** rendered dictionary pages confirm
+Level and Zoom In/Out candidates, including the letter ɣ. Cross-variety
+terms need adaptation; four French controls remain pending, with the
+50-300% input range preserved. Values/counts unchanged.
+[Evidence](Audit-Evidence.md) records exact pages and source limits.
+
 **Source typography review (2026-09-14):** rendered dictionary pages confirm
 Tuareg marker MCΓ, previously extracted as MC£, and Authentication/Method
 spellings. Corrected 105 record explanations; values/counts unchanged.
