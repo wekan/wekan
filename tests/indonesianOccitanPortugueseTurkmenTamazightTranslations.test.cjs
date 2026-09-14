@@ -27,3 +27,9 @@ for (const locale of Object.values(locales)) {
 assert.equal(locales.zgh.change, 'ⵙⵏⴼⵍ');
 assert.equal(locales.zgh.change, locales.zgh.edit);
 assert.doesNotMatch(locales.zgh.change, /Modifier/);
+
+for (const [key, value] of Object.entries({register:'ⵙⵏⵓⵍⴼⵓ ⴰⵎⵉⴹⴰⵏ',log:'ⵉⵣⵎⵎⵉⵎⵏ',summary:'ⴰⵙⴳⵣⵍ'})) {
+ assert.equal(locales.zgh[key], value);
+ assert.doesNotMatch(locales.zgh[key], /enregistrer|Journal|ⴰⴳⵣⵓⵎ/);
+}
+assert.notEqual(locales.zgh.summary, locales.zgh.history);

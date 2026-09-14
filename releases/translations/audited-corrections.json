@@ -130737,5 +130737,26 @@
     "before": "MM-JJ-AAAA",
     "after": "MM-DD-YYYY",
     "reason": "Replace unrelated or wrong-language date-format label with the actual selectable format pattern. Preserve valid localized notation in other locales."
+  },
+  {
+    "locale": "zgh",
+    "key": "register",
+    "before": "S'enregistrer",
+    "after": "ⵙⵏⵓⵍⴼⵓ ⴰⵎⵉⴹⴰⵏ",
+    "reason": "Use independently attested native Moroccan software account-creation, logs and summary terminology. Summary punctuation adapted to a heading."
+  },
+  {
+    "locale": "zgh",
+    "key": "log",
+    "before": "Journal",
+    "after": "ⵉⵣⵎⵎⵉⵎⵏ",
+    "reason": "Use independently attested native Moroccan software account-creation, logs and summary terminology. Summary punctuation adapted to a heading."
+  },
+  {
+    "locale": "zgh",
+    "key": "summary",
+    "before": "ⴰⴳⵣⵓⵎ",
+    "after": "ⴰⵙⴳⵣⵍ",
+    "reason": "Use independently attested native Moroccan software account-creation, logs and summary terminology. Summary punctuation adapted to a heading."
   }
 ]
