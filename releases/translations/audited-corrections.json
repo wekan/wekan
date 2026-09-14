@@ -138633,5 +138633,12 @@
     "before": "Nom du couloir",
     "after": "ⵉⵙⵎ ⵏ ⵓⴱⵔⵉⴷ",
     "reason": "2026-09-15: replace French rule fragments using existing Tamazight list/swimlane/member/item terminology, add/remove imperatives, possession and prepositions. Preserve distinct object, destination, possession and action meanings. Complete contextual grammar remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "rescue-card-description",
+    "before": "Afficher le dialogue de sauvegarde avant de fermer les descriptions de carte  en cours de modification",
+    "after": "ⵙⵙⴽⵏ ⴰⵎⵙⴰⵡⴰⵍ ⵏ ⵓⵙⵙⵓⴽⵏ ⴷⴰⵜ ⴰⴷ ⵜⵔⴳⵍⴷ ⴰⴳⵍⴰⵎ ⵏ ⵜⴽⴰⵕⴹⴰ ⵓⵔⵜⴰ ⵉⵜⵜⵡⴰⵃⴹⴰ",
+    "reason": "2026-09-15: replace French rescue-dialog setting with Tamazight draft retaining show, rescue dialogue, before closing and unsaved card-description scope. IRCAM page 152 entry 2806 attests dialogue; existing show/restore/close/unsaved-description terminology reused. Full UI-dialogue metaphor, before-closing construction and agreement remain low confidence."
   }
 ]

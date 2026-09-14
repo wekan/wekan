@@ -273,3 +273,8 @@ assert.equal(translated["r-swimlane-name"], "ⵉⵙⵎ ⵏ ⵓⴱⵔⵉⴷ");
 assert.notEqual(translated['r-in-list'], translated['r-in-swimlane']);
 assert.notEqual(translated['r-d-add-member'], translated['r-d-remove-member']);
 assert.doesNotMatch([translated["r-its-list"],translated["r-in-list"],translated["r-in-swimlane"],translated["r-d-add-member"],translated["r-d-remove-member"],translated["r-d-check-of-list"],translated["r-with-items"],translated["r-swimlane-name"]].join(' '), /liste|couloir|Ajouter|Supprimer|checklist|avec/);
+
+assert.match(translated['rescue-card-description'], /^ⵙⵙⴽⵏ ⴰⵎⵙⴰⵡⴰⵍ ⵏ ⵓⵙⵙⵓⴽⵏ ⴷⴰⵜ ⴰⴷ ⵜⵔⴳⵍⴷ/);
+assert.match(translated['rescue-card-description'], /ⴰⴳⵍⴰⵎ ⵏ ⵜⴽⴰⵕⴹⴰ ⵓⵔⵜⴰ ⵉⵜⵜⵡⴰⵃⴹⴰ$/);
+assert.doesNotMatch(translated['rescue-card-description'], /Afficher|dialogue|fermer/);
+assert.match(fs.readFileSync(path.join(ROOT, 'client/components/users/userHeader.jade'), 'utf8'), /span {{_ 'rescue-card-description'}}/);
