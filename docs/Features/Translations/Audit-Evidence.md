@@ -22099,3 +22099,15 @@ state and click action; markdown retains its actual format name.
 Review checks pass: 15,561 corrected, 1,463 restored awaiting validation,
 2,749 reviewed unchanged and 308 pending. Broader language and browser
 validation remain open. Nothing pushed.
+
+
+### 2026-09-14 — Galician display settings and archive controls
+
+Local commit `708478423` retains 30 directly reviewed values unchanged.
+Height controls retain positive-integer and pixel constraints. Checklist edit
+closure, active system-wide announcements, archive-all/list/swimlane/selection
+scope, avatar size token, background URLs and opposing zoom directions are
+intact. Mobile/desktop switching and visibility/watch settings retain meaning.
+Review checks pass: 15,561 corrected, 1,433 restored awaiting validation,
+2,779 reviewed unchanged and 308 pending. Broader language and browser
+validation remain open. Nothing pushed.
