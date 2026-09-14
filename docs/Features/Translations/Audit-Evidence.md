@@ -22174,3 +22174,16 @@ cancellation and member mapping to an existing user.
 Review checks pass: 15,561 corrected, 1,284 restored awaiting validation,
 2,928 reviewed unchanged and 308 pending. Broader language and browser
 validation remain open. Nothing pushed.
+
+
+### 2026-09-14 — Galician selection and board-management labels
+
+Local commit `885d65b3b` retains 30 directly reviewed values unchanged.
+Selection color/label/member controls preserve selection scope; assigned-only
+Normal preserves the named role restriction. Private-page login help retains
+possibility, HTML link and exact href format token. Image paste help remains
+image-only. Version, user/team/organization, list and swimlane labels retain
+meaning and label-default preserves interpolation.
+Review checks pass: 15,561 corrected, 1,254 restored awaiting validation,
+2,958 reviewed unchanged and 308 pending. Broader language and browser
+validation remain open. Nothing pushed.
