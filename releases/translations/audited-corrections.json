@@ -124920,5 +124920,12 @@
     "before": "تم ازالة عنصر قائمة التحقق الى '%s' في %s",
     "after": "ⵉⴽⴽⵙ ⴰⴼⵔⴷⵉⵙ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ ⵙⴳ '%s' ⴳ %s",
     "reason": "2026-09-14: Replace Arabic checklist activity preserving Added/Removed, checklist versus item, To versus From, In scope and exact %s order/count and quotes. Native MediaWiki logentry-delete-delete directly attests ikks Removed/Deleted, logentry-move-move supplies sg From and g In. Added irna reuses existing reviewed local past form; it is not independently attested in current MediaWiki. LOW CONFIDENCE past-add conjugation, derived item free form, proposed verification noun ussidd and complete activity/checklist grammar require fluent Standard Moroccan review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-checklist-completed",
+    "before": "a complété la checklist %s de %s",
+    "after": "ⵉⵙⵎⴷ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ %s ⵏ %s",
+    "reason": "2026-09-14: Replace French completed checklist activity preserving completed action, checklist and Of relation with exact two %s tokens in original order. Reuse reviewed ismd completion adaptation from native MediaWiki enterlockreason Finish/End. LOW CONFIDENCE future/intransitive Finish-to-past/transitive Complete adaptation, proposed verification noun ussidd and full activity phrase require fluent Standard Moroccan review. Do not apply simple negation to uncompleted activities: those report actively undoing completion rather than mere absence of completion. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]

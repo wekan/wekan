@@ -77,7 +77,7 @@
   "activity-unchecked-item": "ازالة تحقق %s من قائمة التحقق %s من %s",
   "activity-checklist-added": "ⵉⵔⵏⴰ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ ⵉ %s",
   "activity-checklist-removed": "ⵉⴽⴽⵙ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ ⵙⴳ %s",
-  "activity-checklist-completed": "a complété la checklist %s de %s",
+  "activity-checklist-completed": "ⵉⵙⵎⴷ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ %s ⵏ %s",
   "activity-checklist-uncompleted": "لم يتم انجاز قائمة التحقق %s من %s",
   "activity-checklist-item-added": "ⵉⵔⵏⴰ ⴰⴼⵔⴷⵉⵙ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ ⵉ '%s' ⴳ %s",
   "activity-checklist-item-removed": "ⵉⴽⴽⵙ ⴰⴼⵔⴷⵉⵙ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ ⵙⴳ '%s' ⴳ %s",
