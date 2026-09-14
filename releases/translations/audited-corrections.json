@@ -122855,5 +122855,40 @@
     "before": "Équipe '%s' non trouvée.",
     "after": "ⵓⵔ ⵜⵍⵍⵉ ⵜⴰⵔⴰⴱⴱⵓⵜ '%s'.",
     "reason": "Replace Arabic/French team labels and organization/team name errors. Preserve already-used name rather than absent name, organization versus team, singular/plural teams, add action and exact %s token in missing-team error. IRCAM dictionary team entry tarabbut: https://www.ircam.ma/sites/default/files/2021-02/amz_fr_ar.pdf . Native MediaWiki zgh badaccess-groups supports singular/bound plural team-group forms, userexists already-used-name construction, export-addcat add and red-link-title feminine absence: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse prior MW organization component from https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: derived free plural tirubba, software-team adaptation, organization dialect adaptation, bound nouns, feminine missing-team phrase and full name-error composition require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "delete-org-confirm-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer cette organisation ? Cela est irréversible.",
+    "after": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⵜⵓⴷⴷⵙⴰ ⴰⴷ? ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⴰⵔⴷ ⴷ ⴰⵢⴰ.",
+    "reason": "Replace French destructive-action confirmation or membership guard. Preserve organization/team/account object, confirmation question and no-undo warning (cannot restore this), or inability to delete a group with at least one user (one or more). Reuse local native comment-delete confirmation frame; MediaWiki zgh delete-confirm, rollbacklinkcount, createacct-submit, badaccess-groups, moredotdotdot and noarticletext support delete/restore/account/user-in-group/more/can components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Organization component remains MW-adapted from https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: full no-undo paraphrase, modal/restore conjugation, one-or-more existential membership phrase, numeric/bound noun agreement and organization dialect adaptation require fluent review; no warning qualifier is intentionally omitted."
+  },
+  {
+    "locale": "zgh",
+    "key": "delete-team-confirm-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer cette équipe ? Cela est irréversible.",
+    "after": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⵜⴰⵔⴰⴱⴱⵓⵜ ⴰⴷ? ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⴰⵔⴷ ⴷ ⴰⵢⴰ.",
+    "reason": "Replace French destructive-action confirmation or membership guard. Preserve organization/team/account object, confirmation question and no-undo warning (cannot restore this), or inability to delete a group with at least one user (one or more). Reuse local native comment-delete confirmation frame; MediaWiki zgh delete-confirm, rollbacklinkcount, createacct-submit, badaccess-groups, moredotdotdot and noarticletext support delete/restore/account/user-in-group/more/can components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Organization component remains MW-adapted from https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: full no-undo paraphrase, modal/restore conjugation, one-or-more existential membership phrase, numeric/bound noun agreement and organization dialect adaptation require fluent review; no warning qualifier is intentionally omitted."
+  },
+  {
+    "locale": "zgh",
+    "key": "delete-user-confirm-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer ce compte ? Cela est irréversible.",
+    "after": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⴰⵎⵉⴹⴰⵏ ⴰⴷ? ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⴰⵔⴷ ⴷ ⴰⵢⴰ.",
+    "reason": "Replace French destructive-action confirmation or membership guard. Preserve organization/team/account object, confirmation question and no-undo warning (cannot restore this), or inability to delete a group with at least one user (one or more). Reuse local native comment-delete confirmation frame; MediaWiki zgh delete-confirm, rollbacklinkcount, createacct-submit, badaccess-groups, moredotdotdot and noarticletext support delete/restore/account/user-in-group/more/can components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Organization component remains MW-adapted from https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: full no-undo paraphrase, modal/restore conjugation, one-or-more existential membership phrase, numeric/bound noun agreement and organization dialect adaptation require fluent review; no warning qualifier is intentionally omitted."
+  },
+  {
+    "locale": "zgh",
+    "key": "delete-org-warning-message",
+    "before": "Impossible de supprimer cette organisation, au moins un utilisateur lui appartient",
+    "after": "ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⵜⵓⴷⴷⵙⴰ ⴰⴷ, ⵉⵍⵍⴰ ⵢⴰⵏ ⵓⵏⵙⵙⵎⵔⵙ ⵏⵖ ⵓⴳⴳⴰⵔ ⴷⵉⴳⵙ.",
+    "reason": "Replace French destructive-action confirmation or membership guard. Preserve organization/team/account object, confirmation question and no-undo warning (cannot restore this), or inability to delete a group with at least one user (one or more). Reuse local native comment-delete confirmation frame; MediaWiki zgh delete-confirm, rollbacklinkcount, createacct-submit, badaccess-groups, moredotdotdot and noarticletext support delete/restore/account/user-in-group/more/can components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Organization component remains MW-adapted from https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: full no-undo paraphrase, modal/restore conjugation, one-or-more existential membership phrase, numeric/bound noun agreement and organization dialect adaptation require fluent review; no warning qualifier is intentionally omitted."
+  },
+  {
+    "locale": "zgh",
+    "key": "delete-team-warning-message",
+    "before": "Impossible de supprimer cette équipe, au moins un utilisateur lui appartient",
+    "after": "ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⵜⴰⵔⴰⴱⴱⵓⵜ ⴰⴷ, ⵉⵍⵍⴰ ⵢⴰⵏ ⵓⵏⵙⵙⵎⵔⵙ ⵏⵖ ⵓⴳⴳⴰⵔ ⴷⵉⴳⵙ.",
+    "reason": "Replace French destructive-action confirmation or membership guard. Preserve organization/team/account object, confirmation question and no-undo warning (cannot restore this), or inability to delete a group with at least one user (one or more). Reuse local native comment-delete confirmation frame; MediaWiki zgh delete-confirm, rollbacklinkcount, createacct-submit, badaccess-groups, moredotdotdot and noarticletext support delete/restore/account/user-in-group/more/can components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Organization component remains MW-adapted from https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: full no-undo paraphrase, modal/restore conjugation, one-or-more existential membership phrase, numeric/bound noun agreement and organization dialect adaptation require fluent review; no warning qualifier is intentionally omitted."
   }
 ]
