@@ -115,3 +115,10 @@ assert.doesNotMatch(eu['r-made-incomplete'], /uzten|Osatzen denean/);
 assert.equal([eu['r-when-a-checklist'], eu['r-made-incomplete']].join(' '),
   'Kontrol-zerrenda bat Osatu gabe markatzen denean');
 assert.match(completionRow, /option\(value="uncompleted"\) \{\{_'r-made-incomplete'\}\}/);
+
+assert.equal(eu['r-when-a-item'], 'Kontrol-zerrendako elementu bat');
+for (const action of ['r-checked', 'r-unchecked']) {
+ const sentence = [eu['r-when-a-item'], eu[action]].join(' ');
+ assert.equal(sentence, `Kontrol-zerrendako elementu bat ${action === 'r-checked' ? 'Markatzen' : 'Desmarkatzen'} denean`);
+ assert.doesNotMatch(sentence, /\bes\b|\bda\b/);
+}

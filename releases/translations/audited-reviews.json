@@ -25018,5 +25018,11 @@
     "key": "s3-bucket",
     "value": "S3 bucket-a",
     "reason": "Native Basque ZIUR technical specification explicitly uses AWS S3 Bucket for storage; retain technical loan with Basque article in the bucket-name field. Source attests terminology, not exact hyphenation."
+  },
+  {
+    "locale": "eu",
+    "key": "r-when-a-item",
+    "value": "Kontrol-zerrendako elementu bat",
+    "reason": "Retain singular generic checklist-item subject in actual check/uncheck rows. Native software references support list-item terminology; assembled generic temporal clauses use no redundant copula. Named-item order and browser review remain open."
   }
 ]
