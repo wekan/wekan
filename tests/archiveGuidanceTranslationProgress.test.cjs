@@ -88,3 +88,18 @@ for (const code of ['km', 'km-KH', 'km_KH']) {
  assert.strictEqual(read(code)['restore-board'], 'ស្តារក្តារ');
 }
 console.log('Uzbek and Khmer: board/council distinction and archive place labels verified');
+
+for (const code of ['km', 'km-KH', 'km_KH']) {
+ const d = read(code);
+ for (const [key, value] of Object.entries(d))
+  assert.doesNotMatch(value, /ក្រុមប្រឹក្សាភិបាល/, `${code}:${key}: governing council is not a Kanban board`);
+ assert.strictEqual(d['wip-limit-group-select-swimlane'], 'ជ្រើសរើស' + d.swimlane);
+ assert.doesNotMatch(d['deposit-subtasks-board'], /ប្រាក់/);
+ assert.doesNotMatch(d['comprehensive-board-migration-description'], /បញ្ជាទិញ/);
+ assert.ok(d['comprehensive-board-migration-description'].includes('លំដាប់បញ្ជី'));
+ for (const visibility of ['private', 'public']) {
+  assert.ok(d[`board-${visibility}-info`].includes(`<strong>${d[visibility]}</strong>`));
+  assert.doesNotMatch(d[`board-${visibility}-info`], /private|public/);
+ }
+}
+console.log('Khmer board-sense sweep: all governing-council terms removed; visibility, ordering, deposit and swimlane meanings preserved');

@@ -132970,5 +132970,1454 @@
     "before": "អ្នក​នឹង​អាច​ស្ដារ​ក្ដារ​ដោយ​ចុច​ប៊ូតុង “ទុក​ក្នុង​ប័ណ្ណសារ” ពី​បឋមកថា​ដើម។",
     "after": "អ្នកអាចស្តារក្តារពីផ្នែក “បណ្ណសារ” នៅលើទំព័រ “ក្តារទាំងអស់”។",
     "reason": "2026-09-14: Correct board/council sense using taxta (Uzbek) or established ក្តារ (Khmer), not an administrative governing body. Restore-board names the Kanban board action; complete archive guidance names existing Archive section on All Boards. Full computing collocations remain reviewable."
+  },
+  {
+    "locale": "km",
+    "key": "act-createList",
+    "before": "បានបន្ថែមបញ្ជី __list__ ទៅក្រុមប្រឹក្សាភិបាល __board__",
+    "after": "បានបន្ថែមបញ្ជី __list__ ទៅក្តារ __board__",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "act-addBoardMember",
+    "before": "បានបន្ថែមសមាជិក __member__ ទៅក្រុមប្រឹក្សាភិបាល __board__",
+    "after": "បានបន្ថែមសមាជិក __member__ ទៅក្តារ __board__",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "act-archivedBoard",
+    "before": "ក្រុមប្រឹក្សាភិបាល __board__ បានផ្លាស់ទីទៅបណ្ណសារ",
+    "after": "ក្តារ __board__ បានផ្លាស់ទីទៅបណ្ណសារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "act-moveCardToOtherBoard",
+    "before": "បានផ្លាស់ប្តូរកាត __card__ ពីបញ្ជី __oldList__ នៅ swimlane __oldSwimlane__ នៅក្រុមប្រឹក្សាភិបាល __oldBoard__ ទៅបញ្ជី __list__ នៅ swimlane __swimlane__ នៅក្តារ __board__",
+    "after": "បានផ្លាស់ប្តូរកាត __card__ ពីបញ្ជី __oldList__ នៅ swimlane __oldSwimlane__ នៅក្តារ __oldBoard__ ទៅបញ្ជី __list__ នៅ swimlane __swimlane__ នៅក្តារ __board__",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "act-removeBoardMember",
+    "before": "បានដកសមាជិក __member__ ចេញពីក្រុមប្រឹក្សាភិបាល __board__",
+    "after": "បានដកសមាជិក __member__ ចេញពីក្តារ __board__",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "act-unjoinMember",
+    "before": "បានដកសមាជិក __member__ ចេញពីកាត __card__ នៅក្នុងបញ្ជី __list__ នៅ swimlane __swimlane__ នៅក្រុមប្រឹក្សាភិបាល __board__",
+    "after": "បានដកសមាជិក __member__ ចេញពីកាត __card__ នៅក្នុងបញ្ជី __list__ នៅ swimlane __swimlane__ នៅក្តារ __board__",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "admin-desc",
+    "before": "អាចមើល និងកែសម្រួលកាត ដកសមាជិកចេញ និងផ្លាស់ប្តូរការកំណត់សម្រាប់ក្រុមប្រឹក្សាភិបាល។ អាចមើលសកម្មភាព។",
+    "after": "អាចមើល និងកែសម្រួលកាត ដកសមាជិកចេញ និងផ្លាស់ប្តូរការកំណត់សម្រាប់ក្តារ។ អាចមើលសកម្មភាព។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "archiveBoardPopup-title",
+    "before": "ផ្លាស់ទីក្រុមប្រឹក្សាភិបាលទៅបណ្ណសារ?",
+    "after": "ផ្លាស់ទីក្តារទៅបណ្ណសារ?",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "archived-boards",
+    "before": "ក្រុមប្រឹក្សាភិបាលនៅក្នុងប័ណ្ណសារ",
+    "after": "ក្តារនៅក្នុងប័ណ្ណសារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "show-board_members-avatar",
+    "before": "បង្ហាញរូបតំណាងសមាជិកក្រុមប្រឹក្សាភិបាល",
+    "after": "បង្ហាញរូបតំណាងសមាជិកក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "board_members",
+    "before": "សមាជិកក្រុមប្រឹក្សាភិបាលទាំងអស់។",
+    "after": "សមាជិកក្តារទាំងអស់។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "card_members",
+    "before": "សមាជិកទាំងអស់នៃកាតបច្ចុប្បន្ននៅក្រុមប្រឹក្សាភិបាលនេះ។",
+    "after": "សមាជិកទាំងអស់នៃកាតបច្ចុប្បន្ននៅក្តារនេះ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "board_assignees",
+    "before": "អ្នកទទួលកាតទាំងអស់នៅក្រុមប្រឹក្សាភិបាលនេះ។",
+    "after": "អ្នកទទួលកាតទាំងអស់នៅក្តារនេះ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "card_assignees",
+    "before": "អ្នកទទួលកាតបច្ចុប្បន្នទាំងអស់នៅក្រុមប្រឹក្សាភិបាលនេះ។",
+    "after": "អ្នកទទួលកាតបច្ចុប្បន្នទាំងអស់នៅក្តារនេះ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "board-private-info",
+    "before": "ក្រុមប្រឹក្សាភិបាលនេះនឹងមាន <strong>private</strong> ។",
+    "after": "ក្តារនេះនឹងជា <strong>ឯកជន</strong>។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "board-public-info",
+    "before": "ក្រុមប្រឹក្សាភិបាលនេះនឹងមាន <strong>public</strong> ។",
+    "after": "ក្តារនេះនឹងជា <strong>សាធារណៈ</strong>។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "boardChangeTitlePopup-title",
+    "before": "ប្តូរឈ្មោះក្រុមប្រឹក្សាភិបាល",
+    "after": "ប្តូរឈ្មោះក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "board-view-multiboard-cal",
+    "before": "ប្រតិទិន (ក្រុមប្រឹក្សាភិបាលទាំងអស់។)",
+    "after": "ប្រតិទិនសម្រាប់ក្តារច្រើន",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "list-archive-suggest",
+    "before": "នៅពេលក្រោយ អ្នកអាចស្តារបញ្ជីឡើងវិញពីបណ្ណសារនៅក្នុងការកំណត់ក្រុមប្រឹក្សាភិបាល។",
+    "after": "នៅពេលក្រោយ អ្នកអាចស្តារបញ្ជីឡើងវិញពីបណ្ណសារនៅក្នុងការកំណត់ក្តារ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "card-members-title",
+    "before": "បន្ថែម ឬដកសមាជិកក្រុមប្រឹក្សាភិបាលចេញពីកាត។",
+    "after": "បន្ថែម ឬដកសមាជិកក្តារចេញពីកាត។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "cardType-linkedBoard",
+    "before": "ក្រុមប្រឹក្សាភិបាលភ្ជាប់",
+    "after": "ក្តារភ្ជាប់",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "close-board",
+    "before": "បិទក្រុមប្រឹក្សាភិបាល",
+    "after": "បិទក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "createBoardPopup-title",
+    "before": "បង្កើតក្រុមប្រឹក្សាភិបាល",
+    "after": "បង្កើតក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "email-invite-text",
+    "before": "សូមគោរព __user__,\n\n__inviter__ អញ្ជើញអ្នកឱ្យចូលរួមក្រុមប្រឹក្សាភិបាល \"__board__\" សម្រាប់កិច្ចសហការ។\n\nសូមធ្វើតាមតំណខាងក្រោម៖\n\n__url__\n\nសូមអរគុណ។",
+    "after": "សូមគោរព __user__,\n\n__inviter__ អញ្ជើញអ្នកឱ្យចូលរួមក្តារ \"__board__\" សម្រាប់កិច្ចសហការ។\n\nសូមធ្វើតាមតំណខាងក្រោម៖\n\n__url__\n\nសូមអរគុណ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "push-invite-text",
+    "before": "សូមគោរព __user__,\n\n__inviter__ អញ្ជើញអ្នកឱ្យចូលរួមក្រុមប្រឹក្សាភិបាល \"__board__\" សម្រាប់កិច្ចសហការ។\n\nសូមធ្វើតាមតំណខាងក្រោម៖\n\n__url__\n\nសូមអរគុណ។",
+    "after": "សូមគោរព __user__,\n\n__inviter__ អញ្ជើញអ្នកឱ្យចូលរួមក្តារ \"__board__\" សម្រាប់កិច្ចសហការ។\n\nសូមធ្វើតាមតំណខាងក្រោម៖\n\n__url__\n\nសូមអរគុណ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "error-board-notAdmin",
+    "before": "អ្នក​ត្រូវ​ធ្វើ​ជា​អ្នក​គ្រប់គ្រង​ក្រុមប្រឹក្សាភិបាល​ដើម្បី​ធ្វើ​ដូច្នេះ",
+    "after": "អ្នក​ត្រូវ​ធ្វើ​ជា​អ្នក​គ្រប់គ្រង​ក្តារ​ដើម្បី​ធ្វើ​ដូច្នេះ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "error-board-notAMember",
+    "before": "អ្នកត្រូវតែជាសមាជិកនៃក្រុមប្រឹក្សាភិបាលនេះដើម្បីធ្វើដូច្នេះបាន។",
+    "after": "អ្នកត្រូវតែជាសមាជិកនៃក្តារនេះដើម្បីធ្វើដូច្នេះបាន។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "export-card-field-board-info",
+    "before": "ព័ត៌មានអំពីក្រុមប្រឹក្សាភិបាល (ក្តារ បញ្ជី ផ្លូវហែលទឹក)",
+    "after": "ព័ត៌មានអំពីក្តារ (ក្តារ បញ្ជី ផ្លូវហែលទឹក)",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "headerBarCreateBoardPopup-title",
+    "before": "បង្កើតក្រុមប្រឹក្សាភិបាល",
+    "after": "បង្កើតក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "import-members-map",
+    "before": "ក្រុមប្រឹក្សាភិបាលដែលបាននាំចូលរបស់អ្នកមានសមាជិកមួយចំនួន។ សូមគូសផែនទីសមាជិកដែលអ្នកចង់នាំចូលទៅអ្នកប្រើប្រាស់របស់អ្នក។",
+    "after": "ក្តារដែលបាននាំចូលរបស់អ្នកមានសមាជិកមួយចំនួន។ សូមគូសផែនទីសមាជិកដែលអ្នកចង់នាំចូលទៅអ្នកប្រើប្រាស់របស់អ្នក។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "just-invited",
+    "before": "អ្នកទើបតែត្រូវបានអញ្ជើញឱ្យចូលរួមក្នុងក្រុមប្រឹក្សាភិបាលនេះ។",
+    "after": "អ្នកទើបតែត្រូវបានអញ្ជើញឱ្យចូលរួមក្នុងក្តារនេះ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "leave-board",
+    "before": "ចាកចេញពីក្រុមប្រឹក្សាភិបាល",
+    "after": "ចាកចេញពីក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "linkCardToNewBoard",
+    "before": "បង្កើតក្រុមប្រឹក្សាភិបាល (កាត)",
+    "after": "បង្កើតក្តារ (កាត)",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "muted-info",
+    "before": "អ្នកនឹងមិនត្រូវបានគេជូនដំណឹងអំពីការផ្លាស់ប្តូរណាមួយនៅក្នុងក្រុមប្រឹក្សាភិបាលនេះទេ។",
+    "after": "អ្នកនឹងមិនត្រូវបានគេជូនដំណឹងអំពីការផ្លាស់ប្តូរណាមួយនៅក្នុងក្តារនេះទេ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "my-boards",
+    "before": "ក្រុមប្រឹក្សាភិបាលរបស់ខ្ញុំ",
+    "after": "ក្តាររបស់ខ្ញុំ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "rename-board",
+    "before": "ប្តូរឈ្មោះក្រុមប្រឹក្សាភិបាល",
+    "after": "ប្តូរឈ្មោះក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "select-board",
+    "before": "ជ្រើសរើសក្រុមប្រឹក្សាភិបាល",
+    "after": "ជ្រើសរើសក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "this-board",
+    "before": "ក្រុមប្រឹក្សាភិបាលនេះ។",
+    "after": "ក្តារនេះ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "go-to-board",
+    "before": "ទៅក្រុមប្រឹក្សាភិបាល",
+    "after": "ទៅក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "watching-info",
+    "before": "អ្នកនឹងត្រូវបានជូនដំណឹងអំពីការផ្លាស់ប្តូរណាមួយនៅក្នុងក្រុមប្រឹក្សាភិបាលនេះ។",
+    "after": "អ្នកនឹងត្រូវបានជូនដំណឹងអំពីការផ្លាស់ប្តូរណាមួយនៅក្នុងក្តារនេះ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "email-invite-register-text",
+    "before": "សូមគោរព __user__,\n\n__inviter__ អញ្ជើញអ្នកទៅកាន់ក្រុមប្រឹក្សាភិបាល kanban សម្រាប់កិច្ចសហការ។\n\nសូមធ្វើតាមតំណខាងក្រោម៖\n__url__\n\nហើយលេខកូដអញ្ជើញរបស់អ្នកគឺ៖ __icode__\n\nសូមអរគុណ។",
+    "after": "សូមគោរព __user__,\n\n__inviter__ អញ្ជើញអ្នកទៅកាន់ក្តារ kanban សម្រាប់កិច្ចសហការ។\n\nសូមធ្វើតាមតំណខាងក្រោម៖\n__url__\n\nហើយលេខកូដអញ្ជើញរបស់អ្នកគឺ៖ __icode__\n\nសូមអរគុណ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "boardDeletePopup-title",
+    "before": "លុបក្រុមប្រឹក្សាភិបាល?",
+    "after": "លុបក្តារ?",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "default-subtasks-board",
+    "before": "កិច្ចការរងសម្រាប់ក្រុមប្រឹក្សាភិបាល __board__",
+    "after": "កិច្ចការរងសម្រាប់ក្តារ __board__",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "deposit-subtasks-board",
+    "before": "ដាក់​ប្រាក់​ភារកិច្ច​រង​ទៅ​ក្រុមប្រឹក្សាភិបាល​នេះ៖",
+    "after": "ដាក់កិច្ចការរងទៅក្តារនេះ៖",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "r-board-rules",
+    "before": "ច្បាប់នៃក្រុមប្រឹក្សាភិបាល",
+    "after": "ច្បាប់នៃក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "r-the-board",
+    "before": "ក្រុមប្រឹក្សាភិបាល",
+    "after": "ក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "myCardsSortChange-choice-board",
+    "before": "ដោយក្រុមប្រឹក្សាភិបាល",
+    "after": "ដោយក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "globalSearch-title",
+    "before": "ស្វែងរកក្រុមប្រឹក្សាភិបាលទាំងអស់។",
+    "after": "ស្វែងរកក្តារទាំងអស់។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "globalSearch-instructions-operator-org",
+    "before": "`__operator_org__:<display name|short name>` - ​​កាតដែលជាកម្មសិទ្ធិរបស់ក្រុមប្រឹក្សាភិបាលដែលត្រូវបានប្រគល់ឱ្យអង្គការ *<name>*",
+    "after": "`__operator_org__:<display name|short name>` - ​​កាតដែលជាកម្មសិទ្ធិរបស់ក្តារដែលត្រូវបានប្រគល់ឱ្យអង្គការ *<name>*",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "globalSearch-instructions-operator-team",
+    "before": "`__operator_team__:<display name|short name>` - ​​កាតដែលជាកម្មសិទ្ធិរបស់ក្រុមប្រឹក្សាភិបាលដែលត្រូវបានចាត់តាំងឱ្យក្រុម *<name>*",
+    "after": "`__operator_team__:<display name|short name>` - ​​កាតដែលជាកម្មសិទ្ធិរបស់ក្តារដែលត្រូវបានចាត់តាំងឱ្យក្រុម *<name>*",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "remove-organization-from-board",
+    "before": "តើ​អ្នក​ប្រាកដ​ជា​ចង់​ដក​ស្ថាប័ន​នេះ​ចេញ​ពី​ក្រុមប្រឹក្សាភិបាល​នេះ​ឬ?",
+    "after": "តើ​អ្នក​ប្រាកដ​ជា​ចង់​ដក​ស្ថាប័ន​នេះ​ចេញ​ពី​ក្តារ​នេះ​ឬ?",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "board-id",
+    "before": "លេខសម្គាល់ក្រុមប្រឹក្សាភិបាល",
+    "after": "លេខសម្គាល់ក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "board-title",
+    "before": "ចំណងជើងក្រុមប្រឹក្សាភិបាល",
+    "after": "ចំណងជើងក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "import-board-zip",
+    "before": "បន្ថែមឯកសារ .zip ដែលមានឯកសារ JSON របស់ក្រុមប្រឹក្សាភិបាល និងថតរងឈ្មោះក្តារដែលមានឯកសារភ្ជាប់",
+    "after": "បន្ថែមឯកសារ .zip ដែលមានឯកសារ JSON របស់ក្តារ និងថតរងឈ្មោះក្តារដែលមានឯកសារភ្ជាប់",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "board-archive-scheduled",
+    "before": "ប័ណ្ណសារក្រុមប្រឹក្សាភិបាលបានកំណត់ពេលដោយជោគជ័យ",
+    "after": "ប័ណ្ណសារក្តារបានកំណត់ពេលដោយជោគជ័យ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "board-operations",
+    "before": "ប្រតិបត្តិការក្រុមប្រឹក្សាភិបាល",
+    "after": "ប្រតិបត្តិការក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "scheduled-board-operations",
+    "before": "ប្រតិបត្តិការក្រុមប្រឹក្សាភិបាលដែលបានគ្រោងទុក",
+    "after": "ប្រតិបត្តិការក្តារដែលបានគ្រោងទុក",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "board-migration",
+    "before": "ការផ្លាស់ប្តូរក្រុមប្រឹក្សាភិបាល",
+    "after": "ការផ្លាស់ប្តូរក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "board-migrations",
+    "before": "ការផ្លាស់ប្តូរក្រុមប្រឹក្សាភិបាល",
+    "after": "ការផ្លាស់ប្តូរក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "comprehensive-board-migration",
+    "before": "ការផ្លាស់ប្តូរក្រុមប្រឹក្សាភិបាលដ៏ទូលំទូលាយ",
+    "after": "ការផ្លាស់ប្តូរក្តារដ៏ទូលំទូលាយ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "comprehensive-board-migration-description",
+    "before": "អនុវត្តការត្រួតពិនិត្យ និងជួសជុលយ៉ាងទូលំទូលាយសម្រាប់ភាពត្រឹមត្រូវនៃទិន្នន័យរបស់ក្រុមប្រឹក្សាភិបាល រួមទាំងការបញ្ជាទិញបញ្ជី ទីតាំងកាត និងរចនាសម្ព័ន្ធផ្លូវហែលទឹក។",
+    "after": "អនុវត្តការត្រួតពិនិត្យ និងជួសជុលយ៉ាងទូលំទូលាយសម្រាប់ភាពត្រឹមត្រូវនៃទិន្នន័យរបស់ក្តារ រួមទាំងលំដាប់បញ្ជី ទីតាំងកាត និងរចនាសម្ព័ន្ធផ្លូវហែលទឹក។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "fix-avatar-urls-migration-description",
+    "before": "អាប់ដេត URLs តំណាងសម្រាប់សមាជិកក្រុមប្រឹក្សាភិបាល ដើម្បីប្រើផ្នែកខាងក្រោយទំហំផ្ទុកត្រឹមត្រូវ និងជួសជុលឯកសារយោងដែលខូច។",
+    "after": "អាប់ដេត URLs តំណាងសម្រាប់សមាជិកក្តារ ដើម្បីប្រើផ្នែកខាងក្រោយទំហំផ្ទុកត្រឹមត្រូវ និងជួសជុលឯកសារយោងដែលខូច។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "migrations-admin-only",
+    "before": "មានតែអ្នកគ្រប់គ្រងក្រុមប្រឹក្សាភិបាលប៉ុណ្ណោះដែលអាចដំណើរការការផ្លាស់ប្តូរ",
+    "after": "មានតែអ្នកគ្រប់គ្រងក្តារប៉ុណ្ណោះដែលអាចដំណើរការការផ្លាស់ប្តូរ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "migrations-description",
+    "before": "ដំណើរការការត្រួតពិនិត្យ និងជួសជុលទិន្នន័យសម្រាប់ក្រុមប្រឹក្សាភិបាលនេះ។ ការធ្វើចំណាកស្រុកនីមួយៗអាចត្រូវបានអនុវត្តជាលក្ខណៈបុគ្គល។",
+    "after": "ដំណើរការការត្រួតពិនិត្យ និងជួសជុលទិន្នន័យសម្រាប់ក្តារនេះ។ ការធ្វើចំណាកស្រុកនីមួយៗអាចត្រូវបានអនុវត្តជាលក្ខណៈបុគ្គល។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "វានឹងអាប់ដេត URLs តំណាងសម្រាប់សមាជិកក្រុមប្រឹក្សាភិបាល ដើម្បីប្រើផ្នែកខាងក្រោយទំហំផ្ទុកត្រឹមត្រូវ។ បន្ត?",
+    "after": "វានឹងអាប់ដេត URLs តំណាងសម្រាប់សមាជិកក្តារ ដើម្បីប្រើផ្នែកខាងក្រោយទំហំផ្ទុកត្រឹមត្រូវ។ បន្ត?",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "migration-progress-title",
+    "before": "ការផ្លាស់ប្តូរក្រុមប្រឹក្សាភិបាលកំពុងដំណើរការ",
+    "after": "ការផ្លាស់ប្តូរក្តារកំពុងដំណើរការ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "migration-progress-note",
+    "before": "សូមរង់ចាំខណៈពេលដែលយើងផ្លាស់ប្តូរក្រុមប្រឹក្សាភិបាលរបស់អ្នកទៅកាន់រចនាសម្ព័ន្ធចុងក្រោយបង្អស់...",
+    "after": "សូមរង់ចាំខណៈពេលដែលយើងផ្លាស់ប្តូរក្តាររបស់អ្នកទៅកាន់រចនាសម្ព័ន្ធចុងក្រោយបង្អស់...",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "step-scan-users",
+    "before": "កំពុងពិនិត្យមើលរូបតំណាងសមាជិកក្រុមប្រឹក្សាភិបាល",
+    "after": "កំពុងពិនិត្យមើលរូបតំណាងសមាជិកក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km",
+    "key": "wip-limit-group-select-swimlane",
+    "before": "ជ្រើសរើសក្រុមប្រឹក្សាភិបាល ផ្លូវហែលទឹក",
+    "after": "ជ្រើសរើសផ្លូវហែលទឹក",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "act-createList",
+    "before": "បានបន្ថែមបញ្ជី __list__ ទៅក្រុមប្រឹក្សាភិបាល __board__",
+    "after": "បានបន្ថែមបញ្ជី __list__ ទៅក្តារ __board__",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "act-createList",
+    "before": "បានបន្ថែមបញ្ជី __list__ ទៅក្រុមប្រឹក្សាភិបាល __board__",
+    "after": "បានបន្ថែមបញ្ជី __list__ ទៅក្តារ __board__",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "act-addBoardMember",
+    "before": "បានបន្ថែមសមាជិក __member__ ទៅក្រុមប្រឹក្សាភិបាល __board__",
+    "after": "បានបន្ថែមសមាជិក __member__ ទៅក្តារ __board__",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "act-addBoardMember",
+    "before": "បានបន្ថែមសមាជិក __member__ ទៅក្រុមប្រឹក្សាភិបាល __board__",
+    "after": "បានបន្ថែមសមាជិក __member__ ទៅក្តារ __board__",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "act-archivedBoard",
+    "before": "ក្រុមប្រឹក្សាភិបាល __board__ បានផ្លាស់ទីទៅបណ្ណសារ",
+    "after": "ក្តារ __board__ បានផ្លាស់ទីទៅបណ្ណសារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "act-archivedBoard",
+    "before": "ក្រុមប្រឹក្សាភិបាល __board__ បានផ្លាស់ទីទៅបណ្ណសារ",
+    "after": "ក្តារ __board__ បានផ្លាស់ទីទៅបណ្ណសារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "act-moveCardToOtherBoard",
+    "before": "បានផ្លាស់ប្តូរកាត __card__ ពីបញ្ជី __oldList__ នៅ swimlane __oldSwimlane__ នៅក្រុមប្រឹក្សាភិបាល __oldBoard__ ទៅបញ្ជី __list__ នៅ swimlane __swimlane__ នៅក្តារ __board__",
+    "after": "បានផ្លាស់ប្តូរកាត __card__ ពីបញ្ជី __oldList__ នៅ swimlane __oldSwimlane__ នៅក្តារ __oldBoard__ ទៅបញ្ជី __list__ នៅ swimlane __swimlane__ នៅក្តារ __board__",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "act-moveCardToOtherBoard",
+    "before": "បានផ្លាស់ប្តូរកាត __card__ ពីបញ្ជី __oldList__ នៅ swimlane __oldSwimlane__ នៅក្រុមប្រឹក្សាភិបាល __oldBoard__ ទៅបញ្ជី __list__ នៅ swimlane __swimlane__ នៅក្តារ __board__",
+    "after": "បានផ្លាស់ប្តូរកាត __card__ ពីបញ្ជី __oldList__ នៅ swimlane __oldSwimlane__ នៅក្តារ __oldBoard__ ទៅបញ្ជី __list__ នៅ swimlane __swimlane__ នៅក្តារ __board__",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "act-removeBoardMember",
+    "before": "បានដកសមាជិក __member__ ចេញពីក្រុមប្រឹក្សាភិបាល __board__",
+    "after": "បានដកសមាជិក __member__ ចេញពីក្តារ __board__",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "act-removeBoardMember",
+    "before": "បានដកសមាជិក __member__ ចេញពីក្រុមប្រឹក្សាភិបាល __board__",
+    "after": "បានដកសមាជិក __member__ ចេញពីក្តារ __board__",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "act-unjoinMember",
+    "before": "បានដកសមាជិក __member__ ចេញពីកាត __card__ នៅក្នុងបញ្ជី __list__ នៅ swimlane __swimlane__ នៅក្រុមប្រឹក្សាភិបាល __board__",
+    "after": "បានដកសមាជិក __member__ ចេញពីកាត __card__ នៅក្នុងបញ្ជី __list__ នៅ swimlane __swimlane__ នៅក្តារ __board__",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "act-unjoinMember",
+    "before": "បានដកសមាជិក __member__ ចេញពីកាត __card__ នៅក្នុងបញ្ជី __list__ នៅ swimlane __swimlane__ នៅក្រុមប្រឹក្សាភិបាល __board__",
+    "after": "បានដកសមាជិក __member__ ចេញពីកាត __card__ នៅក្នុងបញ្ជី __list__ នៅ swimlane __swimlane__ នៅក្តារ __board__",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "admin-desc",
+    "before": "អាចមើល និងកែសម្រួលកាត ដកសមាជិកចេញ និងផ្លាស់ប្តូរការកំណត់សម្រាប់ក្រុមប្រឹក្សាភិបាល។ អាចមើលសកម្មភាព។",
+    "after": "អាចមើល និងកែសម្រួលកាត ដកសមាជិកចេញ និងផ្លាស់ប្តូរការកំណត់សម្រាប់ក្តារ។ អាចមើលសកម្មភាព។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "admin-desc",
+    "before": "អាចមើល និងកែសម្រួលកាត ដកសមាជិកចេញ និងផ្លាស់ប្តូរការកំណត់សម្រាប់ក្រុមប្រឹក្សាភិបាល។ អាចមើលសកម្មភាព។",
+    "after": "អាចមើល និងកែសម្រួលកាត ដកសមាជិកចេញ និងផ្លាស់ប្តូរការកំណត់សម្រាប់ក្តារ។ អាចមើលសកម្មភាព។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "archiveBoardPopup-title",
+    "before": "ផ្លាស់ទីក្រុមប្រឹក្សាភិបាលទៅបណ្ណសារ?",
+    "after": "ផ្លាស់ទីក្តារទៅបណ្ណសារ?",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "archiveBoardPopup-title",
+    "before": "ផ្លាស់ទីក្រុមប្រឹក្សាភិបាលទៅបណ្ណសារ?",
+    "after": "ផ្លាស់ទីក្តារទៅបណ្ណសារ?",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "archived-boards",
+    "before": "ក្រុមប្រឹក្សាភិបាលនៅក្នុងប័ណ្ណសារ",
+    "after": "ក្តារនៅក្នុងប័ណ្ណសារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "archived-boards",
+    "before": "ក្រុមប្រឹក្សាភិបាលនៅក្នុងប័ណ្ណសារ",
+    "after": "ក្តារនៅក្នុងប័ណ្ណសារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "show-board_members-avatar",
+    "before": "បង្ហាញរូបតំណាងសមាជិកក្រុមប្រឹក្សាភិបាល",
+    "after": "បង្ហាញរូបតំណាងសមាជិកក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "show-board_members-avatar",
+    "before": "បង្ហាញរូបតំណាងសមាជិកក្រុមប្រឹក្សាភិបាល",
+    "after": "បង្ហាញរូបតំណាងសមាជិកក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "board_members",
+    "before": "សមាជិកក្រុមប្រឹក្សាភិបាលទាំងអស់។",
+    "after": "សមាជិកក្តារទាំងអស់។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "board_members",
+    "before": "សមាជិកក្រុមប្រឹក្សាភិបាលទាំងអស់។",
+    "after": "សមាជិកក្តារទាំងអស់។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "card_members",
+    "before": "សមាជិកទាំងអស់នៃកាតបច្ចុប្បន្ននៅក្រុមប្រឹក្សាភិបាលនេះ។",
+    "after": "សមាជិកទាំងអស់នៃកាតបច្ចុប្បន្ននៅក្តារនេះ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "card_members",
+    "before": "សមាជិកទាំងអស់នៃកាតបច្ចុប្បន្ននៅក្រុមប្រឹក្សាភិបាលនេះ។",
+    "after": "សមាជិកទាំងអស់នៃកាតបច្ចុប្បន្ននៅក្តារនេះ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "board_assignees",
+    "before": "អ្នកទទួលកាតទាំងអស់នៅក្រុមប្រឹក្សាភិបាលនេះ។",
+    "after": "អ្នកទទួលកាតទាំងអស់នៅក្តារនេះ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "board_assignees",
+    "before": "អ្នកទទួលកាតទាំងអស់នៅក្រុមប្រឹក្សាភិបាលនេះ។",
+    "after": "អ្នកទទួលកាតទាំងអស់នៅក្តារនេះ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "card_assignees",
+    "before": "អ្នកទទួលកាតបច្ចុប្បន្នទាំងអស់នៅក្រុមប្រឹក្សាភិបាលនេះ។",
+    "after": "អ្នកទទួលកាតបច្ចុប្បន្នទាំងអស់នៅក្តារនេះ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "card_assignees",
+    "before": "អ្នកទទួលកាតបច្ចុប្បន្នទាំងអស់នៅក្រុមប្រឹក្សាភិបាលនេះ។",
+    "after": "អ្នកទទួលកាតបច្ចុប្បន្នទាំងអស់នៅក្តារនេះ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "board-private-info",
+    "before": "ក្រុមប្រឹក្សាភិបាលនេះនឹងមាន <strong>private</strong> ។",
+    "after": "ក្តារនេះនឹងជា <strong>ឯកជន</strong>។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "board-private-info",
+    "before": "ក្រុមប្រឹក្សាភិបាលនេះនឹងមាន <strong>private</strong> ។",
+    "after": "ក្តារនេះនឹងជា <strong>ឯកជន</strong>។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "board-public-info",
+    "before": "ក្រុមប្រឹក្សាភិបាលនេះនឹងមាន <strong>public</strong> ។",
+    "after": "ក្តារនេះនឹងជា <strong>សាធារណៈ</strong>។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "board-public-info",
+    "before": "ក្រុមប្រឹក្សាភិបាលនេះនឹងមាន <strong>public</strong> ។",
+    "after": "ក្តារនេះនឹងជា <strong>សាធារណៈ</strong>។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "boardChangeTitlePopup-title",
+    "before": "ប្តូរឈ្មោះក្រុមប្រឹក្សាភិបាល",
+    "after": "ប្តូរឈ្មោះក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "boardChangeTitlePopup-title",
+    "before": "ប្តូរឈ្មោះក្រុមប្រឹក្សាភិបាល",
+    "after": "ប្តូរឈ្មោះក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "board-view-multiboard-cal",
+    "before": "ប្រតិទិន (ក្រុមប្រឹក្សាភិបាលទាំងអស់។)",
+    "after": "ប្រតិទិនសម្រាប់ក្តារច្រើន",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "board-view-multiboard-cal",
+    "before": "ប្រតិទិន (ក្រុមប្រឹក្សាភិបាលទាំងអស់។)",
+    "after": "ប្រតិទិនសម្រាប់ក្តារច្រើន",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "list-archive-suggest",
+    "before": "នៅពេលក្រោយ អ្នកអាចស្តារបញ្ជីឡើងវិញពីបណ្ណសារនៅក្នុងការកំណត់ក្រុមប្រឹក្សាភិបាល។",
+    "after": "នៅពេលក្រោយ អ្នកអាចស្តារបញ្ជីឡើងវិញពីបណ្ណសារនៅក្នុងការកំណត់ក្តារ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "list-archive-suggest",
+    "before": "នៅពេលក្រោយ អ្នកអាចស្តារបញ្ជីឡើងវិញពីបណ្ណសារនៅក្នុងការកំណត់ក្រុមប្រឹក្សាភិបាល។",
+    "after": "នៅពេលក្រោយ អ្នកអាចស្តារបញ្ជីឡើងវិញពីបណ្ណសារនៅក្នុងការកំណត់ក្តារ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "card-members-title",
+    "before": "បន្ថែម ឬដកសមាជិកក្រុមប្រឹក្សាភិបាលចេញពីកាត។",
+    "after": "បន្ថែម ឬដកសមាជិកក្តារចេញពីកាត។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "card-members-title",
+    "before": "បន្ថែម ឬដកសមាជិកក្រុមប្រឹក្សាភិបាលចេញពីកាត។",
+    "after": "បន្ថែម ឬដកសមាជិកក្តារចេញពីកាត។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "cardType-linkedBoard",
+    "before": "ក្រុមប្រឹក្សាភិបាលភ្ជាប់",
+    "after": "ក្តារភ្ជាប់",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "cardType-linkedBoard",
+    "before": "ក្រុមប្រឹក្សាភិបាលភ្ជាប់",
+    "after": "ក្តារភ្ជាប់",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "close-board",
+    "before": "បិទក្រុមប្រឹក្សាភិបាល",
+    "after": "បិទក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "close-board",
+    "before": "បិទក្រុមប្រឹក្សាភិបាល",
+    "after": "បិទក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "createBoardPopup-title",
+    "before": "បង្កើតក្រុមប្រឹក្សាភិបាល",
+    "after": "បង្កើតក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "createBoardPopup-title",
+    "before": "បង្កើតក្រុមប្រឹក្សាភិបាល",
+    "after": "បង្កើតក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "email-invite-text",
+    "before": "សូមគោរព __user__,\n\n__inviter__ អញ្ជើញអ្នកឱ្យចូលរួមក្រុមប្រឹក្សាភិបាល \"__board__\" សម្រាប់កិច្ចសហការ។\n\nសូមធ្វើតាមតំណខាងក្រោម៖\n\n__url__\n\nសូមអរគុណ។",
+    "after": "សូមគោរព __user__,\n\n__inviter__ អញ្ជើញអ្នកឱ្យចូលរួមក្តារ \"__board__\" សម្រាប់កិច្ចសហការ។\n\nសូមធ្វើតាមតំណខាងក្រោម៖\n\n__url__\n\nសូមអរគុណ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "email-invite-text",
+    "before": "សូមគោរព __user__,\n\n__inviter__ អញ្ជើញអ្នកឱ្យចូលរួមក្រុមប្រឹក្សាភិបាល \"__board__\" សម្រាប់កិច្ចសហការ។\n\nសូមធ្វើតាមតំណខាងក្រោម៖\n\n__url__\n\nសូមអរគុណ។",
+    "after": "សូមគោរព __user__,\n\n__inviter__ អញ្ជើញអ្នកឱ្យចូលរួមក្តារ \"__board__\" សម្រាប់កិច្ចសហការ។\n\nសូមធ្វើតាមតំណខាងក្រោម៖\n\n__url__\n\nសូមអរគុណ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "push-invite-text",
+    "before": "សូមគោរព __user__,\n\n__inviter__ អញ្ជើញអ្នកឱ្យចូលរួមក្រុមប្រឹក្សាភិបាល \"__board__\" សម្រាប់កិច្ចសហការ។\n\nសូមធ្វើតាមតំណខាងក្រោម៖\n\n__url__\n\nសូមអរគុណ។",
+    "after": "សូមគោរព __user__,\n\n__inviter__ អញ្ជើញអ្នកឱ្យចូលរួមក្តារ \"__board__\" សម្រាប់កិច្ចសហការ។\n\nសូមធ្វើតាមតំណខាងក្រោម៖\n\n__url__\n\nសូមអរគុណ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "push-invite-text",
+    "before": "សូមគោរព __user__,\n\n__inviter__ អញ្ជើញអ្នកឱ្យចូលរួមក្រុមប្រឹក្សាភិបាល \"__board__\" សម្រាប់កិច្ចសហការ។\n\nសូមធ្វើតាមតំណខាងក្រោម៖\n\n__url__\n\nសូមអរគុណ។",
+    "after": "សូមគោរព __user__,\n\n__inviter__ អញ្ជើញអ្នកឱ្យចូលរួមក្តារ \"__board__\" សម្រាប់កិច្ចសហការ។\n\nសូមធ្វើតាមតំណខាងក្រោម៖\n\n__url__\n\nសូមអរគុណ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "error-board-notAdmin",
+    "before": "អ្នក​ត្រូវ​ធ្វើ​ជា​អ្នក​គ្រប់គ្រង​ក្រុមប្រឹក្សាភិបាល​ដើម្បី​ធ្វើ​ដូច្នេះ",
+    "after": "អ្នក​ត្រូវ​ធ្វើ​ជា​អ្នក​គ្រប់គ្រង​ក្តារ​ដើម្បី​ធ្វើ​ដូច្នេះ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "error-board-notAdmin",
+    "before": "អ្នក​ត្រូវ​ធ្វើ​ជា​អ្នក​គ្រប់គ្រង​ក្រុមប្រឹក្សាភិបាល​ដើម្បី​ធ្វើ​ដូច្នេះ",
+    "after": "អ្នក​ត្រូវ​ធ្វើ​ជា​អ្នក​គ្រប់គ្រង​ក្តារ​ដើម្បី​ធ្វើ​ដូច្នេះ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "error-board-notAMember",
+    "before": "អ្នកត្រូវតែជាសមាជិកនៃក្រុមប្រឹក្សាភិបាលនេះដើម្បីធ្វើដូច្នេះបាន។",
+    "after": "អ្នកត្រូវតែជាសមាជិកនៃក្តារនេះដើម្បីធ្វើដូច្នេះបាន។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "error-board-notAMember",
+    "before": "អ្នកត្រូវតែជាសមាជិកនៃក្រុមប្រឹក្សាភិបាលនេះដើម្បីធ្វើដូច្នេះបាន។",
+    "after": "អ្នកត្រូវតែជាសមាជិកនៃក្តារនេះដើម្បីធ្វើដូច្នេះបាន។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "export-card-field-board-info",
+    "before": "ព័ត៌មានអំពីក្រុមប្រឹក្សាភិបាល (ក្តារ បញ្ជី ផ្លូវហែលទឹក)",
+    "after": "ព័ត៌មានអំពីក្តារ (ក្តារ បញ្ជី ផ្លូវហែលទឹក)",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "export-card-field-board-info",
+    "before": "ព័ត៌មានអំពីក្រុមប្រឹក្សាភិបាល (ក្តារ បញ្ជី ផ្លូវហែលទឹក)",
+    "after": "ព័ត៌មានអំពីក្តារ (ក្តារ បញ្ជី ផ្លូវហែលទឹក)",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "headerBarCreateBoardPopup-title",
+    "before": "បង្កើតក្រុមប្រឹក្សាភិបាល",
+    "after": "បង្កើតក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "headerBarCreateBoardPopup-title",
+    "before": "បង្កើតក្រុមប្រឹក្សាភិបាល",
+    "after": "បង្កើតក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "import-members-map",
+    "before": "ក្រុមប្រឹក្សាភិបាលដែលបាននាំចូលរបស់អ្នកមានសមាជិកមួយចំនួន។ សូមគូសផែនទីសមាជិកដែលអ្នកចង់នាំចូលទៅអ្នកប្រើប្រាស់របស់អ្នក។",
+    "after": "ក្តារដែលបាននាំចូលរបស់អ្នកមានសមាជិកមួយចំនួន។ សូមគូសផែនទីសមាជិកដែលអ្នកចង់នាំចូលទៅអ្នកប្រើប្រាស់របស់អ្នក។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "import-members-map",
+    "before": "ក្រុមប្រឹក្សាភិបាលដែលបាននាំចូលរបស់អ្នកមានសមាជិកមួយចំនួន។ សូមគូសផែនទីសមាជិកដែលអ្នកចង់នាំចូលទៅអ្នកប្រើប្រាស់របស់អ្នក។",
+    "after": "ក្តារដែលបាននាំចូលរបស់អ្នកមានសមាជិកមួយចំនួន។ សូមគូសផែនទីសមាជិកដែលអ្នកចង់នាំចូលទៅអ្នកប្រើប្រាស់របស់អ្នក។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "just-invited",
+    "before": "អ្នកទើបតែត្រូវបានអញ្ជើញឱ្យចូលរួមក្នុងក្រុមប្រឹក្សាភិបាលនេះ។",
+    "after": "អ្នកទើបតែត្រូវបានអញ្ជើញឱ្យចូលរួមក្នុងក្តារនេះ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "just-invited",
+    "before": "អ្នកទើបតែត្រូវបានអញ្ជើញឱ្យចូលរួមក្នុងក្រុមប្រឹក្សាភិបាលនេះ។",
+    "after": "អ្នកទើបតែត្រូវបានអញ្ជើញឱ្យចូលរួមក្នុងក្តារនេះ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "leave-board",
+    "before": "ចាកចេញពីក្រុមប្រឹក្សាភិបាល",
+    "after": "ចាកចេញពីក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "leave-board",
+    "before": "ចាកចេញពីក្រុមប្រឹក្សាភិបាល",
+    "after": "ចាកចេញពីក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "linkCardToNewBoard",
+    "before": "បង្កើតក្រុមប្រឹក្សាភិបាល (កាត)",
+    "after": "បង្កើតក្តារ (កាត)",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "linkCardToNewBoard",
+    "before": "បង្កើតក្រុមប្រឹក្សាភិបាល (កាត)",
+    "after": "បង្កើតក្តារ (កាត)",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "muted-info",
+    "before": "អ្នកនឹងមិនត្រូវបានគេជូនដំណឹងអំពីការផ្លាស់ប្តូរណាមួយនៅក្នុងក្រុមប្រឹក្សាភិបាលនេះទេ។",
+    "after": "អ្នកនឹងមិនត្រូវបានគេជូនដំណឹងអំពីការផ្លាស់ប្តូរណាមួយនៅក្នុងក្តារនេះទេ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "muted-info",
+    "before": "អ្នកនឹងមិនត្រូវបានគេជូនដំណឹងអំពីការផ្លាស់ប្តូរណាមួយនៅក្នុងក្រុមប្រឹក្សាភិបាលនេះទេ។",
+    "after": "អ្នកនឹងមិនត្រូវបានគេជូនដំណឹងអំពីការផ្លាស់ប្តូរណាមួយនៅក្នុងក្តារនេះទេ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "my-boards",
+    "before": "ក្រុមប្រឹក្សាភិបាលរបស់ខ្ញុំ",
+    "after": "ក្តាររបស់ខ្ញុំ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "my-boards",
+    "before": "ក្រុមប្រឹក្សាភិបាលរបស់ខ្ញុំ",
+    "after": "ក្តាររបស់ខ្ញុំ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "rename-board",
+    "before": "ប្តូរឈ្មោះក្រុមប្រឹក្សាភិបាល",
+    "after": "ប្តូរឈ្មោះក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "rename-board",
+    "before": "ប្តូរឈ្មោះក្រុមប្រឹក្សាភិបាល",
+    "after": "ប្តូរឈ្មោះក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "select-board",
+    "before": "ជ្រើសរើសក្រុមប្រឹក្សាភិបាល",
+    "after": "ជ្រើសរើសក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "select-board",
+    "before": "ជ្រើសរើសក្រុមប្រឹក្សាភិបាល",
+    "after": "ជ្រើសរើសក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "this-board",
+    "before": "ក្រុមប្រឹក្សាភិបាលនេះ។",
+    "after": "ក្តារនេះ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "this-board",
+    "before": "ក្រុមប្រឹក្សាភិបាលនេះ។",
+    "after": "ក្តារនេះ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "go-to-board",
+    "before": "ទៅក្រុមប្រឹក្សាភិបាល",
+    "after": "ទៅក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "go-to-board",
+    "before": "ទៅក្រុមប្រឹក្សាភិបាល",
+    "after": "ទៅក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "watching-info",
+    "before": "អ្នកនឹងត្រូវបានជូនដំណឹងអំពីការផ្លាស់ប្តូរណាមួយនៅក្នុងក្រុមប្រឹក្សាភិបាលនេះ។",
+    "after": "អ្នកនឹងត្រូវបានជូនដំណឹងអំពីការផ្លាស់ប្តូរណាមួយនៅក្នុងក្តារនេះ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "watching-info",
+    "before": "អ្នកនឹងត្រូវបានជូនដំណឹងអំពីការផ្លាស់ប្តូរណាមួយនៅក្នុងក្រុមប្រឹក្សាភិបាលនេះ។",
+    "after": "អ្នកនឹងត្រូវបានជូនដំណឹងអំពីការផ្លាស់ប្តូរណាមួយនៅក្នុងក្តារនេះ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "email-invite-register-text",
+    "before": "សូមគោរព __user__,\n\n__inviter__ អញ្ជើញអ្នកទៅកាន់ក្រុមប្រឹក្សាភិបាល kanban សម្រាប់កិច្ចសហការ។\n\nសូមធ្វើតាមតំណខាងក្រោម៖\n__url__\n\nហើយលេខកូដអញ្ជើញរបស់អ្នកគឺ៖ __icode__\n\nសូមអរគុណ។",
+    "after": "សូមគោរព __user__,\n\n__inviter__ អញ្ជើញអ្នកទៅកាន់ក្តារ kanban សម្រាប់កិច្ចសហការ។\n\nសូមធ្វើតាមតំណខាងក្រោម៖\n__url__\n\nហើយលេខកូដអញ្ជើញរបស់អ្នកគឺ៖ __icode__\n\nសូមអរគុណ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "email-invite-register-text",
+    "before": "សូមគោរព __user__,\n\n__inviter__ អញ្ជើញអ្នកទៅកាន់ក្រុមប្រឹក្សាភិបាល kanban សម្រាប់កិច្ចសហការ។\n\nសូមធ្វើតាមតំណខាងក្រោម៖\n__url__\n\nហើយលេខកូដអញ្ជើញរបស់អ្នកគឺ៖ __icode__\n\nសូមអរគុណ។",
+    "after": "សូមគោរព __user__,\n\n__inviter__ អញ្ជើញអ្នកទៅកាន់ក្តារ kanban សម្រាប់កិច្ចសហការ។\n\nសូមធ្វើតាមតំណខាងក្រោម៖\n__url__\n\nហើយលេខកូដអញ្ជើញរបស់អ្នកគឺ៖ __icode__\n\nសូមអរគុណ។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "boardDeletePopup-title",
+    "before": "លុបក្រុមប្រឹក្សាភិបាល?",
+    "after": "លុបក្តារ?",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "boardDeletePopup-title",
+    "before": "លុបក្រុមប្រឹក្សាភិបាល?",
+    "after": "លុបក្តារ?",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "default-subtasks-board",
+    "before": "កិច្ចការរងសម្រាប់ក្រុមប្រឹក្សាភិបាល __board__",
+    "after": "កិច្ចការរងសម្រាប់ក្តារ __board__",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "default-subtasks-board",
+    "before": "កិច្ចការរងសម្រាប់ក្រុមប្រឹក្សាភិបាល __board__",
+    "after": "កិច្ចការរងសម្រាប់ក្តារ __board__",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "deposit-subtasks-board",
+    "before": "ដាក់​ប្រាក់​ភារកិច្ច​រង​ទៅ​ក្រុមប្រឹក្សាភិបាល​នេះ៖",
+    "after": "ដាក់កិច្ចការរងទៅក្តារនេះ៖",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "deposit-subtasks-board",
+    "before": "ដាក់​ប្រាក់​ភារកិច្ច​រង​ទៅ​ក្រុមប្រឹក្សាភិបាល​នេះ៖",
+    "after": "ដាក់កិច្ចការរងទៅក្តារនេះ៖",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "r-board-rules",
+    "before": "ច្បាប់នៃក្រុមប្រឹក្សាភិបាល",
+    "after": "ច្បាប់នៃក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "r-board-rules",
+    "before": "ច្បាប់នៃក្រុមប្រឹក្សាភិបាល",
+    "after": "ច្បាប់នៃក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "r-the-board",
+    "before": "ក្រុមប្រឹក្សាភិបាល",
+    "after": "ក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "r-the-board",
+    "before": "ក្រុមប្រឹក្សាភិបាល",
+    "after": "ក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "myCardsSortChange-choice-board",
+    "before": "ដោយក្រុមប្រឹក្សាភិបាល",
+    "after": "ដោយក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "myCardsSortChange-choice-board",
+    "before": "ដោយក្រុមប្រឹក្សាភិបាល",
+    "after": "ដោយក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "globalSearch-title",
+    "before": "ស្វែងរកក្រុមប្រឹក្សាភិបាលទាំងអស់។",
+    "after": "ស្វែងរកក្តារទាំងអស់។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "globalSearch-title",
+    "before": "ស្វែងរកក្រុមប្រឹក្សាភិបាលទាំងអស់។",
+    "after": "ស្វែងរកក្តារទាំងអស់។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "globalSearch-instructions-operator-org",
+    "before": "`__operator_org__:<display name|short name>` - ​​កាតដែលជាកម្មសិទ្ធិរបស់ក្រុមប្រឹក្សាភិបាលដែលត្រូវបានប្រគល់ឱ្យអង្គការ *<name>*",
+    "after": "`__operator_org__:<display name|short name>` - ​​កាតដែលជាកម្មសិទ្ធិរបស់ក្តារដែលត្រូវបានប្រគល់ឱ្យអង្គការ *<name>*",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "globalSearch-instructions-operator-org",
+    "before": "`__operator_org__:<display name|short name>` - ​​កាតដែលជាកម្មសិទ្ធិរបស់ក្រុមប្រឹក្សាភិបាលដែលត្រូវបានប្រគល់ឱ្យអង្គការ *<name>*",
+    "after": "`__operator_org__:<display name|short name>` - ​​កាតដែលជាកម្មសិទ្ធិរបស់ក្តារដែលត្រូវបានប្រគល់ឱ្យអង្គការ *<name>*",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "globalSearch-instructions-operator-team",
+    "before": "`__operator_team__:<display name|short name>` - ​​កាតដែលជាកម្មសិទ្ធិរបស់ក្រុមប្រឹក្សាភិបាលដែលត្រូវបានចាត់តាំងឱ្យក្រុម *<name>*",
+    "after": "`__operator_team__:<display name|short name>` - ​​កាតដែលជាកម្មសិទ្ធិរបស់ក្តារដែលត្រូវបានចាត់តាំងឱ្យក្រុម *<name>*",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "globalSearch-instructions-operator-team",
+    "before": "`__operator_team__:<display name|short name>` - ​​កាតដែលជាកម្មសិទ្ធិរបស់ក្រុមប្រឹក្សាភិបាលដែលត្រូវបានចាត់តាំងឱ្យក្រុម *<name>*",
+    "after": "`__operator_team__:<display name|short name>` - ​​កាតដែលជាកម្មសិទ្ធិរបស់ក្តារដែលត្រូវបានចាត់តាំងឱ្យក្រុម *<name>*",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "remove-organization-from-board",
+    "before": "តើ​អ្នក​ប្រាកដ​ជា​ចង់​ដក​ស្ថាប័ន​នេះ​ចេញ​ពី​ក្រុមប្រឹក្សាភិបាល​នេះ​ឬ?",
+    "after": "តើ​អ្នក​ប្រាកដ​ជា​ចង់​ដក​ស្ថាប័ន​នេះ​ចេញ​ពី​ក្តារ​នេះ​ឬ?",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "remove-organization-from-board",
+    "before": "តើ​អ្នក​ប្រាកដ​ជា​ចង់​ដក​ស្ថាប័ន​នេះ​ចេញ​ពី​ក្រុមប្រឹក្សាភិបាល​នេះ​ឬ?",
+    "after": "តើ​អ្នក​ប្រាកដ​ជា​ចង់​ដក​ស្ថាប័ន​នេះ​ចេញ​ពី​ក្តារ​នេះ​ឬ?",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "board-id",
+    "before": "លេខសម្គាល់ក្រុមប្រឹក្សាភិបាល",
+    "after": "លេខសម្គាល់ក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "board-id",
+    "before": "លេខសម្គាល់ក្រុមប្រឹក្សាភិបាល",
+    "after": "លេខសម្គាល់ក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "board-title",
+    "before": "ចំណងជើងក្រុមប្រឹក្សាភិបាល",
+    "after": "ចំណងជើងក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "board-title",
+    "before": "ចំណងជើងក្រុមប្រឹក្សាភិបាល",
+    "after": "ចំណងជើងក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "import-board-zip",
+    "before": "បន្ថែមឯកសារ .zip ដែលមានឯកសារ JSON របស់ក្រុមប្រឹក្សាភិបាល និងថតរងឈ្មោះក្តារដែលមានឯកសារភ្ជាប់",
+    "after": "បន្ថែមឯកសារ .zip ដែលមានឯកសារ JSON របស់ក្តារ និងថតរងឈ្មោះក្តារដែលមានឯកសារភ្ជាប់",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "import-board-zip",
+    "before": "បន្ថែមឯកសារ .zip ដែលមានឯកសារ JSON របស់ក្រុមប្រឹក្សាភិបាល និងថតរងឈ្មោះក្តារដែលមានឯកសារភ្ជាប់",
+    "after": "បន្ថែមឯកសារ .zip ដែលមានឯកសារ JSON របស់ក្តារ និងថតរងឈ្មោះក្តារដែលមានឯកសារភ្ជាប់",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "board-archive-scheduled",
+    "before": "ប័ណ្ណសារក្រុមប្រឹក្សាភិបាលបានកំណត់ពេលដោយជោគជ័យ",
+    "after": "ប័ណ្ណសារក្តារបានកំណត់ពេលដោយជោគជ័យ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "board-archive-scheduled",
+    "before": "ប័ណ្ណសារក្រុមប្រឹក្សាភិបាលបានកំណត់ពេលដោយជោគជ័យ",
+    "after": "ប័ណ្ណសារក្តារបានកំណត់ពេលដោយជោគជ័យ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "board-operations",
+    "before": "ប្រតិបត្តិការក្រុមប្រឹក្សាភិបាល",
+    "after": "ប្រតិបត្តិការក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "board-operations",
+    "before": "ប្រតិបត្តិការក្រុមប្រឹក្សាភិបាល",
+    "after": "ប្រតិបត្តិការក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "scheduled-board-operations",
+    "before": "ប្រតិបត្តិការក្រុមប្រឹក្សាភិបាលដែលបានគ្រោងទុក",
+    "after": "ប្រតិបត្តិការក្តារដែលបានគ្រោងទុក",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "scheduled-board-operations",
+    "before": "ប្រតិបត្តិការក្រុមប្រឹក្សាភិបាលដែលបានគ្រោងទុក",
+    "after": "ប្រតិបត្តិការក្តារដែលបានគ្រោងទុក",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "board-migration",
+    "before": "ការផ្លាស់ប្តូរក្រុមប្រឹក្សាភិបាល",
+    "after": "ការផ្លាស់ប្តូរក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "board-migration",
+    "before": "ការផ្លាស់ប្តូរក្រុមប្រឹក្សាភិបាល",
+    "after": "ការផ្លាស់ប្តូរក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "board-migrations",
+    "before": "ការផ្លាស់ប្តូរក្រុមប្រឹក្សាភិបាល",
+    "after": "ការផ្លាស់ប្តូរក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "board-migrations",
+    "before": "ការផ្លាស់ប្តូរក្រុមប្រឹក្សាភិបាល",
+    "after": "ការផ្លាស់ប្តូរក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "comprehensive-board-migration",
+    "before": "ការផ្លាស់ប្តូរក្រុមប្រឹក្សាភិបាលដ៏ទូលំទូលាយ",
+    "after": "ការផ្លាស់ប្តូរក្តារដ៏ទូលំទូលាយ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "comprehensive-board-migration",
+    "before": "ការផ្លាស់ប្តូរក្រុមប្រឹក្សាភិបាលដ៏ទូលំទូលាយ",
+    "after": "ការផ្លាស់ប្តូរក្តារដ៏ទូលំទូលាយ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "comprehensive-board-migration-description",
+    "before": "អនុវត្តការត្រួតពិនិត្យ និងជួសជុលយ៉ាងទូលំទូលាយសម្រាប់ភាពត្រឹមត្រូវនៃទិន្នន័យរបស់ក្រុមប្រឹក្សាភិបាល រួមទាំងការបញ្ជាទិញបញ្ជី ទីតាំងកាត និងរចនាសម្ព័ន្ធផ្លូវហែលទឹក។",
+    "after": "អនុវត្តការត្រួតពិនិត្យ និងជួសជុលយ៉ាងទូលំទូលាយសម្រាប់ភាពត្រឹមត្រូវនៃទិន្នន័យរបស់ក្តារ រួមទាំងលំដាប់បញ្ជី ទីតាំងកាត និងរចនាសម្ព័ន្ធផ្លូវហែលទឹក។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "comprehensive-board-migration-description",
+    "before": "អនុវត្តការត្រួតពិនិត្យ និងជួសជុលយ៉ាងទូលំទូលាយសម្រាប់ភាពត្រឹមត្រូវនៃទិន្នន័យរបស់ក្រុមប្រឹក្សាភិបាល រួមទាំងការបញ្ជាទិញបញ្ជី ទីតាំងកាត និងរចនាសម្ព័ន្ធផ្លូវហែលទឹក។",
+    "after": "អនុវត្តការត្រួតពិនិត្យ និងជួសជុលយ៉ាងទូលំទូលាយសម្រាប់ភាពត្រឹមត្រូវនៃទិន្នន័យរបស់ក្តារ រួមទាំងលំដាប់បញ្ជី ទីតាំងកាត និងរចនាសម្ព័ន្ធផ្លូវហែលទឹក។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "fix-avatar-urls-migration-description",
+    "before": "អាប់ដេត URLs តំណាងសម្រាប់សមាជិកក្រុមប្រឹក្សាភិបាល ដើម្បីប្រើផ្នែកខាងក្រោយទំហំផ្ទុកត្រឹមត្រូវ និងជួសជុលឯកសារយោងដែលខូច។",
+    "after": "អាប់ដេត URLs តំណាងសម្រាប់សមាជិកក្តារ ដើម្បីប្រើផ្នែកខាងក្រោយទំហំផ្ទុកត្រឹមត្រូវ និងជួសជុលឯកសារយោងដែលខូច។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "fix-avatar-urls-migration-description",
+    "before": "អាប់ដេត URLs តំណាងសម្រាប់សមាជិកក្រុមប្រឹក្សាភិបាល ដើម្បីប្រើផ្នែកខាងក្រោយទំហំផ្ទុកត្រឹមត្រូវ និងជួសជុលឯកសារយោងដែលខូច។",
+    "after": "អាប់ដេត URLs តំណាងសម្រាប់សមាជិកក្តារ ដើម្បីប្រើផ្នែកខាងក្រោយទំហំផ្ទុកត្រឹមត្រូវ និងជួសជុលឯកសារយោងដែលខូច។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "migrations-admin-only",
+    "before": "មានតែអ្នកគ្រប់គ្រងក្រុមប្រឹក្សាភិបាលប៉ុណ្ណោះដែលអាចដំណើរការការផ្លាស់ប្តូរ",
+    "after": "មានតែអ្នកគ្រប់គ្រងក្តារប៉ុណ្ណោះដែលអាចដំណើរការការផ្លាស់ប្តូរ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "migrations-admin-only",
+    "before": "មានតែអ្នកគ្រប់គ្រងក្រុមប្រឹក្សាភិបាលប៉ុណ្ណោះដែលអាចដំណើរការការផ្លាស់ប្តូរ",
+    "after": "មានតែអ្នកគ្រប់គ្រងក្តារប៉ុណ្ណោះដែលអាចដំណើរការការផ្លាស់ប្តូរ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "migrations-description",
+    "before": "ដំណើរការការត្រួតពិនិត្យ និងជួសជុលទិន្នន័យសម្រាប់ក្រុមប្រឹក្សាភិបាលនេះ។ ការធ្វើចំណាកស្រុកនីមួយៗអាចត្រូវបានអនុវត្តជាលក្ខណៈបុគ្គល។",
+    "after": "ដំណើរការការត្រួតពិនិត្យ និងជួសជុលទិន្នន័យសម្រាប់ក្តារនេះ។ ការធ្វើចំណាកស្រុកនីមួយៗអាចត្រូវបានអនុវត្តជាលក្ខណៈបុគ្គល។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "migrations-description",
+    "before": "ដំណើរការការត្រួតពិនិត្យ និងជួសជុលទិន្នន័យសម្រាប់ក្រុមប្រឹក្សាភិបាលនេះ។ ការធ្វើចំណាកស្រុកនីមួយៗអាចត្រូវបានអនុវត្តជាលក្ខណៈបុគ្គល។",
+    "after": "ដំណើរការការត្រួតពិនិត្យ និងជួសជុលទិន្នន័យសម្រាប់ក្តារនេះ។ ការធ្វើចំណាកស្រុកនីមួយៗអាចត្រូវបានអនុវត្តជាលក្ខណៈបុគ្គល។",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "វានឹងអាប់ដេត URLs តំណាងសម្រាប់សមាជិកក្រុមប្រឹក្សាភិបាល ដើម្បីប្រើផ្នែកខាងក្រោយទំហំផ្ទុកត្រឹមត្រូវ។ បន្ត?",
+    "after": "វានឹងអាប់ដេត URLs តំណាងសម្រាប់សមាជិកក្តារ ដើម្បីប្រើផ្នែកខាងក្រោយទំហំផ្ទុកត្រឹមត្រូវ។ បន្ត?",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "វានឹងអាប់ដេត URLs តំណាងសម្រាប់សមាជិកក្រុមប្រឹក្សាភិបាល ដើម្បីប្រើផ្នែកខាងក្រោយទំហំផ្ទុកត្រឹមត្រូវ។ បន្ត?",
+    "after": "វានឹងអាប់ដេត URLs តំណាងសម្រាប់សមាជិកក្តារ ដើម្បីប្រើផ្នែកខាងក្រោយទំហំផ្ទុកត្រឹមត្រូវ។ បន្ត?",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "migration-progress-title",
+    "before": "ការផ្លាស់ប្តូរក្រុមប្រឹក្សាភិបាលកំពុងដំណើរការ",
+    "after": "ការផ្លាស់ប្តូរក្តារកំពុងដំណើរការ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "migration-progress-title",
+    "before": "ការផ្លាស់ប្តូរក្រុមប្រឹក្សាភិបាលកំពុងដំណើរការ",
+    "after": "ការផ្លាស់ប្តូរក្តារកំពុងដំណើរការ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "migration-progress-note",
+    "before": "សូមរង់ចាំខណៈពេលដែលយើងផ្លាស់ប្តូរក្រុមប្រឹក្សាភិបាលរបស់អ្នកទៅកាន់រចនាសម្ព័ន្ធចុងក្រោយបង្អស់...",
+    "after": "សូមរង់ចាំខណៈពេលដែលយើងផ្លាស់ប្តូរក្តាររបស់អ្នកទៅកាន់រចនាសម្ព័ន្ធចុងក្រោយបង្អស់...",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "migration-progress-note",
+    "before": "សូមរង់ចាំខណៈពេលដែលយើងផ្លាស់ប្តូរក្រុមប្រឹក្សាភិបាលរបស់អ្នកទៅកាន់រចនាសម្ព័ន្ធចុងក្រោយបង្អស់...",
+    "after": "សូមរង់ចាំខណៈពេលដែលយើងផ្លាស់ប្តូរក្តាររបស់អ្នកទៅកាន់រចនាសម្ព័ន្ធចុងក្រោយបង្អស់...",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "step-scan-users",
+    "before": "កំពុងពិនិត្យមើលរូបតំណាងសមាជិកក្រុមប្រឹក្សាភិបាល",
+    "after": "កំពុងពិនិត្យមើលរូបតំណាងសមាជិកក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "step-scan-users",
+    "before": "កំពុងពិនិត្យមើលរូបតំណាងសមាជិកក្រុមប្រឹក្សាភិបាល",
+    "after": "កំពុងពិនិត្យមើលរូបតំណាងសមាជិកក្តារ",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km_KH",
+    "key": "wip-limit-group-select-swimlane",
+    "before": "ជ្រើសរើសក្រុមប្រឹក្សាភិបាល ផ្លូវហែលទឹក",
+    "after": "ជ្រើសរើសផ្លូវហែលទឹក",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
+  },
+  {
+    "locale": "km-KH",
+    "key": "wip-limit-group-select-swimlane",
+    "before": "ជ្រើសរើសក្រុមប្រឹក្សាភិបាល ផ្លូវហែលទឹក",
+    "after": "ជ្រើសរើសផ្លូវហែលទឹក",
+    "reason": "2026-09-14: Review against English confirms Kanban board rather than governing council; replace ក្រុមប្រឹក្សាភិបាល with established ក្តារ and retain surrounding correct Khmer prose/tokens. Also correct misplaced board in swimlane choice, financial deposit sense, list ordering/purchase sense, multi-board calendar wording and translate visibility terms with existing private/public labels. Full technical compounds remain under review."
   }
 ]
