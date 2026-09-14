@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,561 |
-| Restored pre-pull; awaiting validation | 1,798 |
-| Reviewed; retained unchanged | 2,414 |
+| Restored pre-pull; awaiting validation | 1,773 |
+| Reviewed; retained unchanged | 2,439 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -18,11 +18,11 @@ source references, confidence limits and archived progress notes.
 Latest translation fix: **2026-09-14**, local commit `316232f69` —
 preserved literal Trello navigation labels in Galician import help and
 retained 29 correct template, invitation, export and filter values. All
-**18,157** correction and **2,414** review records pass. Three Esperanto
+**18,157** correction and **2,439** review records pass. Three Esperanto
 restored findings remain: lime color and two Complete labels. Broader
 language and browser verification remain open; nothing pushed.
-Latest unchanged review: **2026-09-14**, commit `e74cc6464` — retained
-25 correct Galician visibility, invitation and deletion-warning values.
+Latest unchanged review: **2026-09-14**, commit `edea4b20e` — retained
+25 correct Galician card settings, parent relationships and automation values.
 
 
 Fixed categories include wrong-language prose, terminology, warnings,

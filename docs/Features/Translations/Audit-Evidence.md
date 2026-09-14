@@ -21966,3 +21966,15 @@ new/all-card scope, invitation placeholders and no-undo warnings remain
 explicit. Duplicate-list deletion retains same-name AND empty conditions.
 All 2,414 reviews pass; 1,798 restored values and 308 pending findings plus
 broader language/browser verification remain open.
+
+
+### 2026-09-14 — Galician card settings and automation review
+
+Local commit `edea4b20e` retains 25 directly reviewed values unchanged.
+Card/minicard settings preserve parent relationships, subtask destinations,
+attachment counts and source-board meaning. Activity verbs retain exact
+percent placeholders; automation controls preserve add-action/add-trigger
+and move-all scope. Review ledger checks pass.
+Tracked status: 15,561 corrected, 1,773 restored awaiting validation,
+2,439 reviewed unchanged and 308 pending. Broader language, uncertain
+terminology and browser verification remain open; nothing pushed.
