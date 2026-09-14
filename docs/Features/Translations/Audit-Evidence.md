@@ -28328,3 +28328,31 @@ review. No translation, ledger or count change: pending 176 (zgh 81),
 restored 4, ledger 19,838. This source review establishes the boundary
 constraint for the next wording repair; no live date-search UI ran.
 No remote writes.
+
+
+## Import mapping and check-verb spelling — 2026-09-15
+
+Local commit `4a2821835` replaces French import-show-user-mapping with
+check the members' mapping/connection. IRCAM cached page 523 entry 9864
+ssided (ⵙⵙⵉⴷⴻⴷ) means check; immediately preceding 9863 ssidd
+(ⵙⵙⵉⴷⴷ) means light. They must not be treated as interchangeable.
+Page 275 entry 5391 azday means link/connection. Existing members noun
+is reused. Source:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+**Low confidence:** connection adapted to imported-member mapping and
+complete ownership grammar remain under native contextual review. No
+current client reference to this legacy import-show-user-mapping key was
+found in the source search; no live UI claim is made.
+
+The check/light distinction also invalidates treating the older checklist
+compound's ssidd spelling alone as attested check terminology. Existing
+checklist compounds remain under review and require a separate noun and
+software-compound repair; do not mechanically replace all occurrences of
+the lighting verb or invent a noun from a verb. This extends the broader
+uncertain review beyond the original flagged queue.
+
+Four focused suites pass for exact review label, negative French/Arabic
+and wrong check-verb spelling, placeholders, ledger, retained reviews and
+completeness. Ledger 19,839; original corrected 15,728, pending 175 (zgh
+80), restored 4 unchanged. No live UI test ran. No remote writes.

@@ -638,7 +638,8 @@ the Markdown commit as the template.
 
 **In short:** Tamazight rule, shortcut and warning text replaces wrong-language
 values. Rule labels retain state and action distinctions; deletion warnings
-retain irreversibility and affected content. Import, PDF and administrator
+retain irreversibility and affected content. Import mapping text uses the
+attested check verb. Import, PDF and administrator
 messages preserve their conditions and alternatives. Filename warnings retain
 cancellation of upload or renaming. Watch text covers boards
 and cards. Search help clarifies case-insensitive matching. Regression checks
@@ -764,6 +765,17 @@ Replace Arabic warning, preserving invalid filename condition and cancelled
 upload or renaming. Four focused suites pass for operation scope, negative
 wrong-language checks and translation structure. Full contextual grammar
 remains under native review. Dated audit records 176 pending findings.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4a2821835">Repair Tamazight import member mapping label</a>. Thanks to xet7.</summary>
+
+Replace French mapping-review label using the attested check verb, distinct
+from the similar spelling for light. Four focused suites pass for exact
+wording, negative wrong-language checks and translation structure. Mapping
+compound remains under native review. Dated audit records 175 pending
+findings and the need to recheck older checklist compounds.
 
 </details>
 
