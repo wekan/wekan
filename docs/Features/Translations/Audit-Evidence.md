@@ -28156,3 +28156,29 @@ placeholders, ledger, retained reviews and completeness. No live UI or
 runtime import test ran. Ledger 19,834; original corrected 15,724, pending
 179 (zgh 84), restored 4 unchanged. Broader review remains open.
 No remote writes.
+
+
+## JSON-schema warning source review — 2026-09-15
+
+The remaining error-json-schema value is French. Actual current caller:
+server/notifications/watch.js throws this key when watchableType is neither
+board, list nor card. The source string refers to JSON data and proper
+information in the correct format, but this caller is not an import parser.
+Future translation or UI verification must not claim an import failure was
+reproduced solely from this reference. No application behavior was changed.
+
+Cached IRCAM lexical entries support isfka (data), page 395 entry 7505;
+anɣmis/inɣmisn (information), page 184 entry 3457; kn (be correct), page
+334 entry 6406. Existing r-workflow-format uses amasal, but a bounded search
+of the cached lexical pages found no entry containing that spelling. This
+is not proof the term is wrong or absent elsewhere, and does not establish
+its suitability for a serialization format. Source:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+**Still open:** complete correct-format terminology, proper-information
+qualifier, containment construction and contextual grammar. Do not mark
+this value reviewed-correct or reuse the unverified format term as lexical
+proof. No locale/ledger/count change: pending 179 (zgh 84), ledger 19,834,
+restored 4. This review changes the next action to verifying serialization
+format terminology and testing the actual invalid watch-type path, rather
+than attributing this caller to import. No remote writes.

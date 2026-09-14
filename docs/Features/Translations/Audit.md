@@ -30,10 +30,11 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Wolaytta dictionary verification](Tigre-Wolaytta-Calendar-Review.md)
-finds 207 empty target cells on the advertised B page, confirmed in actual
-HTML. Its English headings cannot justify native Buddhist terminology.
-The label remains open; no locale values or counts changed.
+[Tamazight JSON-schema warning](Tamazight-Review.md) is thrown for invalid
+watch target types in current source, not an import-parser failure. Data
+and information components are supported; complete format terminology is
+still unverified. The French value remains open; no counts changed.
+Earlier Wolaytta dictionary findings remain in the detailed evidence.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:
