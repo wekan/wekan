@@ -123401,5 +123401,19 @@
     "before": "الحد الأقصى لحجم الملف المرفوع بالبايت:",
     "after": "ⴰⵣⴰⵍ ⴰⴼⵍⵍⴰⵢ ⵏ ⵜⵉⴷⴷⵉ ⵏ ⵓⴼⴰⵢⵍⵓ ⵏ ⵓⵙⴽⵜⵔ (ⵙ ⵓⴱⴰⵢⵜ):",
     "reason": "Replace Arabic maximum file-size label, preserving maximum value, file size, byte unit, avatar/upload scope and trailing colon. CNAM computing lexicon maximum-element sorting gives wazal afellay MAT: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf PDF page 147/printed 143. Native MediaWiki file-info-size attests tiddi n ufaylu and pageinfo-length supplies s ubayt/in bytes; upload root sktr is in logentry-upload-upload: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Retain local avatar term timerghiwin. LOW CONFIDENCE math maximum-value-to-setting adaptation, derived upload noun usktr, avatar spelling and full possessive construction require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "open-many-cards-at-once",
+    "before": "فتح عدة بطاقات في وقت واحد",
+    "after": "ⵔⵥⵎ ⵎⵏⵏⴰⵡ ⵏ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴳ ⵢⴰⵜ ⵜⴽⴽⵍⵉⵜ",
+    "reason": "Replace Arabic Open action or multiple-card opening label; preserve imperative open and, for bulk action, many cards in one operation. Native MediaWiki newwindow attests open root rzm with emphatic z, badtitletext attests mnnaw/many, and viewcount attests yat tkklit/one time: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Retain local cards Tikarḍiwin through Tifinagh transcription. LOW CONFIDENCE transitive imperative adaptation from intransitive future innurzm, plural spelling and at-once application of one-time expression require fluent review; not independently verified complete phrase."
+  },
+  {
+    "locale": "zgh",
+    "key": "open",
+    "before": "مفتوح",
+    "after": "ⵔⵥⵎ",
+    "reason": "Replace Arabic Open action or multiple-card opening label; preserve imperative open and, for bulk action, many cards in one operation. Native MediaWiki newwindow attests open root rzm with emphatic z, badtitletext attests mnnaw/many, and viewcount attests yat tkklit/one time: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Retain local cards Tikarḍiwin through Tifinagh transcription. LOW CONFIDENCE transitive imperative adaptation from intransitive future innurzm, plural spelling and at-once application of one-time expression require fluent review; not independently verified complete phrase."
   }
 ]
