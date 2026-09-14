@@ -22421,3 +22421,12 @@ custom HTML insertion and account/settings values. Conditional denean follows
 card/label/checklist subjects in the trigger builder. Optional authentication,
 irreversible removal, first reminder and literal body tags retain meaning.
 Exact unchanged-review checks pass; full grammar/browser scope remains open.
+
+### 2026-09-14 — Basque archived search status and operators
+
+Local commit `9910a2c13` repairs all-status archived/unarchived terminology,
+using artxibatutako/artxibatu gabeko consistently with artxibo activity captions.
+Twenty-nine user, label, operator and troubleshooting values retain meanings.
+Canonical syntax, quoted examples, OR/AND, absence/sort/page instructions,
+interpolation tokens and snap/docker commands remain exact.
+Positive/negative correction and review checks pass; browser scope remains open.
