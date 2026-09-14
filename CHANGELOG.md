@@ -135,6 +135,10 @@ Reference review 7b9e343b6 (2026-09-14) corrects source attribution in 98
 Tamazight records: CNAM MC£ is Tuareg and MC is Mokrane Chemim, not
 Central Moroccan dialect labels. Affected terminology needs renewed review.
 
+Silesian database follow-up 45d98c94f (2026-09-14) corroborates regional
+human usage of the shared database term. The raw-file qualifier and full
+label remain pending; translation counts are unchanged.
+
 </details>
 
 <details>
@@ -1557,6 +1561,16 @@ source. Severity remains distinct from message/details. Terminology is low
 confidence pending fluent review in both contexts; local consistency does not
 validate it. All 17,681 correction checks pass; 497 originals remain pending.
 Broader language validation continues.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/45d98c94f">Document Silesian database terminology evidence</a>. Thanks to xet7.</summary>
+
+Corroborate regional human use of the shared computer-database term while
+keeping the raw-file qualifier and complete label pending. Distinguish the
+Silesian quotation from the Polish article wrapper and record retrieval
+limits. No locale values or counts changed; broader language review continues.
 
 </details>
 
