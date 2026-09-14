@@ -123471,5 +123471,12 @@
     "before": "الذاكرة الكلية لنظام التشغيل",
     "after": "OS: ⵎⴰⵕⵕⴰ ⵜⴰⴽⴰⵜⵓⵜ",
     "reason": "Replace Arabic OS Total Memory diagnostic label. Preserve source OS acronym and total computer memory scope. Native MediaWiki mediastatistics-header-total uses marra for total/all: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . CNAM computing lexicon https://cedric.cnam.fr/~bouzefra/books/amawal.pdf PDF page 89/printed 85 explicitly gives Memory Takatut MC. LOW CONFIDENCE: complete total-memory diagnostic wording and Central Moroccan to Standard Moroccan adaptation require fluent review. Do not conflate free or available memory with total. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "display-card-creator",
+    "before": "Afficher le créateur de la carte",
+    "after": "ⵙⴽⵏ ⴰⵎⵙⵏⴼⵍⵓⵍ ⵏ ⵜⴽⴰⵕⴹⴰ",
+    "reason": "Replace French Display Card Creator setting. Native MediaWiki view supplies skn and pageinfo-firstuser supplies amsnflul n tasna creator of page: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve existing Creator terminology and adapt page ownership to card. LOW CONFIDENCE full software label and existing card noun adaptation require fluent review; generic masculine creator label follows existing reference. Reviewed 2026-09-14."
   }
 ]
