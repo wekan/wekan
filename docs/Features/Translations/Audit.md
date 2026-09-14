@@ -30,11 +30,11 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Tamazight attachment warning](Tamazight-Review.md) finds an attested
-permanent adjective, but an ambiguous attachment noun is insufficient for
-file terminology. Active popup uses a separate soft-delete message; do not
-replace it with permanent-delete wording. Legacy warning remains pending.
-No translations or counts changed. Earlier reviews remain in detailed evidence.
+[Tamazight ZIP import structure](Tamazight-Review.md) identifies an attested
+computing folder noun and confirms per-board attachment subdirectories in
+the importer. Preserve `.zip`, JSON, containment and board naming.
+Subdirectory and file-attachment wording remain open; counts unchanged.
+Earlier reviews remain in detailed evidence.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

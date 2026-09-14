@@ -3194,3 +3194,27 @@ a file-attachment expression and agreement for permanent deletion, then
 retain the explicit no-undo sentence. This review changes no translation
 or classification; 174 findings remain pending. No live UI test ran and
 no remote writes were made.
+
+
+## ZIP import structure — terminology review 2026-09-15
+
+`import-board-zip` remains Arabic and pending. IRCAM page 217 entry 4147
+attests computing folder `asdaw` / `ⴰⵙⴷⴰⵡ`, bound `usdaw`, plural
+`isdawn`. Its explicit main-folder phrase `asdaw adslan` distinguishes
+this entry from a generic physical container.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+Actual `client/components/import/import.js:244` describes one or more board
+JSON files plus per-board attachment subdirectories. The following Trello
+branch reads `.js-import-zip-file` and calls `importTrelloZip`. Keep `.zip`
+and JSON literal, preserve board-name subdirectories with attachments,
+and do not imply that the archive contains only one board or only JSON.
+The current source comment confirms the structure, not full execution.
+
+Next action: combine the attested folder noun with a verified subdirectory
+expression and file-attachment terminology, preserving containment and
+board naming in the complete instruction. No occurrence of this folder
+spelling was found in the cached MediaWiki Tamazight file; that limited
+search does not invalidate IRCAM or prove absence in native usage.
+No translation or classification changed. Pending 174, zgh 79. No live
+ZIP import or UI test ran; no remote writes were made.
