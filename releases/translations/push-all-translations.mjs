@@ -7,6 +7,31 @@ import { api, readConfig, localLanguages, readToken } from './sync-transifex-lan
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const wait = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
 
+export function retryingRequest(request, { sleep = wait, log = console.log, maxAttempts = 6 } = {}) {
+  return async (method, url, body) => {
+    for (let attempt = 1; ; attempt++) {
+      try { return await request(method, url, body); }
+      catch (error) {
+        const transientRead = method === 'GET' && (
+          [408, 500, 502, 503, 504].includes(error.status) ||
+          error instanceof TypeError || ['AbortError', 'TimeoutError'].includes(error.name));
+        // A 429 explicitly refuses the request; other failed writes may already
+        // have created a job, so do not blindly resubmit them.
+        if (attempt >= maxAttempts || !(transientRead || error.status === 429)) throw error;
+        let remaining = Math.max(error.retryAfterMs || 0,
+          error.status === 429 ? 60000 : Math.min(32000, 2000 * 2 ** (attempt - 1)));
+        log(`[tx] ${method} ${url}: ${error.status || error.name}; retry ${attempt + 1}/${maxAttempts} after ${Math.ceil(remaining / 1000)}s`);
+        while (remaining > 0) {
+          const chunk = Math.min(30000, remaining);
+          await sleep(chunk);
+          remaining -= chunk;
+          if (remaining > 0) log(`[tx] retry wait: ${Math.ceil(remaining / 1000)}s remaining`);
+        }
+      }
+    }
+  };
+}
+
 export function validateTranslation(content, source) {
   const data = JSON.parse(content);
   if (!data || Array.isArray(data) || typeof data !== 'object') throw new Error('Expected a JSON object');
@@ -20,7 +45,7 @@ export function validateTranslation(content, source) {
   return data;
 }
 
-export async function uploadFile({ request, resource, language, content, source = false, sleep = wait, maxPolls = 300 }) {
+export async function uploadFile({ request, resource, language, content, source = false, sleep = wait, log = console.log, maxPolls = 300 }) {
   const type = source ? 'resource_strings_async_uploads' : 'resource_translations_async_uploads';
   const relationships = { resource: { data: { type: 'resources', id: resource } } };
   if (!source) relationships.language = { data: { type: 'languages', id: `l:${language}` } };
@@ -30,6 +55,7 @@ export async function uploadFile({ request, resource, language, content, source 
     ? { replace_edited_strings: true, keep_translations: true }
     : { file_type: 'default' }) };
   let job = await request('POST', `/${type}`, { data: { type, attributes, relationships } });
+  log(`[tx] upload accepted: ${source ? 'source' : language}; checking job status`);
   const pollURL = job?.data?.links?.self || (job?.data?.id && `/${type}/${encodeURIComponent(job.data.id)}`);
   for (let poll = 0; poll < maxPolls; poll++) {
     const state = job?.data?.attributes;
@@ -39,6 +65,7 @@ export async function uploadFile({ request, resource, language, content, source 
     }
     if (!pollURL) throw new Error('Upload response has no job ID or status link');
     if (state?.status !== 'pending' && state?.status !== 'processing') throw new Error(`Unknown upload status: ${state?.status}`);
+    if (poll % 15 === 0) log(`[tx] ${source ? 'source' : language}: ${state.status} (status check ${poll + 1}/${maxPolls})`);
     await sleep(2000);
     job = await request('GET', pollURL);
   }
@@ -55,10 +82,12 @@ export async function pushTranslations({ config, languages, request, readContent
     const content = readContent(config.sourceFile);
     source = JSON.parse(content);
     validateTranslation(content, source);
-    await uploadFile({ request, resource, content, source: true, sleep });
+    log(`[tx] uploading source ${config.sourceLanguage}`);
+    await uploadFile({ request, resource, content, source: true, sleep, log });
     succeeded.push({ file: config.sourceFile, code: config.sourceLanguage, source: true });
     log(`[tx] uploaded source ${config.sourceLanguage}`);
   } catch (error) {
+    log(`[tx] FAILED source ${config.sourceLanguage}: ${error.message}; target uploads cannot proceed`);
     failures.push({ file: config.sourceFile, code: config.sourceLanguage, reason: error.message });
     for (const language of languages) failures.push({ ...language, reason: 'Not uploaded because the source upload failed' });
     return { succeeded, failures };
@@ -109,7 +138,8 @@ export async function pushTranslations({ config, languages, request, readContent
         }
         existing.add(language.code);
       }
-      await uploadFile({ request, resource, language: language.code, content, sleep });
+      log(`[tx] uploading ${language.code} (${language.file}.i18n.json)`);
+      await uploadFile({ request, resource, language: language.code, content, sleep, log });
       succeeded.push(language);
       log(`[tx] uploaded ${language.code} (${language.file}.i18n.json)`);
     } catch (error) {
@@ -215,10 +245,10 @@ async function main() {
   }
   const token = readToken();
   if (!token) throw new Error('Set TX_TOKEN or configure ~/.transifexrc before uploading');
-  const request = async (method, url, body) => {
+  const request = retryingRequest(async (method, url, body) => {
       try { return await api(token, method, url, body); }
       catch (error) { error.message = error.message.replaceAll(token, '[redacted]'); throw error; }
-    };
+    });
   const result = await pushTranslations({ config, languages, request,
     readContent: filename => fs.readFileSync(filename, 'utf8'),
   });

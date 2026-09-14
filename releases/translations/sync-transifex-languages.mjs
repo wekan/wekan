@@ -120,6 +120,13 @@ export async function api(token, method, url, body) {
     const detail = json?.errors?.map(e => e.detail || e.title).join('; ') || text.slice(0, 300);
     const err = new Error(`${method} ${url} -> ${res.status}: ${detail}`);
     err.status = res.status;
+    const retryAfter = res.headers.get('retry-after');
+    if (retryAfter !== null) {
+      const seconds = Number(retryAfter);
+      const date = Date.parse(retryAfter);
+      const delay = Number.isFinite(seconds) ? seconds * 1000 : date - Date.now();
+      if (Number.isFinite(delay) && delay >= 0) err.retryAfterMs = delay;
+    }
     err.errors = json?.errors || [];
     throw err;
   }

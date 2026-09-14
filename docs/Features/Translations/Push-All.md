@@ -31,6 +31,20 @@ registration or upload does not stop later languages. It polls each asynchronous
 upload until Transifex reports success or failure; acceptance of the job alone is
 not counted as success. Source upload failure reports all targets as unpushed.
 
+Transient GET failures (HTTP 408/500/502/503/504, network failures and
+timeouts) retry the same read up to six attempts. This includes upload-job
+status reads: a temporary 502 does not immediately abandon an accepted source
+upload and prevent every target from uploading. HTTP 429 responses retry after
+at least one minute, respecting a longer `Retry-After` value in seconds or as an
+HTTP date. Other failed writes are not automatically resubmitted, because a
+failed response can leave an already-created upload job. Permanent errors and
+exhausted retries remain explicit failures.
+
+Output announces each upload, job acceptance and periodic pending status, and
+reports each retry with its delay. Long retry waits print progress at intervals
+of at most 30 seconds. This output goes to the existing terminal/status log.
+Transifex documents throttling as [HTTP 429](https://developers.transifex.com/reference/rate-limit).
+
 At the end it lists each failed language with its local file and reason, saves a
 JSON report under `.tools/log/translations-push-<timestamp>/report.json`, and
 returns a nonzero exit status when any language failed. An entirely successful
