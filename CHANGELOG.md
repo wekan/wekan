@@ -782,6 +782,18 @@ This release adds the following translation improvements:
 **Translations** - Locale wording repairs and remaining audit progress.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/81f487305">Refine Tamazight lockout and confirmation morphology</a>. Thanks to xet7.</summary>
+
+Replace derived plural blocked-user and want/delete question forms in three
+previous corrections with native Mastodon wording. Preserve original
+before-values and the 17,333-record ledger. All correction checks pass.
+Combined filter usage and comment-object substitution still need fluent
+review. Original counts remain 710 pending, including 567 Tamazight;
+wider restored, unflagged and composed wording validation remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3d190b286">Translate Tamazight loading and wait text</a>. Thanks to xet7.</summary>
 
 Replace French loading text using native loading and wait components.
