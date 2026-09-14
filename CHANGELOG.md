@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a47e7141d">Draft invitation acceptance wording</a>. Thanks to xet7.</summary>
+
+Replace wrong-language Tamazight acceptance labels while retaining the
+not-yet invitation status. Four translation checks pass. Secondary verb
+provenance and derived passive grammar remain under review in the audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3eaad375b">Review retained email warning wording</a>. Thanks to xet7.</summary>
 
 Preserve Tamazight email warning text and attach native email-specific

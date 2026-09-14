@@ -26020,3 +26020,20 @@ Invitation review remains open: IRCAM invitation asigr PDF 227/4358 and
 not-yet ur ta PDF 452/8585 are attested, but ssidn accepts destiny and
 sslɣd accepts intercession. Those senses do not establish accepting a
 board invitation; approve/agree alternatives do not certify equivalence.
+
+Invitation acceptance drafts — 2026-09-14, `a47e7141d`.
+Arabic accept and French not-accepted-yet become Tamazight drafts. The
+full status includes invitation, not yet and a derived passive accept.
+Secondary vocabulary qbl accept: https://learnamazigh.com/words
+Primary IRCAM invitation asigr PDF 227 entry 4358 and ur ta not yet
+PDF 452 entry 8585:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+Low confidence: secondary verb provenance and dialect fit, derived
+ittu qbil passive spelling/inflection and complete status-clause grammar.
+This is not primary attestation of the whole sentence. Acceptance-of-
+destiny and intercession senses stay excluded. Earlier French-pending
+notes are superseded by drafts, not native acceptance. Four checks pass
+for full components, wrong-language/wrong-sense negatives, tokens and
+protected newer values. Native/browser review remains open. One original
+finding and one unflagged repair: original corrected 15,664; pending 238
+(zgh 130); correction ledger 18,798.
