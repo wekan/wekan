@@ -131899,5 +131899,26 @@
     "before": "الذاكرة الحرة لنظام التشغيل",
     "after": "OS: ⵜⴰⴽⴰⵜⵓⵜ ⵜⴰⵎⵛⵉⵅⵜ",
     "reason": "2026-09-14: Replace Arabic OS free-memory label with Tamazight draft. Existing memory takatut; primary IRCAM General Dictionary p160 entry2970 amcix vacant/free, distinguished from free-of-charge entry5739. Feminine tamcixt derived to agree with memory. Actual statistics.os.freemem is os.freemem() bytes, not totalmem or price. Low confidence: derived adjective and computing collocation require native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "OS_Release",
+    "before": "إصدار نظام التشغيل",
+    "after": "OS: ⵜⵓⵏⵖⵉⵍⵜ",
+    "reason": "2026-09-14: Replace Arabic diagnostic/type label with native Tamazight terminology. MediaWiki versionrequiredtext attests software version tunɣilt; file-info-size attests type anaw. Actual statistics uses os.release() OS release version and os.type() OS name/type, distinct from platform and Node version. Low confidence: OS-specific terminology adaptation remains open."
+  },
+  {
+    "locale": "zgh",
+    "key": "OS_Type",
+    "before": "نوع نظام التشغيل",
+    "after": "OS: ⴰⵏⴰⵡ",
+    "reason": "2026-09-14: Replace Arabic diagnostic/type label with native Tamazight terminology. MediaWiki versionrequiredtext attests software version tunɣilt; file-info-size attests type anaw. Actual statistics uses os.release() OS release version and os.type() OS name/type, distinct from platform and Node version. Low confidence: OS-specific terminology adaptation remains open."
+  },
+  {
+    "locale": "zgh",
+    "key": "type",
+    "before": "النوع",
+    "after": "ⴰⵏⴰⵡ",
+    "reason": "2026-09-14: Replace Arabic diagnostic/type label with native Tamazight terminology. MediaWiki versionrequiredtext attests software version tunɣilt; file-info-size attests type anaw. Actual statistics uses os.release() OS release version and os.type() OS name/type, distinct from platform and Node version. Low confidence: OS-specific terminology adaptation remains open."
   }
 ]

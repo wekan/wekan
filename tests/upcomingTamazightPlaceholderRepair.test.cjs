@@ -65,3 +65,12 @@ assert.doesNotMatch(translated.OS_Freemem, /[\u0600-\u06ff]|ⵎⴰⵕⵕⴰ/u);
 const statisticsSource = fs.readFileSync(path.join(ROOT, 'server/statistics.js'), 'utf8');
 assert.match(statisticsSource, /freemem: os\.freemem\(\)/);
 console.log('Tamazight free memory remains distinct from total system memory');
+
+assert.strictEqual(translated.OS_Release, 'OS: ⵜⵓⵏⵖⵉⵍⵜ');
+assert.strictEqual(translated.OS_Type, 'OS: ⴰⵏⴰⵡ');
+assert.strictEqual(translated.type, 'ⴰⵏⴰⵡ');
+for (const key of ['OS_Release', 'OS_Type', 'type']) assert.doesNotMatch(translated[key], /[\u0600-\u06ff]/u);
+assert.notStrictEqual(translated.OS_Release, translated.OS_Type);
+assert.match(statisticsSource, /release: os\.release\(\)/);
+assert.match(statisticsSource, /type: os\.type\(\)/);
+console.log('Tamazight OS release and type remain separate metrics');
