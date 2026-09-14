@@ -122547,5 +122547,47 @@
     "before": "Importer les noms d'utilisateurs",
     "after": "ⵙⴽⵛⵎ ⵉⵙⵎⴰⵡⵏ ⵏ ⵉⵏⵙⵙⵎⵔⵙⵏ",
     "reason": "Replace Arabic already-taken email warning or French Import Usernames action. Preserve email-address already-used scope, not username, and username import rather than export. Native MediaWiki userexists already-used predicate and email-address/username terms support vocabulary; derive plural names and users. Import imperative skchm derives from native importlogpage iskchumn and existing input imperative, with software import adaptation. LOW CONFIDENCE address predicate agreement, plural forms, derived import command and full label composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (userexists, createacct-email-ph, passwordreset-emailelement, importlogpage, statistics-users)."
+  },
+  {
+    "locale": "zgh",
+    "key": "hide-minicard-label-text",
+    "before": "Cacher l'étiquette de la mini-carte",
+    "after": "ⵙⵙⵏⵜⵍ ⴰⴹⵕⵉⵙ ⵏ ⵓⵔⵛⵓⵎ ⵖⴼ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵢⴰⵏⵜ",
+    "reason": "Replace wrong-language Arabic/French label wording with Tamazight. Preserve add versus edit/change, card scope, colors versus names, and hide only label text rather than the label itself. Native MediaWiki zgh hidetoc, edit/tags-edit, skin-view-create-local, tag-list-wrapper and namespaces support hide/edit/add/tag/name components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse existing local text, color and minicard vocabulary. LOW CONFIDENCE: software-label adaptation, color plural, bound nouns and full composed minicard/card phrasing still require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "add-label",
+    "before": "إضافة ملصق",
+    "after": "ⵔⵏⵓ ⴰⵔⵛⵓⵎ",
+    "reason": "Replace wrong-language Arabic/French label wording with Tamazight. Preserve add versus edit/change, card scope, colors versus names, and hide only label text rather than the label itself. Native MediaWiki zgh hidetoc, edit/tags-edit, skin-view-create-local, tag-list-wrapper and namespaces support hide/edit/add/tag/name components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse existing local text, color and minicard vocabulary. LOW CONFIDENCE: software-label adaptation, color plural, bound nouns and full composed minicard/card phrasing still require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "card-edit-labels",
+    "before": "تعديل العلامات",
+    "after": "ⵙⵏⴼⵍ ⵉⵔⵛⵓⵎⵏ",
+    "reason": "Replace wrong-language Arabic/French label wording with Tamazight. Preserve add versus edit/change, card scope, colors versus names, and hide only label text rather than the label itself. Native MediaWiki zgh hidetoc, edit/tags-edit, skin-view-create-local, tag-list-wrapper and namespaces support hide/edit/add/tag/name components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse existing local text, color and minicard vocabulary. LOW CONFIDENCE: software-label adaptation, color plural, bound nouns and full composed minicard/card phrasing still require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "card-labels-title",
+    "before": "تعديل علامات البطاقة.",
+    "after": "ⵙⵏⴼⵍ ⵉⵔⵛⵓⵎⵏ ⵏ ⵜⴽⴰⵕⴹⴰ.",
+    "reason": "Replace wrong-language Arabic/French label wording with Tamazight. Preserve add versus edit/change, card scope, colors versus names, and hide only label text rather than the label itself. Native MediaWiki zgh hidetoc, edit/tags-edit, skin-view-create-local, tag-list-wrapper and namespaces support hide/edit/add/tag/name components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse existing local text, color and minicard vocabulary. LOW CONFIDENCE: software-label adaptation, color plural, bound nouns and full composed minicard/card phrasing still require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "label-colors",
+    "before": "Couleurs d'étiquette",
+    "after": "ⵉⴽⵍⴰⵏ ⵏ ⵓⵔⵛⵓⵎ",
+    "reason": "Replace wrong-language Arabic/French label wording with Tamazight. Preserve add versus edit/change, card scope, colors versus names, and hide only label text rather than the label itself. Native MediaWiki zgh hidetoc, edit/tags-edit, skin-view-create-local, tag-list-wrapper and namespaces support hide/edit/add/tag/name components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse existing local text, color and minicard vocabulary. LOW CONFIDENCE: software-label adaptation, color plural, bound nouns and full composed minicard/card phrasing still require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "label-names",
+    "before": "Noms d'étiquette",
+    "after": "ⵉⵙⵎⴰⵡⵏ ⵏ ⵓⵔⵛⵓⵎ",
+    "reason": "Replace wrong-language Arabic/French label wording with Tamazight. Preserve add versus edit/change, card scope, colors versus names, and hide only label text rather than the label itself. Native MediaWiki zgh hidetoc, edit/tags-edit, skin-view-create-local, tag-list-wrapper and namespaces support hide/edit/add/tag/name components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse existing local text, color and minicard vocabulary. LOW CONFIDENCE: software-label adaptation, color plural, bound nouns and full composed minicard/card phrasing still require fluent review."
   }
 ]
