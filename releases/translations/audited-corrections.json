@@ -123863,5 +123863,12 @@
     "before": "Supprimer le tableau",
     "after": "ⴽⴽⵙ ⵜⴰⴼⵍⵡⵉⵜ",
     "reason": "2026-09-14: Replace French Delete Board action using native software delete imperative kks and existing WeKan board noun taflwit. Preserve action and board object, not archive, card deletion or the irreversible warning. LOW CONFIDENCE complete kanban action: native delete verb is supported but board terminology extension and full noun phrase still require fluent review. Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json (confirmations.delete.confirm)."
+  },
+  {
+    "locale": "zgh",
+    "key": "decline",
+    "before": "Refuser",
+    "after": "ⴰⴳⵢ",
+    "reason": "2026-09-14: Replace French Decline invitation button with exact native Standard Moroccan request-rejection action. Mastodon follow_request.reject supplies ⴰⴳⵢ. WeKan sidebar.js js-member-invite-decline and boardsList.js js-decline-invite confirm invitation rejection context; do not substitute Close or merely cancel popup without declining. Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json (follow_request.reject)."
   }
 ]
