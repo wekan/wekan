@@ -129,3 +129,30 @@ this reviewed noun while filling ordinary prose. The completeness gate now
 reports no unreviewed English placeholders; this does not resolve the ten
 Finnish-prose findings or the broader unflagged/dialect/browser review.
 Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+
+Dictionary/source expansion **2026-09-14**:
+
+- Downloaded the Veps Wiktionary-derived JSONL from
+  <https://kaikki.org/dictionary/Veps/index.html> (11 MB), then inspected
+  relevant senses and forms. It is a secondary extraction, not a complete
+  phrase authority; individual entries still need source/form review.
+- `üläh` means top/upper part; extracted singular inessive `ülähas`
+  supplies a candidate top-position construction. `pä` has both head and
+  top/summit senses, so its spelling alone is not an interface-location
+  proof. `päl` is stationary on top of; `päle` expresses movement onto.
+  Do not interchange them in the field-sum display label.
+- `ühthevedota` means summarize/sum up, not verified arithmetic addition.
+  It cannot establish the required mathematical sum. The Finnish `summa`
+  and a corpus occurrence likewise do not establish the full Veps label.
+- The primary analyzer source
+  <https://github.com/giellalt/lang-vep/tree/1e03c7cdd87dea888e91e7cbf5e8f72f51c07a59>
+  was downloaded and its lexicons/frequency files inspected. Frequency
+  entries include forms of `vanhemb`, but frequency alone does not prove
+  a software parent relationship or a complete inherited-label phrase.
+  The UiT tools page states the analyzer is in development and handles
+  only a handful of words: <https://giellatekno.uit.no/cgi/index.vep.eng.html>.
+- VepKar's alternate lemma endpoint timed out; the dump endpoint returned
+  502. Neither response validates language. Full native terminology for
+  accessibility, keyboard shortcuts, inheritance and arithmetic remains
+  unresolved. No locale values or classifications changed; all ten
+  original Veps findings and broader unflagged repairs remain open.
