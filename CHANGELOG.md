@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c9005ee0a">Verify Basque rule grammar in the browser</a>. Thanks to xet7.</summary>
+
+Correct test ownership and login/navigation setup allow the browser test
+to execute against the local Meteor app. Chromium verifies six named
+Basque controls, saved checklist descriptions and unchanged English order.
+Full native clause review remains open; translation counts are unchanged.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/cff1fdc32">Correct Basque named-assignee control order</a>. Thanks to xet7.</summary>
 
 The name input now precedes the Basque subject, matching other named rule

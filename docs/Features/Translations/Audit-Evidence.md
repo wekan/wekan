@@ -26263,3 +26263,13 @@ port 3000 probe was refused, so no running app was available.
 No locale values/counts changed; the four restored findings and full
 assignee add/remove clause/native/browser review remain open. Earlier
 notes describing this row as unreordered are superseded by this dated fix.
+
+
+Browser verification **2026-09-14**, local commit `c9005ee0a`:
+Playwright spec 88 executed against the running local Meteor app with
+Chromium: **1 passed (3.1s)**. Corrected test fixture ownership, login helper
+arguments and resumed-login navigation after reload. Verified all six
+named Basque controls, saved Demo checklist description, and unchanged
+English subject-before-name order. Earlier browser-unavailable notes are
+superseded. This proves rendering and composition, not native fluency of
+full add/remove clauses. Pending 232, restored 4 and ledger 18,831 unchanged.

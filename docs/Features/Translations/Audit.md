@@ -27,10 +27,10 @@ repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
-Latest terminology review: **2026-09-14**, `cff1fdc32` — named
-assignee control now uses Basque name-before-subject order. Source and
-saved-description tests pass; browser test extended/syntax checked but
-unrun (local app unavailable). Counts unchanged; full clause review open.
+Latest terminology review: **2026-09-14**, `c9005ee0a` — Basque rule
+editor browser test executed successfully against the local Meteor app
+(Chromium, 1 passed). Named controls, saved description and English order
+verified. Counts unchanged; full native clause review remains open.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:
