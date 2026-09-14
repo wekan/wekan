@@ -24377,3 +24377,11 @@ French progress prose is replaced while preserving wait, board migration and
 latest structure meaning. Four checks pass; full native grammar, courtesy and
 browser validation remain low confidence/open. Ledger: 18,705. Original
 counts: 15,620 corrected, 282 pending, 4 restored, 4,175 retained.
+
+## Tamazight orphaned-card label — 2026-09-14
+
+Local fix `2c38b996b`: [source meaning and confidence limits](Tamazight-Review.md).
+French repair wording is replaced; source confirms missing swimlane references.
+Four checks pass; adapted metaphor/agreement and rendering remain open.
+Ledger: 18,706; original counts: 15,621 corrected, 281 pending, 4 restored,
+4,175 retained. No browser validation ran.

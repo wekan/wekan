@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2c38b996b">Replace French Tamazight orphaned-card label</a>. Thanks to xet7.</summary>
+
+The repair label uses adapted native vocabulary for orphaned cards. Four
+checks pass; metaphor, agreement and progress-popup rendering remain open
+for native and browser validation.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e424d4de6">Replace French Tamazight migration progress message</a>. Thanks to xet7.</summary>
 
 The progress popup uses adapted Tamazight prose preserving the wait and board
