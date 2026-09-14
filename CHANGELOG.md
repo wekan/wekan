@@ -646,6 +646,18 @@ This release documents the following translation fixes:
 **Developer tooling** - Mirror Git progress.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/95f026889">Render opened-card List dropdown titles</a>. Thanks to xet7.</summary>
+
+The List picker renders its selected title and choices through the shared
+security-aware viewer, supporting Markdown, emojis and permitted HTML.
+Mouse and keyboard selection retain authorized card moves. Arrow keys,
+Home, End, Enter, Space and Escape work without typing a list name.
+Positive/negative movement and navigation checks pass. Browser policy cases
+were syntax checked; a running application was unavailable for UI execution.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4a01cc9be">Restore Markdown heading sizes in card titles</a>. Thanks to xet7.</summary>
 
 Minicard and opened-card headings retain relative sizes despite global and
