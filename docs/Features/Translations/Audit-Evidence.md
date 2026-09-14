@@ -26104,3 +26104,10 @@ The focused parser regression passes. This validates metadata dispatch,
 not date-library internals, native fluency or browser rendering. Export
 field metadata still maps dates to export-card-field-dates. Original
 pending remains 233; no locale values or audit counts change.
+
+Summary consolidation — 2026-09-14.
+Audit.md runtime history is consolidated into current verification scope.
+Formatter/parser source commits and outstanding browser/native review
+remain explicit; dated individual notes are preserved above. A fresh
+localhost:3000 probe failed to connect. No translation is changed or
+classified as repaired by shortening the summary.

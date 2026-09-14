@@ -78,21 +78,14 @@ Not all errors came from Transifex: 4,061 findings concern pulled changes;
 completed categories and reviews, including Klingon, Danish, Silesian and
 unflagged native-term retentions. Calendar epochs/sighting, diagnostics,
 authentication, commands and other uncertain phrases remain under review.
-Browser coverage added **2026-09-14**, `c8bcfb258`: spec 03 verifies the
-Tamazight numeric tooltip and excludes a display-disabled field from its
-sum. Syntax and registration pass; localhost:3000 has no running app, so
-execution remains pending. Live browser verification is not complete.
-Runtime dispatch checked **2026-09-14**, `8715c094e`: real Tamazight limit
-queries preserve invalid values and accept positive/zero limits. Parser
-coverage does not establish TAPi18n interpolation or browser rendering.
-Formatting fixed **2026-09-14**, `c74009b21`: direct scalar TAPi18n
-arguments now populate sprintf. Actual runtime-method/formatter checks
-pass for Tamazight errors, zero, named options and English fallback.
-Browser rendering and native fluency remain unverified.
-Start/end runtime checked **2026-09-14**, `bc9860dff`: real localized
-existence queries preserve present/absent date fields and reject unsupported
-sorting. Native/browser usage remains unverified.
-Creation runtime checked **2026-09-14**, `27f6c9d2a`: real translated
-filter/sort queries preserve createdAt and direction; invalid periods are
-rejected. Native/browser review remains unverified.
-Translation work continues.
+Verification summary — **2026-09-14**:
+
+- Runtime formatter `c74009b21` verifies scalar arguments, zero, named
+  options and English fallback. Parser coverage `8715c094e`, `bc9860dff`
+  and `27f6c9d2a` verifies limit errors and date filtering/sorting.
+- Browser spec 03 (`c8bcfb258`) is registered but unrun. A fresh localhost
+  probe found no app at port 3000; browser verification remains incomplete.
+- Structural checks preserve placeholders, key order, JSON examples and
+  newer correct-language translations; they do not certify native fluency.
+
+Translation work continues. Dated details remain in [evidence](Audit-Evidence.md).
