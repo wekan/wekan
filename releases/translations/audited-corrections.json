@@ -127587,5 +127587,19 @@
     "before": "Supprimer l'étiquette ?",
     "after": "Dilemel an dikedenn ?",
     "reason": "Unflagged French popup/control label replaced directly with Breton, using existing Krouiñ/Kemmañ/Dilemel/Ouzhpennañ, Taolenn/Roll, Yezh/Deiziad and native software tikedenn vocabulary. Preserve creation versus edit/deletion and confirmation question; no archive actions changed. Article mutation is directly adapted; native grammar/browser verification remains open."
+  },
+  {
+    "locale": "bm",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Hijri kalandiriye (tabali fɛ jateli, sivili damindon)",
+    "reason": "English-only Hijri calendar placeholder replaced directly with provisional Bambara wording for table-based counting and distinct civil/astronomical starting dates. Uses existing kalandiriye/tabali/damindon, dictionary dolo (star), dɔnni (knowledge/science), sivili (civil loan). Full compounds, calendar-epoch use of sivili and astronomical terminology are low-confidence adaptations requiring native review, not dictionary-attested complete phrases; structural tests do not establish fluency."
+  },
+  {
+    "locale": "bm",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Hijri kalandiriye (tabali fɛ jateli, dolo dɔnni damindon)",
+    "reason": "English-only Hijri calendar placeholder replaced directly with provisional Bambara wording for table-based counting and distinct civil/astronomical starting dates. Uses existing kalandiriye/tabali/damindon, dictionary dolo (star), dɔnni (knowledge/science), sivili (civil loan). Full compounds, calendar-epoch use of sivili and astronomical terminology are low-confidence adaptations requiring native review, not dictionary-attested complete phrases; structural tests do not establish fluency."
   }
 ]
