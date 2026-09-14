@@ -131773,5 +131773,12 @@
     "before": "Ylätehtäväkortti",
     "after": "Vanhemb kart",
     "reason": "2026-09-14: Replace Finnish parent-card noun with complete Veps draft. Noid dictionary vanhemb means parent/elder; existing WeKan card = Kart. Source: https://vepsnoid.blogspot.com/p/dictionary.html. LOW CONFIDENCE: software parent metaphor and compound grammar need native review. Existing opened-card form consumes this label; no live browser execution claimed."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "show-parent-in-minicard",
+    "before": "Näytä ylätehtävä minikortilla:",
+    "after": "Ozuta vanhemb kart minikartal:",
+    "reason": "2026-09-14: Replace Finnish with complete Veps Show parent card on minicard draft. Native MediaWiki show = Ozuta; existing parent-card = Vanhemb kart. Adapt mini-card noun from Kart with adessive -al for display location. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. LOW CONFIDENCE: parent metaphor, compound object and derived minikartal need native grammar review. Preserve display location and final colon; no browser verification claimed."
   }
 ]

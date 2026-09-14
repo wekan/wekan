@@ -67,3 +67,9 @@ test('Veps parent-card label uses the existing card noun and replaces Finnish', 
   assert.equal(data['parent-card'], `Vanhemb ${data.card.toLowerCase()}`);
   assert.doesNotMatch(data['parent-card'], /ylätehtävä|kortti/i);
 });
+
+test('Veps parent display draft preserves showing, parent card and minicard location', () => {
+  const data = JSON.parse(fs.readFileSync('imports/i18n/data/ve-PP.i18n.json', 'utf8'));
+  assert.equal(data['show-parent-in-minicard'], `Ozuta ${data['parent-card'].toLowerCase()} minikartal:`);
+  assert.doesNotMatch(data['show-parent-in-minicard'], /näytä|ylätehtävä|minikortilla|peitä/i);
+});
