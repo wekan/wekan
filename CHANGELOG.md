@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,288 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 556 pending review or repair.
-The correction inventory records 17,594 exact before/after values,
+findings: 15,292 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 552 pending review or repair.
+The correction inventory records 17,598 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (413) and
+The largest original queues are Standard Moroccan Tamazight (409) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,11 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 5734a2a88 (2026-09-14), repairing three
-unflagged attachment activity/upload headers. Preserve ordered tokens,
-attachment event, upload direction and by-actor versus at-time distinction.
-Derived conjugation, gender, header prepositions and dialect adaptation
-remain low confidence. Original pending counts are unchanged.
+Latest translation fix is 596cc1ddb (2026-09-14), repairing four
+original French migration labels. Preserve create/fix distinction, missing
+lists/IDs and file-URL correction scope. Dialect adaptation, derived negative
+plural, acronym agreement and full labels remain low confidence.
 Wider language review remains open.
 Greenlandic CLDR-unconfirmed wording and twelve Quechua color wrappers
 still need review, alongside the wider restored and unflagged values.
@@ -117,7 +116,7 @@ names and unresolved Coptic/tabular/epoch terminology; no values changed. Previo
 Cherokee Hijri labels with exact native-script CLDR variant names. Cherokee’s
 original queue is empty. Compact tabular epoch wording still needs fluent
 technical review. Quechua palette compounds and remaining color wrappers
-remain open. There are 413 Tamazight findings remaining.
+remain open. There are 409 Tamazight findings remaining.
 Silesian reference review (2026-09-14) confirms shared database/file terms
 in native MediaWiki messages; the full raw-file label remains pending.
 No translation value or finding count changed in that review.
@@ -627,10 +626,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,288 original findings are
+Translation audit progress as of 2026-09-14: 15,292 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 556 remain pending across 17 locales, including 413 Tamazight findings.
-The ledger contains 17,594 correction records, including unflagged repairs.
+and 552 remain pending across 17 locales, including 409 Tamazight findings.
+The ledger contains 17,598 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -975,6 +974,18 @@ at-time header distinction. All 17,594 correction/rendering checks pass;
 original pending counts are unchanged. Derived conjugation, actor gender,
 header prepositions, attachment paraphrase and dialect adaptation remain
 low confidence. Wider language and live browser validation remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/596cc1ddb">Repair Tamazight missing-list and migration correction labels</a>. Thanks to xet7.</summary>
+
+Replace four original French findings. Preserve create versus fix, missing
+lists/IDs and correction of file URLs rather than file contents. All 17,598
+correction/rendering checks pass; 552 original findings remain. Native UI,
+Rif list plural and MW correction references support vocabulary; dialect
+adaptation, derived negative plural, acronym agreement and full labels
+remain low confidence. Wider language and live browser validation remain open.
 
 </details>
 
