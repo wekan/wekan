@@ -26844,3 +26844,36 @@ Each surrounding sentence needs review, including Uzbek possessive forms:
 kengashi cannot be replaced mechanically with taxtai; taxtasi is required.
 Do not mistake absence from the original 225-key queue for completion.
 No external translation service or remote push.
+
+
+### 2026-09-14 — Remaining Khmer council-sense sweep
+
+Source commit `bc8d3b233`: 69 values each in km and km_KH, 138 stored changes;
+207 locale/key identities including km-KH alias. Ledger 19,203. Original
+pending 225 and four restored values unchanged; no unchanged acceptances
+were superseded. All source/value pairs containing ក្រុមប្រឹក្សាភិបាល were
+read before editing; regional sentences matched the reviewed base sentences.
+Each English source referred to a Kanban board, not a governing council.
+
+Use the already established ក្តារ noun, supported by
+[Wiktionary's board/plank sense](https://en.wiktionary.org/wiki/ក្តារ).
+Preserve surrounding Khmer grammar and exact placeholder inventories. The
+sweep includes activities, invitations, roles, rule subjects, search guidance,
+exports and migration descriptions. Removed migration code stays removed.
+
+Related source comparison found additional wrong senses: deposit-subtasks
+used financial ប្រាក់, list ordering used purchasing បញ្ជាទិញ, and the
+swimlane choice included an unrelated board. Correct these meanings, use
+existing translated private/public labels inside original strong tags, and
+express Multi Board Calendar without the inaccurate all-boards parenthesis.
+All changes are within the same reviewed 69-key set per stored locale.
+
+Five focused suites pass: whole-locale council-term absence and meaning
+regressions, ledger exact values/tokens/examples/order/idempotency/newer
+human preservation, unchanged reviews, completeness and board routes.
+No new browser run. These tests prove the stated errors are removed, not
+full native fluency or every technical compound. Other Khmer terminology,
+including computing migration and swimlane wording, remains reviewable.
+Remaining Uzbek council-term inventory is 179 values; each sentence and
+possessive suffix still requires review. All prior uncertain findings remain
+in scope. No external translation service and no remote push.
