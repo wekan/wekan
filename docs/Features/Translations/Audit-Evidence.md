@@ -1,5 +1,7 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `7c0384e5a`: failure counting-window label repaired. Actual settings distinguish failureWindow from lockoutPeriod/count threshold; native Duration/Second and Errors support components. Time window paraphrased period of failures, retaining seconds and distinct lockout duration label. Full adaptations remain low confidence. Direct IRCAM school lexicon fetch timed out, so Before evidence remains indexed only. All 18,085 correction checks pass; 330 original findings remain pending, including 195 Tamazight.
+
 2026-09-14 — `ee8fc5f24`: failure threshold repaired. IRCAM school lexicon `amz_fr_ar.pdf` indexed printed page 103 gives Before `dat`; CNDH native Errors retained. Preserve FAILURES BEFORE LOCKOUT, a count distinct from seconds-based period/window. Indexed source is not direct PDF inspection; temporal Before, failure-as-error adaptation and full bound label remain low confidence. All 18,084 correction checks pass; 331 original findings remain pending, including 196 Tamazight.
 
 2026-09-14 — `5be2812bd`: lockout duration label repaired. Actual known/unknown settings distinguish lockoutPeriod from failureWindow. Native MediaWiki duration/second and Mastodon Block support components; preserve LOCKOUT PERIOD IN SECONDS. Bound lockout noun, seconds plural and full label remain low confidence. All 18,083 correction checks pass; 332 original findings remain pending, including 197 Tamazight.
