@@ -22000,5 +22000,173 @@
     "key": "activity-checklist-completed",
     "value": "%s kontrol-zerrenda osatu da %s(e)n",
     "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "activity-checklist-uncompleted",
+    "value": "%s kontrol-zerrenda osatu gabe utzi da %s(e)n",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "activity-receivedDate",
+    "value": "jasotze-data %s(e)ra aldatu da %s(e)n",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "activity-startDate",
+    "value": "hasiera-data %s(e)ra aldatu da %s(e)n",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "activity-dueDate",
+    "value": "epemuga %s(e)ra aldatu da %s(e)n",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "activity-endDate",
+    "value": "amaiera-data %s(e)ra aldatu da %s(e)n",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "close-edit-checklist-item",
+    "value": "Itxi kontrol-zerrendako elementua editatzeko inprimakia",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "enter-zoom-level",
+    "value": "Sartu zoom maila (50-300%):",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "board-view-table",
+    "value": "Taula",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "bucket-example",
+    "value": "Adibidez, \"Egin beharrekoen zerrenda\"",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "calendar-previous-month-label",
+    "value": "Aurreko hilabetea",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "calendar-next-month-label",
+    "value": "Hurrengo hilabetea",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "cardAssigneePopup-title",
+    "value": "Esleitua",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "date-format",
+    "value": "Data-formatua",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "list-label-sort",
+    "value": "Zure eskuzko ordena",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "importMapMembersAddPopup-title",
+    "value": "Aukeratu kidea",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "shortcut-toggle-searchbar",
+    "value": "Txandakatu bilaketaren albo-barra",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "uploading-files",
+    "value": "Fitxategiak igotzen",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "upload-failed",
+    "value": "Igoerak huts egin du",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "upload-completed",
+    "value": "Igoera osatu da",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "custom-help-link-url",
+    "value": "Laguntza-esteka pertsonalizatuaren URLa",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "automatic-linked-url-schemes",
+    "value": "Automatikoki klikagarriak izan behar duten URL eskema pertsonalizatuak. URL eskema bat lerroko",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "welcome-swimlane",
+    "value": "1. mugarria",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "bidirectional-webhooks",
+    "value": "Bi noranzkoko Webhook-ak",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "disable-webhook",
+    "value": "Desgaitu Webhook hau",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "global-webhook",
+    "value": "Webhook globalak",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "MongoDB_storage_engine",
+    "value": "MongoDB biltegiratze-motorra",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "MongoDB_Oplog_enabled",
+    "value": "MongoDB Oplog gaituta",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "card-received-on",
+    "value": "Jasotze-data",
+    "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
   }
 ]
