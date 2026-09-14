@@ -16,15 +16,15 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `4e8f1b7dd` — Tamazight checked
-and unchecked trigger states replace French, distinct from action commands.
-Four focused suites pass. Ledger 19,824; original pending 186 (Tamazight
-91), restored 4 unchanged: both repaired values were unflagged.
-Checkbox adaptation and full trigger-fragment grammar remain low confidence;
+Latest translation fix: **2026-09-15**, `7c6688b63` — Tamazight move-card
+and create-new-card rule labels replace French. Preserve the destination
+preposition and new-card qualifier. Four focused suites pass. Ledger
+19,826; original pending 186 (Tamazight 91), restored 4 unchanged: both
+repairs were unflagged. Full contextual grammar remains low confidence;
 broader reviews remain open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,824** exact before/after values, including unflagged
+records contain **19,826** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

@@ -636,10 +636,12 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** Tamazight checklist rule labels replace remaining French text
+**In short:** Tamazight checklist and board rule labels replace French text
 and distinguish checked or unchecked states from action commands. Existing
-rule behavior stays the same. Regression checks preserve placeholders and
-verify label wiring; complete contextual grammar remains under review.
+rule behavior stays the same; card movement and new-card creation labels
+retain their destination and new-card meaning. Regression checks preserve
+placeholders and verify label wiring; complete contextual grammar remains
+under review.
 
 This release includes the following features and fixes:
 
@@ -653,6 +655,16 @@ keeping them distinct from imperative checklist actions. Regression checks
 cover exact values, negative wrong-language checks and template wiring.
 Correction, retained-review and completeness suites also pass. Checkbox
 terminology and complete trigger grammar remain under native review.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7c6688b63">Repair Tamazight card movement and creation rule labels</a>. Thanks to xet7.</summary>
+
+Replace French move-card and create-new-card action labels using existing
+Tamazight terminology and IRCAM lexical evidence. Preserve destination
+and new-card meaning. Four focused suites pass; full contextual grammar
+remains under review. Audit records both additional unflagged repairs.
 
 </details>
 

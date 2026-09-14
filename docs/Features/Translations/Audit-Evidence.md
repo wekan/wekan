@@ -27980,3 +27980,30 @@ French checks and actual template wiring, correction ledger, retained
 reviews and completeness. No live UI test ran. Ledger 19,824; original
 pending 186 (zgh 91), restored 4 unchanged. Unflagged repairs do not reduce
 the original queue. Broader wording review remains open. No remote writes.
+
+
+## Board action labels — 2026-09-15
+
+Local commit `7c6688b63` replaces unflagged French r-move-card-to and
+r-create-card. Preserve moving toward the selected destination and
+creating a new card; neither becomes a generic archive action.
+boardActions.jade uses move text before the top/bottom and list/board
+controls, and create text before the new-card fields.
+
+The full cached IRCAM dictionary gives smutti (move, transitive), page
+503 entry 9495; snulfu (create/invent), page 509 entry 9599; amaynu (new),
+page 125 entry 2250. Its introduction, PDF page 10, describes deriving
+feminine adjectives by adjoining the feminine affix. The new-card label
+uses derived tamaynut with the existing feminine card noun. This is
+component and morphology evidence, not an independently attested complete
+software phrase. Existing move-card descriptions supply the same move
+verb/card construction. Source:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+**Low confidence:** full action-fragment composition, feminine agreement
+and destination phrasing remain under native contextual review. Four
+focused suites pass for exact wording, negative French checks, template
+wiring, placeholders, correction ledger, retained reviews and completeness.
+No live UI test ran. Ledger 19,826; original pending 186 (zgh 91), restored
+4 unchanged. Both repairs were unflagged. Broader review remains open.
+No remote writes.
