@@ -123254,5 +123254,12 @@
     "before": "Coptic",
     "after": "Ñalɗimere Koptinko",
     "reason": "Replace bare English calendar adjective with Latin-script transcription of actual Fulah Adlam CLDR calendar display name 𞤙𞤢𞤤𞤯𞤭𞤥𞤫𞤪𞤫 𞤑𞤮𞤨𞤼𞤭𞤲𞤳𞤮. Primary source: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/ff_Adlm.xml ; reviewed 2026-09-14. The Latin ff.xml and ff_Latn.xml do not supply these names. Use ñ for Adlam NYA, ɗ for DHA and doubled uu for vowel lengthener; remaining letters correspond to Latin spellings. Preserve Buddhist/Coptic identity and explicit calendar noun. LOW CONFIDENCE: Latin transcription and cross-script/regional terminology need native review; this is source-supported full Adlam wording, not independently attested Latin wording. Three original Fulah Hijri variant findings remain pending; provisional CLDR variant text needs semantic checks before reuse."
+  },
+  {
+    "locale": "ff",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Haatumeere Lislaam (Arabii Sawdit, yiide lewru)",
+    "reason": "Replace English Saudi Islamic label and restore missing moon-sighting qualifier. Retain established Haatumeere Lislaam Islamic calendar usage. Arabii Sawdit is exact Latin CLDR ff territory SA: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/ff.xml . Native Pulaar astronomy article uses yiide for seeing (sun) and lewru for moon: https://pulaar.org/page/223/?order=title&page=1&q=glossary%252Fj&sort=desc and https://pulaar.org/page/29/?order=type&page=4&sort=asc . LOW CONFIDENCE: yiide lewru sighting composition and full calendar label need fluent technical review; sources attest components, not this compound. Adlam CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/ff_Adlm.xml marks all Hijri names provisional; its Saudi entry has an opening parenthesis at the end instead of a closing one. Its tinande is not corroborated by the Wiktionary hit https://en.wiktionary.org/wiki/tinande which is SWEDISH, not Fulah. Do not treat that homograph as Fulah evidence. Civil/tabular epoch source compounds and nasalization/transcription remain unresolved; do not blindly reuse them."
   }
 ]
