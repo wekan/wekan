@@ -2444,7 +2444,7 @@
   "no-issues-found": "Aucun problème détecté",
   "run-migration": "ⵙⴽⵔ ⴰⵙⵎⵓⵜⵜⵢ",
   "run-comprehensive-migration-confirm": "Cette opération effectuera une migration complète pour vérifier et corriger l'intégrité des données du tableau. Cela peut prendre quelques instants. Continuer ?",
-  "run-delete-duplicate-empty-lists-migration-confirm": "Cette opération convertira d'abord les listes partagées en listes par couloir, puis supprimera les listes vides qui ont une liste en double avec le même titre contenant des cartes. Seules les listes vides vraiment redondantes seront supprimées. Continuer ?",
+  "run-delete-duplicate-empty-lists-migration-confirm": "1. ⵔⴰⴷ ⵉⵙⵏⴼⵍ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵉⵙⵙⵓⵔⵏ ⵖⵔ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵏ ⴽⵓ ⴰⴱⵔⵉⴷ. 2. ⵔⴰⴷ ⵉⴽⴽⵙ ⵖⴰⵙ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵉⵜⵜⵓⵢⴰⵍⵙⵏ ⵓⵔ ⴳⵉⵙⵏⵜ ⵜⵍⵍⵉ ⵜⴰⴽⴰⵕⴹⴰ ⴷ ⵜⵍⵍⴰ ⵜⴰⵍⴳⴰⵎⵜ ⵢⴰⴹⵏ ⵙ ⵢⴰⵏ ⵢⵉⵣⵡⵍ ⵍⵍⵉ ⴳⵉⵙ ⵍⵍⴰⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ. ⵉⵙ ⵜⵅⵙⴷ ⴰⴷ ⵜⴹⴼⵔⴷ?",
   "run-restore-lost-cards-migration-confirm": "Cette opération créera un couloir « Cartes perdues » et restaurera toutes les cartes et listes avec un swimlaneId ou listId manquant. Cela n'affecte que les éléments non archivés. Continuer ?",
   "run-restore-all-archived-migration-confirm": "Cette opération restaurera TOUS les couloirs, listes et cartes archivés, les rendant à nouveau visibles. Les éléments avec des identifiants manquants seront automatiquement corrigés. Cette action ne peut pas être facilement annulée. Continuer ?",
   "run-fix-missing-lists-migration-confirm": "ⵔⴰⴷ ⵉⵚⵓⵕ ⴷ ⵉⵙⵙⵓⴽⵏ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵓⵔ ⵍⵍⵉⵏⵜ ⵏⵖ ⵉⵜⵜⵓⵙⵙⵅⵙⵔⵏ ⴳ ⵜⵓⵚⴽⵉⵡⵜ ⵏ ⵜⴼⵍⵡⵉⵜ. ⵉⵙ ⵜⵅⵙⴷ ⴰⴷ ⵜⴹⴼⵔⴷ?",

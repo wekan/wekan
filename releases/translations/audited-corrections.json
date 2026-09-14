@@ -138430,5 +138430,12 @@
     "before": "Supprime en toute sécurité les listes vides en double. Supprime uniquement les listes qui n'ont aucune carte ET qui ont une autre liste avec le même titre contenant des cartes.",
     "after": "ⵉⴽⴽⵙ ⵙ ⵜⵏⴼⵔⵓⵜ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵉⵜⵜⵓⵢⴰⵍⵙⵏ ⵓⵔ ⴳⵉⵙⵏⵜ ⵜⵍⵍⵉ ⵜⴰⴽⴰⵕⴹⴰ. ⵉⴽⴽⵙ ⵖⴰⵙ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵓⵔ ⴳⵉⵙⵏⵜ ⵜⵍⵍⵉ ⵜⴰⴽⴰⵕⴹⴰ ⴷ ⵜⵍⵍⴰ ⵜⴰⵍⴳⴰⵎⵜ ⵢⴰⴹⵏ ⵙ ⵢⴰⵏ ⵢⵉⵣⵡⵍ ⵍⵍⵉ ⴳⵉⵙ ⵍⵍⴰⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ.",
     "reason": "2026-09-15: Replace French empty-duplicate-list description with Tamazight draft retaining safely, only, no cards AND another same-title list containing cards. IRCAM tanfrut safety entry 11473 p613 supports safety component; full restriction/relative grammar remains low confidence. See Tamazight-Review.md."
+  },
+  {
+    "locale": "zgh",
+    "key": "run-delete-duplicate-empty-lists-migration-confirm",
+    "before": "Cette opération convertira d'abord les listes partagées en listes par couloir, puis supprimera les listes vides qui ont une liste en double avec le même titre contenant des cartes. Seules les listes vides vraiment redondantes seront supprimées. Continuer ?",
+    "after": "1. ⵔⴰⴷ ⵉⵙⵏⴼⵍ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵉⵙⵙⵓⵔⵏ ⵖⵔ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵏ ⴽⵓ ⴰⴱⵔⵉⴷ. 2. ⵔⴰⴷ ⵉⴽⴽⵙ ⵖⴰⵙ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵉⵜⵜⵓⵢⴰⵍⵙⵏ ⵓⵔ ⴳⵉⵙⵏⵜ ⵜⵍⵍⵉ ⵜⴰⴽⴰⵕⴹⴰ ⴷ ⵜⵍⵍⴰ ⵜⴰⵍⴳⴰⵎⵜ ⵢⴰⴹⵏ ⵙ ⵢⴰⵏ ⵢⵉⵣⵡⵍ ⵍⵍⵉ ⴳⵉⵙ ⵍⵍⴰⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ. ⵉⵙ ⵜⵅⵙⴷ ⴰⴷ ⵜⴹⴼⵔⴷ?",
+    "reason": "2026-09-15: Replace French confirmation with ordered conversion then restricted deletion and continue question. Retain shared-list to per-swimlane transformation, only empty duplicates and same-title populated counterpart. IRCAM shared/common entry on p535 supports component; full inflections, conversion and restriction compounds remain low confidence. See Tamazight-Review.md."
   }
 ]

@@ -227,3 +227,9 @@ assert.match(emptyDuplicateDescription, /^ⵉⴽⴽⵙ ⵙ ⵜⵏⴼⵔⵓⵜ/);
 assert.match(emptyDuplicateDescription, /ⵉⴽⴽⵙ ⵖⴰⵙ.*ⵓⵔ.*ⵜⴰⴽⴰⵕⴹⴰ ⴷ ⵜⵍⵍⴰ ⵜⴰⵍⴳⴰⵎⵜ ⵢⴰⴹⵏ.*ⵢⴰⵏ ⵢⵉⵣⵡⵍ.*ⵍⵍⴰⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ/);
 assert.doesNotMatch(emptyDuplicateDescription, /Supprime|uniquement|ⵏⵖ/);
 assert.notEqual(emptyDuplicateDescription, translated['delete-duplicate-lists-confirm']);
+
+const emptyDuplicateConfirmation = translated['run-delete-duplicate-empty-lists-migration-confirm'];
+assert.match(emptyDuplicateConfirmation, /^1\. ⵔⴰⴷ ⵉⵙⵏⴼⵍ.*ⵖⵔ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵏ ⴽⵓ ⴰⴱⵔⵉⴷ\. 2\. ⵔⴰⴷ ⵉⴽⴽⵙ ⵖⴰⵙ/);
+assert.match(emptyDuplicateConfirmation, /ⵓⵔ.*ⵜⴰⴽⴰⵕⴹⴰ ⴷ ⵜⵍⵍⴰ ⵜⴰⵍⴳⴰⵎⵜ ⵢⴰⴹⵏ.*ⵢⴰⵏ ⵢⵉⵣⵡⵍ.*ⵍⵍⴰⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ/);
+assert.match(emptyDuplicateConfirmation, /ⵉⵙ ⵜⵅⵙⴷ ⴰⴷ ⵜⴹⴼⵔⴷ\?$/);
+assert.doesNotMatch(emptyDuplicateConfirmation, /Cette|partagées|Continuer/);
