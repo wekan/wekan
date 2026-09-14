@@ -1255,3 +1255,17 @@ placeholders/order/newer human translations. Low confidence: landing-list
 metaphor, rsant relative-clause agreement and genitive subtask compounds;
 components do not certify full phrase, browser not run. Original pending
 254 → 253; Tamazight 142 → 141; correction ledger grows to 18,768.
+
+
+Tamazight currency and integer evidence — 2026-09-14, `551e1ec04`.
+Unflagged custom-field-currency Arabic is replaced with adrim anzmar,
+explicitly glossed currency in IRCAM PDF page 58 entry 810, alongside
+adrim money/currency and national-currency compound. This is full primary
+compound evidence rather than a money-only extrapolation. Four suites
+pass with token/order/human-preference protection. Currency-code label
+remains French and needs separate review; browser unexecuted.
+Integer research: PDF 450 entry 8544 supplies positive; PDF 162 entry
+3011 zero. Fraction entries 7482/11605 mean tribal subdivisions, not
+mathematical fractions. Neither those nor positive alone completes the
+positive-integer error. That full message remains Arabic and pending.
+No partial acceptance made; pending 253, ledger grows to 18,769.

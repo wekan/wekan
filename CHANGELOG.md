@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/551e1ec04">Replace Arabic currency-field type with native Tamazight</a>. Thanks to xet7.</summary>
+
+Use an explicitly attested currency compound. Four suites pass; currency
+code and positive-integer wording remain under review, together with
+browser verification. Original pending count stays at 253.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d968e4bb2">Repair Tamazight subtask landing-list instruction</a>. Thanks to xet7.</summary>
 
 Replace French with arrival-list, subtask and deposited-here wording.
