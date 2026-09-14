@@ -22047,3 +22047,16 @@ is appropriate; retained unchanged. Attachment grammar remains open.
 Review checks pass: 15,561 corrected, 1,591 restored awaiting validation,
 2,621 reviewed unchanged and 308 pending. Broader language and browser
 validation remain open. Nothing pushed.
+
+
+### 2026-09-14 — Galician account states and scheduled board actions
+
+Local commit `3b524f071` retains 29 directly reviewed values unchanged.
+Unlock confirmations preserve this-user/all-users and only-locked scope;
+activation controls preserve active/inactive inversion. Archive, backup and
+cleanup messages distinguish successful scheduling from failed scheduling,
+without claiming execution has completed. Storage-path and job labels retain
+meaning. Complete remains unaccepted pending action/status context.
+Review checks pass: 15,561 corrected, 1,562 restored awaiting validation,
+2,650 reviewed unchanged and 308 pending. Contextual agreement, broader
+language and browser validation remain open. Nothing pushed.
