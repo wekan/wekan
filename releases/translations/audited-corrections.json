@@ -123464,5 +123464,12 @@
     "before": "Le chargement est terminé",
     "after": "ⵉⵎⴷⴰ ⵓⵙⵙⴽⵜⵔ",
     "reason": "Replace French upload-completed status. Native MediaWiki uploadlogpage attests bound upload noun ussktr; morenotlisted gives feminine negative completion ur tmdi. https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: positive masculine completion imda and complete status sentence are grammatical adaptations requiring fluent Standard Moroccan review; do not imply upload started, saved or merely successful without completion. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "OS_Totalmem",
+    "before": "الذاكرة الكلية لنظام التشغيل",
+    "after": "OS: ⵎⴰⵕⵕⴰ ⵜⴰⴽⴰⵜⵓⵜ",
+    "reason": "Replace Arabic OS Total Memory diagnostic label. Preserve source OS acronym and total computer memory scope. Native MediaWiki mediastatistics-header-total uses marra for total/all: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . CNAM computing lexicon https://cedric.cnam.fr/~bouzefra/books/amawal.pdf PDF page 89/printed 85 explicitly gives Memory Takatut MC. LOW CONFIDENCE: complete total-memory diagnostic wording and Central Moroccan to Standard Moroccan adaptation require fluent review. Do not conflate free or available memory with total. Reviewed 2026-09-14."
   }
 ]
