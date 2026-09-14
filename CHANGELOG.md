@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7dfbbecbd">Repair Tamazight board invitation notification</a>. Thanks to xet7.</summary>
+
+Replace French with a new-invitation notification distinct from acceptance
+status. Four focused checks pass. Recency and full native grammar remain
+low confidence; dated audit tracks 263 original pending findings.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/91ebdcc27">Translate Tamazight Trello import instructions</a>. Thanks to xet7.</summary>
 
 Replace cosmetically changed English prose, preserving exact Trello menu

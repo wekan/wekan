@@ -25158,3 +25158,23 @@ menu literals/order and copy instruction have regression coverage.
 Recount: 15,638 corrected, 264 pending (151 Tamazight), four restored,
 4,175 retained and 18,737 correction records. Native/browser and earlier
 uncertain repairs remain open.
+
+## New board invitation notification — 2026-09-14
+
+Local commit `7dfbbecbd` repairs French just-invited using a nominal
+new invitation for you to this board notification. IRCAM 2019 PDF page
+227 entry 4358 attests invitation; existing new/board vocabulary is reused.
+Page 506 entry 9539 invite/receive differs from page 523 entry 9861,
+which specifically invites to a meal and is unsuitable as sole authority
+for board membership. Source:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+**Low confidence** remains for rendering just-invited recency with new,
+recipient/preposition and complete nominal notification grammar. BoardsList
+and Sidebar display this notification; it must stay distinct from
+not-accepted-yet, which remains French and pending. The dictionary's
+accept destiny/God's will/intercession entries do not establish generic
+accepting a board invitation; no such acceptance is recorded.
+Four focused checks pass; no browser validation was run. Recount: 15,639
+corrected, 263 pending (150 Tamazight), four restored, 4,175 retained and
+18,738 correction records. Broader native/runtime verification stays open.
