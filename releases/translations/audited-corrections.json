@@ -138542,5 +138542,19 @@
     "before": "Kalendar sistem (data görünüşü)",
     "after": "Wodiyaa qoodaa maaraa (gallassaa bessiyoogaa)",
     "reason": "2026-09-15: replace Azerbaijani calendar-selection label with Wolaytta draft retaining calendar system and date-display qualifier. Native Gifaataa calendar/method components and native Wolaytta nominalized showing wording support components; use existing date noun. Complete software-display sense, date/day distinction and compound grammar remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-checklist-note",
+    "before": "Note : les items de la checklist doivent être séparés par des virgules.",
+    "after": "ⵜⴰⵎⴰⵡⵜ: ⴰⵔⵓ ⵉⴼⵔⴷⵉⵙⵏ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ ⵙ ⵜⵉⵙⴽⵔⵉⵏ ⴳⵔⴰⵙⵏ.",
+    "reason": "2026-09-15: replace French checklist-rule text with Tamazight draft. Preserve checklist/item identity and the mandatory comma-separated input instruction. IRCAM entry 12946 explicitly attests punctuation comma/plural and entry 3669 write; native MediaWiki attests item plural. Complete checklist compound, note noun and between-them agreement remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-items-check",
+    "before": "Élément de checklist",
+    "after": "ⴰⴼⵔⴷⵉⵙ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
+    "reason": "2026-09-15: replace French checklist-rule text with Tamazight draft. Preserve checklist/item identity and the mandatory comma-separated input instruction. IRCAM entry 12946 explicitly attests punctuation comma/plural and entry 3669 write; native MediaWiki attests item plural. Complete checklist compound, note noun and between-them agreement remain low confidence."
   }
 ]
