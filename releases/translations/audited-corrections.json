@@ -130758,5 +130758,19 @@
     "before": "ⴰⴳⵣⵓⵎ",
     "after": "ⴰⵙⴳⵣⵍ",
     "reason": "Use independently attested native Moroccan software account-creation, logs and summary terminology. Summary punctuation adapted to a heading."
+  },
+  {
+    "locale": "iu",
+    "key": "edit",
+    "before": "ᐊᓯᔾᔨᖅᑕᐅᔪᖅ",
+    "after": "Aaqqigiarli",
+    "reason": "Replace passive status wording with the exact native software imperative from Microsoft Inuktitut style guide. Roman orthography is valid; browser flow review remains open."
+  },
+  {
+    "locale": "iu",
+    "key": "delete",
+    "before": "ᐲᖅᑕᐅᔪᖅ",
+    "after": "Piirli",
+    "reason": "Replace passive status wording with the exact native software imperative from Microsoft Inuktitut style guide. Roman orthography is valid; browser flow review remains open."
   }
 ]

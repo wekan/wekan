@@ -244,3 +244,10 @@ assert.equal(inuktitut['ldap-test-connection-error'], 'ᐊᑦᑕᕕᖃᕐᓂᖅ 
 assert.deepEqual(tokens(inuktitut['ldap-test-connection-error']), ['%s']);
 assert.doesNotMatch(inuktitut['ldap-test-connection-error'], /Attaviguti|asianngittuq/);
 assert.notEqual(inuktitut['ldap-test-connection-error'], inuktitut['ldap-test-connection-success']);
+
+// Native software imperatives distinguish commands from passive status labels.
+assert.equal(inuktitut.edit, 'Aaqqigiarli');
+assert.equal(inuktitut.delete, 'Piirli');
+assert.doesNotMatch(inuktitut.edit, /ᐊᓯᔾᔨᖅᑕᐅᔪᖅ/);
+assert.doesNotMatch(inuktitut.delete, /ᐲᖅᑕᐅᔪᖅ/);
+assert.notEqual(inuktitut.edit, inuktitut.delete);
