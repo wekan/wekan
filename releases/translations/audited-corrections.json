@@ -130128,5 +130128,12 @@
     "before": "Désactiver ce webhook",
     "after": "Diweredekaat ar webhook-mañ",
     "reason": "Replace French-seeded Breton WIP/webhook settings labels using native software activate/deactivate and limit terminology, existing local edit/set/invalid/group vocabulary. WIP and webhook remain technical literals. Group title is a plural grouping label, not an enable action; preserve separate edit, enable, set and error meanings. Compounds adapted; broader native/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "custom-product-name",
+    "before": "Nom personnalisé",
+    "after": "Anv personelaet ar produ",
+    "reason": "Replace French label and restore product qualifier; adapted Breton compound using native personelaat and dictionary produ. Full compound/browser validation remains open."
   }
 ]

@@ -176,3 +176,8 @@ for (const key of ['board-view-gantt', 'board-view-gantt-frappe',
   'board-view-gantt-dhtmlx']) {
   assert.match(locales.br[key], /Gantt$/, 'proper chart/vendor names stay literal');
 }
+
+assert.equal(locales.br['custom-product-name'], 'Anv personelaet ar produ');
+assert.doesNotMatch(locales.br['custom-product-name'], /Nom|personnalisé/);
+assert.match(locales.br['custom-product-name'], /ar produ$/, 'preserve product qualifier');
+assert.notEqual(locales.br['custom-product-name'], locales.br.fullname);
