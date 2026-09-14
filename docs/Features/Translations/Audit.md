@@ -4,27 +4,26 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,562 |
-| Restored pre-pull; awaiting validation | 963 |
-| Reviewed; retained unchanged | 3,248 |
+| Corrected | 15,563 |
+| Restored pre-pull; awaiting validation | 959 |
+| Reviewed; retained unchanged | 3,251 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
 Review is ongoing. The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,162** exact before/after values, including unflagged repairs.
+contain **18,163** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `29f1980b2` —
-clarified Galician custom-field value clearing, distinguishing it from
-removing the field definition. Retained 25 correct rule/activity values.
-All **18,162** correction and **3,248** review records pass. Attachment/member rule participles need context-specific
-agreement: shared feminine labels currently follow masculine subjects.
+Latest translation fix: **2026-09-14**, local commit `c6c3b90be` —
+clarified Galician Node heap garbage overwriting with a bit pattern.
+Retained three ticket labels: the Real Academia Galega accepts tícket.
+All **18,163** correction and **3,251** review records pass.
+Attachment/member rule participles still need context-specific agreement.
 Three Esperanto restored findings remain: lime color and two Complete labels.
 Broader language and browser verification remain open; nothing pushed.
-Latest unchanged review: **2026-09-14**, commit `1adfb3bec` — retained
-27 correct Galician format instructions, reports and request-state values.
-Ticket orthography remains open pending dictionary review.
+Latest unchanged review: **2026-09-14**, commit `c6c3b90be` — retained
+three dictionary-verified Galician ticket labels.
 Received-label participles remain open pending agreement/context review.
 Galician export free wording remains open pending context.
 Galician Complete and migration-complete wording remain open pending context.

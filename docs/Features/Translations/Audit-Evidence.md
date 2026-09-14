@@ -22313,3 +22313,12 @@ pending dictionary review.
 Review checks pass: 15,562 corrected, 963 restored awaiting validation,
 3,248 reviewed unchanged and 308 pending. Broader language and browser
 validation remain open. Nothing pushed.
+
+### 2026-09-14 — Galician heap diagnostic and ticket spelling
+
+Local commit `c6c3b90be` repairs Node_heap_does_zap_garbage: overwriting
+heap garbage with a bit pattern is distinct from garbage collection.
+Source: https://nodejs.org/download/release/latest-v16.x/docs/api/v8.html
+Retained ticket, tickets and ticket-number after dictionary verification:
+https://academia.gal/dicionario/-/termo/t%C3%ADcket
+Correction and review ledger checks pass; full language/browser scope remains open.

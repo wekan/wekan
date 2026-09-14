@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,562 corrected, 963 restored pre-pull values awaiting
-validation, 3,248 reviewed and retained, and 308 pending review or repair.
-The correction inventory records 18,162 exact before/after values,
+findings: 15,562 corrected, 959 restored pre-pull values awaiting
+validation, 3,251 reviewed and retained, and 308 pending review or repair.
+The correction inventory records 18,163 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
 of 829
@@ -1078,6 +1078,18 @@ spinner options and closed/resolved distinctions. Review checks pass;
 ticket orthography and broader browser validation remain open.
 
 </details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c6c3b90be">Clarify Galician Node heap garbage overwriting and validate ticket spelling.</a></summary>
+
+The diagnostic describes overwriting garbage with a bit pattern. Three
+Galician ticket labels retain dictionary-accepted spelling. Exact correction,
+placeholder, key-order and unchanged-review checks pass.
+
+Thanks to xet7 !
+
+</details>
+
 
 and improves the following developer tooling:
 
