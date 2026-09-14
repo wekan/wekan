@@ -738,6 +738,15 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7998e6aff">Review Basque incomplete rule wording</a>. Thanks to xet7.</summary>
+
+Native software guidance distinguishes completion status from leaving work
+unfinished. The dated audit records the full-clause repair requirement; no
+uncertain value is accepted. Focused rule and audit checks pass.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a123f9428">Repair Breton white color label</a>. Thanks to xet7.</summary>
 
 White uses native gwenn, with focused checks distinguishing gray and silver.

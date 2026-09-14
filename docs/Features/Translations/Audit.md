@@ -34,11 +34,13 @@ contain **18,631** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest uncertain-phrase review: **2026-09-14**, `5400a0ce9` —
-[Inuktitut recurrence/reset review](Inuktitut-Recurrence-Review.md) distinguishes
-fresh-card creation from in-place checklist unchecking and records primary
-repeat/again affix evidence. Six headings/off labels remain open; component
-words alone do not establish complete phrases. Current pending/restored counts are 288/12.
+Latest uncertain-phrase review: **2026-09-14**, `7998e6aff` —
+[Basque rule review](Basque-Review.md) adds native EHU software evidence for
+completion status. The incomplete predicate needs a full status-transition
+clause that works with both generic and named checklist nouns; unfinished
+wording alone is insufficient. No uncertain finding was accepted.
+[Inuktitut recurrence/reset review](Inuktitut-Recurrence-Review.md) remains
+open in `5400a0ce9`. Current pending/restored counts are 288/12.
 
 Latest unflagged unchanged review: **2026-09-14**, `5bf34bc48` —
 Inuktitut `new` retains `ᓄᑖᖅ`, matching the native software guide's New
