@@ -91,3 +91,10 @@ for (const [variant, epoch] of [['civil', '622-07-16'], ['tbla', '622-07-15']]) 
 }
 assert.notEqual(quechua['calendar-system-islamic-civil'],
   quechua['calendar-system-islamic-tbla'], 'distinct epochs must not collapse');
+
+assert.equal(quechua['calendar-system-islamic-rgsa'],
+  'Hijri Watanqillqa (Arabia Saudita, killa qhawarisqa)');
+assert.doesNotMatch(quechua['calendar-system-islamic-rgsa'], /Intiwatana|tawla yupay|622-07/);
+for (const [key, value] of Object.entries(quechua).filter(([key]) => key.startsWith('calendar-system'))) {
+  assert.doesNotMatch(value, /Intiwatana/, `${key}: a calendar is not a clock`);
+}

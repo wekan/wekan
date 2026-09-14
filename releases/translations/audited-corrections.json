@@ -123567,8 +123567,8 @@
     "locale": "qu",
     "key": "calendar-system-islamic-rgsa",
     "before": "Islamic (Saudi Arabia)",
-    "after": "Hijri Intiwatana (Arabia Saudita rikusqa)",
-    "reason": "Replace incomplete English Saudi Hijri label with Quechua. Primary Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/qu.xml directly supplies scope=core islamic-rgsa Hijri, Arabia Saudita rikusqa and full islamic Hijri Intiwatana. Compose the full label from those entries, retaining sighting rather than dropping it. LOW CONFIDENCE complete parenthesized composition requires fluent review. CLDR tbla Enfoque Astronómico means astronomical approach rather than explicitly astronomical epoch; do not use it to erase that distinction. Reviewed 2026-09-14."
+    "after": "Hijri Watanqillqa (Arabia Saudita, killa qhawarisqa)",
+    "reason": "Replace incomplete English Saudi Hijri label with Quechua. Primary Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/qu.xml directly supplies scope=core islamic-rgsa Hijri, Arabia Saudita rikusqa and full islamic Hijri Intiwatana. Compose the full label from those entries, retaining sighting rather than dropping it. LOW CONFIDENCE complete parenthesized composition requires fluent review. CLDR tbla Enfoque Astronómico means astronomical approach rather than explicitly astronomical epoch; do not use it to erase that distinction. Reviewed 2026-09-14. 2026-09-14: Replace clock-only Saudi sighting label with calendar, moon and attested sighting-result wording (USMP dictionary qhawarisqa; Peru Ministry of Education killa). Full compound grammar remains low confidence; see Quechua-Review.md."
   },
   {
     "locale": "zgh",
