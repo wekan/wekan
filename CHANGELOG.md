@@ -589,7 +589,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.76 2026-09-14 WeKan ® release
 
 **In short:** Fix the **assignee view** build by using WeKan's existing native
 date formatter while preserving the selected calendar. The release script
