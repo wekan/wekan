@@ -123996,5 +123996,26 @@
     "before": "إضافة أعضاء",
     "after": "ⵔⵏⵓ ⵉⴳⵎⴰⵎⵏ",
     "reason": "2026-09-14: Replace Arabic Add interface label, preserving plural members popup; match Add Members entry, native MediaWiki nmembers attests igmamn. Native MediaWiki export-addcat supplies rnu/Add. Do not interchange Board, Card, List or Members or replace add with edit. LOW CONFIDENCE complete kanban command: reference-supported component vocabulary does not independently validate the full phrase or board/card terminology extension. Fluent contextual review remains required. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "memberPopup-title",
+    "before": "أفضليات الأعضاء",
+    "after": "ⵜⵉⵙⵖⴰⵍ ⵏ ⵓⴳⵎⴰⵎ",
+    "reason": "2026-09-14: Replace Arabic label, preserving Member Settings, singular member rather than plural members or personal preferences. Native Mastodon account.edit_profile supports snfl/Edit and column_header.show_settings supports tisghal/Settings; native MediaWiki nmembers supplies ugmam/igmamn member forms. Reuse existing WeKan board noun. LOW CONFIDENCE complete kanban heading/action and bound-state adaptation: component references do not establish full phrasing; fluent contextual review remains required. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "boardMenuPopup-title",
+    "before": "إعدادات اللوحة",
+    "after": "ⵜⵉⵙⵖⴰⵍ ⵏ ⵜⴼⵍⵡⵉⵜ",
+    "reason": "2026-09-14: Replace Arabic label, preserving Board Settings, singular board ownership, preserving distinction from generic Settings. Native Mastodon account.edit_profile supports snfl/Edit and column_header.show_settings supports tisghal/Settings; native MediaWiki nmembers supplies ugmam/igmamn member forms. Reuse existing WeKan board noun. LOW CONFIDENCE complete kanban heading/action and bound-state adaptation: component references do not establish full phrasing; fluent contextual review remains required. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "card-edit-members",
+    "before": "تعديل الأعضاء",
+    "after": "ⵙⵏⴼⵍ ⵉⴳⵎⴰⵎⵏ",
+    "reason": "2026-09-14: Replace Arabic label, preserving Edit members action, plural members, preserving edit rather than add. Native Mastodon account.edit_profile supports snfl/Edit and column_header.show_settings supports tisghal/Settings; native MediaWiki nmembers supplies ugmam/igmamn member forms. Reuse existing WeKan board noun. LOW CONFIDENCE complete kanban heading/action and bound-state adaptation: component references do not establish full phrasing; fluent contextual review remains required. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
