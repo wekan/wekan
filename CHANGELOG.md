@@ -661,6 +661,16 @@ The browser assertion accepts whitespace between the regional flag and name.
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2ad05d681">Replace Arabic OS uptime label with a Tamazight draft</a>. Thanks to xet7.</summary>
+
+Describe elapsed time since operating-system start using IRCAM lexical
+terms, matching the actual Information view value. Four focused suites pass.
+Relative-clause inflection, startup terminology and other diagnostic labels
+remain under native review; no admin browser execution is claimed.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3e7b05f82">Use attested Tamazight wording for list ordering</a>. Thanks to xet7.</summary>
 
 Replace a speculative derived noun in the migration-description draft with

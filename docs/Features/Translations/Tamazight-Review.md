@@ -2119,3 +2119,29 @@ activation. These sources resolve the noun choice, not complete sentence
 fluency: comprehensive/general wording, inflection and remaining list/card/
 swimlane compounds still require review. Earlier draft evidence is historical
 and superseded on this noun only. No service translation or remote push.
+
+
+### 2026-09-14 — OS uptime label draft
+
+Source commit `2ad05d681`: unflagged Arabic OS_Uptime replaced with a Tamazight
+time-elapsed-since-OS-start label. Ledger 19,758; original pending 224
+(zgh 117), four restored values unchanged. server/statistics.js obtains
+statistics.os.uptime from os.uptime(); informationBody.jade renders it with
+humanReadableTime. It is distinct from statistics.process.uptime.
+[Node OS documentation](https://nodejs.org/api/os.html#osuptime) supports the
+OS-uptime semantics; no numeric values or runtime behavior were changed.
+
+Cached IRCAM General Dictionary: p240 entry 4642 asnti beginning; p721
+entry 13549 zri pass; p688 entry 12970 tisnsi application/operating system.
+Existing akud time reused. The phrase ⴰⴽⵓⴷ ⵍⵍⵉ ⵉⵣⵔⵉⵏ ⵙⴳ ⵓⵙⵏⵜⵉ
+ⵏ ⵜⵉⵙⵏⵙⵉ is a derived computing clause requiring native inflection and
+startup adaptation review. Avoid aswuri use/employment and dictionary
+projection-period/running-time phrase: neither directly attests OS uptime.
+Physical platform senses found in the dictionary do not establish a term for
+os.platform(); platform and load-average terminology remain unresolved.
+
+Four focused suites pass after renaming a duplicate statisticsSource constant:
+locale meaning checks and actual source/template binding, exact ledger
+values/tokens/examples/order/newer-human preservation, unchanged reviews and
+completeness. No admin browser run claimed. Structural/script checks do not
+certify native fluency. No translation service or remote push.

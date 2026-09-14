@@ -16,16 +16,15 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, `3e7b05f82` — speculative ordering
-noun in the Tamazight migration draft replaced with attested anmala.
-IRCAM word-order and MediaWiki default-sort usage support the correction.
-Four focused suites pass, including rejection of the superseded form.
-Ledger 19,757; original pending 224 (zgh 117), restored 4 unchanged.
-Comprehensive/general phrasing, inflection, software compounds and all
-other pending/restored/uncertain reviews remain in scope.
+Latest translation fix: **2026-09-14**, `2ad05d681` — Arabic OS uptime
+label replaced with a Tamazight time-since-OS-start draft, matching actual
+os.uptime rendering and IRCAM lexical evidence. Four focused suites pass
+after removing a duplicate test constant. Ledger 19,758; original pending
+224 (zgh 117), restored 4 unchanged. Relative-clause/startup adaptation,
+other diagnostics and all prior uncertain reviews remain open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,757** exact before/after values, including unflagged
+records contain **19,758** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
