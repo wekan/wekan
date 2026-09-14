@@ -125095,5 +125095,12 @@
     "before": "ⵉⵙⴻⵎⵓⵜⵜⵉⵢⴻⵏ ⵃⴻⴱⵙⴻⵏ ⴰⴽⴽⴻⵏ ⵉⵡⴰⵜⴰ",
     "after": "ⵉⵙⵎⵓⵜⵜⵢⵏ ⵜⵜⵓⵙⴱⴷⴷⵏ",
     "reason": "Repair Tamazight migration pause status. Direct Red Moon zgh source notification_status_paused attests ittusbdd and notification_action_pause sbdd: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Compose own plural migration phrase, preserving ongoing Pausing with ... versus completed Paused state. LOW CONFIDENCE: plural passive morphology, software Migration term and full grammar. Upstream also uses sbdd for Stop, so it supports pause usage but does not independently prove a lexical pause/stop distinction. Existing paused value has Kabyle-like akken iwata surplus absent from source; script alone is not reason for replacement."
+  },
+  {
+    "locale": "zgh",
+    "key": "resume-migration",
+    "before": "ⴽⴻⵎⵎⴻⵍ ⴰⵙⵎⵓⵜⵜⵉ",
+    "after": "ⴰⵍⵙ ⴰⵙⵎⵓⵜⵜⵢ",
+    "reason": "Repair unflagged Resume Migration control with Tamazight native app terminology. Direct Red Moon zgh notification_action_resume attests als for Resume, distinct from its pause/stop commands: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Preserve resuming migration, not completing it; replace inherited kemmel completion/continuation wording and align reviewed Migration noun asmutty. LOW CONFIDENCE: software Migration semantic extension from Move and complete imperative object phrase need fluent review. This is not a script-only correction; native Resume usage supports the action."
   }
 ]
