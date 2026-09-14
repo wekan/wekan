@@ -32,6 +32,12 @@ contain **18,609** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
+Latest uncertain-phrase review: **2026-09-14**, `5400a0ce9` —
+[Inuktitut recurrence/reset review](Inuktitut-Recurrence-Review.md) distinguishes
+fresh-card creation from in-place checklist unchecking and records primary
+repeat/again affix evidence. Six headings/off labels remain open; component
+words alone do not establish complete phrases. Counts remain 289/13.
+
 Latest unflagged unchanged review: **2026-09-14**, `5bf34bc48` —
 Inuktitut `new` retains `ᓄᑖᖅ`, matching the native software guide's New
 command and actual admin creation labels. Focused checks pass; browser review

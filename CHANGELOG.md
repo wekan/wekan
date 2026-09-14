@@ -738,6 +738,16 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5400a0ce9">Document Inuktitut recurrence and reset review</a>. Thanks to xet7.</summary>
+
+The dated audit distinguishes fresh-card recurrence from in-place checklist
+reset and records primary repeat/again affix evidence. Six headings/off
+translations remain open pending complete native wording and browser review.
+Existing frequency translations and focused checks remain intact.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5bf34bc48">Preserve native Inuktitut New label</a>. Thanks to xet7.</summary>
 
 The existing syllabic label matches native software terminology and actual
