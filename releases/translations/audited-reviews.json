@@ -17926,5 +17926,185 @@
     "key": "welcome-swimlane",
     "value": "Fito 1",
     "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "list-templates-swimlane",
+    "value": "Modelos de lista",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "wipLimitErrorPopup-title",
+    "value": "Límite WIP non válido",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "wipLimitErrorPopup-dialog-pt1",
+    "value": "O número de tarefas nesta lista é maior que o límite WIP que definiches.",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "wipLimitErrorPopup-dialog-pt2",
+    "value": "Move algunhas tarefas fóra desta lista ou establece un límite WIP máis alto.",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "smtp-tls-description",
+    "value": "Activar a compatibilidade con TLS para o servidor SMTP",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "smtp-tls",
+    "value": "Compatibilidade con TLS",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "send-smtp-test",
+    "value": "Enviarte un correo electrónico de proba",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "invitation-code",
+    "value": "Código de convite",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "email-invite-register-subject",
+    "value": "__inviter__ envioute un convite",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "email-smtp-test-subject",
+    "value": "Correo electrónico de proba de SMTP",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "email-smtp-test-text",
+    "value": "Enviaches un correo electrónico correctamente",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "webhook-title",
+    "value": "Nome do webhook",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "webhook-token",
+    "value": "Token (opcional para a autenticación)",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "bidirectional-webhooks",
+    "value": "Webhooks bidireccionais",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "disable-webhook",
+    "value": "Desactivar este webhook",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "global-webhook",
+    "value": "Webhooks globais",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "new-outgoing-webhook",
+    "value": "Novo webhook de saída",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "no-name",
+    "value": "(Descoñecido)",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "Node_version",
+    "value": "Versión de Node",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "Meteor_version",
+    "value": "Versión de Meteor",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "MongoDB_storage_engine",
+    "value": "Motor de almacenamento de MongoDB",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "MongoDB_Oplog_enabled",
+    "value": "Oplog de MongoDB activado",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "OS_Cpus",
+    "value": "Número de CPU do SO",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "OS_Freemem",
+    "value": "Memoria libre do SO",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "OS_Loadavg",
+    "value": "Carga media do SO",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "OS_Release",
+    "value": "Versión do SO",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "OS_Totalmem",
+    "value": "Memoria total do SO",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "OS_Uptime",
+    "value": "Tempo de actividade do SO",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "days",
+    "value": "días",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "showSum-field-on-list",
+    "value": "Mostrar a suma dos campos na parte superior da lista",
+    "reason": "Direct Galician review retains WIP over-limit warning and either move-tasks-out or raise-limit remedies. SMTP/TLS labels and test-email success preserve purpose; invitation inviter token is exact. Webhooks preserve optional authentication, two-way/global/outgoing distinctions and disable action. Node/Meteor/MongoDB names, OS CPU count, free/total memory, load average, uptime and top-of-list sum retain diagnostic meaning."
   }
 ]
