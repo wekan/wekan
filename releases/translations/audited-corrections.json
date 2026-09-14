@@ -126698,5 +126698,33 @@
     "before": "Glisser-déposer les icônes de tableau pour les réordonner. Cliquer sur l'icône du tableau pour l'ouvrir.",
     "after": "ⵣⵓⵖⵔ ⴷ ⵙⵙⵔⵙ ⵜⵉⴳⵏⵉⵜⵉⵏ ⵏ ⵜⴼⵍⵡⵉⵡⵉⵏ ⵃⵎⴰ ⴰⴷ ⵜⵙⵏⴼⵍⴷ ⴰⵙⴷⵡⴰ ⵏⵏⵙⵏⵜ. ⴽⵍⵉⴽⵉ ⵖⴼ ⵜⵉⴳⵏⵉⵜ ⵏ ⵜⴼⵍⵡⵉⵜ ⵃⵎⴰ ⴰⴷ ⵜⵔⵥⵎⴷ ⵜⴰⴼⵍⵡⵉⵜ.",
     "reason": "2026-09-14: Replace French board-icon instruction, preserving Drag AND Drop board icons TO change THEIR ORDER, and Click board icon TO OPEN BOARD. MediaWiki rcfilters-quickfilters-placeholder-description directly uses Click kliki and rcfilters-savedqueries-apply-label uses Change snfl (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Reuse earlier dictionary Drag zughr, indexed IRCAM Place ssrs as Drop, proposed CNAM Icon tignit/tignitin, cross-variety dictionary Order asdwa and local board/Open terms. Click is a loan command directly used in native UI, not a full French replacement. Icon/Order proposals, dialect Drag, Drop-as-Place, derived board plural, purpose clauses and full wording remain low confidence and require Standard Moroccan validation; do not claim normative Moroccan commands from cross-variety sources."
+  },
+  {
+    "locale": "zgh",
+    "key": "authentication-method",
+    "before": "Méthode d'authentification",
+    "after": "ⵜⴰⵔⵔⴰⵢⵜ ⵏ ⵓⵙⵙⵜⴱ",
+    "reason": "2026-09-14: Replace French authentication label, preserving Method versus Type and Default/Display modifiers. Directly inspected CNAM PDF page 23 Authentication Asesteb MC£, page 91 Method Tarrayt MW (https://cedric.cnam.fr/~bouzefra/books/amawal.pdf). MC£ is cross-variety authentication evidence, not normative Moroccan; MW denotes modern lexicon, not MediaWiki. Native MediaWiki img-lang-default directly attests Default s uwnul, rcfilters-show-new-changes Show skn and file-info-size Type anaw (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Standard-script rendering of cross-variety Authentication, bound usstb and full phrases remain low confidence and require Standard Moroccan validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "authentication-type",
+    "before": "Type d'authentification",
+    "after": "ⴰⵏⴰⵡ ⵏ ⵓⵙⵙⵜⴱ",
+    "reason": "2026-09-14: Replace French authentication label, preserving Method versus Type and Default/Display modifiers. Directly inspected CNAM PDF page 23 Authentication Asesteb MC£, page 91 Method Tarrayt MW (https://cedric.cnam.fr/~bouzefra/books/amawal.pdf). MC£ is cross-variety authentication evidence, not normative Moroccan; MW denotes modern lexicon, not MediaWiki. Native MediaWiki img-lang-default directly attests Default s uwnul, rcfilters-show-new-changes Show skn and file-info-size Type anaw (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Standard-script rendering of cross-variety Authentication, bound usstb and full phrases remain low confidence and require Standard Moroccan validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "default-authentication-method",
+    "before": "Méthode d'authentification par défaut",
+    "after": "ⵜⴰⵔⵔⴰⵢⵜ ⵏ ⵓⵙⵙⵜⴱ ⵙ ⵓⵡⵏⵓⵍ",
+    "reason": "2026-09-14: Replace French authentication label, preserving Method versus Type and Default/Display modifiers. Directly inspected CNAM PDF page 23 Authentication Asesteb MC£, page 91 Method Tarrayt MW (https://cedric.cnam.fr/~bouzefra/books/amawal.pdf). MC£ is cross-variety authentication evidence, not normative Moroccan; MW denotes modern lexicon, not MediaWiki. Native MediaWiki img-lang-default directly attests Default s uwnul, rcfilters-show-new-changes Show skn and file-info-size Type anaw (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Standard-script rendering of cross-variety Authentication, bound usstb and full phrases remain low confidence and require Standard Moroccan validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "display-authentication-method",
+    "before": "Afficher la méthode d'authentification",
+    "after": "ⵙⴽⵏ ⵜⴰⵔⵔⴰⵢⵜ ⵏ ⵓⵙⵙⵜⴱ",
+    "reason": "2026-09-14: Replace French authentication label, preserving Method versus Type and Default/Display modifiers. Directly inspected CNAM PDF page 23 Authentication Asesteb MC£, page 91 Method Tarrayt MW (https://cedric.cnam.fr/~bouzefra/books/amawal.pdf). MC£ is cross-variety authentication evidence, not normative Moroccan; MW denotes modern lexicon, not MediaWiki. Native MediaWiki img-lang-default directly attests Default s uwnul, rcfilters-show-new-changes Show skn and file-info-size Type anaw (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Standard-script rendering of cross-variety Authentication, bound usstb and full phrases remain low confidence and require Standard Moroccan validation."
   }
 ]
