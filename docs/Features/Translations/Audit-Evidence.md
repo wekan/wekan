@@ -25468,3 +25468,16 @@ discovery succeeded without changing ownership or claiming execution.
 HTTP probe to localhost:3000 failed connection: no app was running there.
 The browser regression is registered, not executed, and no native fluency
 acceptance or pending-count reduction is made.
+
+
+Tamazight plural error review — 2026-09-14, `a693a0093`.
+IRCAM PDF page 658 entry 12346 explicitly attests tazglt singular and
+tizglin plural. Errors now matches Error; unsupported izgaln is replaced.
+The previous correction record is revised, preserving original before
+and reason history; ledger stays 18,761 and pending stays 256. Four suites
+pass, including exact tokens, order and human-preference preservation.
+Related cron error strings still use the prior plural and need contextual
+grammar repairs; account lockout failures must not be equated with errors
+without semantic review. The full import warning remains French and
+pending; no incomplete component-only translation is accepted for it.
+Browser verification remains open.
