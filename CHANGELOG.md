@@ -612,6 +612,13 @@ keeping date output under the member's selected calendar. The Meteor bundle
 build passes on Linux arm64. Existing assignee browser tests cover dated
 cards; their live browser execution was not run in this verification.
 
+The saved `.tools/wekan22` logs are the v11.75 run with this same missing
+Moment import; source already contains the repair above. Repeat assignee,
+calendar and release-preflight regressions pass (six Node test entries).
+A fresh Meteor 3.6-beta.0 bundle build also passes on Linux arm64; its log is
+`.tools/log/build-dev-bundle/2026-09-14/04-25-58/dev.txt`. Live browser
+execution and a native amd64 build were not run locally.
+
 Run a read-only changelog preflight before tool installation, hash repair,
 version overrides or release mutations. Missing, empty and duplicate
 Upcoming sections stop with an explanatory error. Explicit versions still
