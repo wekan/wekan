@@ -646,6 +646,19 @@ This release documents the following translation fixes:
 **Developer tooling** - Mirror Git progress.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/93e61a1d6">Prefer authenticated GitHub CLI for mirror source metadata</a>. Thanks to xet7.</summary>
+
+The mirror launcher reports CLI availability immediately. Authenticated gh api
+reads issues, comments, pulls and releases with pagination and rate-limit
+headers; incremental archive saving stays in place. Missing authentication
+falls back to public HTTP API reads, and binary assets stream through HTTP.
+CLI requests have bounded time/output; tokens stay outside logs and arguments.
+Offline CLI, fallback, HTTP error, rate-limit and menu tests pass. No remote
+mirroring or remote writes were executed.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7c98c00d9">Skip archive.org recovery for retired WeKan branch links</a>. Thanks to xet7.</summary>
 
 Missing or failed WeKan tree, blob and raw branch-content links skip Wayback
