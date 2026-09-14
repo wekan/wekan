@@ -13729,12 +13729,6 @@
   },
   {
     "locale": "gl",
-    "key": "close-board-pop",
-    "value": "Poderás restaurar o taboleiro premendo o botón «Arquivo» na cabeceira de inicio.",
-    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
-  },
-  {
-    "locale": "gl",
     "key": "close-card",
     "value": "Pechar a tarxeta",
     "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."

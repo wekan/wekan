@@ -26,3 +26,14 @@ for (const code of additional) {
 }
 for (const [code, value] of [['tr','Arşiv'], ['es-AR','Archivo'], ['pt-BR','Arquivo']]) assert.strictEqual(read(code).archives, value);
 console.log(`Additional archive guidance: ${additional.length} locales and three Archive place labels verified`);
+
+const batchThree = ["ja-HI", "ja-JP", "ja", "ko-KR", "ko", "zh-CN", "zh-GB", "zh-Hans", "zh", "zh_SG", "zh-TW", "zh-HK", "ar-DZ", "ar-EG", "ar", "he-IL", "he", "fa-IR", "fa", "id", "ms-MY", "ms", "vi-VN", "vi", "th", "ca", "ca_ES", "eu", "gl-ES", "gl", "is", "lv", "lt", "et-EE"];
+for (const code of batchThree) {
+ const d = read(code); const value = d['close-board-pop'];
+ assert.ok(value.includes(d.archives)); assert.ok(value.includes(d['all-boards']));
+ assert.doesNotMatch(value, /ヘッダ|홈 헤더|主页头部|כותרת העליונה|home header|tiêu đề trang chủ|ส่วนหัว|capçalera|goiburuko|cabeceira|haus heimasíðunnar|namų antraštės/);
+}
+assert.doesNotMatch(read('ar')['close-board-pop'], /شما|می توانید|بایگانی|بازگردانید/);
+assert.doesNotMatch(read('id')['close-board-pop'], /boleh|pulih semula|butang|Arkib/);
+for (const [c, v] of [['ca','Arxiu'],['gl','Arquivo'],['he','ארכיון']]) assert.strictEqual(read(c).archives,v);
+console.log(`Archive guidance batch three: ${batchThree.length} files; wrong-language and place-label regressions`);

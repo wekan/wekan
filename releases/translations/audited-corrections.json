@@ -36515,8 +36515,8 @@
     "locale": "gl-ES",
     "key": "close-board-pop",
     "before": "Poderá restaurar o quadro clicando no botão “Arquivo” a partir do cabeçalho do Início.",
-    "after": "Poderás restaurar o taboleiro premendo o botón «Arquivo» na cabeceira de inicio.",
-    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+    "after": "Podes restaurar o taboleiro desde «Arquivo» na páxina «Todos os taboleiros».",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples. 2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
   },
   {
     "locale": "gl-ES",
@@ -132361,5 +132361,278 @@
     "before": "Você será capaz de restaurar o quadro clicando no botão “Arquivo morto” a partir do cabeçalho do Início.",
     "after": "Você pode restaurar o quadro em «Arquivo» na página «Todos os quadros».",
     "reason": "2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
+  },
+  {
+    "locale": "ca",
+    "key": "archives",
+    "before": "Desa",
+    "after": "Arxiu",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "gl",
+    "key": "archives",
+    "before": "Arquivar",
+    "after": "Arquivo",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "he",
+    "key": "archives",
+    "before": "להעביר לארכיון",
+    "after": "ארכיון",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "ja-HI",
+    "key": "close-board-pop",
+    "before": "ホームのヘッダ上にあるアーカイブボタンをクリックするとボードをリストアできます。",
+    "after": "「全てのボード」ページの「アーカイブ」からボードを復元できます。",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "ja-JP",
+    "key": "close-board-pop",
+    "before": "ホームのヘッダ上にあるアーカイブボタンをクリックするとボードをリストアできます。",
+    "after": "「全てのボード」ページの「アーカイブ」からボードを復元できます。",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "ja",
+    "key": "close-board-pop",
+    "before": "ホームのヘッダ上にあるアーカイブボタンをクリックするとボードをリストアできます。",
+    "after": "「全てのボード」ページの「アーカイブ」からボードを復元できます。",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "ko-KR",
+    "key": "close-board-pop",
+    "before": "홈 헤더에서 \"Archive\" 버튼을 클릭하여 보드를 복원할 수 있습니다.",
+    "after": "「전체 보드」 페이지의 「보관」에서 보드를 복원할 수 있습니다.",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "ko",
+    "key": "close-board-pop",
+    "before": "홈 헤더에서 \"Archive\" 버튼을 클릭하여 보드를 복원할 수 있습니다.",
+    "after": "「전체 보드」 페이지의 「보관」에서 보드를 복원할 수 있습니다.",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "zh-CN",
+    "key": "close-board-pop",
+    "before": "您可以通过主页头部的“归档”按钮，来恢复看板。",
+    "after": "您可以在“全部看板”页面的“归档”中恢复看板。",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "zh-GB",
+    "key": "close-board-pop",
+    "before": "您可以通过主页头部的“归档”按钮，来恢复看板。",
+    "after": "您可以在“全部看板”页面的“归档”中恢复看板。",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "zh-Hans",
+    "key": "close-board-pop",
+    "before": "您可以通过主页头部的“归档”按钮，来恢复看板。",
+    "after": "您可以在“全部看板”页面的“归档”中恢复看板。",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "zh",
+    "key": "close-board-pop",
+    "before": "您可以通过主页头部的“归档”按钮，来恢复看板。",
+    "after": "您可以在“全部看板”页面的“归档”中恢复看板。",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "zh_SG",
+    "key": "close-board-pop",
+    "before": "您可以通过主页头部的“归档”按钮，来恢复看板。",
+    "after": "您可以在“全部看板”页面的“归档”中恢复看板。",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "zh-TW",
+    "key": "close-board-pop",
+    "before": "您可以透過點擊首頁中的「封存」按鈕來還原看板。",
+    "after": "您可以在「所有看板」頁面的「封存」中還原看板。",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "zh-HK",
+    "key": "close-board-pop",
+    "before": "您可以透過點擊首頁中的「封存」按鈕來還原看板。",
+    "after": "您可以在「所有看板」頁面的「封存」中還原看板。",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "close-board-pop",
+    "before": "شما می توانید با کلیک کردن بر روی دکمه «بایگانی» از صفحه هدر، صفحه را بازگردانید.",
+    "after": "يمكنك استعادة اللوحة من قسم «أرشيف» في صفحة «كل اللوحات».",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "close-board-pop",
+    "before": "شما می توانید با کلیک کردن بر روی دکمه «بایگانی» از صفحه هدر، صفحه را بازگردانید.",
+    "after": "يمكنك استعادة اللوحة من قسم «أرشيف» في صفحة «كل اللوحات».",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "ar",
+    "key": "close-board-pop",
+    "before": "شما می توانید با کلیک کردن بر روی دکمه «بایگانی» از صفحه هدر، صفحه را بازگردانید.",
+    "after": "يمكنك استعادة اللوحة من قسم «أرشيف» في صفحة «كل اللوحات».",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "he-IL",
+    "key": "close-board-pop",
+    "before": "ניתן לשחזר את הלוח בלחיצה על כפתור „ארכיונים“ מהכותרת העליונה.",
+    "after": "ניתן לשחזר את הלוח מתוך «ארכיון» בדף «כל הלוחות».",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "he",
+    "key": "close-board-pop",
+    "before": "ניתן לשחזר את הלוח בלחיצה על כפתור „ארכיונים“ מהכותרת העליונה.",
+    "after": "ניתן לשחזר את הלוח מתוך «ארכיון» בדף «כל הלוחות».",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "fa-IR",
+    "key": "close-board-pop",
+    "before": "شما می توانید با کلیک کردن بر روی دکمه «بایگانی» از صفحه هدر، صفحه را بازگردانید.",
+    "after": "می‌توانید برد را از بخش «آرشیو» در صفحهٔ «همه بردها» بازیابی کنید.",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "fa",
+    "key": "close-board-pop",
+    "before": "شما می توانید با کلیک کردن بر روی دکمه «بایگانی» از صفحه هدر، صفحه را بازگردانید.",
+    "after": "می‌توانید برد را از بخش «آرشیو» در صفحهٔ «همه بردها» بازیابی کنید.",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "id",
+    "key": "close-board-pop",
+    "before": "Anda akan boleh pulih semula papan dengan klik butang Arkib pada \"home header\"",
+    "after": "Anda dapat memulihkan panel dari bagian «Arsip» pada halaman «Semua Panel».",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "ms-MY",
+    "key": "close-board-pop",
+    "before": "Anda akan boleh pulih semula papan dengan klik butang Arkib pada \"home header\"",
+    "after": "Anda boleh memulihkan papan daripada bahagian «Arkib» pada halaman «Semua Papan».",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "ms",
+    "key": "close-board-pop",
+    "before": "Anda akan boleh pulih semula papan dengan klik butang Arkib pada \"home header\"",
+    "after": "Anda boleh memulihkan papan daripada bahagian «Arkib» pada halaman «Semua Papan».",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "vi-VN",
+    "key": "close-board-pop",
+    "before": "Bạn sẽ có thể khôi phục bảng bằng cách nhấp vào nút \"Lưu trữ\" từ tiêu đề trang chủ.",
+    "after": "Bạn có thể khôi phục bảng từ mục «Lưu Trữ» trên trang «Tất cả các bảng».",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "vi",
+    "key": "close-board-pop",
+    "before": "Bạn sẽ có thể khôi phục bảng bằng cách nhấp vào nút \"Lưu trữ\" từ tiêu đề trang chủ.",
+    "after": "Bạn có thể khôi phục bảng từ mục «Lưu Trữ» trên trang «Tất cả các bảng».",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "th",
+    "key": "close-board-pop",
+    "before": "คุณสามารถกู้คืนบอร์ดได้โดยคลิกปุ่ม “คลังเก็บ” จากส่วนหัวของหน้าแรก",
+    "after": "คุณสามารถกู้คืนบอร์ดได้จากส่วน «เอกสารที่เก็บไว้» ในหน้า «บอร์ดทั้งหมด»",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "ca",
+    "key": "close-board-pop",
+    "before": "Podreu restaurar el tauler fent clic al botó \"Arxivar\" de la capçalera d'inici.",
+    "after": "Podeu restaurar el tauler des d’«Arxiu» a la pàgina «Tots els taulers».",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "close-board-pop",
+    "before": "Podreu restaurar el tauler fent clic al botó \"Arxivar\" de la capçalera d'inici.",
+    "after": "Podeu restaurar el tauler des d’«Arxiu» a la pàgina «Tots els taulers».",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "eu",
+    "key": "close-board-pop",
+    "before": "Arbela berreskuratu dezakezu hasierako goiburuko \"Biltegia\" botoian klik eginez",
+    "after": "Arbela berreskuratu dezakezu «Arbel guztiak» orriko «Biltegia» atalean.",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "gl",
+    "key": "close-board-pop",
+    "before": "Poderás restaurar o taboleiro premendo o botón «Arquivo» na cabeceira de inicio.",
+    "after": "Podes restaurar o taboleiro desde «Arquivo» na páxina «Todos os taboleiros».",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "is",
+    "key": "close-board-pop",
+    "before": "Þú getur endurheimt töfluna með því að smella á hnappinn „Safn“ í haus heimasíðunnar.",
+    "after": "Þú getur endurheimt töfluna úr «Safn» á síðunni «Allar töflur».",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "lv",
+    "key": "close-board-pop",
+    "before": "Jūs varēsiet atjaunot dēli spiežot uz \"Arhīvs\" sākumā.",
+    "after": "Varat atjaunot dēli sadaļā «Arhīvs» lapā «Visi dēļi».",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "lt",
+    "key": "close-board-pop",
+    "before": "Plokštę galėsite atkurti spustelėję mygtuką „Archyvuoti“ iš namų antraštės.",
+    "after": "Lentą galite atkurti iš skilties „Archyvas“ puslapyje „Visos lentos“.",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "et-EE",
+    "key": "close-board-pop",
+    "before": "Saate foorumi taastada, kui klõpsate nupule \"Arhiiv\" avalehel.",
+    "after": "Saate tahvli taastada jaotisest „Arhiiv” lehel „Kõik lauad”.",
+    "reason": "2026-09-14: Correct obsolete archive location to Archive on All Boards using native full sentence and existing UI place labels. Arabic Persian and Indonesian Malay wrong-language guidance replaced. Save/archive-action place labels corrected in Catalan, Galician and Hebrew. Exact regional copies updated; others remain for review."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "archives",
+    "before": "Desa",
+    "after": "Arxiu",
+    "reason": "2026-09-14: Correct identical regional Archive action/save label to Archive place, matching reviewed base terminology."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "archives",
+    "before": "Arquivar",
+    "after": "Arquivo",
+    "reason": "2026-09-14: Correct identical regional Archive action/save label to Archive place, matching reviewed base terminology."
+  },
+  {
+    "locale": "he-IL",
+    "key": "archives",
+    "before": "להעביר לארכיון",
+    "after": "ארכיון",
+    "reason": "2026-09-14: Correct identical regional Archive action/save label to Archive place, matching reviewed base terminology."
   }
 ]
