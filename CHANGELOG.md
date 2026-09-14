@@ -768,6 +768,18 @@ This release adds the following translation improvements:
 **Translations** - Locale wording repairs and remaining audit progress.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/fe2a8097e">Use native Tamazight attachment metadata labels</a>. Thanks to xet7.</summary>
+
+Replace two unflagged Arabic Size and Type values with Tamazight nouns
+attested in native MediaWiki file metadata. Preserve all translation keys
+and formatting. All 17,315 correction checks pass, including rendered values,
+placeholder inventories, key order and newer correct-language translations.
+Original audit counts remain unchanged: 718 pending, including 575 Tamazight.
+Restored, unflagged and low-confidence wording validation remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c6ee67cb1">Repair Tamazight label activity text and refine filename wording</a>. Thanks to xet7.</summary>
 
 Replace four French label add/remove activity messages with native tag and
