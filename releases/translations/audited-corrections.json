@@ -123387,5 +123387,19 @@
     "before": "Le nom d'utilisateur doit comporter au moins 3 caractères",
     "after": "ⵉⵇⵇⴰⵏ ⴷ ⴰⴷ ⵉⵍⵉⵏ 3 ⵏ ⵢⵉⵙⴽⴽⵉⵍⵏ ⵏⵖ ⵓⴳⴳⴰⵔ ⴳ ⵢⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ",
     "reason": "Replace French minimum username-length warning; explicitly preserve requirement, 3 characters or more and username scope, not exactly three or three words. Native MediaWiki badtitletext supplies yiskkiln/characters; userlogin-yourname supplies username and passwordreset-emailtext-ip supplies iqqan ... d ad requirement construction; moredotdotdot supplies uggar/more: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE composed plural existence/requirement and bound name form need fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "max-avatar-filesize",
+    "before": "الحد الأقصى لحجم الصورة الرمزية بالبايت:",
+    "after": "ⴰⵣⴰⵍ ⴰⴼⵍⵍⴰⵢ ⵏ ⵜⵉⴷⴷⵉ ⵏ ⵓⴼⴰⵢⵍⵓ ⵏ ⵜⵉⵎⴻⵔⵖⵉⵡⵉⵏ (ⵙ ⵓⴱⴰⵢⵜ):",
+    "reason": "Replace Arabic maximum file-size label, preserving maximum value, file size, byte unit, avatar/upload scope and trailing colon. CNAM computing lexicon maximum-element sorting gives wazal afellay MAT: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf PDF page 147/printed 143. Native MediaWiki file-info-size attests tiddi n ufaylu and pageinfo-length supplies s ubayt/in bytes; upload root sktr is in logentry-upload-upload: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Retain local avatar term timerghiwin. LOW CONFIDENCE math maximum-value-to-setting adaptation, derived upload noun usktr, avatar spelling and full possessive construction require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "max-upload-filesize",
+    "before": "الحد الأقصى لحجم الملف المرفوع بالبايت:",
+    "after": "ⴰⵣⴰⵍ ⴰⴼⵍⵍⴰⵢ ⵏ ⵜⵉⴷⴷⵉ ⵏ ⵓⴼⴰⵢⵍⵓ ⵏ ⵓⵙⴽⵜⵔ (ⵙ ⵓⴱⴰⵢⵜ):",
+    "reason": "Replace Arabic maximum file-size label, preserving maximum value, file size, byte unit, avatar/upload scope and trailing colon. CNAM computing lexicon maximum-element sorting gives wazal afellay MAT: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf PDF page 147/printed 143. Native MediaWiki file-info-size attests tiddi n ufaylu and pageinfo-length supplies s ubayt/in bytes; upload root sktr is in logentry-upload-upload: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Retain local avatar term timerghiwin. LOW CONFIDENCE math maximum-value-to-setting adaptation, derived upload noun usktr, avatar spelling and full possessive construction require fluent review."
   }
 ]
