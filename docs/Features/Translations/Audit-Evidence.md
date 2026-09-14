@@ -22904,3 +22904,14 @@ field, so Amzer preserves that meaning rather than implying a clock hour.
 All 18,274 correction and 4,158 unchanged-review records pass. Original
 pending/restored scope remains open; vocabulary reuse alone does not prove
 native complete-phrase fluency or rendered browser behavior.
+
+Dated unflagged repair, 2026-09-14, local commit `98947b824`: 14 Breton
+date headings, date filters, invalid-date/time and duration-hour labels
+replace French prose. Existing activities and popup labels support kregiñ,
+degemer, echuiñ and termen. Existing invalid-year supports direizh; native
+MediaWiki feed-invalid/title-invalid also use direizh:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/br.json
+Tomorrow wording is directly translated, not attested in that source.
+All 18,288 correction and 4,158 unchanged records pass structural checks;
+full phrase/date-prefix inflection and browser behavior remain unverified.
+Original pending/restored counts remain 300/27; wider scope stays open.

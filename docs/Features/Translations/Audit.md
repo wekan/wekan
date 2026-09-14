@@ -20,17 +20,16 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,274** exact before/after values, including unflagged repairs.
+contain **18,288** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `787ffdf74` —
-11 French-seeded Breton date, duration, remaining-time and filter labels
-now reuse existing Breton vocabulary. Earlier `cd100eeaa` repaired the
-swimlane deletion question. All **18,274** corrections and 4,158 unchanged
-reviews pass structural checks. Native phrasing and browser review remain
-open, as do other French-seeded Breton values, Galician attachment agreement
-and provisional calendar terminology.
+Latest translation fix: **2026-09-14**, local commit `98947b824` —
+14 French-seeded Breton date headings, date filters, validation messages
+and hour-duration labels repaired using existing terminology. All **18,288**
+corrections and 4,158 unchanged reviews pass structural checks. Native
+complete-phrase and browser review remain open, alongside other wrong-language
+values, Galician attachment agreement and provisional calendar terminology.
 Latest unchanged review: **2026-09-14**, commit `64f1d7367` —
 assigned-card shortcut retained against actual current-user assignee toggle.
 IEC recognizes meves/meues as dialect variants; no wrong-language finding

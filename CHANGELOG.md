@@ -671,6 +671,15 @@ The empty wrongly placed Git directory was removed locally.
 **Languages updated:** Acehnese, Bambara, Basque, Breton, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/98947b824">Repair Breton date heading and validation language</a>. Thanks to xet7.</summary>
+
+Fourteen French-seeded date headings, filters, validation messages and hour
+labels become Breton. Preserve start/received/due/end distinctions and
+validation meaning. Structural checks pass; native/browser review stays open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/787ffdf74">Repair Breton date and duration control language</a>. Thanks to xet7.</summary>
 
 Eleven French-seeded date, duration, remaining-time and filter labels reuse
