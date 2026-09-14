@@ -3822,3 +3822,15 @@ certify notification delivery at runtime. Four focused suites pass for
 exact wording and literal-token/translation invariants. No live removal UI
 test ran. Ledger 19,863; original corrected 15,748, pending 155 (zgh 62),
 restored 4 unchanged. Broader review remains open; no remote writes.
+
+
+2026-09-15 — `3da9c1f4e`: unflagged Tamazight `owner` changed from
+French Propriétaire to ⴱⴰⴱ ⵏ ⵜⴽⴰⵕⴹⴰ, consistent with repaired
+export-card-field-people. IRCAM general English dictionary entry 5710,
+page 292, attests bab as owner of/possessor of. This is a card-owner
+software adaptation, not independently attested gender-neutral UI wording.
+models/exporter.js and models/server/ExporterExcel.js use this key for
+card owner columns. Exact agreement, negative French/Arabic checks and
+translation/token invariants pass across four focused suites. No live UI
+or generated spreadsheet test ran. Ledger 19,865; tracked pending stays
+154 because this key was unflagged. Broader native grammar review is open.

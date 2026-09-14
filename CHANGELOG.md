@@ -972,6 +972,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3da9c1f4e">Repair Tamazight card-owner export heading</a></summary>
+
+Replace an unflagged French heading with the card-owner compound already
+used in export-field descriptions. Four focused suites pass; software
+compound and gender-neutral wording remain under contextual review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
