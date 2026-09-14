@@ -126040,5 +126040,40 @@
     "before": "ⵓⵔ ⵜⵔⵉⵜ ⵓⵍⴰ ⵉⵢⵢⴻⵜ ⵙ ⵢⵉⵜⵔⵉ ⴰⵔ ⵎⴰⵛ.",
     "after": "ⵓⵔⵜⴰ ⵜⵔⵏⵓⴷ ⵉⵜⵔⵉ ⵉ ⴰⵡⴷ ⴽⵔⴰ.",
     "reason": "2026-09-14: Repair unflagged inherited Kabyle-leaning or English-mixed star controls. Latin script alone is not error. Native MediaWiki recentchanges-label-unpatrolled and rcfilters-quickfilters-placeholder-title attest Not Yet urta; tooltip-compareselectedversions attests Selected passive component, adapted feminine plural for Boards; Item ifrdisn and View zhr are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve SELECTED boards star versus unstar, ALL starred items and YOU have not starred ANYTHING YET. Replace unexplained written-star passive with With Star state labels. Star itri and object nouns reuse local vocabulary; Swimlane remains provisional Path. LOW CONFIDENCE selected feminine plural, not-yet past/any syntax, star adaptation and full clauses require fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "settingsTeamPopup-title",
+    "before": "Paramètres de l'équipe",
+    "after": "ⵜⵉⵙⵖⴰⵍ ⵏ ⵜⵔⴰⴱⴱⵓⵜ",
+    "reason": "2026-09-14: Replace French or inherited Kabyle-leaning settings labels. Latin script alone is not error. Native MediaWiki returnto attests Return aghul ghr; rcfilters-quickfilters-placeholder-description/rcfilters-savedqueries-already-saved directly attest Settings tisghal/bound tsghal and Saved passive; filedeleteerror supplies did-not-succeed frame: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve Team versus generic Settings, Return versus Save, S3 identifier, failure versus completed successful save. Team tarabbut reuses local vocabulary, not independently validated here. Success is expressed as completed Saved!, matching native changepassword-success completed-change notification rather than inventing a success adverb. LOW CONFIDENCE Save nominalization tuhda, passive agreement, bound Team and whole phrases require fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "back-to-settings",
+    "before": "Retour aux paramètres",
+    "after": "ⴰⵖⵓⵍ ⵖⵔ ⵜⵉⵙⵖⴰⵍ",
+    "reason": "2026-09-14: Replace French or inherited Kabyle-leaning settings labels. Latin script alone is not error. Native MediaWiki returnto attests Return aghul ghr; rcfilters-quickfilters-placeholder-description/rcfilters-savedqueries-already-saved directly attest Settings tisghal/bound tsghal and Saved passive; filedeleteerror supplies did-not-succeed frame: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve Team versus generic Settings, Return versus Save, S3 identifier, failure versus completed successful save. Team tarabbut reuses local vocabulary, not independently validated here. Success is expressed as completed Saved!, matching native changepassword-success completed-change notification rather than inventing a success adverb. LOW CONFIDENCE Save nominalization tuhda, passive agreement, bound Team and whole phrases require fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "save-s3-settings",
+    "before": "ⵃⵔⴻⵣ ⵉⵛⴰⵔⴻⵏ S3",
+    "after": "ⵃⴹⵓ ⵜⵉⵙⵖⴰⵍ ⵏ S3",
+    "reason": "2026-09-14: Replace French or inherited Kabyle-leaning settings labels. Latin script alone is not error. Native MediaWiki returnto attests Return aghul ghr; rcfilters-quickfilters-placeholder-description/rcfilters-savedqueries-already-saved directly attest Settings tisghal/bound tsghal and Saved passive; filedeleteerror supplies did-not-succeed frame: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve Team versus generic Settings, Return versus Save, S3 identifier, failure versus completed successful save. Team tarabbut reuses local vocabulary, not independently validated here. Success is expressed as completed Saved!, matching native changepassword-success completed-change notification rather than inventing a success adverb. LOW CONFIDENCE Save nominalization tuhda, passive agreement, bound Team and whole phrases require fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "s3-settings-save-failed",
+    "before": "ⴰⵃⵔⴰⵣ ⵏ ⵉⵛⴰⵔⴻⵏ S3 ⵓⵔ ⵢⴻⴷⴷⵉ ⴰⵔⴰ",
+    "after": "ⵓⵔ ⵜⴰⵍⵍⴼⵓⵙ ⵜⵓⵃⴹⴰ ⵏ ⵜⵙⵖⴰⵍ ⵏ S3",
+    "reason": "2026-09-14: Replace French or inherited Kabyle-leaning settings labels. Latin script alone is not error. Native MediaWiki returnto attests Return aghul ghr; rcfilters-quickfilters-placeholder-description/rcfilters-savedqueries-already-saved directly attest Settings tisghal/bound tsghal and Saved passive; filedeleteerror supplies did-not-succeed frame: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve Team versus generic Settings, Return versus Save, S3 identifier, failure versus completed successful save. Team tarabbut reuses local vocabulary, not independently validated here. Success is expressed as completed Saved!, matching native changepassword-success completed-change notification rather than inventing a success adverb. LOW CONFIDENCE Save nominalization tuhda, passive agreement, bound Team and whole phrases require fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "s3-settings-saved",
+    "before": "ⵉⵛⴰⵔⴻⵏ S3 ⵜⵜⵡⴰⵃⴻⵔⵣⴻⵏ ⴰⴽⴽⴻⵏ ⵉⵡⴰⵜⴰ",
+    "after": "ⵜⵉⵙⵖⴰⵍ ⵏ S3 ⵜⵜⵓⵃⴹⴰⵏⵜ!",
+    "reason": "2026-09-14: Replace French or inherited Kabyle-leaning settings labels. Latin script alone is not error. Native MediaWiki returnto attests Return aghul ghr; rcfilters-quickfilters-placeholder-description/rcfilters-savedqueries-already-saved directly attest Settings tisghal/bound tsghal and Saved passive; filedeleteerror supplies did-not-succeed frame: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve Team versus generic Settings, Return versus Save, S3 identifier, failure versus completed successful save. Team tarabbut reuses local vocabulary, not independently validated here. Success is expressed as completed Saved!, matching native changepassword-success completed-change notification rather than inventing a success adverb. LOW CONFIDENCE Save nominalization tuhda, passive agreement, bound Team and whole phrases require fluent validation."
   }
 ]
