@@ -1,5 +1,16 @@
 # Detailed translation audit evidence
 
+2026-09-14 — visual source-marker and authentication follow-up:
+directly inspected rendered CNAM PDF pages 12, 23 and 91. The bibliography
+prints MCΓ for the Tuareg dictionaries; `MC£` was a legacy extraction
+substitution. Corrected that marker in 105 correction-record explanations,
+including the earlier 98 provenance-affected records. This does not validate
+those translations for Moroccan usage. Rendered entries confirm Authentication
+Asesteb MCΓ and Method Tarrayt MW; four authentication explanations now
+explicitly distinguish confirmed source letters from unverified Tifinagh
+adaptation, bound forms and complete grammar. No translation values or
+progress counts changed. Renewed native review remains open.
+
 2026-09-14 — `a6647173f`: board-analysis follow-up supersedes the earlier
 legacy-font ambiguity. Directly inspected local rendered images of
 [CNAM Amawal](https://cedric.cnam.fr/~bouzefra/books/amawal.pdf) PDF pages

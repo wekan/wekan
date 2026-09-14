@@ -16,6 +16,12 @@ Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calenda
 
 Latest translation fix: **2026-09-14**, local commit `a6647173f` — replaced the French Analyze Board Structure command using visually inspected dictionary letters. Cross-variety terminology, Tifinagh adaptation and full grammar remain **low confidence**. All **18,105** correction checks pass; **314** findings remain pending across **17** locales, including **179** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
+**Source typography review (2026-09-14):** rendered dictionary pages confirm
+Tuareg marker MCΓ, previously extracted as MC£, and Authentication/Method
+spellings. Corrected 105 record explanations; values/counts unchanged.
+Moroccan suitability, transliteration and full grammar remain unverified.
+[Evidence](Audit-Evidence.md) records the visual findings.
+
 **Board-analysis follow-up (2026-09-14, `a6647173f`):** directly inspected local renders of dictionary PDF pages 19 and 134, confirming emphatic letters in Analyze and Structure. This resolves the earlier extraction ambiguity; the full command is repaired but remains low confidence for Moroccan usage and grammar. [Evidence](Audit-Evidence.md) retains the earlier limits and new visual findings.
 
 **Search-case review (2026-09-14):** preserve uppercase/lowercase matching,
