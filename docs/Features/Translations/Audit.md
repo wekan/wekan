@@ -30,11 +30,11 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Tamazight JSON-schema warning](Tamazight-Review.md) is thrown for invalid
-watch target types in current source, not an import-parser failure. Data
-and information components are supported; complete format terminology is
-still unverified. The French value remains open; no counts changed.
-Earlier Wolaytta dictionary findings remain in the detailed evidence.
+[Aromanian second dictionary review](Aromanian-Review.md) inspected Cunia's
+1,134-page dictionary and its actual mag- entry sequence. No magenta term
+was attested. A newer native dictionary is identified for further review;
+the existing loanword remains open. No locale values or counts changed.
+Earlier JSON-warning and Wolaytta findings remain in detailed evidence.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

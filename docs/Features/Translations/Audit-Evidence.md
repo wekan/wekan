@@ -28232,3 +28232,30 @@ exact A/a example, negative French checks, placeholders, ledger, retained
 reviews and completeness. No live UI test ran. Ledger 19,837; original
 corrected 15,726, pending 177 (zgh 82), restored 4 unchanged. Broader
 review remains open. No remote writes.
+
+
+## Second dictionary inspected — 2026-09-15
+
+Cunia's Dictsiunar a Limbãljei Armãneascã (2010), obtained from the native
+Vivliuteca library, adds an independent dictionary source to the earlier
+English–Aromanian review:
+https://vivliuteca.org/wp-content/uploads/2025/06/dictsiunararmanescu_dec2008.pdf
+Library catalogue: https://vivliuteca.org/carti/
+
+The complete PDF has 1,134 pages. Text extraction finished successfully.
+No match was found for magenta, maghenta, magjent, fucsin, fuxin or fuchsin.
+Actual extracted PDF page 608 was inspected: entries run from magear to
+magh, maghir, magnet variants and magurlãchi, with no magenta entry in that
+alphabetical sequence. This narrows dictionary evidence; extraction and
+spelling searches cannot prove absence of all possible native color names.
+No visual scan inspection or native-speaker approval is claimed.
+
+The native Dixi site identifies searchable dictionaries by Cunia and a
+newer Mariana Bara dictionary (2024): https://www.dixionline.net/
+Its landing page alone does not attest a magenta translation. Next source
+is the newer dictionary's actual color entries, rather than Romanian-only
+search results or treating missing dictionary entries as an invalid loan.
+
+The local magenta value is retained pending attestation, not classified as
+reviewed-correct. No translation or ledger change: original pending 177,
+Aromanian 1, restored 4. Broader reviews remain open. No remote writes.
