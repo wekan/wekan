@@ -599,3 +599,8 @@ for (const q of ['native', 'detached']) {
  assert.ok(value.endsWith('(' + q + ')'));
 }
 console.log('Tamazight context-count labels preserve distinct V8 qualifiers');
+
+assert.strictEqual(translated.Node_heap_total_physical_size, "ⴰⴳⵓⴷⵉ ⵏ Node: ⵜⴰⵎⵓⵜⵜⵔⵜ ⵏ ⵓⵇⵓⴷⴷⵉ ⴰⴽⵎⴰⵎ");
+assert.doesNotMatch(translated.Node_heap_total_physical_size, /Tas de|taille totale|physique|[\u0600-\u06ff]|ⴰⴷⵡⴰⵙ/u);
+assert.notStrictEqual(translated.Node_heap_total_physical_size, translated.Node_heap_total_heap_size);
+console.log('Tamazight physical heap size stays distinct from total heap size');

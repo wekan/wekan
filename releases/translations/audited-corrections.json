@@ -139214,5 +139214,12 @@
     "before": "Tas de Node : nombre de contexte détachés",
     "after": "ⴰⴳⵓⴷⵉ ⵏ Node: ⵓⵟⵟⵓⵏ ⵏ ⵉⵎⵏⴰⴹⵏ (detached)",
     "reason": "2026-09-15: Replace French context-count diagnostic using IRCAM uttun number 8679 and amnad context plural imnadn 2563. Native/detached retained as exact borrowed V8 technical qualifiers rather than indigenous or physical untying vocabulary. Computing-context compound and qualifier localization remain under low-confidence review."
+  },
+  {
+    "locale": "zgh",
+    "key": "Node_heap_total_physical_size",
+    "before": "Tas de Node : taille totale physique",
+    "after": "ⴰⴳⵓⴷⵉ ⵏ Node: ⵜⴰⵎⵓⵜⵜⵔⵜ ⵏ ⵓⵇⵓⴷⴷⵉ ⴰⴽⵎⴰⵎ",
+    "reason": "2026-09-15: Replace French physical-size heap label using existing heap/total/size compounds and IRCAM akmam concrete/tangible 1237, physical portrait feminine takmamt 10742. Computing physical-memory sense and adjective/nominal grammar remain low confidence; not total system RAM or physical force."
   }
 ]
