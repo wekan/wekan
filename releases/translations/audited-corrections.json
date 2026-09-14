@@ -124927,5 +124927,19 @@
     "before": "a complété la checklist %s de %s",
     "after": "ⵉⵙⵎⴷ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ %s ⵏ %s",
     "reason": "2026-09-14: Replace French completed checklist activity preserving completed action, checklist and Of relation with exact two %s tokens in original order. Reuse reviewed ismd completion adaptation from native MediaWiki enterlockreason Finish/End. LOW CONFIDENCE future/intransitive Finish-to-past/transitive Complete adaptation, proposed verification noun ussidd and full activity phrase require fluent Standard Moroccan review. Do not apply simple negation to uncompleted activities: those report actively undoing completion rather than mere absence of completion. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "close-add-checklist-item",
+    "before": "Fermer ajouter un élément du formulaire checklist",
+    "after": "ⵔⴳⵍ ⵜⴰⵍⵖⴰ ⵏ ⵓⵔⵏⵓ ⵏ ⵓⴼⵔⴷⵉⵙ ⵉ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
+    "reason": "2026-09-14: Replace French Close Add/Edit checklist-item form, preserving closing the form rather than performing add/edit and retaining item/checklist scope. Native Mastodon bundle_modal_error.close supplies rgl Close and load_pending bound ufrdis Item; native MediaWiki tooltip-undo directly supplies talgha n usnfl Edit Form. Proposed nominal urnu Addition is derived from rnu Add; verification noun ussidd remains provisional. LOW CONFIDENCE addition noun derivation, full noun chains and checklist paraphrase require fluent Standard Moroccan review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json and https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "close-edit-checklist-item",
+    "before": "Fermer éditer un élément du formulaire checklist",
+    "after": "ⵔⴳⵍ ⵜⴰⵍⵖⴰ ⵏ ⵓⵙⵏⴼⵍ ⵏ ⵓⴼⵔⴷⵉⵙ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
+    "reason": "2026-09-14: Replace French Close Add/Edit checklist-item form, preserving closing the form rather than performing add/edit and retaining item/checklist scope. Native Mastodon bundle_modal_error.close supplies rgl Close and load_pending bound ufrdis Item; native MediaWiki tooltip-undo directly supplies talgha n usnfl Edit Form. Proposed nominal urnu Addition is derived from rnu Add; verification noun ussidd remains provisional. LOW CONFIDENCE addition noun derivation, full noun chains and checklist paraphrase require fluent Standard Moroccan review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json and https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
   }
 ]
