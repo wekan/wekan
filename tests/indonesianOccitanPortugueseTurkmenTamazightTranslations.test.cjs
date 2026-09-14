@@ -257,3 +257,8 @@ for (const key of ['r-top-of', 'r-bottom-of']) assert.doesNotMatch(locales.zgh[k
 // Numeric-field sum tooltip retains the display selection and location.
 assert.match(locales.zgh['sum-of-number-fields'], /ⵜⴰⵎⵓⵜⵜⵔⵜ.*ⵢⵉⴳⵔⴰⵏ ⵉⵥⵍⵉⵏ.*ⵉⵎⴹⴰⵏⵏ.*ⵜⵜⵢⴰⵕⵛⵎⵏ.*ⵓⵙⴽⴰⵏ.*ⵓⴼⵍⵍⴰ.*ⵜⵍⴳⴰⵎⵜ/);
 assert.doesNotMatch(locales.zgh['sum-of-number-fields'], /ⴰⵥⴰⵢⵏ|ⵓⵙⴰⴽⴰ|ⴰⵙⴳⵣⵍ/);
+
+// The actor is rendered separately; %s names the created custom field.
+assert.match(locales.zgh['activity-customfield-created'], /^ⵉⵙⵏⵓⵍⴼⴰ ⵉⴳⵔ ⵉⵥⵍⵉⵏ %s$/);
+assert.doesNotMatch(locales.zgh['activity-customfield-created'], /[\u0600-\u06ff]/);
+assert.equal((locales.zgh['activity-customfield-created'].match(/%s/g) || []).length, 1);

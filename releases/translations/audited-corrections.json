@@ -131304,5 +131304,12 @@
     "before": "ⴰⵥⴰⵢⵏ ⵏ ⵉⴼⵔⴷⵉⵙⵏ ⵓⵎⵢⴰⵏⵉⵜⵏ ⵉⵎⵣⵣⵓⵖⴻⵏ ⵉⵜⵜⵡⴰⵙⴽⴰⵏⴻⵏ ⴳ ⵓⵙⴰⴽⴰ ⵏ ⵜⵍⵉⵙⵜ",
     "after": "ⵜⴰⵎⵓⵜⵜⵔⵜ ⵏ ⵢⵉⴳⵔⴰⵏ ⵉⵥⵍⵉⵏ ⵏ ⵉⵎⴹⴰⵏⵏ ⵍⵍⵉ ⵜⵜⵢⴰⵕⵛⵎⵏ ⵉ ⵓⵙⴽⴰⵏ ⴳ ⵓⴼⵍⵍⴰ ⵏ ⵜⵍⴳⴰⵎⵜ",
     "reason": "2026-09-14: Replace unsupported aggregate/field/top wording in numeric custom-field sum tooltip. IRCAM PDF page 602 entry 11282 total, page 67 entry 1008 top/construct uflla, page 467 entry 8828 mark. Reuse existing custom-field and number terms. Preserve numeric restriction, custom fields, marked-to-show qualifier and list-top location. Low confidence: plural number/genitive, passive marked construction and full relative clause need native/browser review. Runtime helper selects summarizableCustomFields(boardId, number)."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-customfield-created",
+    "before": "%s احدت حقل مخصص",
+    "after": "ⵉⵙⵏⵓⵍⴼⴰ ⵉⴳⵔ ⵉⵥⵍⵉⵏ %s",
+    "reason": "2026-09-14: Replace Arabic custom-field creation activity with Tamazight. IRCAM PDF page 509 entry 9599 attests snulfu create/invent and preterite snulfi/a; use third-person isnulfa and existing singular igr izlin. Preserve one %s as custom-field value, not actor: activities.jade supplies activityValue(customField). Low confidence: finite verb morphology and complete activity fragment need native/browser review."
   }
 ]
