@@ -102,9 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 8a9719417 (2026-09-14), repairing checklist controls.
-CHECKED state, ALL list items and active UNCHECK reversal preserved;
-derived mark/passive and full grammar remain low confidence.
+Latest translation fix is 8a9719417 (2026-09-14), repairing the Leave Board
+label and membership confirmation. Board-title placeholder and future removal
+of YOU FROM ALL CARDS ON THIS BOARD preserved; membership adaptation,
+second-person passive and full confirmation remain low confidence.
 348 original findings remain pending.
 Archive provenance follow-up fbe388603 (2026-09-14) directly inspects the
 native Archives du Maroc logo in a university PDF, corroborating the noun
