@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,408 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 436 pending review or repair.
-The correction inventory records 17,876 exact before/after values,
+findings: 15,409 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 435 pending review or repair.
+The correction inventory records 17,877 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (313) and
+The largest original queues are Standard Moroccan Tamazight (300) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 5e2c3c708 (2026-09-14), refining two import hints
-with directly attested native Paste terminology instead of the tentative
-verb. Counts unchanged; complete phrases remain low confidence.
+Latest translation fix is 786d29cfb (2026-09-14), replacing the Arabic
+shortcut-list action using native software shortcut terminology. Show this
+list is preserved; full wording remains low confidence.
 Logo provenance follow-up 89f36d41f (2026-09-14) applies the dictionary's
 cross-variety preface to two earlier URL records. Native caption evidence
 remains separate; full labels stay low confidence. No values/counts changed.
@@ -646,10 +646,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,408 original findings are
+Translation audit progress as of 2026-09-14: 15,409 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 436 remain pending across 17 locales, including 301 Tamazight findings.
-The ledger contains 17,876 correction records, including unflagged repairs.
+and 435 remain pending across 17 locales, including 300 Tamazight findings.
+The ledger contains 17,877 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -2522,6 +2522,17 @@ attested non-fuzzy native Dialect control. Preserve format identifiers and
 original French provenance. Full phrases remain low confidence for review.
 All 17,876 correction checks pass; counts stay unchanged, with 436 original
 findings pending. Live browser verification was not run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/786d29cfb">Translate Tamazight shortcut list action</a>. Thanks to xet7.</summary>
+
+2026-09-14: Replace Arabic wording using native Dialect shortcut terminology.
+Preserve Show this list; complete grammar remains low confidence. All 17,877
+correction checks pass, including placeholders and translation preference.
+435 original findings remain pending; restored and broader language validation
+and live browser checks remain open.
 
 </details>
 

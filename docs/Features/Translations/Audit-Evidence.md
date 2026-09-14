@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight shortcut list action — 2026-09-14
+
+Commit `786d29cfb` replaces Arabic `shortcut-show-shortcuts`, preserving the action bound to `?` in `client/lib/keyboard.js`. [Pinned Dialect native PO](https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po) directly supplies non-fuzzy Shortcuts in a shortcut-window context and Keyboard Shortcuts. [Native Mastodon](https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json) supplies List in its edit/delete controls; its keyboard descriptions are English placeholders and are not native evidence. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) supplies Show/View. The assembled demonstrative clause and Bring up-to-Show adaptation remain LOW CONFIDENCE; lexical attestations do not validate complete grammar. Emoji naming has native Mastodon evidence, but autocomplete wording still needs review. One original repaired; 435 remain pending, including 300 Tamazight. Mechanical checks pass; no live browser validation or remote upload.
+
 ## Tamazight Paste terminology follow-up — 2026-09-14
 
 Commit `5e2c3c708` replaces tentative `sntdh` with `slgh` in both import hints. [Dialect’s pinned native source](https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po) supplies a non-fuzzy `msgid "Paste"` translation. The `po` directory is a separate submodule, explaining why guessed main-repository paths returned 404. Native control usage is now direct lexical evidence; full clauses and validity-to-structured-data adaptation remain LOW CONFIDENCE. Ledger before values retain the original French. Counts are unchanged because existing correction records were refined.
