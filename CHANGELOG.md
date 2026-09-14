@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/002e14d69">Review Kashmiri lunar terminology source reliability</a>. Thanks to xet7.</summary>
+
+Record moon-spelling evidence and exclude a redirected dictionary URL.
+The primary lookup returned no result; complete sighting/astronomical
+labels stay pending, with no acceptance inferred from search snippets.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/06f88d5ed">Restore Quechua calendar-system heading meaning</a>. Thanks to xet7.</summary>
 
 Replace clock-only wording with calendar/system/date-display components.
