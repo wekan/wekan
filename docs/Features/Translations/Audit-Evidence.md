@@ -22723,3 +22723,11 @@ Danish Tidsplan retained; Basque Geldi and Valencian Inactiu retained for
 historical idle status. No current consumers found. All 18,199 correction
 and 4,152 review records pass; 36 restored and 305 pending findings remain.
 Full language and browser verification remain open.
+
+Dated unflagged repair, 2026-09-14, local commit `f52ab6adf`: Galician
+r-mark-complete/incomplete contained Portuguese cartão and masculine
+completo/incompleto. Replaced with Marcar a tarxeta como completa/incompleta.
+Actual cardActions.jade options and rulesWorkflow action labels establish
+context. Dedicated regression verifies wiring, agreement, absence of Portuguese
+noun and distinct actions. All 18,201 correction records pass. Browser not run;
+shared Galician member/attachment participle agreement remains unresolved.

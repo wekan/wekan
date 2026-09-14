@@ -671,6 +671,16 @@ The empty wrongly placed Git directory was removed locally.
 **Languages updated:** Basque, Esperanto, Galician, Greenlandic, Manx, Swedish, Valencian
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f52ab6adf">Repair Galician card completion action wording</a>. Thanks to xet7.</summary>
+
+Two unflagged actions replace Portuguese cartão with Galician tarxeta and
+agreeing feminine complete/incomplete adjectives. Regression checks actual
+card-action dropdown wiring, distinct actions and Portuguese-word rejection.
+All correction records pass; browser and broader grammar review remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/287e99dd2">Correct Galician schedule noun and validate idle labels</a>. Thanks to xet7.</summary>
 
 Galician Schedule uses Programación for the historical cron heading and
