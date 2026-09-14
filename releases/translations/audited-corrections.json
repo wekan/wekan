@@ -126598,7 +126598,7 @@
     "locale": "zgh",
     "key": "custom-field-delete-pop",
     "before": "Cette action est irréversible. Elle supprimera ce champ personnalisé de toutes les cartes et détruira son historique.",
-    "after": "ⴰⵙⵏⴼⵍ ⴰⴷ ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⴰⴷ ⴷ ⵉⵡⵔⵔⵉ. ⴰⵢⴰ ⵔⴰⴷ ⵉⴽⴽⵙ ⵉⴳⵔ ⵉⵥⵍⵉⵏ ⴰⴷ ⵙⴳ ⴰⴽⴽⵯ ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⴷ ⴰⵎⵣⵔⵓⵢ ⵏⵏⵙ.",
-    "reason": "2026-09-14: Replace French custom-field definition deletion warning. Native MediaWiki undo-failure no-undo clause, Removed ikks, All and History amzruy support components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve NO UNDO, THIS CUSTOM FIELD removed FROM ALL CARDS AND ITS HISTORY destroyed. Destroy History paraphrased Delete History; distinct from merely unsetting one card value. Future actor, coordination of removed field/history, local Card/Custom Field and full warning remain LOW CONFIDENCE."
+    "after": "ⴰⵙⵏⴼⵍ ⴰⴷ ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⴰⴷ ⴷ ⵉⵡⵔⵔⵉ. ⴰⵢⴰ ⵔⴰⴷ ⵉⴽⴽⵙ ⵉⴳⵔ ⵉⵥⵍⵉⵏ ⴰⴷ ⵙⴳ ⴰⴽⴽⵯ ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⴷ ⵔⴰⴷ ⵉⴽⴽⵙ ⴰⵎⵣⵔⵓⵢ ⵏⵏⵙ.",
+    "reason": "2026-09-14: Replace French custom-field definition deletion warning. Native MediaWiki undo-failure no-undo clause, Removed ikks, All and History amzruy support components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve NO UNDO, THIS CUSTOM FIELD removed FROM ALL CARDS AND ITS HISTORY destroyed. Destroy History paraphrased Delete History; distinct from merely unsetting one card value. Future actor, coordination of removed field/history, local Card/Custom Field and full warning remain LOW CONFIDENCE. 2026-09-14 scope follow-up: repeat future Delete actor before ITS HISTORY, preventing conjunction from attaching history to the FROM ALL CARDS phrase. Full grammar remains LOW CONFIDENCE."
   }
 ]
