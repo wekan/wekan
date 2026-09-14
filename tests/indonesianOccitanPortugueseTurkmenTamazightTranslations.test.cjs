@@ -396,3 +396,7 @@ for (const style of ['Cube-Grid', 'Double-Bounce', 'Rotateplane', 'Scaleout']) {
   assert.equal(locales.zgh[style], `ⴰⵏⵎⵎⴰⵍ ⵏ ⵓⴳⴰⵏⵉ (${style})`);
   assert.doesNotMatch(locales.zgh[style], /Icône|attente|ⵓⵍⵓⵎ|ⵜⴰⴹⵓⵜ/);
 }
+
+for (const key of ['r-df-start-at', 'predicate-start']) assert.equal(locales.zgh[key], locales.zgh['card-start']);
+for (const key of ['r-df-end-at', 'predicate-end']) assert.equal(locales.zgh[key], locales.zgh['card-end']);
+assert.notEqual(locales.zgh['predicate-start'], locales.zgh['predicate-end']);

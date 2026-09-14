@@ -131612,5 +131612,33 @@
     "before": "Icône d'attente mise à l'échelle",
     "after": "ⴰⵏⵎⵎⴰⵍ ⵏ ⵓⴳⴰⵏⵉ (Scaleout)",
     "reason": "2026-09-14: Replace French wait-spinner description with Tamazight waiting-indicator compound, preserving the exact named animation style identifier. IRCAM Amazigh-English PDF 180 entry 3376 anmmal indicator; PDF 39 entry 415 agani waiting and PDF 566 entry 10591 n ugani waiting-room genitive: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339 . Actual spinner selection maps identifiers to templates. Low confidence: indicator compound adaptation to software spinner; preserved style identifier is not translated prose. Exclude textile spinning terms. Native/browser review open."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-df-start-at",
+    "before": "بداية",
+    "after": "ⵜⵓⴷⴷⵎⴰ",
+    "reason": "2026-09-14: Replace Arabic start/end field and search predicate labels with existing Tamazight card-start/card-end terminology. Exact IRCAM Amazigh-English PDF 696 entry 13146 tuddma beginning/start and PDF 666 entry 12533 tigira end: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339 . Actual rule options map to startAt/endAt and Query date-field predicates retain identifiers. No derived morphology or sentence is introduced; native UI/browser context still unverified."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-df-end-at",
+    "before": "نهاية",
+    "after": "ⵜⵉⴳⵉⵔⴰ",
+    "reason": "2026-09-14: Replace Arabic start/end field and search predicate labels with existing Tamazight card-start/card-end terminology. Exact IRCAM Amazigh-English PDF 696 entry 13146 tuddma beginning/start and PDF 666 entry 12533 tigira end: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339 . Actual rule options map to startAt/endAt and Query date-field predicates retain identifiers. No derived morphology or sentence is introduced; native UI/browser context still unverified."
+  },
+  {
+    "locale": "zgh",
+    "key": "predicate-start",
+    "before": "بداية",
+    "after": "ⵜⵓⴷⴷⵎⴰ",
+    "reason": "2026-09-14: Replace Arabic start/end field and search predicate labels with existing Tamazight card-start/card-end terminology. Exact IRCAM Amazigh-English PDF 696 entry 13146 tuddma beginning/start and PDF 666 entry 12533 tigira end: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339 . Actual rule options map to startAt/endAt and Query date-field predicates retain identifiers. No derived morphology or sentence is introduced; native UI/browser context still unverified."
+  },
+  {
+    "locale": "zgh",
+    "key": "predicate-end",
+    "before": "نهاية",
+    "after": "ⵜⵉⴳⵉⵔⴰ",
+    "reason": "2026-09-14: Replace Arabic start/end field and search predicate labels with existing Tamazight card-start/card-end terminology. Exact IRCAM Amazigh-English PDF 696 entry 13146 tuddma beginning/start and PDF 666 entry 12533 tigira end: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339 . Actual rule options map to startAt/endAt and Query date-field predicates retain identifiers. No derived morphology or sentence is introduced; native UI/browser context still unverified."
   }
 ]
