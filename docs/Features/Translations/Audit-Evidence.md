@@ -1,5 +1,14 @@
 # Detailed translation audit evidence
 
+2026-09-14 (`c6d3b9e0e`): retained thirty correct Danish restored values.
+Review preserves similar-operator OR versus differing-operator AND, literal
+examples, list/swimlane title matching, comments containing text, label
+color/name alternatives, archived versus end-date cards, pagination and date
+predicates. Source Markdown defects are not validated by prose review.
+Ambiguous export free remains open. Danish reviewed total 319; overall
+retained 496, restored awaiting validation 3,739. No translations changed.
+
+
 2026-09-14 (`6531c37d2`): retained thirty correct restored Danish values
 after full review of search labels/counts. Preserve no/one/n-card counts,
 organization/team not-found, creator versus assignee, created versus modified,

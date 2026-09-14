@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,538 corrected, 3,769 restored pre-pull values awaiting
-validation, 466 reviewed and retained, and 308 pending review or repair.
+findings: 15,538 corrected, 3,739 restored pre-pull values awaiting
+validation, 496 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,133 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
@@ -104,8 +104,8 @@ The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
 Latest translation fix is e5d7da30e (2026-09-14), repairing Danish peak
 malloc allocation and bit-pattern garbage overwriting. Restored Danish
-review 6531c37d2 retained 30 more search labels and result counts.
-Of 289 Danish restored values reviewed, 287 are retained and two repaired.
+review c6d3b9e0e retained 30 more Boolean search instructions and labels.
+Of 319 Danish restored values reviewed, 317 are retained and two repaired.
 Ambiguous export free wording and wider language review remain open.
 Archive provenance follow-up fbe388603 (2026-09-14) directly inspects the
 native Archives du Maroc logo in a university PDF, corroborating the noun
@@ -653,7 +653,7 @@ remain open.
 </details>
 
 Translation audit progress as of 2026-09-14: 15,538 original findings are
-corrected, 466 reviewed and retained, 3,769 restored values await validation,
+corrected, 496 reviewed and retained, 3,739 restored values await validation,
 and 308 remain pending across 17 locales, including 173 Tamazight findings.
 The ledger contains 18,133 correction records, including unflagged repairs.
 
