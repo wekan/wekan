@@ -124143,5 +124143,47 @@
     "before": "سنة",
     "after": "ⴰⵙⴳⴳⵯⴰⵙ",
     "reason": "2026-09-14: Replace Arabic date predicate label with exact current CLDR zgh dates/fields/field[@type=\"year\"]/displayName. Source uses singular year; preserve date unit rather than a relative last/next period or plural duration. WeKan uses these labels in date tooltips, Gantt headings, calendar navigation accessibility labels and global search. Reference: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml ."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-member",
+    "before": "عضو",
+    "after": "ⴰⴳⵎⴰⵎ",
+    "reason": "2026-09-14: Replace Arabic search/rule label. Reuse singular agmam Member, corresponding to native MediaWiki nmembers singular bound ugmam and plural igmamn. Preserve member rather than account user. LOW CONFIDENCE free-state singular adaptation still needs fluent morphology review. These translated search operators are consumed by globalSearch; rule labels are used in board triggers/card actions. Do not replace operator abbreviations as part of this noun repair. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-member",
+    "before": "عضو",
+    "after": "ⴰⴳⵎⴰⵎ",
+    "reason": "2026-09-14: Replace Arabic search/rule label. Reuse singular agmam Member, corresponding to native MediaWiki nmembers singular bound ugmam and plural igmamn. Preserve member rather than account user. LOW CONFIDENCE free-state singular adaptation still needs fluent morphology review. These translated search operators are consumed by globalSearch; rule labels are used in board triggers/card actions. Do not replace operator abbreviations as part of this noun repair. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "predicate-member",
+    "before": "عضو",
+    "after": "ⴰⴳⵎⴰⵎ",
+    "reason": "2026-09-14: Replace Arabic search/rule label. Reuse singular agmam Member, corresponding to native MediaWiki nmembers singular bound ugmam and plural igmamn. Preserve member rather than account user. LOW CONFIDENCE free-state singular adaptation still needs fluent morphology review. These translated search operators are consumed by globalSearch; rule labels are used in board triggers/card actions. Do not replace operator abbreviations as part of this noun repair. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-user",
+    "before": "مستخدم",
+    "after": "ⴰⵏⵙⵙⵎⵔⵙ",
+    "reason": "2026-09-14: Replace Arabic search/rule label. Reuse singular anssmrs User corresponding to native MediaWiki user/username terminology; preserve account user rather than board member. These translated search operators are consumed by globalSearch; rule labels are used in board triggers/card actions. Do not replace operator abbreviations as part of this noun repair. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-list",
+    "before": "قائمة",
+    "after": "ⵜⴰⵍⴳⴰⵎⵜ",
+    "reason": "2026-09-14: Replace Arabic search/rule label. Use native singular talgamt List present in Mastodon lists.edit and lists.delete, preserving singular rather than plural lists. These translated search operators are consumed by globalSearch; rule labels are used in board triggers/card actions. Do not replace operator abbreviations as part of this noun repair. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-list",
+    "before": "قائمة",
+    "after": "ⵜⴰⵍⴳⴰⵎⵜ",
+    "reason": "2026-09-14: Replace Arabic search/rule label. Use native singular talgamt List present in Mastodon lists.edit and lists.delete, preserving singular rather than plural lists. These translated search operators are consumed by globalSearch; rule labels are used in board triggers/card actions. Do not replace operator abbreviations as part of this noun repair. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
   }
 ]
