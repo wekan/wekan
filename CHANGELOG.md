@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,244 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 600 pending review or repair.
-The correction inventory records 17,513 exact before/after values,
+findings: 15,245 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 599 pending review or repair.
+The correction inventory records 17,518 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (457) and
+The largest original queues are Standard Moroccan Tamazight (456) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,10 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 2deb53a0c (2026-09-14), repairing six
-Arabic/French label values. Preserve add/edit actions, card scope, colors
-versus names and hiding only minicard label text. Software adaptation,
-color plural and full composed phrases remain low confidence pending
+Latest translation fix is 688848ea8 (2026-09-14), repairing five
+Arabic/French card/list/label values. Preserve numeric sorting on minicards,
+absent-label negation, list name and card-details scope. Software adaptation,
+bound nouns and full composed phrases remain low confidence pending
 fluent review.
 Greenlandic CLDR-unconfirmed wording and twelve Quechua color wrappers
 still need review, alongside the wider restored and unflagged values.
@@ -116,7 +116,7 @@ names and unresolved Coptic/tabular/epoch terminology; no values changed. Previo
 Cherokee Hijri labels with exact native-script CLDR variant names. Cherokee’s
 original queue is empty. Compact tabular epoch wording still needs fluent
 technical review. Quechua palette compounds and remaining color wrappers
-remain open. There are 457 Tamazight findings remaining.
+remain open. There are 456 Tamazight findings remaining.
 Silesian reference review (2026-09-14) confirms shared database/file terms
 in native MediaWiki messages; the full raw-file label remains pending.
 No translation value or finding count changed in that review.
@@ -626,10 +626,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,244 original findings are
+Translation audit progress as of 2026-09-14: 15,245 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 600 remain pending across 17 locales, including 457 Tamazight findings.
-The ledger contains 17,513 correction records, including unflagged repairs.
+and 599 remain pending across 17 locales, including 456 Tamazight findings.
+The ledger contains 17,518 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -753,6 +753,18 @@ text qualifier so hiding minicard label text does not imply hiding labels.
 All 17,513 correction/rendering checks pass. Vocabulary components are
 reference-supported; software adaptation, color plural and full composed
 phrases remain low confidence. Wider language and browser review remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/688848ea8">Repair Tamazight card sorting and display labels</a>. Thanks to xet7.</summary>
+
+Replace five Arabic/French values, including four unflagged strings. Preserve
+sorting by the number displayed on minicards, missing-label negation, list
+name and card-details scope. All 17,518 correction/rendering checks pass.
+Native components support vocabulary; software adaptation, bound nouns and
+complete composed phrases remain low confidence. Wider language and live
+browser validation remain open.
 
 </details>
 
