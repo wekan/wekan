@@ -26406,3 +26406,21 @@ browser execution. Earlier unchanged-French warning notes are superseded.
 Ledger 18,842; corrected 15,672, pending 231 → 230, zgh 124 → 123;
 restored 4 unchanged. Corrected classification does not certify fluency.
 Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+
+
+Free-memory repair **2026-09-14**, local commit `1bfe76828`:
+OS_Freemem replaces Arabic with **OS: ⵜⴰⴽⴰⵜⵓⵜ ⵜⴰⵎⵛⵉⵅⵜ**. Primary
+IRCAM General Dictionary PDF page 160, entry 2970 gives amcix vacant/free;
+free-of-charge is a separate entry 5739. Derived feminine tamcixt agrees
+with existing memory noun takatut. Low confidence: derived form and
+computing collocation require native review; the source is not an attested
+complete computing phrase. server/statistics.js uses os.freemem(), which
+Node documents as free system memory in bytes. informationBody.jade
+renders that value via fileSize; no byte/metric logic changed. Regression
+distinguishes free from total memory and rejects Arabic/total wording.
+Four locale suites pass with tokens, order and newer-translation preference.
+No browser execution is claimed for this admin diagnostic. Ledger 18,843;
+corrected 15,673, pending 230 → 229, zgh 123 → 122, restored 4 unchanged.
+Sources:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+https://nodejs.org/api/os.html#osfreemem

@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1bfe76828">Repair Tamazight free-memory label</a>. Thanks to xet7.</summary>
+
+A vacant-memory draft replaces Arabic while preserving the system free
+memory metric. Source and locale checks distinguish it from total memory
+and preserve tokens. Derived adjective and computing phrase remain low
+confidence in the dated native review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/138b1b0af">Repair Tamazight debug-query error wording</a>. Thanks to xet7.</summary>
 
 The French error becomes a complete draft describing an unsupported debug
