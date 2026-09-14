@@ -130975,5 +130975,12 @@
     "before": "Sous-titre avec le parent",
     "after": "ⴰⴷⵓⵣⵡⵍ ⴰⴽⴷ ⵓⵎⴰⵔⴰⵡ",
     "reason": "Replace French parent-subtitle option; IRCAM 2019 p57 entry795 subtitle and p122 entry2198 father, reusing existing parent-card metaphor. LOW CONFIDENCE: software parent metaphor and full phrase grammar need native/browser review."
+  },
+  {
+    "locale": "zgh",
+    "key": "subtext-with-full-path",
+    "before": "Sous-titre avec le chemin complet",
+    "after": "ⴰⴷⵓⵣⵡⵍ ⴰⴽⴷ ⵓⴱⵔⵉⴷ ⴰⴽⴽⵯ",
+    "reason": "Replace French full-path subtitle option using IRCAM 2019 subtitle p57 entry795, with p76 entry1196, path p33 entry287 and entirely p77 entry1214. LOW CONFIDENCE: ancestor-path metaphor and complete noun/adverb phrase need native/browser validation."
   }
 ]

@@ -103,3 +103,7 @@ assert.notEqual(locales.zgh['operator-has-invalid'], locales.zgh['operator-debug
 assert.equal(locales.zgh['subtext-with-parent'], 'ⴰⴷⵓⵣⵡⵍ ⴰⴽⴷ ⵓⵎⴰⵔⴰⵡ');
 assert.doesNotMatch(locales.zgh['subtext-with-parent'], /Sous-titre|parent|chemin/);
 assert.notEqual(locales.zgh['subtext-with-parent'], locales.zgh['subtext-with-full-path']);
+
+assert.equal(locales.zgh['subtext-with-full-path'], 'ⴰⴷⵓⵣⵡⵍ ⴰⴽⴷ ⵓⴱⵔⵉⴷ ⴰⴽⴽⵯ');
+assert.doesNotMatch(locales.zgh['subtext-with-full-path'], /Sous-titre|chemin|complet|ⵓⵎⴰⵔⴰⵡ/);
+assert.ok(locales.zgh['subtext-with-full-path'].endsWith('ⴰⴽⴽⵯ'));
