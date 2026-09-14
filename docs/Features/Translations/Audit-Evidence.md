@@ -21247,3 +21247,14 @@ invitation and deletion values. Literal Trello menu names and JSON property
 names are intentional; interpolation tokens and URLs remain intact.
 Correction and unchanged-value ledgers pass. Completion/subtask wording and
 broader browser validation remain open.
+
+
+### Esperanto notifications and search review — 2026-09-14
+
+Local commit `ab4da5ab2` repairs ongoing watch/observation semantics in
+notification preferences and explicitly names Enter in search instructions.
+Retained 61 directly reviewed correct values, preserving role restrictions,
+creator/member participation, shortcut ranges, WIP and unsaved-change
+warnings, SMTP settings and invitation tokens. Completion, subtask, member
+pronoun and overtime wording remain open. Correction and unchanged-value
+ledger tests pass; browser behavior remains unverified.
