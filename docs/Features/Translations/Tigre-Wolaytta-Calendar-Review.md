@@ -118,3 +118,24 @@ negative English-seed checks, placeholders, provenance and newer human
 translations; no live calendar-selector UI run. Ledger 19,791; original
 corrected 15,706, pending 197 (Wolaytta 11), restored 4 unchanged. All
 broader uncertain/restored/unflagged review remains open. No push.
+
+## Wolaytta calendar-system label draft — 2026-09-15
+
+Local commit `c5738aa53` replaces Azerbaijani calendar-system prose with
+a Wolaytta draft retaining calendar/method and the date-display qualifier.
+Native Gifaataa prose supplies wodiyaa qoodaa and calendar-method maaraa
+components; the existing locale date noun gallassaa is reused. The
+[primary native publication title](https://www.jw.org/wal/laybreriyaa/jw-xanna%EA%9E%8Ciyo-xuufiya/laappune-2019-mwb/shiiquwaa-prograamiyaa-laa4-10/kiristtaane-siiquwaa-bessiyoogaa/)
+and its search-indexed prose supply nominalized bessiyoogaa in a showing
+love context. A direct page open timed out: do not claim the full source
+was read. Other occurrences mean should/deserves and do not independently
+prove a software display noun.
+
+**Low confidence:** showing-to-display adaptation, date versus day noun,
+calendar-system construction and complete qualifier grammar remain open.
+UserHeader.jade line 348 renders this label above the selector. Four
+focused suites pass for distinct system/date-display wording, negative
+Azerbaijani checks, source registration, placeholders, provenance and newer
+translations; no live selector UI run. Ledger 19,792; original corrected
+15,707, pending 196 (Wolaytta 10), restored 4 unchanged. All broader
+uncertain/restored/unflagged review remains open. No push.

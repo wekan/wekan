@@ -661,6 +661,17 @@ The browser assertion accepts whitespace between the regional flag and name.
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c5738aa53">Wolaytta calendar-system selection label</a></summary>
+
+Replace Azerbaijani with a Wolaytta draft retaining the date-display
+qualifier. Four focused suites pass; full display terminology and clause
+grammar remain under native review.
+
+Thanks to xet7.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ca3b8764b">Wolaytta Hijri calendar labels</a></summary>
 
 Replace English generic and Umm al-Qura seeds with Wolaytta drafts
