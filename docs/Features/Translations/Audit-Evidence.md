@@ -1,5 +1,7 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `ee8fc5f24`: failure threshold repaired. IRCAM school lexicon `amz_fr_ar.pdf` indexed printed page 103 gives Before `dat`; CNDH native Errors retained. Preserve FAILURES BEFORE LOCKOUT, a count distinct from seconds-based period/window. Indexed source is not direct PDF inspection; temporal Before, failure-as-error adaptation and full bound label remain low confidence. All 18,084 correction checks pass; 331 original findings remain pending, including 196 Tamazight.
+
 2026-09-14 — `5be2812bd`: lockout duration label repaired. Actual known/unknown settings distinguish lockoutPeriod from failureWindow. Native MediaWiki duration/second and Mastodon Block support components; preserve LOCKOUT PERIOD IN SECONDS. Bound lockout noun, seconds plural and full label remain low confidence. All 18,083 correction checks pass; 332 original findings remain pending, including 197 Tamazight.
 
 2026-09-14 — `e5cb150bc`: custom-field unsetting activity repaired. Actual card `$unset` hook removes field value, not board field definition. Native MediaWiki Removed, Value (`redirect-value`), Field/Special support components. Preserve Remove Value paraphrase, two exact percent placeholders and quoted field name. Technical Value adaptation and full field relation remain low confidence. All 18,082 correction checks pass; 333 original findings remain pending, including 198 Tamazight.

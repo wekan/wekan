@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,512 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 332 pending review or repair.
-The correction inventory records 18,083 exact before/after values,
+findings: 15,513 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 331 pending review or repair.
+The correction inventory records 18,084 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (197) and
+The largest original queues are Standard Moroccan Tamazight (196) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,10 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 5be2812bd (2026-09-14), repairing lockout duration.
-Period in seconds distinct from failure window preserved; bound noun and
-full label remain low confidence. 332 original findings remain pending,
-with 18,083 correction records.
+Latest translation fix is ee8fc5f24 (2026-09-14), repairing failure threshold.
+Failures before lockout as a count preserved; indexed Before and technical
+failure adaptation remain low confidence. 331 original findings remain pending,
+with 18,084 correction records.
 Archive provenance follow-up fbe388603 (2026-09-14) directly inspects the
 native Archives du Maroc logo in a university PDF, corroborating the noun
 beyond indexed evidence. Nine records updated; no values/counts changed.
@@ -651,10 +651,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,512 original findings are
+Translation audit progress as of 2026-09-14: 15,513 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 332 remain pending across 17 locales, including 197 Tamazight findings.
-The ledger contains 18,083 correction records, including unflagged repairs.
+and 331 remain pending across 17 locales, including 196 Tamazight findings.
+The ledger contains 18,084 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -3237,6 +3237,17 @@ Thanks to xet7 !
 2026-09-14: Preserve lockout period in seconds, distinct from failure window.
 Native components recorded; full wording remains low confidence.
 All 18,083 correction checks pass; broader validation continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ee8fc5f24">Translation repair: Tamazight lockout failure threshold.</a></summary>
+
+2026-09-14: Preserve failures before lockout as count threshold.
+Indexed native Before recorded; full wording remains low confidence.
+All 18,084 correction checks pass; broader validation continues.
 
 Thanks to xet7 !
 
