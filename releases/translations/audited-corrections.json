@@ -123625,5 +123625,12 @@
     "before": "Message d'erreur",
     "after": "ⵜⵓⵣⵉⵏⵜ ⵏ ⵓⵣⴳⴰⵍ",
     "reason": "Replace French cron error message field label while preserving message versus error details distinction. Primary native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json feedback-message gives tuzint message, nosuchactiontext gives bound uzgal error. LOW CONFIDENCE full software error-message noun phrase requires fluent review; do not shorten to error alone. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "card-members-title",
+    "before": "إضافة او حذف أعضاء للبطاقة.",
+    "after": "ⵔⵏⵓ ⵉⴳⵎⴰⵎⵏ ⵏ ⵜⴼⵍⵡⵉⵜ ⴳ ⵜⴽⴰⵕⴹⴰ, ⵏⵖ ⴽⴽⵙ ⵜⵏ ⵙⴳ ⵜⴽⴰⵕⴹⴰ.",
+    "reason": "Replace Arabic card-member instruction and restore the omitted board membership scope from English. Add board members to the card OR remove them FROM the card, not remove board membership. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json create-local rnu, delete kks, nosuchactiontext nɣ or and logentry-move-move sg from support action/preposition components; retain local igmamn members, tafelwit board and takarḍa card terminology. LOW CONFIDENCE complete coordinated instruction, bound noun forms and plural object pronoun tn require fluent review. Reviewed 2026-09-14."
   }
 ]
