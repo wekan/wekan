@@ -67,3 +67,19 @@ for (const value of ['Priority', '"two words"']) {
   assert.equal(parsed.hasErrors(), false);
   assert.equal(parsed.getQueryParams().getPredicate('customfield'), value.replaceAll('"', ''));
 }
+
+// The real parser must preserve the offending limit for translated %s output.
+for (const value of ['abc', '-2']) {
+  const parsed = query(`${labels['operator-limit']}:${value}`);
+  assert.equal(parsed.hasErrors(), true);
+  assert.deepEqual(JSON.parse(JSON.stringify(parsed.errors())), [
+    { tag: 'operator-limit-invalid', value },
+  ]);
+  assert.equal((labels['operator-limit-invalid'].match(/%s/g) || []).length, 1);
+}
+for (const value of ['0', '12']) {
+  const parsed = query(`${labels['operator-limit']}:${value}`);
+  assert.equal(parsed.hasErrors(), false);
+  assert.equal(parsed.errors().length, 0);
+  if (value === '12') assert.equal(parsed.getQueryParams().getPredicate('limit'), 12);
+}
