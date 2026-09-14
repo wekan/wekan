@@ -138353,5 +138353,19 @@
     "before": "Islamic tabular",
     "after": "Hijri Watanqillqa (tawla yupay; qallariy: 622-07-15, Juliano)",
     "reason": "2026-09-14: Use attested calendar/table/count/start components and explicit Julian epoch dates to distinguish civil and astronomical tabular Hijri variants. Full compound grammar remains low confidence; see Quechua-Review.md."
+  },
+  {
+    "locale": "ff",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Haatumeere Lislaam (hiisa e haatumeere; fuɗɗoode: 622-07-16, Julian)",
+    "reason": "2026-09-14: Replace English seed with existing Hijri name, attested calculation/table/beginning components and distinct Julian epoch dates. Complete compound grammar and dialect consistency remain low confidence; see Fulah-Review.md."
+  },
+  {
+    "locale": "ff",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Haatumeere Lislaam (hiisa e haatumeere; fuɗɗoode: 622-07-15, Julian)",
+    "reason": "2026-09-14: Replace English seed with existing Hijri name, attested calculation/table/beginning components and distinct Julian epoch dates. Complete compound grammar and dialect consistency remain low confidence; see Fulah-Review.md."
   }
 ]

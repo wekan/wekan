@@ -79,3 +79,14 @@ assert.deepEqual(tokens(fulah['activity-checklist-completed-card']), [
 ]);
 assert.match(fulah['allboards.add-workspace'], /nokku golle/);
 assert.match(fulah['allboards.edit-workspace-icon'], /markdown/);
+
+// Component-based drafts retain the two distinct tabular Hijri epochs.
+for (const [variant, epoch] of [['civil', '622-07-16'], ['tbla', '622-07-15']]) {
+  const key = `calendar-system-islamic-${variant}`;
+  assert.equal(fulah[key], `Haatumeere Lislaam (hiisa e haatumeere; fuɗɗoode: ${epoch}, Julian)`);
+  assert.doesNotMatch(fulah[key], /Islamic civil|Islamic tabular|yiide lewru/);
+  assert.deepEqual(tokens(fulah[key]), tokens(english[key]));
+}
+assert.notEqual(fulah['calendar-system-islamic-civil'], fulah['calendar-system-islamic-tbla']);
+assert.equal(fulah['calendar-system-islamic-rgsa'],
+  'Haatumeere Lislaam (Arabii Sawdit, yiide lewru)', 'preserve existing sighting translation');
