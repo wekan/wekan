@@ -121588,5 +121588,33 @@
     "before": "Effacer toutes les erreurs",
     "after": "ⵚⵚⴼⴹ ⴰⴽⴽⵯ ⵉⵣⴳⴰⵍⵏ",
     "reason": "Replace French. Native MediaWiki rcfilters-clear-all-filters attests ssfd akkʷ/Clear all; substitute attested plural izgaln (see errors) for filters. Preserve clearing error records rather than fixing software failures or deleting migrations. LOW CONFIDENCE full clear-all-errors command and software-error usage. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf"
+  },
+  {
+    "locale": "zgh",
+    "key": "filter-by-unread",
+    "before": "Filtrer par non lu",
+    "after": "ⵣⵉⵣⴷⵉⴳ: ⵓⵔ ⵉⵜⵜⵡⴰⵖⵔⵉⵏ",
+    "reason": "Replace French. Native MediaWiki rcfilters-search-placeholder attests zizdig/filter and Echo notification-inbox-filter-read attests ghr/read. Preserve inherited unread predicate ur ittwaghrin, labeling the filter state with a colon. LOW CONFIDENCE passive-read inflection and full unread-filter phrase; the inherited predicate is not independently attested by these sources. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki-extensions-Echo/master/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "mark-all-as-read",
+    "before": "Marquer comme lus",
+    "after": "ⵕⵛⵎ ⴰⴽⴽⵯ: ⵉⵜⵜⵡⴰⵖⵔⵉⵏ",
+    "reason": "Replace French. Native MediaWiki tooltip-minoredit attests rchm/mark and searchall attests akkʷ/all; Echo attests ghr/read. Derive read state by removing ur/not from inherited unread predicate, with a colon identifying the selected state. Actual notificationsDrawer sets notification read timestamps for this action. LOW CONFIDENCE derived passive-read form, complete mark-all-read command and agreement; source ghr/read does not validate the full passive predicate. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki-extensions-Echo/master/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "mark-all-as-unread",
+    "before": "Tout marquer comme non lu",
+    "after": "ⵕⵛⵎ ⴰⴽⴽⵯ: ⵓⵔ ⵉⵜⵜⵡⴰⵖⵔⵉⵏ",
+    "reason": "Replace French with the same mark/all components as mark-all-as-read, preserving ur/not in the inherited unread predicate. Actual notificationsDrawer sets notification read timestamps to null, so retain the opposite state and avoid delete/clear vocabulary. LOW CONFIDENCE inherited passive-read form, full command and agreement; independent native references establish component terms only. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki-extensions-Echo/master/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "card-has-unread-comments",
+    "before": "ⵉⵡⵍⴰⴼⵏ ⵓⵔ ⵉⵜⵜⵡⴰⵖⵔⵉⵏ",
+    "after": "ⵉⵅⴼⴰⵡⴰⵍⵏ ⵓⵔ ⵉⵜⵜⵡⴰⵖⵔⵉⵏ",
+    "reason": "Wrong word: iwlafn is an image noun, not comments. Native MediaWiki expand_templates_remove_comments attests ixfawaln/comments. Replace only the incorrect noun, retaining inherited unread predicate. This minicard tooltip indicates unread comments; it must not indicate unread images. LOW CONFIDENCE full noun-predicate agreement, inherited passive-read wording and implicit Has indication; component attestation alone does not establish complete phrasing. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki-extensions-Echo/master/i18n/zgh.json"
   }
 ]
