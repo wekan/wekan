@@ -4,27 +4,26 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,563 |
-| Restored pre-pull; awaiting validation | 894 |
-| Reviewed; retained unchanged | 3,316 |
+| Corrected | 15,565 |
+| Restored pre-pull; awaiting validation | 862 |
+| Reviewed; retained unchanged | 3,346 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
 Review is ongoing. The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,163** exact before/after values, including unflagged repairs.
+contain **18,165** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `c6c3b90be` —
-clarified Galician Node heap garbage overwriting with a bit pattern.
-Retained three ticket labels: the Real Academia Galega accepts tícket.
-All **18,163** correction and **3,316** review records pass.
+Latest translation fix: **2026-09-14**, local commit `cfc2480e5` —
+corrected feminine card agreement in two Galician Received captions.
+Retained 30 correct lockout and scheduled-job values.
+All **18,165** correction and **3,346** review records pass.
 Attachment/member rule participles still need context-specific agreement.
 Three Esperanto restored findings remain: lime color and two Complete labels.
 Broader language and browser verification remain open; nothing pushed.
-Latest unchanged review: **2026-09-14**, commit `f51c7439f` — retained
-30 Galician upload limits, custom translations and accessibility/settings labels.
-Received-label participles remain open pending agreement/context review.
+Latest unchanged review: **2026-09-14**, commit `cfc2480e5` — retained
+30 Galician lockout and scheduled-job labels.
 Galician export free wording remains open pending context.
 Galician Complete and migration-complete wording remain open pending context.
 Card-show-lists context is verified against its settings row and toggle.

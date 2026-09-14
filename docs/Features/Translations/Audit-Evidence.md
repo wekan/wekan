@@ -22339,3 +22339,11 @@ file-type, cancellation, custom translation, ISO week and page-settings labels.
 Context checked in cardDetails.jade, userAvatar.jade, sidebar.jade,
 settingBody.jade and peopleBody.jade. No interpolation tokens changed.
 Exact unchanged-review checks pass; full grammar/browser scope remains open.
+
+### 2026-09-14 — Galician received-card agreement and scheduler labels
+
+Local commit `cfc2480e5` changes card-received and card-received-on to
+Recibida and Recibida o. cardDetails.jade/cardDate.js describe the feminine
+tarxeta and its date. Thirty lockout/scheduler values retain correct meanings.
+Exact positive/negative corrections and unchanged-review checks pass.
+Browser rendering, shared rule agreement and full language review remain open.

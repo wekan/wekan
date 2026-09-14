@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,562 corrected, 894 restored pre-pull values awaiting
-validation, 3,316 reviewed and retained, and 308 pending review or repair.
-The correction inventory records 18,163 exact before/after values,
+findings: 15,562 corrected, 862 restored pre-pull values awaiting
+validation, 3,346 reviewed and retained, and 308 pending review or repair.
+The correction inventory records 18,165 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
 of 829
@@ -1109,6 +1109,18 @@ Thanks to xet7 !
 Retained 30 correct registration, visibility, upload/avatar, custom
 translation, ISO week, support and accessibility labels. Exact review
 checks pass; uncertain rule fragments and broader language review remain open.
+
+Thanks to xet7 !
+
+</details>
+
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cfc2480e5">Fix Galician Received captions and validate scheduled jobs.</a></summary>
+
+Two Received captions now agree with the feminine card noun. Retained
+30 correct lockout, scheduler and diagnostic values. Exact correction,
+placeholder and unchanged-review checks pass; browser review remains open.
 
 Thanks to xet7 !
 
