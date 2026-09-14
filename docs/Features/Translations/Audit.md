@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,669 |
+| Corrected | 15,670 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,175 |
-| Pending review or repair | 233 |
+| Pending review or repair | 232 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,14 +16,13 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `439a18989` —
-Finnish Veps parent-card label replaced with a complete terminology draft.
-Compound grammar/software metaphor remains low confidence. Locale, token
-and preference checks pass; ledger 18,825, original pending 233 unchanged.
-Native/browser review remains open.
+Latest translation fix: **2026-09-14**, local commit `e8692f14a` —
+Veps parent display instruction replaced with a complete draft. Full
+compound/object/location grammar remains low confidence. Checks pass;
+original pending 232 (Veps 9), ledger 18,826. Native/browser review stays open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,825** exact before/after values, including unflagged
+records contain **18,826** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -46,7 +45,7 @@ restored values still await full native/browser validation.
 | nah — Nahuatl | 17 |
 | tig — Tigre | 17 |
 | wal — Wolaytta | 17 |
-| ve-PP — Veps | 10 |
+| ve-PP — Veps | 9 |
 | dz — Dzongkha | 2 |
 | ff — Fulah | 2 |
 | ks — Kashmiri | 2 |

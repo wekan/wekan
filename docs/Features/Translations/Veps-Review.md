@@ -320,3 +320,13 @@ Eleven tests across four files pass for exact values, placeholders and
 translation preference. Original ten Veps findings remain pending;
 ledger 18,825. Live browser/native phrase verification remains open.
 Source: https://vepsnoid.blogspot.com/p/dictionary.html
+
+Parent display draft **2026-09-14**, local commit `e8692f14a`:
+`show-parent-in-minicard` now reads **Ozuta vanhemb kart minikartal:**.
+Native MediaWiki Show and the existing parent-card noun support terminology;
+minikartal is a derived location form. Full compound/object/location grammar
+remains **low confidence**, requiring native review. Display, relationship,
+location and colon are preserved. Twelve tests across four files pass for
+exact values, placeholders and preference. Original pending 232, Veps 9;
+ledger 18,826. Changed classification does not establish native fluency
+or live browser verification. Earlier counts describe prior review stages.
