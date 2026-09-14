@@ -1134,3 +1134,16 @@ grammar repairs; account lockout failures must not be equated with errors
 without semantic review. The full import warning remains French and
 pending; no incomplete component-only translation is accepted for it.
 Browser verification remains open.
+
+
+Tamazight migration errors — 2026-09-14, local commit `3d891b203`.
+cron-migration-errors and cron-clear-errors revise earlier corrections to
+use tizglin error plural (IRCAM PDF 658 entry 12346) and mhu delete/erase
+(PDF 418 entry 7924). Clear retains all scope; heading retains migration.
+PDF 519 entry 9788 ssfd means clean/wipe, while the earlier emphatic
+ss spelling was not supported by that entry. Erase better fits removing
+diagnostic records. Original before/reason history retained; ledger stays
+18,761 and pending stays 256. Four suites pass. Low confidence: software
+diagnostic metaphor and complete migration genitive; browser not run.
+cron-errors-cleared still needs complete success semantics and plural
+agreement; account lockout failures remain separate semantic review.

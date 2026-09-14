@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3d891b203">Repair Tamazight migration-error heading and action</a>. Thanks to xet7.</summary>
+
+Use attested error plural and erase wording while retaining migration and
+all-error scope. Four suites pass; full native phrases, success
+confirmation and browser verification remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a693a0093">Correct Tamazight plural error terminology</a>. Thanks to xet7.</summary>
 
 Use the primary dictionary plural matching the singular Error label.

@@ -16,10 +16,10 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `a693a0093` —
-Tamazight Errors uses the primary dictionary plural matching Error. Four
-checks pass; the existing ledger record is revised with original provenance
-preserved. Related diagnostics/full phrases remain open. Pending: 256.
+Latest translation fix: **2026-09-14**, local commit `3d891b203` —
+Tamazight migration-error heading/action use attested error plural and
+delete/erase verb. Four checks pass; success confirmation and complete
+native/browser phrases remain open. Original pending: 256.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
 records contain **18,761** exact before/after values, including unflagged
