@@ -59,3 +59,23 @@ for (const key of ['shortcut-clear-filters', 'shortcut-filter-my-cards',
   'admin-people-filter-active', 'admin-people-filter-inactive', 'active']) {
   assert.doesNotMatch(locales.br[key], /Retirer|Filtrer|Filtre avancé|Valider|Afficher|Actif|Désactivé/);
 }
+
+assert.equal(locales.br['close'], 'Serriñ');
+assert.equal(locales.br['sidebar-open'], 'Digeriñ ar varrenn gostez');
+assert.equal(locales.br['sidebar-close'], 'Serriñ ar varrenn gostez');
+assert.notEqual(locales.br['sidebar-open'], locales.br['sidebar-close']);
+assert.equal(locales.br['moveChecklist'], 'Dilec’hiañ ar roll-gwiriañ');
+assert.equal(locales.br['copyChecklist'], 'Eilañ ar roll-gwiriañ');
+assert.notEqual(locales.br['moveChecklist'], locales.br['copyChecklist']);
+assert.equal(locales.br['move-progress-cancel'], locales.br.cancel);
+assert.equal(locales.br['r-import'], locales.br.import);
+assert.match(locales.br['export-card-pdf'], / PDF$/);
+assert.equal(locales.br['export-card'], locales.br['exportCardPopup-title']);
+assert.equal(locales.br['chooseBoardSourcePopup-title'], locales.br['import-board-c']);
+for (const key of ['close', 'close-board', 'close-card',
+  'chooseBoardSourcePopup-title', 'import-board-c', 'r-import', 'export-card',
+  'export-card-pdf', 'exportBoardPopup-title', 'exportCardPopup-title',
+  'show-activities', 'show-on-card', 'sidebar-open', 'sidebar-close',
+  'moveChecklist', 'copyChecklist', 'attachment-move', 'move-progress-cancel']) {
+  assert.doesNotMatch(locales.br[key], /Fermer|Ouvrir|Importer|Exporter|Afficher|Déplacer|Copier|Annuler/);
+}

@@ -129463,5 +129463,131 @@
     "before": "Actif",
     "after": "Oberiant",
     "reason": "Repair remaining French Breton filter/shortcut/status/validation wording. Reuse existing sil, araokaet, treuzkas roadennoù and enabled/disabled terms. Ofis computing glossary supports dilemel, diskwel and kadarnaat; native Ofis dictionary/digital strategy supports oberiant. People active/inactive filter checks loginDisabled separately from lockout, so enabled/disabled wording preserves the actual distinction. Adapted full-phrase/native browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "close",
+    "before": "Fermer",
+    "after": "Serriñ",
+    "reason": "Repair French-seeded Breton close/open/import/export/view/checklist/attachment controls. Reuse local entity nouns, import/export and cancellation terminology. Native Ofis computing glossary attests serriñ, digeriñ, diskwel, enporzhiañ, dilec’hiañ, eilañ and nullañ. Preserve PDF format and opposite open/close or copy/move actions. Compounds are adapted; native whole-phrase and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "close-board",
+    "before": "Fermer le tableau",
+    "after": "Serriñ an daolenn",
+    "reason": "Repair French-seeded Breton close/open/import/export/view/checklist/attachment controls. Reuse local entity nouns, import/export and cancellation terminology. Native Ofis computing glossary attests serriñ, digeriñ, diskwel, enporzhiañ, dilec’hiañ, eilañ and nullañ. Preserve PDF format and opposite open/close or copy/move actions. Compounds are adapted; native whole-phrase and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "close-card",
+    "before": "Fermer la carte",
+    "after": "Serriñ ar gartenn",
+    "reason": "Repair French-seeded Breton close/open/import/export/view/checklist/attachment controls. Reuse local entity nouns, import/export and cancellation terminology. Native Ofis computing glossary attests serriñ, digeriñ, diskwel, enporzhiañ, dilec’hiañ, eilañ and nullañ. Preserve PDF format and opposite open/close or copy/move actions. Compounds are adapted; native whole-phrase and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "chooseBoardSourcePopup-title",
+    "before": "Importer un tableau",
+    "after": "Enporzhiañ un daolenn",
+    "reason": "Repair French-seeded Breton close/open/import/export/view/checklist/attachment controls. Reuse local entity nouns, import/export and cancellation terminology. Native Ofis computing glossary attests serriñ, digeriñ, diskwel, enporzhiañ, dilec’hiañ, eilañ and nullañ. Preserve PDF format and opposite open/close or copy/move actions. Compounds are adapted; native whole-phrase and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "import-board-c",
+    "before": "Importer un tableau",
+    "after": "Enporzhiañ un daolenn",
+    "reason": "Repair French-seeded Breton close/open/import/export/view/checklist/attachment controls. Reuse local entity nouns, import/export and cancellation terminology. Native Ofis computing glossary attests serriñ, digeriñ, diskwel, enporzhiañ, dilec’hiañ, eilañ and nullañ. Preserve PDF format and opposite open/close or copy/move actions. Compounds are adapted; native whole-phrase and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "r-import",
+    "before": "Importer",
+    "after": "Enporzhiañ",
+    "reason": "Repair French-seeded Breton close/open/import/export/view/checklist/attachment controls. Reuse local entity nouns, import/export and cancellation terminology. Native Ofis computing glossary attests serriñ, digeriñ, diskwel, enporzhiañ, dilec’hiañ, eilañ and nullañ. Preserve PDF format and opposite open/close or copy/move actions. Compounds are adapted; native whole-phrase and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "export-card",
+    "before": "Exporter la carte",
+    "after": "Ezporzhiañ ar gartenn",
+    "reason": "Repair French-seeded Breton close/open/import/export/view/checklist/attachment controls. Reuse local entity nouns, import/export and cancellation terminology. Native Ofis computing glossary attests serriñ, digeriñ, diskwel, enporzhiañ, dilec’hiañ, eilañ and nullañ. Preserve PDF format and opposite open/close or copy/move actions. Compounds are adapted; native whole-phrase and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "export-card-pdf",
+    "before": "Exporter la carte en PDF",
+    "after": "Ezporzhiañ ar gartenn e PDF",
+    "reason": "Repair French-seeded Breton close/open/import/export/view/checklist/attachment controls. Reuse local entity nouns, import/export and cancellation terminology. Native Ofis computing glossary attests serriñ, digeriñ, diskwel, enporzhiañ, dilec’hiañ, eilañ and nullañ. Preserve PDF format and opposite open/close or copy/move actions. Compounds are adapted; native whole-phrase and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "exportBoardPopup-title",
+    "before": "Exporter le tableau",
+    "after": "Ezporzhiañ an daolenn",
+    "reason": "Repair French-seeded Breton close/open/import/export/view/checklist/attachment controls. Reuse local entity nouns, import/export and cancellation terminology. Native Ofis computing glossary attests serriñ, digeriñ, diskwel, enporzhiañ, dilec’hiañ, eilañ and nullañ. Preserve PDF format and opposite open/close or copy/move actions. Compounds are adapted; native whole-phrase and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "exportCardPopup-title",
+    "before": "Exporter la carte",
+    "after": "Ezporzhiañ ar gartenn",
+    "reason": "Repair French-seeded Breton close/open/import/export/view/checklist/attachment controls. Reuse local entity nouns, import/export and cancellation terminology. Native Ofis computing glossary attests serriñ, digeriñ, diskwel, enporzhiañ, dilec’hiañ, eilañ and nullañ. Preserve PDF format and opposite open/close or copy/move actions. Compounds are adapted; native whole-phrase and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "show-activities",
+    "before": "Afficher les activités",
+    "after": "Diskwel an oberiantizoù",
+    "reason": "Repair French-seeded Breton close/open/import/export/view/checklist/attachment controls. Reuse local entity nouns, import/export and cancellation terminology. Native Ofis computing glossary attests serriñ, digeriñ, diskwel, enporzhiañ, dilec’hiañ, eilañ and nullañ. Preserve PDF format and opposite open/close or copy/move actions. Compounds are adapted; native whole-phrase and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "show-on-card",
+    "before": "Afficher sur la carte",
+    "after": "Diskwel war ar gartenn",
+    "reason": "Repair French-seeded Breton close/open/import/export/view/checklist/attachment controls. Reuse local entity nouns, import/export and cancellation terminology. Native Ofis computing glossary attests serriñ, digeriñ, diskwel, enporzhiañ, dilec’hiañ, eilañ and nullañ. Preserve PDF format and opposite open/close or copy/move actions. Compounds are adapted; native whole-phrase and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "sidebar-open",
+    "before": "Ouvrir le panneau",
+    "after": "Digeriñ ar varrenn gostez",
+    "reason": "Repair French-seeded Breton close/open/import/export/view/checklist/attachment controls. Reuse local entity nouns, import/export and cancellation terminology. Native Ofis computing glossary attests serriñ, digeriñ, diskwel, enporzhiañ, dilec’hiañ, eilañ and nullañ. Preserve PDF format and opposite open/close or copy/move actions. Compounds are adapted; native whole-phrase and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "sidebar-close",
+    "before": "Fermer le panneau",
+    "after": "Serriñ ar varrenn gostez",
+    "reason": "Repair French-seeded Breton close/open/import/export/view/checklist/attachment controls. Reuse local entity nouns, import/export and cancellation terminology. Native Ofis computing glossary attests serriñ, digeriñ, diskwel, enporzhiañ, dilec’hiañ, eilañ and nullañ. Preserve PDF format and opposite open/close or copy/move actions. Compounds are adapted; native whole-phrase and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "moveChecklist",
+    "before": "Déplacer la checklist",
+    "after": "Dilec’hiañ ar roll-gwiriañ",
+    "reason": "Repair French-seeded Breton close/open/import/export/view/checklist/attachment controls. Reuse local entity nouns, import/export and cancellation terminology. Native Ofis computing glossary attests serriñ, digeriñ, diskwel, enporzhiañ, dilec’hiañ, eilañ and nullañ. Preserve PDF format and opposite open/close or copy/move actions. Compounds are adapted; native whole-phrase and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "copyChecklist",
+    "before": "Copier la checklist",
+    "after": "Eilañ ar roll-gwiriañ",
+    "reason": "Repair French-seeded Breton close/open/import/export/view/checklist/attachment controls. Reuse local entity nouns, import/export and cancellation terminology. Native Ofis computing glossary attests serriñ, digeriñ, diskwel, enporzhiañ, dilec’hiañ, eilañ and nullañ. Preserve PDF format and opposite open/close or copy/move actions. Compounds are adapted; native whole-phrase and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "attachment-move",
+    "before": "Déplacer la pièce jointe",
+    "after": "Dilec’hiañ ar stagadenn",
+    "reason": "Repair French-seeded Breton close/open/import/export/view/checklist/attachment controls. Reuse local entity nouns, import/export and cancellation terminology. Native Ofis computing glossary attests serriñ, digeriñ, diskwel, enporzhiañ, dilec’hiañ, eilañ and nullañ. Preserve PDF format and opposite open/close or copy/move actions. Compounds are adapted; native whole-phrase and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "move-progress-cancel",
+    "before": "Annuler",
+    "after": "Nullañ",
+    "reason": "Repair French-seeded Breton close/open/import/export/view/checklist/attachment controls. Reuse local entity nouns, import/export and cancellation terminology. Native Ofis computing glossary attests serriñ, digeriñ, diskwel, enporzhiañ, dilec’hiañ, eilañ and nullañ. Preserve PDF format and opposite open/close or copy/move actions. Compounds are adapted; native whole-phrase and live browser validation remain open."
   }
 ]
