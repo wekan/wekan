@@ -21650,3 +21650,14 @@ models/checklistItems.js checks the all-items-finished state for completion.
 No translation was changed merely to prefer a synonym. 1,709 unchanged
 reviews pass; 2,511 restored and 308 pending findings remain. Browser and
 broader language verification remains open.
+
+
+### Esperanto reminder and notification review — 2026-09-14
+
+Local commit `35792c787` retains forty correct placement, deadline reminder,
+irreversible deletion, assignee, organization/team, notification and
+week-start values. proksimiĝas and pasis preserve approaching/past deadline
+states; Ne eblas malfari preserves the no-undo warning; legita/nelegita
+preserve read/unread states. Exact interpolation remains unchanged.
+1,749 review records pass. 2,471 restored values and 308 pending findings
+remain, alongside broader language and browser validation.
