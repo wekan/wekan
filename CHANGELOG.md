@@ -105,6 +105,9 @@ changes are implemented in local commit 02383521a; translation repairs have resu
 Latest translation fix is e6f9bad44 (2026-09-14), completing Tamazight
 Dangi and ISO-8601 calendar labels while preserving named identities.
 The full mixed-script labels need fluent review.
+Troubleshooting reference review ccd2ff8b0 (2026-09-14) separates native
+server/error terms from cross-dialect execution/installation evidence.
+The full instruction remains pending; values and counts are unchanged.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -1501,6 +1504,16 @@ Use the native CLDR calendar noun while retaining named Dangi and ISO-8601
 identities. Full mixed-script composition remains low confidence pending
 fluent review. All 17,672 correction checks pass. One original and one
 unflagged repair leave 500 originals pending. Broader validation continues.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ccd2ff8b0">Record Tamazight server troubleshooting terminology review</a>. Thanks to xet7.</summary>
+
+Distinguish native server/error vocabulary from indexed cross-dialect command
+execution and installation terms. Preserve the literal snap/Docker diagnostic
+commands and installation conditions. Full Moroccan instructions remain
+unresolved; no locale values or classification counts changed.
 
 </details>
 
