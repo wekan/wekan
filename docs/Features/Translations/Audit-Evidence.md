@@ -25024,3 +25024,22 @@ possession, participle and server-relative clause remain to verify.
 Original pending count remains 267; low-confidence and browser reviews
 remain open. This review changes the next translation choice by excluding
 email-address and the wrong manage sense.
+
+## SMTP host description repair — 2026-09-14
+
+Local commit `584dbfc7c` repairs smtp-host-description after finding the
+missing primary email noun evidence. IRCAM 2019 PDF page 608 entry 11389
+attests correspondence, plural timyazanin and the explicit singular
+email compound tamyazant taliktrunit. Native MediaWiki tool-link-emailuser
+independently uses that electronic-message compound. Earlier verified
+address, computer-server and administer/manage components are reused.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+The sentence keeps SMTP, a server's address and your electronic correspondence;
+it does not change the input to a user's email address. **Low confidence**
+remains for the electronic adjective plural, participle, possession and
+complete relative-clause grammar. The dictionary attests components, not
+this complete software sentence. Four focused checks pass; no browser
+validation was run. Recount: 15,636 corrected, 266 pending (153 Tamazight),
+four restored, 4,175 retained and 18,733 correction records. The prior
+pending note is historical; full native validation remains open.
