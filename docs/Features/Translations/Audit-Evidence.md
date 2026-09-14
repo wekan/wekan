@@ -22379,3 +22379,11 @@ Twenty-nine migration-step, interval and monitoring labels retain correct
 meaning, numeric intervals, missing/duplicate/empty scope and technical IDs.
 Exact positive/negative correction and unchanged-review checks pass.
 Full language/browser scope remains open.
+
+### 2026-09-14 — Galician scheduler and migration thresholds
+
+Local commit `d2780f008` retains 30 scheduler, monitoring, storage destination
+and migration threshold values. attachmentSettings.jade confirms CPU pause
+percentage and millisecond-delay fields. Numeric ranges 10-90 and 100-10000,
+last/next execution, failure polarity and pause/resume/run-once meanings remain.
+Exact unchanged-review checks pass; full language/browser scope remains open.

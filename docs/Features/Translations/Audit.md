@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,566 |
-| Restored pre-pull; awaiting validation | 742 |
-| Reviewed; retained unchanged | 3,465 |
+| Restored pre-pull; awaiting validation | 712 |
+| Reviewed; retained unchanged | 3,495 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -18,12 +18,12 @@ source references, confidence limits and archived progress notes.
 Latest translation fix: **2026-09-14**, local commit `01fa30d1c` —
 corrected feminine agreement in the Galician completed-subtask tooltip.
 Retained 29 correct migration-step, interval and monitoring values.
-All **18,166** correction and **3,465** review records pass.
+All **18,166** correction and **3,495** review records pass.
 Attachment/member rule participles still need context-specific agreement.
 Three Esperanto restored findings remain: lime color and two Complete labels.
 Broader language and browser verification remain open; nothing pushed.
-Latest unchanged review: **2026-09-14**, commit `01fa30d1c` — retained
-29 Galician migration-step, scheduling interval and monitoring labels.
+Latest unchanged review: **2026-09-14**, commit `d2780f008` — retained
+30 Galician scheduler, migration threshold and monitoring labels.
 Galician export free wording remains open pending context.
 Galician Complete and migration-complete wording remain open pending context.
 Card-show-lists context is verified against its settings row and toggle.
