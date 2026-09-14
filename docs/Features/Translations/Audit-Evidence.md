@@ -21197,3 +21197,13 @@ values directly and retained correct Danish wording unchanged. Ledger and
 placeholder/key-order tests pass. Ambiguous unused free wording and team
 terminology remain in the restored queue; no browser or remote verification
 was performed.
+
+
+### Restored Danish control review — 2026-09-14
+
+Local commit `3eeef4905` retains 63 directly reviewed translations unchanged.
+Start, Stop and Support are valid Danish vocabulary despite matching English.
+Added groups wording follows the existing add-teams terminology. Byte-size
+units, ISO week numbering, accessibility, lockout and job outcome distinctions
+are preserved. Free and Complete remain open pending source-context review.
+Unchanged-value ledger tests pass; browser rendering was not tested.
