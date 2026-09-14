@@ -122330,5 +122330,26 @@
     "before": "ⵎⴰⵕⵕⴰ ⵙⴽⵛⵎ ⴰⵣⵡⵍ ⵏ ⵜⴰⵏⵏⴰⵢⵜ",
     "after": "ⵎⴽ ⵜⵓⴼⵉⴷ, ⵙⴽⵛⵎ ⴰⵣⵡⵍ ⵏ ⵓⵍⵓⴳⵏ",
     "reason": "Repair French/Arabic rule labels or inconsistent existing terminology using IRCAM rule alugn, bound ulugn and plural ilugnn. Distinguish rule from alugan/regular and replace the mistaken view/opinion noun in required rule-title prompt. Preserve singular/plural, board ownership and action semantics. LOW CONFIDENCE grammatical-rule adaptation to software automation, full composed phrases, adjective agreement and negative plural construction. References: https://biblio.ircam.ma/pmb/uploads/publications/134.pdf (Vocabulaire grammatical 2009 printed p65, indexed native rule paradigm versus regular; direct fetch temporarily failed); https://biblio.ircam.ma/pmb/uploads/publications/136.pdf (French index Rule alugen versus Regular alugan); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (add tooltip-watch, show, delete, tags-edit, new, please mk tufid, input skchm)."
+  },
+  {
+    "locale": "zgh",
+    "key": "rulesImportExportPopup-title",
+    "before": "ⴽⵜⴻⵔ / ⵙⵉⴼⴻⴹ ⵉⵍⵓⴳⴰⵏ",
+    "after": "ⵙⴽⵛⵎ / ⵙⵙⵓⴼⵖ ⵉⵍⵓⴳⵏⵏ",
+    "reason": "Replace French report/details or mixed orthography and regular-versus-rule confusion in import/export rules. Preserve singular report, plural rules, singular rule details and both import/export actions. Native CNDH anqqis/report context (printed p29), MediaWiki ifruritn/details, ssufgh/export and importlogpage iskchumn support components; derive import imperative skchm and use IRCAM rule paradigm alugn/ulugn/ilugnn. LOW CONFIDENCE import imperative derivation and software-rule application, bound phrases and whole popup wording. References: https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (blockedtext-include-details-queries, export, importlogpage); https://biblio.ircam.ma/pmb/uploads/publications/134.pdf (printed p65)."
+  },
+  {
+    "locale": "zgh",
+    "key": "rulesReportTitle",
+    "before": "Rapports sur les règles",
+    "after": "ⴰⵏⵇⵇⵉⵙ ⵏ ⵉⵍⵓⴳⵏⵏ",
+    "reason": "Replace French report/details or mixed orthography and regular-versus-rule confusion in import/export rules. Preserve singular report, plural rules, singular rule details and both import/export actions. Native CNDH anqqis/report context (printed p29), MediaWiki ifruritn/details, ssufgh/export and importlogpage iskchumn support components; derive import imperative skchm and use IRCAM rule paradigm alugn/ulugn/ilugnn. LOW CONFIDENCE import imperative derivation and software-rule application, bound phrases and whole popup wording. References: https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (blockedtext-include-details-queries, export, importlogpage); https://biblio.ircam.ma/pmb/uploads/publications/134.pdf (printed p65)."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-rule-details",
+    "before": "Détails de la règle",
+    "after": "ⵉⴼⵔⵓⵔⵉⵜⵏ ⵏ ⵓⵍⵓⴳⵏ",
+    "reason": "Replace French report/details or mixed orthography and regular-versus-rule confusion in import/export rules. Preserve singular report, plural rules, singular rule details and both import/export actions. Native CNDH anqqis/report context (printed p29), MediaWiki ifruritn/details, ssufgh/export and importlogpage iskchumn support components; derive import imperative skchm and use IRCAM rule paradigm alugn/ulugn/ilugnn. LOW CONFIDENCE import imperative derivation and software-rule application, bound phrases and whole popup wording. References: https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (blockedtext-include-details-queries, export, importlogpage); https://biblio.ircam.ma/pmb/uploads/publications/134.pdf (printed p65)."
   }
 ]
