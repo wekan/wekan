@@ -23601,3 +23601,20 @@ independently pairs produioù with products. These support the component words,
 not an exact attestation of the complete adapted interface phrase. Native full
 phrase and browser validation remain open. Positive/negative label, exact
 ledger, unchanged-review and completeness checks passed; no live UI was run.
+
+
+Inuktitut rule states — 2026-09-14, local commit `8f96ec2bc`.
+
+Actual rulesList.jade shows enabled/disabled on the current isEnabled state
+of the toggle button, rather than historical actions. Aturtaulauqtuq and
+Aturunnaitittauqtuq are replaced with ᐊᑐᖅᑕᐅᔪᖅ / ᐊᑐᖅᑕᐅᙱᑦᑐᖅ
+(in use / not in use). Existing locale values use both native component forms.
+[Legislative Assembly bilingual hearing, April 29 2025](https://assembly.nu.ca/sites/default/files/2025-09/OGOPA%20CFS%2020250429.pdf)
+PDF page 58 (zero-based 57), extracted lines 4685–4691, uses the negative
+form for Matrix software not being used by all staff. This supports software
+usage wording, not an exact native translation of a rule enabled-state toggle.
+The adapted UI pair is low confidence and remains in broader native/browser
+review despite correcting the two flagged writing-state findings.
+Exact ledger, distinct-positive/negative state labels and completeness checks
+pass. No live rules popup or browser test was run. Pending 291, restored 17;
+Inuktitut original pending queue is now 42.

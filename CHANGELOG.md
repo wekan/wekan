@@ -705,6 +705,16 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8f96ec2bc">Repair Inuktitut rule state labels</a>. Thanks to xet7.</summary>
+
+Rule enabled/disabled labels use distinct syllabic present-state wording.
+Exact ledgers, positive/negative state labels and completeness checks pass.
+The dated audit records software-use evidence and keeps this adapted pair
+open for native language and browser review as a low-confidence replacement.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/feab87240">Repair Breton custom product name label</a>. Thanks to xet7.</summary>
 
 Custom product name replaces French wording and restores the product qualifier.

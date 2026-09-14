@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,608 |
+| Corrected | 15,610 |
 | Restored pre-pull; awaiting validation | 17 |
 | Reviewed; retained unchanged | 4,163 |
-| Pending review or repair | 293 |
+| Pending review or repair | 291 |
 | Total tracked | 20,081 |
 
 Review is ongoing. [Nahuatl terminology review](Nahuatl-Review.md)
@@ -20,16 +20,16 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,591** exact before/after values, including unflagged repairs.
+contain **18,593** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `feab87240` —
-Breton Custom product name replaces French wording and restores the omitted
-product qualifier. Documented native vocabulary supports an adapted compound;
-full phrase and browser validation remain open. All **18,591** corrections,
+Latest translation fix: **2026-09-14**, local commit `8f96ec2bc` —
+Inuktitut rule enabled/disabled labels use syllabic present-state wording.
+Native software-use evidence supports the negative form; this adapted UI pair
+is low confidence pending native and browser review. All **18,593** corrections,
 **4,163** unchanged reviews, focused locale and completeness checks pass.
-This unflagged repair leaves 293 pending and 17 restored findings unchanged.
+Two flagged findings are repaired; 291 pending and 17 restored remain open.
 Latest unchanged review: **2026-09-14**, Thai r-is —
 คือ retained after removing its incorrect insertion before action predicates.
 Danish Dage gammel remains validated in `824dd005e` with native age-construction
@@ -42,7 +42,7 @@ Additional unflagged unchanged review: **2026-09-14**, `39af6aae5` —
 Veps Server and Valencian Errors retained with native software evidence and
 protected per locale from filling. Zero unreviewed English placeholders remain;
 this does not establish correct language or fluency in all values. These two reviews are outside the original flagged ledger; current
-pending/restored counts are 293/17.
+pending/restored counts are 291/17.
 
 
 
@@ -58,7 +58,7 @@ Reviewed subtask actions/settings retain correct subordinate-task compounds.
 | Pending locale | Findings |
 | --- | ---: |
 | zgh — Standard Moroccan Tamazight | 173 |
-| iu — Inuktitut | 44 |
+| iu — Inuktitut | 42 |
 | nah — Nahuatl | 17 |
 | tig — Tigre | 17 |
 | wal — Wolaytta | 17 |
