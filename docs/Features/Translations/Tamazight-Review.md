@@ -1845,3 +1845,36 @@ Sources:
 https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
 https://nodejs.org/api/os.html#ostype
 https://nodejs.org/api/os.html#osrelease
+
+
+Architecture repair **2026-09-14**, local commit `69d9adb6c`:
+OS_Arch is **OS: ⵜⴰⵎⵙⴷⴰⴳⵜ**, replacing an additional unflagged Arabic
+label. IRCAM General Dictionary PDF page 604, entry 11323 attests tamsdagt
+for architecture and a modular-architecture compound. Actual statistics
+reads os.arch(); the information table renders statistics.os.arch. Node
+identifies this as the CPU architecture for which its binary was compiled,
+not the OS name, platform, bit count or CPU count. Low confidence:
+specializing this native architecture term to computing remains open.
+Four locale suites pass, with exact wording, Arabic rejection, distinct
+OS labels and metric-source/template regressions. Tokens, order and newer
+correct-language translations are preserved. No admin browser execution
+is claimed. Ledger 18,847; original corrected 15,673, pending 229
+(zgh 122), restored 4 unchanged. Changed-value checks do not prove fluency.
+Sources:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+https://nodejs.org/api/os.html#osarch
+
+Reference follow-up **2026-09-14**: IRCAM document 333 was downloaded
+from its working ircam.biblio.ma endpoint and 306 pages extracted. The
+biblio.ircam.ma endpoint failed certificate verification; validation was
+not bypassed. Document 333 is the TICAM conference proceedings, published
+2020, not a dedicated computing lexicon. Its title or French technical
+prose cannot establish native diagnostic vocabulary. This bounded check
+provides no acceptance for load-average, platform, uptime or heap labels.
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=333
+
+Short audit verification summary corrected **2026-09-14**: earlier
+registered-but-unrun notes are superseded by the dated successful Basque
+and Tamazight Chromium executions already recorded in their reviews.
+Full clauses and other UI paths remain open; no additional browser run is
+claimed by this documentation correction.

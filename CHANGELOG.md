@@ -656,6 +656,17 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/69d9adb6c">Repair Tamazight architecture diagnostic label</a>. Thanks to xet7.</summary>
+
+IRCAM architecture terminology replaces Arabic while retaining the CPU
+architecture metric. Four translation suites pass with positive and
+negative source checks. Computing specialization remains low confidence.
+The short audit also reflects already executed browser verification;
+full native clauses and other UI paths remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/163a755c0">Repair Tamazight OS release and type labels</a>. Thanks to xet7.</summary>
 
 Native version/type terms replace three additional Arabic diagnostic and

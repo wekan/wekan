@@ -16,13 +16,13 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `163a755c0` —
-Arabic OS release and type labels replaced with Tamazight version/type
-terms. Four locale suites pass; OS terminology adaptation remains low
-confidence. Ledger 18,846; pending 229 (zgh 122), restored 4 unchanged.
+Latest translation fix: **2026-09-14**, local commit `69d9adb6c` —
+Arabic architecture label replaced with IRCAM Tamazight tamsdagt.
+Four locale suites pass; CPU-architecture specialization remains low
+confidence. Ledger 18,847; pending 229 (zgh 122), restored 4 unchanged.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,846** exact before/after values, including unflagged
+records contain **18,847** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -37,7 +37,7 @@ Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:
 `946e1a29b` retains generic Basque member/attachment subjects. Named Basque
 DOM and saved-description repairs are `1e4411183` and `0c51a3261`; four
-restored values still await full native/browser validation.
+restored values still await full native clause validation.
 
 | Pending locale | Findings |
 | --- | ---: |
@@ -69,7 +69,8 @@ translation service is used, and no remote push was performed.
   [Quechua](Quechua-Review.md) and [Aromanian](Aromanian-Review.md): calendar
   qualifiers, complete compounds, native terminology and magenta attestation.
 - [Basque](Basque-Review.md): named subjects, full phrases and browser spec
-  88 (registered, unrun). [Veps](Veps-Review.md): remaining Finnish prose;
+  88 (Chromium passed; full native clauses open). [Veps](Veps-Review.md):
+  remaining Finnish prose;
   literal filter examples must be preserved.
 - [Uzbek Arabic](Uzbek-Arabic-Review.md): indexed cancellation evidence needs
   full-source and native orthographic verification (`b433730e3`).
@@ -85,8 +86,11 @@ Verification summary — **2026-09-14**:
   options and English fallback. `55562f666` verifies exact limit-error
   substitution in all 246 locale files. Parser coverage `8715c094e`, `bc9860dff`
   and `27f6c9d2a` verifies limit errors and date filtering/sorting.
-- Browser spec 03 (`c8bcfb258`) is registered but unrun. A fresh localhost
-  probe found no app at port 3000; browser verification remains incomplete.
+- Browser spec 03 executed in Chromium (`75fbb698c`, 1 passed), with later
+  conjunction, board-control and Default-label runs recorded in the native
+  review. Spec 88 (`c9005ee0a`, 1 passed) verifies Basque composition.
+  These supersede earlier unavailable-app notes; full native grammar and
+  other UI paths remain under review.
 - Structural checks preserve placeholders, key order, JSON examples and
   newer correct-language translations; they do not certify native fluency.
 
