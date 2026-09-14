@@ -17,17 +17,17 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,196** exact before/after values, including unflagged repairs.
+contain **18,197** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `1b228a63f` —
-six Basque archive actions/trigger descriptions use artxibo instead of storage
-wording. Direction, imperatives and when clauses remain intact. These unflagged
-repairs do not reduce the original queue. All **18,196** corrections pass;
-actual action-template wiring and positive/negative terminology checks pass.
-Shared Basque trigger grammar remains unresolved. Manx epoch phrasing and
-Greenlandic compound grammar remain provisional and need native review.
+Latest translation fix: **2026-09-14**, local commit `c4e6aa1c0` —
+Valencian My Attachments uses masculine plural Els meus adjunts instead of
+mismatched Les meves Adjunts. This unflagged agreement repair leaves original
+queue counts unchanged. All **18,197** corrections pass. Regional possessive
+forms alone do not establish wrong-language text; the filter shortcut remains
+under regional review. Shared Basque grammar and provisional calendar phrasing
+remain open.
 Veps terminology, shared trigger grammar and browser validation remain open.
 Attachment/member rule participles still need context-specific agreement.
 Two Esperanto restored findings remain: Complete labels.

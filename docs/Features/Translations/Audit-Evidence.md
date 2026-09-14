@@ -22684,3 +22684,11 @@ usage only; they do not prove that shared vocabulary is invalid Silesian.
 Do not mechanically substitute zbiōr or transliterate Polish to close this
 finding. Review the entire phrase against a Silesian technical dictionary or
 corpus before accepting or replacing it. No locale strings changed.
+
+Dated repair, 2026-09-14, local commit `c4e6aa1c0`: Valencian
+my-attachments changes Les meves Adjunts to Els meus adjunts, repairing
+masculine plural agreement and preserving ownership. Possessive reference
+https://aoe.iec.cat/els-possessius/ distinguishes regional meves/meues;
+regional variation alone is not evidence of another language. The assigned
+filter shortcut remains under regional review. All 18,197 exact corrections
+pass. Original queue counts and broader verification scope are unchanged.

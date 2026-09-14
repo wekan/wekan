@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,586 corrected, 54 restored pre-pull values awaiting
 validation, 4,136 reviewed and retained, and 305 pending review or repair.
-The correction inventory records 18,196 exact before/after values,
+The correction inventory records 18,197 exact before/after values,
 including repairs outside the original findings.
 Global completeness verification also identifies Veps `server` (currently
 English-identical “Server”) for terminology review; it is not accepted yet.
@@ -109,10 +109,9 @@ performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have
 resumed.
-Latest translation fix is 1b228a63f (2026-09-14): six Basque archive
-actions/descriptions use archive terminology instead of storage wording.
-Shared trigger grammar remains unresolved. Manx epoch terminology and
-Greenlandic compound grammar remain provisional and need native review.
+Latest translation fix is c4e6aa1c0 (2026-09-14): Valencian My Attachments
+uses matching masculine plural modifiers. Regional possessive wording,
+shared trigger grammar and provisional calendar phrasing remain under review.
 Latest unchanged-value review is c44dca170 (2026-09-14): Acehnese More
 retained against primary dictionary usage. Six restored Acehnese values and
 wider language/browser verification remain open.
@@ -842,6 +841,15 @@ shared trigger grammar and wider language/browser verification remain open.
 
 Retained Leubeh against primary dictionary usage. Exact review checks pass;
 six restored Acehnese values and broader language/browser review remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c4e6aa1c0">Repair attachment-label agreement</a>. Thanks to xet7.</summary>
+
+Valencian My Attachments uses Els meus adjunts, matching the masculine plural
+noun and preserving first-person ownership. Exact correction checks pass;
+regional wording and wider language/browser verification remain open.
 
 </details>
 
