@@ -390,3 +390,12 @@ assert.ok(adminWarning.includes(translated.roles));
 assert.match(adminWarning, /ⵢⴰⵏ ⵓⵎⵙⵙⵓⴳⵓⵔ ⵏⵖ ⵓⴳⴳⴰⵔ/);
 assert.doesNotMatch(adminWarning, /[\u0600-\u06ff]/u);
 assert.match(sidebarTemplate, /if isLastAdmin\s+hr\s+p.*last-admin-desc/);
+
+const importWarning = translated['import-board-instruction-about-errors'];
+assert.match(importWarning, /ⵉⵖ ⵍⵍⴰⵏⵜ ⵜⵉⵣⴳⴰⵍ/);
+assert.match(importWarning, /ⴰⵜⴰⴼ ⵉⵎⵓⵔⵙ ⵓⵙⴽⵛⵓⵎ/);
+assert.ok(importWarning.includes('«' + translated['all-boards'] + '»'));
+assert.doesNotMatch(importWarning, /Si une erreur|Tous les tableaux|[\u0600-\u06ff]/u);
+const importTemplate = fs.readFileSync(path.join(ROOT,
+ 'client/components/import/import.jade'), 'utf8');
+assert.match(importTemplate, /import-board-instruction-about-errors/);

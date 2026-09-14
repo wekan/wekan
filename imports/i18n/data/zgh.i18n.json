@@ -758,7 +758,7 @@
   "import-board-instruction-excel": "ⴼⵔⴻⵏ ⵜⴰⴼⴰⵢⵍⵓⵜ .xlsx ⵙ ⵓⵙⴽⴰⵔ ⵏ WeKan (ⵏⵏⵉⵛⴰⵏ ⵏ ⵜⴳⴻⵊⴷⴰ ⴰⵎ ⵓⵙⵉⴼⴻⴹ Excel: ⵜⵉⵜⵍⴻ, ⴷⴻⵙⵛⵔⵉⵒⵜⵉⵓⵏ, Status/List, ⵎⴻⵎⴱⴻⵔⵙ, ⵍⴰⴱⴻⵍⵙ, ⵉⵣⴻⵎⵣⴻⵏ, ⵓⵔⵜⵉⵢⴻⵏ ⵓⴷⵎⴰⵡⴰⵏⴻⵏ). ⴰⵊⴻⵔⵔⵉⴹ ⴰⵎⴻⵣⵡⴰⵔⵓ ⴷ ⴰⵇⴻⵔⵔⵓ.",
   "import-excel-file": "ⵜⴰⴼⴰⵢⵍⵓⵜ Excel (.xlsx)",
   "import-board-instruction-wekan": "ⴳ ⵜⴼⵍⵡⵉⵜ ⵏⵏⴽ, ⴷⴷⵓ ⵖⵔ 'ⴰⵎⵓⵖ', ⵉⵍⵎⵎⴰ 'ⵙⵙⵓⴼⵖ ⵜⴰⴼⵍⵡⵉⵜ', ⴷ ⵙⵙⵏⵖⵍ ⴰⴹⵕⵉⵚ ⵏ ⵓⴼⴰⵢⵍⵓ ⵉⵜⵜⵓⵢⴰⴳⵎⵏ.",
-  "import-board-instruction-about-errors": "Si une erreur survient en important le tableau, il se peut que l'import ait fonctionné, et que le tableau se trouve sur la page \"Tous les tableaux\".",
+  "import-board-instruction-about-errors": "ⵉⵖ ⵍⵍⴰⵏⵜ ⵜⵉⵣⴳⴰⵍ ⴳ ⵓⵙⴽⵛⵓⵎ ⵏ ⵜⴼⵍⵡⵉⵜ, ⴰⵜⴰⴼ ⵉⵎⵓⵔⵙ ⵓⵙⴽⵛⵓⵎ, ⴷ ⵜⵍⵍⴰ ⵜⴰⴼⵍⵡⵉⵜ ⴳ ⵜⵙⵏⴰ «ⴰⴽⴽⵯ ⵜⵉⴼⵍⵡⵉⵏ».",
   "import-without-mapping-members": "ⴽⵜⴻⵔ ⵡⴰⵔ ⵓⵙⵏⴰⵙ ⵏ ⵢⵉⴳⵎⴰⵎⴻⵏ (ⵙⵏⴻⵙ ⵙⵢⴻⵏ)",
   "import-json-placeholder": "ⵙⵍⵖ ⴷⴰ ⵉⵙⴼⴽⴰ ⵏⵏⴽ ⵉⵣⵔⵢⵏ ⵙ JSON",
   "import-csv-placeholder": "ⵙⵍⵖ ⴷⴰ ⵉⵙⴼⴽⴰ ⵏⵏⴽ ⵉⵣⵔⵢⵏ ⵙ CSV/TSV",
