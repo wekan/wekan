@@ -26967,3 +26967,24 @@ search; no browser execution claimed, and removed migrations stay removed.
 Four focused suites pass (locale meaning/token checks, full correction ledger,
 unchanged reviews and completeness), after correcting ROOT in the test.
 No external translation service and no remote push.
+
+
+### 2026-09-14 — Supersede speculative ordering noun
+
+Source commit `3e7b05f82` revises comprehensive-board-migration-description;
+original French before-value preserved. Ledger 19,757; pending 224 (zgh 117),
+restored four unchanged. IRCAM General Dictionary p180 entry 3360 attests
+anmala (order), including word order and classification/tidying compounds.
+[MediaWiki primary Tamazight catalogue](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json),
+pageinfo-default-sort, independently uses the noun in software sorting.
+Replace derived ⴰⵙⴰⵙⵜⵡⴰ with ⴰⵏⵎⴰⵍⴰ; dictionary plus actual computing
+usage is stronger than deriving a noun solely from sastwa put-in-order verb.
+No remaining superseded noun in the local Tamazight locale search.
+
+Four focused suites pass, including positive ordering phrase and negative
+superseded-form checks, ledger exact tokens/order/examples/newer-human
+preservation, unchanged reviews and completeness. No browser run or migration
+activation. These sources resolve the noun choice, not complete sentence
+fluency: comprehensive/general wording, inflection and remaining list/card/
+swimlane compounds still require review. Earlier draft evidence is historical
+and superseded on this noun only. No service translation or remote push.

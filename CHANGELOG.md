@@ -661,6 +661,16 @@ The browser assertion accepts whitespace between the regional flag and name.
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3e7b05f82">Use attested Tamazight wording for list ordering</a>. Thanks to xet7.</summary>
+
+Replace a speculative derived noun in the migration-description draft with
+IRCAM's ordering noun, also used in MediaWiki software sorting. Four focused
+suites pass, including rejection of the superseded form. Full sentence
+inflection and remaining technical compounds stay under native review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ef2b560fc">Replace French migration description with a Tamazight draft</a>. Thanks to xet7.</summary>
 
 Retain data-integrity checks and repairs, list ordering, card positions and

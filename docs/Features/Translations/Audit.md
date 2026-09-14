@@ -16,12 +16,13 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, `ef2b560fc` — French migration
-description replaced with a Tamazight draft retaining data-integrity checks,
-repairs and list/card/swimlane scope. Four focused suites pass after fixing
-a test constant. Ledger 19,757; original pending 224 (zgh 117), restored
-4 unchanged. Derived ordering noun, comprehensive/general phrasing,
-inflection and software collocations remain low-confidence and in scope.
+Latest translation fix: **2026-09-14**, `3e7b05f82` — speculative ordering
+noun in the Tamazight migration draft replaced with attested anmala.
+IRCAM word-order and MediaWiki default-sort usage support the correction.
+Four focused suites pass, including rejection of the superseded form.
+Ledger 19,757; original pending 224 (zgh 117), restored 4 unchanged.
+Comprehensive/general phrasing, inflection, software compounds and all
+other pending/restored/uncertain reviews remain in scope.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
 records contain **19,757** exact before/after values, including unflagged
