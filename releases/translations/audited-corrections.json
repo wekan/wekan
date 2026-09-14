@@ -138745,5 +138745,12 @@
     "before": "Bascule les étiquettes 1-9 pour les cartes. La sélection multiple ajoute les étiquettes 1-9",
     "after": "ⵔⵏⵓ ⵏⵖ ⴽⴽⵙ ⵉⵔⵛⵓⵎⵏ 1-9 ⵏ ⵜⴽⴰⵕⴹⴰ. ⴰⵙⵜⴰⵢ ⴰⴳⴳⵓⵜ ⴰⵔ ⵉⵔⵏⵓ ⵉⵔⵛⵓⵎⵏ 1-9.",
     "reason": "2026-09-15: replace Arabic/French selection wording using existing Tamazight multiselection, add/remove, labels and card terminology. Toggle is expressed as add or remove; multiselection adds. Preserve both literal 1-9 ranges. Full computing selection compound and contextual grammar remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "toggle-assignees",
+    "before": "تبديل المخصصين من 1-9 للبطاقة (حسب ترتيب الإضافة إلى اللوحة).",
+    "after": "ⵔⵏⵓ ⵏⵖ ⴽⴽⵙ ⵉⴼⴳⴰⵏⵏ ⵉ ⵎⵉ ⵜⵜⵓⴼⴽⴰⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ 1-9 ⵉ ⵜⴽⴰⵕⴹⴰ (ⵙ ⵓⵏⵎⴰⵍⴰ ⵏ ⵓⵔⵏⵓ ⵖⵔ ⵜⴼⵍⵡⵉⵜ).",
+    "reason": "2026-09-15: replace Arabic assignee shortcut hint with Tamazight draft retaining toggle as add/remove, assignee rather than membership role, range 1-9, card scope and board-addition order. Reuse existing assignee clause, add/remove and documented order noun. Full relative clause, order-of-addition construction and contextual grammar remain low confidence."
   }
 ]

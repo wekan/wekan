@@ -324,3 +324,9 @@ assert.match(translated['toggle-labels'], /^ⵔⵏⵓ ⵏⵖ ⴽⴽⵙ ⵉⵔⵛ
 assert.match(translated['toggle-labels'], /ⴰⵙⵜⴰⵢ ⴰⴳⴳⵓⵜ ⴰⵔ ⵉⵔⵏⵓ ⵉⵔⵛⵓⵎⵏ 1-9/);
 assert.equal((translated['toggle-labels'].match(/1-9/g) || []).length, 2);
 assert.doesNotMatch(translated['toggle-labels'] + translated['multi-selection'], /Bascule|étiquettes|[\u0600-\u06ff]/);
+
+assert.match(translated['toggle-assignees'], /^ⵔⵏⵓ ⵏⵖ ⴽⴽⵙ/);
+assert.ok(translated['toggle-assignees'].includes(translated.assignees));
+assert.match(translated['toggle-assignees'], /1-9 ⵉ ⵜⴽⴰⵕⴹⴰ/);
+assert.match(translated['toggle-assignees'], /ⵓⵏⵎⴰⵍⴰ ⵏ ⵓⵔⵏⵓ ⵖⵔ ⵜⴼⵍⵡⵉⵜ/);
+assert.doesNotMatch(translated['toggle-assignees'], /[\u0600-\u06ff]/);
