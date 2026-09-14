@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight archive rule actions and states — 2026-09-14
+
+Commit `cbc2bf400` replaces seven Arabic/French values, three original findings and four unflagged labels. Rule choices preserve Move TO Archive versus Restore FROM Archive, explicit Card scope and completed Moved/Restored states. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) directly attests Restore in `thisisdeleted` and Move in `tooltip-ca-move`. Restore deleted-page-to-archived-item adaptation, derived passive states, prepositional archive form and whole clauses remain LOW CONFIDENCE for native validation. Generic Archived is provisionally In Archive; the separate search predicate was not substituted with a multiword phrase. Institutional archive noun evidence does not validate the full action grammar. Three originals repaired; 407 remain pending, including 272 Tamazight. 17,938 mechanical checks pass; no live browser verification or remote uploads.
+
 ## Tamazight archive status and empty states — 2026-09-14
 
 Commit `38debcc33` replaces seven Arabic/French labels: four original findings and three unflagged values. Preserve boards in archive, separate No Boards/Lists/Cards negatives, THIS card/board moved-to-archive status, and the warning that this card is inside a LIST in archive (not an assertion that the card itself is archived). Fix the old Arabic board plural to source singular. Archive noun uses the directly inspected [native institutional logo](https://www.um5.ac.ma/um5/sites/default/files/2019-12/Communiqu%C3%A9%20JNA%202019.pdf); native software supplies Move/No/Warning/List components. Plural feminine negative agreement, passive moved form, nested archive-location grammar and full clauses remain LOW CONFIDENCE for native validation. Institutional noun evidence does not validate whole kanban labels. Four originals repaired; 410 remain pending, including 275 Tamazight. 17,931 mechanical checks pass; no live browser verification or remote uploads.
