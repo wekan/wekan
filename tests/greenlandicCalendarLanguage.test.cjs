@@ -24,3 +24,11 @@ assert.notEqual(data['calendar-system-coptic'], data['calendar-system-ethiopic']
 assert.equal(data['calendar-system-islamic-rgsa'], 'Qaammatisiutit Hijri (Saudi Arabia, qaammatip takuneqarnera)');
 assert.doesNotMatch(data['calendar-system-islamic-rgsa'], /^Islamic/);
 assert.notEqual(data['calendar-system-islamic-rgsa'], data['calendar-system-islamic-umalqura']);
+
+assert.equal(data['calendar-system-islamic-civil'], 'Qaammatisiutit Hijri (tabelit tunngavigalugit, aallartiffik: tallimanngorneq)');
+assert.doesNotMatch(data['calendar-system-islamic-civil'], /Islamic|tabular|civil epoch|astronomical epoch/);
+
+assert.equal(data['calendar-system-islamic-tbla'], 'Qaammatisiutit Hijri (tabelit tunngavigalugit, ulloriarsiornerup aallartiffia: sisamanngorneq)');
+assert.doesNotMatch(data['calendar-system-islamic-tbla'], /Islamic|tabular|civil epoch|astronomical epoch/);
+
+assert.notEqual(data['calendar-system-islamic-civil'], data['calendar-system-islamic-tbla']);

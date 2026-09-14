@@ -131493,5 +131493,19 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "Qaammatisiutit Hijri (Saudi Arabia, qaammatip takuneqarnera)",
     "reason": "2026-09-14: Replace abbreviated English Saudi Hijri label with complete Greenlandic draft retaining calendar, Hijri identity, Saudi Arabia and moon sighting. Official Oqaasileriffik glossary calendar qaammatisiutit and lunar-phase article qaammat moon. Lybech Introduction to West Greenlandic 2nd ed PDF 181 taku sees, PDF 180 abstract action noun, PDF 190 dynamic passive; derived qaammatip takuneqarnera expresses moon being seen. Low confidence: derived nominalization/possessive spelling and technical sighting adaptation need native review. Proper calendar/country identifiers retained; no date calculation changed."
+  },
+  {
+    "locale": "kl",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Qaammatisiutit Hijri (tabelit tunngavigalugit, aallartiffik: tallimanngorneq)",
+    "reason": "2026-09-14: Replace abbreviated English tabular Hijri label with complete Greenlandic explanatory draft. Official Secretariat glossary calendar qaammatisiutit/astronomy ulloriarsiorneq; 2023-8 committee approves mathematical tables tabelit; 2025-8 approves start date aallartiffik. ICU explicitly defines civil Friday versus astronomical Thursday epochs, retained as native weekday epoch descriptions. Low confidence: table-based phrase, astronomy possessive and epoch paraphrase need native review. Civil reference is explained by its defining Friday epoch, not mistranslated as civilian people. Algorithms unchanged."
+  },
+  {
+    "locale": "kl",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Qaammatisiutit Hijri (tabelit tunngavigalugit, ulloriarsiornerup aallartiffia: sisamanngorneq)",
+    "reason": "2026-09-14: Replace abbreviated English tabular Hijri label with complete Greenlandic explanatory draft. Official Secretariat glossary calendar qaammatisiutit/astronomy ulloriarsiorneq; 2023-8 committee approves mathematical tables tabelit; 2025-8 approves start date aallartiffik. ICU explicitly defines civil Friday versus astronomical Thursday epochs, retained as native weekday epoch descriptions. Low confidence: table-based phrase, astronomy possessive and epoch paraphrase need native review. Civil reference is explained by its defining Friday epoch, not mistranslated as civilian people. Algorithms unchanged."
   }
 ]
