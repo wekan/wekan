@@ -2417,7 +2417,7 @@
   "board-migration": "ⴰⵙⵎⵓⵜⵜⵢ ⵏ ⵜⴼⵍⵡⵉⵜ",
   "board-migrations": "ⵉⵙⵎⵓⵜⵜⵢⵏ ⵏ ⵜⴼⵍⵡⵉⵜ",
   "card-show-lists-on-minicard": "ⵙⴽⵏ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵖⴼ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵢⴰⵏⵜ",
-  "comprehensive-board-migration": "Migration complète de tableau",
+  "comprehensive-board-migration": "ⴰⵙⵎⵓⵜⵜⵢ ⵉⵙⵎⴷⵏ ⵏ ⵜⴼⵍⵡⵉⵜ",
   "comprehensive-board-migration-description": "Effectue des vérifications complètes et des corrections pour l'intégrité des données du tableau, y compris l'ordre des listes, les positions des cartes et la structure des couloirs.",
   "delete-duplicate-empty-lists-migration": "ⴽⴽⵙ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵉⵜⵜⵓⵢⴰⵍⵙⵏ ⵓⵔ ⴷⵉⴳⵙⵏⵜ ⴰⵡⴷ ⴽⵔⴰ",
   "delete-duplicate-empty-lists-migration-description": "Supprime en toute sécurité les listes vides en double. Supprime uniquement les listes qui n'ont aucune carte ET qui ont une autre liste avec le même titre contenant des cartes.",

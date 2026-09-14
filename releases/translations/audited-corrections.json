@@ -131451,5 +131451,12 @@
     "before": "يجب أن يكون ارتفاع مسار السباحة عددًا صحيحًا موجبًا\n ",
     "after": "ⵉⵅⵚⵚⴰ ⴰⴷ ⵉⴳ ⵉⵊⴳⵉⵍ ⵏ ⵓⴱⵔⵉⴷ ⴰⵎⴹⴰⵏ ⵓⵎⵎⵉⴷ ⵓⵎⵏⵉⴳ",
     "reason": "2026-09-14: Replace Arabic positive-integer swimlane-height error with complete Tamazight draft. IRCAM Amazigh-English PDF 376 entry 7115 ijgil height, PDF 450 entry 8544 umnig positive, PDF 356 entry 6770 xss have to; existing number amdan and swimlane abrid terminology reused. University Mouloud Mammeri mathematics study 2015/2016 PDF 59 table explicitly maps Entier to ummid, referencing 1984 mathematics lexicon page 52. Low confidence: Algerian pan-Amazigh technical term transferred to Moroccan standard, genitive ubrid and full modal/be sentence grammar require native review. Preserve integer and positive independently; not inferred from integral adjective alone."
+  },
+  {
+    "locale": "zgh",
+    "key": "comprehensive-board-migration",
+    "before": "Migration complète de tableau",
+    "after": "ⴰⵙⵎⵓⵜⵜⵢ ⵉⵙⵎⴷⵏ ⵏ ⵜⴼⵍⵡⵉⵜ",
+    "reason": "2026-09-14: Replace French comprehensive-board-migration title with full board migration draft. IRCAM Amazigh-English PDF 63 entry 916 explicitly uses ismdn in full text compound, supporting scope modifier rather than a finished-status verb. Existing migration and board genitive terms reused. Low confidence: applying full-text adjective to comprehensive software migration and genitive attachment require native/browser context review. Not worldwide/global or filled-container sense; migration operation and description unchanged."
   }
 ]

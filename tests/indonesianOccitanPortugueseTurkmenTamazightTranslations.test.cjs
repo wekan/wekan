@@ -343,3 +343,6 @@ assert.doesNotMatch(locales.zgh['poker-finish'] + locales.zgh['poker-replay'], /
 
 assert.match(locales.zgh['swimlane-height-error-message'], /^ⵉⵅⵚⵚⴰ.*ⵉⵊⴳⵉⵍ.*ⵓⴱⵔⵉⴷ.*ⴰⵎⴹⴰⵏ ⵓⵎⵎⵉⴷ ⵓⵎⵏⵉⴳ$/);
 assert.doesNotMatch(locales.zgh['swimlane-height-error-message'], /[\u0600-\u06ff]|ⵉⵙⵎⴷⵏ/);
+
+assert.equal(locales.zgh['comprehensive-board-migration'], 'ⴰⵙⵎⵓⵜⵜⵢ ⵉⵙⵎⴷⵏ ⵏ ⵜⴼⵍⵡⵉⵜ');
+assert.doesNotMatch(locales.zgh['comprehensive-board-migration'], /Migration|complète|ⴰⵎⴰⴹⵍⴰⵏ|ⴰⵎⴽⵜⵓⵔ/);
