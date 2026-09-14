@@ -186,3 +186,17 @@ assert.doesNotMatch(locales.zgh['private-desc'], /[\u0600-\u06ff]/);
 assert.match(locales.zgh['private-desc'], /ⵜⵓⵙⵍⵉⴳⵜ/);
 assert.match(locales.zgh['private-desc'], /ⵉⴳⵎⴰⵎⵏ.*ⵖⴰⵙ/);
 assert.match(locales.zgh['private-desc'], /ⵥⵕⵏ.*ⴷ.*ⵙⵏⴼⵍⵏ/);
+
+const assetlinksLabels = {
+  'custom-assetlinks-enabled': 'ⵙⵙⵔⴼⵓ assetlinks.json ⵉⵥⵍⵉⵏ',
+  'custom-assetlinks-content': 'ⴰⴽⵜⵜⵓⵔ ⵏ assetlinks.json ⵉⵥⵍⵉⵏ (JSON)'
+};
+for (const [key, value] of Object.entries(assetlinksLabels)) {
+  assert.equal(locales.zgh[key], value);
+  assert.deepEqual(value.match(/assetlinks\.json/g), ['assetlinks.json']);
+  assert.doesNotMatch(value, /Activer|Contenu|personnalisé/);
+}
+assert.ok(locales.zgh['custom-assetlinks-enabled'].startsWith('ⵙⵙⵔⴼⵓ '));
+assert.ok(locales.zgh['custom-assetlinks-content'].startsWith('ⴰⴽⵜⵜⵓⵔ '));
+assert.match(locales.zgh['custom-assetlinks-content'], /\(JSON\)$/);
+assert.doesNotMatch(locales.zgh['custom-assetlinks-enabled'], /\(JSON\)/);

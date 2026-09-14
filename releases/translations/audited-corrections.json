@@ -131087,5 +131087,19 @@
     "before": "هذه اللوحة خاصة . لا يسمح إلا للأعضاء .",
     "after": "ⵜⴰⴼⵍⵡⵉⵜ ⴰⴷ ⵜⴳⴰ ⵜⵓⵙⵍⵉⴳⵜ. ⵉⴳⵎⴰⵎⵏ ⵏ ⵜⴼⵍⵡⵉⵜ ⵖⴰⵙ ⴰⴷ ⵉⵣⵎⵔⵏ ⴰⴷ ⵜⵜ ⵥⵕⵏ ⴷ ⴰⴷ ⵜⵜ ⵙⵏⴼⵍⵏ.",
     "reason": "Replace Arabic private-board description and restore both view/edit actions from current English. IRCAM 2019 private PDF454 entry8633, member PDF43 entry502, only PDF468 entry8843, able PDF719 entry13518, see PDF727 entry13642; native MediaWiki edit snfl and existing board vocabulary. LOW CONFIDENCE: feminine private agreement, focus/plural/object-pronoun grammar and complete software clause require native/browser review."
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-assetlinks-enabled",
+    "before": "Activer assetlinks.json personnalisé",
+    "after": "ⵙⵙⵔⴼⵓ assetlinks.json ⵉⵥⵍⵉⵏ",
+    "reason": "Replace French with Tamazight; IRCAM 2019 entries 10106 activate, 1346 content and 7686 specific/exclusive. Preserve assetlinks.json and JSON exactly. Low confidence: specific is adapted to user-customized content; complete software phrase and modifier scope need native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-assetlinks-content",
+    "before": "Contenu assetlinks.json personnalisé (JSON)",
+    "after": "ⴰⴽⵜⵜⵓⵔ ⵏ assetlinks.json ⵉⵥⵍⵉⵏ (JSON)",
+    "reason": "Replace French with Tamazight; IRCAM 2019 entries 10106 activate, 1346 content and 7686 specific/exclusive. Preserve assetlinks.json and JSON exactly. Low confidence: specific is adapted to user-customized content; complete software phrase and modifier scope need native review."
   }
 ]
