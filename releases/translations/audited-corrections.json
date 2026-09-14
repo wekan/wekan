@@ -124122,5 +124122,26 @@
     "before": "أعضاء",
     "after": "ⵉⴳⵎⴰⵎⵏ",
     "reason": "2026-09-14: Replace Arabic Tamazight UI label. Reuse reviewed plural Members noun supported by MediaWiki nmembers; preserve members rather than users. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml ."
+  },
+  {
+    "locale": "zgh",
+    "key": "predicate-week",
+    "before": "اسبوع",
+    "after": "ⵉⵎⴰⵍⴰⵙⵙ",
+    "reason": "2026-09-14: Replace Arabic date predicate label with exact current CLDR zgh dates/fields/field[@type=\"week\"]/displayName. Source uses singular week; preserve date unit rather than a relative last/next period or plural duration. WeKan uses these labels in date tooltips, Gantt headings, calendar navigation accessibility labels and global search. Reference: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml ."
+  },
+  {
+    "locale": "zgh",
+    "key": "predicate-month",
+    "before": "شهر",
+    "after": "ⴰⵢⵢⵓⵔ",
+    "reason": "2026-09-14: Replace Arabic date predicate label with exact current CLDR zgh dates/fields/field[@type=\"month\"]/displayName. Source uses singular month; preserve date unit rather than a relative last/next period or plural duration. WeKan uses these labels in date tooltips, Gantt headings, calendar navigation accessibility labels and global search. Reference: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml ."
+  },
+  {
+    "locale": "zgh",
+    "key": "predicate-year",
+    "before": "سنة",
+    "after": "ⴰⵙⴳⴳⵯⴰⵙ",
+    "reason": "2026-09-14: Replace Arabic date predicate label with exact current CLDR zgh dates/fields/field[@type=\"year\"]/displayName. Source uses singular year; preserve date unit rather than a relative last/next period or plural duration. WeKan uses these labels in date tooltips, Gantt headings, calendar navigation accessibility labels and global search. Reference: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml ."
   }
 ]
