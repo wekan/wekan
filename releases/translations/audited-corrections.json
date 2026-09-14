@@ -122386,5 +122386,26 @@
     "before": "Paramètres pour les utilisateurs inconnus (utilisateur inexistant)",
     "after": "ⵉⵙⵎⵏⵢⵉⴼⵏ ⵏ ⵉⵏⵙⵙⵎⵔⵙⵏ ⵓⵔ ⵉⵍⵍⵉⵏ (ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ ⵓⵔ ⵉⵍⵍⵉ)",
     "reason": "Replace French with Tamazight multiple-operator capability or distinct lockout settings for existing and nonexistent accounts. Preserve correct username/wrong password versus nonexistent username and plural operators. Native MediaWiki preferences, username/password, wrongpassword negative correct predicate, existence/nonexistence and capability components support wording; iggutn/many from transaction-duration-limit-exceeded is adapted to operator plural. LOW CONFIDENCE positive correct predicate and feminine negative agreement, account-existence relative forms and full settings/capability composition; existing/nonexistent expresses the known/unknown account distinction in source parentheses. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (mypreferences, userexists, wrongpassword, nosuchaction, transaction-duration-limit-exceeded, blockedtext-contact-blocker-admin); https://cedric.cnam.fr/~bouzefra/books/amawal.pdf (mathematical operator Amahal)."
+  },
+  {
+    "locale": "zgh",
+    "key": "email-fail",
+    "before": "Échec de l'envoi du courriel.",
+    "after": "ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⵓⵣⵏ ⵏ ⵉⵎⴰⵢⵍ.",
+    "reason": "Replace French email sending failure/error/success diagnostics. Preserve failed versus successful send and user ownership in SMTP confirmation; error describes trying to send, not email receipt. Native MediaWiki emailuser azn imayl, filecopyerror/directorycreateerror ur yallfus unsuccessful, error title, arm try and passwordsent kud nna when support vocabulary. LOW CONFIDENCE derived sending noun azn/bound uzn, affirmative success from negative predicate, personal ownership and full tense/aspect composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (emailuser, filecopyerror, directorycreateerror, errorpagetitle, wrongpassword, passwordsent)."
+  },
+  {
+    "locale": "zgh",
+    "key": "email-fail-text",
+    "before": "Une erreur est survenue en tentant d'envoyer l'email",
+    "after": "ⵜⴰⵣⴳⵍⵜ ⴽⵓⴷ ⵏⵏⴰ ⴰⵔ ⵜⵜⴰⵔⵎⴷ ⴰⴷ ⵜⴰⵣⵏⴷ ⵉⵎⴰⵢⵍ.",
+    "reason": "Replace French email sending failure/error/success diagnostics. Preserve failed versus successful send and user ownership in SMTP confirmation; error describes trying to send, not email receipt. Native MediaWiki emailuser azn imayl, filecopyerror/directorycreateerror ur yallfus unsuccessful, error title, arm try and passwordsent kud nna when support vocabulary. LOW CONFIDENCE derived sending noun azn/bound uzn, affirmative success from negative predicate, personal ownership and full tense/aspect composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (emailuser, filecopyerror, directorycreateerror, errorpagetitle, wrongpassword, passwordsent)."
+  },
+  {
+    "locale": "zgh",
+    "key": "email-smtp-test-text",
+    "before": "Vous avez envoyé un mail avec succès",
+    "after": "ⵢⴰⵍⵍⴼⵓⵙ ⵓⵣⵏ ⵏⴽ ⵏ ⵢⴰⵏ ⵉⵎⴰⵢⵍ.",
+    "reason": "Replace French email sending failure/error/success diagnostics. Preserve failed versus successful send and user ownership in SMTP confirmation; error describes trying to send, not email receipt. Native MediaWiki emailuser azn imayl, filecopyerror/directorycreateerror ur yallfus unsuccessful, error title, arm try and passwordsent kud nna when support vocabulary. LOW CONFIDENCE derived sending noun azn/bound uzn, affirmative success from negative predicate, personal ownership and full tense/aspect composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (emailuser, filecopyerror, directorycreateerror, errorpagetitle, wrongpassword, passwordsent)."
   }
 ]
