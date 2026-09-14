@@ -125760,5 +125760,40 @@
     "before": "Paramètres de la carte",
     "after": "ⵜⵉⵙⵖⴰⵍ ⵏ ⵜⴽⴰⵕⴹⴰ",
     "reason": "2026-09-14: Replace French or inherited Kabyle-leaning archive/restore/settings wording. Latin script alone is not an error. Native MediaWiki thisisdeleted directly attests Restore swrri: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Native Mastodon attests List talgamt: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Archive noun has directly inspected Archives du Maroc logo evidence in https://www.um5.ac.ma/um5/sites/default/files/2019-12/Communiqu%C3%A9%20JNA%202019.pdf . Preserve archived state versus completed recovery, card-to-list/list-to-swimlane destinations and exact backticked predicate placeholder. Search predicate itself is unchanged because it must remain one token. Card/Settings reuse local vocabulary; Swimlane provisionally Path abrid. LOW CONFIDENCE masculine negative plural, passive recovery, bound nouns and whole software phrases require fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "translation",
+    "before": "ترجمة",
+    "after": "ⴰⵙⵓⵖⵍ",
+    "reason": "2026-09-14: Replace Arabic translation controls. Pinned native Dialect non-fuzzy Translation history/Live Translation/Translation Shortcut attest asughl and bound usughl; Text to speech attests adhrich: https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po . Native MediaWiki attests Edit snfl, Delete kks and New amaynu: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Translate software String as Text, not a physical chain. Preserve New versus Edit versus Delete THIS, custom scope and deletion question mark. Custom izhlin reuses local terminology, not independently validated here. LOW CONFIDENCE String-to-Text and custom modifier attachment/full phrases need fluent validation; translation noun itself has direct non-fuzzy software evidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "translation-text",
+    "before": "نص الترجمة",
+    "after": "ⴰⴹⵕⵉⵚ ⵏ ⵓⵙⵓⵖⵍ",
+    "reason": "2026-09-14: Replace Arabic translation controls. Pinned native Dialect non-fuzzy Translation history/Live Translation/Translation Shortcut attest asughl and bound usughl; Text to speech attests adhrich: https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po . Native MediaWiki attests Edit snfl, Delete kks and New amaynu: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Translate software String as Text, not a physical chain. Preserve New versus Edit versus Delete THIS, custom scope and deletion question mark. Custom izhlin reuses local terminology, not independently validated here. LOW CONFIDENCE String-to-Text and custom modifier attachment/full phrases need fluent validation; translation noun itself has direct non-fuzzy software evidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "newTranslationPopup-title",
+    "before": "سلسلة ترجمة مخصصة جديدة",
+    "after": "ⴰⴹⵕⵉⵚ ⴰⵎⴰⵢⵏⵓ ⵏ ⵓⵙⵓⵖⵍ ⵉⵥⵍⵉⵏ",
+    "reason": "2026-09-14: Replace Arabic translation controls. Pinned native Dialect non-fuzzy Translation history/Live Translation/Translation Shortcut attest asughl and bound usughl; Text to speech attests adhrich: https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po . Native MediaWiki attests Edit snfl, Delete kks and New amaynu: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Translate software String as Text, not a physical chain. Preserve New versus Edit versus Delete THIS, custom scope and deletion question mark. Custom izhlin reuses local terminology, not independently validated here. LOW CONFIDENCE String-to-Text and custom modifier attachment/full phrases need fluent validation; translation noun itself has direct non-fuzzy software evidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "editTranslationPopup-title",
+    "before": "تحرير سلسلة الترجمة المخصصة",
+    "after": "ⵙⵏⴼⵍ ⴰⴹⵕⵉⵚ ⵏ ⵓⵙⵓⵖⵍ ⵉⵥⵍⵉⵏ",
+    "reason": "2026-09-14: Replace Arabic translation controls. Pinned native Dialect non-fuzzy Translation history/Live Translation/Translation Shortcut attest asughl and bound usughl; Text to speech attests adhrich: https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po . Native MediaWiki attests Edit snfl, Delete kks and New amaynu: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Translate software String as Text, not a physical chain. Preserve New versus Edit versus Delete THIS, custom scope and deletion question mark. Custom izhlin reuses local terminology, not independently validated here. LOW CONFIDENCE String-to-Text and custom modifier attachment/full phrases need fluent validation; translation noun itself has direct non-fuzzy software evidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "settingsTranslationPopup-title",
+    "before": "حذف سلسلة الترجمة المخصصة هذه؟",
+    "after": "ⴽⴽⵙ ⴰⴹⵕⵉⵚ ⴰⴷ ⵏ ⵓⵙⵓⵖⵍ ⵉⵥⵍⵉⵏ?",
+    "reason": "2026-09-14: Replace Arabic translation controls. Pinned native Dialect non-fuzzy Translation history/Live Translation/Translation Shortcut attest asughl and bound usughl; Text to speech attests adhrich: https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po . Native MediaWiki attests Edit snfl, Delete kks and New amaynu: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Translate software String as Text, not a physical chain. Preserve New versus Edit versus Delete THIS, custom scope and deletion question mark. Custom izhlin reuses local terminology, not independently validated here. LOW CONFIDENCE String-to-Text and custom modifier attachment/full phrases need fluent validation; translation noun itself has direct non-fuzzy software evidence."
   }
 ]
