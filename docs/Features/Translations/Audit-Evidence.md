@@ -23404,3 +23404,31 @@ Correction ledger: 18,556. Original queue remains 15,601 corrected,
 These fourteen repairs are outside the original flagged queue. Remaining
 restored, uncertain, unflagged and low-confidence reviews remain open.
 No external service, dependency, subagent or push was used.
+
+### 2026-09-14 — Breton board view and comment labels
+
+Local commit `059d1fe4a` repairs nine French-seeded values: board-view,
+board-view-cal, board-view-lists, board-view-table, board-view-collapse,
+collapse, uncollapse, comments and no-comments. Existing local taolenn,
+rolloù and evezhiadenn terminology is reused. Native Ofis dictionary entries
+[deiziadur](https://niverel.brezhoneg.bzh/fr/meurgorf/7818),
+[plegañ](https://niverel.brezhoneg.bzh/fr/meurgorf/24104) and
+[displegañ](https://niverel.brezhoneg.bzh/fr/meurgorf/10381)
+support calendar and fold/unfold terms. This lexical evidence is not native
+attestation of every complete interface phrase.
+
+boardHeader.js selects calendar/table views; boardsList.jade renders the
+table option. Existing local checklist controls already use folding/expanding
+terminology. Comments reuse the noun from card-comments-title and other
+comment labels. Regression coverage protects opposite collapse/expand
+labels, view/entity consistency, comment number and literal Gantt/vendor
+names. Four focused suites pass: exact correction/review ledgers, focused
+locale coverage and all-locale completeness. Full contextual and live
+browser validation remain open; timeline snapshot/date grammar still needs
+review and was not accepted in this batch.
+
+Correction ledger: 18,565. Original queue remains 15,601 corrected,
+19 restored awaiting validation, 4,162 retained and 299 pending (20,081 total).
+These nine repairs are outside the original flagged queue. Remaining
+restored, uncertain, unflagged and low-confidence reviews remain open.
+No external service, dependency, subagent or push was used.
