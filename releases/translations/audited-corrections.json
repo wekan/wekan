@@ -124682,5 +124682,12 @@
     "before": "Valider la migration",
     "after": "ⵙⵙⵉⴷⴻⴷ ⴰⵙⵎⵓⵜⵜⵢ",
     "reason": "2026-09-14: Replace French Validate Migration with native verify/validate imperative ssided from MediaWiki login-security, preserving a validation action rather than selecting, running or declaring completion. Use the previously reviewed software-migration adaptation asmutty of movelogpage bound usmutty. LOW CONFIDENCE identity-verification-to-migration-validation extension and complete action phrase require fluent Standard Moroccan review; native imperative component is directly attested, full data-migration command is not. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (login-security, movelogpage)."
+  },
+  {
+    "locale": "zgh",
+    "key": "cron-migration-warnings",
+    "before": "Avertissements de migration",
+    "after": "ⵉⵙⵎⵉⴳⵍⵏ ⵏ ⵓⵙⵎⵓⵜⵜⵢ",
+    "reason": "2026-09-14: Replace French Migration Warnings with plural warnings derived from native MediaWiki laggedreplicamode asmigl Warning and the reviewed bound usmutty software-migration adaptation. Preserve Warnings plural rather than error, failure or generic migration status. LOW CONFIDENCE derived plural ismigln, move-to-software-migration extension and complete noun-chain phrase require fluent Standard Moroccan review; the native singular warning component does not attest the full phrase. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (laggedreplicamode, movelogpage)."
   }
 ]
