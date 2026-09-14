@@ -29864,3 +29864,29 @@ success/failure and stop messages. Repair the whole block, including exact
 %s in list-sync-now-error and the 15-minute/immediate-check distinction
 in list-sync-description. Do not treat these five changes as completion of
 the synchronization popup. Previously noted list-sync-enabled remains open.
+
+
+2026-09-15 — `c379de7d7`: six unflagged synchronization values repaired:
+list-sync-enabled, list-sync-last-synced, list-sync-now-pending,
+list-sync-now-success, list-sync-now-error and list-sync-clear. Preserve
+exact %s once in the error message, ellipsis for pending, success distinct
+from failure, and stop distinct from initiating a sync. Existing Sinhronirui
+is the base for the direct derived noun Sinhronirund; full derivation and
+case morphology (including genitive Sinhronirundan and stop object) remain
+low confidence and require native review. Native MediaWiki actioncomplete
+supplies Tegend om loptud, createacct-loginerror supplies hüvin, and
+updatedmarker supplies latest wording. Primary software source read today:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+Existing stop Seižuta and enabled Päl are reused. Component evidence does
+not independently attest the full synchronization clauses. Source popup
+listHeader.jade displays the enabled checkbox and last-sync state and
+listHeader.js handles sync controls. No implementation behavior changed.
+Four focused files pass (20 checks), including distinct results, negative
+Tshivenda, exact replacement and full placeholders/key order. No live sync
+UI test ran. Ledger 19,914; original pending stays 126 (Veps 8), restored
+4 unchanged. Previously noted list-sync-enabled is now repaired, but its
+full native grammar remains open. Remaining block: description, source
+labels, project-key label, credential labels/statuses, optional username
+and never. Keep 15-minute background checks distinct from immediate Sync
+now, and preserve all literal examples. Broader mixed-language and prior
+low-confidence review remains in scope.

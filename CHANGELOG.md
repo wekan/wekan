@@ -1280,6 +1280,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c379de7d7">Fix six Veps synchronization state and result translations</a></summary>
+
+Replace wrong-language states/results with Veps drafts, preserving distinct
+pending/success/error states and exact error placeholder. Four focused test
+files pass. Derived grammar remains open in the dated translation audit.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
