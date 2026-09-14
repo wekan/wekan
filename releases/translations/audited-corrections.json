@@ -124990,5 +124990,33 @@
     "before": "Texte sous le logo de connexion personnalisé",
     "after": "ⴰⴹⵕⵉⵚ ⴷⴷⴰⵡ ⵏ ⵓⵍⵓⴳⵓ ⵉⵥⵍⵉⵏ ⵏ ⵓⴽⵛⵛⵓⵎ",
     "reason": "Replace French with Standard Moroccan Tamazight. Current MediaWiki zgh missing-article attests Text adrich and sharedupload-desc-here attests Below ddaw; pt-login-continue-button supplies Login. Explicit native zgh caption at https://commons.wikimedia.org/wiki/File:Wikipedia-logo-v5-zgh.png attests Logo alugu. https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve Text BELOW Custom Login Logo, not image/link URL. LOW CONFIDENCE: adapted prepositional/bound forms, Specified-to-Custom sense and full noun-chain grammar; community logo usage is not normative IRCAM terminology."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-when-a-checklist",
+    "before": "Quand une checklist est",
+    "after": "ⴰⴷⴷⴰⵢ ⵢⴰⵜ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
+    "reason": "Replace French checklist rule condition prefix with Standard Moroccan Tamazight. Current MediaWiki zgh metadata-fields attests temporal When adday; redirect-summary attests yan/yat for a noun. https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Retain generic versus named checklist/item distinction; checklistTriggers.jade supplies dropdown verbs and name fields separately. LOW CONFIDENCE: proposed List of Verification checklist paraphrase, derived verification noun ussidd (imperative Verify is attested), free Item form and complete assembled rule grammar. Do not claim fluent validation or an independently attested checklist term."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-when-the-checklist",
+    "before": "Quand la checklist",
+    "after": "ⴰⴷⴷⴰⵢ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
+    "reason": "Replace French checklist rule condition prefix with Standard Moroccan Tamazight. Current MediaWiki zgh metadata-fields attests temporal When adday; redirect-summary attests yan/yat for a noun. https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Retain generic versus named checklist/item distinction; checklistTriggers.jade supplies dropdown verbs and name fields separately. LOW CONFIDENCE: proposed List of Verification checklist paraphrase, derived verification noun ussidd (imperative Verify is attested), free Item form and complete assembled rule grammar. Do not claim fluent validation or an independently attested checklist term."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-when-a-item",
+    "before": "Quand un élément de la checklist est",
+    "after": "ⴰⴷⴷⴰⵢ ⵢⴰⵏ ⴰⴼⵔⴷⵉⵙ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
+    "reason": "Replace French checklist rule condition prefix with Standard Moroccan Tamazight. Current MediaWiki zgh metadata-fields attests temporal When adday; redirect-summary attests yan/yat for a noun. https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Retain generic versus named checklist/item distinction; checklistTriggers.jade supplies dropdown verbs and name fields separately. LOW CONFIDENCE: proposed List of Verification checklist paraphrase, derived verification noun ussidd (imperative Verify is attested), free Item form and complete assembled rule grammar. Do not claim fluent validation or an independently attested checklist term."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-when-the-item",
+    "before": "Quand l'élément de la checklist",
+    "after": "ⴰⴷⴷⴰⵢ ⴰⴼⵔⴷⵉⵙ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
+    "reason": "Replace French checklist rule condition prefix with Standard Moroccan Tamazight. Current MediaWiki zgh metadata-fields attests temporal When adday; redirect-summary attests yan/yat for a noun. https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Retain generic versus named checklist/item distinction; checklistTriggers.jade supplies dropdown verbs and name fields separately. LOW CONFIDENCE: proposed List of Verification checklist paraphrase, derived verification noun ussidd (imperative Verify is attested), free Item form and complete assembled rule grammar. Do not claim fluent validation or an independently attested checklist term."
   }
 ]
