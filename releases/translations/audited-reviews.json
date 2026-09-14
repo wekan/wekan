@@ -15898,5 +15898,209 @@
     "key": "add-job",
     "value": "Engadir traballo",
     "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "attachment-migration",
+    "value": "Migración de anexos",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "attachment-monitoring",
+    "value": "Monitorización de anexos",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "attachment-settings",
+    "value": "Configuración de anexos",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "board-migration",
+    "value": "Migración do taboleiro",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "board-migrations",
+    "value": "Migracións de taboleiros",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "card-show-lists-on-minicard",
+    "value": "Mostrar as listas na minitarxeta",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "comprehensive-board-migration",
+    "value": "Migración completa do taboleiro",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "comprehensive-board-migration-description",
+    "value": "Realiza comprobacións e correccións completas da integridade dos datos do taboleiro, incluíndo a orde das listas, as posicións das tarxetas e a estrutura dos carrís.",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "delete-duplicate-empty-lists-migration-description",
+    "value": "Elimina con seguridade as listas duplicadas baleiras. Só quita as listas que non teñen tarxetas E que teñen outra lista co mesmo título que contén tarxetas.",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "lost-cards",
+    "value": "Tarxetas perdidas",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "restore-lost-cards-migration",
+    "value": "Restaurar as tarxetas perdidas",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "restore-lost-cards-migration-description",
+    "value": "Busca e restaura as tarxetas e listas sen swimlaneId ou listId. Crea un carril \"Tarxetas perdidas\" para que todos os elementos perdidos volvan ser visibles.",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "restore-all-archived-migration-description",
+    "value": "Restaura todos os carrís, listas e tarxetas arquivados. Corrixe automaticamente calquera swimlaneId ou listId que falte para que os elementos sexan visibles.",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "fix-missing-lists-migration-description",
+    "value": "Detecta e repara as listas que faltan ou están danadas na estrutura do taboleiro.",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "fix-avatar-urls-migration-description",
+    "value": "Actualiza os URL dos avatares dos membros do taboleiro para que usen o almacenamento correcto e corrixe as referencias de avatar rotas.",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "fix-all-file-urls-migration-description",
+    "value": "Actualiza todos os URL dos ficheiros anexos deste taboleiro para que usen o almacenamento correcto e corrixe as referencias de ficheiro rotas.",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-successful",
+    "value": "Migración completada correctamente",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "migrations-admin-only",
+    "value": "Só os administradores do taboleiro poden executar migracións",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "migrations-description",
+    "value": "Execute comprobacións e reparacións da integridade dos datos deste taboleiro. Cada migración pode executarse individualmente.",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "run-comprehensive-migration-confirm",
+    "value": "Isto realizará unha migración completa para comprobar e corrixir a integridade dos datos do taboleiro. Pode tardar uns instantes. Continuar?",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "run-delete-duplicate-empty-lists-migration-confirm",
+    "value": "Isto converterá primeiro as listas compartidas en listas por carril e despois eliminará as listas baleiras que teñan unha lista duplicada co mesmo título con tarxetas. Só se quitarán as listas baleiras realmente redundantes. Continuar?",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "run-restore-lost-cards-migration-confirm",
+    "value": "Isto creará un carril \"Tarxetas perdidas\" e restaurará todas as tarxetas e listas sen swimlaneId ou listId. Só afecta aos elementos non arquivados. Continuar?",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "run-restore-all-archived-migration-confirm",
+    "value": "Isto restaurará TODOS os carrís, listas e tarxetas arquivados, facéndoos visibles de novo. Os elementos sen ID corrixiranse automaticamente. Isto non se pode desfacer facilmente. Continuar?",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "run-fix-missing-lists-migration-confirm",
+    "value": "Isto detectará e reparará as listas que faltan ou están danadas na estrutura do taboleiro. Continuar?",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "value": "Isto actualizará os URL dos avatares dos membros do taboleiro para que usen o almacenamento correcto. Continuar?",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "run-fix-all-file-urls-migration-confirm",
+    "value": "Isto actualizará todos os URL dos ficheiros anexos deste taboleiro para que usen o almacenamento correcto. Continuar?",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "restore-lost-cards-nothing-to-restore",
+    "value": "Non hai carrís, listas nin tarxetas perdidos que restaurar",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-progress-title",
+    "value": "Migración do taboleiro en curso",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-progress-note",
+    "value": "Agarde mentres migramos o seu taboleiro á estrutura máis recente...",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "step-analyze-board-structure",
+    "value": "Analizar a estrutura do taboleiro",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "step-fix-orphaned-cards",
+    "value": "Corrixir as tarxetas orfas",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "step-fix-attachment-urls",
+    "value": "Corrixir os URL dos anexos",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "step-update-cards",
+    "value": "Actualizar as tarxetas",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "step-ensure-lost-cards-swimlane",
+    "value": "Garantir o carril de tarxetas perdidas",
+    "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
   }
 ]
