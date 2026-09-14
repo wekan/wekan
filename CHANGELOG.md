@@ -641,7 +641,7 @@ browser verification remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5217ab3ca">Repair Tamazight search OR and AND explanations</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/eab3486e6">Repair Tamazight search OR and AND explanations</a>. Thanks to xet7.</summary>
 
 Replace two French search notes and correct the mistaken optional
 interpretation of OR. Preserve OR/any versus AND/all, literal example names,
@@ -669,7 +669,7 @@ language validation and live browser checks remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7f1812521">Translate Tamazight email sending diagnostics</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c55d70403">Translate Tamazight email sending diagnostics</a>. Thanks to xet7.</summary>
 
 Replace three French messages, preserving sending failure, an error during
 the attempt and user-owned SMTP success. Native reference components support
@@ -725,7 +725,7 @@ language validation and live browser checks remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/435a9521e">Translate Tamazight registration invitation diagnostics</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/fd6e6bcd7">Translate Tamazight registration invitation diagnostics</a>. Thanks to xet7.</summary>
 
 Replace two French messages, preserving send error versus successful send
 and registration/account-creation purpose without claiming acceptance.
@@ -954,7 +954,7 @@ confidence. Wider language and live browser validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/68ee05217">Repair Tamazight attachment labels and action popups</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1dc34b1a9">Repair Tamazight attachment labels and action popups</a>. Thanks to xet7.</summary>
 
 Replace twelve French/Arabic values, including nine unflagged strings.
 Preserve attachment singular/plural, distinct add/edit/delete/actions/move

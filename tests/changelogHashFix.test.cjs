@@ -125,3 +125,12 @@ test('the source states the rules it applies', () => {
 });
 
 console.log(`\n${passed} tests passed`);
+
+// A warning must not be followed by an unconditional all-links-success claim.
+test('success reporting distinguishes unresolved links', () => {
+  assert.ok(source.includes('elif [ "${#unresolved[@]}" -eq 0 ]; then'));
+  assert.ok(source.includes('remain unresolved.'));
+  const build = fs.readFileSync(path.join(repoRoot, 'build.sh'), 'utf8');
+  assert.ok(!build.includes('git_fix_changelog_links || echo'));
+  assert.ok(build.includes('bash "$script" || return 1'));
+});

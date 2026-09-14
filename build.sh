@@ -2220,7 +2220,7 @@ function ask_dev_url(){
 function git_fix_changelog_links(){
 	local script="$WEKAN_DIR/releases/fix-changelog-hashes.sh"
 	[ -f "$script" ] || return 1
-	bash "$script" || true
+	bash "$script" || return 1
 	if [ -n "$(git status --porcelain -- CHANGELOG.md 2>/dev/null)" ]; then
 		git add CHANGELOG.md
 		git commit -q -m "CHANGELOG: repoint commit links after history moved.
@@ -2234,7 +2234,7 @@ Thanks to xet7 !"
 		echo "==> CHANGELOG commit links repointed and committed."
 		return 0
 	fi
-	return 1
+	return 0
 }
 
 # git pull: fast-forward when that is all it takes, rebase when the branch has
@@ -2288,7 +2288,7 @@ function git_pull(){
 		fi
 	fi
 
-	git_fix_changelog_links || echo "==> CHANGELOG commit links all resolve; nothing to repoint."
+	git_fix_changelog_links || return 1
 	echo "--- git status ---"
 	git status --short --branch
 	return 0
@@ -2309,7 +2309,7 @@ function git_push(){
 
 	# Before publishing, not after: a stale link that reaches GitHub 404s for
 	# everyone who reads the release notes.
-	git_fix_changelog_links || echo "==> CHANGELOG commit links all resolve."
+	git_fix_changelog_links || return 1
 
 	git fetch origin "$branch" >/dev/null 2>&1 || true
 	if git rev-parse --verify --quiet "origin/$branch" >/dev/null; then

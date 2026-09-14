@@ -181,8 +181,10 @@ fix_commit_hashes() {
 
   if [ "$fixed" -gt 0 ]; then
     echo "--- Repointed $fixed of $checked commit link(s) in $CHANGELOG_FILE (history was rewritten since they were written) ---"
-  else
+  elif [ "${#unresolved[@]}" -eq 0 ]; then
     echo "    All $checked commit link(s) checked resolve to a commit in this clone."
+  else
+    echo "    $((checked - ${#unresolved[@]})) of $checked checked commit link(s) resolve; ${#unresolved[@]} remain unresolved."
   fi
   if [ "${#unresolved[@]}" -gt 0 ]; then
     echo ""
