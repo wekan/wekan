@@ -126551,5 +126551,12 @@
     "before": "a décoché %s dans la checklist %s",
     "after": "ⵉⴽⴽⵙ ⴰⵙⵎⴰⵜⵔ ⵏ %s ⴳ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ %s",
     "reason": "2026-09-14: Replace Arabic/French unchecked-item activities. Native MediaWiki logentry-delete-delete Removed actor ikks and checkbox Check smatr support components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve ACTIVE REMOVAL OF CHECKMARK from item IN CHECKLIST, card relation where present and exact percent placeholders. Uncheck paraphrased Remove Mark, distinct from merely unchecked state or deleting item. Derived mark nominalization, local verification noun and full relations remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-imported",
+    "before": "a importé %s vers %s depuis %s",
+    "after": "ⵉⵙⴽⵛⵎ %s ⴳ %s ⵙⴳ %s",
+    "reason": "2026-09-14: Replace French import activity. Native MediaWiki importlogpage Imports iskchumn supports import root, and location/From sg components are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve active IMPORTED object INTO destination FROM source, exact three percent placeholders in source order. Derived past actor iskchm and full import-location grammar remain LOW CONFIDENCE."
   }
 ]
