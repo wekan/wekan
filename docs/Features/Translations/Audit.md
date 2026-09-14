@@ -29,11 +29,11 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Tamazight blank rule fields](Tamazight-Review.md) confirms that the
-card-title helper turns blank/trimmed whitespace into a wildcard.
-Keep matching every value, rather than erasing data or matching blanks.
-Explanatory-note and full matching phrases remain open.
-No translations or counts changed. Earlier reviews remain in detailed evidence.
+[Tamazight matching homographs](Tamazight-Review.md) excludes lighting,
+sport and mail senses from the rule-field instruction. Equality alone
+would narrow wildcard/word matching. Seek computing terminology or an
+unrestricted-filter paraphrase. No translations or counts changed.
+Earlier reviews remain in detailed evidence.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

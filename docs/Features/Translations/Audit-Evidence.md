@@ -28731,3 +28731,29 @@ translate this as deleting stored card data or matching only blank values.
 Trimmed whitespace also means no title filter in the inspected helper.
 No translation or counts changed. Pending 166 original findings; broader
 contextual reviews remain open. No live rule UI test ran; no remote writes.
+
+
+## Rule matching versus homographs — review 2026-09-15
+
+Further IRCAM review rules out misleading translations for r-board-note.
+Page 255 entry 4930 and page 586 entry 10983 are lighting matches;
+page 601 entry 11259 is a sporting match. They do not describe matching
+rule values. Page 236 entry 4542 and page 608 entry 11389 use
+correspondence for letters/email, not value correspondence.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+Equality entry 6001 (page 308) and equal-amount entry 7866 (page 416)
+are also insufficient alone: the inspected card-title matcher supports
+wildcards and historic word matches, so equality-only wording would narrow
+its behavior. Entry 3956 (page 207) includes suit/coincide but usually
+requires an orientation particle; it is not a verified standalone software
+match verb. Observation entry 12851 supplies a possible explanatory-note
+noun, but that adaptation remains unverified.
+
+Next action is to seek native computing matching/filter terminology or a
+grammatical paraphrase of an unrestricted filter, retaining every possible
+value and the instruction to leave a field empty. Do not use mail, fire,
+sport or amount-equality vocabulary based on English homographs. This
+review changes the candidate selection, not the translation or counts.
+Pending 166 original findings; full contextual reviews remain open.
+No live UI test ran and no remote writes were made.
