@@ -126964,5 +126964,19 @@
     "before": "Premu Enen por aldoni pliajn opciojn",
     "after": "Premu la klavon Enter por aldoni pliajn opciojn",
     "reason": "Enen means inwards, not the Enter keyboard key. Explicitly name the literal Enter key within Esperanto prose and preserve the action of adding more options."
+  },
+  {
+    "locale": "eo",
+    "key": "notify-watch",
+    "before": "Ricevi ĝisdatigojn pri ĉiuj tabuloj, listoj aŭ kartoj, kiujn vi rigardas",
+    "after": "Ricevi ĝisdatigojn pri ĉiuj tabuloj, listoj aŭ kartoj, kiujn vi observas",
+    "reason": "Watching refers to ongoing observation/subscription rather than merely viewing; align with existing observado and repaired auto-watch terminology."
+  },
+  {
+    "locale": "eo",
+    "key": "search-example",
+    "before": "Skribu la serĉatan tekston kaj premu Enen",
+    "after": "Skribu la serĉatan tekston kaj premu la klavon Enter",
+    "reason": "Name the Enter keyboard key explicitly; Enen is the unrelated direction inwards. Preserve typing the search text and pressing the key."
   }
 ]

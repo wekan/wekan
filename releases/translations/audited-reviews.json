@@ -5806,5 +5806,371 @@
     "key": "multi-selection-label",
     "value": "Agordi etikedon por la elekto",
     "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "multi-selection-member",
+    "value": "Agordi membron por la elekto",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "muted-info",
+    "value": "Vi neniam estos sciigita pri ŝanĝoj en ĉi tiu tabulo",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "my-boards",
+    "value": "Miaj tabuloj",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "no-archived-cards",
+    "value": "Neniuj kartoj en Arkivo.",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "normal-desc",
+    "value": "Povas vidi kaj redakti kartojn. Ne povas ŝanĝi agordojn.",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "notify-participate",
+    "value": "Ricevi ĝisdatigojn pri ĉiuj kartoj, en kiuj vi partoprenas kiel kreinto aŭ membro",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "private-desc",
+    "value": "Ĉi tiu tabulo estas privata. Nur homoj aldonitaj al la tabulo povas vidi kaj redakti ĝin.",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "public-desc",
+    "value": "Ĉi tiu tabulo estas publika. Ĝi videblas al ĉiu, kiu havas la ligilon, kaj aperos en serĉiloj kiel Google. Nur homoj aldonitaj al la tabulo povas redakti.",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "quick-access-description",
+    "value": "Steligu tabulon por aldoni fulmoligilon en ĉi tiu breto.",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "remove-cover",
+    "value": "Forigi kovrilbildon el minikarto",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "remove-from-board",
+    "value": "Forigi el tabulo",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "rescue-card-description",
+    "value": "Montri savdialogon antaŭ fermo por nekonservitaj kartaj priskriboj",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "rescue-card-description-dialogue",
+    "value": "Ĉu anstataŭigi la nunan kartan priskribon per viaj ŝanĝoj?",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "search-cards",
+    "value": "Serĉi en titoloj de kartoj/listoj, priskriboj kaj propraj kampoj en ĉi tiu tabulo",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "select-board",
+    "value": "Elekti tabulon",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "set-wip-limit-value",
+    "value": "Agordi limon por la maksimuma nombro de taskoj en ĉi tiu listo",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "setWipLimitPopup-title",
+    "value": "Agordi WIP-limon",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "shortcut-add-self",
+    "value": "Aldoni vin mem al la nuna karto",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "shortcut-assign-self",
+    "value": "Atribui vin mem al la nuna karto",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "shortcut-clear-filters",
+    "value": "Forigi ĉiujn filtrilojn",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "shortcut-filter-my-cards",
+    "value": "Filtri miajn kartojn",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "shortcut-filter-my-assigned-cards",
+    "value": "Filtri miajn atribuitajn kartojn",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "shortcut-toggle-filterbar",
+    "value": "Ŝalti/malŝalti filtrilan flankbreton",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "shortcut-toggle-sidebar",
+    "value": "Ŝalti/malŝalti tabulan flankbreton",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "show-cards-minimum-count",
+    "value": "Montri nombron de kartoj, se la listo enhavas pli ol",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "signupPopup-title",
+    "value": "Krei konton",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "star-board-title",
+    "value": "Alklaku por steligi ĉi tiun tabulon. Ĝi aperos supre de via listo de tabuloj.",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "starred-boards",
+    "value": "Steligitaj tabuloj",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "starred-boards-description",
+    "value": "Steligitaj tabuloj aperas supre de via listo de tabuloj.",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "this-board",
+    "value": "ĉi tiu tabulo",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "this-card",
+    "value": "ĉi tiu karto",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "has-spenttime-cards",
+    "value": "Havas kartojn kun pasigita tempo",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "toggle-assignees",
+    "value": "Ŝalti/malŝalti atribuitojn 1-9 por karto (laŭ ordo de aldono al la tabulo).",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "toggle-labels",
+    "value": "Ŝalti/malŝalti etikedojn 1-9 por karto. Plurelekto aldonas etikedojn 1-9",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "remove-labels-multiselect",
+    "value": "Plurelekto forigas etikedojn 1-9",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "tracking-info",
+    "value": "Vi estos sciigita pri ĉiuj ŝanĝoj en la kartoj, en kiuj vi partoprenas kiel kreinto aŭ membro.",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "unsaved-description",
+    "value": "Vi havas nekonservitan priskribon.",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-top-left-corner-logo-image-url",
+    "value": "URL de propra emblema bildo en la supra maldekstra angulo",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-top-left-corner-logo-link-url",
+    "value": "URL de propra emblema ligilo en la supra maldekstra angulo",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-top-left-corner-logo-height",
+    "value": "Alto de propra emblemo en la supra maldekstra angulo. Defaŭlte: 27",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-login-logo-image-url",
+    "value": "URL de propra ensaluta emblema bildo",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-login-logo-link-url",
+    "value": "URL de propra ensaluta emblema ligilo",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "text-below-custom-login-logo",
+    "value": "Teksto sub la propra ensaluta emblemo",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "import-usernames",
+    "value": "Importi uzantnomojn",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "warn-list-archived",
+    "value": "averto: ĉi tiu karto estas en listo en Arkivo",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "watching-info",
+    "value": "Vi estos sciigita pri ĉiu ŝanĝo en ĉi tiu tabulo",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "welcome-board",
+    "value": "Bonveniga tabulo",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "card-templates-swimlane",
+    "value": "Kartaj ŝablonoj",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "board-templates-swimlane",
+    "value": "Tabulaj ŝablonoj",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "wipLimitErrorPopup-title",
+    "value": "Nevalida WIP-limo",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "wipLimitErrorPopup-dialog-pt1",
+    "value": "La nombro de taskoj en ĉi tiu listo estas pli granda ol la WIP-limo, kiun vi difinis.",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "wipLimitErrorPopup-dialog-pt2",
+    "value": "Bonvolu movi kelkajn taskojn el ĉi tiu listo, aŭ agordi pli altan WIP-limon.",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "admin-panel",
+    "value": "Administra panelo",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "to-boards",
+    "value": "Al tabulo(j)",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "smtp-host-description",
+    "value": "La adreso de la SMTP-servilo, kiu traktas viajn retpoŝtojn.",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "smtp-port-description",
+    "value": "La pordo, kiun via SMTP-servilo uzas por elirantaj retpoŝtoj.",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "smtp-tls-description",
+    "value": "Ŝalti TLS-subtenon por SMTP-servilo",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "email-invite-register-subject",
+    "value": "__inviter__ sendis al vi inviton",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "email-invite-register-text",
+    "value": "Kara __user__,\n\n__inviter__ invitas vin al kanban-tabulo por kunlabori.\n\nBonvolu sekvi la suban ligilon:\n__url__\n\nKaj via invitkodo estas: __icode__\n\nDankon.",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "webhook-title",
+    "value": "Nomo de Webhook",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "webhook-token",
+    "value": "Ĵetono (laŭvola por aŭtentigo)",
+    "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
   }
 ]
