@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,551 |
-| Restored pre-pull; awaiting validation | 2,655 |
-| Reviewed; retained unchanged | 1,567 |
+| Restored pre-pull; awaiting validation | 2,615 |
+| Reviewed; retained unchanged | 1,607 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -18,7 +18,9 @@ source references, confidence limits and archived progress notes.
 Latest translation fix/review: **2026-09-14**, local commit `5ef075987` —
 repaired Esperanto Unwatch subscription wording and retained 37 correct
 shortcut, upload, invitation and SMTP values. All **18,146** correction
-records and unchanged-value/progress checks pass. Browser verification was
+records and unchanged-value/progress checks pass. Latest review:
+**2026-09-14**, local commit `e4e614f29` — retained 40 correct webhook,
+policy and date labels. Browser verification was
 not run; no translations were pushed. Completion, pronoun, overtime,
 lime-color, scrollbar and advanced-filter wording remains under review.
 

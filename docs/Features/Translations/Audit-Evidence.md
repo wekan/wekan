@@ -21600,3 +21600,13 @@ values, preserving action polarity, hour units, upload outcome distinctions,
 one custom URL scheme per line, test-email recipient and authorization
 denial. Overtime wording remains open. Correction and unchanged-value checks
 pass; browser behavior was not verified.
+
+
+### Esperanto webhook, policy and date review — 2026-09-14
+
+Local commit `e4e614f29` retains 40 directly reviewed correct values.
+Preserve outgoing/two-way webhook directions, disable controls, runtime
+labels and time units, field sums at top of list, private-only board policy,
+received/end date distinctions, assignment/request attribution and the
+notification deletion cannot-undo warning. Unchanged-value tests pass;
+uncertain terminology and browser validation remain open.
