@@ -73,3 +73,11 @@ test('Veps parent display draft preserves showing, parent card and minicard loca
   assert.equal(data['show-parent-in-minicard'], `Ozuta ${data['parent-card'].toLowerCase()} minikartal:`);
   assert.doesNotMatch(data['show-parent-in-minicard'], /näytä|ylätehtävä|minikortilla|peitä/i);
 });
+
+test('Veps parent-control drafts distinguish changing the relation from hiding its display', () => {
+  const data = JSON.parse(fs.readFileSync('imports/i18n/data/ve-PP.i18n.json', 'utf8'));
+  assert.equal(data['change-card-parent'], 'Vajehta kartan vanhemb');
+  assert.equal(data['no-parent'], `Peitä ${data['parent-card'].toLowerCase()}`);
+  assert.doesNotMatch(data['no-parent'], /heitä|muuta|näytä|ylätehtävä/i);
+  assert.doesNotMatch(data['change-card-parent'], /peitä|kortin/i);
+});

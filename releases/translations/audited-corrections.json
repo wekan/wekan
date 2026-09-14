@@ -131780,5 +131780,19 @@
     "before": "Näytä ylätehtävä minikortilla:",
     "after": "Ozuta vanhemb kart minikartal:",
     "reason": "2026-09-14: Replace Finnish with complete Veps Show parent card on minicard draft. Native MediaWiki show = Ozuta; existing parent-card = Vanhemb kart. Adapt mini-card noun from Kart with adessive -al for display location. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. LOW CONFIDENCE: parent metaphor, compound object and derived minikartal need native grammar review. Preserve display location and final colon; no browser verification claimed."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "change-card-parent",
+    "before": "Muuta kortin ylätehtävää",
+    "after": "Vajehta kartan vanhemb",
+    "reason": "2026-09-14: Replace Finnish with complete Veps parent-control draft. Native MediaWiki edit/protect_change attests Vajehta and hidetoc attests Peitä; reviewed parent noun vanhemb and existing card Kart support terminology. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. LOW CONFIDENCE: genitive, object and parent-card software metaphor require native review. no-parent hides display rather than removing relationship; no browser execution claimed."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "no-parent",
+    "before": "Älä näytä ylätehtävää",
+    "after": "Peitä vanhemb kart",
+    "reason": "2026-09-14: Replace Finnish with complete Veps parent-control draft. Native MediaWiki edit/protect_change attests Vajehta and hidetoc attests Peitä; reviewed parent noun vanhemb and existing card Kart support terminology. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. LOW CONFIDENCE: genitive, object and parent-card software metaphor require native review. no-parent hides display rather than removing relationship; no browser execution claimed."
   }
 ]
