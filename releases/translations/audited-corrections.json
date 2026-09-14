@@ -131738,5 +131738,19 @@
     "before": "Lisää",
     "after": "Enamba",
     "reason": "2026-09-14: Replace Finnish Lisää with Veps Enamba for More. Native MediaWiki moredotdotdot = Enamba... attests the word; omit its ellipsis because these WeKan popup titles have none in English. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Longer instructions and browser rendering remain under review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "advanced-filter-label",
+    "before": "Edistynyt suodatin",
+    "after": "Levenzoittud puhtastim",
+    "reason": "2026-09-14: Replace Finnish filter heading with native Veps terminology. rcfilters-advancedfilters = Levenzoittud puhtastimed, using the existing local singular filter noun Puhtastim. LOW CONFIDENCE: singular phrase adaptation needs native UI review. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Full advanced-filter prose remains pending; no browser verification claimed."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "other-filters-label",
+    "before": "Muut suodattimet",
+    "after": "Toižed puhtastimed",
+    "reason": "2026-09-14: Replace Finnish filter heading with native Veps terminology. rcfilters-other-review-tools attests toižed (other) and rcfilters-filterlist-title attests puhtastimed (filters). LOW CONFIDENCE: assembled complete heading needs native UI review. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Full advanced-filter prose remains pending; no browser verification claimed."
   }
 ]

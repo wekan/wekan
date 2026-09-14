@@ -37,3 +37,13 @@ test('Veps card and list More popup titles use the same native wording', () => {
     assert.doesNotMatch(data[key], /lisää|\.\.\./i);
   }
 });
+
+test('Veps filter headings distinguish singular advanced filter and plural other filters', () => {
+  const data = JSON.parse(fs.readFileSync('imports/i18n/data/ve-PP.i18n.json', 'utf8'));
+  assert.equal(data['advanced-filter-label'], `Levenzoittud ${data.filter.toLowerCase()}`);
+  assert.equal(data['other-filters-label'], 'Toižed puhtastimed');
+  for (const key of ['advanced-filter-label', 'other-filters-label']) {
+    assert.doesNotMatch(data[key], /edistynyt|muut|suodatti/i);
+  }
+  assert.notEqual(data['advanced-filter-label'], data['other-filters-label']);
+});
