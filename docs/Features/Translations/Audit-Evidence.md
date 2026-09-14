@@ -2,6 +2,14 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Bambara tabular-calendar terminology review — 2026-09-14
+
+The two remaining original `bm` findings are `calendar-system-islamic-civil` and `calendar-system-islamic-tbla`. Their English legacy names omit source qualifiers. Preserve Hijri, tabular calculation and civil versus astronomical epoch; these variants must remain distinct.
+
+Directly reviewed [current CLDR bm.xml](https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bm.xml) contains no localized calendar display names or islamic-civil/tbla entries. Its dates/fields give `tile` for Era, `san` Year, `kalo` Month, `dɔgɔkun` Week and `don` Day. Native date fields and Gregorian era names do not independently validate the calendar reference-date meaning of Epoch. Older CLDR summary pages can show inherited Islamic names; inherited English is not native Bambara terminology evidence.
+
+Do not accept a generic era or astronomical approach as the complete required epoch qualifier. Seek Bambara terminology for reference date and table-based calculation, then review both complete labels. No translation values or counts changed; both findings remain pending.
+
 ## Tamazight Start/Share spelling review — 2026-09-14
 
 The expanded search-index excerpt of the [IRCAM conjugation manual](https://www.temehu.com/imazighen/dictionaries/Amawals/manuel-de-conjugaison-Tamazight-Tifinagh-IRCAM.pdf), ending printed page 94, lists `ⴱⴷⴰ (ⴱⴷⵓ)` (class 4) and `ⴱⴷⵓ (ⴱⴷⴰ)` (class 12) for begin/start. Separately, emphatic `ⴱⴹⵓ` (class 12) means share/divide. Preserve plain `ⴷ` in `cardStartPlanningPokerPopup-title`; the emphatic spelling would change the action.
