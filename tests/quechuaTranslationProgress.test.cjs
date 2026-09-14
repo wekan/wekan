@@ -59,3 +59,14 @@ assert.deepEqual(tokens(quechua['act-deleteCard']),
   ['__board__', '__card__', '__list__', '__swimlane__']);
 
 console.log('quechuaTranslationProgress: complete locale passed');
+
+assert.equal(quechua["calendar-system-gregorian"], "Gregoriano Watanqillqa");
+assert.equal(quechua["calendar-system-buddhist"], "Budista Watanqillqa");
+assert.equal(quechua["calendar-system-chinese"], "Chino Watanqillqa");
+assert.equal(quechua["calendar-system-coptic"], "Copto Watanqillqa");
+assert.equal(quechua["calendar-system-ethioaa"], "Etíope Amete Alem Watanqillqa");
+assert.equal(quechua["calendar-system-ethiopic"], "Etiope Watanqillqa");
+assert.equal(quechua["calendar-system-hebrew"], "Hebreo Watanqillqa");
+assert.equal(quechua["calendar-system-japanese"], "Japones Watanqillqa");
+assert.equal(quechua["calendar-system-islamic-umalqura"], "Hijri Watanqillqa (Umm al-Qura)");
+for (const key of ["calendar-system-gregorian", "calendar-system-buddhist", "calendar-system-chinese", "calendar-system-coptic", "calendar-system-ethioaa", "calendar-system-ethiopic", "calendar-system-hebrew", "calendar-system-japanese", "calendar-system-islamic-umalqura"]) assert.doesNotMatch(quechua[key], /Intiwatana/);

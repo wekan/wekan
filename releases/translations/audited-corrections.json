@@ -2369,8 +2369,8 @@
     "locale": "qu",
     "key": "calendar-system-gregorian",
     "before": "Gregoriana",
-    "after": "Gregoriano Intiwatana",
-    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+    "after": "Gregoriano Watanqillqa",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology. Follow-up: replace clock noun Intiwatana with attested calendar Watanqillqa, Chilean Ministry of Education Cusco Collao dictionary 2019 printed pages 18 calendar/42 clock. Preserve existing calendar name and qualifiers. Low confidence: retained naming/modifiers, full native compound and browser display still require review; noun repair does not certify those components."
   },
   {
     "locale": "qu",
@@ -131199,5 +131199,61 @@
     "before": "إظهار عدد البطاقات إذا كانت القائمة تتضمن أكثر من",
     "after": "ⵙⵙⴽⵏ ⴰⵎⴹⴰⵏ ⵏ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵉⵖ ⴳ ⵜⵍⴳⴰⵎⵜ ⵉⵍⵍⴰ ⵓⴳⴳⴰⵔ ⵏ",
     "reason": "Replace Arabic card-count threshold label with Tamazight show count if list contains more than. IRCAM 2019 entry 8404 ugar/uggar more than; preserve unfinished comparison before numeric control, reuse card/list/count vocabulary. Low confidence: full conditional/existential clause, count terminology and plural/genitive agreement need native/browser review."
+  },
+  {
+    "locale": "qu",
+    "key": "calendar-system-buddhist",
+    "before": "Budista Intiwatana",
+    "after": "Budista Watanqillqa",
+    "reason": "Follow-up: replace clock noun Intiwatana with attested calendar Watanqillqa, Chilean Ministry of Education Cusco Collao dictionary 2019 printed pages 18 calendar/42 clock. Preserve existing calendar name and qualifiers. Low confidence: retained naming/modifiers, full native compound and browser display still require review; noun repair does not certify those components."
+  },
+  {
+    "locale": "qu",
+    "key": "calendar-system-chinese",
+    "before": "Chino Intiwatana",
+    "after": "Chino Watanqillqa",
+    "reason": "Follow-up: replace clock noun Intiwatana with attested calendar Watanqillqa, Chilean Ministry of Education Cusco Collao dictionary 2019 printed pages 18 calendar/42 clock. Preserve existing calendar name and qualifiers. Low confidence: retained naming/modifiers, full native compound and browser display still require review; noun repair does not certify those components."
+  },
+  {
+    "locale": "qu",
+    "key": "calendar-system-coptic",
+    "before": "Copto Intiwatana",
+    "after": "Copto Watanqillqa",
+    "reason": "Follow-up: replace clock noun Intiwatana with attested calendar Watanqillqa, Chilean Ministry of Education Cusco Collao dictionary 2019 printed pages 18 calendar/42 clock. Preserve existing calendar name and qualifiers. Low confidence: retained naming/modifiers, full native compound and browser display still require review; noun repair does not certify those components."
+  },
+  {
+    "locale": "qu",
+    "key": "calendar-system-ethioaa",
+    "before": "Etíope Amete Alem Intiwatana",
+    "after": "Etíope Amete Alem Watanqillqa",
+    "reason": "Follow-up: replace clock noun Intiwatana with attested calendar Watanqillqa, Chilean Ministry of Education Cusco Collao dictionary 2019 printed pages 18 calendar/42 clock. Preserve existing calendar name and qualifiers. Low confidence: retained naming/modifiers, full native compound and browser display still require review; noun repair does not certify those components."
+  },
+  {
+    "locale": "qu",
+    "key": "calendar-system-ethiopic",
+    "before": "Etiope Intiwatana",
+    "after": "Etiope Watanqillqa",
+    "reason": "Follow-up: replace clock noun Intiwatana with attested calendar Watanqillqa, Chilean Ministry of Education Cusco Collao dictionary 2019 printed pages 18 calendar/42 clock. Preserve existing calendar name and qualifiers. Low confidence: retained naming/modifiers, full native compound and browser display still require review; noun repair does not certify those components."
+  },
+  {
+    "locale": "qu",
+    "key": "calendar-system-hebrew",
+    "before": "Hebreo Intiwatana",
+    "after": "Hebreo Watanqillqa",
+    "reason": "Follow-up: replace clock noun Intiwatana with attested calendar Watanqillqa, Chilean Ministry of Education Cusco Collao dictionary 2019 printed pages 18 calendar/42 clock. Preserve existing calendar name and qualifiers. Low confidence: retained naming/modifiers, full native compound and browser display still require review; noun repair does not certify those components."
+  },
+  {
+    "locale": "qu",
+    "key": "calendar-system-japanese",
+    "before": "Japones Intiwatana",
+    "after": "Japones Watanqillqa",
+    "reason": "Follow-up: replace clock noun Intiwatana with attested calendar Watanqillqa, Chilean Ministry of Education Cusco Collao dictionary 2019 printed pages 18 calendar/42 clock. Preserve existing calendar name and qualifiers. Low confidence: retained naming/modifiers, full native compound and browser display still require review; noun repair does not certify those components."
+  },
+  {
+    "locale": "qu",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Hijri Intiwatana (Umm al-Qura)",
+    "after": "Hijri Watanqillqa (Umm al-Qura)",
+    "reason": "Follow-up: replace clock noun Intiwatana with attested calendar Watanqillqa, Chilean Ministry of Education Cusco Collao dictionary 2019 printed pages 18 calendar/42 clock. Preserve existing calendar name and qualifiers. Low confidence: retained naming/modifiers, full native compound and browser display still require review; noun repair does not certify those components."
   }
 ]
