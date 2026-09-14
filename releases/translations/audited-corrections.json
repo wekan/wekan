@@ -127062,5 +127062,12 @@
     "before": "Node-amaso: ĉu nuligas rubon",
     "after": "Node-amaso: ĉu superskribas rubon per bitŝablono",
     "reason": "2026-09-14: Official Node V8 docs specify heap garbage overwritten with a bit pattern; nuligas incorrectly suggests zeroing. Translate overwrite and bit-pattern explicitly. https://nodejs.org/api/v8.html#v8getheapstatistics"
+  },
+  {
+    "locale": "eo",
+    "key": "advanced-filter-description",
+    "before": "La altnivela filtrilo permesas skribi ĉenon kun la jenaj operatoroj: == != <= >= && || ( ) Spaco estas uzata kiel apartigilo inter la operatoroj. Vi povas filtri laŭ ĉiuj propraj kampoj tajpante iliajn nomojn kaj valorojn. Ekzemple: Kampo1 == Valoro1. Rimarko: se kampoj aŭ valoroj enhavas spacojn, vi devas meti ilin inter unuopajn citilojn. Ekzemple: 'Kampo 1' == 'Valoro 1'. Por preterlasi unuopajn regsignojn (' \\/) vi povas uzi \\. Ekzemple: Kampo1 == I\\'m. Vi ankaŭ povas kombini plurajn kondiĉojn. Ekzemple: F1 == V1 || F1 == V2. Normale ĉiuj operatoroj estas interpretataj de maldekstre dekstren. Vi povas ŝanĝi la ordon per krampoj. Ekzemple: F1 == V1 && ( F2 == V2 || F2 == V3 ). Vi ankaŭ povas serĉi en tekstaj kampoj per regulesprimo: F1 == /Tes.*/i",
+    "after": "La altnivela filtrilo permesas skribi ĉenon kun la jenaj operatoroj: == != <= >= && || ( ) Spaco estas uzata kiel apartigilo inter la operatoroj. Vi povas filtri laŭ ĉiuj propraj kampoj tajpante iliajn nomojn kaj valorojn. Ekzemple: Field1 == Value1. Rimarko: se kampoj aŭ valoroj enhavas spacojn, vi devas meti ilin inter unuopajn citilojn. Ekzemple: 'Field 1' == 'Value 1'. Por trakti la specialajn signojn (' \\/) kiel literalajn signojn, vi povas uzi \\. Ekzemple: Field1 == I\\'m. Vi ankaŭ povas kombini plurajn kondiĉojn. Ekzemple: F1 == V1 || F1 == V2. Normale ĉiuj operatoroj estas interpretataj de maldekstre dekstren. Vi povas ŝanĝi la ordon per krampoj. Ekzemple: F1 == V1 && ( F2 == V2 || F2 == V3 ). Vi ankaŭ povas serĉi en tekstaj kampoj per regulesprimo: F1 == /Tes.*/i",
+    "reason": "2026-09-14: Preserve shared literal executable Field1/Value1 and quoted field examples; describe escaping special punctuation as literal characters, not skipping control characters. Operators, backslash inventory and regex example remain unchanged."
   }
 ]

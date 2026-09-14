@@ -9,7 +9,7 @@ const examples = ['== != <= >= && || ( )', 'Field1 == Value1', "'Field 1' == 'Va
 (async () => {
   const { repairProgress } = await import('../releases/translations/audit-progress.mjs');
   const result = repairProgress();
-  for (const locale of ['ar', 'ar-DZ', 'ar-EG', 'lt', 'mn', 'el', 'el-GR', 'sk']) {
+  for (const locale of ['ar', 'ar-DZ', 'ar-EG', 'lt', 'mn', 'el', 'el-GR', 'sk', 'eo']) {
     const data = read(locale);
     const help = data['advanced-filter-description'];
     assert.notEqual(help, source, locale);
@@ -25,6 +25,8 @@ const examples = ['== != <= >= && || ( )', 'Field1 == Value1', "'Field 1' == 'Va
       assert.doesNotMatch(data['import-board-instruction-trello'], /In your Trello board/);
     }
   }
+  assert.match(read('eo')['advanced-filter-description'], /specialajn signojn.*literalajn signojn/);
+  assert.doesNotMatch(read('eo')['advanced-filter-description'], /regsignojn|Kampo1|Valoro1/);
   // Syntax-only repair: Finnish prose remains an open Veps language finding.
   const vepsHelp = read('ve-PP')['advanced-filter-description'];
   for (const example of examples) {
