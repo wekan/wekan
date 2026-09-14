@@ -1002,3 +1002,20 @@ heading prefix consistency and only/private scope have regression checks.
 No browser validation was run. Recount: 15,642 corrected, 260 pending
 (147 Tamazight), four restored, 4,175 retained and 18,742 correction
 records. Broader native/runtime and prior low-confidence work stays open.
+
+## Card-count threshold label — 2026-09-14
+
+Local commit `529775d9c` repairs Arabic show-cards-minimum-count.
+IRCAM 2019 PDF page 444 entry 8404 gives ugar, variant uggar, more
+than/more. Existing card/list/count vocabulary is reused. The label
+retains the if condition and unfinished more-than comparison before
+the numeric threshold control, rather than becoming unconditional show.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+UserHeader.jade places this label above show-cards-count-at, a number
+input with minimum -1. No numeric sentinel or counting logic is changed.
+**Low confidence** remains for full conditional/existential grammar,
+count terminology and plural/genitive agreement. Four focused checks
+pass; no browser validation was run. Recount: 15,643 corrected, 259
+pending (146 Tamazight), four restored, 4,175 retained and 18,743
+correction records. Broader native/runtime reviews remain open.

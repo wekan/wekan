@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/529775d9c">Repair Tamazight card-count threshold wording</a>. Thanks to xet7.</summary>
+
+Replace Arabic while retaining the if/more-than condition before the
+numeric control. Four focused checks pass. Full conditional grammar and
+native/browser verification remain open; original pending count is 259.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/267913e2f">Repair Tamazight board visibility restriction wording</a>. Thanks to xet7.</summary>
 
 Replace French heading and private-only restriction, retaining allow,
