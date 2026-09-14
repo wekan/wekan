@@ -126915,5 +126915,19 @@
     "before": "Modifier le tri",
     "after": "ⵙⵏⴼⵍ ⴰⴼⵔⴰⵏ",
     "reason": "2026-09-14: Replace Arabic/French time or sorting control with Tamazight. Reuse existing spent-time-hours terminology without the hours qualifier; Change imperative snfl is directly native MediaWiki edit, Sorting afran appears in sort-ascending/descending. Preserve change action separately from noun-only Spent Time. Full spent-time participle and phrase agreement remain low confidence pending fluent review. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "da",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Node heap: højeste allokerede hukommelse",
+    "after": "Node heap: højeste hukommelsesforbrug allokeret med malloc",
+    "reason": "2026-09-14: Repair Danish diagnostic meaning using Node v8.getHeapStatistics documentation. Preserve peak malloc allocation versus generic allocation, and heap garbage overwriting with a bit pattern versus ordinary garbage cleanup. Source: https://nodejs.org/api/v8.html#v8getheapstatistics"
+  },
+  {
+    "locale": "da",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Node heap: rydder ubrugte objekter",
+    "after": "Node heap: overskriver ubrugte heap-data med et bitmønster",
+    "reason": "2026-09-14: Repair Danish diagnostic meaning using Node v8.getHeapStatistics documentation. Preserve peak malloc allocation versus generic allocation, and heap garbage overwriting with a bit pattern versus ordinary garbage cleanup. Source: https://nodejs.org/api/v8.html#v8getheapstatistics"
   }
 ]

@@ -1552,5 +1552,173 @@
     "key": "moveSwimlanePopup-title",
     "value": "Flyt svømmebane",
     "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "custom-field-stringtemplate-separator",
+    "value": "Separator (brug &#32; eller &nbsp; for et mellemrum)",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "value": "Tryk på Enter for at tilføje flere punkter",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "boardsReportTitle",
+    "value": "Tavlerapport",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "delete-org-warning-message",
+    "value": "Denne organisation kan ikke slettes, da mindst én bruger tilhører den",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "delete-team-warning-message",
+    "value": "Dette team kan ikke slettes, da mindst én bruger tilhører det",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "carbon-copy",
+    "value": "Kopi til (Cc:)",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "editCardSortOrderPopup-title",
+    "value": "Skift sortering",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "add-teams",
+    "value": "Tilføj grupper",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "remove-team-from-table",
+    "value": "Er du sikker på, at du vil fjerne denne gruppe fra tavlen?",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "invite-people-success",
+    "value": "Invitation til registrering blev sendt",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "invite-people-error",
+    "value": "Fejl ved afsendelse af invitation til registrering",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "to-create-teams-contact-admin",
+    "value": "Kontakt administratoren for at oprette grupper.",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "Node_heap_total_heap_size_executable",
+    "value": "Node heap: samlet heap-størrelse for eksekverbar kode",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "Node_heap_heap_size_limit",
+    "value": "Node heap: grænse for heap-størrelse",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "Node_memory_usage_heap_total",
+    "value": "Node hukommelsesforbrug: samlet størrelse af den allokerede heap",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "remove-organization-from-board",
+    "value": "Er du sikker på, at du vil fjerne denne organisation fra tavlen?",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "to-create-organizations-contact-admin",
+    "value": "Kontakt administratoren for at oprette organisationer.",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "custom-legal-notice-link-url",
+    "value": "Brugerdefineret URL til side med juridisk meddelelse",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "acceptance_of_our_legalNotice",
+    "value": "Ved at fortsætte accepterer du vores",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "moveChecklist",
+    "value": "Flyt tjekliste",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "moveChecklistPopup-title",
+    "value": "Flyt tjekliste",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "attachmentActionsPopup-title",
+    "value": "Handlinger for vedhæftninger",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "attachment-move-storage-fs",
+    "value": "Flyt vedhæftning til filsystemet",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "attachment-move-storage-gridfs",
+    "value": "Flyt vedhæftning til GridFS",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "attachment-move-storage-s3",
+    "value": "Flyt vedhæftning til S3",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "attachment-move",
+    "value": "Flyt vedhæftning",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "move-all-attachments-to-fs",
+    "value": "Flyt alle vedhæftninger til filsystemet",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "move-all-attachments-to-gridfs",
+    "value": "Flyt alle vedhæftninger til GridFS",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
   }
 ]
