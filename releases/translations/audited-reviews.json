@@ -24970,5 +24970,11 @@
     "key": "days-old",
     "value": "Dage gammel",
     "reason": "Retain native Danish age wording. DSL Ordbog over det danske Sprog, gammel sense 4.2, gives flere dage gammel for the age of a thing. The source label means Days Old; current application-source search found no runtime use, so no live UI context is claimed. Swedish Dagar gammal from the pull is not the retained value. https://ordnet.dk/ods/ordbog/gammel"
+  },
+  {
+    "locale": "th",
+    "key": "r-is",
+    "value": "คือ",
+    "reason": "Retain correct Thai equative/identification word คือ. Native MediaWiki Thai uses it in identity/explanatory noun statements; actual rule-action context is repaired by omitting the separately inserted copula for Thai (9e34218c7), since action phrases already include their predicate. Regression executes reactive helper and negative duplicate-copula checks. Full browser execution remains open."
   }
 ]

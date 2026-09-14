@@ -23486,3 +23486,22 @@ review closes these composition defects. A later repair needs action-sensitive
 case/ordering without changing stored trigger identifiers or other locales.
 Four offline suites pass; full phrase and browser validation remain open.
 No external translation service, subagents or remote writes.
+
+### 2026-09-14 — Thai rule copula context repair (9e34218c7)
+
+Restored th r-is คือ retained unchanged: valid identity/equative word, but
+incorrect before the existing ถูกเพิ่มใน, ถูกนำออกจาก, ถูกย้าย and other
+action/state predicates. The shared ruleTriggerCopula helper now omits it
+for th, th-TH/th_TH and case variants, preserving other locales and stored
+rule identifiers.
+[Native MediaWiki Thai](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/th.json)
+uses identity/explanatory คือ constructions (img-auth-public, template-loop-category-desc)
+and standalone passive predicates (blockedtext-tempuser, logentry-rights-rights-revoked).
+This supports the distinction, not full attestation of every rule sentence.
+Actual client helper executes reactively in regression; negative composition
+checks ensure no คือ is prepended to existing actions. Thai named-member
+rule-creation browser coverage is added to 20-rules.e2e.js and syntax-checked.
+No local application is listening on port 3000; live execution remains open.
+Correction records remain 18,574; retained reviews become 4,163, restored
+findings 18; pending remains 299. Other uncertain and complete phrase reviews
+remain open. No translation service, subagents or remote writes were used.

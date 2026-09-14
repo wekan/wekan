@@ -694,6 +694,18 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9e34218c7">Fix Thai rule action linking-word composition</a>. Thanks to xet7.</summary>
+
+Thai action predicates omit the redundant equative word through the shared
+reactive helper. Correct Thai wording stays unchanged; other locales and
+stored trigger identifiers are preserved. Restored Thai linking-word review
+is resolved. Positive/negative helper checks, exact ledgers, completeness and
+Jade compilation pass. Browser rule-creation coverage is syntax-checked;
+no local application is running, so live browser execution remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2cabcdb17">Replace Spanish rule actor label in Basque</a>. Thanks to xet7.</summary>
 
 Optional rule username fields use the Basque actor question Nork: instead

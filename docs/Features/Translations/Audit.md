@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,601 |
-| Restored pre-pull; awaiting validation | 19 |
-| Reviewed; retained unchanged | 4,162 |
+| Restored pre-pull; awaiting validation | 18 |
+| Reviewed; retained unchanged | 4,163 |
 | Pending review or repair | 299 |
 | Total tracked | 20,081 |
 
@@ -24,17 +24,18 @@ contain **18,574** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `2cabcdb17` —
-Basque rule actor-field label replaces Spanish por with Nork:.
-Native grammar and actual username-field context support the question label.
-All **18,574** corrections and **4,162** unchanged reviews pass, alongside
-focused rule-helper and completeness checks. This unflagged repair does not
-reduce the original pending queue. Restored Basque add/remove phrases still
-need context-sensitive noun cases and sentence ordering; browser review is open.
-Latest unchanged review: **2026-09-14**, commit `824dd005e` —
-Danish Dage gammel retained with native dictionary age-construction evidence;
-the Swedish pulled replacement remains rejected. No current application use
-of this key was found, so rendered UI validation is not claimed.
+Latest translation fix: **2026-09-14**, local commit `9e34218c7` —
+Thai rule action phrases omit the redundant equative linking word through
+shared reactive helper wiring; correct คือ remains unchanged in the locale.
+The restored Thai word is validated in its corrected context. All **18,574**
+corrections and **4,163** unchanged reviews pass; focused helper/completeness
+checks pass. Thai browser rule-creation coverage is added and syntax-checked;
+no local application is listening on port 3000, so it was not executed.
+Restored Basque noun cases/ordering and broader language review remain open.
+Latest unchanged review: **2026-09-14**, Thai r-is —
+คือ retained after removing its incorrect insertion before action predicates.
+Danish Dage gammel remains validated in `824dd005e` with native age-construction
+evidence; no current application use was found for that Danish key.
 Three Galician fragments remain validated by the previous contextual repair.
 Basque restored phrase review, provisional calendar compounds and broader
 language/browser review remain open.
@@ -43,7 +44,7 @@ Additional unflagged unchanged review: **2026-09-14**, `39af6aae5` —
 Veps Server and Valencian Errors retained with native software evidence and
 protected per locale from filling. Zero unreviewed English placeholders remain;
 this does not establish correct language or fluency in all values. These two reviews are outside the original flagged ledger; current
-pending/restored counts are 299/19.
+pending/restored counts are 299/18.
 
 
 
