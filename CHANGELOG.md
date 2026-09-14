@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,561 corrected, 1,224 restored pre-pull values awaiting
-validation, 2,988 reviewed and retained, and 308 pending review or repair.
+findings: 15,561 corrected, 1,194 restored pre-pull values awaiting
+validation, 3,018 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,161 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
@@ -108,8 +108,8 @@ changes are implemented in local commit 02383521a; translation repairs have
 resumed.
 Latest translation fix/review is 54fdfd33c (2026-09-14): four Galician
 date-trigger meanings repaired; 39 correct values retained.
-Latest unchanged-value review is 64a60f189 (2026-09-14): 30 Galician
-shortcut and custom-branding values retained. Shared attachment/member
+Latest unchanged-value review is 6c534f40f (2026-09-14): 30 Galician
+SMTP and system-diagnostic values retained. Shared attachment/member
 participles still need contextual agreement repair.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
 Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
@@ -992,6 +992,15 @@ broader language and browser validation remain open.
 
 Retain 30 correct values. Preserve shortcut actions, task/hour limits,
 upload states and logo/URL configuration distinctions. Review checks pass;
+broader language and browser validation remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6c534f40f">Validate Galician SMTP and system diagnostic labels</a>. Thanks to xet7.</summary>
+
+Retain 30 correct values. Preserve WIP remedies, SMTP purpose, invitation
+tokens, webhook scope and system-diagnostic distinctions. Review checks pass;
 broader language and browser validation remain open.
 
 </details>

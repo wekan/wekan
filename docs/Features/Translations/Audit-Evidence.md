@@ -22200,3 +22200,16 @@ Milestone example remains Fito 1.
 Review checks pass: 15,561 corrected, 1,224 restored awaiting validation,
 2,988 reviewed unchanged and 308 pending. Broader language and browser
 validation remain open. Nothing pushed.
+
+
+### 2026-09-14 — Galician SMTP and system diagnostic labels
+
+Local commit `6c534f40f` retains 30 directly reviewed values unchanged.
+WIP warning preserves over-limit scope and either move-out or raise-limit
+remedies. SMTP/TLS and test success retain purpose; inviter token is exact.
+Webhook labels preserve optional authentication, two-way/global/outgoing
+scope and disable action. System diagnostics preserve actual product names,
+CPU count, free/total memory, load average and uptime distinctions.
+Review checks pass: 15,561 corrected, 1,194 restored awaiting validation,
+3,018 reviewed unchanged and 308 pending. Broader language and browser
+validation remain open. Nothing pushed.
