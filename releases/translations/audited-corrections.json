@@ -130891,5 +130891,33 @@
     "before": "Hijri Intiwatana",
     "after": "Hijri Watanqillqa",
     "reason": "Use native generic calendar noun from Chilean Ministry of Education Quechua dictionary (2019 pp.18,42), preserving calendar proper name. Adapted compound, low confidence pending full native phrase and browser validation; clock noun Intiwatana is not used as the generic calendar noun."
+  },
+  {
+    "locale": "zgh",
+    "key": "every-5-minutes",
+    "before": "Toutes les 5 minutes",
+    "after": "ⴽⵓ 5 ⵏ ⵜⵓⵙⴷⵉⴷⵉⵏ",
+    "reason": "Replace French interval label using primary IRCAM 2019 hour/minute plurals and native number-plus-n construction. Preserve exact interval. Adapted full phrase, low confidence pending native grammatical and browser validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "every-10-minutes",
+    "before": "Toutes les 10 minutes",
+    "after": "ⴽⵓ 10 ⵏ ⵜⵓⵙⴷⵉⴷⵉⵏ",
+    "reason": "Replace French interval label using primary IRCAM 2019 hour/minute plurals and native number-plus-n construction. Preserve exact interval. Adapted full phrase, low confidence pending native grammatical and browser validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "every-30-minutes",
+    "before": "Toutes les 30 minutes",
+    "after": "ⴽⵓ 30 ⵏ ⵜⵓⵙⴷⵉⴷⵉⵏ",
+    "reason": "Replace French interval label using primary IRCAM 2019 hour/minute plurals and native number-plus-n construction. Preserve exact interval. Adapted full phrase, low confidence pending native grammatical and browser validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "every-6-hours",
+    "before": "Toutes les 6 heures",
+    "after": "ⴽⵓ 6 ⵏ ⵜⵙⵔⴰⴳⵉⵏ",
+    "reason": "Replace French interval label using primary IRCAM 2019 hour/minute plurals and native number-plus-n construction. Preserve exact interval. Adapted full phrase, low confidence pending native grammatical and browser validation."
   }
 ]

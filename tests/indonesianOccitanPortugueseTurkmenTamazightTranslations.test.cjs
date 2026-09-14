@@ -62,3 +62,15 @@ for (const [key, value] of Object.entries(oneUnitIntervals)) {
   assert.doesNotMatch(locales.zgh[key], /Tous|Toutes|jours|heures|minutes/);
 }
 assert.equal(new Set(Object.keys(oneUnitIntervals).map(key => locales.zgh[key])).size, 3);
+const numericIntervals = {
+  'every-5-minutes': 'ⴽⵓ 5 ⵏ ⵜⵓⵙⴷⵉⴷⵉⵏ',
+  'every-10-minutes': 'ⴽⵓ 10 ⵏ ⵜⵓⵙⴷⵉⴷⵉⵏ',
+  'every-30-minutes': 'ⴽⵓ 30 ⵏ ⵜⵓⵙⴷⵉⴷⵉⵏ',
+  'every-6-hours': 'ⴽⵓ 6 ⵏ ⵜⵙⵔⴰⴳⵉⵏ',
+};
+for (const [key, value] of Object.entries(numericIntervals)) {
+  assert.equal(locales.zgh[key], value);
+  assert.doesNotMatch(locales.zgh[key], /Toutes|minutes|heures/);
+  assert.equal(locales.zgh[key].match(/\d+/)[0], key.split('-')[1]);
+}
+assert.equal(new Set(Object.values(numericIntervals)).size, 4);

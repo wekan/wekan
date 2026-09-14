@@ -210,3 +210,21 @@ native computing usage to complete the pending phrases; a generic English
 gloss still cannot establish the correct software sense. No pending phrase
 was accepted from these components. Counts remain unchanged, and native
 full-phrase and browser verification remain open.
+
+## Numeric interval repairs — 2026-09-14
+
+Four additional French labels now express every 5, 10 and 30 minutes and
+every 6 hours. The primary dictionary's PDF page 702, entry 13256, gives
+minute and plural `ⵜⵓⵙⴷⵉⴷⵉⵏ`; page 641, entry 12030, gives hour and
+plural `ⵜⵉⵙⵔⴰⴳⵉⵏ`. The hour plural is placed in the construct state
+after `ⵏ`. Native MediaWiki `search-result-category-size` independently
+uses number-plus-`ⵏ` plural quantities. The earlier native daily lesson
+supports `ⴽⵓ` for recurrence.
+
+These complete interval phrases are adapted, **low confidence**, not exact
+dictionary quotations. Full native number/construct-state and recurrence
+grammar remains open. Regression checks preserve all four numeric intervals,
+distinguish hours from minutes and reject the French text; they cannot prove
+fluency. These legacy keys have no direct current client/server reference
+in the inspected source, so no browser rendering is claimed. Original pending
+counts are unchanged; these four unflagged repairs are tracked separately.
