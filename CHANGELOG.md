@@ -636,18 +636,12 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** Tamazight checklist and board rule labels replace French text
-and distinguish checked or unchecked states from action commands. Existing
-rule behavior stays the same; card movement and new-card creation labels
-retain their destination and new-card meaning. Regression checks preserve
-placeholders and verify label wiring; complete contextual grammar remains
-under review. Planning Poker deletion text also preserves irreversible
-deletion and loss of associated actions. Label deletion text preserves
-removal from every card and destruction of label history. Keyboard shortcut
-messages retain their enabled/disabled state and opposite click action.
-PDF preview text retains the download alternative when preview is unavailable.
-The last-admin warning explains the need to retain an administrator. Import
-guidance keeps possible success despite errors and the All Boards location.
+**In short:** Tamazight rule, shortcut and warning text replaces wrong-language
+values. Rule labels retain state and action distinctions; deletion warnings
+retain irreversibility and affected content. Import, PDF and administrator
+messages preserve their conditions and alternatives. Watch text covers boards
+and cards. Regression checks preserve placeholders and verify source wiring;
+full contextual grammar remains under native review.
 
 This release includes the following features and fixes:
 
@@ -736,6 +730,17 @@ and the translated All Boards page location. Four focused suites pass for
 conditional wording, possible success, page naming, negative French checks,
 template wiring and translation structure. Complete contextual grammar
 remains under native review. Dated audit records 179 pending findings.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/45d2b2b2e">Repair Tamazight watching label and disabled warning</a>. Thanks to xet7.</summary>
+
+Replace Arabic/French watch text using monitoring terminology. Preserve
+administrator action and both board and card scope. Four focused suites
+pass for wording, negative wrong-language checks, source error wiring and
+translation structure. Full contextual grammar remains under native review.
+Dated audit records 178 pending findings.
 
 </details>
 

@@ -28182,3 +28182,28 @@ proof. No locale/ledger/count change: pending 179 (zgh 84), ledger 19,834,
 restored 4. This review changes the next action to verifying serialization
 format terminology and testing the actual invalid watch-type path, rather
 than attributing this caller to import. No remote writes.
+
+
+## Watching label and disabled warning — 2026-09-15
+
+Local commit `45d2b2b2e` replaces Arabic watching (unflagged) and French
+error-watch-disabled (flagged). Preserve the administrator disabling watch
+for both boards and cards; do not turn this into user permissions or
+watching only cards. The current watch method throws the warning when
+getFeatureFlags().disableWatch is true. boardHeader.js translates that
+specific error for display. No watch behavior changed.
+
+IRCAM cached dictionary page 123 entry 2228 gives amatr (monitoring,
+observation); page 417 entry 7893 gives matr (watch/monitor/guard); page
+532 entry 10015 gives ssns (switch off), distinct from hospitality 10014.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+Existing administrator and card/board terms are reused.
+**Low confidence:** monitoring adapted to notifications, switch-off tense,
+bound actor form and coordinated noun agreement remain under native
+contextual review. Components do not attest the complete software warning.
+
+Four focused suites pass for watching noun, disabled action, administrator,
+board AND card scope, negative wrong-language checks, actual feature-flag
+throw wiring, placeholders, ledger, retained reviews and completeness.
+No live UI test ran. Ledger 19,836; original corrected 15,725, pending 178
+(zgh 83), restored 4 unchanged. Broader review remains open. No remote writes.
