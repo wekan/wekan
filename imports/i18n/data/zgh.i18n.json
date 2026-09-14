@@ -149,7 +149,7 @@
   "setSwimlaneHeightPopup-title": "ⵙⵔⵙ ⵜⵉⵖⵣⵉ ⵏ ⵓⴱⵔⵉⴷ",
   "set-swimlane-height": "ⵙⵔⵙ ⵜⵉⵖⵣⵉ ⵏ ⵓⴱⵔⵉⴷ",
   "set-swimlane-height-value": "ⵜⵉⵖⵣⵉ ⵏ ⵓⴱⵔⵉⴷ (px)",
-  "swimlane-height-error-message": "يجب أن يكون ارتفاع مسار السباحة عددًا صحيحًا موجبًا\n ",
+  "swimlane-height-error-message": "ⵉⵅⵚⵚⴰ ⴰⴷ ⵉⴳ ⵉⵊⴳⵉⵍ ⵏ ⵓⴱⵔⵉⴷ ⴰⵎⴹⴰⵏ ⵓⵎⵎⵉⴷ ⵓⵎⵏⵉⴳ",
   "add-swimlane": "Ajouter un couloir",
   "add-subtask": "ⵔⵏⵓ ⵜⴰⵎⵙⴽⵉⵔⵜ ⴷⴷⴰⵡ ⵏ ⵜⵎⵙⴽⵉⵔⵜ",
   "add-existing-card-as-subtask": "ⵔⵏⵓ ⵜⴰⴽⴰⵕⴹⴰ ⵉⵍⵍⴰⵏ ⴰⵎ ⵜⴰⵡⵓⵔⵉ ⴷⴷⴰⵡ ⵏ ⵜⵡⵓⵔⵉ",

@@ -131444,5 +131444,12 @@
     "before": "Rejouer",
     "after": "ⴰⵍⵙ",
     "reason": "2026-09-14: Replace French Planning Poker action with exact IRCAM Amazigh-English verb, PDF page 117 entry 2103. Finish completes the round; replay starts it again in actual cardDetails handlers. Short imperative action adapted from verb lemma; native/browser context review remains open."
+  },
+  {
+    "locale": "zgh",
+    "key": "swimlane-height-error-message",
+    "before": "يجب أن يكون ارتفاع مسار السباحة عددًا صحيحًا موجبًا\n ",
+    "after": "ⵉⵅⵚⵚⴰ ⴰⴷ ⵉⴳ ⵉⵊⴳⵉⵍ ⵏ ⵓⴱⵔⵉⴷ ⴰⵎⴹⴰⵏ ⵓⵎⵎⵉⴷ ⵓⵎⵏⵉⴳ",
+    "reason": "2026-09-14: Replace Arabic positive-integer swimlane-height error with complete Tamazight draft. IRCAM Amazigh-English PDF 376 entry 7115 ijgil height, PDF 450 entry 8544 umnig positive, PDF 356 entry 6770 xss have to; existing number amdan and swimlane abrid terminology reused. University Mouloud Mammeri mathematics study 2015/2016 PDF 59 table explicitly maps Entier to ummid, referencing 1984 mathematics lexicon page 52. Low confidence: Algerian pan-Amazigh technical term transferred to Moroccan standard, genitive ubrid and full modal/be sentence grammar require native review. Preserve integer and positive independently; not inferred from integral adjective alone."
   }
 ]

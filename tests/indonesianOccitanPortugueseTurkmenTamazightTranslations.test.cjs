@@ -340,3 +340,6 @@ assert.notEqual(locales.zgh['color-blue'], locales.zgh['color-green']);
 assert.equal(locales.zgh['poker-finish'], 'ⵙⵎⴷ');
 assert.equal(locales.zgh['poker-replay'], 'ⴰⵍⵙ');
 assert.doesNotMatch(locales.zgh['poker-finish'] + locales.zgh['poker-replay'], /Finir|Rejouer/);
+
+assert.match(locales.zgh['swimlane-height-error-message'], /^ⵉⵅⵚⵚⴰ.*ⵉⵊⴳⵉⵍ.*ⵓⴱⵔⵉⴷ.*ⴰⵎⴹⴰⵏ ⵓⵎⵎⵉⴷ ⵓⵎⵏⵉⴳ$/);
+assert.doesNotMatch(locales.zgh['swimlane-height-error-message'], /[\u0600-\u06ff]|ⵉⵙⵎⴷⵏ/);
