@@ -126250,5 +126250,19 @@
     "before": "vous a mentionné sur la carte __card__ : __comment__ dans la liste __list__ dans le couloir __swimlane__ dans le tableau __board__",
     "after": "ⵉⴱⴷⵔ ⴽ ⴳ ⵜⴽⴰⵔⴹⴰ __card__: __comment__ ⴳ ⵜⵍⴳⴰⵎⵜ __list__ ⴳ ⵓⴱⵔⵉⴷ __swimlane__ ⴳ ⵜⴼⵍⵡⵉⵜ __board__",
     "reason": "2026-09-14: Replace French mentioned-you activity with Standard Moroccan Tamazight. Search-indexed IRCAM conjugation manual entry bdr evoke/mention: https://www.temehu.com/imazighen/dictionaries/Amawals/manuel-de-conjugaison-Tamazight-Tifinagh-IRCAM.pdf . Direct access redirects to dictionary HTML, so indexed entry is not directly inspected primary PDF evidence. Mention actor form ibdr and object k, full location grammar and Swimlane-as-Path adaptation remain LOW CONFIDENCE. Native Mastodon notification.follow directly supports object k in person-directed activity but does not prove mention verb: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Preserve YOU, CARD, COMMENT, LIST, SWIMLANE, BOARD and all five exact placeholders."
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-operator-assignee",
+    "before": "`__operator_assignee__:<nom>` - cartes *assignées* à l'utilisateur *<nom>*",
+    "after": "`__operator_assignee__:<ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ>` - ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⵏⵏⴰ ⴳ ⵉⴳⴰ *<ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ>* *ⴰⴼⴳⴰⵏ ⵉ ⵎⵉ ⵜⵜⵓⴼⴽⴰ ⵜⴰⴽⴰⵕⴹⴰ*",
+    "reason": "2026-09-14: Replace French search instruction with Standard Moroccan Tamazight, reusing existing member-operator structure and local assignee paraphrase. Native MediaWiki userlogin-yourname directly attests Username; or ngh is native component: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve exact __operator_assignee__/__operator_user__ tokens, colon and code ticks, repeated angle-bracket Username parameter and emphasis. User operator is MEMBER OR ASSIGNEE, not both; assignee operator is assignee only. Local Assigned Person Given Card paraphrase and full relative clause remain LOW CONFIDENCE; component reuse is not independent full-phrase proof."
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-operator-user",
+    "before": "`__operator_user__:<nom>` - cartes où l'utilisateur <nom> est *assigné* ou est un *participant*.",
+    "after": "`__operator_user__:<ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ>` - ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⵏⵏⴰ ⴳ ⵉⴳⴰ *<ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ>* *ⴰⴳⵎⴰⵎ* ⵏⵖ *ⴰⴼⴳⴰⵏ ⵉ ⵎⵉ ⵜⵜⵓⴼⴽⴰ ⵜⴰⴽⴰⵕⴹⴰ*",
+    "reason": "2026-09-14: Replace French search instruction with Standard Moroccan Tamazight, reusing existing member-operator structure and local assignee paraphrase. Native MediaWiki userlogin-yourname directly attests Username; or ngh is native component: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve exact __operator_assignee__/__operator_user__ tokens, colon and code ticks, repeated angle-bracket Username parameter and emphasis. User operator is MEMBER OR ASSIGNEE, not both; assignee operator is assignee only. Local Assigned Person Given Card paraphrase and full relative clause remain LOW CONFIDENCE; component reuse is not independent full-phrase proof."
   }
 ]
