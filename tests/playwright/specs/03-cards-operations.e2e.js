@@ -865,3 +865,33 @@ test.describe('Cards – operations', () => {
     ).toContain('New Bottom Card');
   });
 });
+
+
+test('Tamazight numeric total tooltip describes only display-enabled fields', async ({ boardPage, board, user }) => {
+  const shownId = db.uid('shownNumber');
+  const hiddenId = db.uid('hiddenNumber');
+  const cardId = db.findCardIdByTitle({ boardId: board.boardId, title: 'Alpha Card' });
+  const locale = require('../../../imports/i18n/data/zgh.i18n.json');
+  try {
+    for (const [id, shown] of [[shownId, true], [hiddenId, false]]) {
+      db.insertOne('customFields', {
+        _id: id, boardIds: [board.boardId], name: id, type: 'number', settings: {},
+        showOnCard: true, automaticallyOnCard: false, alwaysOnCard: false,
+        showLabelOnMiniCard: false, showSumAtTopOfList: shown,
+        createdAt: new Date(), modifiedAt: new Date(),
+      });
+    }
+    db.updateOne('cards', { _id: cardId }, { $set: {
+      customFields: [{ _id: shownId, value: 7 }, { _id: hiddenId, value: 100 }],
+    } });
+    db.updateOne('users', { _id: user.id }, { $set: { 'profile.language': 'zgh' } });
+    await boardPage.reload();
+    const badge = new BoardPage(boardPage).list(board.listIds[0]).locator('.list-sum-badge').first();
+    await expect(badge).toHaveText('∑ 7');
+    await expect(badge).not.toHaveText('∑ 107');
+    await expect(badge).toHaveAttribute('title', new RegExp(`^${locale['sum-of-number-fields']}`));
+    await expect(badge).not.toHaveAttribute('title', /ⴰⵥⴰⵢⵏ|ⵓⵙⴰⴽⴰ/);
+  } finally {
+    db.deleteMany('customFields', { _id: { $in: [shownId, hiddenId] } });
+  }
+});
