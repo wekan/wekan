@@ -125795,5 +125795,19 @@
     "before": "حذف سلسلة الترجمة المخصصة هذه؟",
     "after": "ⴽⴽⵙ ⴰⴹⵕⵉⵚ ⴰⴷ ⵏ ⵓⵙⵓⵖⵍ ⵉⵥⵍⵉⵏ?",
     "reason": "2026-09-14: Replace Arabic translation controls. Pinned native Dialect non-fuzzy Translation history/Live Translation/Translation Shortcut attest asughl and bound usughl; Text to speech attests adhrich: https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po . Native MediaWiki attests Edit snfl, Delete kks and New amaynu: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Translate software String as Text, not a physical chain. Preserve New versus Edit versus Delete THIS, custom scope and deletion question mark. Custom izhlin reuses local terminology, not independently validated here. LOW CONFIDENCE String-to-Text and custom modifier attachment/full phrases need fluent validation; translation noun itself has direct non-fuzzy software evidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "delete-translation-confirm-popup",
+    "before": "هل أنت متأكد من حذف سلسلة الترجمة المخصصة هذه؟ لا يوجد خيار للتراجع.",
+    "after": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⴰⴹⵕⵉⵚ ⴰⴷ ⵏ ⵓⵙⵓⵖⵍ ⵉⵥⵍⵉⵏ? ⴰⵙⵏⴼⵍ ⴰⴷ ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⴰⴷ ⴷ ⵉⵡⵔⵔⵉ.",
+    "reason": "2026-09-14: Replace Arabic custom translation deletion warning/count. Native Mastodon confirmations.delete.message supplies Are you sure you want frame: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Native MediaWiki undo-failure supplies this-change-cannot-be-undone clause; remove only its conflict reason, preserving absolute no-undo meaning here; pageinfo-watchers attests Count uttun: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Pinned non-fuzzy Dialect attests Translation usughl and Text adhrich: https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po . Preserve Delete THIS custom string, confirmation question, irreversible warning and trailing count colon. String-as-Text plural idhrichn is derived, not independently attested here. LOW CONFIDENCE assembled confirmation, text plural, custom modifier attachment and whole clauses require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "translation-number",
+    "before": "عدد سلاسل الترجمة المخصصة هو:",
+    "after": "ⵓⵟⵟⵓⵏ ⵏ ⵉⴹⵕⵉⵚⵏ ⵏ ⵓⵙⵓⵖⵍ ⵉⵥⵍⵉⵏ:",
+    "reason": "2026-09-14: Replace Arabic custom translation deletion warning/count. Native Mastodon confirmations.delete.message supplies Are you sure you want frame: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Native MediaWiki undo-failure supplies this-change-cannot-be-undone clause; remove only its conflict reason, preserving absolute no-undo meaning here; pageinfo-watchers attests Count uttun: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Pinned non-fuzzy Dialect attests Translation usughl and Text adhrich: https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po . Preserve Delete THIS custom string, confirmation question, irreversible warning and trailing count colon. String-as-Text plural idhrichn is derived, not independently attested here. LOW CONFIDENCE assembled confirmation, text plural, custom modifier attachment and whole clauses require fluent review."
   }
 ]
