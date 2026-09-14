@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,571 corrected, 466 restored pre-pull values awaiting
-validation, 3,736 reviewed and retained, and 308 pending review or repair.
+findings: 15,571 corrected, 438 restored pre-pull values awaiting
+validation, 3,764 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,173 exact before/after values,
 Global completeness verification also identifies Veps `server` (currently
 English-identical “Server”) for terminology review; it is not accepted yet.
@@ -642,7 +642,20 @@ Exact regression checks preserve placeholders and protect newer translations.
 Borrowed server terminology and the standalone English-identical label still
 need review; broader translation repairs and browser verification remain open.
 
-This release fixes the following translations:
+This release improves the following verification:
+
+**Language picker tests** - Shared flag helper coverage.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0397fc89b">Check flags through the actual picker helper</a>. Thanks to xet7.</summary>
+
+The registry test now exercises the shared module instead of reading a map
+that moved out of the user header. All loaded locales, constructed globe
+fallbacks and Veps/Venetian overrides pass. Unknown tags retain the globe.
+
+</details>
+
+and fixes the following translations:
 
 **Translations** - Veps server-error terminology.
 
@@ -654,6 +667,15 @@ This release fixes the following translations:
 Replaced Finnish prose with Veps error terminology. Exact regression and
 correction checks pass. Borrowed server terminology remains low confidence;
 standalone Server and wider translation validation still require review.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/685b50fe1">Validate Basque reminder and notification wording</a>. Thanks to xet7.</summary>
+
+Retained 28 correct reminders, irreversible deletion warnings and notification
+labels. Deadline states, negation and placeholders remain distinct and intact.
+Review checks pass; remaining translation findings stay open.
 
 </details>
 

@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,571 |
-| Restored pre-pull; awaiting validation | 466 |
-| Reviewed; retained unchanged | 3,736 |
+| Restored pre-pull; awaiting validation | 438 |
+| Reviewed; retained unchanged | 3,764 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -21,16 +21,17 @@ terminology remains low confidence; standalone English-identical `Server`
 still needs review and fails the global completeness gate.
 Full node regression run: 1,043 suites, nine failures; translation-related
 failures require inspection alongside the remaining language work.
-All **18,174** correction and **3,736** review records pass.
+All **18,174** correction and **3,764** review records pass.
 Shared Spanish `r-is` and composed trigger grammar remain unresolved.
 Attachment/member rule participles still need context-specific agreement.
 Three Esperanto restored findings remain: lime color and two Complete labels.
 Broader language and browser verification remain open; nothing pushed.
-Latest unchanged review: **2026-09-14**, commit `ffde8e84e` — retained
-17 Basque rule action and date-field labels. Shared `r-is` still contains
-Spanish `es`; repair requires coordinated Basque trigger phrase composition.
-Compound trigger phrases and relational top/bottom wording remain open.
-Basque free wording and nine Galician restored findings remain context-dependent.
+Latest unchanged review: **2026-09-14**, commit `685b50fe1` — retained
+28 Basque reminders, deletion warnings, notification and account labels.
+Language flag gate now exercises the shared picker helper (`0397fc89b`)
+and passes all registry entries. Veps completeness failures remain unresolved.
+Shared Spanish `r-is`, compound trigger grammar and free wording remain open.
+Nine Galician restored findings still need contextual review.
 Galician export free wording remains open pending context.
 Galician Complete and migration-complete wording remain open pending context.
 Card-show-lists context is verified against its settings row and toggle.

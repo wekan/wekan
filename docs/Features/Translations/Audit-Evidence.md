@@ -22486,3 +22486,11 @@ terminology remains low confidence, and standalone `Server` is not accepted.
 Exact regression and all 18,174 correction records pass. Global completeness
 gate failure remains recorded. Full node run finished: 1,043 suites, nine
 failures; log is `.tools/tmp/upcoming-node-suites.txt`.
+
+**2026-09-14 — Basque reminders and flag verification.**
+
+Retained 28 reminders, no-undo deletion warnings, notifications/read states,
+rename permissions and account labels in `685b50fe1`; 3,764 reviews pass.
+Updated stale flag gate in `0397fc89b` to exercise the shared picker helper
+for every loaded locale, constructed globe fallback and Veps/Venetian overrides.
+Its six checks pass; two Veps Server completeness failures remain unresolved.
