@@ -29,3 +29,11 @@ test('Veps title and page nouns replace Finnish and retain existing native title
     assert.doesNotMatch(data[key], /otsikko|sivu/i);
   }
 });
+
+test('Veps card and list More popup titles use the same native wording', () => {
+  const data = JSON.parse(fs.readFileSync('imports/i18n/data/ve-PP.i18n.json', 'utf8'));
+  for (const key of ['cardMorePopup-title', 'listMorePopup-title']) {
+    assert.equal(data[key], 'Enamba');
+    assert.doesNotMatch(data[key], /lisää|\.\.\./i);
+  }
+});

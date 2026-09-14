@@ -131724,5 +131724,19 @@
     "before": "Sivu",
     "after": "Lehtpol'",
     "reason": "2026-09-14: Replace Finnish with native Veps terminology: editpage and deletepage attest the standalone page noun. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. This does not validate longer phrases or live browser rendering."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cardMorePopup-title",
+    "before": "Lisää",
+    "after": "Enamba",
+    "reason": "2026-09-14: Replace Finnish Lisää with Veps Enamba for More. Native MediaWiki moredotdotdot = Enamba... attests the word; omit its ellipsis because these WeKan popup titles have none in English. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Longer instructions and browser rendering remain under review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "listMorePopup-title",
+    "before": "Lisää",
+    "after": "Enamba",
+    "reason": "2026-09-14: Replace Finnish Lisää with Veps Enamba for More. Native MediaWiki moredotdotdot = Enamba... attests the word; omit its ellipsis because these WeKan popup titles have none in English. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Longer instructions and browser rendering remain under review."
   }
 ]
