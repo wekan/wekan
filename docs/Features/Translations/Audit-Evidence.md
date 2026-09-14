@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight organization/team search — 2026-09-14
+
+Commit `e0f16c497` repairs two original French descriptions. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) redirect-summary supports Given component. Local Organization/Team vocabulary reused; reuse is not independent whole-language validation. Preserve exact source query metasyntax, display-name/short-name pipe alternatives and emphasized name parameter. Cards belong to a BOARD assigned TO organization/team; do not reverse assignment or describe direct card assignment. Relative feminine passive, Given-to-Assigned adaptation and whole clause remain LOW CONFIDENCE. 360 original findings remain pending, including 225 Tamazight; all 18,040 mechanical correction checks pass. Restored, unflagged and earlier uncertain wording remain in scope. Browser verification and remote uploads were not performed.
+
 ## Tamazight assignee and user search — 2026-09-14
 
 Commit `129fa829e` repairs two original French instructions. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) userlogin-yourname directly supplies Username. Reuse existing member operator relative clause and local Assigned Person Given Card paraphrase; reuse alone is not independent full-language validation. Preserve exact operator tokens, colon/code ticks, repeated angle-bracket parameter and emphasis. Assignee operator means assignee only; user operator means MEMBER OR ASSIGNEE. Role paraphrase and whole grammar remain LOW CONFIDENCE. 362 original findings remain pending, including 227 Tamazight; all 18,038 mechanical correction checks pass. Restored, unflagged and earlier uncertain wording remain in scope. Browser verification and remote uploads were not performed.
