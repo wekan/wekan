@@ -738,6 +738,15 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9024c6cf8">Repair Tamazight layout-change label</a>. Thanks to xet7.</summary>
+
+The card layout action uses the native edit verb instead of French.
+Focused checks preserve the existing edit label. The dated audit also
+records missing cause/timing evidence in native account-warning references.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/65a0f76ab">Repair Breton string-template label</a>. Thanks to xet7.</summary>
 
 The custom string formatter uses Breton software nouns instead of French.

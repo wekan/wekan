@@ -55,3 +55,26 @@ can use the independently attested user/click components, but activation
 versus attempting, negation and full clause grammar must be checked separately.
 No pending finding or invalidated Tuareg record is resolved by component-word
 evidence. All 173 original Tamazight findings remain pending.
+
+## Action-label repair and lockout comparison, 2026-09-14
+
+Local commit `9024c6cf8` changes French `change` = Modifier to `ⵙⵏⴼⵍ`.
+Native MediaWiki uses this imperative in edit and skin-view-edit. Existing
+WeKan edit already has that value and is preserved. The card-details control
+changes the custom-field layout; it is not an activation toggle. Focused
+exact-value, French-negative and edit-consistency checks pass. This was an
+unflagged repair; all 173 original pending findings remain open.
+
+The same native source's actionthrottledtext contains only a polite request
+to retry after a few minutes. Its English counterpart also explains an
+anti-abuse rate limit, which the native value omits. It therefore attests
+retry wording, not a complete equivalent of WeKan account-locked. WeKan
+requires temporary account lockout, failed-login cause and retry later;
+copying the native message would omit the cause and invent fixed timing.
+User-blocked wording likewise does not establish temporary login lockout.
+The next repair must retain all those meanings, not accept a source key
+merely because its name concerns throttling.
+
+Sources:
+- https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+- https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/en.json

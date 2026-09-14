@@ -30,7 +30,7 @@ cross-checks calendar, user and click components in native Moroccan sources.
 Full phrases, warnings and invalidated Tuareg records remain open; no pending
 finding was accepted from component evidence.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,657** exact before/after values, including unflagged repairs.
+contain **18,658** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
@@ -49,13 +49,13 @@ remains open. Latin Inuktitut spelling is valid; original script warnings
 require vocabulary/context review rather than automatic replacement.
 Current pending/restored counts are 288/11.
 
-Latest translation fix: **2026-09-14**, local commit `65a0f76ab` —
-Breton string-template field replaces French with Patrom chadenn. Native
-software sources attest the component nouns; the full compound is adapted.
-All 18,657 corrections and focused checks pass. Broader native phrase and
-browser review remain open. Counts remain 288 pending and 11 restored.
-Earlier currency repairs are in `f9e3111b0`, zoom in `0aeac5744`, custom
-fields in `3539edd8b` and actions in `c8a14d2d0`.
+Latest translation fix: **2026-09-14**, local commit `9024c6cf8` —
+Tamazight layout-change action replaces French with the native edit verb.
+Existing correct edit wording is preserved. All 18,658 corrections and
+focused checks pass. [Tamazight review](Tamazight-Review.md) also records
+why native throttling prose cannot replace the full account-lock warning.
+Counts remain 288 pending and 11 restored; broader language/browser review
+is open. Earlier Breton string-template repair is in `65a0f76ab`.
 Latest unchanged review: **2026-09-14**, local commit `5bf97e219` —
 Basque S3 bucket-a retains a technical loan used in native ZIUR storage
 specifications. Focused field-context checks and all 4,170 retained reviews

@@ -24084,3 +24084,13 @@ text-field distinction checks pass, as do all 18,657 correction records,
 4,170 unchanged reviews and completeness checks for 234 locales. Browser and
 broader native compound review remain open. Original findings remain at
 288 pending and 11 restored awaiting validation; this repair was unflagged.
+
+## Tamazight layout-change action, 2026-09-14
+
+Local commit `9024c6cf8` repairs unflagged French change = Modifier using
+native Moroccan edit imperative `ⵙⵏⴼⵍ`. Existing edit remains unchanged.
+[Tamazight review](Tamazight-Review.md) records primary software evidence,
+actual layout-control context and the incomplete native throttling warning.
+All 18,658 correction records, 4,170 retained reviews, focused locale checks
+and completeness for 234 locales pass. Original counts remain 288 pending
+and 11 restored; browser and broader native phrase review remain open.
