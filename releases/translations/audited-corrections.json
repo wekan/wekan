@@ -123723,5 +123723,19 @@
     "before": "Supprimer l'avatar ?",
     "after": "ⴽⴽⵙ ⵜⴰⵡⵍⴰⴼⵜ ⵏ ⵉⴼⵔⵙ?",
     "reason": "Replace Arabic/French avatar popup title while preserving change versus delete question. Reuse local change-avatar and delete-avatar-confirm profile picture wording without replacing protected correct-language values. Primary native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json edit snfl and delete kks supply action vocabulary. LOW CONFIDENCE full avatar/profile-picture noun phrase and local ifrs profile sense require fluent review; local avatar vocabulary is usage consistency, not independent linguistic proof. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "upload-avatar",
+    "before": "رفع صورة شخصية",
+    "after": "ⵙⴽⵜⵔ ⵜⴰⵡⵍⴰⴼⵜ ⵏ ⵉⴼⵔⵙ",
+    "reason": "Replace Arabic avatar upload label, preserving imperative upload versus completed uploaded state. Primary native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json uploadbtn sktr upload, logentry-upload-upload isktr/tsktr past active and changepassword-success ttwasnfl passive supply action/morphology components. Reuse local change-avatar profile-picture terminology. LOW CONFIDENCE derived feminine passive tt wasktr, local ifrs profile sense and full avatar upload phrases require fluent review. Do not render both keys as an upload command. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "uploaded-avatar",
+    "before": "تم رفع الصورة الشخصية",
+    "after": "ⵜⵜⵡⴰⵙⴽⵜⵔ ⵜⴰⵡⵍⴰⴼⵜ ⵏ ⵉⴼⵔⵙ",
+    "reason": "Replace Arabic avatar upload label, preserving imperative upload versus completed uploaded state. Primary native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json uploadbtn sktr upload, logentry-upload-upload isktr/tsktr past active and changepassword-success ttwasnfl passive supply action/morphology components. Reuse local change-avatar profile-picture terminology. LOW CONFIDENCE derived feminine passive tt wasktr, local ifrs profile sense and full avatar upload phrases require fluent review. Do not render both keys as an upload command. Reviewed 2026-09-14."
   }
 ]
