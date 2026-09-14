@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,411 |
+| Corrected | 15,414 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 433 |
+| Pending review or repair | 430 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,879** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,885** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `e5625d884` — replaced two Arabic autocomplete shortcut labels, preserving automatic completion and emoji/member targets. Derived completion compounds and reused member terminology remain **low confidence**. All **17,879** correction checks pass. **433** originals remain pending across **17** locales, including **298** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `abaa87ed9` — replaced six Arabic/French sidebar and dialog controls, including three unflagged values. Open/Close and Show/Hide actions and filter/search/board scopes are preserved. Panel/dialog paraphrases and full compounds remain **low confidence**. All **17,885** correction checks pass. **430** originals remain pending across **17** locales, including **295** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Logo provenance review (2026-09-14, `89f36d41f`):** applied the inspected dictionary’s cross-variety preface to two earlier logo URL records. Separate native caption usage remains; full labels stay low confidence. No values/counts changed. [Evidence](Audit-Evidence.md) records the authority limits.
 
