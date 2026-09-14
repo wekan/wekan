@@ -22510,3 +22510,10 @@ legal acceptance, copied confirmation and checklist moves. Actual layouts.jade
 combines acceptance and legal-notice fragments. Positive-integer requirements,
 negation, sort directions and tokens remain intact. All 3,866 reviews pass.
 Borrowed ticket spelling and previously recorded unresolved grammar stay open.
+
+**2026-09-14 — Basque storage and intervals (`241fc457a`).**
+
+Retained 35 inspected password, attachment-path, scheduled confirmation,
+migration/status, S3 access/connection and duration/recurrence labels. Exact
+intervals and failure/success distinctions remain intact; Cron retains the tool
+name. Complete, Idle and bucket wording excluded. All 3,901 reviews pass.

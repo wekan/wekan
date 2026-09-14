@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,571 |
-| Restored pre-pull; awaiting validation | 336 |
-| Reviewed; retained unchanged | 3,866 |
+| Restored pre-pull; awaiting validation | 301 |
+| Reviewed; retained unchanged | 3,901 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -21,15 +21,14 @@ terminology remains low confidence; standalone English-identical `Server`
 still needs review and fails the global completeness gate.
 Full node regression run: 1,043 suites, nine failures; translation-related
 failures require inspection alongside the remaining language work.
-All **18,174** correction and **3,866** review records pass.
+All **18,174** correction and **3,901** review records pass.
 Shared Spanish `r-is` and composed trigger grammar remain unresolved.
 Attachment/member rule participles still need context-specific agreement.
 Three Esperanto restored findings remain: lime color and two Complete labels.
 Broader language and browser verification remain open; nothing pushed.
-Latest unchanged review: **2026-09-14**, commit `fbf809882` — retained
-41 Basque search validation, sorting, report/status and legal/checklist labels.
-Positive-integer validation and newest/oldest directions remain intact.
-Ticket-number borrowed spelling still needs a reference check.
+Latest unchanged review: **2026-09-14**, commit `241fc457a` — retained
+35 Basque storage/connection, migration status and scheduled interval labels.
+Complete, Idle and S3 bucket wording remain open pending context or reference.
 Shared Spanish `r-is`, compound trigger grammar and free wording remain open.
 Nine Galician restored findings still need contextual review.
 Galician export free wording remains open pending context.
