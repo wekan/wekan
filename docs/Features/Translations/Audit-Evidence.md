@@ -23618,3 +23618,21 @@ review despite correcting the two flagged writing-state findings.
 Exact ledger, distinct-positive/negative state labels and completeness checks
 pass. No live rules popup or browser test was run. Pending 291, restored 17;
 Inuktitut original pending queue is now 42.
+
+
+Breton repository labels — 2026-09-14, local commit `7c2e8f891`.
+
+repository-name, no-repositories and create-repository replace French prose
+with Anv ar mirlec’h, N’eus bet kavet mirlec’h ebet and Krouiñ ur mirlec’h.
+[Synaptic's native Breton source translation](https://sources.debian.org/src/synaptic/0.84.6/po/br.po/)
+attests mirlec'h / mirlec'hioù specifically for software repositories,
+including the repository dialog and APT source-line instructions. This is
+software evidence, unlike a water-reservoir definition alone. Ofis TermBret
+computing glossary supports create as krouiñ; local native wording supports
+name and not-found construction. Complete adapted phrases are not exact
+attestations from Synaptic and remain in full native/browser review.
+No current application call sites for these three keys were found by searching
+client, imports and tools; dormant strings remain in audit scope. Existing
+upload-repository already uses the same repository noun. Exact corrections,
+positive/negative distinct label checks and completeness pass. Original pending
+and restored counts remain 291/17; the correction ledger now has 18,596 entries.

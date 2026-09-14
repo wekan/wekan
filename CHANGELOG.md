@@ -717,6 +717,16 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7c2e8f891">Repair Breton repository labels</a>. Thanks to xet7.</summary>
+
+Repository name, creation and not-found labels replace French wording using
+attested Breton software terminology. Exact ledgers, positive/negative label
+checks and completeness pass. The dated audit preserves remaining complete
+phrase and browser validation work; dormant strings stay in translation scope.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8f96ec2bc">Repair Inuktitut rule state labels</a>. Thanks to xet7.</summary>
 
 Rule enabled/disabled labels use distinct syllabic present-state wording.

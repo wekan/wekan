@@ -24,16 +24,16 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,593** exact before/after values, including unflagged repairs.
+contain **18,596** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `8f96ec2bc` —
-Inuktitut rule enabled/disabled labels use syllabic present-state wording.
-Native software-use evidence supports the negative form; this adapted UI pair
-is low confidence pending native and browser review. All **18,593** corrections,
+Latest translation fix: **2026-09-14**, local commit `7c2e8f891` —
+three Breton repository labels replace French name/create/not-found wording.
+Native Synaptic software terminology supports the repository noun; full
+adapted phrases and browser review remain open. All **18,596** corrections,
 **4,163** unchanged reviews, focused locale and completeness checks pass.
-Two flagged findings are repaired; 291 pending and 17 restored remain open.
+These unflagged repairs leave 291 pending and 17 restored findings unchanged.
 Latest unchanged review: **2026-09-14**, Thai r-is —
 คือ retained after removing its incorrect insertion before action predicates.
 Danish Dage gammel remains validated in `824dd005e` with native age-construction
