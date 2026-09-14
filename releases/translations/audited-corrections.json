@@ -124955,5 +124955,19 @@
     "before": "Afficher la check-list dans la minicarte",
     "after": "ⵙⴽⵏ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ ⵅⴼ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵣⵢⴰⵏⵜ",
     "reason": "2026-09-14: Replace wrong-language Show Checklist at Minicard preserving display action, checklist and minicard scope rather than card count or main-card visibility. Native MediaWiki view supplies skn Show; reuse reviewed List of Verification and Small Card paraphrases. LOW CONFIDENCE verification noun ussidd, derived small-card adjective/bound card and full checklist/minicard wording require fluent Standard Moroccan review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-head-link-tags",
+    "before": "Balises lien personnalisées (HTML)",
+    "after": "ⵉⵔⵛⵓⵎⵏ ⵉⵥⵍⵉⵏ ⵏ link (HTML)",
+    "reason": "2026-09-14: Replace French custom HTML tag label preserving plural tags, Custom and literal HTML, link/meta element identifiers. Native MediaWiki tag-list-wrapper supplies irchumn Tags, referring to change tags rather than markup; redirect-summary supplies izlin Specified, adapted to Custom. LOW CONFIDENCE change-tag-to-HTML-element and Specified-to-Custom semantic extensions and full phrase require fluent Standard Moroccan review. Literal link/meta identify HTML element names rather than untranslated prose. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-head-meta-tags",
+    "before": "Balises meta personnalisées (HTML)",
+    "after": "ⵉⵔⵛⵓⵎⵏ ⵉⵥⵍⵉⵏ ⵏ meta (HTML)",
+    "reason": "2026-09-14: Replace French custom HTML tag label preserving plural tags, Custom and literal HTML, link/meta element identifiers. Native MediaWiki tag-list-wrapper supplies irchumn Tags, referring to change tags rather than markup; redirect-summary supplies izlin Specified, adapted to Custom. LOW CONFIDENCE change-tag-to-HTML-element and Specified-to-Custom semantic extensions and full phrase require fluent Standard Moroccan review. Literal link/meta identify HTML element names rather than untranslated prose. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
