@@ -4,9 +4,9 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,586 |
-| Restored pre-pull; awaiting validation | 50 |
-| Reviewed; retained unchanged | 4,140 |
+| Corrected | 15,587 |
+| Restored pre-pull; awaiting validation | 40 |
+| Reviewed; retained unchanged | 4,149 |
 | Pending review or repair | 305 |
 | Total tracked | 20,081 |
 
@@ -17,27 +17,24 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,197** exact before/after values, including unflagged repairs.
+contain **18,198** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `c4e6aa1c0` —
-Valencian My Attachments uses masculine plural Els meus adjunts instead of
-mismatched Les meves Adjunts. This unflagged agreement repair leaves original
-queue counts unchanged. All **18,197** corrections pass. Regional possessive
-forms alone do not establish wrong-language text; the filter shortcut remains
-under regional review. Shared Basque grammar and provisional calendar phrasing
-remain open.
+Latest translation fix: **2026-09-14**, local commit `3b4941c34` —
+Valencian error-count label now says Errors rather than error messages.
+Historical stats code establishes count semantics. Nine completion labels
+were retained against percentage/finished-badge contexts. All **18,198**
+corrections and **4,149** reviews pass. No current consumers were found for
+these historical labels; live browser and broader language review remain open.
 Veps terminology, shared trigger grammar and browser validation remain open.
 Attachment/member rule participles still need context-specific agreement.
-Two Esperanto restored findings remain: Complete labels.
+Esperanto restored completion labels were validated in `3b4941c34`.
 Broader language and browser verification remain open; nothing pushed.
-Latest unchanged review: **2026-09-14**, commit `99a1e4835` — retained
-Danish, Basque and Galician free labels. Historical export code pairs these
-with available disk-space MB and required MB, establishing the intended sense.
-No current consumer was found. Eighteen restored Basque values and broader
-language/browser verification remain open.
-Galician Complete and migration-complete wording remain open pending context.
+Latest unchanged review: **2026-09-14**, commit `3b4941c34` — nine
+Danish/Esperanto/Basque/Galician/Valencian completion labels retained against
+historical templates. Esperanto restored queue is resolved; wider fluency
+review remains open. Shared triggers and remaining technical wording are open.
 Card-show-lists context is verified against its settings row and toggle.
 
 
@@ -47,7 +44,7 @@ placeholders and JSON/calendar/search formatting. All 361 originally flagged
 Klingon findings and the broader 829 German-identical values were repaired;
 the cron label retains the actual tool name Cron. Danish restored review
 validated 611 values: 606 retained unchanged and five meanings repaired.
-Three Danish context-dependent labels remain: Complete, Schedule and Days Old.
+Two Danish context-dependent labels remain: Schedule and Days Old.
 Esperanto lime-color wording was repaired in `d454a58ff`.
 Reviewed subtask actions/settings retain correct subordinate-task compounds.
 

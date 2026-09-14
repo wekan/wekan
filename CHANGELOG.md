@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,586 corrected, 50 restored pre-pull values awaiting
-validation, 4,140 reviewed and retained, and 305 pending review or repair.
-The correction inventory records 18,197 exact before/after values,
+findings: 15,587 corrected, 40 restored pre-pull values awaiting
+validation, 4,149 reviewed and retained, and 305 pending review or repair.
+The correction inventory records 18,198 exact before/after values,
 including repairs outside the original findings.
 Global completeness verification also identifies Veps `server` (currently
 English-identical “Server”) for terminology review; it is not accepted yet.
@@ -109,12 +109,9 @@ performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have
 resumed.
-Latest translation fix is c4e6aa1c0 (2026-09-14): Valencian My Attachments
-uses matching masculine plural modifiers. Regional possessive wording,
-shared trigger grammar and provisional calendar phrasing remain under review.
-Latest unchanged-value review is 99a1e4835 (2026-09-14): Danish, Basque
-and Galician free labels retained against historical disk-capacity export
-code. Eighteen restored Basque values and wider verification remain open.
+Latest translation fix/review is 3b4941c34 (2026-09-14): Valencian error
+count corrected and nine completion labels retained against historical
+percentage and finished-state badge contexts. Broader verification stays open.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
 Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
 retaining 156 correct Danish storage, migration and monitoring/account labels.
@@ -879,6 +876,16 @@ does not verify an unobserved workflow. Wider translation review remains open.
 Retained Danish, Basque and Galician free labels against historical export
 code displaying available and required MB. Exact review checks pass. No current
 consumer was found; broader language/browser verification remains open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3b4941c34">Correct error-count meaning and validate completion labels</a>. Thanks to xet7.</summary>
+
+Valencian Errors labels the historical operation error count. Nine completion
+labels retain correct percentage/finished-state meanings. Historical templates
+establish context; no current consumers found. Exact correction/review checks
+pass, while wider language and browser verification remains open.
 
 </details>
 

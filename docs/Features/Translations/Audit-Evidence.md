@@ -22706,3 +22706,10 @@ code diffs 7de1b04eb and 5c5ed102c pair the translated label with mbFree MB
 and mbNeeded, proving available disk capacity rather than no-cost licensing.
 No current consumer found. All 4,140 review records pass; 50 restored
 values and 305 original pending findings remain.
+
+Dated repair/review, 2026-09-14, local commit `3b4941c34`: Valencian
+errors changes Missatges d’error to Errors, following operationStats.error
+count in historical a440d44ea. Nine completion values retained against
+migrationProgress% complete (a440d44ea) and finished migration badges
+(cbb1cd78d). No current consumers found. All 18,198 corrections and
+4,149 reviews pass; 40 restored values and 305 original findings remain.
