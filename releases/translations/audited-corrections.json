@@ -128196,5 +128196,124 @@
     "before": "Modifier la notification",
     "after": "Kemmañ ar gemennadenn",
     "reason": "Replace French avatar/profile/notification prose using existing skeudennig, enkargañ, dre ziouer and kemennadenn; native MediaWiki supports profil noun in software context. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "add-attachment",
+    "before": "Ajouter une pièce jointe",
+    "after": "Ouzhpennañ ur stagadenn",
+    "reason": "Replace French-seeded add/item/user controls with Breton, reusing existing Ouzhpennañ, attachment-settings stagadennoù, subtask-settings is-trevelloù, month unit miz and implijer terminology. Full article-mutation/phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "attachment",
+    "before": "Pièce jointe",
+    "after": "Stagadenn",
+    "reason": "Replace French-seeded add/item/user controls with Breton, reusing existing Ouzhpennañ, attachment-settings stagadennoù, subtask-settings is-trevelloù, month unit miz and implijer terminology. Full article-mutation/phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "attachments",
+    "before": "Pièces jointes",
+    "after": "Stagadennoù",
+    "reason": "Replace French-seeded add/item/user controls with Breton, reusing existing Ouzhpennañ, attachment-settings stagadennoù, subtask-settings is-trevelloù, month unit miz and implijer terminology. Full article-mutation/phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "add-board",
+    "before": "Ajouter un tableau",
+    "after": "Ouzhpennañ un daolenn",
+    "reason": "Replace French-seeded add/item/user controls with Breton, reusing existing Ouzhpennañ, attachment-settings stagadennoù, subtask-settings is-trevelloù, month unit miz and implijer terminology. Full article-mutation/phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "add-template",
+    "before": "Ajouter un modèle",
+    "after": "Ouzhpennañ ur patrom",
+    "reason": "Replace French-seeded add/item/user controls with Breton, reusing existing Ouzhpennañ, attachment-settings stagadennoù, subtask-settings is-trevelloù, month unit miz and implijer terminology. Full article-mutation/phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "add-card",
+    "before": "Ajouter une carte",
+    "after": "Ouzhpennañ ur gartenn",
+    "reason": "Replace French-seeded add/item/user controls with Breton, reusing existing Ouzhpennañ, attachment-settings stagadennoù, subtask-settings is-trevelloù, month unit miz and implijer terminology. Full article-mutation/phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "add-swimlane",
+    "before": "Ajouter un couloir",
+    "after": "Ouzhpennañ ur vandenn",
+    "reason": "Replace French-seeded add/item/user controls with Breton, reusing existing Ouzhpennañ, attachment-settings stagadennoù, subtask-settings is-trevelloù, month unit miz and implijer terminology. Full article-mutation/phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "add-subtask",
+    "before": "Ajouter une sous-tâche",
+    "after": "Ouzhpennañ un is-trevell",
+    "reason": "Replace French-seeded add/item/user controls with Breton, reusing existing Ouzhpennañ, attachment-settings stagadennoù, subtask-settings is-trevelloù, month unit miz and implijer terminology. Full article-mutation/phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "subtasks",
+    "before": "Sous-tâches",
+    "after": "Is-trevelloù",
+    "reason": "Replace French-seeded add/item/user controls with Breton, reusing existing Ouzhpennañ, attachment-settings stagadennoù, subtask-settings is-trevelloù, month unit miz and implijer terminology. Full article-mutation/phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "add-checklist",
+    "before": "Ajouter une checklist",
+    "after": "Ouzhpennañ ur roll-gwiriañ",
+    "reason": "Replace French-seeded add/item/user controls with Breton, reusing existing Ouzhpennañ, attachment-settings stagadennoù, subtask-settings is-trevelloù, month unit miz and implijer terminology. Full article-mutation/phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "add-label",
+    "before": "Ajouter une étiquette",
+    "after": "Ouzhpennañ un dikedenn",
+    "reason": "Replace French-seeded add/item/user controls with Breton, reusing existing Ouzhpennañ, attachment-settings stagadennoù, subtask-settings is-trevelloù, month unit miz and implijer terminology. Full article-mutation/phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "change",
+    "before": "Modifier",
+    "after": "Kemmañ",
+    "reason": "Replace French-seeded add/item/user controls with Breton, reusing existing Ouzhpennañ, attachment-settings stagadennoù, subtask-settings is-trevelloù, month unit miz and implijer terminology. Full article-mutation/phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "invalid-user",
+    "before": "Utilisateur invalide",
+    "after": "Implijer direizh",
+    "reason": "Replace French-seeded add/item/user controls with Breton, reusing existing Ouzhpennañ, attachment-settings stagadennoù, subtask-settings is-trevelloù, month unit miz and implijer terminology. Full article-mutation/phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "month",
+    "before": "Moi",
+    "after": "Miz",
+    "reason": "Replace French-seeded add/item/user controls with Breton, reusing existing Ouzhpennañ, attachment-settings stagadennoù, subtask-settings is-trevelloù, month unit miz and implijer terminology. Full article-mutation/phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "admin-people-filter-all",
+    "before": "Tous les utilisateurs",
+    "after": "An holl implijerien",
+    "reason": "Replace French-seeded add/item/user controls with Breton, reusing existing Ouzhpennañ, attachment-settings stagadennoù, subtask-settings is-trevelloù, month unit miz and implijer terminology. Full article-mutation/phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "dueCardsViewChange-choice-all",
+    "before": "Tous les utilisateurs",
+    "after": "An holl implijerien",
+    "reason": "Replace French-seeded add/item/user controls with Breton, reusing existing Ouzhpennañ, attachment-settings stagadennoù, subtask-settings is-trevelloù, month unit miz and implijer terminology. Full article-mutation/phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "dueCardsViewChange-choice-me",
+    "before": "Moi",
+    "after": "Me",
+    "reason": "Replace French-seeded add/item/user controls with Breton, reusing existing Ouzhpennañ, attachment-settings stagadennoù, subtask-settings is-trevelloù, month unit miz and implijer terminology. Full article-mutation/phrase/browser review remains open."
   }
 ]
