@@ -105,6 +105,9 @@ changes are implemented in local commit 02383521a; translation repairs have resu
 Latest translation fix is bd511b086 (2026-09-14), repairing Arabic Hide finished
 checklist while preserving the finished restriction. Derived relative grammar
 and full phrase remain low confidence for fluent review.
+Checklist completion evidence follow-up 9de9f2c15 records native legal
+supplementation without equating it to past transitive workflow completion.
+Values/counts unchanged; low-confidence wording still needs validation.
 Start spelling follow-up 2219d5358 distinguishes plain Begin/Start from
 emphatic Share/Divide in indexed IRCAM entries; direct PDF and full command
 verification remain open. No values or counts changed.
@@ -2298,6 +2301,15 @@ pending, including 317 Tamazight.
 Repair Arabic control preserving Hide and finished-checklist restriction.
 Derived relative grammar and full phrase remain low confidence for fluent
 review. All 17,850 correction checks pass; 451 original findings remain pending.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9de9f2c15">Clarify Tamazight checklist completion evidence</a>. Thanks to xet7.</summary>
+
+Record native legal supplementation usages without treating them as proof
+of past transitive checklist completion. Preserve low-confidence status and
+active-uncompletion distinction. No values/counts changed; correction checks pass.
 
 </details>
 
