@@ -129,3 +129,18 @@ for (const key of ['accounts-lockout-period', 'accounts-lockout-failure-window']
   assert.notStrictEqual(translated['accounts-lockout-remaining-time'], translated[key]);
 }
 console.log('Tamazight remaining time stays distinct from lockout period and failure window');
+
+assert.strictEqual(english['close-board-pop'], 'You can restore the board from “Archive” on the All Boards page.');
+for (const file of fs.readdirSync(path.join(ROOT, 'imports/i18n/data'))) {
+  if (/^en-.*\.i18n\.json$/.test(file)) {
+    assert.strictEqual(read(file.replace('.i18n.json', ''))['close-board-pop'], english['close-board-pop']);
+  }
+}
+const archiveGuidance = translated['close-board-pop'];
+assert.match(archiveGuidance, /ⵜⵙⵙⵓⴽⵏⴷ ⵜⴰⴼⵍⵡⵉⵜ/);
+assert.ok(archiveGuidance.includes(`«${translated.archives}»`));
+assert.ok(archiveGuidance.includes(`«${translated['all-boards']}»`));
+assert.doesNotMatch(archiveGuidance, /Vous|tableau|bouton|entête|ⵜⴰⵢⵢⴰⵡⵜ|[\u0600-\u06ff]/u);
+const boardListSource = fs.readFileSync(path.join(ROOT, 'client/components/boards/boardsList.js'), 'utf8');
+assert.match(boardListSource, /archive: { icon: 'fa-archive', labelKey: 'archives'/);
+console.log('Archive guidance names the current All Boards archive location in English and Tamazight');

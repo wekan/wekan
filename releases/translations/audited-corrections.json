@@ -131969,5 +131969,61 @@
     "before": "Temps restant",
     "after": "ⴰⴽⵓⴷ ⵍⵍⵉ ⵉⵇⵇⵉⵎⵏ",
     "reason": "2026-09-14: Replace French remaining-time label with full Tamazight draft, time that remains. IRCAM dictionary page 79 entry 1260 akud/time, page 359 entry 6809 qqim/stay-remain. Keep remaining duration distinct from configured lockout period and failure window. Low confidence: derived relative verb form and countdown collocation need native review."
+  },
+  {
+    "locale": "en-BR",
+    "key": "close-board-pop",
+    "before": "You will be able to restore the board by clicking the “Archive” button from the home header.",
+    "after": "You can restore the board from “Archive” on the All Boards page.",
+    "reason": "2026-09-14: Correct outdated home-header Archive button guidance to active Archive section on All Boards page, verified in boardsList menuSections/render/click source. English variants updated; full French Tamazight prose replaced using native restore and existing UI place labels. Preserve source tokens. Low confidence for zgh: conjugated restore and full navigation phrase require native review. Other locale locations remain to audit."
+  },
+  {
+    "locale": "en-DE",
+    "key": "close-board-pop",
+    "before": "You will be able to restore the board by clicking the “Archive” button from the home header.",
+    "after": "You can restore the board from “Archive” on the All Boards page.",
+    "reason": "2026-09-14: Correct outdated home-header Archive button guidance to active Archive section on All Boards page, verified in boardsList menuSections/render/click source. English variants updated; full French Tamazight prose replaced using native restore and existing UI place labels. Preserve source tokens. Low confidence for zgh: conjugated restore and full navigation phrase require native review. Other locale locations remain to audit."
+  },
+  {
+    "locale": "en-GB",
+    "key": "close-board-pop",
+    "before": "You will be able to restore the board by clicking the “Archive” button from the home header.",
+    "after": "You can restore the board from “Archive” on the All Boards page.",
+    "reason": "2026-09-14: Correct outdated home-header Archive button guidance to active Archive section on All Boards page, verified in boardsList menuSections/render/click source. English variants updated; full French Tamazight prose replaced using native restore and existing UI place labels. Preserve source tokens. Low confidence for zgh: conjugated restore and full navigation phrase require native review. Other locale locations remain to audit."
+  },
+  {
+    "locale": "en-IT",
+    "key": "close-board-pop",
+    "before": "You will be able to restore the board by clicking the “Archive” button from the home header.",
+    "after": "You can restore the board from “Archive” on the All Boards page.",
+    "reason": "2026-09-14: Correct outdated home-header Archive button guidance to active Archive section on All Boards page, verified in boardsList menuSections/render/click source. English variants updated; full French Tamazight prose replaced using native restore and existing UI place labels. Preserve source tokens. Low confidence for zgh: conjugated restore and full navigation phrase require native review. Other locale locations remain to audit."
+  },
+  {
+    "locale": "en-MY",
+    "key": "close-board-pop",
+    "before": "You will be able to restore the board by clicking the “Archive” button from the home header.",
+    "after": "You can restore the board from “Archive” on the All Boards page.",
+    "reason": "2026-09-14: Correct outdated home-header Archive button guidance to active Archive section on All Boards page, verified in boardsList menuSections/render/click source. English variants updated; full French Tamazight prose replaced using native restore and existing UI place labels. Preserve source tokens. Low confidence for zgh: conjugated restore and full navigation phrase require native review. Other locale locations remain to audit."
+  },
+  {
+    "locale": "en-YS",
+    "key": "close-board-pop",
+    "before": "You will be able to restore the board by clicking the “Archive” button from the home header.",
+    "after": "You can restore the board from “Archive” on the All Boards page.",
+    "reason": "2026-09-14: Correct outdated home-header Archive button guidance to active Archive section on All Boards page, verified in boardsList menuSections/render/click source. English variants updated; full French Tamazight prose replaced using native restore and existing UI place labels. Preserve source tokens. Low confidence for zgh: conjugated restore and full navigation phrase require native review. Other locale locations remain to audit."
+  },
+  {
+    "locale": "en",
+    "key": "close-board-pop",
+    "before": "You will be able to restore the board by clicking the “Archive” button from the home header.",
+    "after": "You can restore the board from “Archive” on the All Boards page.",
+    "reason": "2026-09-14: Correct outdated home-header Archive button guidance to active Archive section on All Boards page, verified in boardsList menuSections/render/click source. English variants updated; full French Tamazight prose replaced using native restore and existing UI place labels. Preserve source tokens. Low confidence for zgh: conjugated restore and full navigation phrase require native review. Other locale locations remain to audit."
+  },
+  {
+    "locale": "zgh",
+    "key": "close-board-pop",
+    "before": "Vous pouvez restaurer le tableau en cliquant sur le bouton « Archives » depuis le menu en entête.",
+    "after": "ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵙⵙⵓⴽⵏⴷ ⵜⴰⴼⵍⵡⵉⵜ ⵙⴳ «ⴰⵔⵛⵉⴼ» ⴳ ⵜⴰⵙⵏⴰ «ⴰⴽⴽⵯ ⵜⵉⴼⵍⵡⵉⵏ».",
+    "reason": "2026-09-14: Correct outdated home-header Archive button guidance to active Archive section on All Boards page, verified in boardsList menuSections/render/click source. English variants updated; full French Tamazight prose replaced using native restore and existing UI place labels. Preserve source tokens. Low confidence for zgh: conjugated restore and full navigation phrase require native review. Other locale locations remain to audit."
   }
 ]
