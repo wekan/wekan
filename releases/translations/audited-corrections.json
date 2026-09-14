@@ -138437,5 +138437,12 @@
     "before": "Cette opération convertira d'abord les listes partagées en listes par couloir, puis supprimera les listes vides qui ont une liste en double avec le même titre contenant des cartes. Seules les listes vides vraiment redondantes seront supprimées. Continuer ?",
     "after": "1. ⵔⴰⴷ ⵉⵙⵏⴼⵍ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵉⵙⵙⵓⵔⵏ ⵖⵔ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵏ ⴽⵓ ⴰⴱⵔⵉⴷ. 2. ⵔⴰⴷ ⵉⴽⴽⵙ ⵖⴰⵙ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵉⵜⵜⵓⵢⴰⵍⵙⵏ ⵓⵔ ⴳⵉⵙⵏⵜ ⵜⵍⵍⵉ ⵜⴰⴽⴰⵕⴹⴰ ⴷ ⵜⵍⵍⴰ ⵜⴰⵍⴳⴰⵎⵜ ⵢⴰⴹⵏ ⵙ ⵢⴰⵏ ⵢⵉⵣⵡⵍ ⵍⵍⵉ ⴳⵉⵙ ⵍⵍⴰⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ. ⵉⵙ ⵜⵅⵙⴷ ⴰⴷ ⵜⴹⴼⵔⴷ?",
     "reason": "2026-09-15: Replace French confirmation with ordered conversion then restricted deletion and continue question. Retain shared-list to per-swimlane transformation, only empty duplicates and same-title populated counterpart. IRCAM shared/common entry on p535 supports component; full inflections, conversion and restriction compounds remain low confidence. See Tamazight-Review.md."
+  },
+  {
+    "locale": "zgh",
+    "key": "unsaved-description",
+    "before": "لديك وصف غير محفوظ",
+    "after": "ⵖⵓⵔⴽ ⴰⴳⵍⴰⵎ ⵓⵔⵜⴰ ⵉⵜⵜⵡⴰⵃⴹⴰ",
+    "reason": "2026-09-15: replace unflagged Arabic warning with a Tamazight draft. IRCAM entry 486 attests description; native MediaWiki new-messages supplies possession and rcfilters-quickfilters-placeholder-title supplies not-yet-saved passive wording. Complete masculine clause adaptation remains low confidence."
   }
 ]

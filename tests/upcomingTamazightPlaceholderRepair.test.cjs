@@ -233,3 +233,9 @@ assert.match(emptyDuplicateConfirmation, /^1\. ⵔⴰⴷ ⵉⵙⵏⴼⵍ.*ⵖⵔ
 assert.match(emptyDuplicateConfirmation, /ⵓⵔ.*ⵜⴰⴽⴰⵕⴹⴰ ⴷ ⵜⵍⵍⴰ ⵜⴰⵍⴳⴰⵎⵜ ⵢⴰⴹⵏ.*ⵢⴰⵏ ⵢⵉⵣⵡⵍ.*ⵍⵍⴰⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ/);
 assert.match(emptyDuplicateConfirmation, /ⵉⵙ ⵜⵅⵙⴷ ⴰⴷ ⵜⴹⴼⵔⴷ\?$/);
 assert.doesNotMatch(emptyDuplicateConfirmation, /Cette|partagées|Continuer/);
+
+// An unsaved description warning must retain possession and negative save status.
+assert.equal(translated['unsaved-description'], 'ⵖⵓⵔⴽ ⴰⴳⵍⴰⵎ ⵓⵔⵜⴰ ⵉⵜⵜⵡⴰⵃⴹⴰ');
+assert.doesNotMatch(translated['unsaved-description'], /[\u0600-\u06ff]/);
+assert.notEqual(translated['unsaved-description'], translated.description);
+assert.match(fs.readFileSync(path.join(ROOT, 'client/components/cards/cardDetails.jade'), 'utf8'), /{{_ 'unsaved-description'}}/);
