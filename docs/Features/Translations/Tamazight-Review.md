@@ -127,3 +127,17 @@ Focused exact-name, qualifier-preservation, English-negative and Chinese
 calendar distinction checks pass. Broader native naming and browser review
 remain open. One further original finding is corrected; 170 Tamazight
 findings remain pending. Earlier counts describe earlier review stages.
+
+## Generic rule name labels, 2026-09-14
+
+The native [MediaWiki Moroccan Tamazight source](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json)
+uses `ⵉⵙⵎ` in `rcfilters-savedqueries-new-name-label`,
+`upload-form-label-infoform-name`, `listfiles_name` and `allmessagesname`.
+These are complete generic name labels, not just script matches or a
+username compound. French `nom` in `r-name` and `r-sort-name` is replaced
+with this noun. Actual rule templates use the former as a name-input
+placeholder and the latter as a sorting attribute. No qualified name,
+username, repository-name or display-name compound is accepted from this
+single noun. Exact-value and French/English-negative checks are added.
+Running-browser validation remains open. Both are unflagged additional
+repairs; original pending/restored counts remain 283/9.

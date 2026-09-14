@@ -46,3 +46,8 @@ assert.equal(locales.zgh['calendar-system-indian'], 'ⴰⵙⵎⵍⵓⵙⵙⴰⵏ
 assert.match(locales.zgh['calendar-system-indian'], /ⴰⵏⴰⵎⵓⵔ/);
 assert.doesNotMatch(locales.zgh['calendar-system-indian'], /Indian national/);
 assert.notEqual(locales.zgh['calendar-system-indian'], locales.zgh['calendar-system-chinese']);
+
+for (const key of ["r-name", "r-sort-name"]) {
+  assert.equal(locales.zgh[key], "ⵉⵙⵎ");
+  assert.doesNotMatch(locales.zgh[key], /nom|name/i);
+}

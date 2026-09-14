@@ -130807,5 +130807,19 @@
     "before": "Republic of China",
     "after": "Minguo (ᐅᓪᓗᖅᓯᐅᑎ)",
     "reason": "Use exact named calendar from English with independently attested Inuktitut calendar noun. Low confidence combined display-label naming requires broader native/browser review."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-name",
+    "before": "nom",
+    "after": "ⵉⵙⵎ",
+    "reason": "Replace French generic name label with native Moroccan Tamazight MediaWiki name-field terminology; preserve the rule placeholder/sort attribute context."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-sort-name",
+    "before": "nom",
+    "after": "ⵉⵙⵎ",
+    "reason": "Replace French generic name label with native Moroccan Tamazight MediaWiki name-field terminology; preserve the rule placeholder/sort attribute context."
   }
 ]
