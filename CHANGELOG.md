@@ -675,7 +675,8 @@ The empty wrongly placed Git directory was removed locally.
 
 Translate the English calendar label using native India, national and calendar
 vocabulary. Structural checks pass and Member Settings UI regression is added
-and syntax-checked. Full native compound review and browser execution remain open.
+and syntax-checked. Full native compound review and browser execution remain
+open.
 
 </details>
 
