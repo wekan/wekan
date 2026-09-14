@@ -125403,5 +125403,68 @@
     "before": "Tous les intervenants de la carte actuelle de ce tableau",
     "after": "ⵉⴼⴳⴰⵏⵏ ⴰⴽⴽⵯ ⵉ ⵎⵉ ⵜⵜⵓⴼⴽⴰ ⵜⴰⴽⴰⵕⴹⴰ ⵜⴰⵎⵉⵔⴰⵏⵜ ⵏ ⵜⴼⵍⵡⵉⵜ ⴰⴷ",
     "reason": "2026-09-14: Replace French assignee labels. Preserve singular/plural, No assignee, all assignees of ALL cards on THIS board versus all assignees of CURRENT card on THIS board. Responsibility assignment provisionally uses Person(s) to whom card(s) given, distinct from Members. Native MediaWiki attests Given ⵉⵜⵜⵓⴼⴽⴰ and Current ⴰⵎⵉⵔⴰⵏ; card vocabulary follows existing local usage. Person plural, feminine passive/card agreement, relative To whom, All scopes, bound nouns and full labels remain LOW CONFIDENCE for native validation; the responsibility semantic adaptation is not directly attested assignment terminology. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "archived-items",
+    "before": "أرشيف",
+    "after": "ⴰⵔⵛⵉⴼ",
+    "reason": "2026-09-14: Replace Arabic/French archive control text, preserving Archive noun versus Move-to-Archive actions, All, Board/Card/List/Selection scope, and Show archived LISTS. Native Moroccan Ministry legal-text catalogue search-index excerpt uses Archive ⴰⵔⵛⵉⴼ in archiving legal headings: https://mjcc.gov.ma/zgh/cp-textes-juridiques/page/14/ . Direct page access timed out; this remains indexed lexical evidence, not a verified full-page reading. Institutional records/archive usage is lexical evidence, not direct kanban control attestation. Native MediaWiki tooltip-ca-move attests Move ⵙⵎⵓⵜⵜⵉ and view attests Show ⵙⴽⵏ; native Mastodon navigation_bar.lists attests plural Lists. Card/Board/Selection reuse local terminology, not independent validation. Prepositional archive form, imperative object scopes and full assembled labels remain LOW CONFIDENCE for native validation. Archive is used as a borrowed institutional noun rather than treating inherited Kabyle aɣbar as proven Moroccan terminology."
+  },
+  {
+    "locale": "zgh",
+    "key": "archives",
+    "before": "أرشيف",
+    "after": "ⴰⵔⵛⵉⴼ",
+    "reason": "2026-09-14: Replace Arabic/French archive control text, preserving Archive noun versus Move-to-Archive actions, All, Board/Card/List/Selection scope, and Show archived LISTS. Native Moroccan Ministry legal-text catalogue search-index excerpt uses Archive ⴰⵔⵛⵉⴼ in archiving legal headings: https://mjcc.gov.ma/zgh/cp-textes-juridiques/page/14/ . Direct page access timed out; this remains indexed lexical evidence, not a verified full-page reading. Institutional records/archive usage is lexical evidence, not direct kanban control attestation. Native MediaWiki tooltip-ca-move attests Move ⵙⵎⵓⵜⵜⵉ and view attests Show ⵙⴽⵏ; native Mastodon navigation_bar.lists attests plural Lists. Card/Board/Selection reuse local terminology, not independent validation. Prepositional archive form, imperative object scopes and full assembled labels remain LOW CONFIDENCE for native validation. Archive is used as a borrowed institutional noun rather than treating inherited Kabyle aɣbar as proven Moroccan terminology."
+  },
+  {
+    "locale": "zgh",
+    "key": "archive",
+    "before": "نقل الى الارشيف",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⵖⵔ ⴰⵔⵛⵉⴼ",
+    "reason": "2026-09-14: Replace Arabic/French archive control text, preserving Archive noun versus Move-to-Archive actions, All, Board/Card/List/Selection scope, and Show archived LISTS. Native Moroccan Ministry legal-text catalogue search-index excerpt uses Archive ⴰⵔⵛⵉⴼ in archiving legal headings: https://mjcc.gov.ma/zgh/cp-textes-juridiques/page/14/ . Direct page access timed out; this remains indexed lexical evidence, not a verified full-page reading. Institutional records/archive usage is lexical evidence, not direct kanban control attestation. Native MediaWiki tooltip-ca-move attests Move ⵙⵎⵓⵜⵜⵉ and view attests Show ⵙⴽⵏ; native Mastodon navigation_bar.lists attests plural Lists. Card/Board/Selection reuse local terminology, not independent validation. Prepositional archive form, imperative object scopes and full assembled labels remain LOW CONFIDENCE for native validation. Archive is used as a borrowed institutional noun rather than treating inherited Kabyle aɣbar as proven Moroccan terminology."
+  },
+  {
+    "locale": "zgh",
+    "key": "archive-all",
+    "before": "نقل الكل الى الارشيف",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⴰⴽⴽⵯ ⵖⵔ ⴰⵔⵛⵉⴼ",
+    "reason": "2026-09-14: Replace Arabic/French archive control text, preserving Archive noun versus Move-to-Archive actions, All, Board/Card/List/Selection scope, and Show archived LISTS. Native Moroccan Ministry legal-text catalogue search-index excerpt uses Archive ⴰⵔⵛⵉⴼ in archiving legal headings: https://mjcc.gov.ma/zgh/cp-textes-juridiques/page/14/ . Direct page access timed out; this remains indexed lexical evidence, not a verified full-page reading. Institutional records/archive usage is lexical evidence, not direct kanban control attestation. Native MediaWiki tooltip-ca-move attests Move ⵙⵎⵓⵜⵜⵉ and view attests Show ⵙⴽⵏ; native Mastodon navigation_bar.lists attests plural Lists. Card/Board/Selection reuse local terminology, not independent validation. Prepositional archive form, imperative object scopes and full assembled labels remain LOW CONFIDENCE for native validation. Archive is used as a borrowed institutional noun rather than treating inherited Kabyle aɣbar as proven Moroccan terminology."
+  },
+  {
+    "locale": "zgh",
+    "key": "archive-board",
+    "before": "نقل اللوح الى الارشيف",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⵜⴰⴼⵍⵡⵉⵜ ⵖⵔ ⴰⵔⵛⵉⴼ",
+    "reason": "2026-09-14: Replace Arabic/French archive control text, preserving Archive noun versus Move-to-Archive actions, All, Board/Card/List/Selection scope, and Show archived LISTS. Native Moroccan Ministry legal-text catalogue search-index excerpt uses Archive ⴰⵔⵛⵉⴼ in archiving legal headings: https://mjcc.gov.ma/zgh/cp-textes-juridiques/page/14/ . Direct page access timed out; this remains indexed lexical evidence, not a verified full-page reading. Institutional records/archive usage is lexical evidence, not direct kanban control attestation. Native MediaWiki tooltip-ca-move attests Move ⵙⵎⵓⵜⵜⵉ and view attests Show ⵙⴽⵏ; native Mastodon navigation_bar.lists attests plural Lists. Card/Board/Selection reuse local terminology, not independent validation. Prepositional archive form, imperative object scopes and full assembled labels remain LOW CONFIDENCE for native validation. Archive is used as a borrowed institutional noun rather than treating inherited Kabyle aɣbar as proven Moroccan terminology."
+  },
+  {
+    "locale": "zgh",
+    "key": "archive-card",
+    "before": "نقل البطاقة الى الارشيف",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⵜⴰⴽⴰⵕⴹⴰ ⵖⵔ ⴰⵔⵛⵉⴼ",
+    "reason": "2026-09-14: Replace Arabic/French archive control text, preserving Archive noun versus Move-to-Archive actions, All, Board/Card/List/Selection scope, and Show archived LISTS. Native Moroccan Ministry legal-text catalogue search-index excerpt uses Archive ⴰⵔⵛⵉⴼ in archiving legal headings: https://mjcc.gov.ma/zgh/cp-textes-juridiques/page/14/ . Direct page access timed out; this remains indexed lexical evidence, not a verified full-page reading. Institutional records/archive usage is lexical evidence, not direct kanban control attestation. Native MediaWiki tooltip-ca-move attests Move ⵙⵎⵓⵜⵜⵉ and view attests Show ⵙⴽⵏ; native Mastodon navigation_bar.lists attests plural Lists. Card/Board/Selection reuse local terminology, not independent validation. Prepositional archive form, imperative object scopes and full assembled labels remain LOW CONFIDENCE for native validation. Archive is used as a borrowed institutional noun rather than treating inherited Kabyle aɣbar as proven Moroccan terminology."
+  },
+  {
+    "locale": "zgh",
+    "key": "archive-list",
+    "before": "نقل القائمة الى الارشيف",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⵜⴰⵍⴳⴰⵎⵜ ⵖⵔ ⴰⵔⵛⵉⴼ",
+    "reason": "2026-09-14: Replace Arabic/French archive control text, preserving Archive noun versus Move-to-Archive actions, All, Board/Card/List/Selection scope, and Show archived LISTS. Native Moroccan Ministry legal-text catalogue search-index excerpt uses Archive ⴰⵔⵛⵉⴼ in archiving legal headings: https://mjcc.gov.ma/zgh/cp-textes-juridiques/page/14/ . Direct page access timed out; this remains indexed lexical evidence, not a verified full-page reading. Institutional records/archive usage is lexical evidence, not direct kanban control attestation. Native MediaWiki tooltip-ca-move attests Move ⵙⵎⵓⵜⵜⵉ and view attests Show ⵙⴽⵏ; native Mastodon navigation_bar.lists attests plural Lists. Card/Board/Selection reuse local terminology, not independent validation. Prepositional archive form, imperative object scopes and full assembled labels remain LOW CONFIDENCE for native validation. Archive is used as a borrowed institutional noun rather than treating inherited Kabyle aɣbar as proven Moroccan terminology."
+  },
+  {
+    "locale": "zgh",
+    "key": "archive-selection",
+    "before": "نقل التحديد إلى الأرشيف",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⴰⵙⵜⵉ ⵖⵔ ⴰⵔⵛⵉⴼ",
+    "reason": "2026-09-14: Replace Arabic/French archive control text, preserving Archive noun versus Move-to-Archive actions, All, Board/Card/List/Selection scope, and Show archived LISTS. Native Moroccan Ministry legal-text catalogue search-index excerpt uses Archive ⴰⵔⵛⵉⴼ in archiving legal headings: https://mjcc.gov.ma/zgh/cp-textes-juridiques/page/14/ . Direct page access timed out; this remains indexed lexical evidence, not a verified full-page reading. Institutional records/archive usage is lexical evidence, not direct kanban control attestation. Native MediaWiki tooltip-ca-move attests Move ⵙⵎⵓⵜⵜⵉ and view attests Show ⵙⴽⵏ; native Mastodon navigation_bar.lists attests plural Lists. Card/Board/Selection reuse local terminology, not independent validation. Prepositional archive form, imperative object scopes and full assembled labels remain LOW CONFIDENCE for native validation. Archive is used as a borrowed institutional noun rather than treating inherited Kabyle aɣbar as proven Moroccan terminology."
+  },
+  {
+    "locale": "zgh",
+    "key": "filter-show-archive",
+    "before": "Montrer les listes archivées",
+    "after": "ⵙⴽⵏ ⵜⵉⵍⴳⴰⵎⵉⵏ ⴳ ⴰⵔⵛⵉⴼ",
+    "reason": "2026-09-14: Replace Arabic/French archive control text, preserving Archive noun versus Move-to-Archive actions, All, Board/Card/List/Selection scope, and Show archived LISTS. Native Moroccan Ministry legal-text catalogue search-index excerpt uses Archive ⴰⵔⵛⵉⴼ in archiving legal headings: https://mjcc.gov.ma/zgh/cp-textes-juridiques/page/14/ . Direct page access timed out; this remains indexed lexical evidence, not a verified full-page reading. Institutional records/archive usage is lexical evidence, not direct kanban control attestation. Native MediaWiki tooltip-ca-move attests Move ⵙⵎⵓⵜⵜⵉ and view attests Show ⵙⴽⵏ; native Mastodon navigation_bar.lists attests plural Lists. Card/Board/Selection reuse local terminology, not independent validation. Prepositional archive form, imperative object scopes and full assembled labels remain LOW CONFIDENCE for native validation. Archive is used as a borrowed institutional noun rather than treating inherited Kabyle aɣbar as proven Moroccan terminology."
   }
 ]
