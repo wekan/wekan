@@ -123198,5 +123198,33 @@
     "before": "Corriger les URL des pièces jointes",
     "after": "ⵙⵖⵜⵓ URL ⵏ ⵜⵉⵙⵉⵡⴰⵢ ⵢⵔⵏⴰⵏ",
     "reason": "Replace French URL-correction migration action labels. Preserve ALL FILE URLS versus ATTACHMENT URLS, correction action and exact URL acronym; this does not mean editing file contents. Computing lexicon gives Correction (debugging): Aseghti MW, seghtu corriger, PDF page 42 printed 38; filesystem ifuyla, PDF page 136 printed 132; Kabyle Tasawit/plural tisiway yernan mail attachment, PDF page 109 printed 105: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . Native MediaWiki zgh allpages supports all qualifier: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: MW/Kabyle-to-Standard-Moroccan software adaptation, Tifinagh transcription, acronym plural/scope placement, attachment-relative agreement and full noun relations need fluent review. The source ALL qualifier is retained only where present."
+  },
+  {
+    "locale": "zgh",
+    "key": "delete-duplicate-lists",
+    "before": "Supprimer les listes en doublon ? ",
+    "after": "ⴽⴽⵙ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵉⵜⵜⵓⵢⴰⵍⵙⵏ",
+    "reason": "Replace French duplicate-list deletion labels. Preserve DELETE DUPLICATE lists, and BOTH duplicate and empty qualifiers in empty-list variants. Repeat-derived participle is a provisional software duplicate paraphrase, not an attested Standard Moroccan technical term. Computing lexicon Cycle: Allus MAT from ales repeat, PDF page 43 printed 40, and warns uslig can mean private/double/special, PDF page 9 printed 5: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . Avoid ambiguous private/double wording. MediaWiki zgh listfiles-delete and category-empty support delete and contains-nothing empty paraphrase: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Rif list plural attested in https://biblio.ircam.ma/pmb/uploads/explnum/explnum_39.pdf . LOW CONFIDENCE: repeat-to-technical-duplicate adaptation, derived passive participle, feminine-plural digsnt, qualifier coordination and full deletion labels require further language research. English source has no question mark; no duplicate/empty qualifier intentionally omitted."
+  },
+  {
+    "locale": "zgh",
+    "key": "deleteDuplicateListsPopup-title",
+    "before": "Supprimer les listes en doublon ? ",
+    "after": "ⴽⴽⵙ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵉⵜⵜⵓⵢⴰⵍⵙⵏ",
+    "reason": "Replace French duplicate-list deletion labels. Preserve DELETE DUPLICATE lists, and BOTH duplicate and empty qualifiers in empty-list variants. Repeat-derived participle is a provisional software duplicate paraphrase, not an attested Standard Moroccan technical term. Computing lexicon Cycle: Allus MAT from ales repeat, PDF page 43 printed 40, and warns uslig can mean private/double/special, PDF page 9 printed 5: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . Avoid ambiguous private/double wording. MediaWiki zgh listfiles-delete and category-empty support delete and contains-nothing empty paraphrase: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Rif list plural attested in https://biblio.ircam.ma/pmb/uploads/explnum/explnum_39.pdf . LOW CONFIDENCE: repeat-to-technical-duplicate adaptation, derived passive participle, feminine-plural digsnt, qualifier coordination and full deletion labels require further language research. English source has no question mark; no duplicate/empty qualifier intentionally omitted."
+  },
+  {
+    "locale": "zgh",
+    "key": "step-delete-duplicate-empty-lists",
+    "before": "Supprimer les listes vides en doublon ? ",
+    "after": "ⴽⴽⵙ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵉⵜⵜⵓⵢⴰⵍⵙⵏ ⵓⵔ ⴷⵉⴳⵙⵏⵜ ⴰⵡⴷ ⴽⵔⴰ",
+    "reason": "Replace French duplicate-list deletion labels. Preserve DELETE DUPLICATE lists, and BOTH duplicate and empty qualifiers in empty-list variants. Repeat-derived participle is a provisional software duplicate paraphrase, not an attested Standard Moroccan technical term. Computing lexicon Cycle: Allus MAT from ales repeat, PDF page 43 printed 40, and warns uslig can mean private/double/special, PDF page 9 printed 5: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . Avoid ambiguous private/double wording. MediaWiki zgh listfiles-delete and category-empty support delete and contains-nothing empty paraphrase: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Rif list plural attested in https://biblio.ircam.ma/pmb/uploads/explnum/explnum_39.pdf . LOW CONFIDENCE: repeat-to-technical-duplicate adaptation, derived passive participle, feminine-plural digsnt, qualifier coordination and full deletion labels require further language research. English source has no question mark; no duplicate/empty qualifier intentionally omitted."
+  },
+  {
+    "locale": "zgh",
+    "key": "delete-duplicate-empty-lists-migration",
+    "before": "Supprimer les listes vides en doublon ? ",
+    "after": "ⴽⴽⵙ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵉⵜⵜⵓⵢⴰⵍⵙⵏ ⵓⵔ ⴷⵉⴳⵙⵏⵜ ⴰⵡⴷ ⴽⵔⴰ",
+    "reason": "Replace French duplicate-list deletion labels. Preserve DELETE DUPLICATE lists, and BOTH duplicate and empty qualifiers in empty-list variants. Repeat-derived participle is a provisional software duplicate paraphrase, not an attested Standard Moroccan technical term. Computing lexicon Cycle: Allus MAT from ales repeat, PDF page 43 printed 40, and warns uslig can mean private/double/special, PDF page 9 printed 5: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . Avoid ambiguous private/double wording. MediaWiki zgh listfiles-delete and category-empty support delete and contains-nothing empty paraphrase: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Rif list plural attested in https://biblio.ircam.ma/pmb/uploads/explnum/explnum_39.pdf . LOW CONFIDENCE: repeat-to-technical-duplicate adaptation, derived passive participle, feminine-plural digsnt, qualifier coordination and full deletion labels require further language research. English source has no question mark; no duplicate/empty qualifier intentionally omitted."
   }
 ]
