@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,176 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 668 pending review or repair.
+findings: 15,177 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 667 pending review or repair.
 The correction inventory records 17,387 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (525) and
+The largest original queues are Standard Moroccan Tamazight (524) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -116,7 +116,7 @@ names and unresolved Coptic/tabular/epoch terminology; no values changed. Previo
 Cherokee Hijri labels with exact native-script CLDR variant names. Cherokee’s
 original queue is empty. Compact tabular epoch wording still needs fluent
 technical review. Quechua palette compounds and remaining color wrappers
-remain open. There are 525 Tamazight findings remaining.
+remain open. There are 524 Tamazight findings remaining.
 Silesian reference review (2026-09-14) confirms shared database/file terms
 in native MediaWiki messages; the full raw-file label remains pending.
 No translation value or finding count changed in that review.
@@ -667,6 +667,18 @@ Full order/genitive composition, card terminology and possessive attachment
 remain low confidence. All 17,399 correction checks pass; 668 original
 findings remain pending, including 525 Tamazight. Wider validation remains
 open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/497f58c89">Translate Tamazight bulk-card JSON examples</a>. Thanks to xet7.</summary>
+
+Replace six French sample values, keeping title/description property names,
+three-card structure and first/second/last identity. Full card genitives
+and derived feminine agreement remain low confidence. All 17,400 correction
+checks pass, including JSON parsing and property-name preservation. One
+original finding is repaired; 667 remain pending, including 524 Tamazight.
+Wider language validation remains open.
 
 </details>
 

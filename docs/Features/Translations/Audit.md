@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,176 |
+| Corrected | 15,177 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 668 |
+| Pending review or repair | 667 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,399** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,400** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `50df1bbb7` — replaced six French top/bottom card-order labels with consistent first/last place wording. Preserve add versus move and the card's own list versus a selected destination. Actual rules use minimum/maximum sort order, confirming that distinction. MediaWiki supports first/last, place, add/move and list components; complete order/genitive phrases, card software terminology and possessive attachment remain **low confidence** pending fluent review. All **17,399** correction/rendering checks pass. Six original findings are repaired: **668** originals remain pending across **17** locales, including **525** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `497f58c89` — replaced French prose in all six bulk-card JSON sample values. Preserve `title` and `description` property names, three-card ordering and first/second/last identification. Native MediaWiki supports title/description and first/last components; complete card genitives and derived feminine first-card agreement remain **low confidence** pending fluent review. All **17,400** correction/rendering checks pass, including JSON parsing and property-name checks. One original finding is repaired: **667** originals remain pending across **17** locales, including **524** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Checklist reference review (2026-09-14):** the candidate [computing lexicon](https://www.fichier-pdf.fr/2014/08/31/lexique-informatique/) labels `asenqed` (check/control) **KBL**. Its indexed entry does not establish Standard Moroccan checklist usage; the full file could not be fetched. Existing schwa-heavy checklist strings and full confirmation wording remain pending terminology and dialect review. No blanket retention or replacement is justified by this reference.
 
