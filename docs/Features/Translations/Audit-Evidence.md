@@ -24750,3 +24750,28 @@ focused translation checks pass; live browser validation was not run.
 Counts: 15,629 corrected, 273 pending (160 Tamazight), four restored and
 4,175 retained. The ledger contains 18,721 corrections; broader native
 validation remains open after changed findings are classified corrected.
+
+## Moroccan authentication-term repair — 2026-09-14
+
+Local commit `40491764c` revises four already corrected keys:
+`authentication-method`, `authentication-type`,
+`default-authentication-method`, and `display-authentication-method`.
+Primary IRCAM General Dictionary PDF page 249, entry 4801, explicitly
+gives authentication `ⴰⵙⵖⵣⵏ` and construct `ⵓⵙⵖⵣⵏ`. This replaces
+`ⵓⵙⵙⵜⴱ`, previously derived from CNAM's Tuareg-marked Asesteb.
+The exact Moroccan component no longer depends on that cross-variety
+source; the complete phrases still require native technical review.
+
+ConnectionMethod.jade displays method; peopleBody.jade displays type;
+settingBody.jade displays default-method and display-method controls.
+All four modifiers and distinctions survive. The dictionary's method
+entry at page 621, entry 11649, says way of education, not an attested
+computational authentication method. Existing method wording is retained
+as an adaptation, not newly accepted from this narrower sense. **Low
+confidence** remains for full software phrases and native/browser
+validation. Four focused checks pass; original before-values and exact
+placeholder inventories remain preserved. No live browser test ran.
+
+Original counts stay 15,629 corrected, 273 pending, four restored and
+4,175 retained. Ledger count stays 18,721: existing records were revised,
+not duplicated. Other Tuareg-sourced records remain under renewed review.

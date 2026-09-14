@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/40491764c">Repair Moroccan authentication terminology</a>. Thanks to xet7.</summary>
+
+Replace an uncertain Tuareg-derived authentication term in four Tamazight
+labels with the verified Moroccan dictionary term. Preserve method/type
+and default/display distinctions. Four checks pass; full review is open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f3d3aa4b2">Repair Tamazight card control labels</a>. Thanks to xet7.</summary>
 
 Replace French parent-change and card-display labels using verified action
