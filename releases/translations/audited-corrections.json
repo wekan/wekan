@@ -123373,5 +123373,12 @@
     "before": "est déplacée",
     "after": "ⵜⵜⵓⵙⵎⵓⵜⵜⵉ",
     "reason": "Replace French card-move rule fragment/trigger. Preserve when-event, movement and another-list destination (not another board). Native MediaWiki logentry-move-move attests movement root smutti and destination ghr; noarticletext attests feminine plural pages yadhn/other: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse earlier when adday and local card/list names. LOW CONFIDENCE derived passive ttusmutti, singular feminine another-list agreement and full trigger composition require fluent review; native active movement alone does not verify the passive construction."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-removed-from",
+    "before": "Supprimé de",
+    "after": "ⵉⵜⵜⵡⴰⴽⵙ ⵙⴳ",
+    "reason": "Replace French Removed from rule fragment, preserving passive removal and source relation; do not substitute an imperative or remove destination. Native MediaWiki restorelink uses itt wak sn singular removed relative form and logentry-move-move uses sg/from: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE finite passive adaptation itt waks from attested relative form and generic agreement need fluent review. Assignee fragments remain unresolved until assignment-specific terminology is established; member is not substituted for assignee."
   }
 ]
