@@ -21816,3 +21816,13 @@ lime color, scrollbar, advanced filter, garbage zapping and two Complete
 labels. These are not certified by this basic-label batch. All 2,159 reviews
 pass; globally 2,059 restored and 308 pending findings plus broader
 language/browser verification remain open.
+
+
+### Esperanto heap garbage-zapping — 2026-09-14
+
+Local commit `05217bbb9` replaces nuligas with superskribas rubon per
+bitŝablono. Official https://nodejs.org/api/v8.html#v8getheapstatistics
+specifies overwrite with a bit pattern, not necessarily zeroing. This
+resolves the earlier diagnostic uncertainty. All 18,152 correction records
+pass. Eight Esperanto restored findings remain; globally 2,058 restored
+and 308 pending findings plus broader language/browser review stay open.

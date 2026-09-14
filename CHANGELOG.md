@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,555 corrected, 2,059 restored pre-pull values awaiting
+findings: 15,556 corrected, 2,058 restored pre-pull values awaiting
 validation, 2,159 reviewed and retained, and 308 pending review or repair.
-The correction inventory records 18,151 exact before/after values,
+The correction inventory records 18,152 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
 of 829
@@ -106,10 +106,10 @@ performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have
 resumed.
-Latest translation fix/review is 6eaabcaea (2026-09-14): Esperanto failure
-time window clarified; 29 correct support and account labels retained.
+Latest translation fix/review is 05217bbb9 (2026-09-14): Esperanto heap
+garbage-zapping describes overwriting with a bit pattern.
 Latest unchanged-value review is f523001c3 (2026-09-14): ten Esperanto
-account outcome and basic labels retained; nine uncertain findings remain.
+account outcome and basic labels retained; eight uncertain findings remain.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
 Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
 retaining 156 correct Danish storage, migration and monitoring/account labels.
@@ -640,6 +640,15 @@ and broader language and browser verification stay under review.
 This release includes the following translation review:
 
 **Translations** - Esperanto terminology and instruction validation.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/05217bbb9">Correct Esperanto heap garbage-zapping diagnostic</a>. Thanks to xet7.</summary>
+
+Describe heap garbage overwritten with a bit pattern instead of zeroing,
+matching official Node V8 documentation. All correction records pass;
+wider language and browser verification remains open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5946767b1">Validate Esperanto scheduled-job and migration labels</a>. Thanks to xet7.</summary>
