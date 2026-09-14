@@ -662,6 +662,19 @@ The browser assertion accepts whitespace between the regional flag and name.
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/59aa02a7e">Translate Tamazight missing-list repair description</a></summary>
+
+Replace French wording with a draft preserving discovery and repair of
+missing or damaged lists in board structure. Four focused suites pass;
+full grammar and confirmation wording remain under review. No removed
+migration is activated. Dated audit evidence and counts are updated.
+
+Thanks to xet7.
+
+</details>
+
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/cb7df8bbc">Distinguish remaining Tamazight description labels from summary</a></summary>
 
 Use the description noun in minicard and more-detailed description labels.

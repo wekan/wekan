@@ -27317,3 +27317,29 @@ placeholders. Both existing ledger records retain their original before
 values with revised after/reasons. Ledger 19,772; original pending 211
 (zgh 108), restored 4 unchanged. Broader uncertain/unflagged review remains
 open. No remote push.
+
+## Missing-list repair description — 2026-09-15
+
+Local commit `59aa02a7e` replaces the French missing/corrupted-list
+migration description with a Tamazight draft. It retains discovering AND
+repairing, missing OR damaged lists, and the board structure. No active
+client/server/model references were found for this removed migration key;
+the repair does not reactivate migration code. Its confirmation remains
+French and pending, rather than being silently declared complete.
+
+[Primary IRCAM dictionary](https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339)
+cached full text supplies discover/find (entry 10232, PDF page 546) and
+spoil/damage (entry 9847, page 522). Earlier recorded repair, list and
+structure component evidence remains applicable. Physical damage is not
+independent attestation of software data corruption; that adaptation stays
+low confidence. The dictionary lack entry has a second obligation sense,
+so the draft instead reuses the existing not-present list-heading wording.
+
+**Low confidence:** passive formation, feminine/plural object agreement,
+existential missing-list clause, tense and software corruption/structure
+compounds still need native review. Individual dictionary verbs do not
+prove the assembled sentence. Four focused suites pass, covering original
+provenance, placeholders/tags/key order and newer human translations. No
+live migration/browser test was run. Ledger 19,773; original corrected
+15,693, pending 210 (zgh 107), restored 4 unchanged. Full uncertain,
+restored and unflagged reviews remain open. No remote push.
