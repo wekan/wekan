@@ -10762,5 +10762,245 @@
     "key": "operator-due",
     "value": "limdato",
     "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-created",
+    "value": "kreita",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-modified",
+    "value": "modifita",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-sort",
+    "value": "ordigo",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-comment",
+    "value": "komento",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-has",
+    "value": "havas",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-limit",
+    "value": "limo",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-debug",
+    "value": "sencimigo",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-team",
+    "value": "teamo",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-title",
+    "value": "titolo",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-description",
+    "value": "priskribo",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-customfield",
+    "value": "proprakampo",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-attachment-text",
+    "value": "alligitaĵo",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "predicate-archived",
+    "value": "arkivita",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "predicate-open",
+    "value": "malferma",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "predicate-ended",
+    "value": "finita",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "predicate-all",
+    "value": "ĉiuj",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "predicate-overdue",
+    "value": "malfrua",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "predicate-week",
+    "value": "semajno",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "predicate-quarter",
+    "value": "kvaronjaro",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "predicate-year",
+    "value": "jaro",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "predicate-due",
+    "value": "limdato",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "predicate-modified",
+    "value": "modifita",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "predicate-created",
+    "value": "kreita",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "predicate-attachment",
+    "value": "alligitaĵo",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "predicate-description",
+    "value": "priskribo",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "predicate-start",
+    "value": "komenco",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "predicate-end",
+    "value": "fino",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "predicate-assignee",
+    "value": "asignito",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "predicate-public",
+    "value": "publika",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "predicate-private",
+    "value": "privata",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "predicate-selector",
+    "value": "elektilo",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "predicate-projection",
+    "value": "projekcio",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-unknown-error",
+    "value": "%s ne estas operatoro",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-number-expected",
+    "value": "operatoro __operator__ atendis nombron, ricevis '__value__'",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-sort-invalid",
+    "value": "ordigo laŭ '%s' estas nevalida",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-status-invalid",
+    "value": "'%s' ne estas valida stato",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-limit-invalid",
+    "value": "%s ne estas valida limo.  La limo devas esti pozitiva entjero.",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-debug-invalid",
+    "value": "%s ne estas valida sencimiga predikato",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "next-page",
+    "value": "Sekva paĝo",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "previous-page",
+    "value": "Antaŭa paĝo",
+    "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
   }
 ]
