@@ -931,6 +931,16 @@ audit records 159 pending original findings.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1a174e357">Repair Dzongkha tabular Hijri epoch labels</a>. Thanks to xet7.</summary>
+
+Replace two English seeds with native tabular terminology and distinct
+Julian starting dates. Four focused translation suites pass. Starting-date
+compound remains under native review. Dated audit records 157 pending
+original findings; broader Dzongkha review remains open.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

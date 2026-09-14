@@ -29066,3 +29066,24 @@ a precise native paraphrase. Shared tabular spelling is now visually
 verified; the full label remains unproven. No translation or counts changed.
 Pending 159 original findings; Dzongkha 2. No live calendar UI test ran
 and no remote writes were made.
+
+
+## Tabular Hijri epoch labels — repair 2026-09-15
+
+Source commit `1a174e357` replaces both English seeds. Visually verified
+རེའུ་མིག་ཅན gives tabular; existing start འགོ་བཙུགས and date
+ཚེས form the starting-date paraphrase. Civil epoch is explicitly Julian
+622-07-16; astronomical epoch is Julian 622-07-15, as CLDR explains.
+Both labels share tabular wording; neither implies moon-sighting math.
+Hijri and Julian are borrowed proper names, consistent with the existing
+Hijri base. Derived starting-date compound and full grammar remain low
+confidence; exact components do not certify a full native calendar label.
+Sources: https://www.cle.org.pk/research/rep/DCT.pdf
+https://cldr.unicode.org/development/development-process/design-proposals/islamic-calendar-types
+
+Four focused suites pass for distinct epoch dates, rejection of Gregorian
+basis/wrong variant date, exact ledger and translation invariants. No live
+calendar UI test ran. Ledger 19,861; original corrected 15,746, pending
+157, Dzongkha 2 to 0, restored 4 unchanged. Empty original queue does not
+complete Dzongkha native grammar or earlier low-confidence reviews.
+Broader review remains open; no remote writes were made.
