@@ -130947,5 +130947,12 @@
     "before": "Serveur",
     "after": "ⴰⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ",
     "reason": "Replace French server noun with explicitly attested computer-server phrase from primary IRCAM General Dictionary Amazigh-English (2019), PDF p120 entry2157. Technical support phrases still require separate semantic review."
+  },
+  {
+    "locale": "zgh",
+    "key": "oidc-button-text",
+    "before": "Personnaliser le texte du bouton OIDC",
+    "after": "ⵙⵏⴼⵍ ⴰⴹⵕⵉⵚ ⵏ ⵜⴳⵎⵎⵓⵜ OIDC",
+    "reason": "Replace French configurable OIDC button-caption label with native edit verb and primary IRCAM text/button nouns. Preserve OIDC. Adapted interface-button metaphor and complete grammar, low confidence pending native domain and browser validation; skin-pustule entries were rejected."
   }
 ]

@@ -319,3 +319,21 @@ cannot be established by dictionary nouns for physical props or assistance.
 That pending phrase needs software compatibility terminology and complete
 grammar, preserving TLS/SMTP exactly. The verified server term supplies only
 one component and does not close the original finding.
+
+## OIDC configurable caption repair — 2026-09-14
+
+The original French `oidc-button-text` now uses an adapted edit-text-of-OIDC-
+button phrase. Native MediaWiki `edit` supplies `ⵙⵏⴼⵍ`; the primary dictionary
+PDF page 63, entry 916, explicitly gives the text noun. Page 562, entry 10528,
+gives button/round jewel. That generic button noun is adapted metaphorically
+to an interface control, **low confidence** pending native computing usage;
+the source does not quote an interface-button sense or this complete phrase.
+The previously rejected pustule nouns are not used.
+
+The actual setting is a freely editable `oidcBtnText` input followed by Save
+in `settingBody.jade`; the edit verb describes customization in this context.
+OIDC remains unchanged. Exact caption wording, one preserved OIDC token,
+French negatives and rejected-sense negatives are tested. Full grammar,
+software metaphor and live browser rendering remain open. Replacing the
+wrong-language value moves the original finding to corrected but does not
+remove these documented uncertainties from the remaining review scope.

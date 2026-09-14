@@ -88,3 +88,7 @@ assert.equal(locales.zgh['step-fix-orphaned-cards'],
 assert.doesNotMatch(locales.zgh['step-fix-orphaned-cards'], /Corriger|cartes|orphelines/);
 assert.equal(locales.zgh.server, 'ⴰⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ');
 assert.doesNotMatch(locales.zgh.server, /Serveur|Server/);
+assert.equal(locales.zgh['oidc-button-text'], 'ⵙⵏⴼⵍ ⴰⴹⵕⵉⵚ ⵏ ⵜⴳⵎⵎⵓⵜ OIDC');
+assert.doesNotMatch(locales.zgh['oidc-button-text'],
+  /Personnaliser|texte du bouton|ⵜⴰⵔⵃⵙⵉⵜ|ⵜⵉⵎⵉⵙⵜ/);
+assert.equal(locales.zgh['oidc-button-text'].match(/OIDC/g).length, 1);
