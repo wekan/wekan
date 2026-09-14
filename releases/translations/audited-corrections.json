@@ -122673,5 +122673,40 @@
     "before": "Précédent",
     "after": "ⵓⵣⵡⵉⵔ",
     "reason": "Replace French calendar/navigation text with Tamazight, preserving previous versus next and explicit month scope. CLDR zgh month field displayName supplies ayyour: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml . Native MediaWiki zgh prevn and nextn supply singular previous/next components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: composed month-navigation phrase and generic standalone previous usage still require fluent/context review; CLDR provides the month component, not the complete navigation phrase."
+  },
+  {
+    "locale": "zgh",
+    "key": "above-selected-card",
+    "before": "Au-dessus de la carte sélectionnée",
+    "after": "ⴳ ⵓⴼⵍⵍⴰ ⵏ ⵜⴽⴰⵕⴹⴰ ⵉⵜⵜⵓⵙⵜⴰⵢⵏ",
+    "reason": "Replace French above/below placement or add-swimlane popup wording. Preserve opposite vertical positions, selected qualification, card versus swimlane scope and add action. Native MediaWiki zgh recentchanges-notargetpage supports above (g uflla), sharedupload-desc-here below (g ddaw), compareselectedversions selected and export-addcat add: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse existing local Abrid swimlane and Tifinagh card terminology. LOW CONFIDENCE: Abrid software-swimlane adaptation, bound ubrid, relational above/below noun chains and selected participle agreement/full phrasing require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "below-selected-card",
+    "before": "En dessous de la carte sélectionnée",
+    "after": "ⴳ ⴷⴷⴰⵡ ⵏ ⵜⴽⴰⵕⴹⴰ ⵉⵜⵜⵓⵙⵜⴰⵢⵏ",
+    "reason": "Replace French above/below placement or add-swimlane popup wording. Preserve opposite vertical positions, selected qualification, card versus swimlane scope and add action. Native MediaWiki zgh recentchanges-notargetpage supports above (g uflla), sharedupload-desc-here below (g ddaw), compareselectedversions selected and export-addcat add: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse existing local Abrid swimlane and Tifinagh card terminology. LOW CONFIDENCE: Abrid software-swimlane adaptation, bound ubrid, relational above/below noun chains and selected participle agreement/full phrasing require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "above-selected-swimlane",
+    "before": "Au-dessus du couloir sélectionné",
+    "after": "ⴳ ⵓⴼⵍⵍⴰ ⵏ ⵓⴱⵔⵉⴷ ⵉⵜⵜⵓⵙⵜⴰⵢⵏ",
+    "reason": "Replace French above/below placement or add-swimlane popup wording. Preserve opposite vertical positions, selected qualification, card versus swimlane scope and add action. Native MediaWiki zgh recentchanges-notargetpage supports above (g uflla), sharedupload-desc-here below (g ddaw), compareselectedversions selected and export-addcat add: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse existing local Abrid swimlane and Tifinagh card terminology. LOW CONFIDENCE: Abrid software-swimlane adaptation, bound ubrid, relational above/below noun chains and selected participle agreement/full phrasing require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "below-selected-swimlane",
+    "before": "En dessous du couloir sélectionné",
+    "after": "ⴳ ⴷⴷⴰⵡ ⵏ ⵓⴱⵔⵉⴷ ⵉⵜⵜⵓⵙⵜⴰⵢⵏ",
+    "reason": "Replace French above/below placement or add-swimlane popup wording. Preserve opposite vertical positions, selected qualification, card versus swimlane scope and add action. Native MediaWiki zgh recentchanges-notargetpage supports above (g uflla), sharedupload-desc-here below (g ddaw), compareselectedversions selected and export-addcat add: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse existing local Abrid swimlane and Tifinagh card terminology. LOW CONFIDENCE: Abrid software-swimlane adaptation, bound ubrid, relational above/below noun chains and selected participle agreement/full phrasing require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "swimlaneAddPopup-title",
+    "before": "Ajouter un couloir en dessous",
+    "after": "ⵔⵏⵓ ⴰⴱⵔⵉⴷ ⴳ ⴷⴷⴰⵡ",
+    "reason": "Replace French above/below placement or add-swimlane popup wording. Preserve opposite vertical positions, selected qualification, card versus swimlane scope and add action. Native MediaWiki zgh recentchanges-notargetpage supports above (g uflla), sharedupload-desc-here below (g ddaw), compareselectedversions selected and export-addcat add: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse existing local Abrid swimlane and Tifinagh card terminology. LOW CONFIDENCE: Abrid software-swimlane adaptation, bound ubrid, relational above/below noun chains and selected participle agreement/full phrasing require fluent review."
   }
 ]
