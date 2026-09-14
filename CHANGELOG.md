@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f09b5d264">Add Greenlandic calendar wording to Coptic label</a>. Thanks to xet7.</summary>
+
+Use the officially attested calendar noun and retain the calendar identifier.
+Record the terminology caveat and add positive and negative coverage.
+Four translation checks pass; native and browser review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e9ef2b88b">Repair Tamazight duration and remaining-time labels</a>. Thanks to xet7.</summary>
 
 Replace French labels while retaining time, estimation and remaining meanings.

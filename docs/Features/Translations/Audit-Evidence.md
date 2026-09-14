@@ -25736,3 +25736,20 @@ Native/browser context review remains open; timing logic is unchanged.
 Four source checks pass with full-value positives, French negatives,
 token inventories, ordering and human preference. These keys were
 unflagged, so pending stays 250 and ledger rises to 18,783.
+
+Greenlandic calendar repair — 2026-09-14, `f09b5d264`.
+calendar-system-coptic changes from bare Coptic to Qaammatisiutit (Coptic).
+The Greenlandic Language Secretariat's official library subject glossary
+explicitly gives qaammatisiutit for calendars; committee minutes also
+confirm the almanac equivalent. Sources:
+https://oqaasileriffik.gl/nunatta-atuagaateqarfiani-taaguusersuutit/nunatta-atuagaateqarfiani-sammisamut-nalunaarsuutit/
+https://oqaasileriffik.gl/en/2012/04/30/oqaasiliortut-2012-6-gl/
+Low confidence: Coptic remains an international identifier, not an attested
+Greenlandic demonym. Native/browser terminology review remains open.
+Four source checks pass; label includes calendar and retains identity,
+with negatives rejecting bare Coptic and conflation with Ethiopic.
+Corrected original findings 15,653; pending 249 (kl 3); ledger 18,784.
+The official lunar-phase article distinguishes full and new moon:
+https://oqaasileriffik.gl/en/2021/02/07/lunar-phases-on-greenlandic/
+That does not establish sighting, civil/astronomical epoch or tabular
+terminology. All three Greenlandic Hijri variants remain pending.
