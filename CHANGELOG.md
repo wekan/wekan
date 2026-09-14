@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,417 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 427 pending review or repair.
-The correction inventory records 17,889 exact before/after values,
+The correction inventory records 17,892 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,9 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is cffc0bd98 (2026-09-14), replacing four membership
-and assignment shortcut labels, including one unflagged value. Distinct
-scopes are preserved; assignment paraphrases and full clauses remain low confidence.
+Latest translation fix is 47758fc61 (2026-09-14), repairing three unflagged
+account/starred-item labels. Create Account and Lists are directly attested
+in native software; starred compounds remain low confidence. Original
+counts unchanged.
 Logo provenance follow-up 89f36d41f (2026-09-14) applies the dictionary's
 cross-variety preface to two earlier URL records. Native caption evidence
 remains separate; full labels stay low confidence. No values/counts changed.
@@ -649,7 +650,7 @@ remain open.
 Translation audit progress as of 2026-09-14: 15,417 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
 and 427 remain pending across 17 locales, including 292 Tamazight findings.
-The ledger contains 17,889 correction records, including unflagged repairs.
+The ledger contains 17,892 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -2569,6 +2570,18 @@ filters. Assignment paraphrases, derived forms and full clauses remain low
 confidence. All 17,889 correction checks pass, including placeholders and
 translation preference. 427 originals remain pending; wider language and
 live browser verification remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/47758fc61">Repair Tamazight account and starred item labels</a>. Thanks to xet7.</summary>
+
+2026-09-14: Repair three unflagged labels: Arabic Create Account and Starred
+Boards, plus the incorrect Lists noun. Native software directly attests Create
+Account and Lists; full starred compounds remain low confidence. All 17,892
+correction checks pass, including placeholders and translation preference.
+Original counts unchanged: 427 pending. Wider language and live browser
+validation remain open.
 
 </details>
 
