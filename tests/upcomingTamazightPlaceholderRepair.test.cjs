@@ -299,3 +299,6 @@ for (const key of ['card-delete-pop', 'swimlane-delete-pop']) {
 }
 assert.match(translated['card-delete-pop'], /ⵜⵔⵥⵎⴷ ⵜⴰⴽⴰⵕⴹⴰ ⴷⴰⵖ/);
 assert.match(translated['swimlane-delete-pop'], /ⵜⵙⵙⵓⴽⵏⴷ ⴰⴱⵔⵉⴷ/);
+
+assert.equal(translated['r-update'], 'ⴰⵙⴷⵖⵉ');
+assert.doesNotMatch(translated['r-update'], /تحديث|Update/);
