@@ -1789,3 +1789,21 @@ locale suites pass with exact tokens, order and newer-human preference.
 Ledger 18,841; original corrected 15,671, pending 232 → 231, zgh 125 → 124;
 restored 4 unchanged. Queue classification records repair, not fluency.
 Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+
+
+Debug catalogue error repair **2026-09-14**, local commit `138b1b0af`:
+operator-debug-invalid replaces French with **%s: ⴰⵣⴰⵍ ⵏ debug ⵓⵔ ⵉⵣⵔⵉ**
+(%s: invalid debug value). Actual query-classes.js rejects unsupported
+values in the debug catalogue. This rephrases predicate as its actual
+catalogue-value meaning; it does not replace a Boolean test or use IRCAM's
+grammatical predicate noun. Native MediaWiki unexpected supplies value
+ⴰⵣⴰⵍ, while title-invalid supplies ⵓⵔ ⵉⵣⵔⵉ for invalid. Technical debug
+and exact %s remain. Low confidence: complete diagnostic grammar requires
+native review; existing selector/projection catalogue vocabulary remains
+separate unresolved work. Four affected suites pass with token/order/newer
+translation preference. Source regression checks the debug branch and
+keeps existence-check warnings distinct. This is source coverage, not
+browser execution. Earlier unchanged-French warning notes are superseded.
+Ledger 18,842; corrected 15,672, pending 231 → 230, zgh 124 → 123;
+restored 4 unchanged. Corrected classification does not certify fluency.
+Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json

@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/138b1b0af">Repair Tamazight debug-query error wording</a>. Thanks to xet7.</summary>
+
+The French error becomes a complete draft describing an unsupported debug
+catalogue value. Exact positional token and technical operator remain.
+Parser-source and locale checks pass. Full native diagnostic grammar and
+selector/projection terminology remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/56c2c5331">Repair Tamazight Excel field-selection prompt</a>. Thanks to xet7.</summary>
 
 A complete native-component draft replaces French while preserving field

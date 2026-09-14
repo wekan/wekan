@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,671 |
+| Corrected | 15,672 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,175 |
-| Pending review or repair | 231 |
+| Pending review or repair | 230 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,14 +16,14 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `56c2c5331` —
-French Excel field-selection prompt replaced with a complete Tamazight
-draft. Four suites pass; no active UI reference found. Full relative/future
-phrase remains low confidence. Ledger 18,841; pending 231 (zgh 124),
-restored 4 unchanged.
+Latest translation fix: **2026-09-14**, local commit `138b1b0af` —
+French debug-catalogue error replaced with a complete Tamazight draft.
+Actual parser semantics and %s checked; four suites pass. Full diagnostic
+grammar and selector/projection vocabulary remain open. Ledger 18,842;
+pending 230 (zgh 123), restored 4 unchanged.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,841** exact before/after values, including unflagged
+records contain **18,842** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -42,7 +42,7 @@ restored values still await full native/browser validation.
 
 | Pending locale | Findings |
 | --- | ---: |
-| zgh — Standard Moroccan Tamazight | 124 |
+| zgh — Standard Moroccan Tamazight | 123 |
 | iu — Inuktitut | 38 |
 | nah — Nahuatl | 17 |
 | tig — Tigre | 17 |
