@@ -127839,5 +127839,82 @@
     "before": "Supprimer le couloir ?",
     "after": "Dilemel ar vandenn ?",
     "reason": "Replace French swimlane deletion question with existing Breton Dilemel deletion verb and ar vandenn target used in archive/move titles; preserve confirmation question. Native whole-phrase review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "editCardEndDatePopup-title",
+    "before": "Modifier la date de fin",
+    "after": "Kemmañ an deiziad echuiñ",
+    "reason": "Replace French-seeded prose using existing Breton date/time/filter vocabulary; retain field meaning. Full native phrasing and browser review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "card-spent",
+    "before": "Temps passé",
+    "after": "Amzer tremenet",
+    "reason": "Replace French-seeded prose using existing Breton date/time/filter vocabulary; retain field meaning. Full native phrasing and browser review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "editCardSpentTimePopup-title",
+    "before": "Modifier le temps passé",
+    "after": "Kemmañ an amzer tremenet",
+    "reason": "Replace French-seeded prose using existing Breton date/time/filter vocabulary; retain field meaning. Full native phrasing and browser review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "spent-time-hours",
+    "before": "Temps passé (heures)",
+    "after": "Amzer tremenet (eurvezhioù)",
+    "reason": "Replace French-seeded prose using existing Breton date/time/filter vocabulary; retain field meaning. Full native phrasing and browser review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "overtime",
+    "before": "Temps supplémentaire",
+    "after": "Amzer ouzhpenn",
+    "reason": "Replace French-seeded prose using existing Breton date/time/filter vocabulary; retain field meaning. Full native phrasing and browser review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "time",
+    "before": "Temps",
+    "after": "Amzer",
+    "reason": "Replace French-seeded prose using existing Breton date/time/filter vocabulary; retain field meaning. Full native phrasing and browser review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "remaining_time",
+    "before": "Temps restant",
+    "after": "Amzer a chom",
+    "reason": "Replace French-seeded prose using existing Breton date/time/filter vocabulary; retain field meaning. Full native phrasing and browser review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "accounts-lockout-remaining-time",
+    "before": "Temps restant",
+    "after": "Amzer a chom",
+    "reason": "Replace French-seeded prose using existing Breton date/time/filter vocabulary; retain field meaning. Full native phrasing and browser review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "cron-error-time",
+    "before": "Temps",
+    "after": "Amzer",
+    "reason": "Replace French-seeded prose using existing Breton date/time/filter vocabulary; retain field meaning. Full native phrasing and browser review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "filter-dates-label",
+    "before": "Filtrer par date",
+    "after": "Silañ dre zeiziad",
+    "reason": "Replace French-seeded prose using existing Breton date/time/filter vocabulary; retain field meaning. Full native phrasing and browser review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "filter-labels-label",
+    "before": "Filtrer par étiquette",
+    "after": "Silañ dre dikedenn",
+    "reason": "Replace French-seeded prose using existing Breton date/time/filter vocabulary; retain field meaning. Full native phrasing and browser review remain open."
   }
 ]
