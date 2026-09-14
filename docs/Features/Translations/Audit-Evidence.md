@@ -26037,3 +26037,18 @@ for full components, wrong-language/wrong-sense negatives, tokens and
 protected newer values. Native/browser review remains open. One original
 finding and one unflagged repair: original corrected 15,664; pending 238
 (zgh 130); correction ledger 18,798.
+
+Wait-spinner descriptions — 2026-09-14, `aebb361d2`.
+Cube-Grid, Double-Bounce, Rotateplane and Scaleout French descriptions
+become Tamazight waiting-indicator compounds with exact style identifiers
+retained. IRCAM PDF 180 entry 3376 anmmal indicator, 39 entry 415 agani
+waiting, 566 entry 10591 n ugani in waiting-room compound:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+The preserved strings are named animation identifiers, not English prose
+substituted for a missing translation. Spinner selection maps identifiers
+to template names in settingBody.js; no mapping is changed. Low confidence:
+assembled software waiting-indicator compound; no full native/browser
+acceptance. Textile spinning senses are excluded. Four focused checks
+pass for exact style distinctions, wrong-language and wrong-sense negatives,
+tokens and protected newer translations. Original corrected 15,668;
+pending 234 (zgh 126); correction ledger 18,802.

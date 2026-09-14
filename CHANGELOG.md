@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/aebb361d2">Draft wait-spinner descriptions</a>. Thanks to xet7.</summary>
+
+Replace four French Tamazight spinner descriptions while preserving exact
+animation identifiers. Four translation checks pass; native software
+compound and browser review remain open in the audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a47e7141d">Draft invitation acceptance wording</a>. Thanks to xet7.</summary>
 
 Replace wrong-language Tamazight acceptance labels while retaining the
