@@ -884,8 +884,10 @@ test('Tamazight numeric total tooltip describes only display-enabled fields', as
     db.updateOne('cards', { _id: cardId }, { $set: {
       customFields: [{ _id: shownId, value: 7 }, { _id: hiddenId, value: 100 }],
     } });
-    db.updateOne('users', { _id: user.id }, { $set: { 'profile.language': 'zgh' } });
+    db.updateOne('users', { _id: user.id }, { $set: { 'profile.language': 'zgh', 'profile.showCardsCountAt': 0 } });
     await boardPage.reload();
+    await loginWithToken(boardPage, user.id, user.token);
+    await openBoard(boardPage, board.boardId, board.slug);
     const badge = new BoardPage(boardPage).list(board.listIds[0]).locator('.list-sum-badge').first();
     await expect(badge).toHaveText('∑ 7');
     await expect(badge).not.toHaveText('∑ 107');
