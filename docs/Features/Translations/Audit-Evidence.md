@@ -25753,3 +25753,21 @@ The official lunar-phase article distinguishes full and new moon:
 https://oqaasileriffik.gl/en/2021/02/07/lunar-phases-on-greenlandic/
 That does not establish sighting, civil/astronomical epoch or tabular
 terminology. All three Greenlandic Hijri variants remain pending.
+
+Greenlandic moon-sighting repair — 2026-09-14, `602ea4090`.
+calendar-system-islamic-rgsa now includes the native calendar noun, Hijri,
+Saudi Arabia and qaammatip takuneqarnera (moon being seen). Official
+calendar and moon vocabulary sources:
+https://oqaasileriffik.gl/nunatta-atuagaateqarfiani-taaguusersuutit/nunatta-atuagaateqarfiani-sammisamut-nalunaarsuutit/
+https://oqaasileriffik.gl/en/2021/02/07/lunar-phases-on-greenlandic/
+Lybech's Introduction to West Greenlandic, second edition, supports taku
+see (PDF 181), action nominalization (180) and dynamic passive (190):
+https://oqa.dk/assets/aitwg2ED.pdf
+The whole phrase is derived, not an attested calendar label. Low confidence
+for nominalization, possessive spelling and technical sighting terminology.
+Passive action is used rather than a possessed passive-participle phrase
+that could mean something the moon sees. Proper identifiers are retained.
+Four source checks pass; native/browser review remains open. Original
+corrected 15,654; pending 248 (kl 2); ledger 18,785. Earlier dated
+notes leaving this label English are superseded. Civil/astronomical
+tabular epochs remain pending; moon-phase terms do not resolve those.

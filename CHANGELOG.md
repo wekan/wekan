@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/602ea4090">Translate Greenlandic Saudi Hijri sighting label</a>. Thanks to xet7.</summary>
+
+Retain calendar identity, Saudi Arabia and moon sighting in a complete draft.
+Record grammatical evidence and low-confidence derived terminology.
+Four translation checks pass; native and browser review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f09b5d264">Add Greenlandic calendar wording to Coptic label</a>. Thanks to xet7.</summary>
 
 Use the officially attested calendar noun and retain the calendar identifier.

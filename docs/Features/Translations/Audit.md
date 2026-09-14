@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,653 |
+| Corrected | 15,654 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,175 |
-| Pending review or repair | 249 |
+| Pending review or repair | 248 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,13 +16,13 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `f09b5d264` —
-Greenlandic Coptic selection now includes the officially attested calendar
-noun. Four checks pass; the retained international identifier and native/
-browser terminology remain under review. Original pending: 249.
+Latest translation fix: **2026-09-14**, local commit `602ea4090` —
+Greenlandic Saudi Hijri label now retains calendar, country and moon
+sighting in a complete draft. Four checks pass; derived nominalization
+and native/browser terminology remain low confidence. Pending: 248.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,784** exact before/after values, including unflagged
+records contain **18,785** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -46,9 +46,9 @@ restored values still await full native/browser validation.
 | tig — Tigre | 17 |
 | wal — Wolaytta | 17 |
 | ve-PP — Veps | 10 |
-| kl — Greenlandic | 3 |
 | dz — Dzongkha | 2 |
 | ff — Fulah | 2 |
+| kl — Greenlandic | 2 |
 | ks — Kashmiri | 2 |
 | ee — Ewe | 1 |
 | qu — Quechua | 1 |
