@@ -123758,5 +123758,12 @@
     "before": "صورة الغلاف على البطاقة الصغيرة",
     "after": "ⵜⵓⴳⵏⴰ ⵏ ⵜⴷⵓⵍⵉ ⵖⴼ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵥⵢⴰⵏⵜ",
     "reason": "Replace Arabic minicard cover label while retaining add, remove FROM or cover ON minicard meaning. Reuse local cover-image tugna n tduli and takarḍa card terminology. Primary native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json create-local rnu add, delete kks remove, logentry-move-move sg from and tooltip-summary mẓẓiyn small support components. LOW CONFIDENCE local tduli cover sense, derived feminine small adjective tamẓẓiyant and full coordinated/prepositional software phrase require fluent review; do not reduce cover image to arbitrary image or minicard to full card. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "cron-error-severity",
+    "before": "Gravité",
+    "after": "ⵜⴰⵏⵥⴰⴹⵜ",
+    "reason": "Replace French cron severity field with existing Tamazight recovery-severity terminology for the identical English source Severity. Preserve severity versus details/message distinctions without altering protected local recovery translation. LOW CONFIDENCE tanẓaḍt severity sense is reused local terminology, not independently dictionary-validated; exact-word searches yielded no relevant primary attestation and do not establish absence. Requires fluent terminology review in both cron and recovery contexts. Reviewed 2026-09-14."
   }
 ]
