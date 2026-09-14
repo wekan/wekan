@@ -123611,5 +123611,12 @@
     "before": "Contenu de l'assistance",
     "after": "ⵜⵓⵎⴰⵢⵜ ⵏ ⵜⵡⵉⵙⵉ",
     "reason": "Replace Arabic/French support page label with Tamazight assistance terminology. Primary native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json userlogin-helplink2 supplies tiwisi help; noarticletext supplies bound title uzwl and content-model/pageinfo-contentpage tumayt content. Use assistance rather than an unrelated physical support meaning. LOW CONFIDENCE adapting help to the support page, bound twisi and complete title/content noun phrases require fluent review. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "support-info-only-for-logged-in-users",
+    "before": "Les informations d'assistance sont réservées aux utilisateurs connectés.",
+    "after": "ⵉⵏⵖⵎⵉⵙⵏ ⵏ ⵜⵡⵉⵙⵉ ⵉ ⵉⵎⵙⵙⵎⵔⵙⵏ ⵏⵏⴰ ⵉⴽⵛⵎⵏ ⵖⴰⵙ.",
+    "reason": "Replace French support access notice while retaining information, assistance and logged-in users ONLY. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json pageinfo-title supplies inɣmisn information, userlogin-helplink2 tiwisi help, protect-default imssmrsn users, login kcm and userlogin-loggedin tkcmd login, sp-contributions-toponly ɣas only and nna relative construction. LOW CONFIDENCE bound twisi, derived logged-in relative participle ikcmn and complete sentence/order require fluent review; do not weaken authenticated-users-only to all users. Reviewed 2026-09-14."
   }
 ]
