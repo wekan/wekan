@@ -1862,7 +1862,7 @@
   "moveSwimlanePopup-title": "Déplacer le couloir",
   "custom-field-stringtemplate": "Modèle de chaîne",
   "custom-field-stringtemplate-format": "ⵜⴰⵍⵖⴰ (ⵙⵎⵔⵙ %{value} ⴳ ⵓⴷⵖⴰⵔ ⵏ ⵓⵣⴰⵍ)",
-  "custom-field-stringtemplate-separator": "Séparateur (utiliser &#32; ou &nbsp; pour un espace)",
+  "custom-field-stringtemplate-separator": "ⴰⵏⴰⴱⵔⴰⵣ (ⵙⵎⵔⵙ &#32; ⵏⵖ &nbsp; ⵉ ⵓⵙⴽⴽⵉⵍ ⴰⵎⵍⵍⴰⵍ)",
   "custom-field-stringtemplate-item-placeholder": "ⵔⵏⵓ ⵉⴼⵔⴷⵉⵙⵏ ⵢⴰⴹⵏⵉⵏ ⵙ Enter",
   "creator": "ⴰⵎⵙⵏⴼⵍⵓⵍ",
   "creator-on-minicard": "الخالق على بطاقة صغيرة",

@@ -126663,5 +126663,12 @@
     "before": "Format (utiliser %{value} pour marquer un emplacement)",
     "after": "ⵜⴰⵍⵖⴰ (ⵙⵎⵔⵙ %{value} ⴳ ⵓⴷⵖⴰⵔ ⵏ ⵓⵣⴰⵍ)",
     "reason": "2026-09-14: Replace French Format help while preserving %{value} exactly. Indexed HACA lexicon entry 461 printed page 72 aligns talgha with Format (https://biblio.ircam.ma/pmb/uploads/publications/197.pdf); direct PDF access failed, indexed evidence only. Native MediaWiki rcfilters-search-placeholder attests Use smrs, rcfilters-activefilters-hide-tooltip attests Place adghar, redirect-value attests Value azal (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Paraphrase placeholder as in place of the value, consistent with client/lib/customFields.js replacing this token with each item value. Bound forms udghar/uzal, software paraphrase and full instruction remain low confidence; require language validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-field-stringtemplate-separator",
+    "before": "Séparateur (utiliser &#32; ou &nbsp; pour un espace)",
+    "after": "ⴰⵏⴰⴱⵔⴰⵣ (ⵙⵎⵔⵙ &#32; ⵏⵖ &nbsp; ⵉ ⵓⵙⴽⴽⵉⵍ ⴰⵎⵍⵍⴰⵍ)",
+    "reason": "2026-09-14: Replace French separator help preserving literal &#32; and &nbsp; and OR. Directly inspected CNAM Amawal PDF page 131: Separator Anabraz MC£,MC, from separate KBL/MAT and clear land MC£; page 31 Space character Asekkil amellal or Ilem KBL-sekkil (https://cedric.cnam.fr/~bouzefra/books/amawal.pdf). These cross-variety lexicon candidates are not normative Moroccan authority. Native MediaWiki rcfilters-search-placeholder attests Use smrs and OR ngh (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Adapt for a space as for a space character; cross-variety terminology, bound form usekkil and full software instruction remain low confidence and require language validation. Do not substitute Tifinagh U+2D70 word separator for HTML space entities."
   }
 ]
