@@ -8,6 +8,9 @@ import { WebApp } from 'meteor/webapp';
 import { DDP } from 'meteor/ddp';
 import Settings from '/models/settings';
 import InvitationCodes from '/models/invitationCodes';
+import Boards from '/models/boards';
+import InviteToBoardRolesSettings from '/models/inviteToBoardRolesSettings';
+import { canInviteToBoard } from '/models/lib/invitationBoardPermission';
 import EmailLocalization from '/server/lib/emailLocalization';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { Authentication } from '/server/authentication';
@@ -654,11 +657,27 @@ Meteor.methods({
     let rc = 0;
     check(emails, [String]);
     check(boards, [String]);
+    if (!this.userId) throw new Meteor.Error('not-allowed');
 
     const user = await getReactiveCache().getCurrentUser();
-    if (!user.isAdmin && !(await isNonAdminAllowedToSendMail(user))) {
+    if (!user || (!user.isAdmin && !(await isNonAdminAllowedToSendMail(user)))) {
       rc = -1;
       throw new Meteor.Error('not-allowed');
+    }
+
+    // Validate the complete grant before changing a code or sending any mail.
+    const allowedRoles = await InviteToBoardRolesSettings.allowedRoles();
+    for (const boardId of new Set(boards)) {
+      const board = await Boards.findOneAsync(boardId);
+      if (!canInviteToBoard(user, board, allowedRoles)) {
+        try {
+          require('/server/lib/securityLog').record({
+            key: 'authz.invitation-boards', action: 'blocked', source: 'sendInvitation',
+            detail: 'Invitation refused because the caller cannot invite to a requested board.',
+          });
+        } catch (e) { /* logging must never break the guard */ }
+        throw new Meteor.Error('not-allowed');
+      }
     }
 
     for (const rawEmail of emails) {
