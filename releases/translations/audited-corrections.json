@@ -122162,5 +122162,26 @@
     "before": "`__operator_sort__:<tri>` - où *<tri>* est une méthode parmi `__predicate_due__`, `__predicate_created__` ou `__predicate_modified__`.  Pour un tri descendant, préfixez la méthode par `-`.",
     "after": "`__operator_sort__:<ⵉⵙⵎ ⵏ ⵓⴼⵔⴰⵏ>` - ⵉⴳⴰ *<ⵉⵙⵎ ⵏ ⵓⴼⵔⴰⵏ>* ⵢⴰⵏ ⵙⴳ `__predicate_due__`, `__predicate_created__` ⵏⵖ `__predicate_modified__`. ⵉ ⵓⴼⵔⴰⵏ ⵜⴰⴽⵙⴰⵔⵜ, ⵔⵏⵓ `-` ⴷⴰⵜ ⵏ ⵉⵙⵎ ⵏ ⵓⴼⵔⴰⵏ.",
     "reason": "Replace French. Native MediaWiki sort-descending attests sort/descending, name labels name and add labels rnu; computing lexicon p112 prefix entry attests dat/before with MC Central Morocco source. Preserve all executable operator/predicate tokens, repeated descriptive sort-name example, three alternatives and explicit leading minus for descending sort. LOW CONFIDENCE full one-of and prefix instruction, noun/qualifier agreement and Central Morocco dat adaptation; mixed-source lexicon does not independently establish full Standard Moroccan sentence. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://cedric.cnam.fr/~bouzefra/books/amawal.pdf"
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-unknown-error",
+    "before": "'%s' n'est pas un opérateur",
+    "after": "%s ⵓⵔ ⵉⴳⵉ ⴰⵎⴰⵀⴰⵍ",
+    "reason": "Replace French. Computing lexicon p102 mathematical/relational operator entry supplies amahal; native MediaWiki negative copula supplies ur igi. Preserve not-an-operator meaning and exactly one %s. LOW CONFIDENCE mathematical lexicon adaptation to search operator and complete negated classification; mixed-source lexicon is not independent Standard Moroccan sentence proof. References: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-number-expected",
+    "before": "L'opérateur __operator__ n'attend pas '__value__' mais un nombre",
+    "after": "ⵉⵇⵇⴰⵏ ⴷ ⴰⵎⴹⴰⵏ ⵉ ⵓⵎⴰⵀⴰⵍ __operator__, ⵉⵔⵎⵙ '__value__'",
+    "reason": "Replace French. Express the expected number as a required number for the operator, followed by the received value, preserving all underscore tokens exactly and keeping required versus actual value distinct. Native MediaWiki requirement and recentchanges-label-plusminus number components support iqqan d/amdan; computing lexicon p102 operator and p120 receive/rmes (with Central Morocco take/catch note) support derived operator/receive forms. LOW CONFIDENCE bound operator noun, receive past-tense inflection and full diagnostic; mixed-source mathematical/receive usage is not independent Standard Moroccan search terminology proof. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://cedric.cnam.fr/~bouzefra/books/amawal.pdf"
+  },
+  {
+    "locale": "zgh",
+    "key": "number",
+    "before": "رقم",
+    "after": "ⴰⵎⴹⴰⵏ",
+    "reason": "Replace Arabic Number with derived free noun from native MediaWiki recentchanges-label-plusminus bound umdan/number. Preserve numeric value meaning; do not substitute a single digit. LOW CONFIDENCE free noun form and generic UI application. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
