@@ -121399,5 +121399,26 @@
     "before": "Afficher les listes sur la mini-carte",
     "after": "ⵙⴽⵏ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵖⴼ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵢⴰⵏⵜ",
     "reason": "LOW CONFIDENCE composed minicard list-visibility control. Native Mastodon lists.edit/delete attest singular talgamt/list and column.lists attests plural tilgamin; column_header.hide_settings attests sntl/hide. Reuse native MediaWiki skn/show and the previously composed on-minicard phrase consistently. Preserve singular/plural and show/hide distinctions. Full kanban list/minicard usage and bound-state morphology need fluent review. Replace French without modifying existing correct-language standalone list labels. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "list-filter-label",
+    "before": "Filtrer la liste par titre",
+    "after": "ⵣⵉⵣⴷⵉⴳ ⵜⴰⵍⴳⴰⵎⵜ ⵙ ⵓⵣⵡⵍ",
+    "reason": "LOW CONFIDENCE composed title-filter label. Native MediaWiki rcfilters-search-placeholder attests zizdig/filter and bound tmzizdgt/filter noun; badtitle/badtitletext attest azwl/uzwl title. Native Mastodon lists.edit/delete attest talgamt/list. Reuse previously documented composed card noun and derive free-state filter noun from the attested bound form. Preserve list-title versus card-title scope and command versus heading. Full by-title phrasing, card bound state and filter-noun morphology require fluent review; replace French without claiming full wording validation. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "filter-card-title-label",
+    "before": "Filtrer par titre de carte",
+    "after": "ⵣⵉⵣⴷⵉⴳ ⵙ ⵓⵣⵡⵍ ⵏ ⵜⴽⴰⵕⴹⴰ",
+    "reason": "LOW CONFIDENCE composed title-filter label. Native MediaWiki rcfilters-search-placeholder attests zizdig/filter and bound tmzizdgt/filter noun; badtitle/badtitletext attest azwl/uzwl title. Native Mastodon lists.edit/delete attest talgamt/list. Reuse previously documented composed card noun and derive free-state filter noun from the attested bound form. Preserve list-title versus card-title scope and command versus heading. Full by-title phrasing, card bound state and filter-noun morphology require fluent review; replace French without claiming full wording validation. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "boardCardTitlePopup-title",
+    "before": "Filtre par titre de carte",
+    "after": "ⵜⴰⵎⵣⵉⵣⴷⴳⵜ ⵏ ⵓⵣⵡⵍ ⵏ ⵜⴽⴰⵕⴹⴰ",
+    "reason": "LOW CONFIDENCE composed title-filter label. Native MediaWiki rcfilters-search-placeholder attests zizdig/filter and bound tmzizdgt/filter noun; badtitle/badtitletext attest azwl/uzwl title. Native Mastodon lists.edit/delete attest talgamt/list. Reuse previously documented composed card noun and derive free-state filter noun from the attested bound form. Preserve list-title versus card-title scope and command versus heading. Full by-title phrasing, card bound state and filter-noun morphology require fluent review; replace French without claiming full wording validation. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
   }
 ]
