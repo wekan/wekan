@@ -3540,6 +3540,16 @@ No live remote mirroring was run during verification.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/14d6a8cd1">Repair stale changelog links and preflight reporting</a>. Thanks to xet7.</summary>
+
+Repoint four missing translation commit links to matching local commits.
+The checker reports unresolved links without claiming all links resolve;
+build-menu callers propagate checker failures and accept unchanged notes.
+Shell syntax and changelog regression checks passed. No push was run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b91b63c53">Translation repairs: Tamazight authentication labels.</a></summary>
 
 2026-09-14: Replace four French labels, preserving method/type, default and
