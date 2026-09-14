@@ -23289,3 +23289,29 @@ Correction ledger: 18,495; original queue remains 15,601 corrected,
 19 restored awaiting validation, 4,162 retained and 299 pending (20,081 total).
 These eight repairs are outside the original flagged queue. No translation
 service, subagent or remote push was used.
+
+### 2026-09-14 — Breton navigation, exports and checklist controls
+
+Local commit `bb51e1fcf` repairs eighteen French values: close, close-board,
+close-card, chooseBoardSourcePopup-title, import-board-c, r-import,
+export-card, export-card-pdf, exportBoardPopup-title, exportCardPopup-title,
+show-activities, show-on-card, sidebar-open, sidebar-close, moveChecklist,
+copyChecklist, attachment-move and move-progress-cancel.
+The native [Ofis computing glossary](https://www.brezhoneg.bzh/uploads/Document/20/798_536_an-urzhiataerezh.pdf)
+(March 2006) supports the close/open, display, import, move/copy and cancel
+verbs. Existing Breton entity nouns and Ezporzhiañ are reused. The full
+compounds are adapted, not independently attested complete UI sentences.
+
+sidebar.js switches the open/close tooltip according to sidebar state.
+cardDetails.jade exposes distinct card movement/export controls; the PDF
+format name stays literal. Regression coverage protects opposite sidebar
+and checklist actions, exact cancellation/import reuse, equivalent export
+and import popup labels, PDF and rejection of the French seed.
+Four focused suites pass: correction/review ledgers, focused locale coverage
+and all-locale completeness. Browser execution remains unverified.
+
+Correction ledger: 18,513. Original queue remains 15,601 corrected,
+19 restored awaiting validation, 4,162 retained and 299 pending (20,081 total).
+The eighteen repairs are outside the original flagged queue. Remaining
+restored, uncertain, unflagged, low-confidence and browser review is open.
+No external translation service, dependency, subagent or push was used.
