@@ -191,3 +191,12 @@ assert.match(wipGuidance, /ⵙⵎⵓⵜⵜⵉ.*ⵙⴳ ⵜⵍⴳⴰⵎⵜ ⴰⴷ 
 assert.doesNotMatch(wipGuidance, /ⴽⴽⵙ|Veuillez|enlever/);
 assert.match(fs.readFileSync(path.join(ROOT, 'client/components/lists/listHeader.jade'), 'utf8'),
   /template\(name="wipLimitErrorPopup"\)[\s\S]*?wipLimitErrorPopup-dialog-pt2/);
+
+assert.equal(translated.description, 'ⴰⴳⵍⴰⵎ');
+assert.notEqual(translated.description, translated.summary);
+assert.match(translated['copyManyCardsPopup-instructions'], /ⵉⵣⵡⵍⵏ ⴷ ⵉⴳⵍⴰⵎⵏ.*ⵔⴰⴷ ⵜⵙⵏⵓⵍⴼⵓⴷ.*JSON/);
+for (const example of JSON.parse(translated['copyManyCardsPopup-format'])) {
+  assert.deepEqual(Object.keys(example), ['title', 'description']);
+  assert.match(example.description, /^ⴰⴳⵍⴰⵎ/);
+  assert.doesNotMatch(example.description, /ⴰⵙⴳⵣⵍ/);
+}

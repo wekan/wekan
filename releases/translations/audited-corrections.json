@@ -121362,8 +121362,8 @@
     "locale": "zgh",
     "key": "description",
     "before": "وصف",
-    "after": "ⴰⵙⴳⵣⵍ",
-    "reason": "Replace Arabic/French description or minicard control with Tamazight. Native MediaWiki filedesc attests asgzl/description and tool-link-userrights-readonly attests skn/show. Reuse the minicard noun phrase consistently with the settings headings. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+    "after": "ⴰⴳⵍⴰⵎ",
+    "reason": "Replace Arabic/French description or minicard control with Tamazight. Native MediaWiki filedesc attests asgzl/description and tool-link-userrights-readonly attests skn/show. Reuse the minicard noun phrase consistently with the settings headings. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json 2026-09-15: Translate bulk-card destination instructions and distinguish description (IRCAM aglam, entry 486 p42) from summary in label/examples. Keep literal JSON properties unchanged. Complete future-relative and format compounds remain low confidence; see Tamazight-Review.md."
   },
   {
     "locale": "zgh",
@@ -121796,8 +121796,8 @@
     "locale": "zgh",
     "key": "copyManyCardsPopup-format",
     "before": "[ {\"title\": \"Titre de la première carte\", \"description\":\"Description de la première carte\"}, {\"title\":\"Titre de la seconde carte\",\"description\":\"Description de la seconde carte\"},{\"title\":\"Titre de la dernière carte\",\"description\":\"Description de la dernière carte\"} ]",
-    "after": "[{\"title\":\"ⴰⵣⵡⵍ ⵏ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵣⵡⴰⵔⵓⵜ\",\"description\":\"ⴰⵙⴳⵣⵍ ⵏ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵣⵡⴰⵔⵓⵜ\"},{\"title\":\"ⴰⵣⵡⵍ ⵏ ⵜⴽⴰⵕⴹⴰ 2\",\"description\":\"ⴰⵙⴳⵣⵍ ⵏ ⵜⴽⴰⵕⴹⴰ 2\"},{\"title\":\"ⴰⵣⵡⵍ ⵏ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⴳⴳⴰⵔⵓⵜ\",\"description\":\"ⴰⵙⴳⵣⵍ ⵏ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⴳⴳⴰⵔⵓⵜ\"}]",
-    "reason": "Replace French sample prose in the bulk-card JSON example while preserving title/description property names, object order and three-card structure exactly. Use existing native title and description terms; MediaWiki badtitle attests azwl/title and filedesc attests asgzl/file description. page_first/page_last and lastmodifiedat support first/last components, deriving feminine card qualifiers; identify the second example as card 2 rather than inventing an unattested ordinal. LOW CONFIDENCE full card genitive and first-card feminine agreement/kanban sense; description term is preserved from the existing reviewed local value. JSON parsing and property-name regressions validate structure, not fluency. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+    "after": "[{\"title\":\"ⴰⵣⵡⵍ ⵏ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵣⵡⴰⵔⵓⵜ\",\"description\":\"ⴰⴳⵍⴰⵎ ⵏ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵣⵡⴰⵔⵓⵜ\"},{\"title\":\"ⴰⵣⵡⵍ ⵏ ⵜⴽⴰⵕⴹⴰ 2\",\"description\":\"ⴰⴳⵍⴰⵎ ⵏ ⵜⴽⴰⵕⴹⴰ 2\"},{\"title\":\"ⴰⵣⵡⵍ ⵏ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⴳⴳⴰⵔⵓⵜ\",\"description\":\"ⴰⴳⵍⴰⵎ ⵏ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⴳⴳⴰⵔⵓⵜ\"}]",
+    "reason": "Replace French sample prose in the bulk-card JSON example while preserving title/description property names, object order and three-card structure exactly. Use existing native title and description terms; MediaWiki badtitle attests azwl/title and filedesc attests asgzl/file description. page_first/page_last and lastmodifiedat support first/last components, deriving feminine card qualifiers; identify the second example as card 2 rather than inventing an unattested ordinal. LOW CONFIDENCE full card genitive and first-card feminine agreement/kanban sense; description term is preserved from the existing reviewed local value. JSON parsing and property-name regressions validate structure, not fluency. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json 2026-09-15: Translate bulk-card destination instructions and distinguish description (IRCAM aglam, entry 486 p42) from summary in label/examples. Keep literal JSON properties unchanged. Complete future-relative and format compounds remain low confidence; see Tamazight-Review.md."
   },
   {
     "locale": "zgh",
@@ -138395,5 +138395,12 @@
     "before": "Veuillez enlever des cartes de cette liste, ou définir une limite WIP plus importante.",
     "after": "ⵜⵜⵅⵉⵍ-ⴽ ⵙⵎⵓⵜⵜⵉ ⴽⵔⴰ ⵏ ⵜⵎⵙⴽⵉⵔⵉⵏ ⵙⴳ ⵜⵍⴳⴰⵎⵜ ⴰⴷ ⵏⵖ ⵙⵙⵉⵎⵖⵓⵔ ⴰⵡⵜⵜⵓ WIP.",
     "reason": "2026-09-15: Replace French guidance with Tamazight draft retaining move tasks out of this list OR increase WIP limit, rather than delete cards. Native MediaWiki move/enlarge components support verbs; numerical-limit adaptation, politeness/dialect and complete grammar remain low confidence. See Tamazight-Review.md."
+  },
+  {
+    "locale": "zgh",
+    "key": "copyManyCardsPopup-instructions",
+    "before": "Titres et descriptions des cartes de destination dans ce format JSON",
+    "after": "ⵉⵣⵡⵍⵏ ⴷ ⵉⴳⵍⴰⵎⵏ ⵏ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵍⵍⵉ ⵔⴰⴷ ⵜⵙⵏⵓⵍⴼⵓⴷ ⵙ ⵡⴰⵏⴰⵡ JSON ⴰⴷ",
+    "reason": "2026-09-15: Translate bulk-card destination instructions and distinguish description (IRCAM aglam, entry 486 p42) from summary in label/examples. Keep literal JSON properties unchanged. Complete future-relative and format compounds remain low confidence; see Tamazight-Review.md."
   }
 ]
