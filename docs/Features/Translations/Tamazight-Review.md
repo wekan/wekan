@@ -1364,3 +1364,16 @@ negatives alongside tokens, ordering and human preference. An initial
 command had a misspelled suite filename; corrected invocation passed.
 Native/browser context review remains open. Corrected original findings
 15,652; pending 250 (zgh 138); correction ledger 18,781.
+
+Time label repairs — 2026-09-14, `e9ef2b88b`.
+French duration becomes azmz, explicitly used in duration compounds in
+IRCAM Amazigh-English PDF 279 entry 5472. Estimated-time-remaining
+becomes estimation of the time that remains, retaining all components:
+asutg estimation/assessment (PDF 244, 4716), azmz/uzmz time period
+(279, 5472), qqim remain (359, 6809). Source:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+Low confidence: full genitive phrase and relative participle qqimn.
+Native/browser context review remains open; timing logic is unchanged.
+Four source checks pass with full-value positives, French negatives,
+token inventories, ordering and human preference. These keys were
+unflagged, so pending stays 250 and ledger rises to 18,783.

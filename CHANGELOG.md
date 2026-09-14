@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e9ef2b88b">Repair Tamazight duration and remaining-time labels</a>. Thanks to xet7.</summary>
+
+Replace French labels while retaining time, estimation and remaining meanings.
+Record primary vocabulary and low-confidence full-clause grammar.
+Four translation checks pass; native and browser review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7817aa29f">Repair Tamazight shared-list conversion label</a>. Thanks to xet7.</summary>
 
 Replace French with a complete draft retaining conversion and shared status.

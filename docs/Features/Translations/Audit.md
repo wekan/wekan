@@ -16,13 +16,13 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `7817aa29f` —
-French shared-list conversion label becomes a complete Tamazight draft
-using attested transform/list/shared terms. Four source checks pass;
-relative-clause grammar remains low confidence. Pending: 250.
+Latest translation fix: **2026-09-14**, local commit `e9ef2b88b` —
+French duration and estimated-time-remaining labels become Tamazight
+using attested time, estimation and remain terms. Four checks pass;
+relative-clause grammar remains low confidence. Original pending: 250.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,781** exact before/after values, including unflagged
+records contain **18,783** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
