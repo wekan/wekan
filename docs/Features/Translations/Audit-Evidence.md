@@ -23028,3 +23028,12 @@ strong emphasis in the private-board message and opposite filter states.
 All 18,419 correction and 4,158 unchanged checks pass. Native complete
 phrasing/browser validation remain open; original pending/restored remains
 300/27 and broader unflagged review remains required.
+
+Dated unflagged repair, 2026-09-14, local commit `0a3320e69`: 12 Breton
+attachment/export/upload labels replace French. Existing attachment transfer
+limits distinguish enkargañ upload from pellgargañ download. Reuse restr,
+ment, stagadennoù and native software Adenvel rename terminology. Export
+preview wording and uploaded-date prefix are direct adaptations requiring
+native full-phrase/date validation. All 18,431 correction and 4,158 unchanged
+checks pass. Browser execution remains unverified; original pending/restored
+scope stays 300/27, and broader unflagged review remains required.
