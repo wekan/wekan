@@ -2618,3 +2618,21 @@ objects, negation, lost/restoration scope, negative French checks,
 placeholders, order and human preference. Ledger 19,807; original corrected
 15,710, pending 193 (zgh 98), restored 4 unchanged. Broader uncertain,
 restored and unflagged review remains open. No push.
+
+## Card and vote deletion notices — 2026-09-15
+
+Local commit `9e26815db` replaces Arabic card-delete-notice and French
+vote-delete-pop. Retain permanent deletion as an explicit cannot-undo
+clause and loss of all activities associated with this card or vote.
+Reuse existing account/team deletion cannot-undo wording, board deletion
+future passive, activity plural and card/voting nouns. Vote and card
+objects remain distinct. cardDetails.jade registers the vote notice.
+This consistency repair adds no independent lexical attestation.
+
+**Low confidence:** permanence paraphrase, possessive scope and passive
+agreement remain under native review. Four focused suites pass for
+non-undoable deletion, all activities, distinct objects, negative
+wrong-language checks, placeholders, order and human preference. No live
+browser test ran. Ledger 19,809; original corrected 15,712, pending 191
+(zgh 96), restored 4 unchanged. Broader uncertain/restored/unflagged
+review remains open. No push.

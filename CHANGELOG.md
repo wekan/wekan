@@ -661,6 +661,18 @@ The browser assertion accepts whitespace between the regional flag and name.
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9e26815db">Repair Tamazight card and vote deletion notices</a></summary>
+
+Replace wrong-language warnings, retaining non-undoable deletion and loss
+of all related activities. Keep card and vote scopes distinct. Four focused
+suites pass. Dated audit: 19,809 corrections, 191 original findings pending;
+complete contextual grammar remains under native review.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ab336422a">Repair Tamazight no-lost-items restoration message</a></summary>
 
 Replace French restoration result with a Tamazight draft preserving
