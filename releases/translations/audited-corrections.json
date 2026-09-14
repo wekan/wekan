@@ -131332,5 +131332,12 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "Hijri ཟླ་ཐོ (Saudi Arabia, ཟླཝ་མཐོང་ནི་)",
     "reason": "2026-09-14: Restore complete Hijri calendar, Saudi Arabia and moon-sighting components rather than English country-only seed. Grammar of Dzongkha PDF page 191 example 35 attests moon zlawa spelling ཟླཝ; PDF page 325 section 7.1 attests མཐོང་ནི infinitive see and its verbal-noun use. Reuse locale calendar noun; retain Hijri/Saudi Arabia as names. Low confidence: full moon-seeing compound and technical calendar nomenclature require native/browser review. Civil/astronomical epoch labels remain separately pending."
+  },
+  {
+    "locale": "dz",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "གྲེག་གོ་རི་ཡཱན་ཟླ་ཐོ (ISO 8601 བདུན་ཕྲག)",
+    "reason": "2026-09-14: Restore Gregorian calendar and week qualifier omitted from ISO-only seed. Reuse existing Gregorian/calendar label and native week བདུན་ཕྲག, explicitly attested in Grammar of Dzongkha PDF page 373 (printed 363). ISO 8601 identifier stays exact. Low confidence: complete technical label and existing Gregorian transliteration require native/browser review; not a Bhutanese weekday-rule change."
   }
 ]
