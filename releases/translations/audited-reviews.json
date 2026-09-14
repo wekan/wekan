@@ -12238,5 +12238,119 @@
     "key": "delete-duplicate-empty-lists-migration-description",
     "value": "Sekure forigas malplenajn duoblajn listojn. Forigas nur listojn, kiuj havas neniun karton KAJ havas alian liston kun la sama titolo enhavantan kartojn.",
     "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "lost-cards",
+    "value": "Perditaj kartoj",
+    "reason": "2026-09-14: Direct semantic review confirms lost-card/list restoration, archived object scope, avatar/file URL repairs, migration outcomes and board-admin-only permission. swimlaneId/listId remain literal field names; all/this-board/individually qualifiers and success/failure negation preserved. Ambiguous Complete label excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "lost-cards-list",
+    "value": "Restarigitaj eroj",
+    "reason": "2026-09-14: Direct semantic review confirms lost-card/list restoration, archived object scope, avatar/file URL repairs, migration outcomes and board-admin-only permission. swimlaneId/listId remain literal field names; all/this-board/individually qualifiers and success/failure negation preserved. Ambiguous Complete label excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "restore-lost-cards-migration",
+    "value": "Restarigi perditajn kartojn",
+    "reason": "2026-09-14: Direct semantic review confirms lost-card/list restoration, archived object scope, avatar/file URL repairs, migration outcomes and board-admin-only permission. swimlaneId/listId remain literal field names; all/this-board/individually qualifiers and success/failure negation preserved. Ambiguous Complete label excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "restore-lost-cards-migration-description",
+    "value": "Trovas kaj restarigas kartojn kaj listojn kun mankanta swimlaneId aŭ listId. Kreas naĝlinion 'Perditaj kartoj' por denove videbligi ĉiujn perditajn erojn.",
+    "reason": "2026-09-14: Direct semantic review confirms lost-card/list restoration, archived object scope, avatar/file URL repairs, migration outcomes and board-admin-only permission. swimlaneId/listId remain literal field names; all/this-board/individually qualifiers and success/failure negation preserved. Ambiguous Complete label excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "restore-all-archived-migration",
+    "value": "Restarigi ĉiujn arkivitajn",
+    "reason": "2026-09-14: Direct semantic review confirms lost-card/list restoration, archived object scope, avatar/file URL repairs, migration outcomes and board-admin-only permission. swimlaneId/listId remain literal field names; all/this-board/individually qualifiers and success/failure negation preserved. Ambiguous Complete label excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "restore-all-archived-migration-description",
+    "value": "Restarigas ĉiujn arkivitajn naĝliniojn, listojn kaj kartojn. Aŭtomate riparas iun ajn mankantan swimlaneId aŭ listId por videbligi la erojn.",
+    "reason": "2026-09-14: Direct semantic review confirms lost-card/list restoration, archived object scope, avatar/file URL repairs, migration outcomes and board-admin-only permission. swimlaneId/listId remain literal field names; all/this-board/individually qualifiers and success/failure negation preserved. Ambiguous Complete label excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "fix-missing-lists-migration",
+    "value": "Ripari mankantajn listojn",
+    "reason": "2026-09-14: Direct semantic review confirms lost-card/list restoration, archived object scope, avatar/file URL repairs, migration outcomes and board-admin-only permission. swimlaneId/listId remain literal field names; all/this-board/individually qualifiers and success/failure negation preserved. Ambiguous Complete label excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "fix-missing-lists-migration-description",
+    "value": "Detektas kaj riparas mankantajn aŭ difektitajn listojn en la tabula strukturo.",
+    "reason": "2026-09-14: Direct semantic review confirms lost-card/list restoration, archived object scope, avatar/file URL repairs, migration outcomes and board-admin-only permission. swimlaneId/listId remain literal field names; all/this-board/individually qualifiers and success/failure negation preserved. Ambiguous Complete label excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "fix-avatar-urls-migration",
+    "value": "Ripari avatarajn URL-ojn",
+    "reason": "2026-09-14: Direct semantic review confirms lost-card/list restoration, archived object scope, avatar/file URL repairs, migration outcomes and board-admin-only permission. swimlaneId/listId remain literal field names; all/this-board/individually qualifiers and success/failure negation preserved. Ambiguous Complete label excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "fix-avatar-urls-migration-description",
+    "value": "Ĝisdatigas avatarajn URL-ojn de tabulanoj por uzi la ĝustan konservejon kaj riparas rompitajn avatarajn referencojn.",
+    "reason": "2026-09-14: Direct semantic review confirms lost-card/list restoration, archived object scope, avatar/file URL repairs, migration outcomes and board-admin-only permission. swimlaneId/listId remain literal field names; all/this-board/individually qualifiers and success/failure negation preserved. Ambiguous Complete label excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "fix-all-file-urls-migration",
+    "value": "Ripari ĉiujn dosierajn URL-ojn",
+    "reason": "2026-09-14: Direct semantic review confirms lost-card/list restoration, archived object scope, avatar/file URL repairs, migration outcomes and board-admin-only permission. swimlaneId/listId remain literal field names; all/this-board/individually qualifiers and success/failure negation preserved. Ambiguous Complete label excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "fix-all-file-urls-migration-description",
+    "value": "Ĝisdatigas ĉiujn URL-ojn de dosieraj alligitaĵoj en ĉi tiu tabulo por uzi la ĝustan konservejon kaj riparas rompitajn dosierajn referencojn.",
+    "reason": "2026-09-14: Direct semantic review confirms lost-card/list restoration, archived object scope, avatar/file URL repairs, migration outcomes and board-admin-only permission. swimlaneId/listId remain literal field names; all/this-board/individually qualifiers and success/failure negation preserved. Ambiguous Complete label excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "migration-needed",
+    "value": "Migrado bezonata",
+    "reason": "2026-09-14: Direct semantic review confirms lost-card/list restoration, archived object scope, avatar/file URL repairs, migration outcomes and board-admin-only permission. swimlaneId/listId remain literal field names; all/this-board/individually qualifiers and success/failure negation preserved. Ambiguous Complete label excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "migration-running",
+    "value": "Rulas...",
+    "reason": "2026-09-14: Direct semantic review confirms lost-card/list restoration, archived object scope, avatar/file URL repairs, migration outcomes and board-admin-only permission. swimlaneId/listId remain literal field names; all/this-board/individually qualifiers and success/failure negation preserved. Ambiguous Complete label excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "migration-successful",
+    "value": "Migrado sukcese finita",
+    "reason": "2026-09-14: Direct semantic review confirms lost-card/list restoration, archived object scope, avatar/file URL repairs, migration outcomes and board-admin-only permission. swimlaneId/listId remain literal field names; all/this-board/individually qualifiers and success/failure negation preserved. Ambiguous Complete label excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "migration-failed",
+    "value": "Migrado malsukcesis",
+    "reason": "2026-09-14: Direct semantic review confirms lost-card/list restoration, archived object scope, avatar/file URL repairs, migration outcomes and board-admin-only permission. swimlaneId/listId remain literal field names; all/this-board/individually qualifiers and success/failure negation preserved. Ambiguous Complete label excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "migrations-admin-only",
+    "value": "Nur tabulaj administrantoj povas ruli migradojn",
+    "reason": "2026-09-14: Direct semantic review confirms lost-card/list restoration, archived object scope, avatar/file URL repairs, migration outcomes and board-admin-only permission. swimlaneId/listId remain literal field names; all/this-board/individually qualifiers and success/failure negation preserved. Ambiguous Complete label excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "migrations-description",
+    "value": "Ruli kontrolojn kaj riparojn de datuma integreco por ĉi tiu tabulo. Ĉiu migrado povas esti plenumata aparte.",
+    "reason": "2026-09-14: Direct semantic review confirms lost-card/list restoration, archived object scope, avatar/file URL repairs, migration outcomes and board-admin-only permission. swimlaneId/listId remain literal field names; all/this-board/individually qualifiers and success/failure negation preserved. Ambiguous Complete label excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "no-issues-found",
+    "value": "Neniu problemo trovita",
+    "reason": "2026-09-14: Direct semantic review confirms lost-card/list restoration, archived object scope, avatar/file URL repairs, migration outcomes and board-admin-only permission. swimlaneId/listId remain literal field names; all/this-board/individually qualifiers and success/failure negation preserved. Ambiguous Complete label excluded."
   }
 ]
