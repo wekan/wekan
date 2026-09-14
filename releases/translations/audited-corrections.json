@@ -121328,6 +121328,6 @@
     "key": "loading",
     "before": "Chargement, merci de patienter.",
     "after": "ⴰⵣⴷⴰⵎ, ⴰⵎⵓⵔ ⵏⵏⴽ ⵔⴰⵊⴰ.",
-    "reason": "Replace French Loading, please wait with Tamazight. Mastodon native zgh loading_indicator.label attests azdam/loading; MediaWiki usernameinprogress attests the exact Please wait clause amur nnk raja. Combine the two without changing their wording or omitting the wait request. Complete cross-source UI phrase remains subject to fluent usage review. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+    "reason": "Replace French Loading, please wait with Tamazight. The pinned Mastodon zgh snapshot f6e34ca134f849f08ca56b484e302f3e4ec8fd11 loading_indicator.label attests azdam/loading; MediaWiki usernameinprogress attests the exact Please wait clause amur nnk raja. Combine the two without changing their wording or omitting the wait request. Complete cross-source UI phrase remains subject to fluent usage review. References: https://git.hollymcfarland.com/monorail/mastodon/src/commit/f6e34ca134f849f08ca56b484e302f3e4ec8fd11/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json Current upstream main no longer contains this loading key; provenance is the pinned historical snapshot, not current main."
   }
 ]
