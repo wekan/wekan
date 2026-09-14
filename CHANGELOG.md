@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,358 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 486 pending review or repair.
-The correction inventory records 17,746 exact before/after values,
+findings: 15,359 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 485 pending review or repair.
+The correction inventory records 17,747 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (351) and
+The largest original queues are Standard Moroccan Tamazight (350) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is fea294be0 (2026-09-14), replacing French
-Workspace menu with native components. Organizational workspace extension
-and the full bound phrase remain low confidence for fluent review.
+Latest translation fix is f16fae64a (2026-09-14), replacing French
+Start Planning Poker. Complete command and indexed-only conjugation
+evidence remain low confidence for direct/fluent review.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -628,10 +628,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,358 original findings are
+Translation audit progress as of 2026-09-14: 15,359 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 486 remain pending across 17 locales, including 351 Tamazight findings.
-The ledger contains 17,746 correction records, including unflagged repairs.
+and 485 remain pending across 17 locales, including 350 Tamazight findings.
+The ledger contains 17,747 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -1748,7 +1748,7 @@ versus ordinary sign-in/authorization. No locale values or counts changed.
 Use native Calendar vocabulary and retain Minguo from the English source,
 avoiding generic Chinese language/calendar substitution. The full mixed-script
 name remains low confidence and needs fluent review. All 17,722 correction/rendering
-checks pass; 487 original findings remain pending, including 351 Tamazight findings.
+checks pass; 487 original findings remain pending, including 350 Tamazight findings.
 
 </details>
 
@@ -1818,7 +1818,18 @@ findings remain pending.
 Replace French Workspace menu with native Menu/content-space components.
 Organizational workspace extension and the full bound phrase remain low
 confidence for fluent review. All 17,746 correction/rendering checks pass;
-486 original findings remain pending, including 351 Tamazight findings.
+486 original findings remain pending, including 350 Tamazight findings.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f16fae64a">Translate Tamazight Planning Poker start heading</a>. Thanks to xet7.</summary>
+
+Replace French initiation wording, preserving Planning Poker and Start
+action rather than the date noun. Full command remains low confidence;
+IRCAM manual evidence is indexed only and direct fetch redirects to HTML.
+All 17,747 correction/rendering checks pass; 485 original findings remain
+pending, including 350 Tamazight findings.
 
 </details>
 
