@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight assignee labels and card scopes — 2026-09-14
+
+Commit `2e15e9f7b` replaces five French values: two original findings and three unflagged labels. Preserve Assignee versus Assignees, No assignee, all assignees of ALL cards on THIS board versus all assignees of CURRENT card on THIS board. Responsibility provisionally uses Person(s) to whom card(s) given, distinct from membership. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) supplies Given and Current components, not the full responsibility-assignment term. Relative To whom, plural person, feminine passive/card agreement, bound forms and full labels remain LOW CONFIDENCE for native validation. Local Card vocabulary is reused without claiming independent proof. Two originals repaired; 415 remain pending, including 280 Tamazight. 17,915 mechanical correction checks pass; no live browser verification or remote uploads.
+
 ## Tamazight assigned-only permissions — 2026-09-14
 
 Commit `13f8fbd14` replaces six original French labels/descriptions. Sidebar role choices pair each label with its capability description. Preserve Only assigned cards visible for all three, Normal-user editing, Read cannot edit and Comment can only comment. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) supplies Only, User, Read, Edit, Show and ability components. Responsibility assignment provisionally uses Given cards; this is a semantic adaptation, not an attested permission phrase. Derived passive/plural forms, Read noun, Normal adjective, Comment wording and full role/capability clauses remain LOW CONFIDENCE for native review. Component attestations and source-code checks do not validate complete grammar. Six originals repaired; 417 remain pending, including 282 Tamazight. 17,910 mechanical correction checks pass; no live browser verification or remote uploads.
