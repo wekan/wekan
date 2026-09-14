@@ -24808,5 +24808,11 @@
     "key": "r-its-list",
     "value": "bere zerrenda",
     "reason": "Bere zerrenda correctly names its own list in the move-card action. boardActions composes this after the top/bottom position selector; no other list ownership is implied."
+  },
+  {
+    "locale": "ace",
+    "key": "card-comments-more",
+    "value": "Leubeh",
+    "reason": "Leubeh correctly means more in Acehnese. Primary Balai Bahasa dictionary example at https://kamusbbpa.kemendikdasmen.go.id/kamus/Aceh/C uses leubeh with Indonesian lebih; Kaidah Bahasa Aceh also attests leubèh as more. Preserve valid existing orthography rather than treating a spelling variant as wrong-language."
   }
 ]
