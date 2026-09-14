@@ -901,6 +901,16 @@ records 162 pending original findings.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/18e197947">Repair Tamazight list linked-card deletion warning</a>. Thanks to xet7.</summary>
+
+Replace French dependency warning, retaining linked cards connected to
+cards in this list and deletion order. Four focused translation suites
+pass. Relative/plural grammar and connection paraphrase remain under
+native review. Dated audit records 161 pending original findings.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

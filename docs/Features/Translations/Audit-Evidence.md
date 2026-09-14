@@ -28899,3 +28899,25 @@ Four focused suites pass for exact wording, French rejection and translation
 invariants. No live deletion UI test ran. Ledger 19,856; original corrected
 15,741, pending 162 (zgh 67), restored 4 unchanged. Broader review remains
 open; no remote writes were made.
+
+
+## List linked-card deletion warning — repair 2026-09-15
+
+Source commit `18e197947` replaces French list-dependency instruction.
+Reuse established cannot-delete/before pattern and card/list terms.
+IRCAM page 717 entry 13467 zdi attach/join/tie supplies connection wording
+for linked cards pointing to cards in this list. Directional pointing is
+paraphrased as connection to the specified cards; that software adaptation
+and complete relative/feminine-plural agreement remain low confidence.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+The target noun remains cards in this list, not the list itself or unrelated
+boards. Earlier source review shows incoming links from other lists are
+checked and same-list links allowed; runtime selector is unchanged. The
+translation follows the English dependency warning and adds no permanent
+or no-undo claim. No runtime deletion behavior or diagnostic suffix changed.
+Four focused suites pass for exact repair, French rejection and translation
+invariants. No live deletion UI test ran. Ledger 19,857; original corrected
+15,742, pending 161 (zgh 66), restored 4 unchanged. Earlier wrong-language
+pending classification is superseded by this repair, not the native-review
+limits. Broader review remains open; no remote writes were made.
