@@ -23220,3 +23220,18 @@ No new dependency or translation service is used.
 Tracked: 15,601 corrected, 20 restored awaiting validation, 4,161 retained,
 299 pending, 20,081 total; correction ledger 18,477. Broader unflagged,
 low-confidence, restored phrase and browser review remains open.
+
+### 2026-09-14 — Restored Danish age label
+
+Local commit `824dd005e` retains days-old = Dage gammel. The native
+[DSL dictionary, gammel sense 4.2](https://ordnet.dk/ods/ordbog/gammel)
+documents an age construction for things, including flere dage gammel.
+This supports the retained Danish wording rather than pulled Swedish Dagar
+gammal. Current application-source search found no use of days-old outside
+translation/audit artifacts; no current rendered context is claimed.
+
+Regression coverage protects the exact Danish value and rejects the Swedish
+replacement. Both complete correction and unchanged-review suites pass.
+Tracked: 15,601 corrected, 19 restored awaiting validation, 4,162 retained,
+299 pending, 20,081 total. No locale value was changed; low-confidence,
+unflagged, remaining restored and browser reviews remain open.

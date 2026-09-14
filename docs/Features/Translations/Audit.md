@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,601 |
-| Restored pre-pull; awaiting validation | 20 |
-| Reviewed; retained unchanged | 4,161 |
+| Restored pre-pull; awaiting validation | 19 |
+| Reviewed; retained unchanged | 4,162 |
 | Pending review or repair | 299 |
 | Total tracked | 20,081 |
 
@@ -28,13 +28,14 @@ Latest translation fix: **2026-09-14**, local commit `bc26fa890` —
 Galician attachment triggers use masculine action labels; feminine labels
 remain for other subjects. Two Portuguese regional fragments were repaired.
 New keys reuse existing translations in the other locales (244 files updated).
-All **18,477** corrections and **4,161** unchanged reviews pass structural
+All **18,477** corrections and **4,162** unchanged reviews pass structural
 checks. Agreement, all-locale reuse and real Jade compilation pass. Browser
 regressions are added and syntax-checked; live execution remains open.
-Latest unchanged review: **2026-09-14**, commit `bc26fa890` —
-three original Galician fragments retained after contextual agreement repair.
-The RAG dictionary identifies computing anexo as a masculine noun. Shared
-feminine actions remain correct for the other template subjects.
+Latest unchanged review: **2026-09-14**, commit `824dd005e` —
+Danish Dage gammel retained with native dictionary age-construction evidence;
+the Swedish pulled replacement remains rejected. No current application use
+of this key was found, so rendered UI validation is not claimed.
+Three Galician fragments remain validated by the previous contextual repair.
 Basque restored phrase review, provisional calendar compounds and broader
 language/browser review remain open.
 Card-show-lists context is verified against its settings row and toggle.
@@ -42,16 +43,16 @@ Additional unflagged unchanged review: **2026-09-14**, `39af6aae5` —
 Veps Server and Valencian Errors retained with native software evidence and
 protected per locale from filling. Zero unreviewed English placeholders remain;
 this does not establish correct language or fluency in all values. These two reviews are outside the original flagged ledger; current
-pending/restored counts are 299/20.
+pending/restored counts are 299/19.
 
 
 
 Fixed categories include wrong-language prose, terminology, warnings,
 placeholders and JSON/calendar/search formatting. All 361 originally flagged
 Klingon findings and the broader 829 German-identical values were repaired;
-the cron label retains the actual tool name Cron. Danish restored review
-validated 611 values: 606 retained unchanged and five meanings repaired.
-Danish Schedule is validated; Days Old remains context-dependent.
+the cron label retains the actual tool name Cron. The complete Danish flagged queue
+now has 629 retained values and seven corrected meanings.
+Danish Schedule and Days Old are validated; live browser review remains open.
 Esperanto lime-color wording was repaired in `d454a58ff`.
 Reviewed subtask actions/settings retain correct subordinate-task compounds.
 
