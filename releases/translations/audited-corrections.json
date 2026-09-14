@@ -131563,5 +131563,12 @@
     "before": "Restaurer les cartes perdues",
     "after": "ⵙⵙⵓⴽⵏ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵜⵉⵎⵏⵉⴷⵉⵏ",
     "reason": "2026-09-14: Full restore-lost-cards action draft from IRCAM Amazigh-English PDF 534 entry 10051 ssukn restore/repair, PDF 575 entry 10775 tikarḍiwin cards, PDF 383 entry 7266 imnidi lost: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339 . Low confidence: feminine plural adjective timnidin adapted from lemma, software restoration metaphor and imperative context. No active consumer found in client/models/server; stored-language repair only, no migration restoration or native/browser acceptance."
+  },
+  {
+    "locale": "zgh",
+    "key": "autoAddUsersWithDomainName",
+    "before": "إضافة المستخدمين تلقائيًا باستخدام اسم المجال",
+    "after": "ⵔⵏⵓ ⵙ ⵓⵡⵔⵎⴰⵏ ⵉⵏⵙⵙⵎⵔⴰⵙ ⵍⵍⵉ ⵖⵓⵔⵙⵏ ⵉⵙⵎ ⵏ ⵜⵖⵓⵍⵜ",
+    "reason": "2026-09-14: Full automatic-addition draft with users who have the domain name, rather than using a domain name as an unrestricted operation. IRCAM PDF 463 entry 8773 rnu add, 186 entry 3493 users, 397 entry 7541 name; https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339 . MediaWiki zgh logentry-newusers-autocreate attests automatic adverb: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Computing domain taɣult provenance in domain correction. Low confidence: assembled relative possessive ghursn, noun state and adverb placement; not an attested whole sentence. Actual orgsToAutoAddForEmail matches email domain exactly. Native/browser review open."
   }
 ]
