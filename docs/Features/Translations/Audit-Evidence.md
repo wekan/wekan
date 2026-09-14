@@ -23071,3 +23071,12 @@ used in restore-lost-cards-migration and restoration steps. Preserve board
 scope and restore-all scope. All 18,453 correction checks pass. Native phrase
 and actual backup/archive/browser validation remain open; original pending/
 restored scope stays 300/27 and broader unflagged review remains required.
+
+Dated unflagged repair, 2026-09-14, local commit `48c7e8aa4`: four Breton
+received/start/due/end date-change triggers replace mixed French labels with
+Pa vez lakaet pe kemmet clauses. Existing date labels retain distinct field
+names; actual cardTriggers.jade consumers preserve optional actor controls.
+English set-or-changed behavior is restored rather than only reporting changed.
+All 18,457 correction and 4,158 unchanged-review checks pass. Complete native
+phrase and browser validation remain open; original pending/restored scope
+stays 300/27. Shared trigger agreement remains a separate unresolved review.

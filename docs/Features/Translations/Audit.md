@@ -20,15 +20,15 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,453** exact before/after values, including unflagged repairs.
+contain **18,457** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `ba815b531` —
-four French-seeded Breton board/general/all-data restore controls repaired
-using existing Adsevel terminology. All **18,453** corrections pass structural
-checks. Native phrase/browser review remains open, alongside other wrong-
-language values, shared grammar, Galician attachment agreement and calendars.
+Latest translation fix: **2026-09-14**, local commit `48c7e8aa4` —
+four mixed French/Breton date-change triggers repaired, preserving each
+field and set-or-changed behavior. All **18,457** corrections pass structural
+checks. Complete native phrase/browser review remains open, alongside other
+wrong-language values, shared grammar, Galician attachment agreement and calendars.
 Latest unchanged review: **2026-09-14**, commit `64f1d7367` —
 assigned-card shortcut retained against actual current-user assignee toggle.
 IEC recognizes meves/meues as dialect variants; no wrong-language finding

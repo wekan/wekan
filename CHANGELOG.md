@@ -671,6 +671,15 @@ The empty wrongly placed Git directory was removed locally.
 **Languages updated:** Acehnese, Bambara, Basque, Breton, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/48c7e8aa4">Repair Breton date-change trigger language</a>. Thanks to xet7.</summary>
+
+Replace four mixed French/Breton date-change labels, preserving received,
+start, due and end fields and set-or-changed behavior. Structural translation
+checks pass; complete phrase and browser review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ba815b531">Repair Breton restore control language</a>. Thanks to xet7.</summary>
 
 Four French-seeded restore controls reuse existing Breton terminology.
