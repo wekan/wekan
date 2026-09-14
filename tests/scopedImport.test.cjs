@@ -117,7 +117,7 @@ test('a custom field is matched by NAME, not by id', () => {
 // ── who may do it ───────────────────────────────────────────────────────────
 
 test('importing is a WRITE, and is checked as one', () => {
-  assert.ok(/isBoardMember\(\)/.test(importModel),
+  assert.ok(/requireBoardMutation\(userId, board, 'importScoped', Meteor\)/.test(importModel),
     'export asks "may you see it"; import asks "may you change it"');
   assert.ok(/assertImportEnabled/.test(importModel),
     'and the Admin Panel master switch still applies');

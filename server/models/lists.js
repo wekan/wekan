@@ -17,25 +17,10 @@ import { getFeatureFlags } from '/models/lib/featureFlags';
 import { softDeleteSet, restoreModifier, canPurge } from '/models/lib/softDelete';
 import { listsToUnbind } from '/models/lib/listUnbindRepair';
 import ChangeHistory from '/models/changeHistory';
+import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
+import { requireBoardMutation } from '/models/lib/boardMutationGuard';
 
-const hasBoardWriteAccess = (userId, board) => {
-  if (!userId || !board) {
-    return false;
-  }
-
-  if (typeof allowIsBoardMemberWithWriteAccess === 'function') {
-    return allowIsBoardMemberWithWriteAccess(userId, board);
-  }
-
-  return (
-    board.hasMember(userId) &&
-    !board.hasNoComments(userId) &&
-    !board.hasCommentOnly(userId) &&
-    !board.hasWorker(userId) &&
-    !board.hasReadOnly(userId) &&
-    !board.hasReadAssignedOnly(userId)
-  );
-};
+const hasBoardWriteAccess = allowIsBoardMemberWithWriteAccess;
 
 // Soft delete (docs/Features/Undo/Undo.md): mark a list — and cascade-mark its live
 // cards with the SAME deleteBatchId — instead of destroying them, and record a
@@ -333,18 +318,14 @@ Meteor.methods({
     }
 
     const sourceBoard = await Boards.findOneAsync(list.boardId);
-    if (!sourceBoard || !sourceBoard.hasMember(this.userId)) {
-      throw new Meteor.Error('not-authorized', 'Not a member of the source board.');
-    }
+    requireBoardMutation(this.userId, sourceBoard, 'moveList:source', Meteor);
 
     const targetBoard = await ReactiveCache.getBoard(boardId);
     if (!targetBoard) {
       throw new Meteor.Error('board-not-found', 'Target board not found');
     }
 
-    if (!hasBoardWriteAccess(this.userId, targetBoard)) {
-      throw new Meteor.Error('not-authorized', 'Not a member of the target board.');
-    }
+    requireBoardMutation(this.userId, targetBoard, 'moveList:destination', Meteor);
 
     let sort = (await ReactiveCache.getLists({ boardId, archived: false })).length;
     if (neighborListId) {
@@ -403,9 +384,7 @@ Meteor.methods({
     }
 
     const sourceBoard = await Boards.findOneAsync(list.boardId);
-    if (!sourceBoard || !sourceBoard.hasMember(this.userId)) {
-      throw new Meteor.Error('not-authorized', 'Not a member of the source board.');
-    }
+    requireBoardMutation(this.userId, sourceBoard, 'moveList:source', Meteor);
 
     const desiredTitle = typeof title === 'string' && title.trim().length > 0
       ? title.trim()
@@ -416,9 +395,7 @@ Meteor.methods({
       throw new Meteor.Error('board-not-found', 'Target board not found');
     }
 
-    if (!hasBoardWriteAccess(this.userId, targetBoard)) {
-      throw new Meteor.Error('not-authorized', 'Not a member of the target board.');
-    }
+    requireBoardMutation(this.userId, targetBoard, 'moveList:destination', Meteor);
 
     // #6670: a move within the same board now BINDS the list to the chosen
     // swimlane, so that swimlane has to be one of the target board's - binding a

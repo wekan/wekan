@@ -1,3 +1,4 @@
+import { requireBoardMutation } from '/models/lib/boardMutationGuard';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Boards from '/models/boards';
 import { allowIsBoardMember, allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
@@ -36,12 +37,10 @@ Meteor.methods({
     const swimlane = await ReactiveCache.getSwimlane(swimlaneId);
     if (!swimlane) throw new Meteor.Error('not-found');
     const sourceBoard = await Boards.findOneAsync(swimlane.boardId);
-    if (!allowIsBoardMember(this.userId, sourceBoard))
-      throw new Meteor.Error('not-authorized');
+    requireBoardMutation(this.userId, sourceBoard, 'moveSwimlane:source', Meteor);
     const toBoard = await ReactiveCache.getBoard(toBoardId);
     if (!toBoard) throw new Meteor.Error('not-found');
-    if (!allowIsBoardMemberWithWriteAccess(this.userId, toBoard))
-      throw new Meteor.Error('not-authorized');
+    requireBoardMutation(this.userId, toBoard, 'moveSwimlane:destination', Meteor);
 
     await swimlane.move(toBoardId, targetSwimlaneId, position, title);
     return true;

@@ -1,3 +1,4 @@
+import { requireBoardMutation } from '/models/lib/boardMutationGuard';
 import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TrelloCreator } from './trelloCreator';
@@ -179,12 +180,7 @@ Meteor.methods({
 
     const board = await ReactiveCache.getBoard(target.boardId);
     if (!board) throw new Meteor.Error('board-not-found', 'Board not found');
-    // Importing WRITES to this board, so it is not the export's "can you see
-    // it": it is "may you change it".
-    if (!board.isVisibleBy(await ReactiveCache.getCurrentUser())
-      || !board.isBoardMember()) {
-      throw new Meteor.Error('forbidden', 'Not allowed to import into this board');
-    }
+    requireBoardMutation(userId, board, 'importScoped', Meteor);
     if (doc._format && doc._format !== 'wekan-board-1.0.0') {
       throw new Meteor.Error('invalid-format', `Unknown export format: ${doc._format}`);
     }

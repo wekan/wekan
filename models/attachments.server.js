@@ -1,3 +1,4 @@
+import { requireBoardMutation } from '/models/lib/boardMutationGuard';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Meteor } from 'meteor/meteor';
 import { MongoInternals } from 'meteor/mongo';
@@ -378,12 +379,7 @@ Meteor.methods({
       throw new Meteor.Error('board-not-found', 'Board not found');
     }
 
-    if (!allowIsBoardMember(currentUserId, board)) {
-      if (process.env.DEBUG === 'true') {
-        console.warn(`Blocked unauthorized attachment rename attempt: user ${currentUserId} tried to rename attachment ${fileObjId} in board ${fileObj.meta?.boardId}`);
-      }
-      throw new Meteor.Error('not-authorized', 'You do not have permission to modify this attachment');
-    }
+    requireBoardMutation(currentUserId, board, 'renameAttachment', Meteor);
 
     rename(fileObj, newName, fileStoreStrategyFactory);
   },

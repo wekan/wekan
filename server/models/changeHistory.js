@@ -1,3 +1,4 @@
+import { requireBoardMutation } from '/models/lib/boardMutationGuard';
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -67,9 +68,7 @@ const requireBoardVisible = async (userId, boardId) => {
 
 const requireBoardWrite = async (userId, boardId) => {
   const board = await ReactiveCache.getBoard(boardId);
-  if (!board || !board.hasMember(userId) || board.hasCommentOnly(userId)) {
-    throw new Meteor.Error('not-authorized', 'You cannot change this board.');
-  }
+  requireBoardMutation(userId, board, 'changeHistory:write', Meteor);
 };
 
 async function requireHistoryIntegrity(row, context) {

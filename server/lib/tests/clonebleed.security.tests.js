@@ -234,8 +234,8 @@ describe('CloneBleed authorization', function() {
     it('denies moving a checklist from a source card on a board the caller cannot access', async function() {
       sinon.stub(ReactiveCache, 'getChecklist').resolves({ _id: 'checklist-1', cardId: 'source-card' });
       sinon.stub(ReactiveCache, 'getCard').resolves({ _id: 'card', boardId: 'board-1' });
-      // allowIsBoardMemberByCard resolves the board via Boards.findOneAsync; deny membership.
-      sinon.stub(Boards, 'findOneAsync').resolves({ hasMember: () => false });
+      // The write guard resolves both card boards and denies an outsider.
+      sinon.stub(ReactiveCache, 'getBoard').resolves({ members: [] });
 
       let thrown;
       try {
