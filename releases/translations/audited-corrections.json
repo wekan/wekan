@@ -131108,5 +131108,12 @@
     "before": "Activer la limite WIP",
     "after": "ⵙⵙⵔⴼⵓ ⴰⵡⵜⵜⵓ WIP",
     "reason": "Replace French enable label with Tamazight. IRCAM 2019 entries 10106 activate and 5271 limit/boundary. Preserve WIP abbreviation. Low confidence: numerical work-in-progress limit is a software adaptation of boundary; full native wording needs review."
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-product-name",
+    "before": "Nom personnalisé",
+    "after": "ⵉⵙⵎ ⵏ ⵓⵢⴰⴼⵓ ⵉⵥⵍⵉⵏ",
+    "reason": "Replace French and restore product component omitted by the seed. IRCAM 2019 entries 7541 name, 5286 product/construct uyafu and 7686 specific. Low confidence: customized branding and final modifier scope are software adaptations requiring native review; not a claim that grammatical proper noun means custom product name."
   }
 ]
