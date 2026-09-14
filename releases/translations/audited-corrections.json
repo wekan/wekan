@@ -139298,5 +139298,12 @@
     "before": "Mukautetut URL-mallit, joiden pitäisi olla automaattisesti klikattavissa. Yksi URL-malli riviä kohden",
     "after": "Kävutajan märitud URL shemad, miččid voib avtomatižesti paina. Üks' URL shem rives.",
     "reason": "Replace Finnish with direct Veps URL scheme draft. Native MediaWiki http-invalid-scheme, querypage-updates-periodical, filehist-help and watchlistedit-raw-explain provide scheme, automatic, click and one-item-per-line wording. Existing custom-fields provides user-defined wording. Full assembled grammar and singular scheme form remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "rules",
+    "before": "Säännöt",
+    "after": "Sändod",
+    "reason": "Replace unflagged Finnish rules heading with native Veps Sändod, attested in MediaWiki policy-url; existing r-rule supplies singular Sänd."
   }
 ]

@@ -106,3 +106,10 @@ test("Veps URL schemes retain automatic click and one-per-line scope", () => {
  assert.match(data["automatic-linked-url-schemes"], /avtomatižesti paina/);
  assert.match(data["automatic-linked-url-schemes"], /URL shem rives/);
 });
+
+test("Veps rules heading replaces Finnish using native rules plural", () => {
+ const data = JSON.parse(fs.readFileSync("imports/i18n/data/ve-PP.i18n.json", "utf8"));
+ assert.equal(data.rules, "Sändod");
+ assert.doesNotMatch(data.rules, /säännöt/i);
+ assert.notEqual(data.rules, data["r-rule"]);
+});
