@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,503 |
+| Corrected | 15,504 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 341 |
+| Pending review or repair | 340 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,074** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,075** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `7525d9271` — refined imported-board relative agreement, removing a masculine actor prefix from wording modifying feminine Board. Original counts and **18,074** correction records unchanged; derived agreement and full mapping wording remain **low confidence**. Correction checks pass. **341** findings remain pending across **17** locales, including **206** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `73b5d0eed` — repaired French subtask deposit destination label. Preserve hierarchical SUBTASKS placed IN THIS BOARD. Indexed native Place imperative supports wording; direct PDF access failed, and full software adaptation remains **low confidence**. All **18,075** correction checks pass; **340** findings remain pending across **17** locales, including **205** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Archive noun review (2026-09-14, `fbe388603`):** directly inspected a native Archives du Maroc logo in a university PDF, corroborating the archive noun beyond the earlier search-index excerpt. Updated nine provenance records; values/counts unchanged. Institutional-to-kanban adaptation and full labels remain low confidence. [Evidence](Audit-Evidence.md) records the exact source and scope.
 
