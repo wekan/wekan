@@ -26158,3 +26158,9 @@ replaced with complete native MediaWiki Veps action labels. See
 Five registered assertions/suites pass across four test files; correction
 ledger now contains 18,815 records. Original pending remains 233.
 Native review of longer phrases and browser rendering remains unfinished.
+
+Veps title/page repairs **2026-09-14**, local commit `70d9264f1`:
+three additional Finnish values repaired from native MediaWiki terminology.
+[Veps review](Veps-Review.md) records exact source keys and parser behavior.
+Seven tests across five files pass; 18,818 correction records, original
+pending count 233 unchanged. Live browser and longer phrase review remain open.

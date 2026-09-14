@@ -169,3 +169,18 @@ label. Removal remains distinct from disabling, and All remains explicit.
 Focused tests plus correction, retained-review and completeness checks pass.
 These three unflagged repairs do not resolve the ten original Veps findings,
 unflagged longer phrases or live browser verification.
+
+Title/page repairs **2026-09-14**, local commit `70d9264f1`:
+`text-note-title` now uses **Nimi**, matching existing native `title`;
+`operator-title` uses lowercase **nimi**, and `page` uses **Lehtpol'**.
+Native MediaWiki `title-invalid`, `titlematches` and `newtitle` attest the
+title noun; `editpage` and `deletepage` attest the page noun. The text-note
+form consumes its title label. The actual search parser accepts `nimi:`
+with quoted and unquoted values and rejects a syntactically valid unknown
+operator. Operator lookup uses translated names, so the test does not claim
+English `title:` remains an alias in Veps. A hyphenated unknown name is
+ordinary text under this grammar, not an unknown parsed operator.
+All seven registered tests across five affected files pass, including
+exact correction/preference/token checks. These additional repairs leave
+the original ten Veps findings and full phrase/browser review open.
+Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json

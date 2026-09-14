@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/70d9264f1">Repair Veps title and page terminology</a>. Thanks to xet7.</summary>
+
+Three Finnish values now use native Veps nouns. Actual localized title
+searches accept quoted and unquoted values and reject unknown operators.
+Locale, token and translation-preference checks pass. Longer phrases and
+browser verification remain open in the dated translation audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6c30c4cfc">Replace Finnish Veps view and removal labels with native wording</a>. Thanks to xet7.</summary>
 
 Three complete action labels now use native Veps software wording, preserving
