@@ -129015,5 +129015,47 @@
     "before": "Pièces jointes S3",
     "after": "Stagadennoù S3",
     "reason": "Replace French attachment/export/upload prose with existing Breton enkargañ versus pellgargañ, restr, ment and stagadennoù vocabulary. Full native preview/date-prefix phrasing and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "card-archived",
+    "before": "Cette carte est archivée",
+    "after": "Kaset eo ar gartenn-mañ d’an dielloù.",
+    "reason": "Replace French card/list/team labels using existing Breton item, archive and not-found wording; preserve %s where English supplies it. Complete native phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "card-edit-labels",
+    "before": "Gérer les étiquettes",
+    "after": "Kemmañ an tikedennoù",
+    "reason": "Replace French card/list/team labels using existing Breton item, archive and not-found wording; preserve %s where English supplies it. Complete native phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "card-edit-voting",
+    "before": "Éditer le vote",
+    "after": "Kemmañ ar vot",
+    "reason": "Replace French card/list/team labels using existing Breton item, archive and not-found wording; preserve %s where English supplies it. Complete native phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "card-edit-planning-poker",
+    "before": "Éditer le planning poker",
+    "after": "Kemmañ ar Planning Poker",
+    "reason": "Replace French card/list/team labels using existing Breton item, archive and not-found wording; preserve %s where English supplies it. Complete native phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "list-title-not-found",
+    "before": "Liste '%s' non trouvée.",
+    "after": "N’eo ket bet kavet ar roll « %s ».",
+    "reason": "Replace French card/list/team labels using existing Breton item, archive and not-found wording; preserve %s where English supplies it. Complete native phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "team-name-not-found",
+    "before": "Équipe '%s' non trouvée.",
+    "after": "N’eo ket bet kavet ar skipailh « %s ».",
+    "reason": "Replace French card/list/team labels using existing Breton item, archive and not-found wording; preserve %s where English supplies it. Complete native phrase/browser validation remains open."
   }
 ]
