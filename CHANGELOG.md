@@ -102,10 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 1b8797450 (2026-09-14), repairing field deletion.
-No undo, all-card removal and field history destruction preserved;
-future actor and full coordination remain low confidence.
-329 original findings remain pending, with 18,086 correction records.
+Latest translation fix is ee5f6301f (2026-09-14), clarifying field history
+deletion scope. Repeat future Delete before history; all-card removal and
+no undo preserved. Full grammar remains low confidence. Counts unchanged:
+329 original findings pending, with 18,086 correction records.
 Archive provenance follow-up fbe388603 (2026-09-14) directly inspects the
 native Archives du Maroc logo in a university PDF, corroborating the noun
 beyond indexed evidence. Nine records updated; no values/counts changed.
@@ -3270,6 +3270,17 @@ Thanks to xet7 !
 2026-09-14: Preserve no undo, all-card removal and history destruction.
 Native components recorded; full wording remains low confidence.
 All 18,086 correction checks pass; broader validation continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ee5f6301f">Translation refinement: Tamazight field history deletion.</a></summary>
+
+2026-09-14: Clarify that field history is deleted with a repeated predicate.
+Preserve no undo and all-card removal; full grammar remains low confidence.
+All 18,086 correction checks pass; counts unchanged and validation continues.
 
 Thanks to xet7 !
 

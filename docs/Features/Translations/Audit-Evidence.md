@@ -1,5 +1,7 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `ee5f6301f`: field deletion warning scope refined. Repeat future Delete predicate before ITS HISTORY to prevent attachment to FROM ALL CARDS phrase. Preserve no undo and original French before-value. All 18,086 correction checks pass; original counts unchanged. Full coordination still requires language validation.
+
 2026-09-14 — `1b8797450`: custom-field definition deletion warning repaired. Native MediaWiki no-undo, Removed, All and History support components. Preserve no undo, this field removed from all cards and its history destroyed (paraphrased Delete History), distinct from unsetting one card value. Future actor, coordination and full warning remain low confidence. All 18,086 correction checks pass; 329 original findings remain pending, including 194 Tamazight.
 
 2026-09-14 — `7c0384e5a`: failure counting-window label repaired. Actual settings distinguish failureWindow from lockoutPeriod/count threshold; native Duration/Second and Errors support components. Time window paraphrased period of failures, retaining seconds and distinct lockout duration label. Full adaptations remain low confidence. Direct IRCAM school lexicon fetch timed out, so Before evidence remains indexed only. All 18,085 correction checks pass; 330 original findings remain pending, including 195 Tamazight.
