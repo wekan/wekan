@@ -29395,3 +29395,25 @@ collection. Native contexts are active top-level contexts; detached contexts
 are detached and not yet collected. Preserve these distinctions when
 repairing the remaining diagnostics. Generic physical-force, recollection
 or court-context words cannot validate computing compounds.
+
+
+2026-09-15 — `88add3006`: French heap-size-limit label replaced with
+IRCAM abstract limit tiggumra (entry 12525, page 666), alongside existing
+repaired agudi heap and aquddi size compounds. Appointment/boundary
+taktut (10845) was excluded; mountain peak vocabulary does not express
+a configured maximum. Computing metaphor and full nominal chain remain
+low confidence; this lexical choice is not native full-label validation.
+informationBody.jade binds heapSizeLimit separately from totalHeapSize
+and usedHeapSize. Node V8 documentation defines heap_size_limit as its
+maximum heap size; labels must not imply remaining headroom, current
+allocation or total system RAM. Four focused suites pass for exact value,
+negative French/Arabic/appointment checks and token invariants. No live
+information-panel UI test ran. Ledger 19,881; corrected 15,760, pending
+143 (zgh 50), restored 4 unchanged. Eight other heap labels still need work.
+https://nodejs.org/api/v8.html#v8getheapstatistics
+
+Next allocation-wording evidence: IRCAM amuzzur (2691) includes maximum
+but also fat; mountain summit words are excluded for peak_malloced_memory.
+The Node metric is process-lifetime peak allocation through malloc, not
+current used heap or the heap limit. A memory/allocation computing noun
+phrase still needs review. No allocation labels were changed this batch.

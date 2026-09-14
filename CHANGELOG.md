@@ -1093,6 +1093,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/88add3006">Repair Tamazight heap-size-limit label</a></summary>
+
+Replace French text with abstract-limit wording, preserving the distinction
+from total and used heap size. Four focused suites pass; computing metaphor
+and full nominal chain remain under contextual review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

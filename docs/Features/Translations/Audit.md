@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-15**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,759 |
+| Corrected | 15,760 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,174 |
-| Pending review or repair | 144 |
+| Pending review or repair | 143 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,15 +16,15 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `0567c1aac` — replace French
-total and used heap-size labels with distinct Tamazight wording. Four
-focused suites pass. Ledger 19,880; tracked pending 144 (Tamazight 51),
-restored 4 unchanged. Heap metaphor, size compound and passive grammar
-remain low confidence. Other V8 diagnostics, source wording conflicts and
-broader grammar reviews remain open.
+Latest translation fix: **2026-09-15**, `88add3006` — replace French
+heap-size-limit label with Tamazight abstract-limit wording, preserving its
+distinction from total and used size. Four focused suites pass. Ledger
+19,881; tracked pending 143 (Tamazight 50), restored 4 unchanged. Computing
+metaphor and full nominal chain remain low confidence. Other diagnostics,
+source wording conflicts and broader grammar reviews remain open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,880** exact before/after values, including unflagged
+records contain **19,881** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -43,7 +43,7 @@ restored values still await full native clause validation.
 
 | Pending locale | Findings |
 | --- | ---: |
-| zgh — Standard Moroccan Tamazight | 51 |
+| zgh — Standard Moroccan Tamazight | 50 |
 | iu — Inuktitut | 38 |
 | nah — Nahuatl | 17 |
 | tig — Tigre | 17 |
