@@ -468,3 +468,6 @@ assert.doesNotMatch(translated['mobile-desktop-toggle'], /Basculer|bureau|[\u060
 
 assert.strictEqual(translated["r-board-note"], "ⵜⵉⵏⵥⵉ: ⴰⵊⵊ ⵉⴳⵔ ⴷ ⵉⵍⵎ ⵉ ⵓⵎⵙⴰⵙⴰ ⴰⴽⴷ ⴽⵓ ⴰⵣⴰⵍ ⴰⵎⵔⴷⵓ.");
 assert.doesNotMatch(translated['r-board-note'], /[\u0600-\u06ff]|ⴰⵛⴰⵏⴰ|ⵜⴰⵎⵏⵢⵓⴳⴰⵔⵜ/u);
+
+assert.strictEqual(translated["attachment-delete-pop"], "ⵔⴰⴷ ⵉⵜⵜⵓⴽⴽⵙ ⵓⴼⴰⵢⵍⵓ ⵢⵔⵏⴰⵏ ⵙ ⵓⵎⵖⵍⴰⵍ. ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⴰⵔⴷ ⴷ ⴰⵢⴰ.");
+assert.doesNotMatch(translated['attachment-delete-pop'], /[\u0600-\u06ff]|ⵜⴰⵍⵓⴼⵜ/u);

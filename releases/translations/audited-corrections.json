@@ -138976,5 +138976,12 @@
     "before": "ملحوظة: اترك الحقل فارغًا لمطابقة كل قيمة ممكنة.",
     "after": "ⵜⵉⵏⵥⵉ: ⴰⵊⵊ ⵉⴳⵔ ⴷ ⵉⵍⵎ ⵉ ⵓⵎⵙⴰⵙⴰ ⴰⴽⴷ ⴽⵓ ⴰⵣⴰⵍ ⴰⵎⵔⴷⵓ.",
     "reason": "2026-09-15: Replace Arabic rule note; native MediaWiki computing-match verb supports derived matching noun. Preserve empty field and every possible value. Complete grammar/derived noun low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "attachment-delete-pop",
+    "before": "حذف المرق هو حذف نهائي . لا يمكن التراجع إذا حذف.",
+    "after": "ⵔⴰⴷ ⵉⵜⵜⵓⴽⴽⵙ ⵓⴼⴰⵢⵍⵓ ⵢⵔⵏⴰⵏ ⵙ ⵓⵎⵖⵍⴰⵍ. ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⴰⵔⴷ ⴷ ⴰⵢⴰ.",
+    "reason": "2026-09-15: Replace Arabic legacy permanent attachment warning. Added-file paraphrase avoids ambiguous emotional attachment noun; attested permanent bound noun and existing no-undo clause used. Full adverbial/passive grammar low confidence; active soft-delete message unchanged."
   }
 ]
