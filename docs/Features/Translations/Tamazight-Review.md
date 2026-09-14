@@ -1033,3 +1033,17 @@ native review. Four structural/source checks pass across all 234 locales;
 these do not prove native fluency or browser layout. Browser not executed.
 Original pending 259 → 258, Tamazight 146 → 145; ledger 18,754.
 Primary source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+
+Tamazight rule destinations — 2026-09-14, local commit `a4439d400`.
+Unflagged r-top-of and r-bottom-of replace French with aflla n and
+abraw n, respectively. Primary IRCAM Amazigh-English PDF page 67 entry
+1008 attests top; page 32 entry 262 attests bottom and a noun+n example.
+Actual boardActions.jade top/bottom options precede list/board fragments.
+Positive/negative checks preserve distinct positions and the of component;
+four suites pass, including token and human-preference checks. Low
+confidence: physical position nouns adapted to software list ordering and
+full assembled rule grammar. Browser verification remains unexecuted.
+Both keys are outside the original queue: pending stays 258, Tamazight
+145. Correction ledger grows from 18,754 to 18,756.
+Primary source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339

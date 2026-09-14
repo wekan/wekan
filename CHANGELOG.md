@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a4439d400">Repair Tamazight top and bottom rule destinations</a>. Thanks to xet7.</summary>
+
+Replace two additional French position fragments using primary native
+terms. Checks preserve opposite positions and the following genitive.
+Four suites pass; complete native rule grammar and browser verification
+remain open. Original flagged pending count stays at 258.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/af4faeb70">Repair Tamazight field-total checkbox wording</a>. Thanks to xet7.</summary>
 
 Replace French with Tamazight aggregate and list-top wording supported by
