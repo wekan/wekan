@@ -16,10 +16,10 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `5b89d5168` —
-Tamazight webhook qualifier replaces French with optional/authentication
-wording. Four checks pass; Token borrowing and complete native/browser
-phrase remain low confidence. Original pending: 254.
+Latest translation fix: **2026-09-14**, local commit `a9406c278` —
+Two Tamazight WIP messages use primary task vocabulary rather than general
+work terms. Four checks pass; plural genitive and complete native/browser
+clauses remain open. Original pending: 254.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
 records contain **18,765** exact before/after values, including unflagged

@@ -25566,3 +25566,15 @@ IRCAM dictionary. This is not direct proof of account-enabled meaning.
 Primary active/activate/click entries are recorded in Tamazight-Review.md;
 complete enabled/disabled purpose clauses remain pending, count 254.
 No values changed or native/browser acceptance made.
+
+
+Tamazight WIP tasks — 2026-09-14, local commit `a9406c278`.
+IRCAM PDF page 605 entry 11328 gives tamskirt task, plural timskirin,
+and complex-task compound. Entry 11329 instead means billhook: spelling
+without i must not be substituted for the task term. Two existing WIP
+repairs replace general work vocabulary with a task plural adaptation.
+Original before/reason history retained; ledger stays 18,765, pending 254.
+Four suites pass, preserving maximum/greater-than/user-defined meanings
+and exact placeholders/order/human preference. Low confidence: plural
+genitive tmskirin and full maximum/comparative clauses; browser not run.
+Account-status activation/deactivation wording remains separately open.

@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a9406c278">Use primary Tamazight task vocabulary in WIP messages</a>. Thanks to xet7.</summary>
+
+Replace general work terms with attested task vocabulary in two existing
+repairs. Four suites pass; plural genitive, complete native clauses and
+browser verification remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ac5a9f69b">Review Tamazight account-status terminology</a>. Thanks to xet7.</summary>
 
 Distinguish permanent-membership vocabulary from enabled account status.

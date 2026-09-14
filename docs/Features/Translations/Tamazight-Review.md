@@ -1207,3 +1207,15 @@ No translation or ledger acceptance is made. Pending stays 254,
 including Tamazight 142; browser verification remains open.
 Primary: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
 Native interface: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+
+
+Tamazight WIP tasks — 2026-09-14, local commit `a9406c278`.
+IRCAM PDF page 605 entry 11328 gives tamskirt task, plural timskirin,
+and complex-task compound. Entry 11329 instead means billhook: spelling
+without i must not be substituted for the task term. Two existing WIP
+repairs replace general work vocabulary with a task plural adaptation.
+Original before/reason history retained; ledger stays 18,765, pending 254.
+Four suites pass, preserving maximum/greater-than/user-defined meanings
+and exact placeholders/order/human preference. Low confidence: plural
+genitive tmskirin and full maximum/comparative clauses; browser not run.
+Account-status activation/deactivation wording remains separately open.
