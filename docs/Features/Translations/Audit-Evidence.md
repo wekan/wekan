@@ -22966,3 +22966,12 @@ removeMember removes card membership. This does not delete user accounts.
 Preserve all-board scope and checklist linkage. Full assembled clause grammar,
 article mutations and browser execution remain open. All 18,362 correction
 and 4,158 unchanged checks pass; original pending/restored remains 300/27.
+
+Dated unflagged repair, 2026-09-14, local commit `66c45f644`: Breton
+calendar-previous-month-label and calendar-next-month-label replace French
+with Miz kent and Miz war-lerc’h. Native MediaWiki block-expiry-custom-months
+uses miz; previousrevision/nextrevision use kent/war-lerc'h respectively:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/br.json
+Preserve direction distinction. All 18,364 correction records pass token,
+JSON, order and newer-translation protection checks. Browser calendar control
+validation remains open; original pending/restored scope remains 300/27.

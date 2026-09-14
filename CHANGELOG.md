@@ -671,6 +671,15 @@ The empty wrongly placed Git directory was removed locally.
 **Languages updated:** Acehnese, Bambara, Basque, Breton, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/66c45f644">Repair Breton calendar month navigation language</a>. Thanks to xet7.</summary>
+
+Replace French previous/next month labels with native Breton terminology.
+Preserve navigation direction. Structural checks pass; browser review remains
+open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c576850ef">Repair Breton removal and update action language</a>. Thanks to xet7.</summary>
 
 Twelve French-seeded removal/update actions and related labels reuse existing
