@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,344 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 500 pending review or repair.
-The correction inventory records 17,672 exact before/after values,
+The correction inventory records 17,675 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is e6f9bad44 (2026-09-14), completing Tamazight
-Dangi and ISO-8601 calendar labels while preserving named identities.
-The full mixed-script labels need fluent review.
+Latest translation fix is e0f04bcb5 (2026-09-14), replacing three Arabic/French
+Tamazight avatar popup titles outside the original queue. Change/delete scope
+is preserved; local profile sense and full wording need fluent review.
 Troubleshooting reference review ccd2ff8b0 (2026-09-14) separates native
 server/error terms from cross-dialect execution/installation evidence.
 The full instruction remains pending; values and counts are unchanged.
@@ -625,7 +625,7 @@ remain open.
 Translation audit progress as of 2026-09-14: 15,344 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
 and 500 remain pending across 17 locales, including 365 Tamazight findings.
-The ledger contains 17,672 correction records, including unflagged repairs.
+The ledger contains 17,675 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -1514,6 +1514,17 @@ Distinguish native server/error vocabulary from indexed cross-dialect command
 execution and installation terms. Preserve the literal snap/Docker diagnostic
 commands and installation conditions. Full Moroccan instructions remain
 unresolved; no locale values or classification counts changed.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e0f04bcb5">Translate Tamazight change and delete avatar popup titles</a>. Thanks to xet7.</summary>
+
+Replace three Arabic/French titles, preserving change/delete actions and the
+delete question. Native actions and local profile-picture terminology support
+provisional wording; profile sense and full phrases remain low confidence
+pending fluent review. All 17,675 correction checks pass; these unflagged
+repairs leave 500 original findings pending. Broader validation continues.
 
 </details>
 
