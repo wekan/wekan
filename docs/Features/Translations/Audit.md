@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,223 |
+| Corrected | 15,226 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 621 |
+| Pending review or repair | 618 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,484** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,487** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `7e812559c` — replaced three French multiple-operator and lockout-account scope values. Preserve multiple operators, correct username/wrong password for existing accounts and nonexistent username for unknown accounts. Native UI components support vocabulary; account predicates, agreement and full phrases remain **low confidence** pending fluent review. All **17,484** correction/rendering checks pass. **621** originals remain pending across **17** locales, including **478** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `7f1812538` — replaced three French email sending diagnostics. Preserve failed versus successful send, attempt error and user ownership in SMTP confirmation. Native UI components support the vocabulary; derived sending noun, affirmative success predicate and full sentences remain **low confidence** pending fluent review. All **17,487** correction/rendering checks pass. **618** originals remain pending across **17** locales, including **475** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Build interruption follow-up (2026-09-14):** `.tools/wekan22` contains the old v11.75 missing-Moment failure, already repaired in `43adfe1a7`. A fresh Meteor 3.6-beta.0 bundle build passes on Linux arm64, and six assignee/calendar/release-preflight Node test entries pass. Log: `.tools/log/build-dev-bundle/2026-09-14/04-25-58/dev.txt`. Native amd64 and live browser checks were not run. Translation counts and the remaining validation scope above are unchanged.
 
