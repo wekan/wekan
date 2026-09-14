@@ -4,11 +4,12 @@ import { Template } from 'meteor/templating';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 const { preferredLanguage } = require('/imports/i18n/browserLanguage');
-const { ruleTriggerCopula } = require('/imports/i18n/ruleGrammar');
+const { ruleTriggerCopula, ruleNameBeforeSubject } = require('/imports/i18n/ruleGrammar');
 
 Template.registerHelper('ruleTriggerCopula', () => ruleTriggerCopula(
   TAPi18n.getLanguage(), TAPi18n.__('r-is'),
 ));
+Template.registerHelper('ruleNameBeforeSubject', () => ruleNameBeforeSubject(TAPi18n.getLanguage()));
 
 
 // We save the user language preference in the user profile, and use that to set

@@ -4,4 +4,9 @@
 function ruleTriggerCopula(language, translatedCopula) {
   return /^(?:eu|th)(?:[-_]|$)/i.test(String(language || '')) ? '' : translatedCopula;
 }
-module.exports = { ruleTriggerCopula };
+// A Basque named subject ends with its demonstrative (hau).
+// Put the name control before that phrase in the DOM, including saved descriptions.
+function ruleNameBeforeSubject(language) {
+  return /^eu(?:[-_]|$)/i.test(String(language || ''));
+}
+module.exports = { ruleTriggerCopula, ruleNameBeforeSubject };

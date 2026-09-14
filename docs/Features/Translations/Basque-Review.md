@@ -209,3 +209,22 @@ as checked/unchecked items and named members/labels. Positive, negative and
 browser tests must cover the full description, not just isolated JSON values.
 No restored value is classified from this review. Four restored findings and
 283 pending remain. The actual browser rendering has not been tested here.
+
+## 2026-09-14 — Named-subject DOM order repaired
+
+The synchronous reactive ruleNameBeforeSubject helper selects Basque only.
+In all five named-object control rows, the name dropdown/input now precedes
+the preserved noun + hau phrase. This keeps the demonstrative at the end of
+the subject; other locales retain the previous DOM order. No translation
+value, control ID, filter or handler mapping changes. Because the existing
+saved-description generator traverses DOM children, saved descriptions use
+the same corrected ordering without a separate text-only transformation.
+User-entered names remain input/option text, never trusted markup.
+
+Focused locale positive/negative and named-fragment branch checks pass;
+all Jade templates compile with the actual build compiler. All retained
+reviews and 234-locale completeness pass. Browser spec 88 covers the five
+control rows, a persisted checklist description and English ordering.
+It is syntax checked but not executed: localhost:3000 has no listening app.
+The four restored findings remain open pending browser and full native
+phrase verification; compilation alone does not prove their final acceptance.

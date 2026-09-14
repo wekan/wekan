@@ -22,10 +22,14 @@ template(name="checklistTriggers")
 
   div.trigger-item
     div.trigger-content
-      div.trigger-text
-        | {{_'r-when-the-checklist'}}
+      unless ruleNameBeforeSubject
+        div.trigger-text
+          | {{_'r-when-the-checklist'}}
       div.trigger-dropdown
         input(id="check-name",type=text,placeholder="{{_'r-name'}}")
+      if ruleNameBeforeSubject
+        div.trigger-text
+          | {{_'r-when-the-checklist'}}
       div.trigger-text
         | {{ruleTriggerCopula}}
       div.trigger-dropdown
@@ -64,10 +68,14 @@ template(name="checklistTriggers")
 
   div.trigger-item
     div.trigger-content
-      div.trigger-text
-        | {{_'r-when-the-checklist'}}
+      unless ruleNameBeforeSubject
+        div.trigger-text
+          | {{_'r-when-the-checklist'}}
       div.trigger-dropdown
         input(id="spec-comp-check-name",type=text,placeholder="{{_'r-name'}}")
+      if ruleNameBeforeSubject
+        div.trigger-text
+          | {{_'r-when-the-checklist'}}
       div.trigger-text
         | {{ruleTriggerCopula}}
       div.trigger-dropdown
@@ -104,10 +112,14 @@ template(name="checklistTriggers")
 
   div.trigger-item
     div.trigger-content
-      div.trigger-text
-        | {{_'r-when-the-item'}}
+      unless ruleNameBeforeSubject
+        div.trigger-text
+          | {{_'r-when-the-item'}}
       div.trigger-dropdown
         input(id="check-item-name",type=text,placeholder="{{_'r-name'}}")
+      if ruleNameBeforeSubject
+        div.trigger-text
+          | {{_'r-when-the-item'}}
       div.trigger-text
         | {{ruleTriggerCopula}}
       div.trigger-dropdown

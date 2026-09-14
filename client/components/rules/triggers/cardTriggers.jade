@@ -21,13 +21,17 @@ template(name="cardTriggers")
 
   div.trigger-item
     div.trigger-content
-      div.trigger-text
-        | {{_'r-when-the-label'}}
+      unless ruleNameBeforeSubject
+        div.trigger-text
+          | {{_'r-when-the-label'}}
       div.trigger-dropdown
         select(id="spec-label")
           each labels
             option(value="#{_id}" style="background-color: #{name}")
               = translatedname
+      if ruleNameBeforeSubject
+        div.trigger-text
+          | {{_'r-when-the-label'}}
       div.trigger-text
         | {{ruleTriggerCopula}}
       div.trigger-dropdown
@@ -69,10 +73,14 @@ template(name="cardTriggers")
 
   div.trigger-item
     div.trigger-content
-      div.trigger-text
-        | {{_'r-when-the-member'}}
+      unless ruleNameBeforeSubject
+        div.trigger-text
+          | {{_'r-when-the-member'}}
       div.trigger-dropdown
         input(id="spec-member",type=text,placeholder="{{_'r-name'}}")
+      if ruleNameBeforeSubject
+        div.trigger-text
+          | {{_'r-when-the-member'}}
       div.trigger-text
         | {{ruleTriggerCopula}}
       div.trigger-dropdown
