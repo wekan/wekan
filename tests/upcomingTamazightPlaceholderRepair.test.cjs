@@ -458,3 +458,10 @@ assert.doesNotMatch(translated['auto-watch'], /[\u0600-\u06ff]/u);
 
 assert.strictEqual(translated["export-card-field-people"], "ⵎⵉⴷⴷⵏ (ⴰⵎⵙⵏⴼⵍⵓⵍ, ⴱⴰⴱ ⵏ ⵜⴽⴰⵕⴹⴰ, ⵉⴳⵎⴰⵎⵏ, ⵉⴼⴳⴰⵏⵏ ⵉ ⵎⵉ ⵜⵜⵓⴼⴽⴰⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ)");
 assert.doesNotMatch(translated['export-card-field-people'], /Personnes|Propriétaire|Intervenants|[\u0600-\u06ff]/u);
+
+assert.strictEqual(translated["mobile-mode"], "ⵜⴰⵍⵖⴰ Mobile");
+
+assert.strictEqual(translated["desktop-mode"], "ⵜⴰⵍⵖⴰ Desktop");
+
+assert.strictEqual(translated["mobile-desktop-toggle"], "ⵙⵏⴼⵍ ⴳⵔ ⵜⴰⵍⵖⴰ Mobile ⴷ ⵜⴰⵍⵖⴰ Desktop");
+assert.doesNotMatch(translated['mobile-desktop-toggle'], /Basculer|bureau|[\u0600-\u06ff]/u);

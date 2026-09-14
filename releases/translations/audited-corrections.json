@@ -138948,5 +138948,26 @@
     "before": "Personnes (Créateur, Propriétaire, Participants, Intervenants)",
     "after": "ⵎⵉⴷⴷⵏ (ⴰⵎⵙⵏⴼⵍⵓⵍ, ⴱⴰⴱ ⵏ ⵜⴽⴰⵕⴹⴰ, ⵉⴳⵎⴰⵎⵏ, ⵉⴼⴳⴰⵏⵏ ⵉ ⵎⵉ ⵜⵜⵓⴼⴽⴰⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ)",
     "reason": "2026-09-15: Replace French people export label, preserving Creator, Owner, Members and Assignees in order. IRCAM creator/owner components and existing locale roles used; computing owner compound and assignee grammar low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "mobile-mode",
+    "before": "Mode mobile",
+    "after": "ⵜⴰⵍⵖⴰ Mobile",
+    "reason": "2026-09-15: Replace French mode labels and toggle prose using existing form/change terminology and between. Mobile/Desktop are borrowed technical identifiers; mode adaptation and full compound low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "desktop-mode",
+    "before": "Mode bureau",
+    "after": "ⵜⴰⵍⵖⴰ Desktop",
+    "reason": "2026-09-15: Replace French mode labels and toggle prose using existing form/change terminology and between. Mobile/Desktop are borrowed technical identifiers; mode adaptation and full compound low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "mobile-desktop-toggle",
+    "before": "Basculer entre le mode mobile et le mode bureau",
+    "after": "ⵙⵏⴼⵍ ⴳⵔ ⵜⴰⵍⵖⴰ Mobile ⴷ ⵜⴰⵍⵖⴰ Desktop",
+    "reason": "2026-09-15: Replace French mode labels and toggle prose using existing form/change terminology and between. Mobile/Desktop are borrowed technical identifiers; mode adaptation and full compound low confidence."
   }
 ]
