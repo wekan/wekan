@@ -20,7 +20,9 @@ test('clean branch permits operation and cleanup failures cannot claim success',
     git_operation_ready
   `], { encoding: 'utf8' });
   assert.equal(result.status, 0);
-  assert.match(source, /if ! git rebase --abort; then/);
+  assert.match(source, /merge --no-edit/);
+  assert.match(source, /git stash store -m 'Recovered build.sh interrupted pull autostash'/);
+  assert.match(source, /git_recover_orphan_autostash \|\| return 1/);
   assert.match(source, /merge.autoStash=true merge --ff-only/);
   assert.doesNotMatch(source, /git fetch origin "\$branch" >\/dev\/null 2>&1 \|\| true/);
 });
