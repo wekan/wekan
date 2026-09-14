@@ -2938,3 +2938,11 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.notEqual(cache.chr['calendar-system-islamic-rgsa'], cache.chr['calendar-system-islamic-tbla']);
   console.log(`auditedTranslationCorrections: ${corrections.length} corrections verified; tokens, JSON examples, key order, idempotency and newer translations preserved`);
 })().catch(error => { console.error(error); process.exitCode = 1; });
+
+// Danish restored-value review: legal-link agreement and the malloc metric.
+{
+  const da = JSON.parse(require('node:fs').readFileSync(require('node:path').join(__dirname, '../imports/i18n/data/da.i18n.json'), 'utf8'));
+  require('node:assert/strict').equal(da.legalNotice, 'juridisk meddelelse');
+  require('node:assert/strict').match(da.Node_heap_malloced_memory, /hukommelse allokeret med malloc$/);
+  require('node:assert/strict').notEqual(da.Node_heap_malloced_memory, 'Node heap: allokeret hukommelse');
+}

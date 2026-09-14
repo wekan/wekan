@@ -126936,5 +126936,19 @@
     "before": "Skalerende ventespinner",
     "after": "Ventespinner, der skalerer udad",
     "reason": "2026-09-14: Restore outward scaling qualifier in Danish Scaleout Wait Spinner. Local spinner_scaleout.css grows scale(0) to scale(1); old Skalerende lacked direction. Retain wait-spinner meaning."
+  },
+  {
+    "locale": "da",
+    "key": "legalNotice",
+    "before": "juridiske meddelelse",
+    "after": "juridisk meddelelse",
+    "reason": "Correct Danish adjective agreement: singular common-gender meddelelse takes juridisk, not juridiske. The sign-in footer renders this as the legal-notice link label."
+  },
+  {
+    "locale": "da",
+    "key": "Node_heap_malloced_memory",
+    "before": "Node heap: allokeret hukommelse",
+    "after": "Node heap: hukommelse allokeret med malloc",
+    "reason": "Preserve the specific malloc allocation method, distinct from general heap allocation. Node documentation defines malloced_memory as memory allocated through malloc: https://nodejs.org/api/v8.html#v8getheapstatistics"
   }
 ]

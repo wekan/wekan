@@ -3148,5 +3148,251 @@
     "key": "pending",
     "value": "Afventer",
     "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "closed",
+    "value": "Lukket",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "resolved",
+    "value": "Løst",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "cancelled",
+    "value": "Annulleret",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "request",
+    "value": "Anmodning",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "requests",
+    "value": "Anmodninger",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "help-request",
+    "value": "Anmodning om hjælp",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "cardDetailsPopup-title",
+    "value": "Kortdetaljer",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "confirm-btn",
+    "value": "Bekræft",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "filter-card-title-label",
+    "value": "Filtrér efter korttitel",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "Node_heap_total_heap_size",
+    "value": "Node heap: samlet heap-størrelse",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "Node_heap_total_physical_size",
+    "value": "Node heap: samlet fysisk størrelse",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "Node_heap_total_available_size",
+    "value": "Node heap: samlet tilgængelig størrelse",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "Node_heap_used_heap_size",
+    "value": "Node heap: brugt heap-størrelse",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "Node_heap_number_of_native_contexts",
+    "value": "Node heap: antal native kontekster",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "Node_heap_number_of_detached_contexts",
+    "value": "Node heap: antal frakoblede kontekster",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "Node_memory_usage_rss",
+    "value": "Node hukommelsesforbrug: resident set size",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "Node_memory_usage_heap_used",
+    "value": "Node hukommelsesforbrug: faktisk brugt hukommelse",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "Node_memory_usage_external",
+    "value": "Node hukommelsesforbrug: ekstern",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "add-organizations",
+    "value": "Tilføj organisationer",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "add-organizations-label",
+    "value": "Tilføjede organisationer vises nedenfor:",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "copied",
+    "value": "Kopieret!",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "checklistActionsPopup-title",
+    "value": "Tjeklistehandlinger",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "newlineBecomesNewChecklistItem",
+    "value": "Hver tekstlinje bliver til et element i tjeklisten",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "newLineNewItem",
+    "value": "Én tekstlinje = ét element i tjeklisten",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "value": "Hver tekstlinje bliver til et element i tjeklisten, i oprindelig rækkefølge",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "originOrder",
+    "value": "oprindelig rækkefølge",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "copyChecklist",
+    "value": "Kopiér tjekliste",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "copyChecklistPopup-title",
+    "value": "Kopiér tjekliste",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "card-show-lists",
+    "value": "Vis lister på kort",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "subtaskActionsPopup-title",
+    "value": "Handlinger for delopgaver",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "card-id",
+    "value": "Kort-ID",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "board-id",
+    "value": "Tavle-ID",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "path",
+    "value": "Sti",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "version-name",
+    "value": "Versionsnavn",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "size",
+    "value": "Størrelse",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "action",
+    "value": "Handling",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "board-title",
+    "value": "Tavlens titel",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "uploading",
+    "value": "Overfører",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "remaining_time",
+    "value": "Resterende tid",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "speed",
+    "value": "Hastighed",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "progress",
+    "value": "Fremskridt",
+    "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
   }
 ]
