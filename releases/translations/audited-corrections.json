@@ -121798,5 +121798,26 @@
     "before": "[ {\"title\": \"Titre de la première carte\", \"description\":\"Description de la première carte\"}, {\"title\":\"Titre de la seconde carte\",\"description\":\"Description de la seconde carte\"},{\"title\":\"Titre de la dernière carte\",\"description\":\"Description de la dernière carte\"} ]",
     "after": "[{\"title\":\"ⴰⵣⵡⵍ ⵏ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵣⵡⴰⵔⵓⵜ\",\"description\":\"ⴰⵙⴳⵣⵍ ⵏ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵣⵡⴰⵔⵓⵜ\"},{\"title\":\"ⴰⵣⵡⵍ ⵏ ⵜⴽⴰⵕⴹⴰ 2\",\"description\":\"ⴰⵙⴳⵣⵍ ⵏ ⵜⴽⴰⵕⴹⴰ 2\"},{\"title\":\"ⴰⵣⵡⵍ ⵏ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⴳⴳⴰⵔⵓⵜ\",\"description\":\"ⴰⵙⴳⵣⵍ ⵏ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⴳⴳⴰⵔⵓⵜ\"}]",
     "reason": "Replace French sample prose in the bulk-card JSON example while preserving title/description property names, object order and three-card structure exactly. Use existing native title and description terms; MediaWiki badtitle attests azwl/title and filedesc attests asgzl/file description. page_first/page_last and lastmodifiedat support first/last components, deriving feminine card qualifiers; identify the second example as card 2 rather than inventing an unattested ordinal. LOW CONFIDENCE full card genitive and first-card feminine agreement/kanban sense; description term is preserved from the existing reviewed local value. JSON parsing and property-name regressions validate structure, not fluency. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "allowNonBoardMembers",
+    "before": "Autoriser tous les utilisateurs authentifiés",
+    "after": "ⴰⵊⵊ ⵉⵎⵙⵙⵎⵔⵙⵏ ⴰⴽⴽⵯ ⵏⵏⴰ ⴽⵛⵎⵏ",
+    "reason": "Replace French. Native MediaWiki protect-default directly supplies Allow all users; login and loginsuccesstitle supply login components. Add the signed-in restriction, preserving all logged-in users rather than anonymous visitors or only board members. LOW CONFIDENCE relative-clause and plural signed-in conjugation kchmn; native login components do not establish fluent full permission phrasing. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "error-board-notAMember",
+    "before": "Vous devez être participant de ce tableau pour faire cela",
+    "after": "ⵉⵍⵍⴰ ⴼⵍⵍⴰⴽ ⴰⴷ ⵜⴳⴷ ⴰⴳⵎⴰⵎ ⵏ ⵜⴼⵍⵡⵉⵜ ⴰⴷ ⴼⴰⴷ ⴰ ⵜⵙⴽⵔⵜ ⵎⴰⵢⴰⴷ",
+    "reason": "Replace French. Native MediaWiki noemailcreate attests requirement illa fllak ad; badaccess-group0 supplies purpose/action components and nmembers the bound member noun, with derived free agmam. Preserve required membership of this board to perform the action, distinct from administrator status. LOW CONFIDENCE full be-member conjugation, derived noun form, board genitive and complete requirement/action composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "error-board-notAdmin",
+    "before": "Vous devez être administrateur de ce tableau pour faire cela",
+    "after": "ⵉⵍⵍⴰ ⴼⵍⵍⴰⴽ ⴰⴷ ⵜⴳⴷ ⴰⵎⵙⵙⵓⴳⵓⵔ ⵏ ⵜⴼⵍⵡⵉⵜ ⴰⴷ ⴼⴰⴷ ⴰ ⵜⵙⴽⵔⵜ ⵎⴰⵢⴰⴷ",
+    "reason": "Replace French. Native MediaWiki noemailcreate attests requirement components; badaccess-group0 supplies purpose/action wording and protect-level-sysop administrator plural imssugurn, with singular amssugur derived. Preserve required administration of this board, not generic membership or global instance administration. LOW CONFIDENCE full be-admin conjugation, derived singular, board genitive and complete requirement/action composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
