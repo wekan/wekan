@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight settings navigation and save status — 2026-09-14
+
+Commit `10b082127` repairs five unflagged French or inherited Kabyle-leaning labels. Latin script alone is not an error. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) directly supplies Return in `returnto`, Settings/Saved components in `rcfilters-quickfilters-placeholder-description`/`rcfilters-savedqueries-already-saved`, and failure frame in `filedeleteerror`. Success is expressed as completed Saved!, matching native `changepassword-success` notification rather than inventing a success adverb. Preserve Team settings, Return versus Save, exact S3 identifier and failure versus successful completion. Team reuses local vocabulary; derived Save nominalization, passive agreement, bound Team and full phrases remain LOW CONFIDENCE. Original counts unchanged: 380 pending, including 245 Tamazight; all 18,011 mechanical checks pass. Browser verification and remote uploads were not performed.
+
 ## Tamazight star selection and empty state — 2026-09-14
 
 Commit `c82cef74f` repairs six unflagged inherited Kabyle-leaning or English-mixed values. Latin script alone is not an error. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) attests Not Yet in `recentchanges-label-unpatrolled`/`rcfilters-quickfilters-placeholder-title`, Selected passive component in `tooltip-compareselectedversions`, and Item/View. Selected is adapted to feminine plural Boards. Preserve SELECTED boards, star versus unstar, ALL starred items and YOU have not starred ANYTHING YET. With Star replaces unexplained written-star passive. Star/object vocabulary reuses local terms; Swimlane remains provisional Path. Selected agreement, not-yet/any syntax, star adaptation and whole grammar remain LOW CONFIDENCE. Original counts unchanged: 380 pending, including 245 Tamazight; all 18,006 mechanical checks pass. Browser verification and remote uploads were not performed.
