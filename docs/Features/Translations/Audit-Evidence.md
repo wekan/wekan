@@ -23814,3 +23814,14 @@ new-card insertion versus in-place unchecking and native repeat/again affix
 evidence. Six heading/off values remain open. A generic return verb or
 secondary reset translation does not establish the complete native product
 labels. Existing frequency repairs are preserved. No values or counts change.
+
+### 2026-09-14 — Basque completion predicate retained
+
+Local commit `1e62fca35` retains `eu:r-completed` as `Osatzen denean`.
+[Native GNOME software help](https://help.gnome.org/gnome-help/bluetooth-send-file.html.eu)
+attests the same temporal completion predicate; EHU confirms list-completion
+vocabulary. Actual generic trigger wiring supplies a singular checklist and
+no additional copula. Four focused translation suites pass: 4,168 unchanged
+reviews, 18,609 corrections, Basque grammar and 234-locale completeness. One
+restored finding resolves; 12 remain with 289 pending. Specific named clauses,
+incomplete transition, runtime mismatch and browser review remain open.

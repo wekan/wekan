@@ -19,7 +19,14 @@ explicitly lists **osatu gabe** among separately written participle/gabe
 constructions (printed page 54, PDF page 50). This is evidence for spelling
 and negation. It does not establish that **osatu gabe uzten denean** precisely
 expresses a transition back to incomplete rather than leaving something
-unfinished. Neither completion action is accepted solely from these words.
+unfinished. The incomplete transition is not accepted solely from these words.
+
+The completed predicate **Osatzen denean** is now retained in local commit
+`1e62fca35`. [Native GNOME Basque Bluetooth help](https://help.gnome.org/gnome-help/bluetooth-send-file.html.eu)
+uses the same temporal predicate for a completed transfer. Together with
+EHU list-completion collocations and the actual generic checklist row without
+an extra copula, this supports the completed meaning. It does not validate
+the named checklist fragment, incomplete transition or runtime discrepancy.
 
 The application distinction also requires care. In checklistTriggers.js,
 completed selects **completeChecklist**, while uncompleted selects
@@ -40,5 +47,5 @@ S3 bucket terminology still needs a native technical-container reference.
 
 Accepted generic movement and check/uncheck predicates are recorded in
 `aba731e82` and `1439c4c61`. Those focused reviews do not certify the other
-restored fragments or live browser behavior. No values or queue counts were
-changed during this completion-reference review.
+restored fragments or live browser behavior. The latest completion acceptance resolves one restored finding without
+changing its value. Broader clauses and browser validation remain open.

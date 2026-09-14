@@ -5,15 +5,15 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,612 |
-| Restored pre-pull; awaiting validation | 13 |
-| Reviewed; retained unchanged | 4,167 |
+| Restored pre-pull; awaiting validation | 12 |
+| Reviewed; retained unchanged | 4,168 |
 | Pending review or repair | 289 |
 | Total tracked | 20,081 |
 
 Review is ongoing. [Basque rule review](Basque-Review.md) records native
 completion/negation evidence (local commit `c4db1c19c`) and a runtime predicate
-mismatch. The two completion phrases remain open; no findings were accepted
-from spelling evidence alone.
+mismatch. The incomplete phrase remains open; the completed predicate is retained
+with native software usage. No finding was accepted from spelling alone.
 [Inuktitut calendar review](Inuktitut-Calendar-Review.md)
 records primary evidence for the calendar noun, the actual settings context,
 and why a complete calendar-system/date-display phrase is still unverified.
@@ -36,14 +36,14 @@ Latest uncertain-phrase review: **2026-09-14**, `5400a0ce9` —
 [Inuktitut recurrence/reset review](Inuktitut-Recurrence-Review.md) distinguishes
 fresh-card creation from in-place checklist unchecking and records primary
 repeat/again affix evidence. Six headings/off labels remain open; component
-words alone do not establish complete phrases. Counts remain 289/13.
+words alone do not establish complete phrases. Counts after the latest completion review are 289/12.
 
 Latest unflagged unchanged review: **2026-09-14**, `5bf34bc48` —
 Inuktitut `new` retains `ᓄᑖᖅ`, matching the native software guide's New
 command and actual admin creation labels. Focused checks pass; browser review
 remains open. Latin Inuktitut spelling is valid; original script warnings
 require vocabulary/context review rather than automatic replacement.
-Pending/restored counts remain 289/13.
+Pending/restored counts after the latest review are 289/12.
 
 Latest translation fix: **2026-09-14**, local commit `1ba55107f` —
 four Breton date/activity/execution labels replace French prose. Native
@@ -53,12 +53,12 @@ runtime/browser formatting remain open. All **18,609** corrections, **4,167**
 unchanged reviews, focused locale and completeness checks pass. These unflagged
 repairs leave 289 pending and 13 restored findings unchanged. Earlier Inuktitut
 LDAP failure repair is in `ea1df33fa`, with full native grammar review open.
-Latest unchanged review: **2026-09-14**, local commit `1439c4c61` —
-Basque checked/unchecked actions retain distinct native temporal phrases,
-with software uncheck terminology and actual generic-item trigger coverage.
-Two restored findings are resolved; 13 remain. Specific named-item word order
-and live browser execution remain open. Earlier generic movement and Valencian
-peach-color reviews are recorded in `aba731e82` and `9f7f94825`.
+Latest unchanged review: **2026-09-14**, local commit `1e62fca35` —
+Basque completion retains `Osatzen denean` with native GNOME software evidence
+and generic checklist context. One restored finding resolves; 12 remain.
+All 4,168 unchanged reviews and focused translation checks pass. Incomplete
+transition, specific named clauses, runtime mismatch and browser review remain
+open. Earlier check/uncheck review is in `1439c4c61`.
 Earlier unchanged review: **2026-09-14**, Thai r-is —
 คือ retained after removing its incorrect insertion before action predicates.
 Danish Dage gammel remains validated in `824dd005e` with native age-construction
@@ -71,7 +71,7 @@ Additional unflagged unchanged review: **2026-09-14**, `39af6aae5` —
 Veps Server and Valencian Errors retained with native software evidence and
 protected per locale from filling. Zero unreviewed English placeholders remain;
 this does not establish correct language or fluency in all values. These two reviews are outside the original flagged ledger; current
-pending/restored counts are 289/13.
+pending/restored counts are 289/12.
 
 
 

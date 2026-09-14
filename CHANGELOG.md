@@ -738,6 +738,15 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1e62fca35">Retain native Basque checklist completion wording</a>. Thanks to xet7.</summary>
+
+Native software usage and actual generic checklist context support the
+existing completed predicate. Focused checks pass; one restored finding
+resolves. Incomplete transition, named clauses and browser review remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5400a0ce9">Document Inuktitut recurrence and reset review</a>. Thanks to xet7.</summary>
 
 The dated audit distinguishes fresh-card recurrence from in-place checklist
