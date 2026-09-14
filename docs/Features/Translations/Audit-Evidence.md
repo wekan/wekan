@@ -23702,3 +23702,23 @@ native wording/browser review. Four focused suites pass, including exact
 placeholder and key-order coverage and distinct access/modification meanings.
 No live browser validation was performed. Original pending/restored counts
 remain 291/13; the broader correction ledger now contains 18,600 entries.
+
+Breton accessibility terminology — 2026-09-14, local commit `669f0b31d`.
+
+Five values use haezadusted: accessibility, its page title/body labels,
+the enabled-page label and the not-added-yet information warning. Three
+French values were replaced; two existing corrections were revised while
+retaining their original before values in the ledger.
+[An Drouizig native computing glossary, February 2017](https://www.drouizig.org/images/stories/dafar/geriaduriaou/Gerva-an-Drouizig-2017.pdf)
+explicitly distinguishes haezadusted (accessibility) from haeziñ (access,
+to access) on page 13. The previous two repairs confused those concepts.
+Actual settingBody.jade accessibilitySettings fields edit the public page's
+title and body and toggle its enabled state. The title/body labels therefore
+identify the page explicitly. Existing local syntax preserves negation,
+addition and yet in the warning; the enabled state remains distinct.
+Ofis computing terminology supports title/content/activate/add vocabulary.
+Full adapted page compounds and warning grammar still need native/browser
+review; reference vocabulary alone is not full phrase validation. Four
+focused suites pass, including negative access-verb coverage and exact
+placeholder inventories. The correction ledger now has 18,603 records;
+original pending/restored counts remain 291/13. No live UI validation ran.

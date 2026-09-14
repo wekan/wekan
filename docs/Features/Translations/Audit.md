@@ -28,17 +28,18 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,600** exact before/after values, including unflagged repairs.
+contain **18,603** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `e3d6a1ace` —
-four Breton modification/access labels replace French prose. Native software
-sources support the modification terms and access noun; the full access-time
-compound remains adapted and needs native wording/browser review. All
-**18,600** corrections, **4,167** unchanged reviews, focused locale and
-completeness checks pass. Unflagged repairs leave 291 pending and 13 restored
-findings unchanged.
+Latest translation fix: **2026-09-14**, local commit `669f0b31d` —
+five Breton accessibility values repaired: three French labels replaced and
+two earlier repairs corrected from access to the distinct accessibility noun.
+Native computing terminology supports the distinction; full adapted page
+compounds and sentence/browser review remain open. All **18,603** corrections,
+**4,167** unchanged reviews, focused locale and completeness checks pass.
+Unflagged repairs and revisions leave 291 pending and 13 restored findings
+unchanged. Earlier modification/access repairs are in `e3d6a1ace`.
 Latest unchanged review: **2026-09-14**, local commit `1439c4c61` —
 Basque checked/unchecked actions retain distinct native temporal phrases,
 with software uncheck terminology and actual generic-item trigger coverage.
