@@ -126607,5 +126607,19 @@
     "before": "إخفاء عناصر قائمة التحقق المحددة",
     "after": "ⵙⵙⵏⵜⵍ ⵉⴼⵔⴷⵉⵙⵏ ⵉⵜⵜⵓⵙⵎⴰⵜⵔⵏ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
     "reason": "2026-09-14: Replace Arabic with Tamazight. MediaWiki zgh rcfilters-activefilters-hide directly attests Hide ssntl and tooltip-invert attests checkbox Check smatr (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Reuse local checklist/item terminology. Preserve checked items only, distinct from hideAllChecklistItems. Passive plural ittusmatrn and full noun phrase are derived, low confidence; require language validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "allowed-upload-filetypes",
+    "before": "أنواع الملفات المسموح بتحميلها:",
+    "after": "ⵉⵏⴰⵡⵏ ⵏ ⵉⴼⴰⵢⵍⵓ ⵙ ⵜⵓⵔⴰⴳⵜ ⵏ ⵓⵙⵙⴽⵜⵔ:",
+    "reason": "2026-09-14: Replace Arabic file restriction label with Tamazight. MediaWiki file-info-size directly attests MIME Type anaw and bound File ufaylu; permissionserrorstext-withaction directly attests Permission turagt, uploadlogpage attests Upload ussktr (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Adapt Allowed as with Permission, distinguishing upload permission from avatar-file scope using the local profile-image paraphrase. Preserve colon. Plural Types inawn, Files ifaylu, permission construction and full labels are derived, low confidence; require language validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "allowed-avatar-filetypes",
+    "before": "أنواع ملفات الصورة الرمزية المسموح بها:",
+    "after": "ⵉⵏⴰⵡⵏ ⵏ ⵉⴼⴰⵢⵍⵓ ⵏ ⵜⵡⵍⴰⴼⵜ ⵏ ⵉⴼⵔⵙ ⵙ ⵜⵓⵔⴰⴳⵜ:",
+    "reason": "2026-09-14: Replace Arabic file restriction label with Tamazight. MediaWiki file-info-size directly attests MIME Type anaw and bound File ufaylu; permissionserrorstext-withaction directly attests Permission turagt, uploadlogpage attests Upload ussktr (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Adapt Allowed as with Permission, distinguishing upload permission from avatar-file scope using the local profile-image paraphrase. Preserve colon. Plural Types inawn, Files ifaylu, permission construction and full labels are derived, low confidence; require language validation."
   }
 ]
