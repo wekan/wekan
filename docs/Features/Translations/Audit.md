@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,547 |
-| Restored pre-pull; awaiting validation | 2,906 |
-| Reviewed; retained unchanged | 1,320 |
+| Restored pre-pull; awaiting validation | 2,856 |
+| Reviewed; retained unchanged | 1,370 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -17,7 +17,9 @@ source references, confidence limits and archived progress notes.
 
 Latest translation fix/review: **2026-09-14**, local commit `9ee9d2357` —
 repaired Esperanto watch-settings terminology and retained 33 correct values,
-including reviewed subtask compounds. All **18,142** correction records and
+including reviewed subtask compounds. Latest unchanged-value review:
+**2026-09-14**, local commit `8be47d3b3` — retained 50 correct calendar,
+voting and avatar controls. All **18,142** correction records and
 unchanged-value/progress checks pass. Browser verification was not run;
 no translations were pushed. Completion terminology remains under review.
 

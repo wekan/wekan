@@ -21539,3 +21539,13 @@ not komplet/complete, and therefore supplies no completion evidence. The
 komplet.xml URL returned 404. This corrects the prior retrieval description;
 no completion values are accepted on that basis. Ledger tests pass; browser
 behavior remains unverified.
+
+
+### Esperanto calendar and voting controls — 2026-09-14
+
+Local commit `8be47d3b3` retains 50 directly reviewed correct labels.
+Preserve zoom direction/range, month navigation, due/spent-time distinctions,
+archive restoration, voting for/against and identity visibility. Planning
+Poker/CAS names and question-mark notation are intentional. Avatar, assignee
+and template actions retain correct wording. Unchanged-value tests pass;
+uncertain terminology and browser validation remain open.
