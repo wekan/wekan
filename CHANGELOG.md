@@ -671,6 +671,16 @@ The empty wrongly placed Git directory was removed locally.
 **Languages updated:** Acehnese, Bambara, Basque, Breton, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a196c64eb">Repair Galician member trigger agreement</a>. Thanks to xet7.</summary>
+
+Member and assignee subjects use persoa to agree with shared added/removed
+participles. Regression checks generic/specific phrases and actual template
+keys; all correction records pass. Attachment agreement and live browser
+verification remain open in the audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/64f1d7367">Validate Valencian assigned-card shortcut wording</a>. Thanks to xet7.</summary>
 
 Retain correct filter/assignment meaning against the current-user assignee

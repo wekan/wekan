@@ -22850,3 +22850,15 @@ This does not make meves wrong-language prose; retained under correct-language
 preservation policy. Preferred Valencian regional style is not declared
 resolved. All 4,158 review records pass; 29 restored and 300 pending remain.
 Full language and browser verification remain open.
+
+Dated subject-agreement repair, 2026-09-14, local commit `a196c64eb`:
+Galician generic/specific member and assignee subjects use persoa membro /
+persoa asignada, agreeing with shared Engadida/Quitada. Specific copula
+remains supplied by r-is in cardTriggers.jade; generic prefix includes it.
+Official usage of persoa membro:
+https://sede.xunta.gal/detalle-procedemento?ano=2025&codtram=BS310Q&lang=gl430&numpub=1 .
+Dedicated regression checks both selected actions and named/unnamed subjects
+against template keys, and rejects old masculine generic subjects. All
+18,233 correction records pass; 27 restored and 300 pending findings remain.
+Attachment subject agreement is not solved by this repair. Complete UI/browser
+and other shared-language grammar review remain open.

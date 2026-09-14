@@ -4,8 +4,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,594 |
-| Restored pre-pull; awaiting validation | 29 |
+| Corrected | 15,596 |
+| Restored pre-pull; awaiting validation | 27 |
 | Reviewed; retained unchanged | 4,158 |
 | Pending review or repair | 300 |
 | Total tracked | 20,081 |
@@ -20,17 +20,16 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,229** exact before/after values, including unflagged repairs.
+contain **18,233** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `a06bf0cca` —
-two Bambara Hijri placeholders now have full provisional labels for table-
-based calculation and distinct civil/astronomical starting epochs. Compounds
-and calendar use of sivili/dolo dɔnni require native terminology review;
-filled status does not mean language validation is complete. All **18,229**
-correction checks pass; browser verification remains open. Breton popup
-repairs were recorded in `6db6c7b16`.
+Latest translation fix: **2026-09-14**, local commit `a196c64eb` —
+four Galician member/assignee trigger subjects use feminine persoa, agreeing
+with shared added/removed dropdowns. Generic/specific assembled phrases and
+actual template keys pass regression; all **18,233** corrections pass.
+Attachment agreement remains unresolved, as do full browser/language review.
+Bambara Hijri epoch compounds in `a06bf0cca` remain provisional.
 Latest unchanged review: **2026-09-14**, commit `64f1d7367` —
 assigned-card shortcut retained against actual current-user assignee toggle.
 IEC recognizes meves/meues as dialect variants; no wrong-language finding
