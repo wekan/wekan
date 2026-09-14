@@ -124304,5 +124304,26 @@
     "before": "هذه البطاقة",
     "after": "ⵜⴰⴽⴰⵕⴹⴰ ⴰⴷ",
     "reason": "2026-09-14: Replace Arabic board/card reference label. Preserve This demonstrative and singular Card. Native MediaWiki collapsible-collapse-all-text supplies akkw All and category-empty supplies noun + ad This; reuse existing taflwit/takarda kanban nouns and derive board plural tiflwin. LOW CONFIDENCE kanban terminology extension, board plural morphology and complete qualified noun phrases need fluent Standard Moroccan review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "accounts-lockout-click-to-unlock",
+    "before": "Cliquer pour déverrouiller cet utilisateur",
+    "after": "ⴽⵍⵉⴽⵉ ⴰⴷ ⵜⴽⴽⵙⴷ ⴰⴳⴷⴰⵍ ⵏ ⵓⵏⵙⵙⵎⵔⵙ ⴰⴷ",
+    "reason": "2026-09-14: Replace French account Unlock wording by explicitly expressing removal of login blocking, consistent with existing native login-userblocked-based lockout translation. Preserve Click instruction versus confirmation question versus Unlock All action; this-user singular demonstrative and All users scope remain distinct. Native MediaWiki remove kks, blocking agdal, user nouns, kliki Click and akkw All support components; Mastodon confirmations.delete.message supports confirmation question pattern. LOW CONFIDENCE unblock terminology compound, noun states and full subordinate/confirmation phrases need fluent Standard Moroccan review. No exact Unblock phrase is supplied in current reviewed MediaWiki/Mastodon zgh files. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "accounts-lockout-confirm-unlock",
+    "before": "Êtes-vous sûr de vouloir déverrouiller cet utilisateur ?",
+    "after": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⴰⴳⴷⴰⵍ ⵏ ⵓⵏⵙⵙⵎⵔⵙ ⴰⴷ?",
+    "reason": "2026-09-14: Replace French account Unlock wording by explicitly expressing removal of login blocking, consistent with existing native login-userblocked-based lockout translation. Preserve Click instruction versus confirmation question versus Unlock All action; this-user singular demonstrative and All users scope remain distinct. Native MediaWiki remove kks, blocking agdal, user nouns, kliki Click and akkw All support components; Mastodon confirmations.delete.message supports confirmation question pattern. LOW CONFIDENCE unblock terminology compound, noun states and full subordinate/confirmation phrases need fluent Standard Moroccan review. No exact Unblock phrase is supplied in current reviewed MediaWiki/Mastodon zgh files. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "accounts-lockout-unlock-all",
+    "before": "Tout déverrouiller",
+    "after": "ⴽⴽⵙ ⴰⴳⴷⴰⵍ ⵏ ⴰⴽⴽⵯ ⵉⵏⵙⵙⵎⵔⵙⵏ",
+    "reason": "2026-09-14: Replace French account Unlock wording by explicitly expressing removal of login blocking, consistent with existing native login-userblocked-based lockout translation. Preserve Click instruction versus confirmation question versus Unlock All action; this-user singular demonstrative and All users scope remain distinct. Native MediaWiki remove kks, blocking agdal, user nouns, kliki Click and akkw All support components; Mastodon confirmations.delete.message supports confirmation question pattern. LOW CONFIDENCE unblock terminology compound, noun states and full subordinate/confirmation phrases need fluent Standard Moroccan review. No exact Unblock phrase is supplied in current reviewed MediaWiki/Mastodon zgh files. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
   }
 ]
