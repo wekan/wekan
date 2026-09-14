@@ -3582,6 +3582,19 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9b11c99d9">Repair Tamazight parent-display labels</a></summary>
+
+Replaced French Parent Card and Don't Show Parent labels. Hiding remains
+a display choice and does not remove the relationship. Compound grammar
+remains low confidence pending fluent review. On 2026-09-14, 18,127 records
+pass structural verification and 308 original findings remain pending,
+including 173 Tamazight. Restored and uncertain wording still needs review.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b91b63c53">Translation repairs: Tamazight authentication labels.</a></summary>
 
 2026-09-14: Replace four French labels, preserving method/type, default and

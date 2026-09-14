@@ -1,5 +1,15 @@
 # Detailed translation audit evidence
 
+2026-09-14 (`9b11c99d9`): repaired Tamazight Parent Card and Don't
+Show Parent. Native MediaWiki `rcfilters-activefilters-hide` supplies
+`ⵙⵙⵏⵜⵍ`; indexed IRCAM General Dictionary supports `ⴰⵎⴰⵔⴰⵡ`.
+Existing Card terminology supplies `ⵜⴰⴽⴰⵔⴹⴰ`. The compound and bound
+state are adaptations and remain low confidence. `presentParentTask()`
+in `client/components/cards/cardDetails.js` defaults to `no-parent` as
+a display mode; the translation hides the parent without removing it.
+One original finding and one additional wrong-language value repaired.
+
+
 2026-09-14 (`084d44fab`): repaired Tamazight public/private board
 notices, retaining this board, future visibility and exact strong tags.
 Existing public/private adjectives were adapted to feminine board agreement.
