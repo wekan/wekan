@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,347 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 497 pending review or repair.
-The correction inventory records 17,681 exact before/after values,
+The correction inventory records 17,682 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,12 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 5be5aa3ec (2026-09-14), replacing the French
-Tamazight cron severity label with existing recovery terminology. This unflagged
-repair retains low confidence; both contexts need fluent terminology review.
-Troubleshooting reference review ccd2ff8b0 (2026-09-14) separates native
-server/error terms from cross-dialect execution/installation evidence.
-The full instruction remains pending; values and counts are unchanged.
+Latest translation fix is 666680f12 (2026-09-14), replacing the French
+email-invitation button while preserving the invitation action and email
+channel. The invitation verb and complete phrase remain low confidence
+and need renewed Moroccan dialect review.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -629,7 +627,7 @@ remain open.
 Translation audit progress as of 2026-09-14: 15,347 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
 and 497 remain pending across 17 locales, including 362 Tamazight findings.
-The ledger contains 17,681 correction records, including unflagged repairs.
+The ledger contains 17,682 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -1571,6 +1569,16 @@ Corroborate regional human use of the shared computer-database term while
 keeping the raw-file qualifier and complete label pending. Distinguish the
 Silesian quotation from the Polish article wrapper and record retrieval
 limits. No locale values or counts changed; broader language review continues.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/666680f12">Translate Tamazight email invitation action</a>. Thanks to xet7.</summary>
+
+Replace the French button with the existing Invite action and native email
+term, retaining the email channel. The invitation verb and full phrase
+remain low confidence and require renewed Moroccan dialect review. All
+17,682 correction/rendering checks pass; 497 originals remain pending.
 
 </details>
 
