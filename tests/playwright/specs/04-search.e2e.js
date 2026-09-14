@@ -74,6 +74,19 @@ test.describe('Search', () => {
     expect(leaked.length).toBe(0);
   });
 
+  test('public boards are searchable only by their active members', async ({ page, user, user2, board }) => {
+    db.updateOne('boards', { _id: board.id }, { $set: { permission: 'public' } });
+    await loginWithToken(page, user2.id, user2.token);
+    const sp = new SearchPage(page);
+    await sp.navigateToGlobalSearch();
+    await sp.globalSearch('Alpha Card');
+    expect(await sp.globalSearchResultTitles()).not.toContain('Alpha Card');
+    await loginWithToken(page, user.id, user.token);
+    await sp.navigateToGlobalSearch();
+    await sp.globalSearch('Alpha Card');
+    await expect.poll(() => sp.globalSearchResultTitles()).toContain('Alpha Card');
+  });
+
   test('changing card status in global search results keeps the card visible', async ({ boardPage, board }) => {
     const sp = new SearchPage(boardPage);
     const bp = new BoardPage(boardPage);

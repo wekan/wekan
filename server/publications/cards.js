@@ -519,17 +519,9 @@ Meteor.publish('sessionData', async function(sessionId) {
   return cursor;
 });
 
-// Which boards a search covers: the ones the user is actually part of - a member
-// of, or reached through an organization, a team or their e-mail domain - and NOT
-// every PUBLIC board on the instance.
-//
-// A public board is meant to be discoverable, so it belongs in the boards list.
-// But "Search All Boards" meant all boards on the server: on a public instance a
-// search for a common word answered with strangers' cards, and following a hit
-// dropped the user into a board they have no part in. "All boards" means all of
-// YOUR boards. Someone who wants to look inside a public board can still open it
-// and search there.
-const SEARCH_BOARD_SCOPE = { includePublic: false };
+// Search All Boards includes only active direct board memberships, regardless
+// of public/private permission. Shared access alone does not imply membership.
+const SEARCH_BOARD_SCOPE = { includePublic: false, membersOnly: true };
 
 async function buildSelector(queryParams, userId) {
   const errors = new QueryErrors();

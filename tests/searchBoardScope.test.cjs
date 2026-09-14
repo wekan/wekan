@@ -83,7 +83,7 @@ test('the option reaches userBoardIds, which is what the search calls', () => {
 });
 
 test('every board lookup in the search excludes public boards', () => {
-  assert.ok(/const SEARCH_BOARD_SCOPE = \{ includePublic: false \};/.test(cards),
+  assert.ok(/const SEARCH_BOARD_SCOPE = \{ includePublic: false, membersOnly: true \};/.test(cards),
     'the search names its scope once');
 
   // One scope, used by every lookup - if one is missed, that branch of the search
@@ -142,3 +142,13 @@ test('generic board helpers retain public access for callers that need it', () =
 });
 
 console.log(`\nsearchBoardScope: ${passed} tests passed`);
+
+const { boardVisibilitySelectors } = require('../models/lib/boardVisibilitySelectors');
+for (const includePublic of [true, false]) {
+  assert.deepStrictEqual(boardVisibilitySelectors({
+    userId: 'member', orgIds: ['org'], teamIds: ['team'],
+    emailDomains: ['example.com'], includePublic, membersOnly: true,
+  }), [{ members: { $elemMatch: { userId: 'member', isActive: true } } }]);
+  assert.deepStrictEqual(boardVisibilitySelectors({ membersOnly: true, includePublic }), []);
+}
+assert.match(boards, /membersOnly: options\.membersOnly === true/);

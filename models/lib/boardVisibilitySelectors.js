@@ -25,6 +25,8 @@
  *        which is not a relationship to the user at all but "anybody may open
  *        this" - wanted for direct/public discovery, not in a relationship-only
  *        list or a search over all boards.
+ * @param {boolean} [args.membersOnly=false] require active direct membership;
+ *        excludes public, organization, team and domain access clauses
  * @return {object[]} the `$or` clauses, in a stable order
  */
 function boardVisibilitySelectors({
@@ -33,10 +35,11 @@ function boardVisibilitySelectors({
   teamIds = [],
   emailDomains = [],
   includePublic = true,
+  membersOnly = false,
 } = {}) {
   const selectors = [];
 
-  if (includePublic) {
+  if (includePublic && !membersOnly) {
     selectors.push({ permission: 'public' });
   }
 
@@ -48,6 +51,8 @@ function boardVisibilitySelectors({
     Array.isArray(values) ? values.filter((v) => typeof v === 'string' && v) : [];
 
   selectors.push({ members: { $elemMatch: { userId, isActive: true } } });
+  if (membersOnly) return selectors;
+
   const cleanOrgIds = clean(orgIds);
   if (cleanOrgIds.length) selectors.push({
     orgs: { $elemMatch: { orgId: { $in: cleanOrgIds }, isActive: true } },

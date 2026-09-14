@@ -3190,6 +3190,7 @@ Boards.userBoards = (
       teamIds: user.teamIds(),
       emailDomains: user.emailDomains(),
       includePublic,
+      membersOnly: options.membersOnly === true,
     });
     return selector;
   };
