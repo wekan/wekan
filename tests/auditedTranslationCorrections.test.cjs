@@ -2895,8 +2895,8 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     assert.doesNotMatch(value, /[\u0600-\u06FF]|Connexion|Déconnexion|Les mots/, key);
   }
   assert.notEqual(cache.zgh.login, cache.zgh.logout);
-  assert.equal(cache.zgh['delete-all-notifications'], 'ⴽⴽⵙ ⵉⵍⵖⴰ ⴰⴽⴽ');
-  assert.match(cache.zgh['delete-all-notifications'], /ⵉⵍⵖⴰ ⴰⴽⴽ$/);
+  assert.equal(cache.zgh['delete-all-notifications'], 'ⴽⴽⵙ ⴰⴽⴽⵯ ⵜⵉⵏⵖⵎⵉⵙⵉⵏ');
+  assert.match(cache.zgh['delete-all-notifications'], /ⴰⴽⴽⵯ ⵜⵉⵏⵖⵎⵉⵙⵉⵏ$/);
   assert.doesNotMatch(cache.zgh['delete-all-notifications'], /Supprimer|notifications/);
   const quechuaBasicColors = {"color-black": "yana", "color-red": "puka", "color-white": "yuraq"};
   for (const [key, value] of Object.entries(quechuaBasicColors)) {

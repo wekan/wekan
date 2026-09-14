@@ -120564,8 +120564,8 @@
     "locale": "zgh",
     "key": "delete-all-notifications",
     "before": "Supprimer toutes les notifications",
-    "after": "ⴽⴽⵙ ⵉⵍⵖⴰ ⴰⴽⴽ",
-    "reason": "Replace French delete-all-notifications action with Tamazight. Reuse existing notifications noun ⵉⵍⵖⴰ; Standard Moroccan Tamazight MediaWiki delete=ⴽⴽⵙ and allpages uses ⴰⴽⴽ for all at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json. Review 2026-09-14. Low confidence: composed action and existing notifications terminology need fluent regional/technical review. Preserve all-notifications scope; unread/read actions and irreversible confirmation remain unresolved."
+    "after": "ⴽⴽⵙ ⴰⴽⴽⵯ ⵜⵉⵏⵖⵎⵉⵙⵉⵏ",
+    "reason": "2026-09-14: Repair French notification deletion confirmation and align related unflagged notification label. Native Mastodon Notifications tin ghmisin and MediaWiki Delete kks, All akkw and undo-failure no-undo clause support components: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve ALL notifications, explicit confirmation and unconditional CANNOT UNDO warning; omit only MediaWiki edit-conflict reason. Reuse local confirmation wording. Change-to-Action singular adaptation, agreement and full confirmation grammar remain LOW CONFIDENCE."
   },
   {
     "locale": "qu",
@@ -126418,5 +126418,12 @@
     "before": "Décocher tous les éléments d'une liste",
     "after": "ⴽⴽⵙ ⴰⵙⵎⴰⵜⵔ ⵙⴳ ⵉⴼⵔⴷⵉⵙⵏ ⴰⴽⴽⵯ ⵏ ⵜⵍⴳⴰⵎⵜ",
     "reason": "2026-09-14: Replace French checklist checkbox controls. Native MediaWiki tooltip-invert/tooltip-namespace_association attest Check smatr in checkbox context, hide Hide ffr, All akkw and Remove kks: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Item/List native components retained. Preserve Hide CHECKED items, CHECK ALL items OF A LIST, and active UNCHECK ALL reversal rather than merely unchecked state. Uncheck paraphrased Remove Mark; derived mark nominalization, checked plural passive, bound list and full scope grammar remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "delete-all-notifications-confirm",
+    "before": "Êtes-vous sûr de vouloir supprimer toutes les notifications ? Cette action est irréversible.",
+    "after": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⴰⴽⴽⵯ ⵜⵉⵏⵖⵎⵉⵙⵉⵏ? ⵜⵉⴳⴰⵡⵜ ⴰⴷ ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⴰⴷ ⴷ ⵉⵡⵔⵔⵉ.",
+    "reason": "2026-09-14: Repair French notification deletion confirmation and align related unflagged notification label. Native Mastodon Notifications tin ghmisin and MediaWiki Delete kks, All akkw and undo-failure no-undo clause support components: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve ALL notifications, explicit confirmation and unconditional CANNOT UNDO warning; omit only MediaWiki edit-conflict reason. Reuse local confirmation wording. Change-to-Action singular adaptation, agreement and full confirmation grammar remain LOW CONFIDENCE."
   }
 ]
