@@ -152,3 +152,8 @@ for (const [key, value] of Object.entries(authenticationLabels)) {
   assert.equal((locales.zgh[key].match(/ⵓⵙⵖⵣⵏ/g) || []).length, 1);
 }
 assert.equal(new Set(Object.values(authenticationLabels)).size, 4);
+
+assert.equal(locales.zgh['step-analyze-board-structure'],
+  'ⴰⵙⴼⵙⵉ ⵏ ⵜⵓⵚⴽⵉⵡⵜ ⵏ ⵜⴼⵍⵡⵉⵜ');
+assert.doesNotMatch(locales.zgh['step-analyze-board-structure'], /ⵙⵍⴹ|ⵜⴰⵎⵚⵓⴽⵜ|Analyser|Structure/);
+assert.notEqual(locales.zgh['step-analyze-board-structure'], locales.zgh['migration-progress-note']);

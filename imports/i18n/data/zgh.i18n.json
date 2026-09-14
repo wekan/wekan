@@ -2460,7 +2460,7 @@
   "steps": "ⵉⵙⵓⵔⵉⴼⵏ",
   "view": "ⵙⴽⵏ",
   "has-swimlanes": "A des couloirs",
-  "step-analyze-board-structure": "ⵙⵍⴹ ⵜⴰⵎⵚⵓⴽⵜ ⵏ ⵜⴼⵍⵡⵉⵜ",
+  "step-analyze-board-structure": "ⴰⵙⴼⵙⵉ ⵏ ⵜⵓⵚⴽⵉⵡⵜ ⵏ ⵜⴼⵍⵡⵉⵜ",
   "step-fix-orphaned-cards": "ⵙⵙⴰⵖⴷ ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⵜⵉⴳⵓⵊⵉⵍⵉⵏ",
   "step-convert-shared-lists": "Convertir les listes partagées",
   "step-ensure-per-swimlane-lists": "Assurer les listes par couloir",

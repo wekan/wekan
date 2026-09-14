@@ -126731,8 +126731,8 @@
     "locale": "zgh",
     "key": "step-analyze-board-structure",
     "before": "Analyser la structure du tableau",
-    "after": "ⵙⵍⴹ ⵜⴰⵎⵚⵓⴽⵜ ⵏ ⵜⴼⵍⵡⵉⵜ",
-    "reason": "2026-09-14: replaced French Analyze Board Structure. Directly inspected rendered CNAM Amawal PDF pages 19 and 134: Analyze sleḍ (MW modern lexicon) and Structure Tamṣukt (MAT mathematical lexicon). Rendered letters resolve legacy extraction substitutions; neither source is normative Moroccan software usage. Tifinagh transliteration, bound board form and complete command remain LOW CONFIDENCE and require native review."
+    "after": "ⴰⵙⴼⵙⵉ ⵏ ⵜⵓⵚⴽⵉⵡⵜ ⵏ ⵜⴼⵍⵡⵉⵜ",
+    "reason": "2026-09-14: replaced French Analyze Board Structure. Directly inspected rendered CNAM Amawal PDF pages 19 and 134: Analyze sleḍ (MW modern lexicon) and Structure Tamṣukt (MAT mathematical lexicon). Rendered letters resolve legacy extraction substitutions; neither source is normative Moroccan software usage. Tifinagh transliteration, bound board form and complete command remain LOW CONFIDENCE and require native review. Renewed Moroccan-source repair 2026-09-14: use IRCAM 2019 PDF221 entry4239 analysis/neo sense, not melting, and PDF703 entry13278 structure. Nominal analysis-of-board-structure stage label avoids unsupported imperative sld and cross-variety tamsukt. Preserve original before value. LOW CONFIDENCE: full noun phrase and software-structure metaphor still need native/browser validation; active migration step-ID integration is separately unresolved."
   },
   {
     "locale": "zgh",
