@@ -29681,3 +29681,24 @@ external qualifier, whose Moroccan adaptation still requires review.
 No locale values, original classifications or ledger counts change: 128
 tracked pending, zgh 35, four restored values still await validation.
 This retention is evidence-based preservation, not full fluency approval.
+
+
+2026-09-15 — `ef5a6c5ba`: Node_memory_usage_rss French replaced with
+Tamazight memory-usage and size wording plus the technical RSS acronym.
+IRCAM General Dictionary primary PDF, cached source:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339 : 12742
+memory timktit/bound tmktit, 1779 aquddi size, 9981 ssmrs use. Full
+computing compound remains low confidence; the acronym identifies the
+exact statistic but does not complete native expansion of resident set.
+A targeted lexical search found no direct resident/allocation entries;
+this limited search does not prove that native computing terms are absent.
+Node primary documentation read again 2026-09-15:
+https://nodejs.org/api/process.html#processmemoryusage defines RSS as
+resident process memory, including C++/JavaScript objects and code. Source
+server/statistics.js:87-93 reads memoryUsage.rss; informationBody.jade:175
+uses this translation next to that value. Do not describe it as heapUsed,
+free system RAM or disk space. Four focused checks pass for exact value,
+negative French/Arabic, acronym retention and full token inventories.
+No live diagnostic UI test ran. Ledger 19,899; corrected 15,776, pending
+127 (zgh 34), restored 4 unchanged. Native expansion and grammar remain
+within the full audit scope despite this original classification change.

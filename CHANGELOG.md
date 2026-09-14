@@ -1226,6 +1226,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ef5a6c5ba">Fix Tamazight resident-memory diagnostic label</a></summary>
+
+Replace French with Tamazight memory-usage and size wording, retaining the
+precise RSS acronym. Four focused checks pass. Full computing grammar and
+native expansion of resident set remain in the dated translation audit.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
