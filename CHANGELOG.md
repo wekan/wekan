@@ -831,6 +831,16 @@ Dated audit records 170 pending original findings.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3ce7ed2a0">Repair Tamazight due-card empty states</a>. Thanks to xet7.</summary>
+
+Replace three French empty-state values, retaining the due-date condition,
+possession and current-time qualifier where applicable. Four focused
+translation suites pass. Passive agreement and due-date terminology remain
+under native review. Dated audit records 168 pending original findings.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

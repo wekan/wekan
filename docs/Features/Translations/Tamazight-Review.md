@@ -3354,3 +3354,24 @@ change every legal-notice label to a possessive form. The generic acceptance
 verb evidence remains valid; complete clause and continuation are open.
 No translation, runtime template or counts changed. Pending 170 original
 findings. No live UI test ran; no remote writes were made.
+
+
+## Due-card empty states — repair 2026-09-15
+
+Source commit `3ce7ed2a0` replaces two flagged French due-card messages
+and unflagged French no-cards-found. IRCAM page 64 entry 934 attests
+find `af`, distinct from surpass/exceed homograph 933. Page 320 entry
+6184 attests `dɣi` now/for the moment. Reuse existing due-date phrase
+`ⴰⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ` to keep UI terminology consistent.
+The compound's precise software deadline meaning and negative passive
+`ⵜⵜⵓⵢⴰⴼⵏⵜ` agreement remain low confidence; these complete phrases
+still require native review. Due cards must not be narrowed to overdue.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+`client/components/main/dueCards.jade:48` and line 49 render title and
+explanation. Description retains possession and at-the-moment qualifier;
+generic no-cards-found does not add a due-date condition. Four focused
+suites pass for exact wording and translation invariants. No live UI test
+ran. Ledger 19,848; original corrected 15,735, pending 168 (zgh 73),
+restored 4 unchanged. Unflagged repair is outside original queue totals.
+Broader review remains open; no remote writes.
