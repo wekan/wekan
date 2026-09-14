@@ -125634,5 +125634,33 @@
     "before": "Nadi",
     "after": "ⵔⵣⵓ",
     "reason": "2026-09-14: Replace inherited Kabyle Search Nadi with directly attested native MediaWiki searchbutton ⵔⵣⵓ and Mastodon search.placeholder, preserving imperative Search. Latin script alone is not an error. Sources: https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "archive-swimlane",
+    "before": "نقل خط السباحة الى الارشيف",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⴰⴱⵔⵉⴷ ⵖⵔ ⴰⵔⵛⵉⴼ",
+    "reason": "2026-09-14: Replace French/Arabic archive or restore control. Native MediaWiki thisisdeleted directly attests Restore swrri and collapsible-collapse-all-text attests All akkw: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Archive noun corroborated by directly inspected native Archives du Maroc logo in https://www.um5.ac.ma/um5/sites/default/files/2019-12/Communiqu%C3%A9%20JNA%202019.pdf . Preserve move-to-archive versus restore-from-archive, All scope, and THIS list. Swimlane provisionally reuses local Path abrid, not independently validated swimlane terminology. Card/Board nouns reuse local vocabulary. LOW CONFIDENCE full phrases, possessive/list construction and kanban adaptations require native validation. Generic Restore record retains its alternate restoration verb; no unsupported claim that it was wrong."
+  },
+  {
+    "locale": "zgh",
+    "key": "list-archive-cards",
+    "before": "Déplacer toutes les cartes de cette liste vers les archives",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴰⴽⴽⵯ ⵏ ⵜⴰⵍⴳⴰⵎⵜ ⴰⴷ ⵖⵔ ⴰⵔⵛⵉⴼ",
+    "reason": "2026-09-14: Replace French/Arabic archive or restore control. Native MediaWiki thisisdeleted directly attests Restore swrri and collapsible-collapse-all-text attests All akkw: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Archive noun corroborated by directly inspected native Archives du Maroc logo in https://www.um5.ac.ma/um5/sites/default/files/2019-12/Communiqu%C3%A9%20JNA%202019.pdf . Preserve move-to-archive versus restore-from-archive, All scope, and THIS list. Swimlane provisionally reuses local Path abrid, not independently validated swimlane terminology. Card/Board nouns reuse local vocabulary. LOW CONFIDENCE full phrases, possessive/list construction and kanban adaptations require native validation. Generic Restore record retains its alternate restoration verb; no unsupported claim that it was wrong."
+  },
+  {
+    "locale": "zgh",
+    "key": "restore-all",
+    "before": "Tout restaurer",
+    "after": "ⵙⵡⵔⵔⵉ ⴰⴽⴽⵯ",
+    "reason": "2026-09-14: Replace French/Arabic archive or restore control. Native MediaWiki thisisdeleted directly attests Restore swrri and collapsible-collapse-all-text attests All akkw: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Archive noun corroborated by directly inspected native Archives du Maroc logo in https://www.um5.ac.ma/um5/sites/default/files/2019-12/Communiqu%C3%A9%20JNA%202019.pdf . Preserve move-to-archive versus restore-from-archive, All scope, and THIS list. Swimlane provisionally reuses local Path abrid, not independently validated swimlane terminology. Card/Board nouns reuse local vocabulary. LOW CONFIDENCE full phrases, possessive/list construction and kanban adaptations require native validation. Generic Restore record retains its alternate restoration verb; no unsupported claim that it was wrong."
+  },
+  {
+    "locale": "zgh",
+    "key": "restore-all-archived-migration",
+    "before": "Tout restaurer depuis les archives",
+    "after": "ⵙⵡⵔⵔⵉ ⴰⴽⴽⵯ ⵙⴳ ⴰⵔⵛⵉⴼ",
+    "reason": "2026-09-14: Replace French/Arabic archive or restore control. Native MediaWiki thisisdeleted directly attests Restore swrri and collapsible-collapse-all-text attests All akkw: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Archive noun corroborated by directly inspected native Archives du Maroc logo in https://www.um5.ac.ma/um5/sites/default/files/2019-12/Communiqu%C3%A9%20JNA%202019.pdf . Preserve move-to-archive versus restore-from-archive, All scope, and THIS list. Swimlane provisionally reuses local Path abrid, not independently validated swimlane terminology. Card/Board nouns reuse local vocabulary. LOW CONFIDENCE full phrases, possessive/list construction and kanban adaptations require native validation. Generic Restore record retains its alternate restoration verb; no unsupported claim that it was wrong."
   }
 ]
