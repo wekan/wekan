@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f3d3aa4b2">Repair Tamazight card control labels</a>. Thanks to xet7.</summary>
+
+Replace French parent-change and card-display labels using verified action
+terms and existing card vocabulary. Four checks pass; full native grammar,
+parent terminology and browser validation remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/027bdc446">Repair Tamazight multi-selection labels</a>. Thanks to xet7.</summary>
 
 Replace five additional French move/copy, popup-title and color labels with

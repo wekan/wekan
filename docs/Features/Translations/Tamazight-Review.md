@@ -489,3 +489,23 @@ not attest the full software phrases. Four focused checks pass, preserving
 all English placeholders and reviewed unchanged values. Browser validation
 was not run. Original counts remain 15,628 corrected, 274 pending, four
 restored and 4,175 retained; the ledger grows to 18,719 records.
+
+## Parent-change and card-display repairs — 2026-09-14
+
+Local commit `f3d3aa4b2` repairs original pending `change-card-parent`
+and additional French `show-on-card`. Primary IRCAM General Dictionary
+PDF page 532, entry 10003, gives transitive change `ⵙⵙⵏⴼⵍ`; page 521,
+entry 9816, gives show `ⵙⵙⴽⵏ`; page 122, entry 2198, gives father;
+page 306, entry 5962, establishes the in preposition. Existing locale
+card vocabulary and software parent convention are reused.
+
+CardDetails.jade line 1415 introduces the parent-board/card selectors,
+so the replacement says change the parent of the card, not merely change
+the card. Sidebar.jade line 323 labels the card field-display column,
+so show-on-card retains its display-on-card meaning. **Low confidence**
+remains for the full grammar and software parent metaphor. Dictionary
+action entries do not attest these complete software phrases. Four
+focused translation checks pass; live browser validation was not run.
+Counts: 15,629 corrected, 273 pending (160 Tamazight), four restored and
+4,175 retained. The ledger contains 18,721 corrections; broader native
+validation remains open after changed findings are classified corrected.
