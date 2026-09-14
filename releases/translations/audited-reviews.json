@@ -17566,5 +17566,185 @@
     "key": "importMapMembersAddPopup-title",
     "value": "Seleccionar membro",
     "reason": "Direct Galician review retains manual ordering, missing/overdue/today/tomorrow/this-week/next-week date filters, assignee absence and archived/empty list visibility. Activity show/hide and impersonation actions retain meaning. Import help preserves CSV/TSV separators, valid JSON requirement, ZIP size failure, cancellation and mapping to an existing user."
+  },
+  {
+    "locale": "gl",
+    "key": "info",
+    "value": "Versión",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "invalid-time",
+    "value": "Hora non válida",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "invalid-user",
+    "value": "Usuario non válido",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "joined",
+    "value": "uniuse",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "keyboard-shortcuts",
+    "value": "Atallos de teclado",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "label-default",
+    "value": "etiqueta %s (predeterminada)",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "set-color-list",
+    "value": "Definir a cor",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "listActionPopup-title",
+    "value": "Accións da lista",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "settingsUserPopup-title",
+    "value": "Configuración do usuario",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "settingsTeamPopup-title",
+    "value": "Configuración do equipo",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "settingsOrgPopup-title",
+    "value": "Configuración da organización",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "swimlaneActionPopup-title",
+    "value": "Accións do carril",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "listImportCardsTsvPopup-title",
+    "value": "Importar CSV/TSV de Excel",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "swimlanes",
+    "value": "Carrís",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "calendar",
+    "value": "Calendario",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "moveListPopup-title",
+    "value": "Mover a lista",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "copySelectionPopup-title",
+    "value": "Copiar a selección",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "selection-color",
+    "value": "Cor da selección",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "multi-selection-label",
+    "value": "Definir a etiqueta da selección",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "multi-selection-member",
+    "value": "Definir o membro da selección",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "multi-selection-on",
+    "value": "A selección múltiple está activada",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "no-archived-lists",
+    "value": "Non hai listas no Arquivo.",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "no-archived-swimlanes",
+    "value": "Non hai carrís no Arquivo.",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "normal-assigned-only",
+    "value": "Só normal nas asignadas",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "page-maybe-private",
+    "value": "Esta páxina pode ser privada. Quizais poidas vela <a href='%s'>iniciando sesión</a>.",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "paste-or-dragdrop",
+    "value": "para pegar, ou arrastra e solta aquí o ficheiro de imaxe (só imaxes)",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "preview",
+    "value": "Previsualizar",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "previewAttachedImagePopup-title",
+    "value": "Previsualizar",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "previewClipboardImagePopup-title",
+    "value": "Previsualizar",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "listDeletePopup-title",
+    "value": "Eliminar a lista?",
+    "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
   }
 ]
