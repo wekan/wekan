@@ -92,3 +92,6 @@ assert.equal(locales.zgh['oidc-button-text'], 'ⵙⵏⴼⵍ ⴰⴹⵕⵉⵚ ⵏ 
 assert.doesNotMatch(locales.zgh['oidc-button-text'],
   /Personnaliser|texte du bouton|ⵜⴰⵔⵃⵙⵉⵜ|ⵜⵉⵎⵉⵙⵜ/);
 assert.equal(locales.zgh['oidc-button-text'].match(/OIDC/g).length, 1);
+assert.equal(locales.zgh.pastdue, 'ⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⴰⴷ %s ⵉⵣⵔⵉ');
+assert.deepEqual(locales.zgh.pastdue.match(/%[a-z]/g), ['%s']);
+assert.doesNotMatch(locales.zgh.pastdue, /La date|échéance|est passée|%d/);

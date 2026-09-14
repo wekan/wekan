@@ -337,3 +337,18 @@ French negatives and rejected-sense negatives are tested. Full grammar,
 software metaphor and live browser rendering remain open. Replacing the
 wrong-language value moves the original finding to corrected but does not
 remove these documented uncertainties from the remaining review scope.
+
+## Overdue-time warning — 2026-09-14
+
+French `pastdue` is replaced by an adapted deadline-time/has-passed clause,
+preserving `%s` exactly. Primary dictionary PDF page 79 gives time; page 126,
+entry 2274, gives last; page 721, entry 13549, gives pass. The deadline
+concept follows the existing local last-time construction rather than
+describing completion. The source English explicitly refers to current due
+time; the demonstrative marks the time in question.
+
+The exact technical deadline compound and full grammar remain **low
+confidence**, pending native review. These component entries do not quote
+the complete warning. Exact wording, French negatives and placeholder
+inventory checks are added. Browser rendering remains unverified. Changing
+the original wrong-language value does not close these broader uncertainties.

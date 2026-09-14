@@ -130954,5 +130954,12 @@
     "before": "Personnaliser le texte du bouton OIDC",
     "after": "ⵙⵏⴼⵍ ⴰⴹⵕⵉⵚ ⵏ ⵜⴳⵎⵎⵓⵜ OIDC",
     "reason": "Replace French configurable OIDC button-caption label with native edit verb and primary IRCAM text/button nouns. Preserve OIDC. Adapted interface-button metaphor and complete grammar, low confidence pending native domain and browser validation; skin-pustule entries were rejected."
+  },
+  {
+    "locale": "zgh",
+    "key": "pastdue",
+    "before": "La date d'échéance %s est passée",
+    "after": "ⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⴰⴷ %s ⵉⵣⵔⵉ",
+    "reason": "Replace French overdue warning using primary IRCAM time/last/pass vocabulary and existing deadline concept. Preserve %s exactly. Adapted deadline-time phrase and grammar, low confidence pending native and browser validation; not a completion-date message."
   }
 ]
