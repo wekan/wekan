@@ -12532,5 +12532,185 @@
     "key": "step-restore-lists",
     "value": "Restarigi listojn",
     "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "step-restore-cards",
+    "value": "Restarigi kartojn",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "step-restore-swimlanes",
+    "value": "Restarigi naĝliniojn",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "step-fix-missing-ids",
+    "value": "Ripari mankantajn ID-ojn",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "step-scan-users",
+    "value": "Kontrolas avatarojn de tabulanoj",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "step-scan-files",
+    "value": "Kontrolas dosierajn alligitaĵojn de tabulo",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "step-fix-file-urls",
+    "value": "Riparas dosierajn URL-ojn",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "completed",
+    "value": "Plenumita",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "cpu-cores",
+    "value": "Ĉefprocesoraj kernoj",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "cpu-usage",
+    "value": "Ĉefprocesora uzo",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "database-migrations",
+    "value": "Datumbazaj migradoj",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "days-old",
+    "value": "Tagoj de aĝo",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "duration",
+    "value": "Daŭro",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "errors",
+    "value": "Eraroj",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "estimated-time-remaining",
+    "value": "Taksata restanta tempo",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "every-1-day",
+    "value": "Ĉiun 1 tagon",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "every-1-hour",
+    "value": "Ĉiun 1 horon",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "every-1-minute",
+    "value": "Ĉiun 1 minuton",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "every-10-minutes",
+    "value": "Ĉiujn 10 minutojn",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "every-30-minutes",
+    "value": "Ĉiujn 30 minutojn",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "every-5-minutes",
+    "value": "Ĉiujn 5 minutojn",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "every-6-hours",
+    "value": "Ĉiujn 6 horojn",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "hide-list-on-minicard",
+    "value": "Kaŝi liston sur minikarto",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "last-run",
+    "value": "Lasta rulo",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "memory-usage",
+    "value": "Memoruzo",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "migration-cpu-threshold",
+    "value": "Ĉefprocesora sojlo (%)",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "next",
+    "value": "Sekva",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "next-run",
+    "value": "Sekva rulo",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "operation-type",
+    "value": "Tipo de operacio",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "previous",
+    "value": "Antaŭa",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "run-once",
+    "value": "Ruli unufoje",
+    "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
   }
 ]
