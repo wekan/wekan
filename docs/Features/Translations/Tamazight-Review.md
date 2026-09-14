@@ -2819,3 +2819,27 @@ wiring, placeholders, correction ledger, retained reviews and completeness.
 No live UI test ran. Ledger 19,826; original pending 186 (zgh 91), restored
 4 unchanged. Both repairs were unflagged. Broader review remains open.
 No remote writes.
+
+
+## Planning Poker deletion warning — 2026-09-15
+
+Local commit `53fba5240` replaces French poker-delete-pop. Preserve the
+inability to undo permanent deletion and removal of all actions associated
+with this Planning Poker. Reuse the card/vote warning construction and
+existing Planning Poker feature name. cardDetails.jade's deletePokerPopup
+renders this value directly. This repair provides consistency with related
+warnings; it adds no independent complete-phrase lexical attestation.
+
+**Low confidence:** permanence expressed as inability to undo, association
+expressed through possession, future passive agreement and complete
+contextual grammar remain under native review. Four focused suites pass:
+warning irreversibility, all-actions/feature scope, negative French checks,
+actual template wiring, exact placeholders, ledger, retained reviews and
+completeness. No live UI test ran. Ledger 19,827; original corrected 15,718,
+pending 185 (zgh 90), restored 4 unchanged. Broader reviews remain open.
+
+Source review also distinguishes attachment-delete-pop's legacy hard-delete
+wording from the current attachmentDeletePopup, which renders
+attachment-soft-delete-pop and calls attachments.softDelete. Do not insert
+permanent/no-undo text into that active soft-delete popup. The legacy key's
+wrong-language translation remains in the pending queue. No remote writes.

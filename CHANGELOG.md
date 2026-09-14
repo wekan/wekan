@@ -641,7 +641,8 @@ and distinguish checked or unchecked states from action commands. Existing
 rule behavior stays the same; card movement and new-card creation labels
 retain their destination and new-card meaning. Regression checks preserve
 placeholders and verify label wiring; complete contextual grammar remains
-under review.
+under review. Planning Poker deletion text also preserves irreversible
+deletion and loss of associated actions.
 
 This release includes the following features and fixes:
 
@@ -665,6 +666,17 @@ Replace French move-card and create-new-card action labels using existing
 Tamazight terminology and IRCAM lexical evidence. Preserve destination
 and new-card meaning. Four focused suites pass; full contextual grammar
 remains under review. Audit records both additional unflagged repairs.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/53fba5240">Repair Tamazight Planning Poker deletion warning</a>. Thanks to xet7.</summary>
+
+Replace French deletion warning while preserving irreversibility and loss
+of all associated actions. Reuse related Tamazight warning constructions.
+Four focused suites pass for warning scope, negative wrong-language checks,
+template wiring and translation structure. Complete contextual grammar
+remains under native review. Dated audit records the remaining 185 findings.
 
 </details>
 
