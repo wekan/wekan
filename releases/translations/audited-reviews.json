@@ -23680,5 +23680,197 @@
     "key": "import-board-zip",
     "value": "Afegeix un fitxer .zip que tingui els fitxers JSON del tauler, i subdirectoris amb el nom del tauler amb els adjunts",
     "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "accounts-lockout-settings",
+    "value": "Configuració de la protecció contra força bruta",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "accounts-lockout-info",
+    "value": "Aquesta configuració controla com es protegeixen els intents d'inici de sessió contra atacs de força bruta.",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "accounts-lockout-known-users",
+    "value": "Configuració per a usuaris coneguts (nom d'usuari correcte, contrasenya incorrecta)",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "accounts-lockout-unknown-users",
+    "value": "Configuració per a usuaris desconeguts (nom d'usuari inexistent)",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "accounts-lockout-settings-updated",
+    "value": "S'ha actualitzat la configuració de la protecció contra força bruta",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "accounts-lockout-locked-users-info",
+    "value": "Usuaris actualment bloquejats per massa intents d'inici de sessió fallits",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "accounts-lockout-confirm-unlock",
+    "value": "Segur que voleu desbloquejar aquest usuari?",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "value": "Segur que voleu desbloquejar tots els usuaris bloquejats?",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "accounts-lockout-user-locked",
+    "value": "L'usuari està bloquejat",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "accounts-lockout-click-to-unlock",
+    "value": "Feu clic per desbloquejar aquest usuari",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "admin-people-filter-locked",
+    "value": "Només usuaris bloquejats",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "admin-people-user-active",
+    "value": "L'usuari està actiu - feu clic per desactivar",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "admin-people-user-inactive",
+    "value": "L'usuari està inactiu - feu clic per activar",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "attachment-storage-configuration",
+    "value": "Configuració de l'emmagatzematge d'adjunts",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "board-archive-failed",
+    "value": "No s'ha pogut programar l'arxivament del tauler",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "board-backup-failed",
+    "value": "No s'ha pogut programar la còpia de seguretat del tauler",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "board-cleanup-failed",
+    "value": "No s'ha pogut programar la neteja del tauler",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "migration-pause-failed",
+    "value": "No s'han pogut posar en pausa les migracions",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "migration-start-failed",
+    "value": "No s'han pogut iniciar les migracions",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "migration-started",
+    "value": "Les migracions s'han iniciat correctament",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "migration-stop-confirm",
+    "value": "Segur que voleu aturar totes les migracions?",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "migration-stop-failed",
+    "value": "No s'han pogut aturar les migracions",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "migration-stopped",
+    "value": "Les migracions s'han aturat correctament",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "pause-all-migrations",
+    "value": "Posa en pausa totes les migracions",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "s3-access-key-description",
+    "value": "Clau d'accés d'AWS S3 per a l'autenticació",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "s3-enabled-description",
+    "value": "Fes servir AWS S3 o MinIO per a l'emmagatzematge de fitxers",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "s3-settings-save-failed",
+    "value": "No s'ha pogut desar la configuració S3",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "s3-settings-saved",
+    "value": "La configuració S3 s'ha desat correctament",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "save-s3-settings",
+    "value": "Desa la configuració S3",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "bucket-example",
+    "value": "Com ara \"Llista de desitjos\" per exemple",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "activity-changedListTitle",
+    "value": "ha reanomenat la llista a %s",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "board-change-background-image",
+    "value": "Canvia la imatge de fons",
+    "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
   }
 ]
