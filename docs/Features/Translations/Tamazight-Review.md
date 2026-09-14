@@ -1183,3 +1183,27 @@ adds X-Wekan-Token only for a nonempty configured token; wording preserves
 optional role and no auth logic changes. Four suites pass with exact
 placeholders, order and human preference. Original pending 255 → 254;
 Tamazight 143 → 142; correction ledger grows to 18,765.
+
+
+## Account status vocabulary review — 2026-09-14
+
+admin-people-user-active and admin-people-user-inactive remain French and
+pending. peopleBody.jade renders these as tooltips on toggle controls:
+the first currently enabled account can be deactivated; the second
+currently disabled account can be activated. They are not descriptions
+of frequent activity or permanent membership.
+
+Native MediaWiki statistics-users-active uses imghlaln, but IRCAM
+Amazigh-English PDF page 150 entry 2766 explicitly glosses its singular
+amghlal as permanent. Do not transplant that statistics label as proof
+of account-enabled meaning. MediaWiki active filters uses a different
+working-form phrase, likewise not a complete account-status attestation.
+
+IRCAM PDF page 727 entry 13652 supplies be active, PDF page 537 entry
+10106 activate, and PDF page 333 entry 6381 click (alongside peck).
+Those component meanings are available, but deactivation, state/verb
+morphology and complete click-purpose clauses need further native review.
+No translation or ledger acceptance is made. Pending stays 254,
+including Tamazight 142; browser verification remains open.
+Primary: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+Native interface: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
