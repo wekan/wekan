@@ -139116,5 +139116,12 @@
     "before": "Utilisateurs verrouillés",
     "after": "ⵉⵏⵙⵙⵎⵔⵙⵏ ⵜⵜⵓⴳⴷⵍⵏⵉⵏ",
     "reason": "2026-09-15: Replace unflagged French Locked Users navigation label using exact user/locked-user wording already present in locked-users-info and no-locked-users. Preserve plural and current account-lockout meaning, not deleted users. Existing passive participle grammar remains under contextual review."
+  },
+  {
+    "locale": "zgh",
+    "key": "accounts-lockout-failed-attempts",
+    "before": "Tentatives en échec",
+    "after": "ⵜⵉⵙⵉⵔⴰⵎ ⵙ ⵉⵣⴳⴰⵍⵏ",
+    "reason": "2026-09-15: Replace French failed-attempt label with trials with failures paraphrase. IRCAM testing/trial tisirimt plural tisiram 12953 and failure azgal 5372; existing failures-before uses izgaln. Software attempt adaptation and full attributive phrase low confidence. Exclude court/assassination attempts and technical server rupture; no live UI claim."
   }
 ]

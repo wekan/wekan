@@ -2145,7 +2145,7 @@
   "accounts-lockout-locked-users": "ⵉⵏⵙⵙⵎⵔⵙⵏ ⵜⵜⵓⴳⴷⵍⵏⵉⵏ",
   "accounts-lockout-locked-users-info": "ⵉⵏⵙⵙⵎⵔⵙⵏ ⵜⵜⵓⴳⴷⵍⵏⵉⵏ ⵖⵉⵍⴰ ⵎⵉⵏⵣⵉ ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⵓⴽⵛⵛⵓⵎ ⵙ ⵜⵓⴳⵜⵜ ⵏ ⵜⵉⴽⴽⴰⵍ",
   "accounts-lockout-no-locked-users": "ⵓⵔ ⵍⵍⵉⵏ ⵉⵏⵙⵙⵎⵔⵙⵏ ⵜⵜⵓⴳⴷⵍⵏⵉⵏ ⵖⵉⵍⴰ.",
-  "accounts-lockout-failed-attempts": "Tentatives en échec",
+  "accounts-lockout-failed-attempts": "ⵜⵉⵙⵉⵔⴰⵎ ⵙ ⵉⵣⴳⴰⵍⵏ",
   "accounts-lockout-remaining-time": "ⴰⴽⵓⴷ ⵍⵍⵉ ⵉⵇⵇⵉⵎⵏ",
   "accounts-lockout-user-unlocked": "ⵢⴰⵍⵍⴼⵓⵙ ⵓⴽⴽⵙ ⵏ ⵓⴳⴷⴰⵍ ⵏ ⵓⵏⵙⵙⵎⵔⵙ",
   "accounts-lockout-confirm-unlock": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⴰⴳⴷⴰⵍ ⵏ ⵓⵏⵙⵙⵎⵔⵙ ⴰⴷ?",

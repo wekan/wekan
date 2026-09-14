@@ -533,3 +533,8 @@ assert.strictEqual(translated['accounts-lockout-locked-users'], 'ⵉⵏⵙⵙⵎ
 assert.ok(translated['accounts-lockout-locked-users-info'].startsWith(translated['accounts-lockout-locked-users']));
 assert.doesNotMatch(translated['accounts-lockout-locked-users'], /Utilisateurs|verrouillés|[\u0600-\u06ff]/u);
 console.log('Tamazight locked-users navigation label matches its plural description');
+
+assert.strictEqual(translated['accounts-lockout-failed-attempts'], 'ⵜⵉⵙⵉⵔⴰⵎ ⵙ ⵉⵣⴳⴰⵍⵏ');
+assert.doesNotMatch(translated['accounts-lockout-failed-attempts'], /Tentatives|échec|[\u0600-\u06ff]|ⵜⴰⵙⵉⵖⵜ|ⴰⵎⵚⵉⵕⵉⴹ|ⴰⵏⵏⴳⵣⵉ/u);
+assert.ok(translated['accounts-lockout-failures-before'].startsWith('ⵉⵣⴳⴰⵍⵏ'));
+console.log('Tamazight failed-attempt label uses plural trials and existing failure terminology');
