@@ -3609,3 +3609,34 @@ Four focused suites pass for exact wording, Arabic/emotional-term rejection
 and translation invariants. No live UI test ran. Ledger 19,855; original
 corrected 15,740, pending 163 (zgh 68), restored 4 unchanged. Broader
 review remains open; no remote writes were made.
+
+
+## Linked-card deletion dependencies — source review 2026-09-15
+
+Two French warnings remain pending. Actual cardDetails.js line 2705
+appends literal `linkedId:` and the current card ID after
+`delete-linked-card-before-this-card`, followed by source-location text.
+The source fragment ends with has; do not translate the complete assembled
+message as if a linked card title, checklist item or username follows.
+The preceding query checks cards whose linkedId equals the current card ID.
+References point to this card, not from this card to unrelated targets.
+
+Actual listHeader.js line 651 checks cards with listId different from the
+current list and linkedId in IDs of that list's cards. Internal linked cards
+on the same list are explicitly allowed. The blocked message appends the
+list ID after literal linkedId, even though the selector checks card IDs;
+this is source behavior, not a validated identifier description. Preserve
+the English warning's incoming reference direction and avoid claiming all
+linked cards anywhere block list deletion. Do not independently change
+runtime IDs or diagnostic suffixes as a translation repair.
+
+The allowed list path invokes lists.softRemove. These dependency warnings
+must not be turned into permanent-delete/no-undo warnings: they explain
+why deletion is blocked until dependent linked cards are removed. Earlier
+attachment permanence review concerns a separate legacy key.
+
+Next action: compose the two Tamazight warnings using the established
+card/list/deletion terms and a verified incoming-linked relationship,
+retaining the card fragment's continuation. No translation or counts
+changed. Pending 163 original findings. No live deletion UI test ran and
+no remote writes were made.
