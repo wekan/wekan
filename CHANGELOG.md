@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,218 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 626 pending review or repair.
-The correction inventory records 17,476 exact before/after values,
+The correction inventory records 17,479 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,9 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is efd0ef8e6 (2026-09-14), repairing ten rule labels
-and actions. IRCAM distinguishes rule from regular; software adaptation
-and full phrases remain low confidence pending fluent review.
+Latest translation fix is fd6ae82a5 (2026-09-14), repairing three unflagged
+rule report/details/import-export popup values. Preserve singular/plural
+and transfer directions; import derivation and full software phrases
+remain low confidence pending fluent review. Original counts are unchanged.
 Greenlandic CLDR-unconfirmed wording and twelve Quechua color wrappers
 still need review, alongside the wider restored and unflagged values.
 Tamazight calendar review dd2aaa19a (2026-09-14) records provisional
@@ -588,6 +589,28 @@ the Markdown commit as the template.
 
 </details>
 </details>
+
+# Upcoming WeKan ® release
+
+**In short:** Tamazight rule report, details and import/export popups replace
+French and inconsistent terminology while preserving action and number roles.
+Complete software phrasing still needs fluent review.
+
+This release fixes the following translations:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fd6ae82a5">Repair Tamazight rule report and popup wording</a>. Thanks to xet7.</summary>
+
+Repair three unflagged popup values, preserving singular report, plural
+rules, singular rule details and both import/export actions. Native reference
+components support the vocabulary; import imperative derivation and full
+software phrasing remain low confidence. All 17,479 correction checks pass;
+the original pending count is unchanged. Wider language validation and live
+browser verification remain open.
+
+</details>
+
+Thanks to above GitHub users for their contributions and xet7 for maintaining WeKan !
 
 # v11.76 2026-09-14 WeKan ® release
 
