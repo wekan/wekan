@@ -26,3 +26,18 @@ assert.ok(tap.__('operator-limit-invalid', { sprintf: ['abc'] }).startsWith('abc
 assert.equal(tap.__('fallback', 'value'), 'Fallback value');
 assert.doesNotThrow(() => tap.__('operator-limit-invalid', null));
 assert.equal(tap.__('missing', undefined), 'missing');
+
+// Cover the repaired scalar argument path across every existing locale.
+const path = require('node:path');
+let localeCount = 0;
+for (const filename of fs.readdirSync('imports/i18n/data').filter(name => name.endsWith('.i18n.json'))) {
+  const code = filename.slice(0, -'.i18n.json'.length);
+  const data = JSON.parse(fs.readFileSync(path.join('imports/i18n/data', filename), 'utf8'));
+  const label = data['operator-limit-invalid'];
+  assert.equal((label.match(/%s/g) || []).length, 1, code);
+  tap.i18n.addResourceBundle(code, 'translation', data, true, true);
+  const actual = tap.__('operator-limit-invalid', 'invalid-limit-50%', code);
+  assert.equal(actual, label.replace('%s', 'invalid-limit-50%'), code);
+  localeCount += 1;
+}
+console.log(`i18nPositionalArguments: actual scalar limit-error formatting verified in ${localeCount} locale files`);
