@@ -239,3 +239,30 @@ const sidebar = fs.readFileSync(path.join(root, 'client/components/sidebar/sideb
 assert.match(sidebar, /option\(value=""\) \{\{_ 'wip-limit-group-select-swimlane'\}\}/);
 assert.match(sidebar, /button\.js-wip-limit-group-apply-swimlane[^\n]*wip-limit-group-apply-swimlane/);
 assert.match(sidebar, /input\.js-wip-limit-group-new-save[^\n]*wip-limit-group-add/);
+
+// Native software vocabulary replaces French prose consistently across fields.
+const nativeControls = {
+  "details": "Munudoù",
+  "cron-error-details": "Munudoù",
+  "migration-progress-details": "Munudoù",
+  "file": "Restr",
+  "move-progress-file": "Restr",
+  "text": "Testenn",
+  "translation-text": "Testenn troet",
+  "translation": "Troidigezh",
+  "history": "Istor",
+  "confirm": "Kadarnaat",
+  "confirm-btn": "Kadarnaat",
+  "subject": "Danvez",
+  "server": "Servijer",
+  "computer": "Urzhiataer"
+};
+for (const [key, value] of Object.entries(nativeControls)) {
+  assert.equal(locales.br[key], value);
+  assert.doesNotMatch(value, /Détails|Fichier|Texte|Traduction|Historique|Confirmer|Sujet|Serveur|Ordinateur/);
+}
+assert.equal(locales.br.details, locales.br['cron-error-details']);
+assert.equal(locales.br.details, locales.br['migration-progress-details']);
+assert.equal(locales.br.file, locales.br['move-progress-file']);
+assert.equal(locales.br.confirm, locales.br['confirm-btn']);
+assert.notEqual(locales.br.text, locales.br['translation-text']);

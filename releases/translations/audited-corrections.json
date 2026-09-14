@@ -130289,5 +130289,103 @@
     "before": "Appliquer Bandenn",
     "after": "Arloañ ouzh ar vandenn",
     "reason": "Replace French or mixed-language WIP interface wording. Native An Drouizig computing glossary p. 4 attests arloañ ouzh for applying an operation; existing Breton group/limit and swimlane nouns preserve actual creation, selection and quick-apply controls. Full compounds are direct adaptations; browser and native full-phrase review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "details",
+    "before": "Détails",
+    "after": "Munudoù",
+    "reason": "Replace unflagged French UI wording with native Breton software vocabulary. MediaWiki br messages attest details, file, text, translation, history, confirmation, subject, server and computer terms. Reuse the same term across equivalent fields; translated-text compound is a direct adaptation. Browser and broader native full-phrase review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "cron-error-details",
+    "before": "Détails",
+    "after": "Munudoù",
+    "reason": "Replace unflagged French UI wording with native Breton software vocabulary. MediaWiki br messages attest details, file, text, translation, history, confirmation, subject, server and computer terms. Reuse the same term across equivalent fields; translated-text compound is a direct adaptation. Browser and broader native full-phrase review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "migration-progress-details",
+    "before": "Détails",
+    "after": "Munudoù",
+    "reason": "Replace unflagged French UI wording with native Breton software vocabulary. MediaWiki br messages attest details, file, text, translation, history, confirmation, subject, server and computer terms. Reuse the same term across equivalent fields; translated-text compound is a direct adaptation. Browser and broader native full-phrase review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "file",
+    "before": "Fichier",
+    "after": "Restr",
+    "reason": "Replace unflagged French UI wording with native Breton software vocabulary. MediaWiki br messages attest details, file, text, translation, history, confirmation, subject, server and computer terms. Reuse the same term across equivalent fields; translated-text compound is a direct adaptation. Browser and broader native full-phrase review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "move-progress-file",
+    "before": "Fichier",
+    "after": "Restr",
+    "reason": "Replace unflagged French UI wording with native Breton software vocabulary. MediaWiki br messages attest details, file, text, translation, history, confirmation, subject, server and computer terms. Reuse the same term across equivalent fields; translated-text compound is a direct adaptation. Browser and broader native full-phrase review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "text",
+    "before": "Texte",
+    "after": "Testenn",
+    "reason": "Replace unflagged French UI wording with native Breton software vocabulary. MediaWiki br messages attest details, file, text, translation, history, confirmation, subject, server and computer terms. Reuse the same term across equivalent fields; translated-text compound is a direct adaptation. Browser and broader native full-phrase review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "translation-text",
+    "before": "Texte traduit",
+    "after": "Testenn troet",
+    "reason": "Replace unflagged French UI wording with native Breton software vocabulary. MediaWiki br messages attest details, file, text, translation, history, confirmation, subject, server and computer terms. Reuse the same term across equivalent fields; translated-text compound is a direct adaptation. Browser and broader native full-phrase review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "translation",
+    "before": "Traduction",
+    "after": "Troidigezh",
+    "reason": "Replace unflagged French UI wording with native Breton software vocabulary. MediaWiki br messages attest details, file, text, translation, history, confirmation, subject, server and computer terms. Reuse the same term across equivalent fields; translated-text compound is a direct adaptation. Browser and broader native full-phrase review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "history",
+    "before": "Historique",
+    "after": "Istor",
+    "reason": "Replace unflagged French UI wording with native Breton software vocabulary. MediaWiki br messages attest details, file, text, translation, history, confirmation, subject, server and computer terms. Reuse the same term across equivalent fields; translated-text compound is a direct adaptation. Browser and broader native full-phrase review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "confirm",
+    "before": "Confirmer",
+    "after": "Kadarnaat",
+    "reason": "Replace unflagged French UI wording with native Breton software vocabulary. MediaWiki br messages attest details, file, text, translation, history, confirmation, subject, server and computer terms. Reuse the same term across equivalent fields; translated-text compound is a direct adaptation. Browser and broader native full-phrase review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "confirm-btn",
+    "before": "Confirmer",
+    "after": "Kadarnaat",
+    "reason": "Replace unflagged French UI wording with native Breton software vocabulary. MediaWiki br messages attest details, file, text, translation, history, confirmation, subject, server and computer terms. Reuse the same term across equivalent fields; translated-text compound is a direct adaptation. Browser and broader native full-phrase review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "subject",
+    "before": "Sujet",
+    "after": "Danvez",
+    "reason": "Replace unflagged French UI wording with native Breton software vocabulary. MediaWiki br messages attest details, file, text, translation, history, confirmation, subject, server and computer terms. Reuse the same term across equivalent fields; translated-text compound is a direct adaptation. Browser and broader native full-phrase review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "server",
+    "before": "Serveur",
+    "after": "Servijer",
+    "reason": "Replace unflagged French UI wording with native Breton software vocabulary. MediaWiki br messages attest details, file, text, translation, history, confirmation, subject, server and computer terms. Reuse the same term across equivalent fields; translated-text compound is a direct adaptation. Browser and broader native full-phrase review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "computer",
+    "before": "Ordinateur",
+    "after": "Urzhiataer",
+    "reason": "Replace unflagged French UI wording with native Breton software vocabulary. MediaWiki br messages attest details, file, text, translation, history, confirmation, subject, server and computer terms. Reuse the same term across equivalent fields; translated-text compound is a direct adaptation. Browser and broader native full-phrase review remain open."
   }
 ]
