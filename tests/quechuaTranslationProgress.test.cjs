@@ -70,3 +70,10 @@ assert.equal(quechua["calendar-system-hebrew"], "Hebreo Watanqillqa");
 assert.equal(quechua["calendar-system-japanese"], "Japones Watanqillqa");
 assert.equal(quechua["calendar-system-islamic-umalqura"], "Hijri Watanqillqa (Umm al-Qura)");
 for (const key of ["calendar-system-gregorian", "calendar-system-buddhist", "calendar-system-chinese", "calendar-system-coptic", "calendar-system-ethioaa", "calendar-system-ethiopic", "calendar-system-hebrew", "calendar-system-japanese", "calendar-system-islamic-umalqura"]) assert.doesNotMatch(quechua[key], /Intiwatana/);
+
+assert.equal(quechua["calendar-system-jalali"], "Jalali Watanqillqa (Persa)");
+assert.equal(quechua["calendar-system-iso8601"], "Gregoriano Watanqillqa (ISO 8601 simanakuna)");
+assert.equal(quechua["week"], "Simana");
+assert.doesNotMatch(quechua.week, /Kay willaymi/);
+assert.match(quechua['calendar-system-iso8601'], /^Gregoriano.*ISO 8601 simanakuna/);
+assert.match(quechua['calendar-system-jalali'], /^Jalali/);

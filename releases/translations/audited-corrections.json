@@ -2376,8 +2376,8 @@
     "locale": "qu",
     "key": "calendar-system-jalali",
     "before": "Jalali (Fars)",
-    "after": "Persa Intiwatana",
-    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+    "after": "Jalali Watanqillqa (Persa)",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology. Follow-up Quechua calendar/clock and week repairs. Chilean Ministry of Education 2019 dictionary PDF pages 45, 83 and 159 explicitly attest Simana as Quechuized week; calendar Watanqillqa is attested separately. Restore Jalali name and ISO Gregorian/weeks components omitted by seed. Low confidence: retained Persa/Gregoriano naming, plural simanakuna and full compounds require native/browser review."
   },
   {
     "locale": "rm",
@@ -131255,5 +131255,19 @@
     "before": "Hijri Intiwatana (Umm al-Qura)",
     "after": "Hijri Watanqillqa (Umm al-Qura)",
     "reason": "Follow-up: replace clock noun Intiwatana with attested calendar Watanqillqa, Chilean Ministry of Education Cusco Collao dictionary 2019 printed pages 18 calendar/42 clock. Preserve existing calendar name and qualifiers. Low confidence: retained naming/modifiers, full native compound and browser display still require review; noun repair does not certify those components."
+  },
+  {
+    "locale": "qu",
+    "key": "calendar-system-iso8601",
+    "before": "ISO-8601 Intiwatana",
+    "after": "Gregoriano Watanqillqa (ISO 8601 simanakuna)",
+    "reason": "Follow-up Quechua calendar/clock and week repairs. Chilean Ministry of Education 2019 dictionary PDF pages 45, 83 and 159 explicitly attest Simana as Quechuized week; calendar Watanqillqa is attested separately. Restore Jalali name and ISO Gregorian/weeks components omitted by seed. Low confidence: retained Persa/Gregoriano naming, plural simanakuna and full compounds require native/browser review."
+  },
+  {
+    "locale": "qu",
+    "key": "week",
+    "before": "Kay willaymi: Simana",
+    "after": "Simana",
+    "reason": "Follow-up Quechua calendar/clock and week repairs. Chilean Ministry of Education 2019 dictionary PDF pages 45, 83 and 159 explicitly attest Simana as Quechuized week; calendar Watanqillqa is attested separately. Restore Jalali name and ISO Gregorian/weeks components omitted by seed. Low confidence: retained Persa/Gregoriano naming, plural simanakuna and full compounds require native/browser review."
   }
 ]
