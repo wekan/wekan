@@ -123415,5 +123415,19 @@
     "before": "مفتوح",
     "after": "ⵔⵥⵎ",
     "reason": "Replace Arabic Open action or multiple-card opening label; preserve imperative open and, for bulk action, many cards in one operation. Native MediaWiki newwindow attests open root rzm with emphatic z, badtitletext attests mnnaw/many, and viewcount attests yat tkklit/one time: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Retain local cards Tikarḍiwin through Tifinagh transcription. LOW CONFIDENCE transitive imperative adaptation from intransitive future innurzm, plural spelling and at-once application of one-time expression require fluent review; not independently verified complete phrase."
+  },
+  {
+    "locale": "zgh",
+    "key": "step-scan-files",
+    "before": "Vérification des pièces jointes du tableau",
+    "after": "ⴰⵙⵙⵉⴷⴻⴷ ⵏ ⵜⵉⵙⵉⵡⴰⵢ ⵢⵔⵏⴰⵏ ⵏ ⵉⴼⵓⵢⵍⴰ ⵏ ⵜⴼⵍⵡⵉⵜ",
+    "reason": "Replace French board scan status label, preserving checking process and distinct file attachments versus board-member avatars. Native MediaWiki login-security attests ssided/verify root and nmembers attests igmamn: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse existing attachment tisiway yernan from CNAM attachment entry and file/member/board/avatar terms. LOW CONFIDENCE derived action noun assided from verification imperative, schwa-heavy avatar noun, nested ownership and checking-files semantic adaptation require fluent review. This status does not claim checking completed or succeeded."
+  },
+  {
+    "locale": "zgh",
+    "key": "step-scan-users",
+    "before": "Vérification des avatars du participant du tableau",
+    "after": "ⴰⵙⵙⵉⴷⴻⴷ ⵏ ⵜⵉⵎⴻⵔⵖⵉⵡⵉⵏ ⵏ ⵉⴳⵎⴰⵎⵏ ⵏ ⵜⴼⵍⵡⵉⵜ",
+    "reason": "Replace French board scan status label, preserving checking process and distinct file attachments versus board-member avatars. Native MediaWiki login-security attests ssided/verify root and nmembers attests igmamn: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse existing attachment tisiway yernan from CNAM attachment entry and file/member/board/avatar terms. LOW CONFIDENCE derived action noun assided from verification imperative, schwa-heavy avatar noun, nested ownership and checking-files semantic adaptation require fluent review. This status does not claim checking completed or succeeded."
   }
 ]
