@@ -1900,5 +1900,185 @@
     "key": "accounts-lockout-click-to-unlock",
     "value": "Klik for at låse denne bruger op",
     "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "admin-people-filter-all",
+    "value": "Alle brugere",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "admin-people-filter-locked",
+    "value": "Kun låste brugere",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "admin-people-filter-inactive",
+    "value": "Ikke aktiv",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "admin-people-user-active",
+    "value": "Brugeren er aktiv – klik for at deaktivere",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "admin-people-user-inactive",
+    "value": "Brugeren er inaktiv – klik for at aktivere",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "accounts-lockout-all-users-unlocked",
+    "value": "Alle låste brugere er blevet låst op",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "add-cron-job",
+    "value": "Tilføj planlagt job",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "add-cron-job-placeholder",
+    "value": "Funktionen til at tilføje planlagte job kommer snart",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "attachments-path",
+    "value": "Sti til vedhæftninger",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "avatars-path",
+    "value": "Sti til avatarer",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "board-archive-failed",
+    "value": "Kunne ikke planlægge arkivering af tavle",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "board-backup-failed",
+    "value": "Kunne ikke planlægge sikkerhedskopiering af tavle",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "board-backup-scheduled",
+    "value": "Sikkerhedskopiering af tavle er planlagt",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "board-cleanup-failed",
+    "value": "Kunne ikke planlægge oprydning af tavle",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "board-cleanup-scheduled",
+    "value": "Oprydning af tavle er planlagt",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "cron-job-delete-confirm",
+    "value": "Er du sikker på, at du vil slette dette planlagte job?",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "cron-job-delete-failed",
+    "value": "Kunne ikke slette planlagt job",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "cron-job-pause-failed",
+    "value": "Kunne ikke sætte planlagt job på pause",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "cron-no-errors",
+    "value": "Ingen fejl at vise",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "cron-no-failed-migrations",
+    "value": "Ingen mislykkede migreringer at prøve igen",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "cron-no-paused-migrations",
+    "value": "Ingen migreringer på pause at genoptage",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "filesystem-path-description",
+    "value": "Basissti til fillagring",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "anonymized-user",
+    "value": "bruger",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "gridfs-enabled-description",
+    "value": "Brug MongoDB GridFS til fillagring",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "migration-pause-failed",
+    "value": "Kunne ikke sætte migreringer på pause",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "migration-start-failed",
+    "value": "Kunne ikke starte migreringer",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "migration-stop-confirm",
+    "value": "Er du sikker på, at du vil stoppe alle migreringer?",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "migration-stop-failed",
+    "value": "Kunne ikke stoppe migreringer",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "s3-access-key-description",
+    "value": "AWS S3-adgangsnøgle til godkendelse",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
+  },
+  {
+    "locale": "da",
+    "key": "s3-bucket-description",
+    "value": "Navn på S3-bucket til lagring af filer",
+    "reason": "2026-09-14: Direct complete Danish review; retain unchanged. Confirm all/locked/inactive user filters and current active state versus inverse click action; all-user unlocking; scheduled-job add/coming-soon and deletion/pause; board archive/backup/cleanup scheduling failure versus success; no errors, failed retry versus paused resume; filesystem base/storage paths; GridFS storage; migration pause/start/stop including All; AWS S3 authentication key and storage bucket as applicable. Preserve vendor identifiers and full source scope. Success is conveyed by affirmative scheduled state without requiring redundant adverb."
   }
 ]
