@@ -128126,5 +128126,75 @@
     "before": "Retour aux paramètres",
     "after": "Distreiñ d’an arventennoù",
     "reason": "Replace French-seeded settings/team prose using existing Breton arventennoù, skipailh/skipailhoù and Kemmañ/Ouzhpennañ. Native MediaWiki supports arventennoù, aotreoù and Distreiñ. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "adminChangeAvatarPopup-title",
+    "before": "Modifier l'avatar",
+    "after": "Kemmañ ar skeudennig",
+    "reason": "Replace French avatar/profile/notification prose using existing skeudennig, enkargañ, dre ziouer and kemennadenn; native MediaWiki supports profil noun in software context. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "change-avatar",
+    "before": "Modifier l'avatar",
+    "after": "Kemmañ ar skeudennig",
+    "reason": "Replace French avatar/profile/notification prose using existing skeudennig, enkargañ, dre ziouer and kemennadenn; native MediaWiki supports profil noun in software context. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "changeAvatarPopup-title",
+    "before": "Modifier l'avatar",
+    "after": "Kemmañ ar skeudennig",
+    "reason": "Replace French avatar/profile/notification prose using existing skeudennig, enkargañ, dre ziouer and kemennadenn; native MediaWiki supports profil noun in software context. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "deleteAvatarPopup-title",
+    "before": "Supprimer l'avatar ?",
+    "after": "Dilemel ar skeudennig ?",
+    "reason": "Replace French avatar/profile/notification prose using existing skeudennig, enkargañ, dre ziouer and kemennadenn; native MediaWiki supports profil noun in software context. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "default-avatar",
+    "before": "Avatar par défaut",
+    "after": "Skeudennig dre ziouer",
+    "reason": "Replace French avatar/profile/notification prose using existing skeudennig, enkargañ, dre ziouer and kemennadenn; native MediaWiki supports profil noun in software context. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "upload-avatar",
+    "before": "Télécharger un avatar",
+    "after": "Enkargañ ur skeudennig",
+    "reason": "Replace French avatar/profile/notification prose using existing skeudennig, enkargañ, dre ziouer and kemennadenn; native MediaWiki supports profil noun in software context. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "uploaded-avatar",
+    "before": "Avatar téléchargé",
+    "after": "Skeudennig enkarget",
+    "reason": "Replace French avatar/profile/notification prose using existing skeudennig, enkargañ, dre ziouer and kemennadenn; native MediaWiki supports profil noun in software context. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "edit-profile",
+    "before": "Modifier le profil",
+    "after": "Kemmañ ar profil",
+    "reason": "Replace French avatar/profile/notification prose using existing skeudennig, enkargañ, dre ziouer and kemennadenn; native MediaWiki supports profil noun in software context. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "editProfilePopup-title",
+    "before": "Modifier le profil",
+    "after": "Kemmañ ar profil",
+    "reason": "Replace French avatar/profile/notification prose using existing skeudennig, enkargañ, dre ziouer and kemennadenn; native MediaWiki supports profil noun in software context. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "editNotificationPopup-title",
+    "before": "Modifier la notification",
+    "after": "Kemmañ ar gemennadenn",
+    "reason": "Replace French avatar/profile/notification prose using existing skeudennig, enkargañ, dre ziouer and kemennadenn; native MediaWiki supports profil noun in software context. Full adapted phrase/browser review remains open."
   }
 ]
