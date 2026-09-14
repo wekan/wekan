@@ -121420,5 +121420,19 @@
     "before": "Filtre par titre de carte",
     "after": "ⵜⴰⵎⵣⵉⵣⴷⴳⵜ ⵏ ⵓⵣⵡⵍ ⵏ ⵜⴽⴰⵕⴹⴰ",
     "reason": "LOW CONFIDENCE composed title-filter label. Native MediaWiki rcfilters-search-placeholder attests zizdig/filter and bound tmzizdgt/filter noun; badtitle/badtitletext attest azwl/uzwl title. Native Mastodon lists.edit/delete attest talgamt/list. Reuse previously documented composed card noun and derive free-state filter noun from the attested bound form. Preserve list-title versus card-title scope and command versus heading. Full by-title phrasing, card bound state and filter-noun morphology require fluent review; replace French without claiming full wording validation. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "accounts-lockout-no-locked-users",
+    "before": "Il n'y a actuellement aucun utilisateur verrouillé",
+    "after": "ⵓⵔ ⵍⵍⵉⵏ ⵉⵏⵙⵙⵎⵔⵙⵏ ⵜⵜⵓⴳⴷⵍⵏⵉⵏ ⵖⵉⵍⴰ.",
+    "reason": "LOW CONFIDENCE composed empty locked-user status. Native MediaWiki recentchanges-noresult attests ur llin/no plural objects and category-empty attests ghila/currently. Native Mastodon column.blocks provides exact users + blocked participle. Preserve current-time qualifier and locked-user scope. Full cross-source clause and automated login-lockout usage require fluent review. Replace French. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "filter-cards",
+    "before": "Filtrer les cartes ou listes",
+    "after": "ⵣⵉⵣⴷⵉⴳ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵏⵖ ⵜⵉⵍⴳⴰⵎⵉⵏ",
+    "reason": "LOW CONFIDENCE composed cards-or-lists filter command. Native MediaWiki rcfilters-search-placeholder attests zizdig/filter and contains ngh/or. Native Mastodon column.lists attests tilgamin/lists. Render inherited locale cards/Tikardhiwin in Tifinagh, retaining its lexical form. Preserve the OR relationship and both plural object scopes. Full kanban card plural and complete command usage require fluent review. Replace French. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
   }
 ]
