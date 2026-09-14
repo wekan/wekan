@@ -427,3 +427,8 @@ for (const [key, value] of Object.entries(translated)) {
   assert.ok(!value.includes('ⵏ ⵓⵙⵙⵉⴷⴷ'), key + ' retained unsupported checking noun');
 }
 assert.strictEqual(translated.checklist, 'ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵜⵎⵏⵥⵉⵜ');
+
+const csvHint = translated['import-board-instruction-csv'];
+assert.match(csvHint, /^ⵙⵍⵖ ⴰⵜⵉⴳⵏ ⵏⵏⴽ/);
+assert.match(csvHint, /ⵜⵉⵙⴽⵔⵉⵏ \(CSV\) ⵏⵖ ⵙ ⵉⵙⴽⴽⵉⵍⵏ Tab \(TSV\)/);
+assert.doesNotMatch(csvHint, /Déposez|virgules|[\u0600-\u06ff]/u);
