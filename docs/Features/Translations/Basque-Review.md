@@ -229,7 +229,7 @@ It is syntax checked but not executed: localhost:3000 has no listening app.
 The four restored findings remain open pending browser and full native
 phrase verification; compilation alone does not prove their final acceptance.
 
-## 2026-09-14 — Saved-description execution verified
+## 2026-09-14 — Saved-description execution verified (0c51a3261)
 
 The actual getTriggerActionDesc method was extracted and executed in a VM
 with DOM/jQuery controls modeled at its boundary. It initially threw because

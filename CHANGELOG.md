@@ -737,6 +737,17 @@ checked, not run: no local app is listening. Full native review stays open.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c51a3261">Join nonempty rule description fragments</a>. Thanks to xet7.</summary>
+
+Saved descriptions skip empty controls and buttons when inserting separators,
+without reading the browser frame-count global. Production-method execution
+checks Basque order, English preservation, literal names, dates/times and
+user details. Relevant suites pass; the browser case is registered but unrun.
+Full native subject verification remains open in the translation audit.
+
+</details>
+
 **Developer tooling** - Mirror Git progress.
 
 <details>

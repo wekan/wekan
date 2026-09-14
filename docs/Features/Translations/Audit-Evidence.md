@@ -24298,3 +24298,14 @@ review and completeness suites pass. Browser spec 88 covers control order,
 persisted description and English preservation; syntax checked, not executed.
 No local app listens on port 3000. Four restored findings remain open for
 browser/full native phrase validation; 283 pending, 18,693 correction records.
+
+## Production saved-description execution, 2026-09-14
+
+Local commit `0c51a3261` fixes separator handling in the actual method after
+VM execution reproduced its undefined browser-global length dependency.
+[Basque review](Basque-Review.md) records production-method tests for all
+named subjects, predicates, blank controls, unchanged English, literal names,
+wildcards, dates/times and user details. Five relevant source suites pass.
+Playwright successfully lists browser spec 88; it is still unrun.
+No translation classifications change: 283 pending and 4 restored remain.
+Native full-phrase and browser verification are required before acceptance.
