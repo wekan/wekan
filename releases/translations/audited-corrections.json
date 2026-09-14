@@ -127412,5 +127412,12 @@
     "before": "Coptic",
     "after": "Feaillere Coptagh",
     "reason": "English-only Coptic placeholder replaced with Manx calendar noun feaillere, attested in archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/dict/C.html, and provisional coined adjective Coptagh following existing -agh calendar adjectives. No dictionary attestation found for Coptagh; low-confidence native-speaker terminology review remains open."
+  },
+  {
+    "locale": "ace",
+    "key": "filter-no-label",
+    "before": "Tidak ada label",
+    "after": "Hana label",
+    "reason": "Unflagged Indonesian Tidak ada label replaced with existing correct Acehnese Hana label, preserving absence semantics and consistency with no-label."
   }
 ]
