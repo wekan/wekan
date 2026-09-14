@@ -22322,3 +22322,12 @@ Source: https://nodejs.org/download/release/latest-v16.x/docs/api/v8.html
 Retained ticket, tickets and ticket-number after dictionary verification:
 https://academia.gal/dicionario/-/termo/t%C3%ADcket
 Correction and review ledger checks pass; full language/browser scope remains open.
+
+### 2026-09-14 — Galician diagnostics and storage labels
+
+Local commit `8fbc62075` retains 35 correct memory/context statistic,
+invitation, organization, storage, attachment progress and time labels.
+The diagnostics correspond to fields in client/components/settings/informationBody.jade;
+attachment progress is a file counter, and timeView displays elapsed time.
+Technical heap/malloc identifiers remain intact. Exact unchanged-review checks
+pass. Ambiguous Complete/Received labels and shared rule agreement remain open.

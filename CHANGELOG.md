@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,562 corrected, 959 restored pre-pull values awaiting
-validation, 3,251 reviewed and retained, and 308 pending review or repair.
+findings: 15,562 corrected, 924 restored pre-pull values awaiting
+validation, 3,286 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,163 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
@@ -1085,6 +1085,18 @@ ticket orthography and broader browser validation remain open.
 The diagnostic describes overwriting garbage with a bit pattern. Three
 Galician ticket labels retain dictionary-accepted spelling. Exact correction,
 placeholder, key-order and unchanged-review checks pass.
+
+Thanks to xet7 !
+
+</details>
+
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8fbc62075">Validate Galician memory statistics and storage controls.</a></summary>
+
+Retained 35 correct diagnostic, invitation, organization, attachment,
+progress and time-summary labels after meaning and UI-context review.
+Exact unchanged-review checks pass; broader language review remains open.
 
 Thanks to xet7 !
 
