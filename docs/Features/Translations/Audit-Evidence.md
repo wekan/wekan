@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight board role permissions — 2026-09-14
+
+Commit `381d18eb3` repairs two original findings and unflagged Arabic Activities. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) supplies Actions, Edit, View in skin-view-history, Settings in quickfilters and Delete/Remove; search-ignored-headings supplies Can construction. Preserve administrator card VIEW/EDIT, MEMBER removal, BOARD settings and separate activity VIEW. Normal members can view/edit cards but CANNOT change settings. Activities adapts Actions to activity log; card/member vocabulary reuses local terms. Derived negative/personal forms, coordinated permission grammar and full phrases remain LOW CONFIDENCE. 365 original findings remain pending, including 230 Tamazight; all 18,035 mechanical correction checks pass. Restored, unflagged and earlier uncertain wording remain in scope. Browser verification and remote uploads were not performed.
+
 ## Tamazight Home and archive restoration review — 2026-09-14
 
 Commit `f903af89d` repairs unflagged Arabic Home using [native Mastodon](https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json) column.home directly; [MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) mainpage/tooltip-n-mainpage corroborate bound Home component. Exact standalone UI label evidence is stronger than a derived compound. Inspected WeKan userHeader.jade: Archive action is present in the header menu. `close-board-pop` still needs full ability/restore/click/button/home-header wording; do not drop qualifiers or treat Home as proof of Header. 367 original findings remain pending, including 232 Tamazight; all 18,032 mechanical correction checks pass. Restored, unflagged and earlier uncertain wording remain in scope. Browser verification and remote uploads were not performed.
