@@ -126452,21 +126452,21 @@
     "key": "menu",
     "before": "القائمة",
     "after": "ⴰⵎⵓⵖ",
-    "reason": "2026-09-14: Repair Arabic Menu, Latin-script export label and French WeKan import instruction consistently. Native MediaWiki rcfilters-search-placeholder Menu bound umugh, export Export ssufgh, filecopy-error Copy noun uss nghl, download agm and Go ddu support components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Retain native local File/Text and Board terms. Preserve YOUR BOARD, Menu THEN Export Board and COPY TEXT OF DOWNLOADED FILE; quoted labels match actual locale controls. Free-state Menu, Copy imperative derived from noun, downloaded relative passive and full sequence remain LOW CONFIDENCE."
+    "reason": "2026-09-14: Repair Arabic Menu, Latin-script export label and French WeKan import instruction consistently. Native MediaWiki rcfilters-search-placeholder Menu bound umugh, export Export ssufgh, filecopyerror Copy noun uss nghl, download agm and Go ddu support components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Retain native local File/Text and Board terms. Preserve YOUR BOARD, Menu THEN Export Board and COPY TEXT OF DOWNLOADED FILE; quoted labels match actual locale controls. Free-state Menu, Copy imperative derived from noun, downloaded relative passive and full sequence remain LOW CONFIDENCE."
   },
   {
     "locale": "zgh",
     "key": "export-board",
     "before": "Sifeḍ tafelwit",
     "after": "ⵙⵙⵓⴼⵖ ⵜⴰⴼⵍⵡⵉⵜ",
-    "reason": "2026-09-14: Repair Arabic Menu, Latin-script export label and French WeKan import instruction consistently. Native MediaWiki rcfilters-search-placeholder Menu bound umugh, export Export ssufgh, filecopy-error Copy noun uss nghl, download agm and Go ddu support components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Retain native local File/Text and Board terms. Preserve YOUR BOARD, Menu THEN Export Board and COPY TEXT OF DOWNLOADED FILE; quoted labels match actual locale controls. Free-state Menu, Copy imperative derived from noun, downloaded relative passive and full sequence remain LOW CONFIDENCE."
+    "reason": "2026-09-14: Repair Arabic Menu, Latin-script export label and French WeKan import instruction consistently. Native MediaWiki rcfilters-search-placeholder Menu bound umugh, export Export ssufgh, filecopyerror Copy noun uss nghl, download agm and Go ddu support components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Retain native local File/Text and Board terms. Preserve YOUR BOARD, Menu THEN Export Board and COPY TEXT OF DOWNLOADED FILE; quoted labels match actual locale controls. Free-state Menu, Copy imperative derived from noun, downloaded relative passive and full sequence remain LOW CONFIDENCE."
   },
   {
     "locale": "zgh",
     "key": "import-board-instruction-wekan",
     "before": "Dans votre tableau, allez dans 'Menu', puis 'Exporter un tableau', et copier le texte du fichier téléchargé.",
     "after": "ⴳ ⵜⴼⵍⵡⵉⵜ ⵏⵏⴽ, ⴷⴷⵓ ⵖⵔ 'ⴰⵎⵓⵖ', ⵉⵍⵎⵎⴰ 'ⵙⵙⵓⴼⵖ ⵜⴰⴼⵍⵡⵉⵜ', ⴷ ⵙⵙⵏⵖⵍ ⴰⴹⵕⵉⵚ ⵏ ⵓⴼⴰⵢⵍⵓ ⵉⵜⵜⵓⵢⴰⴳⵎⵏ.",
-    "reason": "2026-09-14: Repair Arabic Menu, Latin-script export label and French WeKan import instruction consistently. Native MediaWiki rcfilters-search-placeholder Menu bound umugh, export Export ssufgh, filecopy-error Copy noun uss nghl, download agm and Go ddu support components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Retain native local File/Text and Board terms. Preserve YOUR BOARD, Menu THEN Export Board and COPY TEXT OF DOWNLOADED FILE; quoted labels match actual locale controls. Free-state Menu, Copy imperative derived from noun, downloaded relative passive and full sequence remain LOW CONFIDENCE."
+    "reason": "2026-09-14: Repair Arabic Menu, Latin-script export label and French WeKan import instruction consistently. Native MediaWiki rcfilters-search-placeholder Menu bound umugh, export Export ssufgh, filecopyerror Copy noun uss nghl, download agm and Go ddu support components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Retain native local File/Text and Board terms. Preserve YOUR BOARD, Menu THEN Export Board and COPY TEXT OF DOWNLOADED FILE; quoted labels match actual locale controls. Free-state Menu, Copy imperative derived from noun, downloaded relative passive and full sequence remain LOW CONFIDENCE."
   },
   {
     "locale": "zgh",
@@ -126508,6 +126508,6 @@
     "key": "import-members-map",
     "before": "Le tableau que vous venez d'importer contient des participants. Veuillez assigner les participants que vous souhaitez importer à vos utilisateurs.",
     "after": "ⵜⴰⴼⵍⵡⵉⵜ ⵏⵏⴽ ⵉⵜⵜⵓⴽⵛⵎⵏ ⴷⵉⴳⵙ ⴽⵔⴰ ⵏ ⵉⴳⵎⴰⵎⵏ. ⴰⵎⵓⵔ ⵏⵏⴽ ⵣⴷⵉ ⵉⴳⵎⴰⵎⵏ ⵏⵏⴰ ⵜⵅⵙⴷ ⴰⴷ ⵜⵙⴽⵛⵎⴷ ⴰⴽⴷ ⵉⵏⵙⵙⵎⵔⵙⵏ ⵏⵏⴽ.",
-    "reason": "2026-09-14: Replace French imported-board member mapping instructions. Native MediaWiki userexists Please amur nnk, Some kra n, User plural and Associated/Link root zdi support components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Local import and Member terms reused. Preserve YOUR IMPORTED BOARD HAS SOME MEMBERS, map MEMBERS YOU WANT TO IMPORT TO YOUR USERS; mapping paraphrased associate/link, not granting permissions or importing all members unconditionally. Import passive agreement, association imperative, Member plural and full relative mapping clause remain LOW CONFIDENCE."
+    "reason": "2026-09-14: Replace French imported-board member mapping instructions. Native MediaWiki userexists Please amur nnk, Some kra n, User plural and Associated/Link root zdi support components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Local import and Member terms reused. Preserve YOUR IMPORTED BOARD HAS SOME MEMBERS, map MEMBERS YOU WANT TO IMPORT TO YOUR USERS; mapping paraphrased associate/link, not granting permissions or importing all members unconditionally. Import passive agreement, association imperative, Member plural and full relative mapping clause remain LOW CONFIDENCE. 2026-09-14 evidence follow-up: Associated/Link is attested as relative izdin in namespace_association/nolinkshere/tooltip-t-whatlinkshere; bare imperative zdi is derived and remains LOW CONFIDENCE. The same spelling in createacct-continue-submit means Continue and is NOT association evidence."
   }
 ]
