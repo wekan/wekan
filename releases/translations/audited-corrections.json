@@ -127293,5 +127293,12 @@
     "before": "Vy för förfallna kort",
     "after": "Vy för kort med förfallodatum",
     "reason": "Due Cards includes cards with any dueAt, including future deadlines; förfallna incorrectly restricts meaning to overdue. Use kort med förfallodatum, matching actual dueCards.js selector and dueCardsLogic.js sort without a past-date restriction."
+  },
+  {
+    "locale": "kl",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Ullorsiutit aaqqissuussaanerat (ullunik takutitsineq)",
+    "reason": "Replace Azerbaijani Kalendar sistem/data görünüşü with Greenlandic calendar arrangement and date-display wording. Ullorsiutit is attested in Greenland government calendar usage https://socialstyrelsen.gl/6_kursuskatalog/aktivitetskalender?sc_lang=kl-gl ; arrangement/display vocabulary follows existing locale. Compound grammar is provisional and needs native review; no claim of full Greenlandic fluency."
   }
 ]
