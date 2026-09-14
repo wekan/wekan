@@ -1,7 +1,7 @@
 import Users, { isUserUpdateAllowed, hasForbiddenUserUpdateField } from '/models/users';
 
 Users.allow({
-  update(userId, doc, fields /*, modifier */) {
+  update(userId, doc, fields, modifier) {
     // Only the owner can update, and only for allowed fields
     if (!userId || doc._id !== userId) {
       return false;
@@ -10,7 +10,7 @@ Users.allow({
       return false;
     }
     // Disallow if any forbidden field present
-    if (hasForbiddenUserUpdateField(fields)) {
+    if (hasForbiddenUserUpdateField(fields, modifier)) {
       return false;
     }
     // Allow only username and profile.*
@@ -28,8 +28,17 @@ Users.allow({
 
 // Deny any attempts to touch forbidden fields from client updates
 Users.deny({
-  update(userId, doc, fields /*, modifier */) {
-    const denied = hasForbiddenUserUpdateField(fields);
+  update(userId, doc, fields, modifier) {
+    const denied = hasForbiddenUserUpdateField(fields, modifier);
+    if (denied && fields.some(field => field === 'profile' ||
+      field === 'profile.invitedBoards' || field.startsWith('profile.invitedBoards.'))) {
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'authz.invitation-profile', action: 'blocked', source: 'ddp:user-profile',
+          detail: 'Client modification of server-issued board invitations denied.',
+        });
+      } catch (e) { /* logging must never break the guard */ }
+    }
     return denied;
   },
   fetch: [],

@@ -1191,6 +1191,7 @@ Users.attachSchema(
 export const USER_UPDATE_ALLOWED_EXACT = ['username', 'profile', 'modifiedAt'];
 export const USER_UPDATE_ALLOWED_PREFIXES = ['profile.'];
 export const USER_UPDATE_FORBIDDEN_PREFIXES = [
+  'profile.invitedBoards',
   'services',
   'emails',
   'roles',
@@ -1210,8 +1211,16 @@ export function isUserUpdateAllowed(fields) {
   return result;
 }
 
-export function hasForbiddenUserUpdateField(fields) {
-  const result = fields.some((f) => USER_UPDATE_FORBIDDEN_PREFIXES.some((p) => f === p || f.startsWith(p + '.')));
+export function hasForbiddenUserUpdateField(fields, modifier) {
+  // Meteor may report the top-level "profile" field for a leaf update. Inspect
+  // operator paths so ordinary preferences do not become forbidden merely
+  // because another profile descendant is a server-issued capability.
+  const paths = modifier && typeof modifier === 'object'
+    ? Object.entries(modifier).flatMap(([operator, value]) => {
+      if (!operator.startsWith('$') || !value || typeof value !== 'object') return [operator];
+      return operator === '$rename' ? [...Object.keys(value), ...Object.values(value)] : Object.keys(value);
+    }) : fields;
+  const result = paths.some((f) => USER_UPDATE_FORBIDDEN_PREFIXES.some((p) => f === p || f.startsWith(p + '.') || p.startsWith(f + '.')));
   return result;
 }
 

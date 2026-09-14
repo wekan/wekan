@@ -9,6 +9,7 @@
 // so both the server ESM code and the tests/*.test.cjs guards can load it.
 
 const CATALOG = {
+  'authz.invitation-profile': { category: 'authz', bleed: 'InviteProfileBleed', severity: 'high', cwe: 'CWE-863' },
   'authz.rule-button': { category: 'authz', bleed: 'RuleButtonBleed', severity: 'high', cwe: 'CWE-639' },
   'authz.manage-board': { category: 'authz', bleed: 'ManageBoardBleed', severity: 'high', cwe: 'CWE-863' },
   'authz.comment-card': { category: 'authz', bleed: 'CommentBoundaryBleed', severity: 'high', cwe: 'CWE-639' },
