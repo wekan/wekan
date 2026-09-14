@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,209 |
+| Corrected | 15,211 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 635 |
+| Pending review or repair | 633 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,452** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,455** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `a3d8a958f` — repaired five public/private and descending-sort values: three original findings and two unflagged Arabic labels. Preserve public/private board scope, sort alternatives and explicit leading minus syntax. Moroccan institutional references support visibility terms; native MediaWiki and the computing lexicon support sorting/prefix components. Full phrases, agreement and Central Morocco prefix adaptation remain **low confidence** pending review. All **17,452** correction/rendering checks pass. **635** originals remain pending across **17** locales, including **492** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `016813739` — repaired two French operator diagnostics and the unflagged Arabic Number label. Preserve operator classification, required versus received numeric value and exact format tokens. Native UI and computing lexicon components support the vocabulary; mathematical/search terminology adaptation, derived forms and full diagnostics remain **low confidence** pending review. All **17,455** correction/rendering checks pass. **633** originals remain pending across **17** locales, including **490** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Color-name reference review (2026-09-14):** Sardinian and Aromanian `color-magenta` remain pending. Searches did not establish native usage; Italian publications and English WordPress changelogs are insufficient. The [Vrabie English–Aromanian dictionary](https://s3.wasabisys.com/fars-media/wp-content/uploads/2020/07/An-English-Aromanian-Macedo-Romanian-Dictionary-%C2%A9Society-Farsharotu-1.pdf) has poor OCR and no searchable magenta/fuchsia entry, which does not prove absence. Further review needs a legible dictionary entry or native usage; neither color value was changed or accepted as verified.
 
