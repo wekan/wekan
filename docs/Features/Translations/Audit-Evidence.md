@@ -24264,3 +24264,14 @@ checks pass, with all 4,175 unchanged reviews and 234-locale completeness.
 No translations change. Browser and named-subject review remain open.
 Counts: 15,618 corrected, 5 restored, 4,175 retained and 283 pending.
 Correction ledger remains 18,692 entries.
+
+## Afghan Uzbek cancellation spelling, 2026-09-14
+
+Local commit `b433730e3` restores the missing alif in a restored cancellation
+label. [Uzbek review](Uzbek-Arabic-Review.md) distinguishes indexed native
+spelling support from failed full-source fetches. LOW CONFIDENCE complete
+orthographic and browser verification remain open. Exact spelling and negative
+checks, all 18,693 corrections, 4,175 reviews and 234-locale completeness pass.
+Counts: 15,619 corrected, 4 restored, 4,175 retained and 283 pending.
+Named Basque subject order remains open; actual trigger descriptions include
+field values in DOM order, so word-order validation must include those values.

@@ -1,6 +1,6 @@
 # Afghan Uzbek Arabic-script review
 
-Reviewed **2026-09-14**. `twoFactorCode-cancel` changes from بیکر قیلیش to
+Reviewed **2026-09-14**, local commit `b433730e3`. `twoFactorCode-cancel` changes from بیکر قیلیش to
 بیکار قیلیش, restoring the missing alif in the cancellation expression
 corresponding to the existing Uzbek Bekor qilish. The verb and action are
 preserved; the restored value is not replaced with English or Latin script.

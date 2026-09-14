@@ -706,6 +706,16 @@ Two restored findings are resolved; named-subject and browser review stay open.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b433730e3">Restore Afghan Uzbek cancellation spelling</a>. Thanks to xet7.</summary>
+
+The Arabic-script cancellation label restores a missing alif.
+Indexed native spelling support and failed full-source fetches are recorded.
+Full orthographic validation remains low confidence; browser review is open.
+Focused spelling/negative and correction/token/completeness checks pass.
+
+</details>
+
 **Developer tooling** - Mirror Git progress.
 
 <details>

@@ -4,8 +4,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,618 |
-| Restored pre-pull; awaiting validation | 5 |
+| Corrected | 15,619 |
+| Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,175 |
 | Pending review or repair | 283 |
 | Total tracked | 20,081 |
@@ -35,7 +35,7 @@ cross-checks calendar, user and click components in native Moroccan sources.
 Full phrases, warnings and invalidated Tuareg records remain open; no pending
 finding was accepted from component evidence.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,692** exact before/after values, including unflagged repairs.
+contain **18,693** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
@@ -45,28 +45,28 @@ completion status. This evidence led to the adapted incomplete-status repair in 
 The full named checklist clause still needs review; unfinished wording alone
 is insufficient. No unchanged acceptance was added.
 [Inuktitut recurrence/reset review](Inuktitut-Recurrence-Review.md) remains
-open in `5400a0ce9`. Current pending/restored counts are 283/5.
+open in `5400a0ce9`. Current pending/restored counts are 283/4.
 
 Latest unflagged unchanged review: **2026-09-14**, `5bf34bc48` —
 Inuktitut `new` retains `ᓄᑖᖅ`, matching the native software guide's New
 command and actual admin creation labels. Focused checks pass; browser review
 remains open. Latin Inuktitut spelling is valid; original script warnings
 require vocabulary/context review rather than automatic replacement.
-Current pending/restored counts are 283/5.
+Current pending/restored counts are 283/4.
 
-Latest translation fix: **2026-09-14**, local commit `5b3ca809d` —
-Tamazight everyday/hour/minute labels replace French. Daily wording has native
-phrase evidence; hourly/minute combinations are adapted and low confidence
-pending broader fluency review. No current UI use of these legacy keys was
-found. Focused and all 18,692 correction/token/completeness checks pass.
-Three additional repairs leave original counts at 283 pending/5 restored.
-Earlier generic rule name repairs are in `7f3a0d7db`.
+Latest translation fix: **2026-09-14**, local commit `b433730e3` —
+Afghan Uzbek cancellation spelling restores a missing alif. Indexed native
+sources support the spelling, but full pages failed to fetch: full-source
+orthographic and browser validation remain open, explicitly low confidence.
+[Uzbek Arabic review](Uzbek-Arabic-Review.md) records those limits.
+Focused checks and all 18,693 correction/token/completeness checks pass.
+Counts are 283 pending and 4 restored; broader uncertain repairs remain open.
 Latest unchanged review: **2026-09-14**, local commit `946e1a29b` —
 Restored Basque generic member and attachment subjects are retained after
 native noun evidence and both actual add/remove control labels were reviewed.
 Focused subject/composition/negative/wiring checks, all 4,175 unchanged
 acceptances and 234-locale completeness pass. Named subjects and browser
-review remain open. Counts are 283 pending and 5 restored.
+review remain open. Counts are 283 pending and 4 restored.
 Earlier movement review is in `2bb54a30b`.
 Earlier unchanged review: **2026-09-14**, Thai r-is —
 คือ retained after removing its incorrect insertion before action predicates.
@@ -80,7 +80,7 @@ Additional unflagged unchanged review: **2026-09-14**, `39af6aae5` —
 Veps Server and Valencian Errors retained with native software evidence and
 protected per locale from filling. Zero unreviewed English placeholders remain;
 this does not establish correct language or fluency in all values. These two reviews are outside the original flagged ledger; current
-pending/restored counts are 283/5.
+pending/restored counts are 283/4.
 
 
 
