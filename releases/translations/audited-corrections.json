@@ -124493,5 +124493,33 @@
     "before": "Tableau lié",
     "after": "ⵜⴰⴼⵍⵡⵉⵜ ⵉⵣⴷⵉⵏ",
     "reason": "2026-09-14: Replace wrong/mixed-language linked entity label using native izdin Linked/Associated component from MediaWiki namespace association and linked-page descriptions. Preserve singular Linked Card versus Linked Board versus hierarchical Linked Subtask; do not drop Linked or convert hierarchy to Small Task. LOW CONFIDENCE full kanban noun/participle agreement and Task under a Task paraphrase require fluent Standard Moroccan review. Native component is izdin, not an unattested passive ittuzdin. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (tooltip-namespace_association, nolinkshere, tooltip-t-recentchangeslinked). Task noun: https://www.mmsp.gov.ma/amz/nos-metiers/absence-non-justifi%C3%A9e . Under indexed IRCAM: https://www.ircam.ma/sites/default/files/sites/default/files/Prochaine%20Events%20/programmes/JIF_Programme.pdf . Existing local Card/Board nouns are kanban extensions, not directly attested complete terms."
+  },
+  {
+    "locale": "zgh",
+    "key": "show-subtasks-field",
+    "before": "إظهار حقل المهام الفرعية",
+    "after": "ⵙⴽⵏ ⵉⴳⵔ ⵏ ⵜⵡⵓⵔⵉⵡⵉⵏ ⴷⴷⴰⵡ ⵏ ⵜⵡⵓⵔⵉ",
+    "reason": "2026-09-14: Replace Arabic/French field label with native form-field igr and show/edit/absence components. Preserve plural Custom Fields versus singular Show Subtasks Field and explicit absence in No Custom Fields. Subtasks retain the hierarchical Task(s) under a Task paraphrase. LOW CONFIDENCE derived field plural igran, specified/custom izlin adaptation, agreement and complete kanban phrases require fluent Standard Moroccan review. MediaWiki zgh changeemail-newemail-help directly uses igr for an input field, edit snfl, view skn, nolinkshere ur llin absence, nstab-special izlin specified; no complete custom-field phrase is claimed attested. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Hierarchical task nouns: https://www.mmsp.gov.ma/amz/nos-metiers/absence-non-justifi%C3%A9e . Under indexed IRCAM: https://www.ircam.ma/sites/default/files/sites/default/files/Prochaine%20Events%20/programmes/JIF_Programme.pdf ."
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-fields",
+    "before": "Champs personnalisés",
+    "after": "ⵉⴳⵔⴰⵏ ⵉⵥⵍⵉⵏ",
+    "reason": "2026-09-14: Replace Arabic/French field label with native form-field igr and show/edit/absence components. Preserve plural Custom Fields versus singular Show Subtasks Field and explicit absence in No Custom Fields. Subtasks retain the hierarchical Task(s) under a Task paraphrase. LOW CONFIDENCE derived field plural igran, specified/custom izlin adaptation, agreement and complete kanban phrases require fluent Standard Moroccan review. MediaWiki zgh changeemail-newemail-help directly uses igr for an input field, edit snfl, view skn, nolinkshere ur llin absence, nstab-special izlin specified; no complete custom-field phrase is claimed attested. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Hierarchical task nouns: https://www.mmsp.gov.ma/amz/nos-metiers/absence-non-justifi%C3%A9e . Under indexed IRCAM: https://www.ircam.ma/sites/default/files/sites/default/files/Prochaine%20Events%20/programmes/JIF_Programme.pdf ."
+  },
+  {
+    "locale": "zgh",
+    "key": "card-edit-custom-fields",
+    "before": "تعديل الحقل المعدل",
+    "after": "ⵙⵏⴼⵍ ⵉⴳⵔⴰⵏ ⵉⵥⵍⵉⵏ",
+    "reason": "2026-09-14: Replace Arabic/French field label with native form-field igr and show/edit/absence components. Preserve plural Custom Fields versus singular Show Subtasks Field and explicit absence in No Custom Fields. Subtasks retain the hierarchical Task(s) under a Task paraphrase. LOW CONFIDENCE derived field plural igran, specified/custom izlin adaptation, agreement and complete kanban phrases require fluent Standard Moroccan review. MediaWiki zgh changeemail-newemail-help directly uses igr for an input field, edit snfl, view skn, nolinkshere ur llin absence, nstab-special izlin specified; no complete custom-field phrase is claimed attested. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Hierarchical task nouns: https://www.mmsp.gov.ma/amz/nos-metiers/absence-non-justifi%C3%A9e . Under indexed IRCAM: https://www.ircam.ma/sites/default/files/sites/default/files/Prochaine%20Events%20/programmes/JIF_Programme.pdf ."
+  },
+  {
+    "locale": "zgh",
+    "key": "filter-no-custom-fields",
+    "before": "Pas de champs personnalisés",
+    "after": "ⵓⵔ ⵍⵍⵉⵏ ⵉⴳⵔⴰⵏ ⵉⵥⵍⵉⵏ",
+    "reason": "2026-09-14: Replace Arabic/French field label with native form-field igr and show/edit/absence components. Preserve plural Custom Fields versus singular Show Subtasks Field and explicit absence in No Custom Fields. Subtasks retain the hierarchical Task(s) under a Task paraphrase. LOW CONFIDENCE derived field plural igran, specified/custom izlin adaptation, agreement and complete kanban phrases require fluent Standard Moroccan review. MediaWiki zgh changeemail-newemail-help directly uses igr for an input field, edit snfl, view skn, nolinkshere ur llin absence, nstab-special izlin specified; no complete custom-field phrase is claimed attested. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Hierarchical task nouns: https://www.mmsp.gov.ma/amz/nos-metiers/absence-non-justifi%C3%A9e . Under indexed IRCAM: https://www.ircam.ma/sites/default/files/sites/default/files/Prochaine%20Events%20/programmes/JIF_Programme.pdf ."
   }
 ]
