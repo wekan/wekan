@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,245 |
+| Corrected | 15,250 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 599 |
+| Pending review or repair | 594 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,525** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,530** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `570869e59` — repaired three unflagged French navigation values: Previous, Previous Month and Next Month. Preserve opposite directions and explicit month scope. CLDR and native UI references support the components; composed month navigation and standalone previous usage remain **low confidence** pending fluent/context review. All **17,525** correction/rendering checks pass. Original counts are unchanged: **599** pending across **17** locales, including **456** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `acfa4aec1` — repaired five original French card/swimlane placement findings. Preserve above versus below, selected qualification, card versus swimlane scope and add action. Native UI components support vocabulary; swimlane adaptation, bound nouns, relational placement and selected agreement/full phrases remain **low confidence** pending fluent review. All **17,530** correction/rendering checks pass. **594** originals remain pending across **17** locales, including **451** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Build interruption follow-up (2026-09-14):** `.tools/wekan22` contains the old v11.75 missing-Moment failure, already repaired in `43adfe1a7`. A fresh Meteor 3.6-beta.0 bundle build passes on Linux arm64, and six assignee/calendar/release-preflight Node test entries pass. Log: `.tools/log/build-dev-bundle/2026-09-14/04-25-58/dev.txt`. Native amd64 and live browser checks were not run. Translation counts and the remaining validation scope above are unchanged.
 
