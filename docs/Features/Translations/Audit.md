@@ -178,3 +178,8 @@ wrong-language, including a Venda label-inheritance instruction and Finnish
 accessibility/parent-card controls. See [Veps review](Veps-Review.md) for
 exact values and semantic requirements. Original-finding counts are unchanged;
 these additional values remain within the repair scope.
+
+Restored-value check (2026-09-14): all 4,058 restored values match the
+English underscore/percent placeholder inventory. Regression coverage now
+checks this separately and keeps these values awaiting language validation.
+No translation values or completion counts changed.

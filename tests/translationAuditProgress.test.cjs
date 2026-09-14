@@ -16,6 +16,14 @@ const assert = require('node:assert/strict');
   const { summary } = result;
   const fs = require('node:fs');
   const path = require('node:path');
+  const english = JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data/en.i18n.json'), 'utf8'));
+  const tokens = value => (value.match(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%(?:\d+\$)?[A-Za-z]|%\{[^}]+\}/g) || []).sort();
+  for (const restored of result.rows.filter(row => row.status === 'restoredPrePull')) {
+    assert.deepEqual(tokens(restored.current), tokens(english[restored.key]), `${restored.locale}:${restored.key}: restored placeholders match source`);
+    assert.equal(classifyAuditRow(restored, restored.current), 'restoredPrePull', 'placeholder validity alone does not certify the language');
+  }
+  assert.notDeepEqual(tokens('__translated__ %s'), tokens('__card__ %s'), 'renamed placeholders are detectable');
+  assert.notDeepEqual(tokens('__card__'), tokens('__card__ %s'), 'removed placeholders are detectable');
   const report = fs.readFileSync(path.join(__dirname, '../docs/Features/Translations/Audit.md'), 'utf8');
   const updated = updateAuditSummary(report, summary, 12345, '2026-09-13');
   assert.ok(updated.includes('contain **12,345** exact'));

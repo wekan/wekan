@@ -1,5 +1,13 @@
 # Detailed translation audit evidence
 
+2026-09-14: inspected all 4,058 `restoredPrePull` rows against the English
+underscore-delimited and percent-format token inventories. Zero mismatches.
+Extended `translationAuditProgress.test.cjs` to verify every restored row
+and reject renamed/missing token inventories, without promoting mechanically
+valid values to language-reviewed status. No values or counts changed.
+This check does not establish fluency, terminology, or correct-language prose.
+
+
 2026-09-14 (`edfed8176`): repaired additional Tamazight `card-spent`,
 `editCardSpentTimePopup-title` and `editCardSortOrderPopup-title`. Reuse
 existing Spent Time wording without the hours qualifier. Native MediaWiki
