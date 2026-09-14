@@ -432,3 +432,6 @@ const csvHint = translated['import-board-instruction-csv'];
 assert.match(csvHint, /^ⵙⵍⵖ ⴰⵜⵉⴳⵏ ⵏⵏⴽ/);
 assert.match(csvHint, /ⵜⵉⵙⴽⵔⵉⵏ \(CSV\) ⵏⵖ ⵙ ⵉⵙⴽⴽⵉⵍⵏ Tab \(TSV\)/);
 assert.doesNotMatch(csvHint, /Déposez|virgules|[\u0600-\u06ff]/u);
+
+assert.strictEqual(translated['custom-head-tags-enabled'], 'ⵙⵙⵔⴼⵓ ⵉⵔⵛⵓⵎⵏ ⵉⵥⵍⵉⵏ ⵏ head (HTML)');
+assert.doesNotMatch(translated['custom-head-tags-enabled'], /Activer|balises|[\u0600-\u06ff]/u);

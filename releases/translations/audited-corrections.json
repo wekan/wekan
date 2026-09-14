@@ -138878,5 +138878,12 @@
     "before": "Déposez vos données en CSV (valeurs séparées par des virgules) ou TSV (valeurs séparées par des tabulations).",
     "after": "ⵙⵍⵖ ⴰⵜⵉⴳⵏ ⵏⵏⴽ ⵉⵜⵜⵓⴱⴹⴰⵏ ⵙ ⵜⵉⵙⴽⵔⵉⵏ (CSV) ⵏⵖ ⵙ ⵉⵙⴽⴽⵉⵍⵏ Tab (TSV).",
     "reason": "2026-09-15: Replace French CSV/TSV paste guidance. IRCAM 9393 paste, 5110 values, 12946 commas, 5765 separate. Preserve CSV/TSV and tab separator as borrowed Tab, not an attested native term. Passive agreement and full grammar remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-head-tags-enabled",
+    "before": "Activer les balises personnalisées",
+    "after": "ⵙⵙⵔⴼⵓ ⵉⵔⵛⵓⵎⵏ ⵉⵥⵍⵉⵏ ⵏ head (HTML)",
+    "reason": "2026-09-15: Replace French with attested activate verb and existing custom-tag terminology; borrowed technical head (HTML) keeps document scope explicit. Full compound remains low confidence."
   }
 ]
