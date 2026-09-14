@@ -8,6 +8,7 @@ import Actions from '/models/actions';
 import { canDeleteBoardRule } from '/models/lib/ruleDeletePermission';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { tripCanary } from '/server/lib/canary';
+import { requireButtonRuleContext } from '/models/lib/buttonRulePermission';
 
 // Button rules are manual: a user clicks a card/board button and we run the
 // rule's action immediately. This method runs one button rule on demand.
@@ -15,6 +16,7 @@ Meteor.methods({
   async 'rules.runButton'(ruleId, cardId) {
     check(ruleId, String);
     check(cardId, Match.Optional(String));
+    if (!this.userId) throw new Meteor.Error('not-authorized');
 
     const rule = await ReactiveCache.getRule(ruleId);
     if (!rule) throw new Meteor.Error('not-found', 'Rule not found');
@@ -24,11 +26,10 @@ Meteor.methods({
       throw new Meteor.Error('not-a-button', 'Rule is not a button rule');
     }
 
-    // The user must be a member of the board the rule belongs to.
+    // A manual rule is a write, and its card must be on the rule's board.
     const board = await ReactiveCache.getBoard(rule.boardId);
-    if (!board || !board.hasMember(this.userId)) {
-      throw new Meteor.Error('not-authorized', 'Not a board member');
-    }
+    const card = cardId === undefined ? undefined : await ReactiveCache.getCard(cardId);
+    requireButtonRuleContext(this.userId, board, cardId, card, Meteor);
 
     const action = await ReactiveCache.getAction(rule.actionId);
     if (!action) throw new Meteor.Error('not-found', 'Action not found');

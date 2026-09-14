@@ -1,3 +1,4 @@
+import { requireButtonRuleContext } from '/models/lib/buttonRulePermission';
 import { DDP } from 'meteor/ddp';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
@@ -266,6 +267,10 @@ export const RulesHelper = {
   },
   async performAction(activity, action) {
     const card = await ReactiveCache.getCard(activity.cardId);
+    if (activity.activityType === 'button') {
+      const sourceBoard = await ReactiveCache.getBoard(activity.boardId);
+      requireButtonRuleContext(activity.userId, sourceBoard, activity.cardId, card, Meteor);
+    }
     // Most actions operate on a card. Scheduled / button rules may run a
     // board-level action with no card context (e.g. create a card every Monday),
     // so allow those specific action types to proceed without a card.
