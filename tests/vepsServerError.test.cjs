@@ -81,3 +81,13 @@ test('Veps parent-control drafts distinguish changing the relation from hiding i
   assert.doesNotMatch(data['no-parent'], /heitä|muuta|näytä|ylätehtävä/i);
   assert.doesNotMatch(data['change-card-parent'], /peitä|kortin/i);
 });
+
+test('Veps card display drafts keep card and minicard targets distinct', () => {
+  const data = JSON.parse(fs.readFileSync('imports/i18n/data/ve-PP.i18n.json', 'utf8'));
+  assert.equal(data['show-on-card'], 'Ozuta kartal');
+  assert.equal(data['show-on-minicard'], 'Ozuta minikartal');
+  assert.notEqual(data['show-on-card'], data['show-on-minicard']);
+  for (const key of ['show-on-card', 'show-on-minicard']) {
+    assert.doesNotMatch(data[key], /näytä|kortilla|peitä/i);
+  }
+});
