@@ -29263,3 +29263,18 @@ and then days+1: an n+2 cutoff, rather than the English up-to-n hint.
 Overdue predicate uses $lt now. This translation repair follows source
 prose, not a silent parser rewrite; numeric source/hint conflict is open.
 Ledger 19,873; corrected 15,754, pending 149 (zgh 56), restored 4 unchanged.
+
+
+2026-09-15 — `e908ec0a2`: unflagged accounts-lockout-locked-users French
+navigation label replaced by exact locked-user plural wording already
+present in accounts-lockout-locked-users-info. peopleBody.js navigation
+entry locked-users-setting uses this key. Preserve users temporarily
+locked out, not removed accounts or a successful unlock message. Four
+focused suites pass for exact label, agreement with description, negative
+French/Arabic checks and all placeholder inventories. No live navigation
+UI test ran. Existing passive participle grammar remains under contextual
+review. Ledger 19,874; tracked pending remains 149 because key was unflagged.
+Remaining failed-attempts label is still French. IRCAM entry 11918 tasiɣt
+means attack/assault/assassination attempt, not a software login attempt;
+it is excluded. A suitable attempt expression or contextual login-failure
+paraphrase is still required. Broad native fluency review remains open.

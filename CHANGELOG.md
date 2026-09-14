@@ -1038,6 +1038,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e908ec0a2">Repair Tamazight locked-users navigation label</a></summary>
+
+Replace an unflagged French label with the plural locked-user wording
+already used in its description. Four focused suites pass; existing
+passive participle grammar remains under contextual review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

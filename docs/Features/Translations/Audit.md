@@ -16,16 +16,15 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `64e524f27` — replace French
-due-date instruction with Tamazight, keeping numeric and overdue examples
-separate and literal operators exact. Four focused suites pass. Ledger
-19,873; tracked pending 149 (Tamazight 56), restored 4 unchanged. Temporal
-grammar remains low confidence. Numeric due cutoff adds n+2 days in source,
-conflicting with the English hint; follow-up remains open alongside the
-list popup warning/soft-removal conflict and broader grammar reviews.
+Latest translation fix: **2026-09-15**, `e908ec0a2` — replace unflagged
+French Locked Users navigation label with existing Tamazight plural wording.
+Four focused suites pass. Ledger 19,874; tracked pending remains 149
+(Tamazight 56), restored 4 unchanged. Existing passive participle grammar
+remains under contextual review. Numeric due cutoff and list-popup source
+wording conflicts, plus broader grammar reviews, remain open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,873** exact before/after values, including unflagged
+records contain **19,874** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
