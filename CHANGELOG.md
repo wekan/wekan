@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 260b96587 (2026-09-14), replacing two French
-structured-data import hints and preserving literal CSV/TSV and JSON.
-Paste terminology and full phrases remain low confidence for review.
+Latest translation fix is 5e2c3c708 (2026-09-14), refining two import hints
+with directly attested native Paste terminology instead of the tentative
+verb. Counts unchanged; complete phrases remain low confidence.
 Logo provenance follow-up 89f36d41f (2026-09-14) applies the dictionary's
 cross-variety preface to two earlier URL records. Native caption evidence
 remains separate; full labels stay low confidence. No values/counts changed.
@@ -2511,6 +2511,17 @@ literal CSV/TSV or JSON. Native component evidence supports Here, Data and
 Valid; Paste terminology and full phrasing remain low confidence for review.
 All 17,876 correction checks pass; 436 original findings remain pending.
 Live browser verification was not run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5e2c3c708">Use attested Tamazight Paste terminology in import hints</a>. Thanks to xet7.</summary>
+
+Replace the tentative Paste verb in two earlier hints with a directly
+attested non-fuzzy native Dialect control. Preserve format identifiers and
+original French provenance. Full phrases remain low confidence for review.
+All 17,876 correction checks pass; counts stay unchanged, with 436 original
+findings pending. Live browser verification was not run.
 
 </details>
 

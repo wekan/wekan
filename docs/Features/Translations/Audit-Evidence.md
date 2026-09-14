@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight Paste terminology follow-up — 2026-09-14
+
+Commit `5e2c3c708` replaces tentative `sntdh` with `slgh` in both import hints. [Dialect’s pinned native source](https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po) supplies a non-fuzzy `msgid "Paste"` translation. The `po` directory is a separate submodule, explaining why guessed main-repository paths returned 404. Native control usage is now direct lexical evidence; full clauses and validity-to-structured-data adaptation remain LOW CONFIDENCE. Ledger before values retain the original French. Counts are unchanged because existing correction records were refined.
+
 ## Tamazight logo dictionary provenance follow-up — 2026-09-14
 
 The newly inspected Asawaliw atrar preface also limits the dictionary evidence mentioned in the two custom login logo URL corrections. Their ledger reasons now explicitly classify that dictionary as cross-variety candidate evidence. The independently declared zgh Commons caption remains direct community usage of Logo, not normative IRCAM terminology. No values/counts changed; full labels remain LOW CONFIDENCE. This follow-up prevents a dictionary corroboration from being mistaken for independent Moroccan standardization.
