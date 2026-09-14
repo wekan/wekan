@@ -126521,8 +126521,8 @@
     "locale": "zgh",
     "key": "deposit-subtasks-board",
     "before": "Déposer des sous-tâches dans ce tableau :",
-    "after": "ⵙⵙⵔⵙ ⵜⵉⵡⵓⵔⵉⵡⵉⵏ ⴷⴷⴰⵡ ⵏ ⵜⵡⵓⵔⵉ ⴳ ⵜⴼⵍⵡⵉⵜ ⴰⴷ:",
-    "reason": "2026-09-14: Replace French subtask deposit destination label. IRCAM-hosted Asinag 9 morphosyntactic article indexed printed page 173 directly glosses ssrs it da as Place it here, imperative: https://tal.ircam.ma/talam/Articles/Ataa%20Allah-etiq-Asinag9.pdf . This is SEARCH-INDEX evidence only; direct PDF fetch failed 502. Reuse local hierarchical Tasks Below Task, native Ministry Work root and Below component. Preserve SUBTASKS placed IN THIS BOARD and colon, not generic unrelated tasks or parent relocation. Deposit-as-Place software adaptation, hierarchy and full destination grammar remain LOW CONFIDENCE."
+    "after": "ⵙⵙⵔⵙ ⵜⵉⵎⵙⴽⵉⵔⵉⵏ ⴷⴷⴰⵡ ⵏ ⵜⵎⵙⴽⵉⵔⵜ ⴳ ⵜⴼⵍⵡⵉⵜ ⴰⴷ:",
+    "reason": "2026-09-14: Replace French subtask deposit destination label. IRCAM-hosted Asinag 9 morphosyntactic article indexed printed page 173 directly glosses ssrs it da as Place it here, imperative: https://tal.ircam.ma/talam/Articles/Ataa%20Allah-etiq-Asinag9.pdf . This is SEARCH-INDEX evidence only; direct PDF fetch failed 502. Reuse local hierarchical Tasks Below Task, native Ministry Work root and Below component. Preserve SUBTASKS placed IN THIS BOARD and colon, not generic unrelated tasks or parent relocation. Deposit-as-Place software adaptation, hierarchy and full destination grammar remain LOW CONFIDENCE. Follow-up: 2026-09-14: Replace French generated subtask-board description or revise deposit label to reuse current task/subtask terminology (IRCAM PDF 605 entry 11328 task and PDF 315 entry 6099 below). Preserve for-board placeholder __board__ exactly or deposit-to-this-board instruction. Low confidence: below-task software adaptation and full prepositional/description grammar require native/browser review. boards.js passes the original board title to default-subtasks-board during creation; key name default does not add Default prose to English source."
   },
   {
     "locale": "zgh",
@@ -131360,5 +131360,12 @@
     "before": "Tâche",
     "after": "ⵜⴰⵎⵙⴽⵉⵔⵜ",
     "reason": "2026-09-14: Use IRCAM PDF page 605 entry 11328 tamskirt task, plural timskirin and singular construct tmskirt. Replace French Task or general work nouns in subtask labels, preserving add/show/field and below-parent-task components. PDF page 315 entry 6099 attests below/under ddaw. Low confidence: below-task adaptation for software subtask and plural genitive/full compounds require native/browser review; standalone task noun is directly attested."
+  },
+  {
+    "locale": "zgh",
+    "key": "default-subtasks-board",
+    "before": "Sous-tâches du tableau __board__",
+    "after": "ⵜⵉⵎⵙⴽⵉⵔⵉⵏ ⴷⴷⴰⵡ ⵏ ⵜⵎⵙⴽⵉⵔⵜ ⵉ ⵜⴼⵍⵡⵉⵜ __board__",
+    "reason": "2026-09-14: Replace French generated subtask-board description or revise deposit label to reuse current task/subtask terminology (IRCAM PDF 605 entry 11328 task and PDF 315 entry 6099 below). Preserve for-board placeholder __board__ exactly or deposit-to-this-board instruction. Low confidence: below-task software adaptation and full prepositional/description grammar require native/browser review. boards.js passes the original board title to default-subtasks-board during creation; key name default does not add Default prose to English source."
   }
 ]

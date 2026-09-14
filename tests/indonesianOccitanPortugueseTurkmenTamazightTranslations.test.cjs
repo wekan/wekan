@@ -303,3 +303,7 @@ for (const key of ['add-subtask', 'subtasks', 'export-card-subtasks', 'show-subt
 }
 assert.match(locales.zgh['show-subtasks-field'], /^ⵙⴽⵏ ⵉⴳⵔ/);
 assert.match(locales.zgh['add-subtask'], /^ⵔⵏⵓ/);
+
+assert.equal(locales.zgh['default-subtasks-board'], locales.zgh.subtasks + ' ⵉ ⵜⴼⵍⵡⵉⵜ __board__');
+assert.doesNotMatch(locales.zgh['default-subtasks-board'], /Sous-tâches|tableau/);
+assert.equal(locales.zgh['deposit-subtasks-board'], 'ⵙⵙⵔⵙ ' + locales.zgh.subtasks + ' ⴳ ⵜⴼⵍⵡⵉⵜ ⴰⴷ:');
