@@ -130261,5 +130261,33 @@
     "before": "Dernière exécution",
     "after": "Erounezadur diwezhañ",
     "reason": "Replace French date/activity/execution label with Breton. Native MediaWiki attests kemmet, kemm diwezhañ and da before clock time; translatewiki native statistics documentation explicitly uses oberiantiz diwezhañ; An Drouizig computing glossary page 11 attests erounezadur for execution. Keep modified-at, last-modified-at, last activity and last execution distinct. Timestamp-prefix adaptation and full runtime formatting/browser review remain open; these are not exact product-label attestations."
+  },
+  {
+    "locale": "br",
+    "key": "apply",
+    "before": "Appliquer",
+    "after": "Arloañ",
+    "reason": "Replace French or mixed-language WIP interface wording. Native An Drouizig computing glossary p. 4 attests arloañ ouzh for applying an operation; existing Breton group/limit and swimlane nouns preserve actual creation, selection and quick-apply controls. Full compounds are direct adaptations; browser and native full-phrase review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "wip-limit-group-add",
+    "before": "Ouzhpennañ Activer la limite WIP",
+    "after": "Ouzhpennañ ur strollad bevennoù WIP",
+    "reason": "Replace French or mixed-language WIP interface wording. Native An Drouizig computing glossary p. 4 attests arloañ ouzh for applying an operation; existing Breton group/limit and swimlane nouns preserve actual creation, selection and quick-apply controls. Full compounds are direct adaptations; browser and native full-phrase review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "wip-limit-group-select-swimlane",
+    "before": "Sélectionner le tableau Bandenn",
+    "after": "Dibab ur vandenn",
+    "reason": "Replace French or mixed-language WIP interface wording. Native An Drouizig computing glossary p. 4 attests arloañ ouzh for applying an operation; existing Breton group/limit and swimlane nouns preserve actual creation, selection and quick-apply controls. Full compounds are direct adaptations; browser and native full-phrase review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "wip-limit-group-apply-swimlane",
+    "before": "Appliquer Bandenn",
+    "after": "Arloañ ouzh ar vandenn",
+    "reason": "Replace French or mixed-language WIP interface wording. Native An Drouizig computing glossary p. 4 attests arloañ ouzh for applying an operation; existing Breton group/limit and swimlane nouns preserve actual creation, selection and quick-apply controls. Full compounds are direct adaptations; browser and native full-phrase review remain open."
   }
 ]

@@ -220,3 +220,22 @@ for (const key of ['modifiedAt', 'last-modified-at', 'last-activity', 'last-run'
 }
 assert.equal(new Set(['modifiedAt', 'last-modified-at', 'last-activity', 'last-run'].map(k => locales.br[k])).size, 4);
 assert.match(locales.br['last-modified-at'], /diwezhañ/, 'retain last-modification qualifier');
+
+const wipActions = {
+  apply: 'Arloañ',
+  'wip-limit-group-add': 'Ouzhpennañ ur strollad bevennoù WIP',
+  'wip-limit-group-select-swimlane': 'Dibab ur vandenn',
+  'wip-limit-group-apply-swimlane': 'Arloañ ouzh ar vandenn',
+};
+for (const [key, value] of Object.entries(wipActions)) {
+  assert.equal(locales.br[key], value);
+  assert.doesNotMatch(value, /Appliquer|Activer|Sélectionner|tableau/);
+}
+assert.match(locales.br['wip-limit-group-add'], /strollad.*WIP/);
+assert.notEqual(locales.br['wip-limit-group-add'], locales.br['enable-wip-limit']);
+assert.notEqual(locales.br['wip-limit-group-select-swimlane'],
+  locales.br['wip-limit-group-apply-swimlane']);
+const sidebar = fs.readFileSync(path.join(root, 'client/components/sidebar/sidebar.jade'), 'utf8');
+assert.match(sidebar, /option\(value=""\) \{\{_ 'wip-limit-group-select-swimlane'\}\}/);
+assert.match(sidebar, /button\.js-wip-limit-group-apply-swimlane[^\n]*wip-limit-group-apply-swimlane/);
+assert.match(sidebar, /input\.js-wip-limit-group-new-save[^\n]*wip-limit-group-add/);
