@@ -210,3 +210,13 @@ assert.match(locales.br['accessibility-content'], /^Endalc’had /);
 assert.match(locales.br['accessibility-page-enabled'], /gweredekaet$/);
 assert.match(locales.br['accessibility-info-not-added-yet'], /^N’eo ket.*ouzhpennet.*c’hoazh$/);
 assert.notEqual(locales.br['accessibility-title'], locales.br['accessibility-content']);
+
+assert.equal(locales.br.modifiedAt, 'Kemmet da');
+assert.equal(locales.br['last-modified-at'], 'Kemm diwezhañ da');
+assert.equal(locales.br['last-activity'], 'Oberiantiz diwezhañ');
+assert.equal(locales.br['last-run'], 'Erounezadur diwezhañ');
+for (const key of ['modifiedAt', 'last-modified-at', 'last-activity', 'last-run']) {
+  assert.doesNotMatch(locales.br[key], /Modifié|Dernière|activité|exécution/);
+}
+assert.equal(new Set(['modifiedAt', 'last-modified-at', 'last-activity', 'last-run'].map(k => locales.br[k])).size, 4);
+assert.match(locales.br['last-modified-at'], /diwezhañ/, 'retain last-modification qualifier');

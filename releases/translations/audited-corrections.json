@@ -130233,5 +130233,33 @@
     "before": "Attaviguti asianngittuq: %s",
     "after": "ᐊᑦᑕᕕᖃᕐᓂᖅ ᐃᑎᒐᖅᑐᖅ: %s",
     "reason": "Replace unverified romanized LDAP failure message with direct syllabic adaptation, preserving the connection subject and exact %s details token. Microsoft Inuktitut localization style guide page 35 prescribes Itigaqtuq for Failed to/Failure of. Attaviqarniq is a connection/contact noun adaptation; precise network sense and full noun/verb command grammar remain low confidence and open for native/browser review. Does not assert user-login failure or success."
+  },
+  {
+    "locale": "br",
+    "key": "modifiedAt",
+    "before": "Modifié le",
+    "after": "Kemmet da",
+    "reason": "Replace French date/activity/execution label with Breton. Native MediaWiki attests kemmet, kemm diwezhañ and da before clock time; translatewiki native statistics documentation explicitly uses oberiantiz diwezhañ; An Drouizig computing glossary page 11 attests erounezadur for execution. Keep modified-at, last-modified-at, last activity and last execution distinct. Timestamp-prefix adaptation and full runtime formatting/browser review remain open; these are not exact product-label attestations."
+  },
+  {
+    "locale": "br",
+    "key": "last-modified-at",
+    "before": "Dernière modification le",
+    "after": "Kemm diwezhañ da",
+    "reason": "Replace French date/activity/execution label with Breton. Native MediaWiki attests kemmet, kemm diwezhañ and da before clock time; translatewiki native statistics documentation explicitly uses oberiantiz diwezhañ; An Drouizig computing glossary page 11 attests erounezadur for execution. Keep modified-at, last-modified-at, last activity and last execution distinct. Timestamp-prefix adaptation and full runtime formatting/browser review remain open; these are not exact product-label attestations."
+  },
+  {
+    "locale": "br",
+    "key": "last-activity",
+    "before": "Dernière activité",
+    "after": "Oberiantiz diwezhañ",
+    "reason": "Replace French date/activity/execution label with Breton. Native MediaWiki attests kemmet, kemm diwezhañ and da before clock time; translatewiki native statistics documentation explicitly uses oberiantiz diwezhañ; An Drouizig computing glossary page 11 attests erounezadur for execution. Keep modified-at, last-modified-at, last activity and last execution distinct. Timestamp-prefix adaptation and full runtime formatting/browser review remain open; these are not exact product-label attestations."
+  },
+  {
+    "locale": "br",
+    "key": "last-run",
+    "before": "Dernière exécution",
+    "after": "Erounezadur diwezhañ",
+    "reason": "Replace French date/activity/execution label with Breton. Native MediaWiki attests kemmet, kemm diwezhañ and da before clock time; translatewiki native statistics documentation explicitly uses oberiantiz diwezhañ; An Drouizig computing glossary page 11 attests erounezadur for execution. Keep modified-at, last-modified-at, last activity and last execution distinct. Timestamp-prefix adaptation and full runtime formatting/browser review remain open; these are not exact product-label attestations."
   }
 ]
