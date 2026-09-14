@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight starred board and page controls — 2026-09-14
+
+Commit `d6a73fae4` repairs four original findings and five unflagged French/Arabic or inherited Kabyle-leaning labels. Latin script alone is not an error. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) `wlnote`/`recentchanges-notargetpage` directly attest UI Above/Top `g uflla`; `tooltip-watch` supplies Page-to-YOUR-list grammar and Page vocabulary. Preserve star versus unstar, THIS board versus THIS page, top of YOUR board list and exact `%s` count. Star `itri` / plural `itran` reuse local vocabulary rather than new independent attestation. Star-to-favorite software adaptation, click purpose clauses, passive/future visibility and whole phrases remain LOW CONFIDENCE. 380 original findings remain pending, including 245 Tamazight; all 18,000 mechanical checks pass. Browser verification and remote uploads were not performed.
+
 ## Tamazight due-time activity — 2026-09-14
 
 Commit `9af74b9d0` repairs one original French finding. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) uses When `managu` for expiry in `enterlockreason`, Where `mani` in `tooltip-n-portal`, feminine Previous `taqburt` in `previousrevision`, plus Edit/Time components. Adapt Previous to masculine Time and existing Due Date deadline adjective to Due TIME; do not imply the value has already expired. Preserve modified due time TO new value, When/Where labels, PREVIOUS value, all four lines and exact `__timeValue__`, `__card__`, `__timeOldValue__` inventories. Actor past, deadline compound, derived masculine Previous, was clause and whole grammar remain LOW CONFIDENCE. 384 original findings remain pending, including 249 Tamazight; all 17,991 mechanical checks pass. Browser verification and remote uploads were not performed.
