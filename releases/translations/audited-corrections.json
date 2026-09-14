@@ -127832,5 +127832,12 @@
     "before": "Supprimer la checklist ?",
     "after": "Dilemel ar roll-gwiriañ ?",
     "reason": "Unflagged French/English copy, move, template, checklist or account title replaced with Breton. Reuse existing patrom/roll-gwiriañ/diuzad nouns; native MediaWiki br.json supports Eilañ, Dilec'hiañ and Krouiñ ur gont. Preserve copying versus moving/deleting and object/confirmation semantics. Direct article/initial-mutation adaptation; native full-phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "swimlaneDeletePopup-title",
+    "before": "Supprimer le couloir ?",
+    "after": "Dilemel ar vandenn ?",
+    "reason": "Replace French swimlane deletion question with existing Breton Dilemel deletion verb and ar vandenn target used in archive/move titles; preserve confirmation question. Native whole-phrase review remains open."
   }
 ]
