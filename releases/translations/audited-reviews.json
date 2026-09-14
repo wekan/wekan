@@ -13708,5 +13708,155 @@
     "key": "checklists",
     "value": "Listas de verificación",
     "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
+  },
+  {
+    "locale": "gl",
+    "key": "click-to-star",
+    "value": "Fai clic para marcar este taboleiro como favorito.",
+    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "click-to-unstar",
+    "value": "Fai clic para quitar este taboleiro dos favoritos.",
+    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "close-board",
+    "value": "Pechar o taboleiro",
+    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "close-board-pop",
+    "value": "Poderás restaurar o taboleiro premendo o botón «Arquivo» na cabeceira de inicio.",
+    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "close-card",
+    "value": "Pechar a tarxeta",
+    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "unset-color",
+    "value": "Quitar",
+    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "comments",
+    "value": "Comentarios",
+    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "comment-only",
+    "value": "Só comentarios",
+    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "comment-only-desc",
+    "value": "Só pode comentar nas tarxetas.",
+    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "comment-assigned-only",
+    "value": "Só comentar nas asignadas",
+    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "comment-assigned-only-desc",
+    "value": "Só son visibles as tarxetas asignadas. Só pode comentar.",
+    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "comment-delete",
+    "value": "Seguro que queres eliminar o comentario?",
+    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "deleteCommentPopup-title",
+    "value": "Eliminar o comentario?",
+    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "no-comments",
+    "value": "Sen comentarios",
+    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "no-comments-desc",
+    "value": "Non pode ver os comentarios.",
+    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "read-only-desc",
+    "value": "Só pode ver as tarxetas. Non pode editar.",
+    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "read-assigned-only-desc",
+    "value": "Só son visibles as tarxetas asignadas. Non pode editar.",
+    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "worker-desc",
+    "value": "Só pode mover tarxetas, asignarse a si mesmo a unha tarxeta e comentar.",
+    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "confirm-checklist-delete-popup",
+    "value": "Seguro que queres eliminar a lista de verificación?",
+    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "confirm-checklist-item-delete-popup",
+    "value": "Seguro que queres eliminar o elemento da lista de verificación?",
+    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "checklistDeletePopup-title",
+    "value": "Eliminar a lista de verificación?",
+    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "checklistItemDeletePopup-title",
+    "value": "Eliminar o elemento da lista de verificación?",
+    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "copy-card-link-to-clipboard",
+    "value": "Copiar a ligazón da tarxeta ao portapapeis",
+    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "linkCardPopup-title",
+    "value": "Ligar tarxeta",
+    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "copyCardPopup-title",
+    "value": "Copiar a tarxeta",
+    "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
   }
 ]
