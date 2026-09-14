@@ -131129,5 +131129,12 @@
     "before": "L'adresse du serveur SMTP qui gère vos mails.",
     "after": "ⴰⵏⵙⴰ ⵏ ⵓⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ SMTP ⵍⵍⵉ ⵉⵙⵙⵓⴳⵓⵔⵏ ⵜⵉⵎⵢⴰⵣⴰⵏⵉⵏ ⵜⵉⵍⵉⴽⵟⵕⵓⵏⵉⵜⵉⵏ ⵏⴽ.",
     "reason": "Replace French with Tamazight SMTP computer-server address handling your electronic correspondence. IRCAM 2019 entries 3464 address, 2157 computer-server compound, 10031 administer/manage, 11389 correspondence plural and explicit email compound. Preserve SMTP; do not substitute user email-address compound for server address. Low confidence: electronic adjective plural, participle, possession and full relative clause need native/browser review."
+  },
+  {
+    "locale": "zgh",
+    "key": "smtp-host",
+    "before": "مضيف SMTP",
+    "after": "ⴰⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ SMTP",
+    "reason": "Replace Arabic SMTP Host label with IRCAM 2019 entry 2157 explicitly attested computer-server compound. Preserve SMTP. Host is the server endpoint in the actual mail-server-host input; no port translation is accepted by this repair."
   }
 ]

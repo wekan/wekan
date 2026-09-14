@@ -1071,7 +1071,7 @@
   "smtp-host-description": "ⴰⵏⵙⴰ ⵏ ⵓⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ SMTP ⵍⵍⵉ ⵉⵙⵙⵓⴳⵓⵔⵏ ⵜⵉⵎⵢⴰⵣⴰⵏⵉⵏ ⵜⵉⵍⵉⴽⵟⵕⵓⵏⵉⵜⵉⵏ ⵏⴽ.",
   "smtp-port-description": "Le port des mails sortants du serveur SMTP.",
   "smtp-tls-description": "ⵙⵙⵔⴼⵓ ⴰⵙⵎⵔⵙ ⵏ TLS ⵉ ⵓⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ SMTP",
-  "smtp-host": "مضيف SMTP",
+  "smtp-host": "ⴰⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ SMTP",
   "smtp-port": "منفذ SMTP",
   "smtp-username": "ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ",
   "smtp-password": "ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ",

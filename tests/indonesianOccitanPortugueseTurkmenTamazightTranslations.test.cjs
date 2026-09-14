@@ -218,3 +218,7 @@ assert.deepEqual(locales.zgh['smtp-host-description'].match(/SMTP/g), ['SMTP']);
 assert.match(locales.zgh['smtp-host-description'], /^ⴰⵏⵙⴰ ⵏ ⵓⵎⴰⴽⴽⴰⵢ/);
 assert.match(locales.zgh['smtp-host-description'], /ⵜⵉⵎⵢⴰⵣⴰⵏⵉⵏ.*ⵏⴽ/);
 assert.doesNotMatch(locales.zgh['smtp-host-description'], /L'adresse|serveur|mails|^ⴰⵏⵙⴰ ⴰⵍⵉⴽⵟⵕⵓⵏⵉ/);
+
+assert.equal(locales.zgh['smtp-host'], 'ⴰⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ SMTP');
+assert.deepEqual(locales.zgh['smtp-host'].match(/SMTP/g), ['SMTP']);
+assert.doesNotMatch(locales.zgh['smtp-host'], /[\u0600-\u06ff]/);
