@@ -841,6 +841,16 @@ under native review. Dated audit records 168 pending original findings.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d0bf77715">Repair Tamazight automatic board-watching instruction</a>. Thanks to xet7.</summary>
+
+Replace Arabic legacy instruction, preserving automatic watching when
+boards are created. Four focused translation suites pass. Conditional
+and passive agreement remain under native review; no active caller found.
+Dated audit records 167 pending original findings.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

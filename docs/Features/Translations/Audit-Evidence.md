@@ -28640,3 +28640,24 @@ any user in the complete two-sentence instruction. Not-yet wording must
 not become never. This evidence narrows meaning without certifying full
 grammar. No translation or counts changed. Pending 168 original findings.
 No live mapping UI test ran and no remote writes were made.
+
+
+## Automatic board watching — repair 2026-09-15
+
+Source commit `d0bf77715` replaces Arabic auto-watch. IRCAM page 417
+entry 7893 supports watch `matr`, and page 506 entry 9599 supports create
+`snulfu`. Native MediaWiki zgh `logentry-newusers-autocreate` uses
+`ⵙ ⵓⵡⵔⵎⴰⵏ` for automatic account creation; that computing phrase
+supplies automatic wording here. Board watching retains the condition
+when boards are created, rather than watching every existing board.
+Sources: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+
+Full conditional and passive feminine-plural agreement remain low
+confidence. No auto-watch/autoWatch/autowatch caller was found in the
+searched models, client and server source; this repairs a legacy locale
+value without claiming an active UI integration. Four focused suites pass
+for exact wording, Arabic rejection and translation invariants. No live
+UI test ran. Ledger 19,849; original corrected 15,736, pending 167
+(zgh 72), restored 4 unchanged. Broader review remains open; no remote
+writes were made.
