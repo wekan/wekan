@@ -126957,5 +126957,12 @@
     "before": "Aŭtomate rigardi tabulojn kiam ili estas kreitaj",
     "after": "Aŭtomate observi tabulojn kiam ili estas kreitaj",
     "reason": "Automatic watch is ongoing observation/subscription, not merely looking at boards. Use observi consistently with existing Esperanto observado terminology and preserve automatic creation timing."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-field-dropdown-options-placeholder",
+    "before": "Premu Enen por aldoni pliajn opciojn",
+    "after": "Premu la klavon Enter por aldoni pliajn opciojn",
+    "reason": "Enen means inwards, not the Enter keyboard key. Explicitly name the literal Enter key within Esperanto prose and preserve the action of adding more options."
   }
 ]

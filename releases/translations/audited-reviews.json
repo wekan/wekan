@@ -5422,5 +5422,389 @@
     "key": "worker-desc",
     "value": "Povas nur movi kartojn, atribui sin al karto kaj komenti.",
     "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "copy-card-link-to-clipboard",
+    "value": "Kopii ligilon de karto al tondujo",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "copy-text-to-clipboard",
+    "value": "Kopii tekston al tondujo",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "linkCardPopup-title",
+    "value": "Ligi karton",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "copyCardPopup-title",
+    "value": "Kopii karton",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "copyManyCardsPopup-title",
+    "value": "Kopii ŝablonon al multaj kartoj",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "copyManyCardsPopup-instructions",
+    "value": "Titoloj kaj priskriboj de la celaj kartoj en ĉi tiu JSON-formato",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "copyManyCardsPopup-format",
+    "value": "[ {\"title\": \"Titolo de la unua karto\", \"description\":\"Priskribo de la unua karto\"}, {\"title\":\"Titolo de la dua karto\",\"description\":\"Priskribo de la dua karto\"},{\"title\":\"Titolo de la lasta karto\",\"description\":\"Priskribo de la lasta karto\"} ]",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "createTemplateContainerPopup-title",
+    "value": "Aldoni ŝablonujon",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "chooseBoardSourcePopup-title",
+    "value": "Importi tabulon",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "createLabelPopup-title",
+    "value": "Krei etikedon",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-field-delete-pop",
+    "value": "Ne eblas malfari. Ĉi tio forigos ĉi tiun propran kampon el ĉiuj kartoj kaj detruos ĝian historion.",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "edit-wip-limit",
+    "value": "Redakti WIP-limon",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "soft-wip-limit",
+    "value": "Milda WIP-limo",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "addReactionPopup-title",
+    "value": "Aldoni reagon",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "editNotificationPopup-title",
+    "value": "Redakti sciigon",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "email-enrollAccount-text",
+    "value": "Saluton __user__,\n\nPor ekuzi la servon, simple alklaku la suban ligilon.\n\n__url__\n\nDankon.",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "email-invite-subject",
+    "value": "__inviter__ sendis al vi inviton",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "email-invite-text",
+    "value": "Kara __user__,\n\n__inviter__ invitas vin aliĝi al la tabulo \"__board__\" por kunlabori.\n\nBonvolu sekvi la suban ligilon:\n\n__url__\n\nDankon.",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "push-invite-title",
+    "value": "__inviter__ sendis al vi inviton",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "push-invite-text",
+    "value": "Kara __user__,\n\n__inviter__ invitas vin aliĝi al la tabulo \"__board__\" por kunlabori.\n\nBonvolu sekvi la suban ligilon:\n\n__url__\n\nDankon.",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "email-resetPassword-text",
+    "value": "Saluton __user__,\n\nPor restarigi vian pasvorton, simple alklaku la suban ligilon.\n\n__url__\n\nDankon.",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "email-verifyEmail-text",
+    "value": "Saluton __user__,\n\nPor konfirmi la retpoŝtadreson de via konto, simple alklaku la suban ligilon.\n\n__url__\n\nDankon.",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "enable-wip-limit",
+    "value": "Ŝalti WIP-limon",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "error-board-doesNotExist",
+    "value": "Ĉi tiu tabulo ne ekzistas",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "error-board-notAdmin",
+    "value": "Vi devas esti administranto de ĉi tiu tabulo por fari tion",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "error-board-notAMember",
+    "value": "Vi devas esti membro de ĉi tiu tabulo por fari tion",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "export-board",
+    "value": "Eksporti tabulon",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "user-can-not-export-excel",
+    "value": "Uzanto ne povas eksporti al Excel",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "export-card",
+    "value": "Eksporti karton",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "export-card-pdf",
+    "value": "Eksporti karton al PDF",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "user-can-not-export-card-to-pdf",
+    "value": "Uzanto ne povas eksporti karton al PDF",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "exportBoardPopup-title",
+    "value": "Eksporti tabulon",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "exportCardPopup-title",
+    "value": "Eksporti karton",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "sort-desc",
+    "value": "Alklaku por ordigi liston",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "filter-cards",
+    "value": "Filtri kartojn aŭ listojn",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "filter-show-archive",
+    "value": "Montri arkivitajn listojn",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "filter-hide-empty",
+    "value": "Kaŝi malplenajn listojn",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "filter-on-desc",
+    "value": "Vi filtras kartojn en ĉi tiu tabulo. Alklaku ĉi tie por redakti la filtrilon.",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "header-logo-title",
+    "value": "Reiri al via paĝo de tabuloj.",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "import-board",
+    "value": "importi tabulon",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "import-board-c",
+    "value": "Importi tabulon",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "import-board-instruction-trello",
+    "value": "En via Trello-tabulo, iru al 'Menu', poste 'More', 'Print and Export', 'Export JSON', kaj kopiu la rezultan tekston.",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "import-board-instruction-wekan",
+    "value": "En via tabulo, iru al 'Menuo', poste 'Eksporti tabulon', kaj kopiu la tekston el la elŝutita dosiero.",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "import-board-instruction-about-errors",
+    "value": "Se vi ricevas erarojn dum importado de tabulo, la importado foje tamen funkcias, kaj la tabulo estas en la paĝo Ĉiuj tabuloj.",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "import-members-map",
+    "value": "Via importita tabulo havas kelkajn membrojn. Bonvolu mapi la membrojn, kiujn vi volas importi, al viaj uzantoj",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "import-members-map-note",
+    "value": "Noto: Nemapitaj membroj estos atribuitaj al la nuna uzanto.",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "import-user-select",
+    "value": "Elektu vian ekzistantan uzanton, kiun vi volas uzi kiel ĉi tiun membron",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "invalid-user",
+    "value": "Nevalida uzanto",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "just-invited",
+    "value": "Vi ĵus estas invitita al ĉi tiu tabulo",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "label-create",
+    "value": "Krei etikedon",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "label-delete-pop",
+    "value": "Ne eblas malfari. Ĉi tio forigos ĉi tiun etikedon el ĉiuj kartoj kaj detruos ĝian historion.",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "leave-board",
+    "value": "Forlasi tabulon",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "leave-board-pop",
+    "value": "Ĉu vi certas, ke vi volas forlasi __boardTitle__? Vi estos forigita el ĉiuj kartoj en ĉi tiu tabulo.",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "leaveBoardPopup-title",
+    "value": "Ĉu forlasi tabulon?",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "list-archive-cards-pop",
+    "value": "Ĉi tio forigos el la tabulo ĉiujn kartojn en ĉi tiu listo. Por vidi kartojn en Arkivo kaj revenigi ilin al la tabulo, alklaku “Menuo” > “Arkivo”.",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "settingsUserPopup-title",
+    "value": "Uzantaj agordoj",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "settingsTeamPopup-title",
+    "value": "Teamaj agordoj",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "settingsOrgPopup-title",
+    "value": "Organizaj agordoj",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "swimlaneActionPopup-title",
+    "value": "Naĝliniaj agoj",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "swimlaneAddPopup-title",
+    "value": "Aldoni naĝlinion sube",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "listImportCardPopup-title",
+    "value": "Importi Trello-karton",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "list-delete-pop",
+    "value": "Ĉiuj agoj estos forigitaj el la aktivaĵa fluo kaj vi ne povos restarigi la liston. Ne eblas malfari.",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "list-delete-suggest-archive",
+    "value": "Vi povas movi liston al Arkivo por forigi ĝin el la tabulo kaj konservi la aktivaĵojn.",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
+  },
+  {
+    "locale": "eo",
+    "key": "multi-selection-label",
+    "value": "Agordi etikedon por la elekto",
+    "reason": "Direct Esperanto review confirms copy/import/export actions, destination descriptions, invitation/email instructions, membership requirements and irreversible deletion warnings. Vendor Trello menu names are literal navigation labels, not misplaced English prose. JSON example property names title/description, interpolation tokens, recipient/board identities and URLs are preserved exactly."
   }
 ]
