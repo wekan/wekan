@@ -1,5 +1,7 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `1b8797450`: custom-field definition deletion warning repaired. Native MediaWiki no-undo, Removed, All and History support components. Preserve no undo, this field removed from all cards and its history destroyed (paraphrased Delete History), distinct from unsetting one card value. Future actor, coordination and full warning remain low confidence. All 18,086 correction checks pass; 329 original findings remain pending, including 194 Tamazight.
+
 2026-09-14 — `7c0384e5a`: failure counting-window label repaired. Actual settings distinguish failureWindow from lockoutPeriod/count threshold; native Duration/Second and Errors support components. Time window paraphrased period of failures, retaining seconds and distinct lockout duration label. Full adaptations remain low confidence. Direct IRCAM school lexicon fetch timed out, so Before evidence remains indexed only. All 18,085 correction checks pass; 330 original findings remain pending, including 195 Tamazight.
 
 2026-09-14 — `ee8fc5f24`: failure threshold repaired. IRCAM school lexicon `amz_fr_ar.pdf` indexed printed page 103 gives Before `dat`; CNDH native Errors retained. Preserve FAILURES BEFORE LOCKOUT, a count distinct from seconds-based period/window. Indexed source is not direct PDF inspection; temporal Before, failure-as-error adaptation and full bound label remain low confidence. All 18,084 correction checks pass; 331 original findings remain pending, including 196 Tamazight.
