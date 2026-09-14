@@ -15310,5 +15310,239 @@
     "key": "globalSearch-instructions-status-ended",
     "value": "`__predicate_ended__` - tarxetas cunha data de fin",
     "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-status-public",
+    "value": "`__predicate_public__` - tarxetas só en taboleiros públicos",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-status-private",
+    "value": "`__predicate_private__` - tarxetas só en taboleiros privados",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-operator-has",
+    "value": "`__operator_has__:<field>` - onde *<field>* é un de `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` ou `__predicate_member__`. Poñer un `-` diante de *<field>* procura a ausencia de valor nese campo (p. ex. `has:-due` procura tarxetas sen data de vencemento).",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-operator-limit",
+    "value": "`__operator_limit__:<n>` - onde *<n>* é un número enteiro positivo que indica o número de tarxetas que se mostran por páxina.",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-notes-2",
+    "value": "Os operadores semellantes únense con *OU*. Devolveranse as tarxetas que cumpran calquera das condicións.\n`__operator_list__:Available __operator_list__:Blocked` devolvería as tarxetas contidas en calquera lista chamada *Blocked* ou *Available*.",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-notes-3",
+    "value": "Os operadores diferentes únense con *E*. Só se devolven as tarxetas que cumpran todos os operadores diferentes. `__operator_list__:Available __operator_label__:red` devolve só as tarxetas da lista *Available* cunha etiqueta *red*.",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-notes-4",
+    "value": "As procuras de texto non distinguen maiúsculas de minúsculas.",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-notes-5",
+    "value": "De maneira predeterminada non se procura nas tarxetas arquivadas.",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "sort-cards",
+    "value": "Ordenar tarxetas",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "sort-boards",
+    "value": "Ordenar taboleiros",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "cardsSortPopup-title",
+    "value": "Ordenar tarxetas",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "now-activities-of-all-boards-are-hidden",
+    "value": "Agora todas as actividades de todos os taboleiros están agochadas",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "value": "Prema Intro para engadir máis elementos",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "creator-on-minicard",
+    "value": "Creador na minitarxeta",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "boardsReportTitle",
+    "value": "Informe de taboleiros",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "cardsReportTitle",
+    "value": "Informe de tarxetas",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "display-card-creator",
+    "value": "Mostrar o creador da tarxeta",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "maximize-card",
+    "value": "Maximizar tarxeta",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "minimize-card",
+    "value": "Minimizar tarxeta",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "delete-org-warning-message",
+    "value": "Non se pode eliminar esta organización, hai polo menos un usuario que pertence a ela",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "delete-team-warning-message",
+    "value": "Non se pode eliminar este equipo, hai polo menos un usuario que pertence a el",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "cardDetailsPopup-title",
+    "value": "Detalles da tarxeta",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "add-teams",
+    "value": "Engadir equipos",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "remove-team-from-table",
+    "value": "Está seguro de que quere quitar este equipo do taboleiro?",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "remove-btn",
+    "value": "Quitar",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "filter-card-title-label",
+    "value": "Filtrar por título da tarxeta",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "add-organizations",
+    "value": "Engadir organizacións",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "remove-organization-from-board",
+    "value": "Está seguro de que quere quitar esta organización deste taboleiro?",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "acceptance_of_our_legalNotice",
+    "value": "Ao continuar, acepta o noso",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "checklistActionsPopup-title",
+    "value": "Accións da lista de verificación",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "moveChecklist",
+    "value": "Mover lista de verificación",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "moveChecklistPopup-title",
+    "value": "Mover lista de verificación",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "newlineBecomesNewChecklistItem",
+    "value": "Cada liña de texto convértese nun elemento da lista de verificación",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "newLineNewItem",
+    "value": "Unha liña de texto = un elemento da lista de verificación",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "value": "Cada liña de texto convértese nun elemento da lista de verificación, na orde orixinal",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "copyChecklist",
+    "value": "Copiar lista de verificación",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "copyChecklistPopup-title",
+    "value": "Copiar lista de verificación",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "attachmentActionsPopup-title",
+    "value": "Accións do anexo",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "attachment-move-storage-fs",
+    "value": "Mover o anexo ao sistema de ficheiros",
+    "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
   }
 ]
