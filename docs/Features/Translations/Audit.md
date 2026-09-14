@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,155 |
+| Corrected | 15,158 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 689 |
+| Pending review or repair | 686 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,366** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,370** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `c60ea35b7` — replaced three French Tamazight labels for import-member selection, full-card list display and per-list card counts. Native MediaWiki and Mastodon attest component terms; complete phrases, derived noun forms and kanban card terminology remain **low confidence** pending fluent review. All **17,366** correction/rendering checks pass. Three original findings are repaired: **689** originals remain pending across **17** locales, including **546** Tamazight. Earlier composed wording and restored/unflagged values still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `8b34511fe` — replaced four French Tamazight values for removing all members, removing all card members, plural errors and clearing all errors. Native components and the CNDH memorandum’s plural error noun are reference-supported; complete commands, card compounds and software-error usage remain **low confidence** pending fluent review. All **17,370** correction/rendering checks pass. Three original and one unflagged value are repaired: **686** originals remain pending across **17** locales, including **543** Tamazight. Earlier composed wording and restored/unflagged values still need validation. Live browser verification was not run; no translations were pushed.
 
 **Checklist reference review (2026-09-14):** the candidate [computing lexicon](https://www.fichier-pdf.fr/2014/08/31/lexique-informatique/) labels `asenqed` (check/control) **KBL**. Its indexed entry does not establish Standard Moroccan checklist usage; the full file could not be fetched. Existing schwa-heavy checklist strings and full confirmation wording remain pending terminology and dialect review. No blanket retention or replacement is justified by this reference.
 
