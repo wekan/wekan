@@ -29646,8 +29646,8 @@ PDF https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339 : 12742
 memory timktit/bound tmktit, 9981 ssmrs use, 12572 tidt truth/reality.
 The phrase s tidt paraphrases actual; computing memory adaptation, passive
 agreement and the full usage compound remain low confidence. Existing
-memory-usage and external-memory labels use a different cognitive-memory
-term and need reconciliation during broader review; do not call this a
+memory-usage and external-memory labels use a different memory term
+whose computer-memory usage is also documented; terminology needs review; do not call this a
 completed terminology audit. Node primary documentation read 2026-09-15:
 https://nodejs.org/api/process.html#processmemoryusage states heapTotal and
 heapUsed refer to V8 usage, whereas RSS covers resident process memory,
@@ -29660,3 +29660,24 @@ No live diagnostic UI test ran. Ledger 19,898; corrected 15,775, pending
 128 (zgh 35), restored 4 unchanged. Reminder plural remains unflagged French:
 IRCAM 4289 gives no plural; 9120 sfggt and 9825 sskti attest remind verbs,
 not a complete plural reminder compound. That review remains open.
+
+
+2026-09-15 — memory terminology follow-up, retained values: do not replace
+memory-usage or Node_memory_usage_external merely to force timktit across
+all labels. The current exact ledger records retain independent Moroccan
+hardware-site RAM usage of takatut, recorded on 2026-09-14, in addition to
+the correctly identified Tuareg dictionary provenance. The previous note's
+claim that this is only a cognitive-memory term was too strong and is
+corrected above. IRCAM entry 12742 timktit means memory, but that entry
+alone does not specifically prove computer-memory terminology or make
+another attested computer-memory term wrong. Preserve both existing values
+while comparing native computing sources and full grammar. Do not erase
+the independent RAM attestation or the remaining low-confidence warning.
+Node process.memoryUsage documentation was read again on 2026-09-15:
+https://nodejs.org/api/process.html#processmemoryusage . The external field
+is C++ object memory bound to JavaScript objects managed by V8; it is not
+external-device or disk storage. This limits the meaning of the existing
+external qualifier, whose Moroccan adaptation still requires review.
+No locale values, original classifications or ledger counts change: 128
+tracked pending, zgh 35, four restored values still await validation.
+This retention is evidence-based preservation, not full fluency approval.

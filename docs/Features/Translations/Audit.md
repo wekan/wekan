@@ -29,11 +29,12 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Tamazight accessibility](Tamazight-Review.md) distinguishes digital
-accessibility from general entrance/access. Source fallback conflates a
-disabled page with missing information, even when a body exists. Preserve
-source meaning until that conflict is resolved; specialist terminology
-remains open. No locale edit or count change.
+[Tamazight memory terms](Tamazight-Review.md): retain the existing memory
+and external-memory labels. Their ledger includes Moroccan RAM usage;
+IRCAM's general memory noun alone does not invalidate that alternative.
+Correct the earlier cognitive-only characterization. External memory is
+V8-bound C++ object memory; full terminology and grammar remain open.
+No locale edit or count change. Accessibility source conflict remains open.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:
