@@ -252,3 +252,10 @@ assert.deepEqual(tokens(kashmiri['globalSearch-instructions-operator-number']),
 assert.deepEqual(tags(kashmiri['globalSearch-instructions-operator-number']),
   ['<number>', '<number>']);
 assert.match(kashmiri['import-board-source'], /Trello.*Jira.*WeKan.*CSV.*Excel/);
+
+assert.equal(kashmiri['calendar-system-islamic-rgsa'],
+  'ہِجری کیلنڑَر (سعودی عرب، زوٗن وُچھُن)');
+assert.doesNotMatch(kashmiri['calendar-system-islamic-rgsa'], /Islamic|Saudi Arabia|622-07/);
+assert.deepEqual(tokens(kashmiri['calendar-system-islamic-rgsa']),
+  tokens(english['calendar-system-islamic-rgsa']));
+assert.equal(kashmiri['calendar-system-islamic'], 'ہِجری کیلنڑَر');

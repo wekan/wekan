@@ -138367,5 +138367,12 @@
     "before": "Islamic tabular",
     "after": "Haatumeere Lislaam (hiisa e haatumeere; fuɗɗoode: 622-07-15, Julian)",
     "reason": "2026-09-14: Replace English seed with existing Hijri name, attested calculation/table/beginning components and distinct Julian epoch dates. Complete compound grammar and dialect consistency remain low confidence; see Fulah-Review.md."
+  },
+  {
+    "locale": "ks",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "ہِجری کیلنڑَر (سعودی عرب، زوٗن وُچھُن)",
+    "reason": "2026-09-14: Replace English Saudi country-only seed with existing Hijri/calendar wording, CLDR Saudi Arabia spelling and Kashmiri moon/seeing components. Full nominalized phrase and feminine object agreement remain low confidence; see Kashmiri-Review.md."
   }
 ]
