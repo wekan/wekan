@@ -6,3 +6,8 @@ const data = JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/da
 assert.equal(data['calendar-system'], 'Ullorsiutit aaqqissuussaanerat (ullunik takutitsineq)');
 assert.doesNotMatch(data['calendar-system'], /görünüşü|Kalendar sistem/);
 console.log('greenlandicCalendarLanguage: calendar arrangement/date display localized; Azerbaijani seed rejected');
+
+// Adapted Greenlandic calendar phrase; structural checks do not prove fluency.
+assert.equal(data['calendar-system-buddhist'], 'Buddhasiortut ullorsiutaat');
+assert.notEqual(data['calendar-system-buddhist'], 'Buddhist');
+assert.notEqual(data['calendar-system-buddhist'], data['calendar-system-hebrew']);

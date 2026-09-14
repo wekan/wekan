@@ -127426,5 +127426,12 @@
     "before": "Hül'gäta",
     "after": "Heitä",
     "reason": "Use Veps software Cancel imperative attested in MediaWiki vep.json cancel, userlogin-authpopup-cancel and resetpass-submit-cancel, matching existing general WeKan cancel. Replaces restored Hül'gäta with context-specific authentication cancellation wording; live authentication browser behavior not verified by lexical review."
+  },
+  {
+    "locale": "kl",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Buddhasiortut ullorsiutaat",
+    "reason": "English-only Buddhist placeholder replaced with Greenlandic Buddhasiortut ullorsiutaat, following existing Juutit ullorsiutaat calendar naming. Buddhasiortut attested in directly fetched Kalaallit Meerartaat Greenlandic article km.gl/nutaarsiassat/kalaallit-meeqqat-inuusuttullu-vejle-kaajallallugu-sikkilerput. Complete calendar phrase is an adaptation, not quoted/attested; native inflection/terminology and browser review remain open."
   }
 ]
