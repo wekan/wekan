@@ -124764,8 +124764,8 @@
     "locale": "zgh",
     "key": "hideAllChecklistItems",
     "before": "إخفاء جميع عناصر قائمة التحقق",
-    "after": "ⵏⵜⵍ ⵉⴼⵔⴷⵉⵙⵏ ⴰⴽⴽⵯ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
-    "reason": "2026-09-14: Replace wrong-language checklist-item action. Use native MediaWiki transaction-duration-limit-exceeded plural ifrdisn Elements, derived singular afrdis, native list talgamt and proposed List of Verification checklist paraphrase from login-security verify ssided. Add rnu, Hide ntl and All akk preserve the distinct action, singular/plural and all scope. LOW CONFIDENCE derived singular, verification noun/bound form ussidd, checklist paraphrase and full action grammar require fluent Standard Moroccan review; no exact native checklist control phrase is established. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (transaction-duration-limit-exceeded, watchlist, login-security, pageinfo-hidden-categories, protect-default)."
+    "after": "ⵙⵙⵏⵜⵍ ⵉⴼⵔⴷⵉⵙⵏ ⴰⴽⴽⵯ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
+    "reason": "2026-09-14: Replace wrong-language checklist-item action. Use native MediaWiki transaction-duration-limit-exceeded plural ifrdisn Elements, derived singular afrdis, native list talgamt and proposed List of Verification checklist paraphrase from login-security verify ssided. Add rnu, Hide ntl and All akk preserve the distinct action, singular/plural and all scope. LOW CONFIDENCE derived singular, verification noun/bound form ussidd, checklist paraphrase and full action grammar require fluent Standard Moroccan review; no exact native checklist control phrase is established. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (transaction-duration-limit-exceeded, watchlist, login-security, pageinfo-hidden-categories, protect-default). Follow-up 2026-09-14: Replace derived Hide ntl with directly attested command ssntl from MediaWiki rcfilters-activefilters-hide, matching the checked-item control while retaining ALL scope. Original Arabic before-value preserved. Checklist compound and full noun phrase remain low confidence."
   },
   {
     "locale": "zgh",
