@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c0edf1104">Repair Tamazight hidden-activities notification</a>. Thanks to xet7.</summary>
+
+Replace Arabic, preserving all-activities and all-boards scope. Four
+focused checks pass. Full plural grammar and browser validation remain
+open; dated audit tracks 261 original pending findings.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/46090ad0e">Repair Tamazight support-page enabled label</a>. Thanks to xet7.</summary>
 
 Use help/assistance vocabulary instead of French. Four focused checks pass;

@@ -967,3 +967,20 @@ label for the support page. Four focused translation checks pass; no
 live browser validation was run. Recount: 15,640 corrected, 262 pending
 (149 Tamazight), four restored, 4,175 retained and 18,739 correction
 records. Prior low-confidence and broader native/runtime work remain open.
+
+## Hidden activities notification — 2026-09-14
+
+Local commit `c0edf1104` repairs Arabic
+now-activities-of-all-boards-are-hidden. IRCAM 2019 PDF page 327 entry
+6267 attests hide/be hidden; existing activities/boards terminology is
+reused. Now and both all quantifiers survive, so this does not collapse
+all activities across all boards into only some board's activities.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+**Low confidence** remains for feminine plural verb, genitive and complete
+notification grammar. No exact current client reference was found for
+this key; no live rendering was verified. Four focused checks pass,
+including both quantifiers, Arabic removal and exact ledger/token checks.
+Recount: 15,641 corrected, 261 pending (148 Tamazight), four restored,
+4,175 retained and 18,740 correction records. Broader native/browser
+validation and earlier low-confidence wording remain open.
