@@ -24748,5 +24748,17 @@
     "key": "copyManyCardsPopup-format",
     "value": "[ {\"title\": \"بىرىنچى كارتا ماۋزۇسى\", \"description\":\"بىرىنچى كارتا چۈشەندۈرۈشى\"}, {\"title\":\"ئىككىنچى كارتا ماۋزۇسى\",\"description\":\"ئىككىنچى كارتا چۈشەندۈرۈشى\"},{\"title\":\"ئاخىرقى كارتا ماۋزۇسى\",\"description\":\"ئاخىرقى كارتا چۈشەندۈرۈشى\"} ]",
     "reason": "Uyghur example titles and descriptions name first, second and last cards. Literal JSON property names title and description remain English code identifiers; the three-object array is valid JSON and is not wrong-language prose."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "twoFactorCode-cancel",
+    "value": "Encaboxar",
+    "reason": "Encaboxar is an attested Asturian cancellation action in LibreOffice Asturian help, https://help.libreoffice.org/latest/ast/text/scalc/02/06060000.html . Shared Cancelar elsewhere does not invalidate this correct synonym."
+  },
+  {
+    "locale": "tk_TM",
+    "key": "twoFactorCode-cancel",
+    "value": "Ýatyr",
+    "reason": "Ýatyr is the cancellation imperative associated with ýatyrmak, attested for cancellation in Turkmen migration law https://www.mfa.gov.tm/articles/79 and licensing law https://mejlis.gov.tm/single-law/51?lang=tm . Its homography with a form of lie down does not invalidate the cancellation meaning in this button context."
   }
 ]
