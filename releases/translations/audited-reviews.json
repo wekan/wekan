@@ -9724,5 +9724,317 @@
     "key": "r-moved-from",
     "value": "Movita el",
     "reason": "2026-09-14: Direct semantic review against English: correct Esperanto deletion, queue, description, custom-field assignment or rule/filter action label; interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "prefix-with-full-path",
+    "value": "Prefikso kun plena vojo",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "prefix-with-parent",
+    "value": "Prefikso kun patro",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "subtext-with-full-path",
+    "value": "Subteksto kun plena vojo",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "subtext-with-parent",
+    "value": "Subteksto kun patro",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-archived",
+    "value": "Movita al Arkivo",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-when-the-label",
+    "value": "Kiam la etikedo",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-list-name",
+    "value": "nomo de listo",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-when-a-member",
+    "value": "Kiam membro estas",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-when-the-member",
+    "value": "Kiam la membro",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-when-a-attach",
+    "value": "Kiam alligitaĵo",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-when-the-checklist",
+    "value": "Kiam la kontrollisto",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-completed",
+    "value": "Plenumita",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-made-incomplete",
+    "value": "Farita neplenumita",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-when-a-item",
+    "value": "Kiam kontrollista ero estas",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-when-the-item",
+    "value": "Kiam la kontrollista ero",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-checked",
+    "value": "Markita",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-unchecked",
+    "value": "Malmarkita",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-top-of",
+    "value": "Supro de",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-bottom-of",
+    "value": "Malsupro de",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-its-list",
+    "value": "ĝia listo",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-archive",
+    "value": "Movi al Arkivo",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-label",
+    "value": "etikedo",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-set-color",
+    "value": "Agordi koloron al",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-check-all",
+    "value": "Marki ĉiujn",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-uncheck-all",
+    "value": "Malmarki ĉiujn",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-items-check",
+    "value": "erojn de kontrollisto",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-check",
+    "value": "Marki",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-uncheck",
+    "value": "Malmarki",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-item",
+    "value": "ero",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-of-checklist",
+    "value": "de kontrollisto",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-send-email",
+    "value": "Sendi retpoŝton",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-rule-details",
+    "value": "Detaloj de regulo",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-d-send-email",
+    "value": "Sendi retpoŝton",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-d-remove-label",
+    "value": "Forigi etikedon",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-in-list",
+    "value": "en listo",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-in-swimlane",
+    "value": "en naĝlinio",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-d-check-one",
+    "value": "Marki eron",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-d-uncheck-one",
+    "value": "Malmarki eron",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-d-check-of-list",
+    "value": "de kontrollisto",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-with-items",
+    "value": "kun eroj",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-items-list",
+    "value": "ero1,ero2,ero3",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-add-swimlane",
+    "value": "Aldoni naĝlinion",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-set",
+    "value": "Agordi",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-update",
+    "value": "Ĝisdatigi",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-datefield",
+    "value": "datkampo",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-df-start-at",
+    "value": "komenco",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-df-due-at",
+    "value": "limdato",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-df-end-at",
+    "value": "fino",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-df-received-at",
+    "value": "ricevo",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-to-current-datetime",
+    "value": "al nuna dato/horo",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "r-remove-value-from",
+    "value": "Forigi valoron el",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "authentication-method",
+    "value": "Aŭtentiga metodo",
+    "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
   }
 ]

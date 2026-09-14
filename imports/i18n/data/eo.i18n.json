@@ -1228,7 +1228,7 @@
   "activity-removed-label-card": "forigis etikedon '%s'",
   "activity-delete-attach-card": "forigis aldonaĵon",
   "activity-set-customfield": "agordis propran kampon '%s' al '%s' en %s",
-  "activity-unset-customfield": "malagordis propran kampon '%s' en %s",
+  "activity-unset-customfield": "forigis la valoron de la propra kampo '%s' en %s",
   "r-rule": "Regulo",
   "r-add-trigger": "Aldoni ekigilon",
   "r-add-action": "Aldoni agon",

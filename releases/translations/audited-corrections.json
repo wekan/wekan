@@ -127034,5 +127034,12 @@
     "before": "aldonita subtaskon __subtask__ al karto __card__ en la listo __list__ en la naĝotubo __swimlane__ en la tabulo __board__",
     "after": "aldonis subtaskon __subtask__ al karto __card__ en la listo __list__ en la naĝlinio __swimlane__ en la tabulo __board__",
     "reason": "2026-09-14: Activity requires finite past aldonis, not passive participle aldonita; replace erroneous naĝotubo with established locale swimlane term naĝlinio."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-unset-customfield",
+    "before": "malagordis propran kampon '%s' en %s",
+    "after": "forigis la valoron de la propra kampo '%s' en %s",
+    "reason": "2026-09-14: Actual unsetCustomField activity clears the custom field value; malagordis means misconfigured. Translate the removal of the value explicitly, preserving both %s slots."
   }
 ]

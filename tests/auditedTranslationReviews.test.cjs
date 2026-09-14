@@ -24,10 +24,11 @@ const root = path.resolve(__dirname, '..');
   assert.equal(reviews.find(row => row.locale === 'gl-ES' && row.key === 'r-items-list').value, 'elemento1,elemento2,elemento3', 'correct Galician example remains unchanged');
   const placeholderTemplate = fs.readFileSync(path.join(root, 'client/components/rules/actions/checklistActions.jade'), 'utf8');
   assert.match(placeholderTemplate, /input\(id="checklist-items",type=text,placeholder="{{_'r-items-list'}}"\)/);
-  for (const review of reviews.filter(row => row.key === 'r-items-list' && !['sk', 'gl', 'gl-ES', 'an'].includes(row.locale))) {
+  for (const review of reviews.filter(row => row.key === 'r-items-list' && !['sk', 'gl', 'gl-ES', 'an', 'eo'].includes(row.locale))) {
     assert.deepEqual(review.value.split(',').map(value => value.trim().replace(/ /g, '')), ['item1', 'item2', 'item3']);
     assert.match(review.reason, /placeholder demonstrates/);
   }
+  assert.equal(reviews.find(row => row.locale === 'eo' && row.key === 'r-items-list').value, 'ero1,ero2,ero3', 'Esperanto example item names remain translated; commas preserve input syntax');
   assert.equal(reviews.find(row => row.locale === 'an' && row.key === 'r-items-list').value, 'elemento1,elemento2,elemento3', 'native Aragonese example restored after mistaken English replacement');
   assert.equal(reviews.find(row => row.locale === 'sk' && row.key === 'r-items-list').value, 'položka1,položka2,položka3', 'valid Slovak example vocabulary remains unchanged');
   for (const locale of ['de', 'de-AT', 'de-CH', 'de_DE', 'sk', 'fr', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'cs', 'cs-CZ', 'hu', 'it', 'es', 'es-LA', 'pt', 'pt-BR', 'pt-PT', 'pt_PT', 'nl', 'nl-NL', 'nb', 'sv', 'vl-SS']) {
