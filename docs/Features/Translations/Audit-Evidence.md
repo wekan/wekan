@@ -1,5 +1,15 @@
 # Detailed translation audit evidence
 
+2026-09-14 (`b8b7f8235`): retained 29 correct Danish restored display/
+task values, including selected above/below, ALL unread, checked-item and
+finished-checklist hiding, JSON content and OIDC text customization. Team/
+Teams, Database and Layout are valid shared Danish terms. Leave
+`export-card-excel-free` (`ledig`) unclassified: English free is ambiguous,
+and source search found no runtime key use establishing its meaning.
+Danish reviewed total 259; overall retained 436, restored awaiting review
+3,799. Do not treat the excluded value as validated.
+
+
 2026-09-14 (`2250b6716`): retained thirty correct Danish restored values.
 Confirm conversion once per board with normal continued use, migration
 background continuation even after browser closure, slower-completion
