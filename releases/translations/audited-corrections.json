@@ -129274,5 +129274,12 @@
     "before": "Définir la couleur à",
     "after": "Termeniñ al liv da",
     "reason": "Replace French rule-editor field/action prose with Breton, preserving actual name/recipient/date-operation/color/swimlane context. Ofis ar Brezhoneg computing glossary supports termeniñ, kas, postel and liv; complete phrase/browser review remains open."
+  },
+  {
+    "locale": "kl",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Indiap nuna tamakkerlugu ullorsiutaa",
+    "reason": "Replace English Indian national with a complete Greenlandic national-calendar label. Native KNR attests Indiap and nuna tamakkerlugu; CLDR and native calendar publishers attest ullorsiut. Full compound is adapted, not independently attested; complete native inflection and browser review remain open."
   }
 ]

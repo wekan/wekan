@@ -336,3 +336,16 @@ for (const [language, sighting, tabular] of [
     await expect(selector).not.toContainText('Islamic (Saudi Arabia)');
   });
 }
+
+
+test('Greenlandic Member Settings shows the repaired Indian national calendar label', async ({ page, user, board }) => {
+  db.updateOne('users', { _id: user.id }, { $set: { 'profile.language': 'kl' } });
+  await loginWithToken(page, user.id, user.token);
+  await openBoard(page, board.boardId, board.slug);
+  await page.locator('.js-open-header-member-menu').first().click();
+  await page.locator('.js-pop-over .js-change-settings').click();
+  const selector = page.locator('.js-pop-over #calendar-system');
+  await expect(selector).toBeVisible();
+  await expectCalendarOption(page, selector, 'indian', 'Indiap nuna tamakkerlugu ullorsiutaa');
+  await expect(selector).not.toContainText('Indian national');
+});
