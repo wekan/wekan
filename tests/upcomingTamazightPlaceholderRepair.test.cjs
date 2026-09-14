@@ -221,3 +221,9 @@ const duplicateListConfirmation = translated['delete-duplicate-lists-confirm'];
 assert.match(duplicateListConfirmation, /^ⵉⵙ ⵏⵉⵜ.*\? ⵔⴰⴷ ⵜⵜⵓⴽⴽⵙⵏⵜ/);
 assert.match(duplicateListConfirmation, /ⵜⵉⵍⴳⴰⵎⵉⵏ ⴰⴽⴽ ⵉⵜⵜⵓⵢⴰⵍⵙⵏ.*ⵢⴰⵏ ⵢⵉⵙⵎ ⴷ ⵓⵔ.*ⵜⴽⴰⵕⴹⴰ/);
 assert.doesNotMatch(duplicateListConfirmation, /Êtes|supprimera|aucune carte/);
+
+const emptyDuplicateDescription = translated['delete-duplicate-empty-lists-migration-description'];
+assert.match(emptyDuplicateDescription, /^ⵉⴽⴽⵙ ⵙ ⵜⵏⴼⵔⵓⵜ/);
+assert.match(emptyDuplicateDescription, /ⵉⴽⴽⵙ ⵖⴰⵙ.*ⵓⵔ.*ⵜⴰⴽⴰⵕⴹⴰ ⴷ ⵜⵍⵍⴰ ⵜⴰⵍⴳⴰⵎⵜ ⵢⴰⴹⵏ.*ⵢⴰⵏ ⵢⵉⵣⵡⵍ.*ⵍⵍⴰⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ/);
+assert.doesNotMatch(emptyDuplicateDescription, /Supprime|uniquement|ⵏⵖ/);
+assert.notEqual(emptyDuplicateDescription, translated['delete-duplicate-lists-confirm']);

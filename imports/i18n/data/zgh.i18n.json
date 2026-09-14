@@ -2420,7 +2420,7 @@
   "comprehensive-board-migration": "ⴰⵙⵎⵓⵜⵜⵢ ⵉⵙⵎⴷⵏ ⵏ ⵜⴼⵍⵡⵉⵜ",
   "comprehensive-board-migration-description": "ⵉⵙⵙⵉⴷⴻⴷ ⴷ ⵉⵙⵙⵓⴽⵏ ⵜⴰⵢⴰⵏⵜ ⵏ ⵜⵎⵓⵛⴰ ⵏ ⵜⴰⴼⵍⵡⵉⵜ ⵙ ⵓⵎⴰⵜⴰ. ⵉⵙⵙⵉⴷⴻⴷ ⴰⵏⵎⴰⵍⴰ ⵏ ⵜⵉⵍⴳⴰⵎⵉⵏ, ⵜⵉⵎⵔⵙⵉ ⵏ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴷ ⵜⵓⵚⴽⵉⵡⵜ ⵏ ⵉⴱⵔⴷⴰⵏ.",
   "delete-duplicate-empty-lists-migration": "ⴽⴽⵙ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵉⵜⵜⵓⵢⴰⵍⵙⵏ ⵓⵔ ⴷⵉⴳⵙⵏⵜ ⴰⵡⴷ ⴽⵔⴰ",
-  "delete-duplicate-empty-lists-migration-description": "Supprime en toute sécurité les listes vides en double. Supprime uniquement les listes qui n'ont aucune carte ET qui ont une autre liste avec le même titre contenant des cartes.",
+  "delete-duplicate-empty-lists-migration-description": "ⵉⴽⴽⵙ ⵙ ⵜⵏⴼⵔⵓⵜ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵉⵜⵜⵓⵢⴰⵍⵙⵏ ⵓⵔ ⴳⵉⵙⵏⵜ ⵜⵍⵍⵉ ⵜⴰⴽⴰⵕⴹⴰ. ⵉⴽⴽⵙ ⵖⴰⵙ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵓⵔ ⴳⵉⵙⵏⵜ ⵜⵍⵍⵉ ⵜⴰⴽⴰⵕⴹⴰ ⴷ ⵜⵍⵍⴰ ⵜⴰⵍⴳⴰⵎⵜ ⵢⴰⴹⵏ ⵙ ⵢⴰⵏ ⵢⵉⵣⵡⵍ ⵍⵍⵉ ⴳⵉⵙ ⵍⵍⴰⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ.",
   "lost-cards": "Cartes perdues",
   "lost-cards-list": "Éléments restaurés",
   "restore-lost-cards-migration": "ⵙⵙⵓⴽⵏ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵜⵉⵎⵏⵉⴷⵉⵏ",

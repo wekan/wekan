@@ -138423,5 +138423,12 @@
     "before": "Êtes-vous sûr ? Cela supprimera toutes les listes en doublon qui ont le même nom et qui ne contiennent aucune carte.",
     "after": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⵢⴰ? ⵔⴰⴷ ⵜⵜⵓⴽⴽⵙⵏⵜ ⵜⵉⵍⴳⴰⵎⵉⵏ ⴰⴽⴽ ⵉⵜⵜⵓⵢⴰⵍⵙⵏ ⵍⵍⵉ ⵖⵓⵔⵙⵏⵜ ⵢⴰⵏ ⵢⵉⵙⵎ ⴷ ⵓⵔ ⴳⵉⵙⵏⵜ ⵜⵍⵍⵉ ⴰⵡⴷ ⵢⴰⵜ ⵜⴽⴰⵕⴹⴰ.",
     "reason": "2026-09-15: Replace French duplicate-list confirmation with Tamazight draft retaining certainty question, all duplicates, shared name AND no cards. Native MediaWiki deletion/negative existential components and existing duplicate-list label provide vocabulary; full passive/agreement/shared-name grammar remains low confidence. See Tamazight-Review.md."
+  },
+  {
+    "locale": "zgh",
+    "key": "delete-duplicate-empty-lists-migration-description",
+    "before": "Supprime en toute sécurité les listes vides en double. Supprime uniquement les listes qui n'ont aucune carte ET qui ont une autre liste avec le même titre contenant des cartes.",
+    "after": "ⵉⴽⴽⵙ ⵙ ⵜⵏⴼⵔⵓⵜ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵉⵜⵜⵓⵢⴰⵍⵙⵏ ⵓⵔ ⴳⵉⵙⵏⵜ ⵜⵍⵍⵉ ⵜⴰⴽⴰⵕⴹⴰ. ⵉⴽⴽⵙ ⵖⴰⵙ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵓⵔ ⴳⵉⵙⵏⵜ ⵜⵍⵍⵉ ⵜⴰⴽⴰⵕⴹⴰ ⴷ ⵜⵍⵍⴰ ⵜⴰⵍⴳⴰⵎⵜ ⵢⴰⴹⵏ ⵙ ⵢⴰⵏ ⵢⵉⵣⵡⵍ ⵍⵍⵉ ⴳⵉⵙ ⵍⵍⴰⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ.",
+    "reason": "2026-09-15: Replace French empty-duplicate-list description with Tamazight draft retaining safely, only, no cards AND another same-title list containing cards. IRCAM tanfrut safety entry 11473 p613 supports safety component; full restriction/relative grammar remains low confidence. See Tamazight-Review.md."
   }
 ]
