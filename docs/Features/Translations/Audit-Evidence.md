@@ -21683,3 +21683,15 @@ positive-integer requirement, invalid-state negation and all interpolation
 are preserved; canonical query examples were not changed. 1,834 unchanged
 review records pass. 2,386 restored values and 308 pending findings remain,
 with broader language and browser validation open.
+
+
+### Esperanto search instructions and sorting — 2026-09-14
+
+Local commit `bc927c112` retains thirty correct search-instruction, sorting,
+swimlane-movement and string-template translations. Query syntax and
+%{value} remain literal; membership/assignment, public-only qualifier,
+positive/negative integers, current period and newest/oldest order are
+preserved. The label instruction's missing closing markdown star is also
+present in English; it is a shared source formatting issue, not an Esperanto
+language error. 1,864 review records pass. 2,356 restored values and 308
+pending findings plus broader language and browser review remain open.

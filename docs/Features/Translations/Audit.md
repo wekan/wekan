@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,553 |
-| Restored pre-pull; awaiting validation | 2,386 |
-| Reviewed; retained unchanged | 1,834 |
+| Restored pre-pull; awaiting validation | 2,356 |
+| Reviewed; retained unchanged | 1,864 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -21,10 +21,10 @@ hierarchy, date-field and authentication labels. Translated comma-separated
 example item names remain valid. All **18,149** correction records and
 unchanged-value checks pass. Browser verification was not run; no
 translations were pushed. Overtime, lime-color, scrollbar and advanced-filter wording remains under
-review. Latest unchanged review: **2026-09-14**, commit `18cf8b11b` —
-retained 40 correct search operator/predicate labels, validation errors and
-pagination labels. Checklist completion wording was previously validated
-against the correct ReVo komplet entry (`5b1ec70e9`).
+review. Latest unchanged review: **2026-09-14**, commit `bc927c112` —
+retained 30 correct search instructions, sorting and string-template labels.
+Literal query examples and format tokens remain intact. Checklist completion
+was previously validated against ReVo komplet (`5b1ec70e9`).
 
 
 Fixed categories include wrong-language prose, terminology, warnings,
