@@ -24275,3 +24275,13 @@ checks, all 18,693 corrections, 4,175 reviews and 234-locale completeness pass.
 Counts: 15,619 corrected, 4 restored, 4,175 retained and 283 pending.
 Named Basque subject order remains open; actual trigger descriptions include
 field values in DOM order, so word-order validation must include those values.
+
+## Basque named-subject integration evidence, 2026-09-14
+
+[Basque review](Basque-Review.md) records the fully opened EHU grammar chapter
+and actual template/description-generator source. Names occur after the final
+demonstrative in controls and saved descriptions. Isolated noun/script checks
+cannot validate these four restored findings. Locale-aware complete subject
+construction must preserve DOM/control semantics and saved description order.
+No classifications change: 283 pending, 4 restored, 4,175 retained,
+15,619 corrected; 18,693 correction records. Browser verification is open.

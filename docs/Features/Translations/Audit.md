@@ -39,14 +39,12 @@ contain **18,693** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest uncertain-phrase review: **2026-09-14**, `7998e6aff` —
-[Basque rule review](Basque-Review.md) adds native EHU software evidence for
-completion status. This evidence led to the adapted incomplete-status repair in `33cc02ced`.
-The full named checklist clause still needs review; unfinished wording alone
-is insufficient. No unchanged acceptance was added.
-[Inuktitut recurrence/reset review](Inuktitut-Recurrence-Review.md) remains
-open in `5400a0ce9`. Current pending/restored counts are 283/4.
-
+Latest uncertain-phrase review: **2026-09-14** —
+[Basque rule review](Basque-Review.md) confirms named subjects put the selected
+name after the final demonstrative. Saved descriptions use that same DOM order.
+EHU native grammar establishes the noun-phrase constraint; a CSS-only fix
+would be incomplete. All four restored findings remain open for a locale-aware
+control/description repair. No unchanged acceptance was added.
 Latest unflagged unchanged review: **2026-09-14**, `5bf34bc48` —
 Inuktitut `new` retains `ᓄᑖᖅ`, matching the native software guide's New
 command and actual admin creation labels. Focused checks pass; browser review

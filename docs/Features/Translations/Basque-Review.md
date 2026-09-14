@@ -177,3 +177,35 @@ No translations change; two restored findings are retained.
 
 All 4,175 unchanged reviews and 234-locale completeness pass. Counts now
 stand at 283 pending and 5 restored findings overall.
+
+## 2026-09-14 — Named-subject integration problem confirmed
+
+The remaining restored subjects are Etiketa hau, Kide hau, Kontrol-zerrenda
+hau and Kontrol-zerrendako elementu hau. Their nouns and demonstrative cannot
+be accepted in isolation: each template puts its name dropdown/input after
+the whole subject, producing noun + hau + selected name + action.
+
+[Patxi Goenaga's EHU grammar chapter, 2022](https://egeo.ehu.eus/kapitulu/ikuspegia/6)
+was opened in full. Section 6.2 gives the noun-phrase order with final
+quantifier/determiner; section 6.1 explains why a noun requires determination
+to function as an argument. This is a grammatical constraint, not a script
+check. The source supports reviewing the selected name within the complete
+noun phrase; it does not supply exact WeKan named-object wording.
+
+`client/components/rules/triggers/cardTriggers.jade` places spec-label and
+spec-member after their restored subject labels. The checklist template does
+the same for check-name, spec-comp-check-name and check-item-name.
+`client/lib/utils.js`, getTriggerActionDesc, iterates direct trigger-content
+children and concatenates text, selected option text and input values in DOM
+order. The saved description therefore includes the selected name in the same
+position; a CSS-only reorder would leave saved wording incorrect.
+
+Next implementation needs a locale-aware complete named-object construction,
+with native name/qualifier order shared by visual controls and saved text.
+Preserve control IDs, filters, predicates, other languages and user-entered
+names; do not reinterpret names as trusted markup or translate them.
+Verify both add/remove checklist rows and complete/incomplete rows, as well
+as checked/unchecked items and named members/labels. Positive, negative and
+browser tests must cover the full description, not just isolated JSON values.
+No restored value is classified from this review. Four restored findings and
+283 pending remain. The actual browser rendering has not been tested here.
