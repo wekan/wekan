@@ -125326,5 +125326,47 @@
     "before": "أنت بصدد تصفية بطاقات هذه اللوحة. اضغط هنا لتعديل التصفية.",
     "after": "ⴰⵔ ⵜⵣⵉⵣⴷⵉⴳⴷ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵏ ⵜⴼⵍⵡⵉⵜ ⴰⴷ. ⵙⵙⵉⵜ ⴷⴰ ⴰⴼⴰⴷ ⴰⴷ ⵜⵙⵏⴼⵍⴷ ⵜⴰⵎⵣⵉⵣⴷⴳⵜ.",
     "reason": "2026-09-14: Replace Arabic/French filtering labels. Preserve member versus assignee, No member/No assignee negation, Other filters, active filter status, and You filtering this board plus Click here to edit instruction. Filter/Card/Member vocabulary follows existing local usage; member singular/bound forms are derived and not independently validated. Assignee provisionally uses Person given the card (responsibility assignment), preserving a different noun scope from membership; this semantic paraphrase is LOW CONFIDENCE. Native MediaWiki attests No ⵓⵔ ⵉⵍⵍⵉ, Given ⵉⵜⵜⵓⴼⴽⴰ, Edit ⵙⵏⴼⵍ and Here ⴷⴰ. Working/active-filter and second-person filtering forms, other plural adjective and full clauses remain LOW CONFIDENCE requiring native validation; component evidence and local consistency do not prove complete grammar. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "normal-assigned-only",
+    "before": "Assigné uniquement Normal",
+    "after": "ⴰⵏⵙⵙⵎⵔⵙ ⴰⵎⴰⴳⵏⵓ: ⵖⴰⵙ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵜⵜⵓⴼⴽⴰⵏⵉⵏ",
+    "reason": "2026-09-14: Replace French assigned-only permission labels/descriptions. Preserve Only assigned cards visible in each role and distinct Normal-user editing, Read cannot edit, and Comment can only comment capabilities. sidebar.jade pairs each role with its description. Assignment provisionally uses Given cards as in earlier shortcuts; this responsibility-assignment adaptation, plural passive and visible passive forms remain LOW CONFIDENCE. Native MediaWiki attests Only ⵖⴰⵙ, User ⴰⵏⵙⵙⵎⵔⵙ, Read ⵖⵔ, Edit ⵙⵏⴼⵍ, Show ⵙⴽⵏ and ability forms; read noun is derived and Comment vocabulary follows local software usage. Normal adjective, bound forms and full role/capability clauses remain LOW CONFIDENCE for native validation; component evidence does not prove full grammar. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "normal-assigned-only-desc",
+    "before": "Seules les cartes assignées sont visibles. Modifier en tant qu'utilisateur normal.",
+    "after": "ⵖⴰⵙ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵜⵜⵓⴼⴽⴰⵏⵉⵏ ⴰⴷ ⵜⵜⵓⵙⴽⴰⵏⵏ. ⵙⵏⴼⵍ ⴰⵎ ⵓⵏⵙⵙⵎⵔⵙ ⴰⵎⴰⴳⵏⵓ.",
+    "reason": "2026-09-14: Replace French assigned-only permission labels/descriptions. Preserve Only assigned cards visible in each role and distinct Normal-user editing, Read cannot edit, and Comment can only comment capabilities. sidebar.jade pairs each role with its description. Assignment provisionally uses Given cards as in earlier shortcuts; this responsibility-assignment adaptation, plural passive and visible passive forms remain LOW CONFIDENCE. Native MediaWiki attests Only ⵖⴰⵙ, User ⴰⵏⵙⵙⵎⵔⵙ, Read ⵖⵔ, Edit ⵙⵏⴼⵍ, Show ⵙⴽⵏ and ability forms; read noun is derived and Comment vocabulary follows local software usage. Normal adjective, bound forms and full role/capability clauses remain LOW CONFIDENCE for native validation; component evidence does not prove full grammar. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "read-assigned-only",
+    "before": "Lecture uniquement pour les cartes assignées",
+    "after": "ⴰⵖⵔⵉ: ⵖⴰⵙ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵜⵜⵓⴼⴽⴰⵏⵉⵏ",
+    "reason": "2026-09-14: Replace French assigned-only permission labels/descriptions. Preserve Only assigned cards visible in each role and distinct Normal-user editing, Read cannot edit, and Comment can only comment capabilities. sidebar.jade pairs each role with its description. Assignment provisionally uses Given cards as in earlier shortcuts; this responsibility-assignment adaptation, plural passive and visible passive forms remain LOW CONFIDENCE. Native MediaWiki attests Only ⵖⴰⵙ, User ⴰⵏⵙⵙⵎⵔⵙ, Read ⵖⵔ, Edit ⵙⵏⴼⵍ, Show ⵙⴽⵏ and ability forms; read noun is derived and Comment vocabulary follows local software usage. Normal adjective, bound forms and full role/capability clauses remain LOW CONFIDENCE for native validation; component evidence does not prove full grammar. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "read-assigned-only-desc",
+    "before": "Seules les cartes assignées sont visibles. Modification impossible.",
+    "after": "ⵖⴰⵙ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵜⵜⵓⴼⴽⴰⵏⵉⵏ ⴰⴷ ⵜⵜⵓⵙⴽⴰⵏⵏ. ⵓⵔ ⵜⵥⴹⴰⵕⴷ ⴰⴷ ⵜⵙⵏⴼⵍⴷ.",
+    "reason": "2026-09-14: Replace French assigned-only permission labels/descriptions. Preserve Only assigned cards visible in each role and distinct Normal-user editing, Read cannot edit, and Comment can only comment capabilities. sidebar.jade pairs each role with its description. Assignment provisionally uses Given cards as in earlier shortcuts; this responsibility-assignment adaptation, plural passive and visible passive forms remain LOW CONFIDENCE. Native MediaWiki attests Only ⵖⴰⵙ, User ⴰⵏⵙⵙⵎⵔⵙ, Read ⵖⵔ, Edit ⵙⵏⴼⵍ, Show ⵙⴽⵏ and ability forms; read noun is derived and Comment vocabulary follows local software usage. Normal adjective, bound forms and full role/capability clauses remain LOW CONFIDENCE for native validation; component evidence does not prove full grammar. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "comment-assigned-only",
+    "before": "Commentaire assigné uniquement",
+    "after": "ⴰⵅⴼⴰⵡⴰⵍ: ⵖⴰⵙ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵜⵜⵓⴼⴽⴰⵏⵉⵏ",
+    "reason": "2026-09-14: Replace French assigned-only permission labels/descriptions. Preserve Only assigned cards visible in each role and distinct Normal-user editing, Read cannot edit, and Comment can only comment capabilities. sidebar.jade pairs each role with its description. Assignment provisionally uses Given cards as in earlier shortcuts; this responsibility-assignment adaptation, plural passive and visible passive forms remain LOW CONFIDENCE. Native MediaWiki attests Only ⵖⴰⵙ, User ⴰⵏⵙⵙⵎⵔⵙ, Read ⵖⵔ, Edit ⵙⵏⴼⵍ, Show ⵙⴽⵏ and ability forms; read noun is derived and Comment vocabulary follows local software usage. Normal adjective, bound forms and full role/capability clauses remain LOW CONFIDENCE for native validation; component evidence does not prove full grammar. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "comment-assigned-only-desc",
+    "before": "Seules les cartes assignées sont visibles. Commentaire uniquement.",
+    "after": "ⵖⴰⵙ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵜⵜⵓⴼⴽⴰⵏⵉⵏ ⴰⴷ ⵜⵜⵓⵙⴽⴰⵏⵏ. ⵜⵥⴹⴰⵕⴷ ⴰⴷ ⵜⵔⵏⵓⴷ ⵖⴰⵙ ⴰⵅⴼⴰⵡⴰⵍ.",
+    "reason": "2026-09-14: Replace French assigned-only permission labels/descriptions. Preserve Only assigned cards visible in each role and distinct Normal-user editing, Read cannot edit, and Comment can only comment capabilities. sidebar.jade pairs each role with its description. Assignment provisionally uses Given cards as in earlier shortcuts; this responsibility-assignment adaptation, plural passive and visible passive forms remain LOW CONFIDENCE. Native MediaWiki attests Only ⵖⴰⵙ, User ⴰⵏⵙⵙⵎⵔⵙ, Read ⵖⵔ, Edit ⵙⵏⴼⵍ, Show ⵙⴽⵏ and ability forms; read noun is derived and Comment vocabulary follows local software usage. Normal adjective, bound forms and full role/capability clauses remain LOW CONFIDENCE for native validation; component evidence does not prove full grammar. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
