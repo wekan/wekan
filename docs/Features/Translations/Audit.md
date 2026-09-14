@@ -92,4 +92,7 @@ Browser rendering and native fluency remain unverified.
 Start/end runtime checked **2026-09-14**, `bc9860dff`: real localized
 existence queries preserve present/absent date fields and reject unsupported
 sorting. Native/browser usage remains unverified.
+Creation runtime checked **2026-09-14**, `27f6c9d2a`: real translated
+filter/sort queries preserve createdAt and direction; invalid periods are
+rejected. Native/browser review remains unverified.
 Translation work continues.

@@ -1677,3 +1677,13 @@ French-pending export notes are superseded by this draft, not approval.
 Four source checks pass for complete ordered types, French negatives,
 tokens and protected newer values. One original and two unflagged repairs:
 original corrected 15,669; pending 233 (zgh 125); ledger 18,809.
+
+Creation runtime verification — 2026-09-14, `27f6c9d2a`.
+Actual Query parsing with the repaired Tamazight creation operator maps
+three-day filtering to createdAt, using deterministic date helpers.
+Invalid periods are rejected. The repaired creation sort predicate maps
+to createdAt for ascending and descending queries, preserving direction.
+The focused parser regression passes. This validates metadata dispatch,
+not date-library internals, native fluency or browser rendering. Export
+field metadata still maps dates to export-card-field-dates. Original
+pending remains 233; no locale values or audit counts change.

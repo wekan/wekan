@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/27f6c9d2a">Verify creation filtering and sorting labels</a>. Thanks to xet7.</summary>
+
+Exercise Tamazight creation filter and both sort directions through the
+actual parser; reject invalid periods. The focused regression passes.
+Native/browser review remains open in the translation audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/49aec4fa9">Draft export dates and creation labels</a>. Thanks to xet7.</summary>
 
 Replace French Tamazight export/date labels while preserving all five
