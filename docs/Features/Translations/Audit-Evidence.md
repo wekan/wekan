@@ -28384,3 +28384,27 @@ ledger, retained reviews and completeness. No live UI test ran. Ledger
 19,839; original corrected 15,728, pending 175 (zgh 80), restored 4
 unchanged. Revising prior repairs does not resolve new original queue
 findings. Broader review remains open. No remote writes.
+
+
+## CSV/TSV import guidance — 2026-09-15
+
+Local source fix `cc2b110ba` replaces French
+`import-board-instruction-csv` prose with Tamazight. CSV and TSV remain
+literal format names; the alternatives distinguish comma-separated values
+from tab-separated values.
+
+Cached IRCAM general English dictionary evidence: page 498 entry 9393
+`slɣ` means paste/stick/glue, rather than the food-paste homograph; page
+263 entry 5110 `atig`, plural `atign`, includes value; page 686 entry
+12946 `tiskrt`, plural `tiskrin`, includes the neologism comma. Entry
+5765 supports separate/divide, and entry 4259 supplies letters/characters.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+**Low confidence:** computing paste/value adaptations, passive
+`ⵉⵜⵜⵓⴱⴹⴰⵏ` and full contextual grammar remain open. Literal `Tab` is a
+borrowed technical term, not an attested native separator name.
+
+Four focused suites pass: Tamazight wording, correction ledger, retained
+reviews and completeness. No live UI or runtime import test ran. Ledger
+19,840; original corrected 15,729, pending 174 (zgh 79), restored 4
+unchanged. Broader review remains open. No remote writes.

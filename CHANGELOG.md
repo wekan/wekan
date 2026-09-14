@@ -791,6 +791,16 @@ Dated audit retains 175 pending original findings.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cc2b110ba">Repair Tamazight CSV and TSV import guidance</a>. Thanks to xet7.</summary>
+
+Replace French import guidance with paste, values and separator wording,
+keeping CSV and TSV literal. Four focused translation suites pass.
+Computing adaptations, passive grammar and borrowed Tab terminology
+remain under native review. Dated audit records 174 pending findings.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
