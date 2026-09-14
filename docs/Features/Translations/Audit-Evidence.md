@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight assignee and user search — 2026-09-14
+
+Commit `129fa829e` repairs two original French instructions. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) userlogin-yourname directly supplies Username. Reuse existing member operator relative clause and local Assigned Person Given Card paraphrase; reuse alone is not independent full-language validation. Preserve exact operator tokens, colon/code ticks, repeated angle-bracket parameter and emphasis. Assignee operator means assignee only; user operator means MEMBER OR ASSIGNEE. Role paraphrase and whole grammar remain LOW CONFIDENCE. 362 original findings remain pending, including 227 Tamazight; all 18,038 mechanical correction checks pass. Restored, unflagged and earlier uncertain wording remain in scope. Browser verification and remote uploads were not performed.
+
 ## Tamazight card mention activity — 2026-09-14
 
 Commit `1493cc244` repairs one original French finding. Search-indexed [IRCAM conjugation manual](https://www.temehu.com/imazighen/dictionaries/Amawals/manuel-de-conjugaison-Tamazight-Tifinagh-IRCAM.pdf) supplies bdr Mention; direct access redirects to dictionary HTML, not inspected PDF. [Native Mastodon](https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json) notification.follow supports object k only, not mention verb. Actor/object grammar, Swimlane-as-Path adaptation and full phrase remain LOW CONFIDENCE. Preserve YOU, card/comment/list/swimlane/board and five exact placeholders. 364 original findings remain pending, including 229 Tamazight; all 18,036 mechanical correction checks pass. Restored, unflagged and earlier uncertain wording remain in scope. Browser verification and remote uploads were not performed.
