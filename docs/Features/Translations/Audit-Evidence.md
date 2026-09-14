@@ -1,5 +1,14 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `925a40f58`: French board-icon instructions repaired. Preserve
+Drag AND Drop icons TO change THEIR ORDER, distinct from Click an icon TO
+Open its board. Native MediaWiki supports loan Click kliki and Change snfl;
+reuse previously reviewed dictionary Drag, indexed Place, proposed Icon,
+cross-variety Order and local Board/Open. These do not prove full Moroccan
+software wording; board plural, Drop adaptation, icon/order proposals and
+purpose clauses remain low confidence. All 18,100 correction checks pass;
+318 original findings remain pending, including 183 Tamazight.
+
 2026-09-14 — `b6b30d0a4`: Clipboard OR Drag AND Drop label repaired from
 French, preserving alternative methods and combined drag/drop action.
 Inspected Wiktionary Central Atlas zughr Drag entry cites Penchoen 1973,
