@@ -106,6 +106,10 @@ Latest translation fix is 5dca9f38d (2026-09-14), replacing nine archive
 controls, including eight unflagged values. Noun/action and object scopes
 are preserved. Ministry noun evidence is indexed; direct access timed out.
 Full labels remain low confidence.
+Archive provenance follow-up fbe388603 (2026-09-14) directly inspects the
+native Archives du Maroc logo in a university PDF, corroborating the noun
+beyond indexed evidence. Nine records updated; no values/counts changed.
+Full kanban labels remain low confidence.
 Logo provenance follow-up 89f36d41f (2026-09-14) applies the dictionary's
 cross-variety preface to two earlier URL records. Native caption evidence
 remains separate; full labels stay low confidence. No values/counts changed.
@@ -2654,6 +2658,17 @@ selection scopes. Ministry indexed noun evidence is provisional because
 direct access timed out; full labels remain low confidence. All 17,924
 correction checks pass, including placeholders and translation preference.
 414 originals remain pending; wider language and browser validation remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fbe388603">Corroborate Tamazight archive noun from institutional logo</a>. Thanks to xet7.</summary>
+
+2026-09-14: Directly inspect the native Archives du Maroc logo embedded in a
+University Mohammed V press release. Add lexical provenance to nine archive
+records; the French body is not native evidence. Institutional-to-kanban
+adaptation and full labels remain low confidence. All 17,924 correction
+checks pass; no values/counts changed. Wider validation remains open.
 
 </details>
 
