@@ -130793,5 +130793,19 @@
     "before": "Indian national",
     "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ⴰⵏⴰⵎⵓⵔ ⵏ ⵍⵀⵉⵏⴷ",
     "reason": "Replace English Indian national calendar with adapted Moroccan calendar/national/of India wording. CLDR supports calendar and India, Moroccan dictionary supports national adjective. Low confidence full calendar naming remains under broader native/browser review."
+  },
+  {
+    "locale": "iu",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Dangi (ᐅᓪᓗᖅᓯᐅᑎ)",
+    "reason": "Use exact named calendar from English with independently attested Inuktitut calendar noun. Low confidence combined display-label naming requires broader native/browser review."
+  },
+  {
+    "locale": "iu",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Minguo (ᐅᓪᓗᖅᓯᐅᑎ)",
+    "reason": "Use exact named calendar from English with independently attested Inuktitut calendar noun. Low confidence combined display-label naming requires broader native/browser review."
   }
 ]

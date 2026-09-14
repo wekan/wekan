@@ -251,3 +251,10 @@ assert.equal(inuktitut.delete, 'Piirli');
 assert.doesNotMatch(inuktitut.edit, /ᐊᓯᔾᔨᖅᑕᐅᔪᖅ/);
 assert.doesNotMatch(inuktitut.delete, /ᐲᖅᑕᐅᔪᖅ/);
 assert.notEqual(inuktitut.edit, inuktitut.delete);
+
+for (const [key, name] of [['calendar-system-dangi', 'Dangi'], ['calendar-system-roc', 'Minguo']]) {
+ assert.equal(inuktitut[key], `${name} (${inuktitut.calendar})`);
+ assert.doesNotMatch(inuktitut[key], /Korean|Republic of China/);
+}
+assert.notEqual(inuktitut['calendar-system-dangi'], inuktitut['calendar-system-roc']);
+assert.notEqual(inuktitut['calendar-system-roc'], inuktitut['calendar-system-chinese']);
