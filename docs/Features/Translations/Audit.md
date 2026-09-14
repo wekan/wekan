@@ -4,22 +4,23 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,582 |
+| Corrected | 15,583 |
 | Restored pre-pull; awaiting validation | 59 |
 | Reviewed; retained unchanged | 4,132 |
-| Pending review or repair | 308 |
+| Pending review or repair | 307 |
 | Total tracked | 20,081 |
 
 Review is ongoing. The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,185** exact before/after values, including unflagged repairs.
+contain **18,186** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `93f284c8a` —
-Swedish Due Cards labels now include future deadlines instead of implying
-only overdue cards. Actual selector and sorting include future due dates.
-Regression tests drive the real sorting helper with past and future cards.
-All **18,185** correction and **4,132** review records pass.
+Latest translation fix: **2026-09-14**, local commit `ed5a0d879` —
+Greenlandic calendar setting no longer contains an Azerbaijani seed.
+Calendar/date-display vocabulary is localized. Compound grammar is provisional
+and needs native review; six flagged calendar variants remain unresolved.
+Regression rejects the previous seed. All **18,186** correction and **4,132**
+review records pass.
 Veps terminology, shared trigger grammar and browser validation remain open.
 Attachment/member rule participles still need context-specific agreement.
 Three Esperanto restored findings remain: lime color and two Complete labels.
@@ -55,7 +56,7 @@ Reviewed subtask actions/settings retain correct subordinate-task compounds.
 | tig — Tigre | 17 |
 | wal — Wolaytta | 17 |
 | ve-PP — Veps | 10 |
-| kl — Greenlandic | 7 |
+| kl — Greenlandic | 6 |
 | dz — Dzongkha | 3 |
 | gv — Manx | 3 |
 | bm — Bambara | 2 |

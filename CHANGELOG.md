@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,582 corrected, 59 restored pre-pull values awaiting
-validation, 4,132 reviewed and retained, and 308 pending review or repair.
-The correction inventory records 18,185 exact before/after values,
+findings: 15,583 corrected, 59 restored pre-pull values awaiting
+validation, 4,132 reviewed and retained, and 307 pending review or repair.
+The correction inventory records 18,186 exact before/after values,
 including repairs outside the original findings.
 Global completeness verification also identifies Veps `server` (currently
 English-identical “Server”) for terminology review; it is not accepted yet.
@@ -109,8 +109,9 @@ performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have
 resumed.
-Latest translation fix is 93f284c8a (2026-09-14): three Swedish Due Cards
-labels now describe cards with due dates, including future deadlines.
+Latest translation fix is ed5a0d879 (2026-09-14): Greenlandic calendar
+setting replaces an Azerbaijani seed. Compound grammar remains provisional
+and needs native review; six flagged calendar variants are still unresolved.
 Latest unchanged-value review is be334a5bf (2026-09-14): two Valencian
 checklist search tokens retained after exercising the actual localized parser.
 Nine restored Valencian values, Uzbek Arabic-script and Breton wording,
@@ -648,7 +649,7 @@ This release documents the following translation fixes:
 
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
-**Languages updated:** Swedish, Valencian
+**Languages updated:** Greenlandic, Swedish, Valencian
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/264ca788c">Repair Valencian reflexive imperative and validate settings</a>. Thanks to xet7.</summary>
@@ -764,6 +765,16 @@ Retained two joined Valencian search tokens. Regression exercises the actual
 parser for quoted checklist text and positive/negative checklist presence;
 unknown fields are rejected. Exact review checks pass. Nine restored Valencian
 values and wider language/browser verification remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ed5a0d879">Replace wrong-language calendar setting</a>. Thanks to xet7.</summary>
+
+Greenlandic calendar/date-display wording replaces an Azerbaijani seed.
+Regression rejects the previous text; exact correction checks pass. Compound
+grammar remains provisional and needs native review. Six flagged Greenlandic
+calendar variants and broader language/browser verification remain open.
 
 </details>
 

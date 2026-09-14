@@ -22617,3 +22617,11 @@ executes actual config/search-const.js and config/query-classes.js with
 Valencian labels, checking quoted checklist text, present/absent checklist
 predicates and rejection of unknown fields. All cases pass. No locale values
 changed. Nine restored Valencian values and live browser review remain open.
+
+Dated repair, 2026-09-14, local commit `ed5a0d879`: Greenlandic
+calendar-system replaces Azerbaijani Kalendar sistem (data görünüşü) with
+Ullorsiutit aaqqissuussaanerat (ullunik takutitsineq). Government calendar
+usage https://socialstyrelsen.gl/6_kursuskatalog/aktivitetskalender?sc_lang=kl-gl
+supports ullorsiutit. Compound grammar remains provisional; native review and
+six calendar variants remain open. Regression rejects the wrong-language seed;
+18,186 exact corrections pass placeholder, JSON and key-order checks.
