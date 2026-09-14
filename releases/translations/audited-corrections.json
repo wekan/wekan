@@ -126684,5 +126684,12 @@
     "before": "نسخ رابط البطاقة إلى الحافظة",
     "after": "ⵙⵙⵏⵖⵍ ⴰⵙⵖⵏ ⵏ ⵜⴽⴰⵕⴹⴰ ⵖⵔ «ⵖⴼ ⵓⴼⵓⵙ»",
     "reason": "2026-09-14: Replace wrong-language copy action preserving Text versus Card Link object and clipboard destination. Directly inspected CNAM PDF page 112 Clipboard ghef ufus at hand KBL (https://cedric.cnam.fr/~bouzefra/books/amawal.pdf); this is a Kabyle metaphor, not normative Moroccan software usage. Native MediaWiki filecopyerror/viewsourcetext support Copy ssnghl, missing-article supports Link asghn, and missing-article supports Text adhris (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Adapt the clipboard phrase as a quoted technical term, reusing local card noun. Copy imperative, Kabyle clipboard borrowing, bound card form and full action phrases remain low confidence and require Standard Moroccan language validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "clipboard",
+    "before": "Presse-papier ou glisser-déposer",
+    "after": "«ⵖⴼ ⵓⴼⵓⵙ» ⵏⵖ ⵣⵓⵖⵔ ⴷ ⵙⵙⵔⵙ",
+    "reason": "2026-09-14: Replace French Clipboard or Drag and Drop, retaining OR between methods and AND within drag/drop. Direct CNAM PDF page 112 Clipboard ghef ufus KBL metaphor retained as quoted term (https://cedric.cnam.fr/~bouzefra/books/amawal.pdf). Inspected Wiktionary Central Atlas entry zughr Drag cites Penchoen 1973 Ayt Ndhir page 104; original book not inspected (https://en.wiktionary.org/wiki/%E2%B5%A3%E2%B5%93%E2%B5%96%E2%B5%94). Prior indexed IRCAM Asinag 9 printed page 173 glosses ssrs it da Place it here, direct PDF failed (https://tal.ircam.ma/talam/Articles/Ataa%20Allah-etiq-Asinag9.pdf). Adapt Drop as Place. Kabyle clipboard borrowing, dialect command adaptation, Drop-as-Place and full phrase remain low confidence; require Standard Moroccan software language validation."
   }
 ]
