@@ -27464,3 +27464,19 @@ The Arabic smtp-port label and French smtp-port-description remain open,
 including the complete outgoing-email clause. No locale value, acceptance
 or correction count changes in this evidence review. Original pending
 206, zgh 103; restored 4 and all broader uncertain findings remain open.
+
+## Unsaved card description warning — 2026-09-15
+
+Local commit `ed8256d45` replaces the unflagged Arabic unsaved-description
+warning with a Tamazight draft retaining possession and not-yet-saved status.
+[Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json)
+new-messages supplies ghurk possession;
+rcfilters-quickfilters-placeholder-title supplies not-yet-saved passive
+wording for a feminine filter. IRCAM PDF page 42 entry 486 attests aglam
+as description. Adapting the passive to a masculine description is
+**low confidence**, and the full clause remains under native review.
+CardDetails.jade line 913 renders this warning; four focused suites pass
+for vocabulary, negative status, source registration, exact placeholders,
+key order, provenance and newer human translations. No live UI test ran.
+Ledger 19,778; original pending 206 (zgh 103) and restored 4 unchanged.
+All broader uncertain findings remain open. No remote push.
