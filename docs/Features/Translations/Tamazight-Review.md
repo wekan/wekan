@@ -635,3 +635,26 @@ not a verified mathematical entry. `swimlane-height-error-message` and
 until full native numeric terminology is established. No translation or
 classification changed. Live counts remain 272 pending/four restored;
 this follow-up strengthens source boundaries, not a fluency claim.
+
+## SMTP TLS description repair — 2026-09-14
+
+Local commit `086a02734` replaces Arabic `smtp-tls-description` with
+an adapted enable-TLS-use-for-SMTP-computer-server clause. Primary IRCAM
+General Dictionary PDF page 537, entry 10106, gives activate; page 236,
+entry 4544, gives use `ⴰⵙⵎⵔⵙ`; page 120, entry 2157, gives the exact
+computer-server compound and the noun's construct form. The full phrase
+retains literal `TLS` and `SMTP`, avoiding a physical support noun.
+
+SettingBody.jade binds this checkbox to mailConfiguration.secure; its
+JavaScript saves mailServer.enableTLS, and mailTransport.js reads secure.
+The repaired prose therefore describes enabling TLS use on this SMTP
+server, not generic help/support or authentication. This source review
+does not claim unchecked means all TLS negotiation is disabled. **Low
+confidence** remains for the full technical clause, preposition and
+genitive agreement. The component entries are not a full attested warning.
+Four focused translation checks pass, preserving placeholders, protocol
+names and enabled-action wording; no live browser validation ran.
+
+The repaired CLI updater reconstructs both count tables: 15,631 corrected,
+271 pending (158 Tamazight), four restored and 4,175 retained; 18,726
+ledger records. Broader native and runtime verification remain open.

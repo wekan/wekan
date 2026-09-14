@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/086a02734">Repair Tamazight SMTP TLS description</a>. Thanks to xet7.</summary>
+
+Replace Arabic with verified native components for enabling TLS use on the
+SMTP computer server. Preserve protocol names and the setting's action.
+Four checks pass; full native phrasing and browser review remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/726abda52">Expand Veps software-sense evidence</a>. Thanks to xet7.</summary>
 
 Record top-position forms and stationary/movement distinctions. Reject
