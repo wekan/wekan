@@ -52,15 +52,7 @@ https://wekan.fi/status/
 
 </details>
 
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/bdf511a2b">Keep RTL language marker on the first line</a>. Thanks to xet7.</summary>
 
-The language picker shows (RTL) beside the language name without splitting
-its letters. The parenthesized regional name stays on the second line.
-Focused layout checks pass; both-direction browser coverage is syntax checked
-but remains unexecuted.
-
-</details>
 
 <details>
 <summary>TODO Later</summary>
@@ -644,6 +636,8 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
+
+
 **In short:** **Swedish and Valencian translations** clarify Due Cards to
 include future deadlines and repair reflexive imperative and checklist wording.
 Reviews retain correct Valencian settings, Thai interface labels and Swedish
@@ -652,6 +646,17 @@ and newer translations; broader language, shared trigger grammar and browser
 verification remain open.
 
 This release documents the following translation fixes:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bdf511a2b">Keep RTL language marker on the first line</a>. Thanks to xet7.</summary>
+
+The language picker shows (RTL) beside the language name without splitting
+its letters. The parenthesized regional name stays on the second line.
+Focused layout checks and both LTR/RTL Chromium browser tests pass, including
+first-line marker placement, an intact (RTL) marker and a separate region row.
+The browser assertion accepts whitespace between the regional flag and name.
+
+</details>
 
 **Translation audit** - Native wording and provenance reviews.
 

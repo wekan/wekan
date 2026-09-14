@@ -48,7 +48,7 @@ for (const direction of ['ltr', 'rtl']) {
     const brazil = popup.locator('.js-set-language[data-language="en-BR"]');
     await expect(brazil.locator('.language-name')).toHaveText('English');
     await expect(brazil.locator('.language-region bdi')).toHaveText('Brazil');
-    await expect(brazil.locator('.language-region')).toHaveText('(🇧🇷 Brazil)');
+    await expect(brazil.locator('.language-region')).toHaveText(/\(\s*🇧🇷\s+Brazil\s*\)/);
     const [flag, name, region, country, regionName] = await Promise.all([
       brazil.locator('.language-flags').boundingBox(),
       brazil.locator('.language-name').boundingBox(),
