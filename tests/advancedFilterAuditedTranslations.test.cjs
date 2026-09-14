@@ -48,6 +48,9 @@ const examples = ['== != <= >= && || ( )', 'Field1 == Value1', "'Field 1' == 'Va
     'full help repair is tracked without claiming native fluency');
   assert.doesNotMatch(tamazightHelp, /Advanced Filter allows|For Example|Normally/);
   assert.ok(tamazightHelp.startsWith(read('zgh')['advanced-filter-label']));
+  assert.match(tamazightHelp, /ⵜⴰⵙⴽⴰⵔⵉⵏ.*'Field 1'/);
+  assert.match(tamazightHelp, /ⵜⵉⵙⴽⵉⵡⵉⵏ.*F1 == V1 &&/);
+  assert.doesNotMatch(tamazightHelp, /ⵜⵉⵙⵇⵇⵍⵜⵉⵏ|ⵜⵓⵛⵛⵉⵍ/);
   assert.match(read('lt')['advanced-filter-description'], /Išplėstinis filtras/);
   assert.match(read('mn')['advanced-filter-description'], /Нарийвчилсан шүүлтүүр/);
   assert.match(read('el')['advanced-filter-description'], /προηγμένο φίλτρο/);
