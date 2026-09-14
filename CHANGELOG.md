@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,356 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 488 pending review or repair.
-The correction inventory records 17,714 exact before/after values,
+The correction inventory records 17,717 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 2f6cd4b30 (2026-09-14), replacing six Arabic Add
-labels and popup headings. Preserve Board, Card, List and plural Members;
-complete kanban commands remain low confidence and need fluent review.
+Latest translation fix is c59491dbb (2026-09-14), replacing three Arabic
+member/board settings and member-edit labels. Preserve singular settings
+ownership and plural member editing; full phrases remain low confidence.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -626,7 +626,7 @@ remain open.
 Translation audit progress as of 2026-09-14: 15,356 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
 and 488 remain pending across 17 locales, including 353 Tamazight findings.
-The ledger contains 17,714 correction records, including unflagged repairs.
+The ledger contains 17,717 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -1690,6 +1690,17 @@ Replace six Arabic Add labels and matching popup headings. Preserve singular
 Board, Card and List, plural Members and the Add action. Native component
 terms are supported; complete kanban commands remain low confidence and
 need fluent review. All 17,714 correction/rendering checks pass; 488 original
+findings remain pending.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c59491dbb">Translate Tamazight member and board settings labels</a>. Thanks to xet7.</summary>
+
+Replace three Arabic labels, preserving singular Member Settings, singular
+Board Settings and plural Edit members. Native component vocabulary is
+supported; full kanban phrases and bound forms remain low confidence and
+need fluent review. All 17,717 correction/rendering checks pass; 488 original
 findings remain pending.
 
 </details>
