@@ -661,6 +661,17 @@ The browser assertion accepts whitespace between the regional flag and name.
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/59541a5ae">Kashmiri tabular Hijri calendar labels</a></summary>
+
+Replace English tabular and inappropriate social wording with Kashmiri
+drafts distinguishing both Julian epochs. Four focused suites pass;
+complete technical compounds remain under native review.
+
+Thanks to xet7.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a00a983c1">Tamazight migration help</a></summary>
 
 Replace French help with a Tamazight draft retaining board integrity

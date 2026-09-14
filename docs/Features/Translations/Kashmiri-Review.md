@@ -73,3 +73,28 @@ Four focused suites pass: exact source placeholders/tags and key order,
 correction provenance, newer translations and the specific label. No live
 calendar-selector browser test was run. Ledger 19,768, original corrected
 15,688, pending 215 (Kashmiri 1), restored 4 unchanged. No remote push.
+
+## Tabular Hijri drafts and civil-word revision — 2026-09-15
+
+Local commit `59541a5ae` repairs the English tabular label and revises the
+previous civil label's inappropriate social-word rendering. Both use the
+existing Hijri/calendar, table and starting components, plus arithmetic
+حساب attested explicitly in the
+[primary Bharatavani Hindi–Kashmiri–English dictionary](https://bharatavani.in//kashmiri/dictionarysurf/?did=485&language=Hindi),
+entry अंकगणित. This is arithmetic-word evidence, not a full calendar name.
+[Unicode CLDR calendar definitions](https://cldr.unicode.org/development/development-process/design-proposals/islamic-calendar-types)
+distinguish tabular civil 622-07-16 from astronomical 622-07-15, both Julian.
+The explicit ISO starting dates preserve that distinction without confusing
+the astronomical epoch with lunar observation. Original civil provenance
+and revision reasons remain in the correction ledger.
+
+**Low confidence:** the table-arithmetic compound, starting-date/epoch
+formulation, Julian borrowing and complete Arabic-script grammar remain
+under native review. Existing source terminology reuse is not independent
+proof of those complete phrases. Four focused suites pass, including
+negative coverage excluding the old social wording, distinct dates, exact
+placeholders, original provenance and newer human translations. A prior
+regression expectation for the superseded civil wording was updated.
+No live calendar-popup browser test ran. Ledger 19,781; original corrected
+15,700, pending 203, restored 4. Kashmiri has no original pending flags,
+but these drafts and earlier sighting agreement remain open. No push.

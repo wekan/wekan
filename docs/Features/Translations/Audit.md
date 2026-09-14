@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-15**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,699 |
+| Corrected | 15,700 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,174 |
-| Pending review or repair | 204 |
+| Pending review or repair | 203 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,14 +16,14 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `a00a983c1` — Tamazight migration
-help replaces French with a draft retaining integrity checks, repairs and
-individual execution. Four focused suites pass. Ledger 19,780; original
-pending 204 (zgh 101), restored 4 unchanged. Full compound and independent-
-execution grammar and all uncertain findings remain open.
+Latest translation fix: **2026-09-15**, `59541a5ae` — Kashmiri tabular
+Hijri drafts replace English and inappropriate social wording, distinguishing
+the two Julian epochs. Four focused suites pass. Ledger 19,781; original
+pending 203, restored 4 unchanged. Kashmiri flags resolved; complete calendar
+compounds, sighting agreement and all broader uncertain reviews remain open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,780** exact before/after values, including unflagged
+records contain **19,781** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -50,7 +50,6 @@ restored values still await full native clause validation.
 | ve-PP — Veps | 9 |
 | dz — Dzongkha | 2 |
 | ee — Ewe | 1 |
-| ks — Kashmiri | 1 |
 | rup — Aromanian | 1 |
 
 Remaining review includes all restored, unflagged and prior low-confidence
