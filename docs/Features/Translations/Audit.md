@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,348 |
+| Corrected | 15,353 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 496 |
+| Pending review or repair | 491 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,685** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,690** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `830c3ed03` — replaced the Arabic Tamazight Confirm button with exact native software confirmation wording, preserving its distinction from invitation acceptance and confirmation questions. All **17,685** correction/rendering checks pass. This unflagged repair leaves **496** originals pending across **17** locales, including **361** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `ecfa47b9e` — replaced five French Tamazight workspace Add, Edit and Name labels, preserving actions and singular scope. Native institutional space usage corroborates the noun; the WeKan workspace extension, bound form and complete labels remain **low confidence** and require fluent review. All **17,690** correction/rendering checks pass. **491** originals remain pending across **17** locales, including **356** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Troubleshooting review (2026-09-14, `ccd2ff8b0`):** [Evidence](Audit-Evidence.md) separates native server/error vocabulary from indexed cross-dialect execution/installation terms. Complete Moroccan instructions remain unresolved; retain both literal commands and their snap/Docker installation conditions. No locale values or counts changed.
 

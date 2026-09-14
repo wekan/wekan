@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,348 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 496 pending review or repair.
-The correction inventory records 17,685 exact before/after values,
+findings: 15,353 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 491 pending review or repair.
+The correction inventory records 17,690 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (361) and
+The largest original queues are Standard Moroccan Tamazight (356) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 830c3ed03 (2026-09-14), replacing the Arabic
-Tamazight Confirm button with native software confirmation wording.
-Invitation acceptance and full confirmation questions remain separate review items.
+Latest translation fix is ecfa47b9e (2026-09-14), replacing five French
+workspace Add, Edit and Name labels. Native space usage supports the noun,
+but the WeKan extension, bound form and full labels remain low confidence.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -623,10 +623,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,348 original findings are
+Translation audit progress as of 2026-09-14: 15,353 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 496 remain pending across 17 locales, including 361 Tamazight findings.
-The ledger contains 17,685 correction records, including unflagged repairs.
+and 491 remain pending across 17 locales, including 356 Tamazight findings.
+The ledger contains 17,690 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -1608,6 +1608,17 @@ Replace the Arabic Confirm label with the exact native software
 confirmation-button wording. Preserve its distinction from invitation
 acceptance and the confirmation question. All 17,685 correction/rendering
 checks pass; 496 original findings remain pending.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ecfa47b9e">Translate Tamazight workspace add edit and name labels</a>. Thanks to xet7.</summary>
+
+Replace five French values, preserving Add, Edit and Name distinctions and
+singular workspace scope. Native institutional space usage corroborates the
+noun; its WeKan workspace application, bound form and full labels remain
+low confidence. All 17,690 correction/rendering checks pass; 491 original
+findings remain pending, including 356 Tamazight findings.
 
 </details>
 
