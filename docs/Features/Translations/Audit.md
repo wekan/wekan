@@ -29,11 +29,10 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Wolaytta full-source verification](Tigre-Wolaytta-Calendar-Review.md)
-confirms the showing-word component from the actual native article and
-matching English publication. Previous fetch limitation is superseded;
-software-display adaptation and full clause grammar remain open. No counts
-or locale values changed.
+[Wolaytta dictionary verification](Tigre-Wolaytta-Calendar-Review.md)
+finds 207 empty target cells on the advertised B page, confirmed in actual
+HTML. Its English headings cannot justify native Buddhist terminology.
+The label remains open; no locale values or counts changed.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

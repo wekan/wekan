@@ -159,3 +159,24 @@ the complete calendar-method/qualifier construction. Reading this source
 does not certify that full UI phrase. No locale value or acceptance
 changes; original pending 196 (Wolaytta 10), restored 4, ledger 19,792.
 Broader native, uncertain and unflagged reviews remain open. No push.
+
+## Wolaytta dictionary catalogue verification — 2026-09-15
+
+The advertised
+[English–Welaytta dictionary B page](https://ethiopiadictionary.com/online-dictionary/?from=English&language=Welaytta&letter=B)
+was opened and downloaded successfully to
+.tools/tmp/wolaytta-dictionary-review/letter-b.html (about 260 KiB).
+Its dictionary table contains 207 English headword rows and 207 empty
+Welaytta target cells; direct HTML inspection confirms this is not merely
+a web-parser omission. Buddhist does not occur in the fetched page.
+The catalogue heading and English definitions therefore cannot justify
+Wolaytta terminology, including the remaining Buddhist-calendar label.
+This bounded observation does not prove the language lacks a term or that
+every page of this dictionary is empty.
+
+Searches for Buddhist spellings also returned unrelated-language material;
+none was used as Wolaytta evidence. The next repair needs native prose or
+a populated dictionary entry, rather than copying another language's
+spelling. No locale value or acceptance changed. Pending 196 (Wolaytta
+10), restored 4 and ledger 19,792 unchanged. All broader uncertain reviews
+remain open. No remote push.
