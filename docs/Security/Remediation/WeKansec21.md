@@ -12,7 +12,7 @@ Reporter credit in the advisories: Wenhao Wu, Southeast University.
 | Linked-card source writes by comment-only members | Pending full source and reproduction review. |
 | Removed-member acceptInvite reentry | Pending full source and reproduction review. |
 | REST board title writes by normal members | Pending full source and reproduction review. |
-| moveList clone/archive by comment-only members | Pending full source and reproduction review. |
+| moveList clone/archive by comment-only members | Confirmed and repaired in `9b1fb5214`, including moveSwimlane, moveChecklist, importScoped, renameAttachment and changeHistory write siblings. Canonical role decisions, reported method attack and sibling guard inventory pass; browser regression syntax-check passes, live execution pending. Bounded Problems key `authz.mutation`; Hall of Fame and critical changelog updated. |
 | Button-rule cross-board writes | Pending full source and reproduction review. |
 | Cross-board comment creation | Pending full source and reproduction review. |
 | Unvalidated subtask deposit-board disclosure | Pending full source and reproduction review. |

@@ -626,7 +626,7 @@ need language review.
 
 This release includes the following translation repairs and build verification:
 
-This release fixes the following CRITICAL SECURITY ISSUE:
+This release fixes the following CRITICAL SECURITY ISSUES:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/962debc12">Enforce private-only board visibility in server methods</a></summary>
@@ -638,7 +638,26 @@ appear as bounded Admin Panel Problems summaries; logging failures cannot
 break the policy. Reporter: Wenhao Wu, Southeast University.
 Positive policy, negative board-insert inventory and Hall of Fame catalog
 coverage pass. Browser regression is added and syntax-checked; live execution
-remains pending. Nine other wekansec21 reports remain under review.
+remains pending. The remaining wekansec21 review is tracked in the
+security remediation report.
+
+Thanks to Wenhao Wu, Southeast University and xet7 !
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9b1fb5214">Require write capability for board mutations</a></summary>
+
+MutationBleed: membership-only method checks allowed comment-only and
+other non-writing roles to mutate data (CWE-863). List and swimlane moves
+now require write access on both boards; checklist moves check both card
+boards. Scoped imports, attachment renames and history writes use the same
+canonical role policy. The No comments role retains its intended write
+access. Denied writes produce bounded Problems summaries; logger failures
+cannot bypass the guard.
+Role-matrix, method-attack and sibling inventory tests pass. Browser
+regression is added and syntax-checked; live execution remains pending.
+Eight other wekansec21 reports remain under review.
 
 Thanks to Wenhao Wu, Southeast University and xet7 !
 
