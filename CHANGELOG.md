@@ -801,6 +801,16 @@ remain under native review. Dated audit records 174 pending findings.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8362a8a2e">Repair Tamazight custom head-tag activation label</a>. Thanks to xet7.</summary>
+
+Replace French activation text with Tamazight, keeping HTML head scope
+explicit. Four focused translation suites pass. Borrowed technical wording
+and full compound remain under native review. Audit records 173 pending
+findings.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

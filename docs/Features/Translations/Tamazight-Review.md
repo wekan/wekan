@@ -3218,3 +3218,21 @@ spelling was found in the cached MediaWiki Tamazight file; that limited
 search does not invalidate IRCAM or prove absence in native usage.
 No translation or classification changed. Pending 174, zgh 79. No live
 ZIP import or UI test ran; no remote writes were made.
+
+
+## Custom head-tag activation — repair 2026-09-15
+
+Source commit `8362a8a2e` replaces French `custom-head-tags-enabled`.
+IRCAM page 537 entry 10106 attests `ssrfu` activate. Existing adjacent
+`custom-head-meta-tags` and `custom-head-link-tags` supply custom-tag
+terminology. Borrowed `head (HTML)` preserves document-head scope;
+it is not presented as a native lexical attestation.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+`client/components/settings/settingBody.jade:555` renders this label beside
+`.js-toggle-custom-head`, with checked state from customHeadEnabled.
+Regression checks retain activate, custom tags and head scope and reject
+French/Arabic prose. Four focused suites pass; no live UI test ran.
+Full software compound and agreement remain low confidence. Ledger
+19,841; original corrected 15,730, pending 173 (zgh 78), restored 4
+unchanged. Broader review remains open; no remote writes.
