@@ -124052,5 +124052,12 @@
     "before": "Republic of China",
     "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ Minguo",
     "reason": "2026-09-14: Replace English Republic of China with native Calendar noun and preserve exact Minguo calendar name from English source Minguo Calendar. Current CLDR zgh localeDisplayNames/keys/calendar supplies asmlussan; no full roc calendar display name is supplied there. Do not substitute a Chinese language name or generic Chinese calendar, which would identify a different system. LOW CONFIDENCE complete mixed-script naming: native generic Calendar is supported, but full Standard Moroccan Minguo display name still needs fluent review. Reference: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml ."
+  },
+  {
+    "locale": "zgh",
+    "key": "office-people",
+    "before": "الناس",
+    "after": "ⵎⵉⴷⴷⵏ",
+    "reason": "2026-09-14: Replace Arabic People label with the exact native People label at emoji_button.people in current Mastodon zgh translation. Preserve generic people scope rather than substituting users or members. Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
   }
 ]
