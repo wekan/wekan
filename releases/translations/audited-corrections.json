@@ -131955,5 +131955,12 @@
     "before": "Le compte est temporairement verrouillé en raison de trop de tentatives de connexion échouées. Veuillez réessayer plus tard.",
     "after": "ⵉⵜⵜⵓⴳⴷⴰⵍ ⵓⵎⵉⴹⴰⵏ ⵉ ⵢⴰⵜ ⵜⵉⵣⵉ ⵎⵉⵏⵣⵉ ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⵓⴽⵛⵛⵓⵎ ⵙ ⵜⵓⴳⵜⵜ ⵏ ⵜⵉⴽⴽⴰⵍ. ⴰⵎⵓⵔ ⵏⵏⴽ, ⴰⵔⵎ ⴷⴰⵖ ⴷⴼⴼⵉⵔ.",
     "reason": "2026-09-14: Replace complete French account-lockout message with Tamazight draft. Describe a block for a period, repeated failed logins and retry later. Native MediaWiki blockedtext, passwordreset-emailtitle, wrongpassword and userlogin-authpopup-retry support block/account/login/please/retry; existing lockout-period supports time-period. Low confidence: complete causal clause and temporal retry collocation remain under native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "accounts-lockout-locked-users-info",
+    "before": "Utilisateurs actuellement verrouillés pour trop de tentatives de connexion en échec",
+    "after": "ⵉⵏⵙⵙⵎⵔⵙⵏ ⵜⵜⵓⴳⴷⵍⵏⵉⵏ ⵖⵉⵍⴰ ⵎⵉⵏⵣⵉ ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⵓⴽⵛⵛⵓⵎ ⵙ ⵜⵓⴳⵜⵜ ⵏ ⵜⵉⴽⴽⴰⵍ",
+    "reason": "2026-09-14: Replace complete French locked-users description. Preserve existing localized plural blocked-users subject, currently/ghila and repeated unsuccessful logins, consistent with account-locked. Native MediaWiki blockedtext supports blocking and login vocabulary; newer correct-language translations are retained. Low confidence: full causal phrasing and per-user reading require native review."
   }
 ]

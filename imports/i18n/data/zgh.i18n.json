@@ -2143,7 +2143,7 @@
   "accounts-lockout-failure-window": "ⵜⵉⵣⵉ ⵏ ⵉⵣⴳⴰⵍⵏ (ⵜⵉⵙⵉⵏⵉⵏ)",
   "accounts-lockout-settings-updated": "Les paramètres de protection contre la force brute ont été mis à jour",
   "accounts-lockout-locked-users": "Utilisateurs verrouillés",
-  "accounts-lockout-locked-users-info": "Utilisateurs actuellement verrouillés pour trop de tentatives de connexion en échec",
+  "accounts-lockout-locked-users-info": "ⵉⵏⵙⵙⵎⵔⵙⵏ ⵜⵜⵓⴳⴷⵍⵏⵉⵏ ⵖⵉⵍⴰ ⵎⵉⵏⵣⵉ ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⵓⴽⵛⵛⵓⵎ ⵙ ⵜⵓⴳⵜⵜ ⵏ ⵜⵉⴽⴽⴰⵍ",
   "accounts-lockout-no-locked-users": "ⵓⵔ ⵍⵍⵉⵏ ⵉⵏⵙⵙⵎⵔⵙⵏ ⵜⵜⵓⴳⴷⵍⵏⵉⵏ ⵖⵉⵍⴰ.",
   "accounts-lockout-failed-attempts": "Tentatives en échec",
   "accounts-lockout-remaining-time": "Temps restant",

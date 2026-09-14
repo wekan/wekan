@@ -114,3 +114,11 @@ assert.match(lockedMessage, /ⴰⵔⵎ ⴷⴰⵖ ⴷⴼⴼⵉⵔ\.$/);
 assert.doesNotMatch(lockedMessage, /compte|verrouillé|connexion|échouées|[\u0600-\u06ff]/u);
 assert.notStrictEqual(lockedMessage, translated['accounts-lockout-user-locked']);
 console.log('Tamazight temporary lockout retains reason, time limit and retry instruction');
+
+const lockedUsersInfo = translated['accounts-lockout-locked-users-info'];
+assert.match(lockedUsersInfo, /^ⵉⵏⵙⵙⵎⵔⵙⵏ ⵜⵜⵓⴳⴷⵍⵏⵉⵏ ⵖⵉⵍⴰ/);
+assert.match(lockedUsersInfo, /ⵎⵉⵏⵣⵉ.*ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⵓⴽⵛⵛⵓⵎ.*ⵜⵓⴳⵜⵜ ⵏ ⵜⵉⴽⴽⴰⵍ$/);
+assert.doesNotMatch(lockedUsersInfo, /Utilisateurs|verrouillés|tentatives|connexion|[\u0600-\u06ff]/u);
+assert.notStrictEqual(lockedUsersInfo, translated['accounts-lockout-no-locked-users']);
+assert.notStrictEqual(lockedUsersInfo, translated['account-locked']);
+console.log('Tamazight locked-users description retains plural subject, current state and login-failure reason');
