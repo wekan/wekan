@@ -1377,3 +1377,20 @@ Native/browser context review remains open; timing logic is unchanged.
 Four source checks pass with full-value positives, French negatives,
 token inventories, ordering and human preference. These keys were
 unflagged, so pending stays 250 and ledger rises to 18,783.
+
+Account tooltip drafts — 2026-09-14, `439ac5789`.
+Both French admin-people-user-active/inactive values become complete
+Tamazight drafts retaining user, account state, click and opposite action.
+The actual peopleBody.jade loginDisabled true branch uses inactive with
+activation; false uses active with deactivation. IRCAM Amazigh-English:
+user anssmrs (PDF 186, 3493), click kliki (333, 6391), activate ssrfu
+(537, 10106), be active zwr (727, 13652), switch off ssns (532, 10015).
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+Low confidence: finite/negative state verb, second-person purpose clause,
+and switch-off metaphor for account deactivation. These are assembled
+drafts, not attested whole sentences or browser-validated wording. The
+previous permanent-user alternative remains excluded. Earlier dated
+notes leaving these tooltips French are superseded, not native approval.
+Four source checks pass including exact components, French negatives,
+and protection against reversing activation/deactivation. Original
+corrected 15,658; pending 244 (zgh 136); ledger 18,789.

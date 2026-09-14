@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,656 |
+| Corrected | 15,658 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,175 |
-| Pending review or repair | 246 |
+| Pending review or repair | 244 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,13 +16,13 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `3a6936cce` —
-two Greenlandic tabular Hijri labels retain the method and distinct
-Friday/Thursday epochs in complete drafts. Four checks pass; paraphrase
-and native/browser grammar remain low confidence. Pending: 246.
+Latest translation fix: **2026-09-14**, local commit `439ac5789` —
+French Tamazight user-state tooltips become complete drafts preserving
+enabled/disabled state and the opposite click action. Four checks pass;
+finite/negative and purpose-clause grammar remain low confidence. Pending: 244.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,787** exact before/after values, including unflagged
+records contain **18,789** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -40,7 +40,7 @@ restored values still await full native/browser validation.
 
 | Pending locale | Findings |
 | --- | ---: |
-| zgh — Standard Moroccan Tamazight | 138 |
+| zgh — Standard Moroccan Tamazight | 136 |
 | iu — Inuktitut | 38 |
 | nah — Nahuatl | 17 |
 | tig — Tigre | 17 |

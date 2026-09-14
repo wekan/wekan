@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/439ac5789">Repair Tamazight account-status tooltips</a>. Thanks to xet7.</summary>
+
+Replace French with complete state and click-action drafts. Preserve the
+opposite activation/deactivation actions and record grammar caveats.
+Four translation checks pass; native and browser review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3a6936cce">Translate Greenlandic tabular Hijri epoch labels</a>. Thanks to xet7.</summary>
 
 Retain the table-based method and distinct Friday and Thursday epochs.
