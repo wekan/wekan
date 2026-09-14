@@ -598,7 +598,8 @@ date formatter while preserving the selected calendar. The release script
 now requires actual **Upcoming release notes** before installing tools or
 changing release files, preventing an existing release from being reused
 when there is nothing upcoming to publish. **Tamazight translations** repair
-email, member, deletion and card-order labels; complete composed phrases
+email, member, deletion, card-order, permission, sorting and calendar
+settings, plus custom-field Enter instructions. Complete composed phrases
 still need fluent review.
 
 This release fixes the following build and release behavior:
@@ -741,6 +742,15 @@ pending, including 512 Tamazight. Restored and wider language validation
 remain open.
 
 </details>
+
+Translation audit progress as of 2026-09-14: 15,189 original findings are
+corrected, 179 are reviewed and retained, 4,058 restored values await
+validation, and 655 original findings remain pending across 17 locales,
+including 512 Tamazight findings. The ledger contains 17,413 correction
+records, including repairs outside the original audit. Regression checks
+validate placeholders, rendering and merge behavior; fluency and wider
+language validation remain open. See the
+<a href="docs/Features/Translations/Audit.md">translation audit</a>.
 
 Thanks to above GitHub users for their contributions and xet7 for maintaining WeKan !
 
