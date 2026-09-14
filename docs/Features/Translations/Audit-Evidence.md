@@ -1,5 +1,15 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `0968a9dc6`: French separator help repaired, retaining literal
+&#32; and &nbsp; and OR. Directly inspected CNAM PDF page 131 has Anabraz
+Separator with MC£,MC markers and KBL/MAT separate versus MC£ clear-land
+roots; page 31 has Asekkil amellal Space Character, alternate Ilem KBL-sekkil.
+These are cross-variety candidates, not normative Moroccan authority. Native
+MediaWiki supports Use and OR. Bound form and full instruction remain low
+confidence. This supersedes pending separator wording in earlier notes;
+HTML space semantics remain unchanged. All 18,096 correction checks pass;
+322 original findings remain pending, including 187 Tamazight.
+
 2026-09-14 — `080225ac9`: French custom-format instruction repaired with
 “use %{value} in place of the value”. client/lib/customFields.js substitutes
 this token with each item value; retain its exact spelling. Indexed HACA

@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,521 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 323 pending review or repair.
-The correction inventory records 18,095 exact before/after values,
+findings: 15,522 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 322 pending review or repair.
+The correction inventory records 18,096 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (188) and
+The largest original queues are Standard Moroccan Tamazight (187) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,11 +102,12 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 080225ac9 (2026-09-14), replacing French format
-help with in-place-of-value wording and preserving %{value} exactly.
-Indexed Format and native Use, Place and Value support components; bound
-forms and full paraphrase remain low confidence. All 18,095 correction
-checks pass; 323 findings remain pending, including 188 Tamazight.
+Latest translation fix is 0968a9dc6 (2026-09-14), replacing French
+separator help and retaining literal &#32; and &nbsp; and OR. Inspected
+CNAM Separator and Space Character terms are cross-variety, not normative
+Moroccan authority. Full instruction remains low confidence. All 18,096
+correction checks pass; 322 findings remain pending, including 187
+Tamazight.
 Archive provenance follow-up fbe388603 (2026-09-14) directly inspects the
 native Archives du Maroc logo in a university PDF, corroborating the noun
 beyond indexed evidence. Nine records updated; no values/counts changed.
@@ -652,10 +653,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,521 original findings are
+Translation audit progress as of 2026-09-14: 15,522 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 323 remain pending across 17 locales, including 188 Tamazight findings.
-The ledger contains 18,095 correction records, including unflagged repairs.
+and 322 remain pending across 17 locales, including 187 Tamazight findings.
+The ledger contains 18,096 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -3365,6 +3366,18 @@ Thanks to xet7 !
 %{value} exactly and substitution meaning. Format evidence remains indexed
 only; bound forms and full instruction remain low confidence. All 18,095
 correction checks pass; 323 original findings remain pending.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0968a9dc6">Translation repair: Tamazight separator space instruction.</a></summary>
+
+2026-09-14: Replace French help, preserving literal HTML space entities and
+OR. Inspected dictionary candidates are cross-variety; full instruction
+remains low confidence. All 18,096 correction checks pass; 322 original
+findings remain pending.
 
 Thanks to xet7 !
 
