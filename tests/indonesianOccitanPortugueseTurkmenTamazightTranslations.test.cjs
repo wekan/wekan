@@ -346,3 +346,6 @@ assert.doesNotMatch(locales.zgh['swimlane-height-error-message'], /[\u0600-\u06f
 
 assert.equal(locales.zgh['comprehensive-board-migration'], 'ⴰⵙⵎⵓⵜⵜⵢ ⵉⵙⵎⴷⵏ ⵏ ⵜⴼⵍⵡⵉⵜ');
 assert.doesNotMatch(locales.zgh['comprehensive-board-migration'], /Migration|complète|ⴰⵎⴰⴹⵍⴰⵏ|ⴰⵎⴽⵜⵓⵔ/);
+
+assert.equal(locales.zgh['step-convert-shared-lists'], 'ⵙⵙⵏⴼⵍ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵍⵍⵉ ⵙⵙⵓⵔⵏⵜ');
+assert.doesNotMatch(locales.zgh['step-convert-shared-lists'], /Convertir|partagées|ⵙⵍⵎ|ⴱⴹⵓ/);

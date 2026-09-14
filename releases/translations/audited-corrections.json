@@ -131458,5 +131458,12 @@
     "before": "Migration complète de tableau",
     "after": "ⴰⵙⵎⵓⵜⵜⵢ ⵉⵙⵎⴷⵏ ⵏ ⵜⴼⵍⵡⵉⵜ",
     "reason": "2026-09-14: Replace French comprehensive-board-migration title with full board migration draft. IRCAM Amazigh-English PDF 63 entry 916 explicitly uses ismdn in full text compound, supporting scope modifier rather than a finished-status verb. Existing migration and board genitive terms reused. Low confidence: applying full-text adjective to comprehensive software migration and genitive attachment require native/browser context review. Not worldwide/global or filled-container sense; migration operation and description unchanged."
+  },
+  {
+    "locale": "zgh",
+    "key": "step-convert-shared-lists",
+    "before": "Convertir les listes partagées",
+    "after": "ⵙⵙⵏⴼⵍ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵍⵍⵉ ⵙⵙⵓⵔⵏⵜ",
+    "reason": "2026-09-14: Replace French Convert Shared Lists with complete Tamazight draft. IRCAM Amazigh-English PDF 532 entry 10003 ssnfl change transitively/transform, PDF 589 entry 11039 talgamt list/plural tilgamin, PDF 535 entry 10073 ssur be common/be shared. Low confidence: software conversion metaphor and feminine plural ssurnt relative-clause morphology require native review. Preserve shared status, not general/public or partitioning lists. Stored migration step only; no obsolete migration implementation restored."
   }
 ]
