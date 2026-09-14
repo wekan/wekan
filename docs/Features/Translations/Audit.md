@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,149 |
+| Corrected | 15,150 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 695 |
+| Pending review or repair | 694 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,356** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,358** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `9c2d625d5` — replaced three French/Arabic Tamazight filters for no due date, this week and next week. Code confirms separate calendar-week ranges; native components support the labels. Full deadline adaptation, next-week agreement and bound-state morphology remain **low confidence** pending fluent review. All **17,356** correction/rendering checks pass. One originally flagged and two unflagged values are repaired: **695** originals remain pending, including **552** Tamazight. Earlier composed wording and restored/unflagged values still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `9722e1615` — replaced the French Tamazight more-detailed-description prompt and Arabic all-users due-card view choice. Native component terms support the repairs; full description-with-more-details composition remains **low confidence**, and combined all-users view usage needs fluent review. All **17,358** correction/rendering checks pass. One originally flagged and one unflagged value are repaired: **694** originals remain pending, including **551** Tamazight. Earlier composed wording and restored/unflagged values still need validation. Live browser verification was not run; no translations were pushed.
 
 **Language validation (2026-09-14), local commit `e4e3aa590`:** Wiktionary’s Veps transitive inflection tables confirm `surenda` (make larger) and `penenda` (make smaller) as second-person singular commands. Their imperative morphology is now reference-supported; screen-zoom usage remains open. The original keyboard findings remain unresolved: searches and the cached dictionary did not establish reliable keyboard-shortcut terminology. Counts are unchanged. References and the remaining scope are recorded per key in the correction ledger.
 
