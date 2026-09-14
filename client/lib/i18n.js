@@ -1,8 +1,15 @@
 import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
+import { Template } from 'meteor/templating';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 const { preferredLanguage } = require('/imports/i18n/browserLanguage');
+const { ruleTriggerCopula } = require('/imports/i18n/ruleGrammar');
+
+Template.registerHelper('ruleTriggerCopula', () => ruleTriggerCopula(
+  TAPi18n.getLanguage(), TAPi18n.__('r-is'),
+));
+
 
 // We save the user language preference in the user profile, and use that to set
 // the language reactively. If the user is not connected we use the language

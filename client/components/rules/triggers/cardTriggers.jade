@@ -29,7 +29,7 @@ template(name="cardTriggers")
             option(value="#{_id}" style="background-color: #{name}")
               = translatedname
       div.trigger-text
-        | {{_'r-is'}}
+        | {{ruleTriggerCopula}}
       div.trigger-dropdown
         select(id="spec-label-action")
           option(value="added") {{_'r-added-to'}}
@@ -74,7 +74,7 @@ template(name="cardTriggers")
       div.trigger-dropdown
         input(id="spec-member",type=text,placeholder="{{_'r-name'}}")
       div.trigger-text
-        | {{_'r-is'}}
+        | {{ruleTriggerCopula}}
       div.trigger-dropdown
         select(id="spec-member-action")
           option(value="added") {{_'r-added-to'}}
@@ -119,7 +119,7 @@ template(name="cardTriggers")
       div.trigger-dropdown
         input(id="spec-assignee",type=text,placeholder="{{_'r-name'}}")
       div.trigger-text
-        | {{_'r-is'}}
+        | {{ruleTriggerCopula}}
       div.trigger-dropdown
         select(id="spec-assignee-action")
           option(value="added") {{_'r-added-to'}}
@@ -141,7 +141,7 @@ template(name="cardTriggers")
       div.trigger-text
         | {{_'r-when-a-attach'}}
       div.trigger-text
-        | {{_'r-is'}}
+        | {{ruleTriggerCopula}}
       div.trigger-dropdown
         select(id="attach-action")
           option(value="added") {{_'r-added-to'}}

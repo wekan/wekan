@@ -129316,5 +129316,12 @@
     "before": "tiada penerima tugas",
     "after": "Hana nyang geubri buët",
     "reason": "Replace Malay tiada penerima tugas with matching Acehnese no-assignee meaning; native buët means work/task. Adapted full phrase needs native grammar and browser review."
+  },
+  {
+    "locale": "eu",
+    "key": "r-is",
+    "before": "es",
+    "after": "da",
+    "reason": "Replace Spanish es with native Basque da. Actual trigger helpers omit the separate copula in Basque because shared action labels already contain the temporal finite clause; keep other languages unchanged. Full trigger fluency remains under review."
   }
 ]

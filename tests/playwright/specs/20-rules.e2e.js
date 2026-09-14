@@ -12,7 +12,7 @@
 
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
-const { navigateInApp } = require('../helpers/auth');
+const { navigateInApp, loginWithToken } = require('../helpers/auth');
 
 async function openRulesPage(page, board) {
   await navigateInApp(page, `/b/${board.boardId}/${board.slug}/rules`);
@@ -212,3 +212,29 @@ test.describe('Rules', () => {
     await expect(boardPage.locator('.workflow-rule')).toHaveCount(1);
   });
 });
+
+
+for (const language of ['eu', 'en']) {
+  test(`${language} named-member rule trigger uses its own verb composition`, async ({ page, user, board }) => {
+    db.updateOne('users', { _id: user.id }, { $set: { 'profile.language': language } });
+    await loginWithToken(page, user.id, user.token);
+    await openRulesPage(page, board);
+    await page.locator('#ruleTitle').fill('Member grammar regression');
+    await page.locator('.js-goto-trigger').click();
+    await page.locator('.js-set-card-triggers').click();
+    await page.locator('#spec-member').fill('Ana');
+    const content = page.locator('#spec-member').locator('..').locator('..');
+    const fragments = await content.locator('.trigger-text').allTextContents();
+    if (language === 'eu') {
+      expect(fragments.map(text => text.trim())).not.toContain('es');
+      expect(fragments.map(text => text.trim())).not.toContain('da');
+      await expect(content.locator('#spec-member-action option[value="added"]')).toHaveText('Gehitzen denean hona:');
+    } else {
+      expect(fragments.map(text => text.trim())).toContain('is');
+    }
+    await content.locator('#spec-member-action').selectOption('added');
+    await content.locator('..').locator('.js-add-spec-member-trigger').click();
+    await page.locator('.js-add-gen-move-action.js-goto-rules').first().click();
+    await expect(page.locator('.rules-lists-item')).toHaveCount(1, { timeout: 15000 });
+  });
+}

@@ -27,7 +27,7 @@ template(name="checklistTriggers")
       div.trigger-dropdown
         input(id="check-name",type=text,placeholder="{{_'r-name'}}")
       div.trigger-text
-        | {{_'r-is'}}
+        | {{ruleTriggerCopula}}
       div.trigger-dropdown
         select(id="spec-check-action")
           option(value="created") {{_'r-added-to'}}
@@ -69,7 +69,7 @@ template(name="checklistTriggers")
       div.trigger-dropdown
         input(id="spec-comp-check-name",type=text,placeholder="{{_'r-name'}}")
       div.trigger-text
-        | {{_'r-is'}}
+        | {{ruleTriggerCopula}}
       div.trigger-dropdown
         select(id="spec-comp-check-action")
           option(value="completed") {{_'r-completed'}}
@@ -109,7 +109,7 @@ template(name="checklistTriggers")
       div.trigger-dropdown
         input(id="check-item-name",type=text,placeholder="{{_'r-name'}}")
       div.trigger-text
-        | {{_'r-is'}}
+        | {{ruleTriggerCopula}}
       div.trigger-dropdown
         select(id="check-item-spec-action")
           option(value="checked") {{_'r-checked'}}
