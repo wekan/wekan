@@ -24819,3 +24819,32 @@ Migration follow-up also confirms boardBody.js emits `repair_board_data`,
 in addition to attachments.js. Active repair/copy stages need accurate
 new locale labels and reactive integration; legacy stage labels describe
 different operations and must not be substituted as a shortcut.
+
+## Swimlane-height label repairs — 2026-09-14
+
+Local commit `c986121af` repairs original pending
+`set-swimlane-height-value` and additional Arabic action/popup-title
+values. Primary IRCAM General Dictionary PDF page 686, entry 12929,
+gives height `ⵜⵉⵖⵣⵉ`; page 513, entry 9675, gives put `ⵙⵔⵙ`. The
+existing path/swimlane convention is retained. Setting a numeric dimension
+and the software swimlane metaphor remain adaptations, not independently
+attested complete software phrases; full native grammar remains **low
+confidence**. Pixels are retained using `px`, not replaced by a different
+unit. Action and popup title agree.
+
+SwimlaneHeader.jade displays the value label over a number input with
+min=100; the error popup appends >=100 to its separate constraint text.
+The Arabic positive-integer error remains pending: primary page 450,
+entry 8544, gives positive, while page 457, entry 8684, contrasts negative
+with positive, but these do not establish the complete integer requirement.
+Do not replace that constraint with only a positive-number clause.
+
+Four translation checks pass, including exact labels, action/title
+agreement, Arabic negatives and pixel-unit preservation. Browser
+validation did not run. Counts: 15,630 corrected, 272 pending (159
+Tamazight), four restored, 4,175 retained; 18,725 ledger records.
+Broader native and runtime verification remains open.
+
+These counts are reconstructed from the original tables and current
+ledgers. Earlier narrative totals are historical reported snapshots; the
+current summary uses the live reconstruction, not arithmetic increments.

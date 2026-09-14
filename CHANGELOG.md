@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c986121af">Repair Tamazight swimlane-height labels</a>. Thanks to xet7.</summary>
+
+Replace three Arabic height labels with native components, preserving the
+pixel unit and action/title agreement. Four checks pass; full native
+phrasing, numeric-error terminology and browser review remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4f99247e8">Repair Tamazight approaching-deadline warning</a>. Thanks to xet7.</summary>
 
 Replace French while preserving the due-time placeholder and approaching
