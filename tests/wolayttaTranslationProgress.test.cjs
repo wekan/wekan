@@ -65,3 +65,8 @@ assert.equal(wolaytta['calendar-system-islamic'], 'Hijri wodiyaa qoodaa');
 assert.equal(wolaytta['calendar-system-islamic-umalqura'], 'Hijri wodiyaa qoodaa (Umm al-Qura)');
 assert.notEqual(wolaytta['calendar-system-islamic'], wolaytta['calendar-system-islamic-umalqura']);
 assert.doesNotMatch(wolaytta['calendar-system-islamic'] + wolaytta['calendar-system-islamic-umalqura'], /Islamic/);
+
+assert.equal(wolaytta['calendar-system'], 'Wodiyaa qoodaa maaraa (gallassaa bessiyoogaa)');
+assert.notEqual(wolaytta['calendar-system'], wolaytta.calendar);
+assert.doesNotMatch(wolaytta['calendar-system'], /Kalendar|görünüşü/);
+assert.match(require('node:fs').readFileSync(require('node:path').join(root, 'client/components/users/userHeader.jade'), 'utf8'), /{{_ 'calendar-system'}}/);

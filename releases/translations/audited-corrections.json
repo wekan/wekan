@@ -138535,5 +138535,12 @@
     "before": "Islamic Umm al-Qura",
     "after": "Hijri wodiyaa qoodaa (Umm al-Qura)",
     "reason": "2026-09-15: replace English Islamic seed with a Wolaytta draft preserving canonical Hijri and Umm al-Qura names from source and CLDR calendar.xml, plus native wodiyaa qoodaa calendar term. The complete borrowed-name/calendar compound remains low confidence; no variant qualifier is removed."
+  },
+  {
+    "locale": "wal",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "Wodiyaa qoodaa maaraa (gallassaa bessiyoogaa)",
+    "reason": "2026-09-15: replace Azerbaijani calendar-selection label with Wolaytta draft retaining calendar system and date-display qualifier. Native Gifaataa calendar/method components and native Wolaytta nominalized showing wording support components; use existing date noun. Complete software-display sense, date/day distinction and compound grammar remain low confidence."
   }
 ]
