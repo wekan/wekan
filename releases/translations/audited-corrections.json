@@ -125858,5 +125858,47 @@
     "before": "ⵃⴹⵓ ⴰⵎ ⴰⵙⵏⵜⵍ",
     "after": "ⵃⴹⵓ ⴰⵎ ⴰⵍⴱⵓⴹ",
     "reason": "2026-09-14: Replace Arabic/French template labels or incorrect Subject noun in Save as Template. Native MediaWiki nstab-template/tooltip-ca-nstab-template directly attest Template albudh, and Add/Create/Save components are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve templates versus cards/lists/boards, Add versus Create and Save AS Template. Plural albudhn reuses existing local templates entry rather than independent plural attestation. Card/Board vocabulary reuses local terminology; List plural has native Mastodon evidence: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . LOW CONFIDENCE plural template, bound plural nouns, software-template adaptation and full phrases require native validation; singular Template component is directly attested."
+  },
+  {
+    "locale": "zgh",
+    "key": "template-container",
+    "before": "Conteneur de modèles",
+    "after": "ⵜⴰⴼⵏⵉⵇⵜ ⵏ ⵉⵍⴱⵓⴹⵏ",
+    "reason": "2026-09-14: Replace French/mixed French-Arabic template controls. Source models/boards.js isTemplatesBoard and models/lib/unusedTemplateContainers.js identify a container holding template boards; preserve container distinction, not a single template. Native MediaWiki tooltip-invert directly attests Box tafniqt for checkbox, nstab-template attests Template albudh, viewsourcetext Copy ssnghl and transaction-duration-limit-exceeded several/multiple mn nawt: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Box-to-software-container is a LOW CONFIDENCE semantic adaptation, not an independently attested container label. Bound template plural ilbudhn and several-cards construction are derived. Checklist retains earlier LOW CONFIDENCE List of Verification proposal; ussidd noun is not independently attested here. Preserve Copy Template TO MANY Cards versus Copy Checklist FROM Template. Full phrases need fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "add-template-container",
+    "before": "Ajouter un conteneur de modèles",
+    "after": "ⵔⵏⵓ ⵜⴰⴼⵏⵉⵇⵜ ⵏ ⵉⵍⴱⵓⴹⵏ",
+    "reason": "2026-09-14: Replace French/mixed French-Arabic template controls. Source models/boards.js isTemplatesBoard and models/lib/unusedTemplateContainers.js identify a container holding template boards; preserve container distinction, not a single template. Native MediaWiki tooltip-invert directly attests Box tafniqt for checkbox, nstab-template attests Template albudh, viewsourcetext Copy ssnghl and transaction-duration-limit-exceeded several/multiple mn nawt: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Box-to-software-container is a LOW CONFIDENCE semantic adaptation, not an independently attested container label. Bound template plural ilbudhn and several-cards construction are derived. Checklist retains earlier LOW CONFIDENCE List of Verification proposal; ussidd noun is not independently attested here. Preserve Copy Template TO MANY Cards versus Copy Checklist FROM Template. Full phrases need fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "createTemplateContainerPopup-title",
+    "before": "Ajouter un conteneur de modèles",
+    "after": "ⵔⵏⵓ ⵜⴰⴼⵏⵉⵇⵜ ⵏ ⵉⵍⴱⵓⴹⵏ",
+    "reason": "2026-09-14: Replace French/mixed French-Arabic template controls. Source models/boards.js isTemplatesBoard and models/lib/unusedTemplateContainers.js identify a container holding template boards; preserve container distinction, not a single template. Native MediaWiki tooltip-invert directly attests Box tafniqt for checkbox, nstab-template attests Template albudh, viewsourcetext Copy ssnghl and transaction-duration-limit-exceeded several/multiple mn nawt: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Box-to-software-container is a LOW CONFIDENCE semantic adaptation, not an independently attested container label. Bound template plural ilbudhn and several-cards construction are derived. Checklist retains earlier LOW CONFIDENCE List of Verification proposal; ussidd noun is not independently attested here. Preserve Copy Template TO MANY Cards versus Copy Checklist FROM Template. Full phrases need fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "copyManyCardsPopup-title",
+    "before": "Copier le modèle vers plusieurs cartes",
+    "after": "ⵙⵙⵏⵖⵍ ⴰⵍⴱⵓⴹ ⵖⵔ ⵎⵏⵏⴰⵡⵜ ⵜⴽⴰⵕⴹⵉⵡⵉⵏ",
+    "reason": "2026-09-14: Replace French/mixed French-Arabic template controls. Source models/boards.js isTemplatesBoard and models/lib/unusedTemplateContainers.js identify a container holding template boards; preserve container distinction, not a single template. Native MediaWiki tooltip-invert directly attests Box tafniqt for checkbox, nstab-template attests Template albudh, viewsourcetext Copy ssnghl and transaction-duration-limit-exceeded several/multiple mn nawt: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Box-to-software-container is a LOW CONFIDENCE semantic adaptation, not an independently attested container label. Bound template plural ilbudhn and several-cards construction are derived. Checklist retains earlier LOW CONFIDENCE List of Verification proposal; ussidd noun is not independently attested here. Preserve Copy Template TO MANY Cards versus Copy Checklist FROM Template. Full phrases need fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "copyChecklistFromTemplate",
+    "before": "Copier la checklist - نموذج",
+    "after": "ⵙⵙⵏⵖⵍ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ ⵙⴳ ⴰⵍⴱⵓⴹ",
+    "reason": "2026-09-14: Replace French/mixed French-Arabic template controls. Source models/boards.js isTemplatesBoard and models/lib/unusedTemplateContainers.js identify a container holding template boards; preserve container distinction, not a single template. Native MediaWiki tooltip-invert directly attests Box tafniqt for checkbox, nstab-template attests Template albudh, viewsourcetext Copy ssnghl and transaction-duration-limit-exceeded several/multiple mn nawt: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Box-to-software-container is a LOW CONFIDENCE semantic adaptation, not an independently attested container label. Bound template plural ilbudhn and several-cards construction are derived. Checklist retains earlier LOW CONFIDENCE List of Verification proposal; ussidd noun is not independently attested here. Preserve Copy Template TO MANY Cards versus Copy Checklist FROM Template. Full phrases need fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "copyChecklistFromTemplatePopup-title",
+    "before": "Copier la checklist - نموذج",
+    "after": "ⵙⵙⵏⵖⵍ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ ⵙⴳ ⴰⵍⴱⵓⴹ",
+    "reason": "2026-09-14: Replace French/mixed French-Arabic template controls. Source models/boards.js isTemplatesBoard and models/lib/unusedTemplateContainers.js identify a container holding template boards; preserve container distinction, not a single template. Native MediaWiki tooltip-invert directly attests Box tafniqt for checkbox, nstab-template attests Template albudh, viewsourcetext Copy ssnghl and transaction-duration-limit-exceeded several/multiple mn nawt: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Box-to-software-container is a LOW CONFIDENCE semantic adaptation, not an independently attested container label. Bound template plural ilbudhn and several-cards construction are derived. Checklist retains earlier LOW CONFIDENCE List of Verification proposal; ussidd noun is not independently attested here. Preserve Copy Template TO MANY Cards versus Copy Checklist FROM Template. Full phrases need fluent validation."
   }
 ]
