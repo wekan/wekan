@@ -24641,3 +24641,11 @@ French warning replaced; %s and existence-check meaning preserved. Four
 checks pass; adapted negative grammar and browser validation remain open.
 Ledger: 18,710; original counts: 15,624 corrected, 278 pending, 4 restored,
 4,175 retained.
+
+### Debug-predicate source review — 2026-09-14
+
+Local commit `9669c2d84` records the primary dictionary's explicitly
+grammatical predicate sense and the actual parser's debug-option catalogue.
+No translation was accepted from that mismatched sense. The warning, French
+selector value and projection terminology remain under native review.
+Counts remain 278 pending and four restored awaiting validation.

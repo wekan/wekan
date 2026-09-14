@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9669c2d84">Review Tamazight debug-predicate terminology</a>. Thanks to xet7.</summary>
+
+Distinguish the dictionary's grammatical predicate from the parser's debug
+option catalogue. Keep unsupported native computing terms pending and record
+remaining French selector vocabulary without accepting a mismatched sense.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d32a96745">Replace French Tamazight existence-check error</a>. Thanks to xet7.</summary>
 
 Adapted native wording preserves the existence-check meaning and format token.
