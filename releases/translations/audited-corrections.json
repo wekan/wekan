@@ -138794,5 +138794,26 @@
     "before": "لا يوجد تراجع. سيؤدي هذا إلى إزالة هذه العلامة من جميع بطاقات والقضاء على تأريخها",
     "after": "ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⴰⵔⴷ ⴷ ⴰⵢⴰ. ⵔⴰⴷ ⵉⵜⵜⵓⴽⴽⵙ ⵓⵔⵛⵓⵎ ⴰⴷ ⵙⴳ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴰⴽⴽⵯ. ⵔⴰⴷ ⵉⵜⵜⵓⴽⴽⵙ ⵓⵎⵣⵔⵓⵢ ⵏⵏⵙ.",
     "reason": "2026-09-15: Replace Arabic label deletion warning. Retain no undo, this label removed from all cards and its history deleted in a separate clause. IRCAM entry 3066 and native MediaWiki history support amzruy; existing removal/future warning terms reused. Full clause agreement remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "keyboard-shortcuts",
+    "before": "اختصار لوحة المفاتيح",
+    "after": "ⵉⵙⵓⵏⴰⴼ ⵏ ⵜⵏⴰⵙⵜ",
+    "reason": "2026-09-15: Replace Arabic keyboard shortcut labels. IRCAM 4007 supplies plural isunaf; 11436 keyboard tanast/bound tnast; 10106 activate; 10015 switch off (not hospitality homograph 10014). Preserve current status and opposite click action. Software adaptation, derived passive and plural pronoun grammar remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "keyboard-shortcuts-enabled",
+    "before": "تم تفعيل اختصارات لوحة المفاتيح. انقر لتعطيلها.",
+    "after": "ⵉⵙⵓⵏⴰⴼ ⵏ ⵜⵏⴰⵙⵜ ⵜⵜⵓⵙⵙⵔⴼⵓⵏ. ⴽⵍⵉⴽⵉ ⴰⴷ ⵜⵏ ⵜⵙⵙⵏⵙⴷ.",
+    "reason": "2026-09-15: Replace Arabic keyboard shortcut labels. IRCAM 4007 supplies plural isunaf; 11436 keyboard tanast/bound tnast; 10106 activate; 10015 switch off (not hospitality homograph 10014). Preserve current status and opposite click action. Software adaptation, derived passive and plural pronoun grammar remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "keyboard-shortcuts-disabled",
+    "before": "اختصارات لوحة المفاتيح معطلة. انقر للتفعيل.",
+    "after": "ⵉⵙⵓⵏⴰⴼ ⵏ ⵜⵏⴰⵙⵜ ⵜⵜⵓⵙⵙⵏⵙⵏ. ⴽⵍⵉⴽⵉ ⴰⴷ ⵜⵏ ⵜⵙⵙⵔⴼⵓⴷ.",
+    "reason": "2026-09-15: Replace Arabic keyboard shortcut labels. IRCAM 4007 supplies plural isunaf; 11436 keyboard tanast/bound tnast; 10106 activate; 10015 switch off (not hospitality homograph 10014). Preserve current status and opposite click action. Software adaptation, derived passive and plural pronoun grammar remain low confidence."
   }
 ]

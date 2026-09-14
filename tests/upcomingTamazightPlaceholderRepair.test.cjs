@@ -366,3 +366,14 @@ assert.doesNotMatch(labelWarning, /[\u0600-\u06ff]/u);
 const labelTemplate = fs.readFileSync(path.join(ROOT,
   'client/components/cards/labels.jade'), 'utf8');
 assert.match(labelTemplate, /template\(name="deleteLabelPopup"\)\s+p.*label-delete-pop/);
+
+assert.strictEqual(translated['keyboard-shortcuts'], 'ⵉⵙⵓⵏⴰⴼ ⵏ ⵜⵏⴰⵙⵜ');
+assert.match(translated['keyboard-shortcuts-enabled'], /ⵜⵜⵓⵙⵙⵔⴼⵓⵏ\. ⴽⵍⵉⴽⵉ.*ⵜⵙⵙⵏⵙⴷ/);
+assert.match(translated['keyboard-shortcuts-disabled'], /ⵜⵜⵓⵙⵙⵏⵙⵏ\. ⴽⵍⵉⴽⵉ.*ⵜⵙⵙⵔⴼⵓⴷ/);
+for (const key of ['keyboard-shortcuts', 'keyboard-shortcuts-enabled', 'keyboard-shortcuts-disabled']) {
+  assert.doesNotMatch(translated[key], /[\u0600-\u06ff]/u);
+  assert.ok(translated[key].startsWith(translated['keyboard-shortcuts']));
+}
+const sidebarTemplate = fs.readFileSync(path.join(ROOT,
+  'client/components/sidebar/sidebar.jade'), 'utf8');
+assert.match(sidebarTemplate, /isKeyboardShortcuts.*keyboard-shortcuts-enabled.*else.*keyboard-shortcuts-disabled/);
