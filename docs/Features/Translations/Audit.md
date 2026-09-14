@@ -27,10 +27,10 @@ repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
-Latest terminology review: **2026-09-14**, `42d65f377` — Tamazight
-SMTP host-address and manage/administer senses are verified. Host address
-must not become the user email address. Email noun/plural evidence now supports the repair above; full relative
-clause validation remains open in [Tamazight review](Tamazight-Review.md).
+Latest terminology review: **2026-09-14**, `ca3d7dc9e` — Reject the
+Arabic-search kiss reading as invitation acceptance; the primary dictionary
+confirms the distinction. Generic accept remains unresolved in
+[Tamazight review](Tamazight-Review.md); no acceptance is recorded.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

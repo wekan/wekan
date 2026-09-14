@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ca3d7dc9e">Review Tamazight invitation-acceptance ambiguity</a>. Thanks to xet7.</summary>
+
+Reject a kiss mistranslation encountered through ambiguous Arabic search.
+Primary dictionary evidence confirms the wrong sense; generic invitation
+acceptance remains pending, with no ledger acceptance recorded.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7dfbbecbd">Repair Tamazight board invitation notification</a>. Thanks to xet7.</summary>
 
 Replace French with a new-invitation notification distinct from acceptance
