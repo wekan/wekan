@@ -2794,5 +2794,185 @@
     "key": "predicate-all",
     "value": "alle",
     "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "predicate-overdue",
+    "value": "overskredet",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "predicate-week",
+    "value": "uge",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "predicate-month",
+    "value": "måned",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "predicate-modified",
+    "value": "ændret",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "predicate-created",
+    "value": "oprettet",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "predicate-attachment",
+    "value": "vedhæftning",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "predicate-assignee",
+    "value": "tildelt",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "predicate-public",
+    "value": "offentlig",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "predicate-selector",
+    "value": "vælger",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "next-page",
+    "value": "Næste side",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "previous-page",
+    "value": "Forrige side",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "heading-notes",
+    "value": "Noter",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-heading",
+    "value": "Søgevejledning",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-operators",
+    "value": "Tilgængelige operatorer:",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-operator-list",
+    "value": "`__operator_list__:<title>` - kort i lister, der matcher den angivne *<title>*",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-operator-swimlane",
+    "value": "`__operator_swimlane__:<title>` - kort i svømmebaner, der matcher den angivne *<title>*",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-operator-comment",
+    "value": "`__operator_comment__:<text>` - kort med en kommentar, der indeholder *<text>*.",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-operator-label",
+    "value": "`__operator_label__:<color>` `__operator_label__:<name>` - kort med en etiket, der matcher *<color>* eller *<name>",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-status-archived",
+    "value": "`__predicate_archived__` - arkiverede kort",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-status-ended",
+    "value": "`__predicate_ended__` - kort med en slutdato",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-notes-1",
+    "value": "Der kan angives flere operatorer.",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-notes-2",
+    "value": "Ens operatorer kombineres med *ELLER*. Kort, der matcher en hvilken som helst af betingelserne, returneres.\n`__operator_list__:Available __operator_list__:Blocked` returnerer kort i enhver liste med navnet *Blocked* eller *Available*.",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-notes-3",
+    "value": "Forskellige operatorer kombineres med *OG*. Kun kort, der matcher alle de forskellige operatorer, returneres. `__operator_list__:Available __operator_label__:red` returnerer kun kort i listen *Available* med en *rød* etiket.",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "label-colors",
+    "value": "Etiketfarver",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "label-names",
+    "value": "Etiketnavne",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "archived-at",
+    "value": "arkiveret den",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "sort-cards",
+    "value": "Sortér kort",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "cardsSortPopup-title",
+    "value": "Sortér kort",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "due-date",
+    "value": "Forfaldsdato",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "dependency-type-fixes",
+    "value": "Retter",
+    "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
   }
 ]
