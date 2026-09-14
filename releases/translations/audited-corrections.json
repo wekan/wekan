@@ -124472,5 +124472,26 @@
     "before": "تم اضافة مهمة فرعية الى %s",
     "after": "ⵉⵔⵏⴰ ⵜⴰⵡⵓⵔⵉ ⴷⴷⴰⵡ ⵏ ⵜⵡⵓⵔⵉ ⵉ %s",
     "reason": "2026-09-14: Replace Arabic added-activity text with existing Tamazight past-action irna and destination i from activity-added-label; preserve every %s token, count and order. Subtask uses the explicit Task under a Task hierarchy paraphrase rather than Language or Small Task. LOW CONFIDENCE past conjugation, full activity grammar and hierarchical kanban extension need fluent review; current MediaWiki does not directly attest irna, so existing local usage is not claimed as independent canonical proof. Native add imperative rnu and destination i occur in MediaWiki (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json); task nouns in Moroccan ministry (https://www.mmsp.gov.ma/amz/nos-metiers/absence-non-justifi%C3%A9e); Under in indexed IRCAM programme (https://www.ircam.ma/sites/default/files/sites/default/files/Prochaine%20Events%20/programmes/JIF_Programme.pdf)."
+  },
+  {
+    "locale": "zgh",
+    "key": "checklistItem-linked-subtask",
+    "before": "Tawuri tawlayt yettwarzafen",
+    "after": "ⵜⴰⵡⵓⵔⵉ ⵉⵣⴷⵉⵏ ⴷⴷⴰⵡ ⵏ ⵜⵡⵓⵔⵉ",
+    "reason": "2026-09-14: Replace wrong/mixed-language linked entity label using native izdin Linked/Associated component from MediaWiki namespace association and linked-page descriptions. Preserve singular Linked Card versus Linked Board versus hierarchical Linked Subtask; do not drop Linked or convert hierarchy to Small Task. LOW CONFIDENCE full kanban noun/participle agreement and Task under a Task paraphrase require fluent Standard Moroccan review. Native component is izdin, not an unattested passive ittuzdin. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (tooltip-namespace_association, nolinkshere, tooltip-t-recentchangeslinked). Task noun: https://www.mmsp.gov.ma/amz/nos-metiers/absence-non-justifi%C3%A9e . Under indexed IRCAM: https://www.ircam.ma/sites/default/files/sites/default/files/Prochaine%20Events%20/programmes/JIF_Programme.pdf . Existing local Card/Board nouns are kanban extensions, not directly attested complete terms."
+  },
+  {
+    "locale": "zgh",
+    "key": "cardType-linkedCard",
+    "before": "البطاقة المرتبطة",
+    "after": "ⵜⴰⴽⴰⵕⴹⴰ ⵉⵣⴷⵉⵏ",
+    "reason": "2026-09-14: Replace wrong/mixed-language linked entity label using native izdin Linked/Associated component from MediaWiki namespace association and linked-page descriptions. Preserve singular Linked Card versus Linked Board versus hierarchical Linked Subtask; do not drop Linked or convert hierarchy to Small Task. LOW CONFIDENCE full kanban noun/participle agreement and Task under a Task paraphrase require fluent Standard Moroccan review. Native component is izdin, not an unattested passive ittuzdin. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (tooltip-namespace_association, nolinkshere, tooltip-t-recentchangeslinked). Task noun: https://www.mmsp.gov.ma/amz/nos-metiers/absence-non-justifi%C3%A9e . Under indexed IRCAM: https://www.ircam.ma/sites/default/files/sites/default/files/Prochaine%20Events%20/programmes/JIF_Programme.pdf . Existing local Card/Board nouns are kanban extensions, not directly attested complete terms."
+  },
+  {
+    "locale": "zgh",
+    "key": "cardType-linkedBoard",
+    "before": "Tableau lié",
+    "after": "ⵜⴰⴼⵍⵡⵉⵜ ⵉⵣⴷⵉⵏ",
+    "reason": "2026-09-14: Replace wrong/mixed-language linked entity label using native izdin Linked/Associated component from MediaWiki namespace association and linked-page descriptions. Preserve singular Linked Card versus Linked Board versus hierarchical Linked Subtask; do not drop Linked or convert hierarchy to Small Task. LOW CONFIDENCE full kanban noun/participle agreement and Task under a Task paraphrase require fluent Standard Moroccan review. Native component is izdin, not an unattested passive ittuzdin. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (tooltip-namespace_association, nolinkshere, tooltip-t-recentchangeslinked). Task noun: https://www.mmsp.gov.ma/amz/nos-metiers/absence-non-justifi%C3%A9e . Under indexed IRCAM: https://www.ircam.ma/sites/default/files/sites/default/files/Prochaine%20Events%20/programmes/JIF_Programme.pdf . Existing local Card/Board nouns are kanban extensions, not directly attested complete terms."
   }
 ]
