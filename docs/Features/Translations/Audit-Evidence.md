@@ -23235,3 +23235,28 @@ replacement. Both complete correction and unchanged-review suites pass.
 Tracked: 15,601 corrected, 19 restored awaiting validation, 4,162 retained,
 299 pending, 20,081 total. No locale value was changed; low-confidence,
 unflagged, remaining restored and browser reviews remain open.
+
+### 2026-09-14 — Breton selection/filter controls
+
+Local commit `fb0b34b7d` repairs ten remaining French values: move-selection,
+copy-selection, selection-color, multi-selection, select-color, select-board,
+other-filters-label, set-filter, cardAttachmentsPopup-title and
+filter-to-selection. Existing local diuzad, sil, liv, taolenn and stagañ are
+reused. The native
+[Ofis computing glossary](https://www.brezhoneg.bzh/uploads/Document/20/798_536_an-urzhiataerezh.pdf)
+is dated March 2006 and attests dilec’hiañ, eilañ and termeniñ. These term
+attestations are not proof of every adapted compound's full grammar.
+
+sidebarFilters.js resolves the currently filtered cards and calls
+MultiSelection.add with their IDs. The translated command explicitly adds
+those filtered cards to the selection; it does not describe filtering an
+existing selection. Regression coverage keeps copy/move distinct and rejects
+the previous French seed. Four focused suites pass: exact correction/review
+inventories, Breton/Lithuanian/Yiddish coverage and all-locale completeness.
+No browser execution or native whole-sentence validation is claimed.
+
+Correction ledger: 18,487. Original tracked queue remains 15,601 corrected,
+19 restored awaiting validation, 4,162 retained and 299 pending (20,081 total).
+These ten repairs were outside that original flagged queue. Basque shared
+trigger noun fragments remain unaccepted because surrounding order and case
+composition still need review. No subagents, service or remote push used.
