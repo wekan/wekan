@@ -23998,3 +23998,21 @@ Focused checks preserve that equivalence and distinguish numeric from text
 fields. All 18,643 corrections, 4,170 unchanged reviews and 234-locale
 structural completeness pass. Counts remain 288 pending and 11 restored.
 Live browser and broader native verification remain open.
+
+### 2026-09-14 — Breton action labels (c8a14d2d0)
+
+Four unflagged French labels are repaired: preview Prévisualiser becomes
+Rakwelet; discard Mettre à la corbeille becomes Nullañ; unset-color Enlever
+becomes Dilemel; comment Commenter becomes Ouzhpennañ un evezhiadenn.
+[Native MediaWiki software messages](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/br.json)
+attest the preview/cancel labels, remove verb and add verb. The comment noun
+follows existing local Evezhiadennoù vocabulary; its complete action phrase
+is a direct adaptation, not an exact native source quotation.
+Actual discard resets the inline unsaved description form rather than
+trashing a card. The custom-text-color reset clears its override to default;
+the shared removal label also covers palette/background removal controls.
+The comment control submits a new comment, so a noun-only label would lose
+its action meaning. Exact values, foreign exclusions and action distinctions
+pass with all 18,647 corrections, 4,170 retained reviews and 234-locale
+structural completeness. Pending/restored counts remain 288/11. Broader
+phrase and live browser verification remain open.
