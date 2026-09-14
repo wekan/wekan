@@ -23,6 +23,17 @@ for (const language of ['br', 'lt', 'yi']) {
 }
 
 assert.equal(locales.br['select-none'], 'Na ziuz hini ebet');
+assert.equal(locales.br['edit-wip-limit'], 'Kemmañ ar vevenn WIP');
+assert.equal(locales.br['enable-wip-limit'], 'Gweredekaat ar vevenn WIP');
+assert.equal(locales.br['setWipLimitPopup-title'], 'Termeniñ ar vevenn WIP');
+assert.equal(locales.br['wipLimitErrorPopup-title'], 'Bevenn WIP didalvoudek');
+assert.equal(locales.br['wip-limit-groups'], 'Strolladoù bevennoù WIP');
+assert.doesNotMatch(locales.br['wip-limit-groups'], /Gweredekaat|Activer|Roll/);
+assert.equal(locales.br['disable-webhook'], 'Diweredekaat ar webhook-mañ');
+for (const key of ['edit-wip-limit', 'enable-wip-limit', 'setWipLimitPopup-title',
+  'wipLimitErrorPopup-title', 'wip-limit-groups', 'disable-webhook']) {
+  assert.doesNotMatch(locales.br[key], /Éditer|Activer|Définir|Limite.*invalide|Désactiver/);
+}
 assert.equal(locales.br.optional, 'Diret');
 assert.equal(locales.br['wip-limit-group-name-placeholder'], 'Anv ar strollad (diret)');
 assert.equal(locales.br.fullname, 'Anv klok');

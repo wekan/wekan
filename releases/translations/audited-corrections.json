@@ -130086,5 +130086,47 @@
     "before": "Pinasuarutit tamaasa",
     "after": "ᐱᓇᓱᐊᕈᓯᑕᒫᑦ",
     "reason": "Replace Greenlandic-seeded Pinasuarutit tamaasa with native Inuktitut weekly frequency. Qikiqtani Inuit Association bilingual application pairs weekly benefit/wage labels with ᐱᓇᓱᐊᕈᓯᑕᒫᑦ; existing Inuktitut backup weekly label agrees. Preserve weekly versus daily/monthly meanings; live browser/scheduler verification remains open."
+  },
+  {
+    "locale": "br",
+    "key": "edit-wip-limit",
+    "before": "Éditer la limite WIP",
+    "after": "Kemmañ ar vevenn WIP",
+    "reason": "Replace French-seeded Breton WIP/webhook settings labels using native software activate/deactivate and limit terminology, existing local edit/set/invalid/group vocabulary. WIP and webhook remain technical literals. Group title is a plural grouping label, not an enable action; preserve separate edit, enable, set and error meanings. Compounds adapted; broader native/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "enable-wip-limit",
+    "before": "Activer la limite WIP",
+    "after": "Gweredekaat ar vevenn WIP",
+    "reason": "Replace French-seeded Breton WIP/webhook settings labels using native software activate/deactivate and limit terminology, existing local edit/set/invalid/group vocabulary. WIP and webhook remain technical literals. Group title is a plural grouping label, not an enable action; preserve separate edit, enable, set and error meanings. Compounds adapted; broader native/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "setWipLimitPopup-title",
+    "before": "Définir la limite WIP",
+    "after": "Termeniñ ar vevenn WIP",
+    "reason": "Replace French-seeded Breton WIP/webhook settings labels using native software activate/deactivate and limit terminology, existing local edit/set/invalid/group vocabulary. WIP and webhook remain technical literals. Group title is a plural grouping label, not an enable action; preserve separate edit, enable, set and error meanings. Compounds adapted; broader native/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "wipLimitErrorPopup-title",
+    "before": "Limite WIP invalide",
+    "after": "Bevenn WIP didalvoudek",
+    "reason": "Replace French-seeded Breton WIP/webhook settings labels using native software activate/deactivate and limit terminology, existing local edit/set/invalid/group vocabulary. WIP and webhook remain technical literals. Group title is a plural grouping label, not an enable action; preserve separate edit, enable, set and error meanings. Compounds adapted; broader native/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "wip-limit-groups",
+    "before": "Activer la limite WIP (Roll)",
+    "after": "Strolladoù bevennoù WIP",
+    "reason": "Replace French-seeded Breton WIP/webhook settings labels using native software activate/deactivate and limit terminology, existing local edit/set/invalid/group vocabulary. WIP and webhook remain technical literals. Group title is a plural grouping label, not an enable action; preserve separate edit, enable, set and error meanings. Compounds adapted; broader native/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "disable-webhook",
+    "before": "Désactiver ce webhook",
+    "after": "Diweredekaat ar webhook-mañ",
+    "reason": "Replace French-seeded Breton WIP/webhook settings labels using native software activate/deactivate and limit terminology, existing local edit/set/invalid/group vocabulary. WIP and webhook remain technical literals. Group title is a plural grouping label, not an enable action; preserve separate edit, enable, set and error meanings. Compounds adapted; broader native/browser review remains open."
   }
 ]
