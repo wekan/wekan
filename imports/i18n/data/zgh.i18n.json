@@ -643,7 +643,7 @@
   "email-verifyEmail-subject": "ⵙⵙⵉⴷⴻⴷ ⴰⵏⵙⴰ ⵏ ⵉⵎⴰⵢⵍ ⵏⵏⴽ ⴳ __siteName__",
   "email-verifyEmail-text": "ⴰⵣⵓⵍ __user__,\n\nⴰⴼⴰⴷ ⴰⴷ ⵜⵙⵙⵉⴷⴷⴻⴷ ⴰⵏⵙⴰ ⵏ ⵉⵎⴰⵢⵍ ⵏ ⵓⵎⵉⴹⴰⵏ ⵏⵏⴽ, ⴽⵍⵉⴽⵉ ⵖⴼ ⵓⵙⵖⵏ ⴳ ⴷⴷⴰⵡ ⴷⴰ ⵖⴰⵙ.\n\n__url__\n\nⵜⴰⵏⵎⵎⵉⵔⵜ.",
   "enable-vertical-scrollbars": "تمكين أشرطة التمرير العمودية",
-  "enable-wip-limit": "Activer la limite WIP",
+  "enable-wip-limit": "ⵙⵙⵔⴼⵓ ⴰⵡⵜⵜⵓ WIP",
   "error-board-doesNotExist": "Ce tableau n'existe pas",
   "error-board-notAdmin": "ⵉⵍⵍⴰ ⴼⵍⵍⴰⴽ ⴰⴷ ⵜⴳⴷ ⴰⵎⵙⵙⵓⴳⵓⵔ ⵏ ⵜⴼⵍⵡⵉⵜ ⴰⴷ ⴼⴰⴷ ⴰ ⵜⵙⴽⵔⵜ ⵎⴰⵢⴰⴷ",
   "error-board-notAMember": "ⵉⵍⵍⴰ ⴼⵍⵍⴰⴽ ⴰⴷ ⵜⴳⴷ ⴰⴳⵎⴰⵎ ⵏ ⵜⴼⵍⵡⵉⵜ ⴰⴷ ⴼⴰⴷ ⴰ ⵜⵙⴽⵔⵜ ⵎⴰⵢⴰⴷ",

@@ -200,3 +200,7 @@ assert.ok(locales.zgh['custom-assetlinks-enabled'].startsWith('ⵙⵙⵔⴼⵓ '
 assert.ok(locales.zgh['custom-assetlinks-content'].startsWith('ⴰⴽⵜⵜⵓⵔ '));
 assert.match(locales.zgh['custom-assetlinks-content'], /\(JSON\)$/);
 assert.doesNotMatch(locales.zgh['custom-assetlinks-enabled'], /\(JSON\)/);
+
+assert.equal(locales.zgh['enable-wip-limit'], 'ⵙⵙⵔⴼⵓ ⴰⵡⵜⵜⵓ WIP');
+assert.deepEqual(locales.zgh['enable-wip-limit'].match(/WIP/g), ['WIP']);
+assert.doesNotMatch(locales.zgh['enable-wip-limit'], /Activer|limite/);

@@ -131101,5 +131101,12 @@
     "before": "Contenu assetlinks.json personnalisé (JSON)",
     "after": "ⴰⴽⵜⵜⵓⵔ ⵏ assetlinks.json ⵉⵥⵍⵉⵏ (JSON)",
     "reason": "Replace French with Tamazight; IRCAM 2019 entries 10106 activate, 1346 content and 7686 specific/exclusive. Preserve assetlinks.json and JSON exactly. Low confidence: specific is adapted to user-customized content; complete software phrase and modifier scope need native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "enable-wip-limit",
+    "before": "Activer la limite WIP",
+    "after": "ⵙⵙⵔⴼⵓ ⴰⵡⵜⵜⵓ WIP",
+    "reason": "Replace French enable label with Tamazight. IRCAM 2019 entries 10106 activate and 5271 limit/boundary. Preserve WIP abbreviation. Low confidence: numerical work-in-progress limit is a software adaptation of boundary; full native wording needs review."
   }
 ]
