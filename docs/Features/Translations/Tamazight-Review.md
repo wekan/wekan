@@ -2598,3 +2598,23 @@ registration, placeholders, key order and human preference. No live browser
 test ran. Ledger 19,806; original corrected 15,709, pending 194 (zgh 99),
 restored 4 unchanged. Broader uncertain/restored/unflagged review remains
 open. No push.
+
+## No lost objects to restore — 2026-09-15
+
+Local commit `ab336422a` replaces French
+restore-lost-cards-nothing-to-restore with a Tamazight draft. Preserve
+negative existence, swimlanes OR lists OR cards, their lost state and
+restoration purpose. Reuse existing negative/object/conjunction/restore
+terms; the cached full IRCAM dictionary page 120 entry 2158 attests
+amakul lost/misplaced and plural imakuln. This is an object adjective,
+rather than a lost-person expression.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+**Low confidence:** mixed-gender agreement, the collective qualifier and
+complete software phrasing remain under native review. No active key
+reference was found in client/server/models; removed migrations stay
+removed. No live browser test ran. Four focused suites pass for all three
+objects, negation, lost/restoration scope, negative French checks,
+placeholders, order and human preference. Ledger 19,807; original corrected
+15,710, pending 193 (zgh 98), restored 4 unchanged. Broader uncertain,
+restored and unflagged review remains open. No push.
