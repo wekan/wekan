@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/af4faeb70">Repair Tamazight field-total checkbox wording</a>. Thanks to xet7.</summary>
+
+Replace French with Tamazight aggregate and list-top wording supported by
+primary dictionary entries. Regression checks distinguish a sum from a
+count or summary. Four checks pass; complete native/browser review remains
+open. Audit counts now show 258 pending original findings.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3567bf197">Review primary Kashmiri calendar vocabulary and grammar</a>. Thanks to xet7.</summary>
 
 Record primary moon/seeing vocabulary and infinitive agreement evidence.

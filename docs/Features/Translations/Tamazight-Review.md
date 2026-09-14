@@ -1019,3 +1019,17 @@ count terminology and plural/genitive agreement. Four focused checks
 pass; no browser validation was run. Recount: 15,643 corrected, 259
 pending (146 Tamazight), four restored, 4,175 retained and 18,743
 correction records. Broader native/runtime reviews remain open.
+
+
+Tamazight field total — 2026-09-14, local commit `af4faeb70`.
+showSum-field-on-list replaces French with native aggregate/top wording.
+IRCAM Amazigh-English dictionary PDF page 602 entry 11282 supplies total;
+page 67 entry 1008 supplies top and its construct form. Existing show,
+field and list terms are reused. The actual currency/number controls in
+sidebarCustomFields.jade lines 54–61 share this label. Aggregate meaning
+is distinguished from a count and a prose summary in regression coverage.
+Low confidence: plural genitive and full software phrase remain subject to
+native review. Four structural/source checks pass across all 234 locales;
+these do not prove native fluency or browser layout. Browser not executed.
+Original pending 259 → 258, Tamazight 146 → 145; ledger 18,754.
+Primary source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
