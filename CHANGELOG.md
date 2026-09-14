@@ -1115,6 +1115,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0f545fd8a">Repair Tamazight available and executable heap labels</a></summary>
+
+Replace French diagnostics with distinct availability and execution
+paraphrases. Four focused suites pass; availability participle, executable
+capability and full computing compounds remain under contextual review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

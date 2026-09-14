@@ -29440,3 +29440,25 @@ No live information UI test ran. Ledger 19,883; corrected 15,762,
 pending 141 (zgh 48), restored 4 unchanged. Six heap labels still need work;
 previous full-label and native grammar reviews remain open.
 https://nodejs.org/api/v8.html#v8getheapstatistics
+
+
+2026-09-15 — `0f545fd8a`: available/executable heap diagnostic labels
+French replaced using existing heap/size/total compounds. IRCAM entry
+9632 sula available/free explicitly prefers imperfective ttsala; derived
+participle ittsalan is low confidence. 5578 azzgir means execution or
+accomplishment (bound uzzgir). Executable heap is paraphrased as heap for
+execution; this does not independently attest software executable capability
+or the whole phrase. Node definitions retain the distinction: available
+size is further heap capacity before its limit, not disk capacity;
+executable size is heap capable of containing executable code, not the
+application's currently executed instructions or total source-file size.
+
+informationBody.jade uses distinct totalAvailableSize/totalHeapSizeExecutable
+bindings. Four focused suites pass for exact distinct labels, wrong-language
+negatives and all placeholder inventories. No live information UI test
+ran. Full computing capability, temporal availability participle and
+nominal compounds remain low confidence. Ledger 19,885; corrected 15,764,
+pending 139 (zgh 46), restored 4 unchanged. Four other heap labels remain
+French: physical, garbage flag, native contexts and detached contexts.
+Previous computing-memory/heap phrase reviews remain open.
+https://nodejs.org/api/v8.html#v8getheapstatistics
