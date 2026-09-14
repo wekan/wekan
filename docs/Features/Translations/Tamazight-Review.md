@@ -1333,3 +1333,18 @@ ledger 18,779. Earlier dated notes leaving this message Arabic are superseded.
 Catalogue PDF fetch failed certificate verification; no TLS checks were
 disabled. System pdftotext is unavailable; neither is evidence of lexical
 absence. Comprehensive-board-migration remains separately open.
+
+Comprehensive migration title — 2026-09-14, `4091c14e4`.
+French comprehensive-board-migration becomes a full board migration title
+(exact Tifinagh value recorded in the correction ledger). IRCAM Amazigh-English
+PDF page 63 entry 916 explicitly uses ismdn in full text, which provides
+a scope-modifier example beyond the earlier complete/finish verb search.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+Low confidence: full-text modifier adapted to comprehensive software
+migration, and genitive attachment. Avoid worldwide/global and physical
+filled-container senses. No migration implementation or description is
+changed. No direct title-key consumer was found in client/models search;
+this repairs stored translation data, not proof of a visible active UI.
+Four source checks pass; native/browser review remains open. Corrected
+original findings 15,651; pending 251 (zgh 139); ledger 18,780. Earlier
+dated notes leaving this title French are superseded by this draft.
