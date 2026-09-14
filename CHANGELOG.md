@@ -951,6 +951,16 @@ findings.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3fd9413b3">Repair Tamazight member-removal confirmation</a>. Thanks to xet7.</summary>
+
+Replace Arabic confirmation, preserving named tokens, member removal from
+all cards on the board and notification. Four focused translation suites
+pass. Notification/passive and full grammar remain under native review.
+Dated audit records 155 pending original findings.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

@@ -3802,3 +3802,23 @@ No live calendar UI test ran. Ledger 19,862; original corrected 15,747,
 pending 156 (zgh 63), restored 4 unchanged. Earlier pending status for
 this seed is superseded by the repair, not its grammar-review limits.
 Broader review remains open; no remote writes were made.
+
+
+## Member-removal confirmation — repair 2026-09-15
+
+Source commit `3fd9413b3` replaces Arabic remove-member-pop. All literal
+__name__, __username__, __boardTitle__ tokens remain exact. Established
+removal/card/board/member wording keeps removal of the member from ALL
+cards on this board, not deletion of those cards or removal from unrelated
+boards. Receive notification is paraphrased as notification sent to member.
+The singular notification is adapted from existing notifications wording;
+passive sending and full contextual grammar remain low confidence.
+
+Sidebar template line 828 supplies named tokens for full name, username
+and board title. Narrow dictionary receive candidates concern hospitality
+or receiving help, so they were not substituted for software notification.
+This draft uses existing send wording instead; it does not independently
+certify notification delivery at runtime. Four focused suites pass for
+exact wording and literal-token/translation invariants. No live removal UI
+test ran. Ledger 19,863; original corrected 15,748, pending 155 (zgh 62),
+restored 4 unchanged. Broader review remains open; no remote writes.
