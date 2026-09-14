@@ -123499,5 +123499,12 @@
     "before": "Annonce de l'administrateur",
     "after": "ⴰⵍⵖⵓ ⵙⴳ ⵖⵓⵔ ⵓⵎⵙⵙⵓⴳⵓⵔ",
     "reason": "Replace Arabic/French announcement label. Native Moroccan ministry announcement https://www.mcrpsc.gov.ma/ (16 June 2026 civil-society award call, titled alghu n urzzum n tmnkadt) directly uses alghu announcement; IRCAM administrative correspondence explnum_id=990 indexed alghu s umsktam tender announcement corroborates vocabulary, but full PDF fetch timed out. MediaWiki revision-info supplies sg ghur from a person, and blockedtext-contact-blocker-admin amssugur administrator: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE full from-administrator syntax and technical announcement adaptation need fluent review. Active System-Wide qualifier remains a separate unresolved finding. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "dz",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "ཀོཔ་ཊིཀ་ཟླ་ཐོ",
+    "reason": "Replace English-only Coptic calendar label with Dzongkha. Native DzongkhaLinux Team computing dictionary https://download.savannah.gnu.org/releases/dzongkha-gnome/dzongkha_computer_terms.pdf explicitly gives Coptic ཀོཔ་ཊིཀ། on PDF page47/printed43, verified by direct PDF extraction; calendar ཟླ་ཐོ། on PDF32/printed28 is confirmed by indexed primary-source text, while local PDF extraction has a corrupted calendar glyph. Preserve existing calendar compound pattern and Coptic identity. LOW CONFIDENCE complete compound spelling still needs fluent review; component evidence is not full calendar nomenclature validation. CLDR dz.xml has no coptic type entry. Reviewed 2026-09-14."
   }
 ]
