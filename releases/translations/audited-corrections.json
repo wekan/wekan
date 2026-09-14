@@ -128532,5 +128532,19 @@
     "before": "de la checklist",
     "after": "eus ar roll-gwiriañ",
     "reason": "Replace French removal/update prose using existing Lemel, Hizivaat, card/item vocabulary. Actual rule actions use removeMember/removeLabel rather than delete user accounts; preserve that distinction. Full adapted clause and browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "calendar-previous-month-label",
+    "before": "Mois précédent",
+    "after": "Miz kent",
+    "reason": "Replace French calendar navigation with native Breton miz and kent/war-lerc’h supported by MediaWiki month units and previousrevision/nextrevision controls. Full calendar browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "calendar-next-month-label",
+    "before": "Mois suivant",
+    "after": "Miz war-lerc’h",
+    "reason": "Replace French calendar navigation with native Breton miz and kent/war-lerc’h supported by MediaWiki month units and previousrevision/nextrevision controls. Full calendar browser validation remains open."
   }
 ]
