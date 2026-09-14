@@ -1281,10 +1281,20 @@ body.mobile-mode .pop-over .content-wrapper {
   border-top: 1px solid rgba(0, 0, 0, 0.12);
 }
 
-/* Keep country then language flags in that visual order in RTL locales too. */
-.pop-over[data-popup='changeLanguagePopup'] .language-flags {
+/* Isolate each flag; the row direction mirrors language and region placement. */
+.pop-over[data-popup='changeLanguagePopup'] .language-flags,
+.pop-over[data-popup='changeLanguagePopup'] .language-country-flag {
   direction: ltr;
   unicode-bidi: isolate;
   white-space: nowrap;
   width: auto;
+}
+
+.pop-over[data-popup='changeLanguagePopup'] .language-label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.25em;
+}
+.pop-over[data-popup='changeLanguagePopup'] .language-region {
+  unicode-bidi: isolate;
 }

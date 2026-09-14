@@ -44,20 +44,46 @@ const header = fs.readFileSync(path.join(root, 'client/components/users/userHead
 const start = header.indexOf('Template.changeLanguagePopup.helpers({');
 const end = header.indexOf('Template.changeLanguagePopup.events(', start);
 let helpers;
-vm.runInNewContext(header.slice(start, end), {
+let rtl = false;
+const context = {
   Template: { changeLanguagePopup: { helpers(value) { helpers = value; } } },
-  TAPi18n: { getSupportedLanguages: () => rows.map(row => ({tag: row[2], name: row[3], rtl: row[4]})), getLanguage: () => 'en' },
-});
+  TAPi18n: { getSupportedLanguages: () => rows.map(row => ({tag: row[2], name: row[3], rtl: row[4]})), getLanguage: () => 'en', isRTL: () => rtl },
+};
+vm.createContext(context);
+vm.runInContext(fs.readFileSync(path.join(root, 'imports/i18n/languageFlags.js'), 'utf8').replace(/^export /gm, ''), context);
+vm.runInContext(header.slice(start, end), context);
 assert.deepEqual(Array.from(helpers.languages(), row => row.tag).sort(), rows.map(row => row[2]).sort(), 'all registered locales appear exactly once');
 for (const row of rows) {
   const flags = helpers.languageFlag.call({tag: row[2]});
   assert.ok(flags && !flags.includes('undefined'), row[2]);
-  if (/[-_@]/.test(row[2])) assert.equal(flags.split(' ').length, 2, `country then language: ${row[2]}`);
+  if (/[-_@]/.test(row[2])) assert.ok(helpers.countryFlag.call({tag: row[2]}), `regional flag: ${row[2]}`);
   else if (!['eo', 'tlh', 'vo', 'ia'].includes(row[2])) assert.notEqual(flags, '🌐', row[2]);
 }
 for (const [tag, expected] of Object.entries({'es-CO':'🇨🇴 🇪🇸', 'es_CO':'🇨🇴 🇪🇸', 'fr-CA':'🇨🇦 🇫🇷', 'be-BE':'🇧🇾 🇧🇾', 've-PP':'🇷🇺 🇷🇺', 've-CC':'🇮🇹 🇮🇹', 'wa-RR':'🇵🇭 🇵🇭', 'uz-AR':'🇺🇿 🇺🇿', 'zh-GB':'🇨🇳 🇨🇳', 'eo':'🌐', 'tlh':'🌐'})) {
-  assert.equal(helpers.languageFlag.call({tag}), expected, tag);
+  const country = helpers.countryFlag.call({tag});
+  const language = helpers.languageFlag.call({tag});
+  assert.equal(country ? `${country} ${language}` : language, expected, tag);
 }
-assert.notEqual(helpers.languageFlag.call({tag:'ve-PP'}), '🇿🇦 🇿🇦');
+assert.notEqual(helpers.languageFlag.call({tag:'ve-PP'}), '🇿🇦');
+for (const [tag, name, languageName, regionName] of [
+  ['en-BR', 'English (Brazil)', 'English', 'Brazil'],
+  ['es-CO', 'Español en Colombia', 'Español', 'Colombia'],
+  ['pt-BR', 'Português do Brasil', 'Português', 'Brasil'],
+  ['ve-PP', 'Vepsän kelʹ', 'Vepsän kelʹ', ''],
+]) {
+  assert.equal(helpers.languageName.call({tag, name}), languageName);
+  assert.equal(helpers.regionName.call({tag, name}), regionName);
+}
+assert.equal(helpers.languageFlag.call({tag: 'en-BR'}), '🇺🇸');
+assert.equal(helpers.countryFlag.call({tag: 'en-BR'}), '🇧🇷');
+assert.equal(helpers.countryFlag.call({tag: 'en'}), '');
+assert.equal(helpers.languageDirection(), 'ltr');
+rtl = true;
+assert.equal(helpers.languageDirection(), 'rtl');
 assert.ok(fs.readFileSync(path.join(root, 'client/components/users/userHeader.jade'), 'utf8').includes('language-flags(dir="ltr"'));
-console.log(`changeLanguageColumns: all ${rows.length} popup locales and country/language flag ordering verified`);
+const jade = fs.readFileSync(path.join(root, 'client/components/users/userHeader.jade'), 'utf8');
+assert.match(jade, /span\.emoji-icon\.language-flags[^\n]*\{\{languageFlag\}\}/);
+assert.match(jade, /span\.language-region[\s\S]*?language-country-flag[^\n]*\{\{countryFlag\}\}/);
+assert.doesNotMatch(jade, /language-flags[^\n]*countryFlag/);
+assert.match(jade, /dir="\{\{languageDirection\}\}"/);
+console.log(`changeLanguageColumns: all ${rows.length} popup locales and separate language/region flag placement verified`);

@@ -242,9 +242,18 @@ template(name="changeLanguagePopup")
   ul.pop-over-list
     each languages
       li(class="{{# if isCurrentLanguage}}active{{/if}}")
-        a.js-set-language
-          span.emoji-icon.language-flags(dir="ltr" aria-hidden="true") {{languageFlag}}
-          | {{name}}
+        a.js-set-language(href="#" dir="{{languageDirection}}" data-language="{{tag}}")
+          span.language-label
+            span.emoji-icon.language-flags(dir="ltr" aria-hidden="true") {{languageFlag}}
+            bdi.language-name {{languageName}}
+            if countryFlag
+              span.language-region
+                | (
+                span.emoji-icon.language-country-flag(dir="ltr" aria-hidden="true") {{countryFlag}}
+                if regionName
+                  | &nbsp;
+                  bdi {{regionName}}
+                | )
           if rtl
             |  (RTL)
           if isCurrentLanguage
