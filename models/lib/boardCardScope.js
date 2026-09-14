@@ -1,13 +1,10 @@
 'use strict';
 
-// The selector matching cards that belong to a board: the board itself, plus its
-// subtasks-default board when one is configured.
-//
-// Keep the ordinary MongoDB selector shape. FerretDB is responsible for pushing
-// the null-containing `$in` into its backend without requiring clients to rewrite it.
+// A destination pointer is not read permission. Foreign deposit content is
+// published beneath its own reactive, authorized board cursor instead.
 function boardScopeIds(board) {
   if (!board || typeof board._id !== 'string' || board._id.length === 0) return [];
-  return [board._id, board.subtasksDefaultBoardId ?? null];
+  return [board._id];
 }
 
 // Spread this into a card selector: `{ ...boardCardScope(board), archived: false }`.

@@ -3079,6 +3079,13 @@ Boards.helpers({
   },
 
   async setSubtasksDefaultBoardId(subtasksDefaultBoardId) {
+    if (Meteor.isServer && subtasksDefaultBoardId) {
+      const { canWriteSubtaskDeposit, recordSubtaskDepositDenial } = require('/server/lib/subtaskDepositAccess');
+      if (!(await canWriteSubtaskDeposit(Meteor.userId(), subtasksDefaultBoardId))) {
+        recordSubtaskDepositDenial('setSubtasksDefaultBoardId');
+        throw new Meteor.Error('not-authorized');
+      }
+    }
     return await Boards.updateAsync(this._id, { $set: { subtasksDefaultBoardId } });
   },
 

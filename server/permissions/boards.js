@@ -2,6 +2,27 @@ import Boards from '/models/boards';
 import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { findWhere, where } from '/imports/lib/collectionHelpers';
 import { allowIsBoardAdminOrSiteAdmin, canUpdateBoardSort, canUpdateBoardSameWidthValue } from '/server/lib/utils';
+import { canWriteSubtaskDeposit, recordSubtaskDepositDenial } from '/server/lib/subtaskDepositAccess';
+
+Boards.deny({
+  async insert(userId, doc) {
+    if (!doc.subtasksDefaultBoardId) return false;
+    if (await canWriteSubtaskDeposit(userId, doc.subtasksDefaultBoardId)) return false;
+    recordSubtaskDepositDenial('ddp:board-insert');
+    return true;
+  },
+  async update(userId, doc, fields, modifier) {
+    if (modifier.$rename && Object.values(modifier.$rename).includes('subtasksDefaultBoardId')) {
+      recordSubtaskDepositDenial('ddp:board-deposit-rename');
+      return true;
+    }
+    const id = modifier.$set && modifier.$set.subtasksDefaultBoardId;
+    if (!id) return false;
+    if (await canWriteSubtaskDeposit(userId, id)) return false;
+    recordSubtaskDepositDenial('ddp:board-deposit');
+    return true;
+  },
+});
 
 Boards.allow({
   async insert(userId, doc) {

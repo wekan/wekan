@@ -1,3 +1,4 @@
+import { canWriteSubtaskDeposit, recordSubtaskDepositDenial } from '/server/lib/subtaskDepositAccess';
 import { recordLinkedWriteDenial } from '/models/lib/linkedWritePolicy';
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
@@ -366,6 +367,10 @@ Meteor.methods({
     // board + landing list. These getters never duplicate on the server.
     const targetBoard = await parentBoard.getDefaultSubtasksBoardAsync();
     if (!targetBoard) return undefined;
+    if (!(await canWriteSubtaskDeposit(this.userId, targetBoard._id))) {
+      recordSubtaskDepositDenial('addSubtaskCard');
+      throw new Meteor.Error('not-authorized');
+    }
     const targetList = await targetBoard.getDefaultSubtasksListAsync();
     if (!targetList) return undefined;
 

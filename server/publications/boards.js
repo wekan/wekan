@@ -1,3 +1,4 @@
+import { subtaskDepositChildren } from '/server/lib/subtaskDepositPublication';
 // This is the publication used to display the board list. We publish all the
 // non-archived boards:
 // 1. that the user is a member of
@@ -25,7 +26,7 @@ const {
   effectiveBoardCardsMode,
   DEFAULT_LAZY_THRESHOLD,
 } = require('/models/lib/cardsLoading');
-const { boardCardScope } = require('/models/lib/boardCardScope');
+const { boardCardScope, assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 const { boardVisibilitySelectors } = require('/models/lib/boardVisibilitySelectors');
 
 // Card-loading mode (Admin Panel / Features): 'all' ships every card/checklist to
@@ -819,6 +820,15 @@ publishComposite('board', async function(boardId, isArchived, generation) {
       );
     },
     children: [
+      {
+        find(board) {
+          if (!board.subtasksDefaultBoardId || board.subtasksDefaultBoardId === board._id) return null;
+          return Boards.find({ _id: board.subtasksDefaultBoardId, $or }, {
+            fields: { title: 1, permission: 1, members: 1 },
+          });
+        },
+        children: subtaskDepositChildren(thisUserId, isArchived, boardIsLazy),
+      },
       // Lists
       {
         async find(board) {
@@ -897,7 +907,6 @@ publishComposite('board', async function(boardId, isArchived, generation) {
           // Lazy mode: checklists are published per visible card by boardCardsWindow.
           if (await boardIsLazy(board)) return null;
           const boardIds = [board._id];
-          if (board.subtasksDefaultBoardId) boardIds.push(board.subtasksDefaultBoardId);
           // Assigned-only members must not receive checklists for cards they are
           // not assigned to; boardId alone cannot express that, so fall back to
           // the assigned cards' ids for those members.
@@ -922,7 +931,6 @@ publishComposite('board', async function(boardId, isArchived, generation) {
           // Lazy mode: checklist items are published per visible card by boardCardsWindow.
           if (await boardIsLazy(board)) return null;
           const boardIds = [board._id];
-          if (board.subtasksDefaultBoardId) boardIds.push(board.subtasksDefaultBoardId);
           if (thisUserId && board.members) {
             const member = findWhere(board.members, { userId: thisUserId, isActive: true });
             if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
@@ -946,7 +954,6 @@ publishComposite('board', async function(boardId, isArchived, generation) {
           // Lazy mode: comments are published per visible card by boardCardsWindow.
           if (await boardIsLazy(board)) return null;
           const boardIds = [board._id];
-          if (board.subtasksDefaultBoardId) boardIds.push(board.subtasksDefaultBoardId);
           // Assigned-only members must only receive comments for cards assigned to
           // them; boardId alone cannot express that, so fall back to the assigned
           // cards' ids for those members (same as checklists above).
@@ -971,7 +978,6 @@ publishComposite('board', async function(boardId, isArchived, generation) {
         async find(board) {
           if (await boardIsLazy(board)) return null;
           const boardIds = [board._id];
-          if (board.subtasksDefaultBoardId) boardIds.push(board.subtasksDefaultBoardId);
           if (thisUserId && board.members) {
             const member = findWhere(board.members, { userId: thisUserId, isActive: true });
             if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
@@ -994,7 +1000,6 @@ publishComposite('board', async function(boardId, isArchived, generation) {
           // Lazy mode: attachments are published per visible card by boardCardsWindow.
           if (await boardIsLazy(board)) return null;
           const boardIds = [board._id];
-          if (board.subtasksDefaultBoardId) boardIds.push(board.subtasksDefaultBoardId);
           if (thisUserId && board.members) {
             const member = findWhere(board.members, { userId: thisUserId, isActive: true });
             if (member && (member.isNormalAssignedOnly || member.isCommentAssignedOnly || member.isReadAssignedOnly)) {
@@ -1316,11 +1321,16 @@ Meteor.methods({
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized');
     }
-    const boardIds = [board._id];
-    if (board.subtasksDefaultBoardId) boardIds.push(board.subtasksDefaultBoardId);
+    const statusClauses = [{ boardId: board._id, ...assignedOnlyCardScope(board, this.userId) }];
+    const visibleDeposits = await visibleBoardIds(this.userId, [board.subtasksDefaultBoardId]);
+    if (visibleDeposits.has(board.subtasksDefaultBoardId)) {
+      const deposit = await Boards.findOneAsync(board.subtasksDefaultBoardId);
+      if (deposit) statusClauses.push({ boardId: deposit._id, ...assignedOnlyCardScope(deposit, this.userId) });
+    }
+    const statusCardScope = { $or: statusClauses };
 
-    const cards = await Cards.find({ boardId: { $in: boardIds }, archived: false }).countAsync();
-    const archivedCards = await Cards.find({ boardId: { $in: boardIds }, archived: true }).countAsync();
+    const cards = await Cards.find({ ...statusCardScope, archived: false }).countAsync();
+    const archivedCards = await Cards.find({ ...statusCardScope, archived: true }).countAsync();
     const swimlanes = (await ReactiveCache.getSwimlanes({ boardId: board._id, archived: false })).length;
     const lists = (await ReactiveCache.getLists({ boardId: board._id, archived: false })).length;
     const customFields = (await ReactiveCache.getCustomFields({ boardIds: { $in: [board._id] } })).length;
@@ -1332,7 +1342,7 @@ Meteor.methods({
     // and how many are flagged overtime. Only cards WITH time are fetched (spentTime
     // > 0), so this stays cheap even on a large board.
     const timeCards = await Cards.find(
-      { boardId: { $in: boardIds }, archived: false, spentTime: { $gt: 0 } },
+      { ...statusCardScope, archived: false, spentTime: { $gt: 0 } },
       { fields: { spentTime: 1, isOvertime: 1 } },
     ).fetchAsync();
     const timeSpentTotal = timeCards.reduce((sum, c) => sum + (Number(c.spentTime) || 0), 0);

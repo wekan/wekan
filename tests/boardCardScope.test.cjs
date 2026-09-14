@@ -20,29 +20,29 @@ const {
 let passed = 0;
 function check(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
-check('a board with no subtasks-default board keeps the null $in member', () => {
-  assert.deepStrictEqual(boardScopeIds({ _id: 'B' }), ['B', null]);
-  assert.deepStrictEqual(boardCardScope({ _id: 'B' }), { boardId: { $in: ['B', null] } });
+check('a board without a deposit excludes null and orphan card boards', () => {
+  assert.deepStrictEqual(boardScopeIds({ _id: 'B' }), ['B']);
+  assert.deepStrictEqual(boardCardScope({ _id: 'B' }), { boardId: { $in: ['B'] } });
 });
 
 check('null and undefined subtasksDefaultBoardId use the same MongoDB selector', () => {
   assert.deepStrictEqual(boardCardScope({ _id: 'B', subtasksDefaultBoardId: null }),
-    { boardId: { $in: ['B', null] } });
+    { boardId: { $in: ['B'] } });
   assert.deepStrictEqual(boardCardScope({ _id: 'B' }),
-    { boardId: { $in: ['B', null] } });
+    { boardId: { $in: ['B'] } });
 });
 
 check('a real subtasks-default board -> an all-string $in (still pushes down)', () => {
-  assert.deepStrictEqual(boardScopeIds({ _id: 'B', subtasksDefaultBoardId: 'S' }), ['B', 'S']);
+  assert.deepStrictEqual(boardScopeIds({ _id: 'B', subtasksDefaultBoardId: 'S' }), ['B']);
   assert.deepStrictEqual(boardCardScope({ _id: 'B', subtasksDefaultBoardId: 'S' }),
-    { boardId: { $in: ['B', 'S'] } });
+    { boardId: { $in: ['B'] } });
 });
 
 check('tolerates a missing board', () => {
   assert.deepStrictEqual(boardScopeIds(undefined), []);
   assert.deepStrictEqual(boardScopeIds({}), []);
   assert.deepStrictEqual(boardCardScope({ _id: 'B', subtasksDefaultBoardId: 5 }),
-    { boardId: { $in: ['B', 5] } });
+    { boardId: { $in: ['B'] } });
 });
 
 // ── source guards: no card query still uses the null-containing $in ────────────
