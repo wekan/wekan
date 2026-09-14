@@ -121854,5 +121854,26 @@
     "before": "رتب",
     "after": "ⴰⴼⵔⴰⵏ",
     "reason": "Replace Arabic in the generic Sort label with native MediaWiki afran/sort, directly attested in sort-ascending and sort-descending. Use the existing native nominal UI sort wording; this does not claim a separately attested imperative verb. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "show-week-of-year",
+    "before": "عرض أسبوع السنة (ISO 8601)",
+    "after": "ⵙⴽⵏ ⵉⵎⴰⵍⴰⵙⵙ ⵏ ⵓⵙⴳⴳⵯⴰⵙ (ISO 8601)",
+    "reason": "Replace Arabic. CLDR directly attests imalass/week and asggwas/year; native MediaWiki year attests bound usggwas and view skn/show. Preserve ISO 8601 exactly, retaining week-of-year rather than weekday/week-start meaning. LOW CONFIDENCE complete genitive/show phrase; component evidence is not fluent full UI verification. References: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "start-day-of-week",
+    "before": "Définir le jour de début de semaine",
+    "after": "ⵙⵜⵉ ⴰⵙⵙ ⴰⵎⵣⵡⴰⵔⵓ ⴳ ⵉⵎⴰⵍⴰⵙⵙ",
+    "reason": "Replace French. CLDR weekday display directly attests ass g imalass/day in week; native MediaWiki page_first attests amzwaru/first and userexists sti/choose. Express selecting the first day of the week, distinct from ISO week-of-year display. LOW CONFIDENCE complete first-day qualifier and selection phrase. References: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "show-at-all-boards-page",
+    "before": "Afficher sur la page de tous les tableaux",
+    "after": "ⵙⴽⵏ ⴳ ⵜⵙⵏⴰ ⵏ ⵜⴼⵍⵡⵉⵏ ⴰⴽⴽⵯ",
+    "reason": "Replace French. Native MediaWiki view attests show/skn, title-invalid bound page tsna and searchall all/akkw. Reuse existing board plural vocabulary with bound tflwin in page-of-all-boards scope. Preserve display on the All Boards page, not displaying every board or changing membership/access scope. LOW CONFIDENCE bound board plural and complete page genitive composition. References: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
