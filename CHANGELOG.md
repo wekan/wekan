@@ -626,6 +626,24 @@ need language review.
 
 This release includes the following translation repairs and build verification:
 
+This release fixes the following CRITICAL SECURITY ISSUE:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/962debc12">Enforce private-only board visibility in server methods</a></summary>
+
+VisibilityBleed: direct board creation and card-to-board conversion could
+create public boards despite the instance private-only policy (CWE-863).
+Both paths now force private visibility before insertion. Blocked overrides
+appear as bounded Admin Panel Problems summaries; logging failures cannot
+break the policy. Reporter: Wenhao Wu, Southeast University.
+Positive policy, negative board-insert inventory and Hall of Fame catalog
+coverage pass. Browser regression is added and syntax-checked; live execution
+remains pending. Nine other wekansec21 reports remain under review.
+
+Thanks to Wenhao Wu, Southeast University and xet7 !
+
+</details>
+
 **Translations** - Tamazight interface and maintenance labels; Bambara, Fulah, Dzongkha and Ewe calendars.
 
 <details>
