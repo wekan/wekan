@@ -1965,7 +1965,7 @@
   "Node_heap_total_physical_size": "Tas de Node : taille totale physique",
   "Node_heap_total_available_size": "Tas de Node : taille totale disponible",
   "Node_heap_used_heap_size": "ⴰⴳⵓⴷⵉ ⵏ Node: ⴰⵇⵓⴷⴷⵉ ⵏ ⵓⴳⵓⴷⵉ ⵉⵜⵜⵓⵙⵙⵎⵔⵙⵏ",
-  "Node_heap_heap_size_limit": "Tas de Node : limite de taille du tas",
+  "Node_heap_heap_size_limit": "ⴰⴳⵓⴷⵉ ⵏ Node: ⵜⵉⴳⴳⵓⵎⵔⴰ ⵏ ⵓⵇⵓⴷⴷⵉ ⵏ ⵓⴳⵓⴷⵉ",
   "Node_heap_malloced_memory": "Tas de Node : mémoire allouée par malloc",
   "Node_heap_peak_malloced_memory": "Tas de Node : mémoire maximale allouée par malloc",
   "Node_heap_does_zap_garbage": "Tas de Node : Utilise l'option does_zap_garbage",

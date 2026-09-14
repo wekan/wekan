@@ -559,3 +559,9 @@ for (const key of ['Node_heap_total_heap_size', 'Node_heap_used_heap_size']) {
 }
 assert.notStrictEqual(translated.Node_heap_total_heap_size, translated.Node_heap_used_heap_size);
 console.log('Tamazight total and used heap labels remain distinct');
+
+assert.strictEqual(translated.Node_heap_heap_size_limit, "ⴰⴳⵓⴷⵉ ⵏ Node: ⵜⵉⴳⴳⵓⵎⵔⴰ ⵏ ⵓⵇⵓⴷⴷⵉ ⵏ ⵓⴳⵓⴷⵉ");
+assert.doesNotMatch(translated.Node_heap_heap_size_limit, /Tas de|limite de|[\u0600-\u06ff]|ⵜⴰⴽⵜⵓⵜ/u);
+assert.notStrictEqual(translated.Node_heap_heap_size_limit, translated.Node_heap_total_heap_size);
+assert.notStrictEqual(translated.Node_heap_heap_size_limit, translated.Node_heap_used_heap_size);
+console.log('Tamazight heap limit stays distinct from total and used size');

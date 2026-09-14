@@ -139158,5 +139158,12 @@
     "before": "Tas de Node : taille du tas utilisé",
     "after": "ⴰⴳⵓⴷⵉ ⵏ Node: ⴰⵇⵓⴷⴷⵉ ⵏ ⵓⴳⵓⴷⵉ ⵉⵜⵜⵓⵙⵙⵎⵔⵙⵏ",
     "reason": "2026-09-15: Replace French heap size diagnostic. IRCAM agudi heap 528, aquddi size 1779, tamuttrt total 11282, ssmrs use 9981. Preserve total vs used distinction per Node V8 documentation. Heap metaphor, technical size compound and passive participle remain low confidence; no native full-phrase validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "Node_heap_heap_size_limit",
+    "before": "Tas de Node : limite de taille du tas",
+    "after": "ⴰⴳⵓⴷⵉ ⵏ Node: ⵜⵉⴳⴳⵓⵎⵔⴰ ⵏ ⵓⵇⵓⴷⴷⵉ ⵏ ⵓⴳⵓⴷⵉ",
+    "reason": "2026-09-15: Replace French heap-size-limit label using abstract IRCAM limit tiggumra 12525 and existing repaired heap/size compounds. Preserve ceiling distinct from total/used size or remaining capacity. Computing metaphor and nominal chain low confidence."
   }
 ]
