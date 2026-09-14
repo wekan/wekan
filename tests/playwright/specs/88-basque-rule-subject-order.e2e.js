@@ -4,11 +4,11 @@ const db = require('../helpers/db');
 const { loginWithToken, navigateInApp } = require('../helpers/auth');
 
 test('Basque named controls and saved descriptions keep the demonstrative last', async ({ page, adminUser }) => {
-  const board = db.seedBoard(adminUser.id, { title: 'Basque subject order', lists: ['Todo'] });
+  const board = db.seedBoard({ ownerId: adminUser.id, title: 'Basque subject order', listCount: 1 });
   const previous = db.findOne('users', { _id: adminUser.id }).profile?.language;
   try {
     db.updateOne('users', { _id: adminUser.id }, { $set: { 'profile.language': 'eu' } });
-    await loginWithToken(page, adminUser);
+    await loginWithToken(page, adminUser.id, adminUser.token);
     await navigateInApp(page, `/b/${board.boardId}/${board.slug}/rules`);
     await page.locator('#ruleTitle').fill('Basque named checklist');
     await page.locator('.js-goto-trigger').click();
@@ -36,6 +36,8 @@ test('Basque named controls and saved descriptions keep the demonstrative last',
       .not.toContain('kontrol-zerrenda hau Demo');
     db.updateOne('users', { _id: adminUser.id }, { $set: { 'profile.language': 'en' } });
     await page.reload();
+    await loginWithToken(page, adminUser.id, adminUser.token);
+    await navigateInApp(page, `/b/${board.boardId}/${board.slug}/rules`);
     await page.locator('#ruleTitle').fill('English unchanged');
     await page.locator('.js-goto-trigger').click();
     await page.locator('.js-set-card-triggers').click();
