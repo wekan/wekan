@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,328 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 516 pending review or repair.
-The correction inventory records 17,641 exact before/after values,
+findings: 15,329 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 515 pending review or repair.
+The correction inventory records 17,643 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (378) and
+The largest original queues are Standard Moroccan Tamazight (377) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 93f907097 (2026-09-14), replacing the French
-Tamazight Node external-memory diagnostic. External qualifier is preserved;
-full adaptation and free-memory terminology still need language review.
+Latest translation fix is eb7efa06f (2026-09-14), replacing Arabic/French
+Tamazight announcement labels. Full administrator attribution and the
+separate active system-wide qualifier still need language review.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -614,10 +614,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,328 original findings are
+Translation audit progress as of 2026-09-14: 15,329 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 516 remain pending across 17 locales, including 378 Tamazight findings.
-The ledger contains 17,641 correction records, including unflagged repairs.
+and 515 remain pending across 17 locales, including 377 Tamazight findings.
+The ledger contains 17,643 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -1211,7 +1211,7 @@ remains low confidence pending language review.
 Replace French status text using native upload and completion vocabulary.
 Positive completion morphology and the full sentence remain low confidence
 pending fluent review. All 17,638 correction/rendering checks pass; 519
-original findings remain pending, including 378 Tamazight findings.
+original findings remain pending, including 377 Tamazight findings.
 Restored, unflagged and earlier low-confidence wording still need validation.
 
 </details>
@@ -1246,6 +1246,17 @@ qualifier; vocabulary evidence does not imply disk storage. Full adaptation
 remains low confidence pending fluent review. All 17,641 correction/rendering
 checks pass; 516 original findings remain pending. Free-memory terminology,
 restored, unflagged and earlier low-confidence wording still need review.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eb7efa06f">Translate Tamazight announcement labels</a>. Thanks to xet7.</summary>
+
+Replace Arabic/French announcement and administrator-title labels using
+native Moroccan announcement vocabulary, including one unflagged repair.
+Full administrator attribution remains low confidence; the separate active
+system-wide qualifier remains unresolved. All 17,643 correction/rendering
+checks pass; 515 originals remain pending. Broader language review continues.
 
 </details>
 
