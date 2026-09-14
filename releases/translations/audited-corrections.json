@@ -138577,5 +138577,61 @@
     "before": "Ajouter une étiquette",
     "after": "ⵔⵏⵓ ⴰⵔⵛⵓⵎ",
     "reason": "2026-09-15: replace French rule wording using existing Tamazight card/item/label nouns and add imperative. Full contextual rule phrasing remains low confidence; preserve separate object and action meanings."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-its-list",
+    "before": "sa liste",
+    "after": "ⵜⴰⵍⴳⴰⵎⵜ ⵏⵏⵙ",
+    "reason": "2026-09-15: replace French rule fragments using existing Tamazight list/swimlane/member/item terminology, add/remove imperatives, possession and prepositions. Preserve distinct object, destination, possession and action meanings. Complete contextual grammar remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-in-list",
+    "before": "dans la liste",
+    "after": "ⴳ ⵜⵍⴳⴰⵎⵜ",
+    "reason": "2026-09-15: replace French rule fragments using existing Tamazight list/swimlane/member/item terminology, add/remove imperatives, possession and prepositions. Preserve distinct object, destination, possession and action meanings. Complete contextual grammar remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-in-swimlane",
+    "before": "Dans le couloir",
+    "after": "ⴳ ⵓⴱⵔⵉⴷ",
+    "reason": "2026-09-15: replace French rule fragments using existing Tamazight list/swimlane/member/item terminology, add/remove imperatives, possession and prepositions. Preserve distinct object, destination, possession and action meanings. Complete contextual grammar remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-d-add-member",
+    "before": "Ajouter un participant",
+    "after": "ⵔⵏⵓ ⴰⴳⵎⴰⵎ",
+    "reason": "2026-09-15: replace French rule fragments using existing Tamazight list/swimlane/member/item terminology, add/remove imperatives, possession and prepositions. Preserve distinct object, destination, possession and action meanings. Complete contextual grammar remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-d-remove-member",
+    "before": "Supprimer un participant",
+    "after": "ⴽⴽⵙ ⴰⴳⵎⴰⵎ",
+    "reason": "2026-09-15: replace French rule fragments using existing Tamazight list/swimlane/member/item terminology, add/remove imperatives, possession and prepositions. Preserve distinct object, destination, possession and action meanings. Complete contextual grammar remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-d-check-of-list",
+    "before": "de la checklist",
+    "after": "ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
+    "reason": "2026-09-15: replace French rule fragments using existing Tamazight list/swimlane/member/item terminology, add/remove imperatives, possession and prepositions. Preserve distinct object, destination, possession and action meanings. Complete contextual grammar remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-with-items",
+    "before": "avec les items",
+    "after": "ⵙ ⵉⴼⵔⴷⵉⵙⵏ",
+    "reason": "2026-09-15: replace French rule fragments using existing Tamazight list/swimlane/member/item terminology, add/remove imperatives, possession and prepositions. Preserve distinct object, destination, possession and action meanings. Complete contextual grammar remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-swimlane-name",
+    "before": "Nom du couloir",
+    "after": "ⵉⵙⵎ ⵏ ⵓⴱⵔⵉⴷ",
+    "reason": "2026-09-15: replace French rule fragments using existing Tamazight list/swimlane/member/item terminology, add/remove imperatives, possession and prepositions. Preserve distinct object, destination, possession and action meanings. Complete contextual grammar remains low confidence."
   }
 ]

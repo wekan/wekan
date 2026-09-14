@@ -261,3 +261,15 @@ assert.equal(translated['r-item'], 'ⴰⴼⵔⴷⵉⵙ');
 assert.equal(translated['r-d-add-label'], translated['r-add'] + ' ' + translated['r-label']);
 assert.notEqual(translated['r-d-add-label'], translated['r-d-remove-label']);
 assert.doesNotMatch(translated['r-card'] + translated['r-item'] + translated['r-d-add-label'], /carte|élément|Ajouter/);
+
+assert.equal(translated["r-its-list"], "ⵜⴰⵍⴳⴰⵎⵜ ⵏⵏⵙ");
+assert.equal(translated["r-in-list"], "ⴳ ⵜⵍⴳⴰⵎⵜ");
+assert.equal(translated["r-in-swimlane"], "ⴳ ⵓⴱⵔⵉⴷ");
+assert.equal(translated["r-d-add-member"], "ⵔⵏⵓ ⴰⴳⵎⴰⵎ");
+assert.equal(translated["r-d-remove-member"], "ⴽⴽⵙ ⴰⴳⵎⴰⵎ");
+assert.equal(translated["r-d-check-of-list"], "ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ");
+assert.equal(translated["r-with-items"], "ⵙ ⵉⴼⵔⴷⵉⵙⵏ");
+assert.equal(translated["r-swimlane-name"], "ⵉⵙⵎ ⵏ ⵓⴱⵔⵉⴷ");
+assert.notEqual(translated['r-in-list'], translated['r-in-swimlane']);
+assert.notEqual(translated['r-d-add-member'], translated['r-d-remove-member']);
+assert.doesNotMatch([translated["r-its-list"],translated["r-in-list"],translated["r-in-swimlane"],translated["r-d-add-member"],translated["r-d-remove-member"],translated["r-d-check-of-list"],translated["r-with-items"],translated["r-swimlane-name"]].join(' '), /liste|couloir|Ajouter|Supprimer|checklist|avec/);
