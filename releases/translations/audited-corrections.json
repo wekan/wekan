@@ -139354,5 +139354,47 @@
     "before": "API token / phasiwede",
     "after": "API token / peitsana",
     "reason": "Replace unflagged Tshivenda synchronization text with Veps draft using existing Sinhronirui, Peitsana, Viga and native MediaWiki nügüd’, jäl’gmäine, libo wording. Preserve literal PROJECT, owner/repo and API token. Full assembled synchronization grammar remains under review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-sync-enabled",
+    "before": "U vhambadzanya ho vulwa",
+    "after": "Sinhronirund om päl",
+    "reason": "Replace unflagged Tshivenda sync state/result using direct Veps draft. Derived synchronization noun from existing Sinhronirui; native MediaWiki actioncomplete supplies om loptud and createacct-loginerror hüvin. Full derivation/case grammar remains low confidence; preserve distinct states and literal %s."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-sync-last-synced",
+    "before": "U vhambadzanya ha u fhedza",
+    "after": "Jäl'gmäine sinhronirund",
+    "reason": "Replace unflagged Tshivenda sync state/result using direct Veps draft. Derived synchronization noun from existing Sinhronirui; native MediaWiki actioncomplete supplies om loptud and createacct-loginerror hüvin. Full derivation/case grammar remains low confidence; preserve distinct states and literal %s."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-sync-now-pending",
+    "before": "I khou vhambadzanya…",
+    "after": "Sinhronirund…",
+    "reason": "Replace unflagged Tshivenda sync state/result using direct Veps draft. Derived synchronization noun from existing Sinhronirui; native MediaWiki actioncomplete supplies om loptud and createacct-loginerror hüvin. Full derivation/case grammar remains low confidence; preserve distinct states and literal %s."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-sync-now-success",
+    "before": "U vhambadzanya ho fhedza zwavhuḓi.",
+    "after": "Sinhronirund om hüvin loptud.",
+    "reason": "Replace unflagged Tshivenda sync state/result using direct Veps draft. Derived synchronization noun from existing Sinhronirui; native MediaWiki actioncomplete supplies om loptud and createacct-loginerror hüvin. Full derivation/case grammar remains low confidence; preserve distinct states and literal %s."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-sync-now-error",
+    "before": "U vhambadzanya ho ngo bvelela: %s",
+    "after": "Sinhronirundan viga: %s",
+    "reason": "Replace unflagged Tshivenda sync state/result using direct Veps draft. Derived synchronization noun from existing Sinhronirui; native MediaWiki actioncomplete supplies om loptud and createacct-loginerror hüvin. Full derivation/case grammar remains low confidence; preserve distinct states and literal %s."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-sync-clear",
+    "before": "Litshani u vhambadzanya",
+    "after": "Seižuta sinhronirund",
+    "reason": "Replace unflagged Tshivenda sync state/result using direct Veps draft. Derived synchronization noun from existing Sinhronirui; native MediaWiki actioncomplete supplies om loptud and createacct-loginerror hüvin. Full derivation/case grammar remains low confidence; preserve distinct states and literal %s."
   }
 ]

@@ -129,3 +129,12 @@ test("Veps synchronization labels preserve immediate action and literal credenti
  for (const [key,value] of Object.entries(expected)) { assert.equal(data[key],value); assert.doesNotMatch(data[key], /vhambadzanya|Vhambadzanyani|phasiwede|Phoxo|kana/i); }
  assert.notEqual(data["list-sync-menu"],data["list-sync-now"]);
 });
+
+test("Veps synchronization results retain distinct states and error token", () => {
+ const data = JSON.parse(fs.readFileSync("imports/i18n/data/ve-PP.i18n.json", "utf8"));
+ const expected = {"list-sync-enabled": "Sinhronirund om päl", "list-sync-last-synced": "Jäl'gmäine sinhronirund", "list-sync-now-pending": "Sinhronirund…", "list-sync-now-success": "Sinhronirund om hüvin loptud.", "list-sync-now-error": "Sinhronirundan viga: %s", "list-sync-clear": "Seižuta sinhronirund"};
+ for (const [key,value] of Object.entries(expected)) { assert.equal(data[key],value); assert.doesNotMatch(data[key], /vhambadzanya|vulwa|zwavhu|ngo bvelela|Litshani/i); }
+ assert.equal((data["list-sync-now-error"].match(/%s/g)||[]).length,1);
+ assert.notEqual(data["list-sync-now-pending"],data["list-sync-now-success"]);
+ assert.notEqual(data["list-sync-now-error"],data["list-sync-now-success"]);
+});
