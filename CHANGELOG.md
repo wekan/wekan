@@ -64,7 +64,7 @@ removed from this list as they are handled (their fixes carry `Fixes #NNNN` and
 close on push): e.g. #4560/#4419/#4158 (LDAP, in the startup-upgrade
 batch), #4825/#4897 (All Boards/OAuth2 data), #4822 (maximized card
 position), #3826
-(subtask drag reorder), #5232/#5547 (mergebox/features batch), #3453/#3199/#3843
+(subtask drag reorder), #5222/#5547 (mergebox/features batch), #3453/#3199/#3843
 (linked-card/archive/comment attachments), #4593 (late-joining team member board
 membership) and #3037 (REST card board-move).
 
@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,321 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 523 pending review or repair.
-The correction inventory records 17,633 exact before/after values,
+findings: 15,322 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 522 pending review or repair.
+The correction inventory records 17,634 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (385) and
+The largest original queues are Standard Moroccan Tamazight (384) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -101,10 +101,10 @@ Transifex: the evidence includes 4,061 pulled changes and 16,020 additional
 local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
-changes are implemented in local commit 02383523a; translation repairs have resumed.
-Latest translation fix is e675a7fe6 (2026-09-14), replacing French
-Tamazight board scan labels. File attachments and member avatars remain
-distinct; derived action noun and full phrasing need language review.
+changes are implemented in local commit 02383522a; translation repairs have resumed.
+Latest translation fix is ba5ba5e7b (2026-09-14), replacing the French
+Tamazight login-attempt error. Error occurrence and attempted login are
+preserved; temporal clause and full phrasing need language review.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -239,7 +239,7 @@ to the Admin role), [#5081](https://github.com/wekan/wekan/issues/5081)
 (copy-card resets comment authorship/date — the visible card items are
 activities recorded as the copying user at copy time; changing this is a design
 decision @xet7 raised, not a clear bug),
-[#5233](https://github.com/wekan/wekan/issues/5233) (notification/webhook
+[#5223](https://github.com/wekan/wekan/issues/5223) (notification/webhook
 reminder on a card's due date with a per-board offset — labelled Feature; the
 built-in due-date reminder already exists (`NOTIFY_DUE_DAYS_BEFORE_AND_AFTER`,
 improved in #3192), so the remaining ask is the per-board offset UI + a webhook
@@ -266,7 +266,7 @@ addition),
 [#3235](https://github.com/wekan/wekan/issues/3235) (rule action to copy a
 card to another board and list — same underlying gap as #4160, plus needs a
 board/list picker in the rule-action UI),
-[#3858](https://github.com/wekan/wekan/issues/3858) (rule email action should
+[#3848](https://github.com/wekan/wekan/issues/3848) (rule email action should
 support attachments — `client/components/rules/actions/mailActions.js` and
 its server-side sender only handle a plain templated body today; attaching a
 card's files means streaming them through the mailer, a scope change to the
@@ -603,7 +603,7 @@ browser verification remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5237ab3ca">Repair Tamazight search OR and AND explanations</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/5227ab3ca">Repair Tamazight search OR and AND explanations</a>. Thanks to xet7.</summary>
 
 Replace two French search notes and correct the mistaken optional
 interpretation of OR. Preserve OR/any versus AND/all, literal example names,
@@ -614,10 +614,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,321 original findings are
+Translation audit progress as of 2026-09-14: 15,322 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 523 remain pending across 17 locales, including 385 Tamazight findings.
-The ledger contains 17,633 correction records, including unflagged repairs.
+and 522 remain pending across 17 locales, including 384 Tamazight findings.
+The ledger contains 17,634 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -631,7 +631,7 @@ language validation and live browser checks remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7f1812523">Translate Tamazight email sending diagnostics</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/7f1812522">Translate Tamazight email sending diagnostics</a>. Thanks to xet7.</summary>
 
 Replace three French messages, preserving sending failure, an error during
 the attempt and user-owned SMTP success. Native reference components support
@@ -687,7 +687,7 @@ language validation and live browser checks remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/435a9523e">Translate Tamazight registration invitation diagnostics</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/435a9522e">Translate Tamazight registration invitation diagnostics</a>. Thanks to xet7.</summary>
 
 Replace two French messages, preserving send error versus successful send
 and registration/account-creation purpose without claiming acceptance.
@@ -774,7 +774,7 @@ validation remain open.
 Replace three unflagged French values, preserving previous/next directions
 and explicit month scope. CLDR and native UI components support vocabulary;
 complete calendar navigation and standalone previous usage remain low
-confidence. All 17,523 correction/rendering checks pass. Original pending
+confidence. All 17,522 correction/rendering checks pass. Original pending
 counts are unchanged; wider language and live browser review remain open.
 
 </details>
@@ -785,7 +785,7 @@ counts are unchanged; wider language and live browser review remain open.
 Replace five original French findings, preserving above versus below,
 selected qualification, card versus swimlane scope and add action. Native UI
 components support vocabulary; swimlane adaptation, bound nouns and complete
-placement phrases remain low confidence. All 17,523 correction/rendering
+placement phrases remain low confidence. All 17,522 correction/rendering
 checks pass; 594 original findings remain pending. Wider language and live
 browser validation remain open.
 
@@ -797,7 +797,7 @@ browser validation remain open.
 Repair three original French findings and an unflagged card-label command
 that incorrectly used a button word. Preserve label versus member setting,
 multiple-selection removal, literal 1-9 range and all-label/card scope.
-All 17,523 correction/rendering checks pass; 591 original findings remain.
+All 17,522 correction/rendering checks pass; 591 original findings remain.
 Native components support vocabulary; software set adaptation, multiple
 adjective, bound nouns and full phrases remain low confidence. Wider language
 and live browser validation remain open.
@@ -821,7 +821,7 @@ Wider language and live browser validation remain open.
 
 Replace four French values, including one unflagged string. Preserve plural
 add/list, singular settings, missing named organization and exact %s token.
-All 17,523 correction/rendering checks pass; 587 original findings remain.
+All 17,522 correction/rendering checks pass; 587 original findings remain.
 The computing lexicon marks vocabulary MW (Mammeri); dialect adaptation,
 spelling, feminine negation and full phrases remain low confidence. Wider
 language and live browser validation remain open.
@@ -916,7 +916,7 @@ confidence. Wider language and live browser validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/68ee05237">Repair Tamazight attachment labels and action popups</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/68ee05227">Repair Tamazight attachment labels and action popups</a>. Thanks to xet7.</summary>
 
 Replace twelve French/Arabic values, including nine unflagged strings.
 Preserve attachment singular/plural, distinct add/edit/delete/actions/move
@@ -1032,8 +1032,8 @@ Replace the English label and restore missing moon-sighting detail. Exact
 Latin country name and native see/moon components support vocabulary; full
 composition remains low confidence pending technical review. Provisional
 Adlam Hijri names have punctuation/semantic uncertainties; a Swedish
-homograph is not accepted as Fulah evidence. All 17,633 correction/rendering
-checks pass; 523 original findings remain, including two Fulah epoch findings.
+homograph is not accepted as Fulah evidence. All 17,634 correction/rendering
+checks pass; 522 original findings remain, including two Fulah epoch findings.
 Wider language and browser review remain open.
 
 </details>
@@ -1043,8 +1043,8 @@ Wider language and browser review remain open.
 
 Replace the French import title while retaining Excel CSV/TSV names.
 Native entry wording and cached import terminology support components;
-complete import phrasing remains low confidence. All 17,633 correction
-checks pass; 523 original findings remain pending.
+complete import phrasing remains low confidence. All 17,634 correction
+checks pass; 522 original findings remain pending.
 
 </details>
 
@@ -1053,7 +1053,7 @@ checks pass; 523 original findings remain pending.
 
 Replace two French repair labels while retaining URL and existing avatar
 terminology. The correction verb has dictionary support; complete wording
-still needs language review. All 17,633 correction checks pass.
+still needs language review. All 17,634 correction checks pass.
 
 </details>
 
@@ -1062,7 +1062,7 @@ still needs language review. All 17,633 correction checks pass.
 
 Replace French/Arabic start, end and received-date activity/popup wording.
 The first activity value is the destination date, the second its card.
-All 17,633 correction checks pass; full phrasing still needs language review.
+All 17,634 correction checks pass; full phrasing still needs language review.
 
 </details>
 
@@ -1071,7 +1071,7 @@ All 17,633 correction checks pass; full phrasing still needs language review.
 
 Replace French while preserving display action and board-member ownership.
 Native show/member components are supported; existing avatar terminology
-and complete phrasing need review. All 17,633 correction checks pass.
+and complete phrasing need review. All 17,634 correction checks pass.
 
 </details>
 
@@ -1080,7 +1080,7 @@ and complete phrasing need review. All 17,633 correction checks pass.
 
 Replace French while preserving the invalid-JSON warning and text ownership.
 Native components support wording; full construction needs review. Paste
-prompts remain open. All 17,633 correction checks pass.
+prompts remain open. All 17,634 correction checks pass.
 
 </details>
 
@@ -1089,7 +1089,7 @@ prompts remain open. All 17,633 correction checks pass.
 
 Replace French activity and Arabic control, preserving removal from card
 and all location placeholders. Full phrasing and actor morphology need
-language review. All 17,633 correction checks pass.
+language review. All 17,634 correction checks pass.
 
 </details>
 
@@ -1098,7 +1098,7 @@ language review. All 17,633 correction checks pass.
 
 Replace French using native move/restore components. Preserve restoration
 destination and distinct old/new locations. Full phrasing still needs
-language review. All 17,633 correction checks pass.
+language review. All 17,634 correction checks pass.
 
 </details>
 
@@ -1107,7 +1107,7 @@ language review. All 17,633 correction checks pass.
 
 Replace French trigger and fragment, preserving when-event scope and
 another-list destination. Derived passive and agreement need language
-review. All 17,633 correction checks pass.
+review. All 17,634 correction checks pass.
 
 </details>
 
@@ -1116,7 +1116,7 @@ review. All 17,633 correction checks pass.
 
 Replace unflagged French Removed from wording, preserving passive removal
 and source relation. Finite passive needs language review; assignee terms
-remain open. All 17,633 correction checks pass; original counts unchanged.
+remain open. All 17,634 correction checks pass; original counts unchanged.
 
 </details>
 
@@ -1125,7 +1125,7 @@ remain open. All 17,633 correction checks pass; original counts unchanged.
 
 Replace French, preserving the required minimum of three characters and
 username scope. Full construction still needs language review.
-All 17,633 correction checks pass.
+All 17,634 correction checks pass.
 
 </details>
 
@@ -1134,7 +1134,7 @@ All 17,633 correction checks pass.
 
 Replace Arabic avatar/upload labels, preserving maximum file size and
 byte units. Derived terminology and full phrasing need language review.
-All 17,633 correction checks pass.
+All 17,634 correction checks pass.
 
 </details>
 
@@ -1143,7 +1143,7 @@ All 17,633 correction checks pass.
 
 Replace Arabic Open and bulk card-opening labels, preserving multiple
 cards and one-operation qualifier. Verb adaptation and full composition
-need language review. All 17,633 correction checks pass.
+need language review. All 17,634 correction checks pass.
 
 </details>
 
@@ -1152,7 +1152,16 @@ need language review. All 17,633 correction checks pass.
 
 Replace French checking statuses, preserving separate board file-attachment
 and member-avatar scopes. Derived noun and full ownership wording need
-language review. All 17,633 correction checks pass.
+language review. All 17,634 correction checks pass.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ba5ba5e7b">Repair Tamazight login attempt error</a>. Thanks to xet7.</summary>
+
+Replace French while preserving error during attempted login without
+inventing a password or LDAP cause. Temporal construction needs language
+review. All 17,634 correction checks pass.
 
 </details>
 
