@@ -22454,3 +22454,10 @@ Retained `impersonate-user`: Euskadi dictionary includes acting in another
 person’s place in `ordezkatu`, matching the actual administrator handler.
 Source: https://www.euskadi.eus/web01-a2lurhiz/es/contenidos/termino/_c04593/eu_o_1340/o1340.html
 All 3,696 exact review records pass; broader repairs remain open.
+
+**2026-09-14 — Basque dates and standalone rules (`4c788beef`).**
+
+Retained 23 inspected date, requester/assigner, parent-card presentation,
+custom-field activity and standalone rule labels. Actual minicard parentCardName
+confirms the parent relationship; unset activities clear a value, not a definition.
+All 3,719 exact reviews pass. Compound conditional trigger phrases remain open.

@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,571 corrected, 507 restored pre-pull values awaiting
-validation, 3,695 reviewed and retained, and 308 pending review or repair.
+findings: 15,571 corrected, 483 restored pre-pull values awaiting
+validation, 3,719 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,171 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
@@ -1292,6 +1292,17 @@ The header translation observer skips identical text updates, preventing an
 endless mutation loop when English labels already match their translations.
 Tests cover English and translated labels; a browser regression opens Frappe
 Gantt and switches back to Swimlanes.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4c788beef">Validate Basque date and standalone rule labels</a></summary>
+
+Retained 23 correct date, parent-card presentation, custom-field activity and
+rule labels after inspecting their use and placeholders. Compound trigger
+phrases and remaining translation findings are still under review.
 
 Thanks to xet7 !
 
