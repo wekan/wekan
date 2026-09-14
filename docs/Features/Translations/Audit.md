@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,621 |
+| Corrected | 15,622 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,175 |
-| Pending review or repair | 281 |
+| Pending review or repair | 280 |
 | Total tracked | 20,081 |
 
 [Aromanian color review](Aromanian-Review.md), local commit `4f63929ee`
@@ -56,7 +56,7 @@ cross-checks calendar, user and click components in native Moroccan sources.
 Full phrases, warnings and invalidated Tuareg records remain open; no pending
 finding was accepted from component evidence.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,707** exact before/after values, including unflagged repairs.
+contain **18,708** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
@@ -74,7 +74,13 @@ remains open. Latin Inuktitut spelling is valid; original script warnings
 require vocabulary/context review rather than automatic replacement.
 Current pending/restored counts are 283/4.
 
-Latest translation fix: **2026-09-14**, local commit `5e2a93287` —
+Latest translation fix: **2026-09-14**, local commit `0ba2e0f6c` —
+[Tamazight review](Tamazight-Review.md) replaces French OIDC caption-setting
+wording, preserving OIDC. Four checks pass. Adapted interface-button metaphor
+and full grammar remain low confidence; native domain/browser validation is
+open. Original pending/restored counts are now 280/4.
+
+Previous server-term fix: **2026-09-14**, local commit `5e2a93287` —
 [Tamazight review](Tamazight-Review.md) replaces French server wording with
 an explicitly attested computer-server phrase. Four checks pass. TLS support
 semantics and complete phrases remain open; no live rendering is claimed.

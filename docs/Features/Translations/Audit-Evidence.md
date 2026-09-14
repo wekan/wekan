@@ -24399,3 +24399,11 @@ Local fix `5e2a93287`: [explicit primary technical term](Tamazight-Review.md).
 French server noun replaced with the dictionary computer-server phrase. Four
 checks pass; TLS support semantics remain pending. No browser rendering was
 claimed. Ledger: 18,707; original pending/restored counts remain 281/4.
+
+## Tamazight OIDC caption setting — 2026-09-14
+
+Local fix `0ba2e0f6c`: [actual setting and adapted phrase limits](Tamazight-Review.md).
+French wording replaced; OIDC preserved. Four checks pass. Interface-button
+metaphor and complete grammar remain low confidence; no browser validation.
+Ledger: 18,708; original counts: 15,622 corrected, 280 pending, 4 restored,
+4,175 retained.

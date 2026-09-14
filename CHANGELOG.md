@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0ba2e0f6c">Replace French Tamazight OIDC caption label</a>. Thanks to xet7.</summary>
+
+The configurable caption label uses adapted native wording and preserves OIDC.
+Four checks pass. Interface-button metaphor, grammar and browser validation
+remain explicitly open in the translation audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5e2a93287">Use native Tamazight computer-server wording</a>. Thanks to xet7.</summary>
 
 An explicit primary-dictionary computer-server phrase replaces French wording.
