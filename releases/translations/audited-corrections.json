@@ -122127,5 +122127,40 @@
     "before": "Utilisateur invalide",
     "after": "ⴰⵏⵙⵙⵎⵔⵙ ⴰⵔⵓⵖⵣⵉⵏ",
     "reason": "Replace French. Native MediaWiki userexists supplies user noun in bound form and passwordreset-invalidemail masculine invalid qualifier. Preserve invalid user rather than incorrect credentials. LOW CONFIDENCE derived free user form and composed diagnostic agreement. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "public",
+    "before": "عامّ",
+    "after": "ⴰⴳⴷⵓⴷⴰⵏ",
+    "reason": "Replace Arabic Public with native Moroccan public adjective. Finance ministry Tamazight page supplies public-sector masculine agdudan and feminine/plural forms. LOW CONFIDENCE generic masculine UI adjective and board-visibility application. Reference: https://www.finances.gov.ma/am/nos-metiers/Pages/loi-finances.aspx"
+  },
+  {
+    "locale": "zgh",
+    "key": "private",
+    "before": "خاص",
+    "after": "ⵓⵙⵍⵉⴳ",
+    "reason": "Replace Arabic Private. CNDH Tamazight privacy wording tudrt tusligt supports private qualifier and computing lexicon p127 private network/group explicitly attests uslig. Finance ministry also supplies private-sector feminine plural tusligin. LOW CONFIDENCE free masculine label and software-visibility application; computing lexicon uses mixed Amazigh sources, not independent Standard Moroccan proof. References: https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf ; https://cedric.cnam.fr/~bouzefra/books/amawal.pdf ; https://www.finances.gov.ma/am/nos-metiers/Pages/loi-finances.aspx"
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-status-public",
+    "before": "`__predicate_public__` - uniquement les cartes qui sont dans un tableau public.",
+    "after": "`__predicate_public__` - ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴳ ⵜⴼⵍⵡⵉⵏ ⵜⵉⴳⴷⵓⴷⴰⵏⵉⵏ ⵖⴰⵙ",
+    "reason": "Replace French. Preserve cards only in public boards and executable public predicate. Finance ministry supplies native feminine plural public adjective; inherited local board/card plurals supply kanban nouns. LOW CONFIDENCE full board/card scope and only qualifier attachment. Reference: https://www.finances.gov.ma/am/nos-metiers/Pages/loi-finances.aspx"
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-status-private",
+    "before": "`__predicate_private__` - uniquement les cartes qui sont dans un tableau privé.",
+    "after": "`__predicate_private__` - ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴳ ⵜⴼⵍⵡⵉⵏ ⵜⵓⵙⵍⵉⴳⵉⵏ ⵖⴰⵙ",
+    "reason": "Replace French. Preserve cards only in private boards and executable private predicate. Finance ministry supplies native feminine plural private adjective; CNDH privacy wording supports private meaning. LOW CONFIDENCE full board/card scope and only qualifier attachment. References: https://www.finances.gov.ma/am/nos-metiers/Pages/loi-finances.aspx ; https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf"
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-operator-sort",
+    "before": "`__operator_sort__:<tri>` - où *<tri>* est une méthode parmi `__predicate_due__`, `__predicate_created__` ou `__predicate_modified__`.  Pour un tri descendant, préfixez la méthode par `-`.",
+    "after": "`__operator_sort__:<ⵉⵙⵎ ⵏ ⵓⴼⵔⴰⵏ>` - ⵉⴳⴰ *<ⵉⵙⵎ ⵏ ⵓⴼⵔⴰⵏ>* ⵢⴰⵏ ⵙⴳ `__predicate_due__`, `__predicate_created__` ⵏⵖ `__predicate_modified__`. ⵉ ⵓⴼⵔⴰⵏ ⵜⴰⴽⵙⴰⵔⵜ, ⵔⵏⵓ `-` ⴷⴰⵜ ⵏ ⵉⵙⵎ ⵏ ⵓⴼⵔⴰⵏ.",
+    "reason": "Replace French. Native MediaWiki sort-descending attests sort/descending, name labels name and add labels rnu; computing lexicon p112 prefix entry attests dat/before with MC Central Morocco source. Preserve all executable operator/predicate tokens, repeated descriptive sort-name example, three alternatives and explicit leading minus for descending sort. LOW CONFIDENCE full one-of and prefix instruction, noun/qualifier agreement and Central Morocco dat adaptation; mixed-source lexicon does not independently establish full Standard Moroccan sentence. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://cedric.cnam.fr/~bouzefra/books/amawal.pdf"
   }
 ]
