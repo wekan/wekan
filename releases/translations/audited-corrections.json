@@ -129337,5 +129337,75 @@
     "before": "um cartão",
     "after": "unha tarxeta",
     "reason": "Replace Portuguese trigger wording in Galician regional locale with existing Galician fragments, preserving attachment subject and card destination. RAG confirms masculine anexo in computing; separate attachment participles preserve agreement."
+  },
+  {
+    "locale": "br",
+    "key": "move-selection",
+    "before": "Déplacer la sélection",
+    "after": "Dilec’hiañ an diuzad",
+    "reason": "Repair French wording using existing Breton selection, filter, color, board and attachment terminology. Ofis computing glossary supports action verbs; full compounds are adapted and native whole-phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "copy-selection",
+    "before": "Copier la sélection",
+    "after": "Eilañ an diuzad",
+    "reason": "Repair French wording using existing Breton selection, filter, color, board and attachment terminology. Ofis computing glossary supports action verbs; full compounds are adapted and native whole-phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "selection-color",
+    "before": "Couleur de sélection",
+    "after": "Liv an diuzad",
+    "reason": "Repair French wording using existing Breton selection, filter, color, board and attachment terminology. Ofis computing glossary supports action verbs; full compounds are adapted and native whole-phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "multi-selection",
+    "before": "Sélection multiple",
+    "after": "Diuzad lies",
+    "reason": "Repair French wording using existing Breton selection, filter, color, board and attachment terminology. Ofis computing glossary supports action verbs; full compounds are adapted and native whole-phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "select-color",
+    "before": "Sélectionner une couleur",
+    "after": "Diuzañ ul liv",
+    "reason": "Repair French wording using existing Breton selection, filter, color, board and attachment terminology. Ofis computing glossary supports action verbs; full compounds are adapted and native whole-phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "select-board",
+    "before": "Sélectionner le tableau",
+    "after": "Diuzañ an daolenn",
+    "reason": "Repair French wording using existing Breton selection, filter, color, board and attachment terminology. Ofis computing glossary supports action verbs; full compounds are adapted and native whole-phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "other-filters-label",
+    "before": "Autres filtres",
+    "after": "Siloù all",
+    "reason": "Repair French wording using existing Breton selection, filter, color, board and attachment terminology. Ofis computing glossary supports action verbs; full compounds are adapted and native whole-phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "set-filter",
+    "before": "Définir un filtre",
+    "after": "Termeniñ ur sil",
+    "reason": "Repair French wording using existing Breton selection, filter, color, board and attachment terminology. Ofis computing glossary supports action verbs; full compounds are adapted and native whole-phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "cardAttachmentsPopup-title",
+    "before": "Ajouter depuis",
+    "after": "Stagañ diouzh",
+    "reason": "Repair French wording using existing Breton selection, filter, color, board and attachment terminology. Ofis computing glossary supports action verbs; full compounds are adapted and native whole-phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "filter-to-selection",
+    "before": "Filtre vers la sélection",
+    "after": "Ouzhpennañ ar c’hartennoù silet d’an diuzad",
+    "reason": "Repair French wording using existing Breton selection, filter, color, board and attachment terminology. Ofis computing glossary supports action verbs; full compounds are adapted and native whole-phrase/browser review remains open."
   }
 ]

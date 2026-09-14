@@ -35,3 +35,15 @@ assert.match(
   locales.br['globalSearch-instructions-operator-number'],
   /__operator_number__:<number>.*<number>/,
 );
+
+// Selection commands keep their distinct actions and reject the French seed.
+assert.equal(locales.br['move-selection'], 'Dilec’hiañ an diuzad');
+assert.equal(locales.br['copy-selection'], 'Eilañ an diuzad');
+assert.notEqual(locales.br['move-selection'], locales.br['copy-selection']);
+assert.equal(locales.br['filter-to-selection'], 'Ouzhpennañ ar c’hartennoù silet d’an diuzad');
+assert.equal(locales.br['cardAttachmentsPopup-title'], 'Stagañ diouzh');
+for (const key of ['move-selection', 'copy-selection', 'selection-color',
+  'multi-selection', 'select-color', 'select-board', 'other-filters-label',
+  'set-filter', 'cardAttachmentsPopup-title', 'filter-to-selection']) {
+  assert.doesNotMatch(locales.br[key], /Déplacer|Copier|Couleur|Sélection|sélection|Autres filtres|Définir|Ajouter depuis|Filtre vers/);
+}
