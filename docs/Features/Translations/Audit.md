@@ -85,4 +85,8 @@ execution remains pending. Live browser verification is not complete.
 Runtime dispatch checked **2026-09-14**, `8715c094e`: real Tamazight limit
 queries preserve invalid values and accept positive/zero limits. Parser
 coverage does not establish TAPi18n interpolation or browser rendering.
+Formatting fixed **2026-09-14**, `c74009b21`: direct scalar TAPi18n
+arguments now populate sprintf. Actual runtime-method/formatter checks
+pass for Tamazight errors, zero, named options and English fallback.
+Browser rendering and native fluency remain unverified.
 Translation work continues.

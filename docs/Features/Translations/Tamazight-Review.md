@@ -1476,3 +1476,14 @@ zero as no limit and uses parseInt, so its accepted input set is broader
 than strict positive integers. Translation still matches English guidance;
 this behavioral distinction must not be described as strict validation.
 The focused parser test passes; no locale values or audit counts change.
+
+Positional runtime formatting fix — 2026-09-14, `c74009b21`.
+Actual installed i18next/sprintf reproduced a raw %s when the search error
+argument was passed directly as a string. TAPi18n now converts non-null
+scalar arguments to sprintf options. The actual translation method is
+executed with the installed formatter: Tamazight abc/-2/50% values render,
+zero formats, named objects and explicit arrays retain their behavior,
+English fallback formats and null/absent arguments do not crash.
+Three runtime/parser/lazy-loading suites pass. This supersedes the earlier
+unverified runtime-interpolation note for this tested path; browser
+rendering and native wording remain unverified. No locale/count changes.

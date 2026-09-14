@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c74009b21">Format direct translation arguments</a>. Thanks to xet7.</summary>
+
+Search error values passed directly to TAPi18n now replace percent
+placeholders. Preserve named options, explicit format arrays and zero.
+Actual formatter, parser and lazy-loading regressions pass. Browser and
+native-language verification remain open in the audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8715c094e">Verify translated limit error dispatch</a>. Thanks to xet7.</summary>
 
 Exercise Tamazight search-limit operators with the actual parser. Invalid
