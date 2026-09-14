@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e4fb6c394">Review Tamazight parser-error terminology</a>. Thanks to xet7.</summary>
+
+The audit rejects physical invalidity senses for parser errors and records
+verified native vocabulary leads. Complete predicate and positive-integer
+requirements remain open; no translation change is claimed.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ea286df3d">Replace French Tamazight overdue-time warning</a>. Thanks to xet7.</summary>
 
 The warning uses adapted native wording and preserves its date placeholder.

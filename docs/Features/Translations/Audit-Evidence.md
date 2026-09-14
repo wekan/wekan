@@ -24625,3 +24625,11 @@ French warning replaced; %s preserved. Four checks pass. Native deadline
 terminology, grammar and browser validation remain low confidence/open.
 Ledger: 18,709; original counts: 15,623 corrected, 279 pending, 4 restored,
 4,175 retained.
+
+## Tamazight parser vocabulary review — 2026-09-14
+
+Local review `e4fb6c394`: [primary sense exclusions and native leads](Tamazight-Review.md).
+Physical invalid/paralysis entries cannot establish parser invalidity. Existence,
+check and correctness leads are read independently, while debug predicate and
+positive-integer meanings remain required. No value changed; 279 pending/4
+restored, 18,709 correction records.
