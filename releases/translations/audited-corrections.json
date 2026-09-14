@@ -130009,5 +130009,12 @@
     "before": "Nom Court",
     "after": "Anv berr",
     "reason": "Replace French-seeded Breton settings label; native MediaWiki attests optional diret and display construction da ziskwel, existing locale supplies anv, strollad, klok and berr. Preserve group-name and full/display/short-name distinctions. Adapted compounds, not exact full-phrase native attestation; browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "r-by",
+    "before": "por",
+    "after": "Nork:",
+    "reason": "Replace Spanish por in Basque optional rule-actor field with native ergative question label Nork:. EHU grammar attests nork as the actor interrogative; actual templates place it before a username field, so it is a field label rather than an incorrectly concatenated preposition. Other restored trigger case/order grammar remains unresolved."
   }
 ]

@@ -6,6 +6,8 @@ const root = path.resolve(__dirname, '..');
 const { ruleTriggerCopula } = require('../imports/i18n/ruleGrammar');
 const read = locale => JSON.parse(fs.readFileSync(path.join(root, `imports/i18n/data/${locale}.i18n.json`)));
 const eu = read('eu');
+assert.equal(eu['r-by'], 'Nork:');
+assert.notEqual(eu['r-by'], 'por');
 assert.equal(eu['r-is'], 'da');
 assert.notEqual(eu['r-is'], 'es');
 for (const locale of ['eu', 'eu-ES', 'eu_ES', 'EU']) assert.equal(ruleTriggerCopula(locale, 'da'), '');
@@ -13,6 +15,8 @@ for (const locale of ['en', 'gl', 'br', 'europe', undefined]) assert.equal(ruleT
 for (const name of ['cardTriggers', 'boardTriggers', 'checklistTriggers']) {
   const jade = fs.readFileSync(path.join(root, `client/components/rules/triggers/${name}.jade`), 'utf8');
   assert.match(jade, /{{ruleTriggerCopula}}/);
+  assert.match(jade, /{{_'r-by'}}[\s\S]*?input\(class="user-name"/,
+    'actor question labels the username field');
   assert.doesNotMatch(jade, /{{_'r-is'}}/, 'all separately inserted linking verbs use the language-aware helper');
 }
 const client = fs.readFileSync(path.join(root, 'client/lib/i18n.js'), 'utf8');
