@@ -16282,5 +16282,215 @@
     "key": "activity-created",
     "value": "creou %s",
     "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-changedListTitle",
+    "value": "renomeou a lista a %s",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-customfield-created",
+    "value": "creou o campo personalizado %s",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-excluded",
+    "value": "excluíu %s de %s",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-imported",
+    "value": "importou %s en %s desde %s",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-imported-board",
+    "value": "importou %s desde %s",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-joined",
+    "value": "uniuse a %s",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-moved",
+    "value": "moveu %s de %s a %s",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-on",
+    "value": "en %s",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-removed",
+    "value": "eliminou %s de %s",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-sent",
+    "value": "enviou %s a %s",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-unjoined",
+    "value": "saíu de %s",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-checklist-item-removed",
+    "value": "eliminou un elemento da lista de verificación '%s' en %s",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-receivedDate",
+    "value": "editou a data de recepción a %s de %s",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-startDate",
+    "value": "editou a data de inicio a %s de %s",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "allboards.starred",
+    "value": "Favoritos",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "allboards.remaining",
+    "value": "Restantes",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "allboards.workspaces",
+    "value": "Espazos de traballo",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "allboards.add-workspace-prompt",
+    "value": "Nome do espazo de traballo",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "allboards.add-subworkspace-prompt",
+    "value": "Nome do subespazo de traballo",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "allboards.edit-workspace",
+    "value": "Editar espazo de traballo",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "allboards.edit-workspace-name",
+    "value": "Nome do espazo de traballo",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "allboards.edit-workspace-icon",
+    "value": "Icona do espazo de traballo (markdown)",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "allboards.workspace-menu",
+    "value": "Menú do espazo de traballo",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "workspace-settings",
+    "value": "Configuración do espazo de traballo",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "workspaceActionsPopup-title",
+    "value": "Configuración do espazo de traballo",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "allboards.delete-workspace-confirm",
+    "value": "Seguro que queres eliminar este espazo de traballo?",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "allboards.delete-workspace-confirm-check",
+    "value": "Confirmar a eliminación do espazo de traballo",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-dueDate",
+    "value": "editou a data límite a %s de %s",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-endDate",
+    "value": "editou a data de fin a %s de %s",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "setListWidthPopup-title",
+    "value": "Definir a largura",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "set-list-width",
+    "value": "Definir a largura",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "fixed-list-width",
+    "value": "A mesma largura para todas as listas",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "keyboard-shortcuts-enabled",
+    "value": "Atallos de teclado activados. Fai clic para desactivar.",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "keyboard-shortcuts-disabled",
+    "value": "Atallos de teclado desactivados. Fai clic para activar.",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "setSwimlaneHeightPopup-title",
+    "value": "Definir a altura do carril",
+    "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
   }
 ]
