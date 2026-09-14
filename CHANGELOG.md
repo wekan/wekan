@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ea286df3d">Replace French Tamazight overdue-time warning</a>. Thanks to xet7.</summary>
+
+The warning uses adapted native wording and preserves its date placeholder.
+Four checks pass. Exact deadline terminology, grammar and browser validation
+remain explicitly open in the translation audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/75b0a015b">Keep translation audit summary short and current</a>. Thanks to xet7.</summary>
 
 Repeated historical notes move to detailed evidence. Locale counts reconcile

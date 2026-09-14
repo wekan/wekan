@@ -24617,3 +24617,11 @@ the pull. Correct-language human translations remain preferred. Keep the
 full review scope open until language and browser validation is supported
 by evidence. Issue #6692 post-bind optional-filter TypeError is repaired in local commit
 `2c5cdd78a`; live LDAP login remains unverified. Translation work continues.
+
+## Tamazight overdue-time warning — 2026-09-14
+
+Local fix `ea286df3d`: [primary words and adapted deadline limits](Tamazight-Review.md).
+French warning replaced; %s preserved. Four checks pass. Native deadline
+terminology, grammar and browser validation remain low confidence/open.
+Ledger: 18,709; original counts: 15,623 corrected, 279 pending, 4 restored,
+4,175 retained.
