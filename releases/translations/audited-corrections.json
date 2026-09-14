@@ -122967,5 +122967,89 @@
     "before": "ⵉⵜⵜⵡⴰⵍⵉ ⵖⵔ ⵉⵎⵙⵙⵓⴳⴰⵔⵏ ⵏ ⵜⵎⵍⵍⴰ ⵎⴰⵛ ⵉⴹⵏⵉⵏ",
     "after": "ⵉⵜⵜⵡⴰⵙⴽⵏ ⵖⴰⵙ ⵉ ⵉⵎⵙⵙⵓⴳⵓⵔⵏ ⵏ ⵜⴼⵍⵡⵉⵜ",
     "reason": "Repair French field-label instruction or unclear unflagged admin-only visibility phrase. Preserve show FIELD LABEL on MINICARD, or VISIBLE ONLY TO BOARD ADMINS, respectively. MediaWiki zgh view, tag-list-wrapper, metadata-fields, rcfilters-empty-filter and protect-level-sysop support show/label/field/display/only/admins components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse established card/board vocabulary. LOW CONFIDENCE: bound field form, derived singular display passive, minicard composition and full visibility restriction require fluent review. This changes wording only, not field authorization."
+  },
+  {
+    "locale": "zgh",
+    "key": "attachment",
+    "before": "مرفق",
+    "after": "ⵜⴰⵙⴰⵡⵉⵜ ⵢⵔⵏⴰⵏ",
+    "reason": "Replace French/Arabic attachment labels or action popups. Preserve singular/plural attachment, add/edit/delete/actions/move distinctions and exact GridFS/S3 destination names. Computing lexicon explicitly gives Pièce jointe (mail as attachment): Tasawit KBL (plural tisiway) yernan KBL, PDF page 109 printed 105: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . MediaWiki zgh actions, export-addcat, edit, listfiles-delete and move support action components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: Kabyle mail term adapted to Standard Moroccan card attachments, Tifinagh transcription, plural/relative agreement, bound noun relations and full software phrases require review. Existing Tifinagh attachment translations are not blanket-overwritten merely for consistency."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-attachment-text",
+    "before": "ملحق",
+    "after": "ⵜⴰⵙⴰⵡⵉⵜ ⵢⵔⵏⴰⵏ",
+    "reason": "Replace French/Arabic attachment labels or action popups. Preserve singular/plural attachment, add/edit/delete/actions/move distinctions and exact GridFS/S3 destination names. Computing lexicon explicitly gives Pièce jointe (mail as attachment): Tasawit KBL (plural tisiway) yernan KBL, PDF page 109 printed 105: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . MediaWiki zgh actions, export-addcat, edit, listfiles-delete and move support action components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: Kabyle mail term adapted to Standard Moroccan card attachments, Tifinagh transcription, plural/relative agreement, bound noun relations and full software phrases require review. Existing Tifinagh attachment translations are not blanket-overwritten merely for consistency."
+  },
+  {
+    "locale": "zgh",
+    "key": "predicate-attachment",
+    "before": "ملحق",
+    "after": "ⵜⴰⵙⴰⵡⵉⵜ ⵢⵔⵏⴰⵏ",
+    "reason": "Replace French/Arabic attachment labels or action popups. Preserve singular/plural attachment, add/edit/delete/actions/move distinctions and exact GridFS/S3 destination names. Computing lexicon explicitly gives Pièce jointe (mail as attachment): Tasawit KBL (plural tisiway) yernan KBL, PDF page 109 printed 105: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . MediaWiki zgh actions, export-addcat, edit, listfiles-delete and move support action components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: Kabyle mail term adapted to Standard Moroccan card attachments, Tifinagh transcription, plural/relative agreement, bound noun relations and full software phrases require review. Existing Tifinagh attachment translations are not blanket-overwritten merely for consistency."
+  },
+  {
+    "locale": "zgh",
+    "key": "attachments",
+    "before": "المرفقات",
+    "after": "ⵜⵉⵙⵉⵡⴰⵢ ⵢⵔⵏⴰⵏ",
+    "reason": "Replace French/Arabic attachment labels or action popups. Preserve singular/plural attachment, add/edit/delete/actions/move distinctions and exact GridFS/S3 destination names. Computing lexicon explicitly gives Pièce jointe (mail as attachment): Tasawit KBL (plural tisiway) yernan KBL, PDF page 109 printed 105: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . MediaWiki zgh actions, export-addcat, edit, listfiles-delete and move support action components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: Kabyle mail term adapted to Standard Moroccan card attachments, Tifinagh transcription, plural/relative agreement, bound noun relations and full software phrases require review. Existing Tifinagh attachment translations are not blanket-overwritten merely for consistency."
+  },
+  {
+    "locale": "zgh",
+    "key": "add-attachment",
+    "before": "إضافة مرفق",
+    "after": "ⵔⵏⵓ ⵜⴰⵙⴰⵡⵉⵜ ⵢⵔⵏⴰⵏ",
+    "reason": "Replace French/Arabic attachment labels or action popups. Preserve singular/plural attachment, add/edit/delete/actions/move distinctions and exact GridFS/S3 destination names. Computing lexicon explicitly gives Pièce jointe (mail as attachment): Tasawit KBL (plural tisiway) yernan KBL, PDF page 109 printed 105: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . MediaWiki zgh actions, export-addcat, edit, listfiles-delete and move support action components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: Kabyle mail term adapted to Standard Moroccan card attachments, Tifinagh transcription, plural/relative agreement, bound noun relations and full software phrases require review. Existing Tifinagh attachment translations are not blanket-overwritten merely for consistency."
+  },
+  {
+    "locale": "zgh",
+    "key": "card-edit-attachments",
+    "before": "تعديل المرفقات",
+    "after": "ⵙⵏⴼⵍ ⵜⵉⵙⵉⵡⴰⵢ ⵢⵔⵏⴰⵏ",
+    "reason": "Replace French/Arabic attachment labels or action popups. Preserve singular/plural attachment, add/edit/delete/actions/move distinctions and exact GridFS/S3 destination names. Computing lexicon explicitly gives Pièce jointe (mail as attachment): Tasawit KBL (plural tisiway) yernan KBL, PDF page 109 printed 105: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . MediaWiki zgh actions, export-addcat, edit, listfiles-delete and move support action components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: Kabyle mail term adapted to Standard Moroccan card attachments, Tifinagh transcription, plural/relative agreement, bound noun relations and full software phrases require review. Existing Tifinagh attachment translations are not blanket-overwritten merely for consistency."
+  },
+  {
+    "locale": "zgh",
+    "key": "attachmentDeletePopup-title",
+    "before": "تريد حذف المرفق ?",
+    "after": "ⴽⴽⵙ ⵜⴰⵙⴰⵡⵉⵜ ⵢⵔⵏⴰⵏ?",
+    "reason": "Replace French/Arabic attachment labels or action popups. Preserve singular/plural attachment, add/edit/delete/actions/move distinctions and exact GridFS/S3 destination names. Computing lexicon explicitly gives Pièce jointe (mail as attachment): Tasawit KBL (plural tisiway) yernan KBL, PDF page 109 printed 105: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . MediaWiki zgh actions, export-addcat, edit, listfiles-delete and move support action components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: Kabyle mail term adapted to Standard Moroccan card attachments, Tifinagh transcription, plural/relative agreement, bound noun relations and full software phrases require review. Existing Tifinagh attachment translations are not blanket-overwritten merely for consistency."
+  },
+  {
+    "locale": "zgh",
+    "key": "attachmentActionsPopup-title",
+    "before": "Actions sur les pièces jointes",
+    "after": "ⵜⵉⴳⴰⵡⵉⵏ ⵏ ⵜⵉⵙⵉⵡⴰⵢ ⵢⵔⵏⴰⵏ",
+    "reason": "Replace French/Arabic attachment labels or action popups. Preserve singular/plural attachment, add/edit/delete/actions/move distinctions and exact GridFS/S3 destination names. Computing lexicon explicitly gives Pièce jointe (mail as attachment): Tasawit KBL (plural tisiway) yernan KBL, PDF page 109 printed 105: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . MediaWiki zgh actions, export-addcat, edit, listfiles-delete and move support action components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: Kabyle mail term adapted to Standard Moroccan card attachments, Tifinagh transcription, plural/relative agreement, bound noun relations and full software phrases require review. Existing Tifinagh attachment translations are not blanket-overwritten merely for consistency."
+  },
+  {
+    "locale": "zgh",
+    "key": "attachment-move",
+    "before": "Déplacer la pièce jointe",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⵜⴰⵙⴰⵡⵉⵜ ⵢⵔⵏⴰⵏ",
+    "reason": "Replace French/Arabic attachment labels or action popups. Preserve singular/plural attachment, add/edit/delete/actions/move distinctions and exact GridFS/S3 destination names. Computing lexicon explicitly gives Pièce jointe (mail as attachment): Tasawit KBL (plural tisiway) yernan KBL, PDF page 109 printed 105: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . MediaWiki zgh actions, export-addcat, edit, listfiles-delete and move support action components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: Kabyle mail term adapted to Standard Moroccan card attachments, Tifinagh transcription, plural/relative agreement, bound noun relations and full software phrases require review. Existing Tifinagh attachment translations are not blanket-overwritten merely for consistency."
+  },
+  {
+    "locale": "zgh",
+    "key": "attachment-move-storage-gridfs",
+    "before": "Déplacer la pièce jointe vers GridFS",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⵜⴰⵙⴰⵡⵉⵜ ⵢⵔⵏⴰⵏ ⵖⵔ GridFS",
+    "reason": "Replace French/Arabic attachment labels or action popups. Preserve singular/plural attachment, add/edit/delete/actions/move distinctions and exact GridFS/S3 destination names. Computing lexicon explicitly gives Pièce jointe (mail as attachment): Tasawit KBL (plural tisiway) yernan KBL, PDF page 109 printed 105: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . MediaWiki zgh actions, export-addcat, edit, listfiles-delete and move support action components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: Kabyle mail term adapted to Standard Moroccan card attachments, Tifinagh transcription, plural/relative agreement, bound noun relations and full software phrases require review. Existing Tifinagh attachment translations are not blanket-overwritten merely for consistency."
+  },
+  {
+    "locale": "zgh",
+    "key": "attachment-move-storage-s3",
+    "before": "Déplacer la pièce jointe vers S3",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⵜⴰⵙⴰⵡⵉⵜ ⵢⵔⵏⴰⵏ ⵖⵔ S3",
+    "reason": "Replace French/Arabic attachment labels or action popups. Preserve singular/plural attachment, add/edit/delete/actions/move distinctions and exact GridFS/S3 destination names. Computing lexicon explicitly gives Pièce jointe (mail as attachment): Tasawit KBL (plural tisiway) yernan KBL, PDF page 109 printed 105: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . MediaWiki zgh actions, export-addcat, edit, listfiles-delete and move support action components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: Kabyle mail term adapted to Standard Moroccan card attachments, Tifinagh transcription, plural/relative agreement, bound noun relations and full software phrases require review. Existing Tifinagh attachment translations are not blanket-overwritten merely for consistency."
+  },
+  {
+    "locale": "zgh",
+    "key": "s3-attachments",
+    "before": "Pièces jointes S3",
+    "after": "ⵜⵉⵙⵉⵡⴰⵢ ⵢⵔⵏⴰⵏ S3",
+    "reason": "Replace French/Arabic attachment labels or action popups. Preserve singular/plural attachment, add/edit/delete/actions/move distinctions and exact GridFS/S3 destination names. Computing lexicon explicitly gives Pièce jointe (mail as attachment): Tasawit KBL (plural tisiway) yernan KBL, PDF page 109 printed 105: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . MediaWiki zgh actions, export-addcat, edit, listfiles-delete and move support action components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: Kabyle mail term adapted to Standard Moroccan card attachments, Tifinagh transcription, plural/relative agreement, bound noun relations and full software phrases require review. Existing Tifinagh attachment translations are not blanket-overwritten merely for consistency."
   }
 ]
