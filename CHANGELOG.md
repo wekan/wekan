@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,510 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 334 pending review or repair.
-The correction inventory records 18,081 exact before/after values,
+findings: 15,511 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 333 pending review or repair.
+The correction inventory records 18,082 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (199) and
+The largest original queues are Standard Moroccan Tamazight (198) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,10 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is c45999486 (2026-09-14), repairing custom-field
-assignment activity. Field name, value, card and exact placeholders preserved;
-Set adaptation and full grammar remain low confidence.
-334 original findings remain pending, with 18,081 correction records.
+Latest translation fix is e5cb150bc (2026-09-14), repairing custom-field
+unsetting activity. Card field value removal and exact placeholders preserved;
+technical Value adaptation and full relation remain low confidence.
+333 original findings remain pending, with 18,082 correction records.
 Archive provenance follow-up fbe388603 (2026-09-14) directly inspects the
 native Archives du Maroc logo in a university PDF, corroborating the noun
 beyond indexed evidence. Nine records updated; no values/counts changed.
@@ -651,10 +651,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,510 original findings are
+Translation audit progress as of 2026-09-14: 15,511 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 334 remain pending across 17 locales, including 199 Tamazight findings.
-The ledger contains 18,081 correction records, including unflagged repairs.
+and 333 remain pending across 17 locales, including 198 Tamazight findings.
+The ledger contains 18,082 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -3215,6 +3215,17 @@ Thanks to xet7 !
 2026-09-14: Preserve field name to value assignment and exact placeholders.
 Native components recorded; full wording remains low confidence.
 All 18,081 correction checks pass; broader validation continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e5cb150bc">Translation repair: Tamazight custom-field unsetting.</a></summary>
+
+2026-09-14: Preserve card field value removal and exact placeholders.
+Native components recorded; technical Value wording remains low confidence.
+All 18,082 correction checks pass; broader validation continues.
 
 Thanks to xet7 !
 

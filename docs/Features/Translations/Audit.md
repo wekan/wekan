@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,510 |
+| Corrected | 15,511 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 334 |
+| Pending review or repair | 333 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,081** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,082** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `c45999486` — repaired French custom-field assignment activity. Preserve active SET field name TO value IN card, exact percent placeholders and quotes. Native components support wording; past actor, Set-as-Place adaptation and full assignment grammar remain **low confidence**. All **18,081** correction checks pass; **334** findings remain pending across **17** locales, including **199** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `e5cb150bc` — repaired French custom-field unsetting activity. Preserve removal of CARD FIELD VALUE rather than board field definition, exact percent placeholders and quote. Native components support wording; technical Value adaptation and full relation remain **low confidence**. All **18,082** correction checks pass; **333** findings remain pending across **17** locales, including **198** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Archive noun review (2026-09-14, `fbe388603`):** directly inspected a native Archives du Maroc logo in a university PDF, corroborating the archive noun beyond the earlier search-index excerpt. Updated nine provenance records; values/counts unchanged. Institutional-to-kanban adaptation and full labels remain low confidence. [Evidence](Audit-Evidence.md) records the exact source and scope.
 
