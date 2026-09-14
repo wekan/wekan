@@ -51,6 +51,9 @@ const examples = ['== != <= >= && || ( )', 'Field1 == Value1', "'Field 1' == 'Va
   assert.match(tamazightHelp, /ⵜⴰⵙⴽⴰⵔⵉⵏ.*'Field 1'/);
   assert.match(tamazightHelp, /ⵜⵉⵙⴽⵉⵡⵉⵏ.*F1 == V1 &&/);
   assert.doesNotMatch(tamazightHelp, /ⵜⵉⵙⵇⵇⵍⵜⵉⵏ|ⵜⵓⵛⵛⵉⵍ/);
+  assert.ok(tamazightHelp.includes("ⵜⴰⵙⴽⴰⵔⵉⵏ ⵙ ⵢⴰⵏ ⵓⵙⴽⴽⵉⵍ '"));
+  assert.doesNotMatch(tamazightHelp, /ⵉⵎⵢⵉⵡⵏⵏ/);
+
   assert.match(read('lt')['advanced-filter-description'], /Išplėstinis filtras/);
   assert.match(read('mn')['advanced-filter-description'], /Нарийвчилсан шүүлтүүр/);
   assert.match(read('el')['advanced-filter-description'], /προηγμένο φίλτρο/);
