@@ -662,6 +662,19 @@ The browser assertion accepts whitespace between the regional flag and name.
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3edd8d499">Clarify Quechua Saudi moon-sighting calendar label</a></summary>
+
+Use a calendar noun and explicitly identify moon sighting in Saudi Arabia.
+Preserve the distinction from tabular calendar variants. Four focused suites
+pass; full technical grammar remains under native review. Audit evidence
+records primary dictionary sources and preserves original provenance.
+
+Thanks to xet7.
+
+</details>
+
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/963a3965b">Distinguish Quechua tabular Hijri calendar epochs</a></summary>
 
 Replace clock-related and English-only labels with calendar, table/count

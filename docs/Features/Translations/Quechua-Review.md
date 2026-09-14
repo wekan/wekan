@@ -138,3 +138,24 @@ need review. Zero original Quechua pending entries does not close this
 broader review. Four focused suites pass; no live calendar-selector browser
 validation was run. Ledger 19,765; original corrected 15,685, pending 218,
 restored 4 unchanged. No remote push.
+
+## Saudi moon-sighting label — 2026-09-14
+
+Local commit `3edd8d499` revises calendar-system-islamic-rgsa: replace
+clock-only Intiwatana with Watanqillqa, and explicitly identify moon sighting
+in Saudi Arabia. The old rikusqa qualifier left the observed object unclear.
+
+Primary references:
+- [USMP Quechua dictionary, volume 1](https://fcctp.usmp.edu.pe/librosfcctp/DICCIONARIO-Quechua-espanol-VOL_1.pdf): AVISTAMIENTO gives qhawarisqa for the result of sighting.
+- [Peru Ministry of Education Southern Quechua vocabulary](https://formacionenservicio.minedu.gob.pe/sifods/centro-recurso/2022/Material-educativo/757.018453-ITEM-16-Vocabulario-pedinaria-Quechua-Sureno-ALTA.pdf): killa in lunar vocabulary and a moon-phase section.
+- [Unicode CLDR calendar types](https://cldr.unicode.org/development/development-process/design-proposals/islamic-calendar-types): rgsa is Saudi Arabia sighting, distinct from both tabular epochs.
+
+Full calendar compound and dialect consistency remain low confidence.
+The individual dictionary entries do not attest the assembled technical
+phrase. Four focused suites pass, preserving all locale placeholders,
+key order, original ledger before values and newer translations. The
+regression rejects clock wording in all calendar-system labels and tabular
+calculation/epoch wording in the Saudi sighting label. No browser run.
+Counts unchanged: ledger 19,765, original pending 218, restored 4. This
+revises an existing correction; zero Quechua queue entries does not prove
+completion of broader native review. No remote push.

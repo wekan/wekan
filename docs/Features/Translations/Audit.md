@@ -16,11 +16,11 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, `963a3965b` — Quechua tabular
-Hijri calendar labels use calendar/table/count/beginning wording and distinct
-Julian epoch dates. Four focused suites pass. Ledger 19,765; original
-pending 218, restored 4 unchanged. Complete compounds, dialect consistency,
-Saudi sighting and all other uncertain/restored findings remain under review.
+Latest translation fix: **2026-09-14**, `3edd8d499` — Quechua Saudi
+calendar label now explicitly names moon sighting and uses a calendar noun.
+Four focused suites pass. Ledger 19,765; original pending 218, restored 4
+unchanged. Complete compounds, dialect consistency and all other
+uncertain/restored findings remain under review.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
 records contain **19,765** exact before/after values, including unflagged
