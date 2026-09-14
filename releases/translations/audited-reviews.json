@@ -8734,5 +8734,209 @@
     "key": "export-card-excel-free",
     "value": "libera",
     "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "export-card-excel-needed",
+    "value": "bezonata",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "user-can-not-export-card-to-excel",
+    "value": "Uzanto ne povas eksporti karton al Excel",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "sort",
+    "value": "Ordigi",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "sorted",
+    "value": "Ordigita",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "remove-sort",
+    "value": "Forigi ordigon",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "list-sort-by",
+    "value": "Ordigi la liston laŭ:",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "list-label-modifiedAt",
+    "value": "Tempo de lasta aliro",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "list-label-title",
+    "value": "Nomo de la listo",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "list-label-sort",
+    "value": "Via mana ordo",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "filter",
+    "value": "Filtri",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "filter-dates-label",
+    "value": "Filtri laŭ dato",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "filter-no-due-date",
+    "value": "Sen limdato",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "filter-overdue",
+    "value": "Malfrua",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "filter-due-today",
+    "value": "Limdato hodiaŭ",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "filter-due-this-week",
+    "value": "Limdato ĉi-semajne",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "filter-due-next-week",
+    "value": "Limdato venontsemajne",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "filter-due-tomorrow",
+    "value": "Limdato morgaŭ",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "list-filter-label",
+    "value": "Filtri listojn laŭ titolo",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "filter-clear",
+    "value": "Forigi filtrilon",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "filter-labels-label",
+    "value": "Filtri laŭ etikedo",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "filter-member-label",
+    "value": "Filtri laŭ membro",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "filter-assignee-label",
+    "value": "Filtri laŭ atribuito",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "filter-no-assignee",
+    "value": "Neniu atribuito",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "filter-custom-fields-label",
+    "value": "Filtri laŭ propraj kampoj",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "filter-no-custom-fields",
+    "value": "Neniuj propraj kampoj",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "filter-on",
+    "value": "Filtrilo aktivas",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "filter-to-selection",
+    "value": "Filtri al elekto",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "other-filters-label",
+    "value": "Aliaj filtriloj",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "advanced-filter-label",
+    "value": "Altnivela filtrilo",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "show-activities",
+    "value": "Montri aktivaĵojn",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "impersonate-user",
+    "value": "Roli kiel uzanto",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "import-board-instruction-csv",
+    "value": "Algluu viajn komo-apartigitajn valorojn (CSV) / tabo-apartigitajn valorojn (TSV).",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "import-json-placeholder",
+    "value": "Algluu viajn validajn JSON-datumojn ĉi tie",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "import-csv-placeholder",
+    "value": "Algluu viajn validajn CSV/TSV-datumojn ĉi tie",
+    "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
   }
 ]
