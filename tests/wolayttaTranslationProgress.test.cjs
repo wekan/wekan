@@ -60,3 +60,8 @@ assert.equal(wolaytta['calendar-system-dangi'], 'Dangi wodiyaa qoodaa');
 assert.equal(wolaytta['calendar-system-roc'], 'Minguo wodiyaa qoodaa');
 assert.notEqual(wolaytta['calendar-system-dangi'], wolaytta['calendar-system-roc']);
 assert.doesNotMatch(wolaytta['calendar-system-dangi'] + wolaytta['calendar-system-roc'], /Korean|Republic of China/);
+
+assert.equal(wolaytta['calendar-system-islamic'], 'Hijri wodiyaa qoodaa');
+assert.equal(wolaytta['calendar-system-islamic-umalqura'], 'Hijri wodiyaa qoodaa (Umm al-Qura)');
+assert.notEqual(wolaytta['calendar-system-islamic'], wolaytta['calendar-system-islamic-umalqura']);
+assert.doesNotMatch(wolaytta['calendar-system-islamic'] + wolaytta['calendar-system-islamic-umalqura'], /Islamic/);
