@@ -122932,5 +122932,26 @@
     "before": "Les organisations ajoutées sont affichées ci-dessous :",
     "after": "ⵜⵓⴷⴷⵙⵉⵡⵉⵏ ⵉⵜⵜⵡⴰⵔⵏⵉⵏ ⵜⵜⵡⴰⵙⴽⵏⴰⵏⵜ ⴳ ⴷⴷⴰⵡ ⴷⴰ:",
     "reason": "Replace French added-group display labels. Preserve added qualifier, team versus organization plurals, displayed-below relation and colon. Native MediaWiki zgh recentchanges-page-added-to-category and metadata-help support addition; rcfilters-empty-filter supports displayed root, rcfilters-savedqueries-already-saved illustrates feminine-plural passive agreement, and sharedupload-desc-here supports below-here: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Its index-category means indexed and is NOT used as proof of displayed wording. Team component is supported by badaccess-groups; organization plural is MW-adapted from https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: added participle, derived feminine-plural display passive, free team plural, organization dialect adaptation and complete software phrase require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "editCardReceivedDatePopup-title",
+    "before": "Modifier la date de réception",
+    "after": "ⵙⵏⴼⵍ ⴰⵙⴰⴽⵓⴷ ⵏ ⵜⴰⵔⵎⵙⵜ",
+    "reason": "Replace French change-received-date popup. Preserve change action and received-date scope, distinct from start/due dates. MediaWiki zgh edit and listfiles_date support change/date: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reception Tarmest MW, receive/catch MC root, appears on PDF page 120 of https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: MW/MC-to-Standard-Moroccan software reception adaptation, nominal date relation and bound noun spelling require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-title",
+    "before": "Chercher dans tous les tableaux",
+    "after": "ⵔⵣⵓ ⴳ ⵜⵉⴼⵍⵡⵉⵏ ⴰⴽⴽ",
+    "reason": "Replace French Search All Boards title. Preserve search action, board plural and all scope. MediaWiki zgh searchbutton, allpages and native g preposition support search/all/in components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse existing board plural. LOW CONFIDENCE: board plural phrase and complete software search title require fluent review; wording does not change authorization behavior."
+  },
+  {
+    "locale": "zgh",
+    "key": "listImportCardPopup-title",
+    "before": "Importer une carte Trello",
+    "after": "ⵙⴽⵛⵎ ⵜⴰⴽⴰⵕⴹⴰ ⵏ Trello",
+    "reason": "Replace French Import a Trello card popup. Preserve import direction, singular card and exact Trello product name. MediaWiki zgh importlogpage supports import root: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse locally established card component. LOW CONFIDENCE: derived import imperative and Trello-card relation require fluent review; this is not export."
   }
 ]
