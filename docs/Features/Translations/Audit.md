@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,538 |
-| Restored pre-pull; awaiting validation | 3,799 |
-| Reviewed; retained unchanged | 436 |
+| Restored pre-pull; awaiting validation | 3,769 |
+| Reviewed; retained unchanged | 466 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -14,7 +14,7 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,133** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `e5d7da30e` — repaired two Danish heap diagnostics: peak malloc allocation and heap garbage overwriting with a bit pattern. Retained 28 correct Danish values unchanged. All **18,133** correction records pass structural verification; **308** original findings remain pending across **17** locales, including **173** Tamazight. The **3,799** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `e5d7da30e` — repaired two Danish heap diagnostics: peak malloc allocation and heap garbage overwriting with a bit pattern. Retained 28 correct Danish values unchanged. All **18,133** correction records pass structural verification; **308** original findings remain pending across **17** locales, including **173** Tamazight. The **3,769** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Latest syntax repair (2026-09-14, `d0c247094`, follow-up `cd563cce5`):** Veps filter help now
 preserves canonical comparison, escaping, quoted field/value and Boolean
@@ -184,10 +184,9 @@ English underscore/percent placeholder inventory. Regression coverage now
 checks this separately and keeps these values awaiting language validation.
 No translation values or completion counts changed.
 
-Restored Danish wording review (2026-09-14, latest `b8b7f8235`): reviewed
-259 values: 257 retained unchanged and two diagnostic meanings repaired.
-Latest review preserves selected above/below directions, unread/checklist
-actions, task/display labels and technical identifiers. Ambiguous export
-free wording remains open pending source-context review. Now 436 original
-findings are reviewed/retained and 3,799 restored values await validation.
-All remaining language review stays open.
+Restored Danish wording review (2026-09-14, latest `6531c37d2`): reviewed
+289 values: 287 retained unchanged and two diagnostic meanings repaired.
+Latest review preserves result counts, not-found subjects, creator/assignee,
+created/modified and status predicates. Ambiguous export free wording remains
+open. Now 466 original findings are reviewed/retained and 3,769 restored
+values await validation. All remaining language review stays open.

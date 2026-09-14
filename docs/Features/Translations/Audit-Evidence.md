@@ -1,5 +1,15 @@
 # Detailed translation audit evidence
 
+2026-09-14 (`6531c37d2`): retained thirty correct restored Danish values
+after full review of search labels/counts. Preserve no/one/n-card counts,
+organization/team not-found, creator versus assignee, created versus modified,
+archived/open/ended/all predicates, current absence of due cards, due-date
+sorting and time periods. Tokens and quotes unchanged. Operator vocabulary
+review does not independently verify runtime parsing. Ambiguous export free
+remains open. Danish total reviewed 289; overall retained 466, restored
+awaiting validation 3,769. No correction/pending counts changed.
+
+
 2026-09-14 (`b8b7f8235`): retained 29 correct Danish restored display/
 task values, including selected above/below, ALL unread, checked-item and
 finished-checklist hiding, JSON content and OIDC text customization. Team/
