@@ -22556,3 +22556,10 @@ terminology. Retained 29 display, date/upload, translation CRUD, PDF fallback,
 subtask/expand values. Checked-only scope, 50-300% range, failure/completion
 and no-undo warnings intact. All 18,182 corrections and 4,008 reviews pass.
 Color terminology and search tokens excluded pending separate investigation.
+
+**2026-09-14 — Valencian accessibility/storage (`ff7e2b082`).**
+
+Retained 31 background, support/accessibility, failure/confirmation, attachment,
+migration status, S3, duration/estimated-time and recurrence labels. Connection
+outcomes and interval frequencies remain intact. All 4,039 reviews pass.
+Fourteen Valencian restored values remain excluded for deeper contextual review.

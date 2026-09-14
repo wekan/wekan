@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,579 corrected, 186 restored pre-pull values awaiting
-validation, 4,008 reviewed and retained, and 308 pending review or repair.
+findings: 15,579 corrected, 155 restored pre-pull values awaiting
+validation, 4,039 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,173 exact before/after values,
 Global completeness verification also identifies Veps `server` (currently
 English-identical “Server”) for terminology review; it is not accepted yet.
@@ -686,6 +686,15 @@ Checked-item visibility uses localized checklist terminology. Retained 29
 correct display, date/upload and translation-management values. Scope, zoom
 range and no-undo warnings remain intact. Correction and review checks pass;
 color/search terminology and wider language/browser review remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ff7e2b082">Validate Valencian accessibility and storage labels</a>. Thanks to xet7.</summary>
+
+Retained 31 correct accessibility/storage, connection and scheduled-interval
+labels. Connection outcomes and interval frequencies remain intact. Exact
+review checks pass; fourteen restored Valencian findings still need review.
 
 </details>
 
