@@ -126152,5 +126152,40 @@
     "before": "Tâche planifiée démarrée avec succès",
     "after": "ⵜⴰⵡⵓⵔⵉ ⵜⵜⵓⵖⴰⵡⵙⵏⵜ ⵜⴱⴷⴰ!",
     "reason": "2026-09-14: Replace French scheduled-job labels/statuses. Native Red Moon activity_schedule attests Schedule aghawas, notification_action_resume Resume als and pref_title_start_time Start tuddma: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Native Ministry employment page attests Work tawuri: https://www.mmsp.gov.ma/amz/nos-metiers/absence-non-justifi%C3%A9e . Native MediaWiki filedeleteerror supplies failure frame and rcfilters-activefilters active iswur in component: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve Add, plural jobs, ACTIVE scope, Resume versus Start and failure versus successful completion. Scheduled passive ttughawsnt, feminine active agreement, Resume nominalization tulsa/past passive and Started tbda are derived, not directly attested complete job labels. LOW CONFIDENCE job adaptation, derived grammar and whole phrases require native validation. Success uses completed notification."
+  },
+  {
+    "locale": "zgh",
+    "key": "cron-job-delete-confirm",
+    "before": "ⵜⴻⵜⵃⴻⵇⵇⴻⴹ ⵜⴻⴱⵖⵉⴹ ⴰⴷ ⵜⵙⴻⴼⴹⴻⴹ ⴰⵅⴻⴷⴷⵉⵎ-ⴰ ⵢⴻⵜⵜⵡⴰⵖⴰⵡⵙⴻⵏ?",
+    "after": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⵜⴰⵡⵓⵔⵉ ⴰⴷ ⵜⵜⵓⵖⴰⵡⵙⵏⵜ?",
+    "reason": "2026-09-14: Replace inherited Kabyle-leaning scheduled-job confirmation/statuses; script alone is not language proof. Native Mastodon confirmations.delete.message supplies Are you sure you want/Delete THIS frame: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Native Red Moon notification_action_pause/status_paused supplies Pause sbdd/Paused ittusbdd: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Native MediaWiki filedeleteerror supplies failure and Deletion noun tukk sa: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve Delete versus Pause, scheduled THIS job, confirmation question and failed versus successfully completed action. Reuse prior LOW CONFIDENCE Scheduled Work proposal; feminine passives/paused nominalization and full phrases remain LOW CONFIDENCE for fluent validation. Success uses completed notification, not an invented adverb."
+  },
+  {
+    "locale": "zgh",
+    "key": "cron-job-delete-failed",
+    "before": "ⴰⵙⴼⴻⴹ ⵏ ⵓⵅⴻⴷⴷⵉⵎ ⵢⴻⵜⵜⵡⴰⵖⴰⵡⵙⴻⵏ ⵓⵔ ⵢⴻⴷⴷⵉ ⴰⵔⴰ",
+    "after": "ⵓⵔ ⵜⴰⵍⵍⴼⵓⵙ ⵜⵓⴽⴽⵙⴰ ⵏ ⵜⵡⵓⵔⵉ ⵜⵜⵓⵖⴰⵡⵙⵏⵜ",
+    "reason": "2026-09-14: Replace inherited Kabyle-leaning scheduled-job confirmation/statuses; script alone is not language proof. Native Mastodon confirmations.delete.message supplies Are you sure you want/Delete THIS frame: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Native Red Moon notification_action_pause/status_paused supplies Pause sbdd/Paused ittusbdd: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Native MediaWiki filedeleteerror supplies failure and Deletion noun tukk sa: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve Delete versus Pause, scheduled THIS job, confirmation question and failed versus successfully completed action. Reuse prior LOW CONFIDENCE Scheduled Work proposal; feminine passives/paused nominalization and full phrases remain LOW CONFIDENCE for fluent validation. Success uses completed notification, not an invented adverb."
+  },
+  {
+    "locale": "zgh",
+    "key": "cron-job-deleted",
+    "before": "ⴰⵅⴻⴷⴷⵉⵎ ⵢⴻⵜⵜⵡⴰⵖⴰⵡⵙⴻⵏ ⵢⴻⵜⵜⵡⴰⵙⴼⴻⴹ ⴰⴽⴽⴻⵏ ⵉⵡⴰⵜⴰ",
+    "after": "ⵜⴰⵡⵓⵔⵉ ⵜⵜⵓⵖⴰⵡⵙⵏⵜ ⵜⵜⵓⴽⴽⵙ!",
+    "reason": "2026-09-14: Replace inherited Kabyle-leaning scheduled-job confirmation/statuses; script alone is not language proof. Native Mastodon confirmations.delete.message supplies Are you sure you want/Delete THIS frame: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Native Red Moon notification_action_pause/status_paused supplies Pause sbdd/Paused ittusbdd: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Native MediaWiki filedeleteerror supplies failure and Deletion noun tukk sa: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve Delete versus Pause, scheduled THIS job, confirmation question and failed versus successfully completed action. Reuse prior LOW CONFIDENCE Scheduled Work proposal; feminine passives/paused nominalization and full phrases remain LOW CONFIDENCE for fluent validation. Success uses completed notification, not an invented adverb."
+  },
+  {
+    "locale": "zgh",
+    "key": "cron-job-pause-failed",
+    "before": "ⴰⵙⴱⴻⴷⴷⵉ ⵏ ⵓⵅⴻⴷⴷⵉⵎ ⵢⴻⵜⵜⵡⴰⵖⴰⵡⵙⴻⵏ ⵓⵔ ⵢⴻⴷⴷⵉ ⴰⵔⴰ",
+    "after": "ⵓⵔ ⵜⴰⵍⵍⴼⵓⵙ ⵓⵙⴱⴷⴷⵉ ⵏ ⵜⵡⵓⵔⵉ ⵜⵜⵓⵖⴰⵡⵙⵏⵜ",
+    "reason": "2026-09-14: Replace inherited Kabyle-leaning scheduled-job confirmation/statuses; script alone is not language proof. Native Mastodon confirmations.delete.message supplies Are you sure you want/Delete THIS frame: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Native Red Moon notification_action_pause/status_paused supplies Pause sbdd/Paused ittusbdd: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Native MediaWiki filedeleteerror supplies failure and Deletion noun tukk sa: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve Delete versus Pause, scheduled THIS job, confirmation question and failed versus successfully completed action. Reuse prior LOW CONFIDENCE Scheduled Work proposal; feminine passives/paused nominalization and full phrases remain LOW CONFIDENCE for fluent validation. Success uses completed notification, not an invented adverb."
+  },
+  {
+    "locale": "zgh",
+    "key": "cron-job-paused",
+    "before": "ⴰⵅⴻⴷⴷⵉⵎ ⵢⴻⵜⵜⵡⴰⵖⴰⵡⵙⴻⵏ ⵢⴻⵃⴱⴻⵙ ⴰⴽⴽⴻⵏ ⵉⵡⴰⵜⴰ",
+    "after": "ⵜⴰⵡⵓⵔⵉ ⵜⵜⵓⵖⴰⵡⵙⵏⵜ ⵜⵜⵓⵙⴱⴷⴷ!",
+    "reason": "2026-09-14: Replace inherited Kabyle-leaning scheduled-job confirmation/statuses; script alone is not language proof. Native Mastodon confirmations.delete.message supplies Are you sure you want/Delete THIS frame: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Native Red Moon notification_action_pause/status_paused supplies Pause sbdd/Paused ittusbdd: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Native MediaWiki filedeleteerror supplies failure and Deletion noun tukk sa: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve Delete versus Pause, scheduled THIS job, confirmation question and failed versus successfully completed action. Reuse prior LOW CONFIDENCE Scheduled Work proposal; feminine passives/paused nominalization and full phrases remain LOW CONFIDENCE for fluent validation. Success uses completed notification, not an invented adverb."
   }
 ]
