@@ -26502,3 +26502,35 @@ calendar, diagnostic and prior uncertain values remain in the full scope.
 Sources:
 https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
 https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+
+Archive/restore repairs **2026-09-14**, local commit `1e3ccd4f0`:
+listArchivePopup-title uses the existing complete list-to-archive phrase
+with a question mark. restore-board becomes **ⵙⵙⵓⴽⵏ ⵜⴰⴼⵍⵡⵉⵜ**,
+replacing Arabic. MediaWiki logentry-delete-restore attests this restore
+verb in a software restoration action. IRCAM General Dictionary page 534,
+entry 10051 independently attests ssukn as restore/repair. The existing
+generic restore key already uses ssukn. The actual boardArchive click
+handler calls board.restore(), whereas the list confirmation archives.
+Four locale suites pass, preserving exact placeholders/order and newer
+translations, and rejecting French/Arabic and archive/restore conflation.
+Playwright spec 03 executed in Chromium: **1 passed (3.8s)**. It verifies
+the translated list confirmation title, rejects French, closes the popup
+without confirmation and checks that the list remains visible. The first
+run passed title checks but timed out using the detached-popup close
+selector. The ordinary popup uses js-close-pop-over; corrected fixture
+then passed. This proves archive title/cancellation rendering, not actual
+board restoration. Board restore has source coverage only. Low confidence:
+computing board/list noun compounds remain in the native review scope.
+Two additional unflagged repairs: ledger 18,850; original corrected 15,674,
+pending 228 (zgh 121), restored 4 unchanged. Full native clauses, prior
+low-confidence values and remaining wrong-language prose remain open.
+Sources:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+SMTP terminology check **2026-09-14**: the bounded IRCAM dictionary port
+hits identify a harbour, not a network port. They cannot justify replacing
+SMTP terminology with the harbour noun. SMTP label/description and the
+full board-restoration guidance remain unresolved; no acceptance is
+recorded from these unrelated senses.

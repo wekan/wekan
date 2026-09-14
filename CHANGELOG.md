@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1e3ccd4f0">Repair Tamazight archive and board restore labels</a>. Thanks to xet7.</summary>
+
+French and Arabic labels become distinct archive and restoration actions.
+Four translation suites pass. Chromium verifies the list archive title
+and cancellation; board restoration has source coverage. Native computing
+compounds and remaining full phrases stay under review in the dated audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1f0d46494">Repair Tamazight server troubleshooting instructions</a>. Thanks to xet7.</summary>
 
 The full French message becomes a Tamazight draft with separate Snap and

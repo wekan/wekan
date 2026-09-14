@@ -16,14 +16,14 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `1f0d46494` —
-Full French troubleshooting message replaced with a Tamazight draft.
-Exact Snap/Docker commands and three lines verified; four locale suites
-pass. Full clause grammar remains low confidence. Ledger 18,848;
-pending 228 (zgh 121), restored 4 unchanged.
+Latest translation fix: **2026-09-14**, local commit `1e3ccd4f0` —
+French list archive title and Arabic board restore label repaired.
+Four locale suites and Chromium (1 passed) verify archive title/cancel;
+board restore has source coverage. Native computing compounds remain
+under review. Ledger 18,850; pending 228 (zgh 121), restored 4 unchanged.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,848** exact before/after values, including unflagged
+records contain **18,850** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
