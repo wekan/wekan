@@ -216,3 +216,8 @@ const missingListConfirmation = translated['run-fix-missing-lists-migration-conf
 assert.equal(missingListConfirmation, `ⵔⴰⴷ ${translated['fix-missing-lists-migration-description']} ⵉⵙ ⵜⵅⵙⴷ ⴰⴷ ⵜⴹⴼⵔⴷ?`);
 assert.doesNotMatch(missingListConfirmation, /Cette|opération|Continuer/);
 assert.notEqual(missingListConfirmation, translated['fix-missing-lists-migration-description']);
+
+const duplicateListConfirmation = translated['delete-duplicate-lists-confirm'];
+assert.match(duplicateListConfirmation, /^ⵉⵙ ⵏⵉⵜ.*\? ⵔⴰⴷ ⵜⵜⵓⴽⴽⵙⵏⵜ/);
+assert.match(duplicateListConfirmation, /ⵜⵉⵍⴳⴰⵎⵉⵏ ⴰⴽⴽ ⵉⵜⵜⵓⵢⴰⵍⵙⵏ.*ⵢⴰⵏ ⵢⵉⵙⵎ ⴷ ⵓⵔ.*ⵜⴽⴰⵕⴹⴰ/);
+assert.doesNotMatch(duplicateListConfirmation, /Êtes|supprimera|aucune carte/);

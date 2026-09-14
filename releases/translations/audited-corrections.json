@@ -138416,5 +138416,12 @@
     "before": "Cette opération détectera et réparera les listes manquantes ou corrompues dans la structure du tableau. Continuer ?",
     "after": "ⵔⴰⴷ ⵉⵚⵓⵕ ⴷ ⵉⵙⵙⵓⴽⵏ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵓⵔ ⵍⵍⵉⵏⵜ ⵏⵖ ⵉⵜⵜⵓⵙⵙⵅⵙⵔⵏ ⴳ ⵜⵓⵚⴽⵉⵡⵜ ⵏ ⵜⴼⵍⵡⵉⵜ. ⵉⵙ ⵜⵅⵙⴷ ⴰⴷ ⵜⴹⴼⵔⴷ?",
     "reason": "2026-09-15: Replace French confirmation with future repair statement and continue question, retaining missing/corrupted lists and board structure. MediaWiki pt-login-continue-button supports continuation verb component; full question, agreement and technical compounds remain low confidence. See Tamazight-Review.md."
+  },
+  {
+    "locale": "zgh",
+    "key": "delete-duplicate-lists-confirm",
+    "before": "Êtes-vous sûr ? Cela supprimera toutes les listes en doublon qui ont le même nom et qui ne contiennent aucune carte.",
+    "after": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⵢⴰ? ⵔⴰⴷ ⵜⵜⵓⴽⴽⵙⵏⵜ ⵜⵉⵍⴳⴰⵎⵉⵏ ⴰⴽⴽ ⵉⵜⵜⵓⵢⴰⵍⵙⵏ ⵍⵍⵉ ⵖⵓⵔⵙⵏⵜ ⵢⴰⵏ ⵢⵉⵙⵎ ⴷ ⵓⵔ ⴳⵉⵙⵏⵜ ⵜⵍⵍⵉ ⴰⵡⴷ ⵢⴰⵜ ⵜⴽⴰⵕⴹⴰ.",
+    "reason": "2026-09-15: Replace French duplicate-list confirmation with Tamazight draft retaining certainty question, all duplicates, shared name AND no cards. Native MediaWiki deletion/negative existential components and existing duplicate-list label provide vocabulary; full passive/agreement/shared-name grammar remains low confidence. See Tamazight-Review.md."
   }
 ]

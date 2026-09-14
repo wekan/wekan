@@ -1188,7 +1188,7 @@
   "delete-all-notifications": "ⴽⴽⵙ ⴰⴽⴽⵯ ⵜⵉⵏⵖⵎⵉⵙⵉⵏ",
   "delete-all-notifications-confirm": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⴰⴽⴽⵯ ⵜⵉⵏⵖⵎⵉⵙⵉⵏ? ⵜⵉⴳⴰⵡⵜ ⴰⴷ ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⴰⴷ ⴷ ⵉⵡⵔⵔⵉ.",
   "delete-duplicate-lists": "ⴽⴽⵙ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵉⵜⵜⵓⵢⴰⵍⵙⵏ",
-  "delete-duplicate-lists-confirm": "Êtes-vous sûr ? Cela supprimera toutes les listes en doublon qui ont le même nom et qui ne contiennent aucune carte.",
+  "delete-duplicate-lists-confirm": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⵢⴰ? ⵔⴰⴷ ⵜⵜⵓⴽⴽⵙⵏⵜ ⵜⵉⵍⴳⴰⵎⵉⵏ ⴰⴽⴽ ⵉⵜⵜⵓⵢⴰⵍⵙⵏ ⵍⵍⵉ ⵖⵓⵔⵙⵏⵜ ⵢⴰⵏ ⵢⵉⵙⵎ ⴷ ⵓⵔ ⴳⵉⵙⵏⵜ ⵜⵍⵍⵉ ⴰⵡⴷ ⵢⴰⵜ ⵜⴽⴰⵕⴹⴰ.",
   "default-subtasks-board": "ⵜⵉⵎⵙⴽⵉⵔⵉⵏ ⴷⴷⴰⵡ ⵏ ⵜⵎⵙⴽⵉⵔⵜ ⵉ ⵜⴼⵍⵡⵉⵜ __board__",
   "default": "ⵙ ⵓⵡⵏⵓⵍ",
   "defaultdefault": "ⵙ ⵓⵡⵏⵓⵍ",
