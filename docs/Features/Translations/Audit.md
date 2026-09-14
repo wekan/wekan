@@ -20,16 +20,17 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,364** exact before/after values, including unflagged repairs.
+contain **18,378** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `66c45f644` —
-French previous/next month navigation labels become Breton using native
-software month/direction vocabulary. All **18,364** corrections pass
-structural checks. Shared clause grammar and native/browser review remain
-open, alongside other wrong-language values, Galician attachment agreement
-and provisional calendar terminology.
+Latest translation fix: **2026-09-14**, local commit `dda942c11` —
+14 French-seeded Breton sorting controls repaired using existing Urzhiañ
+terminology. Manual, numeric, board and due-date ordering remain distinct.
+All **18,378** corrections and 4,158 unchanged reviews pass structural
+checks. Native phrasing/mutations and browser review remain open, alongside
+other wrong-language values, shared clause grammar, Galician attachment
+agreement and provisional calendar terminology.
 Latest unchanged review: **2026-09-14**, commit `64f1d7367` —
 assigned-card shortcut retained against actual current-user assignee toggle.
 IEC recognizes meves/meues as dialect variants; no wrong-language finding

@@ -22975,3 +22975,12 @@ https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/br.j
 Preserve direction distinction. All 18,364 correction records pass token,
 JSON, order and newer-translation protection checks. Browser calendar control
 validation remains open; original pending/restored scope remains 300/27.
+
+Dated unflagged repair, 2026-09-14, local commit `dda942c11`: 14 Breton
+sorting labels replace French. Reuse sort-desc's urzhiañ and the numeric
+sorting-on-minicard phrase. Preserve manual order, numeric order, board and
+due-date choices, sort removal and enabled-state semantics. Manual-order
+wording urzh dre zorn is a direct adaptation, not an attested complete UI
+phrase. All 18,378 correction and 4,158 unchanged checks pass. Native
+mutation/phrase and browser checks remain open. Original pending/restored
+scope stays 300/27, with broader unflagged review still required.

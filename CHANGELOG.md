@@ -671,6 +671,15 @@ The empty wrongly placed Git directory was removed locally.
 **Languages updated:** Acehnese, Bambara, Basque, Breton, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/dda942c11">Repair Breton sorting control language</a>. Thanks to xet7.</summary>
+
+Fourteen French-seeded sorting labels reuse existing Breton terminology.
+Preserve manual, numeric, board and due-date ordering choices. Structural
+checks pass; native phrasing and browser review remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/66c45f644">Repair Breton calendar month navigation language</a>. Thanks to xet7.</summary>
 
 Replace French previous/next month labels with native Breton terminology.
