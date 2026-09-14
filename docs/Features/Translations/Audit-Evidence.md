@@ -22395,3 +22395,12 @@ including lockout cause, retry timing and required OTP. Schedule is pending
 because its action/noun context is not established. Exact reviews pass.
 Activity rendering repaired separately in `888e0e6bc`; formatting failures
 were caller API misuse, not incorrect translation placeholders.
+
+### 2026-09-14 — Basque activities and Galician file/session labels
+
+Local commit `641062f8c` retains 26 Basque activity messages and two Galician
+file/session labels. Basque add/remove, check/uncheck and complete/uncomplete
+prose preserves source action meanings and all underscore tokens, including
+checkList casing. Archive terminology is excluded pending verification.
+Nine Galician restored findings remain. Exact unchanged reviews pass;
+full language/browser scope remains open.
