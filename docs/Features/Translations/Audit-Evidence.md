@@ -24178,3 +24178,14 @@ used to validate the translation. All 18,683 correction records, 4,171 retained
 reviews, 234-locale completeness and focused name/distinction checks pass.
 Original counts: 15,614 corrected, 9 restored, 4,171 retained, 287 pending.
 Full native compound and browser verification remain open.
+
+## Tamazight Hebrew calendar, 2026-09-14
+
+Local commit `bd4a6a494` replaces English Hebrew with a native adapted
+calendar label. [Tamazight review](Tamazight-Review.md) records native Safi
+article revision 156843 and its adjective usage; this is vocabulary evidence,
+not an exact calendar-name quotation or acceptance of historical claims.
+LOW CONFIDENCE full naming and browser review remain open. Focused exact-name,
+English-negative and Buddhist distinction checks pass, as do all 18,684
+corrections, 4,171 retained reviews and 234-locale completeness checks.
+Original counts: 15,615 corrected, 9 restored, 4,171 retained, 286 pending.

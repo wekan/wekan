@@ -94,3 +94,17 @@ from CLDR or the article; broader native compound and browser review remain
 open. Exact-value, English-negative and Islamic-calendar distinction checks
 pass. One original finding is corrected; 172 Tamazight findings remain pending.
 Earlier paragraphs with 173 describe the queue before this repair.
+
+## Hebrew calendar adaptation, 2026-09-14 (bd4a6a494)
+
+[Native Safi article, revision 156843](https://zgh.wikipedia.org/w/index.php?title=ⴰⵙⴼⵉ&oldid=156843)
+was fetched directly. Its native prose uses `ⴰⵄⵉⴱⵔⵉ` as the Hebrew adjective.
+This attests vocabulary outside a language-name menu, not the complete
+Hebrew calendar name or the truth of the article's historical account.
+The calendar label combines this adjective with the verified calendar noun.
+LOW CONFIDENCE full calendar terminology: the compound is adapted and needs
+broader native naming review. It does not substitute Israel or a country
+calendar for the Hebrew system. Exact-value, English-negative and Buddhist
+calendar distinction checks pass. Browser execution remains open.
+One further original finding is corrected; 171 Tamazight findings remain.
+Earlier 172/173 counts describe earlier stages, not the current queue.
