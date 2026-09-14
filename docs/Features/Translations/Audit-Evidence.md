@@ -22600,3 +22600,12 @@ uses Encaboxar for cancelling edits. Turkmen government migration law
 https://www.mfa.gov.tm/articles/79 uses ýatyrmak for visa cancellation.
 No locale values changed. Exact review checks verify all 4,127 records;
 64 restored values and 308 original findings remain unresolved.
+
+Dated review, 2026-09-14, local commit `5c7199050`: retained Valencian
+color-indigo, color-mistyrose and accounts-lockout-unlock-all. Dictionary
+references https://www.diccionari.cat/GDLC/indi and
+https://www.diccionari.cat/GDLC/nebulos support the color meanings.
+The people-panel action and confirmation target all locked users; the server
+selector removes existing account lockouts, supporting the contextual label.
+No values changed. Exact checks pass for 4,130 review records. Eleven
+restored Valencian values and wider language/browser validation remain open.

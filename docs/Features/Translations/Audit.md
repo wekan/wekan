@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,582 |
-| Restored pre-pull; awaiting validation | 64 |
-| Reviewed; retained unchanged | 4,127 |
+| Restored pre-pull; awaiting validation | 61 |
+| Reviewed; retained unchanged | 4,130 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -19,19 +19,18 @@ Latest translation fix: **2026-09-14**, local commit `93f284c8a` —
 Swedish Due Cards labels now include future deadlines instead of implying
 only overdue cards. Actual selector and sorting include future due dates.
 Regression tests drive the real sorting helper with past and future cards.
-All **18,185** correction and **4,127** review records pass.
+All **18,185** correction and **4,130** review records pass.
 Veps terminology, shared trigger grammar and browser validation remain open.
 Attachment/member rule participles still need context-specific agreement.
 Three Esperanto restored findings remain: lime color and two Complete labels.
 Broader language and browser verification remain open; nothing pushed.
-Latest unchanged review: **2026-09-14**, commit `d3ad084e7` — retained
-Asturian Encaboxar and Turkmen Ýatyr cancellation labels against published
-language references. Shared synonyms and homographs do not make these wrong.
-[Asturian help](https://help.libreoffice.org/latest/ast/text/scalc/02/06060000.html)
-and [Turkmen cancellation usage](https://www.mfa.gov.tm/articles/79)
-provide the references. Uzbek Arabic-script cancellation and Breton assignment
-wording remain open. Previous Valencian, Thai and compound-trigger findings
-stay unresolved.
+Latest unchanged review: **2026-09-14**, commit `5c7199050` — retained
+Valencian indi and rosa boirós color names against dictionary meanings, and
+Unlock All against the people-panel action, explicit all-locked-user
+confirmation and server selector. Eleven restored Valencian values remain.
+Technical loanwords, search tokens and completion-state context still need
+review. Uzbek Arabic-script and Breton wording, previous Thai and
+compound-trigger findings stay unresolved.
 Galician export free wording remains open pending context.
 Galician Complete and migration-complete wording remain open pending context.
 Card-show-lists context is verified against its settings row and toggle.
