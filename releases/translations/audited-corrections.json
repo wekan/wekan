@@ -121322,5 +121322,12 @@
     "before": "Une erreur inconnue s'est produite",
     "after": "ⵉⵍⵍⴰ ⴽⵔⴰ ⵏ ⵓⵣⴳⴰⵍ",
     "reason": "Replace French generic failure with Tamazight there is some error, using the exact initial clause of native MediaWiki externaldberror before its database/authentication-specific qualifiers. English Something went wrong is generic; do not copy Unknown error or add a database cause. Native error noun and existential construction are attested together; generic UI usage remains subject to fluent review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "loading",
+    "before": "Chargement, merci de patienter.",
+    "after": "ⴰⵣⴷⴰⵎ, ⴰⵎⵓⵔ ⵏⵏⴽ ⵔⴰⵊⴰ.",
+    "reason": "Replace French Loading, please wait with Tamazight. Mastodon native zgh loading_indicator.label attests azdam/loading; MediaWiki usernameinprogress attests the exact Please wait clause amur nnk raja. Combine the two without changing their wording or omitting the wait request. Complete cross-source UI phrase remains subject to fluent usage review. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]

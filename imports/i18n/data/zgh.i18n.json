@@ -1502,7 +1502,7 @@
   "swimlane-delete-pop": "Toutes les actions vont être supprimées du suivi d'activités et vous ne pourrez plus utiliser ce couloir. Cela est irréversible.",
   "restore-all": "Tout restaurer",
   "delete-all": "ⴽⴽⵙ ⵎⴰⵕⵕⴰ",
-  "loading": "Chargement, merci de patienter.",
+  "loading": "ⴰⵣⴷⴰⵎ, ⴰⵎⵓⵔ ⵏⵏⴽ ⵔⴰⵊⴰ.",
   "previous_as": "كانت آخر مرة",
   "act-a-dueAt": "Echéance modifiée à\nQuand: __timeValue__\nOù: __card__\n L'échéance précédente était __timeOldValue__",
   "act-a-endAt": "Modification de la date de fin de __timeOldValue__ à __timeValue__",
