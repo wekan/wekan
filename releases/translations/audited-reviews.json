@@ -24910,5 +24910,23 @@
     "key": "idle",
     "value": "Inactiu",
     "reason": "Valencian Inactiu correctly denotes an inactive/idle state. Historical cronMigrationStatus fallback in a440d44ea establishes state-label context rather than an imperative. No current consumer found; lexical/context review does not establish live workflow behavior."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "s3-bucket-description",
+    "value": "Nom del bucket S3 per emmagatzemar fitxers",
+    "reason": "Correct Valencian surrounding prose describes the bucket name, endpoint URL or endpoint port; bucket and endpoint retain S3 protocol terminology rather than indicate wrong-language prose. Actual attachmentSettings.jade binds descriptions to corresponding controls. Example hostnames remain literal, including on-premise minio.example.com. AWS RESTAPI documentation confirms bucket/endpoint distinction; storage runtime/browser connectivity not verified by this lexical review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "s3-endpoint-description",
+    "value": "URL de l'endpoint S3 (p. ex., s3.amazonaws.com o minio.example.com)",
+    "reason": "Correct Valencian surrounding prose describes the bucket name, endpoint URL or endpoint port; bucket and endpoint retain S3 protocol terminology rather than indicate wrong-language prose. Actual attachmentSettings.jade binds descriptions to corresponding controls. Example hostnames remain literal, including on-premise minio.example.com. AWS RESTAPI documentation confirms bucket/endpoint distinction; storage runtime/browser connectivity not verified by this lexical review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "s3-port-description",
+    "value": "Número de port de l'endpoint S3",
+    "reason": "Correct Valencian surrounding prose describes the bucket name, endpoint URL or endpoint port; bucket and endpoint retain S3 protocol terminology rather than indicate wrong-language prose. Actual attachmentSettings.jade binds descriptions to corresponding controls. Example hostnames remain literal, including on-premise minio.example.com. AWS RESTAPI documentation confirms bucket/endpoint distinction; storage runtime/browser connectivity not verified by this lexical review."
   }
 ]
