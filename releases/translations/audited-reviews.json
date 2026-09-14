@@ -19894,5 +19894,185 @@
     "key": "accounts-lockout-settings",
     "value": "Configuración da protección contra forza bruta",
     "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "accounts-lockout-info",
+    "value": "Esta configuración controla como se protexen os intentos de inicio de sesión contra ataques de forza bruta.",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "accounts-lockout-failures-before",
+    "value": "Fallos antes do bloqueo",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "accounts-lockout-period",
+    "value": "Período de bloqueo (segundos)",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "accounts-lockout-failure-window",
+    "value": "Xanela de fallos (segundos)",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "accounts-lockout-settings-updated",
+    "value": "Actualizouse a configuración da protección contra forza bruta",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "accounts-lockout-failed-attempts",
+    "value": "Intentos fallidos",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "accounts-lockout-remaining-time",
+    "value": "Tempo restante",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "admin-people-filter-all",
+    "value": "Todos os usuarios",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "admin-people-active-status",
+    "value": "Estado de actividade",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "accounts-lockout-unlock-all",
+    "value": "Desbloquear todos",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "active-cron-jobs",
+    "value": "Traballos programados activos",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "avatars-path",
+    "value": "Ruta dos avatares",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "avatars-path-description",
+    "value": "Ruta onde se gardan os ficheiros dos avatares",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "cron-jobs",
+    "value": "Traballos programados",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "cron-migrations",
+    "value": "Migracións programadas",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "cron-job-delete-confirm",
+    "value": "Está seguro de que quere eliminar este traballo programado?",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "cron-job-delete-failed",
+    "value": "Non se puido eliminar o traballo programado",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "cron-job-deleted",
+    "value": "Traballo programado eliminado correctamente",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "cron-job-pause-failed",
+    "value": "Non se puido pausar o traballo programado",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "cron-job-paused",
+    "value": "Traballo programado pausado correctamente",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "cron-job-resume-failed",
+    "value": "Non se puido retomar o traballo programado",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "cron-job-resumed",
+    "value": "Traballo programado retomado correctamente",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "cron-job-start-failed",
+    "value": "Non se puido iniciar o traballo programado",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "cron-job-started",
+    "value": "Traballo programado iniciado correctamente",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "cron-migration-errors",
+    "value": "Erros de migración",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "cron-migration-warnings",
+    "value": "Avisos de migración",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "cron-no-errors",
+    "value": "Non hai erros que mostrar",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "cron-error-message",
+    "value": "Mensaxe de erro",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "cron-error-details",
+    "value": "Detalles",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "cron-clear-errors",
+    "value": "Limpar todos os erros",
+    "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
   }
 ]

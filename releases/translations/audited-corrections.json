@@ -127139,5 +127139,19 @@
     "before": "Memoria heap de Node: limpa o lixo (zap garbage)",
     "after": "Memoria heap de Node: sobrescribe o lixo cun patrón de bits",
     "reason": "Node V8 getHeapStatistics does_zap_garbage reports whether heap garbage is overwritten with a bit pattern, rather than garbage collection or cleaning. Node official V8 API documentation establishes the distinction."
+  },
+  {
+    "locale": "gl",
+    "key": "card-received",
+    "before": "Recibido",
+    "after": "Recibida",
+    "reason": "Received date headings and tooltips describe the card (Galician tarxeta, feminine), not a masculine received object. cardDetails.jade and cardDate.js establish the card/date context; retain the date-introducing o."
+  },
+  {
+    "locale": "gl",
+    "key": "card-received-on",
+    "before": "Recibido o",
+    "after": "Recibida o",
+    "reason": "Received date headings and tooltips describe the card (Galician tarxeta, feminine), not a masculine received object. cardDetails.jade and cardDate.js establish the card/date context; retain the date-introducing o."
   }
 ]
