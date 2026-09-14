@@ -138913,5 +138913,26 @@
     "before": "URL de la page des mentions légales personnalisées",
     "after": "URL ⵏ ⵜⴰⵙⵏⴰ ⵏ ⵜⵓⵙⵎⵉⵔⵜ ⵜⴰⵣⵔⴼⴰⵏⵜ ⵜⵉⵥⵍⵉⵏ",
     "reason": "2026-09-15: Replace wrong-language legal-notice wording using IRCAM notice and legal components; derived feminine adjective and full compound low confidence. Preserve URL and custom-page scope."
+  },
+  {
+    "locale": "zgh",
+    "key": "no-cards-found",
+    "before": "Aucune carte trouvée",
+    "after": "ⵓⵔ ⵜⵜⵓⵢⴰⴼⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ",
+    "reason": "2026-09-15: Replace French empty-state prose with find/now evidence and existing due-date terminology. Negative passive agreement and due-date compound remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "dueCards-noResults-title",
+    "before": "Aucune carte avec échéance trouvée",
+    "after": "ⵓⵔ ⵜⵜⵓⵢⴰⴼⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵙ ⵓⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ",
+    "reason": "2026-09-15: Replace French empty-state prose with find/now evidence and existing due-date terminology. Negative passive agreement and due-date compound remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "dueCards-noResults-description",
+    "before": "Vous n'avez aucune carte avec échéance en ce moment.",
+    "after": "ⵓⵔ ⴷⴰⵔⴽ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵙ ⵓⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⴷⵖⵉ.",
+    "reason": "2026-09-15: Replace French empty-state prose with find/now evidence and existing due-date terminology. Negative passive agreement and due-date compound remain low confidence."
   }
 ]

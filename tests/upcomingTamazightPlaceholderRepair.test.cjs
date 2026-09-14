@@ -445,3 +445,10 @@ assert.strictEqual(translated["legalNotice"], "ⵜⵓⵙⵎⵉⵔⵜ ⵜⴰⵣ�
 
 assert.strictEqual(translated["custom-legal-notice-link-url"], "URL ⵏ ⵜⴰⵙⵏⴰ ⵏ ⵜⵓⵙⵎⵉⵔⵜ ⵜⴰⵣⵔⴼⴰⵏⵜ ⵜⵉⵥⵍⵉⵏ");
 assert.doesNotMatch(translated.legalNotice + translated['custom-legal-notice-link-url'], /mentions|légales|[\u0600-\u06ff]/u);
+
+assert.strictEqual(translated["no-cards-found"], "ⵓⵔ ⵜⵜⵓⵢⴰⴼⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ");
+
+assert.strictEqual(translated["dueCards-noResults-title"], "ⵓⵔ ⵜⵜⵓⵢⴰⴼⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵙ ⵓⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ");
+
+assert.strictEqual(translated["dueCards-noResults-description"], "ⵓⵔ ⴷⴰⵔⴽ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵙ ⵓⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⴷⵖⵉ.");
+assert.doesNotMatch(translated['dueCards-noResults-description'], /Vous|échéance|[\u0600-\u06ff]/u);
