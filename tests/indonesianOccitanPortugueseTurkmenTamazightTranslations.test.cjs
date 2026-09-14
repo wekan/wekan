@@ -107,3 +107,14 @@ assert.notEqual(locales.zgh['subtext-with-parent'], locales.zgh['subtext-with-fu
 assert.equal(locales.zgh['subtext-with-full-path'], 'ⴰⴷⵓⵣⵡⵍ ⴰⴽⴷ ⵓⴱⵔⵉⴷ ⴰⴽⴽⵯ');
 assert.doesNotMatch(locales.zgh['subtext-with-full-path'], /Sous-titre|chemin|complet|ⵓⵎⴰⵔⴰⵡ/);
 assert.ok(locales.zgh['subtext-with-full-path'].endsWith('ⴰⴽⴽⵯ'));
+
+const parentPrefixes = {
+  'prefix-with-full-path': 'ⴰⵣⵡⵉⵔ ⴰⴽⴷ ⵓⴱⵔⵉⴷ ⴰⴽⴽⵯ',
+  'prefix-with-parent': 'ⴰⵣⵡⵉⵔ ⴰⴽⴷ ⵓⵎⴰⵔⴰⵡ',
+};
+for (const [key, value] of Object.entries(parentPrefixes)) {
+  assert.equal(locales.zgh[key], value);
+  assert.doesNotMatch(locales.zgh[key], /Préfixer|chemin|parent|ⴰⴷⵓⵣⵡⵍ/);
+  assert.notEqual(locales.zgh[key], locales.zgh[key.replace('prefix-', 'subtext-')]);
+}
+assert.notEqual(locales.zgh['prefix-with-full-path'], locales.zgh['prefix-with-parent']);

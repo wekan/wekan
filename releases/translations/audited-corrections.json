@@ -130982,5 +130982,19 @@
     "before": "Sous-titre avec le chemin complet",
     "after": "ⴰⴷⵓⵣⵡⵍ ⴰⴽⴷ ⵓⴱⵔⵉⴷ ⴰⴽⴽⵯ",
     "reason": "Replace French full-path subtitle option using IRCAM 2019 subtitle p57 entry795, with p76 entry1196, path p33 entry287 and entirely p77 entry1214. LOW CONFIDENCE: ancestor-path metaphor and complete noun/adverb phrase need native/browser validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "prefix-with-full-path",
+    "before": "Préfixer avec le chemin complet",
+    "after": "ⴰⵣⵡⵉⵔ ⴰⴽⴷ ⵓⴱⵔⵉⴷ ⴰⴽⴽⵯ",
+    "reason": "Replace French display-prefix option using IRCAM 2019 p284 entry5564 grammatical prefix, adapted to text prepended to card title; verified with/path/entirely/father components and existing parent terminology. LOW CONFIDENCE: grammatical-to-display sense extension, full phrase and software metaphors need native/browser review."
+  },
+  {
+    "locale": "zgh",
+    "key": "prefix-with-parent",
+    "before": "Préfixer avec le parent",
+    "after": "ⴰⵣⵡⵉⵔ ⴰⴽⴷ ⵓⵎⴰⵔⴰⵡ",
+    "reason": "Replace French display-prefix option using IRCAM 2019 p284 entry5564 grammatical prefix, adapted to text prepended to card title; verified with/path/entirely/father components and existing parent terminology. LOW CONFIDENCE: grammatical-to-display sense extension, full phrase and software metaphors need native/browser review."
   }
 ]
