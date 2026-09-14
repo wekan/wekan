@@ -122351,5 +122351,19 @@
     "before": "Détails de la règle",
     "after": "ⵉⴼⵔⵓⵔⵉⵜⵏ ⵏ ⵓⵍⵓⴳⵏ",
     "reason": "Replace French report/details or mixed orthography and regular-versus-rule confusion in import/export rules. Preserve singular report, plural rules, singular rule details and both import/export actions. Native CNDH anqqis/report context (printed p29), MediaWiki ifruritn/details, ssufgh/export and importlogpage iskchumn support components; derive import imperative skchm and use IRCAM rule paradigm alugn/ulugn/ilugnn. LOW CONFIDENCE import imperative derivation and software-rule application, bound phrases and whole popup wording. References: https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (blockedtext-include-details-queries, export, importlogpage); https://biblio.ircam.ma/pmb/uploads/publications/134.pdf (printed p65)."
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-notes-2",
+    "before": "Les opérateurs similaires deviennent *optionnels*. Les cartes correspondant à n'importe quelle condition sont retournées.\n`__operator_list__:Disponible __operator_list__:Bloquée` retournera les cartes contenues dans la liste *Disponible* ou dans la liste *Bloquée*.",
+    "after": "ⵉⵎⴰⵀⴰⵍⵏ ⵉⵎⵙⴰⵙⴰⵏ ⵇⵇⵏⵏ ⵙ *OR* (ⵏⵖ). ⴰⵔ ⵜⵜⵢⴰⵔⴰⵔⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵉⵎⵙⴰⵙⴰⵏ ⴷ ⴽⵔⴰ ⵏ ⵜⵡⵜⵉⵍⵜ.\n`__operator_list__:Available __operator_list__:Blocked` ⴰⵔ ⵉⵜⵜⴰⵔⴰⵔ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴳ ⴽⵔⴰ ⵏ ⵜⵍⴳⴰⵎⵜ ⵉⵙⵎ ⵏⵏⵙ *Blocked* ⵏⵖ *Available*.",
+    "reason": "Replace French search explanation and repair erroneous optional OR interpretation. Preserve similar operators OR/any condition versus differing operators AND/all conditions, both examples, literal example names Available/Blocked/red consistently in command and prose, markdown and exact operator tokens. LOW CONFIDENCE full logical explanation, passive/active return conjugation, similarity/difference adjective forms and feminine agreement. Native MediaWiki search-nonefound matching, recentchangeslinked linked, and/or, searchall all support components; mixed lexicon condition Tawtilt MW and operator Amahal MAT are software adaptations. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json; https://cedric.cnam.fr/~bouzefra/books/amawal.pdf (PDF p40 Condition and p102 Operator)."
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-notes-3",
+    "before": "Les opérateurs différents sont *combinés*. Seules les cartes correspondant à tous les critères sont retournées.  `__operator_list__:Disponible __operator_label__:rouge` ne retourne que les cartes dans la liste *Disponible* avec une étiquette *rouge*.",
+    "after": "ⵉⵎⴰⵀⴰⵍⵏ ⵉⵎⵣⴰⵔⴰⵢⵏ ⵇⵇⵏⵏ ⵙ *AND* (ⴷ). ⴰⵔ ⵜⵜⵢⴰⵔⴰⵔⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵉⵎⵙⴰⵙⴰⵏ ⴷ ⴰⴽⴽⵯ ⵉⵎⴰⵀⴰⵍⵏ ⵉⵎⵣⴰⵔⴰⵢⵏ ⵖⴰⵙ. `__operator_list__:Available __operator_label__:red` ⴰⵔ ⵉⵜⵜⴰⵔⴰⵔ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴳ ⵜⵍⴳⴰⵎⵜ *Available* ⵙ ⵓⵔⵛⵓⵎ *red* ⵖⴰⵙ.",
+    "reason": "Replace French search explanation and repair erroneous optional OR interpretation. Preserve similar operators OR/any condition versus differing operators AND/all conditions, both examples, literal example names Available/Blocked/red consistently in command and prose, markdown and exact operator tokens. LOW CONFIDENCE full logical explanation, passive/active return conjugation, similarity/difference adjective forms and feminine agreement. Native MediaWiki search-nonefound matching, recentchangeslinked linked, and/or, searchall all support components; mixed lexicon condition Tawtilt MW and operator Amahal MAT are software adaptations. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json; https://cedric.cnam.fr/~bouzefra/books/amawal.pdf (PDF p40 Condition and p102 Operator)."
   }
 ]
