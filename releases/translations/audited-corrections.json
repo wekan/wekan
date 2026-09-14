@@ -126565,5 +126565,12 @@
     "before": "a défini le champ personnalisé '%s' à '%s' dans %s",
     "after": "ⵉⵙⵙⵔⵙ ⵉⴳⵔ ⵉⵥⵍⵉⵏ '%s' ⵖⵔ '%s' ⴳ %s",
     "reason": "2026-09-14: Replace French custom-field assignment activity. Indexed IRCAM Asinag 9 printed page 173 Place ssrs imperative supports Set-as-Place adaptation (direct PDF fetch failed): https://tal.ircam.ma/talam/Articles/Ataa%20Allah-etiq-Asinag9.pdf . Native MediaWiki changeemail-help Field igr and Special izlin support custom-field components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve active SET CUSTOM FIELD name TO value IN card, exact three percent placeholders and quotes on first two. Derived past actor issrs, technical Set-as-Place and full assignment grammar remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-unset-customfield",
+    "before": "a effacé le champ personnalisé '%s' dans %s",
+    "after": "ⵉⴽⴽⵙ ⴰⵣⴰⵍ ⵏ ⵉⴳⵔ ⵉⵥⵍⵉⵏ '%s' ⴳ %s",
+    "reason": "2026-09-14: Replace French custom-field unsetting activity. Actual models/cards.js customFields $unset hook removes a card field value, not board field definition. Native MediaWiki logentry-delete-delete Removed actor and redirect-value Value azal, Field/Special components support wording: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve UNSET custom field name IN card, exact two percent placeholders and quoted first. Paraphrase Remove Value to avoid implying field definition deletion. Technical Value adaptation, field bound state and full relation remain LOW CONFIDENCE."
   }
 ]
