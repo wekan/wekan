@@ -122,7 +122,7 @@ row wiring checks pass. All 4,171 unchanged reviews and 234-locale completeness
 checks pass. One restored finding is retained: 9 restored and 288 pending
 remain. Browser execution and broader language review remain open.
 
-## 2026-09-14 — Restored movement conditions retained
+## 2026-09-14 — Restored movement conditions retained (2bb54a30b)
 
 `r-moved-to` = Eramaten denean hona: and `r-moved-from` = Eramaten denean
 hemendik: are retained. The actual board trigger row assembles Txartel bat,
@@ -149,3 +149,6 @@ restored values, distinct directions, composed label/copula-negative and
 actual option/handler mapping checks are added. No locale value changes.
 Broader native style and running-browser verification remain open; this
 acceptance is limited to these directional fragments, not other named subjects.
+
+All 4,173 unchanged reviews and 234-locale completeness pass. Two restored
+findings are retained; 7 restored and 283 pending findings remain overall.

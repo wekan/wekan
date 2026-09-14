@@ -684,6 +684,16 @@ No current UI use was found, so browser execution is not claimed.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2bb54a30b">Retain Basque movement direction labels</a>. Thanks to xet7.</summary>
+
+Restored destination/origin wording is retained after native terminology and
+actual rule control/handler review. Direction mappings, restored values and
+extra-copula negative checks pass, with review and completeness suites.
+Two restored findings are resolved; broader style and browser review stay open.
+
+</details>
+
 **Developer tooling** - Mirror Git progress.
 
 <details>

@@ -24244,3 +24244,13 @@ UI use of these legacy keys was found; browser execution is not claimed.
 Focused values/negative/distinction checks, all 18,692 corrections, 4,171
 retained reviews and 234-locale completeness pass. Original counts remain
 15,618 corrected, 9 restored, 4,171 retained and 283 pending.
+
+## Basque restored movement conditions retained, 2026-09-14
+
+Local commit `2bb54a30b` retains two restored directional labels.
+[Basque review](Basque-Review.md) records native direction/source-field
+references, full UI fragment review and destination/origin handler mappings.
+Focused exact values, direction distinction, extra-copula negatives and
+actual mapping checks pass, with all 4,173 unchanged reviews and 234-locale
+completeness. Browser and broader style review remain open. Counts are
+15,618 corrected, 7 restored, 4,173 retained and 283 pending; 18,692 corrections.
