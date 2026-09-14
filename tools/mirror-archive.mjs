@@ -135,10 +135,39 @@ export async function publicLink(url, resolveHost = lookup) {
   })) throw new Error('Linked URL does not resolve exclusively to public Internet addresses');
   return addresses;
 }
-async function pinnedFetch(url, options, addresses) {
-  return new Promise((resolve,reject)=>{
-    const request=(url.protocol==='https:'?https:http).request(url,{headers:options.headers,signal:options.signal,lookup:(host,lookupOptions,callback)=>{const values=addresses.map(a=>({address:a.address,family:isIP(a.address)}));if(lookupOptions.all) callback(null,values);else callback(null,values[0].address,values[0].family);}},response=>{resolve(new Response([204,205,304].includes(response.statusCode)?null:Readable.toWeb(response),{status:response.statusCode,headers:Object.fromEntries(Object.entries(response.headers).filter(([k,v])=>v!==undefined).map(([k,v])=>[k,Array.isArray(v)?v.join(', '):v]))}));});
-    request.on('error',reject);request.end();
+export async function pinnedFetch(url, options, addresses, transport = url.protocol === 'https:' ? https : http) {
+  return new Promise((resolve, reject) => {
+    const request = transport.request(url, {
+      headers: options.headers,
+      signal: options.signal,
+      lookup: (host, lookupOptions, callback) => {
+        const values = addresses.map(a => ({ address: a.address, family: isIP(a.address) }));
+        if (lookupOptions.all) callback(null, values);
+        else callback(null, values[0].address, values[0].family);
+      },
+    }, response => {
+      // Node accepts status codes outside Fetch's 200..599 range. Errors in
+      // this event callback must reject the download, not escape and crash
+      // the archive process (including malformed response headers).
+      try {
+        const status = response.statusCode;
+        if (!Number.isInteger(status) || status < 200 || status > 599) {
+          throw new Error(`Linked URL returned unsupported HTTP status ${status}`);
+        }
+        const emptyBody = [204, 205, 304].includes(status);
+        const headers = Object.fromEntries(Object.entries(response.headers)
+          .filter(([, value]) => value !== undefined)
+          .map(([key, value]) => [key, Array.isArray(value) ? value.join(', ') : value]));
+        const result = new Response(emptyBody ? null : Readable.toWeb(response), { status, headers });
+        if (emptyBody) response.resume();
+        resolve(result);
+      } catch (error) {
+        response.destroy();
+        reject(error);
+      }
+    });
+    request.on('error', reject);
+    request.end();
   });
 }
 export function commentIdentity(comment) {return staticCommentIdentity(comment);}
