@@ -33,3 +33,29 @@ test('optional attachment rate limits defer without sleeping or violating saved 
  assert.equal(requests,1);assert.equal(slept,0);assert.ok(JSON.parse(fs.readFileSync(stateFile)).hosts['example.com']>=91000);
  }finally{fs.rmSync(directory,{recursive:true,force:true});}
 });
+test('missing WeKan branch content never requests Wayback, including network failures', async () => {
+ const {downloadHistoricalUrl}=await import('../tools/mirror-archive.mjs');
+ for (const url of [
+  'https://github.com/wekan/wekan/tree/devel/client/components/lists',
+  'https://github.com/wekan/wekan/blob/devel/client/components/main/header.jade',
+  'https://raw.githubusercontent.com/wekan/wekan/devel/client/file.js',
+  'https://raw.githubusercontent.com/wekan/wekan/refs/heads/devel/file.js',
+ ]) for (const failed of [false,true]) {
+  const calls=[], events=[];
+  const result=downloadHistoricalUrl(url,{createdAt:'2017-12-01'},async target=>{
+   calls.push(target); if(failed) throw Error('network timeout'); return {missing:true};
+  },(status,detail)=>events.push({status,detail}));
+  if(failed) await assert.rejects(result,/network timeout/);
+  else assert.deepEqual(await result,{missing:true});
+  assert.deepEqual(calls,[url]);
+  assert.equal(events[0].status,'skipped');
+  assert.match(events[0].detail,/branch content/);
+ }
+});
+test('immutable WeKan commit links remain eligible for historical fallback',async()=>{
+ const {downloadHistoricalUrl}=await import('../tools/mirror-archive.mjs');
+ const calls=[];
+ await downloadHistoricalUrl(`https://github.com/wekan/wekan/blob/${'a'.repeat(40)}/file.js`,{createdAt:'2017-12-01'},async url=>{calls.push(url);return {missing:true};});
+ assert.equal(calls.length,2);
+ assert.equal(new URL(calls[1]).hostname,'archive.org');
+});

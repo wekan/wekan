@@ -228,6 +228,19 @@ export async function downloadHistoricalUrl(url, options, fetchFile = downloadUr
     if (/Unsupported|public Internet addresses|credential/i.test(error.message)) throw error;
     failure = error;
   }
+  // Git history already preserves repository content. Retired branch links
+  // should not consume Wayback requests on every archive restart.
+  const source = new URL(url);
+  const branchPath = source.hostname === 'github.com'
+    ? source.pathname.match(/^\/wekan\/wekan\/(?:tree|blob)\/([^/]+)/i)
+    : source.hostname === 'raw.githubusercontent.com'
+      ? source.pathname.match(/^\/wekan\/wekan\/(?:refs\/heads\/)?([^/]+)/i)
+      : null;
+  if (branchPath && !/^[a-f0-9]{40}$/i.test(branchPath[1])) {
+    record('skipped', `${url}: repository branch content; archive.org fallback disabled`);
+    if (failure) throw failure;
+    return live;
+  }
   if (!options.createdAt || !Number.isFinite(Date.parse(options.createdAt))) {
     if (failure) throw failure;
     return live;

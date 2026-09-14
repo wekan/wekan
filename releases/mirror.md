@@ -377,6 +377,13 @@ node tools/mirror-active-forges.mjs --archive-only --apply
 The archive can be large when retaining all releases and historical versions.
 It remains gitignored and Meteor-ignored under `.tools/`.
 
+Missing WeKan branch-content links (`github.com/wekan/wekan/tree/...`,
+`blob/...` and equivalent `raw.githubusercontent.com` branch URLs) do not
+use archive.org fallback. The live URL is still attempted, but a missing or
+failed branch URL is reported and mirroring continues. Repository Git history
+preserves that content. Immutable full commit-hash links and other missing
+attachments remain eligible for creation-date historical recovery.
+
 
 The tool reports its practical scope. Original authors and timestamps appear
 in provenance, rather than creating accounts or impersonating authors. It does
