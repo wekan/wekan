@@ -122785,5 +122785,26 @@
     "before": "Organisation '%s' non trouvée.",
     "after": "ⵓⵔ ⵜⵍⵍⵉ ⵜⵓⴷⴷⵙⴰ '%s'.",
     "reason": "Replace French organization labels/error with Tamazight. Preserve plural organization/add actions, singular organization settings and missing named organization with exact %s placeholder. Saad-Buzefran computing lexicon p104 (printed100) Organization entry gives Tuddsa, plural tuddsiwin, explicitly MW (Mammeri Amawal) and includes ISO/Internet organization entity examples: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . Reuse local native settings and MediaWiki zgh add/feminine missing-page negation components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: MW vocabulary is not blanket Standard Moroccan attestation; dialect adaptation, Tifinagh spelling, feminine organization negation and full settings/error phrases require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "send-smtp-test",
+    "before": "Envoyer un mail de test à vous-même",
+    "after": "ⴰⵣⵏ ⵢⴰⵏ ⵉⵎⴰⵢⵍ ⵏ ⵓⴽⴰⵢⴰⴷ ⵉ ⵢⵉⵎⴰⵏ ⵏⵏⴽ",
+    "reason": "Replace French/Arabic email test/templates wording with Tamazight. Preserve test qualifier, sending to oneself rather than an arbitrary user, plural templates and email scope. Native MediaWiki zgh tooltip-t-emailuser and templatesused supply send-email and plural template components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Saad-Buzefran computing lexicon p142 (printed138) Test entry gives Akayad MAT, root sekyed with MC examine: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: math-to-email-test adaptation, bound ukayad, reflexive recipient and full email-template/test phrasing require fluent review; native component attestation is not complete phrase validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "templates",
+    "before": "نماذج",
+    "after": "ⴰⵍⴱⵓⴹⵏ",
+    "reason": "Replace French/Arabic email test/templates wording with Tamazight. Preserve test qualifier, sending to oneself rather than an arbitrary user, plural templates and email scope. Native MediaWiki zgh tooltip-t-emailuser and templatesused supply send-email and plural template components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Saad-Buzefran computing lexicon p142 (printed138) Test entry gives Akayad MAT, root sekyed with MC examine: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: math-to-email-test adaptation, bound ukayad, reflexive recipient and full email-template/test phrasing require fluent review; native component attestation is not complete phrase validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "email-templates-title",
+    "before": "البريد الإلكتروني نماذج",
+    "after": "ⴰⵍⴱⵓⴹⵏ ⵏ ⵉⵎⴰⵢⵍ",
+    "reason": "Replace French/Arabic email test/templates wording with Tamazight. Preserve test qualifier, sending to oneself rather than an arbitrary user, plural templates and email scope. Native MediaWiki zgh tooltip-t-emailuser and templatesused supply send-email and plural template components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Saad-Buzefran computing lexicon p142 (printed138) Test entry gives Akayad MAT, root sekyed with MC examine: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: math-to-email-test adaptation, bound ukayad, reflexive recipient and full email-template/test phrasing require fluent review; native component attestation is not complete phrase validation."
   }
 ]
