@@ -19,3 +19,11 @@ const repaired = repairedKeys.map(key => translated[key]).join('\n');
 assert.match(repaired, /Takarḍa|takarḍa|tabdart|tafelwit|asenqed/);
 assert.doesNotMatch(repaired, /[\u0600-\u06ff]|a édité|dans la|__(?:مرفق|بطاقة|قائمة|لوحة)__/u);
 console.log('upcomingTamazightPlaceholderRepair: 2 tests passed');
+
+assert.strictEqual(translated.or, 'ⵏⵖ');
+const header = fs.readFileSync(path.join(ROOT, 'client/components/main/header.jade'), 'utf8');
+assert.match(header, /sidebar-open.*{{_ 'or'}}.*sidebar-close/);
+const toggleTitle = `${translated['sidebar-open']} ${translated.or} ${translated['sidebar-close']}`;
+assert.match(toggleTitle, / ⵏⵖ /);
+assert.doesNotMatch(toggleTitle, /\bou\b/);
+console.log('Tamazight sidebar alternatives use the native conjunction');

@@ -888,6 +888,8 @@ test('Tamazight numeric total tooltip describes only display-enabled fields', as
     await boardPage.reload();
     await loginWithToken(boardPage, user.id, user.token);
     await openBoard(boardPage, board.boardId, board.slug);
+    await expect(boardPage.locator('.js-toggle-page-sidebar')).toHaveAttribute('title', `${locale['sidebar-open']} ${locale.or} ${locale['sidebar-close']}`);
+    await expect(boardPage.locator('.js-toggle-page-sidebar')).not.toHaveAttribute('title', /\bou\b/);
     const badge = new BoardPage(boardPage).list(board.listIds[0]).locator('.list-sum-badge').first();
     await expect(badge).toHaveText('∑ 7');
     await expect(badge).not.toHaveText('∑ 107');
