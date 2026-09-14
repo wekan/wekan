@@ -21820,5 +21820,185 @@
     "key": "server-error-troubleshooting",
     "value": "Mesedez, bidali zerbitzariak sortutako errorea.\nSnap instalazio baterako, exekutatu: `sudo snap logs wekan.wekan`\nDocker instalazio baterako, exekutatu: `sudo docker logs wekan-app`",
     "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "value": "Sakatu Sartu elementu gehiago gehitzeko",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "filesReportTitle",
+    "value": "Fitxategien txostena",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "rulesReportTitle",
+    "value": "Arauen txostena",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "cardsReportTitle",
+    "value": "Txartelen txostena",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "delete-team-warning-message",
+    "value": "Ezin da talde hau ezabatu, gutxienez erabiltzaile bat dago bertan",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "add-teams",
+    "value": "Gehitu taldeak",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "add-teams-label",
+    "value": "Gehitutako taldeak behean erakusten dira:",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "invite-people-error",
+    "value": "Errorea izena emateko gonbidapena bidaltzean",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "to-create-teams-contact-admin",
+    "value": "Taldeak sortzeko, jarri harremanetan administratzailearekin.",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "add-organizations",
+    "value": "Gehitu erakundeak",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "to-create-organizations-contact-admin",
+    "value": "Erakundeak sortzeko, jarri harremanetan administratzailearekin.",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "admin-people-filter-all",
+    "value": "Erabiltzaile guztiak",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "attachment-storage-configuration",
+    "value": "Eranskinen biltegiratze-konfigurazioa",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "anonymized-user",
+    "value": "erabiltzailea",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "migration-pause-failed",
+    "value": "Ezin izan dira migrazioak pausatu",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "migration-start-failed",
+    "value": "Ezin izan dira migrazioak abiarazi",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "migration-started",
+    "value": "Migrazioak ondo abiarazi dira",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "migration-stop-confirm",
+    "value": "Ziur zaude migrazio guztiak gelditu nahi dituzula?",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "migration-stop-failed",
+    "value": "Ezin izan dira migrazioak gelditu",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "migration-stopped",
+    "value": "Migrazioak ondo gelditu dira",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "pause-all-migrations",
+    "value": "Pausatu migrazio guztiak",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "s3-access-key-description",
+    "value": "AWS S3 sarbide-gakoa autentifikaziorako",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "s3-bucket-description",
+    "value": "Fitxategiak gordetzeko S3 bucket-aren izena",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "s3-enabled-description",
+    "value": "Erabili AWS S3 edo MinIO fitxategiak biltegiratzeko",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "s3-endpoint-description",
+    "value": "S3 amaiera-puntuaren URLa (adib. s3.amazonaws.com edo minio.example.com)",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "s3-port-description",
+    "value": "S3 amaiera-puntuaren ataka-zenbakia",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "s3-settings-save-failed",
+    "value": "Ezin izan dira S3 ezarpenak gorde",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "s3-settings-saved",
+    "value": "S3 ezarpenak ondo gorde dira",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "save-s3-settings",
+    "value": "Gorde S3 ezarpenak",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
+  },
+  {
+    "locale": "eu",
+    "key": "activity-checklist-completed",
+    "value": "%s kontrol-zerrenda osatu da %s(e)n",
+    "reason": "Inspected Basque Enter-key item addition, reports, team/organization membership and invitations, storage and migration outcomes, S3 configuration and checklist completion preserve source meanings. Team deletion remains prohibited while a member exists; migration all/start/stop/pause and success/failure polarity remain explicit. S3/MinIO endpoint examples, product names and percent tokens are retained."
   }
 ]
