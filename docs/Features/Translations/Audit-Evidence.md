@@ -22086,3 +22086,16 @@ three-character username. Activity tokens and visibility labels remain intact.
 Review checks pass: 15,561 corrected, 1,498 restored awaiting validation,
 2,714 reviewed unchanged and 308 pending. Broader grammar, terminology and
 browser validation remain open. Nothing pushed.
+
+
+### 2026-09-14 — Galician activities and workspace controls
+
+Local commit `4b926a60f` retains 35 directly reviewed values unchanged.
+Activities preserve move/import directions, join/leave actions, received,
+start/due/end date distinctions and exact percent tokens. Workspace and
+subworkspace controls, deletion confirmation, equal list width and swimlane
+height preserve meaning. Keyboard shortcut labels correctly invert current
+state and click action; markdown retains its actual format name.
+Review checks pass: 15,561 corrected, 1,463 restored awaiting validation,
+2,749 reviewed unchanged and 308 pending. Broader language and browser
+validation remain open. Nothing pushed.
