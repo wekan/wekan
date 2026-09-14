@@ -131766,5 +131766,12 @@
     "before": "Ḓadzhela zwiredzo zwa khadi ya mubebi",
     "after": "Jäl'gesta vanhemban kartan znamad",
     "reason": "2026-09-14: Replace Venda instruction with complete Veps inheritance draft. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), visually verified page 253, attests jäl’gestada (inherit). Noid dictionary attests vanhemb, genitive vanhemban, as parent/elder; existing WeKan card Kart and labels Znamad supply UI nouns. Sources: https://drive.google.com/file/d/0B92CAKqSx8Ped29wTmhIQ0NZSTg/view and https://vepsnoid.blogspot.com/p/dictionary.html. LOW CONFIDENCE: derived imperative, parent-card metaphor, genitive compound and label object agreement need native review. Actual checkbox passes inheritLabels when creating a subtask. No live browser claim."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "parent-card",
+    "before": "Ylätehtäväkortti",
+    "after": "Vanhemb kart",
+    "reason": "2026-09-14: Replace Finnish parent-card noun with complete Veps draft. Noid dictionary vanhemb means parent/elder; existing WeKan card = Kart. Source: https://vepsnoid.blogspot.com/p/dictionary.html. LOW CONFIDENCE: software parent metaphor and compound grammar need native review. Existing opened-card form consumes this label; no live browser execution claimed."
   }
 ]

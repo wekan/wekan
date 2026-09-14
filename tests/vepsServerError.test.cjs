@@ -61,3 +61,9 @@ test('Veps subtask inheritance draft preserves the parent-card and labels instea
   assert.match(data['subtask-inherit-parent-labels'], new RegExp(`${data.labels.toLowerCase()}$`));
   assert.doesNotMatch(data['subtask-inherit-parent-labels'], /Ḓadzhela|zwiredzo|mubebi/);
 });
+
+test('Veps parent-card label uses the existing card noun and replaces Finnish', () => {
+  const data = JSON.parse(fs.readFileSync('imports/i18n/data/ve-PP.i18n.json', 'utf8'));
+  assert.equal(data['parent-card'], `Vanhemb ${data.card.toLowerCase()}`);
+  assert.doesNotMatch(data['parent-card'], /ylätehtävä|kortti/i);
+});
