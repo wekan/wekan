@@ -1269,6 +1269,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/93a48d724">Fix five wrong-language Veps synchronization labels</a></summary>
+
+Reuse existing Veps wording while preserving literal project and credential
+examples. Four focused test files pass. Remaining synchronization messages
+and full grammar review stay open in the dated translation audit.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

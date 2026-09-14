@@ -538,3 +538,28 @@ restored 4 unchanged. Previous finding list's two rule keys are now repaired;
 the twoFactorAuth-enable/enabled and list-sync-enabled wrong-language
 values still need repairs. Original eight-row queue does not cover these
 additional findings or full prior low-confidence wording.
+
+
+2026-09-15 — `93a48d724`: five unflagged list synchronization values
+repaired: list-sync-menu, list-sync-now, list-sync-last-error,
+list-sync-project-key-placeholder and list-sync-credential-placeholder.
+Reuse existing org/team synchronization imperative Sinhronirui, Peitsana
+and Viga. Native primary MediaWiki source read today:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+provides nügüd' (now), jäl'gmäine in latest-visit wording, and libo (or).
+Preserve exact PROJECT, owner/repo and API token examples, changing only
+the connective and password prose. Sync now remains distinct from Sync.
+Full assembled terminology and grammar remain under review; these are
+direct drafts, not asserted human translations. Source listHeader.jade
+renders the labels/placeholder inputs and listHeader.js handles the popup;
+no behavior or credentials were changed. Four focused files pass (19
+checks), including exact replacements, negative Tshivenda, distinct actions
+and complete placeholder/key-order inventories. No live sync UI test ran.
+Ledger 19,908; original queue stays 126 (Veps 8), restored 4 unchanged.
+
+The remaining synchronization block includes wrong-language description,
+source, credentials, enabled state, last-sync state, never, pending,
+success/failure and stop messages. Repair the whole block, including exact
+%s in list-sync-now-error and the 15-minute/immediate-check distinction
+in list-sync-description. Do not treat these five changes as completion of
+the synchronization popup. Previously noted list-sync-enabled remains open.
