@@ -124738,5 +124738,12 @@
     "before": "Erreurs de migration",
     "after": "ⵉⵣⴳⴰⵍⵏ ⵏ ⵓⵙⵎⵓⵜⵜⵢ",
     "reason": "2026-09-14: Replace French Migration Errors, preserving plural errors distinct from warnings or failed status. Reuse previously reviewed plural izgaln from native CNDH penal-code memorandum pages 79 and 99 and bound usmutty software-migration adaptation from MediaWiki movelogpage. LOW CONFIDENCE legal-error-to-software-error usage, migration semantic extension and full noun chain need fluent Standard Moroccan review; full technical heading is not independently attested. References: https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "migrations-admin-only",
+    "before": "Seuls les administrateurs du tableau peuvent exécuter les migrations",
+    "after": "ⵖⴰⵙ ⵉⵎⵙⵙⵓⴳⵓⵔⵏ ⵏ ⵜⴼⵍⵡⵉⵜ ⴰⵢ ⵉⵣⵎⵔⵏ ⴰⴷ ⵙⴽⵔⵏ ⵉⵙⵎⵓⵜⵜⵢⵏ",
+    "reason": "2026-09-14: Replace French Only board administrators can run migrations, preserving Only, board-qualified plural administrators and ability to execute plural migrations. Native MediaWiki protect-level-sysop directly supplies ghas imssugurn Only Administrators; viewsourcetext supplies second-person capability tz mrd ad, adapted here to plural relative izmrn ad skrn. Run skr and migration noun reuse reviewed software adaptations. LOW CONFIDENCE derived plural capability/relative construction, execution conjugation, migration plural and complete authorization sentence require fluent Standard Moroccan review; this is not an attested full sentence. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]

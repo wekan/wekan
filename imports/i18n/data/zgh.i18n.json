@@ -2437,7 +2437,7 @@
   "migration-successful": "ⵉⵙⵎⴷ ⵓⵙⵎⵓⵜⵜⵢ ⴷ ⵢⴰⵍⵍⴼⵓⵙ",
   "migration-failed": "ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⵓⵙⵎⵓⵜⵜⵢ",
   "migrations": "ⵉⵙⵎⵓⵜⵜⵢⵏ",
-  "migrations-admin-only": "Seuls les administrateurs du tableau peuvent exécuter les migrations",
+  "migrations-admin-only": "ⵖⴰⵙ ⵉⵎⵙⵙⵓⴳⵓⵔⵏ ⵏ ⵜⴼⵍⵡⵉⵜ ⴰⵢ ⵉⵣⵎⵔⵏ ⴰⴷ ⵙⴽⵔⵏ ⵉⵙⵎⵓⵜⵜⵢⵏ",
   "migrations-description": "Exécute les vérifications d'intégrité des données et les réparations pour ce tableau. Chaque migration peut être exécutée individuellement.",
   "no-issues-found": "Aucun problème détecté",
   "run-migration": "ⵙⴽⵔ ⴰⵙⵎⵓⵜⵜⵢ",
