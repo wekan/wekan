@@ -584,3 +584,8 @@ for (const key of ['Node_heap_total_available_size', 'Node_heap_total_heap_size_
  assert.notStrictEqual(translated[key], translated.Node_heap_total_heap_size);
 }
 console.log('Tamazight available and executable heap labels stay distinct from total heap');
+
+assert.strictEqual(translated.Node_heap_does_zap_garbage, "ⴰⴳⵓⴷⵉ ⵏ Node: ⴰⵙⵎⵔⵙ ⵏ does_zap_garbage");
+assert.doesNotMatch(translated.Node_heap_does_zap_garbage, /Tas de|Utilise|option|[\u0600-\u06ff]/u);
+assert.ok(translated.Node_heap_does_zap_garbage.endsWith('does_zap_garbage'));
+console.log('Tamazight garbage diagnostic retains its literal flag identifier');

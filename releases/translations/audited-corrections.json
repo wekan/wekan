@@ -139193,5 +139193,12 @@
     "before": "Tas de Node : taille totale du tas exécutable",
     "after": "ⴰⴳⵓⴷⵉ ⵏ Node: ⵜⴰⵎⵓⵜⵜⵔⵜ ⵏ ⵓⵇⵓⴷⴷⵉ ⵏ ⵓⴳⵓⴷⵉ ⵉ ⵓⵣⵣⴳⵉⵔ",
     "reason": "2026-09-15: Replace French heap diagnostic using existing heap/total/size compounds. IRCAM sula available 9632 recommends imperfective ttsala; azzgir execution 5578 bound uzzgir. Executable rendered as heap for execution. Computing capability paraphrase, derived availability participle and full compounds remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Tas de Node : Utilise l'option does_zap_garbage",
+    "after": "ⴰⴳⵓⴷⵉ ⵏ Node: ⴰⵙⵎⵔⵙ ⵏ does_zap_garbage",
+    "reason": "2026-09-15: Replace French diagnostic with heap/use-of-flag wording. Preserve exact does_zap_garbage technical identifier, representing boolean flag usage rather than generic successful garbage collection. Existing heap and use nouns reused. Computing compound remains low confidence."
   }
 ]

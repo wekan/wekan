@@ -1968,7 +1968,7 @@
   "Node_heap_heap_size_limit": "ⴰⴳⵓⴷⵉ ⵏ Node: ⵜⵉⴳⴳⵓⵎⵔⴰ ⵏ ⵓⵇⵓⴷⴷⵉ ⵏ ⵓⴳⵓⴷⵉ",
   "Node_heap_malloced_memory": "ⴰⴳⵓⴷⵉ ⵏ Node: ⵜⵉⵎⴽⵜⵉⵜ ⵙ malloc",
   "Node_heap_peak_malloced_memory": "ⴰⴳⵓⴷⵉ ⵏ Node: ⴰⵎⵓⵣⵣⵓⵔ ⵏ ⵜⵎⴽⵜⵉⵜ ⵙ malloc",
-  "Node_heap_does_zap_garbage": "Tas de Node : Utilise l'option does_zap_garbage",
+  "Node_heap_does_zap_garbage": "ⴰⴳⵓⴷⵉ ⵏ Node: ⴰⵙⵎⵔⵙ ⵏ does_zap_garbage",
   "Node_heap_number_of_native_contexts": "Tas de Node : nombre de contexte natifs",
   "Node_heap_number_of_detached_contexts": "Tas de Node : nombre de contexte détachés",
   "Node_memory_usage_rss": "Utilisation mémoire de Node : taille de l'ensemble résident",
