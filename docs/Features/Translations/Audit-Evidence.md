@@ -23897,3 +23897,23 @@ A fresh Breton/French comparison found hundreds of short identical candidates.
 The comparison is a lead, not a wrong-language verdict for all matches: proper
 names, technical loans and shared vocabulary require individual review. The
 14 confirmed cases above are repaired; the wider unflagged review continues.
+
+### 2026-09-14 — Breton palette color senses (2a86c331f)
+
+Three unflagged French labels are repaired: dark green `vert foncé` becomes
+`gwer teñval`, gold `or` becomes `aour`, and silver `argent` becomes
+`arc'hant`. OPLB Meurgorf explicitly defines the relevant color senses:
+[green, including its dark form](https://niverel.brezhoneg.bzh/fr/meurgorf/38471),
+[gold, section II.A.2](https://niverel.brezhoneg.bzh/fr/meurgorf/1809), and
+[silver, section II.2](https://niverel.brezhoneg.bzh/br/meurgorf/1989).
+These are color meanings, rather than inference from metal names alone.
+
+The unflagged gray value `gris` is retained: the
+[native definition](https://niverel.brezhoneg.bzh/fr/meurgorf/15268) explicitly
+describes a color between black and white. Identical French spelling is not
+a wrong-language verdict. Exact values, foreign-label exclusions and distinct
+palette names pass with all 18,630 correction records, 4,169 unchanged reviews
+and 234-locale structural completeness. Browser verification remains open;
+these checks do not establish fluency across the remaining audit.
+Original pending/restored counts remain 288/12. Other palette candidates and
+the wider unflagged review still need individual evidence.

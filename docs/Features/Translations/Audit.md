@@ -30,7 +30,7 @@ cross-checks calendar, user and click components in native Moroccan sources.
 Full phrases, warnings and invalidated Tuareg records remain open; no pending
 finding was accepted from component evidence.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,627** exact before/after values, including unflagged repairs.
+contain **18,630** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
@@ -38,23 +38,21 @@ Latest uncertain-phrase review: **2026-09-14**, `5400a0ce9` —
 [Inuktitut recurrence/reset review](Inuktitut-Recurrence-Review.md) distinguishes
 fresh-card creation from in-place checklist unchecking and records primary
 repeat/again affix evidence. Six headings/off labels remain open; component
-words alone do not establish complete phrases. Counts after the latest completion review are 289/12.
+words alone do not establish complete phrases. Current pending/restored counts are 288/12.
 
 Latest unflagged unchanged review: **2026-09-14**, `5bf34bc48` —
 Inuktitut `new` retains `ᓄᑖᖅ`, matching the native software guide's New
 command and actual admin creation labels. Focused checks pass; browser review
 remains open. Latin Inuktitut spelling is valid; original script warnings
 require vocabulary/context review rather than automatic replacement.
-Pending/restored counts after the latest review are 289/12.
+Current pending/restored counts are 288/12.
 
-Latest translation fix: **2026-09-14**, local commit `092678576` —
-14 unflagged Breton common controls and diagnostic labels replace French.
-Native software vocabulary preserves equivalent details/file/confirmation
-terms and distinguishes source from translated text. All 18,627 corrections,
-4,169 unchanged reviews and focused translation checks pass. Adapted compounds
-and browser review remain open. Counts remain 288 pending and 12 restored.
-A fresh French-identical comparison supplies hundreds of unflagged candidates;
-shared terms need individual review. Earlier WIP repairs are in `0dc75532b`.
+Latest translation fix: **2026-09-14**, local commit `2a86c331f` —
+Three French Breton palette labels become native dark green, gold and silver.
+Dictionary color senses support the replacements; valid shared Breton `gris`
+is retained. All 18,630 corrections and focused translation checks pass.
+Pending/restored counts remain 288/12; broader native and browser review
+remain open. Earlier common-control repairs are in `092678576`.
 Latest unchanged review: **2026-09-14**, local commit `a0aacc7a9` —
 Silesian raw MongoDB 3 files retains native shared vocabulary, resolving its
 last flagged finding. All 4,169 unchanged reviews and focused translation

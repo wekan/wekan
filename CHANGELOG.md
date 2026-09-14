@@ -738,6 +738,15 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2a86c331f">Repair Breton palette color names</a>. Thanks to xet7.</summary>
+
+Dark green, gold and silver use dictionary-attested Breton color meanings.
+The valid shared word gris is retained. Focused translation checks pass;
+the dated audit keeps broader language and browser review open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/092678576">Repair Breton common controls and diagnostics</a>. Thanks to xet7.</summary>
 
 Fourteen French labels become Breton using native software vocabulary.
