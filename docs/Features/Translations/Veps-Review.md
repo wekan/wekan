@@ -283,3 +283,29 @@ tests across four files pass for corrections, placeholders and preference.
 No live browser execution is claimed. Original ten Veps findings remain
 pending; this additional repair brings the ledger to 18,824. Earlier
 “no replacement claimed” notes describe the review before this dated draft.
+
+Primary arithmetic/location evidence **2026-09-14**:
+Visually inspected rendered pages **419** and **60** of the 2007
+Zaiceva/Mullonen dictionary, after locating candidate entries in the
+corrupted extracted text. Page 419 confirms **ližadu|z (-sen, -st, -sid)**
+for Russian сложение (addition), with **luguiden ližaduz** (addition of
+numbers). Its separate add verb entry provides **liža|ta (-dab, -zi)**
+and imperative example **ližada lugud!** (add the numbers). Thus
+arithmetic addition now has primary evidence; it must not be conflated
+with a result noun Sum or the summary verb ühthevedota.
+
+Page 60 confirms **üläh (-an, -id)** for upper part/top, with
+**pertin üläh** (top of a house), and provides vertical terms
+**püšti|oiged** and **vertikaline**, including a vertical-line example.
+These are distinct from an imperative to enable vertical scrollbars.
+The next phrase-review steps are now the arithmetic result noun, inflected
+field/list/top relation, and the full scrollbar compound; copying Finnish
+summa or inventing a bar term would not complete those translations.
+A bounded extracted-text search did not locate a standalone Russian
+sum entry; corruption and bounded coverage mean this is not absence proof.
+
+Both rendered pages were successfully written with pdfjs and the existing
+canvas dependency; the loading task's supported destroy method also
+succeeded. Temporary images/PDF/text remain ignored and are not bundled.
+No locale values, ledgers or completion counts changed by this review.
+Source: [linked primary dictionary](https://drive.google.com/file/d/0B92CAKqSx8Ped29wTmhIQ0NZSTg/view).
