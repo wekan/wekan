@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b479af98f">Repair Veps parent change and display controls</a>. Thanks to xet7.</summary>
+
+Two complete terminology drafts preserve changing the parent relationship
+and hiding its display as separate actions. Full grammar remains low
+confidence. Locale, token and preference checks pass; dated audit evidence
+keeps native/browser verification open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e8692f14a">Repair Veps parent display instruction</a>. Thanks to xet7.</summary>
 
 The complete draft preserves showing the parent card on the minicard.

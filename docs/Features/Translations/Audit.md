@@ -16,13 +16,13 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `e8692f14a` —
-Veps parent display instruction replaced with a complete draft. Full
-compound/object/location grammar remains low confidence. Checks pass;
-original pending 232 (Veps 9), ledger 18,826. Native/browser review stays open.
+Latest translation fix: **2026-09-14**, local commit `b479af98f` —
+two Finnish Veps parent controls replaced with complete terminology drafts.
+Change and hide remain distinct; full grammar is low confidence. Checks
+pass; original pending 232, ledger 18,828. Native/browser review stays open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,826** exact before/after values, including unflagged
+records contain **18,828** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

@@ -330,3 +330,14 @@ location and colon are preserved. Twelve tests across four files pass for
 exact values, placeholders and preference. Original pending 232, Veps 9;
 ledger 18,826. Changed classification does not establish native fluency
 or live browser verification. Earlier counts describe prior review stages.
+
+Parent-control drafts **2026-09-14**, local commit `b479af98f`:
+`change-card-parent` now reads **Vajehta kartan vanhemb**, and
+`no-parent` **Peitä vanhemb kart**, replacing Finnish. Native MediaWiki
+edit/protect_change and hidetoc attest change/hide; existing card and reviewed
+parent nouns support terminology. Full genitive/object grammar and parent-card
+software metaphor remain **low confidence**. The opened-card parent form
+uses Change; sidebar no-parent changes display, not the relationship.
+Thirteen tests across four files pass for exact values, action distinction,
+placeholders and preference. Original pending remains 232; ledger 18,828.
+No live browser/native fluency claim.
