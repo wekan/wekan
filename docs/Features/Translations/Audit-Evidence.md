@@ -21513,3 +21513,16 @@ conditions, activation and lock/unlock polarity, scheduled operation failures,
 S3 endpoint examples and authentication wording. Activity placeholders remain
 verbatim. Unchanged-value tests pass; uncertain terminology and browser
 validation remain open.
+
+
+### Esperanto workspace and activity review — 2026-09-14
+
+Local commit `6f096bfeb` retains 47 directly reviewed correct workspace,
+activity, date and administrator labels. Preserve source/destination order,
+received/start/due/end distinctions, positive-integer height requirement and
+the loading warning that refreshing causes data loss. Ledger tests pass;
+completion wording remains open. Direct
+[ReVo task source](https://raw.githubusercontent.com/revuloj/revo-fonto/master/revo/task.xml)
+now confirms tasko as assigned work; the komplet source was also fetched.
+This resolves the earlier retrieval failure, but individual completion and
+compound labels still need semantic review. Browser behavior was not tested.
