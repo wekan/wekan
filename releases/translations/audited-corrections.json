@@ -126425,5 +126425,12 @@
     "before": "Êtes-vous sûr de vouloir supprimer toutes les notifications ? Cette action est irréversible.",
     "after": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⴰⴽⴽⵯ ⵜⵉⵏⵖⵎⵉⵙⵉⵏ? ⵜⵉⴳⴰⵡⵜ ⴰⴷ ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⴰⴷ ⴷ ⵉⵡⵔⵔⵉ.",
     "reason": "2026-09-14: Repair French notification deletion confirmation and align related unflagged notification label. Native Mastodon Notifications tin ghmisin and MediaWiki Delete kks, All akkw and undo-failure no-undo clause support components: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve ALL notifications, explicit confirmation and unconditional CANNOT UNDO warning; omit only MediaWiki edit-conflict reason. Reuse local confirmation wording. Change-to-Action singular adaptation, agreement and full confirmation grammar remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "delete-board-confirm-popup",
+    "before": "Toutes les listes, cartes, étiquettes et activités seront supprimées et vous ne pourrez pas retrouver le contenu du tableau. Cela est irréversible.",
+    "after": "ⵔⴰⴷ ⵜⵜⵓⴽⴽⵙⵏⵜ ⴰⴽⴽⵯ ⵜⵉⵍⴳⴰⵎⵉⵏ, ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ, ⵜⵉⵎⴰⵜⴰⵔⵉⵏ ⴷ ⵜⵉⴳⴰⵡⵉⵏ. ⵓⵔ ⵔⴰ ⵜⵥⴹⴰⵕⴷ ⴰⴷ ⵜⵙⵡⵔⵔⵉⴷ ⵜⵓⵎⴰⵢⵜ ⵏ ⵜⴼⵍⵡⵉⵜ. ⴰⵙⵏⴼⵍ ⴰⴷ ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⴰⴷ ⴷ ⵉⵡⵔⵔⵉ.",
+    "reason": "2026-09-14: Replace French permanent board deletion warning. MediaWiki thisisdeleted directly attests Restore swrri, noarticletext/native Can wording, restorelink deletion passive and undo-failure unconditional no-undo clause components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Native Mastodon List plural and local Card/Label/Activity wording reused. Preserve ALL lists, cards, labels and activities WILL BE DELETED, future inability to RECOVER BOARD CONTENTS and NO UNDO. Restore-to-Recover adaptation, future negative/modal and plural passive agreement and full warning remain LOW CONFIDENCE."
   }
 ]
