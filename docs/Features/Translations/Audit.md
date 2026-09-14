@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,524 |
+| Corrected | 15,525 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 320 |
+| Pending review or repair | 319 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,098** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,099** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `15fc620cb` — replaced French/Arabic text-copy and card-link-copy labels, preserving objects and clipboard destination. Directly inspected CNAM Clipboard is a Kabyle “at hand” metaphor, not normative Moroccan software usage. Copy imperative, borrowing and full phrases remain **low confidence**. All **18,098** correction checks pass; **320** findings remain pending across **17** locales, including **185** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `b6b30d0a4` — replaced French Clipboard OR Drag AND Drop, preserving alternative methods and combined drag/drop action. Dictionary Drag, indexed Place and earlier Kabyle clipboard metaphor support components; full software adaptation remains **low confidence**. All **18,099** correction checks pass; **319** findings remain pending across **17** locales, including **184** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Search-case review (2026-09-14):** preserve uppercase/lowercase matching,
 not font-size or accent equivalence. Indexed IRCAM discussions do not

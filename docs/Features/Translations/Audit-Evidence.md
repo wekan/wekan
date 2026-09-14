@@ -1,5 +1,15 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `b6b30d0a4`: Clipboard OR Drag AND Drop label repaired from
+French, preserving alternative methods and combined drag/drop action.
+Inspected Wiktionary Central Atlas zughr Drag entry cites Penchoen 1973,
+Ayt Ndhir page 104; original book not inspected. Prior indexed IRCAM Asinag 9
+Place command adapts Drop; direct PDF retrieval failed. Earlier directly
+inspected Kabyle clipboard metaphor retained. These component sources do
+not prove full Moroccan software phrasing; adaptation remains low confidence.
+All 18,099 correction checks pass; 319 original findings remain pending,
+including 184 Tamazight. Supersedes earlier pending clipboard-method status.
+
 2026-09-14 — `15fc620cb`: Text Copy and Card Link Copy clipboard actions
 repaired from French/Arabic. Direct CNAM PDF page 112 gives Clipboard ghef
 ufus, at hand, KBL; quoted technical borrowing is not normative Moroccan
