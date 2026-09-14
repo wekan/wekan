@@ -125116,5 +125116,19 @@
     "before": "Arrêt des migrations...",
     "after": "ⴰⵔ ⵜⵜⵓⵙⴱⴷⴷⵏ ⵉⵙⵎⵓⵜⵜⵢⵏ...",
     "reason": "Replace French Stop/Stopping migrations with Tamazight. Direct Red Moon zgh notification_action_stop uses sbdd: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Retain command versus ongoing status and plural migrations with ellipsis. LOW CONFIDENCE for derived plural passive and full migration phrase. Upstream uses the same root for Pause; this lexical overlap is attested, not a claim that the application actions are identical. Separate Stop/Pause controls and behavior are unchanged; fluent review should assess whether a more specific stop term is preferable."
+  },
+  {
+    "locale": "zgh",
+    "key": "import-csv-placeholder",
+    "before": "Déposez ici vos données valides CSV/TSV",
+    "after": "ⵙⵏⵜⴹ ⴷⴰ ⵉⵙⴼⴽⴰ ⵏⵏⴽ ⵉⵣⵔⵢⵏ ⵙ CSV/TSV",
+    "reason": "Replace French import hint with Tamazight, preserving Paste YOUR VALID data HERE and literal format CSV/TSV or JSON. Native MediaWiki newarticletext/whatlinkshere supply da Here; database wording supplies isfk a/Data and blockedtext uses izryn for a valid email address. https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: directly composed Paste sntdh is not independently attested by this reference; general validity-to-structured-data adaptation, possessive and full grammar require review. Do not claim the reference attests Paste or full import phrase."
+  },
+  {
+    "locale": "zgh",
+    "key": "import-json-placeholder",
+    "before": "Collez ici les données JSON valides",
+    "after": "ⵙⵏⵜⴹ ⴷⴰ ⵉⵙⴼⴽⴰ ⵏⵏⴽ ⵉⵣⵔⵢⵏ ⵙ JSON",
+    "reason": "Replace French import hint with Tamazight, preserving Paste YOUR VALID data HERE and literal format CSV/TSV or JSON. Native MediaWiki newarticletext/whatlinkshere supply da Here; database wording supplies isfk a/Data and blockedtext uses izryn for a valid email address. https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: directly composed Paste sntdh is not independently attested by this reference; general validity-to-structured-data adaptation, possessive and full grammar require review. Do not claim the reference attests Paste or full import phrase."
   }
 ]
