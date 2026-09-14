@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,306 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 538 pending review or repair.
-The correction inventory records 17,612 exact before/after values,
+findings: 15,309 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 535 pending review or repair.
+The correction inventory records 17,617 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (400) and
+The largest original queues are Standard Moroccan Tamazight (397) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -101,10 +101,10 @@ Transifex: the evidence includes 4,061 pulled changes and 16,020 additional
 local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
-changes are implemented in local commit 02383538a; translation repairs have resumed.
-Latest translation fix is 3c92879fa (2026-09-14), replacing two French
-Tamazight avatar URL repair labels. Existing avatar terminology is retained;
-complete wording remains low confidence pending language review.
+changes are implemented in local commit 02383535a; translation repairs have resumed.
+Latest translation fix is 35ec1e4d8 (2026-09-14), replacing five French/Arabic
+Tamazight date editing messages, including two unflagged popup labels.
+Date/card placeholder roles are preserved; complete wording needs review.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -598,7 +598,7 @@ browser verification remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5387ab3ca">Repair Tamazight search OR and AND explanations</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/5357ab3ca">Repair Tamazight search OR and AND explanations</a>. Thanks to xet7.</summary>
 
 Replace two French search notes and correct the mistaken optional
 interpretation of OR. Preserve OR/any versus AND/all, literal example names,
@@ -609,10 +609,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,306 original findings are
+Translation audit progress as of 2026-09-14: 15,309 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 538 remain pending across 17 locales, including 400 Tamazight findings.
-The ledger contains 17,612 correction records, including unflagged repairs.
+and 535 remain pending across 17 locales, including 397 Tamazight findings.
+The ledger contains 17,617 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -626,7 +626,7 @@ language validation and live browser checks remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7f1812538">Translate Tamazight email sending diagnostics</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/7f1812535">Translate Tamazight email sending diagnostics</a>. Thanks to xet7.</summary>
 
 Replace three French messages, preserving sending failure, an error during
 the attempt and user-owned SMTP success. Native reference components support
@@ -682,7 +682,7 @@ language validation and live browser checks remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/435a9538e">Translate Tamazight registration invitation diagnostics</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/435a9535e">Translate Tamazight registration invitation diagnostics</a>. Thanks to xet7.</summary>
 
 Replace two French messages, preserving send error versus successful send
 and registration/account-creation purpose without claiming acceptance.
@@ -816,7 +816,7 @@ Wider language and live browser validation remain open.
 
 Replace four French values, including one unflagged string. Preserve plural
 add/list, singular settings, missing named organization and exact %s token.
-All 17,538 correction/rendering checks pass; 587 original findings remain.
+All 17,535 correction/rendering checks pass; 587 original findings remain.
 The computing lexicon marks vocabulary MW (Mammeri); dialect adaptation,
 spelling, feminine negation and full phrases remain low confidence. Wider
 language and live browser validation remain open.
@@ -1027,8 +1027,8 @@ Replace the English label and restore missing moon-sighting detail. Exact
 Latin country name and native see/moon components support vocabulary; full
 composition remains low confidence pending technical review. Provisional
 Adlam Hijri names have punctuation/semantic uncertainties; a Swedish
-homograph is not accepted as Fulah evidence. All 17,612 correction/rendering
-checks pass; 538 original findings remain, including two Fulah epoch findings.
+homograph is not accepted as Fulah evidence. All 17,617 correction/rendering
+checks pass; 535 original findings remain, including two Fulah epoch findings.
 Wider language and browser review remain open.
 
 </details>
@@ -1038,8 +1038,8 @@ Wider language and browser review remain open.
 
 Replace the French import title while retaining Excel CSV/TSV names.
 Native entry wording and cached import terminology support components;
-complete import phrasing remains low confidence. All 17,612 correction
-checks pass; 538 original findings remain pending.
+complete import phrasing remains low confidence. All 17,617 correction
+checks pass; 535 original findings remain pending.
 
 </details>
 
@@ -1048,7 +1048,16 @@ checks pass; 538 original findings remain pending.
 
 Replace two French repair labels while retaining URL and existing avatar
 terminology. The correction verb has dictionary support; complete wording
-still needs language review. All 17,612 correction checks pass.
+still needs language review. All 17,617 correction checks pass.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/35ec1e4d8">Repair Tamazight date editing messages</a>. Thanks to xet7.</summary>
+
+Replace French/Arabic start, end and received-date activity/popup wording.
+The first activity value is the destination date, the second its card.
+All 17,617 correction checks pass; full phrasing still needs language review.
 
 </details>
 
