@@ -661,6 +661,17 @@ The browser assertion accepts whitespace between the regional flag and name.
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b7f18f9ce">Wolaytta Ethiopian calendar labels</a></summary>
+
+Replace English labels with Wolaytta drafts preserving the separate
+Amete Alem era. Four focused suites pass; complete country-calendar
+grammar remains under native review.
+
+Thanks to xet7.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/12dfa02ae">Wolaytta calendar labels</a></summary>
 
 Replace English calendar nouns in four labels with native Wolaytta

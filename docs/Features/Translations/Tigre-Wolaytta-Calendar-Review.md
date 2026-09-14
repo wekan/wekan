@@ -60,3 +60,22 @@ key order, original provenance and newer human translations. No live
 calendar-view browser test ran. Ledger 19,785; original pending 203,
 including all 17 Wolaytta calendar-system findings; restored 4 unchanged.
 Broader uncertain/unflagged reviews remain open. No remote push.
+
+## Wolaytta Ethiopian calendar drafts — 2026-09-15
+
+Local commit `b7f18f9ce` replaces English Ethiopian and Ethiopian Amete
+Alem labels with Wolaytta drafts combining country and calendar terms.
+[Native Wolaytta Moottaa](https://incubator.wikimedia.org/w/index.php?title=Wp/wal/Wolaytta_Moottaa&oldid=6829964)
+uses Toophphiyaa as the country label and inflected Toophphiyan in prose;
+Toophphiya also occurs in its regional heading. The previously documented
+Gifaataa calendar noun wodiyaa qoodaa is reused. Amete Alem is retained
+as the proper era name, distinguishing the two calendar selections.
+
+**Low confidence:** the exact country-calendar construction is assembled,
+not attested as a complete native calendar name. Country inflection, full
+compound and proper-name adaptation still require native review. Four
+focused suites pass for native components, preserved era, distinct labels,
+exact placeholders, provenance and newer human translations. No live
+calendar-selector UI run. Ledger 19,787; original corrected 15,702, pending
+201 (Wolaytta 15), restored 4 unchanged. Broader uncertain and unflagged
+review remains open; no remote push.
