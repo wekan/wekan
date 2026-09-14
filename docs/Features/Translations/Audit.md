@@ -10,7 +10,11 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Pending review or repair | 291 |
 | Total tracked | 20,081 |
 
-Review is ongoing. [Nahuatl terminology review](Nahuatl-Review.md)
+Review is ongoing. [Inuktitut calendar review](Inuktitut-Calendar-Review.md)
+records primary evidence for the calendar noun, the actual settings context,
+and why a complete calendar-system/date-display phrase is still unverified.
+No calendar findings were accepted from incomplete component-word evidence.
+[Nahuatl terminology review](Nahuatl-Review.md)
 records why historical tonalpohualli is not yet a verified generic label
 for all modern calendars; all 17 findings remain open.
 Silesian raw-database terminology remains unverified
