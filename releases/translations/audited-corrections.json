@@ -125998,5 +125998,47 @@
     "before": "اضغط لإضافة هذه اللوحة إلى المفضلة . سوف يتم إظهارها على رأس بقية اللوحات.",
     "after": "ⵙⵙⵉⵜ ⴷⴰ ⴰⴼⴰⴷ ⴰⴷ ⵜⵔⵏⵓⴷ ⵉⵜⵔⵉ ⵉ ⵜⴰⴼⵍⵡⵉⵜ ⴰⴷ. ⵔⴰ ⵜⵜⵓⵙⴽⴰⵏ ⴳ ⵓⴼⵍⵍⴰ ⵏ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵜⴼⵍⵡⵉⵡⵉⵏ ⵏⵏⴽ.",
     "reason": "2026-09-14: Replace French/Arabic or inherited Kabyle-leaning starred board/page labels; Latin script alone is not error. Native MediaWiki wlnote/recentchanges-notargetpage directly attest Above/Top g uflla in software UI, tooltip-watch supplies Add Page to YOUR list grammar, and Page tasna/plural tisniwin are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve click-to-star versus unstar, THIS board versus THIS page, YOUR board-list top location and exact %s star count. Star itri/plural itran reuse existing local vocabulary, not independently validated here. LOW CONFIDENCE star-to-favorite software adaptation, click purpose clauses, passive/future visibility and full phrases require fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "set-selected-starred",
+    "before": "ⵔⵏⵓ ⵉⵜⵔⵉ ⵉ ⵜⴼⴻⵍⵡⵉⵏ ⵢⴻⵜⵜⵡⴰⴼⴻⵔⵏⴻⵏ",
+    "after": "ⵔⵏⵓ ⵉⵜⵔⵉ ⵉ ⵜⵉⴼⵍⵡⵉⵡⵉⵏ ⵜⵜⵓⵙⵜⴰⵢⵏⵜ",
+    "reason": "2026-09-14: Repair unflagged inherited Kabyle-leaning or English-mixed star controls. Latin script alone is not error. Native MediaWiki recentchanges-label-unpatrolled and rcfilters-quickfilters-placeholder-title attest Not Yet urta; tooltip-compareselectedversions attests Selected passive component, adapted feminine plural for Boards; Item ifrdisn and View zhr are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve SELECTED boards star versus unstar, ALL starred items and YOU have not starred ANYTHING YET. Replace unexplained written-star passive with With Star state labels. Star itri and object nouns reuse local vocabulary; Swimlane remains provisional Path. LOW CONFIDENCE selected feminine plural, not-yet past/any syntax, star adaptation and full clauses require fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "set-selected-unstarred",
+    "before": "Kkes itran seg tfelwin yettwafernen",
+    "after": "ⴽⴽⵙ ⵉⵜⵔⵉ ⵙⴳ ⵜⵉⴼⵍⵡⵉⵡⵉⵏ ⵜⵜⵓⵙⵜⴰⵢⵏⵜ",
+    "reason": "2026-09-14: Repair unflagged inherited Kabyle-leaning or English-mixed star controls. Latin script alone is not error. Native MediaWiki recentchanges-label-unpatrolled and rcfilters-quickfilters-placeholder-title attest Not Yet urta; tooltip-compareselectedversions attests Selected passive component, adapted feminine plural for Boards; Item ifrdisn and View zhr are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve SELECTED boards star versus unstar, ALL starred items and YOU have not starred ANYTHING YET. Replace unexplained written-star passive with With Star state labels. Star itri and object nouns reuse local vocabulary; Swimlane remains provisional Path. LOW CONFIDENCE selected feminine plural, not-yet past/any syntax, star adaptation and full clauses require fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "starred-swimlanes",
+    "before": "Swimlanes ⵢⵜⵜⵢⴰⵔⴰⵏ ⵙ ⵢⵉⵜⵔⵉ",
+    "after": "ⵉⴱⵔⵉⴷⵏ ⵙ ⵢⵉⵜⵔⵉ",
+    "reason": "2026-09-14: Repair unflagged inherited Kabyle-leaning or English-mixed star controls. Latin script alone is not error. Native MediaWiki recentchanges-label-unpatrolled and rcfilters-quickfilters-placeholder-title attest Not Yet urta; tooltip-compareselectedversions attests Selected passive component, adapted feminine plural for Boards; Item ifrdisn and View zhr are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve SELECTED boards star versus unstar, ALL starred items and YOU have not starred ANYTHING YET. Replace unexplained written-star passive with With Star state labels. Star itri and object nouns reuse local vocabulary; Swimlane remains provisional Path. LOW CONFIDENCE selected feminine plural, not-yet past/any syntax, star adaptation and full clauses require fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "starred-cards",
+    "before": "ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵢⵜⵜⵢⴰⵔⴰⵏ ⵙ ⵢⵉⵜⵔⵉ",
+    "after": "ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵙ ⵢⵉⵜⵔⵉ",
+    "reason": "2026-09-14: Repair unflagged inherited Kabyle-leaning or English-mixed star controls. Latin script alone is not error. Native MediaWiki recentchanges-label-unpatrolled and rcfilters-quickfilters-placeholder-title attest Not Yet urta; tooltip-compareselectedversions attests Selected passive component, adapted feminine plural for Boards; Item ifrdisn and View zhr are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve SELECTED boards star versus unstar, ALL starred items and YOU have not starred ANYTHING YET. Replace unexplained written-star passive with With Star state labels. Star itri and object nouns reuse local vocabulary; Swimlane remains provisional Path. LOW CONFIDENCE selected feminine plural, not-yet past/any syntax, star adaptation and full clauses require fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "see-all-starred-items",
+    "before": "ⵥⵕ ⴰⴽⴽⵯ ⵉⴼⴻⵔⴷⵉⵙⵏ ⵢⵜⵜⵢⴰⵔⴰⵏ ⵙ ⵢⵉⵜⵔⵉ",
+    "after": "ⵥⵕ ⵉⴼⵔⴷⵉⵙⵏ ⴰⴽⴽⵯ ⵙ ⵢⵉⵜⵔⵉ",
+    "reason": "2026-09-14: Repair unflagged inherited Kabyle-leaning or English-mixed star controls. Latin script alone is not error. Native MediaWiki recentchanges-label-unpatrolled and rcfilters-quickfilters-placeholder-title attest Not Yet urta; tooltip-compareselectedversions attests Selected passive component, adapted feminine plural for Boards; Item ifrdisn and View zhr are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve SELECTED boards star versus unstar, ALL starred items and YOU have not starred ANYTHING YET. Replace unexplained written-star passive with With Star state labels. Star itri and object nouns reuse local vocabulary; Swimlane remains provisional Path. LOW CONFIDENCE selected feminine plural, not-yet past/any syntax, star adaptation and full clauses require fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "no-starred-items",
+    "before": "ⵓⵔ ⵜⵔⵉⵜ ⵓⵍⴰ ⵉⵢⵢⴻⵜ ⵙ ⵢⵉⵜⵔⵉ ⴰⵔ ⵎⴰⵛ.",
+    "after": "ⵓⵔⵜⴰ ⵜⵔⵏⵓⴷ ⵉⵜⵔⵉ ⵉ ⴰⵡⴷ ⴽⵔⴰ.",
+    "reason": "2026-09-14: Repair unflagged inherited Kabyle-leaning or English-mixed star controls. Latin script alone is not error. Native MediaWiki recentchanges-label-unpatrolled and rcfilters-quickfilters-placeholder-title attest Not Yet urta; tooltip-compareselectedversions attests Selected passive component, adapted feminine plural for Boards; Item ifrdisn and View zhr are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve SELECTED boards star versus unstar, ALL starred items and YOU have not starred ANYTHING YET. Replace unexplained written-star passive with With Star state labels. Star itri and object nouns reuse local vocabulary; Swimlane remains provisional Path. LOW CONFIDENCE selected feminine plural, not-yet past/any syntax, star adaptation and full clauses require fluent validation."
   }
 ]
