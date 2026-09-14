@@ -362,3 +362,15 @@ assert.doesNotMatch(locales.zgh['admin-people-user-inactive'], /utilisateur|Cliq
 
 assert.doesNotMatch(locales.zgh['admin-people-user-active'], /ⵜⵙⵙⵔⴼⵓⴷ/);
 assert.doesNotMatch(locales.zgh['admin-people-user-inactive'], /ⵜⵙⵙⵏⵙⴷ/);
+
+assert.equal(locales.zgh['auto-list-width'], 'ⴰⴼⵍⵜⴰⵙ ⴰⵡⵓⵔⵎⴰⵏ ⵏ ⵜⵍⴳⴰⵎⵜ');
+assert.doesNotMatch(locales.zgh['auto-list-width'], /[\u0600-\u06ff]/);
+
+assert.equal(locales.zgh['click-to-disable-auto-width'], 'ⴰⴼⵍⵜⴰⵙ ⴰⵡⵓⵔⵎⴰⵏ ⵏ ⵜⵍⴳⴰⵎⵜ: ⵉⵥⵡⵕ – ⴽⵍⵉⴽⵉ ⴰⴼⴰⴷ ⴰⴷ ⵜ ⵜⵙⵙⵏⵙⴷ');
+assert.doesNotMatch(locales.zgh['click-to-disable-auto-width'], /[\u0600-\u06ff]/);
+
+assert.equal(locales.zgh['click-to-enable-auto-width'], 'ⴰⴼⵍⵜⴰⵙ ⴰⵡⵓⵔⵎⴰⵏ ⵏ ⵜⵍⴳⴰⵎⵜ: ⵓⵔ ⵉⵥⵡⵉⵕ – ⴽⵍⵉⴽⵉ ⴰⴼⴰⴷ ⴰⴷ ⵜ ⵜⵙⵙⵔⴼⵓⴷ');
+assert.doesNotMatch(locales.zgh['click-to-enable-auto-width'], /[\u0600-\u06ff]/);
+
+assert.doesNotMatch(locales.zgh['click-to-disable-auto-width'], /ⵜⵙⵙⵔⴼⵓⴷ/);
+assert.doesNotMatch(locales.zgh['click-to-enable-auto-width'], /ⵜⵙⵙⵏⵙⴷ/);

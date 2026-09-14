@@ -131521,5 +131521,26 @@
     "before": "L'utilisateur est désactivé - Cliquer pour l'activer",
     "after": "ⴰⵏⵙⵙⵎⵔⵙ: ⵓⵔ ⵉⵥⵡⵉⵕ – ⴽⵍⵉⴽⵉ ⴰⴼⴰⴷ ⴰⴷ ⵜ ⵜⵙⵙⵔⴼⵓⴷ",
     "reason": "2026-09-14: Replace French account-state/click-action tooltip with complete Tamazight draft matching loginDisabled boolean branches. IRCAM Amazigh-English user anssmrs PDF 186 entry 3493, click kliki PDF 333 entry 6391, activate ssrfu PDF 537 entry 10106, be active zwr PDF 727 entry 13652, switch off ssns PDF 532 entry 10015. Low confidence: state verb finite/negative morphology, second-person purpose clause and switch-off software deactivation metaphor require native/browser review. Preserve user state and opposite click action; not permanent-user terminology."
+  },
+  {
+    "locale": "zgh",
+    "key": "auto-list-width",
+    "before": "عرض القائمة التلقائية",
+    "after": "ⴰⴼⵍⵜⴰⵙ ⴰⵡⵓⵔⵎⴰⵏ ⵏ ⵜⵍⴳⴰⵎⵜ",
+    "reason": "2026-09-14: Replace Arabic automatic list width label/tooltip with complete Tamazight draft. IRCAM Amazigh-English PDF 68 entry 1016 afltas width and PDF 589 entry 11039 talgamt list. CNAM Bouzefrane computer lexicon PDF 24 explicitly awurman automatic adjective, marked coined rather than Tuareg MC alternative; native MediaWiki zgh auto messages corroborate use. State/action terms follow reviewed account tooltips. Low confidence: coined cross-variety automatic adjective, compound grammar and finite/negative/purpose clause require native/browser review. Width, automatic behavior and opposite click action retained; no layout logic changed."
+  },
+  {
+    "locale": "zgh",
+    "key": "click-to-disable-auto-width",
+    "before": "تم تفعيل عرض القائمة التلقائي. انقر لتعطيله.",
+    "after": "ⴰⴼⵍⵜⴰⵙ ⴰⵡⵓⵔⵎⴰⵏ ⵏ ⵜⵍⴳⴰⵎⵜ: ⵉⵥⵡⵕ – ⴽⵍⵉⴽⵉ ⴰⴼⴰⴷ ⴰⴷ ⵜ ⵜⵙⵙⵏⵙⴷ",
+    "reason": "2026-09-14: Replace Arabic automatic list width label/tooltip with complete Tamazight draft. IRCAM Amazigh-English PDF 68 entry 1016 afltas width and PDF 589 entry 11039 talgamt list. CNAM Bouzefrane computer lexicon PDF 24 explicitly awurman automatic adjective, marked coined rather than Tuareg MC alternative; native MediaWiki zgh auto messages corroborate use. State/action terms follow reviewed account tooltips. Low confidence: coined cross-variety automatic adjective, compound grammar and finite/negative/purpose clause require native/browser review. Width, automatic behavior and opposite click action retained; no layout logic changed."
+  },
+  {
+    "locale": "zgh",
+    "key": "click-to-enable-auto-width",
+    "before": "تم تعطيل عرض القائمة التلقائي. انقر للتفعيل.",
+    "after": "ⴰⴼⵍⵜⴰⵙ ⴰⵡⵓⵔⵎⴰⵏ ⵏ ⵜⵍⴳⴰⵎⵜ: ⵓⵔ ⵉⵥⵡⵉⵕ – ⴽⵍⵉⴽⵉ ⴰⴼⴰⴷ ⴰⴷ ⵜ ⵜⵙⵙⵔⴼⵓⴷ",
+    "reason": "2026-09-14: Replace Arabic automatic list width label/tooltip with complete Tamazight draft. IRCAM Amazigh-English PDF 68 entry 1016 afltas width and PDF 589 entry 11039 talgamt list. CNAM Bouzefrane computer lexicon PDF 24 explicitly awurman automatic adjective, marked coined rather than Tuareg MC alternative; native MediaWiki zgh auto messages corroborate use. State/action terms follow reviewed account tooltips. Low confidence: coined cross-variety automatic adjective, compound grammar and finite/negative/purpose clause require native/browser review. Width, automatic behavior and opposite click action retained; no layout logic changed."
   }
 ]
