@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a5edc6d3c">Repair Tamazight WIP activation label</a>. Thanks to xet7.</summary>
+
+Replace an unflagged French label with Tamazight activation/limit components,
+preserving WIP. Four focused checks pass. Numerical software-limit wording
+remains low confidence; original pending findings remain at 268.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d6a358160">Repair Tamazight custom assetlinks labels</a>. Thanks to xet7.</summary>
 
 Replace two French activation/content labels with Tamazight, preserving

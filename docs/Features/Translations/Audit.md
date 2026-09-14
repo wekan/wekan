@@ -16,13 +16,13 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `d6a358160` —
-French custom assetlinks activation/content labels are repaired in Tamazight.
-Filename and JSON marker are preserved; four checks pass. Custom terminology
-and full native/browser wording remain low confidence and open.
+Latest translation fix: **2026-09-14**, local commit `a5edc6d3c` —
+An unflagged French WIP activation label is repaired in Tamazight; WIP is
+preserved. Four checks pass. Numerical-limit adaptation and native/browser
+wording remain low confidence. The original queue is unchanged at 268.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,729** exact before/after values, including unflagged
+records contain **18,730** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

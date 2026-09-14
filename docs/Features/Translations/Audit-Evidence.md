@@ -24951,3 +24951,19 @@ Four focused checks pass, including placeholder, key-order and ledger checks.
 No live browser validation was run. Recount: 15,634 corrected, 268 pending
 (155 Tamazight), four restored, 4,175 retained and 18,729 correction records.
 Broader native and runtime verification remain open.
+
+## WIP activation label — 2026-09-14
+
+Local commit `a5edc6d3c` repairs unflagged French enable-wip-limit.
+IRCAM 2019 PDF page 537 entry 10106 attests activate; page 270 entry
+5271 attests limit/boundary/border. Source:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+The label uses activate plus boundary, preserving WIP exactly. **Low
+confidence** remains for applying boundary to a numerical work-in-progress
+limit and for full native phrasing. ListHeader.jade displays the action;
+ListHeader.js enables the limit and ensures it is at least the card count.
+No limit logic is changed. Four focused translation checks pass; browser
+validation was not run. This key was outside the original flagged queue:
+268 original findings remain pending; the correction ledger now has 18,730
+records. Prior low-confidence and broader runtime/native reviews remain open.
