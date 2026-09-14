@@ -22213,3 +22213,16 @@ CPU count, free/total memory, load average and uptime distinctions.
 Review checks pass: 15,561 corrected, 1,194 restored awaiting validation,
 3,018 reviewed unchanged and 308 pending. Broader language and browser
 validation remain open. Nothing pushed.
+
+
+### 2026-09-14 — Galician account permissions and subtask settings
+
+Local commit `dda51a1e5` retains 28 directly reviewed values unchanged.
+Account-change permissions, created/modified metadata, active team/org/person,
+role attribution, selection color and all-notification scope retain meaning.
+Subtask landing list, full-path/parent prefixes and full-path subtext retain
+relationship scope. Received/received-on participles remain unaccepted pending
+agreement and presentation-context inspection.
+Review checks pass: 15,561 corrected, 1,166 restored awaiting validation,
+3,046 reviewed unchanged and 308 pending. Broader language and browser
+validation remain open. Nothing pushed.
