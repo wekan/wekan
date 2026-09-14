@@ -16,11 +16,11 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `3a090333c` — Tamazight multi-
-selection and label shortcut text replace Arabic/French. Keep add/remove
-versus selection-add behavior and both 1-9 ranges. Four focused suites pass.
-Ledger 19,821; original pending 187 (Tamazight 92), restored 4 unchanged.
-Complete selection compound and contextual grammar remain low confidence;
+Latest translation fix: **2026-09-15**, `50b68ca45` — Tamazight assignee
+shortcut text replaces Arabic. Preserve add/remove assignment, the 1-9
+range, card scope and the source hint's board-addition order. Ledger
+19,822; original pending 186 (Tamazight 91), restored 4 unchanged.
+Full relative-clause and order-of-addition grammar remain low confidence;
 broader reviews remain open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)

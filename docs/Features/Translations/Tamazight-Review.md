@@ -2745,3 +2745,26 @@ many, and Ladin/Tigre integer rules. Aromanian/Wolaytta proposed two-form
 rules remain provisional, not native-translator approval. None of this
 closes the local native wording review.
 Reference: https://raw.githubusercontent.com/unicode-org/cldr/main/common/supplemental/plurals.xml
+
+
+## Assignee shortcut record reconciled — 2026-09-15
+
+Local source commit `50b68ca45` replaces Arabic toggle-assignees with
+Tamazight using existing add/remove, assignee, card and board terminology.
+Preserve 1-9 and the English hint's order of addition to the board.
+client/lib/keyboard.js maps numeric keys to board-member indexes and
+calls toggleAssignee for selected cards or the current card. This source
+inspection does not independently establish the ordering semantics of
+memberUsers; the order wording is retained from the English source.
+
+**Low confidence:** the assignee relative clause and complete
+order-of-addition construction have no independent full-phrase
+attestation. Existing terminology is consistency evidence, not proof of
+native fluency. Full contextual grammar remains under review.
+
+Verification rerun on 2026-09-15: the Tamazight regression, correction
+ledger, retained-review and completeness suites pass. These check exact
+placeholders, ranges, repaired values and structure; no live UI test was
+run for this batch. Ledger 19,822; original corrected 15,717, pending 186
+(zgh 91), restored 4 unchanged. Broader uncertain, restored and unflagged
+values remain open. No remote writes.
