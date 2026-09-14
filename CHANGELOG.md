@@ -1082,6 +1082,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0567c1aac">Repair Tamazight total and used heap-size labels</a></summary>
+
+Replace French diagnostics with distinct Tamazight wording for total and
+used heap size. Four focused suites pass; computing metaphor and full
+label grammar remain under contextual review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

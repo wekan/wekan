@@ -4016,3 +4016,31 @@ paragraph below account-protection heading. Four focused suites pass for
 exact value, wrong-language/domain negatives and all token inventories.
 No live UI or authentication-security test ran. Ledger 19,878; corrected
 15,757, pending 146 (zgh 53), restored 4 unchanged. Broader review is open.
+
+
+2026-09-15 — `0567c1aac`: French total/used heap-size labels replaced
+using IRCAM entry 528 agudi heap/pile (ugudi), 1779 aquddi size (uquddi),
+11282 tamuttrt total, 9981 ssmrs use. This is a computing metaphor and
+software size adaptation, not independent native attestation of the
+complete label. Used passive participle and total nominal chain remain
+low confidence. Specialized sheaf heap akmin (1241), straw heap ancr
+(3506), corpulence azzntr (5586) and paper-size phrase (12207) excluded.
+
+Node V8 documentation distinguishes allocated total_heap_size from
+used_heap_size, the amount used by JavaScript objects. informationBody.jade
+binds labels to separate totalHeapSize/usedHeapSize fileSize values.
+No diagnostic keys or data bindings changed. Four focused suites pass for
+exact distinct values, wrong-language negatives and all token inventories.
+No live information-panel UI test ran. Ledger 19,880; corrected 15,759,
+pending 144 (zgh 51), restored 4 unchanged. Other nine heap labels remain
+French and need review, not a whole-batch completion claim.
+https://nodejs.org/api/v8.html#v8getheapstatistics
+
+New technical evidence for next actions: total_physical_size is committed
+physical heap memory, not total system RAM; total_available_size is further
+heap headroom before its limit, not free disk space. does_zap_garbage is a
+0/1 flag indicating zap_code_space, not generic successful garbage
+collection. Native contexts are active top-level contexts; detached contexts
+are detached and not yet collected. Preserve these distinctions when
+repairing the remaining diagnostics. Generic physical-force, recollection
+or court-context words cannot validate computing compounds.
