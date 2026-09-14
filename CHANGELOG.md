@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,571 corrected, 285 restored pre-pull values awaiting
-validation, 3,917 reviewed and retained, and 308 pending review or repair.
+findings: 15,572 corrected, 254 restored pre-pull values awaiting
+validation, 3,947 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,173 exact before/after values,
 Global completeness verification also identifies Veps `server` (currently
 English-identical “Server”) for terminology review; it is not accepted yet.
@@ -633,6 +633,35 @@ the Markdown commit as the template.
 
 </details>
 </details>
+
+# Upcoming WeKan ® release
+
+**In short:** **Valencian translation review** repairs the person agreement in
+Add yourself and validates existing board-setting, keyboard and import wording.
+Exact correction checks preserve placeholders and newer translations.
+The repair was captured during v11.79 preparation; this entry records its
+translation outcome. Checklist terminology and wider regional, language and
+browser verification remain under review.
+
+This release documents the following translation fixes:
+
+**Translations** - Valencian imperative and board settings.
+
+**Languages updated:** Valencian
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/264ca788c">Repair Valencian reflexive imperative and validate settings</a>. Thanks to xet7.</summary>
+
+Add yourself now uses Afegiu-vos with matching imperative/reflexive person.
+Retained 30 correct keyboard, board-setting, cover, zoom and import values.
+The maintainer release command included these edits in v11.79 preparation.
+All correction and review checks pass. Checklist and regional wording remain
+under review; this entry records the outcome without editing released notes.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 
 # v11.79 2026-09-14 WeKan ® release
 

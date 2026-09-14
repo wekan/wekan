@@ -22524,3 +22524,12 @@ Retained 16 inspected authentication error/display/default labels, customization
 date-value removal, deletion/restoration, loading and old/new date activities.
 Actual settings distinguish display and default method; rule action removes
 a value. Tokens and all-item scopes preserved. All 3,917 reviews pass.
+
+**2026-09-14 — Valencian imperative and settings (`264ca788c`).**
+
+Repaired Afegeix-vos to Afegiu-vos (imperative/reflexive agreement), using
+https://ca.wiktionary.org/wiki/afegir and CPNL pronoun guidance. Retained 30
+inspected board/keyboard/cover/zoom/import values. The maintainer release
+command captured these working-tree edits in its release preparation commit.
+All 18,175 corrections and 3,947 reviews pass. Checklist loans and broader
+regional vocabulary remain unresolved; released changelog sections untouched.

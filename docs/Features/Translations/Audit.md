@@ -4,33 +4,30 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,571 |
-| Restored pre-pull; awaiting validation | 285 |
-| Reviewed; retained unchanged | 3,917 |
+| Corrected | 15,572 |
+| Restored pre-pull; awaiting validation | 254 |
+| Reviewed; retained unchanged | 3,947 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
 Review is ongoing. The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,174** exact before/after values, including unflagged repairs.
+contain **18,175** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `9f0f038cd` —
-replaced Finnish server-error prose with Veps wording. Borrowed server
-terminology remains low confidence; standalone English-identical `Server`
-still needs review and fails the global completeness gate.
-Full node regression run: 1,043 suites, nine failures; translation-related
-failures require inspection alongside the remaining language work.
-All **18,174** correction and **3,917** review records pass.
+Latest translation fix: **2026-09-14**, local commit `264ca788c` —
+Valencian Add yourself now agrees in imperative and reflexive person.
+The maintainer release command captured the edit and 30 unchanged reviews.
+All **18,175** correction and **3,947** review records pass.
+Veps server terminology and global completeness failures remain unresolved.
 Shared Spanish `r-is` and composed trigger grammar remain unresolved.
 Attachment/member rule participles still need context-specific agreement.
 Three Esperanto restored findings remain: lime color and two Complete labels.
 Broader language and browser verification remain open; nothing pushed.
-Latest unchanged review: **2026-09-14**, commit `12ba3ba1a` — retained
-16 Basque authentication, deletion and old/new date-activity labels.
-Source tokens and all-item scopes remain intact. Ticket, Complete, Idle and
-S3 bucket wording remain open pending context or reference.
-Shared Spanish `r-is`, compound trigger grammar and free wording remain open.
+Latest unchanged review: **2026-09-14**, commit `264ca788c` — retained
+30 Valencian board-setting, keyboard, cover, zoom and import values.
+English checklist phrases and regional possessive wording remain open.
+Ticket, Complete, Idle, S3 bucket and compound trigger findings stay open.
 Nine Galician restored findings still need contextual review.
 Galician export free wording remains open pending context.
 Galician Complete and migration-complete wording remain open pending context.
