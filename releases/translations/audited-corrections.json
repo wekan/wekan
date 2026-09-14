@@ -123226,5 +123226,19 @@
     "before": "Supprimer les listes vides en doublon ? ",
     "after": "ⴽⴽⵙ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵉⵜⵜⵓⵢⴰⵍⵙⵏ ⵓⵔ ⴷⵉⴳⵙⵏⵜ ⴰⵡⴷ ⴽⵔⴰ",
     "reason": "Replace French duplicate-list deletion labels. Preserve DELETE DUPLICATE lists, and BOTH duplicate and empty qualifiers in empty-list variants. Repeat-derived participle is a provisional software duplicate paraphrase, not an attested Standard Moroccan technical term. Computing lexicon Cycle: Allus MAT from ales repeat, PDF page 43 printed 40, and warns uslig can mean private/double/special, PDF page 9 printed 5: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . Avoid ambiguous private/double wording. MediaWiki zgh listfiles-delete and category-empty support delete and contains-nothing empty paraphrase: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Rif list plural attested in https://biblio.ircam.ma/pmb/uploads/explnum/explnum_39.pdf . LOW CONFIDENCE: repeat-to-technical-duplicate adaptation, derived passive participle, feminine-plural digsnt, qualifier coordination and full deletion labels require further language research. English source has no question mark; no duplicate/empty qualifier intentionally omitted."
+  },
+  {
+    "locale": "bm",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Buddha ka kalandiriye",
+    "reason": "Replace bare English calendar adjective with provisional Bambara calendar-name compound, restoring explicit calendar noun. Reuse existing ka kalandiriye construction; Buddhist uses Buddha proper-name association, Coptic uses provisional Kɔpti borrowing. Reference review 2026-09-14: Unicode bm locale https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bm.xml does not supply these native calendar display names; searches of the Bamadaba dictionary https://bamadaba.coastsystems.net/lexicon/b/ did not establish canonical Buddhist/Coptic terminology. LOW CONFIDENCE: borrowing spelling, Buddha-to-Buddhist association and compound grammar are direct provisional composition, NOT dictionary-attested native calendar names. Further language research remains required; English civil/tabular epoch findings are not considered resolved by this change."
+  },
+  {
+    "locale": "bm",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Kɔpti kalandiriye",
+    "reason": "Replace bare English calendar adjective with provisional Bambara calendar-name compound, restoring explicit calendar noun. Reuse existing ka kalandiriye construction; Buddhist uses Buddha proper-name association, Coptic uses provisional Kɔpti borrowing. Reference review 2026-09-14: Unicode bm locale https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bm.xml does not supply these native calendar display names; searches of the Bamadaba dictionary https://bamadaba.coastsystems.net/lexicon/b/ did not establish canonical Buddhist/Coptic terminology. LOW CONFIDENCE: borrowing spelling, Buddha-to-Buddhist association and compound grammar are direct provisional composition, NOT dictionary-attested native calendar names. Further language research remains required; English civil/tabular epoch findings are not considered resolved by this change."
   }
 ]
