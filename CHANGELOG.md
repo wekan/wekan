@@ -768,6 +768,17 @@ This release adds the following translation improvements:
 **Translations** - Locale wording repairs and remaining audit progress.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/448d33abb">Translate Tamazight date and label criteria</a>. Thanks to xet7.</summary>
+
+Replace three unflagged French/Arabic filter values. Preserve by-date,
+by-label and no-label meanings using native component terminology. Record
+full compositions and bound-state morphology as low confidence for fluent
+review. All 17,330 correction checks pass; original counts remain 713 pending,
+including 570 Tamazight. Wider wording validation remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/883fcb85c">Translate Tamazight user display and filter controls</a>. Thanks to xet7.</summary>
 
 Replace three unflagged French/Arabic Show, All Users and Clear filter values
