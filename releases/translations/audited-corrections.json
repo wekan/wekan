@@ -123562,5 +123562,12 @@
     "before": "حذف التصويت؟",
     "after": "ⴽⴽⵙ ⴰⵙⵜⴰⵢ?",
     "reason": "Replace Arabic/French card voting interface labels consistently with the repaired vote end-date title. IRCAM dictionary https://ircam.biblio.ma/uploads/publications/177.pdf indexed printed88 gives astay choice/election; CNDH native election-observer announcement https://observationelections2021.cndh.ma/am/ independently gives bound wastayn election plural. Native MediaWiki edit/delete/faq supply snfl, kks, plural isqqsin: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE election-to-card-voting sense, singular question asqqsi, bound singular wastay and full software label composition require fluent review. Preserve question, edit and deletion distinctions. Proponents/opponents require people nouns and were not reduced to for/against. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "qu",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Hijri Intiwatana (Arabia Saudita rikusqa)",
+    "reason": "Replace incomplete English Saudi Hijri label with Quechua. Primary Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/qu.xml directly supplies scope=core islamic-rgsa Hijri, Arabia Saudita rikusqa and full islamic Hijri Intiwatana. Compose the full label from those entries, retaining sighting rather than dropping it. LOW CONFIDENCE complete parenthesized composition requires fluent review. CLDR tbla Enfoque Astronómico means astronomical approach rather than explicitly astronomical epoch; do not use it to erase that distinction. Reviewed 2026-09-14."
   }
 ]
