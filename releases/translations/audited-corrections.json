@@ -126649,5 +126649,12 @@
     "before": "Confirmer la suppression de l'espace de travail",
     "after": "ⵙⵙⵉⴷⴷ ⵜⵓⴽⴽⵙⴰ ⵏ ⵓⵙⴰⵢⵔⴰⵔ",
     "reason": "2026-09-14: Replace French workspace deletion confirmation checkbox. MediaWiki userlogin-reauth directly uses ssidd for verifying identity, and dellogpage directly attests Deletion tukksa (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Adapt Verify as Confirm the deletion; reuse local workspace asayrar/bound usayrar. Preserve confirmation action and workspace deletion scope. Verification-to-confirmation adaptation, generic-space-to-workspace terminology and full phrase remain low confidence; require language validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "allboards.edit-workspace-icon",
+    "before": "Icône d'espace de travail (markdown)",
+    "after": "ⵜⵉⴳⵏⵉⵜ ⵏ ⵓⵙⴰⵢⵔⴰⵔ (markdown)",
+    "reason": "2026-09-14: Replace French workspace icon label, preserving literal markdown format name. Directly inspected CNAM Amawal PDF page 71: Icon Tignit* proposed diminutive of tigni silhouette MC£ (https://cedric.cnam.fr/~bouzefra/books/amawal.pdf). MC£ is not Central Moroccan authority; star marks a proposal. Reuse existing WeKan dependency-icon tignit and local workspace asayrar. Cross-variety proposed icon borrowing, workspace adaptation and full bound phrase are low confidence and require Standard Moroccan language validation; no normative Moroccan icon claim."
   }
 ]
