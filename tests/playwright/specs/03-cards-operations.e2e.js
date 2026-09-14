@@ -890,6 +890,10 @@ test('Tamazight numeric total tooltip describes only display-enabled fields', as
     await openBoard(boardPage, board.boardId, board.slug);
     await expect(boardPage.locator('.js-toggle-page-sidebar')).toHaveAttribute('title', `${locale['sidebar-open']} ${locale.or} ${locale['sidebar-close']}`);
     await expect(boardPage.locator('.js-toggle-page-sidebar')).not.toHaveAttribute('title', /\bou\b/);
+    for (const [selector, key] of [['.js-open-list-menu', 'listActionPopup-title'], ['.js-open-swimlane-menu', 'swimlaneActionPopup-title'], ['.js-open-add-swimlane-menu', 'add-swimlane']]) {
+      await expect(boardPage.locator(selector).first()).toHaveAttribute('title', locale[key]);
+      await expect(boardPage.locator(selector).first()).not.toHaveAttribute('title', /Ajouter|couloir|[\u0600-\u06ff]/u);
+    }
     const badge = new BoardPage(boardPage).list(board.listIds[0]).locator('.list-sum-badge').first();
     await expect(badge).toHaveText('∑ 7');
     await expect(badge).not.toHaveText('∑ 107');
