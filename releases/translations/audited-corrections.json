@@ -121840,5 +121840,19 @@
     "before": "Peut seulement voir les cartes. Ne peut pas éditer.",
     "after": "ⵜⵥⴹⴰⵕⴷ ⴰⴷ ⵜⵥⵕⴷ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵖⴰⵙ. ⵓⵔ ⵜⵥⴹⴰⵕⴷ ⴰⴷ ⵜⵙⵏⴼⵍⴷ.",
     "reason": "Replace French. Native MediaWiki search-ignored-headings supports can construction; password-change-forbidden negative capability; skin-view-history zr/view; edit snfl/edit; protect-level-sysop ghas/only. Preserve both positive viewing of cards and explicit inability to edit, distinct from comment-only role or hiding comments. LOW CONFIDENCE full view/edit ability conjugations, card free plural and only scope. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-sort-invalid",
+    "before": "'%s' n'est pas valide pour le tri",
+    "after": "ⴰⴼⵔⴰⵏ ⵏ '%s' ⵓⵔ ⵉⵙⵖⵣⵏ.",
+    "reason": "Replace French. Native MediaWiki sort-ascending/sort-descending attest afran/sort and feed-invalid attests ur isghzn/not valid. Preserve the invalid sort value and its exact single %s token, distinct from an unknown operator, invalid status or nonnumeric limit. LOW CONFIDENCE full sort-genitive and invalid-predicate agreement; native components alone do not establish fluent complete diagnostics. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "sort",
+    "before": "رتب",
+    "after": "ⴰⴼⵔⴰⵏ",
+    "reason": "Replace Arabic in the generic Sort label with native MediaWiki afran/sort, directly attested in sort-ascending and sort-descending. Use the existing native nominal UI sort wording; this does not claim a separately attested imperative verb. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
