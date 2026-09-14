@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,402 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 442 pending review or repair.
-The correction inventory records 17,861 exact before/after values,
+The correction inventory records 17,863 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is a15be4669 (2026-09-14), replacing the Arabic
-one-line-to-one-checklist-item hint, preserving the equals sign. Native
-Line/Text evidence supports components; full wording remains low confidence.
+Latest translation fix is 82d5c44f1 (2026-09-14), repairing two unflagged
+mixed-language start/end date rules and restoring When and Set or Changed.
+Set adaptation and full clauses remain low confidence for fluent review.
 Checklist completion evidence follow-ups 9de9f2c15 and 4139001a3 distinguish
 legal supplementation from directly attested software Complete Login. Past
 actor form and full checklist grammar remain low confidence. Values/counts unchanged.
@@ -643,7 +643,7 @@ remain open.
 Translation audit progress as of 2026-09-14: 15,402 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
 and 442 remain pending across 17 locales, including 307 Tamazight findings.
-The ledger contains 17,861 correction records, including unflagged repairs.
+The ledger contains 17,863 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -2379,6 +2379,16 @@ Replace Arabic bulk-entry guidance using native textual Line and Text
 usage. Preserve one line equals one checklist item and the literal equals
 sign. Full grammar and checklist terminology remain low confidence.
 All 17,861 correction checks pass; 442 original findings remain pending.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/82d5c44f1">Translate Tamazight start and end date rule conditions</a>. Thanks to xet7.</summary>
+
+Repair two unflagged mixed-language conditions, distinguishing start and
+end dates. Restore When and Set or Changed alternatives. Native component
+evidence supports the repair; Set adaptation and full clauses remain low
+confidence. All 17,863 correction checks pass; 442 originals remain pending.
 
 </details>
 
