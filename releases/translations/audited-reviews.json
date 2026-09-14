@@ -16492,5 +16492,185 @@
     "key": "setSwimlaneHeightPopup-title",
     "value": "Definir a altura do carril",
     "reason": "Direct Galician review retains activity action/direction, import source/destination and date distinctions with exact percent tokens. Workspace/subworkspace settings and deletion confirmation, equal list-width and swimlane-height controls preserve scope. Shortcut labels correctly invert current enabled/disabled state and click action; markdown is the actual format name."
+  },
+  {
+    "locale": "gl",
+    "key": "set-swimlane-height",
+    "value": "Definir a altura do carril",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "set-swimlane-height-value",
+    "value": "Altura do carril (píxeles)",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "swimlane-height-error-message",
+    "value": "A altura do carril debe ser un enteiro positivo",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "close-edit-checklist-item",
+    "value": "Pechar o formulario para editar un elemento da lista de verificación",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "added",
+    "value": "Engadido",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "admin-announcement",
+    "value": "Anuncio",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "admin-announcement-active",
+    "value": "Anuncio activo en todo o sistema",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "admin-announcement-title",
+    "value": "Anuncio do administrador",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "app-try-reconnect",
+    "value": "Tentar reconectar.",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "archive",
+    "value": "Mover ao Arquivo",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "archive-all",
+    "value": "Mover todo ao Arquivo",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "archive-list",
+    "value": "Mover a lista ao Arquivo",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "archive-swimlane",
+    "value": "Mover o carril ao Arquivo",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "archive-selection",
+    "value": "Mover a selección ao Arquivo",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "template-container",
+    "value": "Contedor de modelos",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "assign-member",
+    "value": "Asignar membro",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "avatar-too-big",
+    "value": "O avatar é demasiado grande (__size__ máx.)",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "back",
+    "value": "Volver",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "board-change-background-image",
+    "value": "Cambiar a imaxe de fondo",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "board-background-image-url",
+    "value": "URL da imaxe de fondo",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "boardChangeBackgroundImagePopup-title",
+    "value": "Cambiar a imaxe de fondo",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "allBoardsChangeBackgroundImagePopup-title",
+    "value": "Cambiar a imaxe de fondo",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "boardChangeVisibilityPopup-title",
+    "value": "Cambiar a visibilidade",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "boardChangeWatchPopup-title",
+    "value": "Cambiar a vixilancia",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "desktop-mode",
+    "value": "Modo escritorio",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "mobile-mode",
+    "value": "Modo móbil",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "mobile-desktop-toggle",
+    "value": "Alternar entre o modo móbil e o modo escritorio",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "zoom-in",
+    "value": "Achegar",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "zoom-out",
+    "value": "Afastar",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "zoom-level",
+    "value": "Nivel de zoom",
+    "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
   }
 ]
