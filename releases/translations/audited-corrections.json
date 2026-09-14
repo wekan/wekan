@@ -124220,5 +124220,12 @@
     "before": "Menu de l'espace de travail",
     "after": "ⵓⵎⵓⵖ ⵏ ⵓⵙⴰⵢⵔⴰⵔ",
     "reason": "2026-09-14: Replace French Workspace menu using native umugh Menu component from MediaWiki navigation-heading and existing asayrar content-space noun corroborated by INPPLC information-space wording. Preserve menu rather than settings or name. LOW CONFIDENCE organizational Workspace extension and complete bound-noun phrase: INPPLC attests information space, not the exact WeKan organizational feature; fluent Standard Moroccan terminology review remains required. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://www.inpplc.ma/index.php/amz ."
+  },
+  {
+    "locale": "zgh",
+    "key": "cardStartPlanningPokerPopup-title",
+    "before": "Démarrer un planning poker",
+    "after": "ⴱⴷⵓ Planning Poker",
+    "reason": "2026-09-14: Replace French Start a Planning Poker heading with bdu Begin/Start and preserve Planning Poker proper feature name. Distinguish imperative action from the existing tuddma Start noun/date field; do not substitute Edit or omit initiation. LOW CONFIDENCE full adapted command and morphology: search-index excerpt of IRCAM conjugation manual lists bda (bdu), commencer/entamer; direct web and curl download currently redirect to HTML, so the PDF entry was not directly verified. Independent word-list usage also lists bdu Begin. Fluent Standard Moroccan review remains required. References: https://www.temehu.com/imazighen/dictionaries/Amawals/manuel-de-conjugaison-Tamazight-Tifinagh-IRCAM.pdf ; https://learnamazigh.com/words ."
   }
 ]
