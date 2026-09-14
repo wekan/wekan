@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight logo dictionary provenance follow-up — 2026-09-14
+
+The newly inspected Asawaliw atrar preface also limits the dictionary evidence mentioned in the two custom login logo URL corrections. Their ledger reasons now explicitly classify that dictionary as cross-variety candidate evidence. The independently declared zgh Commons caption remains direct community usage of Logo, not normative IRCAM terminology. No values/counts changed; full labels remain LOW CONFIDENCE. This follow-up prevents a dictionary corroboration from being mistaken for independent Moroccan standardization.
+
 ## Tamazight original-order repair — 2026-09-14
 
 Commit `996cc65c7` repairs two Arabic values using Order `asedwa` and Original `asakran` from Asawaliw atrar, PDF pages 160–161. The inspected preface (page 6, zero-based 5) explicitly adopts vocabulary across Tarifit, Tasousit, Kabyle, Tuareg and Tamazight and permits creative derivation. Therefore this dictionary is cross-variety candidate evidence, not normative IRCAM/Standard Moroccan attestation. List-sequence meaning and full wording remain LOW CONFIDENCE. This supersedes the unrepaired original-order status below; the Become review remains open.
