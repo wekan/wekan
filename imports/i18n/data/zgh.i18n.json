@@ -1861,7 +1861,7 @@
   "move-swimlane": "Déplacer le couloir",
   "moveSwimlanePopup-title": "Déplacer le couloir",
   "custom-field-stringtemplate": "Modèle de chaîne",
-  "custom-field-stringtemplate-format": "ⵜⴰⵍⵖⴰ (ⵙⵎⵔⵙ %{value} ⴳ ⵓⴷⵖⴰⵔ ⵏ ⵓⵣⴰⵍ)",
+  "custom-field-stringtemplate-format": "ⵜⴰⵍⵖⴰ (ⵙⵎⵔⵙ %{value} ⴳ ⵓⴷⵖⴰⵔ ⵏ ⵡⴰⵣⴰⵍ)",
   "custom-field-stringtemplate-separator": "ⴰⵏⴰⴱⵔⴰⵣ (ⵙⵎⵔⵙ &#32; ⵏⵖ &nbsp; ⵉ ⵓⵙⴽⴽⵉⵍ ⴰⵎⵍⵍⴰⵍ)",
   "custom-field-stringtemplate-item-placeholder": "ⵔⵏⵓ ⵉⴼⵔⴷⵉⵙⵏ ⵢⴰⴹⵏⵉⵏ ⵙ Enter",
   "creator": "ⴰⵎⵙⵏⴼⵍⵓⵍ",
