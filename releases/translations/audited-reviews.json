@@ -13258,5 +13258,155 @@
     "key": "activity-checklist-uncompleted-card",
     "value": "desmarcou como completada a lista de verificación %s",
     "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-editComment",
+    "value": "editou o comentario %s",
+    "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-deleteComment",
+    "value": "eliminou o comentario %s",
+    "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
+  },
+  {
+    "locale": "gl",
+    "key": "allboards.add-workspace",
+    "value": "Engadir espazo de traballo",
+    "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
+  },
+  {
+    "locale": "gl",
+    "key": "allboards.add-subworkspace",
+    "value": "Engadir subespazo de traballo",
+    "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
+  },
+  {
+    "locale": "gl",
+    "key": "addWorkspacePopup-title",
+    "value": "Engadir espazo de traballo",
+    "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
+  },
+  {
+    "locale": "gl",
+    "key": "multi-selection-active",
+    "value": "Fai clic nas caixas de verificación para seleccionar taboleiros",
+    "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
+  },
+  {
+    "locale": "gl",
+    "key": "add-template",
+    "value": "Engadir modelo",
+    "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
+  },
+  {
+    "locale": "gl",
+    "key": "add-card-to-top-of-list",
+    "value": "Engadir tarxeta ao principio da lista",
+    "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
+  },
+  {
+    "locale": "gl",
+    "key": "add-card-to-bottom-of-list",
+    "value": "Engadir tarxeta ao final da lista",
+    "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
+  },
+  {
+    "locale": "gl",
+    "key": "add-swimlane",
+    "value": "Engadir carril",
+    "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
+  },
+  {
+    "locale": "gl",
+    "key": "add-subtask",
+    "value": "Engadir subtarefa",
+    "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
+  },
+  {
+    "locale": "gl",
+    "key": "add-checklist",
+    "value": "Engadir lista de verificación",
+    "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
+  },
+  {
+    "locale": "gl",
+    "key": "checklist",
+    "value": "Lista de verificación",
+    "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
+  },
+  {
+    "locale": "gl",
+    "key": "add-checklist-item",
+    "value": "Engadir un elemento á lista de verificación",
+    "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
+  },
+  {
+    "locale": "gl",
+    "key": "close-add-checklist-item",
+    "value": "Pechar o formulario para engadir un elemento á lista de verificación",
+    "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
+  },
+  {
+    "locale": "gl",
+    "key": "convertChecklistItemToCardPopup-title",
+    "value": "Converter en tarxeta",
+    "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
+  },
+  {
+    "locale": "gl",
+    "key": "add-cover",
+    "value": "Engadir imaxe de portada á minitarxeta",
+    "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
+  },
+  {
+    "locale": "gl",
+    "key": "add-after-list",
+    "value": "Engadir despois da lista",
+    "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
+  },
+  {
+    "locale": "gl",
+    "key": "memberPopup-title",
+    "value": "Configuración do membro",
+    "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
+  },
+  {
+    "locale": "gl",
+    "key": "admin-desc",
+    "value": "Pode ver e editar tarxetas, eliminar membros e cambiar a configuración do taboleiro. Pode ver as actividades.",
+    "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
+  },
+  {
+    "locale": "gl",
+    "key": "and-n-other-card",
+    "value": "E __count__ tarxeta máis",
+    "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
+  },
+  {
+    "locale": "gl",
+    "key": "and-n-other-card_plural",
+    "value": "E __count__ tarxetas máis",
+    "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
+  },
+  {
+    "locale": "gl",
+    "key": "app-is-offline",
+    "value": "Cargando, agarda por favor. Actualizar a páxina causará perda de datos. Se a carga non funciona, comproba que o servidor non se detivese.",
+    "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
+  },
+  {
+    "locale": "gl",
+    "key": "archive-board",
+    "value": "Mover o taboleiro ao Arquivo",
+    "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
+  },
+  {
+    "locale": "gl",
+    "key": "archive-board-confirm",
+    "value": "Seguro que queres arquivar este taboleiro?",
+    "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
   }
 ]
