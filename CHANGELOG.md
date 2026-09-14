@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,356 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 488 pending review or repair.
-The correction inventory records 17,721 exact before/after values,
+findings: 15,357 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 487 pending review or repair.
+The correction inventory records 17,722 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (353) and
+The largest original queues are Standard Moroccan Tamazight (352) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 57d22b43b (2026-09-14), replacing Arabic
-Board Title and Card Details headings. Preserve object and singular/plural
-scope; complete kanban phrases remain low confidence and need fluent review.
+Latest translation fix is 67dbacc28 (2026-09-14), using native Calendar
+vocabulary while preserving the Minguo system name. Complete mixed-script
+calendar naming remains low confidence and needs fluent review.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -628,10 +628,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,356 original findings are
+Translation audit progress as of 2026-09-14: 15,357 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 488 remain pending across 17 locales, including 353 Tamazight findings.
-The ledger contains 17,721 correction records, including unflagged repairs.
+and 487 remain pending across 17 locales, including 352 Tamazight findings.
+The ledger contains 17,722 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -1739,6 +1739,16 @@ Direct PDF extraction identifies the authentication candidate’s source as
 Tuareg (MC£), despite search-index MCF rendering. Keep full authentication
 labels pending; preserve method/type, display/default and authentication
 versus ordinary sign-in/authorization. No locale values or counts changed.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/67dbacc28">Translate Tamazight Minguo calendar label</a>. Thanks to xet7.</summary>
+
+Use native Calendar vocabulary and retain Minguo from the English source,
+avoiding generic Chinese language/calendar substitution. The full mixed-script
+name remains low confidence and needs fluent review. All 17,722 correction/rendering
+checks pass; 487 original findings remain pending, including 352 Tamazight findings.
 
 </details>
 
