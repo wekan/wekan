@@ -663,6 +663,16 @@ No uncertain translation was accepted; the progress consistency check passes.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7f3a0d7db">Repair Tamazight rule name labels</a>. Thanks to xet7.</summary>
+
+Generic rule name-input and sort labels use native Tamazight instead of French.
+Native software name-field evidence and actual rule contexts are recorded.
+Focused wrong-language checks and correction/token/completeness suites pass;
+browser validation and the broader translation audit remain open.
+
+</details>
+
 **Developer tooling** - Mirror Git progress.
 
 <details>

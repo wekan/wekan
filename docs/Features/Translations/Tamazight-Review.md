@@ -128,7 +128,7 @@ calendar distinction checks pass. Broader native naming and browser review
 remain open. One further original finding is corrected; 170 Tamazight
 findings remain pending. Earlier counts describe earlier review stages.
 
-## Generic rule name labels, 2026-09-14
+## Generic rule name labels, 2026-09-14 (7f3a0d7db)
 
 The native [MediaWiki Moroccan Tamazight source](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json)
 uses `ⵉⵙⵎ` in `rcfilters-savedqueries-new-name-label`,

@@ -24223,3 +24223,13 @@ CLDR Tigre formatting data does not supply native calendar-system names.
 The unflagged Wolaytta calendar noun remains English with a language prefix.
 Independent native terminology is required before composing full labels.
 No values or classifications changed; all 34 original findings stay pending.
+
+## Tamazight generic rule name labels, 2026-09-14
+
+Local commit `7f3a0d7db` repairs two additional French generic name labels.
+[Tamazight review](Tamazight-Review.md) records native complete name-field
+labels and the actual rule placeholder/sort-option uses. Qualified name
+compounds are not validated from this noun alone. Focused exact-value and
+wrong-language negative checks, all 18,689 correction records, 4,171 unchanged
+reviews and 234-locale completeness pass. Browser validation remains open.
+Original counts remain 15,618 corrected, 9 restored, 4,171 retained, 283 pending.
