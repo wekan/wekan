@@ -123317,5 +123317,12 @@
     "before": "Modifier la date de fin",
     "after": "ⵙⵏⴼⵍ ⴰⵙⴰⴽⵓⴷ ⵏ ⵜⵉⴳⵉⵔⴰ",
     "reason": "Replace French/Arabic date editing text. Preserve start/end/received distinctions and, for activities, first %s destination date and second %s owning card (not old-to-new dates). Native MediaWiki edit/skin-view-edit, listfiles_date and blockedtext start/expiration terms support components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reception Tarmest MW/MC is in https://cedric.cnam.fr/~bouzefra/books/amawal.pdf PDF page 120. Reuse local date, card-start/end and received-date popup terms. LOW CONFIDENCE full composition, generic actor gender and block-time-to-card date terminology adaptation; needs fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "show-board_members-avatar",
+    "before": "Afficher les avatars des participants du tableau.",
+    "after": "ⵙⴽⵏ ⵜⵉⵎⴻⵔⵖⵉⵡⵉⵏ ⵏ ⵉⴳⵎⴰⵎⵏ ⵏ ⵜⴼⵍⵡⵉⵜ",
+    "reason": "Replace French Show Board members avatars label. Native MediaWiki view attests skn and nmembers/search-result-category-size attest igmamn: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve board-member ownership using existing board_members terms and local avatars noun timerghiwin. LOW CONFIDENCE existing avatar noun spelling and complete nested possessive phrase require fluent review; no independent avatar terminology validation claimed."
   }
 ]
