@@ -290,3 +290,9 @@ for (const [key, value] of Object.entries({"back":"Distreiñ","home":"Degemer","
 assert.equal(locales.br.templates, locales.br['allboards.templates']);
 assert.equal(locales.br['custom-field-text'], locales.br.text);
 assert.notEqual(locales.br.back, locales.br.home);
+
+for (const [key, value] of Object.entries({"custom-field-dropdown-none":"(hini ebet)","custom-field-dropdown-unknown":"(dianav)","allboards.workspace-color":"Liv"})) {
+  assert.equal(locales.br[key], value);
+  assert.doesNotMatch(locales.br[key], /aucun|inconnu|Couleur/);
+}
+assert.notEqual(locales.br['custom-field-dropdown-none'], locales.br['custom-field-dropdown-unknown']);

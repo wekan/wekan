@@ -130457,5 +130457,26 @@
     "before": "Modèles",
     "after": "Patromoù",
     "reason": "Replace French with native MediaWiki Breton navigation, default, text or template vocabulary."
+  },
+  {
+    "locale": "br",
+    "key": "custom-field-dropdown-none",
+    "before": "(aucun)",
+    "after": "(hini ebet)",
+    "reason": "Native Breton software vocabulary for none, unknown and color; replace French."
+  },
+  {
+    "locale": "br",
+    "key": "custom-field-dropdown-unknown",
+    "before": "(inconnu)",
+    "after": "(dianav)",
+    "reason": "Native Breton software vocabulary for none, unknown and color; replace French."
+  },
+  {
+    "locale": "br",
+    "key": "allboards.workspace-color",
+    "before": "Couleur",
+    "after": "Liv",
+    "reason": "Native Breton software vocabulary for none, unknown and color; replace French."
   }
 ]
