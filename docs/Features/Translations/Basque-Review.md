@@ -99,3 +99,25 @@ clause review remain open; this does not repair the runtime discrepancy above.
 All 18,659 corrections, 4,170 retained reviews and 234-locale completeness
 checks pass. One restored finding is now corrected: 10 restored findings
 and 288 pending remain. Browser execution was not performed.
+
+## 2026-09-14 — Generic checklist-item subject retained (d36499d43)
+
+The restored `r-when-a-item` = Kontrol-zerrendako elementu bat is retained.
+Its singular subject composes with Markatzen denean and Desmarkatzen denean
+in the generic checklist-item row, without an extra copula or a card noun.
+The -ko construction identifies an item belonging to the checklist; bat
+retains the indefinite singular. This is a contextual grammatical review,
+not acceptance merely because the words use Latin script.
+
+[Basque software reference](https://learn.microsoft.com/eu-es/power-platform/well-architected/experience-optimization/design-standards)
+uses kontrol-zerrendako; [control properties](https://learn.microsoft.com/eu-es/power-apps/maker/canvas-apps/reference-properties)
+uses elementuak for list/control items. These support component terminology,
+not an exact quotation of the full WeKan sentence or human provenance for
+those documentation translations. The complete generic construction is
+reviewed against its actual action predicates. The named-item subject and
+name order remain open; this conclusion is not extended to that row.
+
+Focused exact-subject, both assembled actions, copula-negative and actual
+row wiring checks pass. All 4,171 unchanged reviews and 234-locale completeness
+checks pass. One restored finding is retained: 9 restored and 288 pending
+remain. Browser execution and broader language review remain open.

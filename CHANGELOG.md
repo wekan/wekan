@@ -738,6 +738,15 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d36499d43">Validate Basque checklist-item subject</a>. Thanks to xet7.</summary>
+
+Correct generic wording is retained with check/uncheck composition tests.
+The dated audit distinguishes generic grammar from the still-open named
+item sentence and browser verification.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b8e746289">Repair Inuktitut command forms</a>. Thanks to xet7.</summary>
 
 Edit and Delete use native software imperatives instead of passive states.

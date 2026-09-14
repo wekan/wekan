@@ -24158,3 +24158,12 @@ all 18,682 corrections, 4,170 retained reviews and completeness for 234 locales
 pass. The unused open value has not been changed without its intended context.
 These unflagged repairs leave 288 pending and 10 restored original findings.
 Full browser flows, LDAP diagnostics and broader native grammar remain open.
+
+## Basque generic checklist-item review, 2026-09-14
+
+Local commit `d36499d43` retains r-when-a-item after contextual review.
+[Basque review](Basque-Review.md) distinguishes component-source evidence from
+full generic grammar and keeps named-item order and browser checks open.
+Focused subject/action/coplanar linking-verb checks, 4,171 unchanged reviews
+and completeness for 234 locales pass. Original counts are 15,613 corrected,
+9 restored, 4,171 retained and 288 pending; correction ledger remains 18,682.
