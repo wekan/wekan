@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5c5ee40b6">Repair Quechua generic calendar noun</a>. Thanks to xet7.</summary>
+
+The generic calendar label uses a native Cusco Collao dictionary term instead
+of an untranslated noun with a language prefix. Four locale and ledger checks
+pass. Specific calendar compounds and browser verification remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4f63929ee">Review Aromanian color terminology</a>. Thanks to xet7.</summary>
 
 Primary dictionary pages and a color field study narrow the pending magenta

@@ -24316,3 +24316,11 @@ Local review commit `4f63929ee`: [primary sources and limits](Aromanian-Review.m
 The inspected dictionary sequence lacks a magenta entry; modern loanword usage
 is not ruled out. Field-study color families do not justify a nearby-color
 replacement. No finding was accepted; counts remain unchanged.
+
+## Quechua generic calendar noun — 2026-09-14
+
+Local fix `5c5ee40b6`: [native dictionary evidence](Quechua-Review.md).
+The generic calendar label uses Watanqillqa instead of an untranslated noun
+with a language prefix. Four source/locale checks pass; no pending specific
+calendar compound was accepted. Ledger: 18,694 corrections; pending/restored:
+283/4. Browser settings review remains open.

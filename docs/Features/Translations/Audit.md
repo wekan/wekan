@@ -40,7 +40,7 @@ cross-checks calendar, user and click components in native Moroccan sources.
 Full phrases, warnings and invalidated Tuareg records remain open; no pending
 finding was accepted from component evidence.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,693** exact before/after values, including unflagged repairs.
+contain **18,694** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
@@ -58,7 +58,12 @@ remains open. Latin Inuktitut spelling is valid; original script warnings
 require vocabulary/context review rather than automatic replacement.
 Current pending/restored counts are 283/4.
 
-Latest translation fix: **2026-09-14**, local commit `b433730e3` —
+Latest translation fix: **2026-09-14**, local commit `5c5ee40b6` —
+[Quechua review](Quechua-Review.md) records the native dictionary calendar noun.
+Four correction, unchanged-review and locale checks pass. Specific calendar
+compounds and browser verification remain open; original counts are unchanged.
+
+Previous translation fix: **2026-09-14**, local commit `b433730e3` —
 Afghan Uzbek cancellation spelling restores a missing alif. Indexed native
 sources support the spelling, but full pages failed to fetch: full-source
 orthographic and browser validation remain open, explicitly low confidence.
