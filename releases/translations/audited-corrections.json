@@ -131661,5 +131661,26 @@
     "before": "créée",
     "after": "ⴰⵙⵏⴼⵍⵓⵍ",
     "reason": "2026-09-14: Replace French creation/date labels preserving dates and all five exported types. IRCAM Amazigh-English PDF 209 entry 3982 dates isakudn, PDF 238 entry 4583 asnflul creation, PDF 382 entry 7245 imiẓ reception, PDF 696 entry 13146 start, PDF 666 entry 12533 end: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339 . Due date reuses existing due-date value; source PDF 279 entry 5472 last-time compound expiry date supports related terminology, not exact deadline equivalence. Low confidence: reception/creation noun adaptation to software field labels and due-date semantics. Preserve Created/Received/Start/Due/End order; native/browser review open."
+  },
+  {
+    "locale": "zgh",
+    "key": "card-received",
+    "before": "Reçue",
+    "after": "ⵉⵎⵉⵥ",
+    "reason": "2026-09-14: Replace French received and Arabic due field labels with terminology used by date export/current due-date. IRCAM Amazigh-English PDF 382 entry 7245 imiẓ reception; existing due-date asakud amggaru uses related expiry-date terminology PDF 279 entry 5472: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339 . Actual badges distinguish received-date/due-date; rule option retains receivedAt. Low confidence: reception noun for software received date and due-versus-expiry semantic adaptation. No exact native software deadline attestation or browser acceptance claimed."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-df-received-at",
+    "before": "reçu",
+    "after": "ⵉⵎⵉⵥ",
+    "reason": "2026-09-14: Replace French received and Arabic due field labels with terminology used by date export/current due-date. IRCAM Amazigh-English PDF 382 entry 7245 imiẓ reception; existing due-date asakud amggaru uses related expiry-date terminology PDF 279 entry 5472: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339 . Actual badges distinguish received-date/due-date; rule option retains receivedAt. Low confidence: reception noun for software received date and due-versus-expiry semantic adaptation. No exact native software deadline attestation or browser acceptance claimed."
+  },
+  {
+    "locale": "zgh",
+    "key": "card-due",
+    "before": "مستحق",
+    "after": "ⴰⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ",
+    "reason": "2026-09-14: Replace French received and Arabic due field labels with terminology used by date export/current due-date. IRCAM Amazigh-English PDF 382 entry 7245 imiẓ reception; existing due-date asakud amggaru uses related expiry-date terminology PDF 279 entry 5472: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339 . Actual badges distinguish received-date/due-date; rule option retains receivedAt. Low confidence: reception noun for software received date and due-versus-expiry semantic adaptation. No exact native software deadline attestation or browser acceptance claimed."
   }
 ]

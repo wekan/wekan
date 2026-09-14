@@ -405,3 +405,9 @@ assert.equal(locales.zgh['export-card-field-dates'], 'ⵉⵙⴰⴽⵓⴷⵏ (ⴰ
 assert.equal(locales.zgh['operator-created'], 'ⴰⵙⵏⴼⵍⵓⵍ');
 assert.equal(locales.zgh['predicate-created'], locales.zgh['operator-created']);
 assert.doesNotMatch(locales.zgh['export-card-field-dates'], /Création|Réception|Début|Échéance|Fin/);
+
+assert.equal(locales.zgh['card-received'], 'ⵉⵎⵉⵥ');
+assert.equal(locales.zgh['r-df-received-at'], locales.zgh['card-received']);
+assert.equal(locales.zgh['card-due'], locales.zgh['due-date']);
+assert.notEqual(locales.zgh['card-due'], locales.zgh['card-received']);
+assert.doesNotMatch(locales.zgh['card-due'] + locales.zgh['card-received'], /[\u0600-\u06ff]|Reçue/);
