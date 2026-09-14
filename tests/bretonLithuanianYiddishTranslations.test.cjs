@@ -317,3 +317,10 @@ for (const [key, value] of Object.entries({"custom-field-checkbox":"Log askañ",
 }
 assert.ok(locales.br['custom-field-dropdownMultiSelect'].startsWith(locales.br['custom-field-dropdown']));
 assert.notEqual(locales.br['custom-field-dropdown'], locales.br['custom-field-checkbox']);
+
+for (const [key, value] of Object.entries({"zoom-in":"Brasaat","zoom-out":"Bihanaat","zoom-level":"Live zoum"})) {
+ assert.equal(locales.br[key], value);
+ assert.doesNotMatch(locales.br[key], /Agrandir|Réduire|Niveau/);
+}
+assert.notEqual(locales.br['zoom-in'], locales.br['zoom-out']);
+assert.ok(locales.br['enter-zoom-level'].includes(locales.br['zoom-level'].toLowerCase()));

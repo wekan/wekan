@@ -130555,5 +130555,26 @@
     "before": "Champs personnalisés",
     "after": "Maeziennoù personelaet",
     "reason": "Replace French field labels with native TermBret checkbox/field/option terms and existing local dropdown/custom-field vocabulary; compounds adapted."
+  },
+  {
+    "locale": "br",
+    "key": "zoom-in",
+    "before": "Agrandir",
+    "after": "Brasaat",
+    "reason": "Replace French zoom labels with native enlarge/reduce verbs and existing local zoom-level wording; level phrase adapted."
+  },
+  {
+    "locale": "br",
+    "key": "zoom-out",
+    "before": "Réduire",
+    "after": "Bihanaat",
+    "reason": "Replace French zoom labels with native enlarge/reduce verbs and existing local zoom-level wording; level phrase adapted."
+  },
+  {
+    "locale": "br",
+    "key": "zoom-level",
+    "before": "Niveau d'agrandissement",
+    "after": "Live zoum",
+    "reason": "Replace French zoom labels with native enlarge/reduce verbs and existing local zoom-level wording; level phrase adapted."
   }
 ]
