@@ -17032,5 +17032,185 @@
     "key": "color-paleturquoise",
     "value": "turquesa pálido",
     "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "color-peachpuff",
+    "value": "pexego",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "color-purple",
+    "value": "púrpura",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "color-saddlebrown",
+    "value": "marrón",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "color-slateblue",
+    "value": "azul lousa",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "read-only",
+    "value": "Só lectura",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "read-assigned-only",
+    "value": "Só lectura das asignadas",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "worker",
+    "value": "Traballador",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "confirm-subtask-delete-popup",
+    "value": "Seguro que queres eliminar a subtarefa?",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "subtaskDeletePopup-title",
+    "value": "Eliminar a subtarefa?",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "copy-text-to-clipboard",
+    "value": "Copiar o texto ao portapapeis",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "copyListPopup-title",
+    "value": "Copiar a lista",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "createCustomField",
+    "value": "Crear campo",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "createCustomFieldPopup-title",
+    "value": "Crear campo",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "custom-field-checkbox",
+    "value": "Caixa de verificación",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "custom-field-currency-option",
+    "value": "Código de moeda",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "custom-field-dropdown",
+    "value": "Lista despregable",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "custom-field-dropdown-none",
+    "value": "(ningún)",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "custom-field-dropdown-options",
+    "value": "Opcións da lista",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "custom-field-dropdown-unknown",
+    "value": "(descoñecido)",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "custom-fields",
+    "value": "Campos personalizados",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "date-format",
+    "value": "Formato de data",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "deleteCustomFieldPopup-title",
+    "value": "Eliminar o campo personalizado?",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "disambiguateMultiLabelPopup-title",
+    "value": "Desambiguar a acción da etiqueta",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "disambiguateMultiMemberPopup-title",
+    "value": "Desambiguar a acción do membro",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "edit-wip-limit",
+    "value": "Editar o límite WIP",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "soft-wip-limit",
+    "value": "Límite WIP flexible",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "editCustomFieldPopup-title",
+    "value": "Editar campo",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "editCardSpentTimePopup-title",
+    "value": "Cambiar o tempo empregado",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "email-address",
+    "value": "Enderezo de correo electrónico",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "email-enrollAccount-subject",
+    "value": "Creouse unha conta para ti en __siteName__",
+    "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
   }
 ]
