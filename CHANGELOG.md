@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,586 corrected, 58 restored pre-pull values awaiting
 validation, 4,132 reviewed and retained, and 305 pending review or repair.
-The correction inventory records 18,190 exact before/after values,
+The correction inventory records 18,196 exact before/after values,
 including repairs outside the original findings.
 Global completeness verification also identifies Veps `server` (currently
 English-identical “Server”) for terminology review; it is not accepted yet.
@@ -109,10 +109,10 @@ performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have
 resumed.
-Latest translation fix is e9d46cb11 (2026-09-14): Basque end-date trigger
-replaces Spanish Finalizado with existing Amaiera terminology. Shared trigger
-grammar remains unresolved. Manx epoch terminology and Greenlandic compound
-grammar remain provisional and need native review.
+Latest translation fix is 1b228a63f (2026-09-14): six Basque archive
+actions/descriptions use archive terminology instead of storage wording.
+Shared trigger grammar remains unresolved. Manx epoch terminology and
+Greenlandic compound grammar remain provisional and need native review.
 Latest unchanged-value review is be334a5bf (2026-09-14): two Valencian
 checklist search tokens retained after exercising the actual localized parser.
 Nine restored Valencian values, Uzbek Arabic-script and Breton wording,
@@ -804,6 +804,16 @@ labels and wider language/browser verification remain open.
 Basque end-date trigger uses existing Amaiera terminology while preserving
 date-change meaning. Exact correction checks pass. Shared trigger grammar,
 including the Spanish is fragment, and browser validation remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1b228a63f">Use consistent archive terminology in rules</a>. Thanks to xet7.</summary>
+
+Six Basque rule actions/descriptions use archive terminology instead of
+storage wording. Regression preserves archive/restore directions and when
+clauses and checks actual action options. Exact correction checks pass;
+shared trigger grammar and wider language/browser verification remain open.
 
 </details>
 

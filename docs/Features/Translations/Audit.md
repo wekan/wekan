@@ -14,16 +14,17 @@ Review is ongoing. [Tamazight reference review](Tamazight-Review.md) confirms
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,190** exact before/after values, including unflagged repairs.
+contain **18,196** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `e9d46cb11` —
-Basque end-date trigger replaces Spanish Finalizado with existing localized
-Amaiera terminology. This unflagged repair does not reduce the original queue.
-All **18,190** exact correction records pass. Shared Spanish r-is and complete
-Basque trigger grammar remain unresolved; Manx epoch phrasing and Greenlandic
-compound grammar remain provisional and need native review.
+Latest translation fix: **2026-09-14**, local commit `1b228a63f` —
+six Basque archive actions/trigger descriptions use artxibo instead of storage
+wording. Direction, imperatives and when clauses remain intact. These unflagged
+repairs do not reduce the original queue. All **18,196** corrections pass;
+actual action-template wiring and positive/negative terminology checks pass.
+Shared Basque trigger grammar remains unresolved. Manx epoch phrasing and
+Greenlandic compound grammar remain provisional and need native review.
 Veps terminology, shared trigger grammar and browser validation remain open.
 Attachment/member rule participles still need context-specific agreement.
 Two Esperanto restored findings remain: Complete labels.

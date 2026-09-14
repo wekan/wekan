@@ -22656,3 +22656,10 @@ All 18,190 exact corrections pass token, key-order and newer-translation
 checks. Shared r-is remains Spanish; it cannot be replaced with a copula
 without reviewing ten composed trigger contexts containing denean verbs.
 No full grammar or browser completion is claimed.
+
+Dated repair, 2026-09-14, local commit `1b228a63f`: six unflagged Basque
+archive actions/descriptions replace biltegi storage with artxibo archive,
+consistent with corrected r-archived/r-unarchived. Regression verifies
+archive/restore directions, when clauses, absence of storage wording and
+actual boardActions options. All 18,196 correction records pass. Original
+queue counts unchanged; shared trigger grammar and browser review stay open.
