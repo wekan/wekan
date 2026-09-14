@@ -27,10 +27,10 @@ repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
-Latest terminology review: **2026-09-14**, `a9d68dc92` — visually
-verified primary Veps arithmetic addition, vertical and upper-part entries.
-Addition is not a proved Sum result noun; full field-sum/scrollbar phrases
-remain open. No locale values or counts changed.
+Latest terminology review: **2026-09-14**, `cff1fdc32` — named
+assignee control now uses Basque name-before-subject order. Source and
+saved-description tests pass; browser test extended/syntax checked but
+unrun (local app unavailable). Counts unchanged; full clause review open.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

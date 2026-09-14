@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cff1fdc32">Correct Basque named-assignee control order</a>. Thanks to xet7.</summary>
+
+The name input now precedes the Basque subject, matching other named rule
+controls. Other locales retain their existing order. Source and saved
+description checks pass. Browser coverage is extended and syntax checked;
+execution remains pending because the local app is unavailable.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/486be5743">Correct Basque assignee rule subject wording</a>. Thanks to xet7.</summary>
 
 The subject now names the assigned user instead of saying Assign This.

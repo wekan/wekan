@@ -258,3 +258,14 @@ assignee add/remove composition and browser verification remain open.
 This lexical repair does not accept the four restored findings. Four
 affected test files pass; ledger 18,831, pending 232/restored 4 unchanged.
 Source: https://learn.microsoft.com/eu-es/power-platform/admin/create-users
+
+Named-assignee order repair **2026-09-14**, local commit `cff1fdc32`:
+`cardTriggers.jade` now applies the same Basque-only name-before-subject
+branches to `spec-assignee` as the other named-object controls. Other
+locales keep subject-before-name. Focused grammar and actual production
+saved-description method checks pass. Playwright spec 88 includes the
+assignee row and is syntax checked, but not executed: a fresh localhost
+port 3000 probe was refused, so no running app was available.
+No locale values/counts changed; the four restored findings and full
+assignee add/remove clause/native/browser review remain open. Earlier
+notes describing this row as unreordered are superseded by this dated fix.
