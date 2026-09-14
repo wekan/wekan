@@ -1825,3 +1825,23 @@ corrected 15,673, pending 230 → 229, zgh 123 → 122, restored 4 unchanged.
 Sources:
 https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
 https://nodejs.org/api/os.html#osfreemem
+
+
+OS release/type repair **2026-09-14**, local commit `163a755c0`:
+OS_Release is **OS: ⵜⵓⵏⵖⵉⵍⵜ**; OS_Type is **OS: ⴰⵏⴰⵡ**;
+generic type is **ⴰⵏⴰⵡ**. These replace three additional unflagged
+Arabic values. Native MediaWiki versionrequiredtext attests software
+version tunɣilt; file-info-size attests MIME type anaw. Actual
+server/statistics.js reads os.release() and os.type(), separately from
+platform and Node version. Node documents type as the operating-system
+name (Linux, Darwin, Windows_NT); release uses platform release APIs.
+Low confidence: adapting the native terms to OS diagnostics remains open.
+Four focused locale suites pass, including exact values, Arabic rejection,
+metric-source distinctions, placeholder inventories and human preference.
+No admin browser execution is claimed. Ledger 18,846; original corrected
+15,673, pending 229 (zgh 122), restored 4 unchanged: these unflagged
+repairs do not reduce the original pending list or prove native fluency.
+Sources:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+https://nodejs.org/api/os.html#ostype
+https://nodejs.org/api/os.html#osrelease

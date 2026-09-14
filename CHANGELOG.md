@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/163a755c0">Repair Tamazight OS release and type labels</a>. Thanks to xet7.</summary>
+
+Native version/type terms replace three additional Arabic diagnostic and
+field labels. Locale and metric-source checks pass, preserving placeholders
+and correct translations. OS terminology adaptation remains low confidence;
+the dated review records sources and the remaining verification limits.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1bfe76828">Repair Tamazight free-memory label</a>. Thanks to xet7.</summary>
 
 A vacant-memory draft replaces Arabic while preserving the system free
