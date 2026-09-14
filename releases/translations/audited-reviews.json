@@ -19504,5 +19504,215 @@
     "key": "ticket-number",
     "value": "Número de tícket",
     "reason": "Real Academia Galega dictionary https://academia.gal/dicionario/-/termo/t%C3%ADcket explicitly accepts the Galician spelling tícket; retain the singular, regular plural and number label instead of replacing with another language spelling."
+  },
+  {
+    "locale": "gl",
+    "key": "add-teams-label",
+    "value": "Os equipos engadidos móstranse a continuación:",
+    "reason": "Inspected Galician wording preserves the English meaning for organization/team invitations, administrator contact, legal notice URL, attachment/storage controls, version, progress, elapsed time and password confirmation. UI label context does not require a semantic replacement."
+  },
+  {
+    "locale": "gl",
+    "key": "invite-people-success",
+    "value": "Convite para rexistrarse enviado correctamente",
+    "reason": "Inspected Galician wording preserves the English meaning for organization/team invitations, administrator contact, legal notice URL, attachment/storage controls, version, progress, elapsed time and password confirmation. UI label context does not require a semantic replacement."
+  },
+  {
+    "locale": "gl",
+    "key": "invite-people-error",
+    "value": "Erro ao enviar o convite para rexistrarse",
+    "reason": "Inspected Galician wording preserves the English meaning for organization/team invitations, administrator contact, legal notice URL, attachment/storage controls, version, progress, elapsed time and password confirmation. UI label context does not require a semantic replacement."
+  },
+  {
+    "locale": "gl",
+    "key": "to-create-teams-contact-admin",
+    "value": "Para crear equipos, contacte co administrador.",
+    "reason": "Inspected Galician wording preserves the English meaning for organization/team invitations, administrator contact, legal notice URL, attachment/storage controls, version, progress, elapsed time and password confirmation. UI label context does not require a semantic replacement."
+  },
+  {
+    "locale": "gl",
+    "key": "Node_heap_total_heap_size",
+    "value": "Memoria heap de Node: tamaño total do heap",
+    "reason": "Galician diagnostic label retains the distinction between total, executable, physical, available, used, peak, native and detached memory/context statistics shown in informationBody.jade; heap and malloc remain technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "Node_heap_total_heap_size_executable",
+    "value": "Memoria heap de Node: tamaño total executable do heap",
+    "reason": "Galician diagnostic label retains the distinction between total, executable, physical, available, used, peak, native and detached memory/context statistics shown in informationBody.jade; heap and malloc remain technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "Node_heap_total_physical_size",
+    "value": "Memoria heap de Node: tamaño físico total",
+    "reason": "Galician diagnostic label retains the distinction between total, executable, physical, available, used, peak, native and detached memory/context statistics shown in informationBody.jade; heap and malloc remain technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "Node_heap_total_available_size",
+    "value": "Memoria heap de Node: tamaño total dispoñible",
+    "reason": "Galician diagnostic label retains the distinction between total, executable, physical, available, used, peak, native and detached memory/context statistics shown in informationBody.jade; heap and malloc remain technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "Node_heap_used_heap_size",
+    "value": "Memoria heap de Node: tamaño do heap usado",
+    "reason": "Galician diagnostic label retains the distinction between total, executable, physical, available, used, peak, native and detached memory/context statistics shown in informationBody.jade; heap and malloc remain technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "Node_heap_heap_size_limit",
+    "value": "Memoria heap de Node: límite de tamaño do heap",
+    "reason": "Galician diagnostic label retains the distinction between total, executable, physical, available, used, peak, native and detached memory/context statistics shown in informationBody.jade; heap and malloc remain technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "Node_heap_malloced_memory",
+    "value": "Memoria heap de Node: memoria asignada con malloc",
+    "reason": "Galician diagnostic label retains the distinction between total, executable, physical, available, used, peak, native and detached memory/context statistics shown in informationBody.jade; heap and malloc remain technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "Node_heap_peak_malloced_memory",
+    "value": "Memoria heap de Node: pico de memoria asignada con malloc",
+    "reason": "Galician diagnostic label retains the distinction between total, executable, physical, available, used, peak, native and detached memory/context statistics shown in informationBody.jade; heap and malloc remain technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "Node_heap_number_of_native_contexts",
+    "value": "Memoria heap de Node: número de contextos nativos",
+    "reason": "Galician diagnostic label retains the distinction between total, executable, physical, available, used, peak, native and detached memory/context statistics shown in informationBody.jade; heap and malloc remain technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "Node_heap_number_of_detached_contexts",
+    "value": "Memoria heap de Node: número de contextos desvinculados",
+    "reason": "Galician diagnostic label retains the distinction between total, executable, physical, available, used, peak, native and detached memory/context statistics shown in informationBody.jade; heap and malloc remain technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "Node_memory_usage_rss",
+    "value": "Uso de memoria de Node: tamaño do conxunto residente",
+    "reason": "Galician diagnostic label retains the distinction between total, executable, physical, available, used, peak, native and detached memory/context statistics shown in informationBody.jade; heap and malloc remain technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "Node_memory_usage_heap_total",
+    "value": "Uso de memoria de Node: tamaño total do heap asignado",
+    "reason": "Galician diagnostic label retains the distinction between total, executable, physical, available, used, peak, native and detached memory/context statistics shown in informationBody.jade; heap and malloc remain technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "Node_memory_usage_heap_used",
+    "value": "Uso de memoria de Node: memoria realmente usada",
+    "reason": "Galician diagnostic label retains the distinction between total, executable, physical, available, used, peak, native and detached memory/context statistics shown in informationBody.jade; heap and malloc remain technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "Node_memory_usage_external",
+    "value": "Uso de memoria de Node: externa",
+    "reason": "Galician diagnostic label retains the distinction between total, executable, physical, available, used, peak, native and detached memory/context statistics shown in informationBody.jade; heap and malloc remain technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "add-organizations-label",
+    "value": "As organizacións engadidas móstranse a continuación:",
+    "reason": "Inspected Galician wording preserves the English meaning for organization/team invitations, administrator contact, legal notice URL, attachment/storage controls, version, progress, elapsed time and password confirmation. UI label context does not require a semantic replacement."
+  },
+  {
+    "locale": "gl",
+    "key": "to-create-organizations-contact-admin",
+    "value": "Para crear organizacións, contacte co administrador.",
+    "reason": "Inspected Galician wording preserves the English meaning for organization/team invitations, administrator contact, legal notice URL, attachment/storage controls, version, progress, elapsed time and password confirmation. UI label context does not require a semantic replacement."
+  },
+  {
+    "locale": "gl",
+    "key": "custom-legal-notice-link-url",
+    "value": "URL da páxina de aviso legal personalizada",
+    "reason": "Inspected Galician wording preserves the English meaning for organization/team invitations, administrator contact, legal notice URL, attachment/storage controls, version, progress, elapsed time and password confirmation. UI label context does not require a semantic replacement."
+  },
+  {
+    "locale": "gl",
+    "key": "originOrder",
+    "value": "orde orixinal",
+    "reason": "Inspected Galician wording preserves the English meaning for organization/team invitations, administrator contact, legal notice URL, attachment/storage controls, version, progress, elapsed time and password confirmation. UI label context does not require a semantic replacement."
+  },
+  {
+    "locale": "gl",
+    "key": "subtaskActionsPopup-title",
+    "value": "Accións da subtarefa",
+    "reason": "Inspected Galician wording preserves the English meaning for organization/team invitations, administrator contact, legal notice URL, attachment/storage controls, version, progress, elapsed time and password confirmation. UI label context does not require a semantic replacement."
+  },
+  {
+    "locale": "gl",
+    "key": "move-progress-file",
+    "value": "Ficheiro",
+    "reason": "Inspected Galician wording preserves the English meaning for organization/team invitations, administrator contact, legal notice URL, attachment/storage controls, version, progress, elapsed time and password confirmation. UI label context does not require a semantic replacement."
+  },
+  {
+    "locale": "gl",
+    "key": "move-progress-pause",
+    "value": "Pausar",
+    "reason": "Inspected Galician wording preserves the English meaning for organization/team invitations, administrator contact, legal notice URL, attachment/storage controls, version, progress, elapsed time and password confirmation. UI label context does not require a semantic replacement."
+  },
+  {
+    "locale": "gl",
+    "key": "path",
+    "value": "Ruta",
+    "reason": "Inspected Galician wording preserves the English meaning for organization/team invitations, administrator contact, legal notice URL, attachment/storage controls, version, progress, elapsed time and password confirmation. UI label context does not require a semantic replacement."
+  },
+  {
+    "locale": "gl",
+    "key": "version-name",
+    "value": "Nome da versión",
+    "reason": "Inspected Galician wording preserves the English meaning for organization/team invitations, administrator contact, legal notice URL, attachment/storage controls, version, progress, elapsed time and password confirmation. UI label context does not require a semantic replacement."
+  },
+  {
+    "locale": "gl",
+    "key": "size",
+    "value": "Tamaño",
+    "reason": "Inspected Galician wording preserves the English meaning for organization/team invitations, administrator contact, legal notice URL, attachment/storage controls, version, progress, elapsed time and password confirmation. UI label context does not require a semantic replacement."
+  },
+  {
+    "locale": "gl",
+    "key": "storage",
+    "value": "Almacenamento",
+    "reason": "Inspected Galician wording preserves the English meaning for organization/team invitations, administrator contact, legal notice URL, attachment/storage controls, version, progress, elapsed time and password confirmation. UI label context does not require a semantic replacement."
+  },
+  {
+    "locale": "gl",
+    "key": "action",
+    "value": "Acción",
+    "reason": "Inspected Galician wording preserves the English meaning for organization/team invitations, administrator contact, legal notice URL, attachment/storage controls, version, progress, elapsed time and password confirmation. UI label context does not require a semantic replacement."
+  },
+  {
+    "locale": "gl",
+    "key": "board-status-time-summary",
+    "value": "Resumo do tempo empregado",
+    "reason": "Inspected Galician wording preserves the English meaning for organization/team invitations, administrator contact, legal notice URL, attachment/storage controls, version, progress, elapsed time and password confirmation. UI label context does not require a semantic replacement."
+  },
+  {
+    "locale": "gl",
+    "key": "board-status-time-spent-total",
+    "value": "Tempo total empregado",
+    "reason": "Inspected Galician wording preserves the English meaning for organization/team invitations, administrator contact, legal notice URL, attachment/storage controls, version, progress, elapsed time and password confirmation. UI label context does not require a semantic replacement."
+  },
+  {
+    "locale": "gl",
+    "key": "uploading",
+    "value": "Enviando",
+    "reason": "Inspected Galician wording preserves the English meaning for organization/team invitations, administrator contact, legal notice URL, attachment/storage controls, version, progress, elapsed time and password confirmation. UI label context does not require a semantic replacement."
+  },
+  {
+    "locale": "gl",
+    "key": "progress",
+    "value": "Progreso",
+    "reason": "Inspected Galician wording preserves the English meaning for organization/team invitations, administrator contact, legal notice URL, attachment/storage controls, version, progress, elapsed time and password confirmation. UI label context does not require a semantic replacement."
+  },
+  {
+    "locale": "gl",
+    "key": "password-again",
+    "value": "Contrasinal (de novo)",
+    "reason": "Inspected Galician wording preserves the English meaning for organization/team invitations, administrator contact, legal notice URL, attachment/storage controls, version, progress, elapsed time and password confirmation. UI label context does not require a semantic replacement."
   }
 ]
