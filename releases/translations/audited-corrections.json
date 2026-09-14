@@ -126642,5 +126642,12 @@
     "before": "Le chargement a échoué",
     "after": "ⵉⵜⵜⵡⴰⵣⴳⵍ ⵓⵙⵙⴽⵜⵔ",
     "reason": "2026-09-14: Replace French upload status. MediaWiki uploadlogpage attests bound Upload ussktr; category-file-count explicitly supplies plural Files ifuyla (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Non-fuzzy Dialect Suggestion failed and Translation failed directly attest Failed ittwazgl (https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po). Use action noun for Uploading status, distinct from Failed Upload and completed status. Free-form as sktr derivation, failure-subject substitution and full status adaptation remain low confidence; require language validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "allboards.delete-workspace-confirm-check",
+    "before": "Confirmer la suppression de l'espace de travail",
+    "after": "ⵙⵙⵉⴷⴷ ⵜⵓⴽⴽⵙⴰ ⵏ ⵓⵙⴰⵢⵔⴰⵔ",
+    "reason": "2026-09-14: Replace French workspace deletion confirmation checkbox. MediaWiki userlogin-reauth directly uses ssidd for verifying identity, and dellogpage directly attests Deletion tukksa (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Adapt Verify as Confirm the deletion; reuse local workspace asayrar/bound usayrar. Preserve confirmation action and workspace deletion scope. Verification-to-confirmation adaptation, generic-space-to-workspace terminology and full phrase remain low confidence; require language validation."
   }
 ]
