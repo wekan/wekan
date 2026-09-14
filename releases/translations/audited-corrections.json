@@ -126278,5 +126278,26 @@
     "before": "`__operator_team__:<display name|short name>` - cartes appartenant à un tableau assigné à l'équipe *<name>*",
     "after": "`__operator_team__:<display name|short name>` - ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⵏ ⵜⴼⵍⵡⵉⵜ ⵜⵜⵓⴼⴽⴰⵏ ⵉ ⵜⴰⵔⴰⴱⴱⵓⵜ *<name>*",
     "reason": "2026-09-14: Replace French organization/team search prose with Standard Moroccan Tamazight. Preserve exact source code example __operator_team__:<display name|short name>, colon, pipe alternatives, angle brackets and emphasized <name>; these are query metasyntax. Cards belong to a BOARD assigned TO organization/team, not cards directly assigned or reverse assignment. Native MediaWiki redirect-summary attests Given component: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Local Organization/Team terms reused; given-to-assigned semantic adaptation, feminine relative passive ttufkan and whole clause remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-notes-5",
+    "before": "Par défaut, les cartes archivées ne sont pas recherchées.",
+    "after": "ⵙ ⵓⵡⵏⵓⵍ, ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⴳ ⴰⵔⵛⵉⴼ ⵓⵔ ⵜⵜⵓⵔⵣⵓⵏⵜ.",
+    "reason": "2026-09-14: Replace French search guidance with Standard Moroccan Tamazight. Native MediaWiki img-lang-default/pageinfo-default-sort attest By Default s uwnul, searchbutton Search rzu, pageinfo-display-title Title and native all component: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Archive noun retains separately inspected Archives du Maroc evidence; custom fields/description reuse local terms. Preserve default EXCLUSION of archived cards, ALL archived AND unarchived cards predicate, exact __predicate_all__, and search scope card/list TITLES, DESCRIPTIONS, CUSTOM FIELDS on THIS BOARD. Derived negative search passive, plural descriptions, full scope grammar and Archive-to-kanban adaptation remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-status-all",
+    "before": "`__predicate_all__` -  toutes les cartes : archivées et non archivées.",
+    "after": "`__predicate_all__` - ⴰⴽⴽⵯ ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⴳ ⴰⵔⵛⵉⴼ ⴷ ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⵓⵔ ⵍⵍⵉⵏⵜ ⴳ ⴰⵔⵛⵉⴼ",
+    "reason": "2026-09-14: Replace French search guidance with Standard Moroccan Tamazight. Native MediaWiki img-lang-default/pageinfo-default-sort attest By Default s uwnul, searchbutton Search rzu, pageinfo-display-title Title and native all component: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Archive noun retains separately inspected Archives du Maroc evidence; custom fields/description reuse local terms. Preserve default EXCLUSION of archived cards, ALL archived AND unarchived cards predicate, exact __predicate_all__, and search scope card/list TITLES, DESCRIPTIONS, CUSTOM FIELDS on THIS BOARD. Derived negative search passive, plural descriptions, full scope grammar and Archive-to-kanban adaptation remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "search-cards",
+    "before": "Rechercher parmi les titres, descriptions et champs personnalisés des cartes/listes de ce tableau",
+    "after": "ⵔⵣⵓ ⴳ ⵉⵣⵡⵉⵍⵏ ⵏ ⵜⴽⴰⵔⴹⵉⵡⵉⵏ/ⵜⵍⴳⴰⵎⵉⵏ, ⵉⵙⴳⵣⵍⵏ ⴷ ⵉⴳⵔⴰⵏ ⵉⵥⵍⵉⵏ ⴳ ⵜⴼⵍⵡⵉⵜ ⴰⴷ",
+    "reason": "2026-09-14: Replace French search guidance with Standard Moroccan Tamazight. Native MediaWiki img-lang-default/pageinfo-default-sort attest By Default s uwnul, searchbutton Search rzu, pageinfo-display-title Title and native all component: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Archive noun retains separately inspected Archives du Maroc evidence; custom fields/description reuse local terms. Preserve default EXCLUSION of archived cards, ALL archived AND unarchived cards predicate, exact __predicate_all__, and search scope card/list TITLES, DESCRIPTIONS, CUSTOM FIELDS on THIS BOARD. Derived negative search passive, plural descriptions, full scope grammar and Archive-to-kanban adaptation remain LOW CONFIDENCE."
   }
 ]
