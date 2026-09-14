@@ -22387,3 +22387,11 @@ and migration threshold values. attachmentSettings.jade confirms CPU pause
 percentage and millisecond-delay fields. Numeric ranges 10-90 and 100-10000,
 last/next execution, failure polarity and pause/resume/run-once meanings remain.
 Exact unchanged-review checks pass; full language/browser scope remains open.
+
+### 2026-09-14 — Galician repository and account labels
+
+Local commit `a5e111f91` retains 29 resource, repository and account values,
+including lockout cause, retry timing and required OTP. Schedule is pending
+because its action/noun context is not established. Exact reviews pass.
+Activity rendering repaired separately in `888e0e6bc`; formatting failures
+were caller API misuse, not incorrect translation placeholders.

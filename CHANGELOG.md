@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,566 corrected, 712 restored pre-pull values awaiting
-validation, 3,495 reviewed and retained, and 308 pending review or repair.
+findings: 15,566 corrected, 683 restored pre-pull values awaiting
+validation, 3,524 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,166 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
@@ -1186,6 +1186,18 @@ Thanks to xet7 !
 </details>
 
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a5e111f91">Validate Galician repository and account messages.</a></summary>
+
+Retained 29 correct resource, repository and account values. Temporary
+lockout instructions preserve cause and retry timing; Schedule remains
+pending context review. Exact unchanged-review checks pass.
+
+Thanks to xet7 !
+
+</details>
+
+
 and fixes the following bugs:
 
 **LDAP login** - Optional user search filter.
@@ -1201,6 +1213,23 @@ Live directory login remains unverified.
 Thanks to Nissulya and xet7 !
 
 Fixes #6692,
+
+</details>
+
+
+**Activity feeds** - Substitute message values.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/888e0e6bc">Show activity titles and labels instead of literal percent placeholders.</a></summary>
+
+Card and right-sidebar activities now pass values through the current
+translation API's sprintf options. Discard Spacebars helper metadata while
+preserving security-aware formatting and sanitizing. Real formatter tests
+cover labels, moves, comments, attachment deletion and link stripping.
+Both-feed browser assertions are registered and syntax-checked; live browser
+execution was not available.
+
+Thanks to xet7 !
 
 </details>
 
