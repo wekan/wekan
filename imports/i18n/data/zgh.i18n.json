@@ -1120,7 +1120,7 @@
   "MongoDB_version": "ⵜⴰⵎⵉⵔⴰⵏⵜ ⵢⴻⵎⵚⴰⴷⴰⵏ ⴷ MongoDB",
   "MongoDB_storage_engine": "ⴰⵎⵙⴰⴷⴷⴰⵢ ⵏ ⵓⵃⵔⴰⵣ MongoDB",
   "MongoDB_Oplog_enabled": "MongoDB Oplog activé",
-  "OS_Arch": "معمارية نظام التشغيل",
+  "OS_Arch": "OS: ⵜⴰⵎⵙⴷⴰⴳⵜ",
   "OS_Cpus": "OS: ⵓⵟⵟⵓⵏ ⵏ CPU",
   "OS_Freemem": "OS: ⵜⴰⴽⴰⵜⵓⵜ ⵜⴰⵎⵛⵉⵅⵜ",
   "OS_Loadavg": "متوسط حمل نظام التشغيل",

@@ -74,3 +74,13 @@ assert.notStrictEqual(translated.OS_Release, translated.OS_Type);
 assert.match(statisticsSource, /release: os\.release\(\)/);
 assert.match(statisticsSource, /type: os\.type\(\)/);
 console.log('Tamazight OS release and type remain separate metrics');
+
+assert.strictEqual(translated.OS_Arch, 'OS: ⵜⴰⵎⵙⴷⴰⴳⵜ');
+assert.doesNotMatch(translated.OS_Arch, /[\u0600-\u06ff]/u);
+assert.notStrictEqual(translated.OS_Arch, translated.OS_Type);
+assert.notStrictEqual(translated.OS_Arch, translated.OS_Platform);
+assert.match(statisticsSource, /arch: os\.arch\(\)/);
+const informationTemplate = fs.readFileSync(path.join(ROOT,
+  'client/components/settings/informationBody.jade'), 'utf8');
+assert.match(informationTemplate, /OS_Arch[^\n]*\n\s+td {{statistics\.os\.arch}}/);
+console.log('Tamazight architecture remains distinct from OS type and platform');
