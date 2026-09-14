@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,501 |
+| Corrected | 15,502 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 343 |
+| Pending review or repair | 342 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,072** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,073** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `e091ab50d` — repaired an unflagged Kabyle-seeded card checklist completion activity. Preserve active completion and all five exact checklist/card/list/swimlane/board placeholders. Native Complete Login supports the root; past actor, checklist noun and full location chain remain **low confidence**. All **18,072** correction checks pass; **343** findings remain pending across **17** locales, including **208** Tamazight. Original counts unchanged for this unflagged repair. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `a9c0a3a55` — repaired French imported-board member mapping. Preserve YOUR IMPORTED BOARD HAS SOME MEMBERS and mapping MEMBERS YOU WANT TO IMPORT TO YOUR USERS. Native components support wording; imported-board agreement, association imperative and full mapping clause remain **low confidence**. All **18,073** correction checks pass; **342** findings remain pending across **17** locales, including **207** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Archive noun review (2026-09-14, `fbe388603`):** directly inspected a native Archives du Maroc logo in a university PDF, corroborating the archive noun beyond the earlier search-index excerpt. Updated nine provenance records; values/counts unchanged. Institutional-to-kanban adaptation and full labels remain low confidence. [Evidence](Audit-Evidence.md) records the exact source and scope.
 
