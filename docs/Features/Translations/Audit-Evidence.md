@@ -23722,3 +23722,24 @@ review; reference vocabulary alone is not full phrase validation. Four
 focused suites pass, including negative access-verb coverage and exact
 placeholder inventories. The correction ledger now has 18,603 records;
 original pending/restored counts remain 291/13. No live UI validation ran.
+
+Inuktitut rule toggle — 2026-09-14, local commit `45d232fda`.
+
+Replace r-toggle-rule-enabled Latin-script wording with a direct syllabic
+adaptation using the local rule noun and keyboard-toggle activation vocabulary.
+Both alternatives and the scope of this specific rule remain explicit. The
+actual rulesList.jade submit button uses this tooltip with data-rule-id.
+[NWAC Safe Passage Inuktitut guide](https://nwac-afac.ca/assets-documents/SafePassage_FamilyViolence_Inuktitut_review.pdf)
+uses ᖃᒥᓪᓗᒍ for Bluetooth and other apps (PDF page 7). This directly supports
+software turn-off vocabulary, but not the full rule-toggle compound.
+[Traces project terminology](https://www.tracesresearch.nl/projects)
+provides Maligaq / ᒪᓕᒐᖅ as a rule to be followed. Native assembly references
+also use that noun for procedural rules. Software-rule adaptation, activation
+command and full clause grammar remain low confidence; no exact native
+product-tooltip attestation or live UI validation is claimed. A new focused
+guard preserves the two alternatives and rejects the previous romanized value.
+Four translation suites pass; the correction ledger has 18,604 records and
+the original queue has 15,611 corrected, 4,167 retained, 13 restored and 290
+pending findings. Inuktitut has 41 pending; broader low-confidence review stays
+open. MediaWiki's native files are ike-cans/ike-latn, not iu; they were inspected
+as possible references, without accepting any of their strings automatically.

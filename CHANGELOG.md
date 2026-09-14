@@ -738,6 +738,16 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/45d232fda">Repair Inuktitut rule toggle tooltip</a>. Thanks to xet7.</summary>
+
+A syllabic adaptation preserves both enable and disable actions for this rule.
+Native terminology supports component terms; full command grammar remains low
+confidence and needs native/browser review. Focused translation checks pass;
+the dated audit records 290 pending and 13 restored findings remaining.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/669f0b31d">Repair Breton accessibility terminology</a>. Thanks to xet7.</summary>
 
 Three French page labels become Breton, and two prior repairs now distinguish
