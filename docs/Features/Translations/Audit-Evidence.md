@@ -1,5 +1,17 @@
 # Detailed translation audit evidence
 
+2026-09-14 — CLDR calendar source-status review: directly inspected
+current zgh.xml localeDisplayNames/calendar entries. Coptic, Ethiopic and
+Gregorian labels exactly match the existing local labels. Islamic has native
+wording but explicitly draft="provisional"; updated its correction-record
+explanation without changing the value. The inspected native XML contains
+no Buddhist or Hebrew entries and no Indian calendar display name. This
+source gap is not proof that Tamazight terms do not exist; English inherited
+fallbacks are not native evidence. Keep Buddhist/Hebrew/Indian National and
+civil/sighting/astronomical Hijri variants pending until their full names and
+distinctions are reviewed. No values or progress counts changed: 311 pending.
+Reference: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml
+
 2026-09-14 — `6352fbd5e`: two additional selection instructions
 repaired. Replace Kabyle Only One Board and Arabic Select Cards In This List;
 the latter omitted English All. Reuse native selection root, feminine One
