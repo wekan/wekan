@@ -821,6 +821,16 @@ records 171 pending findings.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9baa8f69d">Repair Tamazight legal-notice labels</a>. Thanks to xet7.</summary>
+
+Replace French custom-link and Arabic legal-notice wording, preserving URL
+and custom page scope. Four focused translation suites pass. Derived
+agreement and full legal-notice compound remain under native review.
+Dated audit records 170 pending original findings.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

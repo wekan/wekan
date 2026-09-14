@@ -3254,3 +3254,22 @@ labels. Four focused suites pass for exact repairs, rejection of French,
 placeholder preservation and completeness. No live UI test ran. Ledger
 19,843; original corrected 15,732, pending 171 (zgh 76), restored 4
 unchanged. Broader review remains open; no remote writes.
+
+
+## Legal-notice labels — repair 2026-09-15
+
+Source commit `9baa8f69d` replaces flagged French custom legal-notice URL
+and unflagged Arabic legalNotice. IRCAM page 702 entry 13259 gives
+`tusmirt` advert/notice; page 283 entry 5527 gives `azrfan` legal.
+The feminine adjective `tazrfant` and custom qualifier `tiẓlin` are derived
+agreement forms. Complete legal-notice compound remains low confidence:
+components do not independently attest the website legal concept.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+The custom link keeps URL, page, legal notice and custom scope. Settings
+template line 415 and people settings line 367 render that label. Four
+focused suites pass for exact wording, rejection of French/Arabic,
+placeholder preservation and completeness. No live UI test ran. Ledger
+19,845; original corrected 15,733, pending 170 (zgh 75), restored 4
+unchanged. The unflagged repair does not count as a resolved original
+finding. Broader review remains open; no remote writes.
