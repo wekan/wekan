@@ -46,3 +46,7 @@ for (const key of ['default', 'defaultdefault', 'font-size-default']) {
   assert.doesNotMatch(translated[key], /Défaut|Default|ⴰⵎⵣⵡⴰⵔⵓ/u);
 }
 console.log('Tamazight Default values replace French without changing to First');
+
+assert.strictEqual(translated['export-card-excel-fields'], 'ⵙⵜⵉ ⵉⴳⵔⴰⵏ ⵍⵍⵉ ⵔⴰ ⵜⵙⵙⵓⴼⵖⴷ ⵖⵔ Excel:');
+assert.doesNotMatch(translated['export-card-excel-fields'], /Sélectionnez|champs|inclure|export Excel/);
+console.log('Tamazight Excel prompt retains choosing fields, export destination and colon');
