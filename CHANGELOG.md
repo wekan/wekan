@@ -656,6 +656,17 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f8708e3d2">Repair archive guidance in 21 additional locale files</a>. Thanks to xet7.</summary>
+
+Slovak, Slovenian, Croatian, Bosnian, Hungarian, Romanian, Russian,
+Ukrainian, Bulgarian, Greek, Turkish and regional Spanish/Portuguese
+translations now name the current Archive location. Three Archive place
+labels are corrected. Five suites pass; other locales and full native/UI
+verification remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f1c15bd0e">Repair archive guidance in 27 locale files</a>. Thanks to xet7.</summary>
 
 Finnish, German, French, Spanish, Italian, Portuguese, Dutch, Danish,

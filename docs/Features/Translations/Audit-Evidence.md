@@ -26691,3 +26691,25 @@ human preference remain protected. No new browser execution is claimed.
 These checks do not alone prove all native grammar. Ledger 18,888;
 original corrected 15,677, pending 225 (zgh 118), restored 4 unchanged.
 Other locale archive guidance and all prior uncertain findings remain open.
+
+
+Archive guidance batch 2 **2026-09-14**, `f8708e3d2`:
+Repaired 21 files: sk, sl, sl_SI, hr, bs, hu, ro, ro-RO, ru, ru-RU,
+ru-UA, ru_RU, uk, uk-UA, bg, el, el-GR, tr, es-AR, es-PE, pt-BR.
+Full guidance retains restoration and names each existing All Boards
+page and Archive section. Turkish archives changes Arşivle (action) to
+Arşiv (place); Argentine Spanish Archivar to Archivo; Brazilian Portuguese
+Arquivos morto (incorrect agreement/place label) to Arquivo. Correction
+ledger revisions preserve original before values and append dated reasons.
+Independent Argentine/Peruvian Spanish and Brazilian Portuguese guidance
+was explicitly reviewed, rather than overwritten through base-language
+copying. Other variants changed only where the old guidance matched the
+reviewed base. Czech main-menu wording remains intact. Serbian guidance
+needs closer review of existing board/page terms and obsolete name-menu
+navigation; no acceptance is recorded. Five focused suites pass, covering
+localized place labels, obsolete locations, the three corrected Archive
+labels, exact tokens, key order, newer correct-language preference and
+All Boards menu routing. No new browser run is claimed; these checks do
+not alone prove full native grammar. Ledger 18,909, original corrected
+15,677, pending 225 (zgh 118), restored 4 unchanged. Other archive locales
+and all prior uncertain findings remain within the full audit scope.
