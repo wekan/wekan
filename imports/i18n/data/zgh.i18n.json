@@ -632,7 +632,7 @@
   "email-fail": "ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⵓⵣⵏ ⵏ ⵉⵎⴰⵢⵍ.",
   "email-fail-text": "ⵜⴰⵣⴳⵍⵜ ⴽⵓⴷ ⵏⵏⴰ ⴰⵔ ⵜⵜⴰⵔⵎⴷ ⴰⴷ ⵜⴰⵣⵏⴷ ⵉⵎⴰⵢⵍ.",
   "email-invalid": "ⴰⵏⵙⴰ ⵏ ⵉⵎⴰⵢⵍ ⴰⵔⵓⵖⵣⵉⵏ",
-  "email-invite": "Inviter par e-mail",
+  "email-invite": "ⵙⵏⵏⴼⵜⵖ ⵙ ⵉⵎⴰⵢⵍ",
   "email-invite-subject": "__inviter__ أرسل دعوة لك",
   "email-invite-text": "ⴰⵣⵓⵍ __user__,\n\n__inviter__ ⴰⵔ ⴽ ⵉⵙⵏⵏⴼⵜⵖ ⴰⴷ ⵜⴳⴷ ⴰⴳⵎⴰⵎ ⴳ ⵜⴼⵍⵡⵉⵜ \"__board__\" ⵉ ⵓⵎⵢⴰⵡⴰⵙ.\n\nⵎⴽ ⵜⵓⴼⵉⴷ, ⴹⴼⴰⵔ ⴰⵙⵖⵏ ⴳ ⴷⴷⴰⵡ ⴷⴰ:\n\n__url__\n\nⵜⴰⵏⵎⵎⵉⵔⵜ.",
   "push-invite-title": "__inviter__ أرسل دعوة لك",

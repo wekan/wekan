@@ -123765,5 +123765,12 @@
     "before": "Gravité",
     "after": "ⵜⴰⵏⵥⴰⴹⵜ",
     "reason": "Replace French cron severity field with existing Tamazight recovery-severity terminology for the identical English source Severity. Preserve severity versus details/message distinctions without altering protected local recovery translation. LOW CONFIDENCE tanẓaḍt severity sense is reused local terminology, not independently dictionary-validated; exact-word searches yielded no relevant primary attestation and do not establish absence. Requires fluent terminology review in both cron and recovery contexts. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "email-invite",
+    "before": "Inviter par e-mail",
+    "after": "ⵙⵏⵏⴼⵜⵖ ⵙ ⵉⵎⴰⵢⵍ",
+    "reason": "2026-09-14: Replace French Invite by email button, preserving the imperative invitation action and email channel. Reuse existing Invite wording; native MediaWiki createacct-emailrequired independently supplies email ⵉⵎⴰⵢⵍ. LOW CONFIDENCE: invitation verb is local consistency, not independently validated Standard Moroccan terminology. The invite record has invalidated earlier CNAM Moroccan attribution; MC£/MC abbreviations do not prove Moroccan usage. Renewed dialect review of the invitation verb and full instrumental phrase remains required. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (createacct-emailrequired)."
   }
 ]
