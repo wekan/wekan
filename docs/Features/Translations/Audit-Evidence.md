@@ -24278,6 +24278,8 @@ field values in DOM order, so word-order validation must include those values.
 
 ## Basque named-subject integration evidence, 2026-09-14
 
+Local review commit `209d1088b`.
+
 [Basque review](Basque-Review.md) records the fully opened EHU grammar chapter
 and actual template/description-generator source. Names occur after the final
 demonstrative in controls and saved descriptions. Isolated noun/script checks

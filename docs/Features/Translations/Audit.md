@@ -39,7 +39,7 @@ contain **18,693** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest uncertain-phrase review: **2026-09-14** —
+Latest uncertain-phrase review: **2026-09-14**, `209d1088b` —
 [Basque rule review](Basque-Review.md) confirms named subjects put the selected
 name after the final demonstrative. Saved descriptions use that same DOM order.
 EHU native grammar establishes the noun-phrase constraint; a CSS-only fix

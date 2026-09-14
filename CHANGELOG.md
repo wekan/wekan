@@ -716,6 +716,16 @@ Focused spelling/negative and correction/token/completeness checks pass.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/209d1088b">Review Basque named-subject integration</a>. Thanks to xet7.</summary>
+
+Native grammar and source review confirm selected names follow the final
+subject demonstrative in both controls and saved descriptions. The audit
+records the required locale-aware construction; CSS alone cannot fix it.
+Four restored findings remain open. Audit consistency checks pass.
+
+</details>
+
 **Developer tooling** - Mirror Git progress.
 
 <details>

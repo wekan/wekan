@@ -178,7 +178,7 @@ No translations change; two restored findings are retained.
 All 4,175 unchanged reviews and 234-locale completeness pass. Counts now
 stand at 283 pending and 5 restored findings overall.
 
-## 2026-09-14 — Named-subject integration problem confirmed
+## 2026-09-14 — Named-subject integration problem confirmed (209d1088b)
 
 The remaining restored subjects are Etiketa hau, Kide hau, Kontrol-zerrenda
 hau and Kontrol-zerrendako elementu hau. Their nouns and demonstrative cannot
