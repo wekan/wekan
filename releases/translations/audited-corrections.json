@@ -124941,5 +124941,12 @@
     "before": "Fermer éditer un élément du formulaire checklist",
     "after": "ⵔⴳⵍ ⵜⴰⵍⵖⴰ ⵏ ⵓⵙⵏⴼⵍ ⵏ ⵓⴼⵔⴷⵉⵙ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
     "reason": "2026-09-14: Replace French Close Add/Edit checklist-item form, preserving closing the form rather than performing add/edit and retaining item/checklist scope. Native Mastodon bundle_modal_error.close supplies rgl Close and load_pending bound ufrdis Item; native MediaWiki tooltip-undo directly supplies talgha n usnfl Edit Form. Proposed nominal urnu Addition is derived from rnu Add; verification noun ussidd remains provisional. LOW CONFIDENCE addition noun derivation, full noun chains and checklist paraphrase require fluent Standard Moroccan review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json and https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "hide-finished-checklist",
+    "before": "إخفاء قائمة التحقق النهائية",
+    "after": "ⵙⵏⵜⵍ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ ⵍⵍⵉ ⵉⵙⵎⴷⵏ",
+    "reason": "2026-09-14: Replace Arabic Hide finished checklist preserving hide action and finished restriction, not all checklist items or final checklist. Used by checklists.jade visibility toggle. Native Mastodon column_header.hide_settings directly supplies sntl Hide; completed-relative ismdn is derived from MediaWiki enterlockreason Finish/End ismd, not directly attested complete checklist adjective. LOW CONFIDENCE finished-relative derivation/agreement, proposed verification noun ussidd and full checklist phrase require fluent Standard Moroccan review. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
