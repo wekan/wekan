@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/94205ae5f">Draft conditional automatic user addition label</a>. Thanks to xet7.</summary>
+
+Replace Arabic with complete Tamazight wording preserving automatic
+addition and the users-with-domain-name condition. Four translation
+checks pass; native relative-clause and browser review remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/73543f47a">Draft lost-card restoration title</a>. Thanks to xet7.</summary>
 
 Replace a stored French action title with complete Tamazight wording.

@@ -25918,3 +25918,22 @@ Four focused checks pass for complete components, negative wrong-language
 and wrong-sense coverage, token inventory and protected newer values.
 Native/browser review remains open. Original corrected 15,662;
 pending 240 (zgh 132); correction ledger 18,795.
+
+Automatic user addition — 2026-09-14, `94205ae5f`.
+The Arabic autoAddUsersWithDomainName label becomes a complete Tamazight
+draft: add automatically users who have the domain name. The possessive
+relative clause preserves the condition instead of describing unrestricted
+addition using a domain. Actual orgsToAutoAddForEmail requires exact email
+matching, excludes empty domains and does not match subdomains. Creation
+and editing templates use this key above a text field, not a checkbox.
+IRCAM PDF 463 entry 8773 add, 186 entry 3493 users, 397 entry 7541 name:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+Native automatic adverb: MediaWiki logentry-newusers-autocreate:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+Computing-domain provenance remains in the domain repair. Low confidence:
+assembled relative possessive ghursn, noun state and adverb placement;
+the complete sentence is not attested or native/browser accepted. Earlier
+Arabic-pending notes are superseded by this draft, not native approval.
+Four source checks pass for complete condition, wrong-language negatives,
+tokens, key order and protected newer translations. Original corrected
+15,663; pending 239 (zgh 131); correction ledger 18,796.
