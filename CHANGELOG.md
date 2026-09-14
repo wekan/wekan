@@ -645,6 +645,7 @@ under review. Planning Poker deletion text also preserves irreversible
 deletion and loss of associated actions. Label deletion text preserves
 removal from every card and destruction of label history. Keyboard shortcut
 messages retain their enabled/disabled state and opposite click action.
+PDF preview text retains the download alternative when preview is unavailable.
 
 This release includes the following features and fixes:
 
@@ -701,6 +702,16 @@ activation state and the opposite click action. Four focused suites pass
 for heading consistency, action direction, negative Arabic checks, template
 conditional wiring and translation structure. Full contextual grammar
 remains under native review. Dated audit records 182 pending findings.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9680e2393">Repair Tamazight PDF preview warning</a>. Thanks to xet7.</summary>
+
+Replace Arabic warning, preserving device inability to preview PDF and
+trying a download instead. Four focused suites pass for warning meaning,
+negative Arabic checks and translation structure. Full contextual grammar
+remains under native review. Dated audit records 181 pending findings.
 
 </details>
 

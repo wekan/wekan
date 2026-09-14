@@ -28081,3 +28081,30 @@ conditional wiring, placeholders, correction ledger, retained reviews and
 completeness. No live UI test ran. Ledger 19,831; original corrected 15,721,
 pending 182 (zgh 87), restored 4 unchanged. Broader review remains open.
 No remote writes.
+
+
+## PDF preview warning — 2026-09-15
+
+Local commit `9680e2393` replaces Arabic preview-pdf-not-supported.
+Preserve your device's inability to preview PDF and try downloading instead.
+The attachments.jade pdf-preview-error element renders the warning.
+Use inability to display the preview rather than a literal physical-support
+verb. Existing preview and file terminology are reused.
+
+IRCAM cached dictionary page 43 entry 501 explicitly gives agm as download
+in its computing sense; page 124 entry 2233 gives amattiw as equipment.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+**Low confidence:** general equipment adapted to device, preview compound,
+capability clause, try/download conjugation and instead construction remain
+under native contextual review. These component entries do not attest the
+complete software warning.
+
+Four focused suites pass for device negation, PDF/preview, attempted
+download alternative, negative Arabic checks, placeholders, ledger,
+retained reviews and completeness. No live UI test ran. Ledger 19,832;
+original corrected 15,722, pending 181 (zgh 86), restored 4 unchanged.
+Broader review remains open. Accessibility dictionary search found no
+suitable direct entry in the inspected cached lexical pages; this is not
+proof that no native computing term exists. Both accessibility findings
+remain open rather than being replaced with a physical access/permission
+term. No remote writes.
