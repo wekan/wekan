@@ -21946,3 +21946,13 @@ current user; at least one administrator remains required. Assigned-only
 visibility, creator/member participation and public-view/member-only-edit
 qualifiers remain exact. All 2,364 reviews pass; 1,848 restored values and
 308 pending findings plus wider language/browser verification remain open.
+
+
+### Galician removal and card shortcuts — 2026-09-14
+
+Local commit `4f0293f5c` retains twenty-five correct removal, rescue,
+shortcut, favorite and time-indicator values. Singular member notification,
+all-card removal effects, unsaved-description overwrite warning and
+self-membership/assignment remain distinct. More-than threshold and 1-9
+ordering are preserved. All 2,389 reviews pass; 1,823 restored values and
+308 pending findings plus wider language/browser verification remain open.
