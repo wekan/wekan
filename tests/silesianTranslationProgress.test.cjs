@@ -44,3 +44,14 @@ assert.equal(silesian['board-public-info'],
   'Ta tabula bydzie <strong>publicznŏ</strong>.');
 
 console.log('silesianTranslationProgress: complete locale passed');
+
+// Native Silesian sources attest these shared words. Polish identity alone
+// must not cause a correct locale label to be replaced. This checks the
+// retained phrase's content, not a blanket acceptance of Polish values.
+assert.equal(silesian['sandstorm-raw-mongodb'],
+  'Surowe pliki bazy danych MongoDB 3');
+assert.match(silesian['sandstorm-raw-mongodb'], /^Surowe pliki bazy danych /);
+assert.match(silesian['sandstorm-raw-mongodb'], /MongoDB 3$/);
+assert.notEqual(silesian['sandstorm-raw-mongodb'], english['sandstorm-raw-mongodb']);
+assert.doesNotMatch(silesian['sandstorm-raw-mongodb'], /JSON|CSV|eksport/i,
+  'physical raw files are not renamed as a converted export');
