@@ -78,3 +78,19 @@ merely because its name concerns throttling.
 Sources:
 - https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
 - https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/en.json
+
+## Buddhist calendar adaptation, 2026-09-14 (8422804a4)
+
+[Native Tamazight article, revision 140790](https://zgh.wikipedia.org/w/index.php?title=ⵜⴰⴱⵓⴷⵉⵜ&oldid=140790)
+was fetched directly with curl after the web reader failed. The native image
+caption uses the Buddhist adjective `ⴰⴱⵓⴷⴷⵉ`. The article is a community
+stub with a missing-reference notice, so it attests vocabulary usage rather
+than finalized normative terminology or historical claims. English infobox
+fallbacks are not accepted as native evidence.
+
+`calendar-system-buddhist` now combines the independently attested calendar
+noun with that adjective. The whole calendar name is adapted, not quoted
+from CLDR or the article; broader native compound and browser review remain
+open. Exact-value, English-negative and Islamic-calendar distinction checks
+pass. One original finding is corrected; 172 Tamazight findings remain pending.
+Earlier paragraphs with 173 describe the queue before this repair.

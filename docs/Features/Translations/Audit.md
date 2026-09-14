@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,613 |
+| Corrected | 15,614 |
 | Restored pre-pull; awaiting validation | 9 |
 | Reviewed; retained unchanged | 4,171 |
-| Pending review or repair | 288 |
+| Pending review or repair | 287 |
 | Total tracked | 20,081 |
 
 Review is ongoing. [Basque rule review](Basque-Review.md) records native
@@ -30,7 +30,7 @@ cross-checks calendar, user and click components in native Moroccan sources.
 Full phrases, warnings and invalidated Tuareg records remain open; no pending
 finding was accepted from component evidence.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,682** exact before/after values, including unflagged repairs.
+contain **18,683** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
@@ -40,26 +40,26 @@ completion status. This evidence led to the adapted incomplete-status repair in 
 The full named checklist clause still needs review; unfinished wording alone
 is insufficient. No unchanged acceptance was added.
 [Inuktitut recurrence/reset review](Inuktitut-Recurrence-Review.md) remains
-open in `5400a0ce9`. Current pending/restored counts are 288/9.
+open in `5400a0ce9`. Current pending/restored counts are 287/9.
 
 Latest unflagged unchanged review: **2026-09-14**, `5bf34bc48` —
 Inuktitut `new` retains `ᓄᑖᖅ`, matching the native software guide's New
 command and actual admin creation labels. Focused checks pass; browser review
 remains open. Latin Inuktitut spelling is valid; original script warnings
 require vocabulary/context review rather than automatic replacement.
-Current pending/restored counts are 288/9.
+Current pending/restored counts are 287/9.
 
-Latest translation fix: **2026-09-14**, local commit `b8e746289` —
-Inuktitut Edit/Delete commands use native software-guide imperatives rather
-than passive status wording. Roman spelling is valid. All 18,682 correction
-records and focused checks pass. These repairs were unflagged; counts remain
-288 pending and 9 restored. Browser and broader native review remain open.
-Earlier Tamazight software-label repairs are in `d5d2bf518`.
+Latest translation fix: **2026-09-14**, local commit `8422804a4` —
+Tamazight Buddhist calendar replaces English with an adapted native label.
+The native adjective is attested in a directly fetched community article;
+full compound and browser review remain open. All 18,683 corrections and
+focused checks pass. One original finding is corrected: 287 pending and
+9 restored remain. Earlier Inuktitut commands are in `b8e746289`.
 Latest unchanged review: **2026-09-14**, local commit `d36499d43` —
 Basque generic checklist-item subject is retained after reviewing both
 assembled check/uncheck clauses and actual row wiring. All 4,171 unchanged
 reviews and focused checks pass. Named-item order and browser review remain
-open. Counts are 288 pending and 9 restored. Earlier S3 review is in
+open. Counts are 287 pending and 9 restored. Earlier S3 review is in
 `5bf97e219`, Silesian review in `a0aacc7a9`.
 Earlier unchanged review: **2026-09-14**, Thai r-is —
 คือ retained after removing its incorrect insertion before action predicates.
@@ -73,7 +73,7 @@ Additional unflagged unchanged review: **2026-09-14**, `39af6aae5` —
 Veps Server and Valencian Errors retained with native software evidence and
 protected per locale from filling. Zero unreviewed English placeholders remain;
 this does not establish correct language or fluency in all values. These two reviews are outside the original flagged ledger; current
-pending/restored counts are 288/9.
+pending/restored counts are 287/9.
 
 
 
@@ -88,7 +88,7 @@ Reviewed subtask actions/settings retain correct subordinate-task compounds.
 
 | Pending locale | Findings |
 | --- | ---: |
-| zgh — Standard Moroccan Tamazight | 173 |
+| zgh — Standard Moroccan Tamazight | 172 |
 | iu — Inuktitut | 40 |
 | nah — Nahuatl | 17 |
 | tig — Tigre | 17 |

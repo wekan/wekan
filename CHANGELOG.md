@@ -738,6 +738,15 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8422804a4">Repair Tamazight Buddhist calendar label</a>. Thanks to xet7.</summary>
+
+The English calendar name uses adapted native Moroccan terminology.
+Focused checks retain its distinction from the Islamic calendar. The dated
+audit records vocabulary evidence and remaining native/browser review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d36499d43">Validate Basque checklist-item subject</a>. Thanks to xet7.</summary>
 
 Correct generic wording is retained with check/uncheck composition tests.

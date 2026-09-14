@@ -24167,3 +24167,14 @@ full generic grammar and keeps named-item order and browser checks open.
 Focused subject/action/coplanar linking-verb checks, 4,171 unchanged reviews
 and completeness for 234 locales pass. Original counts are 15,613 corrected,
 9 restored, 4,171 retained and 288 pending; correction ledger remains 18,682.
+
+## Tamazight Buddhist calendar, 2026-09-14
+
+Local commit `8422804a4` replaces English Buddhist with an adapted native
+calendar label. [Tamazight review](Tamazight-Review.md) records the directly
+fetched article revision, its missing-reference status, native caption
+vocabulary and limits. No historical claim or English infobox fallback was
+used to validate the translation. All 18,683 correction records, 4,171 retained
+reviews, 234-locale completeness and focused name/distinction checks pass.
+Original counts: 15,614 corrected, 9 restored, 4,171 retained, 287 pending.
+Full native compound and browser verification remain open.
