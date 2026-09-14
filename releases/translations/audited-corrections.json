@@ -126572,5 +126572,12 @@
     "before": "a effacé le champ personnalisé '%s' dans %s",
     "after": "ⵉⴽⴽⵙ ⴰⵣⴰⵍ ⵏ ⵉⴳⵔ ⵉⵥⵍⵉⵏ '%s' ⴳ %s",
     "reason": "2026-09-14: Replace French custom-field unsetting activity. Actual models/cards.js customFields $unset hook removes a card field value, not board field definition. Native MediaWiki logentry-delete-delete Removed actor and redirect-value Value azal, Field/Special components support wording: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve UNSET custom field name IN card, exact two percent placeholders and quoted first. Paraphrase Remove Value to avoid implying field definition deletion. Technical Value adaptation, field bound state and full relation remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "accounts-lockout-period",
+    "before": "Durée de verrouillage (secondes)",
+    "after": "ⵜⵉⵣⵉ ⵏ ⵓⴳⴷⴰⵍ (ⵜⵉⵙⵉⵏⵉⵏ)",
+    "reason": "2026-09-14: Replace French lockout duration label. Actual known/unknown settings separately configure lockoutPeriod and failureWindow; preserve LOCKOUT PERIOD IN SECONDS, not failure counting window. Native MediaWiki transaction-duration-limit-exceeded Duration tizi and Second tasint components, native Mastodon Block gdl and local lockout noun reused: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Derived seconds plural and bound lockout/block noun and full duration label remain LOW CONFIDENCE."
   }
 ]
