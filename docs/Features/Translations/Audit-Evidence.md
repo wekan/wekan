@@ -2,6 +2,14 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight subtask wording review — 2026-09-14
+
+Current `add-existing-card-as-subtask` contains `ⵜⵓⵜⵍⴰⵢⵜ ⵜⴰⵎⵥⵢⴰⵏⵜ`, meaning a small language rather than a subtask. The indexed [IRCAM children’s vocabulary portal](https://tal2.ircam.ma/tamawalt/) uses `ⵜⵓⵜⵍⴰⵢⵜ ⵜⴰⵎⴰⵣⵉⵖⵜ` for Amazigh language; direct fetching timed out. [IRCAM’s conjugator](https://tal.ircam.ma/conjugueur/) likewise identifies language with this noun. Script alone cannot validate a Tifinagh value.
+
+Indexed [Moroccan administration ministry text](https://www.mmsp.gov.ma/amz/nos-metiers/absence-non-justifi%C3%A9e) uses `ⵜⴰⵡⵓⵔⵉ` for work and bound `ⵜⵡⵓⵔⵉ`; it does not attest the complete kanban Subtask term. The indexed [computer lexicon](https://www.temehu.com/imazighen/dictionaries/Amawals/Computer_dictionary_Berber_English_French.pdf) gives Task `Tawuri`, plural `tiwura`, citing MW/MCG. MW is a modern Amazighe lexicon, not MediaWiki or proof of Standard Moroccan usage. Do not infer canonical Moroccan Subtask terminology from that entry.
+
+Review the complete hierarchical subtask noun, free/bound state and existing-card relation before replacing this value. A small task alone loses the parent/subtask relationship. Also review `checklistItem-linked-subtask` and Arabic/French subtask headings together; preserve Linked, Add Existing Card as, singular/plural and any placeholders. This additional finding is outside the original queue; no translation values or counts changed.
+
 ## Bambara tabular-calendar terminology review — 2026-09-14
 
 The two remaining original `bm` findings are `calendar-system-islamic-civil` and `calendar-system-islamic-tbla`. Their English legacy names omit source qualifiers. Preserve Hijri, tabular calculation and civil versus astronomical epoch; these variants must remain distinct.
