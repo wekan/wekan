@@ -1,3 +1,4 @@
+import { commentCardMatchesBoard, recordCommentBoundaryDenial } from '/models/lib/commentCardBoundary';
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { Authentication } from '/server/authentication';
@@ -165,6 +166,13 @@ WebApp.handlers.post('/api/boards/:boardId/cards/:cardId/comments', async functi
       req.userId,
       allowIsBoardMemberCommentOnly(req.userId, board),
     );
+
+    const card = await ReactiveCache.getCard({ _id: paramCardId, boardId: paramBoardId });
+    if (!commentCardMatchesBoard(card, paramCardId, paramBoardId)) {
+      recordCommentBoundaryDenial('rest:comment-insert');
+      sendJsonResult(res, { code: 404, data: { error: 'Card not found' } });
+      return;
+    }
 
     // Validate the required `comment` parameter before inserting. Without this
     // an empty/missing comment reaches the schema-validated insert and throws a
