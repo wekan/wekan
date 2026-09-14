@@ -1181,7 +1181,7 @@
   "assigned-by": "Assigné par",
   "requested-by": "Demandé par",
   "card-sorting-by-number": "Tri numérique des cartes",
-  "board-delete-notice": "La suppression est définitive. Vous perdrez toutes les listes, cartes et actions associées à ce tableau.",
+  "board-delete-notice": "ⵜⵓⴽⴽⵙⴰ ⴰⴷ ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⴰⴷ ⴷ ⵉⵡⵔⵔⵉ. ⵔⴰⴷ ⵜⵜⵓⴽⴽⵙⵏⵜ ⴰⴽⴽⵯ ⵜⵉⵍⴳⴰⵎⵉⵏ, ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⴷ ⵜⵉⴳⴰⵡⵉⵏ ⵉⵣⴷⵉⵏ ⵉ ⵜⴼⵍⵡⵉⵜ ⴰⴷ.",
   "delete-board-confirm-popup": "ⵔⴰⴷ ⵜⵜⵓⴽⴽⵙⵏⵜ ⴰⴽⴽⵯ ⵜⵉⵍⴳⴰⵎⵉⵏ, ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ, ⵜⵉⵎⴰⵜⴰⵔⵉⵏ ⴷ ⵜⵉⴳⴰⵡⵉⵏ. ⵓⵔ ⵔⴰ ⵜⵥⴹⴰⵕⴷ ⴰⴷ ⵜⵙⵡⵔⵔⵉⴷ ⵜⵓⵎⴰⵢⵜ ⵏ ⵜⴼⵍⵡⵉⵜ. ⴰⵙⵏⴼⵍ ⴰⴷ ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⴰⴷ ⴷ ⵉⵡⵔⵔⵉ.",
   "boardDeletePopup-title": "Supprimer le tableau ?",
   "delete-board": "ⴽⴽⵙ ⵜⴰⴼⵍⵡⵉⵜ",

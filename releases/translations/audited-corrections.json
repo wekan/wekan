@@ -126747,5 +126747,12 @@
     "before": "استيراد لوحة",
     "after": "ⵙⴽⵛⵎ ⵜⴰⴼⵍⵡⵉⵜ",
     "reason": "2026-09-14: additional wrong-language repair outside original findings. Native MediaWiki zgh importlogpage uses is kchumn (Import log); reuse skchm root and existing WeKan import-usernames command. Replace Latin Kter or Arabic with Tamazight, preserving generic Import versus Import Board. Singular action noun and complete board command remain LOW CONFIDENCE adaptations pending native review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "board-delete-notice",
+    "before": "La suppression est définitive. Vous perdrez toutes les listes, cartes et actions associées à ce tableau.",
+    "after": "ⵜⵓⴽⴽⵙⴰ ⴰⴷ ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⴰⴷ ⴷ ⵉⵡⵔⵔⵉ. ⵔⴰⴷ ⵜⵜⵓⴽⴽⵙⵏⵜ ⴰⴽⴽⵯ ⵜⵉⵍⴳⴰⵎⵉⵏ, ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⴷ ⵜⵉⴳⴰⵡⵉⵏ ⵉⵣⴷⵉⵏ ⵉ ⵜⴼⵍⵡⵉⵜ ⴰⴷ.",
+    "reason": "2026-09-14: replaced French permanent board deletion notice. Reuse independently reviewed delete-board-confirm-popup no-undo clause and future deletion construction; native MediaWiki dellogpage supplies deletion tukksa, actions supplies tigawin, and tooltip-t-whatlinkshere/nolinkshere attest association izdin. Preserve permanent irreversibility and ALL lists/cards/actions associated with THIS board WILL be lost via deletion. Relative agreement, future passive plural and complete warning remain LOW CONFIDENCE pending native review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
