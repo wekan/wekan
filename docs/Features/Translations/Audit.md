@@ -20,16 +20,17 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,474** exact before/after values, including unflagged repairs.
+contain **18,475** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `6aa5991de` —
-four restored Acehnese cancellation/text/success/assignment meanings repaired,
-plus the unflagged Malay no-assignee filter. All **18,474** corrections pass
-structural checks. Whole connection/assignment grammar remains adapted and
-needs native review; full language/browser review remains open. Acehnese
-restored Due today remains under meaning review.
+Latest translation fix: **2026-09-14**, local commit `afbff51df` —
+Basque Spanish es repaired to da; triggers omit the redundant separate
+linking verb because Basque action labels contain their temporal clause.
+All **18,475** corrections pass structural checks. Runtime helper language
+switching, other-locale preservation and Jade compilation pass. Browser
+regressions are added and syntax-checked; execution and full restored phrase
+review remain open. Whole-language and low-confidence review continues.
 Latest unchanged review: **2026-09-14**, commit `64f1d7367` —
 assigned-card shortcut retained against actual current-user assignee toggle.
 IEC recognizes meves/meues as dialect variants; no wrong-language finding

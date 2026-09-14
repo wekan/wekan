@@ -23174,3 +23174,24 @@ a search hit alone established that Batai or Teuks is impossible in all usage.
 All 18,474 correction and 4,158 retained-review checks pass. Original counts:
 15,601 corrected, 23 restored, 4,158 retained and 299 pending. Restored Acehnese
 Due today and broader wrong-language filter/role/search prose remain open.
+
+Dated unflagged grammar repair, 2026-09-14, local commit `afbff51df`:
+Basque r-is changes Spanish es to da. More importantly, actual board/card/
+checklist trigger templates use the shared ruleTriggerCopula helper. Basque
+shared actions already contain denean temporal clauses, so the extra linking
+verb is omitted for eu and its regional tag forms. Other locales still receive
+their translated r-is, preserving English is and Galician é. No empty locale
+translation is introduced, and no unconditional template deletion is used.
+Native MediaWiki Basque software sentences attest denean and native finite da:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/eu.json
+This supports the grammatical distinction, not certification of every restored
+subject/destination phrase. Existing shared actions/subjects remain unchanged.
+Positive/negative node tests exercise actual registered helper execution with
+language changes, assembled named-member/assignee phrases, template wiring and
+other-locale preservation. All Jade templates compile with the real compiler.
+Browser regression covers named-member rule creation in Basque and English;
+syntax check passes, execution remains open without a running test application.
+All 18,475 correction and 4,158 retained checks pass. Original counts remain
+15,601 corrected, 23 restored, 4,158 retained and 299 pending. The 15 restored
+Basque findings still require full phrase review; this linking-verb repair is
+not a claim that their destination wording or subject terminology is certified.

@@ -671,6 +671,17 @@ The empty wrongly placed Git directory was removed locally.
 **Languages updated:** Acehnese, Bambara, Basque, Breton, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/afbff51df">Repair Basque rule-trigger verb composition</a>. Thanks to xet7.</summary>
+
+Replace Spanish es with Basque da and omit the redundant linking verb in
+Basque triggers whose action labels already contain the temporal clause.
+Preserve other languages and reactive language changes. Node and Jade checks
+pass; browser regression is added and syntax-checked. Browser execution and
+full restored phrase review remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6aa5991de">Repair restored Acehnese translation meanings</a>. Thanks to xet7.</summary>
 
 Repair cancellation, text, connection-success and no-assignee labels, including
