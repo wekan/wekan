@@ -1027,6 +1027,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/64e524f27">Repair Tamazight due-date search instruction</a></summary>
+
+Replace French prose, preserving numeric and overdue examples and literal
+operators. Four focused suites pass. Temporal grammar and the numeric
+cutoff's discrepancy with the English instruction remain under review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

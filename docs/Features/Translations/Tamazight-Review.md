@@ -3896,3 +3896,19 @@ in config/query-classes.js; no parser behavior changed. Four focused
 suites pass for distinct values, wrong-language negatives and all literal
 placeholder inventories. No live search UI verification ran. Ledger
 19,872; corrected 15,753, pending 150 (zgh 57), restored 4 unchanged.
+
+
+2026-09-15 — `64e524f27`: French due search instruction replaced with
+Tamazight numeric deadline and separate all-overdue example. IRCAM entry
+3563 ar means until, 6184 dghi now; existing due-date compound is retained.
+Before now paraphrases past due date. Numeric prose does not add a future
+lower bound or exclude overdue cards. Literal __operator_due__ twice,
+__predicate_overdue__, :<n>, *<n>* remain exact. Existing balanced locale
+backticks retained despite English missing its closing example backtick.
+Full temporal/possessive grammar and computing deadline compound remain
+low confidence. Four focused suites pass; no live search UI test ran.
+Actual config/query-classes.js numeric due $lt uses nested add(now(), 1 day)
+and then days+1: an n+2 cutoff, rather than the English up-to-n hint.
+Overdue predicate uses $lt now. This translation repair follows source
+prose, not a silent parser rewrite; numeric source/hint conflict is open.
+Ledger 19,873; corrected 15,754, pending 149 (zgh 56), restored 4 unchanged.
