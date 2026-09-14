@@ -126859,5 +126859,19 @@
     "before": "أنتَ لا تملك الصلاحيات لرؤية هذه الصفحة.",
     "after": "ⵓⵔ ⴷⴰⵔⴽ ⵜⵓⵔⴰⴳⵜ ⴰⴼⴰⴷ ⴰⴷ ⵜⵙⴽⵏⴷ ⵜⴰⵙⵏⴰ ⴰⴷ.",
     "reason": "2026-09-14: Replace Arabic authorization error with Standard Moroccan Tamazight. Native MediaWiki zgh permissionserrorstext-withaction supplies ur dark turagt afad ad; viewsourcetext supplies conjugated tsknd and tasna a, while pageinfo supplies tasna ad. Preserves denial of permission to view this page. Combined sentence and demonstrative adaptation remain low confidence pending fluent review. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "board-public-info",
+    "before": "سوف تصبح هذه اللوحة <strong>عامّة</strong>.",
+    "after": "ⵜⴰⴼⵍⵡⵉⵜ ⴰⴷ ⵔⴰ ⴰⴷ ⵜⵉⵍⵉ <strong>ⵜⴰⴳⴷⵓⴷⴰⵏⵜ</strong>.",
+    "reason": "2026-09-14: Replace Arabic visibility notice with Tamazight, retaining future state, this board and exact strong tags. Existing public agdudan and private uslig adapted to feminine tafelwit; full future construction and agreement remain low confidence pending fluent review. Native HACA public-sector terminology supports agdudan; native institutional texts support feminine public adjective. Sources: https://www.haca.ma/tf/%E2%B5%89%E2%B4%B3%E2%B5%94-%E2%B4%B0%E2%B4%B3%E2%B4%B7%E2%B5%93%E2%B4%B7%E2%B4%B0%E2%B5%8F ; https://www.haca.ma/sites/default/files/upload/Rapport_Haca%202023_TIFINAGH_Web.pdf . Indexed institutional evidence is terminology support, not direct verification of the complete WeKan sentence."
+  },
+  {
+    "locale": "zgh",
+    "key": "board-private-info",
+    "before": "سوف تصبح هذه اللوحة <strong>خاصة</strong>",
+    "after": "ⵜⴰⴼⵍⵡⵉⵜ ⴰⴷ ⵔⴰ ⴰⴷ ⵜⵉⵍⵉ <strong>ⵜⵓⵙⵍⵉⴳⵜ</strong>.",
+    "reason": "2026-09-14: Replace Arabic visibility notice with Tamazight, retaining future state, this board and exact strong tags. Existing public agdudan and private uslig adapted to feminine tafelwit; full future construction and agreement remain low confidence pending fluent review. Native HACA public-sector terminology supports agdudan; native institutional texts support feminine public adjective. Sources: https://www.haca.ma/tf/%E2%B5%89%E2%B4%B3%E2%B5%94-%E2%B4%B0%E2%B4%B3%E2%B4%B7%E2%B5%93%E2%B4%B7%E2%B4%B0%E2%B5%8F ; https://www.haca.ma/sites/default/files/upload/Rapport_Haca%202023_TIFINAGH_Web.pdf . Indexed institutional evidence is terminology support, not direct verification of the complete WeKan sentence."
   }
 ]
