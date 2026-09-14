@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight original-order repair — 2026-09-14
+
+Commit `996cc65c7` repairs two Arabic values using Order `asedwa` and Original `asakran` from Asawaliw atrar, PDF pages 160–161. The inspected preface (page 6, zero-based 5) explicitly adopts vocabulary across Tarifit, Tasousit, Kabyle, Tuareg and Tamazight and permits creative derivation. Therefore this dictionary is cross-variety candidate evidence, not normative IRCAM/Standard Moroccan attestation. List-sequence meaning and full wording remain LOW CONFIDENCE. This supersedes the unrepaired original-order status below; the Become review remains open.
+
 ## Tamazight checklist conversion review — 2026-09-14
 
 Direct native [Ministry public-service statute](https://www.mmsp.gov.ma/amz/nos-metiers/statut-g%C3%A9n%C3%A9ral-de-la-fonction-publique) uses `ittaghul` when dating the statute back to 1958. This establishes Return/date-back usage, not the proposed `ittughal` for a text line becoming an item. The morphological difference must not be silently normalized. Exact candidate Become and ordering searches supplied no authoritative matches; this does not prove absence. Keep the current correction low confidence and review conversion separately from Return. The original-order variant remains unrepaired; its constraint must survive translation. No values or counts changed.

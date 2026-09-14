@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,403 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 441 pending review or repair.
-The correction inventory records 17,865 exact before/after values,
+findings: 15,404 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 440 pending review or repair.
+The correction inventory records 17,867 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,12 +102,12 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 9c290966f (2026-09-14), replacing Arabic each-line
-checklist guidance. Derived Become and full grammar remain low confidence;
-the original-order variant needs separate review.
+Latest translation fix is 996cc65c7 (2026-09-14), replacing two Arabic
+original-order labels/hints. Cross-variety dictionary candidates preserve
+the constraint; terminology and full wording remain low confidence.
 Conversion review ecae7d919 (2026-09-14) distinguishes native Return/date-back
 from the proposed checklist Become verb; confidence remains low and the
-original-order variant remains open. No values/counts changed.
+original-order variant is repaired in 996cc65c7 with low-confidence candidates. No values/counts changed.
 Checklist completion evidence follow-ups 9de9f2c15 and 4139001a3 distinguish
 legal supplementation from directly attested software Complete Login. Past
 actor form and full checklist grammar remain low confidence. Values/counts unchanged.
@@ -643,10 +643,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,403 original findings are
+Translation audit progress as of 2026-09-14: 15,404 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 441 remain pending across 17 locales, including 306 Tamazight findings.
-The ledger contains 17,865 correction records, including unflagged repairs.
+and 440 remain pending across 17 locales, including 305 Tamazight findings.
+The ledger contains 17,867 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -2424,6 +2424,16 @@ Native Ministry Return/date-back usage does not verify the proposed Become
 verb or its morphology. Retain low confidence and separately review the
 original-order constraint. No translation values or counts changed.
 All 17,865 correction checks pass; 441 originals remain pending.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/996cc65c7">Translate Tamazight original-order checklist guidance</a>. Thanks to xet7.</summary>
+
+Replace two Arabic values, including an unflagged label. Preserve original
+ordering and one item per text line. Inspected dictionary preface confirms
+cross-variety proposals; terminology and full grammar remain low confidence.
+All 17,867 correction checks pass; 440 original findings remain pending.
 
 </details>
 
