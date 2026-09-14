@@ -681,6 +681,17 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2cabcdb17">Replace Spanish rule actor label in Basque</a>. Thanks to xet7.</summary>
+
+Optional rule username fields use the Basque actor question Nork: instead
+of Spanish por. Native grammar and actual template context support the label.
+Correction/review ledgers, rule-helper checks and locale completeness pass.
+The dated audit keeps restored add/remove noun-case and ordering defects open;
+complete trigger fluency and live browser execution are not yet verified.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4b1c92cb5">Repair Breton optional and name labels</a>. Thanks to xet7.</summary>
 
 Optional/group-name and full/display/short-name fields replace French wording

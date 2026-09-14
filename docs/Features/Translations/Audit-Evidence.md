@@ -23465,3 +23465,24 @@ the group-name input; previous Anv (optionnel) also omitted the group noun.
 Four offline suites pass; exact ledger 18,573, retained reviews 4,162.
 Original 299 pending and 19 restored findings remain open, as do uncertain
 phrases, native grammar and browser execution. No remote writes or subagents.
+
+### 2026-09-14 — Basque actor label and restored phrase recheck (2cabcdb17)
+
+r-by Spanish por → Nork:, a question label before the optional username
+field in board/card/checklist trigger templates.
+[EHU native grammar, chapter 8](https://egeo.ehu.eus/kapitulu/ikuspegia/8)
+identifies nork as ergative actor interrogative (8.3.2); field labeling avoids
+concatenating an English/Spanish-style preposition with an uninflected username.
+Actual template context and helper regression checks pass. This is outside
+the original flagged queue. Ledger 18,574; original counts remain unchanged.
+
+Restored r-added-to/r-removed-from plus shared r-a-card are not accepted.
+The same txartel bat follows both Gehitzen denean hona: and Kentzen denean
+hemendik:. EHU 8.3.3 attests indefinite dative noun + bati and distinguishes
+ablative morphology; one shared uninflected noun cannot cover both cases.
+[EHU computing teaching source](https://ocw.ehu.eus/file.php/149/konputagailuen_arkitektura_i/teoria/oinarri-txartela.pdf)
+uses gehitu with txartelari, corroborating dative addition. No isolated lexical
+review closes these composition defects. A later repair needs action-sensitive
+case/ordering without changing stored trigger identifiers or other locales.
+Four offline suites pass; full phrase and browser validation remain open.
+No external translation service, subagents or remote writes.

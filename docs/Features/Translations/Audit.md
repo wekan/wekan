@@ -20,17 +20,17 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,573** exact before/after values, including unflagged repairs.
+contain **18,574** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `4b1c92cb5` —
-five Breton optional/group-name and full/display/short-name labels repaired.
-The group noun omitted previously is restored; name meanings stay distinct.
-Native optional/display terms and existing vocabulary support adapted wording.
-All **18,573** corrections and **4,162** unchanged reviews pass, alongside
-focused locale and completeness checks. These unflagged repairs do not reduce
-the original pending queue. Full contextual and live browser review remain open.
+Latest translation fix: **2026-09-14**, local commit `2cabcdb17` —
+Basque rule actor-field label replaces Spanish por with Nork:.
+Native grammar and actual username-field context support the question label.
+All **18,574** corrections and **4,162** unchanged reviews pass, alongside
+focused rule-helper and completeness checks. This unflagged repair does not
+reduce the original pending queue. Restored Basque add/remove phrases still
+need context-sensitive noun cases and sentence ordering; browser review is open.
 Latest unchanged review: **2026-09-14**, commit `824dd005e` —
 Danish Dage gammel retained with native dictionary age-construction evidence;
 the Swedish pulled replacement remains rejected. No current application use
