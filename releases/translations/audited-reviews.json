@@ -6520,5 +6520,323 @@
     "key": "r-d-archive",
     "value": "Movi karton al Arkivo",
     "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "r-d-unarchive",
+    "value": "Restarigi karton el Arkivo",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "r-d-add-label",
+    "value": "Aldoni etikedon",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "r-create-card",
+    "value": "Krei novan karton",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "r-d-check-all",
+    "value": "Marki ĉiujn erojn de listo",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "r-d-uncheck-all",
+    "value": "Malmarki ĉiujn erojn de listo",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "r-swimlane-name",
+    "value": "nomo de naĝlinio",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "r-board-note",
+    "value": "Noto: lasu kampon malplena por kongrui kun ĉiu ebla valoro.  ",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "r-checklist-note",
+    "value": "Noto: la eroj de kontrollisto devas esti skribitaj kiel valoroj apartigitaj per komoj.",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "r-when-a-card-is-moved",
+    "value": "Kiam karto estas movita al alia listo",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "r-link-card",
+    "value": "Ligi karton al",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "add-custom-html-after-body-start",
+    "value": "Aldoni propran HTML post la komenco de <body>",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "add-custom-html-before-body-end",
+    "value": "Aldoni propran HTML antaŭ la fino de </body>",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "duplicate-board",
+    "value": "Duobligi tabulon",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "duplicate-board-confirm",
+    "value": "Ĉu vi certas, ke vi volas duobligi ĉi tiun tabulon?",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "swimlane-delete-pop",
+    "value": "Ĉiuj agoj estos forigitaj el la aktivaĵa fluo kaj vi ne povos restarigi la naĝlinion. Ne eblas malfari.",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "act-newDue",
+    "value": "__list__/__card__ havas unuan limdatan memorigon [__board__]",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts-allowUserDelete",
+    "value": "Uzanto mem povas forigi sian konton",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "hide-minicard-label-text",
+    "value": "Kaŝi etikedan tekston sur minikarto",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "show-desktop-drag-handles",
+    "value": "Montri trentenilojn por labortablo",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "addmore-detail",
+    "value": "Aldoni pli detalan priskribon",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "show-on-card",
+    "value": "Montri sur karto",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "editUserPopup-title",
+    "value": "Redakti uzanton",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "newUserPopup-title",
+    "value": "Nova uzanto",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "remove-all-read",
+    "value": "Forigi ĉiujn legitajn",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "delete-linked-card-before-this-card",
+    "value": "Vi ne povas forigi ĉi tiun karton antaŭ ol unue forigi la ligitan karton, kiu havas",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "delete-linked-cards-before-this-list",
+    "value": "Vi ne povas forigi ĉi tiun liston antaŭ ol unue forigi la ligitajn kartojn, kiuj montras al kartoj en ĉi tiu listo",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "autoAddUsersWithDomainName",
+    "value": "Aŭtomate aldoni uzantojn kun la domajna nomo",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "my-cards",
+    "value": "Miaj kartoj",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "card",
+    "value": "Karto",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "board",
+    "value": "Tabulo",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "myCardsViewChange-title",
+    "value": "Vido de miaj kartoj",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "myCardsViewChangePopup-title",
+    "value": "Vido de miaj kartoj",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "myCardsViewChange-choice-boards",
+    "value": "Tabuloj",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "myCardsSortChange-title",
+    "value": "Ordigo de miaj kartoj",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "myCardsSortChangePopup-title",
+    "value": "Ordigo de miaj kartoj",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "myCardsSortChange-choice-board",
+    "value": "Laŭ tabulo",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "dueCards-title",
+    "value": "Kartoj kun limdato",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "dueCardsViewChange-title",
+    "value": "Vido de kartoj kun limdato",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "dueCardsViewChangePopup-title",
+    "value": "Vido de kartoj kun limdato",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "dueCardsViewChange-choice-all",
+    "value": "Ĉiuj uzantoj",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "broken-cards",
+    "value": "Difektitaj kartoj",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "board-title-not-found",
+    "value": "Tabulo '%s' ne trovita.",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "user-username-not-found",
+    "value": "Uzantnomo '%s' ne trovita.",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-title",
+    "value": "Serĉi en ĉiuj tabuloj",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "no-cards-found",
+    "value": "Neniu karto trovita",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "one-card-found",
+    "value": "Unu karto trovita",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "n-cards-found",
+    "value": "%s kartoj trovitaj",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-board",
+    "value": "tabulo",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-user",
+    "value": "uzanto",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-has-invalid",
+    "value": "%s ne estas valida ekzist-kontrolo",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-description",
+    "value": "Serĉoj povas enhavi operatorojn por rafini la serĉon.  Operatoroj estas indikataj skribante la nomon de la operatoro kaj la valoron apartigitajn per dupunkto.  Ekzemple, la operatora specifo `list:Blocked` limigus la serĉon al kartoj, kiuj troviĝas en listo nomata *Blocked*.  Se la valoro enhavas spacojn aŭ specialajn signojn, ĝi devas esti metita inter citilojn (ekz. `__operator_list__:\"To Review\"`).",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-operator-board",
+    "value": "`__operator_board__:<title>` - kartoj en tabuloj kongruaj kun la indikita *<title>*",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-operator-comment",
+    "value": "`__operator_comment__:<text>` - kartoj kun komento enhavanta *<text>*.",
+    "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
   }
 ]
