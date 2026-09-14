@@ -121490,5 +121490,19 @@
     "before": "المقرر الاسبوع المقبل",
     "after": "ⴰⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ: ⵉⵎⴰⵍⴰⵙⵙ ⵉⵏⴹⴼⵔ",
     "reason": "LOW CONFIDENCE composed missing/weekly due-date filter. Reuse the documented final-date adaptation; complete kanban deadline semantics remain open. CLDR fields/week attests imalass/week. Native MediaWiki next attests indhfr/next, category-empty attests ad/this, and diff-empty attests ur illi/no singular object. Derive bound date form usakud for the negative clause. Preserve no-date versus due-date and current-week versus following-week scopes; client/lib/filter.js relativeWeek confirms calendar weeks rather than a rolling seven days. Full next-week agreement, bound state and complete filter phrasing require fluent review. Replace French and Arabic. References: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "addmore-detail",
+    "before": "Ajouter une description plus détaillée",
+    "after": "ⵔⵏⵓ ⴰⵙⴳⵣⵍ ⵙ ⵓⴳⴳⴰⵔ ⵏ ⵉⴼⵔⵓⵔⵉⵜⵏ",
+    "reason": "LOW CONFIDENCE composed add-more-detailed-description prompt. Native MediaWiki skin-action-addsection attests rnu/add, filedesc attests asgzl/description, moredotdotdot and linkstoimage-more attest uggar/more, and blockedtext-include-details-queries attests ifruritn/details. Express the more-detailed requirement as description with more details; preserve addition rather than editing/removal. Full with-more-details phrase and inflection require fluent review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "dueCardsViewChange-choice-all",
+    "before": "كل المستخدمين",
+    "after": "ⵉⵏⵙⵙⵎⵔⵙⵏ ⴰⴽⴽⵯ",
+    "reason": "Composed all-users due-card view choice. Reuse the previously reviewed admin all-users label using native Mastodon column.blocks users noun and notifications.filter.all exact all form. Replace Arabic while preserving all-users scope. Full combined due-card view usage remains open for fluent review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
   }
 ]
