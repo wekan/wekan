@@ -2614,5 +2614,185 @@
     "key": "shortName",
     "value": "Kort navn",
     "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "website",
+    "value": "Websted",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "my-cards",
+    "value": "Mine kort",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "today",
+    "value": "I dag",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "week",
+    "value": "Uge",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "month",
+    "value": "Måned",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "myCardsViewChange-title",
+    "value": "Visning af mine kort",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "myCardsViewChangePopup-title",
+    "value": "Visning af mine kort",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "myCardsSortChange-choice-dueat",
+    "value": "Efter forfaldsdato",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "dueCards-noResults-title",
+    "value": "Ingen kort med forfaldsdato fundet",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "dueCards-noResults-description",
+    "value": "Du har ingen kort med forfaldsdato i øjeblikket.",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "broken-cards",
+    "value": "Defekte kort",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "org-name-not-found",
+    "value": "Organisationen '%s' blev ikke fundet.",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "team-name-not-found",
+    "value": "Teamet '%s' blev ikke fundet.",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "no-cards-found",
+    "value": "Ingen kort fundet",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "one-card-found",
+    "value": "Ét kort fundet",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "n-cards-found",
+    "value": "%s kort fundet",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "operator-swimlane",
+    "value": "svømmebane",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "operator-assignee",
+    "value": "tildelt",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "operator-creator",
+    "value": "opretter",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "operator-created",
+    "value": "oprettet",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "operator-modified",
+    "value": "ændret",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "operator-sort",
+    "value": "sortér",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "operator-limit",
+    "value": "grænse",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "operator-debug",
+    "value": "fejlsøg",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "operator-customfield",
+    "value": "brugerdefineret felt",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "operator-attachment-text",
+    "value": "vedhæftning",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "predicate-archived",
+    "value": "arkiveret",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "predicate-open",
+    "value": "åben",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "predicate-ended",
+    "value": "afsluttet",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
+  },
+  {
+    "locale": "da",
+    "key": "predicate-all",
+    "value": "alle",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm website/my-card/time-period labels, due-date sorting, no due cards at present, broken cards, organization/team not-found subjects, zero/one/n-card result distinctions, localized operator and predicate meanings including creator versus assignee, created versus modified and archived/open/ended/all. Preserve percent placeholders and quotes. Valid Danish imperative sortér/fejlsøg and customfield description remain unchanged; runtime parsing is a separate implementation check. Ambiguous export-card-excel-free excluded."
   }
 ]
