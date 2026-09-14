@@ -124045,5 +124045,12 @@
     "before": "نقاصيل البطاقة",
     "after": "ⵉⴼⵔⵓⵔⵉⵜⵏ ⵏ ⵜⴽⴰⵕⴹⴰ",
     "reason": "2026-09-14: Replace Arabic heading, preserving Card Details popup, plural details of a singular card, not description alone or Board Details. Native MediaWiki passwordreset-emailtitle and metadata-help attest ifruritn/details. Reuse existing WeKan board/card nouns. LOW CONFIDENCE complete kanban noun phrase and bound-state adaptation: native title/details components do not independently establish full heading or board/card terminology extension. Fluent review remains required. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ Minguo",
+    "reason": "2026-09-14: Replace English Republic of China with native Calendar noun and preserve exact Minguo calendar name from English source Minguo Calendar. Current CLDR zgh localeDisplayNames/keys/calendar supplies asmlussan; no full roc calendar display name is supplied there. Do not substitute a Chinese language name or generic Chinese calendar, which would identify a different system. LOW CONFIDENCE complete mixed-script naming: native generic Calendar is supported, but full Standard Moroccan Minguo display name still needs fluent review. Reference: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml ."
   }
 ]
