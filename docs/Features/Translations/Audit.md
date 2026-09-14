@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,464 |
+| Corrected | 15,468 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 380 |
+| Pending review or repair | 376 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,011** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,015** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `10b082127` — repaired five unflagged settings labels. Preserve Team settings, Return/Save distinction and S3 failure versus completed successful save. Native Settings/Return/Saved components support wording; derived save noun, passive agreement, Team vocabulary reuse and full phrases remain **low confidence**. All **18,011** correction checks pass; original counts unchanged: **380** findings remain pending across **17** locales, including **245** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `34a98e0d1` — repaired four French cron findings. Preserve Resume PAUSED migrations, NO paused items to resume, completed successful resumption and ALL errors cleared. Native Resume/Paused/Clear components support wording; plural passives, migration adaptation and full phrases remain **low confidence**. All **18,015** correction checks pass; **376** original findings remain pending across **17** locales, including **241** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Archive noun review (2026-09-14, `fbe388603`):** directly inspected a native Archives du Maroc logo in a university PDF, corroborating the archive noun beyond the earlier search-index excerpt. Updated nine provenance records; values/counts unchanged. Institutional-to-kanban adaptation and full labels remain low confidence. [Evidence](Audit-Evidence.md) records the exact source and scope.
 
