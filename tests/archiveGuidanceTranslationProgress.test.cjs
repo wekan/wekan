@@ -103,3 +103,17 @@ for (const code of ['km', 'km-KH', 'km_KH']) {
  }
 }
 console.log('Khmer board-sense sweep: all governing-council terms removed; visibility, ordering, deposit and swimlane meanings preserved');
+
+const uz = read('uz');
+for (const [key, value] of Object.entries(uz))
+ assert.doesNotMatch(value, /kengash|taxtai|taxtasingiz/i, `uz:${key}: board noun and possessive morphology`);
+assert.match(uz['act-removeBoard'], /__board__ taxtasi/);
+assert.match(uz['import-board-instruction-wekan'], /^Taxtangizda/);
+assert.match(uz['migration-progress-note'], /^Taxtangizni/);
+assert.match(uz['home-board-empty'], /faqat bitta taxtani/);
+assert.match(uz['unmigrated-boards'], /^Migratsiya qilinmagan/);
+assert.doesNotMatch(uz['act-addBoardMember'], /boshqaruv/);
+assert.strictEqual(uz['select-board'], 'Taxtani tanlang');
+for (const visibility of ['private','public'])
+ assert.ok(uz[`board-${visibility}-info`].includes(`<strong>${uz[visibility]}</strong>`));
+console.log('Uzbek board-sense sweep: council terms removed, possessive cases and selection/visibility meanings verified');
