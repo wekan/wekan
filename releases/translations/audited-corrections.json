@@ -130856,5 +130856,19 @@
     "before": "Kay willaymi: Calendarta",
     "after": "Watanqillqa",
     "reason": "Replace untranslated generic calendar label with native Cusco Collao dictionary term; Ministry of Education Chile, 2019, printed page 18. Specific calendar-system compounds remain under review."
+  },
+  {
+    "locale": "qu",
+    "key": "day",
+    "before": "Kay willaymi: Dayta",
+    "after": "P’unchay",
+    "reason": "Replace language-prefix-wrapped English with native Cusco Collao dictionary wording (Chilean Ministry of Education 2019, printed pages 18 and time vocabulary). Preserve the daily recurrence meaning."
+  },
+  {
+    "locale": "qu",
+    "key": "every-1-day",
+    "before": "Kay willaymi: Everyta 1 dayta",
+    "after": "Sapa p’unchay",
+    "reason": "Replace language-prefix-wrapped English with native Cusco Collao dictionary wording (Chilean Ministry of Education 2019, printed pages 18 and time vocabulary). Preserve the daily recurrence meaning."
   }
 ]

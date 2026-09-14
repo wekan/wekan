@@ -21,3 +21,19 @@ and solar-observatory term. Locale-wide placeholder and key-order checks
 remain in that suite. A direct interface reference to the generic key was
 not located in the inspected client source, so no browser rendering of this
 key is claimed. Calendar-system settings verification remains open.
+
+## Day and daily recurrence — 2026-09-14
+
+The same primary dictionary directly attests `P’unchay` (day) in its time
+vocabulary (printed page 158) and `Sapa p’unchay` (each day) on printed page 18. Local `day`
+and `every-1-day` previously contained English words with a language prefix;
+they now use those native terms. These are quoted lexical entries rather
+than newly composed astronomical terminology. Other Quechua varieties may
+spell the day noun differently; this batch consistently follows the native
+Cusco Collao source without overwriting unrelated existing values.
+
+The board calendar and multiboard calendar both translate the `day` toolbar
+label through this key. The focused test verifies that wiring, exact native
+values, and rejection of the previous English wrappers. The older recurrence
+key has no direct reference in the inspected client source. No live browser
+check is claimed. The pending astronomical-epoch compound remains unresolved.

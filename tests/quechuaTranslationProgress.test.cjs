@@ -39,6 +39,16 @@ assert.equal(quechua.settings, 'Allichaykuna');
 // Chilean Ministry of Education, native Cusco Collao dictionary (2019), p. 18.
 assert.equal(quechua.calendar, 'Watanqillqa');
 assert.doesNotMatch(quechua.calendar, /Calendart|Kay willaymi|Intiwatana/);
+assert.equal(quechua.day, 'P’unchay');
+assert.equal(quechua['every-1-day'], 'Sapa p’unchay');
+for (const key of ['day', 'every-1-day']) {
+  assert.doesNotMatch(quechua[key], /Kay willaymi|Everyta|[Dd]ayta/);
+}
+for (const file of ['client/components/boards/boardBody.js',
+  'client/components/boards/multiboardCalendarView.js']) {
+  assert.match(fs.readFileSync(path.join(root, file), 'utf8'),
+    /day: t\('day', 'Day'\)/, 'calendar toolbar uses the translated day label');
+}
 assert.match(quechua['act-deleteCard'], /Qullusqa Tarjeta/);
 assert.deepEqual(tokens(quechua['act-deleteCard']),
   ['__board__', '__card__', '__list__', '__swimlane__']);
