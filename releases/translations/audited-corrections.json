@@ -121875,5 +121875,19 @@
     "before": "Afficher sur la page de tous les tableaux",
     "after": "ⵙⴽⵏ ⴳ ⵜⵙⵏⴰ ⵏ ⵜⴼⵍⵡⵉⵏ ⴰⴽⴽⵯ",
     "reason": "Replace French. Native MediaWiki view attests show/skn, title-invalid bound page tsna and searchall all/akkw. Reuse existing board plural vocabulary with bound tflwin in page-of-all-boards scope. Preserve display on the All Boards page, not displaying every board or changing membership/access scope. LOW CONFIDENCE bound board plural and complete page genitive composition. References: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-field-dropdown-options-placeholder",
+    "before": "Appuyez sur Entrée pour ajouter d'autres options",
+    "after": "ⵔⵏⵓ ⵜⵉⴷⵖⵔⵉⵏ ⵢⴰⴹⵏⵉⵏ ⵙ Enter",
+    "reason": "Replace French. Native MediaWiki apisandbox-add-multi attests Add/rnu and watchlist-options tidghrin/options; userexists attests other yadn, deriving plural yadnin. Express adding more options with Enter rather than inventing an unattested keyboard press verb. Preserve the same physical key and option scope. LOW CONFIDENCE plural other qualifier, instrumental keyboard usage and complete instruction. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "before": "Appuyez sur Entrée pour ajouter plus d'éléments",
+    "after": "ⵔⵏⵓ ⵉⴼⵔⴷⵉⵙⵏ ⵢⴰⴹⵏⵉⵏ ⵙ Enter",
+    "reason": "Replace French. Use native MediaWiki Add/rnu and other qualifier components, with Enter retained as the physical key name. Reuse inherited local item noun ifrdisn without schwa transcription, keeping items distinct from dropdown options. Express adding more items with Enter, equivalent action/key scope to Press Enter to add more items. LOW CONFIDENCE inherited item terminology and dialect, plural qualifier, keyboard instrumental and full instruction; native add/other components do not establish Standard Moroccan item usage. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
