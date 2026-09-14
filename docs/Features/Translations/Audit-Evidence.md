@@ -21866,3 +21866,13 @@ not a payroll-specific definition. Thus native full-phrase fluency still
 belongs to the broader review. All 18,156 corrections pass. Three Esperanto
 restored findings remain; globally 2,053 restored and 308 pending findings
 plus broader language/browser verification remain open.
+
+
+### Galician card and checklist activities — 2026-09-14
+
+Local commit `0d2e977d9` retains twenty-five correct attachment, label,
+checklist, comment, creation and custom-field actions. Galician past verbs
+and marcado/desmarcado distinctions preserve their actions; object
+relationships and placeholders remain intact. All 2,185 reviews pass;
+2,028 restored values and 308 pending findings plus broader language and
+browser verification remain open. Three uncertain Esperanto findings remain.
