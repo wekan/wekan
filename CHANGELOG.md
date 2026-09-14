@@ -668,7 +668,18 @@ The empty wrongly placed Git directory was removed locally.
 
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
-**Languages updated:** Acehnese, Bambara, Basque, Breton, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
+**Languages updated:** Acehnese, Afrikaans, Akan, Albanian, Amharic, Arabic, Aragonese, Armenian, Aromanian, Assamese, Asturian, Aymara, Azerbaijani, Bambara, Bangla, Bashkir, Basque, Belarusian, Bhojpuri, Bislama, Bosnian, Breton, Bulgarian, Buriat, Burmese, Cantonese, Catalan, Central Kurdish, Cherokee, Chinese, Chuvash, Cornish, Corsican, Croatian, Czech, Danish, Dutch, Dzongkha, English, Esperanto, Estonian, Ewe, Faroese, Fijian, Filipino, Finnish, Flemish, French, Friulian, Fula, Galician, Ganda, Georgian, German, Greek, Guarani, Gujarati, Haitian Creole, Hausa, Hawaiian, Hebrew, Hindi, Hungarian, Icelandic, Igbo, Indonesian, Inuktitut, Irish, Italian, Japanese, Javanese, Kalaallisut, Kannada, Kashmiri, Kashubian, Kazakh, Khmer, Kinyarwanda, Klingon, Konkani, Korean, Kurdish, Kyrgyz, Ladin, Latin, Latvian, Lithuanian, Luxembourgish, Macedonian, Maithili, Malagasy, Malay, Malayalam, Maltese, Manx, Marathi, Mongolian, Moroccan Arabic, Māori, Nahuatl, Neapolitan, Nepali, North Ndebele, Northern Sami, Northern Sotho, Norwegian Bokmål, Nyanja, Occitan, Odia, Oromo, Papiamento, Pashto, Persian, Polish, Portuguese, Punjabi, Quechua, Romanian, Romansh, Rundi, Russian, Samoan, Sardinian, Scottish Gaelic, Serbian, Shona, Sicilian, Silesian, Sindhi, Sinhala, Slovak, Slovenian, Somali, Southern Sotho, Spanish, Standard Moroccan Tamazight, Swahili, Swati, Swedish, Tajik, Tamil, Tatar, Telugu, Thai, Tibetan, Tigre, Tigrinya, Tok Pisin, Tongan, Tsonga, Tswana, Turkish, Turkmen, Ukrainian, Upper Sorbian, Urdu, Uyghur, Uzbek, Valencian, Venda, Veps, Vietnamese, Volapük, Walloon, Waray, Welsh, Western Frisian, Wolaytta, Wolof, Wu Chinese, Xhosa, Yakut, Yiddish, Yoruba, Zulu
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bc26fa890">Repair Galician attachment trigger agreement</a>. Thanks to xet7.</summary>
+
+Use masculine attachment-specific actions, preserving shared feminine labels.
+Repair Portuguese regional attachment/card fragments. New keys reuse existing
+translations in other locales. Agreement, all-locale reuse, token inventories
+and real Jade compilation pass; browser regression is added and syntax-checked.
+Live browser execution and broader translation review remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/afbff51df">Repair Basque rule-trigger verb composition</a>. Thanks to xet7.</summary>

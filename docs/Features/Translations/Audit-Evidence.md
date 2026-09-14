@@ -23195,3 +23195,28 @@ All 18,475 correction and 4,158 retained checks pass. Original counts remain
 15,601 corrected, 23 restored, 4,158 retained and 299 pending. The 15 restored
 Basque findings still require full phrase review; this linking-verb repair is
 not a claim that their destination wording or subject terminology is certified.
+
+### 2026-09-14 — Galician attachment agreement and regional fragments
+
+Local commit `bc26fa890` separates attachment action labels from the shared
+feminine actions used for other subjects. The native
+[RAG anexo entry](https://academia.gal/dicionario/-/termo/anexo/1)
+marks the computing noun as masculine. The new attachment labels are
+Engadido a and Quitado de; shared Engadida a and Quitada de remain unchanged.
+[RAG quitar](https://academia.gal/dicionario/-/termo/quitar) documents removal;
+[RAG engadir](https://academia.gal/dicionario/-/termo/engadir) documents adding.
+The assembled regional test exposed Portuguese Quando um anexo and um cartão;
+these are repaired to Cando un anexo and unha tarxeta. Whole-sentence native
+attestation was not established by these dictionary entries.
+
+Three original flagged fragments are retained with contextual review records.
+Two new keys reuse existing action values in all other locales, preserving
+English key order and exact tokens; 244 locale files changed. Six focused
+suites pass, including exact correction/review inventories, positive and
+negative agreement checks, all-locale reuse and real Jade compilation.
+The browser rule-creation regression is added and syntax-checked, not run live.
+No new dependency or translation service is used.
+
+Tracked: 15,601 corrected, 20 restored awaiting validation, 4,161 retained,
+299 pending, 20,081 total; correction ledger 18,477. Broader unflagged,
+low-confidence, restored phrase and browser review remains open.

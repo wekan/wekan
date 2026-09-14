@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,601 |
-| Restored pre-pull; awaiting validation | 23 |
-| Reviewed; retained unchanged | 4,158 |
+| Restored pre-pull; awaiting validation | 20 |
+| Reviewed; retained unchanged | 4,161 |
 | Pending review or repair | 299 |
 | Total tracked | 20,081 |
 
@@ -20,29 +20,29 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,475** exact before/after values, including unflagged repairs.
+contain **18,477** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `afbff51df` —
-Basque Spanish es repaired to da; triggers omit the redundant separate
-linking verb because Basque action labels contain their temporal clause.
-All **18,475** corrections pass structural checks. Runtime helper language
-switching, other-locale preservation and Jade compilation pass. Browser
-regressions are added and syntax-checked; execution and full restored phrase
-review remain open. Whole-language and low-confidence review continues.
-Latest unchanged review: **2026-09-14**, commit `64f1d7367` —
-assigned-card shortcut retained against actual current-user assignee toggle.
-IEC recognizes meves/meues as dialect variants; no wrong-language finding
-is established. Preferred Valencian regional style remains under review.
-All **4,158** reviews pass. Shared trigger grammar, provisional calendar
-compounds and broader language/browser review remain open.
+Latest translation fix: **2026-09-14**, local commit `bc26fa890` —
+Galician attachment triggers use masculine action labels; feminine labels
+remain for other subjects. Two Portuguese regional fragments were repaired.
+New keys reuse existing translations in the other locales (244 files updated).
+All **18,477** corrections and **4,161** unchanged reviews pass structural
+checks. Agreement, all-locale reuse and real Jade compilation pass. Browser
+regressions are added and syntax-checked; live execution remains open.
+Latest unchanged review: **2026-09-14**, commit `bc26fa890` —
+three original Galician fragments retained after contextual agreement repair.
+The RAG dictionary identifies computing anexo as a masculine noun. Shared
+feminine actions remain correct for the other template subjects.
+Basque restored phrase review, provisional calendar compounds and broader
+language/browser review remain open.
 Card-show-lists context is verified against its settings row and toggle.
 Additional unflagged unchanged review: **2026-09-14**, `39af6aae5` —
 Veps Server and Valencian Errors retained with native software evidence and
 protected per locale from filling. Zero unreviewed English placeholders remain;
-this does not establish correct language or fluency in all values. The original
-4,158-row unchanged ledger is unchanged; current pending/restored counts are 299/23.
+this does not establish correct language or fluency in all values. These two reviews are outside the original flagged ledger; current
+pending/restored counts are 299/20.
 
 
 
