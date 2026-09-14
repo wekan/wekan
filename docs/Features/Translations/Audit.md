@@ -28,18 +28,18 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,605** exact before/after values, including unflagged repairs.
+contain **18,609** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `ea1df33fa` —
-Inuktitut LDAP connection failure diagnostic uses a syllabic adaptation and
-retains the exact %s details token. Microsoft's native localization guide
-supports the failure term; network noun and full sentence grammar remain low
-confidence for native/browser review. All **18,605** corrections, **4,167**
-unchanged reviews, focused locale and completeness checks pass. There are
-289 pending and 13 restored findings; Inuktitut has 40 pending. Earlier rule
-switch wording is in `45d232fda`, with its full command review still open.
+Latest translation fix: **2026-09-14**, local commit `1ba55107f` —
+four Breton date/activity/execution labels replace French prose. Native
+software sources support modification and execution vocabulary; native statistics
+documentation supports the last-activity phrase. Adapted timestamp prefixes and
+runtime/browser formatting remain open. All **18,609** corrections, **4,167**
+unchanged reviews, focused locale and completeness checks pass. These unflagged
+repairs leave 289 pending and 13 restored findings unchanged. Earlier Inuktitut
+LDAP failure repair is in `ea1df33fa`, with full native grammar review open.
 Latest unchanged review: **2026-09-14**, local commit `1439c4c61` —
 Basque checked/unchecked actions retain distinct native temporal phrases,
 with software uncheck terminology and actual generic-item trigger coverage.

@@ -23768,3 +23768,24 @@ there are 18,605 exact corrections, 15,612 corrected original findings,
 4,167 retained, 13 restored and 289 pending. Inuktitut has 40 pending. Full
 sentence and live LDAP/UI validation remain unverified. No external translation
 service was used and no remote translations were pushed.
+
+Breton date/activity/execution labels — 2026-09-14, `1ba55107f`.
+
+Replace modifiedAt, last-modified-at, last-activity and last-run French values.
+The first two retain distinct modified/last-modified meanings and a timestamp
+prefix. modifiedAt is actually used as a sort-field option in boardActions.jade;
+some other labels have no current application call site, but remain in scope.
+[Native MediaWiki software strings](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/br.json)
+attest kemmet, kemm diwezhañ and da before clock time. The adapted timestamp
+prefixes are not exactly attested full product labels and still need formatting
+review when paired with the application's selected calendar date/time.
+[Native translatewiki statistics documentation](https://translatewiki.net/wiki/Translating:Statistics/br)
+uses oberiantiz diwezhañ in its project-statistics description (line 286).
+[An Drouizig computing glossary](https://www.drouizig.org/images/stories/dafar/geriaduriaou/Gerva-an-Drouizig-2017.pdf)
+attests erounezadur as execution (page 11); the local last-run compound adapts
+that technical noun with the last qualifier. Distinct meanings and negative
+French-value coverage pass with token/key-order/completeness checks. Browser
+validation remains open. The correction ledger now has 18,609 records;
+original pending/restored findings remain 289/13. Outgoing-webhook, reaction
+and soft-WIP terminology were inspected but not repaired from insufficient
+component evidence during this review.

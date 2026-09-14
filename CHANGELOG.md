@@ -738,6 +738,16 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1ba55107f">Repair Breton date activity and execution labels</a>. Thanks to xet7.</summary>
+
+Four French labels become Breton while retaining distinct modification,
+last-activity and last-execution meanings. Native terminology and focused
+translation checks support the repairs; adapted timestamp prefixes and browser
+formatting remain open in the dated audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ea1df33fa">Repair Inuktitut LDAP failure diagnostic</a>. Thanks to xet7.</summary>
 
 A syllabic connection-failure adaptation preserves the server-error placeholder.
