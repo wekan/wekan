@@ -127216,5 +127216,12 @@
     "before": "Palvelin virhe",
     "after": "Serveran viga",
     "reason": "Replace Finnish Palvelin virhe with Veps serveran viga, consistent with existing serveran terminology in server-error-troubleshooting and dictionary viga (error/fault), https://kaikki.org/dictionary/Veps/meaning/v/vi/viga.html . Borrowed server stem and its exact normative form remain low confidence pending terminology reference; standalone English-identical Server is not accepted by this repair."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "shortcut-add-self",
+    "before": "Afegeix-vos a la fitxa actual",
+    "after": "Afegiu-vos a la fitxa actual",
+    "reason": "Repair imperative/reflexive person mismatch: Afegeix-vos mixes singular imperative with plural vos; Afegiu-vos agrees and matches existing formal Feu clic instructions. Imperative reference https://ca.wiktionary.org/wiki/afegir and CPNL pronoun guidance https://www.cpnl.cat/gramatica/66/37-els-pronoms-febles/nivell/basic-3 . Broader Valencian regional vocabulary review remains open."
   }
 ]

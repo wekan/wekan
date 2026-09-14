@@ -23500,5 +23500,185 @@
     "key": "a-dueAt",
     "value": "epemuga honela aldatu du:",
     "reason": "Inspected Basque date-value removal, product customization, authentication errors and display/default method labels, swimlane deletion, restore/delete all, loading and old/new date activities. Actual settings distinguish display toggle from default method; rule action removes a date field value. Old/new time tokens and all-item scopes preserved. Ticket/Complete/Idle/bucket terminology excluded; wider trigger grammar remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "keyboard-shortcuts-enabled",
+    "value": "Dreceres de teclat activades. Feu clic per desactivar.",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "keyboard-shortcuts-disabled",
+    "value": "Dreceres de teclat desactivades. Feu clic per activar.",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "setSwimlaneHeightPopup-title",
+    "value": "Estableix l'alçada del carril",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "set-swimlane-height",
+    "value": "Estableix l'alçada del carril",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "set-swimlane-height-value",
+    "value": "Alçada del carril (píxels)",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "swimlane-height-error-message",
+    "value": "L'alçada del carril ha de ser un enter positiu",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "add-cover",
+    "value": "Afegeix una imatge de portada a la minifitxa",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "add-after-list",
+    "value": "Afegeix després de la llista",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "archive-board-confirm",
+    "value": "Segur que voleu arxivar aquest tauler?",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "add-background-image",
+    "value": "Afegeix una imatge de fons",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "zoom-in",
+    "value": "Amplia",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "zoom-out",
+    "value": "Redueix",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "text-note-text",
+    "value": "Text lliure",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "click-to-enable-auto-width",
+    "value": "Amplada automàtica de la llista desactivada. Feu clic per activar.",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "click-to-disable-auto-width",
+    "value": "Amplada automàtica de la llista activada. Feu clic per desactivar.",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "custom-field-text",
+    "value": "Contingut textual",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "remove-cover",
+    "value": "Elimina la imatge de portada de la minifitxa",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "toggle-assignees",
+    "value": "Commuta els assignats 1-9 de la fitxa (per ordre d'addició al tauler).",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "cover-attachment-on-minicard",
+    "value": "Imatge de portada a la minifitxa",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "badge-attachment-on-minicard",
+    "value": "Nombre d'adjunts a la minifitxa",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "card-sorting-by-number-on-minicard",
+    "value": "Ordenació de fitxes per número a la minifitxa",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "duplicate-board-confirm",
+    "value": "Segur que voleu duplicar aquest tauler?",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "autoAddUsersWithDomainName",
+    "value": "Afegeix automàticament els usuaris amb el nom del domini",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "now-activities-of-all-boards-are-hidden",
+    "value": "Ara totes les activitats de tots els taulers estan amagades",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "creator-on-minicard",
+    "value": "Creador a la minifitxa",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "drag-board",
+    "value": "Arrossega el tauler",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "text",
+    "value": "Text escrit",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "translation-text",
+    "value": "Text de la traducció",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "show-week-of-year",
+    "value": "Mostra la setmana de l'any (ISO 8601)",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "import-board-zip",
+    "value": "Afegeix un fitxer .zip que tingui els fitxers JSON del tauler, i subdirectoris amb el nom del tauler amb els adjunts",
+    "reason": "Inspected Valencian keyboard enable/disable labels, swimlane height and positive-integer validation, covers/backgrounds, zoom, text labels, list width, board archive/duplicate and minicard display options, drag, week numbering and ZIP import. Toggle direction, 1-9 assignment order, ISO 8601 and JSON/ZIP attachment structure preserve source meaning. English checklist prose and regional possessive wording excluded; broader dialect fluency remains open."
   }
 ]

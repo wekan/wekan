@@ -634,7 +634,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.79 2026-09-14 WeKan ® release
 
 **In short:** **Veps translations** replace Finnish server-error prose with
 Veps error terminology, consistent with existing troubleshooting wording.
