@@ -123156,5 +123156,33 @@
     "before": "Téléversé le",
     "after": "ⵉⵜⵜⵓⵙⴽⵜⵔ ⴳ",
     "reason": "Replace Arabic attached activity or French attachment-export upload headers. Preserve past/event attachment meaning (added %s to %s AS AN ATTACHMENT), both exact ordered %s slots, upload rather than download, and BY actor versus AT time distinction. Native MediaWiki zgh logentry-upload-upload and recentchanges-page-added-to-category support upload/add event roots: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Explicit Kabyle mail-attachment term Tasawit (plural tisiway) yernan: PDF page 109 printed 105, https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: derived active add and passive-upload conjugation, generic actor gender, by/at prepositions, attachment paraphrase and Kabyle-to-Standard-Moroccan software adaptation require fluent review. Upload labels are intentionally fragments adjoining their data, not complete sentences."
+  },
+  {
+    "locale": "zgh",
+    "key": "step-create-missing-lists",
+    "before": "Créer les listes manquantes",
+    "after": "ⵙⵏⵓⵍⴼⵓ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵓⵔ ⵍⵍⵉⵏⵜ",
+    "reason": "Replace French migration labels. Preserve CREATE versus FIX, missing/not-existing lists or IDs, and fixing FILE URLS rather than repairing file contents. MediaWiki zgh createacct-submit, red-link-title and category-article-count support create, absence and feminine plural existential components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . IRCAM-hosted Rif public-freedoms text attests tilgamin/tlgamin list plural: https://biblio.ircam.ma/pmb/uploads/explnum/explnum_39.pdf . Computing lexicon Correction (debugging): Aseghti MW, seghtu corriger, PDF page 42 printed 38; file-system ifuyla, PDF page 136 printed 132: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: Rif/MW-to-Standard-Moroccan software adaptation, derived negative plural llin/llint, Tifinagh transcription, acronym number agreement, fixing nominal aspect and full labels require fluent review. Keep ID/URL identifiers unchanged; no missing qualifier intentionally omitted."
+  },
+  {
+    "locale": "zgh",
+    "key": "fix-missing-lists-migration",
+    "before": "Corriger les listes manquantes",
+    "after": "ⵙⵖⵜⵓ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵓⵔ ⵍⵍⵉⵏⵜ",
+    "reason": "Replace French migration labels. Preserve CREATE versus FIX, missing/not-existing lists or IDs, and fixing FILE URLS rather than repairing file contents. MediaWiki zgh createacct-submit, red-link-title and category-article-count support create, absence and feminine plural existential components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . IRCAM-hosted Rif public-freedoms text attests tilgamin/tlgamin list plural: https://biblio.ircam.ma/pmb/uploads/explnum/explnum_39.pdf . Computing lexicon Correction (debugging): Aseghti MW, seghtu corriger, PDF page 42 printed 38; file-system ifuyla, PDF page 136 printed 132: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: Rif/MW-to-Standard-Moroccan software adaptation, derived negative plural llin/llint, Tifinagh transcription, acronym number agreement, fixing nominal aspect and full labels require fluent review. Keep ID/URL identifiers unchanged; no missing qualifier intentionally omitted."
+  },
+  {
+    "locale": "zgh",
+    "key": "step-fix-missing-ids",
+    "before": "Réparation des IDs manquants",
+    "after": "ⵙⵖⵜⵓ ID ⵓⵔ ⵍⵍⵉⵏ",
+    "reason": "Replace French migration labels. Preserve CREATE versus FIX, missing/not-existing lists or IDs, and fixing FILE URLS rather than repairing file contents. MediaWiki zgh createacct-submit, red-link-title and category-article-count support create, absence and feminine plural existential components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . IRCAM-hosted Rif public-freedoms text attests tilgamin/tlgamin list plural: https://biblio.ircam.ma/pmb/uploads/explnum/explnum_39.pdf . Computing lexicon Correction (debugging): Aseghti MW, seghtu corriger, PDF page 42 printed 38; file-system ifuyla, PDF page 136 printed 132: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: Rif/MW-to-Standard-Moroccan software adaptation, derived negative plural llin/llint, Tifinagh transcription, acronym number agreement, fixing nominal aspect and full labels require fluent review. Keep ID/URL identifiers unchanged; no missing qualifier intentionally omitted."
+  },
+  {
+    "locale": "zgh",
+    "key": "step-fix-file-urls",
+    "before": "Réparation des URL de fichier",
+    "after": "ⴰⵙⵖⵜⵉ ⵏ URL ⵏ ⵉⴼⵓⵢⵍⴰ",
+    "reason": "Replace French migration labels. Preserve CREATE versus FIX, missing/not-existing lists or IDs, and fixing FILE URLS rather than repairing file contents. MediaWiki zgh createacct-submit, red-link-title and category-article-count support create, absence and feminine plural existential components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . IRCAM-hosted Rif public-freedoms text attests tilgamin/tlgamin list plural: https://biblio.ircam.ma/pmb/uploads/explnum/explnum_39.pdf . Computing lexicon Correction (debugging): Aseghti MW, seghtu corriger, PDF page 42 printed 38; file-system ifuyla, PDF page 136 printed 132: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: Rif/MW-to-Standard-Moroccan software adaptation, derived negative plural llin/llint, Tifinagh transcription, acronym number agreement, fixing nominal aspect and full labels require fluent review. Keep ID/URL identifiers unchanged; no missing qualifier intentionally omitted."
   }
 ]
