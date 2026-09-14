@@ -129169,5 +129169,33 @@
     "before": "Restaurer",
     "after": "Adsevel",
     "reason": "Replace French restore controls with existing Breton Adsevel from archive/migration labels; preserve board/all-data scope. Full native phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "r-when-a-due-date-changed",
+    "before": "À échéance: kemmet eo bet an deiziad",
+    "after": "Pa vez lakaet pe kemmet an deiziad termen",
+    "reason": "Replace mixed French/Breton trigger with complete Breton when/set-or-changed wording; retain exact date-field distinction. Full native clause/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "r-when-a-start-date-changed",
+    "before": "Début: kemmet eo bet an deiziad",
+    "after": "Pa vez lakaet pe kemmet an deiziad kregiñ",
+    "reason": "Replace mixed French/Breton trigger with complete Breton when/set-or-changed wording; retain exact date-field distinction. Full native clause/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "r-when-a-end-date-changed",
+    "before": "Fin: kemmet eo bet an deiziad",
+    "after": "Pa vez lakaet pe kemmet an deiziad echuiñ",
+    "reason": "Replace mixed French/Breton trigger with complete Breton when/set-or-changed wording; retain exact date-field distinction. Full native clause/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "r-when-a-received-date-changed",
+    "before": "Reçue: kemmet eo bet an deiziad",
+    "after": "Pa vez lakaet pe kemmet an deiziad degemer",
+    "reason": "Replace mixed French/Breton trigger with complete Breton when/set-or-changed wording; retain exact date-field distinction. Full native clause/browser validation remains open."
   }
 ]
