@@ -138864,5 +138864,12 @@
     "before": "إذا كان اسم الملف غير صالح، فسيتم إلغاء عملية التحميل أو إعادة التسمية.",
     "after": "ⵉⵖ ⵓⵔ ⵉⴽⵏⵉ ⵉⵙⵎ ⵏ ⵓⴼⴰⵢⵍⵓ, ⴰⵔ ⵉⵜⵜⵓⵙⵙⵔ ⵓⵙⴽⵜⵔ ⵏⵖ ⵓⵙⵏⴼⵍ ⵏ ⵉⵙⵎ.",
     "reason": "2026-09-15: Replace Arabic invalid filename warning. Preserve conditional incorrect name and cancellation of upload OR name change. IRCAM 6406 correct, 10095 cancel, 4582 change; native MediaWiki upload/cancel terms support computing context. Derived action nouns and complete grammar remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "import-show-user-mapping",
+    "before": "Contrôler l'assignation des participants",
+    "after": "ⵙⵙⵉⴷⴻⴷ ⴰⵣⴷⴰⵢ ⵏ ⵢⵉⴳⵎⴰⵎⵏ",
+    "reason": "2026-09-15: Replace French review-members-mapping label. IRCAM 9864 ssided check (distinct from ssidd light, 9863), 5391 azday link/connection; reuse members. Mapping adaptation and full grammar remain low confidence."
   }
 ]

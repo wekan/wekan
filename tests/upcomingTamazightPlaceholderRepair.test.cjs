@@ -418,3 +418,6 @@ const fileWarning = translated['invalid-file'];
 assert.match(fileWarning, /ⵉⵖ ⵓⵔ ⵉⴽⵏⵉ ⵉⵙⵎ ⵏ ⵓⴼⴰⵢⵍⵓ/);
 assert.match(fileWarning, /ⵉⵜⵜⵓⵙⵙⵔ ⵓⵙⴽⵜⵔ ⵏⵖ ⵓⵙⵏⴼⵍ ⵏ ⵉⵙⵎ/);
 assert.doesNotMatch(fileWarning, /[\u0600-\u06ff]|ⴰⵏⴽⵔⵓⴼ/u);
+
+assert.strictEqual(translated['import-show-user-mapping'], 'ⵙⵙⵉⴷⴻⴷ ⴰⵣⴷⴰⵢ ⵏ ⵢⵉⴳⵎⴰⵎⵏ');
+assert.doesNotMatch(translated['import-show-user-mapping'], /Contrôler|ⵙⵙⵉⴷⴷ|[\u0600-\u06ff]/u);
