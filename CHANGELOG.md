@@ -1308,6 +1308,19 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f665f7cda">Recover interrupted Git menu operations safely</a></summary>
+
+Pull and push stop before an existing rebase, merge or Git lock. Failed rebase
+cleanup reports the remaining operation instead of claiming it was aborted.
+Fast-forward pulls can autostash tracked edits; pushes check fetch errors and
+integrate newer origin commits before publishing. Offline regression tests
+cover operation guards and cleanup behavior.
+
+Thanks to xet7 !
+
+</details>
+
 and fixes the following bugs:
 
 **LDAP login** - Optional user search filter.
