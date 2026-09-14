@@ -94,3 +94,19 @@ for (const [key, field] of [['predicate-start', 'startAt'], ['predicate-end', 'e
   // These existence predicates must not become valid sort predicates.
   assert.equal(query(`${labels['operator-sort']}:${labels[key]}`).hasErrors(), true);
 }
+
+context.subtract = (date, days, unit) => {
+  assert.equal(unit, 'days');
+  return new Date(date.getTime() - days * 86400000);
+};
+const createdFilter = query(`${labels['operator-created']}:3`);
+assert.equal(createdFilter.hasErrors(), false);
+assert.deepEqual(JSON.parse(JSON.stringify(createdFilter.getQueryParams().getPredicate('createdAt'))),
+  { operator: '$gte', value: '2026-09-11T00:00:00.000Z' });
+assert.equal(query(`${labels['operator-created']}:invalid-period`).hasErrors(), true);
+for (const [prefix, order] of [['', 'asc'], ['-', 'des']]) {
+  const parsed = query(`${labels['operator-sort']}:${prefix}${labels['predicate-created']}`);
+  assert.equal(parsed.hasErrors(), false);
+  assert.deepEqual(JSON.parse(JSON.stringify(parsed.getQueryParams().getPredicate('sort'))),
+    { name: 'createdAt', order });
+}
