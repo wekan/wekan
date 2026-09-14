@@ -125053,5 +125053,19 @@
     "before": "يصبح كل سطر من النص أحد عناصر قائمة التحقق",
     "after": "ⴽⵓ ⵉⵣⵔⵉⵔⵉ ⵏ ⵓⴹⵕⵉⵚ ⴰⵔ ⵉⵜⵜⵓⵖⴰⵍ ⵢⴰⵏ ⵙⴳ ⵉⴼⵔⴷⵉⵙⵏ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
     "reason": "Replace Arabic bulk-edit guidance with Standard Moroccan Tamazight. Current MediaWiki zgh statistics-edits-average supports ku/each, search-ignored-headings singular textual Line izriri, missing-article Text and transaction-duration-limit-exceeded plural Elements ifrdisn. https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve EACH line BECOMES ONE OF checklist items, not all items or a new checklist. LOW CONFIDENCE: derived Become ittughal (not independently attested in current MediaWiki), one-of construction, bound Text, proposed verification-list checklist term and full grammar. Original-order variant remains separately pending; do not omit its ordering constraint. Review 2026-09-14: direct native Ministry public-service statute page https://www.mmsp.gov.ma/amz/nos-metiers/statut-g%C3%A9n%C3%A9ral-de-la-fonction-publique attests ittaghul in dates-back-to-1958 context. This is RETURN/date-back usage, with a different vocalization, not independent attestation of proposed ittughal for BECOMES a checklist item. Do not upgrade confidence or normalize morphology solely from this passage. Targeted exact-form/ordering searches gave no authoritative matches, which is not proof of absence. Conversion and original-order phrasing remain open."
+  },
+  {
+    "locale": "zgh",
+    "key": "originOrder",
+    "before": "النظام الأصلي\n ",
+    "after": "ⴰⵙⴷⵡⴰ ⴰⵙⴰⴽⵔⴰⵏ",
+    "reason": "Replace Arabic while preserving Original Order and, for the longer hint, each line becoming one checklist item. Direct Asawaliw atrar (Oulhaj/Oudadess, 2013) PDF pages 160/161 (zero-based 159/160) lists Order asedwa and Original asakran: https://www.kas.de/documents/252038/253252/7_dokument_dok_pdf_33656_3.pdf/5a42a246-5814-4414-87e6-c4c0bc12a730?t=1539663277039&version=1.0 . LOW CONFIDENCE: the inspected preface explicitly adopts terms across Tarifit, Tasousit, Kabyle, Tuareg and Tamazight and proposes derivations; it is not normative Standard Moroccan/IRCAM evidence. Order-to-list-sequence sense, adjective agreement, derived Become ittughal and full checklist grammar require fluent review. Preserve ordering constraint rather than silently dropping it."
+  },
+  {
+    "locale": "zgh",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "before": "يصبح كل سطر من النص أحد عناصر قائمة التحقق، الترتيب الأصلي",
+    "after": "ⴽⵓ ⵉⵣⵔⵉⵔⵉ ⵏ ⵓⴹⵕⵉⵚ ⴰⵔ ⵉⵜⵜⵓⵖⴰⵍ ⵢⴰⵏ ⵙⴳ ⵉⴼⵔⴷⵉⵙⵏ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ, ⴰⵙⴷⵡⴰ ⴰⵙⴰⴽⵔⴰⵏ",
+    "reason": "Replace Arabic while preserving Original Order and, for the longer hint, each line becoming one checklist item. Direct Asawaliw atrar (Oulhaj/Oudadess, 2013) PDF pages 160/161 (zero-based 159/160) lists Order asedwa and Original asakran: https://www.kas.de/documents/252038/253252/7_dokument_dok_pdf_33656_3.pdf/5a42a246-5814-4414-87e6-c4c0bc12a730?t=1539663277039&version=1.0 . LOW CONFIDENCE: the inspected preface explicitly adopts terms across Tarifit, Tasousit, Kabyle, Tuareg and Tamazight and proposes derivations; it is not normative Standard Moroccan/IRCAM evidence. Order-to-list-sequence sense, adjective agreement, derived Become ittughal and full checklist grammar require fluent review. Preserve ordering constraint rather than silently dropping it."
   }
 ]
