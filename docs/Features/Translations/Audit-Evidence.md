@@ -29773,3 +29773,24 @@ lookup or an explicitly documented direct paraphrase, preserving current
 state/opposite click action and the literal ? key binding.
 No locale edits or classification changes. Overall tracked pending 127,
 including nine Veps findings and additional unflagged title review.
+
+
+2026-09-15 — `f10fe2fa5`: automatic-linked-url-schemes Finnish replaced
+with a direct Veps draft. Native primary software source:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+http-invalid-scheme gives URL scheme wording; querypage-updates-periodical
+provides avtomatižesti; filehist-help uses paina for clicking a date/time;
+watchlistedit-raw-explain gives one item per line (rives). Existing
+custom-fields supplies Kävutajan märitud (user-defined). Preserve user-defined
+URL schemes, automatic clickability and one scheme per line. Complete
+assembled relative/object grammar and the derived singular shem remain
+low confidence. These component attestations do not certify the complete
+instruction. The dictionary search diagnosis and shortcut terminology
+remain open; the corpus website returned an error this lookup, not proof
+of absent vocabulary. Source settingBody.jade:419-421 displays this label
+beside the automaticLinkedUrlSchemes textarea; settingBody.js:1011 binds
+the saved setting. Four focused test files pass (16 checks), including
+negative Finnish and exact instruction, full token inventories and key
+order. No live settings UI test ran. Ledger 19,900; corrected 15,777,
+pending 126 (Veps 8), restored 4 unchanged. Unflagged shortcut title and
+all prior low-confidence wording stay within the full review scope.

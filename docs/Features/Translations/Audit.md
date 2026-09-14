@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-15**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,776 |
+| Corrected | 15,777 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,174 |
-| Pending review or repair | 127 |
+| Pending review or repair | 126 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,14 +16,14 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `ef5a6c5ba` — replace French
-resident-memory size label with Tamazight wording and precise RSS acronym.
-Four focused checks pass. Ledger 19,899; tracked pending 127 (Tamazight
-34), restored 4 unchanged. Full computing grammar and native expansion
-of resident set remain open; broader reviews continue.
+Latest translation fix: **2026-09-15**, `f10fe2fa5` — replace Finnish
+Veps URL-scheme instructions with a direct native-wording draft. Four
+focused files pass (16 checks). Ledger 19,900; tracked pending 126
+(Veps 8), restored 4 unchanged. Assembled grammar and singular scheme
+form remain low confidence; broader terminology reviews continue.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,899** exact before/after values, including unflagged
+records contain **19,900** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -48,7 +48,7 @@ restored values still await full native clause validation.
 | nah — Nahuatl | 17 |
 | tig — Tigre | 17 |
 | wal — Wolaytta | 10 |
-| ve-PP — Veps | 9 |
+| ve-PP — Veps | 8 |
 | ee — Ewe | 1 |
 | rup — Aromanian | 1 |
 

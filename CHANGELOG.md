@@ -1237,6 +1237,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f10fe2fa5">Fix Veps automatic URL scheme setting translation</a></summary>
+
+Replace Finnish instructions with a Veps draft retaining automatic
+clickability and one scheme per line. Four focused test files pass.
+Assembled grammar remains low confidence in the dated translation audit.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
