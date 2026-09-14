@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,151 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 693 pending review or repair.
-The correction inventory records 17,313 exact before/after values,
+findings: 15,152 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 692 pending review or repair.
+The correction inventory records 17,363 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (550) and
+The largest original queues are Standard Moroccan Tamazight (549) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,10 +102,11 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is c6ee67cb1 (2026-09-14), replacing four French
-label activity messages and refining native filename wording. Activity
-clauses/addition inflection, prior errors/create-label wording, color/tag
-morphology, credentials and number/user/export wording remain low confidence.
+Latest translation fix is 4f37e7278 (2026-09-14), replacing the French
+search-link and Arabic board-renaming labels. Complete demonstrative and
+board genitive phrases and kanban terminology remain low confidence.
+Earlier composed activity, label, filename, credential and export wording
+still needs fluent review.
 Greenlandic CLDR-unconfirmed wording and twelve Quechua color wrappers
 still need review, alongside the wider restored and unflagged values.
 Tamazight calendar review dd2aaa19a (2026-09-14) records provisional
@@ -115,7 +116,7 @@ names and unresolved Coptic/tabular/epoch terminology; no values changed. Previo
 Cherokee Hijri labels with exact native-script CLDR variant names. Cherokee’s
 original queue is empty. Compact tabular epoch wording still needs fluent
 technical review. Quechua palette compounds and remaining color wrappers
-remain open. There are 550 Tamazight findings remaining.
+remain open. There are 549 Tamazight findings remaining.
 Silesian reference review (2026-09-14) confirms shared database/file terms
 in native MediaWiki messages; the full raw-file label remains pending.
 No translation value or finding count changed in that review.
@@ -616,10 +617,21 @@ live. No sanitizer permissions or URL schemes were broadened.
 
 This release adds the following translation improvements:
 
-Translation audit progress as of 2026-09-14: 15,151 original findings are
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4f37e7278">Translate Tamazight search-link and board-renaming labels</a>. Thanks to xet7.</summary>
+
+Replace French and Arabic using native MediaWiki components, preserving
+search-link purpose and the board target. Complete demonstrative and board
+genitive phrases remain low confidence. All 17,363 correction checks pass.
+One original and one unflagged value are repaired; 692 originals remain
+pending, including 549 Tamazight. Wider language validation remains open.
+
+</details>
+
+Translation audit progress as of 2026-09-14: 15,152 original findings are
 corrected, 179 are reviewed and retained, 4,058 restored values await
-validation, and 693 original findings remain pending across 18 locales.
-Of those pending findings, 550 are Tamazight. Repairs found outside the
+validation, and 692 original findings remain pending across 17 locales.
+Of those pending findings, 549 are Tamazight. Repairs found outside the
 original audit are also recorded. Passing regression checks validate
 placeholders, rendering and merge behavior; they do not establish fluency.
 See <a href="docs/Features/Translations/Audit.md">the translation audit</a>
