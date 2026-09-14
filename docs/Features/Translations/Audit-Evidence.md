@@ -30004,3 +30004,23 @@ manual-label agreement, code scheduling and complete token/key inventories.
 No live sync UI test ran. Ledger 19,923; original pending 126/restored 4.
 Project-key label still requires appropriate multi-tracker terminology;
 full prior low-confidence and unflagged review remain within scope.
+
+
+2026-09-15 — `29f93a888`: list-sync-project-key wrong-language Tshivenda
+replaced with Projektan kod / ID / owner/repo. Read the actual fetchers:
+Jira interpolates projectKey in JQL; GitHub/Gitea use owner/repo paths;
+GitLab accepts a project ID or encoded path. Thus an ID-only label would
+omit valid inputs. Keep code and the two literal alternatives explicit.
+Native MediaWiki nstab-project attests Projektan, and confirmemail_invalid_format
+attests kod for a validation code, independently of program-source code.
+Source read again today:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+This is a project-code paraphrase, not an attested native software-key term.
+Full multi-tracker terminology remains LOW CONFIDENCE. Door-key avadim
+is not used as software-key evidence. Preserve PROJECT/owner/repo examples.
+Four focused files pass (27 checks), including wrong-language rejection,
+identifier alternatives and actual fetcher use, plus full token inventories.
+No live synchronization UI ran. Ledger 19,924; pending 126/restored 4.
+The previously identified wrong-language sync block now has Veps drafts;
+this does not resolve their complete grammar or the wider flagged/unflagged
+review, including two-factor controls and keyboard-shortcut wording.

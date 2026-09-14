@@ -1358,6 +1358,18 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/29f93a888">Fix Veps multi-tracker project identifier label.</a></summary>
+
+Replace wrong-language project-key text with a project-code paraphrase
+covering IDs and owner/repo paths accepted by tracker integrations.
+Complete native terminology remains low confidence and under review.
+Four focused files pass (27 checks); no live synchronization UI ran.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
