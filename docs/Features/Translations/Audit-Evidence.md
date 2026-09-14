@@ -29604,3 +29604,17 @@ No live import UI test ran. Ledger 19,895; corrected 15,772, pending 131
 Source CSV branch only checks nonempty Papa.parse data before this key;
 that fact does not establish validation of every CSV schema/format failure.
 Preserve CSV/TSV explanations when repairing that message next.
+
+
+2026-09-15 — `52b73cacc`: error-csv-schema Arabic replaced using the
+repaired JSON information/format pattern. Both CSV comma-separated values
+and TSV Tab-separated values are spelled out using the already repaired
+import-board-instruction-csv terms. Literal CSV/TSV and borrowed Tab/format
+remain. This is a data warning, not a claim every parse/schema defect is
+validated by the current Papa.parse nonempty-data branch. Full passive
+separation, correct participles, format term and possessive plural grammar
+remain low confidence, alongside the previous CSV instruction review.
+Four focused suites pass for exact warning, negative Arabic, both format
+explanations and token inventories. No live CSV import UI test ran.
+Ledger 19,896; corrected 15,773, pending 130 (zgh 37), restored 4 unchanged.
+Broader native fluency and technical-loan localization remain open.

@@ -1192,6 +1192,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/52b73cacc">Repair Tamazight CSV and TSV schema warning</a></summary>
+
+Replace Arabic prose, preserving comma and Tab-separated-value explanations
+and information/format meaning. Four focused suites pass; full grammatical
+phrasing and technical loans remain under contextual review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
