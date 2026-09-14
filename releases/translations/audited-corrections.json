@@ -124689,5 +124689,26 @@
     "before": "Avertissements de migration",
     "after": "ⵉⵙⵎⵉⴳⵍⵏ ⵏ ⵓⵙⵎⵓⵜⵜⵢ",
     "reason": "2026-09-14: Replace French Migration Warnings with plural warnings derived from native MediaWiki laggedreplicamode asmigl Warning and the reviewed bound usmutty software-migration adaptation. Preserve Warnings plural rather than error, failure or generic migration status. LOW CONFIDENCE derived plural ismigln, move-to-software-migration extension and complete noun-chain phrase require fluent Standard Moroccan review; the native singular warning component does not attest the full phrase. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (laggedreplicamode, movelogpage)."
+  },
+  {
+    "locale": "zgh",
+    "key": "admin",
+    "before": "المدير",
+    "after": "ⴰⵎⵙⵙⵓⴳⵓⵔ",
+    "reason": "2026-09-14: Replace Arabic administrator or divergent board-role wording with native Standard Moroccan administrator amssugur, directly attested in MediaWiki blockedtext-contact-blocker-admin; retain singular role rather than account user/member. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Board-qualified complete phrase and bound board form remain LOW CONFIDENCE for fluent review; matching existing organization/admin-only terminology is consistency evidence, not independent full-phrase attestation."
+  },
+  {
+    "locale": "zgh",
+    "key": "impersonation-admin",
+    "before": "المدير",
+    "after": "ⴰⵎⵙⵙⵓⴳⵓⵔ",
+    "reason": "2026-09-14: Replace Arabic administrator or divergent board-role wording with native Standard Moroccan administrator amssugur, directly attested in MediaWiki blockedtext-contact-blocker-admin; retain singular role rather than account user/member. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Board-qualified complete phrase and bound board form remain LOW CONFIDENCE for fluent review; matching existing organization/admin-only terminology is consistency evidence, not independent full-phrase attestation."
+  },
+  {
+    "locale": "zgh",
+    "key": "board-admin",
+    "before": "ⴰⵏⴻⴱⴷⴰⵍ ⵏ ⵜⴼⴻⵍⵡⵉⵜ",
+    "after": "ⴰⵎⵙⵙⵓⴳⵓⵔ ⵏ ⵜⴼⵍⵡⵉⵜ",
+    "reason": "2026-09-14: Replace Arabic administrator or divergent board-role wording with native Standard Moroccan administrator amssugur, directly attested in MediaWiki blockedtext-contact-blocker-admin; retain singular role rather than account user/member. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Board-qualified complete phrase and bound board form remain LOW CONFIDENCE for fluent review; matching existing organization/admin-only terminology is consistency evidence, not independent full-phrase attestation."
   }
 ]
