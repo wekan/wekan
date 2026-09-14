@@ -367,3 +367,17 @@ Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i
 Further evidence: `http-invalid-scheme` supplies native URL-scheme wording
 and `lineno` supplies rivi (line), but those components alone do not verify
 the full automatic-clickability and one-scheme-per-line instructions.
+
+
+Link wording revision **2026-09-14**, local commit `2dbc6ba3a`:
+Replace the assembled **Ližada tarkenduz** draft with **Ühtenzoita**.
+Primary native MediaWiki `linkaccounts-submit` and `linkaccounts` both
+use **Ühtenzoita lehtpoled** for linking existing accounts; this supplies
+the actual linking imperative, rather than separate add/link components.
+WeKan listBody creates linked-card/board relations, not a deletion or merge.
+Ledger preserves original Finnish Linkitä and both revision reasons.
+The assembled imperative/object uncertainty is superseded by direct native
+verb evidence; software-specific card/board terminology still merits review.
+Four affected suites pass; ledger 18,832 and original pending 232/restored 4
+unchanged. No new human translation provenance is claimed.
+Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json

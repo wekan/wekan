@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2dbc6ba3a">Use the native Veps linking action</a>. Thanks to xet7.</summary>
+
+Direct native software wording replaces the assembled add-link draft.
+Linked-card and linked-board action scope and regression checks are
+verified. Dated evidence preserves both revisions and remaining review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3f8363836">Replace Finnish wording in the Veps Link action</a>. Thanks to xet7.</summary>
 
 A Veps draft now describes adding a link instead of using Finnish. Native
