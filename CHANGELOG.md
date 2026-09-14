@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,393 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 451 pending review or repair.
-The correction inventory records 17,850 exact before/after values,
+findings: 15,394 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 450 pending review or repair.
+The correction inventory records 17,851 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (316) and
+The largest original queues are Standard Moroccan Tamazight (315) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is bd511b086 (2026-09-14), repairing Arabic Hide finished
-checklist while preserving the finished restriction. Derived relative grammar
-and full phrase remain low confidence for fluent review.
+Latest translation fix is 02cdb84f3 (2026-09-14), repairing French Show Checklist
+at Minicard while preserving display action and minicard scope. Proposed
+checklist/minicard phrases remain low confidence for fluent review.
 Checklist completion evidence follow-up 9de9f2c15 records native legal
 supplementation without equating it to past transitive workflow completion.
 Values/counts unchanged; low-confidence wording still needs validation.
@@ -640,10 +640,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,393 original findings are
+Translation audit progress as of 2026-09-14: 15,394 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 451 remain pending across 17 locales, including 316 Tamazight findings.
-The ledger contains 17,850 correction records, including unflagged repairs.
+and 450 remain pending across 17 locales, including 315 Tamazight findings.
+The ledger contains 17,851 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -2310,6 +2310,15 @@ review. All 17,850 correction checks pass; 451 original findings remain pending.
 Record native legal supplementation usages without treating them as proof
 of past transitive checklist completion. Preserve low-confidence status and
 active-uncompletion distinction. No values/counts changed; correction checks pass.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/02cdb84f3">Translate Tamazight minicard checklist display control</a>. Thanks to xet7.</summary>
+
+Repair French control preserving Show Checklist and minicard scope. Proposed
+checklist/minicard phrases remain low confidence for fluent review.
+All 17,851 correction checks pass; 450 original findings remain pending.
 
 </details>
 

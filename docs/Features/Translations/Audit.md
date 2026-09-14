@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,393 |
+| Corrected | 15,394 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 451 |
+| Pending review or repair | 450 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,850** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,851** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `bd511b086` — repaired Arabic Hide finished checklist, preserving the finished restriction. Derived relative grammar and full checklist phrase remain **low confidence** for fluent review. All **17,850** correction checks pass. **451** originals remain pending across **17** locales, including **316** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `02cdb84f3` — repaired French Show Checklist at Minicard, preserving display action and minicard scope. Proposed checklist/minicard phrases remain **low confidence** for fluent review. All **17,851** correction checks pass. **450** originals remain pending across **17** locales, including **315** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Checklist completion review (2026-09-14, `9de9f2c15`):** native legal supplementation usages broaden root evidence but do not establish past transitive checklist completion. Keep full wording low confidence and distinguish active uncompletion from negative state. No values/counts changed. [Evidence](Audit-Evidence.md) records the precise source context.
 
