@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,356 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 488 pending review or repair.
-The correction inventory records 17,696 exact before/after values,
+The correction inventory records 17,701 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is bef259a60 (2026-09-14), replacing the French
-Decline invitation button with native request-rejection wording.
-Source handlers confirm rejection rather than merely closing the popup.
+Latest translation fix is 74b94e495 (2026-09-14), replacing five Arabic
+navigation, confirmation and settings labels with native software wording.
+Preserve Back versus Previous/Next Page and generic Settings scope.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -626,7 +626,7 @@ remain open.
 Translation audit progress as of 2026-09-14: 15,356 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
 and 488 remain pending across 17 locales, including 353 Tamazight findings.
-The ledger contains 17,696 correction records, including unflagged repairs.
+The ledger contains 17,701 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -1650,6 +1650,16 @@ Replace the French Decline button with native request-rejection wording.
 Check the invitation handlers to preserve rejection rather than merely
 closing the popup. All 17,696 correction/rendering checks pass; the original
 pending queue remains 488 and wider language review continues.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/74b94e495">Translate Tamazight navigation confirmation and settings labels</a>. Thanks to xet7.</summary>
+
+Replace five Arabic labels with native software wording. Preserve Back
+versus Previous/Next Page, confirmation acknowledgment and generic Settings.
+All 17,701 correction/rendering checks pass; the original pending queue
+remains 488 and broader language validation continues.
 
 </details>
 
