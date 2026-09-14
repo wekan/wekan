@@ -21237,3 +21237,13 @@ rigardi primarily means looking. Retained 59 directly reviewed controls and
 warnings, preserving deletion permanence, archive recovery, role limits and
 toggle polarity. Completion/subtask terminology remains open. Correction and
 unchanged-value ledger tests pass; browser behavior was not verified.
+
+
+### Esperanto Enter-key and transfer review — 2026-09-14
+
+Local commit `620007ebc` replaces Enen (inwards) with an explicit Enter-key
+instruction in Esperanto prose. Retained 64 directly reviewed transfer,
+invitation and deletion values. Literal Trello menu names and JSON property
+names are intentional; interpolation tokens and URLs remain intact.
+Correction and unchanged-value ledgers pass. Completion/subtask wording and
+broader browser validation remain open.

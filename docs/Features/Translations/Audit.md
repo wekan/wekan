@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,542 |
-| Restored pre-pull; awaiting validation | 3,327 |
-| Reviewed; retained unchanged | 904 |
+| Corrected | 15,543 |
+| Restored pre-pull; awaiting validation | 3,262 |
+| Reviewed; retained unchanged | 968 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,137** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,138** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `1c4a07cde` — repaired Esperanto automatic-watch wording to express observation rather than looking. Retained 59 correct board/card controls and warnings unchanged. All **18,137** correction records pass structural verification; **308** original findings remain pending across **17** locales. The **3,327** restored values, unflagged values, provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `620007ebc` — repaired Esperanto Enter-key wording, replacing the unrelated direction inwards. Retained 64 correct transfer, invitation and deletion values unchanged. All **18,138** correction records pass structural verification; **308** original findings remain pending across **17** locales. The **3,262** restored values, unflagged values, provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Latest syntax repair (2026-09-14, `d0c247094`, follow-up `cd563cce5`):** Veps filter help now
 preserves canonical comparison, escaping, quoted field/value and Boolean
@@ -187,8 +187,8 @@ No translation values or completion counts changed.
 Restored Danish wording review (2026-09-14, latest `cceae079c`): reviewed
 611 values: 606 retained unchanged and five meanings repaired. Latest review
 preserves sort directions, creator roles, string-template tokens, spinner
-shapes and ticket states. Ambiguous export free remains open. Now 904 original
-findings are reviewed/retained and 3,327 restored values await validation.
+shapes and ticket states. Ambiguous export free remains open. Now 968 original
+findings are reviewed/retained and 3,262 restored values await validation.
 Translation work remains open while the requested wekansec21 security
 repairs are prioritized.
 
