@@ -28,9 +28,10 @@ repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
-Latest terminology review: **2026-09-14**, `e1ab5e4fa` — a primary
-2007 Veps dictionary page visibly confirms the inheritance verb. The complete
-parent-card instruction still needs grammar/context review; no counts changed.
+Latest terminology review: **2026-09-14**, `a9d68dc92` — visually
+verified primary Veps arithmetic addition, vertical and upper-part entries.
+Addition is not a proved Sum result noun; full field-sum/scrollbar phrases
+remain open. No locale values or counts changed.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

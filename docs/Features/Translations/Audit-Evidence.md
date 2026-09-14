@@ -26197,3 +26197,10 @@ primary inheritance verb and existing/native noun terminology.
 [Veps review](Veps-Review.md) records the low-confidence complete grammar
 and software metaphor. Ten tests across four files pass; ledger 18,824,
 original pending 233 unchanged. Native/browser verification remains open.
+
+Primary Veps arithmetic/location review **2026-09-14**, local commit
+`a9d68dc92`: visually verified dictionary pages 419 and 60 establish
+arithmetic addition, vertical and upper-part terms. [Veps review](Veps-Review.md)
+records exact entries and distinguishes addition from result noun Sum.
+No locale changes or completed classifications; 233 original findings
+remain pending, with full field-sum and scrollbar wording still open.

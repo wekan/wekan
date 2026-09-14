@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a9d68dc92">Verify Veps arithmetic and location terminology</a>. Thanks to xet7.</summary>
+
+Visually verified primary dictionary entries establish addition, vertical
+and upper-part terms. The dated audit distinguishes arithmetic addition
+from a sum result and keeps complete field-sum and scrollbar phrases open.
+No locale values or completion counts changed.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3ba133c10">Replace Venda wording in the Veps inheritance instruction</a>. Thanks to xet7.</summary>
 
 The subtask checkbox now has a complete Veps terminology draft, preserving
