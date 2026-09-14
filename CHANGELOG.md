@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/56c2c5331">Repair Tamazight Excel field-selection prompt</a>. Thanks to xet7.</summary>
+
+A complete native-component draft replaces French while preserving field
+selection, Excel export and punctuation. Translation checks pass. Relative
+and future phrase grammar remain low confidence in the audit. No active UI
+reference was found, so browser execution is not claimed.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/58169ab23">Repair French Default labels in Tamazight</a>. Thanks to xet7.</summary>
 
 Three Default values use native by-default wording. The reserved lane

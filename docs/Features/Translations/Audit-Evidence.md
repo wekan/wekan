@@ -26373,3 +26373,18 @@ locale suites pass with tokens/order/newer human translations preserved.
 Ledger 18,840; original pending 232/restored 4 unchanged. Earlier notes
 that these three French labels remain unchanged are superseded.
 Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+
+
+Excel prompt repair **2026-09-14**, local commit `56c2c5331`:
+Original flagged export-card-excel-fields replaces French with
+ⵙⵜⵉ ⵉⴳⵔⴰⵏ ⵍⵍⵉ ⵔⴰ ⵜⵙⵙⵓⴼⵖⴷ ⵖⵔ Excel: (choose the fields you
+will export to Excel). Native MediaWiki history-fieldset-title supports
+choose, metadata-fields supplies fields and export supplies export verb.
+Excel and the trailing colon remain. Low confidence: relative/future
+conjugation and complete software phrase require native review. No active
+client source reference was found for this key, so no browser execution
+is claimed and no UI was added solely to exercise a translation. Four
+locale suites pass with exact tokens, order and newer-human preference.
+Ledger 18,841; original corrected 15,671, pending 232 → 231, zgh 125 → 124;
+restored 4 unchanged. Queue classification records repair, not fluency.
+Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
