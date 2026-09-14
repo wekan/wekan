@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v11.76
+  version: v11.77
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -1139,7 +1139,7 @@ paths:
          key of the board, as `true`/`false`) and of the card-aging thresholds
          (`cardAgingDays1`..`cardAgingDays3`, non-negative integers). Keys not in
          the body are left as they are; a body with no recognised key is a 400.
-         Requires board write access. Returns the settings in effect, in the same
+         Requires board administrator access. Returns the settings in effect, in the same
          shape as GET.
       tags:
         - Boards
