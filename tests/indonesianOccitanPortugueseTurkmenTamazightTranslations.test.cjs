@@ -239,3 +239,7 @@ assert.equal(locales.zgh.tableVisibilityMode, 'ⵜⴰⵏⵏⴰⵢⵜ ⵏ ⵜⴼ�
 assert.ok(locales.zgh['tableVisibilityMode-allowPrivateOnly'].startsWith(locales.zgh.tableVisibilityMode + ': '));
 assert.match(locales.zgh['tableVisibilityMode-allowPrivateOnly'], /ⵙⴱⴰⵔⵅ ⵖⴰⵙ.*ⵜⵓⵙⵍⵉⴳⵉⵏ/);
 assert.doesNotMatch(locales.zgh['tableVisibilityMode-allowPrivateOnly'], /Visibilité|autoriser|privés/);
+
+assert.equal(locales.zgh['show-cards-minimum-count'], 'ⵙⵙⴽⵏ ⴰⵎⴹⴰⵏ ⵏ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵉⵖ ⴳ ⵜⵍⴳⴰⵎⵜ ⵉⵍⵍⴰ ⵓⴳⴳⴰⵔ ⵏ');
+assert.match(locales.zgh['show-cards-minimum-count'], /ⵉⵖ.*ⵓⴳⴳⴰⵔ ⵏ$/);
+assert.doesNotMatch(locales.zgh['show-cards-minimum-count'], /[\u0600-\u06ff]/);

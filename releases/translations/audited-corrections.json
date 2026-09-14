@@ -131192,5 +131192,12 @@
     "before": "Visibilité des tableaux: N'autoriser que des tableaux privés",
     "after": "ⵜⴰⵏⵏⴰⵢⵜ ⵏ ⵜⴼⵍⵡⵉⵏ: ⵙⴱⴰⵔⵅ ⵖⴰⵙ ⵜⵉⴼⵍⵡⵉⵏ ⵜⵓⵙⵍⵉⴳⵉⵏ",
     "reason": "Replace French board visibility wording with Tamazight; reuse existing visibility/boards. Restriction preserves allow plus only plus private. IRCAM 2019 entry 9012 allow/authorize, 8633 private, 8843 only. Low confidence: feminine plural private adjective, visibility genitive and complete restriction grammar require native/browser review. No permissions logic is changed."
+  },
+  {
+    "locale": "zgh",
+    "key": "show-cards-minimum-count",
+    "before": "إظهار عدد البطاقات إذا كانت القائمة تتضمن أكثر من",
+    "after": "ⵙⵙⴽⵏ ⴰⵎⴹⴰⵏ ⵏ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵉⵖ ⴳ ⵜⵍⴳⴰⵎⵜ ⵉⵍⵍⴰ ⵓⴳⴳⴰⵔ ⵏ",
+    "reason": "Replace Arabic card-count threshold label with Tamazight show count if list contains more than. IRCAM 2019 entry 8404 ugar/uggar more than; preserve unfinished comparison before numeric control, reuse card/list/count vocabulary. Low confidence: full conditional/existential clause, count terminology and plural/genitive agreement need native/browser review."
   }
 ]
