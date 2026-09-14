@@ -24016,3 +24016,23 @@ its action meaning. Exact values, foreign exclusions and action distinctions
 pass with all 18,647 corrections, 4,170 retained reviews and 234-locale
 structural completeness. Pending/restored counts remain 288/11. Broader
 phrase and live browser verification remain open.
+
+### 2026-09-14 — Breton custom-field terminology (3539edd8b)
+
+Four unflagged French labels are repaired: custom-field-checkbox Case à
+cocher becomes Log askañ; custom-field-dropdown Liste de choix becomes
+Roll diskenn; custom-field-dropdown-options Options de liste becomes
+Dibarzhioù ar roll; custom-fields Champs personnalisés becomes
+Maeziennoù personelaet.
+[Primary TermBret computing vocabulary](https://www.brezhoneg.bzh/uploads/Document/20/798_536_an-urzhiataerezh.pdf)
+explicitly attests log askañ (page 2), maezienn, dibarzh and personelaat.
+The grammatical gender markers are dictionary notation, not label text.
+Dropdown follows the existing local multi-select Roll diskenn wording;
+custom-field wording follows existing card-edit-custom-fields terminology.
+Full option/heading compounds are direct adaptations and remain open to
+broader native review. Actual custom-field settings share the same option
+definition between dropdown and multi-select and render separate field types.
+Focused checks preserve dropdown consistency and checkbox distinction.
+All 18,651 corrections, 4,170 retained reviews and 234-locale structural
+completeness pass. Counts remain 288 pending and 11 restored. Browser
+verification and wider language review remain open.

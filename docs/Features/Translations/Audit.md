@@ -30,7 +30,7 @@ cross-checks calendar, user and click components in native Moroccan sources.
 Full phrases, warnings and invalidated Tuareg records remain open; no pending
 finding was accepted from component evidence.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,647** exact before/after values, including unflagged repairs.
+contain **18,651** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
@@ -49,13 +49,13 @@ remains open. Latin Inuktitut spelling is valid; original script warnings
 require vocabulary/context review rather than automatic replacement.
 Current pending/restored counts are 288/11.
 
-Latest translation fix: **2026-09-14**, local commit `c8a14d2d0` —
-Four French Breton preview, discard, remove and comment actions become native
-software wording. Discard matches draft cancellation; remove clears custom
-color. The add-comment phrase is adapted and remains open to full native
-and browser review. All 18,647 corrections and focused checks pass. Counts
-remain 288 pending and 11 restored. Earlier card/number repairs are in
-`6962b2cc4`, selection in `b0f7f924f` and navigation in `bb65bf79d`.
+Latest translation fix: **2026-09-14**, local commit `3539edd8b` —
+Four French Breton custom-field type, option and heading labels become native
+terminology. Checkbox is distinct from dropdown; single and multi-select
+share dropdown vocabulary. All 18,651 corrections and focused checks pass.
+Compound and browser review remain open. Counts remain 288 pending and
+11 restored. Earlier actions are in `c8a14d2d0`, card/number labels in
+`6962b2cc4` and selection labels in `b0f7f924f`.
 Latest unchanged review: **2026-09-14**, local commit `5bf97e219` —
 Basque S3 bucket-a retains a technical loan used in native ZIUR storage
 specifications. Focused field-context checks and all 4,170 retained reviews
