@@ -983,6 +983,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/11fc595a0">Repair Tamazight SMTP labels and test-email subject</a></summary>
+
+Replace unflagged Arabic and French strings with existing Tamazight TLS
+and test-email wording, preserving protocol identifiers. Four focused
+suites pass; complete contextual phrasing remains under review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

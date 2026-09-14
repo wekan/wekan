@@ -16,15 +16,16 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `3da9c1f4e` — replace unflagged
-French card-owner export heading with the existing Tamazight compound.
-Four focused suites pass. Ledger 19,865; tracked pending 154 (Tamazight 61),
-restored 4 unchanged. Software ownership compound and gender-neutral usage
-remain low confidence. The active list popup's irreversible English warning
-still conflicts with its `lists.softRemove` handler; follow-up remains open.
+Latest translation fix: **2026-09-15**, `11fc595a0` — replace unflagged
+Arabic TLS label and French SMTP test-email subject using existing
+Tamazight wording. Four focused suites pass. Ledger 19,867; tracked pending
+154 (Tamazight 61), restored 4 unchanged. TLS support is paraphrased as
+use of TLS; computing terminology and full phrases remain under review.
+The list popup's irreversible English warning/soft-removal conflict remains
+open, as do broader native grammar reviews.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,865** exact before/after values, including unflagged
+records contain **19,867** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

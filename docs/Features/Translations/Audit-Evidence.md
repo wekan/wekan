@@ -29185,3 +29185,18 @@ card owner columns. Exact agreement, negative French/Arabic checks and
 translation/token invariants pass across four focused suites. No live UI
 or generated spreadsheet test ran. Ledger 19,865; tracked pending stays
 154 because this key was unflagged. Broader native grammar review is open.
+
+
+2026-09-15 — `11fc595a0`: repair unflagged smtp-tls (Arabic) and
+email-smtp-test-subject (French), reusing existing smtp-tls-description
+and send-smtp-test wording. Protocol identifiers TLS and SMTP stay literal.
+Support is paraphrased as use of TLS, consistent with its enable-control
+description; the test subject preserves email/test/SMTP without adding
+success or recipient wording. settingBody.jade renders the TLS description;
+server/models/settings.js localizes the test subject. Four focused suites
+pass for exact values, negative wrong-language checks and all literal-token
+invariants. No live mail delivery/UI verification ran. Existing computing
+terms and complete phrase grammar remain open to contextual review. Ledger
+19,867; tracked pending remains 154 because both findings were unflagged.
+The French smtp-port-description and Arabic smtp-port remain pending work;
+network port must not be confused with a harbour or physical connector.
