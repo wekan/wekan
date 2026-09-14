@@ -207,3 +207,7 @@ assert.equal(translated.summary, 'ⴰⵙⴳⵣⵍ');
 for (const key of ['description', 'description-on-minicard', 'addmore-detail', 'copyManyCardsPopup-instructions', 'copyManyCardsPopup-format']) {
   assert.doesNotMatch(translated[key], /ⴰⵙⴳⵣⵍ/, `${key}: description is distinct from summary`);
 }
+
+assert.match(translated['fix-missing-lists-migration-description'],
+  /^ⵉⵚⵓⵕ ⴷ ⵉⵙⵙⵓⴽⵏ.*ⵓⵔ ⵍⵍⵉⵏⵜ ⵏⵖ.*ⵜⵓⵚⴽⵉⵡⵜ ⵏ ⵜⴼⵍⵡⵉⵜ/);
+assert.doesNotMatch(translated['fix-missing-lists-migration-description'], /Détecte|répare|corrompues/);

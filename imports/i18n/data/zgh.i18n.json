@@ -2428,7 +2428,7 @@
   "restore-all-archived-migration": "ⵙⵡⵔⵔⵉ ⴰⴽⴽⵯ ⵙⴳ ⴰⵔⵛⵉⴼ",
   "restore-all-archived-migration-description": "Restaure tous les couloirs, listes et cartes archivés. Corrige automatiquement les swimlaneId ou listId manquants pour rendre les éléments visibles.",
   "fix-missing-lists-migration": "ⵙⵖⵜⵓ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵓⵔ ⵍⵍⵉⵏⵜ",
-  "fix-missing-lists-migration-description": "Détecte et répare les listes manquantes ou corrompues dans la structure du tableau.",
+  "fix-missing-lists-migration-description": "ⵉⵚⵓⵕ ⴷ ⵉⵙⵙⵓⴽⵏ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵓⵔ ⵍⵍⵉⵏⵜ ⵏⵖ ⵉⵜⵜⵓⵙⵙⵅⵙⵔⵏ ⴳ ⵜⵓⵚⴽⵉⵡⵜ ⵏ ⵜⴼⵍⵡⵉⵜ.",
   "fix-avatar-urls-migration": "ⵙⵖⵜⵓ URL ⵏ ⵜⵉⵎⴻⵔⵖⵉⵡⵉⵏ",
   "fix-avatar-urls-migration-description": "Mets à jour les URLs d'avatar des participants du tableau pour utiliser le bon gestionnaire de stockage et corriger les références défaillantes d'avatar ",
   "fix-all-file-urls-migration": "ⵙⵖⵜⵓ URL ⴰⴽⴽ ⵏ ⵉⴼⵓⵢⵍⴰ",

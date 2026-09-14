@@ -138402,5 +138402,12 @@
     "before": "Titres et descriptions des cartes de destination dans ce format JSON",
     "after": "ⵉⵣⵡⵍⵏ ⴷ ⵉⴳⵍⴰⵎⵏ ⵏ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵍⵍⵉ ⵔⴰⴷ ⵜⵙⵏⵓⵍⴼⵓⴷ ⵙ ⵡⴰⵏⴰⵡ JSON ⴰⴷ",
     "reason": "2026-09-15: Translate bulk-card destination instructions and distinguish description (IRCAM aglam, entry 486 p42) from summary in label/examples. Keep literal JSON properties unchanged. Complete future-relative and format compounds remain low confidence; see Tamazight-Review.md."
+  },
+  {
+    "locale": "zgh",
+    "key": "fix-missing-lists-migration-description",
+    "before": "Détecte et répare les listes manquantes ou corrompues dans la structure du tableau.",
+    "after": "ⵉⵚⵓⵕ ⴷ ⵉⵙⵙⵓⴽⵏ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵓⵔ ⵍⵍⵉⵏⵜ ⵏⵖ ⵉⵜⵜⵓⵙⵙⵅⵙⵔⵏ ⴳ ⵜⵓⵚⴽⵉⵡⵜ ⵏ ⵜⴼⵍⵡⵉⵜ.",
+    "reason": "2026-09-15: Replace French missing/corrupted-list description with component-based Tamazight draft retaining discovering AND repairing, missing OR damaged lists and board structure. IRCAM entry 10232 discover; 9847 damage. Full passive, object agreement and data-corruption adaptation remain low confidence; see Tamazight-Review.md."
   }
 ]
