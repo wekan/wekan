@@ -121308,5 +121308,12 @@
     "before": "لا يوجد ملصق",
     "after": "ⵓⵔ ⵉⵍⵍⵉ ⵓⵔⵛⵓⵎ",
     "reason": "LOW CONFIDENCE composed filter label: native MediaWiki rcfilters-search-placeholder attests zizdig/filter; tag-list-wrapper attests arshum/tag, upload-form-label-infoform-date attests asakud/date, and userlogin-noaccount attests ur ... illi/does not exist. Compose by-tag/by-date with s and bound nouns urshum/usakud; no-label uses negative existence with a bound tag noun. Preserve the selection criteria and absence meaning. Full filter phrases, bound-state morphology and kanban tag usage need fluent review. Replace French/Arabic text. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "invalid-credentials",
+    "before": "Nom d'utilisateur ou mot de passe invalide",
+    "after": "ⵓⵔ ⵉⴱⵓⵏⵉ ⵢⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ ⵏⵖ ⴷ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⵏⵏⴰ ⵜⵙⴽⵛⵎⴷ.",
+    "reason": "Replace French invalid username/password error with the exact first sentence of native MediaWiki wrongpassword. The matching native English message is Incorrect username or password entered; omit its separate Please try again sentence because this WeKan source contains no retry instruction. Preserve the username-or-password ambiguity so the error does not identify which credential was wrong. No new grammatical composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]

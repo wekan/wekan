@@ -2587,7 +2587,7 @@
   "sign-in-to-upload": "Connectez-vous pour téléverser des dépôts",
   "account-locked": "Le compte est temporairement verrouillé en raison de trop de tentatives de connexion échouées. Veuillez réessayer plus tard.",
   "otp-required": "Code OTP requis",
-  "invalid-credentials": "Nom d'utilisateur ou mot de passe invalide",
+  "invalid-credentials": "ⵓⵔ ⵉⴱⵓⵏⵉ ⵢⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ ⵏⵖ ⴷ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⵏⵏⴰ ⵜⵙⴽⵛⵎⴷ.",
   "username-password-required": "ⵉⵍⵍⴰ ⴼⵍⵍⴰⴽ ⴰⴷ ⵜⴼⴽⴷ ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ ⴷ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ",
   "password-mismatch": "ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⵏⵏⴰ ⵜⵙⴽⵛⵎⴷ ⵓⵔ ⵜⵎⵙⴰⵙⴰ",
   "username-too-short": "Le nom d'utilisateur doit comporter au moins 3 caractères",
