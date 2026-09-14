@@ -27625,3 +27625,22 @@ focused suites pass for distinct canonical names, noun, negative English
 seed checks, placeholders, provenance and newer translations. No live UI
 run. Ledger 19,789; original corrected 15,704, pending 199 (Wolaytta 13),
 restored 4 unchanged. All broader uncertain review remains open. No push.
+
+## Wolaytta generic and Umm al-Qura Hijri drafts — 2026-09-15
+
+Local commit `ca3b8764b` replaces two English Islamic seeds with Hijri
+plus native wodiyaa qoodaa, retaining Umm al-Qura on the specific variant.
+[Current Unicode CLDR calendar definitions](https://raw.githubusercontent.com/unicode-org/cldr/main/common/bcp47/calendar.xml)
+explicitly identify generic Hijri and Hijri Umm al-Qura as separate types.
+The names are preserved from the English source; they are not claimed as
+attested Wolaytta transliterations. Native calendar-noun evidence remains
+[the Wolaytta Gifaataa article](https://incubator.wikimedia.org/w/index.php?title=Wp/wal/Gifaataa_(baalaa)&oldid=5971248).
+
+**Low confidence:** borrowed-name adaptation and complete compound grammar
+remain under native review. This does not resolve the tabular civil,
+astronomical epoch or Saudi sighting labels, which retain separate required
+qualifiers. Four focused suites pass for identity, variant distinction,
+negative English-seed checks, placeholders, provenance and newer human
+translations; no live calendar-selector UI run. Ledger 19,791; original
+corrected 15,706, pending 197 (Wolaytta 11), restored 4 unchanged. All
+broader uncertain/restored/unflagged review remains open. No push.

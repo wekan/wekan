@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-15**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,704 |
+| Corrected | 15,706 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,174 |
-| Pending review or repair | 199 |
+| Pending review or repair | 197 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,14 +16,14 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `af7388566` — Wolaytta Dangi and
-Minguo drafts replace English seeds, preserving source proper names with
-the native calendar noun. Four focused suites pass. Ledger 19,789; original
-pending 199 (Wolaytta 13), restored 4 unchanged. Full calendar compounds
-and all broader uncertain reviews remain open.
+Latest translation fix: **2026-09-15**, `ca3b8764b` — Wolaytta generic
+and Umm al-Qura Hijri drafts replace English seeds while preserving the
+variant. Four focused suites pass. Ledger 19,791; original pending 197
+(Wolaytta 11), restored 4 unchanged. Full compounds, remaining calendar
+qualifiers and all broader uncertain reviews remain open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,789** exact before/after values, including unflagged
+records contain **19,791** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -46,7 +46,7 @@ restored values still await full native clause validation.
 | iu — Inuktitut | 38 |
 | nah — Nahuatl | 17 |
 | tig — Tigre | 17 |
-| wal — Wolaytta | 13 |
+| wal — Wolaytta | 11 |
 | ve-PP — Veps | 9 |
 | dz — Dzongkha | 2 |
 | ee — Ewe | 1 |
