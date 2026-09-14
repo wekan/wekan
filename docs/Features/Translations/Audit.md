@@ -28,11 +28,11 @@ repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
-Latest terminology review: **2026-09-14**, `75fbb698c` — Tamazight
-numeric-total browser test executed successfully (Chromium, 1 passed).
-Visible-field sum and translated tooltip verified; native phrase review
-remains open. Counts unchanged. Ewe CLDR review is `e7d0f821c`; Basque
-browser verification is `c9005ee0a`.
+Latest terminology review: **2026-09-14** — board archive guidance
+still open. Native MediaWiki supports the existing home-page term;
+IRCAM plug/clothing-button senses do not prove UI button terminology.
+No locale/count change. Actual home Archive location and full phrasing
+require verification. Dated source evidence remains in the native review.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

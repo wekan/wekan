@@ -26602,3 +26602,30 @@ or geological experimentation, not unsuccessful authentication attempts.
 No acceptance of failed-attempts is inferred from those different senses.
 Source:
 https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+
+Board archive guidance review **2026-09-14**:
+close-board-pop remains French and unresolved. A complete replacement must
+retain restoration, clicking the Archive button and its home-header
+location; lexical fragments are insufficient. Native MediaWiki
+nstab-mainpage directly attests tasna n usnubg (home page), so the existing
+home term is supported in this software context and is retained. A
+hypothesis that this could only mean hospitality is not an acceptance or
+reason to replace it. Native logentry-delete-restore supports ssukn for
+restoration. However IRCAM General Dictionary page 584 entry 10946 defines
+taqffalt as a pad/plug blocking a hole, not a UI button. Clothing-button
+entries 258 (page 31), 1558 (page 92), 10955 (page 585), 12100 (page 645)
+and button/round-jewel entry 10528 (page 562) do not by themselves attest
+computing controls. Do not cite those senses as an attested complete UI
+instruction. Existing taqffalt occurrences need software-terminology
+review; they are not accepted merely because they use Tifinagh. The actual
+archiveBoardPopup renders close-board-pop and its Archive confirmation
+button. The bounded header search did not locate the home Archive control,
+so its location still needs source/runtime verification. No locale was
+changed in this review and no browser execution is claimed. Counts remain
+ledger 18,853, original pending 226 (zgh 119), restored 4. This evidence
+changes the next action: verify UI button/header terminology and actual
+restoration entry location before writing the full guidance.
+Sources:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
