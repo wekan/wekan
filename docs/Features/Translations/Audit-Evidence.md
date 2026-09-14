@@ -27842,3 +27842,26 @@ wrong-language checks, placeholders, order and human preference. No live
 browser test ran. Ledger 19,811; original corrected 15,714, pending 189
 (zgh 94), restored 4 unchanged. Broader uncertain/restored/unflagged review
 remains open. No push.
+
+## Update noun and repository-label review — 2026-09-15
+
+Local commit `52b264894` replaces Arabic r-update with asdghi, the update
+noun explicitly attested by the cached full IRCAM dictionary page 218
+entry 4175. The noun is used as a standalone UI action label; this does
+not attest an imperative verb. **Low confidence:** contextual action-label
+suitability remains under native review.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+A bounded search through cached lexical pages 1–729 found this update
+entry but no repository/upload entry. This is not proof that the language
+lacks those terms. Existing upload terminology is available locally, but
+repository/repositories/upload-repository/sign-in-to-upload remain French
+pending appropriate repository terminology. Do not derive a software
+repository noun from an unattested physical-deposit sense. No active
+upload-repository/sign-in-to-upload reference was found under client.
+
+Four focused suites pass for the exact update noun, negative Arabic/English
+checks, placeholders, order and human preference. No live browser test
+ran. Ledger 19,812; original pending 189 (zgh 94), restored 4 unchanged.
+The repaired rule label was unflagged; broader uncertain/restored/unflagged
+review remains open. No push.

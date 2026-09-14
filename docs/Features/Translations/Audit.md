@@ -16,14 +16,14 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `7a51038bf` — Tamazight card
-and swimlane deletion popups replace Arabic/French. Preserve activity-feed
-removal, reopening/recovery restrictions and no undo. Four focused suites
-pass. Ledger 19,811; original pending 189 (Tamazight 94), restored 4
-unchanged. Full contextual grammar and broader reviews remain open.
+Latest translation fix: **2026-09-15**, `52b264894` — Tamazight
+standalone Update rule label replaces Arabic with IRCAM's update noun.
+Four focused suites pass. Ledger 19,812; original pending 189 (Tamazight
+94), restored 4 unchanged. This unflagged repair leaves the original queue
+unchanged. Contextual label suitability and broader reviews remain open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,811** exact before/after values, including unflagged
+records contain **19,812** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

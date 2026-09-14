@@ -661,6 +661,17 @@ The browser assertion accepts whitespace between the regional flag and name.
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/52b264894">Repair Tamazight standalone update rule label</a></summary>
+
+Replace Arabic with IRCAM's attested update noun. Four focused suites pass.
+Dated audit records 19,812 corrections and 189 original findings pending.
+Contextual action-label suitability and repository terminology remain open.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7a51038bf">Repair Tamazight card and swimlane deletion popups</a></summary>
 
 Replace wrong-language warnings, preserving activity-feed removal,
