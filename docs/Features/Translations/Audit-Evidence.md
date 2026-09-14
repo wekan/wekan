@@ -23373,3 +23373,34 @@ Correction ledger: 18,542; original queue remains 15,601 corrected,
 These fifteen repairs are outside the original flagged queue. Remaining
 restored, uncertain, unflagged and low-confidence reviews remain open.
 No external service, dependency, subagent or push was used.
+
+### 2026-09-14 — Breton diagnostics and migration states
+
+Local commit `cdff2d19d` repairs fourteen French-seeded values:
+accounts-lockout-failed-attempts, cron-migration-errors, migration-failed,
+migration-progress-status, errors, error, problems-status-title,
+cron-no-errors, migration-complete, migration-running, pending, complete,
+no-cards-found and no-issues-found. Pending previously said En cours,
+conflating waiting with execution. Native
+[Ofis gortoz](https://niverel.brezhoneg.bzh/fr/meurgorf/14798) attests
+War c’hortoz for waiting. The computing glossary attests War ober for work
+in progress; existing Echu completion terminology is reused.
+[Ofis fazi](https://niverel.brezhoneg.bzh/fr/meurgorf/13916) attests singular
+and plural error terms. Native
+[Kelennomp grammar reference](https://kelennomp.bzh/wp-content/uploads/geriaoueg-ereadurezh-skolvamm-v2.2.pdf)
+gives c’hwitet eo for failure. These lexical/construction references do not
+attest every adapted diagnostic phrase in full.
+
+migrationProgress.jade renders its translated status label. Current source
+search found no direct uses of several generic/migration-state keys; no
+rendered context is claimed for those keys. Regression coverage preserves
+four distinct state meanings, error number, status/completion consistency,
+failed-login wording and rejection of the French seed. Four focused suites
+pass; the corrected waiting form also passes a correction/focused recheck.
+Native complete-phrase and live browser validation remain open.
+
+Correction ledger: 18,556. Original queue remains 15,601 corrected,
+19 restored awaiting validation, 4,162 retained and 299 pending (20,081 total).
+These fourteen repairs are outside the original flagged queue. Remaining
+restored, uncertain, unflagged and low-confidence reviews remain open.
+No external service, dependency, subagent or push was used.
