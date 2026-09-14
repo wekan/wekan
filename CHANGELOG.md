@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,339 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 505 pending review or repair.
-The correction inventory records 17,662 exact before/after values,
+findings: 15,340 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 504 pending review or repair.
+The correction inventory records 17,663 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (370) and
+The largest original queues are Standard Moroccan Tamazight (369) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is b66f91e12 (2026-09-14), replacing the Arabic
-Tamazight card-member instruction and restoring board scope. Add board
-members to the card or remove them from the card; full wording needs review.
+Latest translation fix is f0b8e907a (2026-09-14), replacing French Tamazight
+end-date search guidance. Exact predicate code and cards with an end date
+are preserved; full relative phrasing needs fluent review.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -619,10 +619,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,339 original findings are
+Translation audit progress as of 2026-09-14: 15,340 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 505 remain pending across 17 locales, including 370 Tamazight findings.
-The ledger contains 17,662 correction records, including unflagged repairs.
+and 504 remain pending across 17 locales, including 369 Tamazight findings.
+The ledger contains 17,663 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -1430,6 +1430,16 @@ members to the card or removing them from the card, without implying removal
 from the board. Complete coordinated instruction, bound forms and object
 pronoun remain low confidence pending fluent review. All 17,662 correction
 checks pass; 505 original findings remain pending. Broader validation continues.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f0b8e907a">Translate Tamazight end date search predicate guidance</a>. Thanks to xet7.</summary>
+
+Replace French while retaining exact predicate code and cards with an end
+date. Plural possession, full relative construction and end-date adaptation
+remain low confidence pending fluent review. All 17,663 correction checks
+pass; 504 original findings remain pending. Broader validation continues.
 
 </details>
 
