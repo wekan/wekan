@@ -754,6 +754,22 @@ Thanks to Wenhao Wu, Southeast University and xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/26e9e7030">Prevent linked cards from promoting source read roles</a></summary>
+
+LinkedWriteBleed: a comment-only source member could mint a link on a
+self-owned board and gain source writes (CWE-863). Link creation and DDP
+pointer changes now require source write access. Explicit non-writing
+source roles also block delegation through existing links. UI permissions
+follow that ceiling; non-writers no longer receive the link action.
+Denied writes appear in bounded Problems summaries. Actual role/permission
+and link inventory tests pass; browser regression is syntax-checked, with
+live execution pending.
+
+Thanks to Wenhao Wu, Southeast University and xet7 !
+
+</details>
+
 **Translations** - Tamazight interface and maintenance labels; Bambara, Fulah, Dzongkha and Ewe calendars.
 
 <details>
