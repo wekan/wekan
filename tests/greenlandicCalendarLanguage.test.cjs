@@ -20,3 +20,7 @@ assert.notEqual(data['calendar-system-indian'], data['calendar-system-buddhist']
 assert.equal(data['calendar-system-coptic'], 'Qaammatisiutit (Coptic)');
 assert.notEqual(data['calendar-system-coptic'], 'Coptic');
 assert.notEqual(data['calendar-system-coptic'], data['calendar-system-ethiopic']);
+
+assert.equal(data['calendar-system-islamic-rgsa'], 'Qaammatisiutit Hijri (Saudi Arabia, qaammatip takuneqarnera)');
+assert.doesNotMatch(data['calendar-system-islamic-rgsa'], /^Islamic/);
+assert.notEqual(data['calendar-system-islamic-rgsa'], data['calendar-system-islamic-umalqura']);
