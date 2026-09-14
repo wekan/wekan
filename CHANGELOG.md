@@ -105,6 +105,9 @@ changes are implemented in local commit 02383521a; translation repairs have resu
 Latest translation fix is 9c290966f (2026-09-14), replacing Arabic each-line
 checklist guidance. Derived Become and full grammar remain low confidence;
 the original-order variant needs separate review.
+Conversion review ecae7d919 (2026-09-14) distinguishes native Return/date-back
+from the proposed checklist Become verb; confidence remains low and the
+original-order variant remains open. No values/counts changed.
 Checklist completion evidence follow-ups 9de9f2c15 and 4139001a3 distinguish
 legal supplementation from directly attested software Complete Login. Past
 actor form and full checklist grammar remain low confidence. Values/counts unchanged.
@@ -2411,6 +2414,16 @@ the checklist items. Native component evidence supports Each, Line and
 Items; derived Become and full wording remain low confidence. The separate
 original-order variant remains pending. All 17,865 correction checks pass;
 441 original findings remain pending across 17 locales.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ecae7d919">Record Tamazight conversion verb evidence limits</a>. Thanks to xet7.</summary>
+
+Native Ministry Return/date-back usage does not verify the proposed Become
+verb or its morphology. Retain low confidence and separately review the
+original-order constraint. No translation values or counts changed.
+All 17,865 correction checks pass; 441 originals remain pending.
 
 </details>
 
