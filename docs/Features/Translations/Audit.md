@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,553 |
-| Restored pre-pull; awaiting validation | 2,547 |
-| Reviewed; retained unchanged | 1,673 |
+| Restored pre-pull; awaiting validation | 2,511 |
+| Reviewed; retained unchanged | 1,709 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -20,8 +20,10 @@ repaired Esperanto custom-field value removal; retained 52 correct rule,
 hierarchy, date-field and authentication labels. Translated comma-separated
 example item names remain valid. All **18,149** correction records and
 unchanged-value checks pass. Browser verification was not run; no
-translations were pushed. Completion, overtime, lime-color, scrollbar and
-advanced-filter wording remains under review.
+translations were pushed. Overtime, lime-color, scrollbar and advanced-filter wording remains under
+review. Latest unchanged review: **2026-09-14**, commit `5b1ec70e9` —
+retained six checklist completion/reversal labels using the correct ReVo
+komplet entry and 30 authentication, metadata and date labels.
 
 
 Fixed categories include wrong-language prose, terminology, warnings,
@@ -30,7 +32,7 @@ Klingon findings and the broader 829 German-identical values were repaired;
 the cron label retains the actual tool name Cron. Danish restored review
 validated 611 values: 606 retained unchanged and five meanings repaired.
 Four Danish context-dependent labels remain: free, Complete, Schedule and Days Old.
-Esperanto completion, overtime and lime-color wording
+Esperanto overtime and lime-color wording
 remains open.
 Reviewed subtask actions/settings retain correct subordinate-task compounds.
 

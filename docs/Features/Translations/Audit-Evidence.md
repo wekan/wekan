@@ -21635,3 +21635,18 @@ ero1,ero2,ero3 is valid, and review coverage now preserves it instead of
 requiring English item names. All 18,149 correction and 1,673 review
 records pass. Remaining completion, overtime, color and broader language
 and browser validation stays open.
+
+
+### Esperanto checklist completion validation — 2026-09-14
+
+Local commit `5b1ec70e9` retains six completion/reversal translations and
+30 metadata/authentication/date labels. Correct dictionary source:
+https://raw.githubusercontent.com/revuloj/revo-fonto/master/revo/komple2.xml
+has rad komplet; drv 0igi defines making complete, with a building example,
+and ne0a also lists malkompleta. This supports existing kompletigis and
+malkompletigis for checklist state transitions. Earlier komple.xml denotes
+kompleks and komple1.xml denotes komplement; neither proves this meaning.
+models/checklistItems.js checks the all-items-finished state for completion.
+No translation was changed merely to prefer a synonym. 1,709 unchanged
+reviews pass; 2,511 restored and 308 pending findings remain. Browser and
+broader language verification remains open.
