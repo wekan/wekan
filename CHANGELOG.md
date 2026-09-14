@@ -738,6 +738,15 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b8e746289">Repair Inuktitut command forms</a>. Thanks to xet7.</summary>
+
+Edit and Delete use native software imperatives instead of passive states.
+Focused checks preserve distinct commands and tokens. The dated audit
+records valid Roman spelling and remaining browser verification.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d5d2bf518">Repair Tamazight registration and summary labels</a>. Thanks to xet7.</summary>
 
 Registration, log and summary use native Moroccan software terminology.

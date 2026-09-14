@@ -30,7 +30,7 @@ cross-checks calendar, user and click components in native Moroccan sources.
 Full phrases, warnings and invalidated Tuareg records remain open; no pending
 finding was accepted from component evidence.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,680** exact before/after values, including unflagged repairs.
+contain **18,682** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
@@ -49,13 +49,12 @@ remains open. Latin Inuktitut spelling is valid; original script warnings
 require vocabulary/context review rather than automatic replacement.
 Current pending/restored counts are 288/10.
 
-Latest translation fix: **2026-09-14**, local commit `d5d2bf518` —
-Three Tamazight registration/log/summary labels use native software wording.
-Summary punctuation is adapted to its heading. All 18,680 corrections and
-focused checks pass. These were unflagged; counts remain 288 pending and
-10 restored. Full native phrase and browser review remain open.
-Earlier date-format repairs are in `b8c6fed39`, Basque incomplete predicate
-repair in `33cc02ced`.
+Latest translation fix: **2026-09-14**, local commit `b8e746289` —
+Inuktitut Edit/Delete commands use native software-guide imperatives rather
+than passive status wording. Roman spelling is valid. All 18,682 correction
+records and focused checks pass. These repairs were unflagged; counts remain
+288 pending and 10 restored. Browser and broader native review remain open.
+Earlier Tamazight software-label repairs are in `d5d2bf518`.
 Latest unchanged review: **2026-09-14**, local commit `5bf97e219` —
 Basque S3 bucket-a retains a technical loan used in native ZIUR storage
 specifications. Focused field-context checks and all 4,170 retained reviews

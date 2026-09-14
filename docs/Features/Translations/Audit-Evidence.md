@@ -24141,3 +24141,20 @@ checks pass, with all 18,680 corrections, 4,170 retained reviews and completenes
 for 234 locales. Original counts remain 288 pending and 10 restored. Remaining
 calendar qualifiers are not supplied by current CLDR zgh; no pending calendar
 finding was accepted from generic component evidence.
+
+## Inuktitut command forms, 2026-09-14
+
+Local repair commit `b8e746289` changes edit from passive changed wording to
+Aaqqigiarli, and delete from passive removed wording to Piirli.
+[Microsoft's native Inuktitut software style guide](https://download.microsoft.com/download/0/b/6/0b65bcfe-5fac-4b20-86fe-f613200667c1/iku-can-styleguide.pdf)
+provides these exact Edit/Delete commands in its User Interface section on
+printed page 32. It explains the imperative suffix, separately from status
+messages. Actual avatar and confirmation buttons use delete as an action;
+these labels do not report that deletion has already happened. Roman spelling
+is a valid Inuktitut orthography, not an automatic script defect.
+
+Focused exact-command, old-status-negative and command-distinction checks,
+all 18,682 corrections, 4,170 retained reviews and completeness for 234 locales
+pass. The unused open value has not been changed without its intended context.
+These unflagged repairs leave 288 pending and 10 restored original findings.
+Full browser flows, LDAP diagnostics and broader native grammar remain open.
