@@ -11530,5 +11530,185 @@
     "key": "subtaskActionsPopup-title",
     "value": "Agoj de subtasko",
     "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "attachmentActionsPopup-title",
+    "value": "Agoj de alligitaĵo",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "attachment-move-storage-fs",
+    "value": "Movi alligitaĵon al dosiersistemo",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "attachment-move-storage-gridfs",
+    "value": "Movi alligitaĵon al GridFS",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "attachment-move-storage-s3",
+    "value": "Movi alligitaĵon al S3",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "attachment-move",
+    "value": "Movi alligitaĵon",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "move-all-attachments-to-s3",
+    "value": "Movi ĉiujn alligitaĵojn al S3",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "move-progress-file",
+    "value": "Dosiero",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "board-id",
+    "value": "Tabula ID",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "path",
+    "value": "Vojo",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "version-name",
+    "value": "Versio-nomo",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "size",
+    "value": "Grando",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "storage",
+    "value": "Konservejo",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "action",
+    "value": "Ago",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "uploading",
+    "value": "Alŝutas",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "remaining_time",
+    "value": "Restanta tempo",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "speed",
+    "value": "Rapido",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "password-again",
+    "value": "Pasvorto (denove)",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "if-you-already-have-an-account",
+    "value": "Se vi jam havas konton",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "register",
+    "value": "Registriĝi",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "forgot-password",
+    "value": "Ĉu vi forgesis pasvorton?",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "Mongo_sessions_count",
+    "value": "Nombro de Mongo-seancoj",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "change-visibility",
+    "value": "Ŝanĝi videblecon",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "max-avatar-filesize",
+    "value": "Maksimuma avatara dosiergrando en bajtoj:",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "invalid-file",
+    "value": "Se la dosiernomo estas nevalida, la alŝuto aŭ alinomo estas nuligita.",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "preview-pdf-not-supported",
+    "value": "Via aparato ne subtenas antaŭrigardon de PDF. Provu anstataŭe elŝuti.",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "translation-number",
+    "value": "La nombro de propraj tradukĉenoj estas:",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "delete-translation-confirm-popup",
+    "value": "Ĉu vi certas, ke vi volas forigi ĉi tiun propran tradukĉenon? Ne eblas malfari.",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "newTranslationPopup-title",
+    "value": "Nova propra tradukĉeno",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "editTranslationPopup-title",
+    "value": "Redakti propran tradukĉenon",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "settingsTranslationPopup-title",
+    "value": "Ĉu forigi ĉi tiun propran tradukĉenon?",
+    "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
   }
 ]
