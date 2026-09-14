@@ -124731,5 +124731,12 @@
     "before": "ⵉⵙⵓⵔⵉⴼⴻⵏ ⵏ ⵓⵙⵎⵓⵜⵜⵉ",
     "after": "ⵉⵙⵓⵔⵉⴼⵏ ⵏ ⵓⵙⵎⵓⵜⵜⵢ",
     "reason": "2026-09-14: Repair French All Migrations or inconsistent software-migration/steps morphology using reviewed asmutty adaptation from MediaWiki movelogpage and all akk from protect-default. Preserve plural migrations and All only where the English includes it; Migration Steps remains a plural sequence, not Current Step or overall progress. Native plural isurifn is attested in Marchica Med zgh home text, spatial rather than software-phase use. LOW CONFIDENCE derived migration plural and software extensions/full noun chain require fluent Standard Moroccan review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json and https://marchicamed.ma/zgh/home-zgh/ ."
+  },
+  {
+    "locale": "zgh",
+    "key": "cron-migration-errors",
+    "before": "Erreurs de migration",
+    "after": "ⵉⵣⴳⴰⵍⵏ ⵏ ⵓⵙⵎⵓⵜⵜⵢ",
+    "reason": "2026-09-14: Replace French Migration Errors, preserving plural errors distinct from warnings or failed status. Reuse previously reviewed plural izgaln from native CNDH penal-code memorandum pages 79 and 99 and bound usmutty software-migration adaptation from MediaWiki movelogpage. LOW CONFIDENCE legal-error-to-software-error usage, migration semantic extension and full noun chain need fluent Standard Moroccan review; full technical heading is not independently attested. References: https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
