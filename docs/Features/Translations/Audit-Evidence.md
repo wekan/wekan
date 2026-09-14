@@ -24200,3 +24200,14 @@ corrections, 4,171 unchanged reviews, 234-locale completeness and focused
 name/qualifier/distinction checks pass. Original counts: 15,616 corrected,
 9 restored, 4,171 retained, 285 pending. Components alone do not prove the
 complete calendar phrase is fluent or standard.
+
+## Inuktitut Dangi/Minguo labels, 2026-09-14
+
+Local commit `da6762a48` repairs two original calendar findings.
+[Inuktitut calendar review](Inuktitut-Calendar-Review.md) records the reopened
+native official calendar reference, proper-name preservation and low confidence
+combined naming. Focused name/noun/English-negative/calendar distinction checks,
+all 18,687 corrections, 4,171 unchanged reviews and 234-locale completeness
+pass. Original counts: 15,618 corrected, 9 restored, 4,171 retained, 283 pending.
+Full native naming and browser review remain open; no other qualifier or
+calendar-system heading is accepted from the generic noun alone.

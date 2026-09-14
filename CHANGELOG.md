@@ -738,6 +738,15 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/da6762a48">Repair Inuktitut named calendar labels</a>. Thanks to xet7.</summary>
+
+Dangi and Minguo retain specific names with the native calendar noun.
+Focused checks keep them distinct from other calendars. The dated audit
+records adapted naming and remaining native/browser verification.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7ba02a179">Repair Tamazight Indian calendar label</a>. Thanks to xet7.</summary>
 
 The Indian National Calendar uses adapted native wording while retaining

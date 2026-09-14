@@ -30,3 +30,21 @@ are proper names, while translating explanatory prose without losing meaning.
 Do not substitute an English or Azerbaijani qualifier for native prose merely
 because it accompanies a proper name. Primary terminology, complete native
 phrase review and browser settings validation are still required.
+
+## Named calendar labels, 2026-09-14 (da6762a48)
+
+Dangi and Minguo now retain those exact source names with the independently
+attested `ᐅᓪᓗᖅᓯᐅᑎ` calendar noun in parentheses. The official Nunavut PDF
+was opened again and its introductory native calendar text verified. Dangi
+is not replaced with a generic Korean calendar, and Minguo is distinct from
+the Chinese calendar. English explanatory country descriptions are removed.
+
+LOW CONFIDENCE full display-name convention: these combined labels are
+adaptations, not exact complete labels from the official document. Native
+proper-name rendering, full naming fluency and browser settings remain open.
+The calendar noun alone does not resolve other qualifiers or the heading.
+Focused name/noun consistency, English-negative and calendar distinction
+checks pass, with all 18,687 corrections, 4,171 retained reviews and 234-locale
+completeness. Two original findings are corrected; 38 Inuktitut findings and
+283 original findings overall remain pending. Nine restored findings remain.
+Earlier paragraphs describe the state before these two repairs.
