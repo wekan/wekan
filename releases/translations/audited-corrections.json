@@ -129281,5 +129281,40 @@
     "before": "Indian national",
     "after": "Indiap nuna tamakkerlugu ullorsiutaa",
     "reason": "Replace English Indian national with a complete Greenlandic national-calendar label. Native KNR attests Indiap and nuna tamakkerlugu; CLDR and native calendar publishers attest ullorsiut. Full compound is adapted, not independently attested; complete native inflection and browser review remain open."
+  },
+  {
+    "locale": "ace",
+    "key": "ldap-test-connection-success",
+    "before": "Sambongan seuemah",
+    "after": "Sambongan meuhasé",
+    "reason": "Native MediaWiki meuhasé expresses success; actual LDAP callback displays this only after a successful connection test. Full connection phrase is adapted and browser/live LDAP verification remains open."
+  },
+  {
+    "locale": "ace",
+    "key": "text-note-text",
+    "before": "Teuks",
+    "after": "Naseukah",
+    "reason": "Native MediaWiki yourtext/defaultmessagetext use naseukah for textual content. Actual card text-note editor requires a text noun, not a title or file action; broader native terminology/browser review remains open."
+  },
+  {
+    "locale": "ace",
+    "key": "twoFactorCode-cancel",
+    "before": "Batai",
+    "after": "Pubateuë",
+    "reason": "Use native MediaWiki resetpass-submit-cancel authentication cancellation wording. Actual activation/login buttons cancel the 2FA step; do not confuse cancellation with account deletion."
+  },
+  {
+    "locale": "ace",
+    "key": "no-assignee",
+    "before": "Hana nyang geutanyong",
+    "after": "Hana nyang geubri buët",
+    "reason": "Replace geutanyong questioning wording with no-one-given-work phrasing using local geubri and native buët. Adapted full phrase needs native grammar and browser review."
+  },
+  {
+    "locale": "ace",
+    "key": "filter-no-assignee",
+    "before": "tiada penerima tugas",
+    "after": "Hana nyang geubri buët",
+    "reason": "Replace Malay tiada penerima tugas with matching Acehnese no-assignee meaning; native buët means work/task. Adapted full phrase needs native grammar and browser review."
   }
 ]
