@@ -643,6 +643,8 @@ This release includes the following translation review:
 
 **Translations** - Terminology, instructions and activity validation.
 
+**Languages updated:** Esperanto, Galician
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/316232f69">Preserve Trello navigation labels in Galician import help</a>. Thanks to xet7.</summary>
 

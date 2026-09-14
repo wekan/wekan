@@ -558,7 +558,10 @@ directly after the merge.
 - **Neither CHANGELOG.md nor release notes may contain a binaries provenance
   section or a Platform/Bundle/Binary/From/Version/Checked/SHA256 table.**
   Do not add "Binaries in these bundles" at the top or bottom of either.
-  Release notes contain the selected changelog section only. Keep download
+  Release notes summarize each Translations group as only a list of updated
+  languages. Add `**Languages updated:**` with comma-separated full language
+  names below the group label; keep detailed entries in the changelog and audit.
+  Other release-note groups retain changelog details. Keep download
   verification and `provenance.tsv` build artifacts for diagnostics; do not
   append their contents or `releases/provenance-table.sh` output to notes.
 - **Inside a subsection, entries are GROUPED BY TOPIC/AREA.** A release touches a handful

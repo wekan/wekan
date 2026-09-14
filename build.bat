@@ -246,7 +246,8 @@ goto menu_releases
 
 REM ---------------------------------------------------------------------------
 :rel_release
-REM Release notes contain only changelog text; binary provenance stays in build artifacts.
+REM Release notes list only affected translation languages; other changelog details remain.
+REM Binary provenance stays in build artifacts.
 echo.
 echo -- Releases / Release --   ^(0 = Back^)
 echo   1^) Release ALL platforms: push CHANGELOG, trigger release-all.yml

@@ -32,7 +32,10 @@ pins.
 ```
 
 **Do not add a binaries provenance section or table to the changelog or
-release notes.** Release notes contain only the selected changelog section.
+release notes.** Release notes list only updated languages for each Translations group.
+Add `**Languages updated:** Esperanto, Galician` below that group label
+with the actual affected full language names. Detailed entries stay here;
+other release-note sections keep their changelog details.
 Keep checksum verification and `provenance.tsv` build artifacts separately;
 never append `releases/provenance-table.sh` output to release notes.
 

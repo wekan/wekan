@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Print the CHANGELOG.md section that is this release's notes, to stdout.
+# Print release notes, summarizing translation details as affected languages.
 #
 # Usage: releases/release-notes.sh <version> [changelog-file]
 #
@@ -55,13 +55,40 @@ with open(os.environ["CHANGELOG_FILE"], encoding="utf-8") as f:
     content = f.read()
 
 patterns = [
-    rf"(# v{re.escape(version)} .*?)(?=\n# v[0-9]|\Z)",
-    r"(# Upcom\w* WeKan.*?)(?=\n# v[0-9]|\Z)",
+    rf"(^# v{re.escape(version)} [^\n]*\n.*?)(?=^# v[0-9]|\Z)",
+    r"(^# Upcom\w* WeKan [^\n]*\n.*?)(?=^# v[0-9]|\Z)",
 ]
 for pat in patterns:
-    m = re.search(pat, content, re.DOTALL)
+    m = re.search(pat, content, re.DOTALL | re.MULTILINE)
     if m:
-        print(m.group(1).strip())
+        notes = m.group(1).strip()
+        # Topic boundaries remain outside the details blocks. The changelog
+        # supplies explicit names; do not guess languages from prose or counts.
+        lines = notes.splitlines(keepends=True)
+        result = []
+        i = 0
+        while i < len(lines):
+            if not re.match(r"^\*\*Translations\*\*", lines[i]):
+                result.append(lines[i])
+                i += 1
+                continue
+            j, depth = i + 1, 0
+            while j < len(lines):
+                line = lines[j]
+                if depth == 0 and re.match(r"^(?:\*\*[^\n]+\*\* - |and |This release |Thanks to above GitHub)", line):
+                    break
+                depth += len(re.findall(r"<details(?:\s[^>]*)?>", line))
+                depth -= line.count("</details>")
+                j += 1
+            block = "".join(lines[i + 1:j])
+            names = re.search(r"^\*\*Languages updated:\*\* (.+)$", block, re.MULTILINE)
+            if not names:
+                sys.stderr.write("::error::release-notes: Translations group needs **Languages updated:** followed by comma-separated language names.\n")
+                sys.exit(1)
+            languages = sorted(set(name.strip() for name in names.group(1).split(",") if name.strip()), key=str.casefold)
+            result.append("**Translations**\n\n" + "\n".join("- " + name for name in languages) + "\n\n")
+            i = j
+        print("".join(result).strip())
         sys.exit(0)
 # Neither section exists. Print nothing; the caller turns that into an error
 # with a message that says what to add, rather than publishing an empty release.

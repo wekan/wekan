@@ -1,0 +1,37 @@
+'use strict';
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const { spawnSync } = require('node:child_process');
+const root = path.resolve(__dirname, '..');
+const tmpRoot = path.join(root, '.tools/tmp');
+fs.mkdirSync(tmpRoot, { recursive: true });
+const dir = fs.mkdtempSync(path.join(tmpRoot, 'release-language-summary-'));
+function run(text, version = '99.99') {
+  const file = path.join(dir, 'CHANGELOG.md');
+  fs.writeFileSync(file, text);
+  return spawnSync('bash', ['releases/release-notes.sh', version, file], {
+    cwd: root, encoding: 'utf8', env: { ...process.env, TMPDIR: dir },
+  });
+}
+try {
+  const intro = '# Status\nReference to `# Upcoming WeKan ® release` is not a heading.\n\n# Upcoming WeKan ® release\n\nSummary.\n\n';
+  const translations = '**Translations** - Repairs.\n\n**Languages updated:** Galician, Esperanto, Galician\n\n<details>\n<summary>Private translation details</summary>\nand this is wrapped prose, not a section boundary.\n<details>nested details</details>\n</details>\n\n';
+  const other = 'and fixes the following bugs:\n\n**Authentication** - Login.\n\n<details>\n<summary>Keep non-translation detail</summary>\nSecurity fix.\n</details>\n\nThanks to above GitHub users.\n';
+  const result = run(intro + translations + other + '\n# v1.00 date WeKan ® release\nOld release.\n');
+  assert.equal(result.status, 0, result.stderr);
+  assert.match(result.stdout, /\*\*Translations\*\*\n\n- Esperanto\n- Galician\n/);
+  assert.doesNotMatch(result.stdout, /Private translation details|wrapped prose|nested details|Reference to|Old release/);
+  assert.match(result.stdout, /Keep non-translation detail/);
+  assert.equal((result.stdout.match(/- Galician/g) || []).length, 1);
+  const missing = run(intro + translations.replace('**Languages updated:** Galician, Esperanto, Galician\n', '') + other);
+  assert.notEqual(missing.status, 0);
+  assert.match(missing.stderr, /Translations group needs/);
+  const selected = run(intro + translations + other + '\n# v2.00 date WeKan ® release\nVersion-specific non-translation note.\n', '2.00');
+  assert.equal(selected.status, 0, selected.stderr);
+  assert.match(selected.stdout, /Version-specific/);
+  assert.doesNotMatch(selected.stdout, /Translations|Galician/);
+  console.log('releaseTranslationSummary: languages only, nested details removed, other groups retained, explicit metadata required, headings anchored');
+} finally {
+  fs.rmSync(dir, { recursive: true, force: true });
+}
