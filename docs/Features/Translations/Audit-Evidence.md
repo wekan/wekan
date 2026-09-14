@@ -21672,3 +21672,14 @@ and interpolation inventories are unchanged. Search diagnostic names and
 operator labels remain localized. 1,794 review records pass; 2,426 restored
 values and 308 pending findings, broader language and browser validation
 remain open.
+
+
+### Esperanto search label and validation review — 2026-09-14
+
+Local commit `18cf8b11b` retains forty correct search display labels,
+predicates, validation errors and pagination values. globalSearch.js passes
+localized operator/predicate vocabulary to display instructions. The
+positive-integer requirement, invalid-state negation and all interpolation
+are preserved; canonical query examples were not changed. 1,834 unchanged
+review records pass. 2,386 restored values and 308 pending findings remain,
+with broader language and browser validation open.
