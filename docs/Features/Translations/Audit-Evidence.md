@@ -22251,3 +22251,16 @@ manifest JSON and literal assetlinks.json configuration names are intact.
 Review checks pass: 15,562 corrected, 1,110 restored awaiting validation,
 3,101 reviewed unchanged and 308 pending. Contextual agreement and broader
 language/browser validation remain open. Nothing pushed.
+
+
+### 2026-09-14 — Galician date activities and placement labels
+
+Local commit `44ff8c566` retains 30 directly reviewed values unchanged.
+Authentication display/default and OIDC controls, login failure, counts and
+restore/delete-all retain meaning. Date activities preserve new/old tokens,
+line breaks and received/start/end/due distinctions. Placement retains
+above/below swimlanes and left/right lists; approaching/past/today deadlines
+remain distinct.
+Review checks pass: 15,562 corrected, 1,080 restored awaiting validation,
+3,131 reviewed unchanged and 308 pending. Broader language and browser
+validation remain open. Nothing pushed.

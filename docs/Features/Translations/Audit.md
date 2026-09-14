@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,562 |
-| Restored pre-pull; awaiting validation | 1,110 |
-| Reviewed; retained unchanged | 3,101 |
+| Restored pre-pull; awaiting validation | 1,080 |
+| Reviewed; retained unchanged | 3,131 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -18,12 +18,12 @@ source references, confidence limits and archived progress notes.
 Latest translation fix: **2026-09-14**, local commit `29f1980b2` —
 clarified Galician custom-field value clearing, distinguishing it from
 removing the field definition. Retained 25 correct rule/activity values.
-All **18,162** correction and **3,101** review records pass. Attachment/member rule participles need context-specific
+All **18,162** correction and **3,131** review records pass. Attachment/member rule participles need context-specific
 agreement: shared feminine labels currently follow masculine subjects.
 Three Esperanto restored findings remain: lime color and two Complete labels.
 Broader language and browser verification remain open; nothing pushed.
-Latest unchanged review: **2026-09-14**, commit `87b9e45fb` — retained
-30 correct Galician rule actions, authentication and web-metadata values.
+Latest unchanged review: **2026-09-14**, commit `44ff8c566` — retained
+30 correct Galician date activities, authentication and placement values.
 Received-label participles remain open pending agreement/context review.
 Galician export free wording remains open pending context.
 Galician Complete and migration-complete wording remain open pending context.
