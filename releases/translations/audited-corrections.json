@@ -127328,5 +127328,47 @@
     "before": "Finalizado: data aldatu da",
     "after": "Amaiera: data aldatu da",
     "reason": "Replace Spanish Finalizado in Basque end-date trigger with Amaiera, following existing Basque end-date terminology. Preserve date-changed meaning; full trigger composition remains under review."
+  },
+  {
+    "locale": "eu",
+    "key": "r-w-card-archived",
+    "before": "Txartela biltegira eramaten denean",
+    "after": "Txartela artxibora eramaten denean",
+    "reason": "Use Basque artxibo archive terminology consistently with corrected r-archived/r-unarchived instead of biltegi warehouse/storage. Preserve imperative, restored-from direction and when-trigger meaning."
+  },
+  {
+    "locale": "eu",
+    "key": "r-w-card-unarchived",
+    "before": "Txartela biltegitik ateratzen denean",
+    "after": "Txartela artxibotik ateratzen denean",
+    "reason": "Use Basque artxibo archive terminology consistently with corrected r-archived/r-unarchived instead of biltegi warehouse/storage. Preserve imperative, restored-from direction and when-trigger meaning."
+  },
+  {
+    "locale": "eu",
+    "key": "r-archive",
+    "before": "Eraman biltegira",
+    "after": "Eraman artxibora",
+    "reason": "Use Basque artxibo archive terminology consistently with corrected r-archived/r-unarchived instead of biltegi warehouse/storage. Preserve imperative, restored-from direction and when-trigger meaning."
+  },
+  {
+    "locale": "eu",
+    "key": "r-unarchive",
+    "before": "Biltegitik berreskuratu",
+    "after": "Artxibotik berreskuratu",
+    "reason": "Use Basque artxibo archive terminology consistently with corrected r-archived/r-unarchived instead of biltegi warehouse/storage. Preserve imperative, restored-from direction and when-trigger meaning."
+  },
+  {
+    "locale": "eu",
+    "key": "r-d-archive",
+    "before": "Eraman txartela biltegira",
+    "after": "Eraman txartela artxibora",
+    "reason": "Use Basque artxibo archive terminology consistently with corrected r-archived/r-unarchived instead of biltegi warehouse/storage. Preserve imperative, restored-from direction and when-trigger meaning."
+  },
+  {
+    "locale": "eu",
+    "key": "r-d-unarchive",
+    "before": "Berreskuratu txartela biltegitik",
+    "after": "Berreskuratu txartela artxibotik",
+    "reason": "Use Basque artxibo archive terminology consistently with corrected r-archived/r-unarchived instead of biltegi warehouse/storage. Preserve imperative, restored-from direction and when-trigger meaning."
   }
 ]
