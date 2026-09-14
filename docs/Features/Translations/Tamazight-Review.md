@@ -3781,3 +3781,24 @@ then combine it with existing start/date and calendar wording. Saudi
 sighting remains a separate unresolved qualifier.
 No translations or counts changed. Pending 157 original findings;
 Tamazight 64. No live calendar UI test ran; no remote writes were made.
+
+
+## Saudi sighting-calendar label — repair 2026-09-15
+
+Source commit `103457ada` replaces English Islamic (Saudi Arabia).
+Existing Islamic calendar base combines with IRCAM page 278 entry 5445
+azlam spotting/seeing and page 273 entry 5329 ayyur moon/crescent moon,
+bound wayyur. Country name remains a borrowed proper name. The full
+azlam n wayyur sighting-calendar compound is adapted and low confidence;
+individual senses do not certify a complete native calendar name.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+Sighting must not become full-moon reckoning: entries 12370/13059 include
+full moon, whereas ayyur explicitly includes crescent. The label retains
+calendar, country and sighting distinctions, separate from tabular epochs
+and Umm al-Qura. No date algorithm changed. Four focused suites pass
+for exact repair, rejection of country-only seed and translation invariants.
+No live calendar UI test ran. Ledger 19,862; original corrected 15,747,
+pending 156 (zgh 63), restored 4 unchanged. Earlier pending status for
+this seed is superseded by the repair, not its grammar-review limits.
+Broader review remains open; no remote writes were made.

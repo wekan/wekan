@@ -941,6 +941,16 @@ original findings; broader Dzongkha review remains open.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/103457ada">Repair Tamazight Saudi sighting-calendar label</a>. Thanks to xet7.</summary>
+
+Replace country-only English seed with calendar and moon-sighting wording.
+Four focused translation suites pass. Full sighting-calendar compound
+remains under native review. Dated audit records 156 pending original
+findings.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

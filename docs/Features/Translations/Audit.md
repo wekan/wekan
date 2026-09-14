@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-15**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,746 |
+| Corrected | 15,747 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,174 |
-| Pending review or repair | 157 |
+| Pending review or repair | 156 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,14 +16,14 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `1a174e357` — replace two English
-Dzongkha Hijri seeds with tabular and explicit Julian epoch-date wording.
-Four focused suites pass. Ledger 19,861; pending 157 (Tamazight 64),
-restored 4 unchanged. Dzongkha original queue is empty; starting-date
-compound and broader native grammar review remain open.
+Latest translation fix: **2026-09-15**, `103457ada` — replace Tamazight
+Saudi country-only calendar seed with calendar and moon-sighting wording.
+Four focused suites pass. Ledger 19,862; pending 156 (Tamazight 63),
+restored 4 unchanged. Full sighting-calendar compound remains low
+confidence; broader reviews remain open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,861** exact before/after values, including unflagged
+records contain **19,862** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -43,7 +43,7 @@ restored values still await full native clause validation.
 
 | Pending locale | Findings |
 | --- | ---: |
-| zgh — Standard Moroccan Tamazight | 64 |
+| zgh — Standard Moroccan Tamazight | 63 |
 | iu — Inuktitut | 38 |
 | nah — Nahuatl | 17 |
 | tig — Tigre | 17 |
