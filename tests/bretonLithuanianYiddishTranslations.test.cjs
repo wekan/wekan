@@ -190,3 +190,12 @@ for (const key of ['repository-name', 'no-repositories', 'create-repository']) {
   assert.match(locales.br[key], /mirlec’h/);
 }
 assert.equal(new Set(['repository-name', 'no-repositories', 'create-repository'].map(k => locales.br[k])).size, 3);
+
+assert.equal(locales.br['operator-modified'], 'kemmet');
+assert.equal(locales.br['predicate-modified'], 'kemmet');
+assert.equal(locales.br['last-modified'], 'Kemm diwezhañ');
+assert.equal(locales.br['list-label-modifiedAt'], 'Eur ar moned diwezhañ');
+assert.notEqual(locales.br['last-modified'], locales.br['list-label-modifiedAt'], 'last access is distinct from modification');
+for (const key of ['operator-modified', 'predicate-modified', 'last-modified', 'list-label-modifiedAt']) {
+  assert.doesNotMatch(locales.br[key], /modifiée|Dernière|Dernier accès/);
+}

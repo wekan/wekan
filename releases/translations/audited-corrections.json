@@ -130170,5 +130170,33 @@
     "before": "Créer un dépôt",
     "after": "Krouiñ ur mirlec’h",
     "reason": "Replace French repository label with Breton software repository terminology attested in Synaptic native translation. Adapted name/not-found/create phrases need full native review."
+  },
+  {
+    "locale": "br",
+    "key": "operator-modified",
+    "before": "modifiée",
+    "after": "kemmet",
+    "reason": "Replace French with Breton software terminology. Native MediaWiki updatedmarker attests kemmet and new-messages-diff-link-plural attests singular kemm diwezhañ; Ofis TermBret computing glossary attests accès = moned. Preserve last-access time as distinct from last modification, with the existing local Eur time label. The access-time compound is a grammatical adaptation, not exact native product-label attestation; browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "predicate-modified",
+    "before": "modifiée",
+    "after": "kemmet",
+    "reason": "Replace French with Breton software terminology. Native MediaWiki updatedmarker attests kemmet and new-messages-diff-link-plural attests singular kemm diwezhañ; Ofis TermBret computing glossary attests accès = moned. Preserve last-access time as distinct from last modification, with the existing local Eur time label. The access-time compound is a grammatical adaptation, not exact native product-label attestation; browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "last-modified",
+    "before": "Dernière modification",
+    "after": "Kemm diwezhañ",
+    "reason": "Replace French with Breton software terminology. Native MediaWiki updatedmarker attests kemmet and new-messages-diff-link-plural attests singular kemm diwezhañ; Ofis TermBret computing glossary attests accès = moned. Preserve last-access time as distinct from last modification, with the existing local Eur time label. The access-time compound is a grammatical adaptation, not exact native product-label attestation; browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "list-label-modifiedAt",
+    "before": "Dernier accès",
+    "after": "Eur ar moned diwezhañ",
+    "reason": "Replace French with Breton software terminology. Native MediaWiki updatedmarker attests kemmet and new-messages-diff-link-plural attests singular kemm diwezhañ; Ofis TermBret computing glossary attests accès = moned. Preserve last-access time as distinct from last modification, with the existing local Eur time label. The access-time compound is a grammatical adaptation, not exact native product-label attestation; browser review remains open."
   }
 ]
