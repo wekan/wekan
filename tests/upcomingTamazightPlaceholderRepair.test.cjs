@@ -58,3 +58,10 @@ assert.notStrictEqual(translated['operator-debug-invalid'], translated['operator
 const querySource = fs.readFileSync(path.join(ROOT, 'config/query-classes.js'), 'utf8');
 assert.match(querySource, /operator === OPERATOR_DEBUG[\s\S]*?predicateTranslations\[OPERATOR_DEBUG\]\[value\][\s\S]*?operator-debug-invalid/);
 console.log('Tamazight debug error preserves catalogue-value meaning and positional token');
+
+assert.strictEqual(translated.OS_Freemem, 'OS: ⵜⴰⴽⴰⵜⵓⵜ ⵜⴰⵎⵛⵉⵅⵜ');
+assert.notStrictEqual(translated.OS_Freemem, translated.OS_Totalmem);
+assert.doesNotMatch(translated.OS_Freemem, /[\u0600-\u06ff]|ⵎⴰⵕⵕⴰ/u);
+const statisticsSource = fs.readFileSync(path.join(ROOT, 'server/statistics.js'), 'utf8');
+assert.match(statisticsSource, /freemem: os\.freemem\(\)/);
+console.log('Tamazight free memory remains distinct from total system memory');

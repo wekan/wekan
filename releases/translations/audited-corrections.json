@@ -131892,5 +131892,12 @@
     "before": "%s n'est pas un prédicat de debug valide",
     "after": "%s: ⴰⵣⴰⵍ ⵏ debug ⵓⵔ ⵉⵣⵔⵉ",
     "reason": "2026-09-14: Replace French debug error with complete Tamazight draft saying invalid debug value. Actual query-classes catalogue rejects unsupported debug mode values, not Boolean predicates. Native MediaWiki unexpected supplies value ⴰⵣⴰⵍ and title-invalid supplies invalid ⵓⵔ ⵉⵣⵔⵉ. Preserve %s exactly and technical debug identifier. Low confidence: full catalogue diagnostic grammar needs native review; selector/projection vocabulary remains separately unresolved."
+  },
+  {
+    "locale": "zgh",
+    "key": "OS_Freemem",
+    "before": "الذاكرة الحرة لنظام التشغيل",
+    "after": "OS: ⵜⴰⴽⴰⵜⵓⵜ ⵜⴰⵎⵛⵉⵅⵜ",
+    "reason": "2026-09-14: Replace Arabic OS free-memory label with Tamazight draft. Existing memory takatut; primary IRCAM General Dictionary p160 entry2970 amcix vacant/free, distinguished from free-of-charge entry5739. Feminine tamcixt derived to agree with memory. Actual statistics.os.freemem is os.freemem() bytes, not totalmem or price. Low confidence: derived adjective and computing collocation require native review."
   }
 ]

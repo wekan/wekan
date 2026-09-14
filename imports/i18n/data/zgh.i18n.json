@@ -1122,7 +1122,7 @@
   "MongoDB_Oplog_enabled": "MongoDB Oplog activé",
   "OS_Arch": "معمارية نظام التشغيل",
   "OS_Cpus": "OS: ⵓⵟⵟⵓⵏ ⵏ CPU",
-  "OS_Freemem": "الذاكرة الحرة لنظام التشغيل",
+  "OS_Freemem": "OS: ⵜⴰⴽⴰⵜⵓⵜ ⵜⴰⵎⵛⵉⵅⵜ",
   "OS_Loadavg": "متوسط حمل نظام التشغيل",
   "OS_Platform": "منصة نظام التشغيل",
   "OS_Release": "إصدار نظام التشغيل",
