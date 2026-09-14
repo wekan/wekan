@@ -80,7 +80,7 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,579 corrected, 105 restored pre-pull values awaiting
+findings: 15,582 corrected, 102 restored pre-pull values awaiting
 validation, 4,089 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,173 exact before/after values,
 Global completeness verification also identifies Veps `server` (currently
@@ -647,7 +647,7 @@ This release documents the following translation fixes:
 
 **Translations** - Valencian imperative and board settings.
 
-**Languages updated:** Valencian
+**Languages updated:** Swedish, Valencian
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/264ca788c">Repair Valencian reflexive imperative and validate settings</a>. Thanks to xet7.</summary>
@@ -704,6 +704,16 @@ review checks pass; fourteen restored Valencian findings still need review.
 Retained 50 correct labels, time units, search vocabulary and storage product
 names. Exact review checks pass. Shared passive trigger composition and broader
 Thai grammar/browser validation remain open; no translation values changed.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/93f284c8a">Correct Swedish Due Cards meaning</a>. Thanks to xet7.</summary>
+
+Three labels now describe cards with due dates rather than only overdue cards.
+Actual selection and sorting include future deadlines. A regression drives the
+real helper with past and future dates; correction checks pass. Browser
+verification and the wider translation audit remain open.
 
 </details>
 

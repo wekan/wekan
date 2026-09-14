@@ -4,24 +4,23 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,579 |
-| Restored pre-pull; awaiting validation | 105 |
+| Corrected | 15,582 |
+| Restored pre-pull; awaiting validation | 102 |
 | Reviewed; retained unchanged | 4,089 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
 Review is ongoing. The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,182** exact before/after values, including unflagged repairs.
+contain **18,185** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `aa1006207` —
-repaired Valencian checked-item visibility prose and retained 29 display,
-date/upload and translation-management values. Checked-only scope, zoom
-range and no-undo warnings remain intact.
-All **18,182** correction and **4,089** review records pass.
-Color/search tokens, Veps server terminology and shared trigger grammar
-remain unresolved; browser validation remains open.
+Latest translation fix: **2026-09-14**, local commit `93f284c8a` —
+Swedish Due Cards labels now include future deadlines instead of implying
+only overdue cards. Actual selector and sorting include future due dates.
+Regression tests drive the real sorting helper with past and future cards.
+All **18,185** correction and **4,089** review records pass.
+Veps terminology, shared trigger grammar and browser validation remain open.
 Attachment/member rule participles still need context-specific agreement.
 Three Esperanto restored findings remain: lime color and two Complete labels.
 Broader language and browser verification remain open; nothing pushed.

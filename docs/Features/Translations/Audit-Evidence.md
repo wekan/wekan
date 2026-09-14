@@ -22570,3 +22570,10 @@ Retained 50 interface/unit/search/product values; quarter retains three-month
 meaning, removal differs from deletion, and Azure/Google descriptions are
 product names. Shared r-is identity copula excluded for passive phrase review.
 All 4,089 review records pass. Broader Thai grammar/browser review remains open.
+
+**2026-09-14 — Swedish Due Cards (`93f284c8a`).**
+
+Repaired three labels using förfallna (overdue), because actual dueCards.js
+selects every card with a dueAt and its helper includes future dates. Wording
+now says cards with due dates. Regression drives the real sorting helper with
+past and future cards; all 18,185 corrections pass. Browser review remains open.
