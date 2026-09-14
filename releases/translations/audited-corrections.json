@@ -123184,5 +123184,19 @@
     "before": "Réparation des URL de fichier",
     "after": "ⴰⵙⵖⵜⵉ ⵏ URL ⵏ ⵉⴼⵓⵢⵍⴰ",
     "reason": "Replace French migration labels. Preserve CREATE versus FIX, missing/not-existing lists or IDs, and fixing FILE URLS rather than repairing file contents. MediaWiki zgh createacct-submit, red-link-title and category-article-count support create, absence and feminine plural existential components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . IRCAM-hosted Rif public-freedoms text attests tilgamin/tlgamin list plural: https://biblio.ircam.ma/pmb/uploads/explnum/explnum_39.pdf . Computing lexicon Correction (debugging): Aseghti MW, seghtu corriger, PDF page 42 printed 38; file-system ifuyla, PDF page 136 printed 132: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: Rif/MW-to-Standard-Moroccan software adaptation, derived negative plural llin/llint, Tifinagh transcription, acronym number agreement, fixing nominal aspect and full labels require fluent review. Keep ID/URL identifiers unchanged; no missing qualifier intentionally omitted."
+  },
+  {
+    "locale": "zgh",
+    "key": "fix-all-file-urls-migration",
+    "before": "Corriger toutes les URL de fichiers",
+    "after": "ⵙⵖⵜⵓ URL ⴰⴽⴽ ⵏ ⵉⴼⵓⵢⵍⴰ",
+    "reason": "Replace French URL-correction migration action labels. Preserve ALL FILE URLS versus ATTACHMENT URLS, correction action and exact URL acronym; this does not mean editing file contents. Computing lexicon gives Correction (debugging): Aseghti MW, seghtu corriger, PDF page 42 printed 38; filesystem ifuyla, PDF page 136 printed 132; Kabyle Tasawit/plural tisiway yernan mail attachment, PDF page 109 printed 105: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . Native MediaWiki zgh allpages supports all qualifier: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: MW/Kabyle-to-Standard-Moroccan software adaptation, Tifinagh transcription, acronym plural/scope placement, attachment-relative agreement and full noun relations need fluent review. The source ALL qualifier is retained only where present."
+  },
+  {
+    "locale": "zgh",
+    "key": "step-fix-attachment-urls",
+    "before": "Corriger les URL des pièces jointes",
+    "after": "ⵙⵖⵜⵓ URL ⵏ ⵜⵉⵙⵉⵡⴰⵢ ⵢⵔⵏⴰⵏ",
+    "reason": "Replace French URL-correction migration action labels. Preserve ALL FILE URLS versus ATTACHMENT URLS, correction action and exact URL acronym; this does not mean editing file contents. Computing lexicon gives Correction (debugging): Aseghti MW, seghtu corriger, PDF page 42 printed 38; filesystem ifuyla, PDF page 136 printed 132; Kabyle Tasawit/plural tisiway yernan mail attachment, PDF page 109 printed 105: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . Native MediaWiki zgh allpages supports all qualifier: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: MW/Kabyle-to-Standard-Moroccan software adaptation, Tifinagh transcription, acronym plural/scope placement, attachment-relative agreement and full noun relations need fluent review. The source ALL qualifier is retained only where present."
   }
 ]
