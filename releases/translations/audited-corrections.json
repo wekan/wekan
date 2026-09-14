@@ -121819,5 +121819,26 @@
     "before": "Vous devez être administrateur de ce tableau pour faire cela",
     "after": "ⵉⵍⵍⴰ ⴼⵍⵍⴰⴽ ⴰⴷ ⵜⴳⴷ ⴰⵎⵙⵙⵓⴳⵓⵔ ⵏ ⵜⴼⵍⵡⵉⵜ ⴰⴷ ⴼⴰⴷ ⴰ ⵜⵙⴽⵔⵜ ⵎⴰⵢⴰⴷ",
     "reason": "Replace French. Native MediaWiki noemailcreate attests requirement components; badaccess-group0 supplies purpose/action wording and protect-level-sysop administrator plural imssugurn, with singular amssugur derived. Preserve required administration of this board, not generic membership or global instance administration. LOW CONFIDENCE full be-admin conjugation, derived singular, board genitive and complete requirement/action composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "comment-only-desc",
+    "before": "يمكن التعليق على بطاقات فقط.",
+    "after": "ⵜⵥⴹⴰⵕⴷ ⴰⴷ ⵜⵔⵏⵓⴷ ⴰⵖⴼⴰⵡⴰⵍ ⵖⴼ ⵜⴽⴰⵕⴹⵉⵡⵉⵏ ⵖⴰⵙ.",
+    "reason": "Replace Arabic. Native MediaWiki search-ignored-headings attests tzdard ad/can, apisandbox-add-multi attests add/rnu, filehist-comment comment/aghfawal and protect-level-sysop only/ghas. Express the capability to add a comment on cards only, distinct from editing cards. LOW CONFIDENCE full ability/add conjugation, card bound plural and only-clause scope; components alone do not establish fluent role wording. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "no-comments-desc",
+    "before": "Impossible de voir les commentaires.",
+    "after": "ⵓⵔ ⵜⵥⴹⴰⵕⴷ ⴰⴷ ⵜⵥⵕⴷ ⵉⵅⴼⴰⵡⴰⵍⵏ.",
+    "reason": "Replace French. Native MediaWiki search-ignored-headings supports can construction, password-change-forbidden negative capability, skin-view-history zr/view and expand_templates_remove_comments ixfawaln/comments. Preserve inability to see comments, not a command to hide them and not merely inability to post. LOW CONFIDENCE negative ability/view conjugation and full permission composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "read-only-desc",
+    "before": "Peut seulement voir les cartes. Ne peut pas éditer.",
+    "after": "ⵜⵥⴹⴰⵕⴷ ⴰⴷ ⵜⵥⵕⴷ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵖⴰⵙ. ⵓⵔ ⵜⵥⴹⴰⵕⴷ ⴰⴷ ⵜⵙⵏⴼⵍⴷ.",
+    "reason": "Replace French. Native MediaWiki search-ignored-headings supports can construction; password-change-forbidden negative capability; skin-view-history zr/view; edit snfl/edit; protect-level-sysop ghas/only. Preserve both positive viewing of cards and explicit inability to edit, distinct from comment-only role or hiding comments. LOW CONFIDENCE full view/edit ability conjugations, card free plural and only scope. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
