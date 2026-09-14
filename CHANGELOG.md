@@ -658,6 +658,17 @@ were executed. The existing staged-menu tests pass.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/23de74853">Reuse established Git mirror checkout directories</a>. Thanks to xet7.</summary>
+
+WeKan Git synchronization uses existing .tools/wekan-gitlab, Codeberg and
+SourceForge checkouts, preserving dirty checkouts and validating the branch.
+Git caches stay outside the content archive. Offline regression checks paths,
+reuse and dirty-checkout rejection; no remote Git commands were executed.
+The empty wrongly placed Git directory was removed locally.
+
+</details>
+
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 **Languages updated:** Basque, Esperanto, Greenlandic, Manx, Swedish, Valencian

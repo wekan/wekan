@@ -549,3 +549,13 @@ and destination log. Start and completion messages include the operation and
 exit status. Git inventories retain captured stdout for parsing. Offline
 regression verifies stream settings, progress flags and failure propagation;
 no remote Git command is needed to run it.
+
+### Existing Git checkout directories
+
+WeKan Git mirrors reuse `.tools/wekan-gitlab`, `.tools/wekan-codeberg` and
+`.tools/wekan-sourceforge`. Existing checkouts are checked for local changes
+and the default branch before fetching and merging. Source branch/tag refs
+are fetched separately; other source branches and tags remain available for
+synchronization. Content archives remain under `.tools/mirror/<host>/<owner>/<repo>`.
+New source Git caches live directly under `.tools`; other organizations use
+`.tools/mirror-git/<organization>/<repo>` to avoid checkout collisions.
