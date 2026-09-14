@@ -24814,5 +24814,11 @@
     "key": "card-comments-more",
     "value": "Leubeh",
     "reason": "Leubeh correctly means more in Acehnese. Primary Balai Bahasa dictionary example at https://kamusbbpa.kemendikdasmen.go.id/kamus/Aceh/C uses leubeh with Indonesian lebih; Kaidah Bahasa Aceh also attests leubèh as more. Preserve valid existing orthography rather than treating a spelling variant as wrong-language."
+  },
+  {
+    "locale": "eu",
+    "key": "ticket-number",
+    "value": "Tiket-zenbakia",
+    "reason": "Tiket-zenbakia is valid Basque ticket-number wording. Basque government bulletin https://www.euskadi.eus/bopv2/datos/2014/12/1405234e.pdf uses tiket- edo albaran-zenbakia; loanword tiket is native usage, not untranslated English. No current UI consumer was found; this accepts lexical meaning only, not an unobserved workflow."
   }
 ]
