@@ -122890,5 +122890,33 @@
     "before": "Impossible de supprimer cette équipe, au moins un utilisateur lui appartient",
     "after": "ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⵜⴰⵔⴰⴱⴱⵓⵜ ⴰⴷ, ⵉⵍⵍⴰ ⵢⴰⵏ ⵓⵏⵙⵙⵎⵔⵙ ⵏⵖ ⵓⴳⴳⴰⵔ ⴷⵉⴳⵙ.",
     "reason": "Replace French destructive-action confirmation or membership guard. Preserve organization/team/account object, confirmation question and no-undo warning (cannot restore this), or inability to delete a group with at least one user (one or more). Reuse local native comment-delete confirmation frame; MediaWiki zgh delete-confirm, rollbacklinkcount, createacct-submit, badaccess-groups, moredotdotdot and noarticletext support delete/restore/account/user-in-group/more/can components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Organization component remains MW-adapted from https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: full no-undo paraphrase, modal/restore conjugation, one-or-more existential membership phrase, numeric/bound noun agreement and organization dialect adaptation require fluent review; no warning qualifier is intentionally omitted."
+  },
+  {
+    "locale": "zgh",
+    "key": "remove-team-from-table",
+    "before": "Voulez-vous vraiment supprimer cette équipe du tableau ?",
+    "after": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⵜⴰⵔⴰⴱⴱⵓⵜ ⴰⴷ ⵙⴳ ⵜⴼⵍⵡⵉⵜ?",
+    "reason": "Replace French board-group removal confirmation or group-creation guidance. Preserve removal FROM the board rather than deleting the group, organization/team scope, creation purpose and please-contact-administrator instruction. Reuse local confirmation and please frames. MediaWiki zgh blockedtext-contact-blocker-admin, createacct-submit, badaccess-groups and delete-confirm support contact/admin/create/team/remove components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Organization singular/plural is MW-adapted from https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: derived contact imperative and creation conjugation, bound nouns, free team plural, dialect adaptation and full guidance require fluent review; this is vocabulary-supported composition, not a verified native full sentence."
+  },
+  {
+    "locale": "zgh",
+    "key": "remove-organization-from-board",
+    "before": "Voulez-vous vraiment supprimer cette organisation de ce tableau ?",
+    "after": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⵜⵓⴷⴷⵙⴰ ⴰⴷ ⵙⴳ ⵜⴼⵍⵡⵉⵜ ⴰⴷ?",
+    "reason": "Replace French board-group removal confirmation or group-creation guidance. Preserve removal FROM the board rather than deleting the group, organization/team scope, creation purpose and please-contact-administrator instruction. Reuse local confirmation and please frames. MediaWiki zgh blockedtext-contact-blocker-admin, createacct-submit, badaccess-groups and delete-confirm support contact/admin/create/team/remove components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Organization singular/plural is MW-adapted from https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: derived contact imperative and creation conjugation, bound nouns, free team plural, dialect adaptation and full guidance require fluent review; this is vocabulary-supported composition, not a verified native full sentence."
+  },
+  {
+    "locale": "zgh",
+    "key": "to-create-teams-contact-admin",
+    "before": "Pour créer des équipes, veuillez contacter l'administrateur.",
+    "after": "ⴰⴼⴰⴷ ⴰⴷ ⵜⵙⵏⵓⵍⴼⵓⴷ ⵜⵉⵔⵓⴱⴱⴰ, ⴰⵎⵓⵔ ⵏⵏⴽ ⵎⵢⴰⵡⴰⴹ ⴰⴽⴷ ⵓⵎⵙⵙⵓⴳⵓⵔ.",
+    "reason": "Replace French board-group removal confirmation or group-creation guidance. Preserve removal FROM the board rather than deleting the group, organization/team scope, creation purpose and please-contact-administrator instruction. Reuse local confirmation and please frames. MediaWiki zgh blockedtext-contact-blocker-admin, createacct-submit, badaccess-groups and delete-confirm support contact/admin/create/team/remove components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Organization singular/plural is MW-adapted from https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: derived contact imperative and creation conjugation, bound nouns, free team plural, dialect adaptation and full guidance require fluent review; this is vocabulary-supported composition, not a verified native full sentence."
+  },
+  {
+    "locale": "zgh",
+    "key": "to-create-organizations-contact-admin",
+    "before": "Pour créer des organisations, veuillez contacter l'administrateur.",
+    "after": "ⴰⴼⴰⴷ ⴰⴷ ⵜⵙⵏⵓⵍⴼⵓⴷ ⵜⵓⴷⴷⵙⵉⵡⵉⵏ, ⴰⵎⵓⵔ ⵏⵏⴽ ⵎⵢⴰⵡⴰⴹ ⴰⴽⴷ ⵓⵎⵙⵙⵓⴳⵓⵔ.",
+    "reason": "Replace French board-group removal confirmation or group-creation guidance. Preserve removal FROM the board rather than deleting the group, organization/team scope, creation purpose and please-contact-administrator instruction. Reuse local confirmation and please frames. MediaWiki zgh blockedtext-contact-blocker-admin, createacct-submit, badaccess-groups and delete-confirm support contact/admin/create/team/remove components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Organization singular/plural is MW-adapted from https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: derived contact imperative and creation conjugation, bound nouns, free team plural, dialect adaptation and full guidance require fluent review; this is vocabulary-supported composition, not a verified native full sentence."
   }
 ]
