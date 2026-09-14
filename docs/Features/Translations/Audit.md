@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,134 |
+| Corrected | 15,136 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 710 |
+| Pending review or repair | 708 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,335** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,337** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `9f0c7828b` — replaced two unflagged Arabic Tamazight Settings and Change Settings labels with native settings terminology. All **17,335** correction/rendering checks pass. Original counts remain **710** pending, including **567** Tamazight. Earlier blocked-user and deletion-question morphology is now directly attested; combined filter/object-substitution usage, composed terminology and restored/unflagged values still need fluent validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `18bbe07e4` — replaced two French Tamazight minicard-settings headings consistently, preserving the minicard/general-card distinction. The full composed heading and bound-state morphology remain **low confidence** pending fluent review. All **17,337** correction/rendering checks pass. **708** originals remain pending, including **565** Tamazight. Earlier composed UI terminology and restored/unflagged values still need validation. Live browser verification was not run; no translations were pushed.
 
 **Language validation (2026-09-14), local commit `e4e3aa590`:** Wiktionary’s Veps transitive inflection tables confirm `surenda` (make larger) and `penenda` (make smaller) as second-person singular commands. Their imperative morphology is now reference-supported; screen-zoom usage remains open. The original keyboard findings remain unresolved: searches and the cached dictionary did not establish reliable keyboard-shortcut terminology. Counts are unchanged. References and the remaining scope are recorded per key in the correction ledger.
 
