@@ -23863,3 +23863,13 @@ Calendar reference follow-up did not establish Greenlandic Coptic or complete
 Hijri qualifiers. CLDR's Greenlandic file contains an unconfirmed generic
 calendar noun and Gregorian entry, not those missing phrases. No acceptance
 was made from that incomplete evidence. All four findings remain open.
+
+### 2026-09-14 — Moroccan dictionary lead cross-checks
+
+[Tamazight reference review](Tamazight-Review.md) now records independent
+native university evidence for the calendar noun and native software evidence
+for the user noun and click imperative. These verify specific dictionary
+components, not the complete scraped dataset or full product warnings.
+Dictionary/publication access limitations and the next grammatical review
+steps are recorded. No locale values or counts changed; Tamazight still has
+173 pending findings and invalidated Tuareg provenance remains unresolved.
