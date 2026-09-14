@@ -122456,5 +122456,26 @@
     "before": "النشاط البريد الإلكتروني موضوع",
     "after": "ⵉⵎⵔⵙⵉ ⵏ ⵉⵎⴰⵢⵍ ⵏ ⵉⵍⵖⴰ ⵏ ⵓⵔⵎⵓⴷ",
     "reason": "Replace Arabic activity label or activity notification email template labels. Preserve email body text versus subject and include notification meaning absent from Arabic activity labels; reuse local notifications ilgha. Native MediaWiki yourtext, email and subject imrsi support label components. Mixed computing lexicon Activity Armud MW (plural irmad; Central Morocco root hurry) and IRCAM geology radioactivity armud support proposed activity term but not full Standard Moroccan software usage. LOW CONFIDENCE activity terminology adaptation, bound armud form, notification plurality and full possessive label chains. References: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf (Activity p11); https://biblio.ircam.ma/pmb/catalogue/doc_num.php?explnum_id=125 (radioactivity armud, printed p170); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (yourtext, email, subject)."
+  },
+  {
+    "locale": "zgh",
+    "key": "email-templates-invite-body",
+    "before": "دعوة البريد الإلكتروني نص",
+    "after": "ⴰⴹⵕⵉⵙ ⵏ ⵉⵎⴰⵢⵍ ⵏ ⵜⵉⵏⵏⵓⴱⴳⴰ",
+    "reason": "Replace Arabic invitation email template body/subject labels or Invite action. Preserve invitation versus reception/computer prompt, email body text versus subject and verb action. University research attests tinnubga/invitation from inebgi/invited; this source discusses Kabyle school neologisms and is not blanket Standard Moroccan proof. Computing lexicon host notes Central Morocco senneftegh/invite; adapt to schwa-free imperative spelling. Native MediaWiki yourtext, email and subject support other components. LOW CONFIDENCE dialect adaptation of invitation noun and imperative spelling, bound noun and full mail label chain. References: https://dspace.ummto.dz/bitstreams/8dab07b5-09c9-427e-94b7-96a7279a40b5/download (printed p106 invitation derivation); https://cedric.cnam.fr/~bouzefra/books/amawal.pdf (host PDF p70, Central Morocco invite verb); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (yourtext, email, subject)."
+  },
+  {
+    "locale": "zgh",
+    "key": "email-templates-invite-subject",
+    "before": "دعوة البريد الإلكتروني موضوع",
+    "after": "ⵉⵎⵔⵙⵉ ⵏ ⵉⵎⴰⵢⵍ ⵏ ⵜⵉⵏⵏⵓⴱⴳⴰ",
+    "reason": "Replace Arabic invitation email template body/subject labels or Invite action. Preserve invitation versus reception/computer prompt, email body text versus subject and verb action. University research attests tinnubga/invitation from inebgi/invited; this source discusses Kabyle school neologisms and is not blanket Standard Moroccan proof. Computing lexicon host notes Central Morocco senneftegh/invite; adapt to schwa-free imperative spelling. Native MediaWiki yourtext, email and subject support other components. LOW CONFIDENCE dialect adaptation of invitation noun and imperative spelling, bound noun and full mail label chain. References: https://dspace.ummto.dz/bitstreams/8dab07b5-09c9-427e-94b7-96a7279a40b5/download (printed p106 invitation derivation); https://cedric.cnam.fr/~bouzefra/books/amawal.pdf (host PDF p70, Central Morocco invite verb); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (yourtext, email, subject)."
+  },
+  {
+    "locale": "zgh",
+    "key": "invite",
+    "before": "دعوة",
+    "after": "ⵙⵏⵏⴼⵜⵖ",
+    "reason": "Replace Arabic invitation email template body/subject labels or Invite action. Preserve invitation versus reception/computer prompt, email body text versus subject and verb action. University research attests tinnubga/invitation from inebgi/invited; this source discusses Kabyle school neologisms and is not blanket Standard Moroccan proof. Computing lexicon host notes Central Morocco senneftegh/invite; adapt to schwa-free imperative spelling. Native MediaWiki yourtext, email and subject support other components. LOW CONFIDENCE dialect adaptation of invitation noun and imperative spelling, bound noun and full mail label chain. References: https://dspace.ummto.dz/bitstreams/8dab07b5-09c9-427e-94b7-96a7279a40b5/download (printed p106 invitation derivation); https://cedric.cnam.fr/~bouzefra/books/amawal.pdf (host PDF p70, Central Morocco invite verb); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (yourtext, email, subject)."
   }
 ]
