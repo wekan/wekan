@@ -4,21 +4,21 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,623 |
+| Corrected | 15,624 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,175 |
-| Pending review or repair | 279 |
+| Pending review or repair | 278 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
 now reconcile with the live queue; historical notes remain in detailed evidence.
 
-Latest translation fix: **2026-09-14**, local commit `ea286df3d` —
-French overdue-time wording is replaced, preserving %s. Four checks pass;
-adapted deadline terminology, grammar and browser validation remain open.
+Latest translation fix: **2026-09-14**, local commit `d32a96745` —
+French existence-check error wording is replaced, preserving %s and the check
+meaning. Four checks pass; adapted grammar and browser validation remain open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,709** exact before/after values, including unflagged
+records contain **18,710** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -36,7 +36,7 @@ restored values still await full native/browser validation.
 
 | Pending locale | Findings |
 | --- | ---: |
-| zgh — Standard Moroccan Tamazight | 166 |
+| zgh — Standard Moroccan Tamazight | 165 |
 | iu — Inuktitut | 38 |
 | nah — Nahuatl | 17 |
 | tig — Tigre | 17 |

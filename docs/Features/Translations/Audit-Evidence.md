@@ -24633,3 +24633,11 @@ Physical invalid/paralysis entries cannot establish parser invalidity. Existence
 check and correctness leads are read independently, while debug predicate and
 positive-integer meanings remain required. No value changed; 279 pending/4
 restored, 18,709 correction records.
+
+## Tamazight existence-check error — 2026-09-14
+
+Local fix `d32a96745`: [actual parser meaning and clause limits](Tamazight-Review.md).
+French warning replaced; %s and existence-check meaning preserved. Four
+checks pass; adapted negative grammar and browser validation remain open.
+Ledger: 18,710; original counts: 15,624 corrected, 278 pending, 4 restored,
+4,175 retained.

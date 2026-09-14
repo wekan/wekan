@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d32a96745">Replace French Tamazight existence-check error</a>. Thanks to xet7.</summary>
+
+Adapted native wording preserves the existence-check meaning and format token.
+Four checks pass. Full grammar and browser validation remain explicitly open
+in the translation audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e4fb6c394">Review Tamazight parser-error terminology</a>. Thanks to xet7.</summary>
 
 The audit rejects physical invalidity senses for parser errors and records
