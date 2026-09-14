@@ -22413,3 +22413,11 @@ Dictionary source: https://www.ehu.eus/eeh/cgi/bila?h=artxibo
 Twenty-six activity, permission, JSON-copy, mapping and invitation values retain
 correct meanings and canonical keys/tokens. Exact positive/negative correction
 and unchanged-review checks pass; full grammar/browser scope remains open.
+
+### 2026-09-14 — Basque rule fragments and activity settings
+
+Local commit `e34b55d69` retains 30 webhook, subtask, activity, rule builder,
+custom HTML insertion and account/settings values. Conditional denean follows
+card/label/checklist subjects in the trigger builder. Optional authentication,
+irreversible removal, first reminder and literal body tags retain meaning.
+Exact unchanged-review checks pass; full grammar/browser scope remains open.
