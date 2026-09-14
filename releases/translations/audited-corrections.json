@@ -124213,5 +124213,12 @@
     "before": "علامات",
     "after": "ⵉⵔⵛⵓⵎⵏ",
     "reason": "2026-09-14: Replace Arabic card popup/type wording. Native MediaWiki tag-list-wrapper supplies plural irchumn Tags; use existing WeKan software-label adaptation. LOW CONFIDENCE software card/label terminology extension and complete adapted heading or bound phrase still need fluent review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "allboards.workspace-menu",
+    "before": "Menu de l'espace de travail",
+    "after": "ⵓⵎⵓⵖ ⵏ ⵓⵙⴰⵢⵔⴰⵔ",
+    "reason": "2026-09-14: Replace French Workspace menu using native umugh Menu component from MediaWiki navigation-heading and existing asayrar content-space noun corroborated by INPPLC information-space wording. Preserve menu rather than settings or name. LOW CONFIDENCE organizational Workspace extension and complete bound-noun phrase: INPPLC attests information space, not the exact WeKan organizational feature; fluent Standard Moroccan terminology review remains required. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://www.inpplc.ma/index.php/amz ."
   }
 ]
