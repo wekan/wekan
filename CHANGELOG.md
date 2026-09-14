@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,562 corrected, 832 restored pre-pull values awaiting
-validation, 3,376 reviewed and retained, and 308 pending review or repair.
+findings: 15,565 corrected, 802 restored pre-pull values awaiting
+validation, 3,406 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,165 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
@@ -1132,6 +1132,18 @@ Thanks to xet7 !
 
 Retained 30 correct retry/resume, completion, backup, storage and migration
 control values. Exact review checks pass; broader language review remains open.
+
+Thanks to xet7 !
+
+</details>
+
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9683042c4">Validate Galician S3 settings and migration outcomes.</a></summary>
+
+Retained 30 correct migration start/stop, S3/MinIO endpoint, credential,
+region and storage labels. Technical identifiers remain intact. Exact
+review checks pass; broader language and browser review remain open.
 
 Thanks to xet7 !
 

@@ -22354,3 +22354,11 @@ Local commit `4e3802901` retains 30 correct migration retry/resume messages,
 backup completion/scheduling/listing, storage and migration control labels.
 Success/failure/absence polarity and GridFS identifiers are preserved.
 Exact unchanged-review checks pass; full language/browser scope remains open.
+
+### 2026-09-14 — Galician S3 settings and migration outcomes
+
+Local commit `9683042c4` retains 30 correct migration start/stop messages,
+S3/MinIO access/secret-key, bucket, endpoint, port, region and storage values.
+Settings form and required-secret alerts confirm the field context.
+Literal product names, endpoint examples and us-east-1 are preserved.
+Exact unchanged-review checks pass; full language/browser scope remains open.
