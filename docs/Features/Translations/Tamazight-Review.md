@@ -2048,3 +2048,27 @@ changes or new browser execution are claimed. Original pending remains
 226 (zgh 119), restored 4, correction ledger 18,853. Next action includes
 repairing English and reviewing the same location in other locales, along
 with the unresolved Tamazight full sentence and UI terminology.
+
+
+Archive guidance repair **2026-09-14**, `143965460`:
+close-board-pop now directs users to Archive on the All Boards page in
+English and six English variants (en-BR, en-DE, en-GB, en-IT, en-MY, en-YS).
+The full French Tamazight value is replaced with a draft using restore,
+board and the exact existing Archive/All Boards UI labels. This supersedes
+notes leaving the source location and French value unchanged. Active
+boardsList menuSections supplies the Archive row and the template/click
+handler selects it; obsolete header markup stays commented out. No UI
+was changed to reproduce obsolete guidance. Native MediaWiki supports the
+restore verb and home/page terminology; full Tamazight navigation grammar
+and conjugation remain low confidence. Five focused suites pass, covering
+all English variants, distinct active place labels, obsolete/French/Arabic
+rejection, menu behavior, exact tokens, key order and human preference.
+No new browser execution is claimed for board archive/restoration.
+Other locales must still be audited for this same obsolete location;
+retain ones already correct, repair erroneous locations directly. This
+additional multilingual requirement remains within the full goal even
+though it is not represented by the original pending table. Ledger
+18,861; original corrected 15,677; pending 226 → 225, zgh 119 → 118;
+restored 4 unchanged. Prior low-confidence full phrases remain open.
+Source:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
