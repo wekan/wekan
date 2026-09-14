@@ -127090,5 +127090,12 @@
     "before": "Havas kartojn kun kroma tempo",
     "after": "Havas kartojn kun kromlaboro",
     "reason": "2026-09-14: The manually selected isOvertime flag classifies recorded work hours, not a deadline or granted extra time. Use Esperanto kromlaboro (overtime work) consistently instead of generic kroma tempo; hours unit retained. Dictionary references recorded in audit evidence."
+  },
+  {
+    "locale": "gl",
+    "key": "import-board-instruction-trello",
+    "before": "No teu taboleiro de Trello, vai a 'Menú', despois a 'Máis', 'Imprimir e exportar', 'Exportar JSON', e copia o texto resultante.",
+    "after": "No teu taboleiro de Trello, vai a 'Menu', despois a 'More', 'Print and Export', 'Export JSON', e copia o texto resultante.",
+    "reason": "2026-09-14: Restore literal source Trello navigation labels Menu/More/Print and Export/Export JSON, matching the existing audited import-instruction policy. Retain Galician instruction prose."
   }
 ]

@@ -13858,5 +13858,179 @@
     "key": "copyCardPopup-title",
     "value": "Copiar a tarxeta",
     "reason": "2026-09-14: Direct semantic review confirms favorite/unfavorite, restore guidance, comments and role permissions, checklist deletion and card-link/copy labels. Assigned-only visibility, no-edit/no-comment visibility and worker self-assignment restrictions remain explicit; action opposites preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "copyManyCardsPopup-title",
+    "value": "Copiar o modelo a varias tarxetas",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "copyManyCardsPopup-instructions",
+    "value": "Títulos e descricións das tarxetas de destino neste formato JSON",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "copyManyCardsPopup-format",
+    "value": "[ {\"title\": \"Título da primeira tarxeta\", \"description\":\"Descrición da primeira tarxeta\"}, {\"title\":\"Título da segunda tarxeta\",\"description\":\"Descrición da segunda tarxeta\"},{\"title\":\"Título da última tarxeta\",\"description\":\"Descrición da última tarxeta\"} ]",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "createTemplateContainerPopup-title",
+    "value": "Engadir contedor de modelos",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "custom-field-delete-pop",
+    "value": "Non se pode desfacer. Isto eliminará este campo personalizado de todas as tarxetas e destruirá o seu historial.",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "custom-field-dropdown-options-placeholder",
+    "value": "Preme Intro para engadir máis opcións",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "addReactionPopup-title",
+    "value": "Engadir reacción",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "email-invite-text",
+    "value": "Estimado/a __user__,\n\n__inviter__ convídate a unirte ao taboleiro \"__board__\" para colaborar.\n\nSegue a ligazón de abaixo:\n\n__url__\n\nGrazas.",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "push-invite-text",
+    "value": "Estimado/a __user__,\n\n__inviter__ convídate a unirte ao taboleiro \"__board__\" para colaborar.\n\nSegue a ligazón de abaixo:\n\n__url__\n\nGrazas.",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "error-board-doesNotExist",
+    "value": "Este taboleiro non existe",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "error-board-notAdmin",
+    "value": "Tes que ser administrador deste taboleiro para facer iso",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "error-board-notAMember",
+    "value": "Tes que ser membro deste taboleiro para facer iso",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "error-json-malformed",
+    "value": "O teu texto non é un JSON válido",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "error-json-schema",
+    "value": "Os teus datos JSON non inclúen a información axeitada no formato correcto",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "error-csv-schema",
+    "value": "O teu CSV (valores separados por comas)/TSV (valores separados por tabulacións) non inclúe a información axeitada no formato correcto ",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "user-can-not-export-excel",
+    "value": "O usuario non pode exportar a Excel",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "export-card",
+    "value": "Exportar a tarxeta",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "export-card-pdf",
+    "value": "Exportar a tarxeta a PDF",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "export-card-excel",
+    "value": "Exportar a tarxeta a Excel",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "export-card-field-board-info",
+    "value": "Información do taboleiro (taboleiro, lista, carril)",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "export-card-field-dates",
+    "value": "Datas (creación, recepción, inicio, límite, fin)",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "export-card-excel-no-disk-space",
+    "value": "Non se pode exportar a Excel: non hai espazo libre abondo no disco",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "user-can-not-export-card-to-pdf",
+    "value": "O usuario non pode exportar a tarxeta a PDF",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "user-can-not-export-card-to-excel",
+    "value": "O usuario non pode exportar a tarxeta a Excel",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "exportCardPopup-title",
+    "value": "Exportar a tarxeta",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "remove-sort",
+    "value": "Quitar a ordenación",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "filter-cards",
+    "value": "Filtrar tarxetas ou listas",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "filter-on-desc",
+    "value": "Estás a filtrar tarxetas neste taboleiro. Fai clic aquí para editar o filtro.",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "import-board-instruction-wekan",
+    "value": "No teu taboleiro, vai a 'Menú', despois a 'Exportar taboleiro', e copia o texto do ficheiro descargado.",
+    "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
   }
 ]
