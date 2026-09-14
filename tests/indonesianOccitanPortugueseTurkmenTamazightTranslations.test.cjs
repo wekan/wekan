@@ -294,3 +294,12 @@ for (const key of ['set-wip-limit-value', 'wipLimitErrorPopup-dialog-pt1']) {
  assert.match(locales.zgh[key], /ⵜⵎⵙⴽⵉⵔⵉⵏ/);
  assert.doesNotMatch(locales.zgh[key], /ⵜⵡⵓⵔⵉⵡⵉⵏ|ⵜⵎⵙⴽⴰⵔ/);
 }
+
+assert.equal(locales.zgh.task, 'ⵜⴰⵎⵙⴽⵉⵔⵜ');
+assert.equal(locales.zgh.subtasks, locales.zgh['export-card-subtasks']);
+for (const key of ['add-subtask', 'subtasks', 'export-card-subtasks', 'show-subtasks-field']) {
+ assert.match(locales.zgh[key], /ⵎⵙⴽⵉⵔ.*ⴷⴷⴰⵡ ⵏ ⵜⵎⵙⴽⵉⵔⵜ/);
+ assert.doesNotMatch(locales.zgh[key], /ⵜⵡⵓⵔⵉ|Tâche|ⵜⵎⵙⴽⴰⵔ/);
+}
+assert.match(locales.zgh['show-subtasks-field'], /^ⵙⴽⵏ ⵉⴳⵔ/);
+assert.match(locales.zgh['add-subtask'], /^ⵔⵏⵓ/);
