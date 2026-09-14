@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,294 |
+| Corrected | 15,298 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 550 |
+| Pending review or repair | 546 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,600** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,604** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `85672c308` — repaired two original French URL-correction findings. Preserve all-file versus attachment URL scope, correction action and exact URL acronym. Lexicon and native all-qualifier references support vocabulary; dialect adaptation, transcription, acronym plural/scope placement, agreement and full noun relations remain **low confidence** pending review. All **17,600** correction/rendering checks pass. **550** originals remain pending across **17** locales, including **407** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `44d2b0241` — replaced four original French duplicate-list deletion findings with provisional Tamazight wording. Preserve duplicate and empty qualifiers; avoid the lexicon’s private/double ambiguity. Repeat-derived technical duplicate meaning is not established; passive participle, feminine-plural empty paraphrase, dialect adaptation, coordination and full labels remain **low confidence** and require further research. All **17,604** correction/rendering checks pass. **546** originals remain pending across **17** locales, including **403** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Build interruption follow-up (2026-09-14):** `.tools/wekan22` contains the old v11.75 missing-Moment failure, already repaired in `43adfe1a7`. A fresh Meteor 3.6-beta.0 bundle build passes on Linux arm64, and six assignee/calendar/release-preflight Node test entries pass. Log: `.tools/log/build-dev-bundle/2026-09-14/04-25-58/dev.txt`. Native amd64 and live browser checks were not run. Translation counts and the remaining validation scope above are unchanged.
 
