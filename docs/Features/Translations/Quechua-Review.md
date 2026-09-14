@@ -72,3 +72,26 @@ Existing ledger original-before values are preserved where present; eight
 new unflagged records and one revision bring total records to 18,751.
 Four focused checks pass; no browser validation was run. Original pending
 findings remain 259; native/runtime and prior uncertain repairs stay open.
+
+## Jalali, ISO weeks and week label — 2026-09-14
+
+Local commit `2307b8332` repairs three Quechua values. Jalali's omitted
+proper name is restored while retaining Persian identification. ISO 8601
+now explicitly identifies the Gregorian calendar and weeks, rather than
+only naming the standard with a clock noun. The generic week label is
+Simana, removing the unrelated Kay willaymi wrapper.
+
+The Chilean Ministry of Education Cusco Collao dictionary 2019 PDF pages
+45, 83 and 159 explicitly attest Simana as Quechuized week. A word being
+a Spanish loan does not make it wrong-language when the primary native
+dictionary explicitly accepts it. Calendar Watanqillqa is separately
+attested; the previous clock/calendar distinction applies here too.
+Source:
+https://aprendoenlinea.mineduc.gob.cl/sites/default/files/newtenberg/614/articles-134497_recurso_pdf.pdf
+
+**Low confidence** remains for retained Persa/Gregoriano names, adapted
+plural simanakuna and full native compounds. The generic calendar-system
+heading and civil/sighting/astronomical labels remain open. Four focused
+checks pass; no browser validation was run. Original ledger before values
+are preserved on revisions; two new records bring total to 18,753.
+Original pending findings remain 259; broader native/runtime review stays open.

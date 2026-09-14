@@ -16,13 +16,13 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `474a2909e` —
-Nine Quechua calendar options use the attested calendar noun instead of
-clock. Names/qualifiers survive; four checks pass. Retained modifiers,
-generic setting and full native/browser review remain open. Pending: 259.
+Latest translation fix: **2026-09-14**, local commit `2307b8332` —
+Quechua Jalali name and ISO Gregorian/week meanings are restored; week
+uses attested Simana. Four checks pass. Retained naming/plural compounds
+and full native/browser review remain open. Original pending: 259.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,751** exact before/after values, including unflagged
+records contain **18,753** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

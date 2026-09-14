@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2307b8332">Restore Quechua Jalali and ISO-week meanings</a>. Thanks to xet7.</summary>
+
+Restore omitted calendar names and Gregorian/week identification; use
+attested Simana for week. Four focused checks pass. Retained naming and
+full compounds remain low confidence pending native/browser review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/474a2909e">Correct Quechua calendar nouns in nine options</a>. Thanks to xet7.</summary>
 
 Use the attested calendar noun instead of clock, preserving names and
