@@ -20,18 +20,16 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,590** exact before/after values, including unflagged repairs.
+contain **18,591** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `a7e99aea5` —
-six Breton WIP settings/error/group and webhook-disable labels replace French
-wording. The group heading restores its grouping meaning; edit/enable/set/error
-remain distinct. Native activate/deactivate/limit terms and existing local
-vocabulary support adapted compounds. All **18,590** corrections and **4,163**
-unchanged reviews pass, alongside focused locale and completeness checks.
-These unflagged repairs leave the original 293 pending and 17 restored counts
-unchanged. Full compound-phrase, low-confidence and browser review remain open.
+Latest translation fix: **2026-09-14**, local commit `feab87240` —
+Breton Custom product name replaces French wording and restores the omitted
+product qualifier. Documented native vocabulary supports an adapted compound;
+full phrase and browser validation remain open. All **18,591** corrections,
+**4,163** unchanged reviews, focused locale and completeness checks pass.
+This unflagged repair leaves 293 pending and 17 restored findings unchanged.
 Latest unchanged review: **2026-09-14**, Thai r-is —
 คือ retained after removing its incorrect insertion before action predicates.
 Danish Dage gammel remains validated in `824dd005e` with native age-construction

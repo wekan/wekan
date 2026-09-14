@@ -694,6 +694,15 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/feab87240">Repair Breton custom product name label</a>. Thanks to xet7.</summary>
+
+Custom product name replaces French wording and restores the product qualifier.
+Exact correction, positive/negative label and completeness checks pass. The
+dated audit records vocabulary evidence and remaining phrase/browser review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a7e99aea5">Repair Breton WIP and webhook settings labels</a>. Thanks to xet7.</summary>
 
 WIP edit/enable/set/error/group labels and the webhook-disable label replace

@@ -23585,3 +23585,19 @@ meanings are protected by regression. Four offline suites pass, preserving
 Original queue remains 15,608 corrected, 17 restored and 293 pending.
 Full contextual compounds, uncertain values and live browser review remain open.
 No translation service, subagents or remote writes.
+
+
+Breton product-name label — 2026-09-14, local commit `feab87240`.
+
+The Admin Panel product-name input (settingBody.jade) and organization/team
+settings (peopleBody.jade) use custom-product-name. French Nom personnalisé
+omitted the product qualifier; Anv personelaet ar produ restores it.
+[Ofis TermBret computing glossary](https://www.brezhoneg.bzh/uploads/Document/20/798_536_an-urzhiataerezh.pdf)
+attests personelaat (customize); existing local custom-field wording uses
+personelaet. [Geriafurch product entry](https://geriafurch.bzh/fr/frbr/produit)
+quotes Favereau and Termofis produ, including product-denomination vocabulary.
+[Produit en Bretagne](https://www.produitenbretagne.bzh/nos-produits-bretons/)
+independently pairs produioù with products. These support the component words,
+not an exact attestation of the complete adapted interface phrase. Native full
+phrase and browser validation remain open. Positive/negative label, exact
+ledger, unchanged-review and completeness checks passed; no live UI was run.
