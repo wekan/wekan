@@ -126222,5 +126222,26 @@
     "before": "الرئيسية",
     "after": "ⴰⵙⵏⵓⴱⴳ",
     "reason": "2026-09-14: Replace Arabic Home with directly attested Standard Moroccan Tamazight Home. Native Mastodon column.home: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . MediaWiki mainpage/tooltip-n-mainpage corroborate the bound Home component: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . This is an exact standalone native UI label, not proof of full home-header restore instruction; close-board-pop remains pending."
+  },
+  {
+    "locale": "zgh",
+    "key": "admin-desc",
+    "before": "Peut consulter et modifier les cartes, supprimer des participants et modifier les paramètres du tableau. Peut consulter les activités.\n ",
+    "after": "ⵜⵥⴹⴰⵕⴷ ⴰⴷ ⵜⵥⵕⴷ ⴷ ⴰⴷ ⵜⵙⵏⴼⵍⴷ ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ, ⴰⴷ ⵜⴽⴽⵙⴷ ⵉⴳⵎⴰⵎⵏ ⴷ ⴰⴷ ⵜⵙⵏⴼⵍⴷ ⵜⵉⵙⵖⴰⵍ ⵏ ⵜⴼⵍⵡⵉⵜ. ⵜⵥⴹⴰⵕⴷ ⴰⴷ ⵜⵥⵕⴷ ⵜⵉⴳⴰⵡⵉⵏ.",
+    "reason": "2026-09-14: Replace French/Arabic with Standard Moroccan Tamazight. Native MediaWiki directly supports Actions tigawin, Edit snfl, viewing zr (skin-view-history), Settings tisghal (quickfilters) and Delete/Remove kks: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Can construction retains native search-ignored-headings tzhdard and derived personal/negative forms. Preserve administrator card VIEW and EDIT, MEMBER removal, BOARD settings changes, separate activity VIEW; normal member can view/edit cards but CANNOT change settings. Activities uses Actions-to-activity-log adaptation; card/member local vocabulary, full permission grammar and adaptation remain LOW CONFIDENCE. Standalone label repair is not proof of whole descriptions."
+  },
+  {
+    "locale": "zgh",
+    "key": "normal-desc",
+    "before": "يمكن مشاهدة و تعديل  البطاقات. لا يمكن تغيير إعدادات الضبط.",
+    "after": "ⵜⵥⴹⴰⵕⴷ ⴰⴷ ⵜⵥⵕⴷ ⴷ ⴰⴷ ⵜⵙⵏⴼⵍⴷ ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ. ⵓⵔ ⵜⵥⴹⴰⵕⴷ ⴰⴷ ⵜⵙⵏⴼⵍⴷ ⵜⵉⵙⵖⴰⵍ.",
+    "reason": "2026-09-14: Replace French/Arabic with Standard Moroccan Tamazight. Native MediaWiki directly supports Actions tigawin, Edit snfl, viewing zr (skin-view-history), Settings tisghal (quickfilters) and Delete/Remove kks: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Can construction retains native search-ignored-headings tzhdard and derived personal/negative forms. Preserve administrator card VIEW and EDIT, MEMBER removal, BOARD settings changes, separate activity VIEW; normal member can view/edit cards but CANNOT change settings. Activities uses Actions-to-activity-log adaptation; card/member local vocabulary, full permission grammar and adaptation remain LOW CONFIDENCE. Standalone label repair is not proof of whole descriptions."
+  },
+  {
+    "locale": "zgh",
+    "key": "activities",
+    "before": "الأنشطة",
+    "after": "ⵜⵉⴳⴰⵡⵉⵏ",
+    "reason": "2026-09-14: Replace French/Arabic with Standard Moroccan Tamazight. Native MediaWiki directly supports Actions tigawin, Edit snfl, viewing zr (skin-view-history), Settings tisghal (quickfilters) and Delete/Remove kks: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Can construction retains native search-ignored-headings tzhdard and derived personal/negative forms. Preserve administrator card VIEW and EDIT, MEMBER removal, BOARD settings changes, separate activity VIEW; normal member can view/edit cards but CANNOT change settings. Activities uses Actions-to-activity-log adaptation; card/member local vocabulary, full permission grammar and adaptation remain LOW CONFIDENCE. Standalone label repair is not proof of whole descriptions."
   }
 ]
