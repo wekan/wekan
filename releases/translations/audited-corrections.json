@@ -131122,5 +131122,12 @@
     "before": "Voir la carte parente dans la mini-carte :",
     "after": "ⵙⵙⴽⵏ ⴰⵎⴰⵔⴰⵡ ⴳ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵢⴰⵏⵜ:",
     "reason": "Replace French with Tamazight show/parent/in-minicard wording. IRCAM 2019 entries 9816 show, 2198 father (software-parent adaptation), 10775 card; reuse existing minicard adjective. Low confidence: feminine small adjective agreement, full clause and software-parent metaphor require native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "smtp-host-description",
+    "before": "L'adresse du serveur SMTP qui gère vos mails.",
+    "after": "ⴰⵏⵙⴰ ⵏ ⵓⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ SMTP ⵍⵍⵉ ⵉⵙⵙⵓⴳⵓⵔⵏ ⵜⵉⵎⵢⴰⵣⴰⵏⵉⵏ ⵜⵉⵍⵉⴽⵟⵕⵓⵏⵉⵜⵉⵏ ⵏⴽ.",
+    "reason": "Replace French with Tamazight SMTP computer-server address handling your electronic correspondence. IRCAM 2019 entries 3464 address, 2157 computer-server compound, 10031 administer/manage, 11389 correspondence plural and explicit email compound. Preserve SMTP; do not substitute user email-address compound for server address. Low confidence: electronic adjective plural, participle, possession and full relative clause need native/browser review."
   }
 ]

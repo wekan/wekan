@@ -212,3 +212,9 @@ assert.doesNotMatch(locales.zgh['custom-product-name'], /Nom|personnalisé/);
 assert.equal(locales.zgh['show-parent-in-minicard'], 'ⵙⵙⴽⵏ ⴰⵎⴰⵔⴰⵡ ⴳ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵢⴰⵏⵜ:');
 assert.doesNotMatch(locales.zgh['show-parent-in-minicard'], /Voir|parente|mini-carte/);
 assert.match(locales.zgh['show-parent-in-minicard'], /ⵜⴰⵎⵥⵢⴰⵏⵜ:$/);
+
+assert.equal(locales.zgh['smtp-host-description'], 'ⴰⵏⵙⴰ ⵏ ⵓⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ SMTP ⵍⵍⵉ ⵉⵙⵙⵓⴳⵓⵔⵏ ⵜⵉⵎⵢⴰⵣⴰⵏⵉⵏ ⵜⵉⵍⵉⴽⵟⵕⵓⵏⵉⵜⵉⵏ ⵏⴽ.');
+assert.deepEqual(locales.zgh['smtp-host-description'].match(/SMTP/g), ['SMTP']);
+assert.match(locales.zgh['smtp-host-description'], /^ⴰⵏⵙⴰ ⵏ ⵓⵎⴰⴽⴽⴰⵢ/);
+assert.match(locales.zgh['smtp-host-description'], /ⵜⵉⵎⵢⴰⵣⴰⵏⵉⵏ.*ⵏⴽ/);
+assert.doesNotMatch(locales.zgh['smtp-host-description'], /L'adresse|serveur|mails|^ⴰⵏⵙⴰ ⴰⵍⵉⴽⵟⵕⵓⵏⵉ/);

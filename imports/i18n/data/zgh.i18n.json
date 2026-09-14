@@ -1068,7 +1068,7 @@
   "invite-people": "الناس المدعوين",
   "to-boards": "إلى اللوحات",
   "email-addresses": "عناوين البريد الإلكتروني",
-  "smtp-host-description": "L'adresse du serveur SMTP qui gère vos mails.",
+  "smtp-host-description": "ⴰⵏⵙⴰ ⵏ ⵓⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ SMTP ⵍⵍⵉ ⵉⵙⵙⵓⴳⵓⵔⵏ ⵜⵉⵎⵢⴰⵣⴰⵏⵉⵏ ⵜⵉⵍⵉⴽⵟⵕⵓⵏⵉⵜⵉⵏ ⵏⴽ.",
   "smtp-port-description": "Le port des mails sortants du serveur SMTP.",
   "smtp-tls-description": "ⵙⵙⵔⴼⵓ ⴰⵙⵎⵔⵙ ⵏ TLS ⵉ ⵓⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ SMTP",
   "smtp-host": "مضيف SMTP",
