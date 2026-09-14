@@ -25534,3 +25534,15 @@ transliteration; browser not run. Native grammar discusses Bhutanese
 weekday reckoning separately: this label repair does not alter date math
 or claim that traditional weekday rules equal ISO 8601. Original pending
 stays 255, Dzongkha 2; correction ledger grows to 18,763.
+
+
+Tamazight Optional — 2026-09-14, local commit `855219d70`.
+Unflagged optional Arabic becomes aruccil, explicitly attested by IRCAM
+Amazigh-English dictionary PDF page 194 entry 3684. Positive/negative
+checks verify the adjective and reject Arabic; four suites pass including
+all token/order/human-preference invariants. Longer webhook token and
+authentication phrase remains pending rather than being accepted after
+a component-only change. Original pending 255; ledger grows to 18,764.
+Dzongkha official 2023 dictionary direct download timed out at connection
+setup after 10 seconds, confirming current retrieval failure; no epoch
+translation or absence claim follows from that timeout. Browser open.

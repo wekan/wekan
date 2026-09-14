@@ -656,6 +656,14 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/855219d70">Replace Arabic Optional label with native Tamazight</a>. Thanks to xet7.</summary>
+
+Use the explicitly attested native adjective. Four suites pass; longer
+webhook/epoch phrases and browser verification remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7dd8c10c9">Restore Dzongkha Gregorian and ISO week label components</a>. Thanks to xet7.</summary>
 
 Restore calendar and week meanings omitted by the identifier-only seed.
