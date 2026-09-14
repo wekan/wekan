@@ -131430,5 +131430,19 @@
     "before": "jaune",
     "after": "ⴰⵡⵔⴰⵖ",
     "reason": "2026-09-14: Replace wrong-language basic color label with exact IRCAM Amazigh-English lemma, PDF page 268 entry 5233. Standalone color noun/adjective, no invented inflection. Green entry has green/blue polysemy; distinct explicitly blue anili retained for blue. Complex CSS shade names remain separate review."
+  },
+  {
+    "locale": "zgh",
+    "key": "poker-finish",
+    "before": "Finir",
+    "after": "ⵙⵎⴷ",
+    "reason": "2026-09-14: Replace French Planning Poker action with exact IRCAM Amazigh-English verb, PDF page 499 entry 9408. Finish completes the round; replay starts it again in actual cardDetails handlers. Short imperative action adapted from verb lemma; native/browser context review remains open."
+  },
+  {
+    "locale": "zgh",
+    "key": "poker-replay",
+    "before": "Rejouer",
+    "after": "ⴰⵍⵙ",
+    "reason": "2026-09-14: Replace French Planning Poker action with exact IRCAM Amazigh-English verb, PDF page 117 entry 2103. Finish completes the round; replay starts it again in actual cardDetails handlers. Short imperative action adapted from verb lemma; native/browser context review remains open."
   }
 ]

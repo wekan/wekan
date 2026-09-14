@@ -336,3 +336,7 @@ assert.equal(locales.zgh['color-yellow'], 'ⴰⵡⵔⴰⵖ');
 assert.doesNotMatch(locales.zgh['color-yellow'], /[A-Za-z\u0600-\u06ff]/);
 
 assert.notEqual(locales.zgh['color-blue'], locales.zgh['color-green']);
+
+assert.equal(locales.zgh['poker-finish'], 'ⵙⵎⴷ');
+assert.equal(locales.zgh['poker-replay'], 'ⴰⵍⵙ');
+assert.doesNotMatch(locales.zgh['poker-finish'] + locales.zgh['poker-replay'], /Finir|Rejouer/);
