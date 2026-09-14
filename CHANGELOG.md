@@ -634,6 +634,20 @@ browser regressions are syntax-checked; live execution remains pending.
 
 </details>
 
+**Bug fixes** - Board View Settings popup placement and controls.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3b74d2c3c">Keep Board View Settings visible and movable</a>. Thanks to xet7.</summary>
+
+Open the wide settings panel in visible viewport coordinates instead of
+clamping it as a narrow sidebar menu. Allow title-bar dragging and bottom-right
+resizing, including arrow-key resizing, with viewport limits and interactive
+header exclusions. Retain the physical right-hand grip in RTL layouts.
+Geometry, pointer and Jade checks pass. Browser coverage is syntax-checked;
+live execution remains pending. Document usage in BoardViews/Settings-Popup.md.
+
+</details>
+
 This release fixes the following board-view problems:
 
 **Bug fixes** - Consistent title viewers and assignee dependencies.
