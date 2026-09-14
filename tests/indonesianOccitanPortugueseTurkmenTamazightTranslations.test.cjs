@@ -400,3 +400,8 @@ for (const style of ['Cube-Grid', 'Double-Bounce', 'Rotateplane', 'Scaleout']) {
 for (const key of ['r-df-start-at', 'predicate-start']) assert.equal(locales.zgh[key], locales.zgh['card-start']);
 for (const key of ['r-df-end-at', 'predicate-end']) assert.equal(locales.zgh[key], locales.zgh['card-end']);
 assert.notEqual(locales.zgh['predicate-start'], locales.zgh['predicate-end']);
+
+assert.equal(locales.zgh['export-card-field-dates'], 'ⵉⵙⴰⴽⵓⴷⵏ (ⴰⵙⵏⴼⵍⵓⵍ, ⵉⵎⵉⵥ, ⵜⵓⴷⴷⵎⴰ, ⴰⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ, ⵜⵉⴳⵉⵔⴰ)');
+assert.equal(locales.zgh['operator-created'], 'ⴰⵙⵏⴼⵍⵓⵍ');
+assert.equal(locales.zgh['predicate-created'], locales.zgh['operator-created']);
+assert.doesNotMatch(locales.zgh['export-card-field-dates'], /Création|Réception|Début|Échéance|Fin/);
