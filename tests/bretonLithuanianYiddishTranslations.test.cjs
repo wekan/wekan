@@ -130,3 +130,22 @@ for (const key of ['accounts-lockout-failed-attempts', 'cron-migration-errors',
   'migration-running', 'pending', 'complete', 'no-cards-found', 'no-issues-found']) {
   assert.doesNotMatch(locales.br[key], /Tentatives|Erreurs|Erreur|échec|Statut|Aucune|Aucun|Terminé|En cours/);
 }
+
+assert.equal(locales.br['board-view-cal'], 'Deiziadur');
+assert.equal(locales.br['board-view-lists'], 'Rolloù');
+assert.equal(locales.br['board-view-table'], locales.br.board);
+assert.equal(locales.br['board-view-collapse'], locales.br.collapse);
+assert.equal(locales.br.collapse, 'Plegañ');
+assert.equal(locales.br.uncollapse, 'Displegañ');
+assert.notEqual(locales.br.collapse, locales.br.uncollapse);
+assert.equal(locales.br.comments, 'Evezhiadennoù');
+assert.equal(locales.br['no-comments'], 'Evezhiadenn ebet');
+for (const key of ['board-view', 'board-view-cal', 'board-view-lists',
+  'board-view-table', 'board-view-collapse', 'collapse', 'uncollapse',
+  'comments', 'no-comments']) {
+  assert.doesNotMatch(locales.br[key], /Vue du|Calendrier|Listes|Tableau|Réduire|Développer|Commentaires|Aucun commentaire/);
+}
+for (const key of ['board-view-gantt', 'board-view-gantt-frappe',
+  'board-view-gantt-dhtmlx']) {
+  assert.match(locales.br[key], /Gantt$/, 'proper chart/vendor names stay literal');
+}

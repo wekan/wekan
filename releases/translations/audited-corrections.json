@@ -129890,5 +129890,68 @@
     "before": "Aucun problème détecté",
     "after": "Kudenn ebet kavet",
     "reason": "Repair French-seeded Breton diagnostics and status values. Reuse local kennaskañ, treuzkas roadennoù, Stad, Echu, no-card/problem and waiting terminology. Native Ofis dictionary attests fazi/fazioù; native Kelennomp grammar reference gives c’hwitet eo for failure; Ofis computing glossary attests war ober for in-progress and diskwel. Preserve pending/running/complete/failed distinctions. Full adapted phrases and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "board-view",
+    "before": "Vue du tableau",
+    "after": "Gwel an daolenn",
+    "reason": "Repair French-seeded Breton view/collapse/comment labels. Reuse local board/list/table and comment nouns. Native Ofis deiziadur entry supports calendar; plegañ/displegañ entries support fold/unfold and preserve opposite controls. Proper Gantt vendor names remain unchanged. Full contextual phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "board-view-cal",
+    "before": "Calendrier",
+    "after": "Deiziadur",
+    "reason": "Repair French-seeded Breton view/collapse/comment labels. Reuse local board/list/table and comment nouns. Native Ofis deiziadur entry supports calendar; plegañ/displegañ entries support fold/unfold and preserve opposite controls. Proper Gantt vendor names remain unchanged. Full contextual phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "board-view-lists",
+    "before": "Listes",
+    "after": "Rolloù",
+    "reason": "Repair French-seeded Breton view/collapse/comment labels. Reuse local board/list/table and comment nouns. Native Ofis deiziadur entry supports calendar; plegañ/displegañ entries support fold/unfold and preserve opposite controls. Proper Gantt vendor names remain unchanged. Full contextual phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "board-view-table",
+    "before": "Tableau",
+    "after": "Taolenn",
+    "reason": "Repair French-seeded Breton view/collapse/comment labels. Reuse local board/list/table and comment nouns. Native Ofis deiziadur entry supports calendar; plegañ/displegañ entries support fold/unfold and preserve opposite controls. Proper Gantt vendor names remain unchanged. Full contextual phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "board-view-collapse",
+    "before": "Réduire",
+    "after": "Plegañ",
+    "reason": "Repair French-seeded Breton view/collapse/comment labels. Reuse local board/list/table and comment nouns. Native Ofis deiziadur entry supports calendar; plegañ/displegañ entries support fold/unfold and preserve opposite controls. Proper Gantt vendor names remain unchanged. Full contextual phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "collapse",
+    "before": "Réduire",
+    "after": "Plegañ",
+    "reason": "Repair French-seeded Breton view/collapse/comment labels. Reuse local board/list/table and comment nouns. Native Ofis deiziadur entry supports calendar; plegañ/displegañ entries support fold/unfold and preserve opposite controls. Proper Gantt vendor names remain unchanged. Full contextual phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "uncollapse",
+    "before": "Développer",
+    "after": "Displegañ",
+    "reason": "Repair French-seeded Breton view/collapse/comment labels. Reuse local board/list/table and comment nouns. Native Ofis deiziadur entry supports calendar; plegañ/displegañ entries support fold/unfold and preserve opposite controls. Proper Gantt vendor names remain unchanged. Full contextual phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "comments",
+    "before": "Commentaires",
+    "after": "Evezhiadennoù",
+    "reason": "Repair French-seeded Breton view/collapse/comment labels. Reuse local board/list/table and comment nouns. Native Ofis deiziadur entry supports calendar; plegañ/displegañ entries support fold/unfold and preserve opposite controls. Proper Gantt vendor names remain unchanged. Full contextual phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "no-comments",
+    "before": "Aucun commentaire",
+    "after": "Evezhiadenn ebet",
+    "reason": "Repair French-seeded Breton view/collapse/comment labels. Reuse local board/list/table and comment nouns. Native Ofis deiziadur entry supports calendar; plegañ/displegañ entries support fold/unfold and preserve opposite controls. Proper Gantt vendor names remain unchanged. Full contextual phrase/browser review remains open."
   }
 ]
