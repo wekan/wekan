@@ -10252,5 +10252,245 @@
     "key": "a-endAt",
     "value": "ŝanĝis fintempon al",
     "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "a-startAt",
+    "value": "ŝanĝis komencotempon al",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "a-receivedAt",
+    "value": "ŝanĝis ricevotempon al",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "above-selected-card",
+    "value": "Super la elektita karto",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "above-selected-swimlane",
+    "value": "Super la elektita naĝlinio",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "below-selected-card",
+    "value": "Sub la elektita karto",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "below-selected-swimlane",
+    "value": "Sub la elektita naĝlinio",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "left-of-list",
+    "value": "Maldekstre de la elektita listo",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "right-of-list",
+    "value": "Dekstre de la elektita listo",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "almostdue",
+    "value": "la nuna limdato %s proksimiĝas",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "pastdue",
+    "value": "la nuna limdato %s pasis",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "duenow",
+    "value": "la nuna limdato %s estas hodiaŭ",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "act-withDue",
+    "value": "__list__/__card__ limdataj memorigoj [__board__]",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "act-almostdue",
+    "value": "memorigis, ke la nuna limdato (__timeValue__) de __card__ proksimiĝas",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "act-pastdue",
+    "value": "memorigis, ke la nuna limdato (__timeValue__) de __card__ pasis",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "act-duenow",
+    "value": "memorigis, ke la nuna limdato (__timeValue__) de __card__ estas nun",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "act-atUserComment",
+    "value": "menciis vin en karto __card__: __comment__ en listo __list__ en naĝlinio __swimlane__ en tabulo __board__",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "delete-user-confirm-popup",
+    "value": "Ĉu vi certas, ke vi volas forigi ĉi tiun konton? Ne eblas malfari.",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "delete-team-confirm-popup",
+    "value": "Ĉu vi certas, ke vi volas forigi ĉi tiun teamon? Ne eblas malfari.",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "delete-org-confirm-popup",
+    "value": "Ĉu vi certas, ke vi volas forigi ĉi tiun organizon? Ne eblas malfari.",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "assignee",
+    "value": "Asignito",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "assignees",
+    "value": "Asignitoj",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "no-assignee",
+    "value": "Neniu asignito",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "cardAssigneesPopup-title",
+    "value": "Asignito",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "show-on-minicard",
+    "value": "Montri sur minikarto",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "new",
+    "value": "Nova",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "editOrgPopup-title",
+    "value": "Redakti organizon",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "newOrgPopup-title",
+    "value": "Nova organizo",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "editTeamPopup-title",
+    "value": "Redakti teamon",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "newTeamPopup-title",
+    "value": "Nova teamo",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "notifications",
+    "value": "Sciigoj",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "help",
+    "value": "Helpo",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "view-all",
+    "value": "Vidi ĉiujn",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "filter-by-unread",
+    "value": "Filtri laŭ nelegitaj",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "mark-all-as-read",
+    "value": "Marki ĉiujn kiel legitajn",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "mark-all-as-unread",
+    "value": "Marki ĉiujn kiel nelegitajn",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "allow-rename",
+    "value": "Permesi alinomon",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "allowRenamePopup-title",
+    "value": "Permesi alinomon",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "start-day-of-week",
+    "value": "Agordi la komencan tagon de la semajno",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "monday",
+    "value": "Lundo",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "tuesday",
+    "value": "Mardo",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
   }
 ]
