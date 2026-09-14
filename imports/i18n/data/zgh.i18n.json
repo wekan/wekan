@@ -1227,7 +1227,7 @@
   "activity-added-label-card": "ⵉⵔⵏⴰ ⴰⵔⵛⵓⵎ '%s'",
   "activity-removed-label-card": "ⵉⴽⴽⵙ ⴰⵔⵛⵓⵎ '%s'",
   "activity-delete-attach-card": "ⵉⴽⴽⵙ ⵜⴰⵙⴰⵡⵉⵜ ⵢⵔⵏⴰⵏ",
-  "activity-set-customfield": "a défini le champ personnalisé '%s' à '%s' dans %s",
+  "activity-set-customfield": "ⵉⵙⵙⵔⵙ ⵉⴳⵔ ⵉⵥⵍⵉⵏ '%s' ⵖⵔ '%s' ⴳ %s",
   "activity-unset-customfield": "a effacé le champ personnalisé '%s' dans %s",
   "r-rule": "ⴰⵍⵓⴳⵏ",
   "r-add-trigger": "Ajouter un déclencheur",

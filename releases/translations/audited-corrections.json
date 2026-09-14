@@ -126558,5 +126558,12 @@
     "before": "a importé %s vers %s depuis %s",
     "after": "ⵉⵙⴽⵛⵎ %s ⴳ %s ⵙⴳ %s",
     "reason": "2026-09-14: Replace French import activity. Native MediaWiki importlogpage Imports iskchumn supports import root, and location/From sg components are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve active IMPORTED object INTO destination FROM source, exact three percent placeholders in source order. Derived past actor iskchm and full import-location grammar remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-set-customfield",
+    "before": "a défini le champ personnalisé '%s' à '%s' dans %s",
+    "after": "ⵉⵙⵙⵔⵙ ⵉⴳⵔ ⵉⵥⵍⵉⵏ '%s' ⵖⵔ '%s' ⴳ %s",
+    "reason": "2026-09-14: Replace French custom-field assignment activity. Indexed IRCAM Asinag 9 printed page 173 Place ssrs imperative supports Set-as-Place adaptation (direct PDF fetch failed): https://tal.ircam.ma/talam/Articles/Ataa%20Allah-etiq-Asinag9.pdf . Native MediaWiki changeemail-help Field igr and Special izlin support custom-field components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve active SET CUSTOM FIELD name TO value IN card, exact three percent placeholders and quotes on first two. Derived past actor issrs, technical Set-as-Place and full assignment grammar remain LOW CONFIDENCE."
   }
 ]
