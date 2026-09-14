@@ -126754,5 +126754,26 @@
     "before": "La suppression est définitive. Vous perdrez toutes les listes, cartes et actions associées à ce tableau.",
     "after": "ⵜⵓⴽⴽⵙⴰ ⴰⴷ ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⴰⴷ ⴷ ⵉⵡⵔⵔⵉ. ⵔⴰⴷ ⵜⵜⵓⴽⴽⵙⵏⵜ ⴰⴽⴽⵯ ⵜⵉⵍⴳⴰⵎⵉⵏ, ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⴷ ⵜⵉⴳⴰⵡⵉⵏ ⵉⵣⴷⵉⵏ ⵉ ⵜⴼⵍⵡⵉⵜ ⴰⴷ.",
     "reason": "2026-09-14: replaced French permanent board deletion notice. Reuse independently reviewed delete-board-confirm-popup no-undo clause and future deletion construction; native MediaWiki dellogpage supplies deletion tukksa, actions supplies tigawin, and tooltip-t-whatlinkshere/nolinkshere attest association izdin. Preserve permanent irreversibility and ALL lists/cards/actions associated with THIS board WILL be lost via deletion. Relative agreement, future passive plural and complete warning remain LOW CONFIDENCE pending native review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "muted",
+    "before": "مكتوم",
+    "after": "ⵉⵜⵜⵓⵥⵉⵥⵏ",
+    "reason": "2026-09-14: native Mastodon zgh account.muted and column.notifications/notifications.clear directly attest Muted and Notifications. Replace Arabic muted or inconsistent ilgha notification terminology with the native software labels, matching existing WeKan delete-all-notifications. Direct lexical evidence; board-specific semantic adaptation for Muted still requires review. Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "notifications",
+    "before": "ⵉⵍⵖⴰ",
+    "after": "ⵜⵉⵏⵖⵎⵉⵙⵉⵏ",
+    "reason": "2026-09-14: native Mastodon zgh account.muted and column.notifications/notifications.clear directly attest Muted and Notifications. Replace Arabic muted or inconsistent ilgha notification terminology with the native software labels, matching existing WeKan delete-all-notifications. Direct lexical evidence; board-specific semantic adaptation for Muted still requires review. Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "features-notifications",
+    "before": "ⵉⵍⵖⴰ",
+    "after": "ⵜⵉⵏⵖⵎⵉⵙⵉⵏ",
+    "reason": "2026-09-14: native Mastodon zgh account.muted and column.notifications/notifications.clear directly attest Muted and Notifications. Replace Arabic muted or inconsistent ilgha notification terminology with the native software labels, matching existing WeKan delete-all-notifications. Direct lexical evidence; board-specific semantic adaptation for Muted still requires review. Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
   }
 ]
