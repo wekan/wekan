@@ -1285,6 +1285,18 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/670c20311">Keep Frappe Gantt responsive</a></summary>
+
+The header translation observer skips identical text updates, preventing an
+endless mutation loop when English labels already match their translations.
+Tests cover English and translated labels; a browser regression opens Frappe
+Gantt and switches back to Swimlanes.
+
+Thanks to xet7 !
+
+</details>
+
 and fixes the following bugs:
 
 **LDAP login** - Optional user search filter.
