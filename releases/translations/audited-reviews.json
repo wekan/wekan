@@ -13408,5 +13408,155 @@
     "key": "archive-board-confirm",
     "value": "Seguro que queres arquivar este taboleiro?",
     "reason": "2026-09-14: Direct semantic review confirms Galician workspace/card/checklist creation, top/bottom placement, member privileges, singular/plural counts and offline data-loss warning. Refresh-causes-loss and server-not-stopped conditions, permission scope and exact placeholders remain intact."
+  },
+  {
+    "locale": "gl",
+    "key": "archive-card",
+    "value": "Mover a tarxeta ao Arquivo",
+    "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
+  },
+  {
+    "locale": "gl",
+    "key": "archiveBoardPopup-title",
+    "value": "Mover o taboleiro ao Arquivo?",
+    "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
+  },
+  {
+    "locale": "gl",
+    "key": "archived-boards",
+    "value": "Taboleiros no Arquivo",
+    "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
+  },
+  {
+    "locale": "gl",
+    "key": "no-archived-boards",
+    "value": "Non hai taboleiros no Arquivo.",
+    "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
+  },
+  {
+    "locale": "gl",
+    "key": "add-template-container",
+    "value": "Engadir contedor de modelos",
+    "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
+  },
+  {
+    "locale": "gl",
+    "key": "auto-watch",
+    "value": "Vixiar automaticamente os taboleiros cando se crean",
+    "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
+  },
+  {
+    "locale": "gl",
+    "key": "add-background-image",
+    "value": "Engadir imaxe de fondo",
+    "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
+  },
+  {
+    "locale": "gl",
+    "key": "remove-background-image",
+    "value": "Eliminar a imaxe de fondo",
+    "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
+  },
+  {
+    "locale": "gl",
+    "key": "show-at-all-boards-page",
+    "value": "Mostrar na páxina Todos os taboleiros",
+    "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
+  },
+  {
+    "locale": "gl",
+    "key": "board-info-on-my-boards",
+    "value": "Configuración de Todos os taboleiros",
+    "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
+  },
+  {
+    "locale": "gl",
+    "key": "boardInfoOnMyBoardsPopup-title",
+    "value": "Configuración de Todos os taboleiros",
+    "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
+  },
+  {
+    "locale": "gl",
+    "key": "boardInfoOnMyBoards-title",
+    "value": "Configuración de Todos os taboleiros",
+    "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
+  },
+  {
+    "locale": "gl",
+    "key": "show-card-counter-per-list",
+    "value": "Mostrar o número de tarxetas por lista",
+    "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
+  },
+  {
+    "locale": "gl",
+    "key": "show-board_members-avatar",
+    "value": "Mostrar os avatares dos membros do taboleiro",
+    "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
+  },
+  {
+    "locale": "gl",
+    "key": "board_members",
+    "value": "Todos os membros do taboleiro",
+    "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
+  },
+  {
+    "locale": "gl",
+    "key": "card_members",
+    "value": "Todos os membros da tarxeta actual neste taboleiro",
+    "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
+  },
+  {
+    "locale": "gl",
+    "key": "board_assignees",
+    "value": "Todos os responsables de todas as tarxetas neste taboleiro",
+    "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
+  },
+  {
+    "locale": "gl",
+    "key": "card_assignees",
+    "value": "Todos os responsables da tarxeta actual neste taboleiro",
+    "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
+  },
+  {
+    "locale": "gl",
+    "key": "board-not-found",
+    "value": "Non se atopou o taboleiro",
+    "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
+  },
+  {
+    "locale": "gl",
+    "key": "board-private-info",
+    "value": "Este taboleiro será <strong>privado</strong>.",
+    "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
+  },
+  {
+    "locale": "gl",
+    "key": "board-public-info",
+    "value": "Este taboleiro será <strong>público</strong>.",
+    "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
+  },
+  {
+    "locale": "gl",
+    "key": "board-drag-drop-reorder-or-click-open",
+    "value": "Arrastra e solta para reordenar as iconas dos taboleiros. Fai clic na icona dun taboleiro para abrilo.",
+    "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
+  },
+  {
+    "locale": "gl",
+    "key": "boardChangeColorPopup-title",
+    "value": "Cambiar o fondo do taboleiro",
+    "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
+  },
+  {
+    "locale": "gl",
+    "key": "boardChangeTitlePopup-title",
+    "value": "Renomear o taboleiro",
+    "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
+  },
+  {
+    "locale": "gl",
+    "key": "boardMenuPopup-title",
+    "value": "Configuración do taboleiro",
+    "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
   }
 ]
