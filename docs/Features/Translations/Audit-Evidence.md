@@ -22894,3 +22894,13 @@ noun phrase already used for archiving/moving; preserve question and target.
 All 18,263 corrections pass token, JSON, ordering and merge-preference checks.
 Original pending/restored counts remain 300/27. Native phrase and browser
 validation remain open; this correction does not close those wider reviews.
+
+Dated unflagged repair, 2026-09-14, local commit `787ffdf74`: 11 Breton
+French-seeded date/duration/filter labels repaired. Reuse activity-endDate's
+deiziad echuiñ, board-status-time-spent-total's amzer tremenet, overtime-hours'
+amzer ouzhpenn, board-status-remaining-time-total's amzer a chom, and existing
+Silañ dre filter pattern. cardTime.jade uses time for a numeric spent-duration
+field, so Amzer preserves that meaning rather than implying a clock hour.
+All 18,274 correction and 4,158 unchanged-review records pass. Original
+pending/restored scope remains open; vocabulary reuse alone does not prove
+native complete-phrase fluency or rendered browser behavior.
