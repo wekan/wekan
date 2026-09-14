@@ -22585,3 +22585,10 @@ Darija values. Role exception, no-undo, due-today/assignee absence and
 recurrence frequencies remain intact. Standard Arabic is valid in country
 locales; identical spelling is not evidence of wrong language. All 4,119
 reviews pass. Broader grammar/browser verification remains open.
+
+Dated review, 2026-09-14, local commit `69b8202ed`: retained six exact
+Asturian/Tamil/Telugu/Uyghur values after semantic review. The Uyghur example
+parses as three JSON objects with literal title/description property names.
+No locale values changed. Cancellation and Breton wording remain uncertain;
+this acceptance does not establish broader fluency or browser validation.
+Exact review checks verify all 4,125 records.

@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,582 corrected, 72 restored pre-pull values awaiting
-validation, 4,119 reviewed and retained, and 308 pending review or repair.
+findings: 15,582 corrected, 66 restored pre-pull values awaiting
+validation, 4,125 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,185 exact before/after values,
 including repairs outside the original findings.
 Global completeness verification also identifies Veps `server` (currently
@@ -111,9 +111,9 @@ changes are implemented in local commit 02383521a; translation repairs have
 resumed.
 Latest translation fix is 93f284c8a (2026-09-14): three Swedish Due Cards
 labels now describe cards with due dates, including future deadlines.
-Latest unchanged-value review is 4da4c40e4 (2026-09-14): seven Swedish and
-23 Arabic/Darija values retained after checking negation, intervals,
-assignee wording and administrator/no-undo warnings. Shared trigger grammar,
+Latest unchanged-value review is 69b8202ed (2026-09-14): six Asturian,
+Tamil, Telugu and Uyghur labels/examples retained. JSON identifiers remain
+literal code. Uncertain cancellation labels, shared trigger grammar,
 regional terminology and live browser validation remain open.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
 Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
@@ -724,6 +724,16 @@ verification and the wider translation audit remain open.
 Retained seven Swedish and 23 Arabic/Darija values. Negation, recurrence
 frequencies, global-admin exception and no-undo warnings remain intact.
 Exact review checks pass; wider language/browser verification remains open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/69b8202ed">Validate short labels and localized JSON example</a>. Thanks to xet7.</summary>
+
+Retained three Asturian labels, Tamil and Telugu Who headings and the Uyghur
+three-card JSON example. Literal property names remain unchanged while example
+values are localized. Exact review checks pass; uncertain cancellation and
+Breton wording and wider language/browser verification remain open.
 
 </details>
 

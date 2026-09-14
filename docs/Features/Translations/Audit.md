@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,582 |
-| Restored pre-pull; awaiting validation | 72 |
-| Reviewed; retained unchanged | 4,119 |
+| Restored pre-pull; awaiting validation | 66 |
+| Reviewed; retained unchanged | 4,125 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -19,17 +19,17 @@ Latest translation fix: **2026-09-14**, local commit `93f284c8a` —
 Swedish Due Cards labels now include future deadlines instead of implying
 only overdue cards. Actual selector and sorting include future due dates.
 Regression tests drive the real sorting helper with past and future cards.
-All **18,185** correction and **4,119** review records pass.
+All **18,185** correction and **4,125** review records pass.
 Veps terminology, shared trigger grammar and browser validation remain open.
 Attachment/member rule participles still need context-specific agreement.
 Three Esperanto restored findings remain: lime color and two Complete labels.
 Broader language and browser verification remain open; nothing pushed.
-Latest unchanged review: **2026-09-14**, commit `4da4c40e4` — retained
-seven Swedish and 23 Arabic/Darija values. Negation, recurrence frequencies,
-global-admin exception and no-undo warnings remain intact. Standard Arabic
-is valid in country-tagged Arabic locales. Original Swedish and these Arabic
-restored queues are validated; wider fluency/browser review remains open.
-Previous Valencian, Thai and compound-trigger findings stay unresolved.
+Latest unchanged review: **2026-09-14**, commit `69b8202ed` — retained
+three Asturian text/no-assignee/no-label values, Tamil and Telugu Who headings,
+and the Uyghur JSON example. Example property names remain literal code;
+the localized values and three-object array are valid. Uncertain cancellation
+labels and Breton assignment vocabulary remain open. Previous Valencian,
+Thai and compound-trigger findings stay unresolved.
 Galician export free wording remains open pending context.
 Galician Complete and migration-complete wording remain open pending context.
 Card-show-lists context is verified against its settings row and toggle.
