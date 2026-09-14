@@ -22276,3 +22276,15 @@ rename permission, week-start setting and weekdays remain correct.
 Review checks pass: 15,562 corrected, 1,050 restored awaiting validation,
 3,161 reviewed unchanged and 308 pending. Broader language and browser
 validation remain open. Nothing pushed.
+
+
+### 2026-09-14 — Galician entity and search predicate labels
+
+Local commit `c78c7f3c5` retains 30 directly reviewed values unchanged.
+Owner/person/team/organization, display/short names and modified metadata
+retain meaning. Checked-item hiding, task creation, table view, due-date
+sorting and all-user scope remain correct. Search operators and predicates
+retain role/object names and ended/overdue/due distinctions.
+Review checks pass: 15,562 corrected, 1,020 restored awaiting validation,
+3,191 reviewed unchanged and 308 pending. Broader language and browser
+validation remain open. Nothing pushed.

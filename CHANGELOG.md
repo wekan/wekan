@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,562 corrected, 1,050 restored pre-pull values awaiting
-validation, 3,161 reviewed and retained, and 308 pending review or repair.
+findings: 15,562 corrected, 1,020 restored pre-pull values awaiting
+validation, 3,191 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,162 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
@@ -108,8 +108,8 @@ changes are implemented in local commit 02383521a; translation repairs have
 resumed.
 Latest translation fix/review is 29f1980b2 (2026-09-14): Galician field
 value clearing clarified; 25 correct rule/activity values retained.
-Latest unchanged-value review is 92b911aa9 (2026-09-14): 30 Galician
-reminder and notification values retained. Shared attachment/member
+Latest unchanged-value review is c78c7f3c5 (2026-09-14): 30 Galician
+entity and search-predicate values retained. Shared attachment/member
 participles still need contextual agreement repair.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
 Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
@@ -1049,6 +1049,15 @@ Review checks pass; broader language and browser validation remain open.
 Retain 30 correct values. Preserve due conditions, exact reminder tokens,
 read-state scope, account controls and weekday names. Review checks pass;
 broader language and browser validation remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c78c7f3c5">Validate Galician entity and search predicate labels</a>. Thanks to xet7.</summary>
+
+Retain 30 correct values. Preserve entity names, view scope, date sorting
+and ended/overdue/due predicate distinctions. Review checks pass; broader
+language and browser validation remain open.
 
 </details>
 
