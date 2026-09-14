@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,571 corrected, 438 restored pre-pull values awaiting
-validation, 3,764 reviewed and retained, and 308 pending review or repair.
+findings: 15,571 corrected, 377 restored pre-pull values awaiting
+validation, 3,825 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,173 exact before/after values,
 Global completeness verification also identifies Veps `server` (currently
 English-identical “Server”) for terminology review; it is not accepted yet.
@@ -676,6 +676,15 @@ standalone Server and wider translation validation still require review.
 Retained 28 correct reminders, irreversible deletion warnings and notification
 labels. Deadline states, negation and placeholders remain distinct and intact.
 Review checks pass; remaining translation findings stay open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/097b04e1d">Validate Basque settings and search vocabulary</a>. Thanks to xet7.</summary>
+
+Retained 61 correct weekday/settings labels, missing-object errors and search
+operators and predicates. Quarter, not-found negation and placeholders keep
+their meanings. Review checks pass; remaining translation findings stay open.
 
 </details>
 

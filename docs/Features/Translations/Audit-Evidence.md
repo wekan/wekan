@@ -22494,3 +22494,11 @@ rename permissions and account labels in `685b50fe1`; 3,764 reviews pass.
 Updated stale flag gate in `0397fc89b` to exercise the shared picker helper
 for every loaded locale, constructed globe fallback and Veps/Venetian overrides.
 Its six checks pass; two Veps Server completeness failures remain unresolved.
+
+**2026-09-14 — Basque settings and search vocabulary (`097b04e1d`).**
+
+Retained 61 inspected weekday/status/ownership, organization and display labels,
+missing-object errors, operators and predicates. Quarter is a three-month
+period; not-found negation and sprintf tokens remain intact. Actual globalSearch
+helper uses translated operators in its instructions. All 3,825 review records
+pass; conditional grammar, Veps terminology and wider verification remain open.

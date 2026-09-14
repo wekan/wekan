@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,571 |
-| Restored pre-pull; awaiting validation | 438 |
-| Reviewed; retained unchanged | 3,764 |
+| Restored pre-pull; awaiting validation | 377 |
+| Reviewed; retained unchanged | 3,825 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -21,15 +21,14 @@ terminology remains low confidence; standalone English-identical `Server`
 still needs review and fails the global completeness gate.
 Full node regression run: 1,043 suites, nine failures; translation-related
 failures require inspection alongside the remaining language work.
-All **18,174** correction and **3,764** review records pass.
+All **18,174** correction and **3,825** review records pass.
 Shared Spanish `r-is` and composed trigger grammar remain unresolved.
 Attachment/member rule participles still need context-specific agreement.
 Three Esperanto restored findings remain: lime color and two Complete labels.
 Broader language and browser verification remain open; nothing pushed.
-Latest unchanged review: **2026-09-14**, commit `685b50fe1` — retained
-28 Basque reminders, deletion warnings, notification and account labels.
-Language flag gate now exercises the shared picker helper (`0397fc89b`)
-and passes all registry entries. Veps completeness failures remain unresolved.
+Latest unchanged review: **2026-09-14**, commit `097b04e1d` — retained
+61 Basque weekday/settings labels, missing-object errors and search vocabulary.
+Quarter retains its three-month meaning; negation and placeholders are intact.
 Shared Spanish `r-is`, compound trigger grammar and free wording remain open.
 Nine Galician restored findings still need contextual review.
 Galician export free wording remains open pending context.
