@@ -22713,3 +22713,13 @@ count in historical a440d44ea. Nine completion values retained against
 migrationProgress% complete (a440d44ea) and finished migration badges
 (cbb1cd78d). No current consumers found. All 18,198 corrections and
 4,149 reviews pass; 40 restored values and 305 original findings remain.
+
+Dated repair/review, 2026-09-14, local commit `287e99dd2`: Galician
+schedule changes Programar to Programación: historical a440d44ea uses
+it as cron table heading and job-schedule dropdown label, not an action.
+Real Academia Galega defines programación as a feminine noun for setting
+or planning a programme: https://academia.gal/dicionario/-/termo/programación .
+Danish Tidsplan retained; Basque Geldi and Valencian Inactiu retained for
+historical idle status. No current consumers found. All 18,199 correction
+and 4,152 review records pass; 36 restored and 305 pending findings remain.
+Full language and browser verification remain open.

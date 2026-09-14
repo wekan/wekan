@@ -668,7 +668,17 @@ The empty wrongly placed Git directory was removed locally.
 
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
-**Languages updated:** Basque, Esperanto, Greenlandic, Manx, Swedish, Valencian
+**Languages updated:** Basque, Esperanto, Galician, Greenlandic, Manx, Swedish, Valencian
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/287e99dd2">Correct Galician schedule noun and validate idle labels</a>. Thanks to xet7.</summary>
+
+Galician Schedule uses Programación for the historical cron heading and
+recurrence dropdown. Danish Schedule and Basque/Valencian idle states retain
+correct wording. Exact correction/review tests pass; no current consumers
+found. Full language and browser validation remain open in the audit.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/264ca788c">Repair Valencian reflexive imperative and validate settings</a>. Thanks to xet7.</summary>

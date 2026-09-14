@@ -4,9 +4,9 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,587 |
-| Restored pre-pull; awaiting validation | 40 |
-| Reviewed; retained unchanged | 4,149 |
+| Corrected | 15,588 |
+| Restored pre-pull; awaiting validation | 36 |
+| Reviewed; retained unchanged | 4,152 |
 | Pending review or repair | 305 |
 | Total tracked | 20,081 |
 
@@ -16,25 +16,20 @@ Polish-only sources do not establish correct Silesian terminology.
  [Tamazight reference review](Tamazight-Review.md) confirms
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
- The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,198** exact before/after values, including unflagged repairs.
+ The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
+contain **18,199** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `3b4941c34` —
-Valencian error-count label now says Errors rather than error messages.
-Historical stats code establishes count semantics. Nine completion labels
-were retained against percentage/finished-badge contexts. All **18,198**
-corrections and **4,149** reviews pass. No current consumers were found for
-these historical labels; live browser and broader language review remain open.
-Veps terminology, shared trigger grammar and browser validation remain open.
-Attachment/member rule participles still need context-specific agreement.
-Esperanto restored completion labels were validated in `3b4941c34`.
-Broader language and browser verification remain open; nothing pushed.
-Latest unchanged review: **2026-09-14**, commit `3b4941c34` — nine
-Danish/Esperanto/Basque/Galician/Valencian completion labels retained against
-historical templates. Esperanto restored queue is resolved; wider fluency
-review remains open. Shared triggers and remaining technical wording are open.
+Latest translation fix: **2026-09-14**, local commit `287e99dd2` —
+Galician Schedule now uses the noun Programación rather than infinitive
+Programar, matching historical cron table/dropdown labels in a440d44ea.
+Latest unchanged review: **2026-09-14**, commit `287e99dd2` — Danish
+Tidsplan and Basque/Valencian idle-state labels retained. All **18,199**
+corrections and **4,152** reviews pass. No current consumers found for these
+historical labels; live browser and broader language review remain open.
+Esperanto restored queue is resolved; wider fluency review remains open.
+Shared trigger grammar and remaining technical wording are still under review.
 Card-show-lists context is verified against its settings row and toggle.
 
 
@@ -44,7 +39,7 @@ placeholders and JSON/calendar/search formatting. All 361 originally flagged
 Klingon findings and the broader 829 German-identical values were repaired;
 the cron label retains the actual tool name Cron. Danish restored review
 validated 611 values: 606 retained unchanged and five meanings repaired.
-Two Danish context-dependent labels remain: Schedule and Days Old.
+Danish Schedule is validated; Days Old remains context-dependent.
 Esperanto lime-color wording was repaired in `d454a58ff`.
 Reviewed subtask actions/settings retain correct subordinate-task compounds.
 
