@@ -128014,5 +128014,117 @@
     "before": "heures",
     "after": "eurvezhioù",
     "reason": "Replace French date-control prose using existing Breton date nouns, invalid-year direizh, and hour-duration eurvezhioù. Tomorrow wording is a direct Breton rendering; complete phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "settings",
+    "before": "Paramètres",
+    "after": "Arventennoù",
+    "reason": "Replace French-seeded settings/team prose using existing Breton arventennoù, skipailh/skipailhoù and Kemmañ/Ouzhpennañ. Native MediaWiki supports arventennoù, aotreoù and Distreiñ. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "allBoardsMenuPopup-title",
+    "before": "Paramètres",
+    "after": "Arventennoù",
+    "reason": "Replace French-seeded settings/team prose using existing Breton arventennoù, skipailh/skipailhoù and Kemmañ/Ouzhpennañ. Native MediaWiki supports arventennoù, aotreoù and Distreiñ. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "boardMenuPopup-title",
+    "before": "Paramètres du tableau",
+    "after": "Arventennoù an daolenn",
+    "reason": "Replace French-seeded settings/team prose using existing Breton arventennoù, skipailh/skipailhoù and Kemmañ/Ouzhpennañ. Native MediaWiki supports arventennoù, aotreoù and Distreiñ. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "change-settings",
+    "before": "Modifier les paramètres",
+    "after": "Kemmañ an arventennoù",
+    "reason": "Replace French-seeded settings/team prose using existing Breton arventennoù, skipailh/skipailhoù and Kemmañ/Ouzhpennañ. Native MediaWiki supports arventennoù, aotreoù and Distreiñ. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "changeSettingsPopup-title",
+    "before": "Modifier les paramètres",
+    "after": "Kemmañ an arventennoù",
+    "reason": "Replace French-seeded settings/team prose using existing Breton arventennoù, skipailh/skipailhoù and Kemmañ/Ouzhpennañ. Native MediaWiki supports arventennoù, aotreoù and Distreiñ. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "change-permissions",
+    "before": "Modifier les permissions",
+    "after": "Kemmañ an aotreoù",
+    "reason": "Replace French-seeded settings/team prose using existing Breton arventennoù, skipailh/skipailhoù and Kemmañ/Ouzhpennañ. Native MediaWiki supports arventennoù, aotreoù and Distreiñ. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "changePermissionsPopup-title",
+    "before": "Modifier les permissions",
+    "after": "Kemmañ an aotreoù",
+    "reason": "Replace French-seeded settings/team prose using existing Breton arventennoù, skipailh/skipailhoù and Kemmañ/Ouzhpennañ. Native MediaWiki supports arventennoù, aotreoù and Distreiñ. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "settingsTeamPopup-title",
+    "before": "Paramètres de l'équipe",
+    "after": "Arventennoù ar skipailh",
+    "reason": "Replace French-seeded settings/team prose using existing Breton arventennoù, skipailh/skipailhoù and Kemmañ/Ouzhpennañ. Native MediaWiki supports arventennoù, aotreoù and Distreiñ. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "card-settings",
+    "before": "Paramètres de la carte",
+    "after": "Arventennoù ar gartenn",
+    "reason": "Replace French-seeded settings/team prose using existing Breton arventennoù, skipailh/skipailhoù and Kemmañ/Ouzhpennañ. Native MediaWiki supports arventennoù, aotreoù and Distreiñ. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "boardCardSettingsPopup-title",
+    "before": "Paramètres de la carte",
+    "after": "Arventennoù ar gartenn",
+    "reason": "Replace French-seeded settings/team prose using existing Breton arventennoù, skipailh/skipailhoù and Kemmañ/Ouzhpennañ. Native MediaWiki supports arventennoù, aotreoù and Distreiñ. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "team",
+    "before": "Équipe",
+    "after": "Skipailh",
+    "reason": "Replace French-seeded settings/team prose using existing Breton arventennoù, skipailh/skipailhoù and Kemmañ/Ouzhpennañ. Native MediaWiki supports arventennoù, aotreoù and Distreiñ. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "teams",
+    "before": "Équipes",
+    "after": "Skipailhoù",
+    "reason": "Replace French-seeded settings/team prose using existing Breton arventennoù, skipailh/skipailhoù and Kemmañ/Ouzhpennañ. Native MediaWiki supports arventennoù, aotreoù and Distreiñ. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "editTeamPopup-title",
+    "before": "Éditer l'Équipe",
+    "after": "Kemmañ ar skipailh",
+    "reason": "Replace French-seeded settings/team prose using existing Breton arventennoù, skipailh/skipailhoù and Kemmañ/Ouzhpennañ. Native MediaWiki supports arventennoù, aotreoù and Distreiñ. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "newTeamPopup-title",
+    "before": "Nouvelle Équipe",
+    "after": "Skipailh nevez",
+    "reason": "Replace French-seeded settings/team prose using existing Breton arventennoù, skipailh/skipailhoù and Kemmañ/Ouzhpennañ. Native MediaWiki supports arventennoù, aotreoù and Distreiñ. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "add-teams",
+    "before": "Ajouter des équipes",
+    "after": "Ouzhpennañ skipailhoù",
+    "reason": "Replace French-seeded settings/team prose using existing Breton arventennoù, skipailh/skipailhoù and Kemmañ/Ouzhpennañ. Native MediaWiki supports arventennoù, aotreoù and Distreiñ. Full adapted phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "back-to-settings",
+    "before": "Retour aux paramètres",
+    "after": "Distreiñ d’an arventennoù",
+    "reason": "Replace French-seeded settings/team prose using existing Breton arventennoù, skipailh/skipailhoù and Kemmañ/Ouzhpennañ. Native MediaWiki supports arventennoù, aotreoù and Distreiñ. Full adapted phrase/browser review remains open."
   }
 ]
