@@ -123324,5 +123324,12 @@
     "before": "Afficher les avatars des participants du tableau.",
     "after": "ⵙⴽⵏ ⵜⵉⵎⴻⵔⵖⵉⵡⵉⵏ ⵏ ⵉⴳⵎⴰⵎⵏ ⵏ ⵜⴼⵍⵡⵉⵜ",
     "reason": "Replace French Show Board members avatars label. Native MediaWiki view attests skn and nmembers/search-result-category-size attest igmamn: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve board-member ownership using existing board_members terms and local avatars noun timerghiwin. LOW CONFIDENCE existing avatar noun spelling and complete nested possessive phrase require fluent review; no independent avatar terminology validation claimed."
+  },
+  {
+    "locale": "zgh",
+    "key": "error-json-malformed",
+    "before": "Votre texte JSON n'est pas valide",
+    "after": "ⴰⴹⵕⵉⵙ ⵏⵏⴽ ⵓⵔ ⵉⵙⵖⵣⵏ ⴰⵎ JSON",
+    "reason": "Replace French malformed-JSON warning, preserving your text, negative validity and literal JSON format. Native MediaWiki yourtext supplies adhris nnk/m and feed-invalid supplies ur isghzn (not valid): https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Adapt as-JSON complement rather than claiming malformed ordinary text. LOW CONFIDENCE full validity/format construction and generic masculine address pending fluent review. Paste prompts remain unresolved: CNAM dictionary coller entries describe concatenation/interpolation, not explicit clipboard paste; no weaker enter/drop instruction substituted."
   }
 ]
