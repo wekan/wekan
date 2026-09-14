@@ -921,6 +921,16 @@ and conditional grammar remain under native review. Dated audit records
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/047c860ea">Repair Tamazight clipboard-image gesture instruction</a>. Thanks to xet7.</summary>
+
+Replace French fragment, keeping paste or drag-and-drop an image file and
+image-only restriction. Four focused translation suites pass. Computing
+gesture adaptations and full grammar remain under native review. Dated
+audit records 159 pending original findings.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

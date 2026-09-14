@@ -28972,3 +28972,23 @@ retaining both gesture steps and image-type-only meaning. Full software
 gesture compound, placement and grammar remain open. No translation or
 counts changed. Pending 161 original findings. No live clipboard/drop UI
 test ran and no remote writes were made.
+
+
+## Clipboard-image gesture instruction — repair 2026-09-15
+
+Source commit `047c860ea` replaces French paste-or-dragdrop. IRCAM
+entry 9393 slɣ paste/glue supports derived aslaɣ action noun; page 336
+entry 6439 kriru drag and page 541 entry 10175 stutti drop something
+supply gesture components. Existing file/image wording retains image file
+here, paste OR drag AND drop, and image-only qualifier. Computing gesture
+adaptation, derived paste noun, conjunction/clause grammar and kan only
+qualifier remain low confidence; components do not certify the full phrase.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+The Ctrl+V prefix remains in attachments.jade line 25; no shortcut or
+runtime handler changed. Earlier review confirms the shared image-type
+gate, not a limit on the number of images or other attachment types.
+Four focused suites pass for exact wording, French rejection and translation
+invariants. No live clipboard/drop UI test ran. Ledger 19,859; original
+corrected 15,744, pending 159 (zgh 64), restored 4 unchanged. Broader
+review remains open; no remote writes were made.
