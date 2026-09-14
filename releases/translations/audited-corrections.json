@@ -125137,5 +125137,19 @@
     "before": "عرض قائمة الإختصارات ،تلك",
     "after": "ⵙⴽⵏ ⵜⴰⵍⴳⴰⵎⵜ ⴰⴷ ⵏ ⵉⵙⵓⵏⴰⴼ",
     "reason": "2026-09-14: Replace Arabic with Standard Moroccan Tamazight, preserving Show this list of shortcuts (keyboard.js binds ? to this action). Non-fuzzy native Dialect ui/zgh.po at 366f2ad81ddfc5af1f75075436a3da6cadf4ca08 directly supplies Shortcuts ⵉⵙⵓⵏⴰⴼ in a shortcut-window context; https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po . Native Mastodon lists.delete/edit supplies list ⵜⴰⵍⴳⴰⵎⵜ; Show ⵙⴽⵏ follows existing native MediaWiki usage. Complete assembled phrase, demonstrative placement and Bring up-to-Show adaptation remain LOW CONFIDENCE, requiring language validation; component attestations do not verify the whole clause."
+  },
+  {
+    "locale": "zgh",
+    "key": "shortcut-autocomplete-emoji",
+    "before": "الإكمال التلقائي  للرموز التعبيرية",
+    "after": "ⴰⵙⵎⴷ ⴰⵡⵓⵔⵎⴰⵏ ⵏ ⵉⵎⵓⵊⵉ",
+    "reason": "2026-09-14: Replace Arabic while preserving automatic completion and the emoji/member target. Native MediaWiki resetpass_announce attests the transitive Complete root smd in Complete Login; completion noun ⴰⵙⵎⴷ is derived, not directly attested autocomplete terminology. Pinned non-fuzzy Dialect ui/zgh.po at 366f2ad81ddfc5af1f75075436a3da6cadf4ca08 attests Automatic ⴰⵡⵓⵔⵎⴰⵏ (Automatic language detection/Auto); adjective agreement and full autocomplete compound remain LOW CONFIDENCE. Native Mastodon emoji_button.not_found attests ⵉⵎⵓⵊⵉ; Members reuses existing WeKan ⵉⴳⵎⴰⵎⵏ without treating local reuse as independent validation. Sources: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Complete compounds and member terminology need native validation; lexical evidence does not prove fluency."
+  },
+  {
+    "locale": "zgh",
+    "key": "shortcut-autocomplete-members",
+    "before": "الإكمال التلقائي لأسماء الأعضاء",
+    "after": "ⴰⵙⵎⴷ ⴰⵡⵓⵔⵎⴰⵏ ⵏ ⵉⴳⵎⴰⵎⵏ",
+    "reason": "2026-09-14: Replace Arabic while preserving automatic completion and the emoji/member target. Native MediaWiki resetpass_announce attests the transitive Complete root smd in Complete Login; completion noun ⴰⵙⵎⴷ is derived, not directly attested autocomplete terminology. Pinned non-fuzzy Dialect ui/zgh.po at 366f2ad81ddfc5af1f75075436a3da6cadf4ca08 attests Automatic ⴰⵡⵓⵔⵎⴰⵏ (Automatic language detection/Auto); adjective agreement and full autocomplete compound remain LOW CONFIDENCE. Native Mastodon emoji_button.not_found attests ⵉⵎⵓⵊⵉ; Members reuses existing WeKan ⵉⴳⵎⴰⵎⵏ without treating local reuse as independent validation. Sources: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Complete compounds and member terminology need native validation; lexical evidence does not prove fluency."
   }
 ]
