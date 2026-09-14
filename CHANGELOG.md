@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5e2a93287">Use native Tamazight computer-server wording</a>. Thanks to xet7.</summary>
+
+An explicit primary-dictionary computer-server phrase replaces French wording.
+Four checks pass. Protocol-support phrases and live rendering remain open
+in the translation audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/94c8857fd">Trace migration progress translation gaps</a>. Thanks to xet7.</summary>
 
 The audit distinguishes active raw stage IDs from unreachable legacy labels.

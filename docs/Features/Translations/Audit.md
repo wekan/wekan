@@ -56,7 +56,7 @@ cross-checks calendar, user and click components in native Moroccan sources.
 Full phrases, warnings and invalidated Tuareg records remain open; no pending
 finding was accepted from component evidence.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,706** exact before/after values, including unflagged repairs.
+contain **18,707** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
@@ -74,7 +74,13 @@ remains open. Latin Inuktitut spelling is valid; original script warnings
 require vocabulary/context review rather than automatic replacement.
 Current pending/restored counts are 283/4.
 
-Latest translation fix: **2026-09-14**, local commit `2c38b996b` —
+Latest translation fix: **2026-09-14**, local commit `5e2a93287` —
+[Tamazight review](Tamazight-Review.md) replaces French server wording with
+an explicitly attested computer-server phrase. Four checks pass. TLS support
+semantics and complete phrases remain open; no live rendering is claimed.
+Original pending/restored counts remain 281/4.
+
+Previous repair-label fix: **2026-09-14**, local commit `2c38b996b` —
 [Tamazight review](Tamazight-Review.md) replaces the French orphaned-card repair
 label. Four checks pass. Adapted metaphor and agreement remain low confidence;
 progress-label integration and browser validation remain open. Original

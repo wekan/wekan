@@ -24392,3 +24392,10 @@ Local source review `94c8857fd`: [actual reactive helper and caller trace](Tamaz
 Raw repair_board_data/copy_collections labels lack translation keys; the popup
 capitalizes raw IDs rather than reading step translations. Legacy migrations
 must stay removed. No runtime or translation change; 281 pending/4 restored.
+
+## Tamazight computer-server terminology — 2026-09-14
+
+Local fix `5e2a93287`: [explicit primary technical term](Tamazight-Review.md).
+French server noun replaced with the dictionary computer-server phrase. Four
+checks pass; TLS support semantics remain pending. No browser rendering was
+claimed. Ledger: 18,707; original pending/restored counts remain 281/4.
