@@ -16,12 +16,12 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `4a2821835` — Tamazight import
-member-mapping label replaces French with the attested check verb. Four
-focused suites pass. Ledger 19,839; original pending 175 (Tamazight 80),
-restored 4 unchanged. Mapping compound remains low confidence. Newly
-verified check/light spelling distinction requires rechecking prior
-checklist compounds; broader reviews remain open.
+Latest translation fix: **2026-09-15**, `5434775ba` — revise 49 prior
+Tamazight checklist compounds with the attested verification noun, replacing
+unsupported checking terminology. Surrounding prose and tokens preserved.
+Four focused suites pass. Ledger 19,839; original pending 175 (Tamazight
+80), restored 4 unchanged. Full software compound and contextual grammar
+remain low confidence; broader reviews remain open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
 records contain **19,839** exact before/after values, including unflagged

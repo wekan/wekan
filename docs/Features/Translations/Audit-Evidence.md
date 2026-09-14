@@ -28356,3 +28356,31 @@ Four focused suites pass for exact review label, negative French/Arabic
 and wrong check-verb spelling, placeholders, ledger, retained reviews and
 completeness. Ledger 19,839; original corrected 15,728, pending 175 (zgh
 80), restored 4 unchanged. No live UI test ran. No remote writes.
+
+
+## Checklist verification noun revised — 2026-09-15
+
+Local commit `5434775ba` revises 49 existing checklist compounds from
+list of unsupported assidd to list of verification, using timnẓit's bound
+form tmnẓit. IRCAM page 678 entry 12776 attests both forms and the meaning
+verification/control/check. This avoids deriving a checking noun from
+ssidd, which means light (9863); ssided is the separate check verb (9864).
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+All 49 keys already had correction-ledger records. Preserve each original
+before value, revise after, and append dated reasons. Surrounding prose,
+placeholder inventories and literal examples remain unchanged. Update
+existing regression expectations to the supported noun and reject the old
+compound across the entire locale. No unrelated lighting terms changed.
+
+**Low confidence:** the list-of-verification software compound and complete
+contextual agreement remain under native review. Attested components do
+not certify all 49 complete sentences. Earlier notes reusing the unsupported
+noun are superseded for this component by this dated correction; their
+other grammar uncertainties remain open.
+
+Four focused suites pass: Tamazight wording regression, exact correction
+ledger, retained reviews and completeness. No live UI test ran. Ledger
+19,839; original corrected 15,728, pending 175 (zgh 80), restored 4
+unchanged. Revising prior repairs does not resolve new original queue
+findings. Broader review remains open. No remote writes.

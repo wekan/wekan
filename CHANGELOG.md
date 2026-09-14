@@ -639,7 +639,8 @@ the Markdown commit as the template.
 **In short:** Tamazight rule, shortcut and warning text replaces wrong-language
 values. Rule labels retain state and action distinctions; deletion warnings
 retain irreversibility and affected content. Import mapping text uses the
-attested check verb. Import, PDF and administrator
+attested check verb. Checklist compounds use an attested verification noun.
+Import, PDF and administrator
 messages preserve their conditions and alternatives. Filename warnings retain
 cancellation of upload or renaming. Watch text covers boards
 and cards. Search help clarifies case-insensitive matching. Regression checks
@@ -776,6 +777,17 @@ from the similar spelling for light. Four focused suites pass for exact
 wording, negative wrong-language checks and translation structure. Mapping
 compound remains under native review. Dated audit records 175 pending
 findings and the need to recheck older checklist compounds.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5434775ba">Repair Tamazight checklist verification terminology</a>. Thanks to xet7.</summary>
+
+Revise 49 prior checklist compounds with an attested verification noun,
+preserving surrounding prose and placeholders. Four focused suites pass
+for exact repairs, rejection of the old compound and translation structure.
+Full software compound and contextual grammar remain under native review.
+Dated audit retains 175 pending original findings.
 
 </details>
 
