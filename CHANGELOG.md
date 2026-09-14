@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8715c094e">Verify translated limit error dispatch</a>. Thanks to xet7.</summary>
+
+Exercise Tamazight search-limit operators with the actual parser. Invalid
+values retain their translation arguments; positive and zero limits remain
+accepted. Record interpolation, browser and native-language limits in the
+audit. The focused parser regression passes.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/10b47a7ed">Draft complete Tamazight search-limit error</a>. Thanks to xet7.</summary>
 
 Replace French with a full validation-error draft preserving the positive

@@ -82,4 +82,7 @@ Browser coverage added **2026-09-14**, `c8bcfb258`: spec 03 verifies the
 Tamazight numeric tooltip and excludes a display-disabled field from its
 sum. Syntax and registration pass; localhost:3000 has no running app, so
 execution remains pending. Live browser verification is not complete.
+Runtime dispatch checked **2026-09-14**, `8715c094e`: real Tamazight limit
+queries preserve invalid values and accept positive/zero limits. Parser
+coverage does not establish TAPi18n interpolation or browser rendering.
 Translation work continues.

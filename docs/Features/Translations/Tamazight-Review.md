@@ -1465,3 +1465,14 @@ approval. Disability terminology stays excluded. Four translation checks
 pass, including complete components, exact token inventory and French/
 disability negatives. Native/browser acceptance remains open. Original
 corrected 15,661; pending 241 (zgh 133); correction ledger 18,794.
+
+Search-limit runtime dispatch — 2026-09-14, `8715c094e`.
+The real Query parser is exercised in localizedSearchApostrophes.test.cjs
+with zgh operator-limit: abc and -2 produce operator-limit-invalid and
+retain the exact offending string; 12 and 0 are accepted. The error draft
+has one %s. This verifies dispatch and data retention, not actual TAPi18n
+interpolation, browser rendering or native fluency. query-classes.js treats
+zero as no limit and uses parseInt, so its accepted input set is broader
+than strict positive integers. Translation still matches English guidance;
+this behavioral distinction must not be described as strict validation.
+The focused parser test passes; no locale values or audit counts change.
