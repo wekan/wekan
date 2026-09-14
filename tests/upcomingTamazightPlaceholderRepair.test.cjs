@@ -313,3 +313,8 @@ assert.equal(translated["r-d-check-all"], "ⵕⵛⵎ ⵉⴼⵔⴷⵉⵙⵏ ⴰ�
 assert.equal(translated["r-d-uncheck-all"], "ⴽⴽⵙ ⵜⵉⵎⵉⵜⴰⵔ ⵙⴳ ⵉⴼⵔⴷⵉⵙⵏ ⴰⴽⴽⵯ ⵏ ⵜⵍⴳⴰⵎⵜ");
 assert.notEqual(translated['r-check'], translated['r-uncheck']);
 assert.notEqual(translated['r-check'], translated['r-check-all']);
+
+assert.match(translated['quick-access-description'], /^ⵔⵏⵓ ⵉⵜⵔⵉ ⵉ ⵜⴰⴼⵍⵡⵉⵜ/);
+assert.match(translated['quick-access-description'], /ⴰⴼⴰⴷ ⴰⴷ ⵜⵔⵏⵓⴷ ⴰⵙⴰⵏⴼ ⴷⴰ\.$/);
+assert.doesNotMatch(translated['quick-access-description'], /[\u0600-\u06ff]/);
+assert.match(fs.readFileSync(path.join(ROOT, 'client/components/main/header.jade'), 'utf8'), /li.no-items-message {{_ 'quick-access-description'}}/);

@@ -138724,5 +138724,12 @@
     "before": "Décocher l'élément",
     "after": "ⴽⴽⵙ ⵜⴰⵎⴰⵜⴰⵔⵜ ⵙⴳ ⵓⴼⵔⴷⵉⵙ",
     "reason": "2026-09-15: align checklist check/uncheck action with IRCAM mark verb rcm (page 467 entry 8828) and sign noun tamatart/plural timitar (page 595 entry 11152). Preserve check versus mark removal, one versus all and item/checklist scope. Software checkbox adaptation and full phrase grammar remain low confidence; component evidence does not certify fluency."
+  },
+  {
+    "locale": "zgh",
+    "key": "quick-access-description",
+    "before": "أضف لوحة إلى المفضلة لإنشاء اختصار في هذا الشريط.",
+    "after": "ⵔⵏⵓ ⵉⵜⵔⵉ ⵉ ⵜⴰⴼⵍⵡⵉⵜ ⴰⴼⴰⴷ ⴰⴷ ⵜⵔⵏⵓⴷ ⴰⵙⴰⵏⴼ ⴷⴰ.",
+    "reason": "2026-09-15: replace Arabic quick-access hint with Tamazight draft retaining star-board action and adding a shortcut at this location. IRCAM page 210 entry 4007 attests asanf shortcut; existing star-board/add/purpose/here terms reused. Here refers to the bar containing the hint, rather than using dictionary physical door-bar senses. Software shortcut adaptation and full purpose clause remain low confidence."
   }
 ]
