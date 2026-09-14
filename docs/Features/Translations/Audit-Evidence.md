@@ -25234,3 +25234,21 @@ including both quantifiers, Arabic removal and exact ledger/token checks.
 Recount: 15,641 corrected, 261 pending (148 Tamazight), four restored,
 4,175 retained and 18,740 correction records. Broader native/browser
 validation and earlier low-confidence wording remain open.
+
+## Board visibility and private-only restriction — 2026-09-14
+
+Local commit `267913e2f` repairs French tableVisibilityMode (unflagged)
+and tableVisibilityMode-allowPrivateOnly (flagged). Existing visibility
+and boards vocabulary is reused. IRCAM 2019 PDF page 477 entry 9012
+attests allow/authorize; page 454 entry 8633 attests private; page 468
+entry 8843 attests only. The label retains all three restriction meanings.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+**Low confidence** remains for feminine plural private agreement,
+visibility genitive and the full restriction grammar. BoardBody renders
+the message; board-header/settings code reads the matching setting.
+No permission or visibility logic is changed. Four focused checks pass;
+heading prefix consistency and only/private scope have regression checks.
+No browser validation was run. Recount: 15,642 corrected, 260 pending
+(147 Tamazight), four restored, 4,175 retained and 18,742 correction
+records. Broader native/runtime and prior low-confidence work stays open.

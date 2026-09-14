@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/267913e2f">Repair Tamazight board visibility restriction wording</a>. Thanks to xet7.</summary>
+
+Replace French heading and private-only restriction, retaining allow,
+only and private meanings. Four focused checks pass. Full plural grammar
+and native/browser verification remain open; original pending count is 260.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c0edf1104">Repair Tamazight hidden-activities notification</a>. Thanks to xet7.</summary>
 
 Replace Arabic, preserving all-activities and all-boards scope. Four
