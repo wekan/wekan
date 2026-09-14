@@ -1,5 +1,13 @@
 # Detailed translation audit evidence
 
+2026-09-14: synchronized the changelog's current TODO Later and upcoming
+aggregate with authoritative audit-progress output: 15,536 corrected,
+4,058 restored awaiting validation, 179 retained, 308 pending; 18,127
+correction records and 173 pending Tamazight findings. Dated per-repair
+counts remain historical snapshots. Aggregate updates do not establish
+fluency or close restored/low-confidence review work.
+
+
 2026-09-14 (`9b11c99d9`): repaired Tamazight Parent Card and Don't
 Show Parent. Native MediaWiki `rcfilters-activefilters-hide` supplies
 `ⵙⵙⵏⵜⵍ`; indexed IRCAM General Dictionary supports `ⴰⵎⴰⵔⴰⵡ`.
