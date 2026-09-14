@@ -124367,5 +124367,19 @@
     "before": "مستخدم جديد",
     "after": "ⴰⵏⵙⵙⵎⵔⵙ ⴰⵎⴰⵢⵏⵓ",
     "reason": "2026-09-14: Replace Arabic Tamazight New wording. Compose singular User with native New adjective, preserving account user rather than board member. LOW CONFIDENCE full adapted noun/adjective heading and free-state noun morphology need fluent review. MediaWiki userlogin-yourname supplies bound unssmrs User corresponding to existing free-state anssmrs. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "board-view",
+    "before": "عرض اللوحات",
+    "after": "ⵜⴰⵎⵓⵖⵍⵉ ⵏ ⵜⴼⵍⵡⵉⵜ",
+    "reason": "2026-09-14: Replace Arabic Board View wording with native View component and existing singular board noun. MediaWiki preview gives tamughli tamzwarut first/preview; use only View noun, not preview qualifier. Preserve generic Board View rather than Board Settings, plural boards or a specific calendar/list view. LOW CONFIDENCE generic-view adaptation, bound board noun and full kanban phrase need fluent Standard Moroccan review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "boardChangeViewPopup-title",
+    "before": "عرض اللوحات",
+    "after": "ⵜⴰⵎⵓⵖⵍⵉ ⵏ ⵜⴼⵍⵡⵉⵜ",
+    "reason": "2026-09-14: Replace Arabic Board View wording with native View component and existing singular board noun. MediaWiki preview gives tamughli tamzwarut first/preview; use only View noun, not preview qualifier. Preserve generic Board View rather than Board Settings, plural boards or a specific calendar/list view. LOW CONFIDENCE generic-view adaptation, bound board noun and full kanban phrase need fluent Standard Moroccan review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
