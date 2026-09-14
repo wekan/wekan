@@ -1,5 +1,14 @@
 # Detailed translation audit evidence
 
+2026-09-14 (`5fcf0d284`): retained thirty correct Danish restored values
+after full review. Preserve active/inactive state plus inverse click action,
+all/locked/inactive filters, successful scheduling versus failures, scheduled
+job deletion/pause, failed migration retry versus paused resume, start/pause/
+stop including All, filesystem paths, GridFS storage and S3 authentication/
+bucket descriptions. Danish reviewed total is 170; overall retained 347,
+restored awaiting validation 3,888. Corrected and pending counts unchanged.
+
+
 2026-09-14 (`807ceeee2`): retained thirty more correct restored Danish
 values unchanged. Confirmed attachment All versus board-only scope and
 storage destinations, invalid filename cancellation of upload or rename,
