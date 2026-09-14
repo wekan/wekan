@@ -668,7 +668,16 @@ The empty wrongly placed Git directory was removed locally.
 
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
-**Languages updated:** Acehnese, Basque, Esperanto, Galician, Greenlandic, Manx, Swedish, Valencian, Veps
+**Languages updated:** Acehnese, Basque, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/04711b646">Use evidenced Sardinian magenta colour wording</a>. Thanks to xet7.</summary>
+
+Use published Sardinian fùcsia for the CSS magenta label. Both CSS names
+have the same #ff00ff value as WeKan's colour mapping. All correction checks
+pass; broader language and browser validation remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e4860ab8e">Localize Greenlandic Buddhist calendar label</a>. Thanks to xet7.</summary>

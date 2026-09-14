@@ -22784,3 +22784,14 @@ existing Juutit ullorsiutaat, not attested as a calendar phrase. Native
 inflection/terminology review remains open. All 18,205 corrections and
 calendar checks pass; 303 pending and 31 restored values remain. Browser
 validation and the five remaining Greenlandic original findings remain open.
+
+Dated colour repair, 2026-09-14, local commit `04711b646`: Sardinian
+color-magenta now fùcsia. Native-language publication directly inspected:
+https://www.lanuovasardegna.it/tempo-libero/2018/11/11/news/de-cantos-colores-podent-essere-sos-pitzinnos-de-cada-colore-1.17453815 .
+https://www.w3.org/TR/css-color-3/ lists magenta and fuchsia as #ff00ff;
+models/lib/contrastColor.js uses that same magenta value. Thus the native
+label preserves this UI colour identity. Does not establish that borrowed
+magenta is wrong Sardinian. GNOME/LibreOffice sc paths tried returned 404;
+MediaWiki sc had no magenta entry, so those were not evidence of a term.
+All 18,206 corrections pass; 302 pending and 31 restored findings remain.
+Broader language/browser review remains open.
