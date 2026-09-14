@@ -1117,10 +1117,7 @@ template(name="cardDetailsActionsPopup")
                 a.js-save-card-as-template
                   i.fa.fa-clone
                   | {{_ 'save-card-as-template'}}
-              li
-                a.js-link-card-to-board
-                  i.fa.fa-link
-                  | {{_ 'linkCardToBoardPopup-title'}}
+
           unless currentUser.isWorker
             ul.pop-over-list
               li

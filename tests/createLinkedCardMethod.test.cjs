@@ -43,7 +43,7 @@ test('#6613: the server validates every link coordinate before inserting', () =>
     assert.match(method, new RegExp(`check\\(${argument}, String\\)`));
   }
   assert.match(method, /check\(sort, Number\)/);
-  assert.match(method, /allowIsBoardMember\(this\.userId/);
+  assert.match(method, /allowIsBoardMemberWithWriteAccess\(this\.userId, sourceBoard\)/);
   assert.match(method, /allowIsBoardMemberWithWriteAccess\(this\.userId/);
   assert.match(method, /destinationList\.boardId !== boardId/);
   assert.match(method, /destinationSwimlane\.boardId !== boardId/);

@@ -12,6 +12,7 @@ import { computeBoardBackground } from '/models/lib/boardBackground';
 import { buildCardAttachmentMeta } from '/models/lib/attachmentMeta';
 import { resolveShowDragHandles, readDragHandlesPreference } from '/models/lib/dragHandles';
 const { memberCan } = require('/models/lib/boardRoleCapabilities');
+const { sourceRoleBlocksDelegation } = require('/models/lib/linkedWritePolicy');
 
 // One key for both pages: they draw one menu. docs/Features/Page/Left-Menu.md
 const LEFT_MENU_COLLAPSED_KEY = 'leftMenuCollapsed';
@@ -238,6 +239,11 @@ export const Utils = {
     return !!(board && memberCan(board.members, userId, capability));
   },
   canModifyCard(card = Utils.getCurrentCard()) {
+    if (card && card.type === 'cardType-linkedCard') {
+      const source = ReactiveCache.getCard(card.linkedId);
+      const sourceBoard = source && ReactiveCache.getBoard(source.boardId);
+      if (!sourceBoard || sourceRoleBlocksDelegation(Meteor.userId(), sourceBoard)) return false;
+    }
     const board = card && typeof card.board === 'function'
       ? card.board()
       : Utils.getCurrentBoard();

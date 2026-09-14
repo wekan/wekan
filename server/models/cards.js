@@ -1,3 +1,4 @@
+import { recordLinkedWriteDenial } from '/models/lib/linkedWritePolicy';
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { check, Match } from 'meteor/check';
@@ -156,7 +157,8 @@ Meteor.methods({
       throw new Meteor.Error('not-found');
     }
     const sourceBoard = await Boards.findOneAsync(sourceCard.boardId);
-    if (!sourceBoard || !allowIsBoardMember(this.userId, sourceBoard)) {
+    if (!sourceBoard || !allowIsBoardMemberWithWriteAccess(this.userId, sourceBoard)) {
+      recordLinkedWriteDenial('createLinkedCard');
       throw new Meteor.Error('not-authorized');
     }
     if (!allowIsBoardMemberWithWriteAccess(this.userId, destinationBoard)) {

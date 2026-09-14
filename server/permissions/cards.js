@@ -6,6 +6,28 @@ import { canUserSeeBoard } from '/server/lib/visibleBoardIds';
 import { tripCanary, tripCanaryDeny } from '/server/lib/canary';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 const { workerMayUpdateCard } = require('/models/lib/workerCardWrite');
+import { recordLinkedWriteDenial } from '/models/lib/linkedWritePolicy';
+
+async function denyUnauthorizedCardLink(userId, type, linkedId) {
+  if (type !== 'cardType-linkedCard') return false;
+  const source = typeof linkedId === 'string' && await Cards.findOneAsync(linkedId);
+  const board = source && await Boards.findOneAsync(source.boardId);
+  if (allowIsBoardMemberWithWriteAccess(userId, board)) return false;
+  recordLinkedWriteDenial('ddp:card-link');
+  return true;
+}
+
+Cards.deny({
+  async insert(userId, doc) {
+    return await denyUnauthorizedCardLink(userId, doc.type, doc.linkedId);
+  },
+  async update(userId, doc, fields, modifier) {
+    if (!fields.some(field => field === 'type' || field === 'linkedId')) return false;
+    const set = modifier.$set || {};
+    return await denyUnauthorizedCardLink(userId, set.type || doc.type, set.linkedId || doc.linkedId);
+  },
+  fetch: ['type', 'linkedId'],
+});
 
 // GHSA-jvv9-498p-hxrg: may this user name that card as a parent? Only if they
 // may see the board it is on — the same question the `board` publication asks
