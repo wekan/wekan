@@ -122533,5 +122533,19 @@
     "before": "À droite de la liste sélectionnée",
     "after": "ⴳ ⵓⵢⴼⴼⴰⵙ ⵏ ⵜⵍⴳⴰⵎⵜ ⵉⵜⵜⵓⵙⵜⴰⵢⵏ",
     "reason": "Replace French selected-list position labels with Tamazight and preserve opposite left/right directions, list referent and selected qualification. IRCAM Asinag 3 printed p65 documents native azlmad/left versus afasi or ayffas/right in Ait Warayn Tamazight; derived emphatic left spelling and bound direction nouns used here need review. Native MediaWiki compareselectedversions supports selected participle; reuse local list noun. LOW CONFIDENCE emphatic z/d spelling choice, bound noun forms, selected-list participle agreement and complete position phrase. References: https://www.ircam.ma/sites/default/files/sites/default/files/Revue_asinag/revue_asinag_document/Asinag%20N-3.pdf (printed p65); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (compareselectedversions)."
+  },
+  {
+    "locale": "zgh",
+    "key": "error-email-taken",
+    "before": "البريد الإلكتروني مأخوذ بالفعل",
+    "after": "ⴰⵏⵙⴰ ⵏ ⵉⵎⴰⵢⵍ ⵉⵜⵜⵓⵙⵎⵔⵙ ⵢⴰⴷ.",
+    "reason": "Replace Arabic already-taken email warning or French Import Usernames action. Preserve email-address already-used scope, not username, and username import rather than export. Native MediaWiki userexists already-used predicate and email-address/username terms support vocabulary; derive plural names and users. Import imperative skchm derives from native importlogpage iskchumn and existing input imperative, with software import adaptation. LOW CONFIDENCE address predicate agreement, plural forms, derived import command and full label composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (userexists, createacct-email-ph, passwordreset-emailelement, importlogpage, statistics-users)."
+  },
+  {
+    "locale": "zgh",
+    "key": "import-usernames",
+    "before": "Importer les noms d'utilisateurs",
+    "after": "ⵙⴽⵛⵎ ⵉⵙⵎⴰⵡⵏ ⵏ ⵉⵏⵙⵙⵎⵔⵙⵏ",
+    "reason": "Replace Arabic already-taken email warning or French Import Usernames action. Preserve email-address already-used scope, not username, and username import rather than export. Native MediaWiki userexists already-used predicate and email-address/username terms support vocabulary; derive plural names and users. Import imperative skchm derives from native importlogpage iskchumn and existing input imperative, with software import adaptation. LOW CONFIDENCE address predicate agreement, plural forms, derived import command and full label composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (userexists, createacct-email-ph, passwordreset-emailelement, importlogpage, statistics-users)."
   }
 ]
