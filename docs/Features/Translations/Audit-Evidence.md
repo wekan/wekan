@@ -22111,3 +22111,15 @@ intact. Mobile/desktop switching and visibility/watch settings retain meaning.
 Review checks pass: 15,561 corrected, 1,433 restored awaiting validation,
 2,779 reviewed unchanged and 308 pending. Broader language and browser
 validation remain open. Nothing pushed.
+
+
+### 2026-09-14 — Galician calendar and voting labels
+
+Local commit `e5e09f52c` retains 30 directly reviewed values unchanged.
+Zoom range, calendar month directions, deadline/start/spent-time labels and
+attachment origin retain meaning. Voting preserves proponents/opponents,
+all logged-in eligibility, visible vote choices, end-date editing and
+permanent loss of all associated actions. Wish-list example retains meaning.
+Review checks pass: 15,561 corrected, 1,403 restored awaiting validation,
+2,809 reviewed unchanged and 308 pending. Broader language and browser
+validation remain open. Nothing pushed.
