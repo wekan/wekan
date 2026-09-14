@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/75fbb698c">Verify Tamazight numeric total tooltip in the browser</a>. Thanks to xet7.</summary>
+
+The browser fixture enables the actual badge-visibility setting and
+resumes login before reopening the board. Chromium verifies visible-field
+sum 7, exclusion of hidden value 100, and the translated tooltip. Native
+wording review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e7d0f821c">Clarify remaining Ewe calendar translation evidence</a>. Thanks to xet7.</summary>
 
 Current primary CLDR sources distinguish provisional calendar names from

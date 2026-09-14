@@ -24,4 +24,4 @@ Next: locate an independently attested Aromanian magenta name or a native
 technical color glossary. Romanian dictionary entries are not Aromanian
 attestation. Preserve the existing value until that evidence establishes
 the correct repair or retention. No acceptance, replacement, or browser
-verification is claimed by this research; the 283 pending findings remain.
+verification is claimed by this research; the Aromanian finding remains pending.

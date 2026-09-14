@@ -1715,3 +1715,15 @@ old-term negatives and complete previous/new time token inventories.
 Genitive form, finite activity clause and software reception remain low
 confidence. Native/browser review remains open. No extra repair record is
 added; ledger remains 18,812 and original pending 233 (zgh 125).
+
+
+Numeric-total browser verification **2026-09-14**, local commit `75fbb698c`:
+Spec 03 executed against the live Meteor app in Chromium: **1 passed
+(3.5s)**. Test fixture now enables profile.showCardsCountAt, the actual
+setting gating total-badge visibility, and waits for resumed login before
+reopening the board after reload. Rendered sum is 7; hidden-field 100 is
+excluded, 107 rejected, and translated tooltip checked against the locale.
+Earlier registered-but-unrun notes are superseded. This verifies rendering
+and calculation scope, not native phrase fluency. Browser snapshots also
+show remaining mixed French/Arabic Tamazight values; those require repair.
+No locale values/counts changed: pending 232, restored 4, ledger 18,832.

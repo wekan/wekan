@@ -26314,3 +26314,15 @@ computational table terminology from furniture and reference-date epoch
 from astronomy/era/sighting. Existing Ewe structural test passes; it does
 not verify native wording. Counts and locale values unchanged. Primary
 sources and remaining research requirements are recorded in that review.
+
+
+Numeric-total browser verification **2026-09-14**, local commit `75fbb698c`:
+Spec 03 executed against the live Meteor app in Chromium: **1 passed
+(3.5s)**. Test fixture now enables profile.showCardsCountAt, the actual
+setting gating total-badge visibility, and waits for resumed login before
+reopening the board after reload. Rendered sum is 7; hidden-field 100 is
+excluded, 107 rejected, and translated tooltip checked against the locale.
+Earlier registered-but-unrun notes are superseded. This verifies rendering
+and calculation scope, not native phrase fluency. Browser snapshots also
+show remaining mixed French/Arabic Tamazight values; those require repair.
+No locale values/counts changed: pending 232, restored 4, ledger 18,832.

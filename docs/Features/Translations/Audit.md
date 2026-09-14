@@ -27,11 +27,11 @@ repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
-Latest terminology review: **2026-09-14**, `e7d0f821c` — current
-CLDR confirms Ewe astronomical-tabular name is an identifier fallback;
-generic/civil names are provisional. [Ewe evidence](Ewe-Review.md) records
-missing table/epoch terminology. Ewe structural checks pass, not fluency;
-counts unchanged. Basque browser verification passed in `c9005ee0a`.
+Latest terminology review: **2026-09-14**, `75fbb698c` — Tamazight
+numeric-total browser test executed successfully (Chromium, 1 passed).
+Visible-field sum and translated tooltip verified; native phrase review
+remains open. Counts unchanged. Ewe CLDR review is `e7d0f821c`; Basque
+browser verification is `c9005ee0a`.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:
