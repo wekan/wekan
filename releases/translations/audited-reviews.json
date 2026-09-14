@@ -23872,5 +23872,179 @@
     "key": "board-change-background-image",
     "value": "Canvia la imatge de fons",
     "reason": "Inspected Valencian brute-force known/unknown-user settings, locked-user versus active/inactive actions, scheduled archive/backup/cleanup failures, migration start/pause/stop outcomes and confirmations, attachment/S3 save settings, list renaming and background. Negation, correct-username/wrong-password contrast, all-user/all-migration scopes and placeholders remain intact. Bucket List example retains wishes-list meaning. English checklist/bucket/endpoint loans excluded; broader regional wording remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "allBoardsChangeBackgroundImagePopup-title",
+    "value": "Canvia la imatge de fons",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "desktop-mode",
+    "value": "Mode d'escriptori",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "mobile-mode",
+    "value": "Mode mòbil",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "mobile-desktop-toggle",
+    "value": "Commuta entre el mode mòbil i el mode d'escriptori",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "zoom-level",
+    "value": "Nivell d'ampliació",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "enter-zoom-level",
+    "value": "Introduïu el nivell d'ampliació (50-300%):",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "calendar-next-month-label",
+    "value": "Mes següent",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "auto-list-width",
+    "value": "Amplada automàtica de la llista",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "comments",
+    "value": "Comentaris",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "date-format",
+    "value": "Format de data",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "enable-vertical-scrollbars",
+    "value": "Activa les barres de desplaçament verticals",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "filter-due-next-week",
+    "value": "Venç la setmana vinent",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "show-activities",
+    "value": "Mostra les activitats",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "uploading-files",
+    "value": "S'estan pujant els fitxers",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "upload-failed",
+    "value": "La pujada ha fallat",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "upload-completed",
+    "value": "Pujada completada",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "heading-notes",
+    "value": "Apunts",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "sort-is-on",
+    "value": "L'ordenació està activada",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "originOrder",
+    "value": "ordre original",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "preview-pdf-not-supported",
+    "value": "El vostre dispositiu no admet la vista prèvia de PDF. Proveu de descarregar-lo.",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "translation-number",
+    "value": "El nombre de cadenes de traducció personalitzades és:",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "delete-translation-confirm-popup",
+    "value": "Segur que voleu esborrar aquesta cadena de traducció personalitzada? No es pot desfer.",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "newTranslationPopup-title",
+    "value": "Cadena de traducció personalitzada nova",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "editTranslationPopup-title",
+    "value": "Edita la cadena de traducció personalitzada",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "settingsTranslationPopup-title",
+    "value": "Voleu esborrar aquesta cadena de traducció personalitzada?",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "translation",
+    "value": "Traducció",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "show-subtasks-field",
+    "value": "Mostra el camp de subtasques",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "convert-to-markdown",
+    "value": "Converteix a markdown",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "uncollapse",
+    "value": "Desplega",
+    "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
   }
 ]

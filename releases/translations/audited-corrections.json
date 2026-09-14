@@ -127265,5 +127265,12 @@
     "before": "Amaga les checklists acabades",
     "after": "Amaga les llistes de verificació acabades",
     "reason": "Replace mixed English checklist/checklists and joined prose llistadecontrol with existing locale terminology llista de verificació. Preserve each-line mapping, original order, all-item and finished-list scope. These are ordinary rule/display prose; search operator and predicate tokens are excluded for separate parser review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "hideCheckedChecklistItems",
+    "before": "Amaga els elements marcats de la checklist",
+    "after": "Amaga els elements marcats de la llista de verificació",
+    "reason": "Replace mixed English checklist in ordinary visibility label with existing llista de verificació; preserve checked-item-only scope, not all items or completed lists."
   }
 ]
