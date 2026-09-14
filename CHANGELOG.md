@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,288 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 556 pending review or repair.
-The correction inventory records 17,591 exact before/after values,
+The correction inventory records 17,594 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,11 +102,11 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 14bcae938 (2026-09-14), repairing four
-original French/Arabic attachment count/filesystem-move findings. Preserve
-minicard count, singular/all/all-of-board scope and filesystem destination.
-Explicit lexicon terms support vocabulary; dialect/software adaptation,
-transcription and complete phrases remain low confidence.
+Latest translation fix is 5734a2a88 (2026-09-14), repairing three
+unflagged attachment activity/upload headers. Preserve ordered tokens,
+attachment event, upload direction and by-actor versus at-time distinction.
+Derived conjugation, gender, header prepositions and dialect adaptation
+remain low confidence. Original pending counts are unchanged.
 Wider language review remains open.
 Greenlandic CLDR-unconfirmed wording and twelve Quechua color wrappers
 still need review, alongside the wider restored and unflagged values.
@@ -630,7 +630,7 @@ remain open.
 Translation audit progress as of 2026-09-14: 15,288 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
 and 556 remain pending across 17 locales, including 413 Tamazight findings.
-The ledger contains 17,591 correction records, including unflagged repairs.
+The ledger contains 17,594 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -963,6 +963,18 @@ count, singular/all/all-of-board scope and filesystem destination. All
 The lexicon explicitly names a filesystem; dialect/software adaptation,
 transcription, bound nouns and complete phrases remain low confidence.
 Wider language and live browser validation remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5734a2a88">Repair Tamazight attached activity and upload export headers</a>. Thanks to xet7.</summary>
+
+Replace three unflagged Arabic/French values. Preserve both ordered %s
+tokens, attachment event meaning, upload direction and by-actor versus
+at-time header distinction. All 17,594 correction/rendering checks pass;
+original pending counts are unchanged. Derived conjugation, actor gender,
+header prepositions, attachment paraphrase and dialect adaptation remain
+low confidence. Wider language and live browser validation remain open.
 
 </details>
 
