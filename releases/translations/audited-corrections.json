@@ -124381,5 +124381,12 @@
     "before": "عرض اللوحات",
     "after": "ⵜⴰⵎⵓⵖⵍⵉ ⵏ ⵜⴼⵍⵡⵉⵜ",
     "reason": "2026-09-14: Replace Arabic Board View wording with native View component and existing singular board noun. MediaWiki preview gives tamughli tamzwarut first/preview; use only View noun, not preview qualifier. Preserve generic Board View rather than Board Settings, plural boards or a specific calendar/list view. LOW CONFIDENCE generic-view adaptation, bound board noun and full kanban phrase need fluent Standard Moroccan review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "domain-user-count",
+    "before": "ⵉⵎⵙⴻⵇⴷⴰⵛⴻⵏ",
+    "after": "ⵉⵏⵙⵙⵎⵔⵙⵏ",
+    "reason": "2026-09-14: Replace cross-dialect imseqdacen in the Standard Moroccan domain account-user count heading with native plural inssmrsn. MediaWiki zgh badaccess-groups, diff-multi-otherusers and newuserlogpage directly attest this plural for Users. Keep account users distinct from board members and people; no singular or count token is added. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
