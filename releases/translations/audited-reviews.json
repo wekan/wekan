@@ -20074,5 +20074,185 @@
     "key": "cron-clear-errors",
     "value": "Limpar todos os erros",
     "reason": "Inspected Galician wording correctly distinguishes failed login counts, lockout duration and failure window in seconds, remaining time, active users, scheduled jobs/migrations and their delete/pause/resume/start outcomes, errors, warnings and clearing stored errors. Cron job outcome messages retain success/failure polarity."
+  },
+  {
+    "locale": "gl",
+    "key": "cron-retry-failed",
+    "value": "Reintentar as migracións fallidas",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "cron-resume-paused",
+    "value": "Retomar as migracións pausadas",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "cron-errors-cleared",
+    "value": "Limpáronse todos os erros correctamente",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "cron-no-failed-migrations",
+    "value": "Non hai migracións fallidas que reintentar",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "cron-no-paused-migrations",
+    "value": "Non hai migracións pausadas que retomar",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "cron-migrations-resumed",
+    "value": "Migracións retomadas correctamente",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "cron-migrations-retried",
+    "value": "Migracións fallidas reintentadas correctamente",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "idle",
+    "value": "Inactivo",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "filesystem-path-description",
+    "value": "Ruta base para o almacenamento de ficheiros",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "database-migration-done",
+    "value": "Migración dos datos de texto completada.",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "sandstorm-storage-item",
+    "value": "Almacenamento",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "anonymized-user",
+    "value": "usuario",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "features-notifications",
+    "value": "Notificacións",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "backup-done",
+    "value": "Copia de seguridade completada",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "backup-schedule",
+    "value": "Copias de seguridade programadas",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "backup-list",
+    "value": "Listar copias de seguridade",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "test-cloud-connection",
+    "value": "Probar a conexión",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "gridfs-enabled",
+    "value": "GridFS activado",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "gridfs-enabled-description",
+    "value": "Usar MongoDB GridFS para o almacenamento de ficheiros",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "all-migrations",
+    "value": "Todas as migracións",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "select-migration",
+    "value": "Seleccionar migración",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "start",
+    "value": "Iniciar",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "pause",
+    "value": "Pausar",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "stop",
+    "value": "Deter",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-starting",
+    "value": "Iniciando as migracións...",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-pausing",
+    "value": "Pausando as migracións...",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-stopping",
+    "value": "Detendo as migracións...",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-pause-failed",
+    "value": "Non se puideron pausar as migracións",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-paused",
+    "value": "Migracións pausadas correctamente",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-progress",
+    "value": "Progreso da migración",
+    "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
   }
 ]
