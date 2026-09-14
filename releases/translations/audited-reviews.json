@@ -2260,5 +2260,185 @@
     "key": "run-fix-all-file-urls-migration-confirm",
     "value": "Dette opdaterer alle URL'er for vedhæftede filer på denne tavle til at bruge den korrekte lagrings-backend. Fortsæt?",
     "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Preserve S3/MinIO alternatives, endpoint port, authentication secret, SSL/TLS, scheduling, base-directory storage, integrity versus integration, list/card/swimlane structure, empty duplicate deletion requiring no cards AND same-title card-bearing duplicate, shared-list conversion first, missing swimlaneId/listId, Lost Cards recovery versus all archived restoration, non-archived-only scope, difficult undo, correct storage backend, board-member avatars versus all this-board files and individual execution as applicable. Literal IDs and vendor names preserved. Obsolete migration strings remain in scope; wording review does not claim runtime feature availability."
+  },
+  {
+    "locale": "da",
+    "key": "restore-lost-cards-nothing-to-restore",
+    "value": "Ingen mistede svømmebaner, lister eller kort at genskabe",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "migration-progress-note",
+    "value": "Vent venligst, mens vi migrerer din tavle til den nyeste struktur...",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "step-ensure-lost-cards-swimlane",
+    "value": "Sikr svømmebane til mistede kort",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "conversion-info-text",
+    "value": "Denne konvertering udføres én gang pr. tavle og forbedrer ydeevnen. Du kan fortsætte med at bruge tavlen som normalt.",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "converting-board",
+    "value": "Konverterer tavle",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "converting-board-description",
+    "value": "Konverterer tavlens struktur for forbedret funktionalitet. Det kan tage et øjeblik.",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "filesystem-attachments",
+    "value": "Vedhæftninger i filsystem",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "gridfs-attachments",
+    "value": "GridFS-vedhæftninger",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "hide-list-on-minicard",
+    "value": "Skjul liste på minikort",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "migrate-all-to-filesystem",
+    "value": "Migrér alt til filsystem",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "migrate-all-to-gridfs",
+    "value": "Migrér alt til GridFS",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "migrate-all-to-s3",
+    "value": "Migrér alt til S3",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "migrated-attachments",
+    "value": "Migrerede vedhæftninger",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "migration-batch-size-description",
+    "value": "Antal vedhæftninger, der behandles i hver batch (1-100)",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "migration-info-text",
+    "value": "Databasemigreringer udføres én gang og forbedrer systemets ydeevne. Processen fortsætter i baggrunden, selv hvis du lukker din browser.",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "migration-resume-failed",
+    "value": "Kunne ikke genoptage migrering",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "migration-warning-text",
+    "value": "Luk venligst ikke din browser under migreringen. Processen fortsætter i baggrunden, men kan tage længere tid at fuldføre.",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "monitoring-export-failed",
+    "value": "Kunne ikke eksportere overvågningsdata",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "monitoring-refresh-failed",
+    "value": "Kunne ikke opdatere overvågningsdata",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "remaining-attachments",
+    "value": "Resterende vedhæftninger",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "s3-attachments",
+    "value": "S3-vedhæftninger",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "search-boards-or-operations",
+    "value": "Søg efter tavler eller handlinger...",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "show-list-on-minicard",
+    "value": "Vis liste på minikort",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "total-attachments",
+    "value": "Vedhæftninger i alt",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "unmigrated-boards",
+    "value": "Ikke-migrerede tavler",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "sign-in-to-upload",
+    "value": "Log ind for at overføre repositorier",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "account-locked",
+    "value": "Kontoen er midlertidigt låst på grund af for mange mislykkede loginforsøg. Prøv igen senere.",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "username-password-required",
+    "value": "Brugernavn og kodeord er påkrævet",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "password-mismatch",
+    "value": "Kodeordene stemmer ikke overens",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "color-orange",
+    "value": "orange",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
   }
 ]
