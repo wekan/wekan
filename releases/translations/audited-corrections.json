@@ -123520,5 +123520,12 @@
     "before": "La date d'échéance %s est aujourd'hui",
     "after": "ⴰⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⴰⵎⵉⵔⴰⵏ %s ⵉⴳⴰ ⴰⵙⵙⴰ",
     "reason": "Replace French due-today status, preserving current qualifier omitted in French and exact %s date token. CLDR zgh.xml day relative 0 attests assa today: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml . Native MediaWiki blockedtext-block-ip supplies current amiran and copula iga: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse existing due-date label asakud amggaru. LOW CONFIDENCE deadline-specific sense of existing due-date terminology, adjective ordering and complete software status need fluent review; last/final date must not be treated as independently established deadline vocabulary. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-heading",
+    "before": "Instructions de recherche",
+    "after": "ⵜⵉⵏⴰⴹⵉⵏ ⵏ ⵓⵔⵣⵣⵓ",
+    "reason": "Replace French search instructions heading. Native Moroccan education council page https://www.csefrs.ma/ titled ⵜⵉⵏⴰⴹⵉⵏ ⵏ ⵜⵎⵔⵙⵍⵜ uses tinadin institutional directives; Native MediaWiki search supplies arzz u and searchresults supplies bound urzzu: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE institutional directives to software usage instructions sense and full heading compound require fluent review; CNAM machine instruction statement is not an equivalent of usage guidance and was not used. Reviewed 2026-09-14. Source limitation: education council wording was inspected in indexed primary-page text; direct full-page retrieval returned HTTP 403. Do not claim complete page verification."
   }
 ]
