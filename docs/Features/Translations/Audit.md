@@ -26,10 +26,10 @@ repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
-Latest terminology review: **2026-09-14**, `e702bdf0b` — whole/complete
-and positive-number leads do not establish integer constraints. A primary
-2009 dictionary was downloaded and its title inspected; extraction limits
-and the unresolved school-lexicon lead are recorded in [Tamazight review](Tamazight-Review.md).
+Latest terminology review: **2026-09-14**, `726abda52` — Veps top-position
+forms and stationary/movement distinctions are recorded; summarize is not
+arithmetic sum, and frequency is not software-parent evidence. No finding
+was accepted. Full phrases remain open in [Veps review](Veps-Review.md).
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

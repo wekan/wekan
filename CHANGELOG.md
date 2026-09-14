@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/726abda52">Expand Veps software-sense evidence</a>. Thanks to xet7.</summary>
+
+Record top-position forms and stationary/movement distinctions. Reject
+summarize as arithmetic sum and frequency as software-parent proof; keep
+full Finnish-prose findings pending until their native phrases are verified.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e702bdf0b">Review integer-constraint source evidence</a>. Thanks to xet7.</summary>
 
 Document a primary dictionary's title and extraction limits, and reject

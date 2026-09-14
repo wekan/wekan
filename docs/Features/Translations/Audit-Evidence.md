@@ -24874,3 +24874,14 @@ publication lead remains unread; catalogue hosting is not proof of locale
 or technical sense. Both integer-constraint findings remain pending.
 Counts stay 15,630 corrected, 272 pending, four restored and 4,175
 retained; native terminology and browser validation remain unfinished.
+
+## Veps dictionary/sense expansion — 2026-09-14
+
+Local commit `726abda52` records newly inspected dictionary senses and
+forms for top position, distinguishes stationary päl from movement päle,
+and rejects summarize as arithmetic sum. The pinned primary Veps analyzer
+source contains frequency evidence, not proof of software-parent meaning.
+These distinctions narrow future repairs without accepting incomplete
+Finnish-prose replacements. Ten original Veps findings remain pending,
+alongside unflagged values. Live total: 272 pending/four restored;
+complete native and browser verification remains unfinished.
