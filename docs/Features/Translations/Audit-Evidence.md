@@ -24123,3 +24123,21 @@ The existing fill workflow already protects literal format patterns from
 placeholder translation. No dependency or external service is introduced.
 These unflagged repairs leave 288 original pending and 10 restored findings.
 Browser rendering and broader native-language review remain open.
+
+## Tamazight registration/log/summary, 2026-09-14
+
+Local commit `d5d2bf518` repairs register, log and summary. French registration
+and log labels become native account-creation and log wording; summary changes
+from the section noun to the native summary noun, without the source colon.
+[Native Moroccan MediaWiki source](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json)
+attests createaccount, log and summary, with search-section distinguishing
+the section noun. The actual problemsSummary.jade uses summary as a heading.
+The log label has no current direct client use; obsolete strings remain in
+translation scope. Registration uses account-creation wording rather than
+sign-in wording. Full runtime/browser flow was not verified.
+
+Focused exact-value, French/section-negative and summary/history distinction
+checks pass, with all 18,680 corrections, 4,170 retained reviews and completeness
+for 234 locales. Original counts remain 288 pending and 10 restored. Remaining
+calendar qualifiers are not supplied by current CLDR zgh; no pending calendar
+finding was accepted from generic component evidence.

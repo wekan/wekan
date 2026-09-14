@@ -738,6 +738,15 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d5d2bf518">Repair Tamazight registration and summary labels</a>. Thanks to xet7.</summary>
+
+Registration, log and summary use native Moroccan software terminology.
+Focused checks preserve distinct summary meaning and all tokens. The dated
+audit records the source evidence and remaining browser verification.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b8c6fed39">Repair wrong-language date-format labels</a>. Thanks to xet7.</summary>
 
 Akan, Bosnian, Slovenian, Breton and Tamazight date-format choices show the
