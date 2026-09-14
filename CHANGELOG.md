@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,488 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 356 pending review or repair.
-The correction inventory records 18,045 exact before/after values,
+findings: 15,489 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 355 pending review or repair.
+The correction inventory records 18,046 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (221) and
+The largest original queues are Standard Moroccan Tamazight (220) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,9 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 5e5519f2f (2026-09-14), repairing Arabic All search
-predicate with exact native Tamazight and single-token regression checks.
-Date-boundary wording remains pending. Original audit counts unchanged.
+Latest translation fix is c002054d5 (2026-09-14), repairing board watcher
+explanation. Future YOU notification for ANY change on THIS board preserved;
+derived passive and full grammar remain low confidence.
+355 original findings remain pending.
 Archive provenance follow-up fbe388603 (2026-09-14) directly inspects the
 native Archives du Maroc logo in a university PDF, corroborating the noun
 beyond indexed evidence. Nine records updated; no values/counts changed.
@@ -650,10 +651,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,488 original findings are
+Translation audit progress as of 2026-09-14: 15,489 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 356 remain pending across 17 locales, including 221 Tamazight findings.
-The ledger contains 18,045 correction records, including unflagged repairs.
+and 355 remain pending across 17 locales, including 220 Tamazight findings.
+The ledger contains 18,046 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -3003,6 +3004,17 @@ Replace Arabic All predicate with exact native Tamazight, preserving single-toke
 query format. Add exact-value and negative whitespace/colon regression checks.
 All 18,045 correction checks pass; original audit counts unchanged.
 Date-boundary wording and live browser verification remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c002054d5">Repair Tamazight board watcher explanation</a>. Thanks to xet7.</summary>
+
+Replace French preserving future notification to YOU for ANY change on THIS
+board. Native components support provisional wording; derived passive and
+full grammar remain low confidence. All 18,046 correction checks pass;
+355 original findings remain pending, including 220 Tamazight. Live browser
+verification was not run.
 
 </details>
 

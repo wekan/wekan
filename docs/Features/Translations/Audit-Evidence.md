@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight watcher explanation — 2026-09-14
+
+Commit `c002054d5` repairs one original French finding. [Native Mastodon](https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json) column.notifications supplies Notifications; [MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) statistics-edits-average supplies Each, resetpass-temp-emailed Sent To You component. Preserve future YOU notification for ANY change on THIS board without adding email-specific delivery. Notify paraphrased as Notifications Sent To You; derived feminine plural passive and full future/each grammar remain LOW CONFIDENCE. 355 original findings remain pending, including 220 Tamazight; all 18,046 mechanical correction checks pass. Restored, unflagged and earlier uncertain wording remain in scope. Browser verification and remote uploads were not performed.
+
 ## Tamazight All predicate and date reference follow-up — 2026-09-14
 
 Commit `5e5519f2f` repairs unflagged Arabic All predicate using exact [native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) searchall. Inspected globalSearch.js predicate_all mapping; preserve one token without whitespace/colon. Exact and negative token regressions added. Date-boundary searches did not establish full ago-or-less phrase. [Additional IRCAM PDF](https://ircam.biblio.ma/uploads/publications/450.pdf) exceeded browser tool size and direct download returned HTTP 403; its content was not inspected and cannot corroborate earlier mention wording. These findings remain open; access failure is not proof of terminology absence. Original counts unchanged: 356 pending, including 221 Tamazight; all 18,045 mechanical correction checks pass. Restored, unflagged and earlier uncertain wording remain in scope. Browser verification and remote uploads were not performed.
