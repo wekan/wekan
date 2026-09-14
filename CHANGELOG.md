@@ -671,6 +671,15 @@ The empty wrongly placed Git directory was removed locally.
 **Languages updated:** Acehnese, Bambara, Basque, Breton, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c576850ef">Repair Breton removal and update action language</a>. Thanks to xet7.</summary>
+
+Twelve French-seeded removal/update actions and related labels reuse existing
+Breton terminology. Preserve membership removal versus account deletion.
+Structural checks pass; assembled grammar and browser review remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/000d7ee63">Repair Breton automation control language</a>. Thanks to xet7.</summary>
 
 Nineteen French-seeded rule, trigger, action and item labels reuse existing

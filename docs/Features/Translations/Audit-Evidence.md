@@ -22957,3 +22957,12 @@ not certify the remaining assembled trigger clauses, which still contain
 French prefixes and shared grammatical constraints. Native article mutations,
 full phrase fluency and browser checks remain open. All 18,350 correction
 and 4,158 unchanged checks pass. Original pending/restored remains 300/27.
+
+Dated unflagged repair, 2026-09-14, local commit `c576850ef`: 12 Breton
+removal/update actions and related labels replace French. Existing
+r-remove-all-labels uses Lemel, storage/migration messages use Hizivaat.
+Actual cardActions.jade/checklistActions.jade select remove actions; workflow
+removeMember removes card membership. This does not delete user accounts.
+Preserve all-board scope and checklist linkage. Full assembled clause grammar,
+article mutations and browser execution remain open. All 18,362 correction
+and 4,158 unchanged checks pass; original pending/restored remains 300/27.
