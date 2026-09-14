@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,366 |
+| Corrected | 15,367 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 478 |
+| Pending review or repair | 477 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,764** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,765** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `4ba8d17d4` — replaced French successful User Unlock result, preserving success, singular user and removal of login blocking. Positive success construction, removal nominalization and full bound phrase remain **low confidence** for fluent review. All **17,764** correction/rendering checks pass. **478** originals remain pending across **17** locales, including **343** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `15481a394` — replaced French search instruction, preserving writing search text and pressing Enter. Key-press adaptation, relative clause and complete sentence remain **low confidence** for fluent review. All **17,765** correction/rendering checks pass. **477** originals remain pending across **17** locales, including **342** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Bambara calendar review (2026-09-14, `5610dff52`):** current CLDR supplies date units and Era `tile`, but no native Hijri variant names. Era does not establish reference-date Epoch. Both tabular calendar findings remain pending; preserve civil versus astronomical epoch and seek full native terminology. [Evidence](Audit-Evidence.md) records limits; no values or counts changed.
 
