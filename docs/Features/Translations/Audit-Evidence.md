@@ -21706,3 +21706,16 @@ existing template choices (settingBody.js maps Cube-Grid to spinnerCubeGrid).
 The organization deletion warning retains the at-least-one-member condition.
 1,894 review records pass. 2,326 restored and 308 pending findings plus
 broader language/browser validation remain open.
+
+
+### Esperanto memory and legal labels — 2026-09-14
+
+Local commit `3e0c49da9` restores grando in resident-set-size diagnostics;
+28 memory, legal and checklist labels retained. Technical native vocabulary
+is supported by https://komputeko.net/Komputeko2008.pdf (native = indiĝena,
+including native compiler/mode). This supersedes any ordinary-language
+suspicion that indiĝena must be erroneous in a computing context.
+Garbage-zapping nuligas remains uncertain: zeroing and debug-pattern
+replacement must not be conflated. All 18,150 corrections and 1,922 reviews
+pass. 2,297 restored values and 308 pending findings remain; wider language
+and browser validation remain open.

@@ -4,27 +4,25 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,553 |
-| Restored pre-pull; awaiting validation | 2,326 |
-| Reviewed; retained unchanged | 1,894 |
+| Corrected | 15,554 |
+| Restored pre-pull; awaiting validation | 2,297 |
+| Reviewed; retained unchanged | 1,922 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
 Review is ongoing. The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,149** exact before/after values, including unflagged repairs.
+contain **18,150** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `3b44bfb5e` —
-repaired Esperanto custom-field value removal; retained 52 correct rule,
-hierarchy, date-field and authentication labels. Translated comma-separated
-example item names remain valid. All **18,149** correction records and
-unchanged-value checks pass. Browser verification was not run; no
-translations were pushed. Overtime, lime-color, scrollbar and advanced-filter wording remains under
-review. Latest unchanged review: **2026-09-14**, commit `59ad2ce12` —
-retained 30 correct separator, swimlane-copy, spinner and request labels.
-HTML space entities and organization-deletion restrictions remain intact.
-Checklist completion was validated against ReVo komplet (`5b1ec70e9`).
+Latest translation fix: **2026-09-14**, local commit `3e0c49da9` —
+restored the omitted size meaning in Esperanto RSS diagnostics; retained
+28 correct memory, legal and checklist labels. Komputeko supports the
+technical term indiĝena. All **18,150** correction and **1,922** review
+records pass. Browser verification was not run; no translations were pushed.
+Overtime, lime-color, scrollbar, advanced-filter and garbage-zapping wording
+remains under review. Checklist completion was validated against ReVo
+komplet (`5b1ec70e9`).
 
 
 Fixed categories include wrong-language prose, terminology, warnings,

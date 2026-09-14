@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,553 corrected, 2,326 restored pre-pull values awaiting
-validation, 1,894 reviewed and retained, and 308 pending review or repair.
-The correction inventory records 18,149 exact before/after values,
+findings: 15,554 corrected, 2,297 restored pre-pull values awaiting
+validation, 1,922 reviewed and retained, and 308 pending review or repair.
+The correction inventory records 18,150 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
 of 829
@@ -106,8 +106,8 @@ performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have
 resumed.
-Latest translation fix/review is 3b44bfb5e (2026-09-14): Esperanto custom
-field value removal repaired; 52 correct labels retained.
+Latest translation fix/review is 3e0c49da9 (2026-09-14): Esperanto RSS size
+meaning repaired; 28 correct memory, legal and checklist labels retained.
 Latest unchanged-value review is 59ad2ce12 (2026-09-14): 30 Esperanto
 separator, swimlane-copy, spinner and request labels retained.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
@@ -871,10 +871,19 @@ separators. Correction and review checks pass; browser review remains open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,553 original findings are
-corrected, 1,894 reviewed and retained, 2,326 restored values await validation,
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3e0c49da9">Restore size meaning in Esperanto RSS diagnostic</a>. Thanks to xet7.</summary>
+
+Restore the omitted size meaning and retain 28 correct memory, legal and
+checklist labels, including documented technical native terminology.
+Correction and review checks pass; broader browser/language review is open.
+
+</details>
+
+Translation audit progress as of 2026-09-14: 15,554 original findings are
+corrected, 1,922 reviewed and retained, 2,297 restored values await validation,
 and 308 remain pending across 17 locales, including 173 Tamazight findings.
-The ledger contains 18,149 correction records, including unflagged repairs.
+The ledger contains 18,150 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/193b22520">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
