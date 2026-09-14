@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,562 corrected, 1,140 restored pre-pull values awaiting
-validation, 3,071 reviewed and retained, and 308 pending review or repair.
+findings: 15,562 corrected, 1,110 restored pre-pull values awaiting
+validation, 3,101 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,162 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
@@ -108,8 +108,8 @@ changes are implemented in local commit 02383521a; translation repairs have
 resumed.
 Latest translation fix/review is 29f1980b2 (2026-09-14): Galician field
 value clearing clarified; 25 correct rule/activity values retained.
-Latest unchanged-value review is 29f1980b2 (2026-09-14): 25 Galician
-rule and activity values retained. Shared attachment/member
+Latest unchanged-value review is 87b9e45fb (2026-09-14): 30 Galician
+rule actions and web-metadata values retained. Shared attachment/member
 participles still need contextual agreement repair.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
 Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
@@ -1022,6 +1022,15 @@ Describe clearing the card value instead of deleting the field definition.
 Preserve both percent tokens and retain 25 correct rule/activity values.
 Positive/negative regression and ledger checks pass; contextual rule grammar
 and broader browser validation remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/87b9e45fb">Validate Galician rule actions and web metadata labels</a>. Thanks to xet7.</summary>
+
+Retain 30 correct values. Preserve checklist check/uncheck scope, wildcard
+meaning, date actions and literal HTML/JSON configuration names. Review
+checks pass; broader language and browser validation remain open.
 
 </details>
 

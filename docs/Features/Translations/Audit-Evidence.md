@@ -22239,3 +22239,15 @@ Positive/negative regression and ledger checks pass: 15,562 corrected,
 1,140 restored awaiting validation, 3,071 reviewed unchanged and 308 pending.
 Correction ledger 18,162. Broader language/browser validation remains open.
 Nothing pushed.
+
+
+### 2026-09-14 — Galician rule actions and web metadata labels
+
+Local commit `87b9e45fb` retains 30 directly reviewed values unchanged.
+Email recipient/subject/message, all/one checklist check/uncheck and swimlane
+scope retain meaning. Empty-field wildcard and current date/time actions
+remain distinct. Authentication method/type and custom head/meta/link tags,
+manifest JSON and literal assetlinks.json configuration names are intact.
+Review checks pass: 15,562 corrected, 1,110 restored awaiting validation,
+3,101 reviewed unchanged and 308 pending. Contextual agreement and broader
+language/browser validation remain open. Nothing pushed.
