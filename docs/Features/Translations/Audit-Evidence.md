@@ -22362,3 +22362,11 @@ S3/MinIO access/secret-key, bucket, endpoint, port, region and storage values.
 Settings form and required-secret alerts confirm the field context.
 Literal product names, endpoint examples and us-east-1 are preserved.
 Exact unchanged-review checks pass; full language/browser scope remains open.
+
+### 2026-09-14 — Galician storage migrations and progress
+
+Local commit `b71db72ab` retains 30 storage, writable-path, migration action,
+restoration/repair and step-progress labels. Duplicate/empty/all qualifiers
+and technical SSL/TLS, S3 and URL identifiers preserve the English meaning.
+The progress component displays overall/current-step labels and step counts.
+Exact unchanged-review checks pass; full language/browser scope remains open.
