@@ -316,3 +316,23 @@ assert.doesNotMatch(locales.zgh['custom-field-currency'], /[\u0600-\u06ff]/);
 
 assert.equal(locales.zgh['custom-field-currency-option'], 'ⵉⵏⵉⴳⵍ ⵏ ⵓⴷⵔⵉⵎ ⴰⵏⵣⵎⴰⵔ');
 assert.doesNotMatch(locales.zgh['custom-field-currency-option'], /Code|devise/);
+
+assert.equal(locales.zgh['color-black'], 'ⴰⴱⵔⴽⴰⵏ');
+assert.doesNotMatch(locales.zgh['color-black'], /[A-Za-z\u0600-\u06ff]/);
+
+assert.equal(locales.zgh['color-blue'], 'ⴰⵏⵉⵍⵉ');
+assert.doesNotMatch(locales.zgh['color-blue'], /[A-Za-z\u0600-\u06ff]/);
+
+assert.equal(locales.zgh['color-green'], 'ⴰⵣⴳⵣⴰ');
+assert.doesNotMatch(locales.zgh['color-green'], /[A-Za-z\u0600-\u06ff]/);
+
+assert.equal(locales.zgh['color-red'], 'ⴰⵣⴳⴳⵯⴰⵖ');
+assert.doesNotMatch(locales.zgh['color-red'], /[A-Za-z\u0600-\u06ff]/);
+
+assert.equal(locales.zgh['color-white'], 'ⴰⵎⵍⵍⴰⵍ');
+assert.doesNotMatch(locales.zgh['color-white'], /[A-Za-z\u0600-\u06ff]/);
+
+assert.equal(locales.zgh['color-yellow'], 'ⴰⵡⵔⴰⵖ');
+assert.doesNotMatch(locales.zgh['color-yellow'], /[A-Za-z\u0600-\u06ff]/);
+
+assert.notEqual(locales.zgh['color-blue'], locales.zgh['color-green']);

@@ -131388,5 +131388,47 @@
     "before": "Code devise",
     "after": "ⵉⵏⵉⴳⵍ ⵏ ⵓⴷⵔⵉⵎ ⴰⵏⵣⵎⴰⵔ",
     "reason": "2026-09-14: Replace French currency-code label. IRCAM Amazigh-English PDF 388 entry 7364 explicitly glosses inigl as code with postal/bank code compounds; PDF 58 entry 810 explicitly glosses adrim anzmar as currency and gives construct udrim. Low confidence: assembled currency-code genitive and adjective agreement require native review; both semantic components retained."
+  },
+  {
+    "locale": "zgh",
+    "key": "color-black",
+    "before": "noir",
+    "after": "ⴰⴱⵔⴽⴰⵏ",
+    "reason": "2026-09-14: Replace wrong-language basic color label with exact IRCAM Amazigh-English lemma, PDF page 32 entry 276. Standalone color noun/adjective, no invented inflection. Green entry has green/blue polysemy; distinct explicitly blue anili retained for blue. Complex CSS shade names remain separate review."
+  },
+  {
+    "locale": "zgh",
+    "key": "color-blue",
+    "before": "bleu",
+    "after": "ⴰⵏⵉⵍⵉ",
+    "reason": "2026-09-14: Replace wrong-language basic color label with exact IRCAM Amazigh-English lemma, PDF page 178 entry 3332. Standalone color noun/adjective, no invented inflection. Green entry has green/blue polysemy; distinct explicitly blue anili retained for blue. Complex CSS shade names remain separate review."
+  },
+  {
+    "locale": "zgh",
+    "key": "color-green",
+    "before": "vert",
+    "after": "ⴰⵣⴳⵣⴰ",
+    "reason": "2026-09-14: Replace wrong-language basic color label with exact IRCAM Amazigh-English lemma, PDF page 275 entry 5385. Standalone color noun/adjective, no invented inflection. Green entry has green/blue polysemy; distinct explicitly blue anili retained for blue. Complex CSS shade names remain separate review."
+  },
+  {
+    "locale": "zgh",
+    "key": "color-red",
+    "before": "rouge",
+    "after": "ⴰⵣⴳⴳⵯⴰⵖ",
+    "reason": "2026-09-14: Replace wrong-language basic color label with exact IRCAM Amazigh-English lemma, PDF page 275 entry 5375. Standalone color noun/adjective, no invented inflection. Green entry has green/blue polysemy; distinct explicitly blue anili retained for blue. Complex CSS shade names remain separate review."
+  },
+  {
+    "locale": "zgh",
+    "key": "color-white",
+    "before": "أبيض",
+    "after": "ⴰⵎⵍⵍⴰⵍ",
+    "reason": "2026-09-14: Replace wrong-language basic color label with exact IRCAM Amazigh-English lemma, PDF page 138 entry 2526. Standalone color noun/adjective, no invented inflection. Green entry has green/blue polysemy; distinct explicitly blue anili retained for blue. Complex CSS shade names remain separate review."
+  },
+  {
+    "locale": "zgh",
+    "key": "color-yellow",
+    "before": "jaune",
+    "after": "ⴰⵡⵔⴰⵖ",
+    "reason": "2026-09-14: Replace wrong-language basic color label with exact IRCAM Amazigh-English lemma, PDF page 268 entry 5233. Standalone color noun/adjective, no invented inflection. Green entry has green/blue polysemy; distinct explicitly blue anili retained for blue. Complex CSS shade names remain separate review."
   }
 ]
