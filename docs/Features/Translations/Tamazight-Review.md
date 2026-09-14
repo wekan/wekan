@@ -749,3 +749,28 @@ prefix/subtext/full-path/parent choices; those choices remain distinct.
 Four focused translation checks pass; no browser validation was run.
 Recount: 15,635 corrected, 267 pending (154 Tamazight), four restored,
 4,175 retained and 18,732 correction records. Broader reviews remain open.
+
+## SMTP host sentence terminology review — 2026-09-14
+
+The French smtp-host-description remains pending. Primary IRCAM 2019
+General Dictionary PDF page 185 entry 3464 attests ansa (construct wansa)
+with address as a neologism and an explicit email-address compound.
+Page 533 entry 10031 attests ssugur with administer/manage as sense two;
+its physical drive/make-walk sense is not the intended software meaning.
+Page 342 entry 6519 instead gives hawl xf take care of/manage; the
+English index's manage-to heading must not be treated as an interchangeable
+bare verb. Management nouns occur at entries 4565 (page 237), 4874
+(page 252, neologism) and 11897 (page 634).
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+Native MediaWiki tool-link-emailuser attests singular electronic message,
+not the full possessive plural/relative clause required by this sentence.
+The actual input is mail-server-host with placeholder smtp.domain.com;
+settingBody.js trims configuration.host and saves mailServer.host. This is
+the SMTP computer server's address, not the user's own email address.
+Do not substitute the dictionary's email-address compound for the host.
+No translation or ledger acceptance was made: the full message plural,
+possession, participle and server-relative clause remain to verify.
+Original pending count remains 267; low-confidence and browser reviews
+remain open. This review changes the next translation choice by excluding
+email-address and the wrong manage sense.
