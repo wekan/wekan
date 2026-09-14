@@ -121189,5 +121189,19 @@
     "before": "a supprimé l'étiquette '%s'",
     "after": "ⵉⴽⴽⵙ ⴰⵔⵛⵓⵎ '%s'",
     "reason": "LOW CONFIDENCE composed label activity: singular tag noun from tag-list-wrapper; direction i (to) and sg (from) attested in recentchanges-page-added-to-category/recentchanges-page-removed-from-category. Active deletion verb ikks is attested in logentry-delete-delete; active addition irna is derived from native rnu/add and its attested passive addition form, not directly verified as an add-activity clause. Preserve first %s as label and second, where present, as destination/source card; do not substitute imperative commands. Active addition inflection, default masculine actor form and complete kanban clauses need fluent review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "export-card-attachment-size",
+    "before": "حجم",
+    "after": "ⵜⵉⴷⴷⵉ",
+    "reason": "Replace unflagged Arabic attachment export metadata label with Standard Moroccan Tamazight. Native MediaWiki file-info-size uses tidddi for file size and anaw for MIME type; retain the corresponding standalone noun without adding MIME to the English generic Type label. Exact nouns, no new clause composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "export-card-attachment-type",
+    "before": "النوع",
+    "after": "ⴰⵏⴰⵡ",
+    "reason": "Replace unflagged Arabic attachment export metadata label with Standard Moroccan Tamazight. Native MediaWiki file-info-size uses tidddi for file size and anaw for MIME type; retain the corresponding standalone noun without adding MIME to the English generic Type label. Exact nouns, no new clause composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
