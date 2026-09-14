@@ -24838,5 +24838,59 @@
     "key": "export-card-excel-free",
     "value": "libre",
     "reason": "Correct available/free wording for disk capacity. Actual historical export code in 7de1b04eb and 5c5ed102c pairs this label with mbFree MB and mbNeeded, establishing available disk space rather than no-cost licensing. No current consumer found; preserve correct existing language value."
+  },
+  {
+    "locale": "da",
+    "key": "complete",
+    "value": "Fuldført",
+    "reason": "Correct completed-state/percentage wording. Actual historical migration template removed in a440d44ea displays migrationProgress% followed by complete; this is completion status, not an imperative. No current consumer found."
+  },
+  {
+    "locale": "eo",
+    "key": "complete",
+    "value": "Kompleta",
+    "reason": "Correct completed-state/percentage wording. Actual historical migration template removed in a440d44ea displays migrationProgress% followed by complete; this is completion status, not an imperative. No current consumer found."
+  },
+  {
+    "locale": "eo",
+    "key": "migration-complete",
+    "value": "Kompleta",
+    "reason": "Correct completed migration badge wording. Historical template removed in cbb1cd78d shows migration-complete when a migration is not needed, establishing finished-state context. No current consumer found."
+  },
+  {
+    "locale": "eu",
+    "key": "complete",
+    "value": "Osatua",
+    "reason": "Correct completed-state/percentage wording. Actual historical migration template removed in a440d44ea displays migrationProgress% followed by complete; this is completion status, not an imperative. No current consumer found."
+  },
+  {
+    "locale": "eu",
+    "key": "migration-complete",
+    "value": "Osatua",
+    "reason": "Correct completed migration badge wording. Historical template removed in cbb1cd78d shows migration-complete when a migration is not needed, establishing finished-state context. No current consumer found."
+  },
+  {
+    "locale": "gl",
+    "key": "complete",
+    "value": "Completado",
+    "reason": "Correct completed-state/percentage wording. Actual historical migration template removed in a440d44ea displays migrationProgress% followed by complete; this is completion status, not an imperative. No current consumer found."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-complete",
+    "value": "Completada",
+    "reason": "Correct completed migration badge wording. Historical template removed in cbb1cd78d shows migration-complete when a migration is not needed, establishing finished-state context. No current consumer found."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "complete",
+    "value": "Complet",
+    "reason": "Correct completed-state/percentage wording. Actual historical migration template removed in a440d44ea displays migrationProgress% followed by complete; this is completion status, not an imperative. No current consumer found."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "migration-complete",
+    "value": "Completa",
+    "reason": "Correct completed migration badge wording. Historical template removed in cbb1cd78d shows migration-complete when a migration is not needed, establishing finished-state context. No current consumer found."
   }
 ]
