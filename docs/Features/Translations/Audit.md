@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,374 |
+| Corrected | 15,375 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 470 |
+| Pending review or repair | 469 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,789** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,792** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `97c1c79fe` — replaced four Arabic/French field labels, preserving custom, edit, absence and hierarchical subtask qualifiers. Derived plurals and full phrases remain **low confidence** for fluent review. All **17,789** correction/rendering checks pass. **470** originals remain pending across **17** locales, including **335** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `eb3965660` — replaced French checkbox, dropdown list and custom-field filter labels, preserving control and filtering qualifiers. Full terminology and derived morphology remain **low confidence** for fluent review. All **17,792** correction/rendering checks pass. **469** originals remain pending across **17** locales, including **334** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Subtask review (2026-09-14):** finding `92f69f58d` is repaired in `23c82a5c1`: existing-card action now uses As and hierarchical Task wording. Nine noun/settings/delete/action labels are repaired across `f13775594` and `23c82a5c1`; full paraphrases remain low confidence. Added-subtask activity is repaired in `b26d1ddc1` with low-confidence grammar; Linked Subtask is repaired in `af33f6640`; full phrases and other related wording still need review. [Evidence](Audit-Evidence.md) retains source limits.
 
