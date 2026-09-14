@@ -124892,5 +124892,33 @@
     "before": "ⴰⵎⴹⴰⵏ ⵏ ⵉⴼⴻⵔⴷⵉⵙⴻⵏ ⵏ ⵓⵎⵓⵖ ⵏ ⵓⵙⴻⵏⵇⴻⴷ (0/0) ⵖⴻⴼ ⵜⴽⴰⵔⴹⴰ ⵜⴰⵎⴻⵥⵥⵢⴰⵏⵜ",
     "after": "ⵓⵟⵟⵓⵏ ⵏ ⵉⴼⵔⴷⵉⵙⵏ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ (0/0) ⵅⴼ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵣⵢⴰⵏⵜ",
     "reason": "2026-09-14: Align minicard checklist count with reviewed native Count and plural Item components, retaining literal (0/0) and explicit on-minicard scope. Use x f On from native MediaWiki usage and proposed Small Card paraphrase, adapting feminine singular tamzyant from transaction-duration-limit-exceeded timzyanin Small. LOW CONFIDENCE singular adjective derivation/agreement, bound card spelling, Small Card UI adaptation, verification noun ussidd and full phrase require fluent Standard Moroccan review. No exact native minicard/checklist compound is established. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-checklist-added",
+    "before": "أضاف قائمة تحقق إلى %s",
+    "after": "ⵉⵔⵏⴰ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ ⵉ %s",
+    "reason": "2026-09-14: Replace Arabic checklist activity preserving Added/Removed, checklist versus item, To versus From, In scope and exact %s order/count and quotes. Native MediaWiki logentry-delete-delete directly attests ikks Removed/Deleted, logentry-move-move supplies sg From and g In. Added irna reuses existing reviewed local past form; it is not independently attested in current MediaWiki. LOW CONFIDENCE past-add conjugation, derived item free form, proposed verification noun ussidd and complete activity/checklist grammar require fluent Standard Moroccan review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-checklist-removed",
+    "before": "ازالة قائمة التحقق من %s",
+    "after": "ⵉⴽⴽⵙ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ ⵙⴳ %s",
+    "reason": "2026-09-14: Replace Arabic checklist activity preserving Added/Removed, checklist versus item, To versus From, In scope and exact %s order/count and quotes. Native MediaWiki logentry-delete-delete directly attests ikks Removed/Deleted, logentry-move-move supplies sg From and g In. Added irna reuses existing reviewed local past form; it is not independently attested in current MediaWiki. LOW CONFIDENCE past-add conjugation, derived item free form, proposed verification noun ussidd and complete activity/checklist grammar require fluent Standard Moroccan review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-checklist-item-added",
+    "before": "تم اضافة عنصر قائمة التحقق الى '%s' في %s",
+    "after": "ⵉⵔⵏⴰ ⴰⴼⵔⴷⵉⵙ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ ⵉ '%s' ⴳ %s",
+    "reason": "2026-09-14: Replace Arabic checklist activity preserving Added/Removed, checklist versus item, To versus From, In scope and exact %s order/count and quotes. Native MediaWiki logentry-delete-delete directly attests ikks Removed/Deleted, logentry-move-move supplies sg From and g In. Added irna reuses existing reviewed local past form; it is not independently attested in current MediaWiki. LOW CONFIDENCE past-add conjugation, derived item free form, proposed verification noun ussidd and complete activity/checklist grammar require fluent Standard Moroccan review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-checklist-item-removed",
+    "before": "تم ازالة عنصر قائمة التحقق الى '%s' في %s",
+    "after": "ⵉⴽⴽⵙ ⴰⴼⵔⴷⵉⵙ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ ⵙⴳ '%s' ⴳ %s",
+    "reason": "2026-09-14: Replace Arabic checklist activity preserving Added/Removed, checklist versus item, To versus From, In scope and exact %s order/count and quotes. Native MediaWiki logentry-delete-delete directly attests ikks Removed/Deleted, logentry-move-move supplies sg From and g In. Added irna reuses existing reviewed local past form; it is not independently attested in current MediaWiki. LOW CONFIDENCE past-add conjugation, derived item free form, proposed verification noun ussidd and complete activity/checklist grammar require fluent Standard Moroccan review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
