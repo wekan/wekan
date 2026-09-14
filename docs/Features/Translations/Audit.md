@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,269 |
+| Corrected | 15,271 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 575 |
+| Pending review or repair | 573 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,560** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,562** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `f59f89e3d` — repaired four original board-group removal and creation-guidance findings. Preserve removal from the board rather than group deletion, team/organization scope, creation purpose and the instruction to contact an administrator. Native components support vocabulary; derived contact imperative, creation conjugation, bound nouns, free plural, dialect adaptation and full wording remain **low confidence** pending fluent review. All **17,560** correction/rendering checks pass. **575** originals remain pending across **17** locales, including **432** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `a8931f122` — repaired two original added-group display findings. Preserve added qualifier, team/organization plurals and displayed-below relation. Native addition/display components support vocabulary; indexed wording is not treated as displayed wording. Added participle, derived feminine-plural display passive, free team plural, organization dialect adaptation and complete wording remain **low confidence** pending fluent review. All **17,562** correction/rendering checks pass. **573** originals remain pending across **17** locales, including **430** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Build interruption follow-up (2026-09-14):** `.tools/wekan22` contains the old v11.75 missing-Moment failure, already repaired in `43adfe1a7`. A fresh Meteor 3.6-beta.0 bundle build passes on Linux arm64, and six assignee/calendar/release-preflight Node test entries pass. Log: `.tools/log/build-dev-bundle/2026-09-14/04-25-58/dev.txt`. Native amd64 and live browser checks were not run. Translation counts and the remaining validation scope above are unchanged.
 
