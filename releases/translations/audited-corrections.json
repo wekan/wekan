@@ -123674,5 +123674,12 @@
     "before": "Les informations d'assistance n'ont pas encore été ajoutées",
     "after": "ⵉⵏⵖⵎⵉⵙⵏ ⵏ ⵜⵡⵉⵙⵉ ⵓⵔⵜⴰ ⵜⵜⵡⴰⵔⵏⵉⵏ.",
     "reason": "Replace French support information not-yet-added notice without losing NOT YET or added action. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json pageinfo-title inɣmisn information, userlogin-helplink2 tiwisi help, rcfilters-quickfilters-placeholder-title urta not yet, metadata-help tt warnin information added supply components. LOW CONFIDENCE negative passive morphology/order, bound twisi and help-to-support adaptation in complete sentence require fluent review. Do not reduce to no support information, which omits not-yet-added meaning. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-list-name",
+    "before": "Nom de la liste",
+    "after": "ⵉⵙⵎ ⵏ ⵜⵍⴳⴰⵎⵜ",
+    "reason": "Replace French rule list-name label with Tamazight while retaining NAME rather than list contents or title action. Primary native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json rcfilters-savedqueries-new-name-label ism name, watchlisttools-clear bound talgamt list and tooltip-n-recentchanges list supply component vocabulary. LOW CONFIDENCE complete kanban list-name noun phrase requires fluent review. Reviewed 2026-09-14."
   }
 ]
