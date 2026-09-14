@@ -126929,5 +126929,12 @@
     "before": "Node heap: rydder ubrugte objekter",
     "after": "Node heap: overskriver ubrugte heap-data med et bitmønster",
     "reason": "2026-09-14: Repair Danish diagnostic meaning using Node v8.getHeapStatistics documentation. Preserve peak malloc allocation versus generic allocation, and heap garbage overwriting with a bit pattern versus ordinary garbage cleanup. Source: https://nodejs.org/api/v8.html#v8getheapstatistics"
+  },
+  {
+    "locale": "da",
+    "key": "Scaleout",
+    "before": "Skalerende ventespinner",
+    "after": "Ventespinner, der skalerer udad",
+    "reason": "2026-09-14: Restore outward scaling qualifier in Danish Scaleout Wait Spinner. Local spinner_scaleout.css grows scale(0) to scale(1); old Skalerende lacked direction. Retain wait-spinner meaning."
   }
 ]

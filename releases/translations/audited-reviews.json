@@ -2974,5 +2974,179 @@
     "key": "dependency-type-fixes",
     "value": "Retter",
     "reason": "2026-09-14: Direct complete Danish source-correspondence review; retain unchanged. Confirm overdue/week/month/created/modified and attachment/assignee/public/selector meanings, next/previous pagination, list/swimlane title matching, comment containing text, label color OR name, archived versus end-date cards, multiple operators, similar operators OR versus differing operators AND with examples, label names/colors, archive timestamp, sorting and due date as applicable. Preserve literal executable examples and underscore tokens. Source Markdown defects are not certified by language review; ambiguous export free remains excluded."
+  },
+  {
+    "locale": "da",
+    "key": "server-error",
+    "value": "Serverfejl",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "title-alphabetically",
+    "value": "Titel (alfabetisk)",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "created-at-newest-first",
+    "value": "Oprettet (nyeste først)",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "created-at-oldest-first",
+    "value": "Oprettet (ældste først)",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "links-heading",
+    "value": "Links",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "custom-field-stringtemplate",
+    "value": "Tekstskabelon",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "custom-field-stringtemplate-format",
+    "value": "Format (brug %{value} som pladsholder)",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "creator",
+    "value": "Opretter",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "creator-on-minicard",
+    "value": "Opretter på minikort",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "cardsReportTitle",
+    "value": "Kortrapport",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "copy-swimlane",
+    "value": "Kopiér svømmebane",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "copySwimlanePopup-title",
+    "value": "Kopiér svømmebane",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "display-card-creator",
+    "value": "Vis kortets opretter",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "wait-spinner",
+    "value": "Ventespinner",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "Bounce",
+    "value": "Hoppende ventespinner",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "Cube",
+    "value": "Terning-ventespinner",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "Cube-Grid",
+    "value": "Terninggitter-ventespinner",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "Dot",
+    "value": "Prik-ventespinner",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "Double-Bounce",
+    "value": "Dobbelt hoppende ventespinner",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "Rotateplane",
+    "value": "Roterende plan-ventespinner",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "Wave",
+    "value": "Bølge-ventespinner",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "maximize-card",
+    "value": "Maksimér kort",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "minimize-card",
+    "value": "Minimér kort",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "subject",
+    "value": "Emne",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "ticket",
+    "value": "Sag",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "tickets",
+    "value": "Sager",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "ticket-number",
+    "value": "Sagsnummer",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "open",
+    "value": "Åben",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
+  },
+  {
+    "locale": "da",
+    "key": "pending",
+    "value": "Afventer",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm server error, alphabetical title and newest/oldest sorting, string-template value placeholder, creator and reports, swimlane copying, wait-spinner shape/bounce/grid/dot/rotating-plane/wave distinctions, card maximize/minimize, ticket subject/singular/plural/number and open/pending states as applicable. Links is valid shared Danish. Preserve %{value} literal token. Scaleout outward qualifier repaired separately."
   }
 ]
