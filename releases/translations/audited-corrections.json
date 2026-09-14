@@ -126537,5 +126537,19 @@
     "before": "a coché %s dans la checklist %s",
     "after": "ⵉⵙⵎⴰⵜⵔ %s ⴳ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ %s",
     "reason": "2026-09-14: Replace Arabic/French checked-item activities. Native MediaWiki tooltip-invert and tooltip-namespace_association attest Check smatr in checkbox context: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve active actor checking ITEM IN CHECKLIST and card relation where present, with exact percent placeholder count/order. Derived past actor ismatr, local verification noun and full checklist relation remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-unchecked-item",
+    "before": "ازالة تحقق %s من قائمة التحقق %s من %s",
+    "after": "ⵉⴽⴽⵙ ⴰⵙⵎⴰⵜⵔ ⵏ %s ⴳ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ %s ⵏ %s",
+    "reason": "2026-09-14: Replace Arabic/French unchecked-item activities. Native MediaWiki logentry-delete-delete Removed actor ikks and checkbox Check smatr support components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve ACTIVE REMOVAL OF CHECKMARK from item IN CHECKLIST, card relation where present and exact percent placeholders. Uncheck paraphrased Remove Mark, distinct from merely unchecked state or deleting item. Derived mark nominalization, local verification noun and full relations remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-unchecked-item-card",
+    "before": "a décoché %s dans la checklist %s",
+    "after": "ⵉⴽⴽⵙ ⴰⵙⵎⴰⵜⵔ ⵏ %s ⴳ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ %s",
+    "reason": "2026-09-14: Replace Arabic/French unchecked-item activities. Native MediaWiki logentry-delete-delete Removed actor ikks and checkbox Check smatr support components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve ACTIVE REMOVAL OF CHECKMARK from item IN CHECKLIST, card relation where present and exact percent placeholders. Uncheck paraphrased Remove Mark, distinct from merely unchecked state or deleting item. Derived mark nominalization, local verification noun and full relations remain LOW CONFIDENCE."
   }
 ]
