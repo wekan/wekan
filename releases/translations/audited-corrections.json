@@ -112164,8 +112164,8 @@
     "locale": "ks",
     "key": "calendar-system-islamic-civil",
     "before": "Islamic civil",
-    "after": "اِسلٲمی اِجتمٲیی کیلنڑَر",
-    "reason": "Replace English Islamic civil with exact Kashmiri Islamic civil calendar display name attested in Unicode CLDR 47 ks, calendar-islamic-civil: https://www.unicode.org/cldr/charts/47/summary/ks.html . Official localized name distinguishes the civil variant; other Hijri variants remain pending. Review 2026-09-14: current Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/ks.xml marks Islamic/civil names provisional and has no islamic-rgsa or islamic-tbla entries. Existing civil wording does not establish full tabular/civil-epoch qualifiers; those qualifiers and pending sighting/astronomical labels need explicit Kashmiri technical terminology research. Retain current value during this bounded reference review, without claiming fluent or semantic completion."
+    "after": "ہِجری کیلنڑَر (جدول حساب، شروع: 622-07-16، جولین)",
+    "reason": "Replace English Islamic civil with exact Kashmiri Islamic civil calendar display name attested in Unicode CLDR 47 ks, calendar-islamic-civil: https://www.unicode.org/cldr/charts/47/summary/ks.html . Official localized name distinguishes the civil variant; other Hijri variants remain pending. Review 2026-09-14: current Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/ks.xml marks Islamic/civil names provisional and has no islamic-rgsa or islamic-tbla entries. Existing civil wording does not establish full tabular/civil-epoch qualifiers; those qualifiers and pending sighting/astronomical labels need explicit Kashmiri technical terminology research. Retain current value during this bounded reference review, without claiming fluent or semantic completion. 2026-09-15: Kashmiri tabular Hijri draft retains existing Hijri/calendar and table/start components, adds primary Bharatavani arithmetic حساب, and distinguishes civil Friday 622-07-16 from astronomical Thursday 622-07-15 Julian epoch per Unicode CLDR. Complete table-arithmetic compound, epoch phrasing and Julian borrowing remain low confidence; civil social-word seed is inappropriate."
   },
   {
     "locale": "sah",
@@ -138458,5 +138458,12 @@
     "before": "Exécute les vérifications d'intégrité des données et les réparations pour ce tableau. Chaque migration peut être exécutée individuellement.",
     "after": "ⵙⵙⵉⴷⴻⴷ ⴷ ⵙⵙⵓⴽⵏ ⵜⴰⵢⴰⵏⵜ ⵏ ⵜⵎⵓⵛⴰ ⵏ ⵜⴼⵍⵡⵉⵜ ⴰⴷ. ⴽⵓ ⴰⵙⵎⵓⵜⵜⵢ ⵉⵣⵎⵔ ⴰⴷ ⵉⵜⵜⵓⵙⴽⵔ ⵙ ⵉⵎⴰⵏ ⵏⵏⵙ.",
     "reason": "2026-09-15: replace French migration help with a Tamazight draft retaining data-integrity checking/repairing for this board and each migration being executable by itself. Reuse documented IRCAM check, repair and integrity components; entry 9202 attests do/make. Independent-execution reflexive phrase, passive and full compound grammar remain low confidence; dictionary iman soul is not proof of the reflexive construction. No active key references found and removed migrations remain removed."
+  },
+  {
+    "locale": "ks",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "ہِجری کیلنڑَر (جدول حساب، شروع: 622-07-15، جولین)",
+    "reason": "2026-09-15: Kashmiri tabular Hijri draft retains existing Hijri/calendar and table/start components, adds primary Bharatavani arithmetic حساب, and distinguishes civil Friday 622-07-16 from astronomical Thursday 622-07-15 Julian epoch per Unicode CLDR. Complete table-arithmetic compound, epoch phrasing and Julian borrowing remain low confidence; civil social-word seed is inappropriate."
   }
 ]

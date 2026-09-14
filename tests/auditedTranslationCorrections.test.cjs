@@ -287,7 +287,7 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(cache.sah['calendar-system-jalali'], 'Jalali халандаара (Перс)');
   assert.equal(cache['ve-PP']['calendar-system-jalali'], "Jalali (Persijan kalendar')");
   assert.doesNotMatch(cache.sah['calendar-system-jalali'] + cache['ve-PP']['calendar-system-jalali'], /Fars/);
-  assert.equal(cache.ks['calendar-system-islamic-civil'], 'اِسلٲمی اِجتمٲیی کیلنڑَر');
+  assert.equal(cache.ks['calendar-system-islamic-civil'], 'ہِجری کیلنڑَر (جدول حساب، شروع: 622-07-16، جولین)');
   assert.notEqual(cache.ks['calendar-system-islamic-civil'], cache.ks['calendar-system-islamic']);
   assert.doesNotMatch(cache.ks['calendar-system-islamic-civil'], /Islamic civil/);
   for (const [key, value] of Object.entries({calendar:'ⴰⵙⵎⵍⵓⵙⵙⴰⵏ',time:'ⴰⴽⵓⴷ',today:'ⴰⵙⵙⴰ',day:'ⴰⵙⵙ',week:'ⵉⵎⴰⵍⴰⵙⵙ',month:'ⴰⵢⵢⵓⵔ'})) {

@@ -259,3 +259,9 @@ assert.doesNotMatch(kashmiri['calendar-system-islamic-rgsa'], /Islamic|Saudi Ara
 assert.deepEqual(tokens(kashmiri['calendar-system-islamic-rgsa']),
   tokens(english['calendar-system-islamic-rgsa']));
 assert.equal(kashmiri['calendar-system-islamic'], 'ہِجری کیلنڑَر');
+
+assert.equal(kashmiri['calendar-system-islamic-civil'], 'ہِجری کیلنڑَر (جدول حساب، شروع: 622-07-16، جولین)');
+assert.equal(kashmiri['calendar-system-islamic-tbla'], 'ہِجری کیلنڑَر (جدول حساب، شروع: 622-07-15، جولین)');
+assert.notEqual(kashmiri['calendar-system-islamic-civil'], kashmiri['calendar-system-islamic-tbla']);
+assert.doesNotMatch(kashmiri['calendar-system-islamic-civil'], /اِجتمٲیی/);
+assert.doesNotMatch(kashmiri['calendar-system-islamic-tbla'], /Islamic|tabular/);
