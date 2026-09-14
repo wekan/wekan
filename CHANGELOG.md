@@ -653,6 +653,16 @@ verification remain open.
 
 This release documents the following translation fixes:
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5da10eee5">Review Tigre and Wolaytta calendar provenance</a>. Thanks to xet7.</summary>
+
+An explicitly Tigrinya reference cannot validate the local Tigre calendar noun.
+Wolaytta has an additional English calendar label with a language prefix.
+The dated translation audit records both gaps and the required native research.
+No uncertain translation was accepted; the progress consistency check passes.
+
+</details>
+
 **Developer tooling** - Mirror Git progress.
 
 <details>

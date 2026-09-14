@@ -24214,6 +24214,8 @@ calendar-system heading is accepted from the generic noun alone.
 
 ## Tigre/Wolaytta calendar provenance review, 2026-09-14
 
+Local review commit `5da10eee5`.
+
 [Tigre/Wolaytta review](Tigre-Wolaytta-Calendar-Review.md) records the exact
 local Tigre noun in an explicitly Tigrinya primary publication. This is a
 source-language warning, not proof that shared vocabulary is impossible.

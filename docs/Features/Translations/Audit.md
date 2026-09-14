@@ -11,7 +11,7 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Total tracked | 20,081 |
 
 Review is ongoing. [Tigre/Wolaytta calendar review](Tigre-Wolaytta-Calendar-Review.md)
-records a Tigrinya provenance warning for the Tigre base noun and an additional
+records review `5da10eee5` (2026-09-14): a Tigrinya provenance warning for the Tigre base noun and an additional
 untranslated Wolaytta calendar key. Both require native terminology evidence;
 no finding was accepted and counts are unchanged.
 
