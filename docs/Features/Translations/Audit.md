@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,563 |
-| Restored pre-pull; awaiting validation | 924 |
-| Reviewed; retained unchanged | 3,286 |
+| Restored pre-pull; awaiting validation | 894 |
+| Reviewed; retained unchanged | 3,316 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -18,12 +18,12 @@ source references, confidence limits and archived progress notes.
 Latest translation fix: **2026-09-14**, local commit `c6c3b90be` —
 clarified Galician Node heap garbage overwriting with a bit pattern.
 Retained three ticket labels: the Real Academia Galega accepts tícket.
-All **18,163** correction and **3,286** review records pass.
+All **18,163** correction and **3,316** review records pass.
 Attachment/member rule participles still need context-specific agreement.
 Three Esperanto restored findings remain: lime color and two Complete labels.
 Broader language and browser verification remain open; nothing pushed.
-Latest unchanged review: **2026-09-14**, commit `8fbc62075` — retained
-35 Galician memory statistics, invitation, storage and progress labels.
+Latest unchanged review: **2026-09-14**, commit `f51c7439f` — retained
+30 Galician upload limits, custom translations and accessibility/settings labels.
 Received-label participles remain open pending agreement/context review.
 Galician export free wording remains open pending context.
 Galician Complete and migration-complete wording remain open pending context.

@@ -22331,3 +22331,11 @@ The diagnostics correspond to fields in client/components/settings/informationBo
 attachment progress is a file counter, and timeView displays elapsed time.
 Technical heap/malloc identifiers remain intact. Exact unchanged-review checks
 pass. Ambiguous Complete/Received labels and shared rule agreement remain open.
+
+### 2026-09-14 — Galician uploads and accessibility settings
+
+Local commit `f51c7439f` retains 30 correct account, upload/avatar byte-limit,
+file-type, cancellation, custom translation, ISO week and page-settings labels.
+Context checked in cardDetails.jade, userAvatar.jade, sidebar.jade,
+settingBody.jade and peopleBody.jade. No interpolation tokens changed.
+Exact unchanged-review checks pass; full grammar/browser scope remains open.
