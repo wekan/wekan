@@ -660,6 +660,19 @@ The browser assertion accepts whitespace between the regional flag and name.
 
 **Translation audit** - Native wording and provenance reviews.
 
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/963a3965b">Distinguish Quechua tabular Hijri calendar epochs</a></summary>
+
+Replace clock-related and English-only labels with calendar, table/count
+and beginning wording. Explicit Julian epoch dates distinguish civil and
+astronomical tabular variants. Four focused suites pass; complete technical
+compounds remain under native review. Dated evidence and audit counts updated.
+
+Thanks to xet7.
+
+</details>
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3121eea2f">Replace French Tamazight notification instructions</a>. Thanks to xet7.</summary>
 

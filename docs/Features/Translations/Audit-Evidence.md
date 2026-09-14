@@ -27071,3 +27071,26 @@ reviews; completeness. No new watch-menu browser execution claimed. Queue
 reduction records French removal, not complete native clause acceptance.
 All prior grammar/restored/uncertain findings remain open. No external
 translation service or remote push.
+
+## Tabular Hijri epoch labels — 2026-09-14
+
+Local commit `963a3965b` repairs civil and astronomical tabular Hijri labels.
+Both use Watanqillqa rather than the clock-related Intiwatana. The previously
+English-only astronomical label now has the same table/count and beginning
+wording as the civil variant. Explicit Julian starting dates preserve their
+one-day difference: 622-07-15 versus 622-07-16. These are fixed epoch
+identifiers in selector labels, not a second user calendar or date formatter.
+
+Primary references:
+- [Peru Ministry of Education mathematics glossary](https://formacionenservicio.minedu.gob.pe/sifods/centro-recurso/2022/Material-educativo/392.Matematica-2-Quechua-2021-ITEM-18-PAG-WEB.pdf): tawla (table), yupay (number/count).
+- [USMP Quechua dictionary, volume 2](https://fcctp.usmp.edu.pe/librosfcctp/DICCIONARIO-Quechua-espanol-VOL_2.pdf): qallariy includes beginning and point of departure.
+- [Unicode CLDR calendar types](https://cldr.unicode.org/development/development-process/design-proposals/islamic-calendar-types): civil Friday and astronomical Thursday epochs, both tabular, with Julian dates.
+
+**Low confidence:** tawla yupay is an assembled technical description, not
+an attested complete translation of tabular-calendar calculation. Using
+qallariy for a calendar epoch is likewise an adaptation. Dialect consistency,
+Juliano borrowing, the complete grammar and Saudi sighting wording still
+need review. Zero original Quechua pending entries does not close this
+broader review. Four focused suites pass; no live calendar-selector browser
+validation was run. Ledger 19,765; original corrected 15,685, pending 218,
+restored 4 unchanged. No remote push.

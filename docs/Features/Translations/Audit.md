@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,684 |
+| Corrected | 15,685 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,174 |
-| Pending review or repair | 219 |
+| Pending review or repair | 218 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,15 +16,14 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, `3121eea2f` — French muted/tracking
-notification instructions replaced with Tamazight drafts. Never-for-board
-and creator/member card scope remain distinct. Four focused suites pass.
-Ledger 19,763; original pending 219 (zgh 112), restored 4 unchanged.
-Passive inflection, negation placement, complete relative grammar and all
-other uncertain/restored findings remain under review.
+Latest translation fix: **2026-09-14**, `963a3965b` — Quechua tabular
+Hijri calendar labels use calendar/table/count/beginning wording and distinct
+Julian epoch dates. Four focused suites pass. Ledger 19,765; original
+pending 218, restored 4 unchanged. Complete compounds, dialect consistency,
+Saudi sighting and all other uncertain/restored findings remain under review.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,763** exact before/after values, including unflagged
+records contain **19,765** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -53,7 +52,6 @@ restored values still await full native clause validation.
 | ff — Fulah | 2 |
 | ks — Kashmiri | 2 |
 | ee — Ewe | 1 |
-| qu — Quechua | 1 |
 | rup — Aromanian | 1 |
 
 Remaining review includes all restored, unflagged and prior low-confidence
