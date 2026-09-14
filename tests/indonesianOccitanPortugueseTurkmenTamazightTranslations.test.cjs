@@ -387,3 +387,7 @@ assert.doesNotMatch(locales.zgh['restore-lost-cards-migration'], /Restaurer|perd
 
 assert.equal(locales.zgh.autoAddUsersWithDomainName, 'ⵔⵏⵓ ⵙ ⵓⵡⵔⵎⴰⵏ ⵉⵏⵙⵙⵎⵔⴰⵙ ⵍⵍⵉ ⵖⵓⵔⵙⵏ ⵉⵙⵎ ⵏ ⵜⵖⵓⵍⵜ');
 assert.doesNotMatch(locales.zgh.autoAddUsersWithDomainName, /[\u0600-\u06ff]|ⵜⴰⵎⵏⴰⴹⵜ/);
+
+assert.equal(locales.zgh.accept, 'ⵇⴱⵍ');
+assert.equal(locales.zgh['not-accepted-yet'], 'ⴰⵙⵉⴳⵔ ⵓⵔ ⵜⴰ ⵉⵜⵜⵓⵇⴱⵉⵍ');
+assert.doesNotMatch(locales.zgh.accept + locales.zgh['not-accepted-yet'], /[\u0600-\u06ff]|acceptée|ⵙⵙⵉⴷⵏ|ⵙⵙⵍⵖⴷ/);
