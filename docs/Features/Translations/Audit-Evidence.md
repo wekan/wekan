@@ -21695,3 +21695,14 @@ preserved. The label instruction's missing closing markdown star is also
 present in English; it is a shared source formatting issue, not an Esperanto
 language error. 1,864 review records pass. 2,356 restored values and 308
 pending findings plus broader language and browser review remain open.
+
+
+### Esperanto requests and spinner review — 2026-09-14
+
+Local commit `59ad2ce12` retains thirty correct separator, copy-swimlane,
+spinner and help-request values. Space entities and Cc remain literal.
+Atendoindikilo localizes the spinner label while animation names match
+existing template choices (settingBody.js maps Cube-Grid to spinnerCubeGrid).
+The organization deletion warning retains the at-least-one-member condition.
+1,894 review records pass. 2,326 restored and 308 pending findings plus
+broader language/browser validation remain open.
