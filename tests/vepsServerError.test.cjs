@@ -47,3 +47,9 @@ test('Veps filter headings distinguish singular advanced filter and plural other
   }
   assert.notEqual(data['advanced-filter-label'], data['other-filters-label']);
 });
+
+test('Veps hide-empty label preserves the action, emptiness and existing plural list noun', () => {
+  const data = JSON.parse(fs.readFileSync('imports/i18n/data/ve-PP.i18n.json', 'utf8'));
+  assert.equal(data['filter-hide-empty'], `Peitä tühjad ${data.lists.toLowerCase()}`);
+  assert.doesNotMatch(data['filter-hide-empty'], /näytä|ozuta|tyhjät/i);
+});

@@ -723,7 +723,7 @@
   "filter-custom-fields-label": "Puhtasta kävutajan märitud pöudoiden mödhe",
   "filter-no-custom-fields": "Ei ole kävutajan märitud pöudoid",
   "filter-show-archive": "Näytä arkistoidut listat",
-  "filter-hide-empty": "Näytä tyhjät listat",
+  "filter-hide-empty": "Peitä tühjad lugetišed",
   "filter-on": "Suodatus on päällä",
   "filter-on-desc": "Sinä puhtastad kartoid necil laudal. Paina tänna, miše vajehtada puhtastim.",
   "filter-to-selection": "Suodata valintaan",

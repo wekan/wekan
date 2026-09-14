@@ -131752,5 +131752,12 @@
     "before": "Muut suodattimet",
     "after": "Toižed puhtastimed",
     "reason": "2026-09-14: Replace Finnish filter heading with native Veps terminology. rcfilters-other-review-tools attests toižed (other) and rcfilters-filterlist-title attests puhtastimed (filters). LOW CONFIDENCE: assembled complete heading needs native UI review. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Full advanced-filter prose remains pending; no browser verification claimed."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-hide-empty",
+    "before": "Näytä tyhjät listat",
+    "after": "Peitä tühjad lugetišed",
+    "reason": "2026-09-14: Replace Finnish wording that incorrectly says Show with complete Veps Hide empty lists draft. Native MediaWiki rcfilters-activefilters-hide attests Peitä and invalid-langconvert-attrs attests tühjad for plural empty. Existing local lists = Lugetišed supplies the plural. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. LOW CONFIDENCE: assembled phrase, noun spelling and object agreement need native review. Actual sidebar control toggles Filter.hideEmpty; no live browser verification claimed."
   }
 ]
