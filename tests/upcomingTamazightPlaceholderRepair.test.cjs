@@ -159,3 +159,13 @@ const uptimeStatisticsSource = fs.readFileSync(path.join(ROOT, 'server/statistic
 assert.match(uptimeStatisticsSource, /uptime: os\.uptime\(\)/);
 const uptimeInfoTemplate = fs.readFileSync(path.join(ROOT, 'client/components/settings/informationBody.jade'), 'utf8');
 assert.match(uptimeInfoTemplate, /th {{_ 'OS_Uptime'}}\n\s+td {{humanReadableTime statistics\.os\.uptime}}/);
+
+const dueReminderEndings = { 'act-almostdue': 'ⴰⵔ ⵉⵜⵜⴰⴷⵙ', 'act-duenow': 'ⵉⴳⴰ ⵖⵉⵍⴰ', 'act-pastdue': 'ⵉⵣⵔⵉ' };
+for (const [key, ending] of Object.entries(dueReminderEndings)) {
+ const value = translated[key];
+ assert.ok(value.startsWith('ⵉⵙⵙⴽⵯⵜⵉ'));
+ assert.ok(value.endsWith(ending));
+ assert.doesNotMatch(value, /rappelle|échéance|approche|passée/);
+ assert.deepStrictEqual(value.match(/__[A-Za-z]+__/g).sort(), ['__card__','__timeValue__']);
+}
+assert.strictEqual(new Set(Object.keys(dueReminderEndings).map(k => translated[k])).size, 3);

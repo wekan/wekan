@@ -138304,5 +138304,26 @@
     "before": "مدة تشغيل نظام التشغيل",
     "after": "OS: ⴰⴽⵓⴷ ⵍⵍⵉ ⵉⵣⵔⵉⵏ ⵙⴳ ⵓⵙⵏⵜⵉ ⵏ ⵜⵉⵙⵏⵙⵉ",
     "reason": "2026-09-14: Replace Arabic OS uptime label with Tamazight elapsed-time-since-OS-start draft. Source statistics.os.uptime is os.uptime(), not process uptime; IRCAM beginning asnti entry 4642 p240, zri pass entry 13549 p721, tisnsi operating system entry 12970 p688 and existing akud time. Avoid physical platform or film projection-time senses. Relative clause and computing startup adaptation remain low-confidence pending native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "act-almostdue",
+    "before": "rappelle que l'échéance (__timeValue__) de __card__ approche",
+    "after": "ⵉⵙⵙⴽⵯⵜⵉ ⵎⴰⵙ ⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ (__timeValue__) ⵏ __card__ ⴰⵔ ⵉⵜⵜⴰⴷⵙ",
+    "reason": "2026-09-14: Replace complete French due-reminder clause, retaining exact __timeValue__/__card__ inventory and approaching/now/past distinction. IRCAM reminder sskwti entry 9825 p521 differs from fire-kindling sskti 9826; ads/uds approaching entry 845 p59 and zri passing 13549 p721. Existing deadline term reused; full relative/aspect grammar and computing deadline adaptation remain low-confidence under native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "act-duenow",
+    "before": "rappelle que l'échéance (__timeValue__) de __card__ est maintenant",
+    "after": "ⵉⵙⵙⴽⵯⵜⵉ ⵎⴰⵙ ⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ (__timeValue__) ⵏ __card__ ⵉⴳⴰ ⵖⵉⵍⴰ",
+    "reason": "2026-09-14: Replace complete French due-reminder clause, retaining exact __timeValue__/__card__ inventory and approaching/now/past distinction. IRCAM reminder sskwti entry 9825 p521 differs from fire-kindling sskti 9826; ads/uds approaching entry 845 p59 and zri passing 13549 p721. Existing deadline term reused; full relative/aspect grammar and computing deadline adaptation remain low-confidence under native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "act-pastdue",
+    "before": "rappelle que l'échéance (__timeValue__) de __card__  est passée",
+    "after": "ⵉⵙⵙⴽⵯⵜⵉ ⵎⴰⵙ ⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ (__timeValue__) ⵏ __card__ ⵉⵣⵔⵉ",
+    "reason": "2026-09-14: Replace complete French due-reminder clause, retaining exact __timeValue__/__card__ inventory and approaching/now/past distinction. IRCAM reminder sskwti entry 9825 p521 differs from fire-kindling sskti 9826; ads/uds approaching entry 845 p59 and zri passing 13549 p721. Existing deadline term reused; full relative/aspect grammar and computing deadline adaptation remain low-confidence under native review."
   }
 ]
