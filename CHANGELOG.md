@@ -1126,6 +1126,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8516ab9a7">Repair Tamazight garbage-flag diagnostic label</a></summary>
+
+Replace French text with Tamazight heap/use wording, preserving the exact
+diagnostic flag identifier. Four focused suites pass; complete computing
+compound remains under contextual review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

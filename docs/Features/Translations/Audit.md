@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-15**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,764 |
+| Corrected | 15,765 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,174 |
-| Pending review or repair | 139 |
+| Pending review or repair | 138 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,15 +16,15 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `0f545fd8a` — replace French
-available/executable heap labels with distinct Tamazight paraphrases.
-Four focused suites pass. Ledger 19,885; tracked pending 139 (Tamazight 46),
-restored 4 unchanged. Availability participle, executable-capability wording
-and full compounds remain low confidence. Other diagnostics, source wording
-conflicts and broader grammar reviews remain open.
+Latest translation fix: **2026-09-15**, `8516ab9a7` — replace French
+garbage-flag diagnostic with Tamazight heap/use wording and exact literal
+flag name. Four focused suites pass. Ledger 19,886; tracked pending 138
+(Tamazight 45), restored 4 unchanged. Computing compound remains low
+confidence. Other diagnostics, source wording conflicts and broader grammar
+reviews remain open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,885** exact before/after values, including unflagged
+records contain **19,886** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -43,7 +43,7 @@ restored values still await full native clause validation.
 
 | Pending locale | Findings |
 | --- | ---: |
-| zgh — Standard Moroccan Tamazight | 46 |
+| zgh — Standard Moroccan Tamazight | 45 |
 | iu — Inuktitut | 38 |
 | nah — Nahuatl | 17 |
 | tig — Tigre | 17 |

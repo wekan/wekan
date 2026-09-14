@@ -29462,3 +29462,21 @@ pending 139 (zgh 46), restored 4 unchanged. Four other heap labels remain
 French: physical, garbage flag, native contexts and detached contexts.
 Previous computing-memory/heap phrase reviews remain open.
 https://nodejs.org/api/v8.html#v8getheapstatistics
+
+
+2026-09-15 — `8516ab9a7`: Node_heap_does_zap_garbage French replaced
+with existing heap and use nouns, preserving literal does_zap_garbage.
+This identifies use/status of the technical flag rather than claiming
+successful garbage collection, ordinary rubbish deletion or an enabled
+application security feature. The identifier is intentionally untranslated;
+full heap/use computing compound remains low confidence. Node V8 docs
+define the property as a 0/1 boolean for zap_code_space, which overwrites
+heap garbage with a bit pattern. server/statistics.js reads that exact
+V8 property, and informationBody.jade displays the numeric value directly.
+No flag setting, data binding or runtime behavior changed. Four focused
+suites pass for exact label/identifier, negative French/Arabic wording and
+all token inventories. No live information UI test ran. Ledger 19,886;
+corrected 15,765, pending 138 (zgh 45), restored 4 unchanged. Physical size
+and native/detached context labels still need repair; previous heap grammar
+reviews remain open.
+https://nodejs.org/api/v8.html#v8getheapstatistics
