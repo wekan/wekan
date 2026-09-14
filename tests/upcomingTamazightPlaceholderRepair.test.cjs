@@ -480,3 +480,6 @@ assert.doesNotMatch(translated['delete-linked-cards-before-this-list'], /Vous|su
 
 assert.strictEqual(translated["page-maybe-private"], "ⴰⵜⴰⴼ ⵜⴰⵙⵏⴰ ⴰⴷ ⵜⴳⴰ ⵜⵓⵙⵍⵉⴳⵜ. ⴰⵜⴰⴼ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵜ ⵜⵥⵕⴷ ⵉⵖ <a href='%s'>ⵜⴽⵛⵎⴷ</a>.");
 assert.doesNotMatch(translated['page-maybe-private'], /[\u0600-\u06ff]/u);
+
+assert.strictEqual(translated["paste-or-dragdrop"], "ⵉ ⵓⵙⵍⴰⵖ, ⵏⵖ ⴽⵔⵉⵔⵓ ⴷ ⵙⵜⵓⵜⵜⵉ ⴰⴼⴰⵢⵍⵓ ⵏ ⵜⵡⵍⴰⴼⵜ ⴷⴰ (ⵜⴰⵡⵍⴰⴼⵜ ⴽⴰⵏ)");
+assert.doesNotMatch(translated['paste-or-dragdrop'], /coller|glissez|seulement|[\u0600-\u06ff]/u);

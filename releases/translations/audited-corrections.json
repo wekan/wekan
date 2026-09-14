@@ -139004,5 +139004,12 @@
     "before": "قدتكون هذه الصفحة خاصة . قد تستطيع مشاهدتها ب  <a href='%s'>تسجيل الدخول</a>.",
     "after": "ⴰⵜⴰⴼ ⵜⴰⵙⵏⴰ ⴰⴷ ⵜⴳⴰ ⵜⵓⵙⵍⵉⴳⵜ. ⴰⵜⴰⴼ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵜ ⵜⵥⵕⴷ ⵉⵖ <a href='%s'>ⵜⴽⵛⵎⴷ</a>.",
     "reason": "2026-09-15: Replace Arabic private-page message with attested perhaps/private components and existing login verb. Preserve both uncertainty clauses and literal anchor/%s. Derived feminine private and conditional grammar low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "paste-or-dragdrop",
+    "before": "pour coller, ou glissez-déposez une image ici (seulement une image)",
+    "after": "ⵉ ⵓⵙⵍⴰⵖ, ⵏⵖ ⴽⵔⵉⵔⵓ ⴷ ⵙⵜⵓⵜⵜⵉ ⴰⴼⴰⵢⵍⵓ ⵏ ⵜⵡⵍⴰⴼⵜ ⴷⴰ (ⵜⴰⵡⵍⴰⴼⵜ ⴽⴰⵏ)",
+    "reason": "2026-09-15: Replace French clipboard gesture fragment with paste OR drag-and-drop image file here, image only. Attested gesture components adapted to computing; derived paste noun, full grammar and only qualifier low confidence."
   }
 ]
