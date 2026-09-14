@@ -123702,5 +123702,26 @@
     "before": "ISO 8601",
     "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ISO-8601",
     "reason": "Restore full calendar label with native Tamazight calendar noun and preserve exact named Dangi or ISO-8601 identity from English. Primary Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml key calendar directly supplies asmlussan. Dangi remains the specific named calendar rather than a generic Korean calendar; ISO-8601 standard identifier is retained. LOW CONFIDENCE complete mixed-script named-calendar composition requires fluent review. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "adminChangeAvatarPopup-title",
+    "before": "تعديل الصورة الشخصية",
+    "after": "ⵙⵏⴼⵍ ⵜⴰⵡⵍⴰⴼⵜ ⵏ ⵉⴼⵔⵙ",
+    "reason": "Replace Arabic/French avatar popup title while preserving change versus delete question. Reuse local change-avatar and delete-avatar-confirm profile picture wording without replacing protected correct-language values. Primary native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json edit snfl and delete kks supply action vocabulary. LOW CONFIDENCE full avatar/profile-picture noun phrase and local ifrs profile sense require fluent review; local avatar vocabulary is usage consistency, not independent linguistic proof. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "changeAvatarPopup-title",
+    "before": "تعديل الصورة الشخصية",
+    "after": "ⵙⵏⴼⵍ ⵜⴰⵡⵍⴰⴼⵜ ⵏ ⵉⴼⵔⵙ",
+    "reason": "Replace Arabic/French avatar popup title while preserving change versus delete question. Reuse local change-avatar and delete-avatar-confirm profile picture wording without replacing protected correct-language values. Primary native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json edit snfl and delete kks supply action vocabulary. LOW CONFIDENCE full avatar/profile-picture noun phrase and local ifrs profile sense require fluent review; local avatar vocabulary is usage consistency, not independent linguistic proof. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "deleteAvatarPopup-title",
+    "before": "Supprimer l'avatar ?",
+    "after": "ⴽⴽⵙ ⵜⴰⵡⵍⴰⴼⵜ ⵏ ⵉⴼⵔⵙ?",
+    "reason": "Replace Arabic/French avatar popup title while preserving change versus delete question. Reuse local change-avatar and delete-avatar-confirm profile picture wording without replacing protected correct-language values. Primary native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json edit snfl and delete kks supply action vocabulary. LOW CONFIDENCE full avatar/profile-picture noun phrase and local ifrs profile sense require fluent review; local avatar vocabulary is usage consistency, not independent linguistic proof. Reviewed 2026-09-14."
   }
 ]
