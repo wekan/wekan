@@ -123513,5 +123513,12 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "Hijri kalenda (Saudi Arabia nutome, ɣleti kpɔkpɔ)",
     "reason": "Replace English-only Ewe Saudi sighting calendar label and restore omitted sighting qualifier. Preserve existing Hijri kalenda terminology. CLDR ee.xml explicitly gives Saudi Arabia nutome: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/ee.xml . Peace Corps Ewe workbook https://www.livelingua.com/peace-corps/Ewe/Ewe%20Course%20-2010.pdf PDF110/printed107 gives moon ɣleti and PDF110/printed107 look kpɔ; native course usage also attests reduplicated kpɔkpɔ (PDF101/printed98). LOW CONFIDENCE noun derivation/composition ɣleti kpɔkpɔ for moon sighting and complete technical calendar label require fluent review; component evidence is not full calendar variant validation. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "duenow",
+    "before": "La date d'échéance %s est aujourd'hui",
+    "after": "ⴰⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⴰⵎⵉⵔⴰⵏ %s ⵉⴳⴰ ⴰⵙⵙⴰ",
+    "reason": "Replace French due-today status, preserving current qualifier omitted in French and exact %s date token. CLDR zgh.xml day relative 0 attests assa today: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml . Native MediaWiki blockedtext-block-ip supplies current amiran and copula iga: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse existing due-date label asakud amggaru. LOW CONFIDENCE deadline-specific sense of existing due-date terminology, adjective ordering and complete software status need fluent review; last/final date must not be treated as independently established deadline vocabulary. Reviewed 2026-09-14."
   }
 ]

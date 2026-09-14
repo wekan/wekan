@@ -1520,7 +1520,7 @@
   "right-of-list": "ⴳ ⵓⵢⴼⴼⴰⵙ ⵏ ⵜⵍⴳⴰⵎⵜ ⵉⵜⵜⵓⵙⵜⴰⵢⵏ",
   "almostdue": "La date d'échéance %s approche",
   "pastdue": "La date d'échéance %s est passée",
-  "duenow": "La date d'échéance %s est aujourd'hui",
+  "duenow": "ⴰⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⴰⵎⵉⵔⴰⵏ %s ⵉⴳⴰ ⴰⵙⵙⴰ",
   "act-newDue": "__list__/__card__ a un 1er rappel d'échéance [__board__]",
   "act-withDue": "__list__/__card__ rappel d'échéance [__board__]",
   "act-almostdue": "rappelle que l'échéance (__timeValue__) de __card__ approche",
