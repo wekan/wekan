@@ -129057,5 +129057,26 @@
     "before": "Équipe '%s' non trouvée.",
     "after": "N’eo ket bet kavet ar skipailh « %s ».",
     "reason": "Replace French card/list/team labels using existing Breton item, archive and not-found wording; preserve %s where English supplies it. Complete native phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "list-label-title",
+    "before": "Nom de liste",
+    "after": "Anv ar roll",
+    "reason": "Replace French list-menu prose with existing Breton anv, roll/rolloù, patromoù and Ouzhpennañ. Full phrase/initial-mutation and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "list-templates-swimlane",
+    "before": "Modèles de listes",
+    "after": "Patromoù rolloù",
+    "reason": "Replace French list-menu prose with existing Breton anv, roll/rolloù, patromoù and Ouzhpennañ. Full phrase/initial-mutation and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "add-after-list",
+    "before": "Ajouter après la liste",
+    "after": "Ouzhpennañ goude ar roll",
+    "reason": "Replace French list-menu prose with existing Breton anv, roll/rolloù, patromoù and Ouzhpennañ. Full phrase/initial-mutation and browser validation remain open."
   }
 ]
