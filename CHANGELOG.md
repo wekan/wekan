@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,325 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 519 pending review or repair.
-The correction inventory records 17,638 exact before/after values,
+findings: 15,326 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 518 pending review or repair.
+The correction inventory records 17,639 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (381) and
+The largest original queues are Standard Moroccan Tamazight (380) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 554f8f1bf (2026-09-14), replacing the French
-Tamazight upload-completion status. Positive completion morphology and
-complete status wording still need fluent language review.
+Latest translation fix is 5c05043e0 (2026-09-14), replacing the Arabic
+Tamazight OS total-memory label. Full diagnostic wording and Standard
+Moroccan adaptation still need fluent language review.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -614,10 +614,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,325 original findings are
+Translation audit progress as of 2026-09-14: 15,326 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 519 remain pending across 17 locales, including 381 Tamazight findings.
-The ledger contains 17,638 correction records, including unflagged repairs.
+and 518 remain pending across 17 locales, including 380 Tamazight findings.
+The ledger contains 17,639 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -1211,8 +1211,19 @@ remains low confidence pending language review.
 Replace French status text using native upload and completion vocabulary.
 Positive completion morphology and the full sentence remain low confidence
 pending fluent review. All 17,638 correction/rendering checks pass; 519
-original findings remain pending, including 381 Tamazight findings.
+original findings remain pending, including 380 Tamazight findings.
 Restored, unflagged and earlier low-confidence wording still need validation.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5c05043e0">Translate Tamazight total memory diagnostic</a>. Thanks to xet7.</summary>
+
+Replace Arabic OS total-memory text while preserving the OS acronym and
+total memory scope. Native total vocabulary and Moroccan computing memory
+terminology support components; full adaptation remains low confidence.
+All 17,639 correction/rendering checks pass; 518 original findings remain
+pending. Restored, unflagged and earlier low-confidence wording need review.
 
 </details>
 
