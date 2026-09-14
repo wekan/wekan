@@ -122806,5 +122806,54 @@
     "before": "البريد الإلكتروني نماذج",
     "after": "ⴰⵍⴱⵓⴹⵏ ⵏ ⵉⵎⴰⵢⵍ",
     "reason": "Replace French/Arabic email test/templates wording with Tamazight. Preserve test qualifier, sending to oneself rather than an arbitrary user, plural templates and email scope. Native MediaWiki zgh tooltip-t-emailuser and templatesused supply send-email and plural template components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Saad-Buzefran computing lexicon p142 (printed138) Test entry gives Akayad MAT, root sekyed with MC examine: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: math-to-email-test adaptation, bound ukayad, reflexive recipient and full email-template/test phrasing require fluent review; native component attestation is not complete phrase validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "error-orgname-taken",
+    "before": "Ce nom d'organisation est déjà utilisé",
+    "after": "ⵉⵙⵎ ⵏ ⵜⵓⴷⴷⵙⴰ ⴰⴷ ⵉⵜⵜⵓⵙⵎⵔⵙ ⵢⴰⴷ",
+    "reason": "Replace Arabic/French team labels and organization/team name errors. Preserve already-used name rather than absent name, organization versus team, singular/plural teams, add action and exact %s token in missing-team error. IRCAM dictionary team entry tarabbut: https://www.ircam.ma/sites/default/files/2021-02/amz_fr_ar.pdf . Native MediaWiki zgh badaccess-groups supports singular/bound plural team-group forms, userexists already-used-name construction, export-addcat add and red-link-title feminine absence: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse prior MW organization component from https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: derived free plural tirubba, software-team adaptation, organization dialect adaptation, bound nouns, feminine missing-team phrase and full name-error composition require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "error-teamname-taken",
+    "before": "Ce nom d'équipe est déjà utilisé",
+    "after": "ⵉⵙⵎ ⵏ ⵜⵔⴰⴱⴱⵓⵜ ⴰⴷ ⵉⵜⵜⵓⵙⵎⵔⵙ ⵢⴰⴷ",
+    "reason": "Replace Arabic/French team labels and organization/team name errors. Preserve already-used name rather than absent name, organization versus team, singular/plural teams, add action and exact %s token in missing-team error. IRCAM dictionary team entry tarabbut: https://www.ircam.ma/sites/default/files/2021-02/amz_fr_ar.pdf . Native MediaWiki zgh badaccess-groups supports singular/bound plural team-group forms, userexists already-used-name construction, export-addcat add and red-link-title feminine absence: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse prior MW organization component from https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: derived free plural tirubba, software-team adaptation, organization dialect adaptation, bound nouns, feminine missing-team phrase and full name-error composition require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "team",
+    "before": "فريق",
+    "after": "ⵜⴰⵔⴰⴱⴱⵓⵜ",
+    "reason": "Replace Arabic/French team labels and organization/team name errors. Preserve already-used name rather than absent name, organization versus team, singular/plural teams, add action and exact %s token in missing-team error. IRCAM dictionary team entry tarabbut: https://www.ircam.ma/sites/default/files/2021-02/amz_fr_ar.pdf . Native MediaWiki zgh badaccess-groups supports singular/bound plural team-group forms, userexists already-used-name construction, export-addcat add and red-link-title feminine absence: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse prior MW organization component from https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: derived free plural tirubba, software-team adaptation, organization dialect adaptation, bound nouns, feminine missing-team phrase and full name-error composition require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "teams",
+    "before": "Équipes",
+    "after": "ⵜⵉⵔⵓⴱⴱⴰ",
+    "reason": "Replace Arabic/French team labels and organization/team name errors. Preserve already-used name rather than absent name, organization versus team, singular/plural teams, add action and exact %s token in missing-team error. IRCAM dictionary team entry tarabbut: https://www.ircam.ma/sites/default/files/2021-02/amz_fr_ar.pdf . Native MediaWiki zgh badaccess-groups supports singular/bound plural team-group forms, userexists already-used-name construction, export-addcat add and red-link-title feminine absence: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse prior MW organization component from https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: derived free plural tirubba, software-team adaptation, organization dialect adaptation, bound nouns, feminine missing-team phrase and full name-error composition require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-team",
+    "before": "فريق",
+    "after": "ⵜⴰⵔⴰⴱⴱⵓⵜ",
+    "reason": "Replace Arabic/French team labels and organization/team name errors. Preserve already-used name rather than absent name, organization versus team, singular/plural teams, add action and exact %s token in missing-team error. IRCAM dictionary team entry tarabbut: https://www.ircam.ma/sites/default/files/2021-02/amz_fr_ar.pdf . Native MediaWiki zgh badaccess-groups supports singular/bound plural team-group forms, userexists already-used-name construction, export-addcat add and red-link-title feminine absence: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse prior MW organization component from https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: derived free plural tirubba, software-team adaptation, organization dialect adaptation, bound nouns, feminine missing-team phrase and full name-error composition require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "add-teams",
+    "before": "اضافة فرق",
+    "after": "ⵔⵏⵓ ⵜⵉⵔⵓⴱⴱⴰ",
+    "reason": "Replace Arabic/French team labels and organization/team name errors. Preserve already-used name rather than absent name, organization versus team, singular/plural teams, add action and exact %s token in missing-team error. IRCAM dictionary team entry tarabbut: https://www.ircam.ma/sites/default/files/2021-02/amz_fr_ar.pdf . Native MediaWiki zgh badaccess-groups supports singular/bound plural team-group forms, userexists already-used-name construction, export-addcat add and red-link-title feminine absence: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse prior MW organization component from https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: derived free plural tirubba, software-team adaptation, organization dialect adaptation, bound nouns, feminine missing-team phrase and full name-error composition require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "team-name-not-found",
+    "before": "Équipe '%s' non trouvée.",
+    "after": "ⵓⵔ ⵜⵍⵍⵉ ⵜⴰⵔⴰⴱⴱⵓⵜ '%s'.",
+    "reason": "Replace Arabic/French team labels and organization/team name errors. Preserve already-used name rather than absent name, organization versus team, singular/plural teams, add action and exact %s token in missing-team error. IRCAM dictionary team entry tarabbut: https://www.ircam.ma/sites/default/files/2021-02/amz_fr_ar.pdf . Native MediaWiki zgh badaccess-groups supports singular/bound plural team-group forms, userexists already-used-name construction, export-addcat add and red-link-title feminine absence: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse prior MW organization component from https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: derived free plural tirubba, software-team adaptation, organization dialect adaptation, bound nouns, feminine missing-team phrase and full name-error composition require fluent review."
   }
 ]
