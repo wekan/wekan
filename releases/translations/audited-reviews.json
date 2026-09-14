@@ -22948,5 +22948,251 @@
     "key": "predicate-public",
     "value": "publikoa",
     "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "predicate-private",
+    "value": "pribatua",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "predicate-projection",
+    "value": "proiekzioa",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "operator-unknown-error",
+    "value": "%s ez da eragile bat",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "operator-status-invalid",
+    "value": "'%s' ez da baliozko egoera",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "operator-limit-invalid",
+    "value": "%s ez da baliozko muga.  Mugak zenbaki oso positiboa izan behar du.",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "next-page",
+    "value": "Hurrengo orria",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "previous-page",
+    "value": "Aurreko orria",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "heading-notes",
+    "value": "Oharrak",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "globalSearch-instructions-heading",
+    "value": "Bilaketa-argibideak",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "globalSearch-instructions-operators",
+    "value": "Eragile erabilgarriak:",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "globalSearch-instructions-notes-1",
+    "value": "Eragile bat baino gehiago zehaztu daitezke.",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "link-to-search",
+    "value": "Bilaketa honetarako esteka",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "due-date",
+    "value": "Epemuga",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "title-alphabetically",
+    "value": "Izenburua (alfabetikoki)",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "created-at-newest-first",
+    "value": "Sortze-data (berrienak lehenengo)",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "created-at-oldest-first",
+    "value": "Sortze-data (zaharrenak lehenengo)",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "links-heading",
+    "value": "Estekak",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "creator",
+    "value": "Sortzailea",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "reports",
+    "value": "Txostenak",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "copySwimlanePopup-title",
+    "value": "Kopiatu erraila",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "subject",
+    "value": "Gaia",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "details",
+    "value": "Xehetasunak",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "open",
+    "value": "Irekia",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "pending",
+    "value": "Zain",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "closed",
+    "value": "Itxia",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "resolved",
+    "value": "Ebatzia",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "cancelled",
+    "value": "Bertan behera utzia",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "history",
+    "value": "Historia",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "request",
+    "value": "Eskaera",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "requests",
+    "value": "Eskaerak",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "help-request",
+    "value": "Laguntza-eskaera",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "editCardSortOrderPopup-title",
+    "value": "Aldatu ordena",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "confirm-btn",
+    "value": "Berretsi",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "custom-legal-notice-link-url",
+    "value": "Lege-oharraren orri pertsonalizatuaren URLa",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "acceptance_of_our_legalNotice",
+    "value": "Jarraituz gero, onartzen duzu gure",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "legalNotice",
+    "value": "lege-oharra",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "copied",
+    "value": "Kopiatuta!",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "checklistActionsPopup-title",
+    "value": "Kontrol-zerrendaren ekintzak",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "moveChecklist",
+    "value": "Lekuz aldatu kontrol-zerrenda",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "moveChecklistPopup-title",
+    "value": "Lekuz aldatu kontrol-zerrenda",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "path",
+    "value": "Bide-izena",
+    "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
   }
 ]
