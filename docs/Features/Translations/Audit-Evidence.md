@@ -27343,3 +27343,27 @@ provenance, placeholders/tags/key order and newer human translations. No
 live migration/browser test was run. Ledger 19,773; original corrected
 15,693, pending 210 (zgh 107), restored 4 unchanged. Full uncertain,
 restored and unflagged reviews remain open. No remote push.
+
+## Missing-list confirmation draft — 2026-09-15
+
+Local commit `8e7006cde` repairs the matching French confirmation. It
+preserves the description's discovery/repair scope and missing-or-damaged
+lists in board structure, with future wording and an explicit continuation
+question. This supersedes the earlier note that this confirmation remains
+French; native grammatical review is still open.
+
+[Primary MediaWiki Tamazight source](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json)
+pt-login-continue-button uses the continuation/follow verb in a software
+workflow. This supports a component, not the full interrogative adapted
+here. Dictionary continue/last/remain entries were also checked; their
+durational senses were not treated as independent proof of a workflow
+confirmation. Earlier discovery/repair/damage references remain recorded.
+
+**Low confidence:** the complete continuation question, future coordination,
+passive agreement and data-corruption compound require native review.
+Four focused suites pass, including confirmation distinct from description,
+exact placeholders/tags/key order, provenance and newer human translation
+preference. No active references to this removed migration were found and
+no live browser test was run. No removed code is reactivated. Ledger
+19,774; original corrected 15,694, pending 209 (zgh 106), restored 4 unchanged.
+All broader uncertain/restored/unflagged findings remain open. No push.
