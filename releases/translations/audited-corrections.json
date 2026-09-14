@@ -123506,5 +123506,12 @@
     "before": "Coptic",
     "after": "ཀོཔ་ཊིཀ་ཟླ་ཐོ",
     "reason": "Replace English-only Coptic calendar label with Dzongkha. Native DzongkhaLinux Team computing dictionary https://download.savannah.gnu.org/releases/dzongkha-gnome/dzongkha_computer_terms.pdf explicitly gives Coptic ཀོཔ་ཊིཀ། on PDF page47/printed43, verified by direct PDF extraction; calendar ཟླ་ཐོ། on PDF32/printed28 is confirmed by indexed primary-source text, while local PDF extraction has a corrupted calendar glyph. Preserve existing calendar compound pattern and Coptic identity. LOW CONFIDENCE complete compound spelling still needs fluent review; component evidence is not full calendar nomenclature validation. CLDR dz.xml has no coptic type entry. Reviewed 2026-09-14. Follow-up 2026-09-14: publisher-hosted https://www.cle.org.pk/research/rep/DCT.pdf was downloaded directly and independently confirms identical Coptic spelling on PDF47. Full compound remains under review; publisher PDF extraction also corrupts calendar glyphs."
+  },
+  {
+    "locale": "ee",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Hijri kalenda (Saudi Arabia nutome, ɣleti kpɔkpɔ)",
+    "reason": "Replace English-only Ewe Saudi sighting calendar label and restore omitted sighting qualifier. Preserve existing Hijri kalenda terminology. CLDR ee.xml explicitly gives Saudi Arabia nutome: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/ee.xml . Peace Corps Ewe workbook https://www.livelingua.com/peace-corps/Ewe/Ewe%20Course%20-2010.pdf PDF110/printed107 gives moon ɣleti and PDF110/printed107 look kpɔ; native course usage also attests reduplicated kpɔkpɔ (PDF101/printed98). LOW CONFIDENCE noun derivation/composition ɣleti kpɔkpɔ for moon sighting and complete technical calendar label require fluent review; component evidence is not full calendar variant validation. Reviewed 2026-09-14."
   }
 ]
