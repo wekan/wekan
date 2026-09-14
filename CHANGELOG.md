@@ -594,14 +594,15 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** Tamazight rule popups, search logic, lockout account scopes and
-email diagnostics/templates replace French and inconsistent terminology.
-Actions, success/failure distinctions and placeholders are preserved.
-Complete software phrasing still needs fluent review.
+**In short:** Tamazight rules, search, email, attachments and maintenance
+labels replace French and inconsistent terminology. Bambara and Fulah
+calendar labels also receive repairs. Actions, qualifiers and placeholders
+are preserved; provisional calendar and complete software wording still
+need language review.
 
 This release includes the following translation repairs and build verification:
 
-**Translations** - Tamazight rules, search, email, card labels and board groups.
+**Translations** - Tamazight interface and maintenance labels; Bambara and Fulah calendars.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fd6ae82a5">Repair Tamazight rule report and popup wording</a>. Thanks to xet7.</summary>
