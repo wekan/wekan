@@ -138647,5 +138647,19 @@
     "before": "Aucun couloir, liste ou carte perdu à restaurer",
     "after": "ⵓⵔ ⵍⵍⵉⵏ ⵉⴱⵔⴷⴰⵏ ⵏⵖ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵏⵖ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵉⵎⴰⴽⵓⵍⵏ ⵉ ⵓⵙⵙⵓⴽⵏ.",
     "reason": "2026-09-15: replace French no-lost-items restoration result with Tamazight draft. Preserve negative existence, swimlanes/lists/cards, lost state and restoration purpose. IRCAM page 120 entry 2158 attests lost/misplaced noun-adjective amakul, plural imakuln. Existing negative existence, object nouns, conjunction and restore reused. Mixed-gender agreement and full software phrasing remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "vote-delete-pop",
+    "before": "La suppression est définitive. Vous perdrez toutes les actions associées à ce vote.",
+    "after": "ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⴰⵔⴷ ⴷ ⴰⵢⴰ. ⵔⴰⴷ ⵜⵜⵓⴽⴽⵙⵏⵜ ⵜⵉⴳⴰⵡⵉⵏ ⴰⴽⴽⵯ ⵏ ⵡⴰⵙⵜⴰⵢ ⴰⴷ.",
+    "reason": "2026-09-15: replace wrong-language deletion notice with Tamazight draft. Preserve permanent/non-undoable action and loss of all activities for this specific vote or card. Reuse existing cannot-undo clause, board deletion future passive, activity/card/voting terms. Full possession, passive agreement and permanence paraphrase remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "card-delete-notice",
+    "before": "هذا حذف أبديّ . سوف تفقد كل الإجراءات المنوطة بهذه البطاقة",
+    "after": "ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⴰⵔⴷ ⴷ ⴰⵢⴰ. ⵔⴰⴷ ⵜⵜⵓⴽⴽⵙⵏⵜ ⵜⵉⴳⴰⵡⵉⵏ ⴰⴽⴽⵯ ⵏ ⵜⴽⴰⵕⴹⴰ ⴰⴷ.",
+    "reason": "2026-09-15: replace wrong-language deletion notice with Tamazight draft. Preserve permanent/non-undoable action and loss of all activities for this specific vote or card. Reuse existing cannot-undo clause, board deletion future passive, activity/card/voting terms. Full possession, passive agreement and permanence paraphrase remain low confidence."
   }
 ]

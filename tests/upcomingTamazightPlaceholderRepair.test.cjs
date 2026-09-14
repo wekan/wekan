@@ -282,3 +282,12 @@ assert.match(fs.readFileSync(path.join(ROOT, 'client/components/users/userHeader
 assert.match(translated['restore-lost-cards-nothing-to-restore'], /^ⵓⵔ ⵍⵍⵉⵏ ⵉⴱⵔⴷⴰⵏ ⵏⵖ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵏⵖ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ/);
 assert.match(translated['restore-lost-cards-nothing-to-restore'], /ⵉⵎⴰⴽⵓⵍⵏ ⵉ ⵓⵙⵙⵓⴽⵏ\.$/);
 assert.doesNotMatch(translated['restore-lost-cards-nothing-to-restore'], /Aucun|perdu|restaurer/);
+
+for (const key of ['vote-delete-pop', 'card-delete-notice']) {
+  assert.match(translated[key], /^ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⴰⵔⴷ ⴷ ⴰⵢⴰ\./);
+  assert.match(translated[key], /ⵔⴰⴷ ⵜⵜⵓⴽⴽⵙⵏⵜ ⵜⵉⴳⴰⵡⵉⵏ ⴰⴽⴽⵯ/);
+  assert.doesNotMatch(translated[key], /suppression|définitive|[\u0600-\u06ff]/);
+}
+assert.match(translated['vote-delete-pop'], /ⵏ ⵡⴰⵙⵜⴰⵢ ⴰⴷ\.$/);
+assert.match(translated['card-delete-notice'], /ⵏ ⵜⴽⴰⵕⴹⴰ ⴰⴷ\.$/);
+assert.notEqual(translated['vote-delete-pop'], translated['card-delete-notice']);
