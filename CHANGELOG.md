@@ -102,10 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 2e15e9f7b (2026-09-14), replacing five assignee
-labels, including three unflagged values. Singular/plural, negation and
-all-cards/current-card board scopes are preserved; responsibility paraphrases,
-relative clauses and derived forms remain low confidence.
+Latest translation fix is 0488199cf (2026-09-14), refining two earlier
+assignee filter labels with an explicit recipient relationship and feminine
+card agreement. Counts unchanged; full grammar and responsibility paraphrases
+remain low confidence.
 Logo provenance follow-up 89f36d41f (2026-09-14) applies the dictionary's
 cross-variety preface to two earlier URL records. Native caption evidence
 remains separate; full labels stay low confidence. No values/counts changed.
@@ -2630,6 +2630,18 @@ scope. Responsibility paraphrases, relative clauses and derived forms remain
 low confidence. All 17,915 correction checks pass, including tokens and
 translation preference. 415 originals remain pending; wider language and
 live browser verification remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0488199cf">Clarify Tamazight assignee filter recipient wording</a>. Thanks to xet7.</summary>
+
+2026-09-14: Refine two earlier filter labels with explicit To whom recipient
+wording and feminine card agreement, matching assignee labels. Preserve
+No assignee and original French provenance. Full relative grammar and
+responsibility paraphrases remain low confidence. All 17,915 correction
+checks pass; counts unchanged. Wider language and live browser validation
+remain open.
 
 </details>
 

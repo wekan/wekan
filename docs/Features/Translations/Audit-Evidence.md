@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight assignee filter recipient follow-up — 2026-09-14
+
+Commit `0488199cf` refines two existing records from `5da9a2084`. Earlier Person given card wording left the recipient relation implicit and used masculine Given with a feminine card noun. Match the explicit Person to whom card is given construction in `2e15e9f7b`, preserving the recipient and No assignee scopes. Original French before values remain unchanged. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) attests Given as a component, not these relative clauses or responsibility-assignment meaning. Feminine agreement and the recipient relative are derived; complete labels remain LOW CONFIDENCE for native review. This is a correction of ambiguity and consistency, not proof of fluency. All 17,915 mechanical checks pass. Counts unchanged: 415 originals pending, including 280 Tamazight. No live browser verification or remote uploads.
+
 ## Tamazight assignee labels and card scopes — 2026-09-14
 
 Commit `2e15e9f7b` replaces five French values: two original findings and three unflagged labels. Preserve Assignee versus Assignees, No assignee, all assignees of ALL cards on THIS board versus all assignees of CURRENT card on THIS board. Responsibility provisionally uses Person(s) to whom card(s) given, distinct from membership. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) supplies Given and Current components, not the full responsibility-assignment term. Relative To whom, plural person, feminine passive/card agreement, bound forms and full labels remain LOW CONFIDENCE for native validation. Local Card vocabulary is reused without claiming independent proof. Two originals repaired; 415 remain pending, including 280 Tamazight. 17,915 mechanical correction checks pass; no live browser verification or remote uploads.
