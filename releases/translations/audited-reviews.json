@@ -24778,5 +24778,17 @@
     "key": "accounts-lockout-unlock-all",
     "value": "Desbloqueja-ho tot",
     "reason": "Desbloqueja-ho tot correctly expresses Unlock All in its contextual people-panel action. peopleBody.js links the button to unlockAllUsers and an explicit confirmation for tots els usuaris bloquejats; lockedUsers.js removes only existing account lockouts. The short contextual label does not mean arbitrary board content is unlocked."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "operator-checklist-text",
+    "value": "llistadecontrol",
+    "reason": "Joined llistadecontrol is an intentional localized search token, not ordinary prose. Regression executes actual search-const/query-classes with Valencian translations: checklist-text searches and positive/negative has:checklist presence predicates parse correctly; an unknown field is rejected. Preserve working syntax and existing translation."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "predicate-checklist",
+    "value": "llistadecontrol",
+    "reason": "Joined llistadecontrol is an intentional localized search token, not ordinary prose. Regression executes actual search-const/query-classes with Valencian translations: checklist-text searches and positive/negative has:checklist presence predicates parse correctly; an unknown field is rejected. Preserve working syntax and existing translation."
   }
 ]

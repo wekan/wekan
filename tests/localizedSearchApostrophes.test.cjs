@@ -35,6 +35,16 @@ for (const [key, operator] of [
   assert.equal(parsed.hasErrors(), false, key);
   assert.equal(parsed.getQueryParams().getPredicate(operator), 'two words', key);
 }
+labels = JSON.parse(read('imports/i18n/data/ca@valencia.i18n.json'));
+const valencianChecklist = query(`${labels['operator-checklist-text']}:"two words"`);
+assert.equal(valencianChecklist.hasErrors(), false);
+assert.equal(valencianChecklist.getQueryParams().getPredicate('checklist-text'), 'two words');
+for (const absent of [false, true]) {
+  const parsed = query(`${labels['operator-has']}:${absent ? '-' : ''}${labels['predicate-checklist']}`);
+  assert.equal(parsed.hasErrors(), false);
+  assert.deepEqual(JSON.parse(JSON.stringify(parsed.getQueryParams().getPredicate('has'))), { field: 'checklist', exists: !absent });
+}
+assert.equal(query(`${labels['operator-has']}:nonexistent-field`).hasErrors(), true);
 labels = JSON.parse(read('imports/i18n/data/ve-PP.i18n.json'));
 assert.equal(query('lugetiž:Blocked').getQueryParams().getPredicate('list'), 'Blocked');
 assert.equal(query('lugetiž:"Kodvi"').getQueryParams().getPredicate('list'), 'Kodvi');
