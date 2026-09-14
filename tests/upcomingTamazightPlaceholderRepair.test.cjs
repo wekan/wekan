@@ -178,3 +178,10 @@ assert.notStrictEqual(translated['muted-info'], translated['watching-info']);
 assert.notStrictEqual(translated['tracking-info'], translated['watching-info']);
 const watchMenuSource = fs.readFileSync(path.join(ROOT, 'client/components/boards/boardHeader.jade'), 'utf8');
 for (const key of ['muted-info','tracking-info']) assert.ok(watchMenuSource.includes("{{_ '" + key + "'}}"));
+
+assert.equal(translated['notify-participate'], translated['tracking-info']);
+assert.match(translated['notify-participate'], /ⴰⵎⵙⵏⴼⵍⵓⵍ ⵏⵖ ⴰⴳⵎⴰⵎ/);
+assert.match(translated['notify-watch'], /ⵜⴼⵍⵡⵉⵏ, ⵜⵉⵍⴳⴰⵎⵉⵏ ⵏⵖ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ/);
+assert.match(translated['notify-watch'], /ⵜⵎⵎⵓⵜⵔⴷ/);
+assert.doesNotMatch(translated['notify-watch'], /ⴰⵎⵙⵏⴼⵍⵓⵍ|ⴰⴳⵎⴰⵎ|Recevoir/);
+assert.notEqual(translated['notify-watch'], translated['notify-participate']);
