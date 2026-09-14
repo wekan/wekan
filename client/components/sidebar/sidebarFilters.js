@@ -304,14 +304,17 @@ Template.multiselectionSidebar.helpers({
 });
 
 Template.multiselectionSidebar.events({
-  'click .js-toggle-label-multiselection'(evt) {
+  async 'click .js-toggle-label-multiselection'(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    if (evt.detail > 1) return;
     const labelId = Template.currentData()._id;
     const mappedSelection = mapSelection('label', labelId);
 
     if (mappedSelection.every(Boolean)) {
-      mutateSelectedCards('removeLabel', labelId);
+      await mutateSelectedCards('removeLabel', labelId);
     } else if (mappedSelection.every(bool => !bool)) {
-      mutateSelectedCards('addLabel', labelId);
+      await mutateSelectedCards('addLabel', labelId);
     } else {
       const popup = Popup.open('disambiguateMultiLabel');
       // XXX We need to have a better integration between the popup and the
@@ -319,13 +322,16 @@ Template.multiselectionSidebar.events({
       popup.call(Template.currentData(), evt);
     }
   },
-  'click .js-toggle-member-multiselection'(evt) {
+  async 'click .js-toggle-member-multiselection'(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    if (evt.detail > 1) return;
     const memberId = Template.currentData()._id;
     const mappedSelection = mapSelection('member', memberId);
     if (mappedSelection.every(Boolean)) {
-      mutateSelectedCards('unassignMember', memberId);
+      await mutateSelectedCards('unassignMember', memberId);
     } else if (mappedSelection.every(bool => !bool)) {
-      mutateSelectedCards('assignMember', memberId);
+      await mutateSelectedCards('assignMember', memberId);
     } else {
       const popup = Popup.open('disambiguateMultiMember');
       // XXX We need to have a better integration between the popup and the
@@ -354,23 +360,31 @@ Template.multiselectionSidebar.events({
 });
 
 Template.disambiguateMultiLabelPopup.events({
-  'click .js-remove-label'() {
-    mutateSelectedCards('removeLabel', this._id);
+  async 'click .js-remove-selection-label'(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    await mutateSelectedCards('removeLabel', this._id);
     Popup.back();
   },
-  'click .js-add-label'() {
-    mutateSelectedCards('addLabel', this._id);
+  async 'click .js-add-selection-label'(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    await mutateSelectedCards('addLabel', this._id);
     Popup.back();
   },
 });
 
 Template.disambiguateMultiMemberPopup.events({
-  'click .js-unassign-member'() {
-    mutateSelectedCards('assignMember', this._id);
+  async 'click .js-unassign-member'(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    await mutateSelectedCards('unassignMember', this._id);
     Popup.back();
   },
-  'click .js-assign-member'() {
-    mutateSelectedCards('unassignMember', this._id);
+  async 'click .js-assign-member'(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    await mutateSelectedCards('assignMember', this._id);
     Popup.back();
   },
 });
