@@ -30,11 +30,11 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Tamazight ZIP import structure](Tamazight-Review.md) identifies an attested
-computing folder noun and confirms per-board attachment subdirectories in
-the importer. Preserve `.zip`, JSON, containment and board naming.
-Subdirectory and file-attachment wording remain open; counts unchanged.
-Earlier reviews remain in detailed evidence.
+[Tamazight legal-notice acceptance](Tamazight-Review.md) identifies an
+unflagged Arabic fragment that also omits English “our.” The template
+joins this span to a separate legal-notice link; verify the complete
+sentence, acceptance verb and possessive order before replacing it.
+No translations or counts changed. Earlier reviews remain in detailed evidence.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

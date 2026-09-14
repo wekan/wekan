@@ -3273,3 +3273,32 @@ placeholder preservation and completeness. No live UI test ran. Ledger
 19,845; original corrected 15,733, pending 170 (zgh 75), restored 4
 unchanged. The unflagged repair does not count as a resolved original
 finding. Broader review remains open; no remote writes.
+
+
+## Legal-notice acceptance fragment — review 2026-09-15
+
+Unflagged `acceptance_of_our_legalNotice` remains Arabic. Its English source
+is `By continuing, you accept our`; the current Arabic omits the possessive
+our. This is both wrong-language prose and a missing meaning component.
+
+`client/components/main/layouts.jade:105` renders this span immediately
+before a separate anchor whose label is `legalNotice`. Layouts.js line 310
+also updates the span dynamically. Review the rendered pair as a sentence,
+not an isolated label: copying English word order could put a Tamazight
+possessive in the wrong position. The prior legalNotice noun repair does
+not resolve this fragment or certify the complete displayed sentence.
+
+IRCAM page 318 entry 6158 `dum` includes continue/last; page 511 entry
+9631 `sul` includes continue/remain/be alive. Existing locale `accept`
+uses `ⵇⴱⵍ`, but this limited dictionary search did not independently
+attest that verb. Page 524 entry 9868 concerns accepting destiny, and
+page 529 entry 9962 accepting intercession: neither establishes generic
+acceptance of website legal terms. Do not substitute those narrow senses.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+Next action is to verify a generic acceptance verb, continuation phrase
+and possessive construction compatible with the linked notice. Preserve
+continuing, acceptance and our, then check the full rendered composition.
+No translation or original queue classification changed. Pending 170;
+unflagged and earlier low-confidence reviews remain in scope. No live UI
+test ran; no remote writes were made.
