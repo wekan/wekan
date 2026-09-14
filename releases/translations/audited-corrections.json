@@ -121504,5 +121504,12 @@
     "before": "كل المستخدمين",
     "after": "ⵉⵏⵙⵙⵎⵔⵙⵏ ⴰⴽⴽⵯ",
     "reason": "Composed all-users due-card view choice. Reuse the previously reviewed admin all-users label using native Mastodon column.blocks users noun and notifications.filter.all exact all form. Replace Arabic while preserving all-users scope. Full combined due-card view usage remains open for fluent review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "edit-checklist-items-as-text",
+    "before": "Ẓreg amzwaru n uḍris",
+    "after": "ⵙⵏⴼⵍ ⵙ ⵓⴹⵕⵉⵙ",
+    "reason": "LOW CONFIDENCE composed Edit as text control. Native MediaWiki edit/skin-view-edit attest snfl/edit; yourtext attests adhris/text and tooltip-search-fulltext attests its bound udhrich variant. Derive bound udhris with consistent noun spelling. Remove the inherited amzwaru/first qualifier absent from English; preserve textual editing mode rather than checklist reordering. Complete as-text phrasing and bound spelling require fluent review. This unflagged wording repair does not reduce original pending counts. Checklist noun research remains separate: candidate lexicon explicitly labels asenqed/check KBL, not verified Standard Moroccan terminology. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
