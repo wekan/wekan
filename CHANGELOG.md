@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,250 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 594 pending review or repair.
-The correction inventory records 17,530 exact before/after values,
+findings: 15,253 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 591 pending review or repair.
+The correction inventory records 17,534 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (451) and
+The largest original queues are Standard Moroccan Tamazight (448) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,10 +102,11 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is acfa4aec1 (2026-09-14), repairing five
-original French card/swimlane placement findings. Preserve above/below,
-selected qualification, object scope and add action. Swimlane adaptation,
-bound nouns and complete placement phrases remain low confidence.
+Latest translation fix is b8f1b5c4a (2026-09-14), repairing four
+multi-selection/card-label action values. Preserve label/member setting,
+multiple-selection removal, literal 1-9 range and all-label/card scope.
+Replace the button word used for labels. Software set adaptation, multiple
+adjective, bound nouns and full phrases remain low confidence.
 Wider language review remains open.
 Greenlandic CLDR-unconfirmed wording and twelve Quechua color wrappers
 still need review, alongside the wider restored and unflagged values.
@@ -116,7 +117,7 @@ names and unresolved Coptic/tabular/epoch terminology; no values changed. Previo
 Cherokee Hijri labels with exact native-script CLDR variant names. Cherokee’s
 original queue is empty. Compact tabular epoch wording still needs fluent
 technical review. Quechua palette compounds and remaining color wrappers
-remain open. There are 451 Tamazight findings remaining.
+remain open. There are 448 Tamazight findings remaining.
 Silesian reference review (2026-09-14) confirms shared database/file terms
 in native MediaWiki messages; the full raw-file label remains pending.
 No translation value or finding count changed in that review.
@@ -626,10 +627,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,250 original findings are
+Translation audit progress as of 2026-09-14: 15,253 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 594 remain pending across 17 locales, including 451 Tamazight findings.
-The ledger contains 17,530 correction records, including unflagged repairs.
+and 591 remain pending across 17 locales, including 448 Tamazight findings.
+The ledger contains 17,534 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -800,6 +801,19 @@ components support vocabulary; swimlane adaptation, bound nouns and complete
 placement phrases remain low confidence. All 17,530 correction/rendering
 checks pass; 594 original findings remain pending. Wider language and live
 browser validation remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b8f1b5c4a">Repair Tamazight multi-selection label and member actions</a>. Thanks to xet7.</summary>
+
+Repair three original French findings and an unflagged card-label command
+that incorrectly used a button word. Preserve label versus member setting,
+multiple-selection removal, literal 1-9 range and all-label/card scope.
+All 17,534 correction/rendering checks pass; 591 original findings remain.
+Native components support vocabulary; software set adaptation, multiple
+adjective, bound nouns and full phrases remain low confidence. Wider language
+and live browser validation remain open.
 
 </details>
 
