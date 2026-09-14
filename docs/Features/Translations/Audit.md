@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,340 |
+| Corrected | 15,341 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 504 |
+| Pending review or repair | 503 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,663** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,664** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `f0b8e907a` — replaced French Tamazight end-date search guidance, preserving exact predicate code and cards **with an end date**. [Native component vocabulary](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) supports provisional wording; plural possession, full relative construction and expiry-to-card-end-date adaptation remain **low confidence** pending fluent review. All **17,663** correction/rendering checks pass. **504** originals remain pending across **17** locales, including **369** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `00983d55d` — replaced Arabic CPU-consumption wording in the Tamazight OS label with **CPU count**, using [native count vocabulary](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) and conventional OS/CPU abbreviations. Full mixed-script technical label remains **low confidence** pending fluent review. All **17,664** correction/rendering checks pass. **503** originals remain pending across **17** locales, including **368** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Memory reference follow-up (2026-09-14):** [Moroccan hardware site](https://pcpicker.ma/prebuilts?lang=zgh) directly uses `ⵜⴰⴽⴰⵜⵓⵜ (RAM)`. This independently corroborates computer-memory usage after correcting the CNAM dialect attribution; it does not establish canonical Standard Moroccan terminology. Translation authorship/review is unknown and CPU labels vary on the page. Added evidence to three memory correction records, retaining low-confidence and renewed-review requirements. No locale values or counts changed. Further review must validate full diagnostics, free/allocated memory distinctions and grammatical adaptation.
 
