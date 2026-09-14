@@ -121,3 +121,31 @@ Focused exact-subject, both assembled actions, copula-negative and actual
 row wiring checks pass. All 4,171 unchanged reviews and 234-locale completeness
 checks pass. One restored finding is retained: 9 restored and 288 pending
 remain. Browser execution and broader language review remain open.
+
+## 2026-09-14 — Restored movement conditions retained
+
+`r-moved-to` = Eramaten denean hona: and `r-moved-from` = Eramaten denean
+hemendik: are retained. The actual board trigger row assembles Txartel bat,
+this conditional action, and a separately labeled zerrenda name field.
+The colon introduces that field, so these are directional UI fragments rather
+than an attempt to inflect the later user-entered list name. Eramaten denean
+expresses when a card is moved; destination and origin remain different.
+No extra da copula is inserted by the Basque rule grammar helper.
+
+[EHU eraman entry](https://www.ehu.eus/eeh/cgi/bila?h=eraman) supplies eraman /
+eramaten and its carrying/movement sense. [EHU hona entry](https://www.ehu.eus/eeh/cgi/bila?h=hona)
+defines the directional adverb as leku honetara. Both pages were fetched
+and decoded using their declared ISO-8859-1 encoding; browser-tool decoding
+failed, not the underlying source fetch. The hemendik headword search did
+not return a dictionary entry and is not claimed as evidence.
+[Native GNOME Boxes instructions](https://teams.pages.gitlab.gnome.org/Websites/help.gnome.org/gnome-boxes/create.html.eu)
+use Sortu makina birtual bat hemendik: before separate source choices.
+That attests the colon/source-field construction, not the full WeKan clause.
+
+The full current UI fragments were reviewed against their control layout and
+trigger handler: moved-to supplies the destination list and leaves oldListName
+as wildcard; moved-from supplies oldListName from the selected list. Exact
+restored values, distinct directions, composed label/copula-negative and
+actual option/handler mapping checks are added. No locale value changes.
+Broader native style and running-browser verification remain open; this
+acceptance is limited to these directional fragments, not other named subjects.

@@ -25024,5 +25024,17 @@
     "key": "r-when-a-item",
     "value": "Kontrol-zerrendako elementu bat",
     "reason": "Retain singular generic checklist-item subject in actual check/uncheck rows. Native software references support list-item terminology; assembled generic temporal clauses use no redundant copula. Named-item order and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "r-moved-to",
+    "value": "Eramaten denean hona:",
+    "reason": "Retain restored Basque movement condition: eramaten denean is the temporal passive clause, hona/hemendik distinguish destination/origin, and the colon introduces the separate list field. EHU native direction terminology and GNOME source-field usage support this actual UI construction; broader/browser review is not claimed."
+  },
+  {
+    "locale": "eu",
+    "key": "r-moved-from",
+    "value": "Eramaten denean hemendik:",
+    "reason": "Retain restored Basque movement condition: eramaten denean is the temporal passive clause, hona/hemendik distinguish destination/origin, and the colon introduces the separate list field. EHU native direction terminology and GNOME source-field usage support this actual UI construction; broader/browser review is not claimed."
   }
 ]

@@ -122,3 +122,18 @@ for (const action of ['r-checked', 'r-unchecked']) {
  assert.equal(sentence, `Kontrol-zerrendako elementu bat ${action === 'r-checked' ? 'Markatzen' : 'Desmarkatzen'} denean`);
  assert.doesNotMatch(sentence, /\bes\b|\bda\b/);
 }
+
+assert.equal(eu['r-moved-to'], 'Eramaten denean hona:');
+assert.equal(eu['r-moved-from'], 'Eramaten denean hemendik:');
+assert.notEqual(eu['r-moved-to'], eu['r-moved-from']);
+for (const key of ['r-moved-to', 'r-moved-from']) {
+  const label = [eu['r-when-a-card'], eu[key], eu['r-list'], '[Demo]'].join(' ');
+  assert.match(label, /^Txartel bat Eramaten denean (hona|hemendik): zerrenda \[Demo\]$/);
+  assert.doesNotMatch(label, /\bda\b|\bis\b|\bes\b/);
+}
+const moveTemplate = fs.readFileSync(path.join(root, 'client/components/rules/triggers/boardTriggers.jade'), 'utf8');
+assert.match(moveTemplate, /option\(value="moved-to"\) \{\{_'r-moved-to'\}\}/);
+assert.match(moveTemplate, /option\(value="moved-from"\) \{\{_'r-moved-from'\}\}/);
+const moveHandler = fs.readFileSync(path.join(root, 'client/components/rules/triggers/boardTriggers.js'), 'utf8');
+assert.match(moveHandler, /actionSelected === 'moved-to'[\s\S]*?oldListName: '\*'/);
+assert.match(moveHandler, /actionSelected === 'moved-from'[\s\S]*?oldListName: listName/);
