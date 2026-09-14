@@ -124059,5 +124059,26 @@
     "before": "الناس",
     "after": "ⵎⵉⴷⴷⵏ",
     "reason": "2026-09-14: Replace Arabic People label with the exact native People label at emoji_button.people in current Mastodon zgh translation. Preserve generic people scope rather than substituting users or members. Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "editTeamPopup-title",
+    "before": "Éditer l'Équipe",
+    "after": "ⵙⵏⴼⵍ ⵜⴰⵔⴰⴱⴱⵓⵜ",
+    "reason": "2026-09-14: Replace French edit heading using native snfl Edit, documented at Mastodon upload_form.edit and lists.edit. Reuse existing Team noun tarabbut, independently present at Mastodon account.badges.group; team application is a contextual extension. LOW CONFIDENCE complete adapted heading: components are supported but full Standard Moroccan phrasing needs fluent review. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "editUserPopup-title",
+    "before": "Éditer l'utilisateur",
+    "after": "ⵙⵏⴼⵍ ⴰⵏⵙⵙⵎⵔⵙ",
+    "reason": "2026-09-14: Replace French edit heading using native snfl Edit, documented at Mastodon upload_form.edit and lists.edit. Use singular User noun consistent with MediaWiki username/user terminology, preserving user rather than member. LOW CONFIDENCE complete adapted heading: components are supported but full Standard Moroccan phrasing needs fluent review. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "card-edit-planning-poker",
+    "before": "Éditer le planning poker",
+    "after": "ⵙⵏⴼⵍ Planning Poker",
+    "reason": "2026-09-14: Replace French edit heading using native snfl Edit, documented at Mastodon upload_form.edit and lists.edit. Preserve exact Planning Poker proper feature name from English source; do not add vote or end-date scope absent from this heading. LOW CONFIDENCE complete adapted heading: components are supported but full Standard Moroccan phrasing needs fluent review. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
