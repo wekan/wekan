@@ -124710,5 +124710,26 @@
     "before": "ⴰⵏⴻⴱⴷⴰⵍ ⵏ ⵜⴼⴻⵍⵡⵉⵜ",
     "after": "ⴰⵎⵙⵙⵓⴳⵓⵔ ⵏ ⵜⴼⵍⵡⵉⵜ",
     "reason": "2026-09-14: Replace Arabic administrator or divergent board-role wording with native Standard Moroccan administrator amssugur, directly attested in MediaWiki blockedtext-contact-blocker-admin; retain singular role rather than account user/member. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Board-qualified complete phrase and bound board form remain LOW CONFIDENCE for fluent review; matching existing organization/admin-only terminology is consistency evidence, not independent full-phrase attestation."
+  },
+  {
+    "locale": "zgh",
+    "key": "migrations",
+    "before": "ⵉⵙⴻⵎⵓⵜⵜⵉⵢⴻⵏ",
+    "after": "ⵉⵙⵎⵓⵜⵜⵢⵏ",
+    "reason": "2026-09-14: Repair French All Migrations or inconsistent software-migration/steps morphology using reviewed asmutty adaptation from MediaWiki movelogpage and all akk from protect-default. Preserve plural migrations and All only where the English includes it; Migration Steps remains a plural sequence, not Current Step or overall progress. Native plural isurifn is attested in Marchica Med zgh home text, spatial rather than software-phase use. LOW CONFIDENCE derived migration plural and software extensions/full noun chain require fluent Standard Moroccan review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json and https://marchicamed.ma/zgh/home-zgh/ ."
+  },
+  {
+    "locale": "zgh",
+    "key": "all-migrations",
+    "before": "Toutes les migrations",
+    "after": "ⵉⵙⵎⵓⵜⵜⵢⵏ ⴰⴽⴽⵯ",
+    "reason": "2026-09-14: Repair French All Migrations or inconsistent software-migration/steps morphology using reviewed asmutty adaptation from MediaWiki movelogpage and all akk from protect-default. Preserve plural migrations and All only where the English includes it; Migration Steps remains a plural sequence, not Current Step or overall progress. Native plural isurifn is attested in Marchica Med zgh home text, spatial rather than software-phase use. LOW CONFIDENCE derived migration plural and software extensions/full noun chain require fluent Standard Moroccan review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json and https://marchicamed.ma/zgh/home-zgh/ ."
+  },
+  {
+    "locale": "zgh",
+    "key": "migration-steps",
+    "before": "ⵉⵙⵓⵔⵉⴼⴻⵏ ⵏ ⵓⵙⵎⵓⵜⵜⵉ",
+    "after": "ⵉⵙⵓⵔⵉⴼⵏ ⵏ ⵓⵙⵎⵓⵜⵜⵢ",
+    "reason": "2026-09-14: Repair French All Migrations or inconsistent software-migration/steps morphology using reviewed asmutty adaptation from MediaWiki movelogpage and all akk from protect-default. Preserve plural migrations and All only where the English includes it; Migration Steps remains a plural sequence, not Current Step or overall progress. Native plural isurifn is attested in Marchica Med zgh home text, spatial rather than software-phase use. LOW CONFIDENCE derived migration plural and software extensions/full noun chain require fluent Standard Moroccan review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json and https://marchicamed.ma/zgh/home-zgh/ ."
   }
 ]
