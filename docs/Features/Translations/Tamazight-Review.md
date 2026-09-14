@@ -161,3 +161,25 @@ reference to these legacy keys was found; scheduled workflow labels use other
 keys. Therefore no running-browser verification of these labels is claimed.
 Exact values, wrong-language negatives and three distinct intervals are tested.
 Three additional unflagged repairs leave the original queue counts unchanged.
+
+## OIDC button: reject unrelated dictionary senses — 2026-09-14
+
+The pending `oidc-button-text` introduces the configurable authentication
+button text in `client/components/settings/settingBody.jade`. It needs the
+interface-control meaning of button, not a biological noun.
+
+The downloaded DGLAI reference has French `bouton` entries 141517 and 142757,
+but their Arabic definitions are `حبة، بثرة` (skin bump/pustule). Consequently
+`ⵜⴰⵔⵃⵙⵉⵜ` and `ⵜⵉⵎⵉⵙⵜ` are not established interface-button terminology
+and must not be selected from the French gloss alone. This is a sense mismatch,
+not evidence that the underlying native words themselves are wrong.
+
+The primary [IRCAM computing reference](https://www.ircam.ma/sites/default/files/2021-02/TICAM14.pdf)
+is the next domain source to inspect. Its search metadata identifies mobile
+computing vocabulary; the full PDF fetch timed out during this review, so
+no term from its body has been accepted. The scraped dictionary remains a
+research lead, not a bundled dependency or sole authority for a UI compound.
+
+The French local value remains pending until the complete customization,
+text and control meaning is translated. No replacement or unchanged acceptance
+was made. Counts remain 283 pending and 4 restored; browser review is open.
