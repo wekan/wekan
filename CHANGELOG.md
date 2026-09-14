@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,180 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 664 pending review or repair.
+findings: 15,183 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 661 pending review or repair.
 The correction inventory records 17,387 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (521) and
+The largest original queues are Standard Moroccan Tamazight (518) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -116,7 +116,7 @@ names and unresolved Coptic/tabular/epoch terminology; no values changed. Previo
 Cherokee Hijri labels with exact native-script CLDR variant names. Cherokee’s
 original queue is empty. Compact tabular epoch wording still needs fluent
 technical review. Quechua palette compounds and remaining color wrappers
-remain open. There are 521 Tamazight findings remaining.
+remain open. There are 518 Tamazight findings remaining.
 Silesian reference review (2026-09-14) confirms shared database/file terms
 in native MediaWiki messages; the full raw-file label remains pending.
 No translation value or finding count changed in that review.
@@ -690,6 +690,18 @@ Preserve anonymous versus signed-in access and required board membership
 versus board administration. Full conjugation, singular role forms and
 board genitives remain low confidence. All 17,403 correction checks pass;
 664 original findings remain pending, including 521 Tamazight. Restored
+and wider language validation remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5b41c0dbf">Translate Tamazight comment and read-only permissions</a>. Thanks to xet7.</summary>
+
+Replace Arabic/French in comment-only, no-comment-visibility and read-only
+role descriptions. Preserve posting versus viewing comments and explicit
+viewing versus editing restrictions. Complete capability conjugations and
+permission scope remain low confidence. All 17,406 correction checks pass;
+661 original findings remain pending, including 518 Tamazight. Restored
 and wider language validation remain open.
 
 </details>
