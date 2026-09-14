@@ -130478,5 +130478,26 @@
     "before": "Couleur",
     "after": "Liv",
     "reason": "Native Breton software vocabulary for none, unknown and color; replace French."
+  },
+  {
+    "locale": "br",
+    "key": "cards-count-one",
+    "before": "Carte",
+    "after": "Kartenn",
+    "reason": "Replace French with native card/number nouns; align with existing Breton WeKan card vocabulary and OPLB definitions."
+  },
+  {
+    "locale": "br",
+    "key": "cardType-card",
+    "before": "Carte",
+    "after": "Kartenn",
+    "reason": "Replace French with native card/number nouns; align with existing Breton WeKan card vocabulary and OPLB definitions."
+  },
+  {
+    "locale": "br",
+    "key": "custom-field-number",
+    "before": "Nombre",
+    "after": "Niver",
+    "reason": "Replace French with native card/number nouns; align with existing Breton WeKan card vocabulary and OPLB definitions."
   }
 ]

@@ -296,3 +296,10 @@ for (const [key, value] of Object.entries({"custom-field-dropdown-none":"(hini e
   assert.doesNotMatch(locales.br[key], /aucun|inconnu|Couleur/);
 }
 assert.notEqual(locales.br['custom-field-dropdown-none'], locales.br['custom-field-dropdown-unknown']);
+
+for (const [key, value] of Object.entries({"cards-count-one":"Kartenn","cardType-card":"Kartenn","custom-field-number":"Niver"})) {
+ assert.equal(locales.br[key], value);
+ assert.doesNotMatch(locales.br[key], /Carte|Nombre/);
+}
+assert.equal(locales.br['cards-count-one'], locales.br['cardType-card']);
+assert.notEqual(locales.br['custom-field-number'], locales.br['custom-field-text']);
