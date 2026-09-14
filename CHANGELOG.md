@@ -1181,6 +1181,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ac95ce3aa">Repair Tamazight JSON-schema error</a></summary>
+
+Replace French prose while preserving generic information and format
+validation meaning. Four focused suites pass; technical format loan and
+complete participle/possessive grammar remain under contextual review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

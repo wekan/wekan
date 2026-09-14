@@ -29587,3 +29587,20 @@ all five keys while preserving enabled vs absent-information distinction.
 
 No locale edit, runtime or live UI test performed. Ledger 19,894 and
 tracked pending 132 remain unchanged; broader native review stays open.
+
+
+2026-09-15 — `ac95ce3aa`: error-json-schema French replaced with your
+JSON data lacking correct information in correct format. IRCAM 7505 isfki
+plural isfka data; 3457 anghmis information plural inghmisn; 6406 kn means
+be right/correct. Derived correct participles iknan and plural possession
+ur darsn remain low confidence. Format is an explicit technical loan, not
+attested localized formatting vocabulary. Complete schema phrase remains
+under contextual review. trelloCreator.js wraps multiple board/action/
+label/list/card/checklist validation failures with this generic key;
+translation does not narrow it to JSON parse syntax alone. Four focused
+suites pass for exact value, negative French/Arabic and token inventories.
+No live import UI test ran. Ledger 19,895; corrected 15,772, pending 131
+(zgh 38), restored 4 unchanged. CSV error remains Arabic and pending.
+Source CSV branch only checks nonempty Papa.parse data before this key;
+that fact does not establish validation of every CSV schema/format failure.
+Preserve CSV/TSV explanations when repairing that message next.
