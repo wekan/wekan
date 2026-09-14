@@ -28,11 +28,11 @@ repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
-Latest terminology review: **2026-09-14**, `ee94227ea` —
-[Fulah calendar evidence](Fulah-Review.md) separates structured grid/table
-usage from furniture and adds primary beginning-word evidence. The latest repair above adds calculation-word evidence; complete compound
-grammar and dialect consistency remain unverified. Historical evidence
-review did not change locale values or counts.
+Latest terminology review: **2026-09-15** —
+[Tamazight SMTP evidence](Tamazight-Review.md) confirms the existing
+computer-server compound and excludes harbour terminology as proof of a
+networking port. SMTP port strings and complete host grammar remain open.
+No locale values or counts changed.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

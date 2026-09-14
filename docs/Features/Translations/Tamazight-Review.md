@@ -2442,3 +2442,23 @@ placeholders, provenance and newer translations. No active migration
 references or live browser test; removed code remains removed. Ledger
 19,777; original corrected 15,697, pending 206 (zgh 103), restored 4 unchanged.
 All broader uncertain/restored/unflagged review remains open. No push.
+
+## SMTP networking-port evidence boundary — 2026-09-15
+
+The full cached [primary IRCAM dictionary](https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339)
+was rechecked by numbered lexical entries, excluding its English index.
+Page 120 entry 2157 explicitly attests computer server as
+ⴰⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ (amakkay asnmalay). The existing SMTP host label
+and server compound are retained; this supports the noun, not complete
+host-description grammar. A scan found no mistakenly split
+ⴰⵎⴰⴽⴽⴰ ⵢⴰⵙⵏⵎⴰⵍⴰⵢ form in the locale.
+
+Page 74 entry 1154 gives aftas as harbour/port; page 176 entry 3283
+gives anftas as of the port. Neither attests a numbered TCP endpoint.
+Those entries must not justify replacing smtp-port with a harbour term.
+Cross-dialect computing lexicons and Chilean hosting pages returned by
+search do not establish Standard Moroccan Tamazight networking terminology.
+The Arabic smtp-port label and French smtp-port-description remain open,
+including the complete outgoing-email clause. No locale value, acceptance
+or correction count changes in this evidence review. Original pending
+206, zgh 103; restored 4 and all broader uncertain findings remain open.
