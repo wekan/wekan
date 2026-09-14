@@ -108,6 +108,9 @@ adaptation remain low confidence for fluent review.
 Start spelling follow-up 2219d5358 distinguishes plain Begin/Start from
 emphatic Share/Divide in indexed IRCAM entries; direct PDF and full command
 verification remain open. No values or counts changed.
+Subtask terminology follow-up 92f69f58d identifies Language in the
+existing-card-as-subtask action. Full hierarchical wording needs repair;
+Work/Task evidence alone is insufficient. No values or counts changed.
 Bambara calendar follow-up 5610dff52 confirms current CLDR lacks native
 Hijri variant names; Era vocabulary does not establish reference-date
 Epoch. Both tabular calendar labels remain pending.
@@ -1981,6 +1984,16 @@ Replace French Custom Help Link URL wording, preserving URL and the custom
 qualifier. Full noun-chain grammar, bound link noun and specified/custom
 adaptation remain low confidence for fluent review. All 17,771 correction
 checks pass; 476 original findings remain pending, including 341 Tamazight.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/92f69f58d">Record Tamazight subtask terminology error</a>. Thanks to xet7.</summary>
+
+Identify the unflagged use of Language in Add Existing Card as Subtask.
+Record indexed primary references and their limits; preserve the hierarchical
+relation when repairing the complete action. No translation values or counts
+changed. This finding remains part of the broader translation review.
 
 </details>
 
