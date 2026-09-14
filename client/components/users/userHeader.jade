@@ -247,6 +247,8 @@ template(name="changeLanguagePopup")
             span.language-main-line
               span.emoji-icon.language-flags(dir="ltr" aria-hidden="true") {{languageFlag}}
               bdi.language-name {{languageName}}
+              if rtl
+                span.language-rtl(dir="ltr") (RTL)
             if countryFlag
               span.language-region
                 | (
@@ -255,8 +257,6 @@ template(name="changeLanguagePopup")
                   | &nbsp;
                   bdi {{regionName}}
                 | )
-          if rtl
-            |  (RTL)
           if isCurrentLanguage
             i.fa.fa-check
 

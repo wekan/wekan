@@ -1345,3 +1345,10 @@ body.mobile-mode .pop-over .content-wrapper {
   overflow: auto;
   padding-bottom: 20px;
 }
+
+/* Keep the direction marker with its language name, never in the region row. */
+.pop-over[data-popup='changeLanguagePopup'] .language-rtl {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  unicode-bidi: isolate;
+}

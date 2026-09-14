@@ -92,3 +92,9 @@ assert.match(block(".pop-over[data-popup='changeLanguagePopup'] .language-label"
 assert.match(block(".pop-over[data-popup='changeLanguagePopup'] .pop-over-list li > a"), /overflow: visible/);
 assert.match(block(".pop-over[data-popup='changeLanguagePopup'] .pop-over-list li > a"), /white-space: normal/);
 assert.match(jade, /span\.language-main-line\n\s+span\.emoji-icon\.language-flags/);
+
+const mainLine = jade.split('span.language-main-line')[1].split('            if countryFlag')[0];
+assert.match(mainLine, /bdi\.language-name[\s\S]*?if rtl\n\s+span\.language-rtl\(dir="ltr"\) \(RTL\)/);
+assert.doesNotMatch(jade, /\n          if rtl\n/, 'RTL marker must not be a separate flex item beside the two-line label');
+assert.match(block(".pop-over[data-popup='changeLanguagePopup'] .language-rtl"), /white-space: nowrap/);
+assert.match(block(".pop-over[data-popup='changeLanguagePopup'] .language-rtl"), /flex: 0 0 auto/);

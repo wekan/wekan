@@ -35,6 +35,16 @@ for (const direction of ['ltr', 'rtl']) {
       await expect(entry.locator('.language-flags')).toHaveText(language);
       await expect(entry.locator('.language-region .language-country-flag')).toHaveText(country);
     }
+    const hebrew = popup.locator('.js-set-language[data-language="he-IL"]');
+    await expect(hebrew.locator('.language-main-line .language-rtl')).toHaveText('(RTL)');
+    await expect(hebrew.locator('.language-region .language-rtl')).toHaveCount(0);
+    await expect(popup.locator('.js-set-language[data-language="en-BR"] .language-rtl')).toHaveCount(0);
+    const marker = await hebrew.locator('.language-rtl').boundingBox();
+    const firstLine = await hebrew.locator('.language-main-line').boundingBox();
+    const secondLine = await hebrew.locator('.language-region').boundingBox();
+    expect(marker.y).toBeLessThan(secondLine.y);
+    expect(marker.height).toBeLessThanOrEqual(firstLine.height);
+    expect(await hebrew.locator('.language-rtl').evaluate(el => el.scrollWidth <= el.clientWidth)).toBe(true);
     const brazil = popup.locator('.js-set-language[data-language="en-BR"]');
     await expect(brazil.locator('.language-name')).toHaveText('English');
     await expect(brazil.locator('.language-region bdi')).toHaveText('Brazil');
