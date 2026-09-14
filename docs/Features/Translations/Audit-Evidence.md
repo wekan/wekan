@@ -23037,3 +23037,11 @@ preview wording and uploaded-date prefix are direct adaptations requiring
 native full-phrase/date validation. All 18,431 correction and 4,158 unchanged
 checks pass. Browser execution remains unverified; original pending/restored
 scope stays 300/27, and broader unflagged review remains required.
+
+Dated unflagged repair, 2026-09-14, local commit `04510ecd2`: six Breton
+card controls and missing-list/team messages replace French. Reuse established
+archive dielloù, Kemmañ, tikedennoù, vot, roll and skipailh vocabulary.
+Not-found messages follow existing org-name-not-found structure and retain
+English %s token inventory exactly. Planning Poker remains a tool name.
+All 18,437 correction and 4,158 unchanged checks pass. Native phrase/browser
+validation remain open; original pending/restored remains 300/27.

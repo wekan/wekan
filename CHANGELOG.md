@@ -671,6 +671,15 @@ The empty wrongly placed Git directory was removed locally.
 **Languages updated:** Acehnese, Bambara, Basque, Breton, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/04510ecd2">Repair Breton card and missing item language</a>. Thanks to xet7.</summary>
+
+Six French-seeded card controls and missing-list/team messages become Breton.
+Preserve archive meaning and exact placeholders. Structural checks pass;
+native phrasing and browser review remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0a3320e69">Repair Breton attachment and upload language</a>. Thanks to xet7.</summary>
 
 Twelve French-seeded attachment/export/upload labels reuse Breton terminology.
