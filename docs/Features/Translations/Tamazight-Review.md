@@ -243,3 +243,22 @@ native grammatical validation. `client/components/rules/rulesWorkflow.js`
 uses this key for a daily scheduled trigger with time `09:00`. Regression
 checks preserve `__time__` exactly and check substitution without retaining
 the prior wording. No live browser check ran; uncertainty remains tracked.
+
+## Migration progress message — 2026-09-14
+
+The French `migration-progress-note` is replaced by an adapted Tamazight
+wait/board-transfer/latest-structure clause. Primary dictionary PDF pages
+306 (entry 5975), 335 (6420), 503 (9495), 703 (13278) and 126 (2274)
+establish wait, while, transfer/move, structure and last respectively.
+Native MediaWiki `move` independently uses the same transfer verb in
+software. The board noun follows the existing local `Tafelwit` vocabulary.
+
+The complete clause, verbal aspect, possessive and feminine adjective
+agreement are adapted, **low confidence**, pending native grammatical review.
+The imperative conveys the request to wait; courteous idiom still needs
+review. This replaces wrong-language prose without claiming independently
+attested full fluency. `migrationProgress.jade` renders this key in the
+progress popup. Exact wording and French-negative regression checks are
+added; no live browser validation ran. The original key is now corrected,
+but this uncertainty remains in the broader review rather than disappearing
+when the pending counter decreases.

@@ -79,3 +79,7 @@ assert.deepEqual(locales.zgh['r-w-every-day-at'].match(/__[a-z]+__/g), ['__time_
 assert.doesNotMatch(locales.zgh['r-w-every-day-at'], /ⴽⵓⵍ|ⴷⴻⴳ|Every|Tous/);
 assert.equal(locales.zgh['r-w-every-day-at'].replace('__time__', '09:00'),
   'ⴽⵓ ⴰⵙⵙ ⴳ 09:00');
+assert.equal(locales.zgh['migration-progress-note'],
+  'ⴳⴳⴰⵏⵉ ⴽⵓⴷ ⴰⵔ ⵏⵙⵎⵓⵜⵜⵓⵢ ⵜⴰⴼⵍⵡⵉⵜ ⵏⵏⴽ ⵖⵔ ⵜⵓⵚⴽⵉⵡⵜ ⵜⴰⵎⴳⴳⴰⵔⵓⵜ...');
+assert.doesNotMatch(locales.zgh['migration-progress-note'],
+  /Veuillez|patienter|migration de votre|dernière structure/);

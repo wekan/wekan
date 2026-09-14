@@ -130926,5 +130926,12 @@
     "before": "ⴽⵓⵍ ⴰⵙⵙ ⴷⴻⴳ __time__",
     "after": "ⴽⵓ ⴰⵙⵙ ⴳ __time__",
     "reason": "Align active daily scheduled trigger with primary IRCAM ku each and temporal g, consistent with native daily lesson. Preserve __time__. Adapted full clause, low confidence pending full native and browser validation; alternate dg is attested and not rejected categorically."
+  },
+  {
+    "locale": "zgh",
+    "key": "migration-progress-note",
+    "before": "Veuillez patienter pendant la migration de votre tableau vers la dernière structure...",
+    "after": "ⴳⴳⴰⵏⵉ ⴽⵓⴷ ⴰⵔ ⵏⵙⵎⵓⵜⵜⵓⵢ ⵜⴰⴼⵍⵡⵉⵜ ⵏⵏⴽ ⵖⵔ ⵜⵓⵚⴽⵉⵡⵜ ⵜⴰⵎⴳⴳⴰⵔⵓⵜ...",
+    "reason": "Replace French migration progress message using primary IRCAM wait, while, move and structure vocabulary plus native software move usage. Preserve wait/board migration/latest structure meaning. Adapted full clause, low confidence pending native grammar and browser validation."
   }
 ]
