@@ -130772,5 +130772,12 @@
     "before": "ᐲᖅᑕᐅᔪᖅ",
     "after": "Piirli",
     "reason": "Replace passive status wording with the exact native software imperative from Microsoft Inuktitut style guide. Roman orthography is valid; browser flow review remains open."
+  },
+  {
+    "locale": "zgh",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ⴰⴱⵓⴷⴷⵉ",
+    "reason": "Replace English Buddhist label with native Moroccan calendar noun and Buddhist adjective attested in native article revision 140790. Full calendar compound adapted; broader native/browser review remains open."
   }
 ]

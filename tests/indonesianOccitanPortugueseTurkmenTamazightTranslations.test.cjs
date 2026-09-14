@@ -33,3 +33,7 @@ for (const [key, value] of Object.entries({register:'ⵙⵏⵓⵍⴼⵓ ⴰⵎ�
  assert.doesNotMatch(locales.zgh[key], /enregistrer|Journal|ⴰⴳⵣⵓⵎ/);
 }
 assert.notEqual(locales.zgh.summary, locales.zgh.history);
+
+assert.equal(locales.zgh['calendar-system-buddhist'], 'ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ⴰⴱⵓⴷⴷⵉ');
+assert.doesNotMatch(locales.zgh['calendar-system-buddhist'], /Buddhist/);
+assert.notEqual(locales.zgh['calendar-system-buddhist'], locales.zgh['calendar-system-islamic']);
