@@ -30,11 +30,11 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Aromanian second dictionary review](Aromanian-Review.md) inspected Cunia's
-1,134-page dictionary and its actual mag- entry sequence. No magenta term
-was attested. A newer native dictionary is identified for further review;
-the existing loanword remains open. No locale values or counts changed.
-Earlier JSON-warning and Wolaytta findings remain in detailed evidence.
+[Aromanian Bara dictionary search](Aromanian-Review.md) queried the newer
+2024 source. Magenta/fucsin returned no entries; hrom returned an attributed
+colour entry, verifying the search worked. Magenta remains unverified,
+not replaced with another color. No locale values or counts changed.
+Earlier dictionary, JSON and Wolaytta findings remain in detailed evidence.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

@@ -52,3 +52,26 @@ search results or treating missing dictionary entries as an invalid loan.
 The local magenta value is retained pending attestation, not classified as
 reviewed-correct. No translation or ledger change: original pending 177,
 Aromanian 1, restored 4. Broader reviews remain open. No remote writes.
+
+
+## Newer Bara dictionary queried — 2026-09-15
+
+The actual Dixi search form was submitted as a read-only dictionary query,
+selecting DictTiCathiDzuua (Mariana Bara 2024), Di iutsido (definitions and
+other-language glosses) and 25 entries per page. Queries for magenta and
+fucsin returned zero result articles. A positive-control hrom query returned
+hromã with English colour, Romanian culoare and French couleur, explicitly
+attributed to Bara 2024. Thus this review inspected a working dictionary
+search, rather than assuming the landing page was a lexical result.
+Source and form: https://www.dixionline.net/index.php
+
+This establishes only the absence of entries returned for those two query
+strings in that selected source. It does not exclude alternative spellings
+or descriptions, and does not prove the magenta loanword wrong. No full
+color inventory or native-speaker approval is claimed. Do not replace
+magenta with the attested generic word colour, pink or purple.
+
+No locale/ledger/count change: original pending 177, Aromanian 1, restored
+4. The newer dictionary search closes the previous unexecuted source check,
+while actual magenta attestation remains open. Broader review continues.
+No remote writes.
