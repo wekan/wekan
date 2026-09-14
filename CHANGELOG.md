@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,406 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 438 pending review or repair.
-The correction inventory records 17,874 exact before/after values,
+findings: 15,408 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 436 pending review or repair.
+The correction inventory records 17,876 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 85229c1da (2026-09-14), replacing two unflagged
-French Stop/Stopping values. Native app usage supports the term; derived
-clause and Pause/Stop lexical overlap remain for fluent review.
+Latest translation fix is 260b96587 (2026-09-14), replacing two French
+structured-data import hints and preserving literal CSV/TSV and JSON.
+Paste terminology and full phrases remain low confidence for review.
 Logo provenance follow-up 89f36d41f (2026-09-14) applies the dictionary's
 cross-variety preface to two earlier URL records. Native caption evidence
 remains separate; full labels stay low confidence. No values/counts changed.
@@ -646,10 +646,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,406 original findings are
+Translation audit progress as of 2026-09-14: 15,408 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 438 remain pending across 17 locales, including 303 Tamazight findings.
-The ledger contains 17,874 correction records, including unflagged repairs.
+and 436 remain pending across 17 locales, including 301 Tamazight findings.
+The ledger contains 17,876 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -2500,6 +2500,17 @@ Preserve command versus ongoing progress, plural migrations and ellipsis.
 Derived full clause and the reference's Pause/Stop lexical overlap remain
 for fluent review. All 17,874 correction checks pass; 438 originals remain
 pending. Live browser verification was not run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/260b96587">Translate Tamazight structured-data import hints</a>. Thanks to xet7.</summary>
+
+Replace two French hints while preserving Paste your valid data here and
+literal CSV/TSV or JSON. Native component evidence supports Here, Data and
+Valid; Paste terminology and full phrasing remain low confidence for review.
+All 17,876 correction checks pass; 436 original findings remain pending.
+Live browser verification was not run.
 
 </details>
 
