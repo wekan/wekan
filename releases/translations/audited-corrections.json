@@ -126733,5 +126733,19 @@
     "before": "Analyser la structure du tableau",
     "after": "ⵙⵍⴹ ⵜⴰⵎⵚⵓⴽⵜ ⵏ ⵜⴼⵍⵡⵉⵜ",
     "reason": "2026-09-14: replaced French Analyze Board Structure. Directly inspected rendered CNAM Amawal PDF pages 19 and 134: Analyze sleḍ (MW modern lexicon) and Structure Tamṣukt (MAT mathematical lexicon). Rendered letters resolve legacy extraction substitutions; neither source is normative Moroccan software usage. Tifinagh transliteration, bound board form and complete command remain LOW CONFIDENCE and require native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "import",
+    "before": "Kter",
+    "after": "ⴰⵙⴽⵛⵓⵎ",
+    "reason": "2026-09-14: additional wrong-language repair outside original findings. Native MediaWiki zgh importlogpage uses is kchumn (Import log); reuse skchm root and existing WeKan import-usernames command. Replace Latin Kter or Arabic with Tamazight, preserving generic Import versus Import Board. Singular action noun and complete board command remain LOW CONFIDENCE adaptations pending native review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "import-board",
+    "before": "استيراد لوحة",
+    "after": "ⵙⴽⵛⵎ ⵜⴰⴼⵍⵡⵉⵜ",
+    "reason": "2026-09-14: additional wrong-language repair outside original findings. Native MediaWiki zgh importlogpage uses is kchumn (Import log); reuse skchm root and existing WeKan import-usernames command. Replace Latin Kter or Arabic with Tamazight, preserving generic Import versus Import Board. Singular action noun and complete board command remain LOW CONFIDENCE adaptations pending native review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
