@@ -1,5 +1,18 @@
 # Detailed translation audit evidence
 
+2026-09-14 — board-structure analysis terminology review: directly read
+[CNAM Amawal](https://cedric.cnam.fr/~bouzefra/books/amawal.pdf) PDF text.
+PDF page 19 gives Analysis with MW marker and an Analyze root; PDF page 134
+gives Structure with MAT marker, including Data and List Structure compounds.
+MW is modern lexicon, not MediaWiki; MAT is a mathematical lexicon, not
+normative Moroccan software usage. Extracted spellings `slev`, `Tasleî` and
+`Tamûukt` contain legacy-font substitutions; do not treat extraction glyphs
+as verified native letters or silently convert them to Tifinagh. Screenshot
+requests returned references without inspectable images in this review.
+Keep `step-analyze-board-structure` pending until candidate spellings and
+full Analyze Board Structure wording are reviewed. No values, correction
+records or progress counts changed.
+
 2026-09-14 — `c5092a51f`: four French authentication labels repaired,
 three original findings and one additional Type repair. Direct CNAM PDF
 page 23 Authentication Asesteb MC£ and page 91 Method Tarrayt MW support

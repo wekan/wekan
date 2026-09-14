@@ -16,6 +16,11 @@ Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calenda
 
 Latest translation fix: **2026-09-14**, local commit `c5092a51f` — replaced four French authentication labels, preserving Method versus Type and Default/Display modifiers. Three were original findings; Type is an additional repair. Inspected Authentication is cross-variety MC£, not normative Moroccan evidence; script rendering, bound form and full phrases remain **low confidence**. All **18,104** correction checks pass; **315** findings remain pending across **17** locales, including **180** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
+**Board-analysis review (2026-09-14):** directly read dictionary Analysis
+and Structure candidates, but legacy-font letters and cross-variety source
+limits remain unresolved. The full board-analysis label stays pending.
+[Evidence](Audit-Evidence.md) records pages and limits; values/counts unchanged.
+
 **Search-case review (2026-09-14):** preserve uppercase/lowercase matching,
 not font-size or accent equivalence. Indexed IRCAM discussions do not
 establish native case-insensitivity terms; the instruction remains pending.
