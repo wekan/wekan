@@ -127321,5 +127321,12 @@
     "before": "limeda",
     "after": "limekolora",
     "reason": "Use attested Esperanto limekolora for the lime color rather than ambiguous limeda fruit adjective. Reference https://en.wiktionary.org/wiki/verdo lists limekolora among Esperanto colors. Follow-up semantic correction preserves original provenance."
+  },
+  {
+    "locale": "eu",
+    "key": "r-when-a-end-date-changed",
+    "before": "Finalizado: data aldatu da",
+    "after": "Amaiera: data aldatu da",
+    "reason": "Replace Spanish Finalizado in Basque end-date trigger with Amaiera, following existing Basque end-date terminology. Preserve date-changed meaning; full trigger composition remains under review."
   }
 ]
