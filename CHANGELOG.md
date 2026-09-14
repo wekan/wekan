@@ -646,6 +646,17 @@ This release documents the following translation fixes:
 **Developer tooling** - Mirror Git progress.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4a01cc9be">Restore Markdown heading sizes in card titles</a>. Thanks to xet7.</summary>
+
+Minicard and opened-card headings retain relative sizes despite global and
+mobile font resets. Card numbers are rendered outside Markdown title source
+so heading syntax works. The shared viewer retains Admin Panel security
+policies. Renderer and source checks pass; browser policy and computed-size
+cases were syntax checked but could not run without a local application.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/93e61a1d6">Prefer authenticated GitHub CLI for mirror source metadata</a>. Thanks to xet7.</summary>
 
 The mirror launcher reports CLI availability immediately. Authenticated gh api
