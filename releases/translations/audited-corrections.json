@@ -123688,5 +123688,19 @@
     "before": "Islamic Umm al-Qura",
     "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ⵏ ⵍⵉⵙⵍⴰⵎ (Umm al-Qura)",
     "reason": "Replace incomplete English Umm al-Qura calendar label with full Tamazight Islamic calendar wording while preserving the named Umm al-Qura variant. Primary Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml directly supplies calendar-system Islamic asmlussan n lislam, explicitly draft=provisional. Reuse that local base and retain proper calendar name Umm al-Qura rather than reducing to generic Islamic calendar or substituting civil/sighting variants. LOW CONFIDENCE complete named-variant composition and provisional CLDR base need fluent review. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ Dangi",
+    "reason": "Restore full calendar label with native Tamazight calendar noun and preserve exact named Dangi or ISO-8601 identity from English. Primary Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml key calendar directly supplies asmlussan. Dangi remains the specific named calendar rather than a generic Korean calendar; ISO-8601 standard identifier is retained. LOW CONFIDENCE complete mixed-script named-calendar composition requires fluent review. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "calendar-system-iso8601",
+    "before": "ISO 8601",
+    "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ISO-8601",
+    "reason": "Restore full calendar label with native Tamazight calendar noun and preserve exact named Dangi or ISO-8601 identity from English. Primary Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml key calendar directly supplies asmlussan. Dangi remains the specific named calendar rather than a generic Korean calendar; ISO-8601 standard identifier is retained. LOW CONFIDENCE complete mixed-script named-calendar composition requires fluent review. Reviewed 2026-09-14."
   }
 ]
