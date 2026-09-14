@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,499 |
+| Corrected | 15,501 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 345 |
+| Pending review or repair | 343 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,069** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,071** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `4ee286985` — repaired French imported-member user selection. Preserve YOUR EXISTING USER you WANT TO USE AS THIS MEMBER. Native components support wording; derived positive existence, member noun and full use-as clause remain **low confidence**. All **18,069** correction checks pass; **345** findings remain pending across **17** locales, including **210** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `bc0e7f13a` — repaired two wrong-language checklist uncompletion activities. Preserve ACTIVE UNDOING OF COMPLETION and exact percent placeholders. Native edit-reversal Undo supports wording; actor past, completion noun and full checklist coordination remain **low confidence**. All **18,071** correction checks pass; **343** findings remain pending across **17** locales, including **208** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Archive noun review (2026-09-14, `fbe388603`):** directly inspected a native Archives du Maroc logo in a university PDF, corroborating the archive noun beyond the earlier search-index excerpt. Updated nine provenance records; values/counts unchanged. Institutional-to-kanban adaptation and full labels remain low confidence. [Evidence](Audit-Evidence.md) records the exact source and scope.
 
@@ -22,7 +22,7 @@ Latest translation fix: **2026-09-14**, local commit `4ee286985` — repaired Fr
 
 **Conversion evidence review (2026-09-14, `ecae7d919`):** native Ministry usage supports Return/date-back, not the proposed Become verb. Preserve low confidence; follow-up `996cc65c7` repairs the Arabic original-order variant using low-confidence cross-variety dictionary candidates. The evidence-only review changed no values/counts. [Evidence](Audit-Evidence.md) records the morphological and semantic limits.
 
-**Checklist completion review (2026-09-14, `9de9f2c15`, follow-up `4139001a3`):** native MediaWiki now directly supports transitive Complete Login, stronger than legal supplementation. Past actor form and full checklist grammar remain low confidence; active uncompletion still needs distinct reversal wording. Login noun is attested. Follow-up `800934571` repairs the custom-logo labels using a native community caption; full wording remains low confidence. The completion evidence review itself changed no values/counts. [Evidence](Audit-Evidence.md) records source context.
+**Checklist completion review (2026-09-14, `9de9f2c15`, follow-up `4139001a3`):** native MediaWiki now directly supports transitive Complete Login, stronger than legal supplementation. Past actor form and full checklist grammar remain low confidence; active uncompletion is repaired with distinct Undo Completion wording in `bc0e7f13a`; derived morphology remains low confidence. Login noun is attested. Follow-up `800934571` repairs the custom-logo labels using a native community caption; full wording remains low confidence. The completion evidence review itself changed no values/counts. [Evidence](Audit-Evidence.md) records source context.
 
 **Subtask review (2026-09-14):** finding `92f69f58d` is repaired in `23c82a5c1`: existing-card action now uses As and hierarchical Task wording. Nine noun/settings/delete/action labels are repaired across `f13775594` and `23c82a5c1`; full paraphrases remain low confidence. Added-subtask activity is repaired in `b26d1ddc1` with low-confidence grammar; Linked Subtask is repaired in `af33f6640`; full phrases and other related wording still need review. [Evidence](Audit-Evidence.md) retains source limits.
 
