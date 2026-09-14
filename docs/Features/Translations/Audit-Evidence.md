@@ -21549,3 +21549,13 @@ archive restoration, voting for/against and identity visibility. Planning
 Poker/CAS names and question-mark notation are intentional. Avatar, assignee
 and template actions retain correct wording. Unchanged-value tests pass;
 uncertain terminology and browser validation remain open.
+
+
+### Esperanto role and custom-field review — 2026-09-14
+
+Local commit `5ba04c102` retains 49 directly reviewed correct values.
+Preserve assigned-card visibility, comment/read permission limits, field
+types and none/unknown states. Reviewed subtask compounds and deletion
+confirmations retain correct grammar. Lime wording is excluded pending
+color-versus-fruit review; earlier completion/member/overtime questions remain
+open. Unchanged-value tests pass; browser behavior was not verified.

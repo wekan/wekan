@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,547 |
-| Restored pre-pull; awaiting validation | 2,856 |
-| Reviewed; retained unchanged | 1,370 |
+| Restored pre-pull; awaiting validation | 2,807 |
+| Reviewed; retained unchanged | 1,419 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -18,8 +18,8 @@ source references, confidence limits and archived progress notes.
 Latest translation fix/review: **2026-09-14**, local commit `9ee9d2357` —
 repaired Esperanto watch-settings terminology and retained 33 correct values,
 including reviewed subtask compounds. Latest unchanged-value review:
-**2026-09-14**, local commit `8be47d3b3` — retained 50 correct calendar,
-voting and avatar controls. All **18,142** correction records and
+**2026-09-14**, local commit `5ba04c102` — retained 49 correct role,
+custom-field and card-control values. All **18,142** correction records and
 unchanged-value/progress checks pass. Browser verification was not run;
 no translations were pushed. Completion terminology remains under review.
 
@@ -30,7 +30,8 @@ Klingon findings and the broader 829 German-identical values were repaired;
 the cron label retains the actual tool name Cron. Danish restored review
 validated 611 values: 606 retained unchanged and five meanings repaired.
 Four Danish context-dependent labels remain: free, Complete, Schedule and Days Old.
-Esperanto completion, member-pronoun and overtime wording remains open.
+Esperanto completion, member-pronoun, overtime and lime-color wording
+remains open.
 Reviewed subtask actions/settings retain correct subordinate-task compounds.
 
 | Pending locale | Findings |
