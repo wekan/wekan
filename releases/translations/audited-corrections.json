@@ -125018,5 +125018,12 @@
     "before": "Quand l'élément de la checklist",
     "after": "ⴰⴷⴷⴰⵢ ⴰⴼⵔⴷⵉⵙ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
     "reason": "Replace French checklist rule condition prefix with Standard Moroccan Tamazight. Current MediaWiki zgh metadata-fields attests temporal When adday; redirect-summary attests yan/yat for a noun. https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Retain generic versus named checklist/item distinction; checklistTriggers.jade supplies dropdown verbs and name fields separately. LOW CONFIDENCE: proposed List of Verification checklist paraphrase, derived verification noun ussidd (imperative Verify is attested), free Item form and complete assembled rule grammar. Do not claim fluent validation or an independently attested checklist term."
+  },
+  {
+    "locale": "zgh",
+    "key": "newLineNewItem",
+    "before": "سطر واحد من النص = عنصر واحد من قائمة التحقق",
+    "after": "ⵢⴰⵏ ⵉⵣⵔⵉⵔⵉ ⵏ ⵓⴹⵕⵉⵚ = ⵢⴰⵏ ⴰⴼⵔⴷⵉⵙ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
+    "reason": "Replace Arabic with Standard Moroccan Tamazight. Current MediaWiki zgh search-ignored-headings attests singular textual Line izriri; missing-article attests Text adrich; redirect-summary supplies yan for one/a. https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve one line equals one checklist item, literal = and bulk-entry hint context in checklists.jade. LOW CONFIDENCE: bound Text form, free Item adaptation, proposed List of Verification checklist term with derived ussidd, and full grammar; source evidence does not attest the full checklist phrase."
   }
 ]
