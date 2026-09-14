@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,300 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 544 pending review or repair.
-The correction inventory records 17,606 exact before/after values,
+findings: 15,302 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 542 pending review or repair.
+The correction inventory records 17,608 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,11 +102,11 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is b2af87a24 (2026-09-14), replacing two bare
-English Bambara Buddhist/Coptic labels with provisional calendar compounds.
-Borrowing spelling, proper-name association and full compounds remain low
-confidence without canonical native attestation. Two Bambara civil/tabular
-epoch findings remain pending. Wider language review remains open.
+Latest translation fix is 6d838c3fb (2026-09-14), replacing two bare
+English Fulah calendar labels with Latin transcriptions of native Adlam CLDR
+Buddhist/Coptic names. Exact source spellings are recorded; transcription
+and regional terminology still need native review. Three Fulah Hijri variant
+findings remain pending. Wider language review remains open.
 Greenlandic CLDR-unconfirmed wording and twelve Quechua color wrappers
 still need review, alongside the wider restored and unflagged values.
 Tamazight calendar review dd2aaa19a (2026-09-14) records provisional
@@ -626,10 +626,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,300 original findings are
+Translation audit progress as of 2026-09-14: 15,302 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 544 remain pending across 17 locales, including 403 Tamazight findings.
-The ledger contains 17,606 correction records, including unflagged repairs.
+and 542 remain pending across 17 locales, including 403 Tamazight findings.
+The ledger contains 17,608 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -1022,6 +1022,18 @@ compound grammar remain low confidence without canonical native attestation.
 All 17,606 correction/rendering checks pass; 544 original findings remain,
 including two Bambara civil/tabular epoch findings. Wider language and live
 browser validation remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6d838c3fb">Use Fulah Adlam CLDR names for Buddhist and Coptic calendars</a>. Thanks to xet7.</summary>
+
+Replace two bare English labels with Latin transcriptions of full native
+Adlam CLDR calendar names. Exact Adlam sources are retained in the ledger;
+Latin transcription and regional terminology remain low confidence pending
+native review. All 17,608 correction/rendering checks pass; 542 original
+findings remain, including three Fulah Hijri variant findings. Provisional
+variant text needs semantic review. Wider language and browser review remain open.
 
 </details>
 

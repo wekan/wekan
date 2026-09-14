@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,300 |
+| Corrected | 15,302 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 544 |
+| Pending review or repair | 542 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,606** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,608** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `b2af87a24` — replaced two bare English Bambara Buddhist/Coptic labels with provisional calendar compounds. Restore explicit calendar noun; borrowing spelling, Buddha association and compound grammar are **low confidence** without canonical native attestation. Bambara’s two civil/tabular epoch findings remain pending; this does not complete language validation. All **17,606** correction/rendering checks pass. **544** originals remain pending across **17** locales, including **403** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `6d838c3fb` — replaced two bare English Fulah Buddhist/Coptic labels with Latin transcriptions of full native Adlam CLDR calendar names. Exact Adlam sources are retained in the ledger. Latin transcription and cross-script/regional terminology remain **low confidence** pending native review. Three Fulah Hijri variant findings remain pending; provisional Adlam variant text needs semantic review before reuse. All **17,608** correction/rendering checks pass. **542** originals remain pending across **17** locales, including **403** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Build interruption follow-up (2026-09-14):** `.tools/wekan22` contains the old v11.75 missing-Moment failure, already repaired in `43adfe1a7`. A fresh Meteor 3.6-beta.0 bundle build passes on Linux arm64, and six assignee/calendar/release-preflight Node test entries pass. Log: `.tools/log/build-dev-bundle/2026-09-14/04-25-58/dev.txt`. Native amd64 and live browser checks were not run. Translation counts and the remaining validation scope above are unchanged.
 
