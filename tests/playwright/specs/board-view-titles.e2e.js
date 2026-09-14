@@ -25,13 +25,13 @@ for (const view of [
       } });
       try {
         db.updateOne('cards', { _id: card._id }, { $set: {
-          title: '# Demo [card](https://example.com/) :thumbsup:',
+          title: '# Demo [card](https://example.com/) :thumbsup: :heart: :tada:',
           startAt: new Date(Date.now() - 86400000), dueAt: new Date(Date.now() + 86400000),
           endAt: new Date(),
         } });
         if (view.name === 'cumulative flow') {
           db.updateOne('lists', { _id: card.listId }, { $set: {
-            title: '# Demo [card](https://example.com/) :thumbsup:',
+            title: '# Demo [card](https://example.com/) :thumbsup: :heart: :tada:',
           } });
         }
         await loginWithToken(page, user.id, user.token);
@@ -46,11 +46,15 @@ for (const view of [
         }
         const title = page.locator(view.title).filter({ hasText: 'Demo' }).first();
         if (policy === 'plain-source') {
-          await expect(title.locator('pre')).toHaveText('# Demo [card](https://example.com/) :thumbsup:');
+          await expect(title.locator('pre')).toHaveText('# Demo [card](https://example.com/) :thumbsup: :heart: :tada:');
           await expect(title.locator('h1')).toHaveCount(0);
         } else {
           await expect(title.locator('h1')).toContainText('Demo card');
           await expect(title).toContainText('👍');
+          if (view.name !== 'cumulative flow') {
+            await expect(title).toContainText('❤️');
+            await expect(title).toContainText('🎉');
+          }
           await expect(title.locator('a[href="https://example.com/"]')).toHaveCount(policy === 'plain-links' ? 0 : 1);
         }
         await expect(title.locator('script')).toHaveCount(0);

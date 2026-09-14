@@ -83,10 +83,10 @@ template(name="cardDetails")
           class="{{#if canModifyCard}}is-editable{{/if}}")
             if canModifyCard
               a.card-details-title-edit-zone.js-open-inlined-form(title="{{_ 'edit'}}")
+            if currentBoard.allowsCardNumber
+              span.card-number
+                | ##{getCardNumber} &nbsp;
             +viewer
-              if currentBoard.allowsCardNumber
-                span.card-number
-                  | ##{getCardNumber} &nbsp;
               = getTitle
             if isWatching
               i.card-details-watch

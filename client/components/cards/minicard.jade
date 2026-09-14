@@ -67,10 +67,10 @@ template(name="minicard")
         span.linked-icon.linked-archived
           i.fa.fa-archive
       span.minicard-title-text
+        if showCardNumber
+          span.card-number
+            | ##{getCardNumber} &nbsp;
         +viewer
-          if showCardNumber
-            span.card-number
-              | ##{getCardNumber} &nbsp;
           = getTitle
     //- Everything under the title renders in the board's minicard order
       (Board Settings / Card, "Show on Minicard"; board.minicardFieldOrder,
