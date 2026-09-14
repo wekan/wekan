@@ -20,14 +20,13 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,449** exact before/after values, including unflagged repairs.
+contain **18,453** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `698acc666` —
-nine French-seeded Breton migration, recurrence and status labels repaired.
-Estimated remaining-time phrasing remains provisional pending native review.
-All **18,449** corrections and 4,158 unchanged reviews pass structural
+Latest translation fix: **2026-09-14**, local commit `ba815b531` —
+four French-seeded Breton board/general/all-data restore controls repaired
+using existing Adsevel terminology. All **18,453** corrections pass structural
 checks. Native phrase/browser review remains open, alongside other wrong-
 language values, shared grammar, Galician attachment agreement and calendars.
 Latest unchanged review: **2026-09-14**, commit `64f1d7367` —

@@ -23064,3 +23064,10 @@ This attests the estimation word, not the complete time-estimation phrase;
 that wording remains provisional. All 18,449 correction and 4,158 unchanged
 checks pass. Native phrase/browser validation remain open; original pending/
 restored scope stays 300/27. Migration validation label still needs repair.
+
+Dated unflagged repair, 2026-09-14, local commit `ba815b531`: four Breton
+board/general/all-data restore controls replace French. Reuse Adsevel already
+used in restore-lost-cards-migration and restoration steps. Preserve board
+scope and restore-all scope. All 18,453 correction checks pass. Native phrase
+and actual backup/archive/browser validation remain open; original pending/
+restored scope stays 300/27 and broader unflagged review remains required.
