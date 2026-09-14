@@ -127069,5 +127069,26 @@
     "before": "La altnivela filtrilo permesas skribi ĉenon kun la jenaj operatoroj: == != <= >= && || ( ) Spaco estas uzata kiel apartigilo inter la operatoroj. Vi povas filtri laŭ ĉiuj propraj kampoj tajpante iliajn nomojn kaj valorojn. Ekzemple: Kampo1 == Valoro1. Rimarko: se kampoj aŭ valoroj enhavas spacojn, vi devas meti ilin inter unuopajn citilojn. Ekzemple: 'Kampo 1' == 'Valoro 1'. Por preterlasi unuopajn regsignojn (' \\/) vi povas uzi \\. Ekzemple: Kampo1 == I\\'m. Vi ankaŭ povas kombini plurajn kondiĉojn. Ekzemple: F1 == V1 || F1 == V2. Normale ĉiuj operatoroj estas interpretataj de maldekstre dekstren. Vi povas ŝanĝi la ordon per krampoj. Ekzemple: F1 == V1 && ( F2 == V2 || F2 == V3 ). Vi ankaŭ povas serĉi en tekstaj kampoj per regulesprimo: F1 == /Tes.*/i",
     "after": "La altnivela filtrilo permesas skribi ĉenon kun la jenaj operatoroj: == != <= >= && || ( ) Spaco estas uzata kiel apartigilo inter la operatoroj. Vi povas filtri laŭ ĉiuj propraj kampoj tajpante iliajn nomojn kaj valorojn. Ekzemple: Field1 == Value1. Rimarko: se kampoj aŭ valoroj enhavas spacojn, vi devas meti ilin inter unuopajn citilojn. Ekzemple: 'Field 1' == 'Value 1'. Por trakti la specialajn signojn (' \\/) kiel literalajn signojn, vi povas uzi \\. Ekzemple: Field1 == I\\'m. Vi ankaŭ povas kombini plurajn kondiĉojn. Ekzemple: F1 == V1 || F1 == V2. Normale ĉiuj operatoroj estas interpretataj de maldekstre dekstren. Vi povas ŝanĝi la ordon per krampoj. Ekzemple: F1 == V1 && ( F2 == V2 || F2 == V3 ). Vi ankaŭ povas serĉi en tekstaj kampoj per regulesprimo: F1 == /Tes.*/i",
     "reason": "2026-09-14: Preserve shared literal executable Field1/Value1 and quoted field examples; describe escaping special punctuation as literal characters, not skipping control characters. Operators, backslash inventory and regex example remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "overtime",
+    "before": "Kroma tempo",
+    "after": "Kromlaboro",
+    "reason": "2026-09-14: The manually selected isOvertime flag classifies recorded work hours, not a deadline or granted extra time. Use Esperanto kromlaboro (overtime work) consistently instead of generic kroma tempo; hours unit retained. Dictionary references recorded in audit evidence."
+  },
+  {
+    "locale": "eo",
+    "key": "overtime-hours",
+    "before": "Kroma tempo (horoj)",
+    "after": "Kromlaboro (horoj)",
+    "reason": "2026-09-14: The manually selected isOvertime flag classifies recorded work hours, not a deadline or granted extra time. Use Esperanto kromlaboro (overtime work) consistently instead of generic kroma tempo; hours unit retained. Dictionary references recorded in audit evidence."
+  },
+  {
+    "locale": "eo",
+    "key": "has-overtime-cards",
+    "before": "Havas kartojn kun kroma tempo",
+    "after": "Havas kartojn kun kromlaboro",
+    "reason": "2026-09-14: The manually selected isOvertime flag classifies recorded work hours, not a deadline or granted extra time. Use Esperanto kromlaboro (overtime work) consistently instead of generic kroma tempo; hours unit retained. Dictionary references recorded in audit evidence."
   }
 ]
