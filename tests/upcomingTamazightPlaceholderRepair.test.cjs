@@ -523,3 +523,8 @@ for (const [suffix, verb] of [['created', 'ⵜⵜⵓⵙⵏⵓⵍⴼⴰⵏⵜ'], 
   assert.doesNotMatch(translated[key], /cartes|jours|[\u0600-\u06ff]/u);
 }
 console.log('Tamazight creation and modification hints preserve distinct operators and recent-day bounds');
+
+assert.strictEqual(translated["globalSearch-instructions-operator-due"], "`__operator_due__:<n>` - ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵙ ⵓⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⴰⵔ *<n>* ⵏ ⵡⵓⵙⵙⴰⵏ ⵙⴳ ⴷⵖⵉ.\n`__operator_due__:__predicate_overdue__` ⵉⵙⵙⴽⵏ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴰⴽⴽⵯ ⵙ ⵓⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⴷⴰⵜ ⵏ ⴷⵖⵉ.");
+assert.doesNotMatch(translated['globalSearch-instructions-operator-due'], /cartes|jours|[\u0600-\u06ff]/u);
+assert.strictEqual((translated['globalSearch-instructions-operator-due'].match(/`/g) || []).length, 4);
+console.log('Tamazight due hint preserves numeric and overdue examples separately');

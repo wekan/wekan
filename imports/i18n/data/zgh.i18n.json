@@ -1770,7 +1770,7 @@
   "globalSearch-instructions-operator-creator": "`__operator_creator__:<ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ>` - ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵏⵏⴰ ⵉⴳⴰ *<ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ>* ⴰⵎⵙⵏⴼⵍⵓⵍ ⵏⵏⵙⵏⵜ",
   "globalSearch-instructions-operator-org": "`__operator_org__:<display name|short name>` - ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⵏ ⵜⴼⵍⵡⵉⵜ ⵜⵜⵓⴼⴽⴰⵏ ⵉ ⵜⵓⴷⴷⵙⴰ *<name>*",
   "globalSearch-instructions-operator-team": "`__operator_team__:<display name|short name>` - ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⵏ ⵜⴼⵍⵡⵉⵜ ⵜⵜⵓⴼⴽⴰⵏ ⵉ ⵜⴰⵔⴰⴱⴱⵓⵜ *<name>*",
-  "globalSearch-instructions-operator-due": "`__operator_due__:<n>` - cartes qui arrive à échéance dans moins de *<n>* jours à partir d'aujourd'hui.\n`__operator_due__:__predicate_overdue__` liste toutes les cartes ayant passé la date d'échéance.",
+  "globalSearch-instructions-operator-due": "`__operator_due__:<n>` - ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵙ ⵓⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⴰⵔ *<n>* ⵏ ⵡⵓⵙⵙⴰⵏ ⵙⴳ ⴷⵖⵉ.\n`__operator_due__:__predicate_overdue__` ⵉⵙⵙⴽⵏ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴰⴽⴽⵯ ⵙ ⵓⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⴷⴰⵜ ⵏ ⴷⵖⵉ.",
   "globalSearch-instructions-operator-created": "`__operator_created__:<n>` - ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵍⵍⵉ ⵜⵜⵓⵙⵏⵓⵍⴼⴰⵏⵜ ⴳ *<n>* ⵏ ⵡⵓⵙⵙⴰⵏ ⵉⵎⴳⴳⵓⵔⴰ",
   "globalSearch-instructions-operator-modified": "`__operator_modified__:<n>` - ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵍⵍⵉ ⵜⵜⵓⵙⵙⵏⴼⵍⵏⵜ ⴳ *<n>* ⵏ ⵡⵓⵙⵙⴰⵏ ⵉⵎⴳⴳⵓⵔⴰ",
   "globalSearch-instructions-operator-status": "`__operator_status__:<ⴰⴷⴷⴰⴷ>` - ⵉⴳⴰ *<ⴰⴷⴷⴰⴷ>* ⵢⴰⵏ ⵙⴳ ⵉⴷⴷⴰⴷⵏ ⴰⴷ:",
