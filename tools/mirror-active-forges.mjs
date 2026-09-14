@@ -69,9 +69,15 @@ export async function pages(request, endpoint, { key, start = 1, size = 100, pag
 }
 export function command(tool, args, input, options = {}) {
   waitCommand(commandHost(tool,args));
-  const p = spawnSync(tool, args, { cwd: root, input, encoding: 'utf8', maxBuffer: 128 * 1024 * 1024, shell: false, windowsHide: true, ...options });
+  const gitOperation = tool === 'git' && args.find(arg => ['clone', 'fetch', 'push', 'merge'].includes(arg));
+  const commandArgs = gitOperation && ['clone', 'fetch', 'push'].includes(gitOperation) && !args.includes('--progress')
+    ? [...args.slice(0, args.indexOf(gitOperation) + 1), '--progress', ...args.slice(args.indexOf(gitOperation) + 1)] : args;
+  if (gitOperation) console.log(`[git] ${gitOperation} started`);
+  const p = spawnSync(tool, commandArgs, { cwd: root, input, encoding: 'utf8', maxBuffer: 128 * 1024 * 1024, shell: false, windowsHide: true,
+    ...(gitOperation ? { stdio: ['pipe', 'inherit', 'inherit'] } : {}), ...options });
+  if (gitOperation) console.log(`[git] ${gitOperation} finished (exit ${p.status ?? 'error'})`);
   if (p.error || p.status !== 0) { const message=`${tool} failed: ${p.error?.message || p.stderr?.trim() || `exit ${p.status}`}`;noteCommandFailure(commandHost(tool,args),message);throw new Error(message); }
-  return p.stdout;
+  return p.stdout || '';
 }
 export function cliApi(kind, endpoint, method = 'GET', data) {
   if (kind === 'github') return githubJson(endpoint,method,data);
