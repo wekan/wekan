@@ -30,6 +30,8 @@ const examples = ['== != <= >= && || ( )', 'Field1 == Value1', "'Field 1' == 'Va
   for (const example of examples) {
     assert.ok(vepsHelp.includes(example), `Veps: exact executable example ${example}`);
   }
+  assert.deepEqual(vepsHelp.match(/\\+/g), source.match(/\\+/g),
+    'Veps: standalone escape markers match source inventory');
   assert.ok(result.pendingByLocale['ve-PP'] > 0, 'Veps language review stays open');
   assert.ok(!vepsHelp.includes("Field1 = I"), 'Veps: reject malformed comparison');
   assert.match(read('lt')['advanced-filter-description'], /Išplėstinis filtras/);

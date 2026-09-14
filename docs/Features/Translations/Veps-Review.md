@@ -68,3 +68,17 @@ and parenthesized Boolean example. Regression coverage checks every canonical
 English executable example and explicitly asserts the Veps language queue
 remains open. Finnish prose is still awaiting full translation; this repair
 is not entered as a completed wrong-language correction.
+
+Further syntax repair **2026-09-14**: the standalone escape instruction
+still had two literal backslashes despite the repaired examples. Reduced it
+to the English single-backslash marker and extended regression coverage to
+compare the complete backslash-run inventory, not just selected examples.
+Full Finnish-prose translation remains pending.
+
+Additional dictionary access review **2026-09-14**: the Language Bank of
+Finland identifies the digitized Kettunen Veps lexicon, but its linked Kotus
+endpoint returned HTTP 403 in this review; VepKar returned 502. Those results
+do not validate or invalidate terminology. The metadata page describes
+historical field notes, not modern computer vocabulary. Further sources
+remain available for review; this is not a language-repair completion claim.
+Source: https://www.kielipankki.fi/lexical-conceptual-resources/vepsa/
