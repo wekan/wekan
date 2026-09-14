@@ -1,5 +1,16 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `3f72fb6e8`: four additional Select All/Unselect All
+controls repaired, including their r-prefixed counterparts. Native MediaWiki
+compareselectedversions attests selected ittustayn; derive the selection
+command and action noun from that root, reusing native Remove and All.
+Preserve selection of ALL versus removal of selection from ALL, not deletion
+of selected content. Derived imperative, action noun and complete unselection
+phrase remain LOW CONFIDENCE. All 18,120 correction checks pass; original
+counts unchanged at 311 pending, including 176 Tamazight. Restored/unflagged
+and earlier low-confidence validation remains open; no live browser run.
+Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+
 2026-09-14 — migration-label scope review: inspected current
 server/imports.js migration imports and repository-wide source references.
 The comprehensiveBoardMigration and fixMissingListsMigration implementations
