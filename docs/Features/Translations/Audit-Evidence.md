@@ -1,5 +1,16 @@
 # Detailed translation audit evidence
 
+2026-09-14 (`12d02f4dc`): retained thirty correct restored Danish migration
+and S3 values. Confirm duplicate empty-list deletion requires no cards AND
+a same-title list containing cards; shared-list conversion occurs first.
+Preserve missing swimlaneId/listId, non-archived-only recovery, ALL archived
+restoration, difficult undo, board-member avatars versus all board files,
+correct storage backends and individual execution. S3/MinIO, port, secret
+authentication and SSL/TLS remain distinct. Obsolete migration labels stay
+in scope without a runtime-availability claim. Danish reviewed total 200;
+overall retained 377, restored awaiting validation 3,858.
+
+
 2026-09-14 (`5fcf0d284`): retained thirty correct Danish restored values
 after full review. Preserve active/inactive state plus inverse click action,
 all/locked/inactive filters, successful scheduling versus failures, scheduled
