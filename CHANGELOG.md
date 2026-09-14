@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5b89d5168">Repair Tamazight optional webhook authentication qualifier</a>. Thanks to xet7.</summary>
+
+Replace French qualifier prose using native optional/authentication terms.
+Four suites pass; technical borrowing and full native/browser phrase
+remain under review. Original pending findings: 254.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/855219d70">Replace Arabic Optional label with native Tamazight</a>. Thanks to xet7.</summary>
 
 Use the explicitly attested native adjective. Four suites pass; longer

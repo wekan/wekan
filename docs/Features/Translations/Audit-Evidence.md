@@ -25546,3 +25546,15 @@ a component-only change. Original pending 255; ledger grows to 18,764.
 Dzongkha official 2023 dictionary direct download timed out at connection
 setup after 10 seconds, confirming current retrieval failure; no epoch
 translation or absence claim follows from that timeout. Browser open.
+
+
+Tamazight webhook qualifier — 2026-09-14, `5b89d5168`.
+webhook-token French prose is replaced with optional/authentication
+components: IRCAM PDF page 194 entry 3684 optional, PDF 249 entry 4801
+authentication and its construct. Token is explicitly a technical borrowing,
+not certified native terminology. Full prepositional phrase/borrowing
+remain low confidence, browser not run. Actual outgoing notification
+adds X-Wekan-Token only for a nonempty configured token; wording preserves
+optional role and no auth logic changes. Four suites pass with exact
+placeholders, order and human preference. Original pending 255 → 254;
+Tamazight 143 → 142; correction ledger grows to 18,765.
