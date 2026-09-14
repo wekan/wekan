@@ -126894,5 +126894,26 @@
     "before": "تغيير تاريخ الاستحقاق",
     "after": "ⵙⵏⴼⵍ ⴰⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ",
     "reason": "2026-09-14: Replace Arabic Change Due Date popup title with Tamazight. Native MediaWiki edit / skin-view-edit supplies snfl; reuse existing due-date asakud amggaru and the same imperative pattern as adjacent start/received/end date popups. Native Change verb directly supported; full Due Date terminology retains existing wording and remains subject to wider fluent review. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "card-spent",
+    "before": "امضى وقتا",
+    "after": "ⴰⴽⵓⴷ ⵉⵜⵜⵓⵙⵎⵔⵙⵏ",
+    "reason": "2026-09-14: Replace Arabic/French time or sorting control with Tamazight. Reuse existing spent-time-hours terminology without the hours qualifier; Change imperative snfl is directly native MediaWiki edit, Sorting afran appears in sort-ascending/descending. Preserve change action separately from noun-only Spent Time. Full spent-time participle and phrase agreement remain low confidence pending fluent review. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "editCardSpentTimePopup-title",
+    "before": "Modifier le temps passé",
+    "after": "ⵙⵏⴼⵍ ⴰⴽⵓⴷ ⵉⵜⵜⵓⵙⵎⵔⵙⵏ",
+    "reason": "2026-09-14: Replace Arabic/French time or sorting control with Tamazight. Reuse existing spent-time-hours terminology without the hours qualifier; Change imperative snfl is directly native MediaWiki edit, Sorting afran appears in sort-ascending/descending. Preserve change action separately from noun-only Spent Time. Full spent-time participle and phrase agreement remain low confidence pending fluent review. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "editCardSortOrderPopup-title",
+    "before": "Modifier le tri",
+    "after": "ⵙⵏⴼⵍ ⴰⴼⵔⴰⵏ",
+    "reason": "2026-09-14: Replace Arabic/French time or sorting control with Tamazight. Reuse existing spent-time-hours terminology without the hours qualifier; Change imperative snfl is directly native MediaWiki edit, Sorting afran appears in sort-ascending/descending. Preserve change action separately from noun-only Spent Time. Full spent-time participle and phrase agreement remain low confidence pending fluent review. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
