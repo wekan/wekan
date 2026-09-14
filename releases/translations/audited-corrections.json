@@ -127041,5 +127041,12 @@
     "before": "malagordis propran kampon '%s' en %s",
     "after": "forigis la valoron de la propra kampo '%s' en %s",
     "reason": "2026-09-14: Actual unsetCustomField activity clears the custom field value; malagordis means misconfigured. Translate the removal of the value explicitly, preserving both %s slots."
+  },
+  {
+    "locale": "eo",
+    "key": "Node_memory_usage_rss",
+    "before": "Node-memoruzo: rezida aro (RSS)",
+    "after": "Node-memoruzo: grando de la rezida aro (RSS)",
+    "reason": "2026-09-14: Restore omitted size meaning in resident set size; the diagnostic measures the size, not just the resident set. Preserve RSS acronym."
   }
 ]

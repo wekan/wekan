@@ -1969,7 +1969,7 @@
   "Node_heap_does_zap_garbage": "Node-amaso: ĉu nuligas rubon",
   "Node_heap_number_of_native_contexts": "Node-amaso: nombro de indiĝenaj kuntekstoj",
   "Node_heap_number_of_detached_contexts": "Node-amaso: nombro de malligitaj kuntekstoj",
-  "Node_memory_usage_rss": "Node-memoruzo: rezida aro (RSS)",
+  "Node_memory_usage_rss": "Node-memoruzo: grando de la rezida aro (RSS)",
   "Node_memory_usage_heap_total": "Node-memoruzo: tuta grando de la asignita amaso",
   "Node_memory_usage_heap_used": "Node-memoruzo: efektive uzata memoro",
   "Node_memory_usage_external": "Node-memoruzo: ekstera",

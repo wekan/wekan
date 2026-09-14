@@ -11362,5 +11362,173 @@
     "key": "help-request",
     "value": "Helpopeto",
     "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "editCardSortOrderPopup-title",
+    "value": "Ŝanĝi ordigon",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "confirm-btn",
+    "value": "Konfirmi",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "invite-people-success",
+    "value": "Invito por registriĝi sukcese sendita",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "Node_heap_total_heap_size",
+    "value": "Node-amaso: tuta amasa grando",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "Node_heap_total_heap_size_executable",
+    "value": "Node-amaso: tuta plenumebla amasa grando",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "Node_heap_total_physical_size",
+    "value": "Node-amaso: tuta fizika grando",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "Node_heap_total_available_size",
+    "value": "Node-amaso: tuta disponebla grando",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "Node_heap_used_heap_size",
+    "value": "Node-amaso: uzata amasa grando",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "Node_heap_heap_size_limit",
+    "value": "Node-amaso: limo de amasa grando",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "Node_heap_malloced_memory",
+    "value": "Node-amaso: memoro asignita per malloc",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "Node_heap_peak_malloced_memory",
+    "value": "Node-amaso: pinta memoro asignita per malloc",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "Node_heap_number_of_native_contexts",
+    "value": "Node-amaso: nombro de indiĝenaj kuntekstoj",
+    "reason": "2026-09-14: Komputeko2008.pdf explicitly lists native = indiĝena in computing, including native compiler/mode. Retain legitimate technical vocabulary instead of replacing it based on ordinary-language meaning."
+  },
+  {
+    "locale": "eo",
+    "key": "Node_heap_number_of_detached_contexts",
+    "value": "Node-amaso: nombro de malligitaj kuntekstoj",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "Node_memory_usage_heap_total",
+    "value": "Node-memoruzo: tuta grando de la asignita amaso",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "Node_memory_usage_heap_used",
+    "value": "Node-memoruzo: efektive uzata memoro",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "Node_memory_usage_external",
+    "value": "Node-memoruzo: ekstera",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "add-organizations-label",
+    "value": "Aldonitaj organizoj estas montrataj sube:",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-legal-notice-link-url",
+    "value": "URL de propra paĝo de jura avizo",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "acceptance_of_our_legalNotice",
+    "value": "Daŭrigante, vi akceptas nian",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "legalNotice",
+    "value": "juran avizon",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "copied",
+    "value": "Kopiita!",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "checklistActionsPopup-title",
+    "value": "Agoj de kontrollisto",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "moveChecklist",
+    "value": "Movi kontrolliston",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "moveChecklistPopup-title",
+    "value": "Movi kontrolliston",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "originOrder",
+    "value": "origina ordo",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "copyChecklist",
+    "value": "Kopii kontrolliston",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "copyChecklistPopup-title",
+    "value": "Kopii kontrolliston",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
+  },
+  {
+    "locale": "eo",
+    "key": "subtaskActionsPopup-title",
+    "value": "Agoj de subtasko",
+    "reason": "2026-09-14: Direct semantic review confirms memory total/used/available/limit and malloc distinctions, invitation success, legal acceptance agreement and checklist copy/move actions. No valid wording replaced merely for synonym preference."
   }
 ]
