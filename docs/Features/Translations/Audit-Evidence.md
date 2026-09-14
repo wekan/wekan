@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight checklist checkbox controls — 2026-09-14
+
+Commit `fee3de6db` repairs three original French findings. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) tooltip-invert/tooltip-namespace_association supplies Check in checkbox context, hide Hide, All and Remove components. Preserve Hide CHECKED items, Check ALL items OF A LIST and active Uncheck ALL reversal, not mere unchecked state. Uncheck uses Remove Mark paraphrase; mark nominalization, checked plural passive, bound list and full scope grammar remain LOW CONFIDENCE. 351 original findings remain pending, including 216 Tamazight; all 18,060 mechanical correction checks pass. Restored, unflagged and earlier uncertain wording remain in scope. Browser verification and remote uploads were not performed.
+
 ## Tamazight migration start and pause controls — 2026-09-14
 
 Commit `371ccad6b` repairs six unflagged inherited Kabyle-leaning values; script alone is not proof. [Native Red Moon](https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml) directly supplies Pause and Start-time noun; Start imperative retains indexed IRCAM plain-d versus emphatic-d distinction recorded below. [MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) supplies All and failure frame. Preserve Start versus Pause, ALL versus singular and failed operation versus completed Started notification. Red Moon uses sbdd for both Pause and Stop; this does not independently establish distinct migration operations, so Stop values remain unchanged and await review. Migration adaptation, nominalization, derived Started plural and full grammar remain LOW CONFIDENCE. Original counts unchanged: 354 pending, including 219 Tamazight; all 18,057 mechanical correction checks pass. Restored, unflagged and earlier uncertain wording remain in scope. Browser verification and remote uploads were not performed.
