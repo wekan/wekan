@@ -222,3 +222,7 @@ assert.doesNotMatch(locales.zgh['smtp-host-description'], /L'adresse|serveur|mai
 assert.equal(locales.zgh['smtp-host'], 'ⴰⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ SMTP');
 assert.deepEqual(locales.zgh['smtp-host'].match(/SMTP/g), ['SMTP']);
 assert.doesNotMatch(locales.zgh['smtp-host'], /[\u0600-\u06ff]/);
+
+assert.equal(locales.zgh['just-invited'], 'ⴰⵙⵉⴳⵔ ⴰⵎⴰⵢⵏⵓ ⵉⴽ ⵙ ⵜⴼⵍⵡⵉⵜ ⴰⴷ');
+assert.doesNotMatch(locales.zgh['just-invited'], /Vous venez|invité/);
+assert.notEqual(locales.zgh['just-invited'], locales.zgh['not-accepted-yet']);

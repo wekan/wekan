@@ -131157,5 +131157,12 @@
     "before": "In your Trello board, go to 'Menu', then 'More', 'Print and Export', 'Export JSON', and copy the resulting text",
     "after": "ⴳ ⵜⴼⵍⵡⵉⵜ Trello ⵏⴽ, ⴷⴷⵓ ⵙ 'Menu', ⵉⵍⵎⵎⴰ 'More', 'Print and Export', 'Export JSON', ⴷ ⵙⵙⵏⵖⵍ ⴰⴹⵕⵉⵚ ⵍⵍⵉ ⴷ ⵉⴼⴼⵖⵏ.",
     "reason": "Replace cosmetically changed English import prose with direct Tamazight, preserving Trello UI labels in order and JSON. IRCAM 2019 entry 10013 copy; reuse board/text and navigation vocabulary. Low confidence: board possession, then/result relative clause and complete instructions need native/browser review."
+  },
+  {
+    "locale": "zgh",
+    "key": "just-invited",
+    "before": "Vous venez d'être invité à ce tableau",
+    "after": "ⴰⵙⵉⴳⵔ ⴰⵎⴰⵢⵏⵓ ⵉⴽ ⵙ ⵜⴼⵍⵡⵉⵜ ⴰⴷ",
+    "reason": "Replace French just-invited with a new invitation for you to this board. IRCAM 2019 entry 4358 invitation; existing new/board vocabulary reused. Low confidence: just-invited recency is rendered as new invitation; possession/preposition and full nominal notification need native/browser review. Do not conflate with not-accepted-yet."
   }
 ]
