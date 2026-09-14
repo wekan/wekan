@@ -128721,5 +128721,47 @@
     "before": "Supprimer les lus",
     "after": "Dilemel an holl re lennet",
     "reason": "Replace French organization/watch/read controls with existing aozadurioù, evezhiañ, Lenn and mark-all-as-unread terminology. Full inflection/phrase and browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "vote-question",
+    "before": "Question du vote",
+    "after": "Goulenn ar vot",
+    "reason": "Replace French voting/public-board prose with Breton. Preserve for/against and permanent deletion question; native complete-phrase review remains open. Public board meaning remains unchanged."
+  },
+  {
+    "locale": "br",
+    "key": "vote-public",
+    "before": "Montrer qui a voté quoi",
+    "after": "Diskouez piv en deus votet petra",
+    "reason": "Replace French voting/public-board prose with Breton. Preserve for/against and permanent deletion question; native complete-phrase review remains open. Public board meaning remains unchanged."
+  },
+  {
+    "locale": "br",
+    "key": "vote-for-it",
+    "before": "pour",
+    "after": "a-du",
+    "reason": "Replace French voting/public-board prose with Breton. Preserve for/against and permanent deletion question; native complete-phrase review remains open. Public board meaning remains unchanged."
+  },
+  {
+    "locale": "br",
+    "key": "vote-against",
+    "before": "contre",
+    "after": "a-enep",
+    "reason": "Replace French voting/public-board prose with Breton. Preserve for/against and permanent deletion question; native complete-phrase review remains open. Public board meaning remains unchanged."
+  },
+  {
+    "locale": "br",
+    "key": "deleteVotePopup-title",
+    "before": "Supprimer le vote ?",
+    "after": "Dilemel ar vot ?",
+    "reason": "Replace French voting/public-board prose with Breton. Preserve for/against and permanent deletion question; native complete-phrase review remains open. Public board meaning remains unchanged."
+  },
+  {
+    "locale": "br",
+    "key": "board-public-info",
+    "before": "Ce tableau sera <strong>public</strong>.",
+    "after": "Foran e vo an daolenn-mañ.",
+    "reason": "Replace French voting/public-board prose with Breton. Preserve for/against and permanent deletion question; native complete-phrase review remains open. Public board meaning remains unchanged."
   }
 ]
