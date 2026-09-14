@@ -4267,3 +4267,23 @@ Four focused suites pass for exact warning, negative Arabic, both format
 explanations and token inventories. No live CSV import UI test ran.
 Ledger 19,896; corrected 15,773, pending 130 (zgh 37), restored 4 unchanged.
 Broader native fluency and technical-loan localization remain open.
+
+
+2026-09-15 — `a6d77ba0e`: act-newDue French replaced with a Tamazight
+first due-reminder draft. IRCAM General Dictionary, cached primary PDF
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339 : entry 4289
+(page 224) askti is reminder/commemoration, bound uskti; entry 3071
+(page 166) amzwaru is first/group leader. Use reminder and ordinal senses,
+not cognitive memory or group leadership. Existing due-date compound is
+retained with bound usakud; full deadline compound and possessive grammar
+remain low confidence. Preserve __list__, __card__, __board__, slash and
+brackets exactly. Source server/models/activities.js selects act-newDue
+when dueAt timeValue exists without timeOldValue, including initial date
+assignment; it does not establish reminder delivery. Keep English source
+meaning pending resolution of that discrepancy. act-withDue remains French;
+its plural reminder wording needs review, and this dictionary entry gives
+no plural to copy. Native MediaWiki zgh source was read on this date but
+does not independently attest the complete compound. Four focused checks
+pass for exact replacement, negative French/Arabic and token inventories;
+no live activity UI test ran. Ledger 19,897, corrected 15,774, pending 129
+(zgh 36), restored 4 unchanged. Broader language review remains open.

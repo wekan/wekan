@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-15**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,773 |
+| Corrected | 15,774 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,174 |
-| Pending review or repair | 130 |
+| Pending review or repair | 129 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,15 +16,15 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `52b73cacc` — replace Arabic
-CSV/TSV schema warning using Tamazight information/format wording and
-existing separated-value explanations. Four focused suites pass. Ledger
-19,896; tracked pending 130 (Tamazight 37), restored 4 unchanged. Tab/format
-remain technical loans; full passive, participle and possessive grammar
-remain under review. Source conflicts and broader reviews remain open.
+Latest translation fix: **2026-09-15**, `a6d77ba0e` — replace French
+first due-reminder activity wording with a Tamazight draft. Four focused
+checks pass; exact named placeholders remain. Ledger 19,897; tracked
+pending 129 (Tamazight 36), restored 4 unchanged. Full deadline compound
+and possessive grammar remain low confidence. Source selects this message
+on initial due-date assignment too; broader reviews remain open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,896** exact before/after values, including unflagged
+records contain **19,897** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -45,7 +45,7 @@ restored values still await full native clause validation.
 | Pending locale | Findings |
 | --- | ---: |
 | iu — Inuktitut | 38 |
-| zgh — Standard Moroccan Tamazight | 37 |
+| zgh — Standard Moroccan Tamazight | 36 |
 | nah — Nahuatl | 17 |
 | tig — Tigre | 17 |
 | wal — Wolaytta | 10 |

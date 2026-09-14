@@ -1203,6 +1203,18 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a6d77ba0e">Fix Tamazight first due-reminder activity translation</a></summary>
+
+Replace French wording with a Tamazight draft preserving named activity
+placeholders. Four focused checks pass. Full deadline compound and grammar
+remain low confidence; the source also uses this message for initial due-date
+assignment. Dated translation audit records that discrepancy and open review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
