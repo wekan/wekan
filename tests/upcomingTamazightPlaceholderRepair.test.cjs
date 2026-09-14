@@ -545,3 +545,8 @@ for (const key of ['accounts-lockout-settings', 'accounts-lockout-settings-updat
  assert.doesNotMatch(translated[key], /Paramètres|paramètres|mis à jour|[\u0600-\u06ff]|ⴰⴷⵡⴰⵙ/u);
 }
 console.log('Tamazight brute-force heading and update confirmation retain distinct meanings');
+
+assert.strictEqual(translated["accounts-lockout-info"], "ⵜⵉⵙⵖⴰⵍ ⴰⴷ ⵉ ⵓⵙⵏⴰⵎ ⵏ ⵓⴼⵔⴰⴳ ⵏ ⵜⵉⵙⵉⵔⴰⵎ ⵏ ⵓⴽⵛⵛⵓⵎ ⵙⴳ ⴰⵣⵣⴰⵖⵏ ⵏ brute force.");
+assert.doesNotMatch(translated['accounts-lockout-info'], /Ces paramètres|tentatives|protégés|[\u0600-\u06ff]|ⵜⴰⵏⴹⴰⴼⵜ|ⴰⴷⵡⴰⵙ/u);
+assert.ok(translated['accounts-lockout-info'].includes('ⵜⵉⵙⵉⵔⴰⵎ ⵏ ⵓⴽⵛⵛⵓⵎ'));
+console.log('Tamazight lockout explanation retains login-attempt scope and brute-force attacks');

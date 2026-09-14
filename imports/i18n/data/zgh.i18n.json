@@ -2135,7 +2135,7 @@
   "accessibility-title": "عنوان إمكانية الوصول",
   "accessibility-content": "محتوى إمكانية الوصول",
   "accounts-lockout-settings": "ⵜⵉⵙⵖⴰⵍ ⵏ ⵓⴼⵔⴰⴳ ⵙⴳ brute force",
-  "accounts-lockout-info": "Ces paramètres contrôlent comment les tentatives de connexion sont protégés des attaques par force brute.",
+  "accounts-lockout-info": "ⵜⵉⵙⵖⴰⵍ ⴰⴷ ⵉ ⵓⵙⵏⴰⵎ ⵏ ⵓⴼⵔⴰⴳ ⵏ ⵜⵉⵙⵉⵔⴰⵎ ⵏ ⵓⴽⵛⵛⵓⵎ ⵙⴳ ⴰⵣⵣⴰⵖⵏ ⵏ brute force.",
   "accounts-lockout-known-users": "ⵉⵙⵎⵏⵢⵉⴼⵏ ⵏ ⵉⵏⵙⵙⵎⵔⵙⵏ ⵉⵍⵍⴰⵏ (ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ ⵉⴱⵓⵏⵉ, ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⵓⵔ ⵜⴱⵓⵏⵉ)",
   "accounts-lockout-unknown-users": "ⵉⵙⵎⵏⵢⵉⴼⵏ ⵏ ⵉⵏⵙⵙⵎⵔⵙⵏ ⵓⵔ ⵉⵍⵍⵉⵏ (ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ ⵓⵔ ⵉⵍⵍⵉ)",
   "accounts-lockout-failures-before": "ⵉⵣⴳⴰⵍⵏ ⴷⴰⵜ ⵏ ⵓⴳⴷⴰⵍ",

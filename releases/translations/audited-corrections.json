@@ -139137,5 +139137,12 @@
     "before": "Les paramètres de protection contre la force brute ont été mis à jour",
     "after": "ⵜⵜⵓⵙⴷⵖⵉⵏⵜ ⵜⵉⵙⵖⴰⵍ ⵏ ⵓⴼⵔⴰⴳ ⵙⴳ brute force",
     "reason": "2026-09-15: Replace French brute-force settings wording using existing settings tisghal, IRCAM protection afrag 1065 bound ufrag, and native software update root sdghi. Brute force remains borrowed technical phrase rather than physical force. Update confirmation preserves completed settings update. Full compound and derived passive plural remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "accounts-lockout-info",
+    "before": "Ces paramètres contrôlent comment les tentatives de connexion sont protégés des attaques par force brute.",
+    "after": "ⵜⵉⵙⵖⴰⵍ ⴰⴷ ⵉ ⵓⵙⵏⴰⵎ ⵏ ⵓⴼⵔⴰⴳ ⵏ ⵜⵉⵙⵉⵔⴰⵎ ⵏ ⵓⴽⵛⵛⵓⵎ ⵙⴳ ⴰⵣⵣⴰⵖⵏ ⵏ brute force.",
+    "reason": "2026-09-15: Replace French account-protection explanation with nominal settings-for-control-of-protection-of-login-trials-from-brute-force-attacks paraphrase. IRCAM control asnam 4565, protection afrag 1065, trial tisirimt/tisiram 12953, attack azzagh plural azzaghn 5575. Brute force borrowed technical term. Full nominal chain, bound states and trial-to-login-attempt adaptation low confidence."
   }
 ]
