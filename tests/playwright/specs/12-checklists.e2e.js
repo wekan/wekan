@@ -167,3 +167,22 @@ test.describe('Checklists', () => {
     }
   });
 });
+
+test('checklist deadline uses the visible shared calendar and can be cleared', async ({ boardPage, board }) => {
+  const bp = new BoardPage(boardPage);
+  const cp = new CardPage(boardPage);
+  await bp.clickCard(board.listIds[0], 'Alpha Card');
+  await cp.waitForOpen();
+  await cp.addChecklist('Checklist deadline regression');
+  const checklist = cp.root.locator('.js-checklist').filter({ hasText: 'Checklist deadline regression' }).first();
+  await checklist.locator('.js-checklist-due-date').click();
+  const popup = boardPage.locator('.pop-over').filter({ has: boardPage.locator('.edit-date') });
+  await expect(popup.locator('.js-calendar-day').first()).toBeVisible();
+  await popup.locator('.js-calendar-day').first().click();
+  await popup.locator('button[type="submit"]').click();
+  await expect(checklist.locator('.checklist-due-date')).toBeVisible();
+  await checklist.locator('.checklist-due-date.js-edit-date').click();
+  await popup.locator('.js-delete-date').click();
+  await expect(checklist.locator('.checklist-due-date')).toHaveCount(0);
+  await expect(checklist.locator('.js-checklist-due-date')).toBeVisible();
+});

@@ -67,6 +67,11 @@ template(name="checklistDetail")
             +viewer
                 = checklist.title
 
+    if checklist.getDue
+      +checklistDueDate(checklist=checklist canModifyCard=canModifyCard)
+    else if canModifyCard
+      +checklistDueDateAdd(checklist=checklist)
+
     //- The progress bar stays visible when folded: it is the summary of what was
       folded away, so hiding it too would leave a title that says nothing.
     if $gt finishedPercent 0
@@ -330,3 +335,14 @@ template(name="editChecklistItemsAsTextPopup")
     .edit-controls.clearfix
       button.primary.confirm(type="submit") {{_ 'save'}}
       a.fa.fa-times-thin.js-cancel-checklist-items-as-text(title="{{_ 'close-edit-checklist-item'}}")
+
+template(name="checklistDueDate")
+  +dateBadgeBody(canModifyCard=canModifyCard baseClass="card-date due-date checklist-due-date" showTitle=showTitle classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
+
+template(name="checklistDueDateAdd")
+  button.js-checklist-due-date(type="button" title="{{_ 'card-due'}}" role="button" tabindex="0")
+    i.fa.fa-clock-o
+    | &nbsp;{{_ 'card-due'}}
+
+template(name="editChecklistDueDatePopup")
+  +editDateForm(showDate=showDate showTime=showTime error=error datePicker=datePicker)

@@ -73,3 +73,12 @@ text edit are both entries in that menu.
   (a board member who can modify the card).
 - Automatic reset needs no extra setup beyond picking an interval - there is
   no separate cron/service to configure.
+
+### Checklist deadlines
+
+A checklist may have its own optional due date, independent of item due dates.
+Use the clock control beneath its title to select a date and time with the
+shared calendar popup. Its badge uses the selected member calendar and existing
+due-date colors. Open the badge to edit or delete the deadline. Read-only
+viewers see the date without editing controls. Checklist and item deadlines
+are also readable and writable through the REST API; see [API docs](../../API/Checklists.md).

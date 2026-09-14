@@ -47,6 +47,11 @@ Checklists.attachSchema(
       type: String,
       defaultValue: 'Checklist',
     },
+    dueAt: {
+      /** Date the whole checklist is due; independent of item deadlines. */
+      type: Date,
+      optional: true,
+    },
     finishedAt: {
       /**
        * When was the checklist finished
@@ -141,6 +146,15 @@ Checklists.attachSchema(
 );
 
 Checklists.helpers({
+  getDue() {
+    return this.dueAt;
+  },
+  async setDue(dueAt) {
+    return await Checklists.updateAsync(this._id, { $set: { dueAt } });
+  },
+  async unsetDue() {
+    return await Checklists.updateAsync(this._id, { $unset: { dueAt: '' } });
+  },
   /**
    * Copy this checklist (and its items) onto another card.
    * @param newCardId the destination card

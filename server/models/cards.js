@@ -1,3 +1,4 @@
+import { cardWithChecklists } from '/server/lib/checklistDeadlines';
 import { canWriteSubtaskDeposit, recordSubtaskDepositDenial } from '/server/lib/subtaskDepositAccess';
 import { recordLinkedWriteDenial } from '/models/lib/linkedWritePolicy';
 import { Meteor } from 'meteor/meteor';
@@ -1231,7 +1232,7 @@ WebApp.handlers.get('/api/cards/:cardId', async function(req, res) {
   await Authentication.checkBoardAccess(req.userId, card.boardId);
   sendJsonResult(res, {
     code: 200,
-    data: card,
+    data: await cardWithChecklists(card, ReactiveCache),
   });
 });
 
@@ -1244,12 +1245,12 @@ WebApp.handlers.get(
     await Authentication.checkBoardAccess(req.userId, paramBoardId);
     sendJsonResult(res, {
       code: 200,
-      data: await ReactiveCache.getCard({
+      data: await cardWithChecklists(await ReactiveCache.getCard({
         _id: paramCardId,
         listId: paramListId,
         boardId: paramBoardId,
         archived: false,
-      }),
+      }), ReactiveCache),
     });
   },
 );

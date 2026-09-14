@@ -900,3 +900,100 @@ Template.copyChecklistFromTemplatePopup.onCreated(function () {
   });
 });
 registerChecklistDialogEvents('copyChecklistFromTemplatePopup');
+
+// Checklist deadlines use the same calendar and date controls as items.
+Template.checklistDueDate.onCreated(function () {
+  this.date = new ReactiveVar();
+  const dateNowTicker = subscribeDateNowTicker();
+  this.now = dateNowTicker.now;
+  this.view.onViewDestroyed(dateNowTicker.unsubscribe);
+  const self = this;
+  self.autorun(() => {
+    const checklist = Template.currentData().checklist;
+    self.date.set(new Date(checklist && checklist.getDue ? checklist.getDue() : undefined));
+  });
+});
+
+Template.checklistDueDate.helpers({
+  showWeek() {
+    // Checklist items are dense UI (see CLAUDE.md) - no ISO-week badge here.
+    return '';
+  },
+  showWeekOfYear() {
+    return false;
+  },
+  showDate() {
+    return formatDateForDisplay(Template.instance().date.get(), true);
+  },
+  showISODate() {
+    return Template.instance().date.get().toISOString();
+  },
+  classes() {
+    const tpl = Template.instance();
+    return dueDateClass(tpl.date.get(), tpl.now.get());
+  },
+  showTitle() {
+    const tpl = Template.instance();
+    const formattedDate = formatDateForDisplay(tpl.date.get(), true);
+    return `${TAPi18n.__('card-due-on')} ${formattedDate}`;
+  },
+});
+
+Template.checklistDueDate.events({
+  'click .js-edit-date'(event, tpl) {
+    event.preventDefault();
+    event.stopPropagation();
+    const checklist = Template.currentData().checklist;
+    if (checklist) {
+      // Reuse the card's own "Change due date" title (#4755) rather than
+      // adding a near-duplicate translation key to every locale file.
+      Popup.open('editChecklistDueDate', {
+        titleKey: 'editCardDueDatePopup-title',
+      }).call(checklist, event, tpl);
+    }
+  },
+});
+
+// editChecklistDueDatePopup - the popup form editing that badge. Reuses
+// editDateForm - the same date/time-picker markup and submit/delete events
+// (datePickerEvents(), registered once on Template.editDateForm) the card's
+// own editCardDueDatePopup uses. Deliberately does NOT use setupDatePicker
+// from /client/lib/datepicker: that helper resolves its `card` via
+// getCurrentCardFromContext(), which - opened from inside an already-open
+// card detail dialog - would find the CARD, not the checklist item, and
+// silently save the due date on the wrong document.
+Template.editChecklistDueDatePopup.onCreated(function () {
+  const checklist = Template.currentData();
+  const initialDate = checklist && checklist.getDue ? checklist.getDue() : undefined;
+  this.datePicker = {
+    error: new ReactiveVar(''),
+    card: checklist,
+    date: new ReactiveVar(
+      initialDate && isValidDate(new Date(initialDate))
+        ? new Date(initialDate)
+        : new Date('invalid'),
+    ),
+    defaultTime: '1970-01-01 17:00:00',
+    storeDate(date, currentChecklist) {
+      return currentChecklist.setDue(date);
+    },
+    deleteDate(currentChecklist) {
+      return currentChecklist.unsetDue();
+    },
+  };
+});
+
+Template.editChecklistDueDatePopup.onRendered(function () {
+  datePickerRendered(this);
+});
+
+Template.editChecklistDueDatePopup.helpers(datePickerHelpers());
+
+Template.checklistDueDateAdd.events({
+  'click .js-checklist-due-date'(event, tpl) {
+    event.preventDefault();
+    event.stopPropagation();
+    Popup.open('editChecklistDueDate', { titleKey: 'editCardDueDatePopup-title' })
+      .call(Template.currentData().checklist, event, tpl);
+  },
+});

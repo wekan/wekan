@@ -67,13 +67,13 @@ test('it 404s when the checklist is not on that card (not a bare _id lookup)', (
 
 test('it rejects a missing/blank title with 400 instead of storing it (negative)', () => {
   const body = handler(checklists, 'put', '/api/boards/:boardId/cards/:cardId/checklists/:checklistId');
-  assert.ok(/req\.body\.title\.trim\(\) === ''/.test(body));
+  assert.ok(/!req\.body\.title\.trim\(\)/.test(body));
   assert.ok(/code: 400/.test(body));
 });
 
-test('only title is written - the update only sets what was validated (negative)', () => {
+test('only validated title/deadline fields are written (negative)', () => {
   const body = handler(checklists, 'put', '/api/boards/:boardId/cards/:cardId/checklists/:checklistId');
-  assert.ok(/\$set: \{ title: req\.body\.title \}/.test(body));
+  assert.ok(/modifier\.\$set = \{ title: req\.body\.title \}/.test(body));
   assert.ok(!/hideCheckedChecklistItems/.test(body), 'no other field is accepted here (negative)');
 });
 

@@ -146,3 +146,21 @@ JsonRoutes.add('GET', '/api/boards/:boardId/cards/:cardId/checklists/:checklistI
       },
     });
 ```
+
+## Checklist and item deadlines (v11 Upcoming)
+
+Both checklists and individual items have an optional `dueAt`. The checklist
+header offers the shared calendar/date/time picker; item deadlines remain
+independent. Dates display using the member's selected calendar and theme.
+
+`GET /api/boards/:boardId/cards/:cardId/checklists` and the single-checklist
+endpoint return checklist `dueAt` and `items[].dueAt`. The single-card GET
+endpoints return these under `checklists`. Absent deadlines are `null`.
+
+Checklist and item POST/PUT endpoints accept `dueAt` as an ISO 8601 date-time
+with a timezone, for example `2026-09-15T12:30:00Z`. PUT may contain only
+`dueAt`; omitted deadlines remain unchanged and `null` clears them. Invalid
+dates return 400. Existing board permissions and card/checklist ownership
+checks apply. No external service is needed.
+
+The older source examples above describe historical API versions.

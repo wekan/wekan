@@ -1,3 +1,4 @@
+import { parseDueAt, checklistWithItems } from '/server/lib/checklistDeadlines';
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { Authentication } from '/server/authentication';
@@ -168,14 +169,8 @@ WebApp.handlers.get(
       return;
     }
 
-    const checklists = (await ReactiveCache.getChecklists({ cardId: paramCardId })).map(function(
-      doc,
-    ) {
-      return {
-        _id: doc._id,
-        title: doc.title,
-      };
-    });
+    const checklists = await Promise.all((await ReactiveCache.getChecklists({ cardId: paramCardId }, { sort: ['sort'] }))
+      .map(doc => checklistWithItems(doc, ReactiveCache)));
     if (checklists) {
       sendJsonResult(res, {
         code: 200,
@@ -214,18 +209,9 @@ WebApp.handlers.get(
       cardId: paramCardId,
     });
     if (checklist) {
-      checklist.items = (await ReactiveCache.getChecklistItems({
-        checklistId: checklist._id,
-      })).map(function(doc) {
-        return {
-          _id: doc._id,
-          title: doc.title,
-          isFinished: doc.isFinished,
-        };
-      });
       sendJsonResult(res, {
         code: 200,
-        data: checklist,
+        data: await checklistWithItems(checklist, ReactiveCache),
       });
     } else {
       sendJsonResult(res, {
@@ -254,8 +240,14 @@ WebApp.handlers.post(
       return;
     }
 
+    const deadline = parseDueAt(req.body);
+    if (deadline.error) {
+      sendJsonResult(res, { code: 400, data: { error: deadline.error } });
+      return;
+    }
     const id = await Checklists.insertAsync({
       title: req.body.title,
+      ...(deadline.dueAt ? { dueAt: deadline.dueAt } : {}),
       cardId: paramCardId,
       sort: 0,
     });
@@ -294,7 +286,7 @@ WebApp.handlers.post(
 // rename one over the REST API - a client had to delete and re-create it,
 // losing the checklistId and its items. Mirrors the DELETE handler right below
 // it (same lookup / auth), and lists.js's own PUT for the same "edit the
-// title of a thing on the board" shape. Only `title` is accepted: the other
+// title of a thing on the board" shape. `title` and optional `dueAt` are accepted: the other
 // per-checklist toggles (hideCheckedChecklistItems, resetInterval, etc.) are
 // not exposed anywhere over the REST API yet and are out of scope here.
 WebApp.handlers.put(
@@ -329,18 +321,19 @@ WebApp.handlers.put(
       return;
     }
 
-    if (!req.body || typeof req.body.title !== 'string' || req.body.title.trim() === '') {
-      sendJsonResult(res, {
-        code: 400,
-        data: { error: 'title is required' },
-      });
+    const deadline = parseDueAt(req.body);
+    const hasTitle = Object.prototype.hasOwnProperty.call(req.body || {}, 'title');
+    if (deadline.error || (hasTitle && (typeof req.body.title !== 'string' || !req.body.title.trim())) || (!hasTitle && !Object.prototype.hasOwnProperty.call(deadline, 'dueAt'))) {
+      sendJsonResult(res, { code: 400, data: { error: deadline.error || 'title or dueAt is required' } });
       return;
     }
-
-    await Checklists.direct.updateAsync(
-      { _id: paramChecklistId, cardId: paramCardId },
-      { $set: { title: req.body.title } },
-    );
+    const modifier = {};
+    if (hasTitle) modifier.$set = { title: req.body.title };
+    if (Object.prototype.hasOwnProperty.call(deadline, 'dueAt')) {
+      if (deadline.dueAt === null) modifier.$unset = { dueAt: '' };
+      else modifier.$set = { ...modifier.$set, dueAt: deadline.dueAt };
+    }
+    await Checklists.direct.updateAsync({ _id: paramChecklistId, cardId: paramCardId }, modifier);
 
     sendJsonResult(res, {
       code: 200,

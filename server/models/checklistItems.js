@@ -1,3 +1,4 @@
+import { parseDueAt } from '/server/lib/checklistDeadlines';
 import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { Authentication } from '/server/authentication';
@@ -148,10 +149,16 @@ WebApp.handlers.post(
           sort = last && last.length && Number.isFinite(last[0].sort) ? last[0].sort + 1 : 0;
         }
 
+        const deadline = parseDueAt(req.body);
+        if (deadline.error) {
+          sendJsonResult(res, { code: 400, data: { error: deadline.error } });
+          return;
+        }
         const id = await ChecklistItems.insertAsync({
           cardId: paramCardId,
           checklistId: paramChecklistId,
           title: req.body.title,
+          ...(deadline.dueAt ? { dueAt: deadline.dueAt } : {}),
           isFinished: false,
           sort,
         });
@@ -198,6 +205,15 @@ WebApp.handlers.put(
       return;
     }
 
+    const deadline = parseDueAt(req.body);
+    if (deadline.error) {
+      sendJsonResult(res, { code: 400, data: { error: deadline.error } });
+      return;
+    }
+    if (Object.prototype.hasOwnProperty.call(deadline, 'dueAt')) {
+      await ChecklistItems.direct.updateAsync({ _id: paramItemId },
+        deadline.dueAt === null ? { $unset: { dueAt: '' } } : { $set: { dueAt: deadline.dueAt } });
+    }
     function isTrue(data) {
       try {
         return data.toLowerCase() === 'true';
