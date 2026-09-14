@@ -22927,3 +22927,14 @@ Profil remains unchanged pending native loan-word review; French verbs
 around it still need repair. All 18,304 correction and 4,158 unchanged checks
 pass. Adapted phrase inflection and browser review remain open. Original
 300 pending and 27 restored findings remain in scope.
+
+Dated unflagged repair, 2026-09-14, local commit `7c44e4f55`: 10 Breton
+avatar, profile and notification controls replace French prose. Reuse existing
+avatars/avatar-too-big's skeudennig, avatars-upload-blocked-description's
+enkargañ, and deletion notification's kemennadenn. Keep the profil noun:
+native MediaWiki search-unknown-profile uses ar profil klask, and existing
+disable-import-avatars-description uses skeudennoù profil. This establishes
+software loan usage, not complete user-profile phrase attestation:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/br.json
+All 18,314 correction and 4,158 unchanged checks pass. Native phrase and
+browser validation remain open; original pending/restored scope stays 300/27.

@@ -671,6 +671,15 @@ The empty wrongly placed Git directory was removed locally.
 **Languages updated:** Acehnese, Bambara, Basque, Breton, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7c44e4f55">Repair Breton avatar and profile control language</a>. Thanks to xet7.</summary>
+
+Ten French-seeded avatar, profile and notification controls reuse existing
+Breton vocabulary. Preserve the supported profil loan noun and translate
+surrounding prose. Structural checks pass; native/browser review stays open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7223612e7">Repair Breton settings and team control language</a>. Thanks to xet7.</summary>
 
 Sixteen French-seeded settings, permissions and team controls reuse existing
