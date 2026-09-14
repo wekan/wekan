@@ -3640,3 +3640,24 @@ card/list/deletion terms and a verified incoming-linked relationship,
 retaining the card fragment's continuation. No translation or counts
 changed. Pending 163 original findings. No live deletion UI test ran and
 no remote writes were made.
+
+
+## Linked-card deletion fragment — repair 2026-09-15
+
+Source commit `efdf49b29` replaces French card-dependency warning.
+Established cannot-delete wording combines with before `dat` and link
+participle derived from `zdi` (IRCAM page 717 entry 13467 attach/join/tie).
+The clause places linked-card deletion before deleting this card. Final
+`nna dars` preserves which has before the literal linkedId suffix;
+it must not be completed with an invented card title or checklist item.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+Full before-action clause, linked participle, possession continuation and
+complete displayed alert remain low confidence. The source query's
+incoming-reference direction remains unchanged. No permanent-deletion
+or no-undo claim was added. Earlier list warning remains pending and its
+same-list exception still needs correct contextual wording.
+Four focused suites pass for exact wording, French rejection and translation
+invariants. No live deletion UI test ran. Ledger 19,856; original corrected
+15,741, pending 162 (zgh 67), restored 4 unchanged. Broader review remains
+open; no remote writes were made.

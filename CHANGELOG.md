@@ -891,6 +891,16 @@ Dated audit records 163 pending original findings.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/efdf49b29">Repair Tamazight linked-card deletion warning</a>. Thanks to xet7.</summary>
+
+Replace French dependency fragment, retaining deletion order and diagnostic
+continuation. Four focused translation suites pass. Full subordinate
+clause and linked participle remain under native review. Dated audit
+records 162 pending original findings.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
