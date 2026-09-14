@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/42d65f377">Review Tamazight SMTP address and management terminology</a>. Thanks to xet7.</summary>
+
+Verify dictionary address and administer/manage senses against the host
+input. User email-address wording is unsuitable for the SMTP host. The
+full plural/relative clause remains pending; no acceptance is recorded.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/89ebd29cc">Repair Tamazight minicard parent-display label</a>. Thanks to xet7.</summary>
 
 Replace French wording and preserve the small-card distinction. Four

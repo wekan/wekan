@@ -27,10 +27,10 @@ repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
-Latest terminology review: **2026-09-14**, `726abda52` — Veps top-position
-forms and stationary/movement distinctions are recorded; summarize is not
-arithmetic sum, and frequency is not software-parent evidence. No finding
-was accepted. Full phrases remain open in [Veps review](Veps-Review.md).
+Latest terminology review: **2026-09-14**, `42d65f377` — Tamazight
+SMTP host-address and manage/administer senses are verified. Host address
+must not become the user email address. The full email plural/relative
+clause remains pending in [Tamazight review](Tamazight-Review.md).
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:
