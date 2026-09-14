@@ -126327,5 +126327,33 @@
     "before": "Peut seulement déplacer des cartes, s'assigner à une carte et la commenter.",
     "after": "ⵜⵥⴹⴰⵕⴷ ⵖⴰⵙ ⴰⴷ ⵜⵙⵎⵓⵜⵜⵉⴷ ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ, ⴰⴷ ⵜⴼⴽⴷ ⵜⴰⴽⴰⵔⴹⴰ ⵉ ⵉⵅⴼ ⵏⵏⴽ ⴷ ⴰⴷ ⵜⵔⵏⵓⴷ ⴰⵖⴼⴰⵡⴰⵍ.",
     "reason": "2026-09-14: Replace French worker-role description. Native MediaWiki search-ignored-headings supports Can, linkstoimage-more Only ghas, move Move, filehist-comment Comment and resetpass-temp-emailed Give tfkd: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Native Mastodon compose_form.placeholder supports your self/head component ikhf nnk: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Preserve ONLY three permissions: MOVE cards, SELF-assignment to card, COMMENT; do not introduce title/content editing, settings or assignment to others. Give Card To Yourself is assignment paraphrase, not independently attested reflexive assignment. Full coordinated grammar and self-assignment adaptation remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "cron-migrations",
+    "before": "Migrations planifiées",
+    "after": "ⵉⵙⵎⵓⵜⵜⵢⵏ ⵜⵜⵓⵖⴰⵡⵙⵏ",
+    "reason": "2026-09-14: Replace unflagged French or inherited Kabyle-leaning migration wording; script alone is not language proof. Native Red Moon Resume als and Schedule aghawas: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Non-fuzzy Dialect Automatic awurman: https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po . Native MediaWiki failure frame retained. Preserve Scheduled PLURAL versus Automatic SINGULAR, Resume versus Complete, and failed resume versus completed resumption. Migration movement adaptation, scheduled plural passive, Resume nominalization/past passive and whole grammar remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "automatic-migration",
+    "before": "Migration automatique",
+    "after": "ⴰⵙⵎⵓⵜⵜⵢ ⴰⵡⵓⵔⵎⴰⵏ",
+    "reason": "2026-09-14: Replace unflagged French or inherited Kabyle-leaning migration wording; script alone is not language proof. Native Red Moon Resume als and Schedule aghawas: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Non-fuzzy Dialect Automatic awurman: https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po . Native MediaWiki failure frame retained. Preserve Scheduled PLURAL versus Automatic SINGULAR, Resume versus Complete, and failed resume versus completed resumption. Migration movement adaptation, scheduled plural passive, Resume nominalization/past passive and whole grammar remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "migration-resume-failed",
+    "before": "ⴰⴽⴻⵎⵎⴻⵍ ⵏ ⵓⵙⵎⵓⵜⵜⵉ ⵓⵔ ⵢⴻⴷⴷⵉ ⴰⵔⴰ",
+    "after": "ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⵜⵓⵍⵙⴰ ⵏ ⵓⵙⵎⵓⵜⵜⵢ.",
+    "reason": "2026-09-14: Replace unflagged French or inherited Kabyle-leaning migration wording; script alone is not language proof. Native Red Moon Resume als and Schedule aghawas: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Non-fuzzy Dialect Automatic awurman: https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po . Native MediaWiki failure frame retained. Preserve Scheduled PLURAL versus Automatic SINGULAR, Resume versus Complete, and failed resume versus completed resumption. Migration movement adaptation, scheduled plural passive, Resume nominalization/past passive and whole grammar remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "migration-resumed",
+    "before": "ⴰⵙⵎⵓⵜⵜⵉ ⵢⴻⴽⵎⴻⵍ",
+    "after": "ⴰⵙⵎⵓⵜⵜⵢ ⵉⵜⵜⵓⵢⴰⵍⵙ.",
+    "reason": "2026-09-14: Replace unflagged French or inherited Kabyle-leaning migration wording; script alone is not language proof. Native Red Moon Resume als and Schedule aghawas: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Non-fuzzy Dialect Automatic awurman: https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po . Native MediaWiki failure frame retained. Preserve Scheduled PLURAL versus Automatic SINGULAR, Resume versus Complete, and failed resume versus completed resumption. Migration movement adaptation, scheduled plural passive, Resume nominalization/past passive and whole grammar remain LOW CONFIDENCE."
   }
 ]
