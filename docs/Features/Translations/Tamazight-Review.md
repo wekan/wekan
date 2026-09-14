@@ -2636,3 +2636,21 @@ wrong-language checks, placeholders, order and human preference. No live
 browser test ran. Ledger 19,809; original corrected 15,712, pending 191
 (zgh 96), restored 4 unchanged. Broader uncertain/restored/unflagged
 review remains open. No push.
+
+## Card and swimlane deletion popups — 2026-09-15
+
+Local commit `7a51038bf` replaces Arabic card-delete-pop and French
+swimlane-delete-pop. Preserve all actions removed from the activity feed,
+no card reopening versus no swimlane recovery, and no undo. Reuse existing
+future deletion, activity/list nouns, board-open and restore verbs, and
+cannot-undo clauses. Activity feed is adapted as activity list; this
+consistency repair adds no independent lexical attestation.
+
+**Low confidence:** feed adaptation, again adverb and full contextual
+agreement remain under native review. cardDetails.jade and
+swimlaneHeader.jade register the respective warnings. Four focused suites
+pass for feed/all-actions scope, distinct restrictions, no undo, negative
+wrong-language checks, placeholders, order and human preference. No live
+browser test ran. Ledger 19,811; original corrected 15,714, pending 189
+(zgh 94), restored 4 unchanged. Broader uncertain/restored/unflagged review
+remains open. No push.
