@@ -24332,3 +24332,10 @@ Day and every-one-day labels no longer contain English with a language prefix.
 Primary dictionary printed pages 18 and 158 directly attest the terms. Four
 checks pass; no browser rendering was verified. Ledger: 18,696 corrections;
 original pending/restored counts remain 283/4.
+
+## Quechua named calendar nouns — 2026-09-14
+
+Local fix `6e3663c83`: [dictionary distinction and confidence limits](Quechua-Review.md).
+Dangi, Minguo and generic Hijri labels now use the generic calendar noun while
+preserving names. Adapted compounds remain low confidence pending native phrase
+and browser review. Four checks pass; ledger 18,699; pending/restored 283/4.

@@ -40,7 +40,7 @@ cross-checks calendar, user and click components in native Moroccan sources.
 Full phrases, warnings and invalidated Tuareg records remain open; no pending
 finding was accepted from component evidence.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,696** exact before/after values, including unflagged repairs.
+contain **18,699** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
@@ -58,7 +58,13 @@ remains open. Latin Inuktitut spelling is valid; original script warnings
 require vocabulary/context review rather than automatic replacement.
 Current pending/restored counts are 283/4.
 
-Latest translation fix: **2026-09-14**, local commit `34dbfa64c` —
+Latest translation fix: **2026-09-14**, local commit `6e3663c83` —
+[Quechua review](Quechua-Review.md) records three named calendar noun repairs.
+Proper names remain unchanged. Adapted compounds are explicitly low confidence;
+full native phrase and browser validation remain open. Four checks pass;
+original pending/restored counts remain 283/4.
+
+Previous day-label fix: **2026-09-14**, local commit `34dbfa64c` —
 [Quechua review](Quechua-Review.md) records native day and daily recurrence
 terms replacing English wrappers. Four locale and ledger checks pass; calendar
 toolbar wiring is checked. Browser and full calendar-compound review remain

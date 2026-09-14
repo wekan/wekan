@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6e3663c83">Correct Quechua named calendar nouns</a>. Thanks to xet7.</summary>
+
+Dangi, Minguo and Hijri retain their names with the native generic calendar
+noun. Four locale and ledger checks pass. Adapted compounds remain low
+confidence pending full native phrase and browser validation.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/34dbfa64c">Repair Quechua day and recurrence labels</a>. Thanks to xet7.</summary>
 
 Native day and daily recurrence terms replace English words with a language
