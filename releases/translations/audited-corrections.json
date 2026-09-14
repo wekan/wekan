@@ -123450,5 +123450,12 @@
     "before": "Si vous avez déjà un compte",
     "after": "ⵎⴽ ⵖⵓⵔⴽ ⵉⵍⵍⴰ ⵢⴰⴷ ⵓⵎⵉⴹⴰⵏ",
     "reason": "Replace French If you already have an account prompt; preserve conditional and already-existing account, not creation or username availability. Native MediaWiki userlogin-noaccount uses ghurk ... umidhan account possession; userlogin-loggedin/userexists attest yad/already and view-pool-error supplies mk/if: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE positive possession adaptation from negative native question, clause order and generic masculine address require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "memory-usage",
+    "before": "Utilisation de la mémoire",
+    "after": "ⴰⵙⵙⵎⵔⵙ ⵏ ⵜⴽⴰⵜⵓⵜ",
+    "reason": "Replace French Memory Usage label. Native MediaWiki poolcounter-usage-error supplies bound ussmrs/usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . CNAM computing lexicon explicitly gives computer memory/storage Takatut MC and bound tkatut in memory cycle/block examples: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf PDF page 89/printed 85 and memory cycle PDF page 44/printed 40. LOW CONFIDENCE free usage noun assmrs from bound native form and MC-to-Standard-Moroccan full diagnostics label adaptation require fluent review. Do not imply disk usage or human recollection."
   }
 ]

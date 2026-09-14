@@ -2515,7 +2515,7 @@
   "job-queue": "ⵜⵉⵖⴻⵕⴷⴰⵜⵜ ⵏ ⵉⵅⴻⴷⴷⵉⵎⴻⵏ",
   "last-run": "Dernière exécution",
   "max-concurrent": "ⴰⵎⴷⴰⵙ ⴰⴼⴻⵍⵍⴰⵢ",
-  "memory-usage": "Utilisation de la mémoire",
+  "memory-usage": "ⴰⵙⵙⵎⵔⵙ ⵏ ⵜⴽⴰⵜⵓⵜ",
   "migrate-all-to-filesystem": "ⵙⵎⵓⵜⵜⵉ ⴽⵓⵍⵍⴻⵛ ⵖⴻⵔ ⵓⵏⴰⴳⵔⴰⵡ ⵏ ⵉⴼⴰⵢⵍⵓⵜⴻⵏ",
   "migrate-all-to-gridfs": "ⵙⵎⵓⵜⵜⵉ ⴽⵓⵍⵍⴻⵛ ⵖⴻⵔ GridFS",
   "migrate-all-to-s3": "ⵙⵎⵓⵜⵜⵉ ⴽⵓⵍⵍⴻⵛ ⵖⴻⵔ S3",
