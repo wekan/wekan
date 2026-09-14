@@ -4,24 +4,23 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,560 |
-| Restored pre-pull; awaiting validation | 1,903 |
-| Reviewed; retained unchanged | 2,310 |
+| Corrected | 15,561 |
+| Restored pre-pull; awaiting validation | 1,873 |
+| Reviewed; retained unchanged | 2,339 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
 Review is ongoing. The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,156** exact before/after values, including unflagged repairs.
+contain **18,157** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `9b6b1ffe6` —
-clarified three Esperanto overtime-work labels for manually classified work
-hours. All **18,156** correction records pass. Latest unchanged review:
-`96367d213` (2026-09-14), 25 Galician role descriptions and card
-controls retained. Three Esperanto
+Latest translation fix: **2026-09-14**, local commit `316232f69` —
+preserved literal Trello navigation labels in Galician import help and
+retained 29 correct template, invitation, export and filter values. All
+**18,157** correction and **2,339** review records pass. Three Esperanto
 restored findings remain: lime color and two Complete labels. Broader
-terminology/fluency and browser verification remain open; nothing pushed.
+language and browser verification remain open; nothing pushed.
 
 
 Fixed categories include wrong-language prose, terminology, warnings,

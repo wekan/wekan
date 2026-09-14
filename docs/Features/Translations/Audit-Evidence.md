@@ -21925,3 +21925,14 @@ no-edit and no-comment-visibility restrictions, worker self-assignment and
 favorite/unfavorite opposites remain explicit. All 2,310 reviews pass;
 1,903 restored values and 308 pending findings plus broader language/browser
 verification remain open.
+
+
+### Galician import, template and export review — 2026-09-14
+
+Local commit `316232f69` restores literal source Trello menu labels in
+Galician import help, matching existing audited navigation policy. Galician
+prose remains; 29 template, invitation, role-error, export and filter values
+retained. JSON title/description properties, placeholders, permanent
+custom-field deletion and free-disk-space warning remain exact. All 18,157
+corrections and 2,339 reviews pass. 1,873 restored values and 308 pending
+findings plus wider language/browser verification remain open.
