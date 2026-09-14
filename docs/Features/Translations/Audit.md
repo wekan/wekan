@@ -40,6 +40,13 @@ resizing. Geometry, pointer and Jade checks pass; browser coverage is added
 and syntax-checked, with live execution pending. Translation counts are
 unchanged; the translation audit remains active.
 
+**Activity viewer follow-up (2026-09-14):** local commit `02f233649`
+renders activity values in card and sidebar feeds through the shared
+Markdown/emoji/permitted-HTML viewer, respecting security display modes.
+Focused viewer, navigation, source-URL and Jade checks pass; browser coverage
+is syntax-checked, not run live. Translation counts are unchanged; repairs
+and wording validation remain active.
+
 **Remaining validation:** all restored/unflagged values and low-confidence replacements remain open. Detailed per-key caveats are retained in the correction ledger and source commits. These include Veps composed UI, card, notification, calendar, timing, file/archive, metric and legal terminology/inflection; Neapolitan technical checklist usage; Fulah/Bambara calendar composition; and CLDR-provisional Ewe civil-calendar and Tongan tabular-calendar/astronomical-epoch phrase composition, and Sakha civil/astronomical-calendar/era-to-epoch and sighting-phrase composition. Field sums, parent-card terminology, keyboard shortcuts, remaining migration/search messages and other calendar variants need further language research. Wrong-language/script and fluent-speaker checks remain unfinished.
 
 **Security interruption (2026-09-14):** `c1246d720` reviews both saved `.tools/wekansec20` alerts and hardens exact archive-host checks and shell-free mirror dispatch, including direct Windows Node execution. All 25 focused mirror test entries pass; native Windows and remote CodeQL rescanning remain unverified. Translation counts and remaining validation are unchanged.

@@ -592,10 +592,26 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** Tamazight description and due-card view labels replace French
-and Arabic text. The description prompt preserves its request for more
-detail, and the view choice retains its all-users scope. Native component
-terms support the repairs; complete wording still needs fluent review.
+**In short:** Card and sidebar activity values render Markdown, emojis and
+permitted HTML through the shared security-aware viewer. Plain-source and
+plain-link settings apply, with existing sanitization and source-URL checks.
+Tamazight description and due-card view labels replace French and Arabic;
+complete translation wording still needs fluent review.
+
+This release fixes the following activity rendering:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/02f233649">Use the shared viewer for card and sidebar activities</a>. Thanks to xet7.</summary>
+
+Render activity values as Markdown, emojis and permitted HTML using the
+existing viewer. Preserve plain-source behavior; sanitize completed activity
+sentences and remove their links in plain-link mode. Keep imported source
+URL scheme checks and avoid nested rich-title/application anchors.
+Focused viewer, activity navigation, source-URL and Jade checks pass.
+Browser regressions cover both feeds and all modes; syntax checked, not run
+live. No sanitizer permissions or URL schemes were broadened.
+
+</details>
 
 This release adds the following translation improvements:
 
