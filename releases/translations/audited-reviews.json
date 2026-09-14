@@ -4180,5 +4180,533 @@
     "key": "step-restore-cards",
     "value": "Genskab kort",
     "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "step-restore-swimlanes",
+    "value": "Genskab svømmebaner",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "step-fix-missing-ids",
+    "value": "Ret manglende ID'er",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "step-scan-users",
+    "value": "Kontrollerer tavlemedlemmernes avatarer",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "step-scan-files",
+    "value": "Kontrollerer tavlens vedhæftede filer",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "step-fix-file-urls",
+    "value": "Retter fil-URL'er",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "cleanup",
+    "value": "Oprydning",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "cleanup-old-jobs",
+    "value": "Ryd op i gamle job",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "cpu-cores",
+    "value": "CPU-kerner",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "cpu-usage",
+    "value": "CPU-forbrug",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "current-action",
+    "value": "Nuværende handling",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "database-migrations",
+    "value": "Databasemigreringer",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "duration",
+    "value": "Varighed",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "estimated-time-remaining",
+    "value": "Anslået resterende tid",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "every-1-day",
+    "value": "Hver dag",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "every-1-hour",
+    "value": "Hver time",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "every-1-minute",
+    "value": "Hvert minut",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "every-10-minutes",
+    "value": "Hvert 10. minut",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "every-30-minutes",
+    "value": "Hvert 30. minut",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "every-5-minutes",
+    "value": "Hvert 5. minut",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "every-6-hours",
+    "value": "Hver 6. time",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "export-monitoring",
+    "value": "Eksportér overvågning",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "filesystem-size",
+    "value": "Filsystemstørrelse",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "filesystem-storage",
+    "value": "Filsystemlagring",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "force-board-scan",
+    "value": "Gennemtving tavlescanning",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "gridfs-size",
+    "value": "GridFS-størrelse",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "job-description",
+    "value": "Jobbeskrivelse",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "job-details",
+    "value": "Jobdetaljer",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "job-name",
+    "value": "Jobnavn",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "job-queue",
+    "value": "Jobkø",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "last-run",
+    "value": "Seneste kørsel",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "max-concurrent",
+    "value": "Maks. samtidige",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "memory-usage",
+    "value": "Hukommelsesforbrug",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "migration-batch-size",
+    "value": "Batchstørrelse",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "migration-cpu-threshold",
+    "value": "CPU-tærskel (%)",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "migration-cpu-threshold-description",
+    "value": "Sæt migreringen på pause, når CPU-forbruget overstiger denne procentsats (10-90)",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "migration-delay-ms",
+    "value": "Forsinkelse (ms)",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "migration-delay-ms-description",
+    "value": "Forsinkelse mellem batches i millisekunder (100-10000)",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "migration-log",
+    "value": "Migreringslog",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "migration-markers",
+    "value": "Migreringsmarkører",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "migration-resumed",
+    "value": "Migrering genoptaget",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "migration-steps",
+    "value": "Migreringstrin",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "next",
+    "value": "Næste",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "next-run",
+    "value": "Næste kørsel",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "operation-type",
+    "value": "Handlingstype",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "overall-progress",
+    "value": "Samlet fremskridt",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "page",
+    "value": "Side",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "pause-migration",
+    "value": "Sæt migrering på pause",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "previous",
+    "value": "Forrige",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "refresh",
+    "value": "Opdatér",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "refresh-monitoring",
+    "value": "Opdatér overvågning",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "resume-migration",
+    "value": "Genoptag migrering",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "run-once",
+    "value": "Kør én gang",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "s3-size",
+    "value": "S3-størrelse",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "scanning-status",
+    "value": "Scanningsstatus",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "showChecklistAtMinicard",
+    "value": "Vis tjekliste på minikort",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "showing",
+    "value": "Viser",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "start-test-operation",
+    "value": "Start testhandling",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "start-time",
+    "value": "Starttidspunkt",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "step-progress",
+    "value": "Trinfremskridt",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "stop-migration",
+    "value": "Stop migrering",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "storage-distribution",
+    "value": "Lagringsfordeling",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "system-resources",
+    "value": "Systemressourcer",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "total-operations",
+    "value": "Handlinger i alt",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "total-size",
+    "value": "Samlet størrelse",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "weight",
+    "value": "Vægt",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "current-step",
+    "value": "Nuværende trin",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "otp",
+    "value": "OTP-kode",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "create-account",
+    "value": "Opret konto",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "already-account",
+    "value": "Har du allerede en konto? Log ind",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "available-repositories",
+    "value": "Tilgængelige repositorier",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "repository-name",
+    "value": "Repositoriets navn",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "size-bytes",
+    "value": "Størrelse (bytes)",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "last-modified",
+    "value": "Senest ændret",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "no-repositories",
+    "value": "Ingen repositorier fundet",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "create-repository",
+    "value": "Opret repositorium",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "upload-repository",
+    "value": "Overfør/opdatér repositorium",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "api-endpoints",
+    "value": "API-endpoints",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "otp-required",
+    "value": "OTP-kode påkrævet",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "invalid-credentials",
+    "value": "Ugyldigt brugernavn eller kodeord",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "username-too-short",
+    "value": "Brugernavnet skal være mindst 3 tegn",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "user-exists",
+    "value": "Brugeren findes allerede",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "account-created",
+    "value": "Konto oprettet! Du kan nu logge ind.",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "account-creation-failed",
+    "value": "Kunne ikke oprette konto",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "confirm",
+    "value": "Bekræft",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "log",
+    "value": "Log",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "logout",
+    "value": "Log ud",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "protocol",
+    "value": "Protokol",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "da",
+    "key": "repair-broken-cards",
+    "value": "Reparér ødelagte kort",
+    "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
   }
 ]
