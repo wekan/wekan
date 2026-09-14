@@ -901,6 +901,14 @@ test('Tamazight numeric total tooltip describes only display-enabled fields', as
     await expect(badge).not.toHaveText('∑ 107');
     await expect(badge).toHaveAttribute('title', new RegExp(`^${locale['sum-of-number-fields']}`));
     await expect(badge).not.toHaveAttribute('title', /ⴰⵥⴰⵢⵏ|ⵓⵙⴰⴽⴰ/);
+    await boardPage.locator('.js-open-list-menu').first().click();
+    await boardPage.locator('.pop-over .js-close-list').click();
+    const archivePopup = boardPage.locator('.pop-over[data-popup="listArchivePopup"]');
+    await expect(archivePopup.locator('.header-title')).toHaveText(locale['listArchivePopup-title']);
+    await expect(archivePopup.locator('.header-title')).not.toHaveText(/Archiver|liste/);
+    await archivePopup.locator('.js-close-pop-over').click();
+    await expect(new BoardPage(boardPage).list(board.listIds[0])).toBeVisible();
+
   } finally {
     db.deleteMany('customFields', { _id: { $in: [shownId, hiddenId] } });
   }

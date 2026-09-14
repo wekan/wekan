@@ -131934,5 +131934,19 @@
     "before": "Merci de soumettre l'erreur générée par le serveur. Pour une installation snap, lancer `sudo snap logs wekan.wekan`. Pour une installation docker, lancer `sudo docker logs wekan-app`",
     "after": "ⴰⵎⵓⵔ ⵏⵏⴽ, ⴰⵣⵏ ⴰⵣⴳⴰⵍ ⵍⵍⵉ ⵉⵙⴽⵔ ⵓⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ.\nⵉ ⵓⵙⵔⵓⵙ ⵏ snap, ⵙⵙⵎⵔⵙ: `sudo snap logs wekan.wekan`\nⵉ ⵓⵙⵔⵓⵙ ⵏ Docker, ⵙⵙⵎⵔⵙ: `sudo docker logs wekan-app`",
     "reason": "2026-09-14: Replace full French server troubleshooting message with Tamazight draft. Native MediaWiki attests please, send, error and use; IRCAM dictionary page 120 entry 2157 attests computer server, page 246 entry 4749 installation/asrus. Keep exact Snap/Docker commands and restore separate instruction lines from English. Low confidence: full relative-clause grammar and computing instruction collocations require native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "listArchivePopup-title",
+    "before": "Archiver la liste ?",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⵜⴰⵍⴳⴰⵎⵜ ⵖⵔ ⴰⵔⵛⵉⴼ?",
+    "reason": "2026-09-14: Replace French list archive title / Arabic board restore action. Preserve existing complete list-to-archive wording and question mark; use ssukn, native MediaWiki logentry-delete-restore and IRCAM page 534 entry 10051 restore/repair, with existing board noun. Actual list confirmation archives the list; board.restore reactivates archived board. Low confidence: board/list computing compounds remain under native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "restore-board",
+    "before": "استعادة اللوحة",
+    "after": "ⵙⵙⵓⴽⵏ ⵜⴰⴼⵍⵡⵉⵜ",
+    "reason": "2026-09-14: Replace French list archive title / Arabic board restore action. Preserve existing complete list-to-archive wording and question mark; use ssukn, native MediaWiki logentry-delete-restore and IRCAM page 534 entry 10051 restore/repair, with existing board noun. Actual list confirmation archives the list; board.restore reactivates archived board. Low confidence: board/list computing compounds remain under native review."
   }
 ]

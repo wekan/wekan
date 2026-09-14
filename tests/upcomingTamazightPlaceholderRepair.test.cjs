@@ -97,3 +97,13 @@ const searchTemplate = fs.readFileSync(path.join(ROOT,
   'client/components/main/globalSearch.jade'), 'utf8');
 assert.match(searchTemplate, /{{_ 'server-error-troubleshooting' }}/);
 console.log('Tamazight troubleshooting preserves exact commands and distinct installation instructions');
+
+assert.strictEqual(translated['listArchivePopup-title'], `${translated['archive-list']}?`);
+assert.strictEqual(translated['restore-board'], `${translated.restore} ⵜⴰⴼⵍⵡⵉⵜ`);
+assert.doesNotMatch(translated['listArchivePopup-title'], /Archiver|liste/);
+assert.doesNotMatch(translated['restore-board'], /[\u0600-\u06ff]/u);
+assert.notStrictEqual(translated['restore-board'], translated['archive-board']);
+const archiveSource = fs.readFileSync(path.join(ROOT,
+  'client/components/boards/boardArchive.js'), 'utf8');
+assert.match(archiveSource, /click \.js-restore-board[\s\S]*?await board\.restore\(\)/);
+console.log('Tamazight archive question and board restoration remain distinct actions');
