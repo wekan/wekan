@@ -2557,3 +2557,24 @@ negative French checks, placeholders, key order and human preference. No
 live browser test ran. Ledger 19,797; original pending 195 (zgh 100),
 restored 4 unchanged: all three repairs were unflagged. Broader uncertain,
 restored and unflagged review remains open. No push.
+
+## Rule destinations and member fragments — 2026-09-15
+
+Local commit `d9bcfcd2f` replaces eight French rule fragments:
+r-its-list, r-in-list, r-in-swimlane, r-d-add-member,
+r-d-remove-member, r-d-check-of-list, r-with-items and r-swimlane-name.
+Reuse existing list/swimlane/member/item/name nouns, add/remove imperatives,
+and possession/destination constructions. r-d-check-of-list matches the
+existing r-of-checklist; member removal matches remove-member. The English
+source requests member, rather than retaining the old French participant.
+boardActions.jade registers list ownership and distinct list/swimlane
+locations around action selectors and name inputs. This consistency repair
+adds no independent lexical attestation.
+
+**Low confidence:** complete contextual grammar, including the swimlane
+locative and fragment composition, remains under native review. Four
+focused suites pass for exact values, object/action distinctions, negative
+French checks, placeholders, JSON examples, order and human preference.
+No live browser test ran. Ledger 19,805; original pending 195 (zgh 100),
+restored 4 unchanged. All eight repairs were unflagged; broader uncertain,
+restored and unflagged review remains open. No push.
