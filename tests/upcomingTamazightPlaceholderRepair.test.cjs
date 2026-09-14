@@ -465,3 +465,6 @@ assert.strictEqual(translated["desktop-mode"], "ⵜⴰⵍⵖⴰ Desktop");
 
 assert.strictEqual(translated["mobile-desktop-toggle"], "ⵙⵏⴼⵍ ⴳⵔ ⵜⴰⵍⵖⴰ Mobile ⴷ ⵜⴰⵍⵖⴰ Desktop");
 assert.doesNotMatch(translated['mobile-desktop-toggle'], /Basculer|bureau|[\u0600-\u06ff]/u);
+
+assert.strictEqual(translated["r-board-note"], "ⵜⵉⵏⵥⵉ: ⴰⵊⵊ ⵉⴳⵔ ⴷ ⵉⵍⵎ ⵉ ⵓⵎⵙⴰⵙⴰ ⴰⴽⴷ ⴽⵓ ⴰⵣⴰⵍ ⴰⵎⵔⴷⵓ.");
+assert.doesNotMatch(translated['r-board-note'], /[\u0600-\u06ff]|ⴰⵛⴰⵏⴰ|ⵜⴰⵎⵏⵢⵓⴳⴰⵔⵜ/u);
