@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,390 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 454 pending review or repair.
-The correction inventory records 17,847 exact before/after values,
+findings: 15,392 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 452 pending review or repair.
+The correction inventory records 17,849 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (319) and
+The largest original queues are Standard Moroccan Tamazight (317) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 2544843d6 (2026-09-14), repairing French completed
-checklist activity while preserving both ordered %s tokens. Past/transitive
-adaptation remains low confidence; uncompletion needs active reversal wording.
+Latest translation fix is a8ac930ee (2026-09-14), repairing two French checklist
+form controls and preserving Close Form and Add/Edit distinction. Derived
+addition noun and full phrases remain low confidence for fluent review.
 Start spelling follow-up 2219d5358 distinguishes plain Begin/Start from
 emphatic Share/Divide in indexed IRCAM entries; direct PDF and full command
 verification remain open. No values or counts changed.
@@ -637,10 +637,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,390 original findings are
+Translation audit progress as of 2026-09-14: 15,392 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 454 remain pending across 17 locales, including 319 Tamazight findings.
-The ledger contains 17,847 correction records, including unflagged repairs.
+and 452 remain pending across 17 locales, including 317 Tamazight findings.
+The ledger contains 17,849 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -2279,6 +2279,16 @@ Repair French completed activity preserving two ordered %s tokens. Full
 phrase and past/transitive completion adaptation remain low confidence.
 Uncompletion needs active reversal wording rather than simple negation.
 All 17,847 correction checks pass; 454 original findings remain pending.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a8ac930ee">Translate Tamazight checklist form close controls</a>. Thanks to xet7.</summary>
+
+Repair two French controls preserving Close Form and Add/Edit distinction.
+Derived addition noun and full checklist phrases remain low confidence for
+fluent review. All 17,849 correction checks pass; 452 original findings remain
+pending, including 317 Tamazight.
 
 </details>
 
