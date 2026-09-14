@@ -10,7 +10,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Pending review or repair | 305 |
 | Total tracked | 20,081 |
 
-Review is ongoing. [Tamazight reference review](Tamazight-Review.md) confirms
+Review is ongoing. Silesian raw-database terminology remains unverified
+after reviewing existing mixed technical vocabulary and search evidence.
+Polish-only sources do not establish correct Silesian terminology.
+ [Tamazight reference review](Tamazight-Review.md) confirms
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The [correction ledger](../../../releases/translations/audited-corrections.json)

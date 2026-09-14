@@ -22674,3 +22674,13 @@ Dated review, 2026-09-14, local commit `c44dca170`: Acehnese Leubeh
 retained for More. Primary dictionary example at
 https://kamusbbpa.kemendikdasmen.go.id/kamus/Aceh/C supports the meaning.
 All 4,136 exact reviews pass; six Acehnese restored values remain open.
+
+Reference review, 2026-09-14: Silesian sandstorm-raw-mongodb remains
+pending. Inspected existing locale file vocabulary includes both plik/pliki
+and zbiōr, as well as baza danych. Searches for Silesian raw database/file
+terminology returned Polish publications and did not establish a native
+technical phrase. Polish dictionary entries for surowy establish Polish
+usage only; they do not prove that shared vocabulary is invalid Silesian.
+Do not mechanically substitute zbiōr or transliterate Polish to close this
+finding. Review the entire phrase against a Silesian technical dictionary or
+corpus before accepting or replacing it. No locale strings changed.
