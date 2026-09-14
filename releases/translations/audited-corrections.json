@@ -126887,5 +126887,12 @@
     "before": "Ne pas afficher le parent",
     "after": "ⵙⵙⵏⵜⵍ ⴰⵎⴰⵔⴰⵡ",
     "reason": "2026-09-14: Replace French parent display wording with Tamazight. MediaWiki rcfilters-activefilters-hide directly supplies ssntl Hide. Parent amaraw is supported by indexed IRCAM General Dictionary and Central Atlas dictionary reference; existing Takarḍa supplies Card. no-parent selects display mode in cardDetails.js, not relationship deletion. Compound and bound-state adaptation remain low confidence pending fluent review. Sources: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339 . IRCAM entry is indexed evidence, not a directly inspected page."
+  },
+  {
+    "locale": "zgh",
+    "key": "editCardDueDatePopup-title",
+    "before": "تغيير تاريخ الاستحقاق",
+    "after": "ⵙⵏⴼⵍ ⴰⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ",
+    "reason": "2026-09-14: Replace Arabic Change Due Date popup title with Tamazight. Native MediaWiki edit / skin-view-edit supplies snfl; reuse existing due-date asakud amggaru and the same imperative pattern as adjacent start/received/end date popups. Native Change verb directly supported; full Due Date terminology retains existing wording and remains subject to wider fluent review. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
