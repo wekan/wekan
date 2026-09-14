@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/de14ab2b6">Review archive guidance source location</a>. Thanks to xet7.</summary>
+
+The audit identifies outdated home-header wording in the English source.
+The active Archive control is an All Boards menu row; the old header
+markup is commented out. English and corresponding locale repairs remain
+open. Existing menu and audit checks pass; no locale change is claimed.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1444c8f94">Review Tamazight archive guidance terminology</a>. Thanks to xet7.</summary>
 
 Native software evidence supports the existing home-page term. Dictionary

@@ -28,11 +28,11 @@ repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
-Latest terminology review: **2026-09-14**, `1444c8f94` — archive guidance
-still open. Native MediaWiki supports the existing home-page term;
-IRCAM plug/clothing-button senses do not prove UI button terminology.
-No locale/count change. Actual home Archive location and full phrasing
-require verification. Dated source evidence remains in the native review.
+Latest terminology review: **2026-09-14**, `de14ab2b6` — archive
+source guidance also has an outdated location. Active Archive is an
+All Boards menu row; the old header control is commented out. English
+and corresponding locale guidance need repair. Counts unchanged;
+full Tamazight terminology and phrase verification remain open.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:
