@@ -501,3 +501,25 @@ If a comment references a parent missing from the paginated issue inventory, the
 collector fetches that issue and any pull metadata through the same rate-limited
 API client, saves them directly to their issue/pull directory and continues. A
 failed parent fetch preserves the checkpoint so a subsequent run retries the page.
+
+### Staged synchronization and concurrent destinations
+
+Menu option 1 first synchronizes the selected source Git branches and tags
+with every active destination. Only after Git succeeds does it collect source
+issues, pull conversations, releases and linked files into the durable
+`.tools/mirror/<host>/<organization>/<repo>/` archive and generate static pages.
+An archive failure stops destination content writes.
+
+After the local archive is ready, separate destination processes synchronize
+its content concurrently. They reuse the same snapshot, preserve completed
+resume checkpoints, and retain each forge's rate-limit handling. Live progress
+shows every active mirror together: start time, processed issues/total,
+processed releases/total and running/finished/failed state. Processed counters
+include checked existing items, failed items and unsupported/draft releases;
+they measure work examined, while copied/failed logs describe the result.
+
+Each run retains the combined mirror-log.txt plus github.txt, gitlab.txt,
+codeberg.txt or sourceforge.txt beside it, according to active destinations,
+in `.tools/log/mirror/YYYY-MM-DD_HH-MM-SS/`. These separate logs include Git
+and destination content output. Starting this script performs remote writes
+and is a human maintainer operation; offline tests use injected local commands.

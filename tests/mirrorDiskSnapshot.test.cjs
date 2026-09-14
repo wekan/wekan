@@ -144,12 +144,12 @@ test('destination restart reuses the completed source and skips completed mirror
         const manifest={diskSnapshot:1,base:f.base,complete:true,issueFiles:[],releaseFiles:[]};
         fs.mkdirSync(f.base,{recursive:true});fs.writeFileSync(path.join(f.base,'source-manifest.json'),JSON.stringify(manifest));
       }
-      if(args.some(a=>a.endsWith('mirror-codeberg.sh')))throw Error('interrupted destination fixture');
+      if(args.includes('--target')&&args[args.indexOf('--target')+1]==='codeberg'&&!args.includes('--git-only'))throw Error('interrupted destination fixture');
     };
     assert.equal(await menu.sync(settings,{directory:f.directory,run,log:()=>{}}),false);
     calls.length=0;
     assert.equal(await menu.sync(settings,{directory:f.directory,run:async(_,args)=>{calls.push(args);},log:()=>{}}),true);
-    assert.equal(calls.length,1);assert.ok(calls[0][0].endsWith('mirror-codeberg.sh'));
+    assert.equal(calls.length,3);assert.ok(calls.slice(0,2).every(args=>args.includes('--git-only')));assert.ok(calls[2].includes('codeberg'));assert.ok(!calls.some(args=>args.includes('--export-source')));
     assert.equal(JSON.parse(fs.readFileSync(path.join(f.base,'sync-progress.json'))).complete,true);
   } finally {fs.rmSync(f.directory,{recursive:true,force:true});}
 });

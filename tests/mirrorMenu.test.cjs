@@ -48,11 +48,12 @@ const work = fs.mkdtempSync(path.join(temporary, 'mirror-menu-tests-'));
   await test('shared snapshot and per-target dispatch continue after failures; preview never applies', async () => {
     const settings = { source: 'gitlab', mirrors: ['github', 'codeberg', 'sourceforge'] };
     const calls = [];
-    assert.equal(await m.sync(settings, { directory: work, preview: true, log: () => {}, run: (tool, args) => { calls.push([tool, args]); if (args.some(a => a.endsWith('mirror-codeberg.sh'))) throw new Error('fixture failure'); return ''; } }), false);
-    assert.equal(calls.length, 5);
+    assert.equal(await m.sync(settings, { directory: work, preview: true, log: () => {}, run: (tool, args) => { calls.push([tool, args]); if (args.includes('--target') && args[args.indexOf('--target')+1] === 'codeberg' && !args.includes('--git-only')) throw new Error('fixture failure'); return ''; } }), false);
+    assert.equal(calls.length, 8);
     assert.ok(calls.every(c => !c[1].includes('--apply')));
-    assert.ok(calls[0][1].includes('--export-source'));
-    assert.ok(calls[4][1][0].endsWith('mirror-sourceforge.sh'));
+    assert.ok(calls.slice(0,3).every(c=>c[1].includes('--git-only')));
+    assert.ok(calls[3][1].includes('--export-source'));
+    assert.ok(calls[7][1].includes('sourceforge'));
     const snapshots = calls.filter(c => c[1].includes('--snapshot')).map(c => c[1][c[1].indexOf('--snapshot') + 1]);
     assert.equal(new Set(snapshots).size, 1);
     await assert.rejects(m.sync({ source: 'github', mirrors: [] }, { directory: work }), /No active/);
@@ -61,7 +62,34 @@ const work = fs.mkdtempSync(path.join(temporary, 'mirror-menu-tests-'));
     assert.equal(invoked, 1, 'failed source inventory stops before destination operations');
     const archiveFailure = [];
     assert.equal(await m.sync(settings, { directory: work, log: () => {}, run: (tool, args) => { archiveFailure.push(args); if (args.includes('--archive-only')) throw new Error('disk failure'); return ''; } }), false);
-    assert.equal(archiveFailure.length, 5, 'archive failures are reported while every destination still runs');
+    assert.equal(archiveFailure.length, 5, 'archive failure stops content writes to destinations');
+  });
+  await test('Git precedes collection; target content overlaps with counters and separate logs', async () => {
+    const snapshot = path.join(work, 'parallel-source.json');
+    fs.writeFileSync(snapshot, JSON.stringify({issues:[{}], releases:[{}]}));
+    const logFile = path.join(work, 'parallel-logs', 'mirror-log.txt');
+    let active = 0, peak = 0;
+    const calls = [], output = [];
+    await m.sync({source:'gitlab', mirrors:['github','codeberg','sourceforge']}, {
+      directory:work, sourceSnapshotFile:snapshot,
+      environment:{WEKAN_MIRROR_LOG_FILE:logFile}, log:line=>output.push(line),
+      run: async (_, args, input, options) => {
+        calls.push(args);
+        if (args.includes('--git-only') || args.includes('--archive-only')) return '';
+        active++; peak = Math.max(peak,active);
+        const target = args[args.indexOf('--target')+1];
+        assert.equal(path.basename(options.mirrorLog), target+'.txt');
+        assert.ok(fs.existsSync(options.mirrorLog));
+        options.onOutput(`[${target}] processed: issue 1\n[${target}] processed: release 1\n`);
+        await new Promise(resolve=>setTimeout(resolve,10)); active--;
+        return '';
+      },
+    });
+    assert.equal(peak,3);
+    assert.ok(calls.slice(0,3).every(args=>args.includes('--git-only')));
+    assert.ok(calls[3].includes('--archive-only'));
+    assert.ok(calls.slice(4).every(args=>args.includes('--skip-archive')&&!args.includes('--code')));
+    assert.ok(output.some(line=>line.includes('github:')&&line.includes('codeberg:')&&line.includes('sourceforge:')&&line.includes('issues 1/1')&&line.includes('releases 1/1')));
   });
   await test('progress precedes asynchronous work and failures do not report success', async () => {
     const output = [];
@@ -70,8 +98,8 @@ const work = fs.mkdtempSync(path.join(temporary, 'mirror-menu-tests-'));
       run: async (_, args) => {
         if (args.includes('--export-source')) assert.match(output.at(-1), /Reading source/);
         if (args.includes('--archive-only')) assert.match(output.at(-1), /Updating local archive/);
-        if (args.some(a => a.endsWith('mirror-gitlab.sh'))) {
-          assert.match(output.at(-1), /Syncing GitLab/);
+        if (args.includes('--target') && !args.includes('--git-only')) {
+          assert.match(output.at(-1), /Started/);
           throw new Error('async fixture failure');
         }
         await Promise.resolve();
@@ -120,8 +148,8 @@ const work = fs.mkdtempSync(path.join(temporary, 'mirror-menu-tests-'));
     const directory = path.join(work, 'checkout spaces & %PATH% !value');
     await m.sync({ source: 'gitlab', mirrors: ['github'] }, { platform: 'win32', directory, run: (tool, args) => { calls.push([tool, args]); return ''; }, log: () => {} });
     assert.ok(calls.every(([tool]) => tool === process.execPath));
-    assert.deepEqual(calls[2][1].slice(0, 5), [path.join(directory, 'tools/mirror-active-forges.mjs'), '--target', 'github', '--code', '--apply']);
-    assert.ok(calls[2][1].includes('gitlab'));
+    assert.deepEqual(calls[3][1].slice(0, 4), [path.join(directory, 'tools/mirror-active-forges.mjs'), '--target', 'github', '--apply']);
+    assert.ok(calls[3][1].includes('gitlab'));
     const previews = [];
     await m.sync({ source: 'gitlab', mirrors: ['github'] }, { platform: 'win32', directory, preview: true, run: (tool, args) => { previews.push([tool, args]); return ''; }, log: () => {} });
     assert.ok(previews.every(([, args]) => !args.includes('--apply')));

@@ -482,6 +482,7 @@ export async function syncIssues(adapter, snapshot, apply, record) {
       if (apply && issue.state === 'closed' && (created || !closed)) await adapter.close(target);
       record('checked', `issue ${issue.html_url}`);
     } catch (error) { record('failed', `issue ${issue.html_url}: ${error.message}`); }
+    finally { record('processed', `issue ${issue.html_url}`); }
   }
 }
 export async function syncReleases(adapter, snapshot, apply, download, record) {
@@ -515,6 +516,7 @@ export async function syncReleases(adapter, snapshot, apply, download, record) {
       }
       record('checked', `release ${release.tag_name}`);
     } catch (error) { record('failed', `release ${release.tag_name}: ${error.message}`); }
+    finally { record('processed', `release ${release.tag_name}`); }
   }
 }
 async function downloadAsset(asset, directory) {
@@ -623,6 +625,7 @@ export async function sourceForgeReleases(snapshot, apply, download, record, run
       }
       record('checked', `SourceForge release files ${release.tag_name}`);
     } catch (error) { record('failed', `SourceForge release ${release.tag_name}: ${error.message}`); }
+    finally { record('processed', `release ${release.tag_name}`); }
   }
 }
 export async function main(args = process.argv.slice(2)) {
@@ -642,10 +645,20 @@ export async function main(args = process.argv.slice(2)) {
     else if (args[i] === '--source') { selectedSource = args[++i]; if (!Object.hasOwn(forges, selectedSource)) throw new Error('--source needs a known forge name'); }
     else if (args[i] === '--snapshot') { snapshotFile = args[++i]; if (!snapshotFile) throw new Error('--snapshot needs a filename'); }
     else if (args[i] === '--export-source') { exportFile = args[++i]; if (!exportFile) throw new Error('--export-source needs a filename'); }
-    else if (!['--apply', '--code', '--archive-only', '--skip-archive', '--incremental', '--cache-only'].includes(args[i])) throw new Error(`Unknown argument ${args[i]}`);
+    else if (!['--apply', '--code', '--archive-only', '--skip-archive', '--incremental', '--cache-only', '--git-only'].includes(args[i])) throw new Error(`Unknown argument ${args[i]}`);
   }
   const settings = loadSettings(root, activeMirrors(fs.readFileSync(path.join(root, 'releases/mirror.sh'), 'utf8')).map(m => m.name));
   selectedSource ||= settings.source;
+  if (args.includes('--git-only')) {
+    for (const name of settings.mirrors.filter(name => name !== selectedSource && (!target || name === target))) {
+      console.log(`[${name}] Git sync started ${new Date().toISOString()}`);
+      if (args.includes('--apply')) syncGit({name, url:forges[name].push, sourceName:selectedSource});
+      else console.log(`[${name}] Git branches and tags planned`);
+      console.log(`[${name}] Git sync finished`);
+    }
+    return;
+  }
+
   if (exportFile) {
     if (snapshotFile || args.includes('--apply')) throw new Error('--export-source is read-only and cannot be combined with --apply or --snapshot');
     if (incremental) {

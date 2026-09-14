@@ -24,8 +24,14 @@ export function streamCommand(tool, args, input, options = {}) {
     // Only the running Node executable and the fixed Unix wrapper interpreter
     // are needed. Checkout paths always remain arguments, never shell source.
     if (tool !== process.execPath && tool !== 'bash') throw new Error('Unsupported mirror executable');
-    const spawnOptions = { ...options, shell: false, windowsHide: true, stdio: ['ignore', 'inherit', 'inherit'] };
+    const { mirrorLog, onOutput, ...childOptions } = options;
+    const spawnOptions = { ...childOptions, shell: false, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] };
     const child = tool === 'bash' ? spawn('bash', args, spawnOptions) : spawn(process.execPath, args, spawnOptions);
+    for (const output of [child.stdout, child.stderr]) output.on('data', chunk => {
+      process.stdout.write(chunk);
+      if (mirrorLog) fs.appendFileSync(mirrorLog, chunk);
+      onOutput?.(chunk.toString());
+    });
     child.once('error', reject);
     child.once('close', (code, signal) => code === 0 ? resolve('') : reject(new Error(`Mirror command failed (${signal || code})`)));
   });
@@ -52,11 +58,11 @@ export async function sync(settings, { preview = false, run = streamCommand, dir
     const incoming = `${progressFile}.incoming-${process.pid}`;
     fs.writeFileSync(incoming, JSON.stringify(progress,null,2)+'\n'); fs.renameSync(incoming,progressFile);
   };
-  const execute = async (tool, args) => {
+  const execute = async (tool, args, extra = {}) => {
     const started = Date.now();
     const timer = setInterval(() => log(`[mirror] Still running this stage (${Math.floor((Date.now() - started) / 1000)} seconds elapsed)`), heartbeatMs);
     try {
-      const output = await run(tool, args, undefined, { env: { ...process.env, ...environment } });
+      const output = await run(tool, args, undefined, { env: { ...process.env, ...environment }, ...extra });
       if (output) log(output.trimEnd());
     } finally { clearInterval(timer); }
   };
@@ -64,6 +70,11 @@ export async function sync(settings, { preview = false, run = streamCommand, dir
   try {
     log(`[mirror] ${preview ? 'Checking' : 'Starting sync'} from ${forges[settings.source].name} to ${settings.mirrors.map(m => forges[m].name).join(', ')}`);
     saveProgress();
+    const logDirectory = path.dirname(environment.WEKAN_MIRROR_LOG_FILE || process.env.WEKAN_MIRROR_LOG_FILE || path.join(directory, '.tools/log/mirror', 'mirror-log.txt'));
+    fs.mkdirSync(logDirectory, {recursive:true});
+    log('[mirror] Stage 1/3: synchronizing Git repositories to every active target');
+    for (const target of settings.mirrors) await execute(process.execPath, [engine, '--source', settings.source, '--target', target, '--git-only', ...(preview ? [] : ['--apply'])], {mirrorLog:path.join(logDirectory, `${target}.txt`)});
+    log('[mirror] Stage 2/3: archiving source content locally');
     log(`[mirror] Reading source issues, pull requests, comments and releases`);
     if (resume && progress.sourceReady && snapshot === durableSnapshot) log('[mirror] Resuming saved source snapshot; completed collection is reused');
     else if (!sourceSnapshotFile) await execute(process.execPath, [engine, '--source', settings.source, '--export-source', snapshot, ...(settings.source === 'github' ? ['--incremental', ...(preview ? ['--cache-only'] : [])] : [])]);
@@ -71,19 +82,35 @@ export async function sync(settings, { preview = false, run = streamCommand, dir
     log('[mirror] Updating local archive and static pages');
     try { if (!progress.archiveDone) await execute(process.execPath, [engine, '--source', settings.source, '--archive-only', ...(preview ? [] : ['--apply']), '--snapshot', snapshot]); progress.archiveDone = true; saveProgress(); }
     catch (error) { failed = true; log(`[archive] failed: ${error.message}`); }
-    for (const target of settings.mirrors) {
-      if (progress.targetsDone.includes(target)) { log(`[mirror] ${forges[target].name}: already completed; skipping`); continue; }
-      log(`[mirror] ${preview ? 'Checking' : 'Syncing'} ${forges[target].name}`);
+    if (failed) { log('Local archive failed; destination content synchronization was not started'); return false; }
+    const manifest = fs.existsSync(snapshot) ? JSON.parse(fs.readFileSync(snapshot, 'utf8')) : {};
+    const totals = {issues:(manifest.issueFiles || manifest.issues || []).length, releases:(manifest.releaseFiles || manifest.releases || []).length};
+    const counters = new Map(settings.mirrors.map(name => [name, {started:'waiting', issues:0, releases:0, status:'waiting', partial:''}]));
+    const dashboard = () => log('[mirror progress] ' + [...counters].map(([name,c]) => `${name}: started ${c.started}; issues ${c.issues}/${totals.issues}; releases ${c.releases}/${totals.releases}; ${c.status}`).join(' | '));
+    dashboard();
+    log('[mirror] Stage 3/3: synchronizing local content to all targets in parallel');
+    await Promise.all(settings.mirrors.map(async target => {
+      if (progress.targetsDone.includes(target)) { const c=counters.get(target); c.status='previously completed'; c.issues=totals.issues; c.releases=totals.releases; dashboard(); log(`[mirror] ${forges[target].name}: already completed; skipping`); return; }
+      const mirrorLog = path.join(logDirectory, `${target}.txt`);
+      const started = new Date().toISOString();
+      const counter = counters.get(target); counter.started = started; counter.status = 'running'; dashboard();
+      fs.appendFileSync(mirrorLog, `Started ${started}\n`);
+      log(`[${target}] Started ${started}; log: ${mirrorLog}`);
       try {
-        const args = [...(preview ? ['--preview'] : []), '--source', settings.source, '--snapshot', snapshot, '--skip-archive'];
-        if (platform === 'win32') {
-          // Native batches require cmd.exe, which parses paths as commands.
-          // Run their existing engine with the same flags as separate argv.
-          await execute(process.execPath, [engine, '--target', target, '--code', ...(preview ? [] : ['--apply']), ...args.filter(arg => arg !== '--preview')]);
-        } else await execute('bash', [path.join(directory, `releases/mirror-${target}.sh`), ...args]);
+        await execute(process.execPath, [engine, '--target', target, ...(preview ? [] : ['--apply']), '--source', settings.source, '--snapshot', snapshot, '--skip-archive'], {mirrorLog, onOutput(chunk) {
+          counter.partial += chunk;
+          const lines = counter.partial.split('\n'); counter.partial = lines.pop();
+          for (const line of lines) {
+            if (new RegExp(`^\\[${target}\\] processed: issue `).test(line)) counter.issues++;
+            if (new RegExp(`^\\[${target}\\] processed: release `).test(line)) counter.releases++;
+          }
+          dashboard();
+        }});
+        counter.status = 'finished'; dashboard();
         progress.targetsDone.push(target); saveProgress();
-      } catch (error) { failed = true; log(`[${target}] failed: ${error.message}`); }
-    }
+        log(`[${target}] Finished successfully; log: ${mirrorLog}`);
+      } catch (error) { counter.status = 'failed'; dashboard(); failed = true; log(`[${target}] failed: ${error.message}; log: ${mirrorLog}`); fs.appendFileSync(mirrorLog, `Failed: ${error.message}\n`); }
+    }));
   } finally { fs.rmSync(work, { recursive: true, force: true }); }
   progress.complete = !failed; saveProgress();
   log(`[mirror] ${failed ? 'Finished with failures' : 'Finished successfully'}`);
