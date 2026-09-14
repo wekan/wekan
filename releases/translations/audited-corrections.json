@@ -124542,5 +124542,33 @@
     "before": "Filtrer par champs personnalisés",
     "after": "ⵣⵉⵣⴷⵉⴳ ⵙ ⵉⴳⵔⴰⵏ ⵉⵥⵍⵉⵏ",
     "reason": "2026-09-14: Replace French field control label with Tamazight components. Checkbox paraphrases selection box using native tafniqt/asti; Dropdown List preserves list and downward expansion using talgamt/taksart, not an ordinary unqualified list. Filter by Custom Fields preserves filtering and custom field qualifiers using existing filter-labels-label zizdig s. LOW CONFIDENCE selection-box/dropdown terminology adaptation, bound selection noun, derived field plural and full phrases require fluent review; these are not directly attested complete control names. MediaWiki tooltip-invert supplies tafniqt for checkbox and invert asti Selection, sort-descending taksart downward, nstab-special izlin Special/Specified, changeemail-newemail-help igr input field (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json); Mastodon lists.edit supplies talgamt List (https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json). Existing filter action is local evidence rather than independent canonical proof."
+  },
+  {
+    "locale": "zgh",
+    "key": "board-migration",
+    "before": "Migration du tableau",
+    "after": "ⴰⵙⵎⵓⵜⵜⵢ ⵏ ⵜⴼⵍⵡⵉⵜ",
+    "reason": "2026-09-14: Replace French migration label using native move noun from MediaWiki movelogpage bound usmutty, adapted to data/schema Migration in keeping with existing local migration terminology. Preserve singular/plural, board versus database scope and failed versus success status. MediaWiki readonly directly attests tasila n isfk a Database and cannotlogin-text ur yallfus failure frame. LOW CONFIDENCE move-to-software-migration extension, derived free noun/plural, bound board noun and complete phrases need fluent Standard Moroccan review; the move log is not direct attestation of data-schema migration. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (movelogpage, readonly, cannotlogin-text). No success word is added to failed status."
+  },
+  {
+    "locale": "zgh",
+    "key": "board-migrations",
+    "before": "Migrations de tableau",
+    "after": "ⵉⵙⵎⵓⵜⵜⵢⵏ ⵏ ⵜⴼⵍⵡⵉⵜ",
+    "reason": "2026-09-14: Replace French migration label using native move noun from MediaWiki movelogpage bound usmutty, adapted to data/schema Migration in keeping with existing local migration terminology. Preserve singular/plural, board versus database scope and failed versus success status. MediaWiki readonly directly attests tasila n isfk a Database and cannotlogin-text ur yallfus failure frame. LOW CONFIDENCE move-to-software-migration extension, derived free noun/plural, bound board noun and complete phrases need fluent Standard Moroccan review; the move log is not direct attestation of data-schema migration. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (movelogpage, readonly, cannotlogin-text). No success word is added to failed status."
+  },
+  {
+    "locale": "zgh",
+    "key": "database-migrations",
+    "before": "Migrations base de données",
+    "after": "ⵉⵙⵎⵓⵜⵜⵢⵏ ⵏ ⵜⵙⵉⵍⴰ ⵏ ⵉⵙⴼⴽⴰ",
+    "reason": "2026-09-14: Replace French migration label using native move noun from MediaWiki movelogpage bound usmutty, adapted to data/schema Migration in keeping with existing local migration terminology. Preserve singular/plural, board versus database scope and failed versus success status. MediaWiki readonly directly attests tasila n isfk a Database and cannotlogin-text ur yallfus failure frame. LOW CONFIDENCE move-to-software-migration extension, derived free noun/plural, bound board noun and complete phrases need fluent Standard Moroccan review; the move log is not direct attestation of data-schema migration. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (movelogpage, readonly, cannotlogin-text). No success word is added to failed status."
+  },
+  {
+    "locale": "zgh",
+    "key": "migration-failed",
+    "before": "Migration en échec",
+    "after": "ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⵓⵙⵎⵓⵜⵜⵢ",
+    "reason": "2026-09-14: Replace French migration label using native move noun from MediaWiki movelogpage bound usmutty, adapted to data/schema Migration in keeping with existing local migration terminology. Preserve singular/plural, board versus database scope and failed versus success status. MediaWiki readonly directly attests tasila n isfk a Database and cannotlogin-text ur yallfus failure frame. LOW CONFIDENCE move-to-software-migration extension, derived free noun/plural, bound board noun and complete phrases need fluent Standard Moroccan review; the move log is not direct attestation of data-schema migration. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (movelogpage, readonly, cannotlogin-text). No success word is added to failed status."
   }
 ]
