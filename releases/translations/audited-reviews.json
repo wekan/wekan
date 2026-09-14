@@ -17746,5 +17746,185 @@
     "key": "listDeletePopup-title",
     "value": "Eliminar a lista?",
     "reason": "Direct Galician review retains version/time/user validation, label-default interpolation, user/team/organization and list/swimlane controls. Selection color/label/member and enabled state retain selection scope; assigned-only Normal preserves the named role restriction. Private-page login link preserves HTML/href format token and possibility rather than guaranteed access; image paste help retains image-only restriction."
+  },
+  {
+    "locale": "gl",
+    "key": "save",
+    "value": "Gardar",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "search-example",
+    "value": "Escribe o texto que procuras e preme Intro",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "select-color",
+    "value": "Seleccionar cor",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "set-wip-limit-value",
+    "value": "Establecer un límite para o número máximo de tarefas nesta lista",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "setWipLimitPopup-title",
+    "value": "Establecer límite WIP",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "shortcut-close-dialog",
+    "value": "Pechar o diálogo",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "shortcut-show-shortcuts",
+    "value": "Mostrar esta lista de atallos",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "shortcut-toggle-filterbar",
+    "value": "Alternar a barra lateral de filtros",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "shortcut-toggle-searchbar",
+    "value": "Alternar a barra lateral de procura",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "sidebar-open",
+    "value": "Abrir a barra lateral",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "sidebar-close",
+    "value": "Pechar a barra lateral",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "signupPopup-title",
+    "value": "Crear unha conta",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "spent-time-hours",
+    "value": "Tempo empregado (horas)",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "remove-labels-multiselect",
+    "value": "A selección múltiple quita as etiquetas 1-9",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "unassign-member",
+    "value": "Desasignar membro",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "unwatch",
+    "value": "Deixar de seguir",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "upload",
+    "value": "Subir",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "uploaded-avatar",
+    "value": "Subiu un avatar",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "uploading-files",
+    "value": "Subindo ficheiros",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "upload-failed",
+    "value": "Fallou a subida",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "custom-top-left-corner-logo-image-url",
+    "value": "URL da imaxe do logotipo personalizado da esquina superior esquerda",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "custom-top-left-corner-logo-link-url",
+    "value": "URL da ligazón do logotipo personalizado da esquina superior esquerda",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "custom-top-left-corner-logo-height",
+    "value": "Altura do logotipo personalizado da esquina superior esquerda. Predeterminado: 27",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "custom-login-logo-image-url",
+    "value": "URL da imaxe do logotipo personalizado de inicio de sesión",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "custom-login-logo-link-url",
+    "value": "URL da ligazón do logotipo personalizado de inicio de sesión",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "custom-help-link-url",
+    "value": "URL da ligazón de axuda personalizada",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "text-below-custom-login-logo",
+    "value": "Texto debaixo do logotipo personalizado de inicio de sesión",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "automatic-linked-url-schemes",
+    "value": "Esquemas de URL personalizados que deben ser clicables automaticamente. Un esquema de URL por liña",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "import-usernames",
+    "value": "Importar nomes de usuario",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
+  },
+  {
+    "locale": "gl",
+    "key": "welcome-swimlane",
+    "value": "Fito 1",
+    "reason": "Direct Galician review preserves maximum tasks per list, shortcut sidebar/dialog actions, spent-time hours and labels 1-9 removal. Unassignment/unwatch differ from upload, uploading and failure states. Custom logo image/link URLs, upper-left location, default height 27, text-below position and one clickable URL scheme per line retain meaning; welcome milestone remains Fito 1."
   }
 ]
