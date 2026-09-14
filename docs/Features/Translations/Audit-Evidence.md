@@ -25578,3 +25578,15 @@ Four suites pass, preserving maximum/greater-than/user-defined meanings
 and exact placeholders/order/human preference. Low confidence: plural
 genitive tmskirin and full maximum/comparative clauses; browser not run.
 Account-status activation/deactivation wording remains separately open.
+
+
+Tamazight task/subtask batch — 2026-09-14, `8bf9f58cf`.
+Task French is replaced with directly attested tamskirt (IRCAM PDF 605
+entry 11328). Four prior subtask labels reuse its plural/construct forms,
+retaining add/show/field and below-parent-task qualifiers. IRCAM PDF 315
+entry 6099 supplies ddaw below/under. Export and general subtask labels
+remain identical. Four suites pass with placeholder/order/human preference
+preservation; original before and reasons retained for prior revisions.
+Low confidence: below-task adaptation, plural genitive and full software
+compounds; standalone task is directly attested. Browser not executed.
+One new unflagged record, four revisions: ledger 18,766, pending stays 254.

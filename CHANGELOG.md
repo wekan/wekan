@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8bf9f58cf">Repair Tamazight task and subtask terminology</a>. Thanks to xet7.</summary>
+
+Replace French Task and revise four subtask labels using primary task
+vocabulary. Four suites pass; native software compounds and browser
+verification remain open. Original correction provenance is retained.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a9406c278">Use primary Tamazight task vocabulary in WIP messages</a>. Thanks to xet7.</summary>
 
 Replace general work terms with attested task vocabulary in two existing
