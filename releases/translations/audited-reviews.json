@@ -11182,5 +11182,185 @@
     "key": "custom-field-stringtemplate-format",
     "value": "Formato (uzu %{value} kiel lokokupilon)",
     "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-field-stringtemplate-separator",
+    "value": "Apartigilo (uzu &#32; aŭ &nbsp; por spaco)",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "creator",
+    "value": "Kreinto",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "reports",
+    "value": "Raportoj",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "impersonation-admin",
+    "value": "Administranto",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "office-people",
+    "value": "Personoj",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "copy-swimlane",
+    "value": "Kopii naĝlinion",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "copySwimlanePopup-title",
+    "value": "Kopii naĝlinion",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "wait-spinner",
+    "value": "Atendoindikilo",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "Bounce",
+    "value": "Atendoindikilo Bounce",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "Cube",
+    "value": "Atendoindikilo Cube",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "Cube-Grid",
+    "value": "Atendoindikilo Cube-Grid",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "Dot",
+    "value": "Atendoindikilo Dot",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "Double-Bounce",
+    "value": "Atendoindikilo Double Bounce",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "Rotateplane",
+    "value": "Atendoindikilo Rotateplane",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "Scaleout",
+    "value": "Atendoindikilo Scaleout",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "Wave",
+    "value": "Atendoindikilo Wave",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "delete-org-warning-message",
+    "value": "Ne eblas forigi ĉi tiun organizon, almenaŭ unu uzanto apartenas al ĝi",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "subject",
+    "value": "Temo",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "details",
+    "value": "Detaloj",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "carbon-copy",
+    "value": "Kopio (Cc:)",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "ticket-number",
+    "value": "Bileta numero",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "open",
+    "value": "Malferma",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "pending",
+    "value": "Atendanta",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "closed",
+    "value": "Fermita",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "resolved",
+    "value": "Solvita",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "cancelled",
+    "value": "Nuligita",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "history",
+    "value": "Historio",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "request",
+    "value": "Peto",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "requests",
+    "value": "Petoj",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "help-request",
+    "value": "Helpopeto",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto separator/space instructions, copy-swimlane actions, organization deletion restriction and help-request states. Spinner labels retain established animation names with localized Atendoindikilo. HTML space entities, Cc identifier and at-least-one-user condition are preserved."
   }
 ]
