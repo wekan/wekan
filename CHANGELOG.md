@@ -1291,6 +1291,16 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0ca3422a4">Fix wrong-language Veps synchronization source label</a></summary>
+
+Use the directly attested native source noun. Four focused test files pass.
+The dated audit retains remaining synchronization and optional-field repairs.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

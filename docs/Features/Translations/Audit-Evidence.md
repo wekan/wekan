@@ -29890,3 +29890,20 @@ labels, project-key label, credential labels/statuses, optional username
 and never. Keep 15-minute background checks distinct from immediate Sync
 now, and preserve all literal examples. Broader mixed-language and prior
 low-confidence review remains in scope.
+
+
+2026-09-15 — `0ca3422a4`: list-sync-source-type = Tsimo replaced with
+Lähte. Primary native MediaWiki version-libraries-source and tags-source-header
+both directly give Lähte for source; read 2026-09-15:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+Do not translate the source selector as not synced or failed synchronization.
+Four focused files pass (21 checks), including exact noun, negative old
+value, distinct source/state and full token/key-order inventories. No live
+popup UI test ran. Ledger 19,915; original pending remains 126 (Veps 8),
+restored 4 unchanged. Credential source gives Lehtpolen tedod for account
+credentials, but that full account phrase is not automatically suitable
+for an external tracker's API token/password setting. Additional unflagged
+optional = valinnainen is Finnish and needs a coordinated repair with
+list-sync-username-placeholder. Keep optionality explicit; removing its
+qualifier would alter the field's meaning. Not-synced and never clauses,
+credential statuses and full synchronization instructions remain open.
