@@ -130415,5 +130415,47 @@
     "before": "blanc",
     "after": "gwenn",
     "reason": "Replace French with OPLB Meurgorf native white color definition and explicit liv gwenn usage."
+  },
+  {
+    "locale": "br",
+    "key": "back",
+    "before": "Retour",
+    "after": "Distreiñ",
+    "reason": "Replace French with native MediaWiki Breton navigation, default, text or template vocabulary."
+  },
+  {
+    "locale": "br",
+    "key": "home",
+    "before": "Accueil",
+    "after": "Degemer",
+    "reason": "Replace French with native MediaWiki Breton navigation, default, text or template vocabulary."
+  },
+  {
+    "locale": "br",
+    "key": "font-size-default",
+    "before": "Défaut",
+    "after": "Dre ziouer",
+    "reason": "Replace French with native MediaWiki Breton navigation, default, text or template vocabulary."
+  },
+  {
+    "locale": "br",
+    "key": "custom-field-text",
+    "before": "Texte",
+    "after": "Testenn",
+    "reason": "Replace French with native MediaWiki Breton navigation, default, text or template vocabulary."
+  },
+  {
+    "locale": "br",
+    "key": "templates",
+    "before": "Modèles",
+    "after": "Patromoù",
+    "reason": "Replace French with native MediaWiki Breton navigation, default, text or template vocabulary."
+  },
+  {
+    "locale": "br",
+    "key": "allboards.templates",
+    "before": "Modèles",
+    "after": "Patromoù",
+    "reason": "Replace French with native MediaWiki Breton navigation, default, text or template vocabulary."
   }
 ]

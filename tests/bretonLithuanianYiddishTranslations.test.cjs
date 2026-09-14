@@ -281,3 +281,12 @@ assert.equal(locales.br['color-white'], 'gwenn');
 assert.doesNotMatch(locales.br['color-white'], /blanc|gris|arc'hant/);
 assert.notEqual(locales.br['color-white'], locales.br['color-gray']);
 assert.notEqual(locales.br['color-white'], locales.br['color-silver']);
+
+// Native software vocabulary: return action, home, default, text and templates.
+for (const [key, value] of Object.entries({"back":"Distreiñ","home":"Degemer","font-size-default":"Dre ziouer","custom-field-text":"Testenn","templates":"Patromoù","allboards.templates":"Patromoù"})) {
+  assert.equal(locales.br[key], value);
+  assert.doesNotMatch(locales.br[key], /Retour|Accueil|Défaut|Texte|Modèles/);
+}
+assert.equal(locales.br.templates, locales.br['allboards.templates']);
+assert.equal(locales.br['custom-field-text'], locales.br.text);
+assert.notEqual(locales.br.back, locales.br.home);
