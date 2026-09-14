@@ -16,13 +16,14 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `4941f33fd` —
-Tamazight or replaces French ou with native ⵏⵖ. Actual sidebar toggle
-composition verified in Chromium; four locale suites pass. Full sidebar
-compound wording remains open. Ledger 18,833; original counts unchanged.
+Latest translation fix: **2026-09-14**, local commit `164268616` —
+four Tamazight board controls replace Arabic/French with native-component
+drafts. Chromium title checks pass (`1efbb9034`); four locale suites pass.
+Construct grammar/swimlane metaphor remain low confidence. Ledger 18,837;
+original pending 232 and restored 4 unchanged.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,833** exact before/after values, including unflagged
+records contain **18,837** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

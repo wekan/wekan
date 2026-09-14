@@ -656,6 +656,17 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/164268616">Repair wrong-language Tamazight board controls</a>. Thanks to xet7.</summary>
+
+Four add-swimlane and list/swimlane action labels replace French/Arabic
+with native-component drafts. Locale checks preserve placeholders; actual
+board title attributes and negative wrong-language checks pass in Chromium
+(coverage commit 1efbb9034). Construct grammar and lane terminology remain
+low confidence in the dated audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4941f33fd">Remove French conjunction from Tamazight sidebar title</a>. Thanks to xet7.</summary>
 
 Native alternative wording replaces French ou in the shared conjunction.

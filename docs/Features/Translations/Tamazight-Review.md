@@ -1740,3 +1740,21 @@ key order and newer-translation preference. This repairs the conjunction
 only; full sidebar noun compounds and other French/Arabic values remain
 under review. Ledger 18,833; original pending 232/restored 4 unchanged.
 Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+
+
+Board control repairs **2026-09-14**, local commit `164268616`;
+Chromium coverage `1efbb9034`, **1 passed (3.6s)**.
+Four additional unflagged values replace French/Arabic: add-swimlane and
+r-add-swimlane become ⵔⵏⵓ ⴰⴱⵔⵉⴷ; listActionPopup-title becomes
+ⵜⵉⴳⴰⵡⵉⵏ ⵏ ⵜⵍⴳⴰⵎⵜ; swimlaneActionPopup-title becomes
+ⵜⵉⴳⴰⵡⵉⵏ ⵏ ⵓⴱⵔⵉⴷ. Native MediaWiki actions/create-local support
+actions/add; list noun follows existing native talgamt repair, while abrid
+retains the established path/swimlane convention. Low confidence: composed
+construct-state grammar and software swimlane metaphor require native
+review. Actual list/swimlane/add-swimlane title attributes pass browser
+checks, including rejection of old French/Arabic. The rule label receives
+source coverage, not a separate browser execution. Four locale suites pass
+with exact placeholders, ordering and newer-translation preference. Ledger
+18,837; original pending 232/restored 4 unchanged. Correct counts do not
+certify native fluency. French Default labels remain for further review.
+Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
