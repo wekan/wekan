@@ -2677,3 +2677,18 @@ checks, placeholders, order and human preference. No live browser test
 ran. Ledger 19,812; original pending 189 (zgh 94), restored 4 unchanged.
 The repaired rule label was unflagged; broader uncertain/restored/unflagged
 review remains open. No push.
+
+## Checklist mark terminology — 2026-09-15
+
+Local commit `cda3ca904` repairs six French check/uncheck/one/all labels
+and revises two existing rule descriptions. Cached IRCAM page 467 entry
+8828 attests rcm mark; page 595 entry 11152 attests tamatart sign and plural
+timitar. Check is adapted as mark, uncheck as remove sign. These components
+replace reliance on the existing, unverified smatr wording. One/all and
+item/checklist scope remain distinct. **Low confidence:** checkbox
+adaptation and full phrase grammar remain open. Four focused suites pass;
+no live browser test ran. Ledger 19,818, original pending 189 (zgh 94),
+restored 4 unchanged. Six new records and two revisions were unflagged.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+Issue fixes #6694/#6693 now take priority; broader translation work remains
+active and incomplete. No push.
