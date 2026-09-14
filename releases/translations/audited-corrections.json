@@ -124353,5 +124353,19 @@
     "before": "Écrivez le texte que vous recherchez et appuyez sur Entrée",
     "after": "ⴰⵔⴰ ⴰⴹⵕⵉⵙ ⵏⵏⴰ ⵜⵔⵣⵓⴷ ⴷ ⵙⵙⵉⵜ Enter",
     "reason": "2026-09-14: Replace French search instruction, preserving Write text you search AND press Enter, rather than omitting the keyboard submission action. Native MediaWiki yourpasswordagain/tooltip-summary supply ara Write, yourtext adris Text, noarticletext trzud search form, and and d. Native ISCAE zgh search control uses ssit arzzu press/click Search; applying ssit to the Enter key is a contextual adaptation, not an exact native keyboard instruction. Preserve Enter as recognizable key name from English source. LOW CONFIDENCE relative clause, imperative coordination, key-press adaptation and complete Standard Moroccan sentence require fluent review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://groupeiscae.ma/zgh/certificat-specialise-cpcf-en-partenariat-avec-loec-maroc-zgh/ ."
+  },
+  {
+    "locale": "zgh",
+    "key": "new",
+    "before": "جديد",
+    "after": "ⴰⵎⴰⵢⵏⵓ",
+    "reason": "2026-09-14: Replace Arabic Tamazight New wording. Exact native masculine singular New adjective from MediaWiki newwindow, used as the generic New label. MediaWiki userlogin-yourname supplies bound unssmrs User corresponding to existing free-state anssmrs. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "newUserPopup-title",
+    "before": "مستخدم جديد",
+    "after": "ⴰⵏⵙⵙⵎⵔⵙ ⴰⵎⴰⵢⵏⵓ",
+    "reason": "2026-09-14: Replace Arabic Tamazight New wording. Compose singular User with native New adjective, preserving account user rather than board member. LOW CONFIDENCE full adapted noun/adjective heading and free-state noun morphology need fluent review. MediaWiki userlogin-yourname supplies bound unssmrs User corresponding to existing free-state anssmrs. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
