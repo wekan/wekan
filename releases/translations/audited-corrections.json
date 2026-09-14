@@ -121378,5 +121378,26 @@
     "before": "Afficher sur la minicarte",
     "after": "ⵙⴽⵏ ⵖⴼ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵢⴰⵏⵜ",
     "reason": "Replace Arabic/French description or minicard control with Tamazight. Native MediaWiki filedesc attests asgzl/description and tool-link-userrights-readonly attests skn/show. Reuse the minicard noun phrase consistently with the settings headings. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json LOW CONFIDENCE composed on-minicard phrase: ghf/on is native in searchprofile-images-tooltip, but full minicard usage and noun bound-state morphology require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "show-list-on-minicard",
+    "before": "Afficher la liste sur la mini-carte",
+    "after": "ⵙⴽⵏ ⵜⴰⵍⴳⴰⵎⵜ ⵖⴼ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵢⴰⵏⵜ",
+    "reason": "LOW CONFIDENCE composed minicard list-visibility control. Native Mastodon lists.edit/delete attest singular talgamt/list and column.lists attests plural tilgamin; column_header.hide_settings attests sntl/hide. Reuse native MediaWiki skn/show and the previously composed on-minicard phrase consistently. Preserve singular/plural and show/hide distinctions. Full kanban list/minicard usage and bound-state morphology need fluent review. Replace French without modifying existing correct-language standalone list labels. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "hide-list-on-minicard",
+    "before": "Masquer la liste sur la mini-carte",
+    "after": "ⵙⵏⵜⵍ ⵜⴰⵍⴳⴰⵎⵜ ⵖⴼ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵢⴰⵏⵜ",
+    "reason": "LOW CONFIDENCE composed minicard list-visibility control. Native Mastodon lists.edit/delete attest singular talgamt/list and column.lists attests plural tilgamin; column_header.hide_settings attests sntl/hide. Reuse native MediaWiki skn/show and the previously composed on-minicard phrase consistently. Preserve singular/plural and show/hide distinctions. Full kanban list/minicard usage and bound-state morphology need fluent review. Replace French without modifying existing correct-language standalone list labels. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "card-show-lists-on-minicard",
+    "before": "Afficher les listes sur la mini-carte",
+    "after": "ⵙⴽⵏ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵖⴼ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵢⴰⵏⵜ",
+    "reason": "LOW CONFIDENCE composed minicard list-visibility control. Native Mastodon lists.edit/delete attest singular talgamt/list and column.lists attests plural tilgamin; column_header.hide_settings attests sntl/hide. Reuse native MediaWiki skn/show and the previously composed on-minicard phrase consistently. Preserve singular/plural and show/hide distinctions. Full kanban list/minicard usage and bound-state morphology need fluent review. Replace French without modifying existing correct-language standalone list labels. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
