@@ -620,6 +620,20 @@ unverified. Details are in docs/Security/WeKanSec20.md.
 
 </details>
 
+**Bug fixes** - Search All Boards membership scope.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4c59f0372">Search only boards the logged-in user is an active member of</a>. Thanks to xet7 !</summary>
+
+Public and private boards require active direct board membership in global
+search and pagination. Organization, team and domain access alone does not
+include a board. Public discovery remains available elsewhere.
+
+Search scope regression checks pass. Added a public-board member/nonmember
+browser regression; syntax checked, not run against a live application.
+
+</details>
+
 **Bug fixes** - Language and country flag placement.
 
 <details>
