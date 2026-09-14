@@ -20,17 +20,17 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,314** exact before/after values, including unflagged repairs.
+contain **18,331** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `7c44e4f55` —
-10 French-seeded Breton avatar, profile and notification controls repaired
-using existing vocabulary. Native software supports the profil loan noun;
-retain that noun while translating surrounding French verbs. All **18,314**
-corrections and 4,158 unchanged reviews pass structural checks. Native
-complete-phrase and browser review remain open, alongside other wrong-language
-values, Galician attachment agreement and provisional calendar terminology.
+Latest translation fix: **2026-09-14**, local commit `a4aa7e3e7` —
+17 French-seeded Breton add/item labels and user choices repaired using
+existing terminology. Month's incorrect Moi becomes Miz; user-selection
+Me remains distinct. All **18,331** corrections and 4,158 unchanged reviews
+pass structural checks. Native complete-phrase and browser review remain
+open, alongside other wrong-language values, Galician attachment agreement
+and provisional calendar terminology.
 Latest unchanged review: **2026-09-14**, commit `64f1d7367` —
 assigned-card shortcut retained against actual current-user assignee toggle.
 IEC recognizes meves/meues as dialect variants; no wrong-language finding

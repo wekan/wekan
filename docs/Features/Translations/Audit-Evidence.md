@@ -22938,3 +22938,13 @@ software loan usage, not complete user-profile phrase attestation:
 https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/br.json
 All 18,314 correction and 4,158 unchanged checks pass. Native phrase and
 browser validation remain open; original pending/restored scope stays 300/27.
+
+Dated unflagged repair, 2026-09-14, local commit `a4aa7e3e7`: 17 Breton
+French-seeded add/item/user labels repaired. Reuse existing Ouzhpennañ,
+attachment-settings's stagadennoù, subtask-settings's is-trevelloù,
+roll-gwiriañ, patrom, kartenn and bandenn. Month's French Moi is semantically
+wrong even in French; use Miz from existing month units. Separate user
+Me choice and An holl implijerien from that month label. Full article
+mutations and adapted phrase fluency remain open, as does browser validation.
+All 18,331 correction and 4,158 unchanged checks pass. Original pending
+and restored findings remain 300/27; unflagged review is not complete.
