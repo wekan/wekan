@@ -130933,5 +130933,12 @@
     "before": "Veuillez patienter pendant la migration de votre tableau vers la dernière structure...",
     "after": "ⴳⴳⴰⵏⵉ ⴽⵓⴷ ⴰⵔ ⵏⵙⵎⵓⵜⵜⵓⵢ ⵜⴰⴼⵍⵡⵉⵜ ⵏⵏⴽ ⵖⵔ ⵜⵓⵚⴽⵉⵡⵜ ⵜⴰⵎⴳⴳⴰⵔⵓⵜ...",
     "reason": "Replace French migration progress message using primary IRCAM wait, while, move and structure vocabulary plus native software move usage. Preserve wait/board migration/latest structure meaning. Adapted full clause, low confidence pending native grammar and browser validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "step-fix-orphaned-cards",
+    "before": "Corriger les cartes orphelines",
+    "after": "ⵙⵙⴰⵖⴷ ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⵜⵉⴳⵓⵊⵉⵍⵉⵏ",
+    "reason": "Replace French orphaned-card repair label with primary IRCAM correct/orphan vocabulary and existing local card noun. Source confirms nonexistent swimlane references. Adapted software metaphor and agreement, low confidence pending native and browser validation."
   }
 ]

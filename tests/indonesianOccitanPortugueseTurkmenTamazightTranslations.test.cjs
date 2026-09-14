@@ -83,3 +83,6 @@ assert.equal(locales.zgh['migration-progress-note'],
   'ⴳⴳⴰⵏⵉ ⴽⵓⴷ ⴰⵔ ⵏⵙⵎⵓⵜⵜⵓⵢ ⵜⴰⴼⵍⵡⵉⵜ ⵏⵏⴽ ⵖⵔ ⵜⵓⵚⴽⵉⵡⵜ ⵜⴰⵎⴳⴳⴰⵔⵓⵜ...');
 assert.doesNotMatch(locales.zgh['migration-progress-note'],
   /Veuillez|patienter|migration de votre|dernière structure/);
+assert.equal(locales.zgh['step-fix-orphaned-cards'],
+  'ⵙⵙⴰⵖⴷ ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⵜⵉⴳⵓⵊⵉⵍⵉⵏ');
+assert.doesNotMatch(locales.zgh['step-fix-orphaned-cards'], /Corriger|cartes|orphelines/);

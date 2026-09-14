@@ -262,3 +262,20 @@ progress popup. Exact wording and French-negative regression checks are
 added; no live browser validation ran. The original key is now corrected,
 but this uncertainty remains in the broader review rather than disappearing
 when the pending counter decreases.
+
+## Orphaned-card repair label — 2026-09-14
+
+`step-fix-orphaned-cards` no longer contains French. Primary dictionary
+PDF page 516, entry 9735, supports the correction verb; page 45, entry 532,
+supports orphan. The card noun follows existing local `Tikarḍiwin`.
+`server/migrations/ensureValidSwimlaneIds.js` explicitly describes orphaned
+cards as references to nonexistent swimlanes; the label retains repair and
+that orphan metaphor rather than describing deletion or conversion.
+
+The full software metaphor and feminine plural agreement are adapted,
+**low confidence**, pending native validation. Exact wording and French
+negatives are tested. The inspected progress helper formats received step
+names, so the existence of the translation key alone does not prove this
+label is actually rendered in the live popup; integration/browser review
+remains open. Classifying the original French value as corrected does not
+close these uncertainty and rendering requirements.
