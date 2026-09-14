@@ -14,7 +14,7 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,096** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `0968a9dc6` — replaced French separator help, preserving literal &#32; and &nbsp; and OR. Directly inspected CNAM Separator and Space Character candidates are cross-variety, not normative Moroccan authority; full instruction remains **low confidence**. All **18,096** correction checks pass; **322** findings remain pending across **17** locales, including **187** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `b579a024b` — refined format-help Value from derived uzal to indexed IRCAM wazal paradigm, preserving %{value}, substitution meaning and original French provenance. Direct PDF access failed; full instruction remains **low confidence**. All **18,096** correction checks pass; counts unchanged: **322** findings remain pending across **17** locales, including **187** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Parent-card review (2026-09-14):** code confirms No Parent is display-only,
 distinct from changing the relationship. Indexed cross-variety vocabulary

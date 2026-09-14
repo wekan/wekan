@@ -1,5 +1,14 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `b579a024b`: format-help Value bound form refined from derived
+uzal to wazal. IRCAM grammatical vocabulary indexed printed page 80 gives
+Value azal – wazal – azalen, unlike daytime/hour uzal context found elsewhere.
+Source: https://biblio.ircam.ma/pmb/uploads/publications/134.pdf
+Direct PDF retrieval failed; indexed paradigm evidence only, not visual
+inspection. Preserve %{value}, substitution meaning and original French
+before-value. Full instruction remains low confidence. All 18,096 correction
+checks pass; counts unchanged: 322 pending, including 187 Tamazight.
+
 2026-09-14 — `0968a9dc6`: French separator help repaired, retaining literal
 &#32; and &nbsp; and OR. Directly inspected CNAM PDF page 131 has Anabraz
 Separator with MC£,MC markers and KBL/MAT separate versus MC£ clear-land

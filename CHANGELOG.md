@@ -102,12 +102,11 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 0968a9dc6 (2026-09-14), replacing French
-separator help and retaining literal &#32; and &nbsp; and OR. Inspected
-CNAM Separator and Space Character terms are cross-variety, not normative
-Moroccan authority. Full instruction remains low confidence. All 18,096
-correction checks pass; 322 findings remain pending, including 187
-Tamazight.
+Latest translation fix is b579a024b (2026-09-14), refining format-help
+Value from derived uzal to indexed IRCAM wazal paradigm. Preserve %{value},
+substitution meaning and original provenance. Direct PDF retrieval failed;
+full instruction remains low confidence. All 18,096 correction checks pass;
+counts unchanged: 322 pending, including 187 Tamazight.
 Archive provenance follow-up fbe388603 (2026-09-14) directly inspects the
 native Archives du Maroc logo in a university PDF, corroborating the noun
 beyond indexed evidence. Nine records updated; no values/counts changed.
@@ -3378,6 +3377,18 @@ Thanks to xet7 !
 OR. Inspected dictionary candidates are cross-variety; full instruction
 remains low confidence. All 18,096 correction checks pass; 322 original
 findings remain pending.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b579a024b">Translation refinement: Tamazight Value bound form.</a></summary>
+
+2026-09-14: Replace derived uzal with indexed IRCAM wazal Value paradigm.
+Preserve placeholder and substitution meaning; direct PDF remains
+uninspected and full instruction low confidence. All 18,096 correction
+checks pass; original progress counts unchanged.
 
 Thanks to xet7 !
 
