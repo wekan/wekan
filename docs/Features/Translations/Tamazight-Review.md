@@ -1394,3 +1394,21 @@ notes leaving these tooltips French are superseded, not native approval.
 Four source checks pass including exact components, French negatives,
 and protection against reversing activation/deactivation. Original
 corrected 15,658; pending 244 (zgh 136); ledger 18,789.
+
+Automatic-width drafts — 2026-09-14, `9978b92d2`.
+Arabic auto-list-width and both click-to-enable/disable-auto-width
+values become complete Tamazight drafts. Width and list use IRCAM
+Amazigh-English afltas (PDF 68, 1016) and talgamt (589, 11039).
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+Automatic awurman is explicitly listed as a coined adjective in the
+Bouzefrane computer lexicon, PDF page 24, not the Tuareg MC alternative.
+Source: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf
+Native MediaWiki automatic log messages corroborate this terminology:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+Low confidence: coined cross-variety adjective, width compound and
+finite/negative/purpose-clause grammar. State/action terms reuse the
+account-tooltip drafts, so their outstanding native review also applies.
+Four source checks pass, including Arabic negatives and protection
+against reversed click actions. No layout logic is changed. Two original
+findings corrected plus one unflagged label: original corrected 15,660,
+pending 242 (zgh 134); ledger 18,792. Native/browser review remains open.

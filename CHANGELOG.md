@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9978b92d2">Repair Tamazight automatic-width labels</a>. Thanks to xet7.</summary>
+
+Replace Arabic label and tooltips while retaining automatic width and
+opposite enable/disable click actions. Record terminology caveats.
+Four translation checks pass; native and browser review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/439ac5789">Repair Tamazight account-status tooltips</a>. Thanks to xet7.</summary>
 
 Replace French with complete state and click-action drafts. Preserve the
