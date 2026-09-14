@@ -128644,5 +128644,82 @@
     "before": "Le tri est activé",
     "after": "Gweredekaet eo an urzhiañ",
     "reason": "Replace French sorting prose using existing sort-desc Urzhiañ and card-sorting-by-number-on-minicard terminology. Manual order is rendered directly as urzh dre zorn. Full native phrase/mutation and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "read-only",
+    "before": "Lecture seule",
+    "after": "Lenn hepken",
+    "reason": "Replace French organization/watch/read controls with existing aozadurioù, evezhiañ, Lenn and mark-all-as-unread terminology. Full inflection/phrase and browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "editOrgPopup-title",
+    "before": "Éditer l'organisation",
+    "after": "Kemmañ an aozadur",
+    "reason": "Replace French organization/watch/read controls with existing aozadurioù, evezhiañ, Lenn and mark-all-as-unread terminology. Full inflection/phrase and browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "newOrgPopup-title",
+    "before": "Nouvelle organisation",
+    "after": "Aozadur nevez",
+    "reason": "Replace French organization/watch/read controls with existing aozadurioù, evezhiañ, Lenn and mark-all-as-unread terminology. Full inflection/phrase and browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "organizations",
+    "before": "Organisations",
+    "after": "Aozadurioù",
+    "reason": "Replace French organization/watch/read controls with existing aozadurioù, evezhiañ, Lenn and mark-all-as-unread terminology. Full inflection/phrase and browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "watch",
+    "before": "Suivre",
+    "after": "Evezhiañ",
+    "reason": "Replace French organization/watch/read controls with existing aozadurioù, evezhiañ, Lenn and mark-all-as-unread terminology. Full inflection/phrase and browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "unwatch",
+    "before": "Arrêter de suivre",
+    "after": "Paouez da evezhiañ",
+    "reason": "Replace French organization/watch/read controls with existing aozadurioù, evezhiañ, Lenn and mark-all-as-unread terminology. Full inflection/phrase and browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "watching",
+    "before": "Suivi",
+    "after": "O evezhiañ",
+    "reason": "Replace French organization/watch/read controls with existing aozadurioù, evezhiañ, Lenn and mark-all-as-unread terminology. Full inflection/phrase and browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "boardChangeWatchPopup-title",
+    "before": "Modifier le suivi",
+    "after": "Kemmañ an evezhiañ",
+    "reason": "Replace French organization/watch/read controls with existing aozadurioù, evezhiañ, Lenn and mark-all-as-unread terminology. Full inflection/phrase and browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "filter-by-unread",
+    "before": "Filtrer par non lu",
+    "after": "Silañ dre anlennet",
+    "reason": "Replace French organization/watch/read controls with existing aozadurioù, evezhiañ, Lenn and mark-all-as-unread terminology. Full inflection/phrase and browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "mark-all-as-read",
+    "before": "Marquer comme lus",
+    "after": "Merkañ pep tra evel lennet",
+    "reason": "Replace French organization/watch/read controls with existing aozadurioù, evezhiañ, Lenn and mark-all-as-unread terminology. Full inflection/phrase and browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "remove-all-read",
+    "before": "Supprimer les lus",
+    "after": "Dilemel an holl re lennet",
+    "reason": "Replace French organization/watch/read controls with existing aozadurioù, evezhiañ, Lenn and mark-all-as-unread terminology. Full inflection/phrase and browser validation remains open."
   }
 ]
