@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d6a358160">Repair Tamazight custom assetlinks labels</a>. Thanks to xet7.</summary>
+
+Replace two French activation/content labels with Tamazight, preserving
+assetlinks.json and JSON exactly. Four focused translation checks pass.
+Custom terminology and full native/browser wording remain low confidence;
+the dated audit tracks 268 pending findings and broader validation work.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d7bdf6ac6">Repair Tamazight private-board description</a>. Thanks to xet7.</summary>
 
 Replace Arabic wording and restore view/edit actions from the English

@@ -682,3 +682,22 @@ pass, preserving exact placeholders and both action terms; live browser
 validation was not run. The CLI recounts 15,632 corrected, 270 pending
 (157 Tamazight), four restored, 4,175 retained and 18,727 ledger records.
 Broader native phrasing, prior low-confidence and browser review remain open.
+
+## Custom assetlinks labels — 2026-09-14
+
+Local commit `d6a358160` repairs French custom-assetlinks-enabled and
+custom-assetlinks-content in Tamazight. IRCAM 2019 General Dictionary
+PDF page 537 entry 10106 attests activate; page 83 entry 1346 attests
+content; page 404 entry 7686 attests specific/exclusive. Dictionary source:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+Specific is adapted to custom user-provided configuration. This is not
+an attestation of a complete personalized software phrase. **Low confidence**
+remains for this adaptation, modifier scope and full native grammar.
+SettingBody.jade displays the activation checkbox and JSON textarea title;
+settingBody.js validates and cleans JSON before saving. Literal assetlinks.json
+and (JSON) survive exactly; activation and content labels remain distinct.
+Four focused checks pass, including placeholder, key-order and ledger checks.
+No live browser validation was run. Recount: 15,634 corrected, 268 pending
+(155 Tamazight), four restored, 4,175 retained and 18,729 correction records.
+Broader native and runtime verification remain open.
