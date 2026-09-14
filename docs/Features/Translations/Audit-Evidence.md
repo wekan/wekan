@@ -30024,3 +30024,21 @@ No live synchronization UI ran. Ledger 19,924; pending 126/restored 4.
 The previously identified wrong-language sync block now has Veps drafts;
 this does not resolve their complete grammar or the wider flagged/unflagged
 review, including two-factor controls and keyboard-shortcut wording.
+
+
+2026-09-15 — `7deff5697`: four unflagged Tshivenda values repaired:
+twoFactorAuthPopup-title, twoFactorAuth-enabled, twoFactorAuth-disable,
+and twoFactorAuth-enable. Direct Veps drafts retain two factors, opposite
+actions, and enabled status specifically for the user's account. Local
+org/team-sync-members-from-auth uses autentifikacijan; create-account uses
+akkaunt. Native MediaWiki mute-email uses Kel'dä and existing rule-toggle
+uses Pane ... päle. Source rechecked today:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+Kahen faktoran autentifikacii is a derived computing compound, not a fully
+attested native phrase. Compound, loan form and account-case grammar remain
+LOW CONFIDENCE. Four focused files pass (28 checks), including opposite
+actions, account qualifier, wrong-language rejection and template binding;
+full token inventories/key order pass. No live authentication UI ran.
+Ledger 19,928; original pending 126/restored 4 unchanged. Remaining
+wrong-language two-factor explanation, QR/six-digit instructions, manual
+entry and confirm-and-enable require repair. Broader review stays open.

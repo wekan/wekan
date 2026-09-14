@@ -1370,6 +1370,18 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7deff5697">Replace wrong-language Veps two-factor controls.</a></summary>
+
+Preserve enable and disable actions, popup title and account-specific
+status. Complete draft terminology and grammar remain low confidence;
+setup instructions are still under translation review.
+Four focused files pass (28 checks); no live authentication UI ran.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
