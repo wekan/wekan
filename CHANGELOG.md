@@ -768,6 +768,18 @@ This release adds the following translation improvements:
 **Translations** - Locale wording repairs and remaining audit progress.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/fef3c7e46">Translate Tamazight label removal and comment deletion</a>. Thanks to xet7.</summary>
+
+Replace four unflagged French/Arabic values. Reuse native delete/tag nouns
+for label controls and active deletion/comment wording for the activity.
+Preserve its placeholder and popup question marker. Full activity phrasing,
+default actor form and kanban tag terminology still need fluent review.
+All 17,322 correction checks pass. Original counts remain 715 pending,
+including 572 Tamazight; wider wording validation remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8fc453f50">Translate Tamazight login-lockout status and filters</a>. Thanks to xet7.</summary>
 
 Replace three French lockout labels with Tamazight. Reuse native login-blocking
