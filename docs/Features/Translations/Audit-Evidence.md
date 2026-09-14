@@ -1,5 +1,15 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `c5092a51f`: four French authentication labels repaired,
+three original findings and one additional Type repair. Direct CNAM PDF
+page 23 Authentication Asesteb MC£ and page 91 Method Tarrayt MW support
+cross-variety candidates; MC£ is not Central Moroccan authority and MW is
+modern lexicon, not MediaWiki. Native MediaWiki supplies Default, Show and
+Type. Preserve Method versus Type and Default/Display modifiers. Standard
+script rendering, bound form and full phrases remain low confidence. All
+18,104 correction checks pass; 315 original findings remain pending,
+including 180 Tamazight.
+
 2026-09-14 — `925a40f58`: French board-icon instructions repaired. Preserve
 Drag AND Drop icons TO change THEIR ORDER, distinct from Click an icon TO
 Open its board. Native MediaWiki supports loan Click kliki and Change snfl;
