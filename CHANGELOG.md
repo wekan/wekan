@@ -1211,6 +1211,21 @@ Thanks to xet7 !
 </details>
 
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/44e3e1fd7">Recover unavailable linked files from historical captures.</a></summary>
+
+Use archive.org history near the issue/comment creation date when public
+links are unavailable. Bound attachment requests to 30 seconds, defer long
+cooldowns without bypassing rate limits, and skip optional network failures.
+Keep recovered-file provenance and existing bytes. Offline fallback, private
+link, attachment, archive, restart and rate-limit tests pass. No remote
+synchronization was run.
+
+Thanks to xet7 !
+
+</details>
+
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.77 2026-09-14 WeKan ® release
