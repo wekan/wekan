@@ -127391,5 +127391,19 @@
     "before": "Programar",
     "after": "Programación",
     "reason": "Use Galician schedule noun Programación instead of imperative/infinitive Programar. Historical a440d44ea displays schedule as cron table heading and recurrence dropdown label, not an action button. No current consumer found."
+  },
+  {
+    "locale": "gl",
+    "key": "r-mark-complete",
+    "before": "Marcar o cartão como completo",
+    "after": "Marcar a tarxeta como completa",
+    "reason": "Unflagged Portuguese cartão and masculine completo/incompleto replaced with Galician tarxeta and agreeing feminine completa/incompleta; card action templates establish mark-card action context."
+  },
+  {
+    "locale": "gl",
+    "key": "r-mark-incomplete",
+    "before": "Marcar o cartão como incompleto",
+    "after": "Marcar a tarxeta como incompleta",
+    "reason": "Unflagged Portuguese cartão and masculine completo/incompleto replaced with Galician tarxeta and agreeing feminine completa/incompleta; card action templates establish mark-card action context."
   }
 ]
