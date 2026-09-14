@@ -62,3 +62,12 @@ Upcoming section existed to catch the entry first. That test is the real guard
 and needed no empty placeholder to work. So: write the section yourself when
 there is something to put in it, using the skeleton above, and let the test
 catch the mistake if an entry still ends up in the wrong place.
+
+## Read-only release preflight
+
+Run `bash releases/check-upcoming-release.sh` to check release notes without
+changing files or contacting a forge. Exactly one Upcoming section containing
+a linked release entry is required. Missing, empty or duplicate sections fail
+with an error. `release-all.sh` performs this check before installing tools or
+changing files; explicit version arguments also require Upcoming notes. An
+existing released heading is no longer reused when Upcoming notes are absent.

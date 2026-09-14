@@ -65,3 +65,14 @@ No application code or dependencies changed in this report-only pass.
 Next: repair confirmed findings with positive/negative/UI coverage, review
 publication audiences, then expand endpoint and async-call-site coverage.
 All proposed runtime changes must retain offline on-premise operation.
+
+## Build follow-up — 2026-09-14
+
+Meteor debugging and Rspack migration guidance identified an undeclared
+Moment import in the assignee client graph. Commit `43adfe1a7` uses the
+existing native date formatter, retaining selected-calendar rendering.
+The Meteor bundle build passed on Linux arm64; focused date/view and
+release-preflight regressions passed. Build log:
+`.tools/log/build-dev-bundle/2026-09-14/03-54-13/dev.txt`.
+Live browser tests and builds on other operating systems were not run.
+The security findings above remain open.

@@ -591,6 +591,34 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Fix the **assignee view** build by using WeKan's existing native
+date formatter while preserving the selected calendar. The release script
+now requires actual **Upcoming release notes** before installing tools or
+changing release files, preventing an existing release from being reused
+when there is nothing upcoming to publish.
+
+This release fixes the following build and release behavior:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/43adfe1a73cddf284b123458c136b6e16d28484b">Fix assignee builds and reject releases without Upcoming notes</a>. Thanks to xet7.</summary>
+
+Replace the unresolved Moment import with the existing native date utility,
+keeping date output under the member's selected calendar. The Meteor bundle
+build passes on Linux arm64. Existing assignee browser tests cover dated
+cards; their live browser execution was not run in this verification.
+
+Run a read-only changelog preflight before tool installation, hash repair,
+version overrides or release mutations. Missing, empty and duplicate
+Upcoming sections stop with an explanatory error. Explicit versions still
+require notes and rename the Upcoming heading. Focused positive and negative
+regressions, calendar display checks and shell syntax checks pass.
+
+</details>
+
+Thanks to above GitHub users for their contributions and xet7 for maintaining WeKan !
+
 # v11.75 2026-09-14 WeKan ® release
 
 **In short:** Card and sidebar activity values render Markdown, emojis and
