@@ -24046,5 +24046,191 @@
     "key": "uncollapse",
     "value": "Desplega",
     "reason": "Inspected Valencian mobile/desktop mode, background/zoom and 50-300% range, next month, width/scrollbar settings, next-week deadline, activities, upload outcomes, custom translation CRUD and no-undo warnings, PDF fallback, subtasks and expand actions. Negation, numeric range, completed/failed uploads and deletion scope remain precise. Markdown is the format name. Color and search token wording excluded for separate review; broader dialect/browser validation remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "board-background-image-url",
+    "value": "URL de la imatge de fons",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "remove-background-image",
+    "value": "Elimina la imatge de fons",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "boardChangeBackgroundImagePopup-title",
+    "value": "Canvia la imatge de fons",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "support",
+    "value": "Suport",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "supportPopup-title",
+    "value": "Suport",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "accessibility-page-enabled",
+    "value": "Pàgina d'accessibilitat activada",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "accessibility-content",
+    "value": "Contingut d'accessibilitat",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "accounts-lockout-failed-attempts",
+    "value": "Intents fallits",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "attachments-path",
+    "value": "Camí dels adjunts",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "cron-job-delete-confirm",
+    "value": "Segur que voleu esborrar aquesta tasca programada?",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "migration-progress",
+    "value": "Progrés de la migració",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "migration-status",
+    "value": "Estat de la migració",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "mongodb-gridfs-storage",
+    "value": "Emmagatzematge MongoDB GridFS",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "s3-access-key",
+    "value": "Clau d'accés S3",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "s3-access-key-placeholder",
+    "value": "Introduïu la clau d'accés S3",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "s3-connection-failed",
+    "value": "La connexió S3 ha fallat",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "s3-connection-success",
+    "value": "Connexió S3 correcta",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "s3-enabled",
+    "value": "S3 activat",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "s3-minio-storage",
+    "value": "Emmagatzematge S3/MinIO",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "s3-port",
+    "value": "Port S3",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "s3-region",
+    "value": "Regió S3",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "duration",
+    "value": "Durada",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "estimated-time-remaining",
+    "value": "Temps restant estimat",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "every-1-day",
+    "value": "Cada dia",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "every-1-minute",
+    "value": "Cada minut",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "every-10-minutes",
+    "value": "Cada 10 minuts",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "every-30-minutes",
+    "value": "Cada 30 minuts",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "every-5-minutes",
+    "value": "Cada 5 minuts",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "every-6-hours",
+    "value": "Cada 6 hores",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "weight",
+    "value": "Pes",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "cron",
+    "value": "Cron",
+    "reason": "Inspected Valencian background URL/change/removal, support/accessibility, failed-attempt and scheduled-job labels, attachment paths, migration progress/status, S3 access/connection/storage fields, duration/estimated-time and recurrence intervals. Connection failure versus success and minute/hour/day frequencies preserve meaning; Cron remains the actual tool name. Complete/Idle/error scope, unlock-all, technical loans, search tokens and colors excluded for deeper context or reference review."
   }
 ]
