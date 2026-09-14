@@ -31,6 +31,32 @@ assert.ok(!Object.hasOwn(list('sq'), 'private'),
   'correct Albanian loanwords are locale-specific invariants');
 assert.deepStrictEqual(list('ak'), {},
   'completed Akan contains no placeholders after its own email translation');
+// Reviewed native terms are locale-specific. Exercise the real list/apply CLI
+// on fixtures so an exemption cannot silently hide prose or other locales.
+const fs = require('fs');
+fs.mkdirSync(path.join(ROOT, '.tools/tmp'), { recursive: true });
+const fixture = fs.mkdtempSync(path.join(ROOT, '.tools/tmp/native-source-terms-'));
+try {
+  const data = path.join(fixture, 'imports/i18n/data');
+  fs.mkdirSync(data, { recursive: true });
+  const english = { server: 'Server', errors: 'Errors', sentence: 'The server failed' };
+  for (const locale of ['en', 've-PP', 'ca@valencia', 'xx']) {
+    fs.writeFileSync(path.join(data, `${locale}.i18n.json`), JSON.stringify(english));
+  }
+  const fixtureList = locale => JSON.parse(childProcess.execFileSync(node,
+    [script, '--list', locale], { cwd: fixture, encoding: 'utf8' }));
+  assert.deepStrictEqual(fixtureList('ve-PP'), { errors: 'Errors', sentence: 'The server failed' });
+  assert.deepStrictEqual(fixtureList('ca@valencia'), { server: 'Server', sentence: 'The server failed' });
+  assert.deepStrictEqual(fixtureList('xx'), english, 'no source-wide server/errors exemption');
+  const proposed = path.join(fixture, 'proposed.json');
+  fs.writeFileSync(proposed, JSON.stringify({ server: 'Incorrect replacement', sentence: 'Translated prose' }));
+  childProcess.execFileSync(node, [script, '--apply', 've-PP', proposed], { cwd: fixture });
+  const after = JSON.parse(fs.readFileSync(path.join(data, 've-PP.i18n.json'), 'utf8'));
+  assert.strictEqual(after.server, 'Server', 'fill preserves the reviewed Veps noun');
+  assert.strictEqual(after.sentence, 'Translated prose', 'ordinary prose still fills');
+} finally { fs.rmSync(fixture, { recursive: true, force: true }); }
+assert.ok(!Object.hasOwn(list('ve-PP'), 'server'));
+assert.ok(!Object.hasOwn(list('ca@valencia'), 'errors'));
 const source = require('fs').readFileSync(script, 'utf8');
 assert.doesNotMatch(source, /\/__[a-zA-Z]+__\/\.test/, 'sentences containing placeholders remain translatable');
 console.log('fillTranslationsInvariantSources: 13 tests passed');

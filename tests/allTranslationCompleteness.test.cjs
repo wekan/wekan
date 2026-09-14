@@ -39,16 +39,10 @@ const fillResult = childProcess.spawnSync(process.execPath, [
 ], { cwd: root, encoding: 'utf8' });
 assert.strictEqual(fillResult.status, 0, fillResult.stderr);
 const fillOutput = `${fillResult.stdout}${fillResult.stderr}`;
-// The paused audit explicitly leaves Sardinian magenta under language review.
-// Keep that one known exception visible; any other locale or additional key
-// still fails this global gate. Do not claim the audit is complete.
-assert.strictEqual(fillResult.stdout, '1\tsc\n',
-  'only the documented Sardinian review may remain');
-assert.match(fillResult.stderr, /1 language\(s\) still have untranslated strings/);
-const sardinianMissing = childProcess.spawnSync(process.execPath, [
-  path.join(root, 'releases/translations/fill-translations.mjs'), '--list', 'sc',
-], { cwd: root, encoding: 'utf8' });
-assert.strictEqual(sardinianMissing.status, 0, sardinianMissing.stderr);
-assert.deepStrictEqual(JSON.parse(sardinianMissing.stdout), { 'color-magenta': 'magenta' });
+// No unreviewed English placeholders remain. This is a structural fill gate;
+// the separate audit still tracks wrong-language prose and uncertain repairs.
+// Correct native words identical to English are protected per locale with evidence.
+assert.strictEqual(fillResult.stdout, '', 'no unreviewed placeholders may remain');
+assert.match(fillResult.stderr, /0 language\(s\) still have untranslated strings/);
 
 console.log(`allTranslationCompleteness: ${locales.length} locales passed`);

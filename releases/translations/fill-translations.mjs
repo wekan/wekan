@@ -93,6 +93,12 @@ const LOCALE_INVARIANTS = {
   nap: new Set(['move-progress-file']),
   gl: new Set(['predicate-selector']),
   bs: new Set(['server']),
+  // Native MediaWiki vep.json: view-pool-error and api-clientside-error-http
+  // use the nominative server. This is Veps, not the legacy Venda ve locale.
+  've-PP': new Set(['server']),
+  // Generalitat Valenciana's Valencian technical help uses errors.
+  // Same spelling as English does not make a native plural untranslated.
+  'ca@valencia': new Set(['errors']),
   sq: new Set(['color-indigo', 'color-magenta', 'email', 'normal', 'private']),
 };
 
