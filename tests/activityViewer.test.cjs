@@ -2,6 +2,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 const test = require('node:test');
+const sanitizeHTML = require('sanitize-html');
 const source = fs.readFileSync('client/components/activities/activities.js', 'utf8');
 const jade = fs.readFileSync('client/components/activities/activities.jade', 'utf8');
 
@@ -23,7 +24,7 @@ test('rich activity links preserve allowed HTML and avoid nested anchors', () =>
   };
   const context = { HTML: html, Blaze: { toHTML: value => value },
     titleViewerHtml: value => value,
-    sanitizeHTML: value => value.replace(/<script>.*?<\/script>/g, ''),
+    sanitizeHTML,
   };
   const start = source.indexOf('function linkedActivityValue(');
   const end = source.indexOf('\nfunction createBoardLink', start);
@@ -33,4 +34,13 @@ test('rich activity links preserve allowed HTML and avoid nested anchors', () =>
     '<a href="/card"><strong>👍</strong></a>');
   const linked = context.linkedActivityValue('<a href="https://example.com">Title</a>', '/card', 'card');
   assert.equal(linked, '<span><a href="https://example.com">Title</a> <a href="/card">↗</a></span>');
+});
+
+// Browsers accept malformed closing tags; exercise the real parser rather
+// than a regex substitute that could hide a sanitizer regression.
+test('activity sanitizer handles malformed script end tags', () => {
+  for (const input of ['<script>bad()</script foo="bar">', '<SCRIPT>bad()</SCRIPT >']) {
+    assert.equal(sanitizeHTML('<strong>Title</strong>' + input), '<strong>Title</strong>');
+  }
+  assert.doesNotMatch(fs.readFileSync(__filename, 'utf8'), /sanitizeHTML:\s*value\s*=>\s*value\.replace/);
 });
