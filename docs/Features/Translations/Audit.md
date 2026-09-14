@@ -30,10 +30,10 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Tamazight matching homographs](Tamazight-Review.md) excludes lighting,
-sport and mail senses from the rule-field instruction. Equality alone
-would narrow wildcard/word matching. Seek computing terminology or an
-unrestricted-filter paraphrase. No translations or counts changed.
+[Tamazight search limit](Tamazight-Review.md) preserves the positive-integer
+instruction and literal example. Parser has special zero handling and
+uses parseInt; do not confuse that with strict integer validation.
+Mathematical integer wording remains open. No translations or counts changed.
 Earlier reviews remain in detailed evidence.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,

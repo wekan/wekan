@@ -3561,3 +3561,30 @@ Four focused suites pass for exact repair, Arabic/homograph rejection and
 translation invariants. No live rule UI test ran. Ledger 19,854;
 original corrected 15,739, pending 164 (zgh 69), restored 4 unchanged.
 Broader review remains open; no remote writes were made.
+
+
+## Search limit instruction — review 2026-09-15
+
+French globalSearch-instructions-operator-limit remains pending. Preserve
+literal `__operator_limit__`, backtick example `:<n>` and italic `*<n>*`.
+English describes a positive integer and the number of cards per page.
+IRCAM page 450 entry 8544 attests positive `umnig`; grammatical negative
+entry 3115 and curiosity entry 10687 do not establish mathematical
+positivity. A native integer expression still needs evidence.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+Actual `config/query-classes.js:584` uses `parseInt(value, 10)`, rejects
+NaN and negative values, and treats zero as no operator limit by continuing
+without storing it. Thus the parser is more permissive than a strict
+positive-integer grammar and the zero behavior must not be presented as a
+normal positive page size. `server/publications/cards.js:1078` reads the
+operator predicate when present. This source review does not reproduce
+all pagination behavior or establish strict integer input validation.
+
+Next action: verify mathematical integer wording and complete cards-per-
+page phrase, preserving the English instruction rather than silently
+rewording it to allow decimals or zero. Any change to the source guidance
+or parser would be a separate behavior change requiring its own tests.
+Cached MediaWiki limit labels supply displayed-result terminology, not
+an attested positive-integer phrase. No translation or counts changed.
+Pending 164 original findings. No live search UI test ran; no remote writes.
