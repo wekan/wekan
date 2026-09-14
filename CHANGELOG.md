@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7dd8c10c9">Restore Dzongkha Gregorian and ISO week label components</a>. Thanks to xet7.</summary>
+
+Restore calendar and week meanings omitted by the identifier-only seed.
+Four suites pass; full native technical label and browser verification
+remain open. Date calculations are unchanged.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/98cf2cda5">Restore Dzongkha Hijri moon-sighting qualifier</a>. Thanks to xet7.</summary>
 
 Replace the country-only English seed with calendar and moon-observation

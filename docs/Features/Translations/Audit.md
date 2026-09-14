@@ -16,13 +16,13 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `98cf2cda5` —
-Dzongkha Hijri sighting label restores calendar and moon-observation
-components with primary grammar evidence. Four checks pass; full native
-compound/browser review remains low confidence. Original pending: 255.
+Latest translation fix: **2026-09-14**, local commit `7dd8c10c9` —
+Dzongkha ISO calendar label restores Gregorian/calendar and week
+components. Four checks pass; full technical/native/browser label review
+remains open. Original pending: 255.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,762** exact before/after values, including unflagged
+records contain **18,763** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

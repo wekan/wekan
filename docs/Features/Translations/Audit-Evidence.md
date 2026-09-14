@@ -25521,3 +25521,16 @@ astronomical epoch variants still need complete native repair. Official
 2023 dictionary retrieval timed out and classified-lexicon PDF returned
 429; neither failed retrieval was treated as lexical absence or authority.
 Primary grammar: https://escholarship.org/content/qt1h4211k0/qt1h4211k0_noSplash_b3843a79888f78f39713ded5f61ad772.pdf?t=s10u2j
+
+
+Dzongkha ISO label — 2026-09-14, local commit `7dd8c10c9`.
+Unflagged calendar-system-iso8601 now includes Gregorian calendar and
+native week wording rather than the identifier alone. Grammar of Dzongkha
+PDF page 373 (printed 363) explicitly attests the week noun used by the
+existing locale. Gregorian/calendar wording is reused; identifier exact.
+Four suites pass, including all token/order/human-preference checks.
+Low confidence: full technical compound and existing Gregorian name
+transliteration; browser not run. Native grammar discusses Bhutanese
+weekday reckoning separately: this label repair does not alter date math
+or claim that traditional weekday rules equal ISO 8601. Original pending
+stays 255, Dzongkha 2; correction ledger grows to 18,763.
