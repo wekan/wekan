@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3eaad375b">Review retained email warning wording</a>. Thanks to xet7.</summary>
+
+Preserve Tamazight email warning text and attach native email-specific
+software evidence to its prior correction. Full agreement and browser
+review remain open. The correction-ledger regression passes.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4659005b1">Locate native software translation resources</a>. Thanks to xet7.</summary>
 
 Record current Common Voice Tamazight resource paths for contextual review.

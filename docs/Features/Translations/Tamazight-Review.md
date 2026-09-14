@@ -1588,3 +1588,18 @@ and full meanings before adopting terms; do not convert Fluent variables
 to WeKan placeholders without comparing the exact English token inventory.
 No locale values or counts change. This records a usable primary corpus
 location and avoids repeatedly treating obsolete URLs as lexical proof.
+
+Email warning retained review — 2026-09-14, `3eaad375b`.
+Common Voice zgh email-already-used corroborates the already-used predicate
+in an actual email/account message. Keep error-email-taken unchanged and
+attach this evidence to its prior correction record:
+https://raw.githubusercontent.com/common-voice/common-voice/main/web/locales/common-voice/zgh/pages/profile/settings.ftl
+The primary software context strengthens earlier generic MediaWiki
+already-used evidence. Full noun/predicate agreement and browser output
+remain unverified; unrelated import and plural uncertainties in the older
+shared reason must not be treated as evidence against this email clause.
+The full correction-ledger check passes; no counts or locale values change.
+Invitation review remains open: IRCAM invitation asigr PDF 227/4358 and
+not-yet ur ta PDF 452/8585 are attested, but ssidn accepts destiny and
+sslɣd accepts intercession. Those senses do not establish accepting a
+board invitation; approve/agree alternatives do not certify equivalence.
