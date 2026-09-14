@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,342 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 502 pending review or repair.
-The correction inventory records 17,668 exact before/after values,
+The correction inventory records 17,669 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 68cfc142c (2026-09-14), replacing the French
-Tamazight support information notice while retaining not-yet-added meaning.
-The full negative passive sentence needs fluent review.
+Latest translation fix is 2b230ec99 (2026-09-14), replacing the French
+Tamazight rule list-name label outside the original queue. Native components
+support the wording; the complete kanban noun phrase needs fluent review.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -622,7 +622,7 @@ remain open.
 Translation audit progress as of 2026-09-14: 15,342 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
 and 502 remain pending across 17 locales, including 367 Tamazight findings.
-The ledger contains 17,668 correction records, including unflagged repairs.
+The ledger contains 17,669 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -1471,6 +1471,16 @@ Replace French while retaining support information, not yet and added action.
 Native components support provisional wording; full negative passive sentence
 remains low confidence pending fluent review. All 17,668 correction checks
 pass; 502 original findings remain pending. Broader validation continues.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2b230ec99">Translate Tamazight rule list name label</a>. Thanks to xet7.</summary>
+
+Replace French with native name and list vocabulary, preserving the rule
+list-name meaning. Complete kanban noun phrase remains low confidence pending
+fluent review. All 17,669 correction checks pass; this unflagged repair leaves
+502 original findings pending. Broader language validation continues.
 
 </details>
 
