@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,554 corrected, 2,297 restored pre-pull values awaiting
-validation, 1,922 reviewed and retained, and 308 pending review or repair.
+findings: 15,554 corrected, 2,267 restored pre-pull values awaiting
+validation, 1,952 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,150 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
@@ -108,8 +108,8 @@ changes are implemented in local commit 02383521a; translation repairs have
 resumed.
 Latest translation fix/review is 3e0c49da9 (2026-09-14): Esperanto RSS size
 meaning repaired; 28 correct memory, legal and checklist labels retained.
-Latest unchanged-value review is 59ad2ce12 (2026-09-14): 30 Esperanto
-separator, swimlane-copy, spinner and request labels retained.
+Latest unchanged-value review is 1439290a6 (2026-09-14): 30 Esperanto
+attachment, upload, authentication and custom-translation labels retained.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
 Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
 retaining 156 correct Danish storage, migration and monitoring/account labels.
@@ -881,7 +881,7 @@ Correction and review checks pass; broader browser/language review is open.
 </details>
 
 Translation audit progress as of 2026-09-14: 15,554 original findings are
-corrected, 1,922 reviewed and retained, 2,297 restored values await validation,
+corrected, 1,952 reviewed and retained, 2,267 restored values await validation,
 and 308 remain pending across 17 locales, including 173 Tamazight findings.
 The ledger contains 18,150 correction records, including unflagged repairs.
 

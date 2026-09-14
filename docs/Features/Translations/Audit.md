@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,554 |
-| Restored pre-pull; awaiting validation | 2,297 |
-| Reviewed; retained unchanged | 1,922 |
+| Restored pre-pull; awaiting validation | 2,267 |
+| Reviewed; retained unchanged | 1,952 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -18,11 +18,13 @@ source references, confidence limits and archived progress notes.
 Latest translation fix: **2026-09-14**, local commit `3e0c49da9` —
 restored the omitted size meaning in Esperanto RSS diagnostics; retained
 28 correct memory, legal and checklist labels. Komputeko supports the
-technical term indiĝena. All **18,150** correction and **1,922** review
+technical term indiĝena. All **18,150** correction and **1,952** review
 records pass. Browser verification was not run; no translations were pushed.
 Overtime, lime-color, scrollbar, advanced-filter and garbage-zapping wording
 remains under review. Checklist completion was validated against ReVo
 komplet (`5b1ec70e9`).
+Latest unchanged review: **2026-09-14**, commit `1439290a6` — retained
+30 correct attachment, upload, authentication and custom-translation labels.
 
 
 Fixed categories include wrong-language prose, terminology, warnings,

@@ -21719,3 +21719,13 @@ Garbage-zapping nuligas remains uncertain: zeroing and debug-pattern
 replacement must not be conflated. All 18,150 corrections and 1,922 reviews
 pass. 2,297 restored values and 308 pending findings remain; wider language
 and browser validation remain open.
+
+
+### Esperanto attachment and custom-translation review — 2026-09-14
+
+Local commit `1439290a6` retains thirty correct storage-move, upload,
+authentication and custom-translation values. GridFS/S3 identifiers and
+byte units remain accurate; invalid-filename cancellation, PDF-download
+fallback and irreversible deletion warnings remain explicit. All 1,952
+unchanged review records pass. 2,267 restored values and 308 pending
+findings plus broader language and browser verification remain open.
