@@ -4708,5 +4708,365 @@
     "key": "repair-broken-cards",
     "value": "Reparér ødelagte kort",
     "reason": "Direct Danish review confirms source meaning and grammar. Monitoring distinguishes current/next/last, duration and remaining time; interval labels preserve minute/hour/day frequency; resource thresholds preserve units and bounds. Repository/account labels retain identifiers and the minimum three-character rule. Log is legitimate Danish technical vocabulary. Retain correct wording without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "act-removeChecklist",
+    "value": "forigis kontrolliston __checklist__ el karto __card__ en listo __list__ en naĝlinio __swimlane__ en tabulo __board__",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-removeChecklistItem",
+    "value": "forigis kontrollistan eron __checklistItem__ el kontrollisto __checkList__ en karto __card__ en listo __list__ en naĝlinio __swimlane__ en tabulo __board__",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-checkedItem",
+    "value": "markis __checklistItem__ de kontrollisto __checklist__ en karto __card__ en listo __list__ en naĝlinio __swimlane__ en tabulo __board__",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-uncheckedItem",
+    "value": "malmarkis __checklistItem__ de kontrollisto __checklist__ en karto __card__ en listo __list__ en naĝlinio __swimlane__ en tabulo __board__",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-addComment",
+    "value": "komentis pri karto __card__: __comment__ en listo __list__ en naĝlinio __swimlane__ en tabulo __board__",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-editComment",
+    "value": "redaktis komenton pri karto __card__: __comment__ en listo __list__ en naĝlinio __swimlane__ en tabulo __board__",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-deleteComment",
+    "value": "forigis komenton pri karto __card__: __comment__ en listo __list__ en naĝlinio __swimlane__ en tabulo __board__",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-createBoard",
+    "value": "kreis tabulon __board__",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-createSwimlane",
+    "value": "kreis naĝlinion __swimlane__ en tabulo __board__",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-createCard",
+    "value": "kreis karton __card__ en listo __list__ en naĝlinio __swimlane__ en tabulo __board__",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-createCustomField",
+    "value": "kreis propran kampon __customField__ en tabulo __board__",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-deleteCustomField",
+    "value": "forigis propran kampon __customField__ en tabulo __board__",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-setCustomField",
+    "value": "redaktis propran kampon __customField__: __customFieldValue__ en karto __card__ en listo __list__ en naĝlinio __swimlane__ en tabulo __board__",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-createList",
+    "value": "aldonis liston __list__ al tabulo __board__",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-addBoardMember",
+    "value": "aldonis membron __member__ al tabulo __board__",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-archivedBoard",
+    "value": "Tabulo __board__ movita al Arkivo",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-archivedCard",
+    "value": "Karto __card__ en listo __list__ en naĝlinio __swimlane__ en tabulo __board__ movita al Arkivo",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-archivedList",
+    "value": "Listo __list__ en naĝlinio __swimlane__ en tabulo __board__ movita al Arkivo",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-archivedSwimlane",
+    "value": "Naĝlinio __swimlane__ en tabulo __board__ movita al Arkivo",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-importBoard",
+    "value": "importis tabulon __board__",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-importCard",
+    "value": "importis karton __card__ al listo __list__ en naĝlinio __swimlane__ en tabulo __board__",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-importList",
+    "value": "importis liston __list__ al naĝlinio __swimlane__ en tabulo __board__",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-joinMember",
+    "value": "aldonis membron __member__ al karto __card__ en listo __list__ en naĝlinio __swimlane__ en tabulo __board__",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-moveCard",
+    "value": "movis karton __card__ en tabulo __board__ el listo __oldList__ en naĝlinio __oldSwimlane__ al listo __list__ en naĝlinio __swimlane__",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-moveCardToOtherBoard",
+    "value": "movis karton __card__ el listo __oldList__ en naĝlinio __oldSwimlane__ en tabulo __oldBoard__ al listo __list__ en naĝlinio __swimlane__ en tabulo __board__",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-removeBoardMember",
+    "value": "forigis membron __member__ el tabulo __board__",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-restoredCard",
+    "value": "restarigis karton __card__ al listo __list__ en naĝlinio __swimlane__ en tabulo __board__",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "act-unjoinMember",
+    "value": "forigis membron __member__ el karto __card__ en listo __list__ en naĝlinio __swimlane__ en tabulo __board__",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-removed",
+    "value": "forigis %s el %s",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-checklist-added",
+    "value": "aldonis kontrolliston al %s",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-checklist-removed",
+    "value": "forigis kontrolliston el %s",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-checklist-item-removed",
+    "value": "forigis kontrollistan eron el '%s' en %s",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "add-attachment",
+    "value": "Aldoni aldonaĵon",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "add-board",
+    "value": "Aldoni tabulon",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "add-template",
+    "value": "Aldoni ŝablonon",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "add-card",
+    "value": "Aldoni karton",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "add-card-to-top-of-list",
+    "value": "Aldoni karton al la supro de la listo",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "add-card-to-bottom-of-list",
+    "value": "Aldoni karton al la malsupro de la listo",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "addListPopup-title",
+    "value": "Aldoni liston",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "keyboard-shortcuts-enabled",
+    "value": "Klavaraj fulmoklavoj ŝaltitaj. Alklaku por malŝalti.",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "keyboard-shortcuts-disabled",
+    "value": "Klavaraj fulmoklavoj malŝaltitaj. Alklaku por ŝalti.",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "setSwimlaneHeightPopup-title",
+    "value": "Agordi alton de naĝlinio",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "set-swimlane-height",
+    "value": "Agordi alton de naĝlinio",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "add-swimlane",
+    "value": "Aldoni naĝlinion",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "add-checklist",
+    "value": "Aldoni kontrolliston",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "add-checklist-item",
+    "value": "Aldoni eron al kontrollisto",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "close-add-checklist-item",
+    "value": "Fermi la formularon por aldoni eron al kontrollisto",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "convertChecklistItemToCardPopup-title",
+    "value": "Konverti al karto",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "add-cover",
+    "value": "Aldoni kovrilbildon al minikarto",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "add-label",
+    "value": "Aldoni etikedon",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "add-list",
+    "value": "Aldoni liston",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "add-after-list",
+    "value": "Aldoni post la listo",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "admin-announcement-active",
+    "value": "Aktiva tutsistema anonco",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "admin-announcement-title",
+    "value": "Anonco de la administranto",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "and-n-other-card",
+    "value": "Kaj __count__ alia karto",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "and-n-other-card_plural",
+    "value": "Kaj __count__ aliaj kartoj",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "archive-board",
+    "value": "Movi tabulon al Arkivo",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "archive-board-confirm",
+    "value": "Ĉu vi certas, ke vi volas arkivi ĉi tiun tabulon?",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "archive-card",
+    "value": "Movi karton al Arkivo",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "archiveBoardPopup-title",
+    "value": "Ĉu movi tabulon al Arkivo?",
+    "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
   }
 ]
