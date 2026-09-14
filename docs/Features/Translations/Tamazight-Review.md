@@ -389,3 +389,22 @@ attested complete warning. Exact wording, placeholder, French/physical-sense
 negatives and distinction from debug errors are tested. No live browser
 validation ran. The original French key is corrected; full native validation
 remains in scope after its pending classification changes.
+
+## Debug-predicate context review — 2026-09-14
+
+Primary IRCAM General Dictionary PDF page 383, entry 7269, gives
+`ⵉⵎⵏⵏⵉ` for a grammatical predicate, explicitly marked `gram.`. This
+is not evidence for a computational debug predicate. In
+`config/query-classes.js`, the debug predicate catalogue accepts the
+translated values of `predicate-all`, `predicate-selector` and
+`predicate-projection`; the error at lines 597–605 rejects an unsupported
+catalogue value. It does not test a Boolean condition.
+
+Consequently neither the grammatical noun nor an existence-check clause
+is accepted as the complete debug error translation. The French
+`operator-debug-invalid` remains pending with its exact `%s` intact.
+`predicate-selector` also still contains French `sélecteur`; improving
+only the warning would leave this user-entered filter vocabulary unresolved.
+`predicate-projection` contains `askan`, whose computational sense also
+needs verification. Native computing terminology and the complete warning
+remain open; no values or counts changed in this review.
