@@ -131031,5 +131031,19 @@
     "before": "Couleur de sélection",
     "after": "ⴰⴽⵍⵓ ⵏ ⵓⴼⵔⴰⵏ",
     "reason": "Replace unflagged French multi-selection label; IRCAM 2019 p70 entry1069 selection, p503 entry9495 move, p532 entry10013 copy, p77 entry1233 colour. LOW CONFIDENCE: selection-as-selected-cards metonymy and complete phrase grammar need native/browser validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "change-card-parent",
+    "before": "Changer le parent de la carte",
+    "after": "ⵙⵙⵏⴼⵍ ⴰⵎⴰⵔⴰⵡ ⵏ ⵜⴽⴰⵔⴹⴰ",
+    "reason": "Replace French card control label; IRCAM 2019 p532 entry10003 change, p521 entry9816 show, p122 entry2198 father, p306 entry5962 in; existing card and software-parent vocabulary retained. LOW CONFIDENCE: full phrase grammar and parent metaphor need native/browser validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "show-on-card",
+    "before": "Afficher sur la carte",
+    "after": "ⵙⵙⴽⵏ ⴳ ⵜⴽⴰⵔⴹⴰ",
+    "reason": "Replace French card control label; IRCAM 2019 p532 entry10003 change, p521 entry9816 show, p122 entry2198 father, p306 entry5962 in; existing card and software-parent vocabulary retained. LOW CONFIDENCE: full phrase grammar and parent metaphor need native/browser validation."
   }
 ]

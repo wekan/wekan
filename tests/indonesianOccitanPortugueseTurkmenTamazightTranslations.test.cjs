@@ -133,3 +133,9 @@ for (const [key, value] of Object.entries(selectedCardLabels)) {
 assert.equal(locales.zgh['move-selection'], locales.zgh['moveSelectionPopup-title']);
 assert.equal(locales.zgh['copy-selection'], locales.zgh['copySelectionPopup-title']);
 assert.notEqual(locales.zgh['move-selection'], locales.zgh['copy-selection']);
+
+assert.equal(locales.zgh['change-card-parent'], 'ⵙⵙⵏⴼⵍ ⴰⵎⴰⵔⴰⵡ ⵏ ⵜⴽⴰⵔⴹⴰ');
+assert.equal(locales.zgh['show-on-card'], 'ⵙⵙⴽⵏ ⴳ ⵜⴽⴰⵔⴹⴰ');
+assert.doesNotMatch(locales.zgh['change-card-parent'], /Changer|parent|carte/);
+assert.doesNotMatch(locales.zgh['show-on-card'], /Afficher|sur|Card/);
+assert.notEqual(locales.zgh['change-card-parent'], locales.zgh['parent-card']);
