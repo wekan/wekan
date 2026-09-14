@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight archive controls — 2026-09-14
+
+Commit `5dca9f38d` replaces nine Arabic/French values, one original finding and eight unflagged labels. Preserve Archive noun versus Move-to-Archive, All, Board/Card/List/Selection and Show archived Lists scopes. A [Moroccan Ministry catalogue](https://mjcc.gov.ma/zgh/cp-textes-juridiques/page/14/) search-index excerpt uses Archive in records/archiving legal headings. Direct page access timed out, so this is indexed lexical evidence, not an inspected complete page or direct kanban control attestation. Native MediaWiki supplies Move/Show; native Mastodon supplies Lists. Card/Board/Selection reuse local terminology without independent validation. Borrowed institutional archive noun, prepositional form and full labels remain LOW CONFIDENCE for native review. Inherited Kabyle aɣbar was not treated as established Moroccan terminology. One original repaired; 414 remain pending, including 279 Tamazight. 17,924 mechanical checks pass; no live browser verification or remote uploads.
+
 ## Tamazight assignee filter recipient follow-up — 2026-09-14
 
 Commit `0488199cf` refines two existing records from `5da9a2084`. Earlier Person given card wording left the recipient relation implicit and used masculine Given with a feminine card noun. Match the explicit Person to whom card is given construction in `2e15e9f7b`, preserving the recipient and No assignee scopes. Original French before values remain unchanged. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) attests Given as a component, not these relative clauses or responsibility-assignment meaning. Feminine agreement and the recipient relative are derived; complete labels remain LOW CONFIDENCE for native review. This is a correction of ambiguity and consistency, not proof of fluency. All 17,915 mechanical checks pass. Counts unchanged: 415 originals pending, including 280 Tamazight. No live browser verification or remote uploads.

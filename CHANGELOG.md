@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,429 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 415 pending review or repair.
-The correction inventory records 17,915 exact before/after values,
+findings: 15,430 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 414 pending review or repair.
+The correction inventory records 17,924 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (280) and
+The largest original queues are Standard Moroccan Tamazight (279) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,10 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 0488199cf (2026-09-14), refining two earlier
-assignee filter labels with an explicit recipient relationship and feminine
-card agreement. Counts unchanged; full grammar and responsibility paraphrases
-remain low confidence.
+Latest translation fix is 5dca9f38d (2026-09-14), replacing nine archive
+controls, including eight unflagged values. Noun/action and object scopes
+are preserved. Ministry noun evidence is indexed; direct access timed out.
+Full labels remain low confidence.
 Logo provenance follow-up 89f36d41f (2026-09-14) applies the dictionary's
 cross-variety preface to two earlier URL records. Native caption evidence
 remains separate; full labels stay low confidence. No values/counts changed.
@@ -647,10 +647,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,429 original findings are
+Translation audit progress as of 2026-09-14: 15,430 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 415 remain pending across 17 locales, including 280 Tamazight findings.
-The ledger contains 17,915 correction records, including unflagged repairs.
+and 414 remain pending across 17 locales, including 279 Tamazight findings.
+The ledger contains 17,924 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -2642,6 +2642,18 @@ No assignee and original French provenance. Full relative grammar and
 responsibility paraphrases remain low confidence. All 17,915 correction
 checks pass; counts unchanged. Wider language and live browser validation
 remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5dca9f38d">Translate Tamazight archive controls</a>. Thanks to xet7.</summary>
+
+2026-09-14: Replace nine Arabic/French values, including eight unflagged
+labels. Preserve Archive versus Move-to-Archive and all/board/card/list/
+selection scopes. Ministry indexed noun evidence is provisional because
+direct access timed out; full labels remain low confidence. All 17,924
+correction checks pass, including placeholders and translation preference.
+414 originals remain pending; wider language and browser validation remain open.
 
 </details>
 
