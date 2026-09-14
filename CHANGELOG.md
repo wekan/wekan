@@ -881,6 +881,16 @@ under native review. Dated audit records 164 pending original findings.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ecbe3856d">Repair Tamazight permanent-attachment warning</a>. Thanks to xet7.</summary>
+
+Replace Arabic legacy warning with added-file wording, permanence and
+no undo. Four focused translation suites pass. Active soft-delete message
+remains separate. Adverbial and passive grammar remain under native review.
+Dated audit records 163 pending original findings.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

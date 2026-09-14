@@ -3588,3 +3588,24 @@ or parser would be a separate behavior change requiring its own tests.
 Cached MediaWiki limit labels supply displayed-result terminology, not
 an attested positive-integer phrase. No translation or counts changed.
 Pending 164 original findings. No live search UI test ran; no remote writes.
+
+
+## Permanent attachment warning — repair 2026-09-15
+
+Source commit `ecbe3856d` replaces Arabic attachment-delete-pop. Added
+file `afaylu yrnan` paraphrases a file attachment rather than using
+ambiguous emotional-attachment talu ft / taluft. IRCAM page 150 entry
+2766 attests amɣlal as noun/adjective permanent, bound umɣlal. The
+adverbial construction s umɣlal is an adaptation, not independently
+attested full computing wording. Existing deletion/passive and no-undo
+clauses preserve permanent removal and inability to reverse the action.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+Full added-file, adverbial permanence and passive grammar remain low
+confidence. This supersedes the earlier pending status for wrong-language
+prose, not its native-review limits. Active attachments.jade line 32 still
+uses attachment-soft-delete-pop; no runtime or soft-delete text changed.
+Four focused suites pass for exact wording, Arabic/emotional-term rejection
+and translation invariants. No live UI test ran. Ledger 19,855; original
+corrected 15,740, pending 163 (zgh 68), restored 4 unchanged. Broader
+review remains open; no remote writes were made.
