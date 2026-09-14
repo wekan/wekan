@@ -123786,5 +123786,12 @@
     "before": "ⴰⵙⴻⴱⵜⴻⵔ",
     "after": "ⵜⴰⵙⵏⴰ",
     "reason": "2026-09-14: Align the standalone Page noun with directly attested Standard Moroccan software terminology. Native MediaWiki protectedpages-page is exactly ⵜⴰⵙⵏⴰ; movethispage/move-page-legend independently use the same noun in software page actions. Preserve singular Page rather than plural pages or page title. This correction does not claim that every regional synonym is invalid and does not validate other page-related phrases. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (protectedpages-page, movethispage, move-page-legend)."
+  },
+  {
+    "locale": "zgh",
+    "key": "confirm",
+    "before": "تأكيد",
+    "after": "ⵡⴰⵅⵅⴰ",
+    "reason": "2026-09-14: Replace the Arabic Confirm button with native Standard Moroccan software confirmation-button wording. MediaWiki confirm_purge_button, confirm-watch-button, confirm-unwatch-button and confirm-rollback-button use exactly ⵡⴰⵅⵅⴰ. Preserve button acknowledgment/confirmation rather than substitute the distinct Accept invitation action or the Are you sure question. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (confirmation buttons)."
   }
 ]
