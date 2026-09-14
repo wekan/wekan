@@ -131703,5 +131703,26 @@
     "before": "Poista",
     "after": "Heitä",
     "reason": "2026-09-14: Replace Finnish with the complete native Veps software label attested by MediaWiki rcfilters-savedqueries-remove at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Capitalize the label initial where needed. This does not validate other Veps phrases or live browser behavior."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "text-note-title",
+    "before": "Otsikko",
+    "after": "Nimi",
+    "reason": "2026-09-14: Replace Finnish with native Veps terminology: title-invalid and newtitle attest the title noun, matching the existing WeKan title label. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. This does not validate longer phrases or live browser rendering."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-title",
+    "before": "otsikko",
+    "after": "nimi",
+    "reason": "2026-09-14: Replace Finnish with native Veps terminology: title-invalid and titlematches attest the title noun; lowercase follows search-operator presentation. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. This does not validate longer phrases or live browser rendering."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "page",
+    "before": "Sivu",
+    "after": "Lehtpol'",
+    "reason": "2026-09-14: Replace Finnish with native Veps terminology: editpage and deletepage attest the standalone page noun. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. This does not validate longer phrases or live browser rendering."
   }
 ]

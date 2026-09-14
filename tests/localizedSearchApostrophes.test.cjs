@@ -46,6 +46,13 @@ for (const absent of [false, true]) {
 }
 assert.equal(query(`${labels['operator-has']}:nonexistent-field`).hasErrors(), true);
 labels = JSON.parse(read('imports/i18n/data/ve-PP.i18n.json'));
+assert.equal(labels['operator-title'], 'nimi');
+for (const text of ['nimi:"Demo card"', 'nimi:Demo']) {
+  const parsed = query(text);
+  assert.equal(parsed.hasErrors(), false);
+  assert.equal(parsed.getQueryParams().getPredicate('title'), text.includes('"') ? 'Demo card' : 'Demo');
+}
+assert.equal(query('unknownoperator:Demo').hasErrors(), true);
 assert.equal(query('lugetiž:Blocked').getQueryParams().getPredicate('list'), 'Blocked');
 assert.equal(query('lugetiž:"Kodvi"').getQueryParams().getPredicate('list'), 'Kodvi');
 context.now = () => new Date('2026-09-14T00:00:00Z');

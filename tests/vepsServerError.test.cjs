@@ -19,3 +19,13 @@ test('Veps complete view and removal labels replace Finnish without changing act
     assert.doesNotMatch(data[key], /kel'dä/i, 'removal is not disabling');
   }
 });
+
+test('Veps title and page nouns replace Finnish and retain existing native title terminology', () => {
+  const data = JSON.parse(fs.readFileSync('imports/i18n/data/ve-PP.i18n.json', 'utf8'));
+  assert.equal(data['text-note-title'], data.title);
+  assert.equal(data['operator-title'], data.title.toLowerCase());
+  assert.equal(data.page, "Lehtpol'");
+  for (const key of ['text-note-title', 'operator-title', 'page']) {
+    assert.doesNotMatch(data[key], /otsikko|sivu/i);
+  }
+});
