@@ -126243,5 +126243,12 @@
     "before": "الأنشطة",
     "after": "ⵜⵉⴳⴰⵡⵉⵏ",
     "reason": "2026-09-14: Replace French/Arabic with Standard Moroccan Tamazight. Native MediaWiki directly supports Actions tigawin, Edit snfl, viewing zr (skin-view-history), Settings tisghal (quickfilters) and Delete/Remove kks: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Can construction retains native search-ignored-headings tzhdard and derived personal/negative forms. Preserve administrator card VIEW and EDIT, MEMBER removal, BOARD settings changes, separate activity VIEW; normal member can view/edit cards but CANNOT change settings. Activities uses Actions-to-activity-log adaptation; card/member local vocabulary, full permission grammar and adaptation remain LOW CONFIDENCE. Standalone label repair is not proof of whole descriptions."
+  },
+  {
+    "locale": "zgh",
+    "key": "act-atUserComment",
+    "before": "vous a mentionné sur la carte __card__ : __comment__ dans la liste __list__ dans le couloir __swimlane__ dans le tableau __board__",
+    "after": "ⵉⴱⴷⵔ ⴽ ⴳ ⵜⴽⴰⵔⴹⴰ __card__: __comment__ ⴳ ⵜⵍⴳⴰⵎⵜ __list__ ⴳ ⵓⴱⵔⵉⴷ __swimlane__ ⴳ ⵜⴼⵍⵡⵉⵜ __board__",
+    "reason": "2026-09-14: Replace French mentioned-you activity with Standard Moroccan Tamazight. Search-indexed IRCAM conjugation manual entry bdr evoke/mention: https://www.temehu.com/imazighen/dictionaries/Amawals/manuel-de-conjugaison-Tamazight-Tifinagh-IRCAM.pdf . Direct access redirects to dictionary HTML, so indexed entry is not directly inspected primary PDF evidence. Mention actor form ibdr and object k, full location grammar and Swimlane-as-Path adaptation remain LOW CONFIDENCE. Native Mastodon notification.follow directly supports object k in person-directed activity but does not prove mention verb: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Preserve YOU, CARD, COMMENT, LIST, SWIMLANE, BOARD and all five exact placeholders."
   }
 ]
