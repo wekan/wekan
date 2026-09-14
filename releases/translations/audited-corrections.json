@@ -127461,5 +127461,47 @@
     "before": "Personne assignée",
     "after": "Den deverket",
     "reason": "Unflagged French assigned-person label replaced with Breton den/deverket, consistent with validated no-assignee and existing assigned-only vocabulary; preserve absent-person distinction for filter."
+  },
+  {
+    "locale": "br",
+    "key": "assign-member",
+    "before": "Affecter un participant",
+    "after": "Deverkañ un ezel",
+    "reason": "Unflagged French member/label interface wording replaced with Breton using existing ezel/izili and filter vocabulary, Preder assignment verb deverkañ and native MediaWiki br.json Merañ/tikedennoù. Preserve assignment action, plural management, filter criterion and absent-member distinction."
+  },
+  {
+    "locale": "br",
+    "key": "card-edit-members",
+    "before": "Gérer les participants",
+    "after": "Merañ an izili",
+    "reason": "Unflagged French member/label interface wording replaced with Breton using existing ezel/izili and filter vocabulary, Preder assignment verb deverkañ and native MediaWiki br.json Merañ/tikedennoù. Preserve assignment action, plural management, filter criterion and absent-member distinction."
+  },
+  {
+    "locale": "br",
+    "key": "filter-member-label",
+    "before": "Filtrer par participant",
+    "after": "Silañ dre ezel",
+    "reason": "Unflagged French member/label interface wording replaced with Breton using existing ezel/izili and filter vocabulary, Preder assignment verb deverkañ and native MediaWiki br.json Merañ/tikedennoù. Preserve assignment action, plural management, filter criterion and absent-member distinction."
+  },
+  {
+    "locale": "br",
+    "key": "filter-no-member",
+    "before": "Aucun participant",
+    "after": "Ezel ebet",
+    "reason": "Unflagged French member/label interface wording replaced with Breton using existing ezel/izili and filter vocabulary, Preder assignment verb deverkañ and native MediaWiki br.json Merañ/tikedennoù. Preserve assignment action, plural management, filter criterion and absent-member distinction."
+  },
+  {
+    "locale": "br",
+    "key": "labels",
+    "before": "Étiquettes",
+    "after": "Tikedennoù",
+    "reason": "Unflagged French member/label interface wording replaced with Breton using existing ezel/izili and filter vocabulary, Preder assignment verb deverkañ and native MediaWiki br.json Merañ/tikedennoù. Preserve assignment action, plural management, filter criterion and absent-member distinction."
+  },
+  {
+    "locale": "br",
+    "key": "cardLabelsPopup-title",
+    "before": "Étiquettes",
+    "after": "Tikedennoù",
+    "reason": "Unflagged French member/label interface wording replaced with Breton using existing ezel/izili and filter vocabulary, Preder assignment verb deverkañ and native MediaWiki br.json Merañ/tikedennoù. Preserve assignment action, plural management, filter criterion and absent-member distinction."
   }
 ]
