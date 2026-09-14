@@ -131549,5 +131549,12 @@
     "before": "ⵜⴰⵎⵏⴰⴹⵜ",
     "after": "ⵜⴰⵖⵓⵍⵜ",
     "reason": "2026-09-14: Replace geographic region with computing domain taɣult, Bouzefrane computer lexicon PDF 52 (MW/CLH), domain identifiers PDF 71 and DNS PDF 132: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . Existing consumers list email domains and domain board sharing. Cross-variety software usage remains subject to native review; no whole automatic-addition sentence is inferred from this noun."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-limit-invalid",
+    "before": "%s n'est pas une limite valide. La limite doit être un entier positif.",
+    "after": "%s: ⴰⵡⵜⵜⵓ ⵓⵔ ⵉⵙⵖⵣⵏ. ⵉⵅⵚⵚⴰ ⴰⴷ ⵉⴳ ⵓⵡⵜⵜⵓ ⴰⵎⴹⴰⵏ ⵓⵎⵎⵉⴷ ⵓⵎⵏⵉⴳ.",
+    "reason": "2026-09-14: Complete Tamazight draft preserving invalid-limit diagnosis, required positive integer and exact %s. MediaWiki zgh feed-invalid attests software not-valid construction: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . IRCAM PDF 270 entry 5271 awttu boundary/limit, 356 entry 6770 obligation, 450 entry 8544 positive; integer ummid has separate Algerian mathematics thesis PDF 59 provenance recorded in swimlane-height repair. Low confidence: assembled negative-valid and modal clauses, computing-boundary metaphor, noun state and cross-variety integer terminology; no native/browser acceptance. Excludes disability sense ankruf."
   }
 ]

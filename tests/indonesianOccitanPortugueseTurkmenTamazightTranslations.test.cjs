@@ -377,3 +377,7 @@ assert.doesNotMatch(locales.zgh['click-to-enable-auto-width'], /ⵜⵙⵙⵏⵙ�
 
 assert.equal(locales.zgh.domain, 'ⵜⴰⵖⵓⵍⵜ');
 assert.doesNotMatch(locales.zgh.domain, /ⵜⴰⵎⵏⴰⴹⵜ/);
+
+assert.match(locales.zgh['operator-limit-invalid'], /^%s: ⴰⵡⵜⵜⵓ ⵓⵔ ⵉⵙⵖⵣⵏ\./);
+assert.match(locales.zgh['operator-limit-invalid'], /ⵉⵅⵚⵚⴰ.*ⴰⵎⴹⴰⵏ ⵓⵎⵎⵉⴷ ⵓⵎⵏⵉⴳ/);
+assert.doesNotMatch(locales.zgh['operator-limit-invalid'], /valide|entier|ⴰⵏⴽⵔⵓⴼ/);
