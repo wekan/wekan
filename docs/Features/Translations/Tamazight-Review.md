@@ -2692,3 +2692,27 @@ restored 4 unchanged. Six new records and two revisions were unflagged.
 Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
 Issue fixes #6694/#6693 now take priority; broader translation work remains
 active and incomplete. No push.
+
+## Quick-access hint and technical-term review — 2026-09-15
+
+Local commit `636dae2df` replaces Arabic quick-access-description with a
+Tamazight draft retaining star-board action and the resulting shortcut at
+this location. The cached full IRCAM dictionary page 210 entry 4007
+attests asanf shortcut. Existing star/add/purpose/here terms are reused.
+The hint is registered in header.jade's quick-access empty-message row;
+contextual here identifies the containing bar. Physical door-bar entries
+2442/10905 were excluded as proof of a software bar term.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+**Low confidence:** the software-shortcut metaphor, purpose clause and
+contextual location adaptation remain under native review. Four focused
+suites pass for star action, board/shortcut/location scope, negative Arabic
+checks, source registration, placeholders, order and human preference.
+No live browser test ran. Ledger 19,819; original corrected 15,715,
+pending 188 (zgh 93), restored 4 unchanged.
+
+Brute-force settings/info remain French. IRCAM protection entries alone
+do not attest the complete cybersecurity compound; literal violent-force
+wording would not establish exhaustive credential-guessing meaning. No
+change was made to these labels. Broader uncertain/restored/unflagged
+review remains open. No push.

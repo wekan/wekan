@@ -703,6 +703,17 @@ The browser assertion accepts whitespace between the regional flag and name.
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/636dae2df">Repair Tamazight quick-access star-board instruction</a></summary>
+
+Replace Arabic with Tamazight wording retaining star action and shortcut
+location. Four focused suites pass. Dated audit: 19,819 correction records,
+188 original findings pending; software adaptation remains under review.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/cda3ca904">Align Tamazight checklist mark and unmark actions</a></summary>
 
 Use IRCAM mark/sign terms for check/uncheck and one/all rule labels.
