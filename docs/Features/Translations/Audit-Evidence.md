@@ -1,5 +1,15 @@
 # Detailed translation audit evidence
 
+2026-09-14 (`eb1f433e2`): retained thirty more Danish restored values
+after full source-meaning review, principally search instructions/errors.
+Confirmed operator examples, member/assignee and organization/team scopes,
+from-now due ranges, inclusive ages, missing-value and descending-sort minus,
+positive per-page limits, signed day periods, case-insensitivity and archive
+default. Troubleshooting commands remain literal. Source Markdown/parser
+correctness is not certified by source-correspondence review. Eighty Danish
+values now reviewed; overall retained is 259, restored awaiting review 3,978.
+
+
 2026-09-14 (`9abcbc424`): retained thirty more restored Danish values
 after direct full-meaning review. Exact keys/values are in audited-reviews.
 Verified irreversible team/organization deletion, automatic domain users,

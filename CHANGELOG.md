@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,536 corrected, 4,008 restored pre-pull values awaiting
-validation, 229 reviewed and retained, and 308 pending review or repair.
+findings: 15,536 corrected, 3,978 restored pre-pull values awaiting
+validation, 259 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,131 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
@@ -107,9 +107,9 @@ spent-time and sorting controls. Noun-only time remains distinct from Change
 actions. Full participle and agreement remain low confidence.
 All 18,131 correction records pass structural verification; 308 original
 findings remain pending, including 173 Tamazight findings.
-Restored Danish review 9abcbc424 (2026-09-14) retained 30 more complete
-values unchanged, including irreversible deletion, due-card permission scope,
-activity locations and search errors. Fifty Danish values are reviewed.
+Restored Danish review eb1f433e2 (2026-09-14) retained 30 more complete
+values unchanged, principally search operators, ranges, missing values and
+sort syntax. Eighty Danish values are reviewed; parser behavior is separate.
 Archive provenance follow-up fbe388603 (2026-09-14) directly inspects the
 native Archives du Maroc logo in a university PDF, corroborating the noun
 beyond indexed evidence. Nine records updated; no values/counts changed.
@@ -656,7 +656,7 @@ remain open.
 </details>
 
 Translation audit progress as of 2026-09-14: 15,536 original findings are
-corrected, 229 reviewed and retained, 4,008 restored values await validation,
+corrected, 259 reviewed and retained, 3,978 restored values await validation,
 and 308 remain pending across 17 locales, including 173 Tamazight findings.
 The ledger contains 18,131 correction records, including unflagged repairs.
 
