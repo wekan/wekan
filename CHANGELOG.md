@@ -662,6 +662,18 @@ The browser assertion accepts whitespace between the regional flag and name.
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/58809a724">Translate Kashmiri Saudi moon-sighting calendar label</a></summary>
+
+Replace English country-only wording with a calendar and moon-seeing draft.
+Four focused suites pass. Full grammatical agreement and remaining epoch
+wording stay under native review, with sources and limits in the dated audit.
+
+Thanks to xet7.
+
+</details>
+
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/206859259">Translate Fulah tabular Hijri calendar epoch labels</a></summary>
 
 Replace English-only labels with calculation, structured-table and beginning
