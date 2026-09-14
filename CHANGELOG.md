@@ -661,6 +661,17 @@ The browser assertion accepts whitespace between the regional flag and name.
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d9cebf2b0">Tamazight card description recovery confirmation</a></summary>
+
+Replace French recovery confirmation with a Tamazight draft naming the
+current card description and your changes. Four focused suites pass;
+complete question and overwrite wording remain under native review.
+
+Thanks to xet7.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ed8256d45">Tamazight unsaved card description warning</a></summary>
 
 Replace Arabic warning prose with a Tamazight draft preserving possession

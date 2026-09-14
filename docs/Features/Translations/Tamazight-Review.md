@@ -2478,3 +2478,23 @@ for vocabulary, negative status, source registration, exact placeholders,
 key order, provenance and newer human translations. No live UI test ran.
 Ledger 19,778; original pending 206 (zgh 103) and restored 4 unchanged.
 All broader uncertain findings remain open. No remote push.
+
+## Card description recovery confirmation — 2026-09-15
+
+Local commit `d9cebf2b0` replaces French rescue-card-description-dialogue
+with a Tamazight draft asking to change the current card description with
+your changes. CardDetails.js line 2972 confirms before setDescription
+replaces the stored value with the editor contents; cancelling does not
+save. This is distinct from the unsaved-status warning.
+
+[Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json)
+changeemail-no-info supplies the change verb in a second-person clause;
+changeemail-oldemail attests current and savechanges attests changes.
+IRCAM page 42 entry 486 supplies the description noun.
+**Low confidence:** change-to-overwrite interpretation, complete question,
+card/description construction and possession need native review. These
+component attestations do not prove the full recovery prompt. Four focused
+suites pass for scope, question, source registration, placeholders,
+provenance and newer human translations; no live browser test ran. Ledger
+19,779; original corrected 15,698, pending 205 (zgh 102), restored 4.
+All broader uncertain/restored/unflagged review remains open. No push.
