@@ -138444,5 +138444,12 @@
     "before": "لديك وصف غير محفوظ",
     "after": "ⵖⵓⵔⴽ ⴰⴳⵍⴰⵎ ⵓⵔⵜⴰ ⵉⵜⵜⵡⴰⵃⴹⴰ",
     "reason": "2026-09-15: replace unflagged Arabic warning with a Tamazight draft. IRCAM entry 486 attests description; native MediaWiki new-messages supplies possession and rcfilters-quickfilters-placeholder-title supplies not-yet-saved passive wording. Complete masculine clause adaptation remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "rescue-card-description-dialogue",
+    "before": "Réécrire la description de la carte courante avec vos changements ?",
+    "after": "ⵉⵙ ⵜⵅⵙⴷ ⴰⴷ ⵜⵙⵏⴼⵍⴷ ⴰⴳⵍⴰⵎ ⴰⵎⵉⵔⴰⵏ ⵏ ⵜⴽⴰⵕⴹⴰ ⵙ ⵉⵙⵏⴼⵍⵏ ⵏⵏⴽ?",
+    "reason": "2026-09-15: replace French recovery confirmation with a Tamazight draft asking to change the current card description with your changes. Native MediaWiki changeemail-no-info, changeemail-oldemail and savechanges attest change/current/changes components; IRCAM entry 486 attests description. Change-to-overwrite interpretation, full clause and possession remain low confidence. Actual confirmation replaces the stored description with the editor value."
   }
 ]

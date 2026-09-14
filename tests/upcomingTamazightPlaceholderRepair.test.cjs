@@ -239,3 +239,9 @@ assert.equal(translated['unsaved-description'], 'ⵖⵓⵔⴽ ⴰⴳⵍⴰⵎ �
 assert.doesNotMatch(translated['unsaved-description'], /[\u0600-\u06ff]/);
 assert.notEqual(translated['unsaved-description'], translated.description);
 assert.match(fs.readFileSync(path.join(ROOT, 'client/components/cards/cardDetails.jade'), 'utf8'), /{{_ 'unsaved-description'}}/);
+
+const recoveryPrompt = translated['rescue-card-description-dialogue'];
+assert.match(recoveryPrompt, /^ⵉⵙ ⵜⵅⵙⴷ ⴰⴷ ⵜⵙⵏⴼⵍⴷ ⴰⴳⵍⴰⵎ ⴰⵎⵉⵔⴰⵏ.*ⵙ ⵉⵙⵏⴼⵍⵏ ⵏⵏⴽ\?$/);
+assert.doesNotMatch(recoveryPrompt, /Réécrire|courante|changements/);
+assert.notEqual(recoveryPrompt, translated['unsaved-description']);
+assert.match(fs.readFileSync(path.join(ROOT, 'client/components/cards/cardDetails.js'), 'utf8'), /confirm\(TAPi18n\.__\('rescue-card-description-dialogue'\)\)[\s\S]*?currentCard\.setDescription\(currentDescription\.value\)/);
