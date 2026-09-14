@@ -123331,5 +123331,19 @@
     "before": "Votre texte JSON n'est pas valide",
     "after": "ⴰⴹⵕⵉⵙ ⵏⵏⴽ ⵓⵔ ⵉⵙⵖⵣⵏ ⴰⵎ JSON",
     "reason": "Replace French malformed-JSON warning, preserving your text, negative validity and literal JSON format. Native MediaWiki yourtext supplies adhris nnk/m and feed-invalid supplies ur isghzn (not valid): https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Adapt as-JSON complement rather than claiming malformed ordinary text. LOW CONFIDENCE full validity/format construction and generic masculine address pending fluent review. Paste prompts remain unresolved: CNAM dictionary coller entries describe concatenation/interpolation, not explicit clipboard paste; no weaker enter/drop instruction substituted."
+  },
+  {
+    "locale": "zgh",
+    "key": "act-unjoinMember",
+    "before": "a supprimé le participant __member__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "after": "ⵉⴽⴽⵙ ⴰⴳⵎⴰⵎ __member__ ⵙⴳ ⵜⴽⴰⵕⴹⴰ __card__ ⴳ ⵜⵍⴳⴰⵎⵜ __list__ ⴳ ⵓⴱⵔⵉⴷ __swimlane__ ⴳ ⵜⴼⵍⵡⵉⵜ __board__",
+    "reason": "Replace French/Arabic member removal message; preserve removal from card rather than deleting member account, and all card/list/swimlane/board placeholders and locations. Native MediaWiki delete and logentry-delete-delete attest kks/ikks, nmembers attest agmam/igmamn, and logentry-move-move attests source sg: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse established local card/list/board terminology and existing swimlane Abrid transcribed as bound ubrid. LOW CONFIDENCE nested location composition, generic actor gender and Abrid swimlane adaptation require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "remove-member",
+    "before": "حذف العضو",
+    "after": "ⴽⴽⵙ ⴰⴳⵎⴰⵎ",
+    "reason": "Replace French/Arabic member removal message; preserve removal from card rather than deleting member account, and all card/list/swimlane/board placeholders and locations. Native MediaWiki delete and logentry-delete-delete attest kks/ikks, nmembers attest agmam/igmamn, and logentry-move-move attests source sg: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse established local card/list/board terminology and existing swimlane Abrid transcribed as bound ubrid. LOW CONFIDENCE nested location composition, generic actor gender and Abrid swimlane adaptation require fluent review."
   }
 ]
