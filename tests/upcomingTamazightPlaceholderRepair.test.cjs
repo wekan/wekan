@@ -452,3 +452,6 @@ assert.strictEqual(translated["dueCards-noResults-title"], "ⵓⵔ ⵜⵜⵓⵢ�
 
 assert.strictEqual(translated["dueCards-noResults-description"], "ⵓⵔ ⴷⴰⵔⴽ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵙ ⵓⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⴷⵖⵉ.");
 assert.doesNotMatch(translated['dueCards-noResults-description'], /Vous|échéance|[\u0600-\u06ff]/u);
+
+assert.strictEqual(translated["auto-watch"], "ⵎⴰⵜⵔ ⵜⵉⴼⵍⵡⵉⵏ ⵙ ⵓⵡⵔⵎⴰⵏ ⵉⵖ ⵜⵜⵓⵙⵏⵓⵍⴼⴰⵏⵜ.");
+assert.doesNotMatch(translated['auto-watch'], /[\u0600-\u06ff]/u);

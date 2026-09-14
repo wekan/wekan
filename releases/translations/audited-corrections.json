@@ -138934,5 +138934,12 @@
     "before": "Vous n'avez aucune carte avec échéance en ce moment.",
     "after": "ⵓⵔ ⴷⴰⵔⴽ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵙ ⵓⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⴷⵖⵉ.",
     "reason": "2026-09-15: Replace French empty-state prose with find/now evidence and existing due-date terminology. Negative passive agreement and due-date compound remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "auto-watch",
+    "before": "مراقبة لوحات تلقائيا عندما يتم إنشاؤها",
+    "after": "ⵎⴰⵜⵔ ⵜⵉⴼⵍⵡⵉⵏ ⵙ ⵓⵡⵔⵎⴰⵏ ⵉⵖ ⵜⵜⵓⵙⵏⵓⵍⴼⴰⵏⵜ.",
+    "reason": "2026-09-15: Replace Arabic auto-watch instruction with attested monitoring/create verbs and native MediaWiki automatic phrase. Full conditional/passive agreement low confidence; no active source caller found."
   }
 ]
