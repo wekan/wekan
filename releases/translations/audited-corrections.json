@@ -129078,5 +129078,68 @@
     "before": "Ajouter après la liste",
     "after": "Ouzhpennañ goude ar roll",
     "reason": "Replace French list-menu prose with existing Breton anv, roll/rolloù, patromoù and Ouzhpennañ. Full phrase/initial-mutation and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "step-analyze-lists",
+    "before": "Analyser les listes",
+    "after": "Dielfennañ ar rolloù",
+    "reason": "Replace French migration/status/date prose with Breton using existing Dielfennañ, restoration Adsevel, time and recurrence vocabulary. Estimated remaining-time phrasing is provisional pending native review; full migration/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "step-finalize",
+    "before": "Finaliser",
+    "after": "Echuiñ",
+    "reason": "Replace French migration/status/date prose with Breton using existing Dielfennañ, restoration Adsevel, time and recurrence vocabulary. Estimated remaining-time phrasing is provisional pending native review; full migration/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "step-restore-lists",
+    "before": "Restauration des listes",
+    "after": "Adsevel ar rolloù",
+    "reason": "Replace French migration/status/date prose with Breton using existing Dielfennañ, restoration Adsevel, time and recurrence vocabulary. Estimated remaining-time phrasing is provisional pending native review; full migration/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "step-restore-cards",
+    "before": "Restaurer les cartes",
+    "after": "Adsevel ar c’hartennoù",
+    "reason": "Replace French migration/status/date prose with Breton using existing Dielfennañ, restoration Adsevel, time and recurrence vocabulary. Estimated remaining-time phrasing is provisional pending native review; full migration/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "step-restore-swimlanes",
+    "before": "Restaurer les couloirs",
+    "after": "Adsevel ar bandennoù",
+    "reason": "Replace French migration/status/date prose with Breton using existing Dielfennañ, restoration Adsevel, time and recurrence vocabulary. Estimated remaining-time phrasing is provisional pending native review; full migration/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "every-1-day",
+    "before": "Tous les jours",
+    "after": "Bemdez",
+    "reason": "Replace French migration/status/date prose with Breton using existing Dielfennañ, restoration Adsevel, time and recurrence vocabulary. Estimated remaining-time phrasing is provisional pending native review; full migration/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "every-6-hours",
+    "before": "Toutes les 6 heures",
+    "after": "Bep 6 eurvezh",
+    "reason": "Replace French migration/status/date prose with Breton using existing Dielfennañ, restoration Adsevel, time and recurrence vocabulary. Estimated remaining-time phrasing is provisional pending native review; full migration/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "date-format",
+    "before": "Format de la date",
+    "after": "Stumm an deiziad",
+    "reason": "Replace French migration/status/date prose with Breton using existing Dielfennañ, restoration Adsevel, time and recurrence vocabulary. Estimated remaining-time phrasing is provisional pending native review; full migration/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "estimated-time-remaining",
+    "before": "Temps restant estimé",
+    "after": "Amzer a chom brasjedet",
+    "reason": "Replace French migration/status/date prose with Breton using existing Dielfennañ, restoration Adsevel, time and recurrence vocabulary. Estimated remaining-time phrasing is provisional pending native review; full migration/browser validation remains open."
   }
 ]
