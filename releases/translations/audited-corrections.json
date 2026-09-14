@@ -138451,5 +138451,12 @@
     "before": "Réécrire la description de la carte courante avec vos changements ?",
     "after": "ⵉⵙ ⵜⵅⵙⴷ ⴰⴷ ⵜⵙⵏⴼⵍⴷ ⴰⴳⵍⴰⵎ ⴰⵎⵉⵔⴰⵏ ⵏ ⵜⴽⴰⵕⴹⴰ ⵙ ⵉⵙⵏⴼⵍⵏ ⵏⵏⴽ?",
     "reason": "2026-09-15: replace French recovery confirmation with a Tamazight draft asking to change the current card description with your changes. Native MediaWiki changeemail-no-info, changeemail-oldemail and savechanges attest change/current/changes components; IRCAM entry 486 attests description. Change-to-overwrite interpretation, full clause and possession remain low confidence. Actual confirmation replaces the stored description with the editor value."
+  },
+  {
+    "locale": "zgh",
+    "key": "migrations-description",
+    "before": "Exécute les vérifications d'intégrité des données et les réparations pour ce tableau. Chaque migration peut être exécutée individuellement.",
+    "after": "ⵙⵙⵉⴷⴻⴷ ⴷ ⵙⵙⵓⴽⵏ ⵜⴰⵢⴰⵏⵜ ⵏ ⵜⵎⵓⵛⴰ ⵏ ⵜⴼⵍⵡⵉⵜ ⴰⴷ. ⴽⵓ ⴰⵙⵎⵓⵜⵜⵢ ⵉⵣⵎⵔ ⴰⴷ ⵉⵜⵜⵓⵙⴽⵔ ⵙ ⵉⵎⴰⵏ ⵏⵏⵙ.",
+    "reason": "2026-09-15: replace French migration help with a Tamazight draft retaining data-integrity checking/repairing for this board and each migration being executable by itself. Reuse documented IRCAM check, repair and integrity components; entry 9202 attests do/make. Independent-execution reflexive phrase, passive and full compound grammar remain low confidence; dictionary iman soul is not proof of the reflexive construction. No active key references found and removed migrations remain removed."
   }
 ]

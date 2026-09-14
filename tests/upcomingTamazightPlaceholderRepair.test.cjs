@@ -245,3 +245,8 @@ assert.match(recoveryPrompt, /^ⵉⵙ ⵜⵅⵙⴷ ⴰⴷ ⵜⵙⵏⴼⵍⴷ ⴰ
 assert.doesNotMatch(recoveryPrompt, /Réécrire|courante|changements/);
 assert.notEqual(recoveryPrompt, translated['unsaved-description']);
 assert.match(fs.readFileSync(path.join(ROOT, 'client/components/cards/cardDetails.js'), 'utf8'), /confirm\(TAPi18n\.__\('rescue-card-description-dialogue'\)\)[\s\S]*?currentCard\.setDescription\(currentDescription\.value\)/);
+
+assert.match(translated['migrations-description'], /^ⵙⵙⵉⴷⴻⴷ ⴷ ⵙⵙⵓⴽⵏ ⵜⴰⵢⴰⵏⵜ ⵏ ⵜⵎⵓⵛⴰ ⵏ ⵜⴼⵍⵡⵉⵜ ⴰⴷ\./);
+assert.match(translated['migrations-description'], /ⴽⵓ ⴰⵙⵎⵓⵜⵜⵢ ⵉⵣⵎⵔ ⴰⴷ ⵉⵜⵜⵓⵙⴽⵔ ⵙ ⵉⵎⴰⵏ ⵏⵏⵙ\.$/);
+assert.doesNotMatch(translated['migrations-description'], /Exécute|vérifications|individuellement/);
+assert.notEqual(translated['migrations-description'], translated['comprehensive-board-migration-description']);
