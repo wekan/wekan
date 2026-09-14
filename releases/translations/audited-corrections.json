@@ -127629,5 +127629,110 @@
     "before": "Cando o asignado",
     "after": "Cando a persoa asignada",
     "reason": "Galician member/assignee trigger subjects now use feminine persoa, agreeing with shared Engadida/Quitada dropdowns without changing runtime trigger semantics. Persoa membro attested in Xunta sede.xunta.gal Xuventude Crea procedure BS310Q; direct full phrase adaptation. Specific subjects leave copula to template r-is. Attachment subject agreement remains separate unresolved work; browser not run."
+  },
+  {
+    "locale": "br",
+    "key": "archive",
+    "before": "Archiver",
+    "after": "Diellañ",
+    "reason": "Unflagged French archive action/title/state replaced directly with Breton diellañ/dielloù, preserving archive versus permanent-delete distinction, target object and confirmation/empty-state meanings. Existing archive-board-confirm uses diellañ; official Breton Meurgorf diell entry and native Brezhoneg21 archive terminology support lexemes. Whole UI phrases directly adapted; native inflection/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "archive-all",
+    "before": "Tout archiver",
+    "after": "Diellañ pep tra",
+    "reason": "Unflagged French archive action/title/state replaced directly with Breton diellañ/dielloù, preserving archive versus permanent-delete distinction, target object and confirmation/empty-state meanings. Existing archive-board-confirm uses diellañ; official Breton Meurgorf diell entry and native Brezhoneg21 archive terminology support lexemes. Whole UI phrases directly adapted; native inflection/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "archive-board",
+    "before": "Archiver le tableau",
+    "after": "Diellañ an daolenn",
+    "reason": "Unflagged French archive action/title/state replaced directly with Breton diellañ/dielloù, preserving archive versus permanent-delete distinction, target object and confirmation/empty-state meanings. Existing archive-board-confirm uses diellañ; official Breton Meurgorf diell entry and native Brezhoneg21 archive terminology support lexemes. Whole UI phrases directly adapted; native inflection/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "archive-card",
+    "before": "Archiver la carte",
+    "after": "Diellañ ar gartenn",
+    "reason": "Unflagged French archive action/title/state replaced directly with Breton diellañ/dielloù, preserving archive versus permanent-delete distinction, target object and confirmation/empty-state meanings. Existing archive-board-confirm uses diellañ; official Breton Meurgorf diell entry and native Brezhoneg21 archive terminology support lexemes. Whole UI phrases directly adapted; native inflection/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "archive-list",
+    "before": "Archiver la liste",
+    "after": "Diellañ ar roll",
+    "reason": "Unflagged French archive action/title/state replaced directly with Breton diellañ/dielloù, preserving archive versus permanent-delete distinction, target object and confirmation/empty-state meanings. Existing archive-board-confirm uses diellañ; official Breton Meurgorf diell entry and native Brezhoneg21 archive terminology support lexemes. Whole UI phrases directly adapted; native inflection/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "archive-swimlane",
+    "before": "Archiver le couloir",
+    "after": "Diellañ ar vandenn",
+    "reason": "Unflagged French archive action/title/state replaced directly with Breton diellañ/dielloù, preserving archive versus permanent-delete distinction, target object and confirmation/empty-state meanings. Existing archive-board-confirm uses diellañ; official Breton Meurgorf diell entry and native Brezhoneg21 archive terminology support lexemes. Whole UI phrases directly adapted; native inflection/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "archive-selection",
+    "before": "Archiver la sélection",
+    "after": "Diellañ an diuzad",
+    "reason": "Unflagged French archive action/title/state replaced directly with Breton diellañ/dielloù, preserving archive versus permanent-delete distinction, target object and confirmation/empty-state meanings. Existing archive-board-confirm uses diellañ; official Breton Meurgorf diell entry and native Brezhoneg21 archive terminology support lexemes. Whole UI phrases directly adapted; native inflection/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "archiveBoardPopup-title",
+    "before": "Archiver le tableau ?",
+    "after": "Diellañ an daolenn ?",
+    "reason": "Unflagged French archive action/title/state replaced directly with Breton diellañ/dielloù, preserving archive versus permanent-delete distinction, target object and confirmation/empty-state meanings. Existing archive-board-confirm uses diellañ; official Breton Meurgorf diell entry and native Brezhoneg21 archive terminology support lexemes. Whole UI phrases directly adapted; native inflection/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "cardArchivePopup-title",
+    "before": "Archiver la carte ?",
+    "after": "Diellañ ar gartenn ?",
+    "reason": "Unflagged French archive action/title/state replaced directly with Breton diellañ/dielloù, preserving archive versus permanent-delete distinction, target object and confirmation/empty-state meanings. Existing archive-board-confirm uses diellañ; official Breton Meurgorf diell entry and native Brezhoneg21 archive terminology support lexemes. Whole UI phrases directly adapted; native inflection/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "listArchivePopup-title",
+    "before": "Archiver la liste ?",
+    "after": "Diellañ ar roll ?",
+    "reason": "Unflagged French archive action/title/state replaced directly with Breton diellañ/dielloù, preserving archive versus permanent-delete distinction, target object and confirmation/empty-state meanings. Existing archive-board-confirm uses diellañ; official Breton Meurgorf diell entry and native Brezhoneg21 archive terminology support lexemes. Whole UI phrases directly adapted; native inflection/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "swimlaneArchivePopup-title",
+    "before": "Archiver le couloir ?",
+    "after": "Diellañ ar vandenn ?",
+    "reason": "Unflagged French archive action/title/state replaced directly with Breton diellañ/dielloù, preserving archive versus permanent-delete distinction, target object and confirmation/empty-state meanings. Existing archive-board-confirm uses diellañ; official Breton Meurgorf diell entry and native Brezhoneg21 archive terminology support lexemes. Whole UI phrases directly adapted; native inflection/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "archived-items",
+    "before": "Archives",
+    "after": "Traoù kaset d'an dielloù",
+    "reason": "Unflagged French archive action/title/state replaced directly with Breton diellañ/dielloù, preserving archive versus permanent-delete distinction, target object and confirmation/empty-state meanings. Existing archive-board-confirm uses diellañ; official Breton Meurgorf diell entry and native Brezhoneg21 archive terminology support lexemes. Whole UI phrases directly adapted; native inflection/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "archived-boards",
+    "before": "Tableaux archivés",
+    "after": "Taolennoù kaset d'an dielloù",
+    "reason": "Unflagged French archive action/title/state replaced directly with Breton diellañ/dielloù, preserving archive versus permanent-delete distinction, target object and confirmation/empty-state meanings. Existing archive-board-confirm uses diellañ; official Breton Meurgorf diell entry and native Brezhoneg21 archive terminology support lexemes. Whole UI phrases directly adapted; native inflection/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "no-archived-boards",
+    "before": "Aucun tableau archivé.",
+    "after": "N'eus taolenn ebet en dielloù.",
+    "reason": "Unflagged French archive action/title/state replaced directly with Breton diellañ/dielloù, preserving archive versus permanent-delete distinction, target object and confirmation/empty-state meanings. Existing archive-board-confirm uses diellañ; official Breton Meurgorf diell entry and native Brezhoneg21 archive terminology support lexemes. Whole UI phrases directly adapted; native inflection/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "archives",
+    "before": "Archives",
+    "after": "Dielloù",
+    "reason": "Unflagged French archive action/title/state replaced directly with Breton diellañ/dielloù, preserving archive versus permanent-delete distinction, target object and confirmation/empty-state meanings. Existing archive-board-confirm uses diellañ; official Breton Meurgorf diell entry and native Brezhoneg21 archive terminology support lexemes. Whole UI phrases directly adapted; native inflection/browser review remains open."
   }
 ]
