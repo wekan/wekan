@@ -1,5 +1,16 @@
 # Detailed translation audit evidence
 
+2026-09-14 (`807ceeee2`): retained thirty more correct restored Danish
+values unchanged. Confirmed attachment All versus board-only scope and
+storage destinations, invalid filename cancellation of upload or rename,
+PDF download alternative, custom-translation no-undo warning, ZIP JSON and
+named attachment directories, support logged-in-only and not-yet states,
+accessibility not-yet, known versus nonexistent lockout users, failure-window
+seconds, failed-login cause and unlock one/all controls. Exact values are
+in audited-reviews. Danish total reviewed 140; overall retained 317 and
+restored awaiting validation 3,918. No repair/completion counts were inflated.
+
+
 2026-09-14 (`e5d7da30e`): thirty more restored Danish values reviewed.
 Repair peak malloc allocation and zap-garbage bit-pattern overwriting;
 [Node V8 documentation](https://nodejs.org/api/v8.html#v8getheapstatistics)
