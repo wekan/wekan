@@ -24796,3 +24796,26 @@ not claim the stage is visible or solve that integration gap. Four
 translation checks pass, preserving original ledger before-values and
 placeholders; no live browser test ran. Counts stay 15,629 corrected,
 273 pending, four restored, 4,175 retained and 18,721 ledger records.
+
+## Approaching-deadline warning repair — 2026-09-14
+
+Local commit `4f99247e8` replaces French `almostdue` with an adapted
+current-due-time/approaching clause, preserving the exact `%s`. Primary
+IRCAM General Dictionary PDF page 59, entry 845, gives approach/be close
+`ⴰⴷⵙ` with imperfect `ⵜⵜⴰⴷⵙ`. Earlier cited time and last components
+are reused consistently with `pastdue`. **Low confidence** remains for
+the deadline/current-time compound, temporal metaphor and full ongoing
+conjugation. Component entries do not attest the complete warning.
+
+Models/cards.js selects `almostdue` for positive day offsets, starting
+tomorrow; negative offsets select `pastdue`, and zero selects `duenow`.
+The warning retains approaching versus passed, not a generic due status.
+Four focused translation checks pass, including exact placeholder and
+French/overdue negatives. Browser rendering was not tested. Counts now:
+15,630 corrected, 272 pending (159 Tamazight), four restored, 4,175
+retained, 18,722 ledger records. Broader native review remains open.
+
+Migration follow-up also confirms boardBody.js emits `repair_board_data`,
+in addition to attachments.js. Active repair/copy stages need accurate
+new locale labels and reactive integration; legacy stage labels describe
+different operations and must not be substituted as a shortcut.

@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4f99247e8">Repair Tamazight approaching-deadline warning</a>. Thanks to xet7.</summary>
+
+Replace French while preserving the due-time placeholder and approaching
+versus overdue distinction. Four checks pass; full native grammar and
+browser validation remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/776840a4c">Repair Moroccan analysis-stage terminology</a>. Thanks to xet7.</summary>
 
 Replace uncertain analysis/structure wording in the Tamazight migration
