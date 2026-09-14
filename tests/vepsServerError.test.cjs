@@ -153,3 +153,11 @@ test("Veps optional username keeps its not-required qualification", () => {
  for(const key of ["optional","list-sync-username-placeholder"]) assert.doesNotMatch(data[key],/valinnainen|mushumisi|vhukuma/i);
  assert.notEqual(data["list-sync-username-placeholder"],data.username);
 });
+
+test("Veps credential states preserve set versus not-yet-set", () => {
+ const data=JSON.parse(fs.readFileSync("imports/i18n/data/ve-PP.i18n.json","utf8"));
+ const expected={"list-sync-credential": "API token / peitsana", "list-sync-credential-status-set": "API token / peitsana om märitud.", "list-sync-credential-status-unset": "API token / peitsana völ ei ole märitud."};
+ for(const [key,value] of Object.entries(expected)){assert.equal(data[key],value);assert.doesNotMatch(data[key],/Vhupodi|vhewa|zwino/i);}
+ assert.notEqual(data["list-sync-credential-status-set"],data["list-sync-credential-status-unset"]);
+ assert.match(data["list-sync-credential-status-unset"],/völ ei ole/);
+});

@@ -139417,5 +139417,26 @@
     "before": "Dzina ḽa mushumisi (a si vhukuma)",
     "after": "Kävutajan nimi (ei ole tarbhaine)",
     "reason": "Replace wrong-language optional wording with direct Veps not-required paraphrase; native MediaWiki htmlform-required supplies tarbhaine and existing username supplies Kävutajan nimi. Full negative adjective/context grammar remains low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-sync-credential",
+    "before": "Vhupodi",
+    "after": "API token / peitsana",
+    "reason": "Replace unflagged Tshivenda credential wording with direct Veps API-token/password paraphrase. Existing password and native software märitud/völ/ei ole wording; complete status grammar and credential paraphrase remain low confidence. Does not claim authentication success."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-sync-credential-status-set",
+    "before": "Vhupodi ho vhewa.",
+    "after": "API token / peitsana om märitud.",
+    "reason": "Replace unflagged Tshivenda credential wording with direct Veps API-token/password paraphrase. Existing password and native software märitud/völ/ei ole wording; complete status grammar and credential paraphrase remain low confidence. Does not claim authentication success."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-sync-credential-status-unset",
+    "before": "A hu na vhupodi zwino.",
+    "after": "API token / peitsana völ ei ole märitud.",
+    "reason": "Replace unflagged Tshivenda credential wording with direct Veps API-token/password paraphrase. Existing password and native software märitud/völ/ei ole wording; complete status grammar and credential paraphrase remain low confidence. Does not claim authentication success."
   }
 ]
