@@ -26,10 +26,10 @@ repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
-Latest terminology review: **2026-09-14**, `9669c2d84` — the dictionary's
-predicate is grammatical; debug options are a parser catalogue, not Boolean
-conditions. French selector vocabulary also remains unresolved. Evidence and
-open native computing terminology are recorded in [Tamazight review](Tamazight-Review.md).
+Latest terminology review: **2026-09-14**, `e702bdf0b` — whole/complete
+and positive-number leads do not establish integer constraints. A primary
+2009 dictionary was downloaded and its title inspected; extraction limits
+and the unresolved school-lexicon lead are recorded in [Tamazight review](Tamazight-Review.md).
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

@@ -24863,3 +24863,14 @@ they do not accept those hypothetical locale findings or prove fluency.
 The real --update-summary CLI ran successfully and left the already correct
 summary unchanged. Live counts remain 15,630 corrected, 272 pending,
 four restored and 4,175 retained; translation repairs remain unfinished.
+
+## Integer-source evidence review — 2026-09-14
+
+Local commit `e702bdf0b` records a successfully downloaded primary IRCAM
+2009 general dictionary, its visually inspected title and limits of legacy
+Arabic extraction. Secondary whole/complete and positive-number leads
+are not accepted as mathematical integer proof. The school-lexicon
+publication lead remains unread; catalogue hosting is not proof of locale
+or technical sense. Both integer-constraint findings remain pending.
+Counts stay 15,630 corrected, 272 pending, four restored and 4,175
+retained; native terminology and browser validation remain unfinished.

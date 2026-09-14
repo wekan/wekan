@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e702bdf0b">Review integer-constraint source evidence</a>. Thanks to xet7.</summary>
+
+Document a primary dictionary's title and extraction limits, and reject
+whole/complete or positive-number leads as proof of integer terminology.
+Keep Tamazight numeric constraints pending without weakening their meaning.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9c7a845a3">Refresh both audit progress tables</a>. Thanks to xet7.</summary>
 
 Refresh pending locale rows and totals together from current translations
