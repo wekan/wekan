@@ -132795,5 +132795,26 @@
     "before": "You will be able għal restore il- bord by clicking il- “Arkivju” button minn il- home header.",
     "after": "Tista’ tirrestawra l-bord minn «Arkivju» fil-paġna «Il-bordijiet kollha».",
     "reason": "2026-09-14: Repair archive guidance to current Archive section on All Boards, preserving full restoration meaning and native place labels. Macedonian Bulgarian and Urdu phonetic English replaced. Zulu Archive action becomes noun/place. Full Maltese and Zulu computing phrase collocations are low confidence and remain for native review."
+  },
+  {
+    "locale": "ga",
+    "key": "close-board-pop",
+    "before": "Beidh tú in ann an clár a athchóiriú trí chliceáil ar an gcnaipe “Cartlann” ón gceanntásc baile.",
+    "after": "Is féidir leat an clár a thabhairt ar ais ó «Cartlann» ar an leathanach «Gach clár».",
+    "reason": "2026-09-14: Replace obsolete header/profile navigation with existing Archive and All Boards place labels; preserve locale terminology. Foras na Gaeilge attests a thabhairt ar ais for bringing back/reinstating; full navigation phrasing remains a derived translation."
+  },
+  {
+    "locale": "sr",
+    "key": "close-board-pop",
+    "before": "Списе можете да повратите притиском на „Ваше име“ ⇨ „Архива“ у горњем десном углу.",
+    "after": "Списе можете да повратите из одељка „Средишња архива“ на страници „Полица са списима“.",
+    "reason": "2026-09-14: Replace obsolete header/profile navigation with existing Archive and All Boards place labels; preserve locale terminology. Retain established local Списи board vocabulary and plural agreement."
+  },
+  {
+    "locale": "tl",
+    "key": "close-board-pop",
+    "before": "Ikaw ay maging able sa ibalik the pisara ni clicking the “Arkibo” button mula sa the tahanan header.",
+    "after": "Maaari mong ibalik ang pisara mula sa “Arkibo” sa pahinang “Lahat ng pisara”.",
+    "reason": "2026-09-14: Replace obsolete header/profile navigation with existing Archive and All Boards place labels; preserve locale terminology. Replace mixed English/Tagalog prose with complete Tagalog instruction."
   }
 ]

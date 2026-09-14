@@ -48,3 +48,15 @@ assert.doesNotMatch(read('mk')['close-board-pop'],/Ще|възстановите
 assert.doesNotMatch(read('mt')['close-board-pop'],/You|by clicking|button/);
 assert.strictEqual(read('zu').archives,'Ingobo yomlando');
 console.log(`Archive batch four: ${batchFour.length} locale locations and wrong-language regressions`);
+
+const batchFive = ['ga', 'sr', 'tl'];
+for (const code of batchFive) {
+ const d = read(code), value = d['close-board-pop'];
+ assert.ok(value.includes(d.archives), `${code}: actual Archive label`);
+ assert.ok(value.includes(d['all-boards']), `${code}: actual All Boards label`);
+ assert.doesNotMatch(value, /gceanntásc|Ваше име|горњем десном|able|clicking|button|header/);
+}
+assert.match(read('ga')['close-board-pop'], /an clár a thabhairt ar ais/);
+assert.match(read('sr')['close-board-pop'], /^Списе можете да повратите/);
+assert.match(read('tl')['close-board-pop'], /^Maaari mong ibalik ang pisara/);
+console.log('Archive batch five: Irish restoration sense, Serbian local terminology and Tagalog mixed-language repair');
