@@ -128812,5 +128812,54 @@
     "before": "Echéance modifiée à",
     "after": "kemmet an eur termen da",
     "reason": "Replace French date-rule/activity prose with existing Breton start/due/end/received nouns and date/hour vocabulary; a-dueAt follows existing a-receivedAt phrasing. Full assembled clause/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "loginPopup-title",
+    "before": "Connexion",
+    "after": "Kevreañ",
+    "reason": "Replace French account controls with Breton, reusing existing Kevreañ, Anv implijer and Ger-tremen. Full native account phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "login",
+    "before": "Connexion",
+    "after": "Kevreañ",
+    "reason": "Replace French account controls with Breton, reusing existing Kevreañ, Anv implijer and Ger-tremen. Full native account phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "logout",
+    "before": "Déconnexion",
+    "after": "Digevreañ",
+    "reason": "Replace French account controls with Breton, reusing existing Kevreañ, Anv implijer and Ger-tremen. Full native account phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "username",
+    "before": "Nom d'utilisateur",
+    "after": "Anv implijer",
+    "reason": "Replace French account controls with Breton, reusing existing Kevreañ, Anv implijer and Ger-tremen. Full native account phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "smtp-username",
+    "before": "Nom d'utilisateur",
+    "after": "Anv implijer",
+    "reason": "Replace French account controls with Breton, reusing existing Kevreañ, Anv implijer and Ger-tremen. Full native account phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "password-again",
+    "before": "Mot de passe (à nouveau)",
+    "after": "Ger-tremen (adarre)",
+    "reason": "Replace French account controls with Breton, reusing existing Kevreañ, Anv implijer and Ger-tremen. Full native account phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "forgot-password",
+    "before": "Mot de passe oublié",
+    "after": "Ger-tremen ankouaet",
+    "reason": "Replace French account controls with Breton, reusing existing Kevreañ, Anv implijer and Ger-tremen. Full native account phrase/browser validation remains open."
   }
 ]
