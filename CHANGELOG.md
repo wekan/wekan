@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9515511af">Repair Tamazight subtask-board description and deposit label</a>. Thanks to xet7.</summary>
+
+Replace French description while preserving its board placeholder; reuse
+current task terms in the deposit instruction. Four suites pass; full
+native phrases and browser verification remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8bf9f58cf">Repair Tamazight task and subtask terminology</a>. Thanks to xet7.</summary>
 
 Replace French Task and revise four subtask labels using primary task

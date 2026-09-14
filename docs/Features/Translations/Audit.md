@@ -16,13 +16,13 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `8bf9f58cf` —
-Five Tamazight task/subtask labels use primary task vocabulary; French
-Task is replaced. Four checks pass; subtask compounds and full native/
-browser grammar remain open. Original pending: 254.
+Latest translation fix: **2026-09-14**, local commit `9515511af` —
+Tamazight subtask-board description replaces French; its deposit label
+uses current task terminology. Four checks pass; full native/browser
+phrase review remains open. Original pending: 254.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,766** exact before/after values, including unflagged
+records contain **18,767** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

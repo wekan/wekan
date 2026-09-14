@@ -1231,3 +1231,15 @@ preservation; original before and reasons retained for prior revisions.
 Low confidence: below-task adaptation, plural genitive and full software
 compounds; standalone task is directly attested. Browser not executed.
 One new unflagged record, four revisions: ledger 18,766, pending stays 254.
+
+
+Tamazight subtask board — 2026-09-14, `9515511af`.
+default-subtasks-board French description is replaced with current
+subtask terms and for-board wording, preserving __board__ exactly.
+models/boards.js uses it for the generated board description, not its
+title. Deposit-to-this-board label reuses the same updated task phrase.
+Primary task/below components remain IRCAM PDF 605 entry 11328 and PDF
+315 entry 6099. Four suites pass; token/order/human preference preserved.
+Low confidence: below-task software compound and full prepositional/
+description grammar. Browser not run; original pending remains 254.
+Landing-list French phrase remains a separate complete repair.
