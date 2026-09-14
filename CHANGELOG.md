@@ -105,6 +105,9 @@ changes are implemented in local commit 02383521a; translation repairs have resu
 Latest translation fix is f16fae64a (2026-09-14), replacing French
 Start Planning Poker. Complete command and indexed-only conjugation
 evidence remain low confidence for direct/fluent review.
+Start spelling follow-up 2219d5358 distinguishes plain Begin/Start from
+emphatic Share/Divide in indexed IRCAM entries; direct PDF and full command
+verification remain open. No values or counts changed.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -1830,6 +1833,16 @@ action rather than the date noun. Full command remains low confidence;
 IRCAM manual evidence is indexed only and direct fetch redirects to HTML.
 All 17,747 correction/rendering checks pass; 485 original findings remain
 pending, including 350 Tamazight findings.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2219d5358">Document Tamazight start versus share spelling evidence</a>. Thanks to xet7.</summary>
+
+Record indexed IRCAM plain Begin/Start versus emphatic Share/Divide
+spelling, protecting the corrected Planning Poker heading. Direct PDF
+access redirects to HTML; full command and subworkspace terminology remain
+under review. No locale values or counts changed.
 
 </details>
 
