@@ -9400,5 +9400,245 @@
     "key": "error-notAuthorized",
     "value": "Vi ne rajtas vidi ĉi tiun paĝon.",
     "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "outgoing-webhooks",
+    "value": "Elirantaj Webhook-oj",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "bidirectional-webhooks",
+    "value": "Dudirektaj Webhook-oj",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "outgoingWebhooksPopup-title",
+    "value": "Elirantaj Webhook-oj",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "disable-webhook",
+    "value": "Malŝalti ĉi tiun Webhook",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "global-webhook",
+    "value": "Ĝeneralaj Webhook-oj",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "new-outgoing-webhook",
+    "value": "Nova eliranta Webhook",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "no-name",
+    "value": "(Nekonata)",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "Node_version",
+    "value": "Versio de Node",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "Meteor_version",
+    "value": "Versio de Meteor",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "MongoDB_storage_engine",
+    "value": "Konserva motoro de MongoDB",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "MongoDB_Oplog_enabled",
+    "value": "MongoDB Oplog ŝaltita",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "OS_Type",
+    "value": "Tipo de OS",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "days",
+    "value": "tagoj",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "hours",
+    "value": "horoj",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "minutes",
+    "value": "minutoj",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "seconds",
+    "value": "sekundoj",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "showSum-field-on-list",
+    "value": "Montri sumon de kampoj supre de listo",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts",
+    "value": "Kontoj",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts-allowEmailChange",
+    "value": "Permesi ŝanĝon de retpoŝtadreso",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "tableVisibilityMode-allowPrivateOnly",
+    "value": "Videbleco de tabuloj: Permesi nur privatajn tabulojn",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "tableVisibilityMode",
+    "value": "Videbleco de tabuloj",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "createdAt",
+    "value": "Kreita je",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "modifiedAt",
+    "value": "Modifita je",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "verified",
+    "value": "Konfirmita",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "active",
+    "value": "Aktiva",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "card-received",
+    "value": "Ricevita",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "card-received-on",
+    "value": "Ricevita je",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "card-end",
+    "value": "Fino",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "card-end-on",
+    "value": "Finiĝas je",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "editCardReceivedDatePopup-title",
+    "value": "Ŝanĝi ricevdaton",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "editCardEndDatePopup-title",
+    "value": "Ŝanĝi findaton",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "setCardColorPopup-title",
+    "value": "Agordi koloron",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "setSelectionColorPopup-title",
+    "value": "Agordi koloron de elekto",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "setCardActionsColorPopup-title",
+    "value": "Elekti koloron",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "setSwimlaneColorPopup-title",
+    "value": "Elekti koloron",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "setListColorPopup-title",
+    "value": "Elekti koloron",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "assigned-by",
+    "value": "Atribuita de",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "requested-by",
+    "value": "Petita de",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "delete-all-notifications",
+    "value": "Forigi ĉiujn sciigojn",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "delete-all-notifications-confirm",
+    "value": "Ĉu vi certas, ke vi volas forigi ĉiujn sciigojn? Ĉi tiu ago ne estas malfarebla.",
+    "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
   }
 ]
