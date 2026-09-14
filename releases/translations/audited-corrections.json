@@ -123793,5 +123793,40 @@
     "before": "تأكيد",
     "after": "ⵡⴰⵅⵅⴰ",
     "reason": "2026-09-14: Replace the Arabic Confirm button with native Standard Moroccan software confirmation-button wording. MediaWiki confirm_purge_button, confirm-watch-button, confirm-unwatch-button and confirm-rollback-button use exactly ⵡⴰⵅⵅⴰ. Preserve button acknowledgment/confirmation rather than substitute the distinct Accept invitation action or the Are you sure question. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (confirmation buttons)."
+  },
+  {
+    "locale": "zgh",
+    "key": "allboards.add-workspace",
+    "before": "Ajouter un espace de travail",
+    "after": "ⵔⵏⵓ ⴰⵙⴰⵢⵔⴰⵔ",
+    "reason": "2026-09-14: Replace French workspace add/edit/name label. Preserve singular workspace, distinguish add from edit and the workspace name field, and do not collapse subworkspace into workspace. Reuse local r-workspace ⴰⵙⴰⵢⵔⴰⵔ; native Moroccan INPPLC page directly uses the noun in ⴰⵙⴰⵢⵔⴰⵔ ⵏ ⵓⵏⵖⵎⵙ (information/media space). Native MediaWiki supports add rnu, edit snfl and name ism. LOW CONFIDENCE: institutional content-space usage supports the noun but does not independently establish the WeKan organizational-workspace extension, bound form usayrar or complete label. Renewed fluent technical terminology/grammar review required. References: https://www.inpplc.ma/index.php/amz (information space); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (export-addcat, tags-edit, upload-form-label-infoform-name)."
+  },
+  {
+    "locale": "zgh",
+    "key": "addWorkspacePopup-title",
+    "before": "Ajouter un espace de travail",
+    "after": "ⵔⵏⵓ ⴰⵙⴰⵢⵔⴰⵔ",
+    "reason": "2026-09-14: Replace French workspace add/edit/name label. Preserve singular workspace, distinguish add from edit and the workspace name field, and do not collapse subworkspace into workspace. Reuse local r-workspace ⴰⵙⴰⵢⵔⴰⵔ; native Moroccan INPPLC page directly uses the noun in ⴰⵙⴰⵢⵔⴰⵔ ⵏ ⵓⵏⵖⵎⵙ (information/media space). Native MediaWiki supports add rnu, edit snfl and name ism. LOW CONFIDENCE: institutional content-space usage supports the noun but does not independently establish the WeKan organizational-workspace extension, bound form usayrar or complete label. Renewed fluent technical terminology/grammar review required. References: https://www.inpplc.ma/index.php/amz (information space); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (export-addcat, tags-edit, upload-form-label-infoform-name)."
+  },
+  {
+    "locale": "zgh",
+    "key": "allboards.edit-workspace",
+    "before": "Modifier l'espace de travail",
+    "after": "ⵙⵏⴼⵍ ⴰⵙⴰⵢⵔⴰⵔ",
+    "reason": "2026-09-14: Replace French workspace add/edit/name label. Preserve singular workspace, distinguish add from edit and the workspace name field, and do not collapse subworkspace into workspace. Reuse local r-workspace ⴰⵙⴰⵢⵔⴰⵔ; native Moroccan INPPLC page directly uses the noun in ⴰⵙⴰⵢⵔⴰⵔ ⵏ ⵓⵏⵖⵎⵙ (information/media space). Native MediaWiki supports add rnu, edit snfl and name ism. LOW CONFIDENCE: institutional content-space usage supports the noun but does not independently establish the WeKan organizational-workspace extension, bound form usayrar or complete label. Renewed fluent technical terminology/grammar review required. References: https://www.inpplc.ma/index.php/amz (information space); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (export-addcat, tags-edit, upload-form-label-infoform-name)."
+  },
+  {
+    "locale": "zgh",
+    "key": "allboards.add-workspace-prompt",
+    "before": "Nom de l'espace de travail",
+    "after": "ⵉⵙⵎ ⵏ ⵓⵙⴰⵢⵔⴰⵔ",
+    "reason": "2026-09-14: Replace French workspace add/edit/name label. Preserve singular workspace, distinguish add from edit and the workspace name field, and do not collapse subworkspace into workspace. Reuse local r-workspace ⴰⵙⴰⵢⵔⴰⵔ; native Moroccan INPPLC page directly uses the noun in ⴰⵙⴰⵢⵔⴰⵔ ⵏ ⵓⵏⵖⵎⵙ (information/media space). Native MediaWiki supports add rnu, edit snfl and name ism. LOW CONFIDENCE: institutional content-space usage supports the noun but does not independently establish the WeKan organizational-workspace extension, bound form usayrar or complete label. Renewed fluent technical terminology/grammar review required. References: https://www.inpplc.ma/index.php/amz (information space); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (export-addcat, tags-edit, upload-form-label-infoform-name)."
+  },
+  {
+    "locale": "zgh",
+    "key": "allboards.edit-workspace-name",
+    "before": "Nom de l'espace de travail",
+    "after": "ⵉⵙⵎ ⵏ ⵓⵙⴰⵢⵔⴰⵔ",
+    "reason": "2026-09-14: Replace French workspace add/edit/name label. Preserve singular workspace, distinguish add from edit and the workspace name field, and do not collapse subworkspace into workspace. Reuse local r-workspace ⴰⵙⴰⵢⵔⴰⵔ; native Moroccan INPPLC page directly uses the noun in ⴰⵙⴰⵢⵔⴰⵔ ⵏ ⵓⵏⵖⵎⵙ (information/media space). Native MediaWiki supports add rnu, edit snfl and name ism. LOW CONFIDENCE: institutional content-space usage supports the noun but does not independently establish the WeKan organizational-workspace extension, bound form usayrar or complete label. Renewed fluent technical terminology/grammar review required. References: https://www.inpplc.ma/index.php/amz (information space); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (export-addcat, tags-edit, upload-form-label-infoform-name)."
   }
 ]
