@@ -30,7 +30,7 @@ cross-checks calendar, user and click components in native Moroccan sources.
 Full phrases, warnings and invalidated Tuareg records remain open; no pending
 finding was accepted from component evidence.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,656** exact before/after values, including unflagged repairs.
+contain **18,657** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
@@ -49,13 +49,13 @@ remains open. Latin Inuktitut spelling is valid; original script warnings
 require vocabulary/context review rather than automatic replacement.
 Current pending/restored counts are 288/11.
 
-Latest translation fix: **2026-09-14**, local commit `f9e3111b0` —
-Two French Breton currency field/code labels become Moneiz and Kod moneiz.
-Native dictionary evidence establishes the currency sense; the code phrase
-is adapted. All 18,656 corrections and focused checks pass. Broader compound
-and browser review remain open. Counts remain 288 pending and 11 restored.
-Earlier zoom repairs are in `0aeac5744`, custom fields in `3539edd8b`
-and actions in `c8a14d2d0`. String-template wording still needs review.
+Latest translation fix: **2026-09-14**, local commit `65a0f76ab` —
+Breton string-template field replaces French with Patrom chadenn. Native
+software sources attest the component nouns; the full compound is adapted.
+All 18,657 corrections and focused checks pass. Broader native phrase and
+browser review remain open. Counts remain 288 pending and 11 restored.
+Earlier currency repairs are in `f9e3111b0`, zoom in `0aeac5744`, custom
+fields in `3539edd8b` and actions in `c8a14d2d0`.
 Latest unchanged review: **2026-09-14**, local commit `5bf97e219` —
 Basque S3 bucket-a retains a technical loan used in native ZIUR storage
 specifications. Focused field-context checks and all 4,170 retained reviews

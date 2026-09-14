@@ -24065,3 +24065,22 @@ that distinction and exclude French labels. All 18,656 corrections, 4,170
 retained reviews and 234-locale structural completeness pass. Counts remain
 288 pending and 11 restored. Broader compound and live browser review remain
 open; no unverified string-template replacement was made in this review.
+
+## Breton string-template label, 2026-09-14
+
+Local repair commit: `65a0f76ab`. The French `Modèle de chaîne` becomes
+`Patrom chadenn` in `custom-field-stringtemplate`.
+
+[Native MediaWiki Breton translations](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/br.json)
+use `chadenn` in `paramvalidator-badtitle` and `Patrom` in `nstab-template`.
+[The corresponding English source](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/en.json)
+specifies a title string, establishing the technical rather than metal-chain
+sense. The complete WeKan compound is adapted, not an exact source quotation.
+
+`client/lib/customFields.js` formats nonempty text values using the stored
+format and separator. This field type differs from plain text; no formatter
+instructions or tokens changed. Focused exact-value, French-negative and
+text-field distinction checks pass, as do all 18,657 correction records,
+4,170 unchanged reviews and completeness checks for 234 locales. Browser and
+broader native compound review remain open. Original findings remain at
+288 pending and 11 restored awaiting validation; this repair was unflagged.

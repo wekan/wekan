@@ -738,6 +738,15 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/65a0f76ab">Repair Breton string-template label</a>. Thanks to xet7.</summary>
+
+The custom string formatter uses Breton software nouns instead of French.
+Focused checks preserve its distinction from plain text and all tokens.
+The dated audit records adapted phrasing and remaining browser review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f9e3111b0">Repair Breton currency terminology</a>. Thanks to xet7.</summary>
 
 Currency fields and their code labels use Breton wording with a distinct
