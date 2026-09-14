@@ -14032,5 +14032,155 @@
     "key": "import-board-instruction-wekan",
     "value": "No teu taboleiro, vai a 'Menú', despois a 'Exportar taboleiro', e copia o texto do ficheiro descargado.",
     "reason": "2026-09-14: Direct semantic review confirms template JSON examples, custom-field deletion permanence, invitations, board-role errors, export restrictions/disk-space warning and filters. JSON property names and placeholders remain literal; correct Galician prose and permission negation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "import-board-instruction-about-errors",
+    "value": "Se recibes erros ao importar o taboleiro, ás veces a importación funciona igualmente e o taboleiro está na páxina Todos os taboleiros.",
+    "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "import-members-map",
+    "value": "O taboleiro importado ten algúns membros. Asocia os membros que queres importar cos teus usuarios",
+    "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "import-members-map-note",
+    "value": "Nota: os membros sen asociar asignaranse ao usuario actual.",
+    "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "just-invited",
+    "value": "Acabas de ser convidado a este taboleiro",
+    "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "label-delete-pop",
+    "value": "Non se pode desfacer. Isto eliminará esta etiqueta de todas as tarxetas e destruirá o seu historial.",
+    "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "last-admin-desc",
+    "value": "Non podes cambiar os roles porque debe haber polo menos un administrador.",
+    "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "leave-board-pop",
+    "value": "Seguro que queres saír de __boardTitle__? Serás eliminado de todas as tarxetas deste taboleiro.",
+    "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "leaveBoardPopup-title",
+    "value": "Saír do taboleiro?",
+    "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "link-card",
+    "value": "Ligar a esta tarxeta",
+    "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "list-archive-cards-pop",
+    "value": "Isto eliminará todas as tarxetas desta lista do taboleiro. Para ver as tarxetas no Arquivo e devolvelas ao taboleiro, fai clic en «Menú» > «Arquivo».",
+    "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "list-move-cards",
+    "value": "Mover todas as tarxetas desta lista",
+    "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "list-select-cards",
+    "value": "Seleccionar todas as tarxetas desta lista",
+    "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "swimlaneAddPopup-title",
+    "value": "Engadir un carril debaixo",
+    "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "listImportCardPopup-title",
+    "value": "Importar unha tarxeta de Trello",
+    "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "list-delete-pop",
+    "value": "Todas as accións eliminaranse do fluxo de actividade e non poderás recuperar a lista. Non se pode desfacer.",
+    "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "list-delete-suggest-archive",
+    "value": "Podes mover unha lista ao Arquivo para eliminala do taboleiro e conservar a actividade.",
+    "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "memberMenuPopup-title",
+    "value": "Configuración do membro",
+    "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "muted-info",
+    "value": "Nunca se che notificará ningún cambio neste taboleiro",
+    "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "my-boards",
+    "value": "Os meus taboleiros",
+    "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "no-archived-cards",
+    "value": "Non hai tarxetas no Arquivo.",
+    "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "normal-assigned-only-desc",
+    "value": "Só son visibles as tarxetas asignadas. Edita como usuario normal.",
+    "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "notify-participate",
+    "value": "Recibir actualizacións de todas as tarxetas nas que participas como creador ou membro",
+    "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "notify-watch",
+    "value": "Recibir actualizacións de todos os taboleiros, listas ou tarxetas que esteas a vixiar",
+    "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "private-desc",
+    "value": "Este taboleiro é privado. Só as persoas engadidas ao taboleiro poden velo e editalo.",
+    "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "public-desc",
+    "value": "Este taboleiro é público. É visible para calquera que teña a ligazón e aparecerá en buscadores como Google. Só as persoas engadidas ao taboleiro poden editalo.",
+    "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
   }
 ]
