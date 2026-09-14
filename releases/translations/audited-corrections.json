@@ -131682,5 +131682,26 @@
     "before": "مستحق",
     "after": "ⴰⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ",
     "reason": "2026-09-14: Replace French received and Arabic due field labels with terminology used by date export/current due-date. IRCAM Amazigh-English PDF 382 entry 7245 imiẓ reception; existing due-date asakud amggaru uses related expiry-date terminology PDF 279 entry 5472: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339 . Actual badges distinguish received-date/due-date; rule option retains receivedAt. Low confidence: reception noun for software received date and due-versus-expiry semantic adaptation. No exact native software deadline attestation or browser acceptance claimed."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "view-all",
+    "before": "Näytä kaikki",
+    "after": "Ozuta kaik",
+    "reason": "2026-09-14: Replace Finnish with the complete native Veps software label attested by MediaWiki collapsible-expand-all-text at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Capitalize the label initial where needed. This does not validate other Veps phrases or live browser behavior."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "delete-all",
+    "before": "Poista kaikki",
+    "after": "Heitä kaik",
+    "reason": "2026-09-14: Replace Finnish with the complete native Veps software label attested by MediaWiki filehist-deleteall at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Capitalize the label initial where needed. This does not validate other Veps phrases or live browser behavior."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "remove-btn",
+    "before": "Poista",
+    "after": "Heitä",
+    "reason": "2026-09-14: Replace Finnish with the complete native Veps software label attested by MediaWiki rcfilters-savedqueries-remove at https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. Capitalize the label initial where needed. This does not validate other Veps phrases or live browser behavior."
   }
 ]
