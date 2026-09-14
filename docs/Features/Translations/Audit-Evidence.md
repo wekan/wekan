@@ -25200,3 +25200,20 @@ accept-destiny/intercession senses also remain unsuitable. This negative
 semantic evidence excludes a newly encountered false candidate, rather
 than asserting no suitable Tamazight word exists. Original pending findings
 remain 263; full native and browser validation remain open.
+
+## Support-page enabled label — 2026-09-14
+
+Local commit `46090ad0e` repairs French support-page-enabled with page,
+assistance and activated wording. IRCAM 2019 PDF page 691 entry 13033
+attests tiwisi help/assistance and construct twisi, which also occurs in
+the existing support label; page 537 entry 10106 attests activate.
+The collective-work sense is not the intended support-page meaning;
+physical supporting-beam terms are likewise not used. Source:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+**Low confidence** remains for the adapted passive activated form and
+complete page-status grammar. SettingBody.jade displays this checkbox
+label for the support page. Four focused translation checks pass; no
+live browser validation was run. Recount: 15,640 corrected, 262 pending
+(149 Tamazight), four restored, 4,175 retained and 18,739 correction
+records. Prior low-confidence and broader native/runtime work remain open.

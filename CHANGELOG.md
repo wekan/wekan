@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/46090ad0e">Repair Tamazight support-page enabled label</a>. Thanks to xet7.</summary>
+
+Use help/assistance vocabulary instead of French. Four focused checks pass;
+passive status grammar and full native/browser verification remain open.
+Dated audit tracks 262 original pending findings.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ca3d7dc9e">Review Tamazight invitation-acceptance ambiguity</a>. Thanks to xet7.</summary>
 
 Reject a kiss mistranslation encountered through ambiguous Arabic search.
