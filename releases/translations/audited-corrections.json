@@ -121586,8 +121586,8 @@
     "locale": "zgh",
     "key": "cron-clear-errors",
     "before": "Effacer toutes les erreurs",
-    "after": "ⵚⵚⴼⴹ ⴰⴽⴽⵯ ⵉⵣⴳⴰⵍⵏ",
-    "reason": "Replace French. Native MediaWiki rcfilters-clear-all-filters attests ssfd akkʷ/Clear all; substitute attested plural izgaln (see errors) for filters. Preserve clearing error records rather than fixing software failures or deleting migrations. LOW CONFIDENCE full clear-all-errors command and software-error usage. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf"
+    "after": "ⵎⵃⵓ ⵜⵉⵣⴳⵍⵉⵏ ⴰⴽⴽⵯ",
+    "reason": "Replace French. Native MediaWiki rcfilters-clear-all-filters attests ssfd akkʷ/Clear all; substitute attested plural izgaln (see errors) for filters. Preserve clearing error records rather than fixing software failures or deleting migrations. LOW CONFIDENCE full clear-all-errors command and software-error usage. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf Follow-up: 2026-09-14: Align cron error heading/action with IRCAM PDF page 658 entry 12346 error plural tizglin; PDF page 418 entry 7924 mhu explicitly delete/erase rather than physical wipe ssfd. Preserve migration qualifier and all scope, reuse existing migration noun. Low confidence: computer diagnostic metaphor and full migration genitive phrase require native/browser review. Success confirmation remains separately open; failures are not indiscriminately renamed errors."
   },
   {
     "locale": "zgh",
@@ -124736,8 +124736,8 @@
     "locale": "zgh",
     "key": "cron-migration-errors",
     "before": "Erreurs de migration",
-    "after": "ⵉⵣⴳⴰⵍⵏ ⵏ ⵓⵙⵎⵓⵜⵜⵢ",
-    "reason": "2026-09-14: Replace French Migration Errors, preserving plural errors distinct from warnings or failed status. Reuse previously reviewed plural izgaln from native CNDH penal-code memorandum pages 79 and 99 and bound usmutty software-migration adaptation from MediaWiki movelogpage. LOW CONFIDENCE legal-error-to-software-error usage, migration semantic extension and full noun chain need fluent Standard Moroccan review; full technical heading is not independently attested. References: https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+    "after": "ⵜⵉⵣⴳⵍⵉⵏ ⵏ ⵓⵙⵎⵓⵜⵜⵢ",
+    "reason": "2026-09-14: Replace French Migration Errors, preserving plural errors distinct from warnings or failed status. Reuse previously reviewed plural izgaln from native CNDH penal-code memorandum pages 79 and 99 and bound usmutty software-migration adaptation from MediaWiki movelogpage. LOW CONFIDENCE legal-error-to-software-error usage, migration semantic extension and full noun chain need fluent Standard Moroccan review; full technical heading is not independently attested. References: https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Follow-up: 2026-09-14: Align cron error heading/action with IRCAM PDF page 658 entry 12346 error plural tizglin; PDF page 418 entry 7924 mhu explicitly delete/erase rather than physical wipe ssfd. Preserve migration qualifier and all scope, reuse existing migration noun. Low confidence: computer diagnostic metaphor and full migration genitive phrase require native/browser review. Success confirmation remains separately open; failures are not indiscriminately renamed errors."
   },
   {
     "locale": "zgh",

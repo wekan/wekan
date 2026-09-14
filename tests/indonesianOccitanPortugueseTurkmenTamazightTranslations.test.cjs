@@ -275,3 +275,7 @@ assert.doesNotMatch(locales.zgh['set-wip-limit-value'], /Définit|maximale|ⵓ�
 assert.equal(locales.zgh.error, 'ⵜⴰⵣⴳⵍⵜ');
 assert.equal(locales.zgh.errors, 'ⵜⵉⵣⴳⵍⵉⵏ');
 assert.doesNotMatch(locales.zgh.errors, /ⵉⵣⴳⴰⵍⵏ/);
+
+assert.equal(locales.zgh['cron-migration-errors'], 'ⵜⵉⵣⴳⵍⵉⵏ ⵏ ⵓⵙⵎⵓⵜⵜⵢ');
+assert.equal(locales.zgh['cron-clear-errors'], 'ⵎⵃⵓ ⵜⵉⵣⴳⵍⵉⵏ ⴰⴽⴽⵯ');
+for (const key of ['cron-migration-errors', 'cron-clear-errors']) assert.doesNotMatch(locales.zgh[key], /ⵉⵣⴳⴰⵍⵏ|ⵚⵚⴼⴹ/);
