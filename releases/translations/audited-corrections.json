@@ -130597,5 +130597,12 @@
     "before": "Modèle de chaîne",
     "after": "Patrom chadenn",
     "reason": "Replace French string-template label with native software string/template nouns; full compound adapted, broader native/browser review open."
+  },
+  {
+    "locale": "zgh",
+    "key": "change",
+    "before": "Modifier",
+    "after": "ⵙⵏⴼⵍ",
+    "reason": "Replace French change imperative with independently attested native Moroccan edit verb, matching the layout-change control."
   }
 ]

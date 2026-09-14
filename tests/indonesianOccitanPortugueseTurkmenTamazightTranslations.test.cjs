@@ -23,3 +23,7 @@ for (const locale of Object.values(locales)) {
   assert.match(locale['office-report-desc'], /IPv4.*IPv6/);
   assert.match(locale['api-no-calls'], /REST API.*WITH_API=true/);
 }
+
+assert.equal(locales.zgh.change, 'ⵙⵏⴼⵍ');
+assert.equal(locales.zgh.change, locales.zgh.edit);
+assert.doesNotMatch(locales.zgh.change, /Modifier/);
