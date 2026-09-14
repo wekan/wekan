@@ -139011,5 +139011,19 @@
     "before": "pour coller, ou glissez-déposez une image ici (seulement une image)",
     "after": "ⵉ ⵓⵙⵍⴰⵖ, ⵏⵖ ⴽⵔⵉⵔⵓ ⴷ ⵙⵜⵓⵜⵜⵉ ⴰⴼⴰⵢⵍⵓ ⵏ ⵜⵡⵍⴰⴼⵜ ⴷⴰ (ⵜⴰⵡⵍⴰⴼⵜ ⴽⴰⵏ)",
     "reason": "2026-09-15: Replace French clipboard gesture fragment with paste OR drag-and-drop image file here, image only. Attested gesture components adapted to computing; derived paste noun, full grammar and only qualifier low confidence."
+  },
+  {
+    "locale": "dz",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Hijri ཟླ་ཐོ (རེའུ་མིག་ཅན་, འགོ་བཙུགས་ཚེས་ Julian 622-07-16)",
+    "reason": "2026-09-15: Replace English seed with visually verified tabular term and explicit Julian starting-date epoch paraphrase. Same algorithm, different epoch dates. Starting-date compound and full grammar low confidence; Hijri/Julian borrowed proper names."
+  },
+  {
+    "locale": "dz",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Hijri ཟླ་ཐོ (རེའུ་མིག་ཅན་, འགོ་བཙུགས་ཚེས་ Julian 622-07-15)",
+    "reason": "2026-09-15: Replace English seed with visually verified tabular term and explicit Julian starting-date epoch paraphrase. Same algorithm, different epoch dates. Starting-date compound and full grammar low confidence; Hijri/Julian borrowed proper names."
   }
 ]

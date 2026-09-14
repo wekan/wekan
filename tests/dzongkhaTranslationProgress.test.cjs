@@ -381,3 +381,10 @@ assert.doesNotMatch(dzongkha['calendar-system-islamic-rgsa'], /^Islamic \(Saudi 
 
 assert.equal(dzongkha['calendar-system-iso8601'], dzongkha['calendar-system-gregorian'] + ' (ISO 8601 བདུན་ཕྲག)');
 assert.notEqual(dzongkha['calendar-system-iso8601'], 'ISO 8601');
+
+assert.equal(dzongkha["calendar-system-islamic-civil"], "Hijri ཟླ་ཐོ (རེའུ་མིག་ཅན་, འགོ་བཙུགས་ཚེས་ Julian 622-07-16)");
+
+assert.equal(dzongkha["calendar-system-islamic-tbla"], "Hijri ཟླ་ཐོ (རེའུ་མིག་ཅན་, འགོ་བཙུགས་ཚེས་ Julian 622-07-15)");
+assert.notEqual(dzongkha['calendar-system-islamic-civil'], dzongkha['calendar-system-islamic-tbla']);
+assert.doesNotMatch(dzongkha['calendar-system-islamic-civil'], /Gregorian|622-07-15/);
+assert.doesNotMatch(dzongkha['calendar-system-islamic-tbla'], /Gregorian|622-07-16/);
