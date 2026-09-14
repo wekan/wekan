@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,555 |
-| Restored pre-pull; awaiting validation | 2,237 |
-| Reviewed; retained unchanged | 1,981 |
+| Restored pre-pull; awaiting validation | 2,208 |
+| Reviewed; retained unchanged | 2,010 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 

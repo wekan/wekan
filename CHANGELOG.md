@@ -630,7 +630,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.77 2026-09-14 WeKan ® release
 
 **In short:** Tamazight rules, search, email, attachments and maintenance
 labels replace French and inconsistent terminology. Bambara and Fulah
