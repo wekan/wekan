@@ -138731,5 +138731,19 @@
     "before": "أضف لوحة إلى المفضلة لإنشاء اختصار في هذا الشريط.",
     "after": "ⵔⵏⵓ ⵉⵜⵔⵉ ⵉ ⵜⴰⴼⵍⵡⵉⵜ ⴰⴼⴰⴷ ⴰⴷ ⵜⵔⵏⵓⴷ ⴰⵙⴰⵏⴼ ⴷⴰ.",
     "reason": "2026-09-15: replace Arabic quick-access hint with Tamazight draft retaining star-board action and adding a shortcut at this location. IRCAM page 210 entry 4007 attests asanf shortcut; existing star-board/add/purpose/here terms reused. Here refers to the bar containing the hint, rather than using dictionary physical door-bar senses. Software shortcut adaptation and full purpose clause remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "multi-selection",
+    "before": "تحديد أكثر من واحدة",
+    "after": "ⴰⵙⵜⴰⵢ ⴰⴳⴳⵓⵜ",
+    "reason": "2026-09-15: replace Arabic/French selection wording using existing Tamazight multiselection, add/remove, labels and card terminology. Toggle is expressed as add or remove; multiselection adds. Preserve both literal 1-9 ranges. Full computing selection compound and contextual grammar remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "toggle-labels",
+    "before": "Bascule les étiquettes 1-9 pour les cartes. La sélection multiple ajoute les étiquettes 1-9",
+    "after": "ⵔⵏⵓ ⵏⵖ ⴽⴽⵙ ⵉⵔⵛⵓⵎⵏ 1-9 ⵏ ⵜⴽⴰⵕⴹⴰ. ⴰⵙⵜⴰⵢ ⴰⴳⴳⵓⵜ ⴰⵔ ⵉⵔⵏⵓ ⵉⵔⵛⵓⵎⵏ 1-9.",
+    "reason": "2026-09-15: replace Arabic/French selection wording using existing Tamazight multiselection, add/remove, labels and card terminology. Toggle is expressed as add or remove; multiselection adds. Preserve both literal 1-9 ranges. Full computing selection compound and contextual grammar remain low confidence."
   }
 ]

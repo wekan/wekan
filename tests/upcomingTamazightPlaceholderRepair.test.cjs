@@ -318,3 +318,9 @@ assert.match(translated['quick-access-description'], /^ⵔⵏⵓ ⵉⵜⵔⵉ �
 assert.match(translated['quick-access-description'], /ⴰⴼⴰⴷ ⴰⴷ ⵜⵔⵏⵓⴷ ⴰⵙⴰⵏⴼ ⴷⴰ\.$/);
 assert.doesNotMatch(translated['quick-access-description'], /[\u0600-\u06ff]/);
 assert.match(fs.readFileSync(path.join(ROOT, 'client/components/main/header.jade'), 'utf8'), /li.no-items-message {{_ 'quick-access-description'}}/);
+
+assert.equal(translated['multi-selection'], 'ⴰⵙⵜⴰⵢ ⴰⴳⴳⵓⵜ');
+assert.match(translated['toggle-labels'], /^ⵔⵏⵓ ⵏⵖ ⴽⴽⵙ ⵉⵔⵛⵓⵎⵏ 1-9 ⵏ ⵜⴽⴰⵕⴹⴰ/);
+assert.match(translated['toggle-labels'], /ⴰⵙⵜⴰⵢ ⴰⴳⴳⵓⵜ ⴰⵔ ⵉⵔⵏⵓ ⵉⵔⵛⵓⵎⵏ 1-9/);
+assert.equal((translated['toggle-labels'].match(/1-9/g) || []).length, 2);
+assert.doesNotMatch(translated['toggle-labels'] + translated['multi-selection'], /Bascule|étiquettes|[\u0600-\u06ff]/);
