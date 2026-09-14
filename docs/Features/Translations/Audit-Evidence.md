@@ -2,6 +2,27 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Silesian raw-database label follow-up — 2026-09-14
+
+`sandstorm-raw-mongodb` remains pending. Preserve the existing file/database
+terminology while reviewing `Surowe` and the complete label.
+
+[Tuudi’s 16 March 2018 dictionary interview](https://tuudi.net/dykcjonorz-czyli-slownik-slaski/)
+quotes dictionary creator Stasiek Neblik describing accidentally deleting an
+Excel database, using `cołko baza danych`. This corroborates human Silesian
+computer-database usage separately from MediaWiki. The article’s surrounding
+prose is Polish; only the attributed speech is relevant language evidence.
+Neblik describes home/Rybnik usage and explicitly says he is not a linguist.
+This is regional usage evidence, not normative validation of the complete
+WeKan label or its genitive construction.
+
+The article was directly read during the earlier investigation; this follow-up
+retrieval timed out, while the search-index excerpt still exposes the attributed
+speech. The [dictionary homepage](https://dykcjonorz.eu/) is accessible, but the
+attempted `surowy` search could not be retrieved. Neither failure establishes
+that the qualifier is absent or incorrect. No translation or counts changed;
+continue with legible dictionary/native examples of raw database files.
+
 ## Tamazight troubleshooting terminology review — 2026-09-14
 
 `server-error-troubleshooting` remains French and pending. Preserve all three
