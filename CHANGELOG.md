@@ -3833,6 +3833,10 @@ the paths written to disk. Record timestamps keep their existing format.
 Path, collision, progress, parity, mirror and translation tests pass.
 Shell syntax checks pass; native Windows execution remains unverified.
 
+<a href="https://github.com/wekan/wekan/commit/a744eb907">Organization mirror
+reports use the same datetime directories</a>, with offline report-path coverage
+and corrected remaining documentation examples.
+
 Thanks to xet7 !
 
 </details>
