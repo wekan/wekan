@@ -125046,5 +125046,12 @@
     "before": "Ẓreg iferdisen n tebdart n usenqed amzwaru n uḍris",
     "after": "ⵙⵏⴼⵍ ⵉⴼⵔⴷⵉⵙⵏ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ ⵙ ⵓⴹⵕⵉⵚ",
     "reason": "Repair unflagged semantic and terminology errors, not Latin script alone. Inherited amzwaru/first qualifier is absent from English and obscures Edit AS TEXT; replace Edit with native MediaWiki snfl and plural Items with transaction-duration-limit-exceeded ifrdisn. https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Match reviewed textual editing mode; replace inherited checklist wording whose asenqed evidence was Kabyle, not verified Moroccan. LOW CONFIDENCE: proposed List of Verification checklist paraphrase and derived ussidd, as-text preposition, bound Text spelling and full phrase. Native components do not independently attest the full checklist term."
+  },
+  {
+    "locale": "zgh",
+    "key": "newlineBecomesNewChecklistItem",
+    "before": "يصبح كل سطر من النص أحد عناصر قائمة التحقق",
+    "after": "ⴽⵓ ⵉⵣⵔⵉⵔⵉ ⵏ ⵓⴹⵕⵉⵚ ⴰⵔ ⵉⵜⵜⵓⵖⴰⵍ ⵢⴰⵏ ⵙⴳ ⵉⴼⵔⴷⵉⵙⵏ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
+    "reason": "Replace Arabic bulk-edit guidance with Standard Moroccan Tamazight. Current MediaWiki zgh statistics-edits-average supports ku/each, search-ignored-headings singular textual Line izriri, missing-article Text and transaction-duration-limit-exceeded plural Elements ifrdisn. https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve EACH line BECOMES ONE OF checklist items, not all items or a new checklist. LOW CONFIDENCE: derived Become ittughal (not independently attested in current MediaWiki), one-of construction, bound Text, proposed verification-list checklist term and full grammar. Original-order variant remains separately pending; do not omit its ordering constraint."
   }
 ]
