@@ -139571,5 +139571,40 @@
     "before": "Zwidodombedzwa",
     "after": "Ližatedod",
     "reason": "Replace Tshivenda/Finnish with Veps: existing änestamine/votes vocabulary, native MediaWiki sorting construction and details ližatedod. Vote genitive and full context terminology remain low confidence; preserve vote sorting rather than ballot action."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "repair-broken-cards",
+    "before": "Lugisa dzikhadi dzo tshinyalaho",
+    "after": "Kohenda rikotud kartad",
+    "reason": "Replace Tshivenda repair/restore messages with direct Veps drafts from existing kohenda/endišta/card/list/board vocabulary. Preserve exact result counters, missing-board and automatic-repair limits. Full count/case/passive grammar remains low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "repairing",
+    "before": "Hu khou lugiswa…",
+    "after": "Kohendamine…",
+    "reason": "Replace Tshivenda repair/restore messages with direct Veps drafts from existing kohenda/endišta/card/list/board vocabulary. Preserve exact result counters, missing-board and automatic-repair limits. Full count/case/passive grammar remains low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "repair-broken-cards-done",
+    "before": "Dzikhadi dza __fixed__ dzo lugiswa.",
+    "after": "Kohendadud __fixed__ kartad.",
+    "reason": "Replace Tshivenda repair/restore messages with direct Veps drafts from existing kohenda/endišta/card/list/board vocabulary. Preserve exact result counters, missing-board and automatic-repair limits. Full count/case/passive grammar remains low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "repair-broken-cards-done-unfixable",
+    "before": "Dzikhadi dza __fixed__ dzo lugiswa. Dzikhadi dza __unfixable__ a dzi na bodo nahone a dzi nga lugiswi zwi tshi ḓi ita.",
+    "after": "Kohendadud __fixed__ kartad. __unfixable__ kartal ei ole laudad da neid ei sa kohendada avtomatižesti.",
+    "reason": "Replace Tshivenda repair/restore messages with direct Veps drafts from existing kohenda/endišta/card/list/board vocabulary. Preserve exact result counters, missing-board and automatic-repair limits. Full count/case/passive grammar remains low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "restore-list-swimlanes-done",
+    "before": "Mirole ya __restored__ yo vhuyedzwa. __remaining__ a i athu u vhuyedzwa.",
+    "after": "Endištadud __restored__ lugetižid. __remaining__ ei sa endištada.",
+    "reason": "Replace Tshivenda repair/restore messages with direct Veps drafts from existing kohenda/endišta/card/list/board vocabulary. Preserve exact result counters, missing-board and automatic-repair limits. Full count/case/passive grammar remains low confidence."
   }
 ]

@@ -249,3 +249,15 @@ test("Veps vote sorting and event details replace wrong-language labels", () => 
  assert.notEqual(data["sort-by-votes"],data.sort);
  assert.notEqual(data["event-detail"],data["event-severity"]);
 });
+
+test("Veps repair results preserve counters and unresolved failures", () => {
+ const data=JSON.parse(fs.readFileSync("imports/i18n/data/ve-PP.i18n.json","utf8"));
+ for(const key of ["repair-broken-cards","repairing","repair-broken-cards-done","repair-broken-cards-done-unfixable","restore-list-swimlanes-done"]) assert.doesNotMatch(data[key],/lugis|Dzikhadi|vhuyedzwa|Mirole/i);
+ assert.match(data["repairing"],/…$/);
+ assert.match(data["repair-broken-cards-done-unfixable"],/__fixed__.*__unfixable__.*ei ole laudad.*ei sa kohendada avtomatižesti/);
+ assert.match(data["restore-list-swimlanes-done"],/__restored__.*__remaining__ ei sa endištada/);
+ assert.notEqual(data["repair-broken-cards-done"],data["repair-broken-cards-done-unfixable"]);
+ const code=fs.readFileSync("client/components/settings/problemsSummary.js","utf8");
+ assert.match(code,/fixed, unfixable/);
+ assert.match(code,/restored, remaining/);
+});
