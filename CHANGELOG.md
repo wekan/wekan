@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3b12f68c7">Repair Veps card and minicard display labels</a>. Thanks to xet7.</summary>
+
+Two complete drafts preserve distinct display targets. Location forms and
+full phrasing remain low confidence. Locale, token and preference checks
+pass; dated audit evidence keeps native/browser verification open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b479af98f">Repair Veps parent change and display controls</a>. Thanks to xet7.</summary>
 
 Two complete terminology drafts preserve changing the parent relationship

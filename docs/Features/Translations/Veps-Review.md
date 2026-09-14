@@ -341,3 +341,13 @@ uses Change; sidebar no-parent changes display, not the relationship.
 Thirteen tests across four files pass for exact values, action distinction,
 placeholders and preference. Original pending remains 232; ledger 18,828.
 No live browser/native fluency claim.
+
+Card-display drafts **2026-09-14**, local commit `3b12f68c7`:
+`show-on-card` becomes **Ozuta kartal** and `show-on-minicard`
+**Ozuta minikartal**, replacing Finnish. Native MediaWiki Show and
+existing Kart support terminology; derived location forms and software
+phrasing remain **low confidence**. Card/minicard targets stay distinct.
+Fourteen tests across four files pass for exact values, placeholders and
+preference. Ledger 18,830; original pending 232 unchanged. Native/browser
+verification remains open. A bounded primary dictionary search did not
+establish keyboard/shortcut terminology; it is not absence proof.
