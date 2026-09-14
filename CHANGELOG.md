@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,533 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 311 pending review or repair.
-The correction inventory records 18,120 exact before/after values,
+The correction inventory records 18,122 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,12 +102,11 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 3f72fb6e8 (2026-09-14), repairing four additional
-Select All and Unselect All controls using native selection terminology.
-Preserve selecting all versus removing selection without deleting content.
-Derived commands and full unselection phrase remain low confidence. All
-18,120 correction checks pass; 311 original findings remain pending,
-including 176 Tamazight.
+Latest translation fix is 6352fbd5e (2026-09-14), repairing two additional
+board/list selection instructions. Preserve Only One Board versus All Cards
+In This List, including the omitted All. Derived commands, agreement and
+full wording remain low confidence. All 18,122 correction checks pass; 311
+original findings remain pending, including 176 Tamazight.
 Archive provenance follow-up fbe388603 (2026-09-14) directly inspects the
 native Archives du Maroc logo in a university PDF, corroborating the noun
 beyond indexed evidence. Nine records updated; no values/counts changed.
@@ -656,7 +655,7 @@ remain open.
 Translation audit progress as of 2026-09-14: 15,533 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
 and 311 remain pending across 17 locales, including 176 Tamazight findings.
-The ledger contains 18,120 correction records, including unflagged repairs.
+The ledger contains 18,122 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -3504,6 +3503,16 @@ without deleting content. Native terminology supports the root; derived
 commands and complete unselection phrase remain low confidence. All 18,120
 correction checks pass; original pending counts remain 311. Live browser
 verification was not run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6352fbd5e">Repair Tamazight board and list selection scopes</a>. Thanks to xet7.</summary>
+
+Repair two additional instructions, preserving Only One Board versus All
+Cards In This List, including the omitted All. Derived commands, agreement
+and full wording remain low confidence. All 18,122 correction checks pass;
+original pending counts remain 311. Live browser verification was not run.
 
 </details>
 

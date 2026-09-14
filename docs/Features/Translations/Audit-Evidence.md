@@ -1,5 +1,15 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `6352fbd5e`: two additional selection instructions
+repaired. Replace Kabyle Only One Board and Arabic Select Cards In This List;
+the latter omitted English All. Reuse native selection root, feminine One
+from MediaWiki tooltip-pt-watchlist and Only from Mastodon local_only.
+Preserve ONLY ONE board versus ALL cards IN THIS list. Full command,
+imperative derivation and agreement remain LOW CONFIDENCE. All 18,122
+correction checks pass; original counts remain 311 pending, 176 Tamazight.
+Wider restored/unflagged review remains open; live browser was not run.
+References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json
+
 2026-09-14 — `3f72fb6e8`: four additional Select All/Unselect All
 controls repaired, including their r-prefixed counterparts. Native MediaWiki
 compareselectedversions attests selected ittustayn; derive the selection
