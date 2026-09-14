@@ -23010,3 +23010,12 @@ retaining due-time meaning. Shared clause order and whole-phrase inflection
 still need native review; browser execution remains unverified. All 18,402
 correction and 4,158 unchanged checks pass. Original pending/restored scope
 remains 300/27, with broader unflagged repairs still required.
+
+Dated unflagged repair, 2026-09-14, local commit `6af6d3ac3`: seven Breton
+account controls replace French. Native MediaWiki login/logout use Kevreañ
+and Digevreañ; userlogin-yourname uses Anv implijer; repeat-password uses
+adarre and reset-password link uses Ankouaet ho ker-tremen. Preserve sign-in
+versus sign-out and repeated versus forgotten password meanings:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/br.json
+All 18,409 correction checks pass. Full phrase and account/browser validation
+remain open; original pending/restored scope stays 300/27.
