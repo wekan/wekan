@@ -16,3 +16,7 @@ assert.notEqual(data['calendar-system-buddhist'], data['calendar-system-hebrew']
 assert.equal(data['calendar-system-indian'], 'Indiap nuna tamakkerlugu ullorsiutaa');
 assert.doesNotMatch(data['calendar-system-indian'], /Indian national/);
 assert.notEqual(data['calendar-system-indian'], data['calendar-system-buddhist']);
+
+assert.equal(data['calendar-system-coptic'], 'Qaammatisiutit (Coptic)');
+assert.notEqual(data['calendar-system-coptic'], 'Coptic');
+assert.notEqual(data['calendar-system-coptic'], data['calendar-system-ethiopic']);

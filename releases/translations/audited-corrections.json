@@ -131479,5 +131479,12 @@
     "before": "Temps restant estimé",
     "after": "ⴰⵙⵓⵜⴳ ⵏ ⵓⵣⵎⵣ ⵍⵍⵉ ⵇⵇⵉⵎⵏ",
     "reason": "2026-09-14: Replace French time label. IRCAM PDF 244 entry 4716 estimation/assessment asutg, PDF 279 entry 5472 time period azmz/construct uzmz, PDF 359 entry 6809 remain qqim. Complete estimate-of-remaining-time phrase, not duration alone. Low confidence: remaining-time relative participle qqimn and full genitive grammar require native review. Browser context review remains open; timing logic unchanged."
+  },
+  {
+    "locale": "kl",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Qaammatisiutit (Coptic)",
+    "reason": "2026-09-14: Replace bare English Coptic calendar label with native calendar noun Qaammatisiutit and retained international calendar identifier in parentheses. Oqaasileriffik official library subject glossary explicitly equates kalendere with qaammatisiutit; 2012 language committee minutes confirm Almanakker = Qaammatisiutit. Low confidence: Coptic identifier remains an international borrowing rather than an attested Greenlandic demonym; native/browser terminology review remains open. No calendar algorithm changed."
   }
 ]
