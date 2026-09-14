@@ -21741,3 +21741,14 @@ accessibility and account labels retained, including login-only access,
 not-yet-added information and only-locked-user filtering. All 18,151
 corrections and 1,981 reviews pass. 2,237 restored values and 308 pending
 findings plus broader language/browser verification remain open.
+
+
+### Esperanto scheduled-job and migration review — 2026-09-14
+
+Local commit `5946767b1` retains twenty-nine correct scheduled-job,
+migration-error and account-unlock labels. Resume/start, failed/paused and
+success/failure outcomes remain distinct. No-failed/no-paused negation and
+clear-all-errors scope are preserved. Isolated Complete remains ambiguous
+between an action and state and is not accepted merely by vocabulary match.
+2,010 review records pass; 2,208 restored values and 308 pending findings
+plus broader language/browser verification remain open.
