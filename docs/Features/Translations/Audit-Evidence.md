@@ -29087,3 +29087,30 @@ calendar UI test ran. Ledger 19,861; original corrected 15,746, pending
 157, Dzongkha 2 to 0, restored 4 unchanged. Empty original queue does not
 complete Dzongkha native grammar or earlier low-confidence reviews.
 Broader review remains open; no remote writes were made.
+
+
+## Tamazight tabular-calendar qualifier — review 2026-09-15
+
+Tamazight civil/tbla seeds remain English and pending. The Dzongkha repair
+uses a visually verified computing tabular term; that evidence cannot be
+transferred as Tamazight vocabulary. IRCAM English dictionary page 566
+entry 10588 tadabut is table/tribune/platform; page 649 entry 12177
+taṭṭblat is table. Neither attests the arithmetic/tabular calendar sense.
+People sitting round a table entries 4703/11900 and table of contents
+11895 are likewise unsuitable semantic shortcuts.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+A limited search of the cached French/Arabic pages for tabulaire,
+arithmétique and tableau returned no matches; this is an extraction/cache
+result, not proof those concepts lack Tamazight terms. Do not construct
+a calendar adjective from furniture table and present it as attested.
+
+Both variants must preserve a shared tabular/arithmetic description and
+the epoch distinction: civil Friday Julian 622-07-16 versus astronomical
+Thursday Julian 622-07-15. A computed-calendar paraphrase alone is too
+general because other calculated Hijri algorithms also exist. Next action
+is to find a computing/mathematics term or precise fixed-rule paraphrase,
+then combine it with existing start/date and calendar wording. Saudi
+sighting remains a separate unresolved qualifier.
+No translations or counts changed. Pending 157 original findings;
+Tamazight 64. No live calendar UI test ran; no remote writes were made.
