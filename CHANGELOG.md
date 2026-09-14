@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d1214818b">Clarify Tamazight filter single-quote character</a>. Thanks to xet7.</summary>
+
+Identify the literal apostrophe with one-character wording; retain verified
+value vocabulary. Four focused checks pass. Complete native grammar and
+browser verification remain open in the dated translation audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ac4b1dcdc">Distinguish Tamazight filter quote and bracket terminology</a>. Thanks to xet7.</summary>
 
 Replace conflated unsupported forms with distinct dictionary nouns and

@@ -16,10 +16,10 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `ac4b1dcdc` —
-Tamazight filter help now distinguishes dictionary quotation-mark and
-parenthesis/bracket nouns and uses an attested space noun. Four checks
-pass; full grammar/software adaptation remains open. Pending: 265.
+Latest translation fix: **2026-09-14**, local commit `d1214818b` —
+Tamazight filter help identifies the literal single apostrophe using
+one-character wording. Dictionary confirms existing value vocabulary.
+Four checks pass; full grammar/native/browser review stays open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
 records contain **18,736** exact before/after values, including unflagged

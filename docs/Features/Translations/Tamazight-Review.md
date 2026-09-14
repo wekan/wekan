@@ -870,3 +870,23 @@ not duplicated. Four focused checks pass and completeness stays green.
 operator/value and advanced adaptations, full software prose and grammar.
 No native/browser validation was run. Original pending count remains 265;
 ledger records remain 18,736. Broader validation remains open.
+
+## Single quotation mark and value review — 2026-09-14
+
+Local commit `d1214818b` replaces an unsupported single-quote modifier
+with explicit one-character wording and the literal apostrophe. This keeps
+single quotes distinct from grouping parentheses and makes the required
+character visible. The complete explanatory construction remains **low
+confidence** for native grammar, not an attested dictionary phrase.
+
+IRCAM 2019 PDF page 263 entry 5110 explicitly gives both price and value
+for atig; existing value terminology is retained rather than discarded
+because of the price sense. Page 273 entry 5342 supplies azal value as an
+alternative, not proof that shared existing atig is wrong. Page 282 entry
+5518 single means unmarried and is unsuitable for parser quotation marks.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+Four focused checks pass; exact syntax/escape examples and original ledger
+before value survive. No new ledger acceptance or duplicate is added.
+265 original findings remain pending; 18,736 corrections are recorded.
+Full native/browser validation and earlier technical adaptations stay open.
