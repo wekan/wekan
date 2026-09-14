@@ -27,3 +27,10 @@ No remote writes or publishing were performed.
 
 Broader guard-inventory review continues, including trusted board-copy/helper
 inserts and compatibility of the new reactive deposit publication.
+
+
+Private-only insertion follow-up — 2026-09-14: local commit `749467c80`
+enforces the policy in Boards.before.insert for trusted copies, imports and
+lazy helpers. Hook regression covers enabled/disabled policy and failing
+security logging. The policy and visibility-settings suites pass. Live
+browser/server validation remains pending.

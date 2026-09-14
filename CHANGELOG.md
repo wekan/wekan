@@ -645,6 +645,16 @@ This release fixes the following CRITICAL SECURITY ISSUES:
 **Security** - Board policies, role capabilities and object boundaries.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/749467c80">Enforce private-only policy for trusted board insertions</a>. Thanks to xet7.</summary>
+
+Copies, imports and helper-created boards now obey the instance private-only
+policy at the shared insertion hook. A public insertion becomes private;
+logging failure cannot bypass enforcement. Targeted policy and visibility
+settings tests pass. Live browser/server verification remains pending.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/962debc12">Enforce private-only board visibility in server methods</a></summary>
 
 VisibilityBleed: direct board creation and card-to-board conversion could
