@@ -130821,5 +130821,26 @@
     "before": "nom",
     "after": "ⵉⵙⵎ",
     "reason": "Replace French generic name label with native Moroccan Tamazight MediaWiki name-field terminology; preserve the rule placeholder/sort attribute context."
+  },
+  {
+    "locale": "zgh",
+    "key": "every-1-day",
+    "before": "Tous les jours",
+    "after": "ⴽⵓ ⴰⵙⵙ",
+    "reason": "Replace French one-unit recurrence prose; native grammar attests every day and CLDR supplies hour/minute nouns. Hour/minute combinations are adapted, with broader native fluency review open."
+  },
+  {
+    "locale": "zgh",
+    "key": "every-1-hour",
+    "before": "Toutes les heures",
+    "after": "ⴽⵓ ⵜⴰⵙⵔⴰⴳⵜ",
+    "reason": "Replace French one-unit recurrence prose; native grammar attests every day and CLDR supplies hour/minute nouns. Hour/minute combinations are adapted, with broader native fluency review open."
+  },
+  {
+    "locale": "zgh",
+    "key": "every-1-minute",
+    "before": "Toutes les minutes",
+    "after": "ⴽⵓ ⵜⵓⵙⴷⵉⴷⵜ",
+    "reason": "Replace French one-unit recurrence prose; native grammar attests every day and CLDR supplies hour/minute nouns. Hour/minute combinations are adapted, with broader native fluency review open."
   }
 ]

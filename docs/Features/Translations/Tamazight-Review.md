@@ -141,3 +141,23 @@ username, repository-name or display-name compound is accepted from this
 single noun. Exact-value and French/English-negative checks are added.
 Running-browser validation remains open. Both are unflagged additional
 repairs; original pending/restored counts remain 283/9.
+
+## One-unit recurrence labels, 2026-09-14
+
+[Native grammar lesson by Aznzar Abudrar](https://tamazight.abudrar.com/2018/02/addad-amaruz-almmud-n-tamazight-learning.html)
+uses `ⴽⵓ ⴰⵙⵙ` in the daily wolf example (body line 45). The opened
+[IRCAM primary-school teacher guide, revised 2020](https://ircam.biblio.ma/uploads/explnum/explnum_26.pdf)
+also contains daily examples on PDF page 41; its extracted word order is
+reversed in the surrounding Arabic layout, so the HTML lesson independently
+establishes the phrase order. This supports everyday repetition, not merely
+one elapsed day. The [CLDR Moroccan locale](https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml)
+provides `ⵜⴰⵙⵔⴰⴳⵜ` (hour) and `ⵜⵓⵙⴷⵉⴷⵜ` (minute).
+
+Three French labels become every day/hour/minute. Hour and minute combinations
+are adapted, not exact phrases quoted from CLDR: LOW CONFIDENCE full native
+fluency remains for review. Numeric multi-unit labels remain unchanged until
+their plural/number construction is checked. No direct current client/server
+reference to these legacy keys was found; scheduled workflow labels use other
+keys. Therefore no running-browser verification of these labels is claimed.
+Exact values, wrong-language negatives and three distinct intervals are tested.
+Three additional unflagged repairs leave the original queue counts unchanged.

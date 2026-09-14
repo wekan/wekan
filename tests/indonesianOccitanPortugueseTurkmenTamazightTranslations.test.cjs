@@ -51,3 +51,14 @@ for (const key of ["r-name", "r-sort-name"]) {
   assert.equal(locales.zgh[key], "ⵉⵙⵎ");
   assert.doesNotMatch(locales.zgh[key], /nom|name/i);
 }
+
+const oneUnitIntervals = {
+  'every-1-day': 'ⴽⵓ ⴰⵙⵙ',
+  'every-1-hour': 'ⴽⵓ ⵜⴰⵙⵔⴰⴳⵜ',
+  'every-1-minute': 'ⴽⵓ ⵜⵓⵙⴷⵉⴷⵜ',
+};
+for (const [key, value] of Object.entries(oneUnitIntervals)) {
+  assert.equal(locales.zgh[key], value);
+  assert.doesNotMatch(locales.zgh[key], /Tous|Toutes|jours|heures|minutes/);
+}
+assert.equal(new Set(Object.keys(oneUnitIntervals).map(key => locales.zgh[key])).size, 3);
