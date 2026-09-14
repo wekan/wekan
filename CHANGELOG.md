@@ -738,6 +738,16 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5bf34bc48">Preserve native Inuktitut New label</a>. Thanks to xet7.</summary>
+
+The existing syllabic label matches native software terminology and actual
+admin creation controls. Focused value/context checks pass. The dated audit
+also records why Latin orthography alone cannot prove wrong-language prose;
+uncertain phrases and browser review remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1ba55107f">Repair Breton date activity and execution labels</a>. Thanks to xet7.</summary>
 
 Four French labels become Breton while retaining distinct modification,

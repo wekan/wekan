@@ -32,6 +32,13 @@ contain **18,609** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
+Latest unflagged unchanged review: **2026-09-14**, `5bf34bc48` —
+Inuktitut `new` retains `ᓄᑖᖅ`, matching the native software guide's New
+command and actual admin creation labels. Focused checks pass; browser review
+remains open. Latin Inuktitut spelling is valid; original script warnings
+require vocabulary/context review rather than automatic replacement.
+Pending/restored counts remain 289/13.
+
 Latest translation fix: **2026-09-14**, local commit `1ba55107f` —
 four Breton date/activity/execution labels replace French prose. Native
 software sources support modification and execution vocabulary; native statistics
