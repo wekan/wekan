@@ -122407,5 +122407,19 @@
     "before": "Vous avez envoyé un mail avec succès",
     "after": "ⵢⴰⵍⵍⴼⵓⵙ ⵓⵣⵏ ⵏⴽ ⵏ ⵢⴰⵏ ⵉⵎⴰⵢⵍ.",
     "reason": "Replace French email sending failure/error/success diagnostics. Preserve failed versus successful send and user ownership in SMTP confirmation; error describes trying to send, not email receipt. Native MediaWiki emailuser azn imayl, filecopyerror/directorycreateerror ur yallfus unsuccessful, error title, arm try and passwordsent kud nna when support vocabulary. LOW CONFIDENCE derived sending noun azn/bound uzn, affirmative success from negative predicate, personal ownership and full tense/aspect composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (emailuser, filecopyerror, directorycreateerror, errorpagetitle, wrongpassword, passwordsent)."
+  },
+  {
+    "locale": "zgh",
+    "key": "email-enrollAccount-subject",
+    "before": "Un compte a été créé pour vous sur __siteName__",
+    "after": "ⵉⵜⵜⵓⵙⵏⵓⵍⴼⴰ ⵓⵎⵉⴹⴰⵏ ⵏⵏⴽ ⴳ __siteName__",
+    "reason": "Replace French account-enrollment subject or password-reset body with Tamazight. Preserve account created for recipient at site (expressed as your account), reset-password purpose, simple click on link below, greeting/thanks, paragraph layout and exact site/user/URL placeholders. Native MediaWiki account-created, passwordreset rar d, password, permalink/link, sharedupload-desc-here below and feedback-thanks-title support components; IRCAM greeting azul is attested in indexed translation tables. LOW CONFIDENCE recipient-ownership paraphrase, conjugated reset verb, borrowed click imperative klik (native MediaWiki tooltip-rollback noun ukl ik motivates borrowing, not verified imperative) and full mail phrase composition. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json; https://biblio.ircam.ma/pmb/uploads/publications/170.pdf (indexed greeting comparison); https://www.ircam.ma/sites/default/files/2021-02/Guide%2520des%2520publications_2.pdf (native greeting)."
+  },
+  {
+    "locale": "zgh",
+    "key": "email-resetPassword-text",
+    "before": "Bonjour __user__,\n\nPour réinitialiser votre mot de passe, cliquez sur le lien ci-dessous.\n\n__url__\n\nMerci.",
+    "after": "ⴰⵣⵓⵍ __user__,\n\nⴰⴼⴰⴷ ⴰⴷ ⵜⵔⴰⵔⴷ ⴷ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⵏⵏⴽ, ⴽⵍⵉⴽ ⵖⴼ ⵓⵙⵖⵏ ⴳ ⴷⴷⴰⵡ ⴷⴰ ⵖⴰⵙ.\n\n__url__\n\nⵜⴰⵏⵎⵎⵉⵔⵜ.",
+    "reason": "Replace French account-enrollment subject or password-reset body with Tamazight. Preserve account created for recipient at site (expressed as your account), reset-password purpose, simple click on link below, greeting/thanks, paragraph layout and exact site/user/URL placeholders. Native MediaWiki account-created, passwordreset rar d, password, permalink/link, sharedupload-desc-here below and feedback-thanks-title support components; IRCAM greeting azul is attested in indexed translation tables. LOW CONFIDENCE recipient-ownership paraphrase, conjugated reset verb, borrowed click imperative klik (native MediaWiki tooltip-rollback noun ukl ik motivates borrowing, not verified imperative) and full mail phrase composition. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json; https://biblio.ircam.ma/pmb/uploads/publications/170.pdf (indexed greeting comparison); https://www.ircam.ma/sites/default/files/2021-02/Guide%2520des%2520publications_2.pdf (native greeting)."
   }
 ]
