@@ -27204,3 +27204,35 @@ Four focused suites pass: exact source placeholders/tags and key order,
 correction provenance, newer translations and the specific label. No live
 calendar-selector browser test was run. Ledger 19,768, original corrected
 15,688, pending 215 (Kashmiri 1), restored 4 unchanged. No remote push.
+
+## Participation and watch notification messages — 2026-09-14
+
+Local commit `3eb7ae103` replaces two full French catalogue values with
+Tamazight drafts. notify-participate reuses the tracking-info notification
+sentence, preserving creator/member participation in cards. notify-watch
+specifies watched boards, lists or cards, rather than restricting delivery
+to card membership or all board changes. English source values establish
+these different scopes. No active client/model references were found for
+these two keys; this repair does not activate a removed notification UI.
+
+[Primary MediaWiki Tamazight source](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json)
+attests the monitoring verb and the relative watchlist phrase used as a
+component of the watched-object qualifier (tooltip-pt-watchlist). Its
+watchlist and mywatchlist values also support a native list/monitoring
+combination. This does not independently establish WeKan's passive
+notification sentence or its adapted mixed-object agreement. Existing
+tracking-info provenance and creator/member dictionary references remain
+recorded above, including their uncertainty.
+
+**Low confidence:** complete passive inflection, plural/mixed-object
+agreement, relative grammar and adapting MediaWiki monitoring to WeKan
+notifications still need native review. Reusing a recent draft improves
+consistency, not confidence in its full grammar. Existing Latin-script
+list label and Tifinagh dictionary list wording also remain broader
+terminology-review items.
+
+Four focused suites pass, covering placeholders/tags, key order, original
+provenance and newer translation preference, plus distinct message scopes.
+No live notification UI/browser test was run. Ledger 19,770; original
+corrected 15,690, pending 213 (zgh 110), restored 4 unchanged. Other
+uncertain/restored/unflagged findings remain open. No remote push.

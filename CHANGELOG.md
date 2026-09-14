@@ -662,6 +662,19 @@ The browser assertion accepts whitespace between the regional flag and name.
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3eb7ae103">Translate Tamazight participation and watch notification messages</a></summary>
+
+Replace French catalogue values while preserving creator/member card scope
+versus watched boards, lists or cards. Four focused suites pass. Full grammar
+remains under native review; no removed notification UI is activated.
+Dated audit evidence and counts are updated.
+
+Thanks to xet7.
+
+</details>
+
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/58809a724">Translate Kashmiri Saudi moon-sighting calendar label</a></summary>
 
 Replace English country-only wording with a calendar and moon-seeing draft.
