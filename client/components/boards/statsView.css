@@ -9,8 +9,10 @@
 }
 
 .stats-view-content {
-  max-width: 900px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+  margin: 0;
   padding: 24px;
 }
 

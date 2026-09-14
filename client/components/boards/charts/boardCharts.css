@@ -2,7 +2,7 @@
    - export buttons, then a Chart.js canvas, then the full data table, reusing
    statsView.css's .stats-view/.stats-view-content shell. */
 .chart-view-content {
-  max-width: 1100px;
+  max-width: none;
 }
 
 .chart-export-buttons {
