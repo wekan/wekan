@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/58169ab23">Repair French Default labels in Tamazight</a>. Thanks to xet7.</summary>
+
+Three Default values use native by-default wording. The reserved lane
+label and negative French-word check pass in Chromium; locale checks
+preserve placeholders and newer human translations. Standalone phrase
+adaptation remains under native review in the dated audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/164268616">Repair wrong-language Tamazight board controls</a>. Thanks to xet7.</summary>
 
 Four add-swimlane and list/swimlane action labels replace French/Arabic

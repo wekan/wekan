@@ -26357,3 +26357,19 @@ with exact placeholders, ordering and newer-translation preference. Ledger
 18,837; original pending 232/restored 4 unchanged. Correct counts do not
 certify native fluency. French Default labels remain for further review.
 Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+
+
+Default label repairs **2026-09-14**, local commit `58169ab23`:
+Additional unflagged default, defaultdefault and font-size-default change
+French Défaut to ⵙ ⵓⵡⵏⵓⵍ. Native MediaWiki img-lang-default supplies the
+exact by-default phrase; pageinfo-default-sort and metadata-fields also
+attest it. Preserve the default-setting meaning rather than substituting
+First. Actual swimlaneHeader.jade renders defaultdefault for the reserved
+Default lane. Chromium verifies the rendered label and rejects Défaut:
+**1 passed (3.5s)**. Setting keys receive source regression coverage, not
+separate browser execution. Low confidence: adapting the native adverbial
+phrase to standalone setting and lane labels merits native review. Four
+locale suites pass with tokens/order/newer human translations preserved.
+Ledger 18,840; original pending 232/restored 4 unchanged. Earlier notes
+that these three French labels remain unchanged are superseded.
+Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
