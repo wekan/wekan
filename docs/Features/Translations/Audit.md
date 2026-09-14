@@ -28,11 +28,11 @@ repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
-Latest terminology review: **2026-09-14**, `de14ab2b6` — archive
-source guidance also has an outdated location. Active Archive is an
-All Boards menu row; the old header control is commented out. English
-and corresponding locale guidance need repair. Counts unchanged;
-full Tamazight terminology and phrase verification remain open.
+Latest terminology review: **2026-09-14** —
+[Fulah calendar evidence](Fulah-Review.md) separates structured grid/table
+usage from furniture and adds primary beginning-word evidence. Complete
+calculation compounds and dialect/epoch grammar remain unverified; both
+Fulah findings stay pending. No locale values or counts changed.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:
