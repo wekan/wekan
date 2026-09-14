@@ -27045,3 +27045,29 @@ entries and inaccessible shelter likewise do not attest that full concept;
 accessibility French/Arabic values remain open. Aromanian magenta searches
 returned Romanian-context pages, not Aromanian attestations; do not count
 those as proof or mark that pending finding resolved.
+
+
+### 2026-09-14 — Muted/tracking notification drafts
+
+Local source commit `3121eea2f`: two complete French instructions replaced.
+Original corrected 15,684; pending 219 (zgh 112); restored four unchanged.
+Ledger 19,763. boardHeader.jade renders muted-info and tracking-info in the
+watch menu, alongside already translated watching-info. Preserve never
+notified for this board vs changes on cards involving creator/member.
+
+Cached [IRCAM General Dictionary](https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339):
+p452 entry 8585 explicitly distinguishes ur sar (never in the future) from
+ur jju (never in the past); p155 entry 2866 amsnflul creator/designer/inventor;
+p43 entry 502 agmam member, plural igmamn. Reuse existing notification and
+change terms, not a newly invented participant label. Whole notification
+passive, future-negation placement and card-relative agreement are derived
+low-confidence prose and require full native review. Original watching-info
+reuse is consistency evidence, not independent fluency proof.
+
+Four focused suites pass: notification-scope distinction, rejection of French/
+Arabic and actual watch-menu source references; ledger exact values, tokens,
+examples, key order, idempotency and newer-human preservation; unchanged
+reviews; completeness. No new watch-menu browser execution claimed. Queue
+reduction records French removal, not complete native clause acceptance.
+All prior grammar/restored/uncertain findings remain open. No external
+translation service or remote push.

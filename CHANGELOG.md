@@ -661,6 +661,16 @@ The browser assertion accepts whitespace between the regional flag and name.
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3121eea2f">Replace French Tamazight notification instructions</a>. Thanks to xet7.</summary>
+
+Keep never-for-board muted notifications separate from creator/member card
+tracking notifications. Use IRCAM future negation and participant nouns.
+Four focused suites pass; full passive and relative grammar remain under
+native review. No new browser execution is claimed.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6171a92af">Replace French due reminders with Tamazight drafts</a>. Thanks to xet7.</summary>
 
 Preserve approaching, current and past deadline states and exact activity
