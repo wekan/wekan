@@ -129589,5 +129589,103 @@
     "before": "Annuler",
     "after": "Nullañ",
     "reason": "Repair French-seeded Breton close/open/import/export/view/checklist/attachment controls. Reuse local entity nouns, import/export and cancellation terminology. Native Ofis computing glossary attests serriñ, digeriñ, diskwel, enporzhiañ, dilec’hiañ, eilañ and nullañ. Preserve PDF format and opposite open/close or copy/move actions. Compounds are adapted; native whole-phrase and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "label-create",
+    "before": "Créer une étiquette",
+    "after": "Krouiñ un dikedenn",
+    "reason": "Repair French-seeded Breton creation/movement and related entity labels. Reuse local kartenn, taolenn, bandenn, tikedenn, trevell/is-trevell, kont and no-card terminology; native Ofis computing glossary supports krouiñ, dilec’hiañ and eilañ, and native Kuzul ar Brezhoneg account creation uses Krouiñ ur gont. Preserve opposite top/bottom and copy/move actions and explicitly identify card-to-board creation. Adapted phrase/native browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "linkCardToNewBoard",
+    "before": "Créer un tableau (Kartenn)",
+    "after": "Krouiñ un daolenn diwar ar gartenn-mañ",
+    "reason": "Repair French-seeded Breton creation/movement and related entity labels. Reuse local kartenn, taolenn, bandenn, tikedenn, trevell/is-trevell, kont and no-card terminology; native Ofis computing glossary supports krouiñ, dilec’hiañ and eilañ, and native Kuzul ar Brezhoneg account creation uses Krouiñ ur gont. Preserve opposite top/bottom and copy/move actions and explicitly identify card-to-board creation. Adapted phrase/native browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "moveCardToBottom-title",
+    "before": "Déplacer tout en bas",
+    "after": "Dilec’hiañ d’an traoñ",
+    "reason": "Repair French-seeded Breton creation/movement and related entity labels. Reuse local kartenn, taolenn, bandenn, tikedenn, trevell/is-trevell, kont and no-card terminology; native Ofis computing glossary supports krouiñ, dilec’hiañ and eilañ, and native Kuzul ar Brezhoneg account creation uses Krouiñ ur gont. Preserve opposite top/bottom and copy/move actions and explicitly identify card-to-board creation. Adapted phrase/native browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "moveCardToTop-title",
+    "before": "Déplacer tout en haut",
+    "after": "Dilec’hiañ d’al lein",
+    "reason": "Repair French-seeded Breton creation/movement and related entity labels. Reuse local kartenn, taolenn, bandenn, tikedenn, trevell/is-trevell, kont and no-card terminology; native Ofis computing glossary supports krouiñ, dilec’hiañ and eilañ, and native Kuzul ar Brezhoneg account creation uses Krouiñ ur gont. Preserve opposite top/bottom and copy/move actions and explicitly identify card-to-board creation. Adapted phrase/native browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "r-move-card-to",
+    "before": "Déplacer la carte vers",
+    "after": "Dilec’hiañ ar gartenn da",
+    "reason": "Repair French-seeded Breton creation/movement and related entity labels. Reuse local kartenn, taolenn, bandenn, tikedenn, trevell/is-trevell, kont and no-card terminology; native Ofis computing glossary supports krouiñ, dilec’hiañ and eilañ, and native Kuzul ar Brezhoneg account creation uses Krouiñ ur gont. Preserve opposite top/bottom and copy/move actions and explicitly identify card-to-board creation. Adapted phrase/native browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "r-create-card",
+    "before": "Créer une nouvelle carte",
+    "after": "Krouiñ ur gartenn nevez",
+    "reason": "Repair French-seeded Breton creation/movement and related entity labels. Reuse local kartenn, taolenn, bandenn, tikedenn, trevell/is-trevell, kont and no-card terminology; native Ofis computing glossary supports krouiñ, dilec’hiañ and eilañ, and native Kuzul ar Brezhoneg account creation uses Krouiñ ur gont. Preserve opposite top/bottom and copy/move actions and explicitly identify card-to-board creation. Adapted phrase/native browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "create-task",
+    "before": "Créer une tâche",
+    "after": "Krouiñ un trevell",
+    "reason": "Repair French-seeded Breton creation/movement and related entity labels. Reuse local kartenn, taolenn, bandenn, tikedenn, trevell/is-trevell, kont and no-card terminology; native Ofis computing glossary supports krouiñ, dilec’hiañ and eilañ, and native Kuzul ar Brezhoneg account creation uses Krouiñ ur gont. Preserve opposite top/bottom and copy/move actions and explicitly identify card-to-board creation. Adapted phrase/native browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "move-swimlane",
+    "before": "Déplacer le couloir",
+    "after": "Dilec’hiañ ar vandenn",
+    "reason": "Repair French-seeded Breton creation/movement and related entity labels. Reuse local kartenn, taolenn, bandenn, tikedenn, trevell/is-trevell, kont and no-card terminology; native Ofis computing glossary supports krouiñ, dilec’hiañ and eilañ, and native Kuzul ar Brezhoneg account creation uses Krouiñ ur gont. Preserve opposite top/bottom and copy/move actions and explicitly identify card-to-board creation. Adapted phrase/native browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "create-account",
+    "before": "Créer un compte",
+    "after": "Krouiñ ur gont",
+    "reason": "Repair French-seeded Breton creation/movement and related entity labels. Reuse local kartenn, taolenn, bandenn, tikedenn, trevell/is-trevell, kont and no-card terminology; native Ofis computing glossary supports krouiñ, dilec’hiañ and eilañ, and native Kuzul ar Brezhoneg account creation uses Krouiñ ur gont. Preserve opposite top/bottom and copy/move actions and explicitly identify card-to-board creation. Adapted phrase/native browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "task",
+    "before": "Tâche",
+    "after": "Trevell",
+    "reason": "Repair French-seeded Breton creation/movement and related entity labels. Reuse local kartenn, taolenn, bandenn, tikedenn, trevell/is-trevell, kont and no-card terminology; native Ofis computing glossary supports krouiñ, dilec’hiañ and eilañ, and native Kuzul ar Brezhoneg account creation uses Krouiñ ur gont. Preserve opposite top/bottom and copy/move actions and explicitly identify card-to-board creation. Adapted phrase/native browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "copy-swimlane",
+    "before": "Copie de Couloir",
+    "after": "Eilañ ar vandenn",
+    "reason": "Repair French-seeded Breton creation/movement and related entity labels. Reuse local kartenn, taolenn, bandenn, tikedenn, trevell/is-trevell, kont and no-card terminology; native Ofis computing glossary supports krouiñ, dilec’hiañ and eilañ, and native Kuzul ar Brezhoneg account creation uses Krouiñ ur gont. Preserve opposite top/bottom and copy/move actions and explicitly identify card-to-board creation. Adapted phrase/native browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "accounts",
+    "before": "Comptes",
+    "after": "Kontoù",
+    "reason": "Repair French-seeded Breton creation/movement and related entity labels. Reuse local kartenn, taolenn, bandenn, tikedenn, trevell/is-trevell, kont and no-card terminology; native Ofis computing glossary supports krouiñ, dilec’hiañ and eilañ, and native Kuzul ar Brezhoneg account creation uses Krouiñ ur gont. Preserve opposite top/bottom and copy/move actions and explicitly identify card-to-board creation. Adapted phrase/native browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "export-card-subtasks",
+    "before": "Sous-tâches",
+    "after": "Is-trevelloù",
+    "reason": "Repair French-seeded Breton creation/movement and related entity labels. Reuse local kartenn, taolenn, bandenn, tikedenn, trevell/is-trevell, kont and no-card terminology; native Ofis computing glossary supports krouiñ, dilec’hiañ and eilañ, and native Kuzul ar Brezhoneg account creation uses Krouiñ ur gont. Preserve opposite top/bottom and copy/move actions and explicitly identify card-to-board creation. Adapted phrase/native browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "add-existing-card-as-subtask-empty",
+    "before": "Aucune carte trouvée",
+    "after": "Kartenn ebet kavet",
+    "reason": "Repair French-seeded Breton creation/movement and related entity labels. Reuse local kartenn, taolenn, bandenn, tikedenn, trevell/is-trevell, kont and no-card terminology; native Ofis computing glossary supports krouiñ, dilec’hiañ and eilañ, and native Kuzul ar Brezhoneg account creation uses Krouiñ ur gont. Preserve opposite top/bottom and copy/move actions and explicitly identify card-to-board creation. Adapted phrase/native browser review remains open."
   }
 ]

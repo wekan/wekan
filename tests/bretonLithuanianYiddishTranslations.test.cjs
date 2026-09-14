@@ -79,3 +79,22 @@ for (const key of ['close', 'close-board', 'close-card',
   'moveChecklist', 'copyChecklist', 'attachment-move', 'move-progress-cancel']) {
   assert.doesNotMatch(locales.br[key], /Fermer|Ouvrir|Importer|Exporter|Afficher|Déplacer|Copier|Annuler/);
 }
+
+assert.equal(locales.br['moveCardToBottom-title'], 'Dilec’hiañ d’an traoñ');
+assert.equal(locales.br['moveCardToTop-title'], 'Dilec’hiañ d’al lein');
+assert.notEqual(locales.br['moveCardToBottom-title'], locales.br['moveCardToTop-title']);
+assert.equal(locales.br['linkCardToNewBoard'], 'Krouiñ un daolenn diwar ar gartenn-mañ');
+assert.equal(locales.br['create-account'], 'Krouiñ ur gont');
+assert.equal(locales.br['create-task'], 'Krouiñ un trevell');
+assert.equal(locales.br['task'], 'Trevell');
+assert.equal(locales.br['export-card-subtasks'], locales.br.subtasks);
+assert.equal(locales.br['move-swimlane'], 'Dilec’hiañ ar vandenn');
+assert.equal(locales.br['copy-swimlane'], 'Eilañ ar vandenn');
+assert.notEqual(locales.br['move-swimlane'], locales.br['copy-swimlane']);
+for (const key of ['label-create', 'linkCardToNewBoard',
+  'moveCardToBottom-title', 'moveCardToTop-title', 'r-move-card-to',
+  'r-create-card', 'create-task', 'move-swimlane', 'create-account', 'task',
+  'copy-swimlane', 'accounts', 'export-card-subtasks',
+  'add-existing-card-as-subtask-empty']) {
+  assert.doesNotMatch(locales.br[key], /Créer|Déplacer|Tâche|Couloir|Comptes|Sous-tâches|Aucune carte/);
+}
