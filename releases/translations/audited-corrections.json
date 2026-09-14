@@ -129974,5 +129974,40 @@
     "before": "Erreur serveur",
     "after": "Fazi ar servijer",
     "reason": "Replace French-seeded Breton settings/diagnostic label; native MediaWiki Breton attests email-address and server nouns, existing local anv supplies name; webhook remains literal technical terminology. Compound wording adapted, live contextual validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "optional",
+    "before": "optionnel",
+    "after": "Diret",
+    "reason": "Replace French-seeded Breton settings label; native MediaWiki attests optional diret and display construction da ziskwel, existing locale supplies anv, strollad, klok and berr. Preserve group-name and full/display/short-name distinctions. Adapted compounds, not exact full-phrase native attestation; browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "wip-limit-group-name-placeholder",
+    "before": "Anv (optionnel)",
+    "after": "Anv ar strollad (diret)",
+    "reason": "Replace French-seeded Breton settings label; native MediaWiki attests optional diret and display construction da ziskwel, existing locale supplies anv, strollad, klok and berr. Preserve group-name and full/display/short-name distinctions. Adapted compounds, not exact full-phrase native attestation; browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "fullname",
+    "before": "Nom complet",
+    "after": "Anv klok",
+    "reason": "Replace French-seeded Breton settings label; native MediaWiki attests optional diret and display construction da ziskwel, existing locale supplies anv, strollad, klok and berr. Preserve group-name and full/display/short-name distinctions. Adapted compounds, not exact full-phrase native attestation; browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "displayName",
+    "before": "Nom d'Affichage",
+    "after": "Anv da ziskwel",
+    "reason": "Replace French-seeded Breton settings label; native MediaWiki attests optional diret and display construction da ziskwel, existing locale supplies anv, strollad, klok and berr. Preserve group-name and full/display/short-name distinctions. Adapted compounds, not exact full-phrase native attestation; browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "shortName",
+    "before": "Nom Court",
+    "after": "Anv berr",
+    "reason": "Replace French-seeded Breton settings label; native MediaWiki attests optional diret and display construction da ziskwel, existing locale supplies anv, strollad, klok and berr. Preserve group-name and full/display/short-name distinctions. Adapted compounds, not exact full-phrase native attestation; browser review remains open."
   }
 ]

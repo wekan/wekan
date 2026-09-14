@@ -23,6 +23,16 @@ for (const language of ['br', 'lt', 'yi']) {
 }
 
 assert.equal(locales.br['select-none'], 'Na ziuz hini ebet');
+assert.equal(locales.br.optional, 'Diret');
+assert.equal(locales.br['wip-limit-group-name-placeholder'], 'Anv ar strollad (diret)');
+assert.equal(locales.br.fullname, 'Anv klok');
+assert.equal(locales.br.displayName, 'Anv da ziskwel');
+assert.equal(locales.br.shortName, 'Anv berr');
+assert.equal(new Set([locales.br.fullname, locales.br.displayName, locales.br.shortName]).size, 3);
+for (const key of ['optional', 'wip-limit-group-name-placeholder',
+  'fullname', 'displayName', 'shortName']) {
+  assert.doesNotMatch(locales.br[key], /optionnel|Nom complet|Nom Court|Affichage/);
+}
 assert.equal(locales.br['email-address'], 'Chomlec’h postel');
 assert.equal(locales.br['webhook-title'], 'Anv ar webhook');
 assert.equal(locales.br['server-error'], 'Fazi ar servijer');
