@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight filter labels and status — 2026-09-14
+
+Commit `5da9a2084` replaces seven Arabic/French values, two original findings and five unflagged values. Preserve membership versus responsibility assignment, No member/No assignee negation, Other filters, active-filter status and You filtering this board plus Click here to edit. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) supplies No, Given, Edit and Here components. Assignee provisionally uses Person given the card; membership uses the separate member noun. Local Filter/Card/Member reuse is not independent validation. Derived member bound forms, assignment adaptation, active/working and second-person forms, Other plural adjective and complete clauses remain LOW CONFIDENCE for native review. Two originals repaired; 423 remain pending, including 288 Tamazight. 17,904 mechanical correction checks pass; no live browser verification or remote uploads.
+
 ## Tamazight time-tracking labels — 2026-09-14
 
 Commit `9f60960f4` replaces five Arabic/French values: two original findings and three unflagged labels. Card details uses separate hours fields; boards-list tooltips distinguish Has overtime cards from Has spent-time cards. [CLDR native locale](https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml) directly attests singular Hour in `dates/fields/hour`, not the derived plural. Spent provisionally uses Used time; Overtime uses Additional time. These semantic adaptations, derived passive/plural forms, reused Additional vocabulary and Has constructions remain LOW CONFIDENCE, requiring native validation. Neither CLDR nor source-code scope checks attest the whole phrases. Spent/overtime and card-presence scopes and parentheses are preserved. 425 originals remain pending, including 290 Tamazight. 17,897 mechanical correction checks pass; no live browser verification or remote uploads.
