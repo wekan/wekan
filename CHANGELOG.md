@@ -53,6 +53,16 @@ https://wekan.fi/status/
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bdf511a2b">Keep RTL language marker on the first line</a>. Thanks to xet7.</summary>
+
+The language picker shows (RTL) beside the language name without splitting
+its letters. The parenthesized regional name stays on the second line.
+Focused layout checks pass; both-direction browser coverage is syntax checked
+but remains unexecuted.
+
+</details>
+
+<details>
 <summary>TODO Later</summary>
 
 <details>
