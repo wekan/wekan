@@ -10,7 +10,12 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Pending review or repair | 283 |
 | Total tracked | 20,081 |
 
-Review is ongoing. [Basque rule review](Basque-Review.md) records native
+Review is ongoing. [Tigre/Wolaytta calendar review](Tigre-Wolaytta-Calendar-Review.md)
+records a Tigrinya provenance warning for the Tigre base noun and an additional
+untranslated Wolaytta calendar key. Both require native terminology evidence;
+no finding was accepted and counts are unchanged.
+
+[Basque rule review](Basque-Review.md) records native
 completion/negation evidence (local commit `c4db1c19c`) and a runtime predicate
 mismatch. The named incomplete clause remains open; the completed predicate is retained
 with native software usage. No finding was accepted from spelling alone.

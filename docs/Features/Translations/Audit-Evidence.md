@@ -24211,3 +24211,13 @@ all 18,687 corrections, 4,171 unchanged reviews and 234-locale completeness
 pass. Original counts: 15,618 corrected, 9 restored, 4,171 retained, 283 pending.
 Full native naming and browser review remain open; no other qualifier or
 calendar-system heading is accepted from the generic noun alone.
+
+## Tigre/Wolaytta calendar provenance review, 2026-09-14
+
+[Tigre/Wolaytta review](Tigre-Wolaytta-Calendar-Review.md) records the exact
+local Tigre noun in an explicitly Tigrinya primary publication. This is a
+source-language warning, not proof that shared vocabulary is impossible.
+CLDR Tigre formatting data does not supply native calendar-system names.
+The unflagged Wolaytta calendar noun remains English with a language prefix.
+Independent native terminology is required before composing full labels.
+No values or classifications changed; all 34 original findings stay pending.
