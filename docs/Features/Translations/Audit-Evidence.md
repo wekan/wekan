@@ -24254,3 +24254,13 @@ Focused exact values, direction distinction, extra-copula negatives and
 actual mapping checks pass, with all 4,173 unchanged reviews and 234-locale
 completeness. Browser and broader style review remain open. Counts are
 15,618 corrected, 7 restored, 4,173 retained and 283 pending; 18,692 corrections.
+
+## Basque generic member/attachment subjects retained, 2026-09-14
+
+Local commit `946e1a29b` retains two restored subjects with native noun
+and contextual grammar evidence recorded in [Basque review](Basque-Review.md).
+Both add/remove control compositions, copula negatives and actual row wiring
+checks pass, with all 4,175 unchanged reviews and 234-locale completeness.
+No translations change. Browser and named-subject review remain open.
+Counts: 15,618 corrected, 5 restored, 4,175 retained and 283 pending.
+Correction ledger remains 18,692 entries.

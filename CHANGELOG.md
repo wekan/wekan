@@ -653,6 +653,8 @@ verification remain open.
 
 This release documents the following translation fixes:
 
+**Translation audit** - Native wording and provenance reviews.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5da10eee5">Review Tigre and Wolaytta calendar provenance</a>. Thanks to xet7.</summary>
 
@@ -691,6 +693,16 @@ Restored destination/origin wording is retained after native terminology and
 actual rule control/handler review. Direction mappings, restored values and
 extra-copula negative checks pass, with review and completeness suites.
 Two restored findings are resolved; broader style and browser review stay open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/946e1a29b">Retain Basque member and attachment subjects</a>. Thanks to xet7.</summary>
+
+Correct restored generic subjects are retained after native terminology and
+both add/remove rule control labels were reviewed. Subject/composition,
+extra-copula negative and wiring checks pass, with review/completeness suites.
+Two restored findings are resolved; named-subject and browser review stay open.
 
 </details>
 

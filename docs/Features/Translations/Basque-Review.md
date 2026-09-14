@@ -153,7 +153,7 @@ acceptance is limited to these directional fragments, not other named subjects.
 All 4,173 unchanged reviews and 234-locale completeness pass. Two restored
 findings are retained; 7 restored and 283 pending findings remain overall.
 
-## 2026-09-14 — Generic member and attachment subjects retained
+## 2026-09-14 — Generic member and attachment subjects retained (946e1a29b)
 
 Restored `r-when-a-member` = Kide bat and `r-when-a-attach` = Eranskin bat
 are retained. The generic rows use an indefinite singular subject followed
@@ -174,3 +174,6 @@ Its untranslated English instructions are not native terminology evidence.
 Exact subjects, both assembled action labels, copula negatives and actual
 row wiring checks pass. Browser and broader style review remain open.
 No translations change; two restored findings are retained.
+
+All 4,175 unchanged reviews and 234-locale completeness pass. Counts now
+stand at 283 pending and 5 restored findings overall.
