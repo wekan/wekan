@@ -793,3 +793,20 @@ this complete software sentence. Four focused checks pass; no browser
 validation was run. Recount: 15,636 corrected, 266 pending (153 Tamazight),
 four restored, 4,175 retained and 18,733 correction records. The prior
 pending note is historical; full native validation remains open.
+
+## SMTP host label and port review — 2026-09-14
+
+Local commit `eb710395b` repairs unflagged Arabic smtp-host with the
+explicit computer-server compound from IRCAM 2019 PDF page 120 entry
+2157. SMTP is preserved; actual settingBody.jade host input is distinct
+from the adjacent port input. Four focused translation checks pass.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+The related smtp-port-description remains pending. Primary PDF page 530
+entry 9981 attests use/exploit; page 524 entry 9873 attests send/ship.
+Page 513 entry 9685 specifically use land is not the preferred bare
+software-use verb. These do not establish a networking-port noun or
+complete outgoing-email sentence. smtp-port remains Arabic and needs a
+separate direct repair; no port acceptance is recorded. Host-label repair
+increases correction records to 18,734 but leaves 266 original findings
+pending. Full native/browser validation remains open.

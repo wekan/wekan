@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/eb710395b">Repair Tamazight SMTP host label</a>. Thanks to xet7.</summary>
+
+Replace Arabic with the attested computer-server compound, preserving SMTP.
+Four focused checks pass. Port terminology remains open; dated audit keeps
+266 original pending findings and broader native/browser validation work.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/584dbfc7c">Repair Tamazight SMTP host description</a>. Thanks to xet7.</summary>
 
 Replace French with server-address and electronic-correspondence wording,
