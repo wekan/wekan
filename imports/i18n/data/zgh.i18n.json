@@ -1853,7 +1853,7 @@
   "map-region-asia": "ⴰⵙⵢⴰ",
   "map-provider-saved": "ⴰⵎⴻⵥⵍⵓ ⴰⵎⵣⵡⴻⵔ ⵏ ⵜⴽⴰⵔⴹⴰ ⵢⴻⵜⵜⵡⴰⵃⵔⴻⵣ.",
   "server-error": "ⴰⵣⴳⴰⵍ ⵏ ⵓⵎⵙⵙⵉⴹⵏ",
-  "server-error-troubleshooting": "Merci de soumettre l'erreur générée par le serveur. Pour une installation snap, lancer `sudo snap logs wekan.wekan`. Pour une installation docker, lancer `sudo docker logs wekan-app`",
+  "server-error-troubleshooting": "ⴰⵎⵓⵔ ⵏⵏⴽ, ⴰⵣⵏ ⴰⵣⴳⴰⵍ ⵍⵍⵉ ⵉⵙⴽⵔ ⵓⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ.\nⵉ ⵓⵙⵔⵓⵙ ⵏ snap, ⵙⵙⵎⵔⵙ: `sudo snap logs wekan.wekan`\nⵉ ⵓⵙⵔⵓⵙ ⵏ Docker, ⵙⵙⵎⵔⵙ: `sudo docker logs wekan-app`",
   "title-alphabetically": "Titre (Alphabétiquement)",
   "created-at-newest-first": "ⴰⵙⴰⴽⵓⴷ ⵏ ⵓⵙⵏⴼⵍⵓⵍ (ⴰⵎⴰⵢⵏⵓ ⴰⵎⵣⵡⴰⵔⵓ)",
   "created-at-oldest-first": "ⴰⵙⴰⴽⵓⴷ ⵏ ⵓⵙⵏⴼⵍⵓⵍ (ⴰⵇⴱⵓⵔ ⴰⵎⵣⵡⴰⵔⵓ)",

@@ -84,3 +84,16 @@ const informationTemplate = fs.readFileSync(path.join(ROOT,
   'client/components/settings/informationBody.jade'), 'utf8');
 assert.match(informationTemplate, /OS_Arch[^\n]*\n\s+td {{statistics\.os\.arch}}/);
 console.log('Tamazight architecture remains distinct from OS type and platform');
+
+const troubleshooting = translated['server-error-troubleshooting'];
+const commands = value => [...value.matchAll(/`([^`]+)`/g)].map(match => match[1]);
+assert.deepStrictEqual(commands(troubleshooting), commands(english['server-error-troubleshooting']));
+assert.strictEqual(troubleshooting.split('\n').length, 3);
+assert.match(troubleshooting.split('\n')[0], /ⴰⵣⵏ.*ⴰⵣⴳⴰⵍ.*ⵓⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ/);
+assert.match(troubleshooting.split('\n')[1], /ⵓⵙⵔⵓⵙ.*snap.*`sudo snap logs wekan\.wekan`/);
+assert.match(troubleshooting.split('\n')[2], /ⵓⵙⵔⵓⵙ.*Docker.*`sudo docker logs wekan-app`/);
+assert.doesNotMatch(troubleshooting, /Merci|soumettre|erreur|serveur|installation|lancer|[\u0600-\u06ff]/u);
+const searchTemplate = fs.readFileSync(path.join(ROOT,
+  'client/components/main/globalSearch.jade'), 'utf8');
+assert.match(searchTemplate, /{{_ 'server-error-troubleshooting' }}/);
+console.log('Tamazight troubleshooting preserves exact commands and distinct installation instructions');

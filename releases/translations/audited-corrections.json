@@ -131927,5 +131927,12 @@
     "before": "معمارية نظام التشغيل",
     "after": "OS: ⵜⴰⵎⵙⴷⴰⴳⵜ",
     "reason": "2026-09-14: Replace Arabic architecture label with IRCAM General Dictionary native tamsdagt, page 604 entry 11323, also attested in modular architecture. Actual statistics uses os.arch(), the CPU architecture for which Node was compiled, separately from OS type/platform. Low confidence: computing CPU-architecture specialization needs native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "server-error-troubleshooting",
+    "before": "Merci de soumettre l'erreur générée par le serveur. Pour une installation snap, lancer `sudo snap logs wekan.wekan`. Pour une installation docker, lancer `sudo docker logs wekan-app`",
+    "after": "ⴰⵎⵓⵔ ⵏⵏⴽ, ⴰⵣⵏ ⴰⵣⴳⴰⵍ ⵍⵍⵉ ⵉⵙⴽⵔ ⵓⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ.\nⵉ ⵓⵙⵔⵓⵙ ⵏ snap, ⵙⵙⵎⵔⵙ: `sudo snap logs wekan.wekan`\nⵉ ⵓⵙⵔⵓⵙ ⵏ Docker, ⵙⵙⵎⵔⵙ: `sudo docker logs wekan-app`",
+    "reason": "2026-09-14: Replace full French server troubleshooting message with Tamazight draft. Native MediaWiki attests please, send, error and use; IRCAM dictionary page 120 entry 2157 attests computer server, page 246 entry 4749 installation/asrus. Keep exact Snap/Docker commands and restore separate instruction lines from English. Low confidence: full relative-clause grammar and computing instruction collocations require native review."
   }
 ]
