@@ -770,6 +770,24 @@ Thanks to Wenhao Wu, Southeast University and xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c50d7b4ea">Authorize subtask deposit content and destination writes</a></summary>
+
+SubtaskDepositBleed: an arbitrary deposit pointer disclosed private board
+content and allowed unauthorized subtask inserts (CWE-639). Source scopes
+exclude foreign pointers and null IDs. Deposit content now follows its own
+reactive board visibility check and destination assignment restrictions.
+Assigned-card children follow reactive card cursors; status counts use
+visible assigned scopes. Destination write checks precede landing structures
+and pointer changes, including a client rename bypass. Denied writes appear
+in bounded Problems summaries. Normal filtered reads are not attack events.
+Decision/scope and existing subtask/status tests pass. Browser regression is
+syntax-checked; live revocation and DDP execution remain pending.
+
+Thanks to Wenhao Wu, Southeast University and xet7 !
+
+</details>
+
 **Translations** - Tamazight interface and maintenance labels; Bambara, Fulah, Dzongkha and Ewe calendars.
 
 <details>
