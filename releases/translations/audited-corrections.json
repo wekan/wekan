@@ -126873,5 +126873,19 @@
     "before": "سوف تصبح هذه اللوحة <strong>خاصة</strong>",
     "after": "ⵜⴰⴼⵍⵡⵉⵜ ⴰⴷ ⵔⴰ ⴰⴷ ⵜⵉⵍⵉ <strong>ⵜⵓⵙⵍⵉⴳⵜ</strong>.",
     "reason": "2026-09-14: Replace Arabic visibility notice with Tamazight, retaining future state, this board and exact strong tags. Existing public agdudan and private uslig adapted to feminine tafelwit; full future construction and agreement remain low confidence pending fluent review. Native HACA public-sector terminology supports agdudan; native institutional texts support feminine public adjective. Sources: https://www.haca.ma/tf/%E2%B5%89%E2%B4%B3%E2%B5%94-%E2%B4%B0%E2%B4%B3%E2%B4%B7%E2%B5%93%E2%B4%B7%E2%B4%B0%E2%B5%8F ; https://www.haca.ma/sites/default/files/upload/Rapport_Haca%202023_TIFINAGH_Web.pdf . Indexed institutional evidence is terminology support, not direct verification of the complete WeKan sentence."
+  },
+  {
+    "locale": "zgh",
+    "key": "parent-card",
+    "before": "Carte parente",
+    "after": "ⵜⴰⴽⴰⵔⴹⴰ ⵏ ⵓⵎⴰⵔⴰⵡ",
+    "reason": "2026-09-14: Replace French parent display wording with Tamazight. MediaWiki rcfilters-activefilters-hide directly supplies ssntl Hide. Parent amaraw is supported by indexed IRCAM General Dictionary and Central Atlas dictionary reference; existing Takarḍa supplies Card. no-parent selects display mode in cardDetails.js, not relationship deletion. Compound and bound-state adaptation remain low confidence pending fluent review. Sources: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339 . IRCAM entry is indexed evidence, not a directly inspected page."
+  },
+  {
+    "locale": "zgh",
+    "key": "no-parent",
+    "before": "Ne pas afficher le parent",
+    "after": "ⵙⵙⵏⵜⵍ ⴰⵎⴰⵔⴰⵡ",
+    "reason": "2026-09-14: Replace French parent display wording with Tamazight. MediaWiki rcfilters-activefilters-hide directly supplies ssntl Hide. Parent amaraw is supported by indexed IRCAM General Dictionary and Central Atlas dictionary reference; existing Takarḍa supplies Card. no-parent selects display mode in cardDetails.js, not relationship deletion. Compound and bound-state adaptation remain low confidence pending fluent review. Sources: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339 . IRCAM entry is indexed evidence, not a directly inspected page."
   }
 ]
