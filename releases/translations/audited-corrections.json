@@ -124878,5 +124878,12 @@
     "before": "Supprimer la checklist",
     "after": "ⴽⴽⵙ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
     "reason": "2026-09-14: Replace French rule action preserving Add versus Remove of whole checklist. Native MediaWiki delete/skin-action-delete supplies kks for deletion and Mastodon account.add_or_remove_from_list rnu for Add. Proposed List of Verification wording matches repaired controls but derived noun ussidd and complete checklist paraphrase remain LOW CONFIDENCE for fluent Standard Moroccan review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json and https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "checklist-count",
+    "before": "ⴰⵎⴹⴰⵏ ⵏ ⵉⴼⴻⵔⴷⵉⵙⴻⵏ ⵏ ⵓⵎⵓⵖ ⵏ ⵓⵙⴻⵏⵇⴻⴷ (0/0)",
+    "after": "ⵓⵟⵟⵓⵏ ⵏ ⵉⴼⵔⴷⵉⵙⵏ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ (0/0)",
+    "reason": "2026-09-14: Align checklist item count with native MediaWiki pageinfo-watchers u ttun Count and transaction-duration-limit-exceeded ifrdisn Elements rather than divergent seeded noun spellings. Preserve literal (0/0) unchanged and plural counted items. Proposed checklist List of Verification noun ussidd and complete noun chain remain LOW CONFIDENCE for fluent Standard Moroccan review; native count/item components do not independently attest the complete checklist term. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
