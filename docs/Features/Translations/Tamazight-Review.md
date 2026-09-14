@@ -279,3 +279,27 @@ names, so the existence of the translation key alone does not prove this
 label is actually rendered in the live popup; integration/browser review
 remains open. Classifying the original French value as corrected does not
 close these uncertainty and rendering requirements.
+
+## Progress label integration traced — 2026-09-14
+
+The integration gap is confirmed from current source, rather than inferred
+from an absent browser. `migrationProgress.js`'s `stepNameFormatted` reads
+the reactive step ID, splits underscores and capitalizes words; it never
+requests a `step-*` translation. `attachments.js`'s current database dashboard
+sends `repair_board_data` and `copy_collections`. Neither has a corresponding
+English translation key. Therefore translating a legacy `step-*` value alone
+does not translate these active progress labels.
+
+No current source reference to the legacy orphaned-card step ID was found.
+`tests/obsoleteBoardMigrationsRemoved.test.cjs` explains why comprehensive
+board migrations were removed: they recreated obsolete per-swimlane lists
+and moved cards. They must not be restored to make a translation reachable.
+The dictionary-based legacy repair remains tracked as an adapted phrase,
+but has no proved live display requirement in the current interface.
+
+Next integration work needs new accurately scoped labels for the two active
+database stages, translations for all locales, and a reactive helper using
+those labels while preserving sensible unknown-stage fallback. Existing
+`migration-progress-note` is independently rendered and does not solve the
+step-ID gap. No runtime code or translation value changed in this review.
+Counts remain 281 pending and 4 restored; native phrase review stays open.
