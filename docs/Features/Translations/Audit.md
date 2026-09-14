@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,201 |
+| Corrected | 15,204 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 643 |
+| Pending review or repair | 640 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,435** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,440** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `2b8a46564` — repaired four French search instructions and the unflagged Arabic Creator label. Preserve member versus creator scope, board versus list title matching, repeated descriptive examples and every executable operator token. Native references support creator, username, matching and specified-title components; complete relative clauses, derived plurals, agreement and possessives remain **low confidence** pending review. All **17,435** correction/rendering checks pass. **643** originals remain pending across **17** locales, including **500** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `b840c7eab` — repaired three French comment/label search instructions and two unflagged Text/label values. Preserve comment containment, color-or-name alternatives and expanded/abbreviated operator syntax. Native MediaWiki supports text, tag, name, color and containing/matching components; derived nouns, agreement and complete search phrases remain **low confidence** pending review. All **17,440** correction/rendering checks pass. **640** originals remain pending across **17** locales, including **497** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Color-name reference review (2026-09-14):** Sardinian and Aromanian `color-magenta` remain pending. Searches did not establish native usage; Italian publications and English WordPress changelogs are insufficient. The [Vrabie English–Aromanian dictionary](https://s3.wasabisys.com/fars-media/wp-content/uploads/2020/07/An-English-Aromanian-Macedo-Romanian-Dictionary-%C2%A9Society-Farsharotu-1.pdf) has poor OCR and no searchable magenta/fuchsia entry, which does not prove absence. Further review needs a legible dictionary entry or native usage; neither color value was changed or accepted as verified.
 
