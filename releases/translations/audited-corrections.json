@@ -128861,5 +128861,75 @@
     "before": "Mot de passe oublié",
     "after": "Ger-tremen ankouaet",
     "reason": "Replace French account controls with Breton, reusing existing Kevreañ, Anv implijer and Ger-tremen. Full native account phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "private",
+    "before": "Privé",
+    "after": "Prevez",
+    "reason": "Repair French/misnamed Breton board/filter controls using existing prevez, titl, sil, rolloù goullo and tikedenn terminology. Full native phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "board-private-info",
+    "before": "Ce tableau sera <strong>privé</strong>",
+    "after": "<strong>Prevez</strong> e vo an daolenn-mañ.",
+    "reason": "Repair French/misnamed Breton board/filter controls using existing prevez, titl, sil, rolloù goullo and tikedenn terminology. Full native phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "board-title",
+    "before": "Titre du tableau",
+    "after": "Titl an daolenn",
+    "reason": "Repair French/misnamed Breton board/filter controls using existing prevez, titl, sil, rolloù goullo and tikedenn terminology. Full native phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "title",
+    "before": "Titre",
+    "after": "Titl",
+    "reason": "Repair French/misnamed Breton board/filter controls using existing prevez, titl, sil, rolloù goullo and tikedenn terminology. Full native phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "filter-overdue",
+    "before": "Échue",
+    "after": "Termen tremenet",
+    "reason": "Repair French/misnamed Breton board/filter controls using existing prevez, titl, sil, rolloù goullo and tikedenn terminology. Full native phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "filter-clear",
+    "before": "Supprimer les filtres",
+    "after": "Riñsañ ar sil",
+    "reason": "Repair French/misnamed Breton board/filter controls using existing prevez, titl, sil, rolloù goullo and tikedenn terminology. Full native phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "filter-no-label",
+    "before": "Aucune étiquette",
+    "after": "Tikedenn ebet",
+    "reason": "Repair French/misnamed Breton board/filter controls using existing prevez, titl, sil, rolloù goullo and tikedenn terminology. Full native phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "filter-hide-empty",
+    "before": "Cacher les listes vides",
+    "after": "Kuzhat ar rolloù goullo",
+    "reason": "Repair French/misnamed Breton board/filter controls using existing prevez, titl, sil, rolloù goullo and tikedenn terminology. Full native phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "filter-on",
+    "before": "Le filtre est actif",
+    "after": "Gweredekaet eo ar sil",
+    "reason": "Repair French/misnamed Breton board/filter controls using existing prevez, titl, sil, rolloù goullo and tikedenn terminology. Full native phrase/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "filter-label-excluded",
+    "before": "O tilemel al liñvel-mañ",
+    "after": "O tilemel an dikedenn-mañ",
+    "reason": "Repair French/misnamed Breton board/filter controls using existing prevez, titl, sil, rolloù goullo and tikedenn terminology. Full native phrase/browser validation remains open."
   }
 ]
