@@ -27,10 +27,10 @@ repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
-Latest terminology review: **2026-09-14**, `bc406fcae` — IRCAM-hosted
-Taifi syntax research supports prepositional possession in the domain-label
-draft. Plural relative grammar and complete wording remain unverified.
-See [Tamazight review](Tamazight-Review.md).
+Latest terminology review: **2026-09-14**, `44cb2f6ca` — primary
+Barakate relative-marker and Taifi possession evidence is now attached to
+the domain-label correction record. Whole plural syntax remains uncertain;
+locale values and counts are unchanged. See [Tamazight review](Tamazight-Review.md).
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

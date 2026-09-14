@@ -1536,3 +1536,16 @@ page text inspected locally after the web viewer rejected its size.
 Social-media search snippets were not used as grammar proof. No locale
 value or pending count changes; this review strengthens specific evidence
 without claiming native acceptance.
+
+Relative clause provenance — 2026-09-14, `44cb2f6ca`.
+Faits de syntaxe amazighe, Ali Barakate, relative-clause standardization
+study, PDF 22–25 (printed 21–24), documents lli as a relative marker
+with variation among dialects. Primary source:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=216
+This evidence is appended directly to the automatic-addition correction
+record, preserving its original before/after values. Taifi possession
+evidence remains restricted to the inspected singular examples. No exact
+ghursn match was located in the extracted text; this is not proof of
+absence. Whole plural relative syntax and standard wording remain open.
+The correction-ledger regression passes for all 18,796 records. No locale
+values, corrected counts or pending counts change in this review.

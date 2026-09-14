@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/44cb2f6ca">Strengthen domain-label grammar provenance</a>. Thanks to xet7.</summary>
+
+Attach primary relative-marker and possession studies to the correction
+record while preserving values and plural-clause uncertainty. The full
+correction-ledger regression passes; no new repair is counted.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/bc406fcae">Review domain-label possession syntax</a>. Thanks to xet7.</summary>
 
 Record primary Amazigh grammar evidence for possession constructions.
