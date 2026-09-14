@@ -369,7 +369,13 @@ export default class LDAP {
   getUserFilter(username) {
     const filter = [];
 
-    if (this.options.User_Search_Filter !== '') {
+    // The optional filter may be unset, especially in snap configurations.
+    // Binding succeeds before this method runs; indexing undefined made the
+    // subsequent search look like a bind failure (#6692).
+    if (this.options.User_Search_Filter != null && this.options.User_Search_Filter !== '') {
+      if (typeof this.options.User_Search_Filter !== 'string') {
+        throw new Error('LDAP_USER_SEARCH_FILTER must be a string');
+      }
       if (this.options.User_Search_Filter[0] === '(') {
         filter.push(`${this.options.User_Search_Filter}`);
       } else {
