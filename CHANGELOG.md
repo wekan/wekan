@@ -1323,6 +1323,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/81c17c196">Fix Veps never-synced state with native adverb</a></summary>
+
+Use the directly attested native never adverb, keeping it distinct from
+failed synchronization. Four focused test files pass. Remaining wording
+repairs stay open in the dated translation audit.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

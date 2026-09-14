@@ -650,3 +650,22 @@ Remaining sync block includes description, not-synced, project-key label
 and never. The description must preserve external tracker, background
 15-minute checks and immediate Sync now. Other wrong-language 2FA values
 and prior low-confidence complete grammar remain within the audit scope.
+
+
+2026-09-15 — `81c17c196`: list-sync-last-synced-never wrong-language
+value replaced with Nikonz. Primary ELDIA Veps case-specific report, printed
+page 89/PDF page 97 (zero-based P96 in web extraction), directly pairs
+standalone nikonz with Never in a native interview response. Read today:
+https://phaidra.univie.ac.at/detail/o:315545.pdf
+This supplies the actual adverb and standalone response, not a generated
+form. Preserve never-synced as distinct from a failed synchronization.
+Four focused files pass (24 checks), including exact adverb, negative
+Tshivenda and full placeholder/key-order inventories. No live sync UI test
+ran. Ledger 19,921; original pending 126 (Veps 8), restored 4 unchanged.
+Never candidate lookup is resolved for this label. Remaining block includes
+not-synced, project-key label and the complete 15-minute background versus
+immediate-check description. Native MediaWiki nstab-project and existing
+gcs-project-id support Projektan, but door-key avadim does not independently
+attest a software project key. Do not mechanically replace key with ID
+without reviewing the accepted tracker identifier. Full native grammar
+and other additional wrong-language values remain within the audit scope.
