@@ -127405,5 +127405,12 @@
     "before": "Marcar o cartão como incompleto",
     "after": "Marcar a tarxeta como incompleta",
     "reason": "Unflagged Portuguese cartão and masculine completo/incompleto replaced with Galician tarxeta and agreeing feminine completa/incompleta; card action templates establish mark-card action context."
+  },
+  {
+    "locale": "gv",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Feaillere Coptagh",
+    "reason": "English-only Coptic placeholder replaced with Manx calendar noun feaillere, attested in archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/dict/C.html, and provisional coined adjective Coptagh following existing -agh calendar adjectives. No dictionary attestation found for Coptagh; low-confidence native-speaker terminology review remains open."
   }
 ]

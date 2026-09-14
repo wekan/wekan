@@ -8,3 +8,8 @@ assert.equal(data['calendar-system-islamic-tbla'], 'Feaillere Hijri (taablagh, d
 assert.notEqual(data['calendar-system-islamic-civil'], data['calendar-system-islamic-tbla']);
 for (const key of ['calendar-system-islamic-civil', 'calendar-system-islamic-tbla']) assert.doesNotMatch(data[key], /Islamic civil|Islamic tabular/);
 console.log('manxCalendarEpochs: tabular variants retain distinct civil and astronomical starting dates');
+
+// Coptic must identify a calendar rather than leave the English-only placeholder.
+// Coptagh is provisional terminology, so this verifies the repair, not fluency.
+assert.equal(data['calendar-system-coptic'], 'Feaillere Coptagh');
+assert.notEqual(data['calendar-system-coptic'], 'Coptic');
