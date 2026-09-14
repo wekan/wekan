@@ -351,3 +351,19 @@ Fourteen tests across four files pass for exact values, placeholders and
 preference. Ledger 18,830; original pending 232 unchanged. Native/browser
 verification remains open. A bounded primary dictionary search did not
 establish keyboard/shortcut terminology; it is not absence proof.
+
+
+Link action repair **2026-09-14**, local commit `3f8363836`:
+Unflagged Veps `link` changes Finnish **Linkitä** to **Ližada tarkenduz**.
+Native MediaWiki `create-local` supplies Ližada (add), while `nlinks`
+supplies singular tarkenduz (link). Actual listBody.jade and listBody.js
+use this action to create linked card/board relations. A bare noun would
+lose the action; the draft keeps both addition and relation concepts.
+Low confidence: assembled imperative/object grammar and relation terminology
+need native review. This is a direct draft, not a claimed human translation.
+All four affected suites pass, including tokens, key order and newer
+translation preference. Ledger 18,832; pending 232/restored 4 unchanged.
+Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+Further evidence: `http-invalid-scheme` supplies native URL-scheme wording
+and `lineno` supplies rivi (line), but those components alone do not verify
+the full automatic-clickability and one-scheme-per-line instructions.

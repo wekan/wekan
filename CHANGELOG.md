@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3f8363836">Replace Finnish wording in the Veps Link action</a>. Thanks to xet7.</summary>
+
+A Veps draft now describes adding a link instead of using Finnish. Native
+component terms and linked-card/board action scope are checked. Grammar
+remains low confidence in the dated audit. Locale and placeholder tests
+pass; original pending counts are unchanged.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c9005ee0a">Verify Basque rule grammar in the browser</a>. Thanks to xet7.</summary>
 
 Correct test ownership and login/navigation setup allow the browser test

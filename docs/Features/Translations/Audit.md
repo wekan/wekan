@@ -16,13 +16,13 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `486be5743` —
-Basque assignee rule subject corrected from imperative to noun phrase.
-Checks pass; named-row composition/browser review remains open. Original
-pending 232 and restored 4 unchanged; ledger 18,831.
+Latest translation fix: **2026-09-14**, local commit `3f8363836` —
+Veps Link action replaces Finnish with a Veps draft. Native component
+wording and action scope checked; full grammar remains low confidence.
+Four affected suites pass. Pending 232 and restored 4 unchanged; ledger 18,832.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,831** exact before/after values, including unflagged
+records contain **18,832** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
