@@ -24051,3 +24051,17 @@ opposing action titles. Checks preserve direction and level/prompt consistency.
 All 18,654 corrections, 4,170 retained reviews and 234-locale structural
 completeness pass. Counts remain 288 pending and 11 restored. Broader native
 phrase and browser verification remain open.
+
+### 2026-09-14 — Breton currency labels (f9e3111b0)
+
+Unflagged custom-field-currency Devise becomes Moneiz, and
+custom-field-currency-option Code devise becomes Kod moneiz. The native
+[moneiz dictionary entry](https://niverel.brezhoneg.bzh/br/meurgorf/21729)
+explicitly includes a country's unit of value, beyond coins/cash. Kod is
+existing native software code vocabulary; the complete code phrase is
+adapted, not an exact dictionary quotation. The actual field settings store
+currencyCode separately from the field's monetary value. Checks preserve
+that distinction and exclude French labels. All 18,656 corrections, 4,170
+retained reviews and 234-locale structural completeness pass. Counts remain
+288 pending and 11 restored. Broader compound and live browser review remain
+open; no unverified string-template replacement was made in this review.
