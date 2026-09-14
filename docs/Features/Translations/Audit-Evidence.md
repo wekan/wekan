@@ -25431,3 +25431,16 @@ reused. activities.jade passes activityValue(customField), so the lone
 that inventory and reject Arabic prose; four suites pass. Low confidence:
 finite-verb morphology and full activity fragment. Browser not run.
 Original pending remains 258; correction ledger grows to 18,759.
+
+
+Tamazight exceeded WIP — 2026-09-14, local commit `fc73c77eb`.
+wipLimitErrorPopup-dialog-pt1 French becomes Tamazight with task count,
+this list, greater-than WIP limit and user-defined qualifier preserved.
+IRCAM PDF 270 entry 5271 supplies limit/construct, PDF 444 entry 8404
+more than, PDF 508 entry 9575 define. Actual exceededWipLimit uses
+strict value < count; reachedWipLimit separately uses <=. Regression
+checks retain the comparison and defining qualifier, reject French, and
+four suites pass with exact token/human-preference preservation. Low
+confidence: second-person defining form and complete comparative relative
+clause; browser not run. Original pending 258 → 257, Tamazight 145 → 144;
+correction ledger grows to 18,760.

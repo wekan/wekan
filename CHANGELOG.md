@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/fc73c77eb">Repair Tamazight exceeded WIP warning</a>. Thanks to xet7.</summary>
+
+Replace French with native task-count and user-defined limit wording.
+Checks retain the greater-than comparison. Four suites pass; full native
+comparative grammar and browser review remain open. Pending: 257.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b2f574536">Repair Tamazight custom-field creation activity</a>. Thanks to xet7.</summary>
 
 Replace Arabic activity prose with Tamazight creation wording, preserving
