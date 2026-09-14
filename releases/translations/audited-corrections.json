@@ -139452,5 +139452,12 @@
     "before": "A yo ngo vhambadzanywa",
     "after": "Sinhronirund ei ole päl",
     "reason": "Replace Tshivenda with Veps no-active-sync paraphrase for the empty source option. Native ei ole negation and existing päl enabled vocabulary; derived synchronization noun and complete grammar remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-sync-description",
+    "before": "Vhambadzanani bammbi ḽi tshi bva kha tshiṱaraka tsha nnḓa. Mushumo wa murahu u i sedzulusa nga miniti dza 15 nṱhesi; shumisani \"Vhambadzanya zwino\" u itela u sedzulusa nga u ṱavhanya.",
+    "after": "Udišta nece lugetiž ulkopoližespäi trekeraspäi. Fonan rad tarkištab sidä kaiku 15 minutan taga; kävuta \"Sinhronirui nügüd’\", miše tarkištada sidä aigad varastamata.",
+    "reason": "Replace Tshivenda synchronization instructions with a direct Veps draft preserving external tracker, background checking every 15 minutes and immediate manual action. Native MediaWiki udišta/tarkišta and local list/minute vocabulary; tracker/background loans, inflections and full grammar are low confidence."
   }
 ]
