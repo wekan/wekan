@@ -126481,5 +126481,19 @@
     "before": "Sélectionnez l'utilisateur existant que vous voulez associer à ce participant",
     "after": "ⵙⵜⵉ ⴰⵏⵙⵙⵎⵔⵙ ⵏⵏⴽ ⵉⵍⵍⴰⵏ ⵏⵏⴰ ⵜⵅⵙⴷ ⴰⴷ ⵜⵙⵎⵔⵙⴷ ⴰⵎ ⵓⴳⵎⴰⵎ ⴰⴷ.",
     "reason": "2026-09-14: Replace French imported-member user selection instruction. Native MediaWiki User anssmrs, Select sti, Use smr s (rcfilters-search-placeholder), As am (export-download) and existence relative in newarticletext support components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve YOUR EXISTING USER you WANT TO USE AS THIS MEMBER, not creating a new account or selecting any unrelated person. Positive existence relative derived from native negative, local Member noun, bound state and full use-as clause remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-checklist-uncompleted",
+    "before": "لم يتم انجاز قائمة التحقق %s من %s",
+    "after": "ⵉⵙⵙⵔ ⴰⵙⵎⴰⴷ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ %s ⵏ %s",
+    "reason": "2026-09-14: Replace Arabic/French checklist uncompletion activities. Native MediaWiki editundo directly attests Undo ssr in edit reversal context, distinct from merely incomplete state: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Complete root retained from directly attested resetpass_announce Complete Login; local checklist paraphrase retained. Preserve ACTIVE ACTOR UNDOING COMPLETION, checklist/card relation and each exact percent placeholder count/order. Derived actor past issr, completion noun asmad, checklist verification noun and full nominal coordination remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-checklist-uncompleted-card",
+    "before": "a décoché la checklist %s",
+    "after": "ⵉⵙⵙⵔ ⴰⵙⵎⴰⴷ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ %s",
+    "reason": "2026-09-14: Replace Arabic/French checklist uncompletion activities. Native MediaWiki editundo directly attests Undo ssr in edit reversal context, distinct from merely incomplete state: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Complete root retained from directly attested resetpass_announce Complete Login; local checklist paraphrase retained. Preserve ACTIVE ACTOR UNDOING COMPLETION, checklist/card relation and each exact percent placeholder count/order. Derived actor past issr, completion noun asmad, checklist verification noun and full nominal coordination remain LOW CONFIDENCE."
   }
 ]
