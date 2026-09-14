@@ -25966,3 +25966,23 @@ ghursn match was located in the extracted text; this is not proof of
 absence. Whole plural relative syntax and standard wording remain open.
 The correction-ledger regression passes for all 18,796 records. No locale
 values, corrected counts or pending counts change in this review.
+
+Repository action review — 2026-09-14.
+Upload/Update Repository and Sign In to upload repositories remain French.
+Native MediaWiki zgh upload/uploadbtn use sktr with file as an object;
+login uses kcm; externaldberror uses an inflected update verb sdɣi.
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+IRCAM Amazigh-English PDF 218 entry 4175 asdɣi is the update noun,
+not evidence that a noun alone is the required imperative. PDF 68 entry
+1021 gives afniq n tmuca as data warehouse. That is not an attested source
+repository term. Warehouse/depot and cabinet entries do not resolve this
+software distinction. No repository lemma was found by the bounded
+English-gloss search; negative search is not proof that none exists.
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+No active consumers for upload-repository/sign-in-to-upload were found
+under client. Correcting these stored labels must preserve repository
+singular/plural, both upload/update actions and login purpose. Do not
+reuse the upload message's file noun as repository or silently drop update.
+No locale changes or corrected-count increase result from this review.
+Terminology, assembled purpose grammar and native runtime wording remain
+open; existing correct-language values and placeholders are preserved.
