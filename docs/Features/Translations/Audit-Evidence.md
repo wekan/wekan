@@ -1,5 +1,7 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `5be2812bd`: lockout duration label repaired. Actual known/unknown settings distinguish lockoutPeriod from failureWindow. Native MediaWiki duration/second and Mastodon Block support components; preserve LOCKOUT PERIOD IN SECONDS. Bound lockout noun, seconds plural and full label remain low confidence. All 18,083 correction checks pass; 332 original findings remain pending, including 197 Tamazight.
+
 2026-09-14 — `e5cb150bc`: custom-field unsetting activity repaired. Actual card `$unset` hook removes field value, not board field definition. Native MediaWiki Removed, Value (`redirect-value`), Field/Special support components. Preserve Remove Value paraphrase, two exact percent placeholders and quoted field name. Technical Value adaptation and full field relation remain low confidence. All 18,082 correction checks pass; 333 original findings remain pending, including 198 Tamazight.
 
 2026-09-14 — `c45999486`: custom-field assignment activity repaired. Indexed native Place imperative and native MediaWiki Field/Special components support wording. Preserve active SET CUSTOM FIELD name TO value IN card, three percent placeholders and quotes on first two. Derived past actor, software Set-as-Place adaptation and full assignment grammar remain low confidence. All 18,081 correction checks pass; 334 original findings remain pending, including 199 Tamazight.
