@@ -208,3 +208,7 @@ assert.doesNotMatch(locales.zgh['enable-wip-limit'], /Activer|limite/);
 assert.equal(locales.zgh['custom-product-name'], 'ⵉⵙⵎ ⵏ ⵓⵢⴰⴼⵓ ⵉⵥⵍⵉⵏ');
 assert.match(locales.zgh['custom-product-name'], /ⵓⵢⴰⴼⵓ/);
 assert.doesNotMatch(locales.zgh['custom-product-name'], /Nom|personnalisé/);
+
+assert.equal(locales.zgh['show-parent-in-minicard'], 'ⵙⵙⴽⵏ ⴰⵎⴰⵔⴰⵡ ⴳ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵢⴰⵏⵜ:');
+assert.doesNotMatch(locales.zgh['show-parent-in-minicard'], /Voir|parente|mini-carte/);
+assert.match(locales.zgh['show-parent-in-minicard'], /ⵜⴰⵎⵥⵢⴰⵏⵜ:$/);

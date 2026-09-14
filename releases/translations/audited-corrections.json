@@ -131115,5 +131115,12 @@
     "before": "Nom personnalisé",
     "after": "ⵉⵙⵎ ⵏ ⵓⵢⴰⴼⵓ ⵉⵥⵍⵉⵏ",
     "reason": "Replace French and restore product component omitted by the seed. IRCAM 2019 entries 7541 name, 5286 product/construct uyafu and 7686 specific. Low confidence: customized branding and final modifier scope are software adaptations requiring native review; not a claim that grammatical proper noun means custom product name."
+  },
+  {
+    "locale": "zgh",
+    "key": "show-parent-in-minicard",
+    "before": "Voir la carte parente dans la mini-carte :",
+    "after": "ⵙⵙⴽⵏ ⴰⵎⴰⵔⴰⵡ ⴳ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵢⴰⵏⵜ:",
+    "reason": "Replace French with Tamazight show/parent/in-minicard wording. IRCAM 2019 entries 9816 show, 2198 father (software-parent adaptation), 10775 card; reuse existing minicard adjective. Low confidence: feminine small adjective agreement, full clause and software-parent metaphor require native review."
   }
 ]
