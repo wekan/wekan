@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ac5a9f69b">Review Tamazight account-status terminology</a>. Thanks to xet7.</summary>
+
+Distinguish permanent-membership vocabulary from enabled account status.
+Record primary active/activate/click meanings; complete native tooltip
+clauses remain under review. No translation acceptance is claimed.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5b89d5168">Repair Tamazight optional webhook authentication qualifier</a>. Thanks to xet7.</summary>
 
 Replace French qualifier prose using native optional/authentication terms.

@@ -25558,3 +25558,11 @@ adds X-Wekan-Token only for a nonempty configured token; wording preserves
 optional role and no auth logic changes. Four suites pass with exact
 placeholders, order and human preference. Original pending 255 → 254;
 Tamazight 143 → 142; correction ledger grows to 18,765.
+
+
+Account-status review — 2026-09-14, `ac5a9f69b`.
+Native MediaWiki active-user statistics uses a permanent adjective in the
+IRCAM dictionary. This is not direct proof of account-enabled meaning.
+Primary active/activate/click entries are recorded in Tamazight-Review.md;
+complete enabled/disabled purpose clauses remain pending, count 254.
+No values changed or native/browser acceptance made.
