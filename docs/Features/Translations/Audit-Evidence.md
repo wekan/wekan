@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight worker role permissions — 2026-09-14
+
+Commit `cda2d947b` repairs one original French finding. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) supplies Can, Only, Move, Comment and Give components. [Mastodon](https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json) compose_form.placeholder supplies self/head component, not reflexive assignment proof. Preserve ONLY three permissions: MOVE cards, SELF-assignment to card, COMMENT; no permission to edit title/content/settings or assign others added. Give Card To Yourself paraphrase, whole coordination and grammar remain LOW CONFIDENCE. 354 original findings remain pending, including 219 Tamazight; all 18,047 mechanical correction checks pass. Restored, unflagged and earlier uncertain wording remain in scope. Browser verification and remote uploads were not performed.
+
 ## Tamazight watcher explanation — 2026-09-14
 
 Commit `c002054d5` repairs one original French finding. [Native Mastodon](https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json) column.notifications supplies Notifications; [MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) statistics-edits-average supplies Each, resetpass-temp-emailed Sent To You component. Preserve future YOU notification for ANY change on THIS board without adding email-specific delivery. Notify paraphrased as Notifications Sent To You; derived feminine plural passive and full future/each grammar remain LOW CONFIDENCE. 355 original findings remain pending, including 220 Tamazight; all 18,046 mechanical correction checks pass. Restored, unflagged and earlier uncertain wording remain in scope. Browser verification and remote uploads were not performed.
