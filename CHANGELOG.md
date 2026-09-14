@@ -646,7 +646,8 @@ deletion and loss of associated actions. Label deletion text preserves
 removal from every card and destruction of label history. Keyboard shortcut
 messages retain their enabled/disabled state and opposite click action.
 PDF preview text retains the download alternative when preview is unavailable.
-The last-admin warning explains the need to retain an administrator.
+The last-admin warning explains the need to retain an administrator. Import
+guidance keeps possible success despite errors and the All Boards location.
 
 This release includes the following features and fixes:
 
@@ -724,6 +725,17 @@ retain at least one administrator. Four focused suites pass for role-change
 negation, minimum administrator count, negative Arabic checks, template
 wiring and translation structure. Full contextual grammar remains under
 native review. Dated audit records 180 pending findings.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/40f06e1d8">Repair Tamazight import error guidance</a>. Thanks to xet7.</summary>
+
+Replace French guidance, retaining possible import success despite errors
+and the translated All Boards page location. Four focused suites pass for
+conditional wording, possible success, page naming, negative French checks,
+template wiring and translation structure. Complete contextual grammar
+remains under native review. Dated audit records 179 pending findings.
 
 </details>
 

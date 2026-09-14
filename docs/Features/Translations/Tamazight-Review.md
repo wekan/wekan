@@ -2943,3 +2943,28 @@ scope, negative Arabic checks, actual last-admin template wiring,
 placeholders, ledger, retained reviews and completeness. No live UI test
 ran. Ledger 19,833; original corrected 15,723, pending 180 (zgh 85),
 restored 4 unchanged. Broader review remains open. No remote writes.
+
+
+## Import error guidance — 2026-09-15
+
+Local commit `40f06e1d8` replaces French import-board-instruction-about-errors.
+Keep conditional errors, possible successful import rather than guaranteed
+success, and the All Boards page location. The location uses the exact
+existing all-boards translation. import.jade renders this guidance beside
+the import instruction. No runtime import behavior was changed.
+
+IRCAM cached dictionary page 262 entry 5099 gives ataf (perhaps); page
+424 entry 8034 gives murs (succeed). Existing board, import, error and page
+vocabulary are reused. Source:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+**Low confidence:** source sometimes-still-works expressed as possible
+success, success-verb morphology, conditional agreement and complete
+sentence composition remain under native contextual review. Components
+do not independently attest the entire software instruction.
+
+Four focused suites pass for conditional errors, possible success,
+translated All Boards location, negative French checks, template wiring,
+placeholders, ledger, retained reviews and completeness. No live UI or
+runtime import test ran. Ledger 19,834; original corrected 15,724, pending
+179 (zgh 84), restored 4 unchanged. Broader review remains open.
+No remote writes.
