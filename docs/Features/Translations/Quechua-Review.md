@@ -37,3 +37,18 @@ label through this key. The focused test verifies that wiring, exact native
 values, and rejection of the previous English wrappers. The older recurrence
 key has no direct reference in the inspected client source. No live browser
 check is claimed. The pending astronomical-epoch compound remains unresolved.
+
+## Named calendar noun corrections — 2026-09-14
+
+Dangi, Minguo and the generic Hijri option now use the dictionary's generic
+calendar noun, preserving their proper names. The same dictionary's printed
+page 42 identifies `Inti watana` as a clock; page 18 distinguishes calendar.
+These options select a calendar system in Member Settings, rather than a
+clock. Their name-plus-noun constructions are adapted, **low confidence**
+pending full native compound review; the dictionary does not quote these
+three complete labels. Exact noun/proper-name regression tests cannot prove
+full fluency or browser rendering.
+
+The remaining calendar options, settings heading, astronomical qualifier
+and other existing uncertain translations still require review. No original
+pending finding is resolved by this batch, and no live browser test ran.

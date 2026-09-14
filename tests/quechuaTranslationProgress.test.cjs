@@ -38,6 +38,11 @@ assert.equal(quechua.accept, 'Kay willaymi: Chaskiy');
 assert.equal(quechua.settings, 'Allichaykuna');
 // Chilean Ministry of Education, native Cusco Collao dictionary (2019), p. 18.
 assert.equal(quechua.calendar, 'Watanqillqa');
+for (const [key, name] of [['calendar-system-dangi', 'Dangi'],
+  ['calendar-system-roc', 'Minguo'], ['calendar-system-islamic', 'Hijri']]) {
+  assert.equal(quechua[key], `${name} Watanqillqa`);
+  assert.doesNotMatch(quechua[key], /Intiwatana|Islamic tabular/);
+}
 assert.doesNotMatch(quechua.calendar, /Calendart|Kay willaymi|Intiwatana/);
 assert.equal(quechua.day, 'P’unchay');
 assert.equal(quechua['every-1-day'], 'Sapa p’unchay');
