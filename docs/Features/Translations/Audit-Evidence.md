@@ -22502,3 +22502,11 @@ missing-object errors, operators and predicates. Quarter is a three-month
 period; not-found negation and sprintf tokens remain intact. Actual globalSearch
 helper uses translated operators in its instructions. All 3,825 review records
 pass; conditional grammar, Veps terminology and wider verification remain open.
+
+**2026-09-14 — Basque search validation and legal labels (`fbf809882`).**
+
+Retained 41 inspected search errors, pagination, sorting, report/request status,
+legal acceptance, copied confirmation and checklist moves. Actual layouts.jade
+combines acceptance and legal-notice fragments. Positive-integer requirements,
+negation, sort directions and tokens remain intact. All 3,866 reviews pass.
+Borrowed ticket spelling and previously recorded unresolved grammar stay open.
