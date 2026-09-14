@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,572 |
-| Restored pre-pull; awaiting validation | 254 |
-| Reviewed; retained unchanged | 3,947 |
+| Restored pre-pull; awaiting validation | 222 |
+| Reviewed; retained unchanged | 3,979 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -18,15 +18,16 @@ source references, confidence limits and archived progress notes.
 Latest translation fix: **2026-09-14**, local commit `264ca788c` —
 Valencian Add yourself now agrees in imperative and reflexive person.
 The maintainer release command captured the edit and 30 unchanged reviews.
-All **18,175** correction and **3,947** review records pass.
+All **18,175** correction and **3,979** review records pass.
 Veps server terminology and global completeness failures remain unresolved.
 Shared Spanish `r-is` and composed trigger grammar remain unresolved.
 Attachment/member rule participles still need context-specific agreement.
 Three Esperanto restored findings remain: lime color and two Complete labels.
 Broader language and browser verification remain open; nothing pushed.
-Latest unchanged review: **2026-09-14**, commit `264ca788c` — retained
-30 Valencian board-setting, keyboard, cover, zoom and import values.
-English checklist phrases and regional possessive wording remain open.
+Latest unchanged review: **2026-09-14**, commit `25818620c` — retained
+32 Valencian lockout controls, scheduled maintenance and migration outcomes.
+Negation and all-user/all-migration scopes remain intact.
+English checklist/bucket/endpoint loans and regional wording remain open.
 Ticket, Complete, Idle, S3 bucket and compound trigger findings stay open.
 Nine Galician restored findings still need contextual review.
 Galician export free wording remains open pending context.

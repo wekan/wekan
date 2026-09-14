@@ -22533,3 +22533,10 @@ inspected board/keyboard/cover/zoom/import values. The maintainer release
 command captured these working-tree edits in its release preparation commit.
 All 18,175 corrections and 3,947 reviews pass. Checklist loans and broader
 regional vocabulary remain unresolved; released changelog sections untouched.
+
+**2026-09-14 — Valencian lockout and migrations (`25818620c`).**
+
+Retained 32 inspected lockout, active/inactive actions, scheduled maintenance
+failures, migration outcomes and confirmations, S3 saving, rename/background
+values. Negation, known/unknown-user contrasts and all scopes remain intact.
+All 3,979 exact reviews pass; English technical loans remain under review.

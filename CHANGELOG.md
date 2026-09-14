@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,572 corrected, 254 restored pre-pull values awaiting
-validation, 3,947 reviewed and retained, and 308 pending review or repair.
+findings: 15,572 corrected, 222 restored pre-pull values awaiting
+validation, 3,979 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,173 exact before/after values,
 Global completeness verification also identifies Veps `server` (currently
 English-identical “Server”) for terminology review; it is not accepted yet.
@@ -657,6 +657,15 @@ Retained 30 correct keyboard, board-setting, cover, zoom and import values.
 The maintainer release command included these edits in v11.79 preparation.
 All correction and review checks pass. Checklist and regional wording remain
 under review; this entry records the outcome without editing released notes.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/25818620c">Validate Valencian lockout and migration wording</a>. Thanks to xet7.</summary>
+
+Retained 32 correct lockout, scheduled maintenance and migration outcome values.
+Negation and all-user/all-migration scopes remain intact. Exact review checks
+pass; technical loans and broader regional language review remain open.
 
 </details>
 
