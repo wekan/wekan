@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,550 |
-| Restored pre-pull; awaiting validation | 2,767 |
-| Reviewed; retained unchanged | 1,456 |
+| Restored pre-pull; awaiting validation | 2,733 |
+| Reviewed; retained unchanged | 1,490 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -18,7 +18,9 @@ source references, confidence limits and archived progress notes.
 Latest translation fix/review: **2026-09-14**, local commit `1b2232534` —
 restored three Esperanto date-format labels to canonical YYYY/MM/DD notation
 and retained 37 correct field, email and export values. All **18,145**
-correction records and unchanged-value/progress checks pass. Browser
+correction records and unchanged-value/progress checks pass. Latest review:
+**2026-09-14**, local commit `5ab78031d` — retained 34 correct sorting,
+filter and import/export labels; long advanced-filter syntax remains open. Browser
 verification was not run; no translations were pushed. Completion, pronoun,
 overtime, lime-color and scrollbar terminology remain under review.
 

@@ -21570,3 +21570,13 @@ role/date categories, attachment metadata, disk-space warnings and literal
 placeholders. Correction and unchanged-value checks pass; scrollbar wording
 is excluded for terminology review and earlier uncertainties remain open.
 Browser behavior was not verified.
+
+
+### Esperanto sorting and filters — 2026-09-14
+
+Local commit `5ab78031d` retains 34 directly reviewed correct labels.
+Preserve manual order, last-access time, today/tomorrow/current/next-week
+distinctions, missing-date/member/field states and CSV/TSV import meanings.
+Long advanced-filter syntax is excluded for separate operator, escaping and
+example review. Unchanged-value tests pass; browser behavior and earlier
+uncertain terminology remain unverified.
