@@ -22300,3 +22300,16 @@ newest/oldest ordering remain distinct.
 Review checks pass: 15,562 corrected, 990 restored awaiting validation,
 3,221 reviewed unchanged and 308 pending. Broader language and browser
 validation remain open. Nothing pushed.
+
+
+### 2026-09-14 — Galician format instructions and request states
+
+Local commit `1adfb3bec` retains 27 directly reviewed values unchanged.
+String templates retain literal %{value} and exact space entities &#32;/&nbsp;.
+Copy/move and report labels retain scope. Spinner animation labels remain
+meaningful in their selector. Email Cc/subject, closed/resolved/history and
+request singular/plural remain distinct. Ticket orthography is unaccepted
+pending dictionary review.
+Review checks pass: 15,562 corrected, 963 restored awaiting validation,
+3,248 reviewed unchanged and 308 pending. Broader language and browser
+validation remain open. Nothing pushed.
