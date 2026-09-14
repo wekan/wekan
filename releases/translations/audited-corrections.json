@@ -123779,5 +123779,12 @@
     "before": "Ethiopic Amete Alem",
     "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ⵏ ⵉⵜⵢⵓⴱⵢⴰ (Amete Alem)",
     "reason": "2026-09-14: Replace the English Ethiopic component with the current CLDR Standard Moroccan Ethiopic calendar label, preserving the Amete Alem variant name exactly. Distinguish ethioaa from the ordinary ethiopic calendar; do not collapse the era variant. LOW CONFIDENCE full mixed-script variant label: native base is directly supported, but the composed Amete Alem display name and native naming of this era require fluent review. Reference: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml (localeDisplayNames/types calendar ethiopic)."
+  },
+  {
+    "locale": "zgh",
+    "key": "page",
+    "before": "ⴰⵙⴻⴱⵜⴻⵔ",
+    "after": "ⵜⴰⵙⵏⴰ",
+    "reason": "2026-09-14: Align the standalone Page noun with directly attested Standard Moroccan software terminology. Native MediaWiki protectedpages-page is exactly ⵜⴰⵙⵏⴰ; movethispage/move-page-legend independently use the same noun in software page actions. Preserve singular Page rather than plural pages or page title. This correction does not claim that every regional synonym is invalid and does not validate other page-related phrases. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (protectedpages-page, movethispage, move-page-legend)."
   }
 ]
