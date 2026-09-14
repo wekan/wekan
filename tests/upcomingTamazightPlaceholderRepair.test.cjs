@@ -634,3 +634,8 @@ assert.strictEqual(translated["error-csv-schema"], "ⵉⵙⴼⴽⴰ CSV (ⴰⵜ�
 assert.doesNotMatch(translated['error-csv-schema'], /[\u0600-\u06ff]/u);
 for (const token of ['CSV', 'TSV', 'ⵜⵉⵙⴽⵔⵉⵏ', 'Tab', 'format']) assert.ok(translated['error-csv-schema'].includes(token));
 console.log('Tamazight CSV schema warning retains comma and Tab explanations');
+
+assert.strictEqual(translated["act-newDue"], "__list__/__card__ ⴷⴰⵔⵙ ⴰⵙⴽⵜⵉ ⴰⵎⵣⵡⴰⵔⵓ ⵏ ⵓⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ [__board__]");
+assert.doesNotMatch(translated["act-newDue"], /rappel|échéance|[\u0600-\u06ff]/u);
+assert.ok(translated["act-newDue"].includes("ⴰⵙⴽⵜⵉ ⴰⵎⵣⵡⴰⵔⵓ"));
+console.log("Tamazight first due reminder preserves named activity tokens");

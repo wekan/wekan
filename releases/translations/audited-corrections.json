@@ -139270,5 +139270,12 @@
     "before": "لا يتضمن ملف CSV (القيم المفصولة بفواصل)/TSV (القيم المفصولة بعلامات التبويب) الخاص بك المعلومات الصحيحة بالتنسيق الصحيح",
     "after": "ⵉⵙⴼⴽⴰ CSV (ⴰⵜⵉⴳⵏ ⵉⵜⵜⵓⴱⴹⴰⵏ ⵙ ⵜⵉⵙⴽⵔⵉⵏ)/TSV (ⴰⵜⵉⴳⵏ ⵉⵜⵜⵓⴱⴹⴰⵏ ⵙ ⵉⵙⴽⴽⵉⵍⵏ Tab) ⵏⴽ ⵓⵔ ⴷⴰⵔⵙⵏ ⵉⵏⵖⵎⵉⵙⵏ ⵉⴽⵏⴰⵏ ⴳ format ⵉⴽⵏⴰⵏ.",
     "reason": "2026-09-15: Replace Arabic CSV/TSV warning using repaired JSON-schema information/format pattern and existing CSV import comma/Tab-separated-values explanations. Preserve both formats and missing proper information in correct format. Tab/format technical loans retained; passive separation, correct participles and full possessive grammar remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "act-newDue",
+    "before": "__list__/__card__ a un 1er rappel d'échéance [__board__]",
+    "after": "__list__/__card__ ⴷⴰⵔⵙ ⴰⵙⴽⵜⵉ ⴰⵎⵣⵡⴰⵔⵓ ⵏ ⵓⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ [__board__]",
+    "reason": "Replace French with Tamazight first due-reminder draft; IRCAM 4289 askti reminder, 3071 amzwaru first. Full deadline compound and possessive grammar remain low confidence; source selects this key on initial dueAt changes, not only reminder delivery."
   }
 ]
