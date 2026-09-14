@@ -642,7 +642,22 @@ Exact regression checks preserve placeholders and protect newer translations.
 Borrowed server terminology and the standalone English-identical label still
 need review; broader translation repairs and browser verification remain open.
 
-This release improves the following verification:
+This release fixes the following developer tooling:
+
+**Release workflow** - Recognize translation group headings.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ac63da6d0">Avoid treating translation summary prose as a section</a>. Thanks to xet7.</summary>
+
+The v11.78 prepare stage failed because a summary line starting with emphasized
+Translations was mistaken for a group heading. Require the actual heading
+syntax before collecting language metadata. The existing v11.78 notes now
+render successfully; regression tests retain missing-metadata failures and
+compact output. No workflow was published or rerun remotely.
+
+</details>
+
+and improves the following verification:
 
 **Language picker tests** - Shared flag helper coverage.
 
