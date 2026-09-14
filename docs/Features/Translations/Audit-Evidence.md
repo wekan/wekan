@@ -23260,3 +23260,32 @@ Correction ledger: 18,487. Original tracked queue remains 15,601 corrected,
 These ten repairs were outside that original flagged queue. Basque shared
 trigger noun fragments remain unaccepted because surrounding order and case
 composition still need review. No subagents, service or remote push used.
+
+### 2026-09-14 — Breton shortcuts, People filters and migration label
+
+Local commit `961713c56` repairs eight remaining French values:
+shortcut-clear-filters, shortcut-filter-my-cards, advanced-filter-label,
+step-validate-migration, admin-people-filter-show,
+admin-people-filter-active, admin-people-filter-inactive and active.
+The native [Ofis computing glossary](https://www.brezhoneg.bzh/uploads/Document/20/798_536_an-urzhiataerezh.pdf)
+(March 2006) attests dilemel, diskwel and kadarnaat. Existing local sil,
+araokaet, treuzkas roadennoù, Gweredekaet and Diweredekaet are reused.
+The native [Ofis dioberiant entry](https://niverel.brezhoneg.bzh/br/meurgorf/9751)
+defines the opposite of oberiant;
+[Ofis digital strategy](https://niverel.brezhoneg.bzh/media/strategiezh_niverel_27032023_br.pdf)
+uses oberiant for active software contributors. This establishes the generic
+activity term, not every possible future use of the generic active key.
+
+peopleBody.js active/inactive filters inspect loginDisabled and provide a
+separate locked option. Their translations use enabled/disabled terminology
+rather than activity-frequency or lockout labels. Keyboard help exposes the
+my-cards and clear-all-filters actions. The migration label currently has no
+application-source occurrence; no rendered migration status is claimed.
+Regression coverage checks exact shortcut labels, enabled/disabled mapping,
+the validation phrase and rejection of French seeds. Four focused suites pass.
+Adapted whole-phrase grammar and live browser validation remain open.
+
+Correction ledger: 18,495; original queue remains 15,601 corrected,
+19 restored awaiting validation, 4,162 retained and 299 pending (20,081 total).
+These eight repairs are outside the original flagged queue. No translation
+service, subagent or remote push was used.

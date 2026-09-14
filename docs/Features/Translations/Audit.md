@@ -20,18 +20,18 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,487** exact before/after values, including unflagged repairs.
+contain **18,495** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `fb0b34b7d` —
-ten French-seeded Breton selection/filter/color/attachment labels repaired.
-Copy and move remain distinct; filter-to-selection adds filtered cards to
-multiselection. Existing Breton terms and native computing action verbs are
-reused. All **18,487** corrections pass token, key-order and exact-value
-checks; focused selection regression and locale completeness pass.
+Latest translation fix: **2026-09-14**, local commit `961713c56` —
+eight French-seeded Breton filter/shortcut, account-status and migration
+labels repaired. People status wording preserves login enabled/disabled,
+separate from account lockout. Existing terms and native computing verbs
+are reused. All **18,495** corrections and **4,162** unchanged reviews pass;
+focused status/shortcut regression and locale completeness pass.
 Adapted whole-phrase grammar and live browser execution remain open.
-The preceding Galician attachment agreement repair remains verified.
+Previous Breton selection and Galician attachment repairs remain verified.
 Latest unchanged review: **2026-09-14**, commit `824dd005e` —
 Danish Dage gammel retained with native dictionary age-construction evidence;
 the Swedish pulled replacement remains rejected. No current application use
