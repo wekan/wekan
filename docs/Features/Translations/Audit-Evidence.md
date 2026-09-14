@@ -1,5 +1,16 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `ca3ba7006`: three additional labels repaired. Native
+Mastodon account.muted directly attests the Muted label and
+column.notifications/notifications.clear attest Notifications. Replace Arabic
+Muted and align two inconsistent notification labels with existing WeKan
+Delete All Notifications wording. Exact lexical evidence is stronger than
+transliteration; account-to-board Muted adaptation still needs semantic review.
+The full muted-info warning remains pending: preserve NEVER, ANY changes and
+THIS board. Three additional records; original counts unchanged. All 18,111
+correction checks pass. No live browser verification or remote upload.
+Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json
+
 2026-09-14 — `f8a1255dd`: permanent board deletion notice repaired.
 Reuse the previously reviewed no-undo and future-deletion constructions;
 native MediaWiki dellogpage supports deletion, actions supports activities,
