@@ -8218,5 +8218,299 @@
     "key": "delete-avatar-confirm",
     "value": "Ĉu vi certas, ke vi volas forigi ĉi tiun avataron?",
     "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "deleteAvatarPopup-title",
+    "value": "Ĉu forigi avataron?",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "subtasks",
+    "value": "Subtaskoj",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "checklists",
+    "value": "Kontrollistoj",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "auto-list-width",
+    "value": "Aŭtomata listlarĝo",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "clipboard",
+    "value": "Tondujo aŭ treni kaj faligi",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "color-crimson",
+    "value": "karmezina",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "color-darkgreen",
+    "value": "malhelverda",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "color-gray",
+    "value": "griza",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "color-indigo",
+    "value": "indiga",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "color-mistyrose",
+    "value": "nebulroza",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "color-navy",
+    "value": "marblua",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "color-paleturquoise",
+    "value": "palturkisa",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "color-peachpuff",
+    "value": "persika",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "color-pink",
+    "value": "rozkolora",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "color-plum",
+    "value": "pruna",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "color-purple",
+    "value": "purpura",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "color-saddlebrown",
+    "value": "selbruna",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "color-silver",
+    "value": "arĝenta",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "color-sky",
+    "value": "ĉielblua",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "color-slateblue",
+    "value": "ardezblua",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "color-white",
+    "value": "blanka",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "unset-color",
+    "value": "Malagordi",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "comment-only",
+    "value": "Nur komenti",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "comment-assigned-only",
+    "value": "Nur atribuitaj: komenti",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "comment-assigned-only-desc",
+    "value": "Nur atribuitaj kartoj videblas. Povas nur komenti.",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "no-comments",
+    "value": "Neniuj komentoj",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "no-comments-desc",
+    "value": "Ne povas vidi komentojn.",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "read-only",
+    "value": "Nur legi",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "read-only-desc",
+    "value": "Povas nur vidi kartojn. Ne povas redakti.",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "read-assigned-only",
+    "value": "Nur atribuitaj: legi",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "read-assigned-only-desc",
+    "value": "Nur atribuitaj kartoj videblas. Ne povas redakti.",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "worker",
+    "value": "Laboranto",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "confirm-subtask-delete-popup",
+    "value": "Ĉu vi certas, ke vi volas forigi la subtaskon?",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "confirm-checklist-delete-popup",
+    "value": "Ĉu vi certas, ke vi volas forigi la kontrolliston?",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "confirm-checklist-item-delete-popup",
+    "value": "Ĉu vi certas, ke vi volas forigi la kontrollistan eron?",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "subtaskDeletePopup-title",
+    "value": "Ĉu forigi subtaskon?",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "checklistDeletePopup-title",
+    "value": "Ĉu forigi kontrolliston?",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "checklistItemDeletePopup-title",
+    "value": "Ĉu forigi kontrollistan eron?",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "copyListPopup-title",
+    "value": "Kopii liston",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "createCustomField",
+    "value": "Krei kampon",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "createCustomFieldPopup-title",
+    "value": "Krei kampon",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "current",
+    "value": "nuna",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-field-checkbox",
+    "value": "Markobutono",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-field-currency",
+    "value": "Valuto",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-field-currency-option",
+    "value": "Valuta kodo",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-field-dropdown",
+    "value": "Falmenuo",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-field-dropdown-none",
+    "value": "(nenio)",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-field-dropdown-options",
+    "value": "Opcioj de listo",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-field-dropdown-unknown",
+    "value": "(nekonata)",
+    "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
   }
 ]
