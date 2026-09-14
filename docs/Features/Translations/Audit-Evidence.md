@@ -22839,3 +22839,14 @@ phrase are low-confidence direct adaptations, not attested complete labels.
 Native terminology and grammar remain review requirements. All 18,229
 correction checks pass; 300 pending and 30 restored original findings remain.
 Filled Bambara placeholder queue does not establish full language completion.
+
+Dated unchanged review, 2026-09-14, local commit `64f1d7367`: retain
+Valencian shortcut-filter-my-assigned-cards Filtra les meves fitxes assignades.
+Actual keyboard.js a hotkey checks current board/user and toggles
+Filter.assignees for currentUserId; label preserves assigned rather than
+member semantics. Feminine plurals agree. https://aoe.iec.cat/els-possessius/
+recognizes meves and meues, with eastern versus western predominance.
+This does not make meves wrong-language prose; retained under correct-language
+preservation policy. Preferred Valencian regional style is not declared
+resolved. All 4,158 review records pass; 29 restored and 300 pending remain.
+Full language and browser verification remain open.

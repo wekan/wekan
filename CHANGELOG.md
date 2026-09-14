@@ -671,6 +671,16 @@ The empty wrongly placed Git directory was removed locally.
 **Languages updated:** Acehnese, Bambara, Basque, Breton, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/64f1d7367">Validate Valencian assigned-card shortcut wording</a>. Thanks to xet7.</summary>
+
+Retain correct filter/assignment meaning against the current-user assignee
+hotkey. Possessive agreement is valid; the reference recognizes dialect
+variants. Exact review checks pass; preferred Valencian regional style and
+browser validation remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a06bf0cca">Fill Bambara Hijri calendar epoch labels</a>. Thanks to xet7.</summary>
 
 Two English placeholders become provisional full Bambara labels, retaining

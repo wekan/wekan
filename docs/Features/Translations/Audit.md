@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,594 |
-| Restored pre-pull; awaiting validation | 30 |
-| Reviewed; retained unchanged | 4,157 |
+| Restored pre-pull; awaiting validation | 29 |
+| Reviewed; retained unchanged | 4,158 |
 | Pending review or repair | 300 |
 | Total tracked | 20,081 |
 
@@ -31,13 +31,12 @@ and calendar use of sivili/dolo dɔnni require native terminology review;
 filled status does not mean language validation is complete. All **18,229**
 correction checks pass; browser verification remains open. Breton popup
 repairs were recorded in `6db6c7b16`.
-Latest unchanged review: **2026-09-14**, commit `87e2ed6fa` — Den ebet deverket retained against
-Preder's assignment verb and existing assigned-only wording. Assigned-person
-and no-assignee meanings remain distinct. All **18,229** corrections and
-**4,157** reviews pass; wider Breton and browser validation remain open.
-Sardinian colour wording was repaired in `04711b646`. Greenlandic Buddhist
-calendar phrase remains an adaptation requiring native inflection review;
-Manx Coptagh remains provisional without dictionary attestation.
+Latest unchanged review: **2026-09-14**, commit `64f1d7367` —
+assigned-card shortcut retained against actual current-user assignee toggle.
+IEC recognizes meves/meues as dialect variants; no wrong-language finding
+is established. Preferred Valencian regional style remains under review.
+All **4,158** reviews pass. Shared trigger grammar, provisional calendar
+compounds and broader language/browser review remain open.
 Card-show-lists context is verified against its settings row and toggle.
 
 
