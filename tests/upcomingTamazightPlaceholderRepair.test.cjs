@@ -291,3 +291,11 @@ for (const key of ['vote-delete-pop', 'card-delete-notice']) {
 assert.match(translated['vote-delete-pop'], /ⵏ ⵡⴰⵙⵜⴰⵢ ⴰⴷ\.$/);
 assert.match(translated['card-delete-notice'], /ⵏ ⵜⴽⴰⵕⴹⴰ ⴰⴷ\.$/);
 assert.notEqual(translated['vote-delete-pop'], translated['card-delete-notice']);
+
+for (const key of ['card-delete-pop', 'swimlane-delete-pop']) {
+  assert.match(translated[key], /^ⵔⴰⴷ ⵜⵜⵓⴽⴽⵙⵏⵜ ⵜⵉⴳⴰⵡⵉⵏ ⴰⴽⴽⵯ ⵙⴳ ⵜⵍⴳⴰⵎⵜ ⵏ ⵜⵉⴳⴰⵡⵉⵏ/);
+  assert.match(translated[key], /ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⴰⵔⴷ ⴷ ⴰⵢⴰ\.$/);
+  assert.doesNotMatch(translated[key], /Toutes|irréversible|[\u0600-\u06ff]/);
+}
+assert.match(translated['card-delete-pop'], /ⵜⵔⵥⵎⴷ ⵜⴰⴽⴰⵕⴹⴰ ⴷⴰⵖ/);
+assert.match(translated['swimlane-delete-pop'], /ⵜⵙⵙⵓⴽⵏⴷ ⴰⴱⵔⵉⴷ/);

@@ -138661,5 +138661,19 @@
     "before": "هذا حذف أبديّ . سوف تفقد كل الإجراءات المنوطة بهذه البطاقة",
     "after": "ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⴰⵔⴷ ⴷ ⴰⵢⴰ. ⵔⴰⴷ ⵜⵜⵓⴽⴽⵙⵏⵜ ⵜⵉⴳⴰⵡⵉⵏ ⴰⴽⴽⵯ ⵏ ⵜⴽⴰⵕⴹⴰ ⴰⴷ.",
     "reason": "2026-09-15: replace wrong-language deletion notice with Tamazight draft. Preserve permanent/non-undoable action and loss of all activities for this specific vote or card. Reuse existing cannot-undo clause, board deletion future passive, activity/card/voting terms. Full possession, passive agreement and permanence paraphrase remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "card-delete-pop",
+    "before": "سيتم إزالة جميع الإجراءات من تبعات النشاط، وأنك لن تكون قادرا على إعادة فتح البطاقة. لا يوجد التراجع.",
+    "after": "ⵔⴰⴷ ⵜⵜⵓⴽⴽⵙⵏⵜ ⵜⵉⴳⴰⵡⵉⵏ ⴰⴽⴽⵯ ⵙⴳ ⵜⵍⴳⴰⵎⵜ ⵏ ⵜⵉⴳⴰⵡⵉⵏ. ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⵥⵎⴷ ⵜⴰⴽⴰⵕⴹⴰ ⴷⴰⵖ. ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⴰⵔⴷ ⴷ ⴰⵢⴰ.",
+    "reason": "2026-09-15: replace wrong-language deletion popup with Tamazight draft. Preserve all activities removed from feed, no card reopening or swimlane recovery, and no undo. Reuse existing future deletion, activity/list nouns, open/restore and cannot-undo clauses. Activity-feed as activity-list, again adverb and complete grammar remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "swimlane-delete-pop",
+    "before": "Toutes les actions vont être supprimées du suivi d'activités et vous ne pourrez plus utiliser ce couloir. Cela est irréversible.",
+    "after": "ⵔⴰⴷ ⵜⵜⵓⴽⴽⵙⵏⵜ ⵜⵉⴳⴰⵡⵉⵏ ⴰⴽⴽⵯ ⵙⴳ ⵜⵍⴳⴰⵎⵜ ⵏ ⵜⵉⴳⴰⵡⵉⵏ. ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵙⵙⵓⴽⵏⴷ ⴰⴱⵔⵉⴷ. ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⴰⵔⴷ ⴷ ⴰⵢⴰ.",
+    "reason": "2026-09-15: replace wrong-language deletion popup with Tamazight draft. Preserve all activities removed from feed, no card reopening or swimlane recovery, and no undo. Reuse existing future deletion, activity/list nouns, open/restore and cannot-undo clauses. Activity-feed as activity-list, again adverb and complete grammar remain low confidence."
   }
 ]
