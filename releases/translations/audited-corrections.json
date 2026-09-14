@@ -125368,5 +125368,40 @@
     "before": "Seules les cartes assignées sont visibles. Commentaire uniquement.",
     "after": "ⵖⴰⵙ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵜⵜⵓⴼⴽⴰⵏⵉⵏ ⴰⴷ ⵜⵜⵓⵙⴽⴰⵏⵏ. ⵜⵥⴹⴰⵕⴷ ⴰⴷ ⵜⵔⵏⵓⴷ ⵖⴰⵙ ⴰⵅⴼⴰⵡⴰⵍ.",
     "reason": "2026-09-14: Replace French assigned-only permission labels/descriptions. Preserve Only assigned cards visible in each role and distinct Normal-user editing, Read cannot edit, and Comment can only comment capabilities. sidebar.jade pairs each role with its description. Assignment provisionally uses Given cards as in earlier shortcuts; this responsibility-assignment adaptation, plural passive and visible passive forms remain LOW CONFIDENCE. Native MediaWiki attests Only ⵖⴰⵙ, User ⴰⵏⵙⵙⵎⵔⵙ, Read ⵖⵔ, Edit ⵙⵏⴼⵍ, Show ⵙⴽⵏ and ability forms; read noun is derived and Comment vocabulary follows local software usage. Normal adjective, bound forms and full role/capability clauses remain LOW CONFIDENCE for native validation; component evidence does not prove full grammar. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "assignee",
+    "before": "Personne assignée",
+    "after": "ⴰⴼⴳⴰⵏ ⵉ ⵎⵉ ⵜⵜⵓⴼⴽⴰ ⵜⴰⴽⴰⵕⴹⴰ",
+    "reason": "2026-09-14: Replace French assignee labels. Preserve singular/plural, No assignee, all assignees of ALL cards on THIS board versus all assignees of CURRENT card on THIS board. Responsibility assignment provisionally uses Person(s) to whom card(s) given, distinct from Members. Native MediaWiki attests Given ⵉⵜⵜⵓⴼⴽⴰ and Current ⴰⵎⵉⵔⴰⵏ; card vocabulary follows existing local usage. Person plural, feminine passive/card agreement, relative To whom, All scopes, bound nouns and full labels remain LOW CONFIDENCE for native validation; the responsibility semantic adaptation is not directly attested assignment terminology. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "assignees",
+    "before": "Intervenants",
+    "after": "ⵉⴼⴳⴰⵏⵏ ⵉ ⵎⵉ ⵜⵜⵓⴼⴽⴰⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ",
+    "reason": "2026-09-14: Replace French assignee labels. Preserve singular/plural, No assignee, all assignees of ALL cards on THIS board versus all assignees of CURRENT card on THIS board. Responsibility assignment provisionally uses Person(s) to whom card(s) given, distinct from Members. Native MediaWiki attests Given ⵉⵜⵜⵓⴼⴽⴰ and Current ⴰⵎⵉⵔⴰⵏ; card vocabulary follows existing local usage. Person plural, feminine passive/card agreement, relative To whom, All scopes, bound nouns and full labels remain LOW CONFIDENCE for native validation; the responsibility semantic adaptation is not directly attested assignment terminology. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "no-assignee",
+    "before": "Pas de personne assignée",
+    "after": "ⵓⵔ ⵉⵍⵍⵉ ⵓⴼⴳⴰⵏ ⵉ ⵎⵉ ⵜⵜⵓⴼⴽⴰ ⵜⴰⴽⴰⵕⴹⴰ",
+    "reason": "2026-09-14: Replace French assignee labels. Preserve singular/plural, No assignee, all assignees of ALL cards on THIS board versus all assignees of CURRENT card on THIS board. Responsibility assignment provisionally uses Person(s) to whom card(s) given, distinct from Members. Native MediaWiki attests Given ⵉⵜⵜⵓⴼⴽⴰ and Current ⴰⵎⵉⵔⴰⵏ; card vocabulary follows existing local usage. Person plural, feminine passive/card agreement, relative To whom, All scopes, bound nouns and full labels remain LOW CONFIDENCE for native validation; the responsibility semantic adaptation is not directly attested assignment terminology. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "board_assignees",
+    "before": "Tous les intervenants de toutes les cartes de ce tableau",
+    "after": "ⵉⴼⴳⴰⵏⵏ ⴰⴽⴽⵯ ⵉ ⵎⵉ ⵜⵜⵓⴼⴽⴰⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴰⴽⴽⵯ ⵏ ⵜⴼⵍⵡⵉⵜ ⴰⴷ",
+    "reason": "2026-09-14: Replace French assignee labels. Preserve singular/plural, No assignee, all assignees of ALL cards on THIS board versus all assignees of CURRENT card on THIS board. Responsibility assignment provisionally uses Person(s) to whom card(s) given, distinct from Members. Native MediaWiki attests Given ⵉⵜⵜⵓⴼⴽⴰ and Current ⴰⵎⵉⵔⴰⵏ; card vocabulary follows existing local usage. Person plural, feminine passive/card agreement, relative To whom, All scopes, bound nouns and full labels remain LOW CONFIDENCE for native validation; the responsibility semantic adaptation is not directly attested assignment terminology. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "card_assignees",
+    "before": "Tous les intervenants de la carte actuelle de ce tableau",
+    "after": "ⵉⴼⴳⴰⵏⵏ ⴰⴽⴽⵯ ⵉ ⵎⵉ ⵜⵜⵓⴼⴽⴰ ⵜⴰⴽⴰⵕⴹⴰ ⵜⴰⵎⵉⵔⴰⵏⵜ ⵏ ⵜⴼⵍⵡⵉⵜ ⴰⴷ",
+    "reason": "2026-09-14: Replace French assignee labels. Preserve singular/plural, No assignee, all assignees of ALL cards on THIS board versus all assignees of CURRENT card on THIS board. Responsibility assignment provisionally uses Person(s) to whom card(s) given, distinct from Members. Native MediaWiki attests Given ⵉⵜⵜⵓⴼⴽⴰ and Current ⴰⵎⵉⵔⴰⵏ; card vocabulary follows existing local usage. Person plural, feminine passive/card agreement, relative To whom, All scopes, bound nouns and full labels remain LOW CONFIDENCE for native validation; the responsibility semantic adaptation is not directly attested assignment terminology. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
