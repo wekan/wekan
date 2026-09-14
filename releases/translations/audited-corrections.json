@@ -130779,5 +130779,12 @@
     "before": "Buddhist",
     "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ⴰⴱⵓⴷⴷⵉ",
     "reason": "Replace English Buddhist label with native Moroccan calendar noun and Buddhist adjective attested in native article revision 140790. Full calendar compound adapted; broader native/browser review remains open."
+  },
+  {
+    "locale": "zgh",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ⴰⵄⵉⴱⵔⵉ",
+    "reason": "Replace English Hebrew calendar label with native calendar noun and Hebrew adjective attested in native Moroccan Safi article revision 156843. Full calendar compound adapted, low confidence pending broader native/browser review."
   }
 ]

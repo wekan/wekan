@@ -37,3 +37,7 @@ assert.notEqual(locales.zgh.summary, locales.zgh.history);
 assert.equal(locales.zgh['calendar-system-buddhist'], 'ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ⴰⴱⵓⴷⴷⵉ');
 assert.doesNotMatch(locales.zgh['calendar-system-buddhist'], /Buddhist/);
 assert.notEqual(locales.zgh['calendar-system-buddhist'], locales.zgh['calendar-system-islamic']);
+
+assert.equal(locales.zgh['calendar-system-hebrew'], 'ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ⴰⵄⵉⴱⵔⵉ');
+assert.doesNotMatch(locales.zgh['calendar-system-hebrew'], /Hebrew/);
+assert.notEqual(locales.zgh['calendar-system-hebrew'], locales.zgh['calendar-system-buddhist']);
