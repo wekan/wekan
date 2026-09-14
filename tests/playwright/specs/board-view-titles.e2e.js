@@ -7,6 +7,7 @@ test.describe.configure({ mode: 'serial' });
 for (const view of [
   { name: 'minicard', title: '.minicard-title-text' },
   { name: 'opened card', title: '.card-details-title' },
+  { name: 'opened card List dropdown', title: '.card-details-list-picker > summary' },
   { name: 'timeline', menu: '.js-open-timeline-view', title: '.timeline-card-title' },
   { name: 'assignee', menu: '.js-open-group-by-assignee-view', title: '.group-by-assignee-card-title' },
   { name: 'control chart', menu: '.js-open-control-chart-view', title: '.chart-data-table tbody td' },
@@ -29,7 +30,7 @@ for (const view of [
           startAt: new Date(Date.now() - 86400000), dueAt: new Date(Date.now() + 86400000),
           endAt: new Date(),
         } });
-        if (view.name === 'cumulative flow') {
+        if (['cumulative flow', 'opened card List dropdown'].includes(view.name)) {
           db.updateOne('lists', { _id: card.listId }, { $set: {
             title: '# Demo [card](https://example.com/) :thumbsup: :heart: :tada:',
           } });
@@ -37,7 +38,7 @@ for (const view of [
         await loginWithToken(page, user.id, user.token);
         await openBoard(page, board.boardId, board.slug);
         if (view.menu) await page.locator(view.menu).first().click();
-        if (view.name === 'opened card') {
+        if (['opened card', 'opened card List dropdown'].includes(view.name)) {
           await page.locator('.minicard').filter({ hasText: 'Demo' }).first().click();
         }
         if (['control chart', 'cumulative flow'].includes(view.name)) {

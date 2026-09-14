@@ -571,9 +571,23 @@ template(name="cardFieldSectionSort")
                   h3.card-details-item-title
                     i.fa.fa-list
                     | {{_ 'list'}}
-                  select.js-select-card-details-lists(disabled="{{#unless canModifyCard}}disabled{{/unless}}")
+                  if canModifyCard
+                    details.card-details-list-picker
+                      summary
+                        each currentSwimlaneListsSorted
+                          if isCurrentListId _id
+                            +viewer
+                              = title
+                      div.card-details-list-options(role="listbox" aria-label="{{_ 'list'}}")
+                        each currentSwimlaneListsSorted
+                          div.js-select-card-details-list-option(role="option" tabindex="0" data-list-id="{{_id}}" aria-selected="{{#if isCurrentListId _id}}true{{else}}false{{/if}}")
+                            +viewer
+                              = title
+                  else
                     each currentSwimlaneListsSorted
-                      option(value="{{_id}}" selected="{{#if isCurrentListId _id}}selected{{/if}}") {{title}}
+                      if isCurrentListId _id
+                        +viewer
+                          = title
 
               //.card-details-items
             if $eq field "spentTime"

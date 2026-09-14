@@ -1194,12 +1194,42 @@ Template.cardDetails.events({
       await card.move(card.boardId, card.swimlaneId, card.listId, sort);
     }
   },
-  async 'change .js-select-card-details-lists'(event, tpl) {
-    const listId = event.target.value;
-    let card = Template.currentData();
-
+  async 'click .js-select-card-details-list-option'(event, tpl) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (!Utils.canModifyCard()) return;
+    const listId = event.currentTarget.dataset.listId;
+    const card = tpl.data;
+    if (!card || !listId || listId === card.listId) return;
+    const picker = event.currentTarget.closest('details');
     const minOrder = await card.getMinSort(listId, card.swimlaneId);
     await card.move(card.boardId, card.swimlaneId, listId, minOrder - 1);
+    if (picker) {
+      picker.open = false;
+      picker.querySelector('summary')?.focus();
+    }
+  },
+  'keydown .card-details-list-picker'(event) {
+    const picker = event.currentTarget;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      picker.open = false;
+      picker.querySelector('summary')?.focus();
+      return;
+    }
+    const options = [...picker.querySelectorAll('[role="option"]')];
+    const current = options.indexOf(event.target.closest('[role="option"]'));
+    if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
+      event.preventDefault();
+      picker.open = true;
+      const index = event.key === 'Home' ? 0 : event.key === 'End' ? options.length - 1 :
+        current < 0 ? (event.key === 'ArrowUp' ? options.length - 1 : 0) :
+          (current + (event.key === 'ArrowDown' ? 1 : -1) + options.length) % options.length;
+      options[index]?.focus();
+    } else if (current >= 0 && ['Enter', ' '].includes(event.key)) {
+      event.preventDefault();
+      options[current].click();
+    }
   },
   'click .js-go-to-linked-card'() {
     const card = Template.currentData();

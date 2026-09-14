@@ -1342,3 +1342,14 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
 #content .card-details-title .viewer h4 { font-size: 1.125em !important; }
 #content .card-details-title .viewer h5 { font-size: 1em !important; }
 #content .card-details-title .viewer h6 { font-size: 0.875em !important; }
+
+.card-details-list-picker { width: 100%; position: relative; }
+.card-details-list-picker > summary {
+  cursor: pointer; padding: 0.5em; border: 1px solid currentColor;
+  border-radius: 4px;
+}
+.card-details-list-picker > summary .viewer { display: inline-block; min-height: 0; }
+.card-details-list-options { max-height: 18em; overflow-y: auto; }
+.card-details-list-options [role="option"] { padding: 0.5em; cursor: pointer; }
+.card-details-list-options [aria-selected="true"] { font-weight: bold; }
+.card-details-list-options [role="option"]:focus { outline: 2px solid currentColor; outline-offset: -2px; }
