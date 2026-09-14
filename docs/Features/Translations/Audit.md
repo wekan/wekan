@@ -30,10 +30,11 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Tamazight failed attempts](Tamazight-Review.md) gains native software
-`arm` (try) evidence and dictionary testing/trial noun distinctions.
-Court/attack/technical-malfunction senses are excluded; complete plural
-failure wording remains open. No locale edit or count change.
+[Tamazight accessibility](Tamazight-Review.md) distinguishes digital
+accessibility from general entrance/access. Source fallback conflates a
+disabled page with missing information, even when a body exists. Preserve
+source meaning until that conflict is resolved; specialist terminology
+remains open. No locale edit or count change.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

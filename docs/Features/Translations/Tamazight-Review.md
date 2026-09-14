@@ -4202,3 +4202,37 @@ inventories. No live logo UI test ran. Ledger 19,894; corrected 15,771,
 pending 132 (zgh 39), restored 4 unchanged. Only height was originally
 flagged; nearby two repairs add ledger records without lowering queue count.
 Broader native phrase review remains open.
+
+
+## Accessibility fallback and lexical scope — 2026-09-15
+
+New source evidence affects both pending accessibility-info-not-added-yet
+and accessibility-page-enabled, plus unflagged accessibility/title/content.
+client/components/main/accessibility.js isAccessibilityEnabled checks only
+AccessibilitySettings.enabled. accessibility.jade renders the not-added-yet
+fallback whenever enabled is false/missing, without inspecting body. Thus
+saved content on a disabled page can still produce a missing-information
+claim; enabled with empty body instead gets the generic accessibility-content
+helper fallback. Do not silently translate not-added-yet as disabled or
+assume the source proves content absence. The source/UI wording conflict
+needs follow-up distinct from translation repair.
+
+settingBody.jade's checkbox edits page enabled; title/body editors are
+hidden when disabled. Translation of that checkbox must describe enabling
+the information page, not asserting the whole application meets an
+accessibility standard or granting board access. The content viewer renders
+admin-supplied page body. No source behavior changed in this review.
+
+IRCAM dictionary entry 3966 asadf means entrance/access; public/private
+access phrases do not attest digital accessibility or disability inclusion.
+No accessibility-specific entry was found in the targeted cached English
+text search; this is limited evidence, not proof no native term exists.
+Native MediaWiki zgh cached keys yielded no accessibility-labelled message.
+Web searches found French prose on accessibility on Amazigh-related sites,
+not a supported zgh equivalent. Such pages cannot validate a Tamazight
+translation. Next action: seek a digital-accessibility/inclusive-usability
+term or clearly documented native paraphrase, then apply consistently to
+all five keys while preserving enabled vs absent-information distinction.
+
+No locale edit, runtime or live UI test performed. Ledger 19,894 and
+tracked pending 132 remain unchanged; broader native review stays open.
