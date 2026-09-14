@@ -10036,5 +10036,221 @@
     "key": "authentication-method",
     "value": "Aŭtentiga metodo",
     "reason": "2026-09-14: Direct English/Esperanto semantic review confirms the rule fragment, hierarchy option, date field or authentication label. Marki/Malmarki correctly distinguish checkbox states; parent/path terminology is used for hierarchy, not family instructions. Literal placeholders retained."
+  },
+  {
+    "locale": "eo",
+    "key": "act-completeChecklist",
+    "value": "kompletigis kontrolliston __checklist__ en karto __card__ en listo __list__ en naĝlinio __swimlane__ en tabulo __board__",
+    "reason": "2026-09-14: ReVo revo/komple2.xml (rad komplet, drv 0igi) defines making complete and gives a completed-building example. Checklist completion sets the all-items-finished state; kompletigis and its mal- reversal convey this state change. Preserve correct existing wording and exact interpolation. Earlier komple.xml was a different root and is not evidence."
+  },
+  {
+    "locale": "eo",
+    "key": "act-uncompleteChecklist",
+    "value": "malkompletigis kontrolliston __checklist__ en karto __card__ en listo __list__ en naĝlinio __swimlane__ en tabulo __board__",
+    "reason": "2026-09-14: ReVo revo/komple2.xml (rad komplet, drv 0igi) defines making complete and gives a completed-building example. Checklist completion sets the all-items-finished state; kompletigis and its mal- reversal convey this state change. Preserve correct existing wording and exact interpolation. Earlier komple.xml was a different root and is not evidence."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-checklist-completed-card",
+    "value": "kompletigis kontrolliston __checklist__ en karto __card__ en listo __list__ en naĝlinio __swimlane__ en tabulo __board__",
+    "reason": "2026-09-14: ReVo revo/komple2.xml (rad komplet, drv 0igi) defines making complete and gives a completed-building example. Checklist completion sets the all-items-finished state; kompletigis and its mal- reversal convey this state change. Preserve correct existing wording and exact interpolation. Earlier komple.xml was a different root and is not evidence."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-checklist-completed",
+    "value": "kompletigis kontrolliston %s de %s",
+    "reason": "2026-09-14: ReVo revo/komple2.xml (rad komplet, drv 0igi) defines making complete and gives a completed-building example. Checklist completion sets the all-items-finished state; kompletigis and its mal- reversal convey this state change. Preserve correct existing wording and exact interpolation. Earlier komple.xml was a different root and is not evidence."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-checklist-uncompleted",
+    "value": "malkompletigis la kontrolliston %s de %s",
+    "reason": "2026-09-14: ReVo revo/komple2.xml (rad komplet, drv 0igi) defines making complete and gives a completed-building example. Checklist completion sets the all-items-finished state; kompletigis and its mal- reversal convey this state change. Preserve correct existing wording and exact interpolation. Earlier komple.xml was a different root and is not evidence."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-checklist-uncompleted-card",
+    "value": "malkompletigis la kontrolliston %s",
+    "reason": "2026-09-14: ReVo revo/komple2.xml (rad komplet, drv 0igi) defines making complete and gives a completed-building example. Checklist completion sets the all-items-finished state; kompletigis and its mal- reversal convey this state change. Preserve correct existing wording and exact interpolation. Earlier komple.xml was a different root and is not evidence."
+  },
+  {
+    "locale": "eo",
+    "key": "authentication-type",
+    "value": "Aŭtentiga tipo",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-product-name",
+    "value": "Propra produktnomo",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-head-tags-enabled",
+    "value": "Ŝalti proprajn head-etikedojn",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-head-meta-tags",
+    "value": "Propraj meta-etikedoj (HTML)",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-head-link-tags",
+    "value": "Propraj link-etikedoj (HTML)",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-manifest-enabled",
+    "value": "Ŝalti propran retan manifeston",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-head-manifest-content",
+    "value": "Enhavo de propra reta manifesto (JSON)",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-assetlinks-enabled",
+    "value": "Ŝalti propran assetlinks.json",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-assetlinks-content",
+    "value": "Enhavo de propra assetlinks.json (JSON)",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "layout",
+    "value": "Aranĝo",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "hide-logo",
+    "value": "Kaŝi emblemon",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "error-undefined",
+    "value": "Io misfunkciis",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "error-ldap-login",
+    "value": "Okazis eraro dum la provo ensaluti",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "display-authentication-method",
+    "value": "Montri aŭtentigan metodon",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "oidc-button-text",
+    "value": "Adapti la tekston de la OIDC-butono",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "default-authentication-method",
+    "value": "Defaŭlta aŭtentiga metodo",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "org-number",
+    "value": "La nombro de organizoj estas:  ",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "team-number",
+    "value": "La nombro de teamoj estas:  ",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "people-number",
+    "value": "La nombro de personoj estas:  ",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "swimlaneDeletePopup-title",
+    "value": "Ĉu forigi naĝlinion?",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "restore-all",
+    "value": "Restarigi ĉiujn",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "delete-all",
+    "value": "Forigi ĉiujn",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "loading",
+    "value": "Ŝargas, bonvolu atendi.",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "previous_as",
+    "value": "lastfoje estis",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "act-a-dueAt",
+    "value": "ŝanĝis limdaton al \nKiam: __timeValue__\nKie: __card__\n antaŭa limdato estis __timeOldValue__",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "act-a-endAt",
+    "value": "ŝanĝis fintempon al __timeValue__ el (__timeOldValue__)",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "act-a-startAt",
+    "value": "ŝanĝis komencotempon al __timeValue__ el (__timeOldValue__)",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "act-a-receivedAt",
+    "value": "ŝanĝis ricevotempon al __timeValue__ el (__timeOldValue__)",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "a-dueAt",
+    "value": "ŝanĝis limdaton al",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "a-endAt",
+    "value": "ŝanĝis fintempon al",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto authentication, custom metadata/manifest options, counts, restore/delete/loading and date activity labels. HTML tag/file names remain literal technical identifiers; all source interpolation preserved."
   }
 ]
