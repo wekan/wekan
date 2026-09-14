@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,452 |
+| Corrected | 15,454 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 392 |
+| Pending review or repair | 390 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,971** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,973** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `67e2d101b` — repaired five Arabic translation controls (two original findings and three unflagged values). Native non-fuzzy Dialect evidence supports Translation; preserve New/Edit/Delete THIS, custom scope and question mark. String-to-Text adaptation and custom modifier attachment/full phrases remain **low confidence**. All **17,971** correction checks pass; **392** original findings remain pending across **17** locales, including **257** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `1f30de7d6` — repaired two Arabic custom translation findings. Preserve deletion confirmation, THIS/custom scope, absolute no-undo warning and count punctuation. Native undo-failure and Count components support the wording; derived Text plural and full grammar remain **low confidence**. All **17,973** correction checks pass; **390** original findings remain pending across **17** locales, including **255** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Archive noun review (2026-09-14, `fbe388603`):** directly inspected a native Archives du Maroc logo in a university PDF, corroborating the archive noun beyond the earlier search-index excerpt. Updated nine provenance records; values/counts unchanged. Institutional-to-kanban adaptation and full labels remain low confidence. [Evidence](Audit-Evidence.md) records the exact source and scope.
 
