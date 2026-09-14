@@ -30,7 +30,7 @@ cross-checks calendar, user and click components in native Moroccan sources.
 Full phrases, warnings and invalidated Tuareg records remain open; no pending
 finding was accepted from component evidence.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,613** exact before/after values, including unflagged repairs.
+contain **18,627** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
@@ -47,14 +47,14 @@ remains open. Latin Inuktitut spelling is valid; original script warnings
 require vocabulary/context review rather than automatic replacement.
 Pending/restored counts after the latest review are 289/12.
 
-Latest translation fix: **2026-09-14**, local commit `0dc75532b` —
-four Breton WIP group/swimlane controls replace French or mixed wording.
-Native application terminology and existing locale nouns preserve distinct
-creation, enablement, selection and quick-apply actions. All 18,613 corrections,
-4,169 unchanged reviews and focused translation checks pass. Full adapted
-compounds and browser review remain open. Unflagged repairs leave 288 pending
-and 12 restored findings unchanged. Earlier Breton date/activity repairs
-are in `1ba55107f`, with timestamp phrasing and runtime formatting still open.
+Latest translation fix: **2026-09-14**, local commit `092678576` —
+14 unflagged Breton common controls and diagnostic labels replace French.
+Native software vocabulary preserves equivalent details/file/confirmation
+terms and distinguishes source from translated text. All 18,627 corrections,
+4,169 unchanged reviews and focused translation checks pass. Adapted compounds
+and browser review remain open. Counts remain 288 pending and 12 restored.
+A fresh French-identical comparison supplies hundreds of unflagged candidates;
+shared terms need individual review. Earlier WIP repairs are in `0dc75532b`.
 Latest unchanged review: **2026-09-14**, local commit `a0aacc7a9` —
 Silesian raw MongoDB 3 files retains native shared vocabulary, resolving its
 last flagged finding. All 4,169 unchanged reviews and focused translation

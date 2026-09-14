@@ -738,6 +738,16 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/092678576">Repair Breton common controls and diagnostics</a>. Thanks to xet7.</summary>
+
+Fourteen French labels become Breton using native software vocabulary.
+Equivalent details, files and confirmation controls stay consistent; source
+and translated text remain distinct. Focused checks pass. The dated audit
+keeps adapted compounds, broader unflagged values and browser review open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/009fa7dde">Cross-check Moroccan translation references</a>. Thanks to xet7.</summary>
 
 The dated audit records independent native calendar, user and click evidence

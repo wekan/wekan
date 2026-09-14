@@ -23873,3 +23873,27 @@ components, not the complete scraped dataset or full product warnings.
 Dictionary/publication access limitations and the next grammatical review
 steps are recorded. No locale values or counts changed; Tamazight still has
 173 pending findings and invalidated Tuareg provenance remains unresolved.
+
+### 2026-09-14 — Breton common controls and diagnostics
+
+Local commit `092678576` repairs 14 unflagged French values: three detail
+labels, two file labels, text/translated text, translation, history, two
+confirmation controls, subject, server and computer.
+[Native MediaWiki Breton software messages](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/br.json)
+support these terms: password-reset details, file-count/file-page messages,
+interface text, translation instructions, short history, confirmation, subject,
+server diagnostics and a shared-computer warning. Complete translated-text
+wording is a direct compound adaptation, not an exact source quotation.
+
+The admin translation table distinguishes source and translated text; leave
+board/team/domain submits use the confirmation label; computer upload uses
+the computer noun; migration details remain a distinct diagnostic heading.
+Exact values, foreign-prose exclusions and equivalent-field consistency pass
+with 18,627 corrections, 4,169 retained reviews and 234-locale completeness.
+Browser and broader native compound review remain open. Pending/restored
+counts remain 288/12 because these were unflagged values.
+
+A fresh Breton/French comparison found hundreds of short identical candidates.
+The comparison is a lead, not a wrong-language verdict for all matches: proper
+names, technical loans and shared vocabulary require individual review. The
+14 confirmed cases above are repaired; the wider unflagged review continues.
