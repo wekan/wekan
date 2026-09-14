@@ -302,3 +302,14 @@ assert.match(translated['swimlane-delete-pop'], /ⵜⵙⵙⵓⴽⵏⴷ ⴰⴱⵔ
 
 assert.equal(translated['r-update'], 'ⴰⵙⴷⵖⵉ');
 assert.doesNotMatch(translated['r-update'], /تحديث|Update/);
+
+assert.equal(translated["r-check"], "ⵕⵛⵎ");
+assert.equal(translated["r-uncheck"], "ⴽⴽⵙ ⵜⴰⵎⴰⵜⴰⵔⵜ");
+assert.equal(translated["r-check-all"], "ⵕⵛⵎ ⴰⴽⴽⵯ");
+assert.equal(translated["r-uncheck-all"], "ⴽⴽⵙ ⵜⵉⵎⵉⵜⴰⵔ ⴰⴽⴽⵯ");
+assert.equal(translated["r-d-check-one"], "ⵕⵛⵎ ⴰⴼⵔⴷⵉⵙ");
+assert.equal(translated["r-d-uncheck-one"], "ⴽⴽⵙ ⵜⴰⵎⴰⵜⴰⵔⵜ ⵙⴳ ⵓⴼⵔⴷⵉⵙ");
+assert.equal(translated["r-d-check-all"], "ⵕⵛⵎ ⵉⴼⵔⴷⵉⵙⵏ ⴰⴽⴽⵯ ⵏ ⵜⵍⴳⴰⵎⵜ");
+assert.equal(translated["r-d-uncheck-all"], "ⴽⴽⵙ ⵜⵉⵎⵉⵜⴰⵔ ⵙⴳ ⵉⴼⵔⴷⵉⵙⵏ ⴰⴽⴽⵯ ⵏ ⵜⵍⴳⴰⵎⵜ");
+assert.notEqual(translated['r-check'], translated['r-uncheck']);
+assert.notEqual(translated['r-check'], translated['r-check-all']);

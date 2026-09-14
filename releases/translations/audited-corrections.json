@@ -126409,15 +126409,15 @@
     "locale": "zgh",
     "key": "r-d-check-all",
     "before": "Cocher tous les éléments d'une liste",
-    "after": "ⵙⵎⴰⵜⵔ ⴰⴽⴽⵯ ⵉⴼⵔⴷⵉⵙⵏ ⵏ ⵜⵍⴳⴰⵎⵜ",
-    "reason": "2026-09-14: Replace French checklist checkbox controls. Native MediaWiki tooltip-invert/tooltip-namespace_association attest Check smatr in checkbox context, hide Hide ffr, All akkw and Remove kks: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Item/List native components retained. Preserve Hide CHECKED items, CHECK ALL items OF A LIST, and active UNCHECK ALL reversal rather than merely unchecked state. Uncheck paraphrased Remove Mark; derived mark nominalization, checked plural passive, bound list and full scope grammar remain LOW CONFIDENCE."
+    "after": "ⵕⵛⵎ ⵉⴼⵔⴷⵉⵙⵏ ⴰⴽⴽⵯ ⵏ ⵜⵍⴳⴰⵎⵜ",
+    "reason": "2026-09-14: Replace French checklist checkbox controls. Native MediaWiki tooltip-invert/tooltip-namespace_association attest Check smatr in checkbox context, hide Hide ffr, All akkw and Remove kks: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Item/List native components retained. Preserve Hide CHECKED items, CHECK ALL items OF A LIST, and active UNCHECK ALL reversal rather than merely unchecked state. Uncheck paraphrased Remove Mark; derived mark nominalization, checked plural passive, bound list and full scope grammar remain LOW CONFIDENCE. 2026-09-15: align checklist check/uncheck action with IRCAM mark verb rcm (page 467 entry 8828) and sign noun tamatart/plural timitar (page 595 entry 11152). Preserve check versus mark removal, one versus all and item/checklist scope. Software checkbox adaptation and full phrase grammar remain low confidence; component evidence does not certify fluency."
   },
   {
     "locale": "zgh",
     "key": "r-d-uncheck-all",
     "before": "Décocher tous les éléments d'une liste",
-    "after": "ⴽⴽⵙ ⴰⵙⵎⴰⵜⵔ ⵙⴳ ⵉⴼⵔⴷⵉⵙⵏ ⴰⴽⴽⵯ ⵏ ⵜⵍⴳⴰⵎⵜ",
-    "reason": "2026-09-14: Replace French checklist checkbox controls. Native MediaWiki tooltip-invert/tooltip-namespace_association attest Check smatr in checkbox context, hide Hide ffr, All akkw and Remove kks: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Item/List native components retained. Preserve Hide CHECKED items, CHECK ALL items OF A LIST, and active UNCHECK ALL reversal rather than merely unchecked state. Uncheck paraphrased Remove Mark; derived mark nominalization, checked plural passive, bound list and full scope grammar remain LOW CONFIDENCE."
+    "after": "ⴽⴽⵙ ⵜⵉⵎⵉⵜⴰⵔ ⵙⴳ ⵉⴼⵔⴷⵉⵙⵏ ⴰⴽⴽⵯ ⵏ ⵜⵍⴳⴰⵎⵜ",
+    "reason": "2026-09-14: Replace French checklist checkbox controls. Native MediaWiki tooltip-invert/tooltip-namespace_association attest Check smatr in checkbox context, hide Hide ffr, All akkw and Remove kks: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Item/List native components retained. Preserve Hide CHECKED items, CHECK ALL items OF A LIST, and active UNCHECK ALL reversal rather than merely unchecked state. Uncheck paraphrased Remove Mark; derived mark nominalization, checked plural passive, bound list and full scope grammar remain LOW CONFIDENCE. 2026-09-15: align checklist check/uncheck action with IRCAM mark verb rcm (page 467 entry 8828) and sign noun tamatart/plural timitar (page 595 entry 11152). Preserve check versus mark removal, one versus all and item/checklist scope. Software checkbox adaptation and full phrase grammar remain low confidence; component evidence does not certify fluency."
   },
   {
     "locale": "zgh",
@@ -138682,5 +138682,47 @@
     "before": "تحديث",
     "after": "ⴰⵙⴷⵖⵉ",
     "reason": "2026-09-15: replace Arabic standalone Update rule label with IRCAM page 218 entry 4175 attested update noun asdghi. Use noun as UI action label, without claiming an unattested imperative. Full contextual action-label suitability remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-check",
+    "before": "Cocher",
+    "after": "ⵕⵛⵎ",
+    "reason": "2026-09-15: align checklist check/uncheck action with IRCAM mark verb rcm (page 467 entry 8828) and sign noun tamatart/plural timitar (page 595 entry 11152). Preserve check versus mark removal, one versus all and item/checklist scope. Software checkbox adaptation and full phrase grammar remain low confidence; component evidence does not certify fluency."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-uncheck",
+    "before": "Décocher",
+    "after": "ⴽⴽⵙ ⵜⴰⵎⴰⵜⴰⵔⵜ",
+    "reason": "2026-09-15: align checklist check/uncheck action with IRCAM mark verb rcm (page 467 entry 8828) and sign noun tamatart/plural timitar (page 595 entry 11152). Preserve check versus mark removal, one versus all and item/checklist scope. Software checkbox adaptation and full phrase grammar remain low confidence; component evidence does not certify fluency."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-check-all",
+    "before": "Tout cocher",
+    "after": "ⵕⵛⵎ ⴰⴽⴽⵯ",
+    "reason": "2026-09-15: align checklist check/uncheck action with IRCAM mark verb rcm (page 467 entry 8828) and sign noun tamatart/plural timitar (page 595 entry 11152). Preserve check versus mark removal, one versus all and item/checklist scope. Software checkbox adaptation and full phrase grammar remain low confidence; component evidence does not certify fluency."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-uncheck-all",
+    "before": "Tout décocher",
+    "after": "ⴽⴽⵙ ⵜⵉⵎⵉⵜⴰⵔ ⴰⴽⴽⵯ",
+    "reason": "2026-09-15: align checklist check/uncheck action with IRCAM mark verb rcm (page 467 entry 8828) and sign noun tamatart/plural timitar (page 595 entry 11152). Preserve check versus mark removal, one versus all and item/checklist scope. Software checkbox adaptation and full phrase grammar remain low confidence; component evidence does not certify fluency."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-d-check-one",
+    "before": "Cocher l'élément",
+    "after": "ⵕⵛⵎ ⴰⴼⵔⴷⵉⵙ",
+    "reason": "2026-09-15: align checklist check/uncheck action with IRCAM mark verb rcm (page 467 entry 8828) and sign noun tamatart/plural timitar (page 595 entry 11152). Preserve check versus mark removal, one versus all and item/checklist scope. Software checkbox adaptation and full phrase grammar remain low confidence; component evidence does not certify fluency."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-d-uncheck-one",
+    "before": "Décocher l'élément",
+    "after": "ⴽⴽⵙ ⵜⴰⵎⴰⵜⴰⵔⵜ ⵙⴳ ⵓⴼⵔⴷⵉⵙ",
+    "reason": "2026-09-15: align checklist check/uncheck action with IRCAM mark verb rcm (page 467 entry 8828) and sign noun tamatart/plural timitar (page 595 entry 11152). Preserve check versus mark removal, one versus all and item/checklist scope. Software checkbox adaptation and full phrase grammar remain low confidence; component evidence does not certify fluency."
   }
 ]
