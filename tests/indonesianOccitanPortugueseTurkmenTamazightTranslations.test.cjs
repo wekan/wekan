@@ -411,3 +411,9 @@ assert.equal(locales.zgh['r-df-received-at'], locales.zgh['card-received']);
 assert.equal(locales.zgh['card-due'], locales.zgh['due-date']);
 assert.notEqual(locales.zgh['card-due'], locales.zgh['card-received']);
 assert.doesNotMatch(locales.zgh['card-due'] + locales.zgh['card-received'], /[\u0600-\u06ff]|Reçue/);
+
+for (const key of ['act-a-receivedAt', 'a-receivedAt']) {
+  assert.match(locales.zgh[key], /ⴰⴽⵓⴷ ⵏ ⵉⵎⵉⵥ ⵖⵔ/);
+  assert.doesNotMatch(locales.zgh[key], /ⵜⵔⵎⵙⵜ/);
+}
+assert.match(locales.zgh['act-a-receivedAt'], /__timeValue__.*__timeOldValue__/);
