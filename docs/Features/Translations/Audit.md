@@ -25,8 +25,10 @@ Silesian raw-database wording is retained with native vocabulary evidence
 in `a0aacc7a9`; shared Polish spelling alone does not prove an error.
 Exact standardized compound and browser review remain open.
  [Tamazight reference review](Tamazight-Review.md) confirms
-French prose in the first 25 pending entries and records a new dictionary
-lead requiring primary-source cross-checks. No values accepted from that lead.
+French prose in the first 25 pending entries. Review `009fa7dde` independently
+cross-checks calendar, user and click components in native Moroccan sources.
+Full phrases, warnings and invalidated Tuareg records remain open; no pending
+finding was accepted from component evidence.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
 contain **18,613** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,

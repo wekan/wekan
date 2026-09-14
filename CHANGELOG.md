@@ -738,6 +738,15 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/009fa7dde">Cross-check Moroccan translation references</a>. Thanks to xet7.</summary>
+
+The dated audit records independent native calendar, user and click evidence
+for dictionary components. Full phrases and invalidated Tuareg provenance
+remain open; no pending finding was accepted from component evidence.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0dc75532b">Repair Breton WIP group and swimlane controls</a>. Thanks to xet7.</summary>
 
 Four French or mixed labels become distinct Breton application, group
