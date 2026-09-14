@@ -799,3 +799,23 @@ problem-summary/progress prose, CPU-current, severity, sum/date-range fields
 and chart-forecast messages. Native voting supporters/opponents and for/against
 labels also need vocabulary review; existing Finnish text is not protected
 as Veps. These are within the full unflagged scope, not excluded by queue count.
+
+
+2026-09-15 — `f5d72bae8`: five unflagged Tshivenda values replaced:
+repair-broken-cards, repairing, repair-broken-cards-done,
+repair-broken-cards-done-unfixable and restore-list-swimlanes-done.
+Direct Veps drafts use existing Kohenda repair, Endišta restore, kart/list
+and board vocabulary. Native MediaWiki supports ei sa negative possibility
+and avtomatižesti automatic wording; source rechecked today:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+Read problemsSummary.js: fixed/unfixable and restored/remaining are distinct
+result counters. Missing-board cards cannot be placed automatically; lists
+whose original swimlane is unknown/missing cannot be restored. Preserve
+__fixed__, __unfixable__, __restored__, __remaining__ exactly, not just digits.
+Full count agreement, passive forms, cases and broken-card terminology
+remain LOW CONFIDENCE; existing local vocabulary is not full phrase proof.
+Four focused files pass (32 checks), including exact token inventories,
+unresolved/automatic-limit clauses and actual result bindings. No live
+repair UI ran. Ledger 19,944; pending 126/restored 4 unchanged. Remaining
+problem summary/progress, backup/forecast and full earlier uncertain wording
+remain within the full repair scope.

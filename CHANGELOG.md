@@ -1418,6 +1418,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f5d72bae8">Replace wrong-language Veps repair and restore messages.</a></summary>
+
+Preserve result counters, missing-board explanation and automatic-repair
+limits. Complete count and case grammar remains low confidence.
+Four focused files pass (32 checks); no live repair UI ran.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
