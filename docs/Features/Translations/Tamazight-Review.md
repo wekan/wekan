@@ -1487,3 +1487,17 @@ English fallback formats and null/absent arguments do not crash.
 Three runtime/parser/lazy-loading suites pass. This supersedes the earlier
 unverified runtime-interpolation note for this tested path; browser
 rendering and native wording remain unverified. No locale/count changes.
+
+Lost-card restoration title — 2026-09-14, `73543f47a`.
+French restore-lost-cards-migration becomes a complete Tamazight draft.
+IRCAM Amazigh-English PDF 534 entry 10051 ssukn restore/repair,
+575 entry 10775 tikarḍiwin cards, 383 entry 7266 imnidi lost.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+Low confidence: adapted feminine plural timnidin, imperative context and
+software restoration metaphor. Textile-card and bereavement senses are
+excluded. No active key consumer was found in client/models/server; this
+repairs stored translation data and does not restore removed migrations.
+Four focused checks pass for complete components, negative wrong-language
+and wrong-sense coverage, token inventory and protected newer values.
+Native/browser review remains open. Original corrected 15,662;
+pending 240 (zgh 132); correction ledger 18,795.

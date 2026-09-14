@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/73543f47a">Draft lost-card restoration title</a>. Thanks to xet7.</summary>
+
+Replace a stored French action title with complete Tamazight wording.
+Four translation checks pass. Record uncertain adjective agreement and
+software usage in the audit; no removed migration is restored.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c74009b21">Format direct translation arguments</a>. Thanks to xet7.</summary>
 
 Search error values passed directly to TAPi18n now replace percent
