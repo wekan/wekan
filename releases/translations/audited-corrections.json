@@ -123828,5 +123828,26 @@
     "before": "Nom de l'espace de travail",
     "after": "ⵉⵙⵎ ⵏ ⵓⵙⴰⵢⵔⴰⵔ",
     "reason": "2026-09-14: Replace French workspace add/edit/name label. Preserve singular workspace, distinguish add from edit and the workspace name field, and do not collapse subworkspace into workspace. Reuse local r-workspace ⴰⵙⴰⵢⵔⴰⵔ; native Moroccan INPPLC page directly uses the noun in ⴰⵙⴰⵢⵔⴰⵔ ⵏ ⵓⵏⵖⵎⵙ (information/media space). Native MediaWiki supports add rnu, edit snfl and name ism. LOW CONFIDENCE: institutional content-space usage supports the noun but does not independently establish the WeKan organizational-workspace extension, bound form usayrar or complete label. Renewed fluent technical terminology/grammar review required. References: https://www.inpplc.ma/index.php/amz (information space); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (export-addcat, tags-edit, upload-form-label-infoform-name)."
+  },
+  {
+    "locale": "zgh",
+    "key": "workspace-settings",
+    "before": "Paramètres de l'espace de travail",
+    "after": "ⵜⵉⵙⵖⴰⵍ ⵏ ⵓⵙⴰⵢⵔⴰⵔ",
+    "reason": "2026-09-14: Replace French Workspace Settings heading consistently in entry and popup. Native Mastodon column_header.show_settings/hide_settings attest tisghal/settings; reuse local workspace noun asayrar, corroborated as institutional information-space vocabulary by INPPLC. Preserve singular workspace ownership and settings rather than replace with a menu or personal preferences. LOW CONFIDENCE organizational-workspace extension, bound form usayrar and complete heading require fluent review. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json (column settings); https://www.inpplc.ma/index.php/amz (information space)."
+  },
+  {
+    "locale": "zgh",
+    "key": "workspaceActionsPopup-title",
+    "before": "Paramètres de l'espace de travail",
+    "after": "ⵜⵉⵙⵖⴰⵍ ⵏ ⵓⵙⴰⵢⵔⴰⵔ",
+    "reason": "2026-09-14: Replace French Workspace Settings heading consistently in entry and popup. Native Mastodon column_header.show_settings/hide_settings attest tisghal/settings; reuse local workspace noun asayrar, corroborated as institutional information-space vocabulary by INPPLC. Preserve singular workspace ownership and settings rather than replace with a menu or personal preferences. LOW CONFIDENCE organizational-workspace extension, bound form usayrar and complete heading require fluent review. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json (column settings); https://www.inpplc.ma/index.php/amz (information space)."
+  },
+  {
+    "locale": "zgh",
+    "key": "close",
+    "before": "غلق",
+    "after": "ⵔⴳⵍ",
+    "reason": "2026-09-14: Replace Arabic Close with the exact native Standard Moroccan software action. Mastodon lightbox.close and bundle_modal_error.close both use ⵔⴳⵍ. Preserve the Close action, distinct from Cancel, Accept and account locking. Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json (lightbox.close, bundle_modal_error.close)."
   }
 ]
