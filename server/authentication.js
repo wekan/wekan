@@ -82,7 +82,18 @@ export const Authentication = {
     const board = await ReactiveCache.getBoard(boardId);
     Authentication.checkBoardExists(board);
     const adminAccess = board.members.some(e => e.userId === userId && e.isActive && e.isAdmin);
-    await Authentication.checkAdminOrCondition(userId, adminAccess);
+    try {
+      await Authentication.checkAdminOrCondition(userId, adminAccess);
+    } catch (error) {
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'authz.manage-board', action: 'blocked',
+          source: 'rest:board-admin',
+          detail: 'Board management denied because the caller is not an administrator.',
+        });
+      } catch (e) { /* logging must never break the guard */ }
+      throw error;
+    }
   },
 
   // Helper function. Throws a 404 error when the board does not exist, so REST

@@ -140,7 +140,7 @@ if (Meteor.isServer) {
   WebApp.handlers.post('/api/boards/:boardId/rules', async function(req, res) {
     try {
       const paramBoardId = req.params.boardId;
-      await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+      await Authentication.checkBoardAdmin(req.userId, paramBoardId);
       const { title, trigger, action } = req.body;
       if (!trigger || !action) {
         throw new Meteor.Error('bad-request', 'trigger and action are required');
@@ -190,7 +190,7 @@ if (Meteor.isServer) {
   WebApp.handlers.put('/api/boards/:boardId/rules/:ruleId', async function(req, res) {
     try {
       const paramBoardId = req.params.boardId;
-      await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+      await Authentication.checkBoardAdmin(req.userId, paramBoardId);
       const rule = await ReactiveCache.getRule({
         _id: req.params.ruleId,
         boardId: paramBoardId,
@@ -234,7 +234,7 @@ if (Meteor.isServer) {
   WebApp.handlers.delete('/api/boards/:boardId/rules/:ruleId', async function(req, res) {
     try {
       const paramBoardId = req.params.boardId;
-      await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+      await Authentication.checkBoardAdmin(req.userId, paramBoardId);
       const rule = await ReactiveCache.getRule({
         _id: req.params.ruleId,
         boardId: paramBoardId,

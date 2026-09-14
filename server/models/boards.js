@@ -1115,7 +1115,7 @@ WebApp.handlers.delete('/api/boards/:boardId', async function(req, res) {
 WebApp.handlers.put('/api/boards/:boardId/title', async function(req, res) {
   try {
     const boardId = req.params.boardId;
-    await Authentication.checkBoardWriteAccess(req.userId, boardId);
+    await Authentication.checkBoardAdmin(req.userId, boardId);
     const title = req.body.title;
 
     await Boards.direct.updateAsync({ _id: boardId }, { $set: { title } });
@@ -1310,7 +1310,7 @@ WebApp.handlers.get('/api/boards/:boardId/cardSettings', async function(req, res
  * key of the board, as `true`/`false`) and of the card-aging thresholds
  * (`cardAgingDays1`..`cardAgingDays3`, non-negative integers). Keys not in
  * the body are left as they are; a body with no recognised key is a 400.
- * Requires board write access. Returns the settings in effect, in the same
+ * Requires board administrator access. Returns the settings in effect, in the same
  * shape as GET.
  *
  * @param {string} boardId the board ID
@@ -1328,7 +1328,7 @@ WebApp.handlers.get('/api/boards/:boardId/cardSettings', async function(req, res
  */
 WebApp.handlers.put('/api/boards/:boardId/cardSettings', async function(req, res) {
   const id = req.params.boardId;
-  await Authentication.checkBoardWriteAccess(req.userId, id);
+  await Authentication.checkBoardAdmin(req.userId, id);
   const board = await ReactiveCache.getBoard(id);
   if (!board) {
     sendJsonResult(res, { code: 404, data: { error: 'Board not found' } });
