@@ -77,3 +77,7 @@ assert.equal(quechua["week"], "Simana");
 assert.doesNotMatch(quechua.week, /Kay willaymi/);
 assert.match(quechua['calendar-system-iso8601'], /^Gregoriano.*ISO 8601 simanakuna/);
 assert.match(quechua['calendar-system-jalali'], /^Jalali/);
+
+assert.equal(quechua['calendar-system'], 'Watanqillqa llika (p’unchay rikuchiy)');
+assert.doesNotMatch(quechua['calendar-system'], /Intiwatana/);
+assert.match(quechua['calendar-system'], /llika.*p’unchay rikuchiy/);

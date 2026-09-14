@@ -2362,8 +2362,8 @@
     "locale": "qu",
     "key": "calendar-system",
     "before": "Kalendar sistem (data görünüşü)",
-    "after": "Intiwatana",
-    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology."
+    "after": "Watanqillqa llika (p’unchay rikuchiy)",
+    "reason": "Replace foreign calendar label with target-language Unicode CLDR 48.2 calendar terminology. Replace clock-only heading and restore calendar system/date-display components. Primary Peru Ministry of Education Central Quechua vocabulary PDF pages 85/141 attests llika system/network; Chile Cusco Collao dictionary attests Watanqillqa calendar and punchay day. Reuse existing display rikuchiy. Low confidence: cross-variety llika reuse, day-to-date adaptation and complete compound grammar require native/browser review."
   },
   {
     "locale": "qu",
