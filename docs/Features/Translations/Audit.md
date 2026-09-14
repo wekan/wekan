@@ -29,11 +29,11 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Veps dictionary search](Veps-Review.md): corrupted Cyrillic invalidates
-the earlier normal-text negative search. Use rendered pages; located button
-snippets concern fastening and do not prove keyboard terminology. Four
-coordinated shortcut messages still need repair, including the unflagged
-Finnish title. No locale edit or count change; broader review remains open.
+[Veps rendered dictionary](Veps-Review.md): button entry is now visually
+verified as tack/clothing fastener. Exclude those words and the door-key
+entry as keyboard terminology evidence. Four coordinated shortcut messages
+remain open, including the unflagged Finnish title. No locale edit or count
+change; broader review continues.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

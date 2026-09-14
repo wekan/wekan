@@ -29753,3 +29753,23 @@ by primary native software/corpus evidence for computing terminology.
 No locale edit or queue acceptance change; nine Veps findings and the
 unflagged Finnish keyboard-shortcuts title remain open. Audit verification
 passed; overall original pending remains 127, restored 4 unchanged.
+
+
+## Visual button-entry verification — 2026-09-15
+
+Directly inspected rendered Russian–Veps dictionary PDF page 189,
+button-189.png, rather than relying on corrupted extracted headwords.
+The complete кнопка entry gives (1) для прикалывания, kingitim
+(-men, -nt, -mid), with pinning a schedule to a board; (2) застёжка,
+plikkutim (-men, -nt, -mid), with fastening a coat. Neither sense is a
+keyboard key or computer button. Exclude both as evidence for the four
+keyboard-shortcut repairs. The neighbouring ключ entry is a door-opening
+key, avadim, so its metaphor must not be treated as an attested keyboard
+key either. This settles those candidate senses; it does not prove that
+Veps lacks keyboard terminology. The rendered alphabetical page goes from
+preceding kl- words into key-related entries without an independent
+клавиатура headword on this page. Continue with native computing corpus
+lookup or an explicitly documented direct paraphrase, preserving current
+state/opposite click action and the literal ? key binding.
+No locale edits or classification changes. Overall tracked pending 127,
+including nine Veps findings and additional unflagged title review.
