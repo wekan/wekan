@@ -8938,5 +8938,245 @@
     "key": "import-csv-placeholder",
     "value": "Algluu viajn validajn CSV/TSV-datumojn ĉi tie",
     "reason": "Direct Esperanto review confirms sorting, manual order, date/member/assignee/custom-field filters, filter activation, import formats and Excel export constraints. Preserve last-access time, no-due/no-assignee/no-field states, today/tomorrow/current/next-week distinctions and CSV/TSV delimiter meanings. Long advanced-filter grammar is excluded for a separate literal-syntax review."
+  },
+  {
+    "locale": "eo",
+    "key": "import-map-members",
+    "value": "Mapi membrojn",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "import-show-user-mapping",
+    "value": "Revizii mapadon de membroj",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "importMapMembersAddPopup-title",
+    "value": "Elekti membron",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "info",
+    "value": "Versio",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "initials",
+    "value": "Inicialoj",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "invalid-date",
+    "value": "Nevalida dato",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "invalid-time",
+    "value": "Nevalida tempo",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "joined",
+    "value": "aliĝis",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "keyboard-shortcuts",
+    "value": "Klavaraj fulmoklavoj",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "label-default",
+    "value": "etikedo %s (defaŭlta)",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "last-admin-desc",
+    "value": "Vi ne povas ŝanĝi rolojn, ĉar devas esti almenaŭ unu administranto.",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "set-color-list",
+    "value": "Agordi koloron",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "listActionPopup-title",
+    "value": "Listaj agoj",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "listImportCardsTsvPopup-title",
+    "value": "Importi Excel CSV/TSV",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "link-list",
+    "value": "Ligi al ĉi tiu listo",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "swimlanes",
+    "value": "Naĝlinioj",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "calendar",
+    "value": "Kalendaro",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "moveListPopup-title",
+    "value": "Movi liston",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "copySelectionPopup-title",
+    "value": "Kopii elekton",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "selection-color",
+    "value": "Koloro de elekto",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "multi-selection",
+    "value": "Plurelekto",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "multi-selection-on",
+    "value": "Plurelekto aktivas",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "muted",
+    "value": "Silentigita",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "no-archived-lists",
+    "value": "Neniuj listoj en Arkivo.",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "no-archived-swimlanes",
+    "value": "Neniuj naĝlinioj en Arkivo.",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "normal-assigned-only",
+    "value": "Nur atribuitaj: normala",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "normal-assigned-only-desc",
+    "value": "Nur atribuitaj kartoj videblas. Redaktas kiel normala uzanto.",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "not-accepted-yet",
+    "value": "Invito ankoraŭ ne akceptita",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "optional",
+    "value": "laŭvola",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "page-maybe-private",
+    "value": "Ĉi tiu paĝo eble estas privata. Vi eble povos vidi ĝin post <a href='%s'>ensaluto</a>.",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "paste-or-dragdrop",
+    "value": "por alglui, aŭ trenu kaj faligu bilddosieron ĉi tien (nur bildoj)",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "participating",
+    "value": "Partoprenanta",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "preview",
+    "value": "Antaŭrigardo",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "previewAttachedImagePopup-title",
+    "value": "Antaŭrigardo",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "previewClipboardImagePopup-title",
+    "value": "Antaŭrigardo",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "remove-label",
+    "value": "Forigi etikedon",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "listDeletePopup-title",
+    "value": "Ĉu forigi liston?",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "removeMemberPopup-title",
+    "value": "Ĉu forigi membron?",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "select-color",
+    "value": "Elekti koloron",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "shortcut-autocomplete-emoji",
+    "value": "Aŭtomate kompletigi emoĝiojn",
+    "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
   }
 ]
