@@ -21580,3 +21580,13 @@ distinctions, missing-date/member/field states and CSV/TSV import meanings.
 Long advanced-filter syntax is excluded for separate operator, escaping and
 example review. Unchanged-value tests pass; browser behavior and earlier
 uncertain terminology remain unverified.
+
+
+### Esperanto member mapping and selection review — 2026-09-14
+
+Local commit `ba7f76e53` retains 40 directly reviewed correct values.
+Preserve member mapping, invalid date/time states, administrator minimum,
+assigned-only visibility, invitation state, image-only drop restrictions
+and private-page login links. Emoji autocomplete wording is correct and
+distinct from checklist task completion. Placeholders remain verbatim.
+Unchanged-value tests pass; browser validation and uncertain terms remain open.
