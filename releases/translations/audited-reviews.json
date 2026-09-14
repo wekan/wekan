@@ -16852,5 +16852,185 @@
     "key": "vote-delete-pop",
     "value": "A eliminación é permanente. Perderás todas as accións asociadas a esta votación.",
     "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "cardStartPlanningPokerPopup-title",
+    "value": "Iniciar un Planning Poker",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "card-edit-planning-poker",
+    "value": "Editar o Planning Poker",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "editPokerEndDatePopup-title",
+    "value": "Cambiar a data de fin da votación do Planning Poker",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "poker-result-who",
+    "value": "Quen",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "poker-replay",
+    "value": "Repetir",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "set-estimation",
+    "value": "Definir a estimación",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "deletePokerPopup-title",
+    "value": "Eliminar o planning poker?",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "dependencyLinePopup-title",
+    "value": "Editar a dependencia",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "deleteDuplicateListsPopup-title",
+    "value": "Eliminar as listas duplicadas",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "cardAssigneePopup-title",
+    "value": "Responsable",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "listsortPopup-title",
+    "value": "Ordenar a lista",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "swimlaneHeightErrorPopup-title",
+    "value": "Erro de altura do carril",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "cardTemplatePopup-title",
+    "value": "Crear modelo",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "casSignIn",
+    "value": "Iniciar sesión con CAS",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "font-size-default",
+    "value": "Predeterminado",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "delete-avatar-confirm",
+    "value": "Seguro que queres eliminar este avatar?",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "deleteAvatarPopup-title",
+    "value": "Eliminar o avatar?",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "subtasks",
+    "value": "Subtarefas",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "click-to-enable-auto-width",
+    "value": "Largura automática das listas desactivada. Fai clic para activar.",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "click-to-disable-auto-width",
+    "value": "Largura automática das listas activada. Fai clic para desactivar.",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "auto-list-width",
+    "value": "Largura automática das listas",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "clipboard",
+    "value": "Portapapeis ou arrastrar e soltar",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "close",
+    "value": "Pechar",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "color-crimson",
+    "value": "carmesí",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "color-gray",
+    "value": "gris",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "color-indigo",
+    "value": "índigo",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "color-lime",
+    "value": "verde lima",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "color-mistyrose",
+    "value": "rosa pálido",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "color-navy",
+    "value": "azul mariño",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "color-paleturquoise",
+    "value": "turquesa pálido",
+    "reason": "Direct Galician review retains Planning Poker as the named estimation practice, vote end-date and replay/edit/delete actions, dependency/template controls, CAS name and avatar confirmations. Automatic width labels correctly invert state/click action; clipboard alternatives and color hue/pale distinctions retain meaning."
   }
 ]
