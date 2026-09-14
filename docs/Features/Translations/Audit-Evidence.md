@@ -22886,3 +22886,11 @@ import-interwiki-history uses Eilañ. Do not confuse generic MediaWiki move
 copy/move/delete distinctions remain intact. All 18,262 correction records
 pass; original counts remain 27 restored and 300 pending. Whole-phrase
 inflection, other French-seeded Breton prose and browser review remain open.
+
+Dated unflagged repair, 2026-09-14, local commit `cd100eeaa`: Breton
+swimlaneDeletePopup-title replaces French Supprimer le couloir ? with
+Dilemel ar vandenn ?. Reuse existing deletion titles and the swimlane
+noun phrase already used for archiving/moving; preserve question and target.
+All 18,263 corrections pass token, JSON, ordering and merge-preference checks.
+Original pending/restored counts remain 300/27. Native phrase and browser
+validation remain open; this correction does not close those wider reviews.

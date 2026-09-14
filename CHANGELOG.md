@@ -671,6 +671,15 @@ The empty wrongly placed Git directory was removed locally.
 **Languages updated:** Acehnese, Bambara, Basque, Breton, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cd100eeaa">Repair Breton swimlane deletion confirmation</a>. Thanks to xet7.</summary>
+
+Replace the French title with existing Breton deletion/swimlane terms.
+Preserve the confirmation question. Correction and placeholder checks pass;
+whole-phrase and browser review remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/625436b63">Translate Breton copy and move control language</a>. Thanks to xet7.</summary>
 
 Fourteen French/English copy, move, template, checklist and account labels
