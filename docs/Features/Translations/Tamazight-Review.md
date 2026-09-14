@@ -928,3 +928,25 @@ accepting a board invitation; no such acceptance is recorded.
 Four focused checks pass; no browser validation was run. Recount: 15,639
 corrected, 263 pending (150 Tamazight), four restored, 4,175 retained and
 18,738 correction records. Broader native/runtime verification stays open.
+
+## Accept versus kiss search ambiguity — 2026-09-14
+
+The remaining not-accepted-yet finding was reviewed against new external
+search evidence. An Arabic-to-zgh Glosbe result for unvocalized يقبل gives
+ssudm. This spelling can represent a kiss reading and must not be treated
+as invitation acceptance. Primary IRCAM 2019 PDF page 533 entry 10038
+explicitly attests ssudm, variant ssudn, as to kiss. Reject this candidate
+for accept/not-accepted-yet; no translation or acceptance is recorded.
+Sources:
+https://ar.glosbe.com/ar/zgh/يقبل
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+The currently indexed official DGLAI site is a further primary lead:
+https://tal.ircam.ma/dglai/
+A live open returned 502; the accepter search URL was not retrieved.
+Neither result establishes an accept lemma. No external translation service
+was used. not-accepted-yet remains French and pending; the dictionary's
+accept-destiny/intercession senses also remain unsuitable. This negative
+semantic evidence excludes a newly encountered false candidate, rather
+than asserting no suitable Tamazight word exists. Original pending findings
+remain 263; full native and browser validation remain open.
