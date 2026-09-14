@@ -742,6 +742,21 @@ Thanks to GitHub CodeQL and xet7 !
 **Translations** - Tamazight interface and maintenance labels; Bambara, Fulah, Dzongkha and Ewe calendars.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7f24f8035">Retry transient upload status failures with visible progress</a></summary>
+
+A source-upload status GET returning 502 stopped all target uploads.
+Safe status/catalog reads now retry up to six attempts; throttled requests
+respect Retry-After. Uploads, job status and retry waits show progress in
+terminal and text logs. Uncertain failed writes are not resubmitted.
+Offline source-job recovery, retry bounds, throttle timing and header
+parsing tests pass, along with existing push and pull regression suites.
+No live uploads were performed.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e3e11eda">Repair Tamazight rule report and popup wording</a>. Thanks to xet7.</summary>
 
 Repair three unflagged popup values, preserving singular report, plural
