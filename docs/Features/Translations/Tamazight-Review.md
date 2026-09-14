@@ -1097,3 +1097,15 @@ four suites pass with exact token/human-preference preservation. Low
 confidence: second-person defining form and complete comparative relative
 clause; browser not run. Original pending 258 → 257, Tamazight 145 → 144;
 correction ledger grows to 18,760.
+
+
+Tamazight WIP-value setting — 2026-09-14, local commit `6e1292cd0`.
+set-wip-limit-value French is replaced with imperative define, limit,
+maximum task count and this-list wording. IRCAM PDF page 508 entry 9575
+supplies define, PDF 270 entry 5271 limit, PDF 457 entry 8699 maximum
+and its construct form. The actual numeric setting label is rendered in
+listHeader.jade; no WIP logic changes. Regression preserves maximum and
+imperative meanings and distinguishes the exceedance warning. Four suites
+pass with token, order and human-preference protection. Low confidence:
+maximum-of-count compound, construct grammar and full software phrase;
+browser not run. Pending 257 → 256, Tamazight 144 → 143; ledger 18,761.

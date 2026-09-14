@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6e1292cd0">Repair Tamazight maximum WIP count setting</a>. Thanks to xet7.</summary>
+
+Replace French with imperative define/limit and maximum task-count wording.
+Four suites pass; full native maximum-count compound and browser review
+remain open. Original pending findings: 256.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/fc73c77eb">Repair Tamazight exceeded WIP warning</a>. Thanks to xet7.</summary>
 
 Replace French with native task-count and user-defined limit wording.
