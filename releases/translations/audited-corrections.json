@@ -125025,5 +125025,19 @@
     "before": "سطر واحد من النص = عنصر واحد من قائمة التحقق",
     "after": "ⵢⴰⵏ ⵉⵣⵔⵉⵔⵉ ⵏ ⵓⴹⵕⵉⵚ = ⵢⴰⵏ ⴰⴼⵔⴷⵉⵙ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
     "reason": "Replace Arabic with Standard Moroccan Tamazight. Current MediaWiki zgh search-ignored-headings attests singular textual Line izriri; missing-article attests Text adrich; redirect-summary supplies yan for one/a. https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve one line equals one checklist item, literal = and bulk-entry hint context in checklists.jade. LOW CONFIDENCE: bound Text form, free Item adaptation, proposed List of Verification checklist term with derived ussidd, and full grammar; source evidence does not attest the full checklist phrase."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-when-a-start-date-changed",
+    "before": "بداية: ⴰⵣⵎⵣ ⵢⵜⵜⵡⴰⵙⵏⴼⵍ",
+    "after": "ⴰⴷⴷⴰⵢ ⵉⵜⵜⵓⴼⴽⴰ ⵓⵙⴰⴽⵓⴷ ⵏ ⵜⴷⴷⵎⴰ ⵏⵖ ⵉⵜⵜⵓⵙⵏⴼⵍ",
+    "reason": "Replace mixed Arabic/French and nonstandard date wording with Standard Moroccan Tamazight. MediaWiki zgh metadata-fields attests temporal When adday, metadata-help passive Changed ittusnfl, redirect-summary passive Given ittufka. https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Existing reviewed Date/Start/End terminology is preserved. Restore omitted WHEN and SET OR CHANGED alternatives, distinguishing start from end in cardTriggers.jade. LOW CONFIDENCE: Given-to-assigned/Set UI adaptation, noun bound forms and full clause grammar; source does not independently attest the complete rule condition."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-when-a-end-date-changed",
+    "before": "Fin: ⴰⵣⵎⵣ ⵢⵜⵜⵡⴰⵙⵏⴼⵍ",
+    "after": "ⴰⴷⴷⴰⵢ ⵉⵜⵜⵓⴼⴽⴰ ⵓⵙⴰⴽⵓⴷ ⵏ ⵜⴳⵉⵔⴰ ⵏⵖ ⵉⵜⵜⵓⵙⵏⴼⵍ",
+    "reason": "Replace mixed Arabic/French and nonstandard date wording with Standard Moroccan Tamazight. MediaWiki zgh metadata-fields attests temporal When adday, metadata-help passive Changed ittusnfl, redirect-summary passive Given ittufka. https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Existing reviewed Date/Start/End terminology is preserved. Restore omitted WHEN and SET OR CHANGED alternatives, distinguishing start from end in cardTriggers.jade. LOW CONFIDENCE: Given-to-assigned/Set UI adaptation, noun bound forms and full clause grammar; source does not independently attest the complete rule condition."
   }
 ]
