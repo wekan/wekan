@@ -131857,5 +131857,26 @@
     "before": "Actions du couloir",
     "after": "ⵜⵉⴳⴰⵡⵉⵏ ⵏ ⵓⴱⵔⵉⴷ",
     "reason": "2026-09-14: Replace French/Arabic board controls with Tamazight draft. Native MediaWiki actions ⵜⵉⴳⴰⵡⵉⵏ and create-local ⵔⵏⵓ, native list noun talgamt and existing abrid swimlane convention. Preserve add versus actions and list versus swimlane. Low confidence: construct-state phrases and software swimlane metaphor need native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "default",
+    "before": "Défaut",
+    "after": "ⵙ ⵓⵡⵏⵓⵍ",
+    "reason": "2026-09-14: Replace French Défaut with native MediaWiki by-default phrase ⵙ ⵓⵡⵏⵓⵍ, directly attested in img-lang-default, pageinfo-default-sort and metadata-fields. Default lane marker and setting meanings preserved. Low confidence: standalone option/lane-label adaptation requires native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "defaultdefault",
+    "before": "Défaut",
+    "after": "ⵙ ⵓⵡⵏⵓⵍ",
+    "reason": "2026-09-14: Replace French Défaut with native MediaWiki by-default phrase ⵙ ⵓⵡⵏⵓⵍ, directly attested in img-lang-default, pageinfo-default-sort and metadata-fields. Default lane marker and setting meanings preserved. Low confidence: standalone option/lane-label adaptation requires native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "font-size-default",
+    "before": "Défaut",
+    "after": "ⵙ ⵓⵡⵏⵓⵍ",
+    "reason": "2026-09-14: Replace French Défaut with native MediaWiki by-default phrase ⵙ ⵓⵡⵏⵓⵍ, directly attested in img-lang-default, pageinfo-default-sort and metadata-fields. Default lane marker and setting meanings preserved. Low confidence: standalone option/lane-label adaptation requires native review."
   }
 ]

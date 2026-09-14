@@ -40,3 +40,9 @@ for (const [key, value] of Object.entries(boardControls)) {
 }
 assert.notStrictEqual(translated['listActionPopup-title'], translated['swimlaneActionPopup-title']);
 console.log('Tamazight board controls preserve distinct add/action and list/lane meanings');
+
+for (const key of ['default', 'defaultdefault', 'font-size-default']) {
+  assert.strictEqual(translated[key], 'ⵙ ⵓⵡⵏⵓⵍ');
+  assert.doesNotMatch(translated[key], /Défaut|Default|ⴰⵎⵣⵡⴰⵔⵓ/u);
+}
+console.log('Tamazight Default values replace French without changing to First');

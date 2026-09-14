@@ -888,6 +888,8 @@ test('Tamazight numeric total tooltip describes only display-enabled fields', as
     await boardPage.reload();
     await loginWithToken(boardPage, user.id, user.token);
     await openBoard(boardPage, board.boardId, board.slug);
+    await expect(boardPage.locator('.swimlane-header').first()).toHaveText(locale.defaultdefault);
+    await expect(boardPage.locator('.swimlane-header').first()).not.toHaveText('Défaut');
     await expect(boardPage.locator('.js-toggle-page-sidebar')).toHaveAttribute('title', `${locale['sidebar-open']} ${locale.or} ${locale['sidebar-close']}`);
     await expect(boardPage.locator('.js-toggle-page-sidebar')).not.toHaveAttribute('title', /\bou\b/);
     for (const [selector, key] of [['.js-open-list-menu', 'listActionPopup-title'], ['.js-open-swimlane-menu', 'swimlaneActionPopup-title'], ['.js-open-add-swimlane-menu', 'add-swimlane']]) {
