@@ -21729,3 +21729,15 @@ byte units remain accurate; invalid-filename cancellation, PDF-download
 fallback and irreversible deletion warnings remain explicit. All 1,952
 unchanged review records pass. 2,267 restored values and 308 pending
 findings plus broader language and browser verification remain open.
+
+
+### Esperanto account-failure window — 2026-09-14
+
+Local commit `6eaabcaea` replaces Malsukcesa fenestro (an unsuccessful
+window) with Tempofenestro por malsukcesoj, explicitly a time window for
+failures. peopleBody.jade labels the failureWindow settings separately
+from lockout periods. Seconds remain unchanged. Twenty-nine support,
+accessibility and account labels retained, including login-only access,
+not-yet-added information and only-locked-user filtering. All 18,151
+corrections and 1,981 reviews pass. 2,237 restored values and 308 pending
+findings plus broader language/browser verification remain open.

@@ -4,27 +4,24 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,554 |
-| Restored pre-pull; awaiting validation | 2,267 |
-| Reviewed; retained unchanged | 1,952 |
+| Corrected | 15,555 |
+| Restored pre-pull; awaiting validation | 2,237 |
+| Reviewed; retained unchanged | 1,981 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
 Review is ongoing. The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,150** exact before/after values, including unflagged repairs.
+contain **18,151** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `3e0c49da9` —
-restored the omitted size meaning in Esperanto RSS diagnostics; retained
-28 correct memory, legal and checklist labels. Komputeko supports the
-technical term indiĝena. All **18,150** correction and **1,952** review
-records pass. Browser verification was not run; no translations were pushed.
-Overtime, lime-color, scrollbar, advanced-filter and garbage-zapping wording
-remains under review. Checklist completion was validated against ReVo
-komplet (`5b1ec70e9`).
-Latest unchanged review: **2026-09-14**, commit `1439290a6` — retained
-30 correct attachment, upload, authentication and custom-translation labels.
+Latest translation fix: **2026-09-14**, local commit `6eaabcaea` —
+clarified the login-failure time window in Esperanto; retained 29 correct
+support, accessibility and account-state labels. All **18,151** correction
+and **1,981** review records pass. Browser verification was not run; no
+translations were pushed. Overtime, lime-color, scrollbar, advanced-filter
+and garbage-zapping wording remains under review. Checklist completion was
+validated against ReVo komplet (`5b1ec70e9`).
 
 
 Fixed categories include wrong-language prose, terminology, warnings,
