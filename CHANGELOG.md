@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/75b0a015b">Keep translation audit summary short and current</a>. Thanks to xet7.</summary>
+
+Repeated historical notes move to detailed evidence. Locale counts reconcile
+with the live queue, including 167 pending Tamazight values. Regression
+coverage prevents stale locale counts; all uncertainty remains tracked.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0ba2e0f6c">Replace French Tamazight OIDC caption label</a>. Thanks to xet7.</summary>
 
 The configurable caption label uses adapted native wording and preserves OIDC.

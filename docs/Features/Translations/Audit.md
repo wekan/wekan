@@ -10,6 +10,9 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Pending review or repair | 280 |
 | Total tracked | 20,081 |
 
+Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
+now reconcile with the live queue; historical notes remain in detailed evidence.
+
 Latest translation fix: **2026-09-14**, local commit `0ba2e0f6c` —
 French OIDC caption-setting wording is replaced. Four checks pass; adapted
 button metaphor, full native grammar and browser validation remain open.
