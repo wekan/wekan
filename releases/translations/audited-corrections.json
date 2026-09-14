@@ -138787,5 +138787,12 @@
     "before": "La suppression est définitive. Vous perdrez toutes les actions associées à ce planning poker.",
     "after": "ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⴰⵔⴷ ⴷ ⴰⵢⴰ. ⵔⴰⴷ ⵜⵜⵓⴽⴽⵙⵏⵜ ⵜⵉⴳⴰⵡⵉⵏ ⴰⴽⴽⵯ ⵏ Planning Poker ⴰⴷ.",
     "reason": "2026-09-15: Replace French permanent-deletion and all-associated-actions warning using the existing card/vote warning construction and Planning Poker feature name. Irreversibility is paraphrased as inability to undo. Full grammar and association/permanence paraphrase remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "label-delete-pop",
+    "before": "لا يوجد تراجع. سيؤدي هذا إلى إزالة هذه العلامة من جميع بطاقات والقضاء على تأريخها",
+    "after": "ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⴰⵔⴷ ⴷ ⴰⵢⴰ. ⵔⴰⴷ ⵉⵜⵜⵓⴽⴽⵙ ⵓⵔⵛⵓⵎ ⴰⴷ ⵙⴳ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴰⴽⴽⵯ. ⵔⴰⴷ ⵉⵜⵜⵓⴽⴽⵙ ⵓⵎⵣⵔⵓⵢ ⵏⵏⵙ.",
+    "reason": "2026-09-15: Replace Arabic label deletion warning. Retain no undo, this label removed from all cards and its history deleted in a separate clause. IRCAM entry 3066 and native MediaWiki history support amzruy; existing removal/future warning terms reused. Full clause agreement remains low confidence."
   }
 ]

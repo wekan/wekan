@@ -357,3 +357,12 @@ assert.doesNotMatch(pokerWarning, /La suppression|Vous perdrez|[\u0600-\u06ff]/u
 const pokerTemplate = fs.readFileSync(path.join(ROOT,
   'client/components/cards/cardDetails.jade'), 'utf8');
 assert.match(pokerTemplate, /template\(name="deletePokerPopup"\)\s+p.*poker-delete-pop/);
+
+const labelWarning = translated['label-delete-pop'];
+assert.ok(labelWarning.startsWith(translated['card-delete-notice'].split('. ')[0] + '. '));
+assert.match(labelWarning, /ⵓⵔⵛⵓⵎ ⴰⴷ ⵙⴳ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴰⴽⴽⵯ/);
+assert.match(labelWarning, /\. ⵔⴰⴷ ⵉⵜⵜⵓⴽⴽⵙ ⵓⵎⵣⵔⵓⵢ ⵏⵏⵙ\./);
+assert.doesNotMatch(labelWarning, /[\u0600-\u06ff]/u);
+const labelTemplate = fs.readFileSync(path.join(ROOT,
+  'client/components/cards/labels.jade'), 'utf8');
+assert.match(labelTemplate, /template\(name="deleteLabelPopup"\)\s+p.*label-delete-pop/);
