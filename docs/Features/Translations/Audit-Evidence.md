@@ -28282,3 +28282,27 @@ No locale/ledger/count change: original pending 177, Aromanian 1, restored
 4. The newer dictionary search closes the previous unexecuted source check,
 while actual magenta attestation remains open. Broader review continues.
 No remote writes.
+
+
+## Invalid filename warning — 2026-09-15
+
+Local commit `327a35b82` replaces Arabic invalid-file. Preserve conditional
+incorrect filename and cancellation of upload OR renaming. Express invalid
+as not correct; IRCAM invalid entries 3292/6732 refer to physical immobility
+and are unsuitable here. Current cardDetails.jade and userAvatar.jade
+render this warning; no validation behavior changed.
+
+IRCAM cached entries: page 334 entry 6406 kn (be correct); page 537 entry
+10095 ssr (cancel); page 238 entry 4582 asnfl (change). Native MediaWiki zgh
+uses ssr for cancel and sktr afaylu for upload in interface context:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+Dictionary: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+**Low confidence:** derived upload action noun, conditional/negative
+conjugation, cancellation passive and name-change construction remain
+under native contextual review. Components do not attest the whole warning.
+
+Four focused suites pass for filename condition, cancelled operation,
+upload OR rename, negative Arabic and physical-invalidity checks,
+placeholders, ledger, retained reviews and completeness. No live UI test
+ran. Ledger 19,838; original corrected 15,727, pending 176 (zgh 81),
+restored 4 unchanged. Broader review remains open. No remote writes.

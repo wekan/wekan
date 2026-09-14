@@ -639,7 +639,8 @@ the Markdown commit as the template.
 **In short:** Tamazight rule, shortcut and warning text replaces wrong-language
 values. Rule labels retain state and action distinctions; deletion warnings
 retain irreversibility and affected content. Import, PDF and administrator
-messages preserve their conditions and alternatives. Watch text covers boards
+messages preserve their conditions and alternatives. Filename warnings retain
+cancellation of upload or renaming. Watch text covers boards
 and cards. Search help clarifies case-insensitive matching. Regression checks
 preserve placeholders and verify source wiring;
 full contextual grammar remains under native review.
@@ -753,6 +754,16 @@ using A/a to clarify letter case. Four focused suites pass for negation,
 letter forms, negative French checks and translation structure. Complete
 computing terminology and contextual grammar remain under native review.
 Dated audit records 177 pending findings.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/327a35b82">Repair Tamazight invalid filename warning</a>. Thanks to xet7.</summary>
+
+Replace Arabic warning, preserving invalid filename condition and cancelled
+upload or renaming. Four focused suites pass for operation scope, negative
+wrong-language checks and translation structure. Full contextual grammar
+remains under native review. Dated audit records 176 pending findings.
 
 </details>
 
