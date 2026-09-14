@@ -122008,5 +122008,40 @@
     "before": "Echéance modifiée à",
     "after": "ⵉⵙⵏⴼⵍ ⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⵖⵔ",
     "reason": "Replace French due-time modification fragment, preserving the trailing destination preposition for the appended value. Native time and change components plus existing local final/due qualifier supply vocabulary. LOW CONFIDENCE past-tense verb conjugation, inherited due terminology and full fragment composition. References: https://www.unicode.org/cldr/charts/47/summary/zgh.html ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "creator",
+    "before": "المنشئ",
+    "after": "ⴰⵎⵙⵏⴼⵍⵓⵍ",
+    "reason": "Replace Arabic Creator with the native masculine creator noun attested in MediaWiki pageinfo-firstuser. General Creator label uses the masculine noun as the default label, matching native reference presentation. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-operator-member",
+    "before": "`__operator_member__:<nom>` - cartes pour lesquelles l'utilisateur *<nom>* est *participant*",
+    "after": "`__operator_member__:<ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ>` - ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵏⵏⴰ ⴳ ⵉⴳⴰ *<ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ>* *ⴰⴳⵎⴰⵎ*",
+    "reason": "Replace French. Preserve executable member operator token and repeat the same localized descriptive username example. Native MediaWiki userexists attests username; prior member corrections attest native member components. Preserve card membership rather than assignee status. LOW CONFIDENCE relative/locative composition, bound/free member form and kanban card plural terminology. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-operator-creator",
+    "before": "`__operator_creator__:<utilisateur>` - cartes dont le créateur est *<utilisateur>*",
+    "after": "`__operator_creator__:<ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ>` - ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵏⵏⴰ ⵉⴳⴰ *<ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ>* ⴰⵎⵙⵏⴼⵍⵓⵍ ⵏⵏⵙⵏⵜ",
+    "reason": "Replace French. Preserve executable creator operator token and localized descriptive username example. MediaWiki pageinfo-firstuser attests creator; userexists username. Preserve creator of the cards rather than board creator or current assignee. LOW CONFIDENCE relative clause, feminine-plural possessive agreement and kanban card terminology. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-operator-board",
+    "before": "`__operator_board__:<titre>` - cartes dont le tableau correspond à *<titre>*",
+    "after": "`__operator_board__:<ⴰⵣⵡⵍ>` - ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴳ ⵜⴼⵍⵡⵉⵏ ⵉⵎⵙⴰⵙⴰⵏ ⴷ *<ⴰⵣⵡⵍ>* ⵉⵥⵍⵉⵏ",
+    "reason": "Replace French. Preserve executable board operator token and identical localized title example. MediaWiki search-nonefound attests matching components, pageinfo-display-title title, createaccountmail specified qualifier. Preserve boards matching the specified title rather than card-title search. LOW CONFIDENCE board/card plurals, matching participle agreement and complete specified-title construction. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-operator-list",
+    "before": "`__operator_list__:<titre>` - cartes dont les listes correspondent à *<titre>*",
+    "after": "`__operator_list__:<ⴰⵣⵡⵍ>` - ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴳ ⵜⵍⴳⴰⵎⵉⵏ ⵉⵎⵙⴰⵙⴰⵏ ⴷ *<ⴰⵣⵡⵍ>* ⵉⵥⵍⵉⵏ",
+    "reason": "Replace French. Preserve executable list operator token and identical localized title example. MediaWiki search-nonefound attests matching components, pageinfo-display-title title, createaccountmail specified qualifier and recentchanges-notargetpage native list noun components. Preserve list-title matching rather than board/card title search. LOW CONFIDENCE derived list plural, card terminology, matching participle agreement and complete specified-title construction. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
