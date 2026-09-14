@@ -782,6 +782,17 @@ This release adds the following translation improvements:
 **Translations** - Locale wording repairs and remaining audit progress.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9f0c7828b">Use native Tamazight settings labels</a>. Thanks to xet7.</summary>
+
+Replace two unflagged Arabic Settings and Change Settings values using
+native UI terminology. Preserve generic settings meaning. All 17,335
+correction checks pass. Original counts remain 710 pending, including
+567 Tamazight. Combined command usage and wider wording validation remain
+open; no translations were pushed.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/81f487305">Refine Tamazight lockout and confirmation morphology</a>. Thanks to xet7.</summary>
 
 Replace derived plural blocked-user and want/delete question forms in three
