@@ -25,6 +25,13 @@ const assert = require('node:assert/strict');
   assert.notDeepEqual(tokens('__translated__ %s'), tokens('__card__ %s'), 'renamed placeholders are detectable');
   assert.notDeepEqual(tokens('__card__'), tokens('__card__ %s'), 'removed placeholders are detectable');
   const report = fs.readFileSync(path.join(__dirname, '../docs/Features/Translations/Audit.md'), 'utf8');
+  const pendingTable = Object.fromEntries([...report.matchAll(
+    /^\| ([\w-]+) — [^|]+ \| (\d+) \|$/gm,
+  )].map(([, locale, count]) => [locale, Number(count)]));
+  assert.deepEqual(pendingTable, result.pendingByLocale,
+    'summary locale counts reflect current repairs, rather than historic counts');
+  assert.equal(Object.values(pendingTable).reduce((total, count) => total + count, 0),
+    summary.pending, 'locale counts reconcile with the full pending queue');
   const updated = updateAuditSummary(report, summary, 12345, '2026-09-13');
   assert.ok(updated.includes('contain **12,345** exact'));
   assert.ok(updated.includes(`| Pending review or repair | ${summary.pending.toLocaleString('en-US')} |`));
