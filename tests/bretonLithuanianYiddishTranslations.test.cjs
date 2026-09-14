@@ -47,3 +47,15 @@ for (const key of ['move-selection', 'copy-selection', 'selection-color',
   'set-filter', 'cardAttachmentsPopup-title', 'filter-to-selection']) {
   assert.doesNotMatch(locales.br[key], /Déplacer|Copier|Couleur|Sélection|sélection|Autres filtres|Définir|Ajouter depuis|Filtre vers/);
 }
+
+assert.equal(locales.br['admin-people-filter-active'], locales.br['r-rule-enabled']);
+assert.equal(locales.br['admin-people-filter-inactive'], locales.br['r-rule-disabled']);
+assert.notEqual(locales.br['admin-people-filter-active'], locales.br['admin-people-filter-inactive']);
+assert.equal(locales.br['step-validate-migration'], 'Kadarnaat an treuzkas roadennoù');
+assert.equal(locales.br['shortcut-filter-my-cards'], 'Silañ ma c’hartennoù');
+assert.equal(locales.br['shortcut-clear-filters'], 'Dilemel an holl siloù');
+for (const key of ['shortcut-clear-filters', 'shortcut-filter-my-cards',
+  'advanced-filter-label', 'step-validate-migration', 'admin-people-filter-show',
+  'admin-people-filter-active', 'admin-people-filter-inactive', 'active']) {
+  assert.doesNotMatch(locales.br[key], /Retirer|Filtrer|Filtre avancé|Valider|Afficher|Actif|Désactivé/);
+}

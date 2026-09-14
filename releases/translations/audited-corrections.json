@@ -129407,5 +129407,61 @@
     "before": "Filtre vers la sélection",
     "after": "Ouzhpennañ ar c’hartennoù silet d’an diuzad",
     "reason": "Repair French wording using existing Breton selection, filter, color, board and attachment terminology. Ofis computing glossary supports action verbs; full compounds are adapted and native whole-phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "shortcut-clear-filters",
+    "before": "Retirer tous les filtres",
+    "after": "Dilemel an holl siloù",
+    "reason": "Repair remaining French Breton filter/shortcut/status/validation wording. Reuse existing sil, araokaet, treuzkas roadennoù and enabled/disabled terms. Ofis computing glossary supports dilemel, diskwel and kadarnaat; native Ofis dictionary/digital strategy supports oberiant. People active/inactive filter checks loginDisabled separately from lockout, so enabled/disabled wording preserves the actual distinction. Adapted full-phrase/native browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "shortcut-filter-my-cards",
+    "before": "Filtrer mes cartes",
+    "after": "Silañ ma c’hartennoù",
+    "reason": "Repair remaining French Breton filter/shortcut/status/validation wording. Reuse existing sil, araokaet, treuzkas roadennoù and enabled/disabled terms. Ofis computing glossary supports dilemel, diskwel and kadarnaat; native Ofis dictionary/digital strategy supports oberiant. People active/inactive filter checks loginDisabled separately from lockout, so enabled/disabled wording preserves the actual distinction. Adapted full-phrase/native browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "advanced-filter-label",
+    "before": "Filtre avancé",
+    "after": "Sil araokaet",
+    "reason": "Repair remaining French Breton filter/shortcut/status/validation wording. Reuse existing sil, araokaet, treuzkas roadennoù and enabled/disabled terms. Ofis computing glossary supports dilemel, diskwel and kadarnaat; native Ofis dictionary/digital strategy supports oberiant. People active/inactive filter checks loginDisabled separately from lockout, so enabled/disabled wording preserves the actual distinction. Adapted full-phrase/native browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "step-validate-migration",
+    "before": "Valider la migration",
+    "after": "Kadarnaat an treuzkas roadennoù",
+    "reason": "Repair remaining French Breton filter/shortcut/status/validation wording. Reuse existing sil, araokaet, treuzkas roadennoù and enabled/disabled terms. Ofis computing glossary supports dilemel, diskwel and kadarnaat; native Ofis dictionary/digital strategy supports oberiant. People active/inactive filter checks loginDisabled separately from lockout, so enabled/disabled wording preserves the actual distinction. Adapted full-phrase/native browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "admin-people-filter-show",
+    "before": "Afficher :",
+    "after": "Diskwel:",
+    "reason": "Repair remaining French Breton filter/shortcut/status/validation wording. Reuse existing sil, araokaet, treuzkas roadennoù and enabled/disabled terms. Ofis computing glossary supports dilemel, diskwel and kadarnaat; native Ofis dictionary/digital strategy supports oberiant. People active/inactive filter checks loginDisabled separately from lockout, so enabled/disabled wording preserves the actual distinction. Adapted full-phrase/native browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "admin-people-filter-active",
+    "before": "Actif",
+    "after": "Gweredekaet",
+    "reason": "Repair remaining French Breton filter/shortcut/status/validation wording. Reuse existing sil, araokaet, treuzkas roadennoù and enabled/disabled terms. Ofis computing glossary supports dilemel, diskwel and kadarnaat; native Ofis dictionary/digital strategy supports oberiant. People active/inactive filter checks loginDisabled separately from lockout, so enabled/disabled wording preserves the actual distinction. Adapted full-phrase/native browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "admin-people-filter-inactive",
+    "before": "Désactivé",
+    "after": "Diweredekaet",
+    "reason": "Repair remaining French Breton filter/shortcut/status/validation wording. Reuse existing sil, araokaet, treuzkas roadennoù and enabled/disabled terms. Ofis computing glossary supports dilemel, diskwel and kadarnaat; native Ofis dictionary/digital strategy supports oberiant. People active/inactive filter checks loginDisabled separately from lockout, so enabled/disabled wording preserves the actual distinction. Adapted full-phrase/native browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "active",
+    "before": "Actif",
+    "after": "Oberiant",
+    "reason": "Repair remaining French Breton filter/shortcut/status/validation wording. Reuse existing sil, araokaet, treuzkas roadennoù and enabled/disabled terms. Ofis computing glossary supports dilemel, diskwel and kadarnaat; native Ofis dictionary/digital strategy supports oberiant. People active/inactive filter checks loginDisabled separately from lockout, so enabled/disabled wording preserves the actual distinction. Adapted full-phrase/native browser validation remains open."
   }
 ]
