@@ -124346,5 +124346,12 @@
     "before": "L'utilisateur a été déverrouillé avec succès",
     "after": "ⵢⴰⵍⵍⴼⵓⵙ ⵓⴽⴽⵙ ⵏ ⵓⴳⴷⴰⵍ ⵏ ⵓⵏⵙⵙⵎⵔⵙ",
     "reason": "2026-09-14: Replace French User unlocked successfully result by expressing successful removal of user login blocking. Preserve success qualifier, singular account user and completed result rather than command or all-users scope. Reuse existing invite-people-success yallfus success predicate; native MediaWiki cannotlogin-text has negative ur yallfus, confirming success/failure predicate components, while remove/block/user vocabulary supports object. LOW CONFIDENCE positive success construction, removal nominalization ukks, bound nouns and full unblock result require fluent Standard Moroccan morphology/terminology review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "search-example",
+    "before": "Écrivez le texte que vous recherchez et appuyez sur Entrée",
+    "after": "ⴰⵔⴰ ⴰⴹⵕⵉⵙ ⵏⵏⴰ ⵜⵔⵣⵓⴷ ⴷ ⵙⵙⵉⵜ Enter",
+    "reason": "2026-09-14: Replace French search instruction, preserving Write text you search AND press Enter, rather than omitting the keyboard submission action. Native MediaWiki yourpasswordagain/tooltip-summary supply ara Write, yourtext adris Text, noarticletext trzud search form, and and d. Native ISCAE zgh search control uses ssit arzzu press/click Search; applying ssit to the Enter key is a contextual adaptation, not an exact native keyboard instruction. Preserve Enter as recognizable key name from English source. LOW CONFIDENCE relative clause, imperative coordination, key-press adaptation and complete Standard Moroccan sentence require fluent review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://groupeiscae.ma/zgh/certificat-specialise-cpcf-en-partenariat-avec-loec-maroc-zgh/ ."
   }
 ]
