@@ -126355,5 +126355,47 @@
     "before": "ⴰⵙⵎⵓⵜⵜⵉ ⵢⴻⴽⵎⴻⵍ",
     "after": "ⴰⵙⵎⵓⵜⵜⵢ ⵉⵜⵜⵓⵢⴰⵍⵙ.",
     "reason": "2026-09-14: Replace unflagged French or inherited Kabyle-leaning migration wording; script alone is not language proof. Native Red Moon Resume als and Schedule aghawas: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Non-fuzzy Dialect Automatic awurman: https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po . Native MediaWiki failure frame retained. Preserve Scheduled PLURAL versus Automatic SINGULAR, Resume versus Complete, and failed resume versus completed resumption. Migration movement adaptation, scheduled plural passive, Resume nominalization/past passive and whole grammar remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "migration-pause-failed",
+    "before": "ⴰⵙⴱⴻⴷⴷⵉ ⵏ ⵉⵙⴻⵎⵓⵜⵜⵉⵢⴻⵏ ⵓⵔ ⵢⴻⴷⴷⵉ ⴰⵔⴰ",
+    "after": "ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⵓⵙⴱⴷⴷⵉ ⵏ ⵉⵙⵎⵓⵜⵜⵢⵏ.",
+    "reason": "2026-09-14: Repair unflagged inherited Kabyle-leaning migration start/pause grammar; script alone is not language proof. Native Red Moon notification_action_pause attests Pause sbdd and pref_title_start_time Start tuddma: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Start bdu retains separately indexed IRCAM plain-d versus Share emphatic-d distinction; direct PDF unavailable. Native MediaWiki All akkw and failure frame retained. Preserve Start versus Pause, ALL versus singular scope, failed operation versus completed Started notification. Stop values are not collapsed into Pause despite Red Moon using sbdd for both. Migration adaptation, pause nominalization, derived started plural and full grammar remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "migration-start-failed",
+    "before": "ⴰⵙⴻⵏⴽⴻⵔ ⵏ ⵉⵙⴻⵎⵓⵜⵜⵉⵢⴻⵏ ⵓⵔ ⵢⴻⴷⴷⵉ ⴰⵔⴰ",
+    "after": "ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⵜⵓⴷⴷⵎⴰ ⵏ ⵉⵙⵎⵓⵜⵜⵢⵏ.",
+    "reason": "2026-09-14: Repair unflagged inherited Kabyle-leaning migration start/pause grammar; script alone is not language proof. Native Red Moon notification_action_pause attests Pause sbdd and pref_title_start_time Start tuddma: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Start bdu retains separately indexed IRCAM plain-d versus Share emphatic-d distinction; direct PDF unavailable. Native MediaWiki All akkw and failure frame retained. Preserve Start versus Pause, ALL versus singular scope, failed operation versus completed Started notification. Stop values are not collapsed into Pause despite Red Moon using sbdd for both. Migration adaptation, pause nominalization, derived started plural and full grammar remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "migration-started",
+    "before": "ⵉⵙⴻⵎⵓⵜⵜⵉⵢⴻⵏ ⵏⴽⵔⴻⵏ ⴰⴽⴽⴻⵏ ⵉⵡⴰⵜⴰ",
+    "after": "ⵉⵙⵎⵓⵜⵜⵢⵏ ⴱⴷⴰⵏ!",
+    "reason": "2026-09-14: Repair unflagged inherited Kabyle-leaning migration start/pause grammar; script alone is not language proof. Native Red Moon notification_action_pause attests Pause sbdd and pref_title_start_time Start tuddma: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Start bdu retains separately indexed IRCAM plain-d versus Share emphatic-d distinction; direct PDF unavailable. Native MediaWiki All akkw and failure frame retained. Preserve Start versus Pause, ALL versus singular scope, failed operation versus completed Started notification. Stop values are not collapsed into Pause despite Red Moon using sbdd for both. Migration adaptation, pause nominalization, derived started plural and full grammar remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "pause-all-migrations",
+    "before": "ⵙⴱⴻⴷⴷ ⵎⴰⵔⵔⴰ ⵉⵙⴻⵎⵓⵜⵜⵉⵢⴻⵏ",
+    "after": "ⵙⴱⴷⴷ ⴰⴽⴽⵯ ⵉⵙⵎⵓⵜⵜⵢⵏ",
+    "reason": "2026-09-14: Repair unflagged inherited Kabyle-leaning migration start/pause grammar; script alone is not language proof. Native Red Moon notification_action_pause attests Pause sbdd and pref_title_start_time Start tuddma: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Start bdu retains separately indexed IRCAM plain-d versus Share emphatic-d distinction; direct PDF unavailable. Native MediaWiki All akkw and failure frame retained. Preserve Start versus Pause, ALL versus singular scope, failed operation versus completed Started notification. Stop values are not collapsed into Pause despite Red Moon using sbdd for both. Migration adaptation, pause nominalization, derived started plural and full grammar remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "start-all-migrations",
+    "before": "ⵙⴻⵏⴽⴻⵔ ⵎⴰⵔⵔⴰ ⵉⵙⴻⵎⵓⵜⵜⵉⵢⴻⵏ",
+    "after": "ⴱⴷⵓ ⴰⴽⴽⵯ ⵉⵙⵎⵓⵜⵜⵢⵏ",
+    "reason": "2026-09-14: Repair unflagged inherited Kabyle-leaning migration start/pause grammar; script alone is not language proof. Native Red Moon notification_action_pause attests Pause sbdd and pref_title_start_time Start tuddma: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Start bdu retains separately indexed IRCAM plain-d versus Share emphatic-d distinction; direct PDF unavailable. Native MediaWiki All akkw and failure frame retained. Preserve Start versus Pause, ALL versus singular scope, failed operation versus completed Started notification. Stop values are not collapsed into Pause despite Red Moon using sbdd for both. Migration adaptation, pause nominalization, derived started plural and full grammar remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "pause-migration",
+    "before": "ⵙⴱⴻⴷⴷ ⴰⵙⵎⵓⵜⵜⵉ",
+    "after": "ⵙⴱⴷⴷ ⴰⵙⵎⵓⵜⵜⵢ",
+    "reason": "2026-09-14: Repair unflagged inherited Kabyle-leaning migration start/pause grammar; script alone is not language proof. Native Red Moon notification_action_pause attests Pause sbdd and pref_title_start_time Start tuddma: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Start bdu retains separately indexed IRCAM plain-d versus Share emphatic-d distinction; direct PDF unavailable. Native MediaWiki All akkw and failure frame retained. Preserve Start versus Pause, ALL versus singular scope, failed operation versus completed Started notification. Stop values are not collapsed into Pause despite Red Moon using sbdd for both. Migration adaptation, pause nominalization, derived started plural and full grammar remain LOW CONFIDENCE."
   }
 ]
