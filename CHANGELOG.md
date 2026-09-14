@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9c7a845a3">Refresh both audit progress tables</a>. Thanks to xet7.</summary>
+
+Refresh pending locale rows and totals together from current translations
+and ledgers, retaining fix notes. Include newly pending locales, remove
+resolved ones and reject inconsistent counts. Regression checks and the
+real CLI refresh pass; this does not certify native translation quality.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c986121af">Repair Tamazight swimlane-height labels</a>. Thanks to xet7.</summary>
 
 Replace three Arabic height labels with native components, preserving the

@@ -24848,3 +24848,18 @@ Broader native and runtime verification remains open.
 These counts are reconstructed from the original tables and current
 ledgers. Earlier narrative totals are historical reported snapshots; the
 current summary uses the live reconstruction, not arithmetic increments.
+
+## Complete progress-table refresh — 2026-09-14
+
+Local commit `9c7a845a3` fixes the audit CLI updater to rebuild pending
+locale rows together with totals. It derives names from existing summary
+rows or original audit evidence, removes resolved locales and includes
+newly pending ones. Missing tables, unknown names, invalid counts and
+non-reconciling totals cause an error before the file is written.
+Regression coverage checks stale counts, returning Latvian findings,
+resolved Tamazight findings, inconsistent totals, missing table, preserved
+fix details and idempotence. These fixtures exercise progress bookkeeping;
+they do not accept those hypothetical locale findings or prove fluency.
+The real --update-summary CLI ran successfully and left the already correct
+summary unchanged. Live counts remain 15,630 corrected, 272 pending,
+four restored and 4,175 retained; translation repairs remain unfinished.

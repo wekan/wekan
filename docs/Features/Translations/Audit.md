@@ -12,6 +12,9 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
 now reconcile with the live queue; historical notes remain in detailed evidence.
+Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
+refreshes both tables together, including added/resolved locales, and rejects
+inconsistent totals. Dated fix notes and uncertain classifications survive.
 
 Latest translation fix: **2026-09-14**, local commit `c986121af` —
 Three Arabic swimlane-height labels are repaired, preserving the pixel unit
