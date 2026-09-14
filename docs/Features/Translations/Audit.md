@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,258 |
+| Corrected | 15,260 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 586 |
+| Pending review or repair | 584 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,544** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,551** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `305503e7e` — repaired three email-test/template values (one original and two unflagged values). Preserve test qualifier, sending to oneself, plural templates and email scope. Native UI and computing lexicon components support vocabulary; math-to-email-test adaptation, bound nouns, reflexive recipient and full phrases remain **low confidence** pending fluent review. All **17,544** correction/rendering checks pass. **586** originals remain pending across **17** locales, including **443** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `0619954f5` — repaired seven team/name-error values (two originals and five unflagged values). Preserve already-used organization/team names versus missing team, singular/plural team labels, add action and exact `%s` token. IRCAM and native UI components support vocabulary; free plural, software/dialect adaptation, bound nouns and complete errors remain **low confidence** pending fluent review. All **17,551** correction/rendering checks pass. **584** originals remain pending across **17** locales, including **441** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Build interruption follow-up (2026-09-14):** `.tools/wekan22` contains the old v11.75 missing-Moment failure, already repaired in `43adfe1a7`. A fresh Meteor 3.6-beta.0 bundle build passes on Linux arm64, and six assignee/calendar/release-preflight Node test entries pass. Log: `.tools/log/build-dev-bundle/2026-09-14/04-25-58/dev.txt`. Native amd64 and live browser checks were not run. Translation counts and the remaining validation scope above are unchanged.
 
