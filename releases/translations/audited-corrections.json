@@ -126803,5 +126803,12 @@
     "before": "Entrer le niveau d'agrandissement (50-300%) :",
     "after": "ⵙⴽⵛⵎ ⴰⵙⵡⵉⵔ ⵏ Zoom (50-300%):",
     "reason": "2026-09-14: replaced French zoom control. Direct rendered CNAM Amawal PDF98 gives Level Aswir MW (modern lexicon, not MediaWiki); PDF154 retains Zoom loan and gives Zoom ɣer zdat/In and ɣer deffir/Out KBL. Preserve zoom direction, level, input command and exact 50-300% range. Existing native software input command skchm reused. Cross-variety terms, Tifinagh adaptation and full level/input phrases remain LOW CONFIDENCE pending Moroccan native review. Reference: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf"
+  },
+  {
+    "locale": "zgh",
+    "key": "MongoDB_storage_engine",
+    "before": "Moteur de stockage MongoDB",
+    "after": "ⴰⵎⵙⴰⴷⴷⴰⵢ ⵏ ⵓⵃⵔⴰⵣ MongoDB",
+    "reason": "2026-09-14: replaced French MongoDB storage engine label. Direct rendered CNAM Amawal PDF96 gives Engine Amsadday MC (Mokrane Chemim, not Central Moroccan); PDF134 gives Storage Aḥraz KBL, with emphatic ḥ visible. Preserve Engine plus Storage and exact MongoDB product name. Cross-variety terminology, Tifinagh adaptation, bound storage form and complete software compound remain LOW CONFIDENCE pending Moroccan native review. Reference: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf"
   }
 ]

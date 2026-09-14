@@ -1118,7 +1118,7 @@
   "Reactivity_order": "ⴰⵎⵢⴰⴳ ⵏ ⵜⵎⵢⴰⴳⴰⵏⵜ (METEOR_REACTIVITY_ORDER)",
   "DDP_transport": "ⴰⵙⵙⵉⴼⴻⴹ DDP (DDP_TRANSPORT)",
   "MongoDB_version": "ⵜⴰⵎⵉⵔⴰⵏⵜ ⵢⴻⵎⵚⴰⴷⴰⵏ ⴷ MongoDB",
-  "MongoDB_storage_engine": "Moteur de stockage MongoDB",
+  "MongoDB_storage_engine": "ⴰⵎⵙⴰⴷⴷⴰⵢ ⵏ ⵓⵃⵔⴰⵣ MongoDB",
   "MongoDB_Oplog_enabled": "MongoDB Oplog activé",
   "OS_Arch": "معمارية نظام التشغيل",
   "OS_Cpus": "OS: ⵓⵟⵟⵓⵏ ⵏ CPU",
