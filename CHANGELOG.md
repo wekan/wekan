@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,184 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 660 pending review or repair.
+findings: 15,187 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 657 pending review or repair.
 The correction inventory records 17,387 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (517) and
+The largest original queues are Standard Moroccan Tamazight (514) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -116,7 +116,7 @@ names and unresolved Coptic/tabular/epoch terminology; no values changed. Previo
 Cherokee Hijri labels with exact native-script CLDR variant names. Cherokee’s
 original queue is empty. Compact tabular epoch wording still needs fluent
 technical review. Quechua palette compounds and remaining color wrappers
-remain open. There are 517 Tamazight findings remaining.
+remain open. There are 514 Tamazight findings remaining.
 Silesian reference review (2026-09-14) confirms shared database/file terms
 in native MediaWiki messages; the full raw-file label remains pending.
 No translation value or finding count changed in that review.
@@ -715,6 +715,18 @@ diagnostic composition remains low confidence. All 17,408 correction checks
 pass. One original and one unflagged value are repaired; 660 originals
 remain pending, including 517 Tamazight. Operator/predicate terminology,
 restored values and wider language validation remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a92439c02">Translate Tamazight week and page-display settings</a>. Thanks to xet7.</summary>
+
+Replace Arabic/French in ISO week-of-year display, first-weekday selection
+and All Boards page display. Preserve ISO 8601 and distinct setting scopes.
+CLDR and MediaWiki support the native components; full genitives and
+selection phrases remain low confidence. All 17,411 correction checks pass;
+657 original findings remain pending, including 514 Tamazight. Restored
+and wider language validation remain open.
 
 </details>
 
