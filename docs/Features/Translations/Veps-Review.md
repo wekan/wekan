@@ -429,3 +429,26 @@ before writing the four coordinated drafts. General list vocabulary alone
 does not resolve what this specific list contains. No locale edit, ledger
 or original queue classification change; all nine and broader review remain
 open. This extends the repair scope to the unflagged Finnish popup title.
+
+
+## Dictionary search correction — 2026-09-15
+
+The earlier normal-Cyrillic search is not valid negative lexical evidence:
+russian-veps-pages.jsonl stores the PDF's Russian text as corrupted legacy
+font characters, for example the Russian keyboard/key prefix would appear
+as ŒºàâŁ rather than клави. Inspect page 3 for the corrupted title and page
+419 for corrupted Russian headwords next to readable Veps forms. A normal
+Cyrillic substring search therefore cannot establish missing entries.
+The previous no-entry statement is superseded by this encoding diagnosis.
+Searching legacy glyph strings located a button entry on PDF page 189
+(ŒíîïŒà) with fastening-related kingitim/plikkutim vocabulary. Those
+snippets do not attest a computer keyboard key: render and read the entire
+entry before using any sense. A physical tack/fastener is not automatically
+a keyboard button. Search snippets containing money sum also locate page
+260, but they do not provide an arithmetic resulting-total noun. These
+are page locators, not accepted translations or trustworthy automatic
+Cyrillic decoding. Next action is visual dictionary lookup, supplemented
+by primary native software/corpus evidence for computing terminology.
+No locale edit or queue acceptance change; nine Veps findings and the
+unflagged Finnish keyboard-shortcuts title remain open. Audit verification
+passed; overall original pending remains 127, restored 4 unchanged.

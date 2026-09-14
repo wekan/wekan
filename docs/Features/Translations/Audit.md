@@ -29,11 +29,11 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Veps keyboard shortcuts](Veps-Review.md): add the unflagged Finnish
-popup title to the repair scope alongside three flagged messages. Preserve
-literal key bindings and opposite current-state/click-action pairs. Checked
-native sources do not yet supply the full term; further lookup remains open.
-No locale edit or count change. Earlier source conflicts remain open.
+[Veps dictionary search](Veps-Review.md): corrupted Cyrillic invalidates
+the earlier normal-text negative search. Use rendered pages; located button
+snippets concern fastening and do not prove keyboard terminology. Four
+coordinated shortcut messages still need repair, including the unflagged
+Finnish title. No locale edit or count change; broader review remains open.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:
