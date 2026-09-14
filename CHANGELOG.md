@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,357 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 487 pending review or repair.
-The correction inventory records 17,732 exact before/after values,
+The correction inventory records 17,735 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,8 +102,8 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is aef5ea20a (2026-09-14), replacing six Arabic
-profile and board-view labels with supported native terminology. Restored
+Latest translation fix is 82ba97005 (2026-09-14), replacing Arabic
+Week/Month/Year labels with exact CLDR native date-field names. Restored
 values and earlier low-confidence phrases still need validation.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
@@ -631,7 +631,7 @@ remain open.
 Translation audit progress as of 2026-09-14: 15,357 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
 and 487 remain pending across 17 locales, including 352 Tamazight findings.
-The ledger contains 17,732 correction records, including unflagged repairs.
+The ledger contains 17,735 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -1778,6 +1778,16 @@ Replace six Arabic People/Edit Profile/Title/Calendar/Lists/Members labels
 with native terminology supported by Mastodon, MediaWiki and CLDR. Preserve
 action, calendar and plural scope. All 17,732 correction/rendering checks
 pass; 487 original findings remain pending.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/82ba97005">Translate Tamazight week month and year date labels</a>. Thanks to xet7.</summary>
+
+Replace three Arabic date predicates with exact CLDR Tamazight singular
+date-field names used in tooltips, Gantt, calendar navigation and search.
+All 17,735 correction/rendering checks pass; 487 original findings remain
+pending. Live browser verification was not run.
 
 </details>
 
