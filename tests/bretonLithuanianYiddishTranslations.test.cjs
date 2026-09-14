@@ -23,6 +23,12 @@ for (const language of ['br', 'lt', 'yi']) {
 }
 
 assert.equal(locales.br['select-none'], 'Na ziuz hini ebet');
+assert.equal(locales.br['email-address'], 'Chomlec’h postel');
+assert.equal(locales.br['webhook-title'], 'Anv ar webhook');
+assert.equal(locales.br['server-error'], 'Fazi ar servijer');
+for (const key of ['email-address', 'webhook-title', 'server-error']) {
+  assert.doesNotMatch(locales.br[key], /Adresse de courriel|Nom du|Erreur serveur/);
+}
 assert.equal(locales.lt['select-none'], 'Nieko nepasirinkti');
 assert.equal(locales.yi['select-none'], 'גאָרנישט אויסקלייבן');
 assert.match(locales.yi['office-logins'], /^[\u0590-\u05ff]+$/);

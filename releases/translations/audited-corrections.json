@@ -129953,5 +129953,26 @@
     "before": "Aucun commentaire",
     "after": "Evezhiadenn ebet",
     "reason": "Repair French-seeded Breton view/collapse/comment labels. Reuse local board/list/table and comment nouns. Native Ofis deiziadur entry supports calendar; plegañ/displegañ entries support fold/unfold and preserve opposite controls. Proper Gantt vendor names remain unchanged. Full contextual phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "email-address",
+    "before": "Adresse de courriel",
+    "after": "Chomlec’h postel",
+    "reason": "Replace French-seeded Breton settings/diagnostic label; native MediaWiki Breton attests email-address and server nouns, existing local anv supplies name; webhook remains literal technical terminology. Compound wording adapted, live contextual validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "webhook-title",
+    "before": "Nom du webhook",
+    "after": "Anv ar webhook",
+    "reason": "Replace French-seeded Breton settings/diagnostic label; native MediaWiki Breton attests email-address and server nouns, existing local anv supplies name; webhook remains literal technical terminology. Compound wording adapted, live contextual validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "server-error",
+    "before": "Erreur serveur",
+    "after": "Fazi ar servijer",
+    "reason": "Replace French-seeded Breton settings/diagnostic label; native MediaWiki Breton attests email-address and server nouns, existing local anv supplies name; webhook remains literal technical terminology. Compound wording adapted, live contextual validation remains open."
   }
 ]
