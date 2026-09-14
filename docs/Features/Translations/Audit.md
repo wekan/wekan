@@ -4,24 +4,24 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,552 |
-| Restored pre-pull; awaiting validation | 2,600 |
-| Reviewed; retained unchanged | 1,621 |
+| Corrected | 15,553 |
+| Restored pre-pull; awaiting validation | 2,547 |
+| Reviewed; retained unchanged | 1,673 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
 Review is ongoing. The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,148** exact before/after values, including unflagged repairs.
+contain **18,149** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `fbc39261f` —
-repaired Esperanto singular member-notification wording and the subtask
-activity verb/swimlane term; retained 14 correct rule and filter labels.
-All **18,148** correction records and unchanged-value checks pass.
-Browser verification was not run; no translations were pushed.
-Completion, overtime, lime-color, scrollbar and advanced-filter wording
-remains under review.
+Latest translation fix: **2026-09-14**, local commit `3b44bfb5e` —
+repaired Esperanto custom-field value removal; retained 52 correct rule,
+hierarchy, date-field and authentication labels. Translated comma-separated
+example item names remain valid. All **18,149** correction records and
+unchanged-value checks pass. Browser verification was not run; no
+translations were pushed. Completion, overtime, lime-color, scrollbar and
+advanced-filter wording remains under review.
 
 
 Fixed categories include wrong-language prose, terminology, warnings,

@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,552 corrected, 2,600 restored pre-pull values awaiting
-validation, 1,621 reviewed and retained, and 308 pending review or repair.
-The correction inventory records 18,148 exact before/after values,
+findings: 15,553 corrected, 2,547 restored pre-pull values awaiting
+validation, 1,673 reviewed and retained, and 308 pending review or repair.
+The correction inventory records 18,149 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
 of 829
@@ -106,8 +106,8 @@ performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have
 resumed.
-Latest translation fix/review is fbc39261f (2026-09-14): Esperanto member
-notification and subtask activity repaired; 14 correct labels retained.
+Latest translation fix/review is 3b44bfb5e (2026-09-14): Esperanto custom
+field value removal repaired; 52 correct labels retained.
 Latest unchanged-value review is e4e614f29 (2026-09-14): 40 correct
 Esperanto webhook, policy and date labels retained.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
@@ -852,10 +852,19 @@ review checks pass; wider language and browser validation remains open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,552 original findings are
-corrected, 1,621 reviewed and retained, 2,600 restored values await validation,
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3b44bfb5e">Clarify Esperanto custom-field value removal</a>. Thanks to xet7.</summary>
+
+Describe removing a field value correctly. Retain 52 correct rule and
+hierarchy labels, including translated example item names with comma
+separators. Correction and review checks pass; browser review remains open.
+
+</details>
+
+Translation audit progress as of 2026-09-14: 15,553 original findings are
+corrected, 1,673 reviewed and retained, 2,547 restored values await validation,
 and 308 remain pending across 17 locales, including 173 Tamazight findings.
-The ledger contains 18,148 correction records, including unflagged repairs.
+The ledger contains 18,149 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/193b22520">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>

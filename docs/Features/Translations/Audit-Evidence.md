@@ -21622,3 +21622,16 @@ unchanged after direct semantic review. All source interpolation tokens
 remain intact. Original tracked counts: 15,552 corrected, 2,600 restored,
 1,621 retained, 308 pending; 18,148 exact correction records. Browser and
 remaining language validation are still open.
+
+
+### Esperanto custom-field and rule review — 2026-09-14
+
+Local commit `3b44bfb5e` repairs activity-unset-customfield: actual
+models/cards.js $unset activity removes a field value, rather than
+misconfiguring it. Both %s interpolation slots remain intact. Fifty-two
+rule/hierarchy/date/authentication labels retained unchanged. The
+checklist-items placeholder is a translated comma-separated example;
+ero1,ero2,ero3 is valid, and review coverage now preserves it instead of
+requiring English item names. All 18,149 correction and 1,673 review
+records pass. Remaining completion, overtime, color and broader language
+and browser validation stays open.
