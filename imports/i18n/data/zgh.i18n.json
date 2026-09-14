@@ -2197,7 +2197,7 @@
   "cron-no-errors": "Aucune erreur à afficher",
   "cron-error-severity": "Gravité",
   "cron-error-time": "ⴰⴽⵓⴷ",
-  "cron-error-message": "Message d'erreur",
+  "cron-error-message": "ⵜⵓⵣⵉⵏⵜ ⵏ ⵓⵣⴳⴰⵍ",
   "cron-error-details": "ⵉⴼⵔⵓⵔⵉⵜⵏ",
   "cron-clear-errors": "ⵚⵚⴼⴹ ⴰⴽⴽⵯ ⵉⵣⴳⴰⵍⵏ",
   "cron-retry-failed": "Réessayer les migrations échouées",

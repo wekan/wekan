@@ -123618,5 +123618,12 @@
     "before": "Les informations d'assistance sont réservées aux utilisateurs connectés.",
     "after": "ⵉⵏⵖⵎⵉⵙⵏ ⵏ ⵜⵡⵉⵙⵉ ⵉ ⵉⵎⵙⵙⵎⵔⵙⵏ ⵏⵏⴰ ⵉⴽⵛⵎⵏ ⵖⴰⵙ.",
     "reason": "Replace French support access notice while retaining information, assistance and logged-in users ONLY. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json pageinfo-title supplies inɣmisn information, userlogin-helplink2 tiwisi help, protect-default imssmrsn users, login kcm and userlogin-loggedin tkcmd login, sp-contributions-toponly ɣas only and nna relative construction. LOW CONFIDENCE bound twisi, derived logged-in relative participle ikcmn and complete sentence/order require fluent review; do not weaken authenticated-users-only to all users. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "cron-error-message",
+    "before": "Message d'erreur",
+    "after": "ⵜⵓⵣⵉⵏⵜ ⵏ ⵓⵣⴳⴰⵍ",
+    "reason": "Replace French cron error message field label while preserving message versus error details distinction. Primary native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json feedback-message gives tuzint message, nosuchactiontext gives bound uzgal error. LOW CONFIDENCE full software error-message noun phrase requires fluent review; do not shorten to error alone. Reviewed 2026-09-14."
   }
 ]
