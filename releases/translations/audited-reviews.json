@@ -24946,5 +24946,23 @@
     "key": "shortcut-filter-my-assigned-cards",
     "value": "Filtra les meves fitxes assignades",
     "reason": "Correct shared Catalan Filter my assigned cards meaning, feminine plural possessive/participle agree with fitxes. IEC aoe.iec.cat/els-possessius/ recognizes meves and meues as dialect variants: meves predominates eastern, meues western; this is not wrong-language prose. Actual keyboard.js a action toggles Filter.assignees for current user. Retained correct-language translation under preservation policy; preferred Valencian regional style and browser review remain open."
+  },
+  {
+    "locale": "gl",
+    "key": "r-when-a-attach",
+    "value": "Cando un anexo",
+    "reason": "Retain correct Galician noun/shared feminine action wording after attachment template receives separate masculine Engadido a/Quitado de labels. RAG defines anexo as a masculine computer attachment noun; shared feminine labels still agree with persoa membro, labels and cards. Complete live browser validation remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "r-added-to",
+    "value": "Engadida a",
+    "reason": "Retain correct Galician noun/shared feminine action wording after attachment template receives separate masculine Engadido a/Quitado de labels. RAG defines anexo as a masculine computer attachment noun; shared feminine labels still agree with persoa membro, labels and cards. Complete live browser validation remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "r-removed-from",
+    "value": "Quitada de",
+    "reason": "Retain correct Galician noun/shared feminine action wording after attachment template receives separate masculine Engadido a/Quitado de labels. RAG defines anexo as a masculine computer attachment noun; shared feminine labels still agree with persoa membro, labels and cards. Complete live browser validation remains open."
   }
 ]

@@ -129323,5 +129323,19 @@
     "before": "es",
     "after": "da",
     "reason": "Replace Spanish es with native Basque da. Actual trigger helpers omit the separate copula in Basque because shared action labels already contain the temporal finite clause; keep other languages unchanged. Full trigger fluency remains under review."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-when-a-attach",
+    "before": "Quando um anexo",
+    "after": "Cando un anexo",
+    "reason": "Replace Portuguese trigger wording in Galician regional locale with existing Galician fragments, preserving attachment subject and card destination. RAG confirms masculine anexo in computing; separate attachment participles preserve agreement."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "r-a-card",
+    "before": "um cartão",
+    "after": "unha tarxeta",
+    "reason": "Replace Portuguese trigger wording in Galician regional locale with existing Galician fragments, preserving attachment subject and card destination. RAG confirms masculine anexo in computing; separate attachment participles preserve agreement."
   }
 ]

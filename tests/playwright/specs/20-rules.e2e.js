@@ -238,3 +238,22 @@ for (const language of ['eu', 'en']) {
     await expect(page.locator('.rules-lists-item')).toHaveCount(1, { timeout: 15000 });
   });
 }
+
+
+test('Galician attachment rule actions agree with the attachment noun', async ({ page, user, board }) => {
+  db.updateOne('users', { _id: user.id }, { $set: { 'profile.language': 'gl' } });
+  await loginWithToken(page, user.id, user.token);
+  await openRulesPage(page, board);
+  await page.locator('#ruleTitle').fill('Attachment agreement regression');
+  await page.locator('.js-goto-trigger').click();
+  await page.locator('.js-set-card-triggers').click();
+  const action = page.locator('#attach-action');
+  await expect(action.locator('option[value="added"]')).toHaveText('Engadido a');
+  await expect(action.locator('option[value="removed"]')).toHaveText('Quitado de');
+  await expect(action).not.toContainText('Engadida a');
+  await expect(page.locator('#gen-member-action option[value="added"]')).toHaveText('Engadida a');
+  await action.selectOption('added');
+  await page.locator('.js-add-attachment-trigger').click();
+  await page.locator('.js-add-gen-move-action.js-goto-rules').first().click();
+  await expect(page.locator('.rules-lists-item')).toHaveCount(1, { timeout: 15000 });
+});
