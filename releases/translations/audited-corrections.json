@@ -123954,5 +123954,47 @@
     "before": "الثواني",
     "after": "ⵜⵉⵙⵉⵏⵉⵏ",
     "reason": "2026-09-14: Replace Arabic duration-unit label, preserving minute versus second and plural scope. CLDR field second displayName tasint supplies the singular time-unit term. Derive feminine plural tisinin to retain English plural seconds. LOW CONFIDENCE plural morphology: no directly verified plural-seconds example was established; fluent grammar review remains required. Do not confuse seconds with ordinal second or minutes. Reference: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml (dates/fields)."
+  },
+  {
+    "locale": "zgh",
+    "key": "add-board",
+    "before": "إضافة لوحة",
+    "after": "ⵔⵏⵓ ⵜⴰⴼⵍⵡⵉⵜ",
+    "reason": "2026-09-14: Replace Arabic Add interface label, preserving singular board; existing WeKan taflwit. Native MediaWiki export-addcat supplies rnu/Add. Do not interchange Board, Card, List or Members or replace add with edit. LOW CONFIDENCE complete kanban command: reference-supported component vocabulary does not independently validate the full phrase or board/card terminology extension. Fluent contextual review remains required. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "add-card",
+    "before": "إضافة بطاقة",
+    "after": "ⵔⵏⵓ ⵜⴰⴽⴰⵕⴹⴰ",
+    "reason": "2026-09-14: Replace Arabic Add interface label, preserving singular card; existing WeKan takarḍa. Native MediaWiki export-addcat supplies rnu/Add. Do not interchange Board, Card, List or Members or replace add with edit. LOW CONFIDENCE complete kanban command: reference-supported component vocabulary does not independently validate the full phrase or board/card terminology extension. Fluent contextual review remains required. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "add-list",
+    "before": "إضافة قائمة",
+    "after": "ⵔⵏⵓ ⵜⴰⵍⴳⴰⵎⵜ",
+    "reason": "2026-09-14: Replace Arabic Add interface label, preserving singular list; native Mastodon lists.edit/delete attest talgamt. Native MediaWiki export-addcat supplies rnu/Add. Do not interchange Board, Card, List or Members or replace add with edit. LOW CONFIDENCE complete kanban command: reference-supported component vocabulary does not independently validate the full phrase or board/card terminology extension. Fluent contextual review remains required. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "addListPopup-title",
+    "before": "إضافة قائمة",
+    "after": "ⵔⵏⵓ ⵜⴰⵍⴳⴰⵎⵜ",
+    "reason": "2026-09-14: Replace Arabic Add interface label, preserving singular list popup; match Add List entry, native Mastodon lists.edit/delete attest talgamt. Native MediaWiki export-addcat supplies rnu/Add. Do not interchange Board, Card, List or Members or replace add with edit. LOW CONFIDENCE complete kanban command: reference-supported component vocabulary does not independently validate the full phrase or board/card terminology extension. Fluent contextual review remains required. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "add-members",
+    "before": "إضافة أعضاء",
+    "after": "ⵔⵏⵓ ⵉⴳⵎⴰⵎⵏ",
+    "reason": "2026-09-14: Replace Arabic Add interface label, preserving plural members; native MediaWiki nmembers attests igmamn. Native MediaWiki export-addcat supplies rnu/Add. Do not interchange Board, Card, List or Members or replace add with edit. LOW CONFIDENCE complete kanban command: reference-supported component vocabulary does not independently validate the full phrase or board/card terminology extension. Fluent contextual review remains required. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "addMemberPopup-title",
+    "before": "إضافة أعضاء",
+    "after": "ⵔⵏⵓ ⵉⴳⵎⴰⵎⵏ",
+    "reason": "2026-09-14: Replace Arabic Add interface label, preserving plural members popup; match Add Members entry, native MediaWiki nmembers attests igmamn. Native MediaWiki export-addcat supplies rnu/Add. Do not interchange Board, Card, List or Members or replace add with edit. LOW CONFIDENCE complete kanban command: reference-supported component vocabulary does not independently validate the full phrase or board/card terminology extension. Fluent contextual review remains required. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
   }
 ]
