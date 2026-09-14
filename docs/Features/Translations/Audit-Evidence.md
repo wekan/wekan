@@ -1,5 +1,14 @@
 # Detailed translation audit evidence
 
+2026-09-14 (`edfed8176`): repaired additional Tamazight `card-spent`,
+`editCardSpentTimePopup-title` and `editCardSortOrderPopup-title`. Reuse
+existing Spent Time wording without the hours qualifier. Native MediaWiki
+`edit` supplies Change and `sort-ascending` / `sort-descending` supply
+Sorting. Noun-only time and Change actions remain distinct. Full spent-time
+participle and agreement remain low confidence. All 18,131 records pass
+structural checks; these additional repairs do not reduce original counts.
+
+
 2026-09-14 (`db8421e9b`): repaired the additional Arabic Tamazight
 Change Due Date popup title. Native MediaWiki `edit` supplies `ⵙⵏⴼⵍ`;
 existing Due Date is `ⴰⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ`. The title now follows the
