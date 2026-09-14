@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d7bdf6ac6">Repair Tamazight private-board description</a>. Thanks to xet7.</summary>
+
+Replace Arabic wording and restore view/edit actions from the English
+members-only description. Four checks pass; complete native grammar and
+browser validation remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/086a02734">Repair Tamazight SMTP TLS description</a>. Thanks to xet7.</summary>
 
 Replace Arabic with verified native components for enabling TLS use on the

@@ -24908,3 +24908,27 @@ names and enabled-action wording; no live browser validation ran.
 The repaired CLI updater reconstructs both count tables: 15,631 corrected,
 271 pending (158 Tamazight), four restored and 4,175 retained; 18,726
 ledger records. Broader native and runtime verification remain open.
+
+## Private-board description repair — 2026-09-14
+
+Local commit `d7bdf6ac6` replaces Arabic `private-desc` with an adapted
+Tamazight private-board/members-only description. Current English explicitly
+contains both view and edit actions; the Arabic seed only described members
+as allowed. The repair restores both actions, not just the privacy adjective.
+
+Primary IRCAM General Dictionary PDF page 454, entry 8633, gives private;
+page 43, entry 502, gives member; page 468, entry 8843, gives only; page
+719, entry 13518, gives be able; page 727, entry 13642, gives see/look.
+The only sense is entry 8843, not adjacent except entry 8845. Native
+MediaWiki supplies edit `ⵙⵏⴼⵍ`; existing board vocabulary is reused.
+These are component attestations, not a complete published software phrase.
+**Low confidence** remains for feminine agreement, focus construction,
+plural verbs/object pronouns and full software wording. No authorization
+logic or board-role permissions were changed by this translation repair.
+
+BoardHeader.js chooses this translated fallback through visibilityDesc
+when there is no custom private-board description. Four focused checks
+pass, preserving exact placeholders and both action terms; live browser
+validation was not run. The CLI recounts 15,632 corrected, 270 pending
+(157 Tamazight), four restored, 4,175 retained and 18,727 ledger records.
+Broader native phrasing, prior low-confidence and browser review remain open.
