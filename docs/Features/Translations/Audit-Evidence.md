@@ -22540,3 +22540,11 @@ Retained 32 inspected lockout, active/inactive actions, scheduled maintenance
 failures, migration outcomes and confirmations, S3 saving, rename/background
 values. Negation, known/unknown-user contrasts and all scopes remain intact.
 All 3,979 exact reviews pass; English technical loans remain under review.
+
+**2026-09-14 — Valencian checklist prose (`e4a846162`).**
+
+Repaired six ordinary rule/display values containing English checklist(s) or
+joined llistadecontrol, using existing localized llista de verificació.
+Preserve each-line mapping, original order, all-item and finished-list scopes.
+Exact positive/negative regression and all 18,181 correction records pass.
+Search tokens excluded for separate parser review; broader verification open.

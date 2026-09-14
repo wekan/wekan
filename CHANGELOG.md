@@ -80,7 +80,7 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,572 corrected, 222 restored pre-pull values awaiting
+findings: 15,578 corrected, 216 restored pre-pull values awaiting
 validation, 3,979 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,173 exact before/after values,
 Global completeness verification also identifies Veps `server` (currently
@@ -666,6 +666,16 @@ under review; this entry records the outcome without editing released notes.
 Retained 32 correct lockout, scheduled maintenance and migration outcome values.
 Negation and all-user/all-migration scopes remain intact. Exact review checks
 pass; technical loans and broader regional language review remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e4a846162">Repair Valencian checklist prose</a>. Thanks to xet7.</summary>
+
+Six ordinary rule/display labels now use existing localized checklist terminology
+instead of mixed English or joined words. Preserve line mapping, original order,
+all-item and finished-list scopes. Regression and correction checks pass;
+search tokens and broader language/browser verification remain under review.
 
 </details>
 
