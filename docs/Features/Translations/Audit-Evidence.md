@@ -25846,3 +25846,22 @@ matching organization memberships. Its label is a text-input label,
 not a checkbox. A generic “add users using a domain name” draft would
 lose the condition; the documented domain noun alone does not validate
 that complete sentence. No automatic-addition behavior was changed.
+
+Search-limit terminology review — 2026-09-14.
+operator-limit-invalid is still French and remains pending. Its English
+source requires both invalid-limit diagnosis and positive-integer guidance,
+with the exact %s placeholder. IRCAM Amazigh-English PDF 177 entry 3292
+ankruf means bound/tied, invalid in the disability sense, paralyzed or
+immobilized. PDF 354 entry 6732 likewise describes inability to move.
+Neither is evidence for invalid query syntax or an unacceptable limit.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+The local cached primary PDF extraction was inspected; the web viewer
+rejects this 63 MB document, which does not invalidate that local evidence.
+Boundary/limit candidates include agguttu (40, 445), amari (122, 2201),
+awttu (270, 5271) and tiggumra (666, 12525). No whole software-error clause
+is attested by these lemmas. The positive-integer draft terminology has
+separate cross-variety provenance and cannot alone validate the sentence.
+No locale value is changed or counted as corrected by this review.
+Outstanding work: faithful complete diagnosis, modal guidance, native
+syntax and runtime interpolation; do not translate %s or use disability
+terms merely because their dictionary English gloss includes “invalid”.
