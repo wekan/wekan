@@ -125613,5 +125613,26 @@
     "before": "abrid __swimlane__ deg tafelwit __board__ yettwawi ɣer uɣbar",
     "after": "ⴰⴱⵔⵉⴷ __swimlane__ ⴳ ⵜⴼⵍⵡⵉⵜ __board__ ⵉⵜⵜⵓⵙⵎⵓⵜⵜⵉ ⵖⵔ ⴰⵔⵛⵉⴼ",
     "reason": "2026-09-14: Replace inherited Kabyle-leaning archive activities (tabdart/deg/aɣbar) with provisional Standard Moroccan Tamazight vocabulary and corroborated Archive noun. Latin script alone is not the error. Preserve Board/Card/List/Swimlane object identity, every nested location, completed moved-to-archive meaning and all exact underscore placeholders. Native MediaWiki logentry-move-move attests active Move; passive moved forms are derived, not directly attested here. Native Mastodon supplies List; local Card/Board vocabulary reused. Swimlane retains existing Path abrid as a provisional software semantic adaptation, not a independently attested swimlane term. Bound nouns, gender/passive forms and full clauses remain LOW CONFIDENCE for native review. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Archive noun evidence: directly inspected native Archives du Maroc logo in University Mohammed V 2019 PDF."
+  },
+  {
+    "locale": "zgh",
+    "key": "list-delete-suggest-archive",
+    "before": "Vous pouvez archiver une liste pour l'enlever du tableau tout en conservant son activité.",
+    "after": "ⵜⵥⴹⴰⵕⴷ ⴰⴷ ⵜⵙⵎⵓⵜⵜⵉⴷ ⵢⴰⵜ ⵜⴰⵍⴳⴰⵎⵜ ⵖⵔ ⴰⵔⵛⵉⴼ ⴰⴼⴰⴷ ⴰⴷ ⵜⵜ ⵜⴽⴽⵙⴷ ⵙⴳ ⵜⴼⵍⵡⵉⵜ ⴷ ⴰⴷ ⵜⵃⴹⵓⴷ ⵜⵉⴳⴰⵡⵜ.",
+    "reason": "2026-09-14: Replace French archive alternative hint, preserving ability to move a LIST to Archive, remove it FROM board and PRESERVE its activity. Native software supports Move/Remove action components; Preserve uses the attested Save root hdu as a semantic adaptation. Full ability/purpose clause, pronoun placement and activity terminology remain LOW CONFIDENCE for native validation. Sources: https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "save",
+    "before": "Sekles",
+    "after": "ⵃⴹⵓ",
+    "reason": "2026-09-14: Replace inherited Kabyle Save Sekles with directly attested non-fuzzy native Dialect Save ⵃⴹⵓ, preserving the save action. Latin script alone is not an error. Sources: https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "search",
+    "before": "Nadi",
+    "after": "ⵔⵣⵓ",
+    "reason": "2026-09-14: Replace inherited Kabyle Search Nadi with directly attested native MediaWiki searchbutton ⵔⵣⵓ and Mastodon search.placeholder, preserving imperative Search. Latin script alone is not an error. Sources: https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
