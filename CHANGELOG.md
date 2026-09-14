@@ -634,6 +634,31 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Tamazight checklist rule labels replace remaining French text
+and distinguish checked or unchecked states from action commands. Existing
+rule behavior stays the same. Regression checks preserve placeholders and
+verify label wiring; complete contextual grammar remains under review.
+
+This release includes the following features and fixes:
+
+**Translations** - Tamazight rule state labels.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4e8f1b7dd">Repair Tamazight checklist trigger state labels</a>. Thanks to xet7.</summary>
+
+Replace French checked/unchecked labels with Tamazight state phrases,
+keeping them distinct from imperative checklist actions. Regression checks
+cover exact values, negative wrong-language checks and template wiring.
+Correction, retained-review and completeness suites also pass. Checkbox
+terminology and complete trigger grammar remain under native review.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their
+translations.
+
 # v11.80 2026-09-15 WeKan ® release
 
 **In short:** **Checklist deadlines** add a shared-calendar date picker and

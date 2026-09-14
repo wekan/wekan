@@ -2768,3 +2768,27 @@ placeholders, ranges, repaired values and structure; no live UI test was
 run for this batch. Ledger 19,822; original corrected 15,717, pending 186
 (zgh 91), restored 4 unchanged. Broader uncertain, restored and unflagged
 values remain open. No remote writes.
+
+
+## Checkbox trigger states — 2026-09-15
+
+Local commit `4e8f1b7dd` repairs unflagged French r-checked/r-unchecked.
+Use with a mark / without a mark, rather than imperative mark/remove.
+checklistTriggers.jade lines 101-102 and 127-128 use these as state options;
+the JavaScript handlers map them to checkedItem/uncheckedItem activities.
+
+IRCAM's cached complete dictionary, page 595 entry 11152, gives tamatart
+(sign) with bound form tmatart. Page 297 entry 5800 gives bla (without).
+Existing Tamazight with-preposition usage supplies s. The live PDF fetch
+exceeded the browser tool's size limit; the full cached lexical entries
+were inspected instead. Source:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+**Low confidence:** mark-to-checkbox adaptation and complete grammatical
+composition with the surrounding trigger text remain under native review.
+The entries support components, not an attested complete computing phrase.
+Four focused suites pass: Tamazight state/imperative distinction, negative
+French checks and actual template wiring, correction ledger, retained
+reviews and completeness. No live UI test ran. Ledger 19,824; original
+pending 186 (zgh 91), restored 4 unchanged. Unflagged repairs do not reduce
+the original queue. Broader wording review remains open. No remote writes.
