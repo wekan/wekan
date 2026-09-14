@@ -911,6 +911,16 @@ native review. Dated audit records 161 pending original findings.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/27dbc30c2">Repair Tamazight private-page login guidance</a>. Thanks to xet7.</summary>
+
+Replace Arabic guidance, keeping both uncertainty clauses and the login
+link placeholder. Four focused translation suites pass. Derived adjective
+and conditional grammar remain under native review. Dated audit records
+160 pending original findings.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

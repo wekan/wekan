@@ -3683,3 +3683,23 @@ invariants. No live deletion UI test ran. Ledger 19,857; original corrected
 15,742, pending 161 (zgh 66), restored 4 unchanged. Earlier wrong-language
 pending classification is superseded by this repair, not the native-review
 limits. Broader review remains open; no remote writes were made.
+
+
+## Private-page login guidance — repair 2026-09-15
+
+Source commit `27dbc30c2` replaces Arabic page-maybe-private. IRCAM
+page 262 entry 5099 gives perhaps ataf; page 454 entry 8633 gives
+private uslig, also used in private-access phrase entry 3966. Feminine
+tusligt is derived to agree with page tasna. Existing login kcm supplies
+the linked login clause. Both propositions remain uncertain: page may be
+private and signing in may allow viewing, without guaranteeing access.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+Literal `<a href='%s'>` and closing anchor are preserved. Template
+layouts.jade line 170 supplies /sign-in and renders this below messages
+when no current user is present. By-logging-in is paraphrased as if you
+log in; complete conditional, pronoun placement and derived adjective
+remain low confidence. Four focused suites pass for exact wording and
+placeholder/translation invariants. No live UI test ran. Ledger 19,858;
+original corrected 15,743, pending 160 (zgh 65), restored 4 unchanged.
+Broader review remains open; no remote writes were made.
