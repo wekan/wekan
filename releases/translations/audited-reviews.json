@@ -19144,5 +19144,185 @@
     "key": "predicate-due",
     "value": "vencemento",
     "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "predicate-created",
+    "value": "creado",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "predicate-description",
+    "value": "descrición",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "predicate-start",
+    "value": "inicio",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "predicate-assignee",
+    "value": "asignado",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "predicate-selector",
+    "value": "selector",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "predicate-projection",
+    "value": "proxección",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "operator-number-expected",
+    "value": "o operador __operator__ esperaba un número, recibiu '__value__'",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "operator-sort-invalid",
+    "value": "a ordenación por '%s' non é válida",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "next-page",
+    "value": "Páxina seguinte",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "previous-page",
+    "value": "Páxina anterior",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-heading",
+    "value": "Instrucións de procura",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-operators",
+    "value": "Operadores dispoñibles:",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-operator-hash",
+    "value": "`__operator_label_abbrev__<name|color>` - abreviatura de `__operator_label__:<color>` ou `__operator_label__:<name>`",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-operator-at",
+    "value": "`__operator_user_abbrev__username` - abreviatura de `user:<username>`",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-operator-status",
+    "value": "`__operator_status__:<status>` - onde *<status>* é un dos seguintes:",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-operator-sort",
+    "value": "`__operator_sort__:<sort-name>` - onde *<sort-name>* é un de `__predicate_due__`, `__predicate_created__` ou `__predicate_modified__`. Para unha ordenación descendente, pon un `-` diante do nome de ordenación.",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-notes-1",
+    "value": "Pódense indicar varios operadores.",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-notes-3-2",
+    "value": "Os días pódense indicar como un número enteiro positivo ou negativo, ou usando `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` ou `__predicate_year__` para o período actual.",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "link-to-search",
+    "value": "Ligazón a esta procura",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "label-colors",
+    "value": "Cores das etiquetas",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "label-names",
+    "value": "Nomes das etiquetas",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "archived-at",
+    "value": "arquivado o",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "sort-is-on",
+    "value": "Ordenación activada",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "due-date",
+    "value": "Data de vencemento",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "server-error",
+    "value": "Erro do servidor",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "server-error-troubleshooting",
+    "value": "Por favor, envíe o erro xerado polo servidor.\nPara unha instalación snap, execute: `sudo snap logs wekan.wekan`\nPara unha instalación Docker, execute: `sudo docker logs wekan-app`",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "title-alphabetically",
+    "value": "Título (alfabeticamente)",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "created-at-newest-first",
+    "value": "Data de creación (máis recentes primeiro)",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "created-at-oldest-first",
+    "value": "Data de creación (máis antigos primeiro)",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "links-heading",
+    "value": "Ligazóns",
+    "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
   }
 ]
