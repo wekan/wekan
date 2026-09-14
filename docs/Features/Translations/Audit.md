@@ -16,10 +16,10 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `eb710395b` —
-Unflagged Arabic SMTP host label is repaired with the attested computer-server
-compound. Four checks pass. Networking-port wording remains open; original
-pending count stays 266. Broader native/browser review remains open.
+Latest translation fix: **2026-09-14**, local commit `72b212a5d` —
+Tamazight filter examples now preserve exact escape syntax. English prose
+stays pending. Three checks pass; completeness exposes one untranslated
+Tamazight value and currently fails. No gate was weakened. Pending: 266.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
 records contain **18,734** exact before/after values, including unflagged

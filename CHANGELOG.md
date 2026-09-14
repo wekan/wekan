@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/72b212a5d">Repair Tamazight filter-help escape syntax</a>. Thanks to xet7.</summary>
+
+Restore exact executable examples. English prose remains pending; three
+focused checks pass and completeness exposes one untranslated value.
+The gate remains intact; translating the full help is still required.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/eb710395b">Repair Tamazight SMTP host label</a>. Thanks to xet7.</summary>
 
 Replace Arabic with the attested computer-server compound, preserving SMTP.

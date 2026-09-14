@@ -810,3 +810,21 @@ complete outgoing-email sentence. smtp-port remains Arabic and needs a
 separate direct repair; no port acceptance is recorded. Host-label repair
 increases correction records to 18,734 but leaves 266 original findings
 pending. Full native/browser validation remains open.
+
+## Advanced-filter escape repair — 2026-09-14
+
+Local commit `72b212a5d` removes doubled backslashes from Tamazight
+advanced-filter-description, matching all literal examples and escape
+markers to English. Syntax regression rejects the doubled apostrophe
+escape and explicitly requires the original audit row to stay pending.
+No correction-ledger acceptance was added: the prose is still English.
+
+Three checks pass (syntax examples, correction ledger, retained reviews).
+allTranslationCompleteness.test.cjs now correctly fails with one unreviewed
+English placeholder in zgh. Before the repair, malformed backslashes made
+English look different from the source, bypassing the structural fill gate.
+This is exposed missing translation work, not a reason to restore broken
+syntax, change punctuation to evade detection or weaken the gate. Translate
+the full prose while retaining exact operators/examples to resolve it.
+Original pending count stays 266 and ledger records stay 18,734. No live
+browser validation was run; broader native/runtime work remains open.
