@@ -23448,3 +23448,20 @@ Breton coverage and all-locale completeness. Ledger: 18,568; original counts
 remain 15,601 corrected, 19 restored, 4,162 retained and 299 pending.
 Full-name/display-name grammar, other uncertain findings and live browser
 validation remain open. No external translation service or remote push.
+
+### 2026-09-14 — Breton optional and name labels (4b1c92cb5)
+
+Five French-seeded labels repaired: optional → Diret;
+wip-limit-group-name-placeholder → Anv ar strollad (diret); fullname →
+Anv klok; displayName → Anv da ziskwel; shortName → Anv berr.
+[Native MediaWiki Breton](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/br.json)
+attests htmlform-optional-flag (diret), createacct-realname optional wording,
+and duplicate/restricted-displaytitle titl da ziskwel. Local migration-batch-size
+uses strollad; existing full-path wording supplies klok and sound/shortcut
+wording supplies berr. This supports vocabulary, not exact attestation of every
+compound. Full name is a profile field (userHeader.jade); display and short names
+are separate organization/team fields (peopleBody.jade). sidebar.jade renders
+the group-name input; previous Anv (optionnel) also omitted the group noun.
+Four offline suites pass; exact ledger 18,573, retained reviews 4,162.
+Original 299 pending and 19 restored findings remain open, as do uncertain
+phrases, native grammar and browser execution. No remote writes or subagents.

@@ -681,6 +681,17 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4b1c92cb5">Repair Breton optional and name labels</a>. Thanks to xet7.</summary>
+
+Optional/group-name and full/display/short-name fields replace French wording
+with Breton. The group-name placeholder restores its missing group noun;
+three name meanings stay distinct. Correction, retained-value, placeholder
+and locale-completeness checks pass. The dated audit records terminology
+evidence and remaining compound-phrase/browser review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/619eeb1c7">Repair Breton email, webhook and server labels</a>. Thanks to xet7.</summary>
 
 French-seeded email-address, webhook-name and server-error labels now use
