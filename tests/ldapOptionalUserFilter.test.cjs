@@ -15,3 +15,30 @@ for (const value of [true, 123, {}]) {
   assert.throws(() => getUserFilter.call({ options: { User_Search_Filter: value, User_Search_Field: 'uid' } }, 'alice'), /LDAP_USER_SEARCH_FILTER must be a string/);
 }
 console.log('ldapOptionalUserFilter: unset optional filter, configured restrictions and invalid-type failures verified');
+
+// Reproduce the actual post-bind search sequence from the LDAP implementation.
+(async () => {
+  const AsyncFunction = Object.getPrototypeOf(async function() {}).constructor;
+  // These methods use only the established structured logger as an external dependency.
+  const Log = { info() {}, debug() {} };
+  for (const filter of [undefined, null, '', '(objectClass=person)']) {
+    const events = [];
+    const ldap = {
+      options: { Authentication: true, Authentication_UserDN: 'service@example.test', Authentication_Password: 'test-only-password', User_Search_Filter: filter, User_Search_Field: 'sAMAccountName' },
+      getUserFilter, getUserAttributes: () => undefined,
+      bind: async (dn) => { assert.equal(dn, 'service@example.test'); events.push('bind'); },
+      searchAll: async (base, options) => { events.push('search'); assert.equal(options.filter, filter ? '(&(objectClass=person)(sAMAccountName=alice))' : '(&(sAMAccountName=alice))'); return [{dn:'cn=alice'}]; },
+    };
+    const bindBody = source.split('  async bindIfNecessary() {')[1].split('\n  async searchUsers(')[0].replace(/\n  }\s*$/, '');
+    const searchBody = source.split('  async searchUsers(username) {')[1].split('\n  async getUserById(')[0].replace(/\n  }\s*$/, '');
+    ldap.bindIfNecessary = new AsyncFunction('Log', bindBody).bind(ldap, Log);
+    ldap.searchUsers = new AsyncFunction('Log', 'username', searchBody).bind(ldap, Log);
+    assert.deepEqual(await ldap.searchUsers('alice'), [{dn:'cn=alice'}]);
+    assert.deepEqual(events, ['bind','search']);
+    ldap.domainBinded = false; events.length = 0;
+    ldap.bind = async () => { throw new Error('invalid credentials'); };
+    await assert.rejects(ldap.searchUsers('alice'), /invalid credentials/);
+    assert.equal(events.length, 0, 'failed bind must never proceed to search');
+  }
+  console.log('ldapOptionalUserFilter: actual bind/search sequence and failed-bind isolation verified');
+})().catch(error => { console.error(error); process.exitCode = 1; });
