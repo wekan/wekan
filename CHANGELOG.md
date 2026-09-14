@@ -738,6 +738,16 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1439c4c61">Validate Basque checklist check actions</a>. Thanks to xet7.</summary>
+
+Retain checked and unchecked temporal phrases after native software terminology
+and generic-trigger review. The audit tracks 13 restored findings remaining.
+Focused coverage verifies distinct actions; named-item and browser review remain
+open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/aba731e82">Validate Basque generic card movement wording</a>. Thanks to xet7.</summary>
 
 Retain the restored complete temporal predicate after checking native grammar

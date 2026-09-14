@@ -23668,3 +23668,18 @@ The assembled kanban sentence is a contextual grammatical adaptation; the
 references do not attest that exact product sentence. The focused regression
 checks actual template order and absence of an extra linking verb. Other
 directional fragments and browser execution remain unverified.
+
+Basque checklist check actions — 2026-09-14, local commit `1439c4c61`.
+
+Retain r-checked = Markatzen denean and r-unchecked = Desmarkatzen denean.
+The generic checklist-item trigger supplies a singular item noun and no
+additional copula. The opposite checked/unchecked actions remain distinct.
+[Native EHU portal instructions](https://www.ehu.eus/eu/web/azp/lanpoltseen-sarrera)
+use desmarkatu for a default check in the software interface.
+[Native government procurement FAQ](https://www.contratacion.euskadi.eus/faqs/faq-kontratazio-publikoaren-plataforma-euskadin/webkpe00-kpeform/eu/)
+independently uses desmarkatu for a software option. The previously recorded
+Euskadi temporal grammar supports the singular -tzen denean construction.
+This is contextual grammatical review, not exact product-sentence attestation.
+Specific named-item noun/name order remains open; these action reviews do not
+validate that separate fragment or directional add/remove clauses. Four focused
+translation suites pass; browser execution remains unverified.

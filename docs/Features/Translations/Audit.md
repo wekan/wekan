@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,610 |
-| Restored pre-pull; awaiting validation | 15 |
-| Reviewed; retained unchanged | 4,165 |
+| Restored pre-pull; awaiting validation | 13 |
+| Reviewed; retained unchanged | 4,167 |
 | Pending review or repair | 291 |
 | Total tracked | 20,081 |
 
@@ -32,14 +32,14 @@ Latest translation fix: **2026-09-14**, local commit `7c2e8f891` —
 three Breton repository labels replace French name/create/not-found wording.
 Native Synaptic software terminology supports the repository noun; full
 adapted phrases and browser review remain open. All **18,596** corrections,
-**4,165** unchanged reviews, focused locale and completeness checks pass.
-These unflagged repairs leave 291 pending and 15 restored findings unchanged.
-Latest unchanged review: **2026-09-14**, local commit `aba731e82` —
-Basque r-is-moved retains lekuz aldatzen denean after checking the complete
-Txartel bat lekuz aldatzen denean generic movement trigger and native temporal
-grammar. This resolves one restored finding; 15 remain. Directional fragments
-and live browser execution remain open. The preceding Valencian peach-color
-review is recorded in `9f7f94825`.
+**4,167** unchanged reviews, focused locale and completeness checks pass.
+These unflagged repairs leave 291 pending and 13 restored findings unchanged.
+Latest unchanged review: **2026-09-14**, local commit `1439c4c61` —
+Basque checked/unchecked actions retain distinct native temporal phrases,
+with software uncheck terminology and actual generic-item trigger coverage.
+Two restored findings are resolved; 13 remain. Specific named-item word order
+and live browser execution remain open. Earlier generic movement and Valencian
+peach-color reviews are recorded in `aba731e82` and `9f7f94825`.
 Earlier unchanged review: **2026-09-14**, Thai r-is —
 คือ retained after removing its incorrect insertion before action predicates.
 Danish Dage gammel remains validated in `824dd005e` with native age-construction
@@ -52,7 +52,7 @@ Additional unflagged unchanged review: **2026-09-14**, `39af6aae5` —
 Veps Server and Valencian Errors retained with native software evidence and
 protected per locale from filling. Zero unreviewed English placeholders remain;
 this does not establish correct language or fluency in all values. These two reviews are outside the original flagged ledger; current
-pending/restored counts are 291/15.
+pending/restored counts are 291/13.
 
 
 
