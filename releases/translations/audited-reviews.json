@@ -19714,5 +19714,185 @@
     "key": "password-again",
     "value": "Contrasinal (de novo)",
     "reason": "Inspected Galician wording preserves the English meaning for organization/team invitations, administrator contact, legal notice URL, attachment/storage controls, version, progress, elapsed time and password confirmation. UI label context does not require a semantic replacement."
+  },
+  {
+    "locale": "gl",
+    "key": "register",
+    "value": "Rexistrarse",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "forgot-password",
+    "value": "Esqueceu o contrasinal",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "Mongo_sessions_count",
+    "value": "Número de sesións de Mongo",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "change-visibility",
+    "value": "Cambiar a visibilidade",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "max-upload-filesize",
+    "value": "Tamaño máximo do ficheiro para enviar en bytes:",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "allowed-upload-filetypes",
+    "value": "Tipos de ficheiro permitidos para enviar:",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "max-avatar-filesize",
+    "value": "Tamaño máximo do ficheiro de avatar en bytes:",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "allowed-avatar-filetypes",
+    "value": "Tipos de ficheiro permitidos para o avatar:",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "invalid-file",
+    "value": "Se o nome do ficheiro non é válido, cancélase o envío ou o renomeado.",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "translation-number",
+    "value": "O número de cadeas de tradución personalizadas é:",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "newTranslationPopup-title",
+    "value": "Nova cadea de tradución personalizada",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "editTranslationPopup-title",
+    "value": "Editar cadea de tradución personalizada",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "settingsTranslationPopup-title",
+    "value": "Eliminar esta cadea de tradución personalizada?",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "translation",
+    "value": "Tradución",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "translation-text",
+    "value": "Texto da tradución",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "show-subtasks-field",
+    "value": "Mostrar o campo de subtarefas",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "show-week-of-year",
+    "value": "Mostrar a semana do ano (ISO 8601)",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "convert-to-markdown",
+    "value": "Converter a markdown",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "collapse",
+    "value": "Contraer",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "uncollapse",
+    "value": "Expandir",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "support",
+    "value": "Soporte",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "supportPopup-title",
+    "value": "Soporte",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "support-page-enabled",
+    "value": "Páxina de soporte activada",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "support-title",
+    "value": "Título do soporte",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "support-content",
+    "value": "Contido do soporte",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "accessibility",
+    "value": "Accesibilidade",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "accessibility-page-enabled",
+    "value": "Páxina de accesibilidade activada",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "accessibility-title",
+    "value": "Título de accesibilidade",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "accessibility-content",
+    "value": "Contido de accesibilidade",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
+  },
+  {
+    "locale": "gl",
+    "key": "accounts-lockout-settings",
+    "value": "Configuración da protección contra forza bruta",
+    "reason": "Inspected Galician wording correctly preserves registration, password recovery, visibility, upload/avatar byte limits and type restrictions, invalid filename cancellation, custom translation strings, subtasks, ISO week numbering, collapse/expand, support/accessibility page fields or brute-force protection settings. Verified the relevant upload, sidebar and settings label contexts; ISO 8601 remains unchanged."
   }
 ]
