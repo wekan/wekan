@@ -127433,5 +127433,12 @@
     "before": "Buddhist",
     "after": "Buddhasiortut ullorsiutaat",
     "reason": "English-only Buddhist placeholder replaced with Greenlandic Buddhasiortut ullorsiutaat, following existing Juutit ullorsiutaat calendar naming. Buddhasiortut attested in directly fetched Kalaallit Meerartaat Greenlandic article km.gl/nutaarsiassat/kalaallit-meeqqat-inuusuttullu-vejle-kaajallallugu-sikkilerput. Complete calendar phrase is an adaptation, not quoted/attested; native inflection/terminology and browser review remain open."
+  },
+  {
+    "locale": "sc",
+    "key": "color-magenta",
+    "before": "magenta",
+    "after": "fùcsia",
+    "reason": "Reviewed English-identical magenta label replaced with Sardinian-attested fùcsia from La Nuova Sardegna native-language colour article 2018-11-11. WeKan contrastColor maps magenta to #ff00ff, and W3C CSS Color 3 maps both fuchsia and magenta to #ff00ff, preserving the UI colour identity. Does not claim magenta is impossible as a Sardinian loan; uses an evidenced native label. Browser rendering not verified."
   }
 ]
