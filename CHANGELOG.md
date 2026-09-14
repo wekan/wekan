@@ -888,7 +888,7 @@ wider language validation and live browser verification remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/599d26b4f">Translate Tamazight password-reset and email-verification subjects</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/289231a7c">Translate Tamazight password-reset and email-verification subjects</a>. Thanks to xet7.</summary>
 
 Replace two French subjects while preserving the site-name placeholder.
 Native component terms are attested; full subjects, possessive attachment
@@ -900,7 +900,7 @@ mail-failure/success validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/fc83a72dc">Translate Tamazight dropdown choices and selected-card-color title</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f85bbbf5b">Translate Tamazight dropdown choices and selected-card-color title</a>. Thanks to xet7.</summary>
 
 Replace three French values. Keep unknown distinct from no selection and
 color changes scoped to selected cards. Native component terms are
@@ -912,7 +912,7 @@ unflagged values are repaired; 680 originals remain pending, including
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b26874b0c">Translate Tamazight field display and card-scope settings</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/614ba7687">Translate Tamazight field display and card-scope settings</a>. Thanks to xet7.</summary>
 
 Replace four French and Arabic values, preserving new-card versus all-card
 scope and full-card field display. Native component terms are supported;
@@ -924,7 +924,7 @@ unflagged value are repaired; 681 originals remain pending, including
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e961b18d3">Translate Tamazight create-edit and date-field labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9639aabe3">Translate Tamazight create-edit and date-field labels</a>. Thanks to xet7.</summary>
 
 Replace four Arabic and French values, keeping create-button and popup
 wording identical and preserving the date-field distinction. IRCAM attests
@@ -936,7 +936,7 @@ pending, including 541 Tamazight. Wider language validation remains open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ebf8d58e8">Repair Tamazight notification controls and unread-comment noun</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/520b0d8f8">Repair Tamazight notification controls and unread-comment noun</a>. Thanks to xet7.</summary>
 
 Replace three French controls and the image noun incorrectly used for
 unread comments. Preserve opposite read/unread states and comment meaning.
@@ -948,7 +948,7 @@ unflagged values are repaired; 685 originals remain pending, including
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/efd0ef8e6">Repair Tamazight rule labels and actions</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b0b3520cc">Repair Tamazight rule labels and actions</a>. Thanks to xet7.</summary>
 
 Repair ten values: one original finding and nine unflagged values. Distinguish
 IRCAM rule terminology from regular, preserve singular/plural and board
