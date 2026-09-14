@@ -218,3 +218,15 @@ test("Veps two-factor controls distinguish actions and account status", () => {
  assert.match(template,/js-two-factor-start-enable.*twoFactorAuth-enable/);
  assert.match(template,/js-two-factor-disable.*twoFactorAuth-disable/);
 });
+
+test("Veps two-factor instructions preserve setup and login requirements", () => {
+ const data=JSON.parse(fs.readFileSync("imports/i18n/data/ve-PP.i18n.json","utf8"));
+ for(const key of ["twoFactorAuth-explanation","twoFactorAuth-scan-instructions","twoFactorAuth-manual-entry","twoFactorAuth-confirm","twoFactorCode-prompt","twoFactorCode-submit","twoFactorCode-invalid"]) assert.doesNotMatch(data[key],/Engedzani|Skenani|Khwaṱhisedzani|Ḓivhadzani|Sedzululani|khodo|ṱoḓea/);
+ assert.match(data["twoFactorAuth-explanation"],/kaikuččen kerdan.*tuled sistemaha/);
+ assert.match(data["twoFactorAuth-scan-instructions"],/QR-kod.*Google Authenticator, Authy.*6-cifraine kod/);
+ assert.match(data["twoFactorCode-prompt"],/6-cifraine/);
+ assert.match(data["twoFactorAuth-manual-entry"],/^Libo .* käzil: $/);
+ assert.equal(data["twoFactorAuth-confirm"],"Vahvištoita da pane päle");
+ assert.match(data["twoFactorCode-invalid"],/kod om vär.*völ kerdan/);
+ assert.notEqual(data["twoFactorCode-invalid"],data["twoFactorAuth-enabled"]);
+});

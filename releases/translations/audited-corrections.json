@@ -139494,5 +139494,54 @@
     "before": "Vulani u Ṱhogomela nga Zwibveledzwa Zwivhili",
     "after": "Pane kahen faktoran autentifikacii päle",
     "reason": "Replace Tshivenda with direct Veps two-factor authentication control draft. Preserve title, enable/disable actions and enabled-for-your-account status; two-factor compound, computing loan and full case grammar remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "twoFactorAuth-explanation",
+    "before": "Engedzani mulenzhe muṅwe wa tsireledzo kha akhaunthi yaṋu. Musi yo vulwa, ni ḓo ṱoḓa u ḓivhadza khodo ubva kha application ya authenticator tshifhinga tshiṅwe na tshiṅwe musi ni tshi dzhena.",
+    "after": "Ližada sinun akkauntale ližakaičuz. Konz se om päl, sinei pidab kirjutada autentifikacijan programmaspäi kod kaikuččen kerdan, konz sinä tuled sistemaha.",
+    "reason": "Replace Tshivenda two-factor setup/login prose with direct Veps draft. Preserve account protection, every-login code, QR/app examples, six digits, manual alternative, confirm-and-enable and invalid-code retry. Native basic verbs and code vocabulary; compounds, inflections and full grammar remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "twoFactorAuth-scan-instructions",
+    "before": "Skenani khodo heyi ya QR nga application ya authenticator (u fana na Google Authenticator, Authy), nahone ni ḓivhadze khodo ya tshinomboni tsha rathi tshine ya sumbedza u khwaṱhisedza.",
+    "after": "Skanirui nece QR-kod autentifikacijan programman abul (ezimerkiks Google Authenticator, Authy), a jäl'ghe kirjuta sen ozutadud 6-cifraine kod, miše vahvištoitta.",
+    "reason": "Replace Tshivenda two-factor setup/login prose with direct Veps draft. Preserve account protection, every-login code, QR/app examples, six digits, manual alternative, confirm-and-enable and invalid-code retry. Native basic verbs and code vocabulary; compounds, inflections and full grammar remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "twoFactorAuth-manual-entry",
+    "before": "Kana ni ḓivhadze khodo heyi nga tshanḓa: ",
+    "after": "Libo kirjuta nece kod käzil: ",
+    "reason": "Replace Tshivenda two-factor setup/login prose with direct Veps draft. Preserve account protection, every-login code, QR/app examples, six digits, manual alternative, confirm-and-enable and invalid-code retry. Native basic verbs and code vocabulary; compounds, inflections and full grammar remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "twoFactorAuth-confirm",
+    "before": "Khwaṱhisedzani nahone ni Vule",
+    "after": "Vahvištoita da pane päle",
+    "reason": "Replace Tshivenda two-factor setup/login prose with direct Veps draft. Preserve account protection, every-login code, QR/app examples, six digits, manual alternative, confirm-and-enable and invalid-code retry. Native basic verbs and code vocabulary; compounds, inflections and full grammar remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "twoFactorCode-prompt",
+    "before": "Ḓivhadzani khodo yaṋu ya tshinomboni tsha rathi",
+    "after": "Kirjuta sinun 6-cifraine autentifikacijan kod",
+    "reason": "Replace Tshivenda two-factor setup/login prose with direct Veps draft. Preserve account protection, every-login code, QR/app examples, six digits, manual alternative, confirm-and-enable and invalid-code retry. Native basic verbs and code vocabulary; compounds, inflections and full grammar remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "twoFactorCode-submit",
+    "before": "Sedzululani",
+    "after": "Vahvištoita",
+    "reason": "Replace Tshivenda two-factor setup/login prose with direct Veps draft. Preserve account protection, every-login code, QR/app examples, six digits, manual alternative, confirm-and-enable and invalid-code retry. Native basic verbs and code vocabulary; compounds, inflections and full grammar remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "twoFactorCode-invalid",
+    "before": "Khodo ya u khwaṱhisedza a yo teisi. Ni ṱoḓea u lingedza hafhu.",
+    "after": "Autentifikacijan kod om vär. Ole hüvä, ladi völ kerdan.",
+    "reason": "Replace Tshivenda two-factor setup/login prose with direct Veps draft. Preserve account protection, every-login code, QR/app examples, six digits, manual alternative, confirm-and-enable and invalid-code retry. Native basic verbs and code vocabulary; compounds, inflections and full grammar remain low confidence."
   }
 ]
