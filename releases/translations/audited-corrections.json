@@ -126264,5 +126264,19 @@
     "before": "`__operator_user__:<nom>` - cartes où l'utilisateur <nom> est *assigné* ou est un *participant*.",
     "after": "`__operator_user__:<ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ>` - ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⵏⵏⴰ ⴳ ⵉⴳⴰ *<ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ>* *ⴰⴳⵎⴰⵎ* ⵏⵖ *ⴰⴼⴳⴰⵏ ⵉ ⵎⵉ ⵜⵜⵓⴼⴽⴰ ⵜⴰⴽⴰⵕⴹⴰ*",
     "reason": "2026-09-14: Replace French search instruction with Standard Moroccan Tamazight, reusing existing member-operator structure and local assignee paraphrase. Native MediaWiki userlogin-yourname directly attests Username; or ngh is native component: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve exact __operator_assignee__/__operator_user__ tokens, colon and code ticks, repeated angle-bracket Username parameter and emphasis. User operator is MEMBER OR ASSIGNEE, not both; assignee operator is assignee only. Local Assigned Person Given Card paraphrase and full relative clause remain LOW CONFIDENCE; component reuse is not independent full-phrase proof."
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-operator-org",
+    "before": "`__operator_org__:<display name|short name>` - cartes appartenant à un tableau assigné à l'organisation *<name>*",
+    "after": "`__operator_org__:<display name|short name>` - ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⵏ ⵜⴼⵍⵡⵉⵜ ⵜⵜⵓⴼⴽⴰⵏ ⵉ ⵜⵓⴷⴷⵙⴰ *<name>*",
+    "reason": "2026-09-14: Replace French organization/team search prose with Standard Moroccan Tamazight. Preserve exact source code example __operator_org__:<display name|short name>, colon, pipe alternatives, angle brackets and emphasized <name>; these are query metasyntax. Cards belong to a BOARD assigned TO organization/team, not cards directly assigned or reverse assignment. Native MediaWiki redirect-summary attests Given component: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Local Organization/Team terms reused; given-to-assigned semantic adaptation, feminine relative passive ttufkan and whole clause remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-operator-team",
+    "before": "`__operator_team__:<display name|short name>` - cartes appartenant à un tableau assigné à l'équipe *<name>*",
+    "after": "`__operator_team__:<display name|short name>` - ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⵏ ⵜⴼⵍⵡⵉⵜ ⵜⵜⵓⴼⴽⴰⵏ ⵉ ⵜⴰⵔⴰⴱⴱⵓⵜ *<name>*",
+    "reason": "2026-09-14: Replace French organization/team search prose with Standard Moroccan Tamazight. Preserve exact source code example __operator_team__:<display name|short name>, colon, pipe alternatives, angle brackets and emphasized <name>; these are query metasyntax. Cards belong to a BOARD assigned TO organization/team, not cards directly assigned or reverse assignment. Native MediaWiki redirect-summary attests Given component: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Local Organization/Team terms reused; given-to-assigned semantic adaptation, feminine relative passive ttufkan and whole clause remain LOW CONFIDENCE."
   }
 ]
