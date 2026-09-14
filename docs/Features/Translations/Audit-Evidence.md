@@ -26303,3 +26303,14 @@ verb evidence; software-specific card/board terminology still merits review.
 Four affected suites pass; ledger 18,832 and original pending 232/restored 4
 unchanged. No new human translation provenance is claimed.
 Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+
+
+Ewe primary-source review **2026-09-14**, local commit `e7d0f821c`:
+Current CLDR Ewe XML marks generic/civil Islamic names provisional; CLDR
+49 summary returns identifier islamic-tbla for the astronomical-tabular
+variant. Neither proves a complete native label. The remaining English
+Islamic tabular value also omits epoch. New Ewe-Review.md distinguishes
+computational table terminology from furniture and reference-date epoch
+from astronomy/era/sighting. Existing Ewe structural test passes; it does
+not verify native wording. Counts and locale values unchanged. Primary
+sources and remaining research requirements are recorded in that review.

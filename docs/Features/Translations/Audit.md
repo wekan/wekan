@@ -27,10 +27,11 @@ repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
-Latest terminology review: **2026-09-14**, `c9005ee0a` — Basque rule
-editor browser test executed successfully against the local Meteor app
-(Chromium, 1 passed). Named controls, saved description and English order
-verified. Counts unchanged; full native clause review remains open.
+Latest terminology review: **2026-09-14**, `e7d0f821c` — current
+CLDR confirms Ewe astronomical-tabular name is an identifier fallback;
+generic/civil names are provisional. [Ewe evidence](Ewe-Review.md) records
+missing table/epoch terminology. Ewe structural checks pass, not fluency;
+counts unchanged. Basque browser verification passed in `c9005ee0a`.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

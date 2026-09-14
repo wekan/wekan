@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e7d0f821c">Clarify remaining Ewe calendar translation evidence</a>. Thanks to xet7.</summary>
+
+Current primary CLDR sources distinguish provisional calendar names from
+untranslated identifiers. Dated review records missing computational-table
+and epoch terminology. Existing structural checks pass; the native
+translation finding remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2dbc6ba3a">Use the native Veps linking action</a>. Thanks to xet7.</summary>
 
 Direct native software wording replaces the assembled add-link draft.
