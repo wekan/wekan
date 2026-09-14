@@ -124430,5 +124430,33 @@
     "before": "Supprimer la sous-tâche ?",
     "after": "ⴽⴽⵙ ⵜⴰⵡⵓⵔⵉ ⴷⴷⴰⵡ ⵏ ⵜⵡⵓⵔⵉ?",
     "reason": "2026-09-14: Replace Arabic/French subtask label with an explicit Task(s) under a Task paraphrase, preserving hierarchical subordination instead of Language or merely Small Task. Preserve plural settings versus singular delete question. LOW CONFIDENCE full hierarchical paraphrase, bound noun state and kanban extension require fluent Standard Moroccan review; this is not an attested canonical Subtask term. Moroccan ministry directly attests tawuri/twuri and plural tiwuriwin (https://www.mmsp.gov.ma/amz/nos-metiers/absence-non-justifi%C3%A9e); IRCAM indexed programme attests ddaw n Under (https://www.ircam.ma/sites/default/files/sites/default/files/Prochaine%20Events%20/programmes/JIF_Programme.pdf); Mastodon supplies tisghal Settings and kks Delete (https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json)."
+  },
+  {
+    "locale": "zgh",
+    "key": "add-existing-card-as-subtask",
+    "before": "ⵔⵏⵓ ⵜⴰⴽⴰⵕⴹⴰ ⵉⵍⵍⴰⵏ ⴰⴽⴷ ⵜⵓⵜⵍⴰⵢⵜ ⵜⴰⵎⵥⵢⴰⵏⵜ",
+    "after": "ⵔⵏⵓ ⵜⴰⴽⴰⵕⴹⴰ ⵉⵍⵍⴰⵏ ⴰⵎ ⵜⴰⵡⵓⵔⵉ ⴷⴷⴰⵡ ⵏ ⵜⵡⵓⵔⵉ",
+    "reason": "2026-09-14: Repair subtask action using explicit Task under a Task hierarchical paraphrase. For existing-card action remove the wrong Language noun and replace With akd by As am, preserving Add and Existing Card. Preserve deletion confirmation question and plural Actions rather than singular action. LOW CONFIDENCE complete paraphrases, noun morphology, existing-card participle and kanban hierarchy adaptation require fluent Standard Moroccan review. Native components: Moroccan ministry tawuri/twuri (https://www.mmsp.gov.ma/amz/nos-metiers/absence-non-justifi%C3%A9e), indexed IRCAM ddaw n Under (https://www.ircam.ma/sites/default/files/sites/default/files/Prochaine%20Events%20/programmes/JIF_Programme.pdf), MediaWiki userlogin-loggedin/export-download am As, actions tigawin and add rnu (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json), Mastodon confirmations.delete.message confirmation frame (https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json). This full Subtask paraphrase is not an attested canonical term."
+  },
+  {
+    "locale": "zgh",
+    "key": "add-subtask",
+    "before": "إضافة مهمة فرعية",
+    "after": "ⵔⵏⵓ ⵜⴰⵡⵓⵔⵉ ⴷⴷⴰⵡ ⵏ ⵜⵡⵓⵔⵉ",
+    "reason": "2026-09-14: Repair subtask action using explicit Task under a Task hierarchical paraphrase. For existing-card action remove the wrong Language noun and replace With akd by As am, preserving Add and Existing Card. Preserve deletion confirmation question and plural Actions rather than singular action. LOW CONFIDENCE complete paraphrases, noun morphology, existing-card participle and kanban hierarchy adaptation require fluent Standard Moroccan review. Native components: Moroccan ministry tawuri/twuri (https://www.mmsp.gov.ma/amz/nos-metiers/absence-non-justifi%C3%A9e), indexed IRCAM ddaw n Under (https://www.ircam.ma/sites/default/files/sites/default/files/Prochaine%20Events%20/programmes/JIF_Programme.pdf), MediaWiki userlogin-loggedin/export-download am As, actions tigawin and add rnu (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json), Mastodon confirmations.delete.message confirmation frame (https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json). This full Subtask paraphrase is not an attested canonical term."
+  },
+  {
+    "locale": "zgh",
+    "key": "confirm-subtask-delete-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer la sous-tâche ?",
+    "after": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⵜⴰⵡⵓⵔⵉ ⴷⴷⴰⵡ ⵏ ⵜⵡⵓⵔⵉ?",
+    "reason": "2026-09-14: Repair subtask action using explicit Task under a Task hierarchical paraphrase. For existing-card action remove the wrong Language noun and replace With akd by As am, preserving Add and Existing Card. Preserve deletion confirmation question and plural Actions rather than singular action. LOW CONFIDENCE complete paraphrases, noun morphology, existing-card participle and kanban hierarchy adaptation require fluent Standard Moroccan review. Native components: Moroccan ministry tawuri/twuri (https://www.mmsp.gov.ma/amz/nos-metiers/absence-non-justifi%C3%A9e), indexed IRCAM ddaw n Under (https://www.ircam.ma/sites/default/files/sites/default/files/Prochaine%20Events%20/programmes/JIF_Programme.pdf), MediaWiki userlogin-loggedin/export-download am As, actions tigawin and add rnu (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json), Mastodon confirmations.delete.message confirmation frame (https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json). This full Subtask paraphrase is not an attested canonical term."
+  },
+  {
+    "locale": "zgh",
+    "key": "subtaskActionsPopup-title",
+    "before": "Action de la sous-tâche",
+    "after": "ⵜⵉⴳⴰⵡⵉⵏ ⵏ ⵜⵡⵓⵔⵉ ⴷⴷⴰⵡ ⵏ ⵜⵡⵓⵔⵉ",
+    "reason": "2026-09-14: Repair subtask action using explicit Task under a Task hierarchical paraphrase. For existing-card action remove the wrong Language noun and replace With akd by As am, preserving Add and Existing Card. Preserve deletion confirmation question and plural Actions rather than singular action. LOW CONFIDENCE complete paraphrases, noun morphology, existing-card participle and kanban hierarchy adaptation require fluent Standard Moroccan review. Native components: Moroccan ministry tawuri/twuri (https://www.mmsp.gov.ma/amz/nos-metiers/absence-non-justifi%C3%A9e), indexed IRCAM ddaw n Under (https://www.ircam.ma/sites/default/files/sites/default/files/Prochaine%20Events%20/programmes/JIF_Programme.pdf), MediaWiki userlogin-loggedin/export-download am As, actions tigawin and add rnu (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json), Mastodon confirmations.delete.message confirmation frame (https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json). This full Subtask paraphrase is not an attested canonical term."
   }
 ]
