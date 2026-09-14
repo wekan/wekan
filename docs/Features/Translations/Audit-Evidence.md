@@ -1,5 +1,20 @@
 # Detailed translation audit evidence
 
+2026-09-14 — migration-label scope review: inspected current
+server/imports.js migration imports and repository-wide source references.
+The comprehensiveBoardMigration and fixMissingListsMigration implementations
+were removed in #6521; server/imports.js explains their harmful conversion
+of shared lists into duplicate per-swimlane columns. Current schema upgrades
+instead detect their historical completion markers and repair the damage.
+English comprehensive-board-migration and its description remain in the
+locale inventory. Do not describe those obsolete strings as an active or
+verified migration feature. They remain in translation-repair scope;
+accurate source meaning must still be preserved while their use is reviewed.
+The visually inspected CNAM Integrity Timmad MAT is distinct from
+Integration Aseddu KBL on PDF75. This supports candidate integrity wording,
+not a verified Moroccan comprehensive-migration phrase. Values, correction
+records and progress counts unchanged; original pending remains 311.
+
 2026-09-14 — `afca796a0`: MongoDB storage engine repaired. Directly
 inspected CNAM renders PDF96 Engine Amsadday MC and PDF134 Storage Aḥraz
 KBL; visibly confirmed emphatic ḥ. MC is Mokrane Chemim, not a Moroccan

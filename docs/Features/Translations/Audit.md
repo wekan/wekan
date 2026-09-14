@@ -16,6 +16,13 @@ Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calenda
 
 Latest translation fix: **2026-09-14**, local commit `afca796a0` — repaired the French MongoDB storage-engine label using visually inspected Engine and Storage candidates, preserving the product name. Cross-variety terms, bound form and full compound remain **low confidence**. All **18,116** correction checks pass; **311** original findings remain pending across **17** locales, including **176** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
+**Migration scope review (2026-09-14):** current source removed the
+comprehensive/missing-list migrations in #6521, but their locale strings
+remain. Keep them in repair scope without claiming the obsolete feature is
+active. Dictionary Integrity is distinct from Integration; full Moroccan
+migration wording remains unverified. Values/counts unchanged.
+[Evidence](Audit-Evidence.md) records the inspected source and limits.
+
 **Zoom control follow-up (2026-09-14, `35eb7e7ab`):** applied visually
 inspected Level and Zoom In/Out candidates to four French controls,
 preserving the 50-300% input range. One original finding and three additional
