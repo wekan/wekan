@@ -435,3 +435,8 @@ assert.doesNotMatch(csvHint, /Déposez|virgules|[\u0600-\u06ff]/u);
 
 assert.strictEqual(translated['custom-head-tags-enabled'], 'ⵙⵙⵔⴼⵓ ⵉⵔⵛⵓⵎⵏ ⵉⵥⵍⵉⵏ ⵏ head (HTML)');
 assert.doesNotMatch(translated['custom-head-tags-enabled'], /Activer|balises|[\u0600-\u06ff]/u);
+
+assert.strictEqual(translated["custom-manifest-enabled"], "ⵙⵙⵔⴼⵓ web manifest ⵉⵥⵍⵉⵏ");
+
+assert.strictEqual(translated["custom-head-manifest-content"], "ⴰⴽⵜⵜⵓⵔ ⵏ web manifest ⵉⵥⵍⵉⵏ (JSON)");
+assert.doesNotMatch(translated['custom-head-manifest-content'], /Contenu|personnalisé|[\u0600-\u06ff]/u);

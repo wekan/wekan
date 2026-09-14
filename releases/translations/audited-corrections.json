@@ -138885,5 +138885,19 @@
     "before": "Activer les balises personnalisées",
     "after": "ⵙⵙⵔⴼⵓ ⵉⵔⵛⵓⵎⵏ ⵉⵥⵍⵉⵏ ⵏ head (HTML)",
     "reason": "2026-09-15: Replace French with attested activate verb and existing custom-tag terminology; borrowed technical head (HTML) keeps document scope explicit. Full compound remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-manifest-enabled",
+    "before": "Activer le manifeste web personnalisé",
+    "after": "ⵙⵙⵔⴼⵓ web manifest ⵉⵥⵍⵉⵏ",
+    "reason": "2026-09-15: Replace French with attested activate/content words and existing custom qualifier. Borrowed web manifest preserves technical identity; full compound low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-head-manifest-content",
+    "before": "Contenu du manifeste web personnalisé (JSON)",
+    "after": "ⴰⴽⵜⵜⵓⵔ ⵏ web manifest ⵉⵥⵍⵉⵏ (JSON)",
+    "reason": "2026-09-15: Replace French with attested activate/content words and existing custom qualifier. Borrowed web manifest preserves technical identity; full compound low confidence."
   }
 ]
