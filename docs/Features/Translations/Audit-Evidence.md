@@ -24324,3 +24324,11 @@ The generic calendar label uses Watanqillqa instead of an untranslated noun
 with a language prefix. Four source/locale checks pass; no pending specific
 calendar compound was accepted. Ledger: 18,694 corrections; pending/restored:
 283/4. Browser settings review remains open.
+
+## Quechua day vocabulary — 2026-09-14
+
+Local fix `34dbfa64c`: [native terms and actual calendar context](Quechua-Review.md).
+Day and every-one-day labels no longer contain English with a language prefix.
+Primary dictionary printed pages 18 and 158 directly attest the terms. Four
+checks pass; no browser rendering was verified. Ledger: 18,696 corrections;
+original pending/restored counts remain 283/4.

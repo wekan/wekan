@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/34dbfa64c">Repair Quechua day and recurrence labels</a>. Thanks to xet7.</summary>
+
+Native day and daily recurrence terms replace English words with a language
+prefix. Calendar toolbar wiring and four locale/ledger checks pass. Browser
+verification and specific calendar compounds remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5c5ee40b6">Repair Quechua generic calendar noun</a>. Thanks to xet7.</summary>
 
 The generic calendar label uses a native Cusco Collao dictionary term instead
