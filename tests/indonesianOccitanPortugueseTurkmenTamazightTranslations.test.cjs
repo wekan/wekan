@@ -262,3 +262,7 @@ assert.doesNotMatch(locales.zgh['sum-of-number-fields'], /ⴰⵥⴰⵢⵏ|ⵓⵙ
 assert.match(locales.zgh['activity-customfield-created'], /^ⵉⵙⵏⵓⵍⴼⴰ ⵉⴳⵔ ⵉⵥⵍⵉⵏ %s$/);
 assert.doesNotMatch(locales.zgh['activity-customfield-created'], /[\u0600-\u06ff]/);
 assert.equal((locales.zgh['activity-customfield-created'].match(/%s/g) || []).length, 1);
+
+// Exceeded WIP is greater than the user-defined limit, not equal to it.
+assert.match(locales.zgh['wipLimitErrorPopup-dialog-pt1'], /ⴰⵎⴹⴰⵏ.*ⵜⵡⵓⵔⵉⵡⵉⵏ.*ⵜⵍⴳⴰⵎⵜ ⴰⴷ.*ⵓⴳⴳⴰⵔ ⵏ ⵓⵡⵜⵜⵓ WIP.*ⵜⵙⵏⵎⵍⴷ/);
+assert.doesNotMatch(locales.zgh['wipLimitErrorPopup-dialog-pt1'], /Le nombre|supérieur|définie/);

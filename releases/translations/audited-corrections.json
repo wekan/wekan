@@ -131311,5 +131311,12 @@
     "before": "%s احدت حقل مخصص",
     "after": "ⵉⵙⵏⵓⵍⴼⴰ ⵉⴳⵔ ⵉⵥⵍⵉⵏ %s",
     "reason": "2026-09-14: Replace Arabic custom-field creation activity with Tamazight. IRCAM PDF page 509 entry 9599 attests snulfu create/invent and preterite snulfi/a; use third-person isnulfa and existing singular igr izlin. Preserve one %s as custom-field value, not actor: activities.jade supplies activityValue(customField). Low confidence: finite verb morphology and complete activity fragment need native/browser review."
+  },
+  {
+    "locale": "zgh",
+    "key": "wipLimitErrorPopup-dialog-pt1",
+    "before": "Le nombre de cartes de cette liste est supérieur à la limite WIP que vous avez définie.",
+    "after": "ⴰⵎⴹⴰⵏ ⵏ ⵜⵡⵓⵔⵉⵡⵉⵏ ⴳ ⵜⵍⴳⴰⵎⵜ ⴰⴷ ⵉⴳⴰ ⵓⴳⴳⴰⵔ ⵏ ⵓⵡⵜⵜⵓ WIP ⵍⵍⵉ ⵜⵙⵏⵎⵍⴷ.",
+    "reason": "2026-09-14: Replace French WIP exceedance warning with Tamazight, retaining tasks in this list, greater-than comparison, WIP limit and user-defined qualifier. IRCAM PDF page 270 entry 5271 awttu limit/construct uwttu, page 444 entry 8404 uggar more than, page 508 entry 9575 snml define. Reuse existing count/task/list vocabulary. Low confidence: second-person defined morphology and complete comparative relative clause need native/browser review. listHeader.js exceededWipLimit uses strict value < count; reached threshold separately uses <=."
   }
 ]

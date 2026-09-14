@@ -1039,7 +1039,7 @@
   "board-templates-swimlane": "ⴰⵍⴱⵓⴹⵏ ⵏ ⵜⴼⵍⵡⵉⵡⵉⵏ",
   "what-to-do": "ماذا تريد أن تنجز?",
   "wipLimitErrorPopup-title": "Limite WIP invalide",
-  "wipLimitErrorPopup-dialog-pt1": "Le nombre de cartes de cette liste est supérieur à la limite WIP que vous avez définie.",
+  "wipLimitErrorPopup-dialog-pt1": "ⴰⵎⴹⴰⵏ ⵏ ⵜⵡⵓⵔⵉⵡⵉⵏ ⴳ ⵜⵍⴳⴰⵎⵜ ⴰⴷ ⵉⴳⴰ ⵓⴳⴳⴰⵔ ⵏ ⵓⵡⵜⵜⵓ WIP ⵍⵍⵉ ⵜⵙⵏⵎⵍⴷ.",
   "wipLimitErrorPopup-dialog-pt2": "Veuillez enlever des cartes de cette liste, ou définir une limite WIP plus importante.",
   "admin-panel": "لوحة التحكم",
   "settings": "ⵜⵉⵙⵖⴰⵍ",
