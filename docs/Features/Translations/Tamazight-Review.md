@@ -3068,3 +3068,25 @@ upload OR rename, negative Arabic and physical-invalidity checks,
 placeholders, ledger, retained reviews and completeness. No live UI test
 ran. Ledger 19,838; original corrected 15,727, pending 176 (zgh 81),
 restored 4 unchanged. Broader review remains open. No remote writes.
+
+
+## Created/modified date hint bounds — 2026-09-15
+
+Both flagged globalSearch-instructions-operator-created and -modified
+remain French. Their __operator_created__/__operator_modified__ tokens,
+backticks, :<n> and *<n>* examples must remain literal.
+
+Actual parser in config/query-classes.js constructs $gte at the date
+obtained by subtracting days from now for created/modified numeric values.
+server/publications/cards.js copies that operator and date into the field
+selector. This includes the lower boundary and has no upper bound at today.
+Do not rewrite the hint as an exclusive older-than limit, exactly N days,
+or a closed window ending today. The existing English says days ago or less.
+
+Cached IRCAM entries 6175/6176 and 7000 attest few/scarce/small number;
+these alone do not attest the relative comparative fewer than N days.
+The complete quantitative temporal construction remains under native
+review. No translation, ledger or count change: pending 176 (zgh 81),
+restored 4, ledger 19,838. This source review establishes the boundary
+constraint for the next wording repair; no live date-search UI ran.
+No remote writes.
