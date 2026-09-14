@@ -2450,7 +2450,7 @@
   "run-fix-missing-lists-migration-confirm": "ⵔⴰⴷ ⵉⵚⵓⵕ ⴷ ⵉⵙⵙⵓⴽⵏ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵓⵔ ⵍⵍⵉⵏⵜ ⵏⵖ ⵉⵜⵜⵓⵙⵙⵅⵙⵔⵏ ⴳ ⵜⵓⵚⴽⵉⵡⵜ ⵏ ⵜⴼⵍⵡⵉⵜ. ⵉⵙ ⵜⵅⵙⴷ ⴰⴷ ⵜⴹⴼⵔⴷ?",
   "run-fix-avatar-urls-migration-confirm": "Cette opération mettra à jour les URL des avatars des participants du tableau pour utiliser le bon backend de stockage. Continuer ?",
   "run-fix-all-file-urls-migration-confirm": "Cette opération mettra à jour toutes les URL des pièces jointes de ce tableau pour utiliser le bon backend de stockage. Continuer ?",
-  "restore-lost-cards-nothing-to-restore": "Aucun couloir, liste ou carte perdu à restaurer",
+  "restore-lost-cards-nothing-to-restore": "ⵓⵔ ⵍⵍⵉⵏ ⵉⴱⵔⴷⴰⵏ ⵏⵖ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵏⵖ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵉⵎⴰⴽⵓⵍⵏ ⵉ ⵓⵙⵙⵓⴽⵏ.",
   "migration-progress-title": "ⴰⵔ ⵉⵜⵜⵓⵙⴽⴰⵔ ⵓⵙⵎⵓⵜⵜⵢ ⵏ ⵜⴼⵍⵡⵉⵜ",
   "migration-progress-overall": "ⴰⵙⴼⴰⵔⵉ ⴰⵎⴰⵜⵓ",
   "migration-progress-current-step": "ⴰⵙⵓⵔⵉⴼ ⴰⵎⵉⵔⴰⵏ",

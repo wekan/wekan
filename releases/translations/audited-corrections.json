@@ -138640,5 +138640,12 @@
     "before": "Afficher le dialogue de sauvegarde avant de fermer les descriptions de carte  en cours de modification",
     "after": "ⵙⵙⴽⵏ ⴰⵎⵙⴰⵡⴰⵍ ⵏ ⵓⵙⵙⵓⴽⵏ ⴷⴰⵜ ⴰⴷ ⵜⵔⴳⵍⴷ ⴰⴳⵍⴰⵎ ⵏ ⵜⴽⴰⵕⴹⴰ ⵓⵔⵜⴰ ⵉⵜⵜⵡⴰⵃⴹⴰ",
     "reason": "2026-09-15: replace French rescue-dialog setting with Tamazight draft retaining show, rescue dialogue, before closing and unsaved card-description scope. IRCAM page 152 entry 2806 attests dialogue; existing show/restore/close/unsaved-description terminology reused. Full UI-dialogue metaphor, before-closing construction and agreement remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "restore-lost-cards-nothing-to-restore",
+    "before": "Aucun couloir, liste ou carte perdu à restaurer",
+    "after": "ⵓⵔ ⵍⵍⵉⵏ ⵉⴱⵔⴷⴰⵏ ⵏⵖ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵏⵖ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵉⵎⴰⴽⵓⵍⵏ ⵉ ⵓⵙⵙⵓⴽⵏ.",
+    "reason": "2026-09-15: replace French no-lost-items restoration result with Tamazight draft. Preserve negative existence, swimlanes/lists/cards, lost state and restoration purpose. IRCAM page 120 entry 2158 attests lost/misplaced noun-adjective amakul, plural imakuln. Existing negative existence, object nouns, conjunction and restore reused. Mixed-gender agreement and full software phrasing remain low confidence."
   }
 ]

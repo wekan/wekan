@@ -278,3 +278,7 @@ assert.match(translated['rescue-card-description'], /^ⵙⵙⴽⵏ ⴰⵎⵙⴰ�
 assert.match(translated['rescue-card-description'], /ⴰⴳⵍⴰⵎ ⵏ ⵜⴽⴰⵕⴹⴰ ⵓⵔⵜⴰ ⵉⵜⵜⵡⴰⵃⴹⴰ$/);
 assert.doesNotMatch(translated['rescue-card-description'], /Afficher|dialogue|fermer/);
 assert.match(fs.readFileSync(path.join(ROOT, 'client/components/users/userHeader.jade'), 'utf8'), /span {{_ 'rescue-card-description'}}/);
+
+assert.match(translated['restore-lost-cards-nothing-to-restore'], /^ⵓⵔ ⵍⵍⵉⵏ ⵉⴱⵔⴷⴰⵏ ⵏⵖ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵏⵖ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ/);
+assert.match(translated['restore-lost-cards-nothing-to-restore'], /ⵉⵎⴰⴽⵓⵍⵏ ⵉ ⵓⵙⵙⵓⴽⵏ\.$/);
+assert.doesNotMatch(translated['restore-lost-cards-nothing-to-restore'], /Aucun|perdu|restaurer/);
