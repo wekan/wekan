@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,213 |
+| Corrected | 15,215 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 631 |
+| Pending review or repair | 629 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,457** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,464** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `3ccc0a9ee` — replaced two French received-time activities. Preserve current versus previous time, destination direction and exact placeholders. Reception terminology adaptation, bound noun forms and full phrase composition remain **low confidence** pending fluent review. All **17,457** correction/rendering checks pass. **631** originals remain pending across **17** locales, including **488** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `a59a48bb6` — replaced seven French/Arabic start and end labels and activity fragments (two original findings and five unflagged repairs). Preserve start versus end, destination versus previous time and exact placeholders. Native MediaWiki start/expiration components support the vocabulary; generic calendar adaptation and full phrase composition remain **low confidence** pending fluent review. All **17,464** correction/rendering checks pass. **629** originals remain pending across **17** locales, including **486** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Build interruption follow-up (2026-09-14):** `.tools/wekan22` contains the old v11.75 missing-Moment failure, already repaired in `43adfe1a7`. A fresh Meteor 3.6-beta.0 bundle build passes on Linux arm64, and six assignee/calendar/release-preflight Node test entries pass. Log: `.tools/log/build-dev-bundle/2026-09-14/04-25-58/dev.txt`. Native amd64 and live browser checks were not run. Translation counts and the remaining validation scope above are unchanged.
 

@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,213 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 631 pending review or repair.
-The correction inventory records 17,457 exact before/after values,
+findings: 15,215 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 629 pending review or repair.
+The correction inventory records 17,464 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (488) and
+The largest original queues are Standard Moroccan Tamazight (486) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 3ccc0a9ee (2026-09-14), replacing two French
-received-time activity fragments while preserving current and previous times.
-Reception terminology adaptation, bound noun forms and full composed wording
+Latest translation fix is a59a48bb6 (2026-09-14), replacing seven French/Arabic
+start and end labels and activity fragments. Preserve date roles and old/new
+time placeholders. Generic calendar adaptation and full composed wording
 remain low confidence pending fluent review.
 Greenlandic CLDR-unconfirmed wording and twelve Quechua color wrappers
 still need review, alongside the wider restored and unflagged values.
@@ -115,7 +115,7 @@ names and unresolved Coptic/tabular/epoch terminology; no values changed. Previo
 Cherokee Hijri labels with exact native-script CLDR variant names. Cherokee’s
 original queue is empty. Compact tabular epoch wording still needs fluent
 technical review. Quechua palette compounds and remaining color wrappers
-remain open. There are 488 Tamazight findings remaining.
+remain open. There are 486 Tamazight findings remaining.
 Silesian reference review (2026-09-14) confirms shared database/file terms
 in native MediaWiki messages; the full raw-file label remains pending.
 No translation value or finding count changed in that review.
@@ -749,10 +749,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,213 original findings are
+Translation audit progress as of 2026-09-14: 15,215 original findings are
 corrected, 179 are reviewed and retained, 4,058 restored values await
-validation, and 631 original findings remain pending across 17 locales,
-including 488 Tamazight findings. The ledger contains 17,457 correction
+validation, and 629 original findings remain pending across 17 locales,
+including 486 Tamazight findings. The ledger contains 17,464 correction
 records, including repairs outside the original audit. Regression checks
 validate placeholders, rendering and merge behavior; fluency and wider
 language validation remain open. See the
@@ -862,6 +862,18 @@ time, parentheses and exact placeholders. Reception terminology adaptation
 from a mixed-source computing lexicon, bound forms and full phrase composition
 remain low confidence. All 17,457 correction checks pass; wider language
 validation and live browser verification remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a59a48bb6">Translate Tamazight start and end time messages</a>. Thanks to xet7.</summary>
+
+Replace seven French/Arabic labels and activity fragments: two original
+findings and five unflagged values. Preserve start versus end, current versus
+previous time and exact placeholders. Native MediaWiki start/expiration
+components support the vocabulary; generic calendar adaptation and full
+phrase composition remain low confidence. All 17,464 correction checks pass;
+wider language validation and live browser verification remain open.
 
 </details>
 
