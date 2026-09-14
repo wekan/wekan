@@ -1,5 +1,12 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `d1b8f6ca1`: workspace deletion confirmation checkbox repaired
+from French. MediaWiki userlogin-reauth supports Verify and dellogpage supports
+Deletion. Adapt Verify as Confirm, retaining local workspace terminology;
+full action phrase and workspace adaptation remain low confidence. Preserve
+confirmation and deletion scope. All 18,093 correction checks pass; 325
+original findings remain pending, including 190 Tamazight.
+
 2026-09-14 — `bf6faabb7`: Uploading, Uploading Files and Upload Failed repaired
 from French outside the original flagged queue. MediaWiki uploadlogpage supports Upload; category-file-count
 explicitly supplies plural Files `ⵉⴼⵓⵢⵍⴰ`, replacing derived `ⵉⴼⴰⵢⵍⵓ`
