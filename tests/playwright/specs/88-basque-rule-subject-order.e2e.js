@@ -13,7 +13,7 @@ test('Basque named controls and saved descriptions keep the demonstrative last',
     await page.locator('#ruleTitle').fill('Basque named checklist');
     await page.locator('.js-goto-trigger').click();
     await page.locator('.js-set-card-triggers').click();
-    for (const id of ['spec-label', 'spec-member']) {
+    for (const id of ['spec-label', 'spec-member', 'spec-assignee']) {
       const row = page.locator(`#${id}`).locator('xpath=../..');
       await expect(row).toBeVisible();
       expect(await row.evaluate(el => {

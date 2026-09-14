@@ -156,11 +156,11 @@ assert.match(cardTriggerTemplate, /r-when-a-attach[\s\S]*?attach-action[\s\S]*?r
 const { ruleNameBeforeSubject } = require('../imports/i18n/ruleGrammar');
 for (const language of ['eu', 'EU', 'eu-ES', 'eu_ES']) assert.equal(ruleNameBeforeSubject(language), true);
 for (const language of ['en', 'th', 'europe', 'fr', undefined]) assert.equal(ruleNameBeforeSubject(language), false);
-for (const key of ['r-when-the-label', 'r-when-the-member', 'r-when-the-checklist', 'r-when-the-item']) {
+for (const key of ['r-when-the-label', 'r-when-the-member', 'r-when-the-assignee', 'r-when-the-checklist', 'r-when-the-item']) {
  const subject = ['[Demo]', eu[key]].join(' ');
  assert.match(subject, /^\[Demo\] .+ hau$/);
  assert.doesNotMatch(subject, /hau \[Demo\]$/);
- const template = key === 'r-when-the-label' || key === 'r-when-the-member' ? cardTriggerTemplate : checklistTemplate;
+ const template = ['r-when-the-label', 'r-when-the-member', 'r-when-the-assignee'].includes(key) ? cardTriggerTemplate : checklistTemplate;
  assert.ok(template.includes(`unless ruleNameBeforeSubject\n        div.trigger-text\n          | {{_'${key}'}}`));
  assert.ok(template.includes(`if ruleNameBeforeSubject\n        div.trigger-text\n          | {{_'${key}'}}`));
 }

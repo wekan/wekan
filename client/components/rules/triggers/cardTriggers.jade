@@ -122,10 +122,14 @@ template(name="cardTriggers")
 
   div.trigger-item
     div.trigger-content
-      div.trigger-text
-        | {{_'r-when-the-assignee'}}
+      unless ruleNameBeforeSubject
+        div.trigger-text
+          | {{_'r-when-the-assignee'}}
       div.trigger-dropdown
         input(id="spec-assignee",type=text,placeholder="{{_'r-name'}}")
+      if ruleNameBeforeSubject
+        div.trigger-text
+          | {{_'r-when-the-assignee'}}
       div.trigger-text
         | {{ruleTriggerCopula}}
       div.trigger-dropdown
