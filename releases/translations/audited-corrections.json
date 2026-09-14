@@ -123240,5 +123240,19 @@
     "before": "Coptic",
     "after": "Kɔpti kalandiriye",
     "reason": "Replace bare English calendar adjective with provisional Bambara calendar-name compound, restoring explicit calendar noun. Reuse existing ka kalandiriye construction; Buddhist uses Buddha proper-name association, Coptic uses provisional Kɔpti borrowing. Reference review 2026-09-14: Unicode bm locale https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/bm.xml does not supply these native calendar display names; searches of the Bamadaba dictionary https://bamadaba.coastsystems.net/lexicon/b/ did not establish canonical Buddhist/Coptic terminology. LOW CONFIDENCE: borrowing spelling, Buddha-to-Buddhist association and compound grammar are direct provisional composition, NOT dictionary-attested native calendar names. Further language research remains required; English civil/tabular epoch findings are not considered resolved by this change."
+  },
+  {
+    "locale": "ff",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Ñalɗimere Buudayanko",
+    "reason": "Replace bare English calendar adjective with Latin-script transcription of actual Fulah Adlam CLDR calendar display name 𞤙𞤢𞤤𞤯𞤭𞤥𞤫𞤪𞤫 𞤄𞤵𞥅𞤣𞤢𞤴𞤢𞤲𞤳𞤮. Primary source: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/ff_Adlm.xml ; reviewed 2026-09-14. The Latin ff.xml and ff_Latn.xml do not supply these names. Use ñ for Adlam NYA, ɗ for DHA and doubled uu for vowel lengthener; remaining letters correspond to Latin spellings. Preserve Buddhist/Coptic identity and explicit calendar noun. LOW CONFIDENCE: Latin transcription and cross-script/regional terminology need native review; this is source-supported full Adlam wording, not independently attested Latin wording. Three original Fulah Hijri variant findings remain pending; provisional CLDR variant text needs semantic checks before reuse."
+  },
+  {
+    "locale": "ff",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Ñalɗimere Koptinko",
+    "reason": "Replace bare English calendar adjective with Latin-script transcription of actual Fulah Adlam CLDR calendar display name 𞤙𞤢𞤤𞤯𞤭𞤥𞤫𞤪𞤫 𞤑𞤮𞤨𞤼𞤭𞤲𞤳𞤮. Primary source: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/ff_Adlm.xml ; reviewed 2026-09-14. The Latin ff.xml and ff_Latn.xml do not supply these names. Use ñ for Adlam NYA, ɗ for DHA and doubled uu for vowel lengthener; remaining letters correspond to Latin spellings. Preserve Buddhist/Coptic identity and explicit calendar noun. LOW CONFIDENCE: Latin transcription and cross-script/regional terminology need native review; this is source-supported full Adlam wording, not independently attested Latin wording. Three original Fulah Hijri variant findings remain pending; provisional CLDR variant text needs semantic checks before reuse."
   }
 ]
