@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,309 |
+| Corrected | 15,310 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 535 |
+| Pending review or repair | 534 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,617** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,618** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `35ec1e4d8` — replaced five French/Arabic Tamazight date editing messages, including two unflagged popup labels. Preserve start/end/received distinctions and destination-date/card placeholder roles. Full composition and actor morphology remain **low confidence** pending language review. All **17,617** correction/rendering checks pass. **535** originals remain pending across **17** locales, including **397** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `39c314a80` — replaced the French Tamazight board-member avatar display label. Native show/member components are supported; existing avatar terminology and full ownership phrasing remain **low confidence** pending language review. All **17,618** correction/rendering checks pass. **534** originals remain pending across **17** locales, including **396** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Fulah terminology review (2026-09-14):** The [Senegal education ministry terminology guide](https://senprof.education.sn/PROGRAMME%20LECTURE%20POUR%20TOUS/documentation/Terminologies/Terminologie%20Pulaar%20fusion.pdf), printed pages 8, 17 and 34, gives calendar names `Lim-lebbi`, `arminaat`, `kalanndiriyee`, distinguishes `Haatumeere` as grid/table, and uses `Alluwal` for table/classroom board. This strengthens component evidence but does not establish technical tabular calendar usage or civil/astronomical epochs. The earlier native Hijri article supports calendar-context use of Haatumeere, so the guide alone does not justify replacing it; that composition remains under review. No locale values or counts changed. Both Fulah epoch findings remain pending.
 
