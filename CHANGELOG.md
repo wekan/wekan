@@ -671,6 +671,16 @@ The empty wrongly placed Git directory was removed locally.
 **Languages updated:** Acehnese, Bambara, Basque, Breton, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b1170bc33">Repair Breton archive interface language</a>. Thanks to xet7.</summary>
+
+Fifteen French-seeded archive actions, titles and states become Breton.
+Preserve archive/deletion distinction, target objects and confirmation/empty
+states. Exact correction and placeholder checks pass; native inflection and
+live browser review remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a196c64eb">Repair Galician member trigger agreement</a>. Thanks to xet7.</summary>
 
 Member and assignee subjects use persoa to agree with shared added/removed

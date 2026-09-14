@@ -22862,3 +22862,15 @@ against template keys, and rejects old masculine generic subjects. All
 18,233 correction records pass; 27 restored and 300 pending findings remain.
 Attachment subject agreement is not solved by this repair. Complete UI/browser
 and other shared-language grammar review remain open.
+
+Dated unflagged archive repair, 2026-09-14, local commit `b1170bc33`:
+15 Breton archive actions/confirmations/states no longer contain French.
+Existing archive-board-confirm uses diellañ. Official Meurgorf diell entry
+https://niverel.brezhoneg.bzh/fr/meurgorf/8756 attests dielloù and links
+diellañ. Native scientific terminology source supports archiving verb:
+https://www.brezhoneg21.com/geriadurGB.php?galleg=archivage .
+Retain distinction from Dilemel permanent-delete titles and questions;
+all-target/selection scope and absent archived-board meaning remain intact.
+All 18,248 correction records pass. Original counts remain 27 restored and
+300 pending. Whole phrases are direct adaptations; native inflection and
+live archive/browser verification are not established by these checks.

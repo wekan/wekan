@@ -20,16 +20,18 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,233** exact before/after values, including unflagged repairs.
+contain **18,248** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `a196c64eb` —
-four Galician member/assignee trigger subjects use feminine persoa, agreeing
-with shared added/removed dropdowns. Generic/specific assembled phrases and
-actual template keys pass regression; all **18,233** corrections pass.
-Attachment agreement remains unresolved, as do full browser/language review.
-Bambara Hijri epoch compounds in `a06bf0cca` remain provisional.
+Latest translation fix: **2026-09-14**, local commit `b1170bc33` —
+15 unflagged French archive actions, popup titles and archived-item states
+become Breton using diellañ/dielloù. Archive remains distinct from Dilemel
+permanent deletion; target objects, questions and empty-state meanings remain.
+All **18,248** corrections pass. Native inflection and browser review remain
+open. Galician member/assignee agreement was repaired in `a196c64eb`;
+attachment agreement remains unresolved. Provisional calendar compounds
+still require native terminology validation.
 Latest unchanged review: **2026-09-14**, commit `64f1d7367` —
 assigned-card shortcut retained against actual current-user assignee toggle.
 IEC recognizes meves/meues as dialect variants; no wrong-language finding
