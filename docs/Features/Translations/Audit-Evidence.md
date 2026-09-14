@@ -25140,3 +25140,21 @@ Four focused checks pass; exact syntax/escape examples and original ledger
 before value survive. No new ledger acceptance or duplicate is added.
 265 original findings remain pending; 18,736 corrections are recorded.
 Full native/browser validation and earlier technical adaptations stay open.
+
+## Trello import instruction repair — 2026-09-14
+
+Local commit `91ebdcc27` repairs cosmetically changed English
+import-board-instruction-trello. The direct Tamazight instruction keeps
+Trello and the exact ordered UI labels Menu, More, Print and Export,
+Export JSON. Copy text is explicit, using IRCAM 2019 PDF page 532
+entry 10013 copy and existing board/text/navigation vocabulary.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+**Low confidence** remains for board possession, navigation/then wording,
+result relative clause and complete instruction grammar. No exact current
+client reference was found for this legacy key; no claim is made that a
+live import popup was exercised. Four focused translation checks pass;
+menu literals/order and copy instruction have regression coverage.
+Recount: 15,638 corrected, 264 pending (151 Tamazight), four restored,
+4,175 retained and 18,737 correction records. Native/browser and earlier
+uncertain repairs remain open.

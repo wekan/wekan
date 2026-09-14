@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/91ebdcc27">Translate Tamazight Trello import instructions</a>. Thanks to xet7.</summary>
+
+Replace cosmetically changed English prose, preserving exact Trello menu
+labels and their order. Four focused checks pass. Full native/browser
+validation remains open; dated audit tracks 264 original pending findings.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d1214818b">Clarify Tamazight filter single-quote character</a>. Thanks to xet7.</summary>
 
 Identify the literal apostrophe with one-character wording; retain verified
