@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,147 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 697 pending review or repair.
+findings: 15,148 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 696 pending review or repair.
 The correction inventory records 17,313 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (554) and
+The largest original queues are Standard Moroccan Tamazight (553) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -115,7 +115,7 @@ names and unresolved Coptic/tabular/epoch terminology; no values changed. Previo
 Cherokee Hijri labels with exact native-script CLDR variant names. Cherokee’s
 original queue is empty. Compact tabular epoch wording still needs fluent
 technical review. Quechua palette compounds and remaining color wrappers
-remain open. There are 554 Tamazight findings remaining.
+remain open. There are 553 Tamazight findings remaining.
 Silesian reference review (2026-09-14) confirms shared database/file terms
 in native MediaWiki messages; the full raw-file label remains pending.
 No translation value or finding count changed in that review.
@@ -794,6 +794,18 @@ The audit records 749 pending original findings and wider unfinished validation.
 This release adds the following translation improvements:
 
 **Translations** - Locale wording repairs and remaining audit progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/47796391a">Translate Tamazight due-date labels</a>. Thanks to xet7.</summary>
+
+Replace three French labels, preserving due-date/completion and
+today/tomorrow distinctions. CLDR attests the relative-day names;
+complete deadline wording and filter usage remain low confidence.
+All 17,353 correction checks pass. One original and two unflagged values
+are repaired; 696 originals remain pending, including 553 Tamazight.
+Broader wording validation remains open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/66cba71ec">Translate Tamazight avatar controls</a>. Thanks to xet7.</summary>
