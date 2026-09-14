@@ -139438,5 +139438,12 @@
     "before": "A hu na vhupodi zwino.",
     "after": "API token / peitsana völ ei ole märitud.",
     "reason": "Replace unflagged Tshivenda credential wording with direct Veps API-token/password paraphrase. Existing password and native software märitud/völ/ei ole wording; complete status grammar and credential paraphrase remain low confidence. Does not claim authentication success."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-sync-last-synced-never",
+    "before": "A si na tshifhinga",
+    "after": "Nikonz",
+    "reason": "Replace unflagged Tshivenda never state with native Veps Nikonz. ELDIA Veps case-specific report p89 directly pairs standalone nikonz with Never; preserve never as distinct from failed sync."
   }
 ]

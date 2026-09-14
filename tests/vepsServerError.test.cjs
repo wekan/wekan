@@ -161,3 +161,10 @@ test("Veps credential states preserve set versus not-yet-set", () => {
  assert.notEqual(data["list-sync-credential-status-set"],data["list-sync-credential-status-unset"]);
  assert.match(data["list-sync-credential-status-unset"],/völ ei ole/);
 });
+
+test("Veps never-synced state uses native never adverb", () => {
+ const data=JSON.parse(fs.readFileSync("imports/i18n/data/ve-PP.i18n.json","utf8"));
+ assert.equal(data["list-sync-last-synced-never"],"Nikonz");
+ assert.doesNotMatch(data["list-sync-last-synced-never"],/tshifhinga/i);
+ assert.notEqual(data["list-sync-last-synced-never"],data["list-sync-now-error"]);
+});
