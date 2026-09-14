@@ -139179,5 +139179,19 @@
     "before": "Tas de Node : mémoire maximale allouée par malloc",
     "after": "ⴰⴳⵓⴷⵉ ⵏ Node: ⴰⵎⵓⵣⵣⵓⵔ ⵏ ⵜⵎⴽⵜⵉⵜ ⵙ malloc",
     "reason": "2026-09-15: Replace French malloc-memory diagnostic with concise memory-through-malloc paraphrase. IRCAM timktit memory 12742 bound tmktit, amuzzur maximum 2691. Preserve malloc identifier and peak distinction. Allocation is implicit in malloc; computing memory adaptation, lifetime-peak interpretation and full compound remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "Node_heap_total_available_size",
+    "before": "Tas de Node : taille totale disponible",
+    "after": "ⴰⴳⵓⴷⵉ ⵏ Node: ⵜⴰⵎⵓⵜⵜⵔⵜ ⵏ ⵓⵇⵓⴷⴷⵉ ⵍⵍⵉ ⵉⵜⵜⵙⴰⵍⴰⵏ",
+    "reason": "2026-09-15: Replace French heap diagnostic using existing heap/total/size compounds. IRCAM sula available 9632 recommends imperfective ttsala; azzgir execution 5578 bound uzzgir. Executable rendered as heap for execution. Computing capability paraphrase, derived availability participle and full compounds remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "Node_heap_total_heap_size_executable",
+    "before": "Tas de Node : taille totale du tas exécutable",
+    "after": "ⴰⴳⵓⴷⵉ ⵏ Node: ⵜⴰⵎⵓⵜⵜⵔⵜ ⵏ ⵓⵇⵓⴷⴷⵉ ⵏ ⵓⴳⵓⴷⵉ ⵉ ⵓⵣⵣⴳⵉⵔ",
+    "reason": "2026-09-15: Replace French heap diagnostic using existing heap/total/size compounds. IRCAM sula available 9632 recommends imperfective ttsala; azzgir execution 5578 bound uzzgir. Executable rendered as heap for execution. Computing capability paraphrase, derived availability participle and full compounds remain low confidence."
   }
 ]

@@ -575,3 +575,12 @@ for (const key of ['Node_heap_malloced_memory', 'Node_heap_peak_malloced_memory'
 }
 assert.notStrictEqual(translated.Node_heap_malloced_memory, translated.Node_heap_peak_malloced_memory);
 console.log('Tamazight malloc memory and peak labels retain allocation identifier and distinct maximum');
+
+assert.strictEqual(translated["Node_heap_total_available_size"], "ⴰⴳⵓⴷⵉ ⵏ Node: ⵜⴰⵎⵓⵜⵜⵔⵜ ⵏ ⵓⵇⵓⴷⴷⵉ ⵍⵍⵉ ⵉⵜⵜⵙⴰⵍⴰⵏ");
+
+assert.strictEqual(translated["Node_heap_total_heap_size_executable"], "ⴰⴳⵓⴷⵉ ⵏ Node: ⵜⴰⵎⵓⵜⵜⵔⵜ ⵏ ⵓⵇⵓⴷⴷⵉ ⵏ ⵓⴳⵓⴷⵉ ⵉ ⵓⵣⵣⴳⵉⵔ");
+for (const key of ['Node_heap_total_available_size', 'Node_heap_total_heap_size_executable']) {
+ assert.doesNotMatch(translated[key], /Tas de|taille totale|disponible|exécutable|[\u0600-\u06ff]/u);
+ assert.notStrictEqual(translated[key], translated.Node_heap_total_heap_size);
+}
+console.log('Tamazight available and executable heap labels stay distinct from total heap');
