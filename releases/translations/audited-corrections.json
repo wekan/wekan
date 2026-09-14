@@ -131367,5 +131367,12 @@
     "before": "Sous-tâches du tableau __board__",
     "after": "ⵜⵉⵎⵙⴽⵉⵔⵉⵏ ⴷⴷⴰⵡ ⵏ ⵜⵎⵙⴽⵉⵔⵜ ⵉ ⵜⴼⵍⵡⵉⵜ __board__",
     "reason": "2026-09-14: Replace French generated subtask-board description or revise deposit label to reuse current task/subtask terminology (IRCAM PDF 605 entry 11328 task and PDF 315 entry 6099 below). Preserve for-board placeholder __board__ exactly or deposit-to-this-board instruction. Low confidence: below-task software adaptation and full prepositional/description grammar require native/browser review. boards.js passes the original board title to default-subtasks-board during creation; key name default does not add Default prose to English source."
+  },
+  {
+    "locale": "zgh",
+    "key": "deposit-subtasks-list",
+    "before": "Liste de destination pour les sous-tâches déposées ici :",
+    "after": "ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵡⴰⵡⴰⴹ ⵉ ⵜⵎⵙⴽⵉⵔⵉⵏ ⴷⴷⴰⵡ ⵏ ⵜⵎⵙⴽⵉⵔⵜ ⵍⵍⵉ ⵔⵙⴰⵏⵜ ⵖⵉ:",
+    "reason": "2026-09-14: Replace French landing-list instruction with complete Tamazight components: landing/arrival list, subtasks and deposited here. IRCAM PDF 265 entry 5164 arrival awad/construct wawad, PDF 469 entry 8866 here ghi, PDF 464 set-down verb rs, PDF 605 entry 11328 task and PDF 315 entry 6099 below. Low confidence: landing-list metaphor, relative clause/plural rsant and genitive subtask compounds require native/browser review. Actual sidebar selection chooses target list for deposited subtasks, not a generic list label."
   }
 ]

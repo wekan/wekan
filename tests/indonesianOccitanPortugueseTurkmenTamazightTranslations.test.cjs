@@ -307,3 +307,6 @@ assert.match(locales.zgh['add-subtask'], /^ⵔⵏⵓ/);
 assert.equal(locales.zgh['default-subtasks-board'], locales.zgh.subtasks + ' ⵉ ⵜⴼⵍⵡⵉⵜ __board__');
 assert.doesNotMatch(locales.zgh['default-subtasks-board'], /Sous-tâches|tableau/);
 assert.equal(locales.zgh['deposit-subtasks-board'], 'ⵙⵙⵔⵙ ' + locales.zgh.subtasks + ' ⴳ ⵜⴼⵍⵡⵉⵜ ⴰⴷ:');
+
+assert.match(locales.zgh['deposit-subtasks-list'], /^ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵡⴰⵡⴰⴹ.*ⵜⵎⵙⴽⵉⵔⵉⵏ.*ⴷⴷⴰⵡ.*ⵔⵙⴰⵏⵜ ⵖⵉ:$/);
+assert.doesNotMatch(locales.zgh['deposit-subtasks-list'], /Liste|destination|déposées/);
