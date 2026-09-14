@@ -108,6 +108,9 @@ evidence remain low confidence for direct/fluent review.
 Start spelling follow-up 2219d5358 distinguishes plain Begin/Start from
 emphatic Share/Divide in indexed IRCAM entries; direct PDF and full command
 verification remain open. No values or counts changed.
+Bambara calendar follow-up 5610dff52 confirms current CLDR lacks native
+Hijri variant names; Era vocabulary does not establish reference-date
+Epoch. Both tabular calendar labels remain pending.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -1843,6 +1846,16 @@ Record indexed IRCAM plain Begin/Start versus emphatic Share/Divide
 spelling, protecting the corrected Planning Poker heading. Direct PDF
 access redirects to HTML; full command and subworkspace terminology remain
 under review. No locale values or counts changed.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5610dff52">Document Bambara tabular calendar terminology limits</a>. Thanks to xet7.</summary>
+
+Current CLDR provides date units and Era, but no native Hijri variant
+names. Era alone does not validate reference-date Epoch. Preserve tabular
+calculation and civil versus astronomical epoch; both labels remain pending.
+No translation values or counts changed.
 
 </details>
 
