@@ -23194,5 +23194,215 @@
     "key": "path",
     "value": "Bide-izena",
     "reason": "Inspected Basque search validation and pagination, sort directions, report/request status labels, legal acceptance, copied confirmation and checklist move labels. Positive-integer requirement, not-valid negation and newest/oldest directions remain precise; legal acceptance combines gure with lege-oharra in layouts.jade. Source placeholders preserved. Ticket-number borrowed spelling excluded pending reference; broad grammar/browser review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "password-again",
+    "value": "Pasahitza (berriro)",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "accounts-lockout-status",
+    "value": "Egoera",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "attachments-path",
+    "value": "Eranskinen bide-izena",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "cron-job-delete-confirm",
+    "value": "Ziur zaude programatutako lan hau ezabatu nahi duzula?",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "cron-error-details",
+    "value": "Xehetasunak",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "features-notifications",
+    "value": "Jakinarazpenak",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "migration-progress",
+    "value": "Migrazioaren aurrerapena",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "migration-status",
+    "value": "Migrazioaren egoera",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "mongodb-gridfs-storage",
+    "value": "MongoDB GridFS biltegiratzea",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "s3-access-key",
+    "value": "S3 sarbide-gakoa",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "s3-access-key-placeholder",
+    "value": "Sartu S3 sarbide-gakoa",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "s3-connection-failed",
+    "value": "S3 konexioak huts egin du",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "s3-connection-success",
+    "value": "S3 konexioa ondo egin da",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "s3-enabled",
+    "value": "S3 gaituta",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "s3-endpoint",
+    "value": "S3 amaiera-puntua",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "s3-minio-storage",
+    "value": "S3/MinIO biltegiratzea",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "s3-port",
+    "value": "S3 ataka",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "s3-region",
+    "value": "S3 eskualdea",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "migration-progress-status",
+    "value": "Egoera",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "migration-progress-details",
+    "value": "Xehetasunak",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "completed",
+    "value": "Osatua",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "duration",
+    "value": "Iraupena",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "errors",
+    "value": "Erroreak",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "estimated-time-remaining",
+    "value": "Geratzen den denbora (gutxi gorabehera)",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "every-1-day",
+    "value": "Egunero",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "every-1-hour",
+    "value": "Orduro",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "every-1-minute",
+    "value": "Minuturo",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "every-10-minutes",
+    "value": "10 minuturo",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "every-30-minutes",
+    "value": "30 minuturo",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "every-5-minutes",
+    "value": "5 minuturo",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "every-6-hours",
+    "value": "6 orduro",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "weight",
+    "value": "Pisua",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "cron",
+    "value": "Cron",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "confirm",
+    "value": "Berretsi",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "problems-status-title",
+    "value": "Egoera",
+    "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
   }
 ]
