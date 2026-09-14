@@ -183,3 +183,30 @@ research lead, not a bundled dependency or sole authority for a UI compound.
 The French local value remains pending until the complete customization,
 text and control meaning is translated. No replacement or unchanged acceptance
 was made. Counts remain 283 pending and 4 restored; browser review is open.
+
+## Primary dictionary obtained — 2026-09-14
+
+The IRCAM library's [General Dictionary of the Amazigh Language, Amazigh–English](https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339)
+was downloaded successfully. Its title and publication pages identify the
+Language Planning Centre, Rabat, 2019, Meftaha Ameur and colleagues, with the
+English version by Khalid Ansar. This supplies primary entries independently
+of the scraped French/Arabic dataset. The 882-page reference and page-wise
+text extraction are temporary research files under `.tools/tmp`; neither
+is bundled, committed, or added as a dependency.
+
+Directly inspected entries:
+
+| PDF page | Entry | Native form | Meaning and limit |
+| --- | --- | --- | --- |
+| 57 | 795 | ⴰⴷⵓⵣⵡⵍ | Subtitle; does not establish a complete path/parent phrase. |
+| 537 | 10106 | ⵙⵙⵔⴼⵓ | Activate; does not establish the complete account toggle clause. |
+| 33 | 287 | ⴰⴱⵔⵉⴷ | Path/road; a filesystem metaphor needs domain review. |
+| 562 | 10528 | ⵜⴰⴳⵎⵎⵓⵜ | Button/round jewel; an interface-control sense is not explicit. |
+
+The computing PDF could not be downloaded with certificate verification:
+curl reported an untrusted issuer. Its body remains unread. No TLS bypass
+was used. Next use the primary dictionary's grammatical forms together with
+native computing usage to complete the pending phrases; a generic English
+gloss still cannot establish the correct software sense. No pending phrase
+was accepted from these components. Counts remain unchanged, and native
+full-phrase and browser verification remain open.
