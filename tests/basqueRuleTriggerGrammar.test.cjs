@@ -101,3 +101,10 @@ assert.equal([eu['r-when-a-checklist'], eu['r-completed']].join(' '),
   'Kontrol-zerrenda bat Osatzen denean');
 assert.notEqual(eu['r-completed'], eu['r-made-incomplete']);
 assert.doesNotMatch(eu['r-completed'], /Completed|completado|\bes\b/);
+
+// Native ZIUR specification uses S3 Bucket as the technical storage term.
+assert.equal(eu['s3-bucket'], 'S3 bucket-a');
+assert.match(eu['s3-bucket-description'], /S3 bucket-aren izena/);
+assert.doesNotMatch(eu['s3-bucket'], /eskualde|gako|fitxategi/i);
+const attachmentForm = fs.readFileSync(path.join(root, 'client/components/settings/attachments.jade'), 'utf8');
+assert.match(attachmentForm, /cloud-input-label-tr.*'s3-bucket'[\s\S]*?input\.wekan-form-control#s3-bucket/);

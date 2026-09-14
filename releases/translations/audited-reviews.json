@@ -25012,5 +25012,11 @@
     "key": "sandstorm-raw-mongodb",
     "value": "Surowe pliki bazy danych MongoDB 3",
     "reason": "Retain the shared Silesian vocabulary rather than rejecting it for Polish identity. Authored Silesian lesson by Barbara Szmatloch (Wyborcza, Swiynto krepla, 2017-02-17) explicitly uses plural surowe for untreated/raw; native Wachtyrz Silesian Hamlet article independently uses surowy. MediaWiki szl software messages use pliki and bazy danych. The label preserves raw physical database files and MongoDB 3 rather than implying a converted export. Native sources support vocabulary, not an exact standardized database compound. Current attachment template use is commented out; browser and broader locale review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "s3-bucket",
+    "value": "S3 bucket-a",
+    "reason": "Native Basque ZIUR technical specification explicitly uses AWS S3 Bucket for storage; retain technical loan with Basque article in the bucket-name field. Source attests terminology, not exact hyphenation."
   }
 ]
