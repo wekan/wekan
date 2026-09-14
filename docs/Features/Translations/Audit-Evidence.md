@@ -26534,3 +26534,25 @@ hits identify a harbour, not a network port. They cannot justify replacing
 SMTP terminology with the harbour noun. SMTP label/description and the
 full board-restoration guidance remain unresolved; no acceptance is
 recorded from these unrelated senses.
+
+
+Temporary account lockout repair **2026-09-14**, `b54bc8935`:
+account-locked replaces the complete French message with a Tamazight
+draft: an account blocked for a period because login failed many times,
+followed by please try again later. Native MediaWiki blockedtext attests
+blocking; passwordreset-emailtitle attests account; wrongpassword attests
+login and please; userlogin-authpopup-retry attests try again. The existing
+lockout-period uses tizi for period. The draft paraphrases repeated failed
+attempts as login failing many times; it does not substitute an unrelated
+assassination-attempt noun. It retains a time limit and retry instruction,
+separate from the generic user-is-locked status. Four locale suites pass,
+including concept checks, French/Arabic rejection, tokens, key order and
+newer correct-language preference. No authentication UI execution is
+claimed. Low confidence: complete causal and temporal collocations remain
+under native review; these checks do not establish full native fluency.
+Ledger 18,851; original corrected 15,675; pending 228 → 227, zgh 121 → 120;
+restored 4 unchanged. Other lockout settings/info and all prior uncertain
+findings remain within scope. Bounded searches supplied no trustworthy
+native brute-force technical term, so those messages remain unresolved.
+Source:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json

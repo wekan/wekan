@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b54bc8935">Repair Tamazight temporary account lockout message</a>. Thanks to xet7.</summary>
+
+The full French warning becomes a Tamazight draft retaining the temporary
+period, repeated failed logins and retry-later instruction. Four locale
+suites pass with placeholders and correct translations preserved. Native
+causal and temporal grammar remains low confidence in the dated review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1e3ccd4f0">Repair Tamazight archive and board restore labels</a>. Thanks to xet7.</summary>
 
 French and Arabic labels become distinct archive and restoration actions.

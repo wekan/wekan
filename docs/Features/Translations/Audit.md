@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,674 |
+| Corrected | 15,675 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,175 |
-| Pending review or repair | 228 |
+| Pending review or repair | 227 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,14 +16,14 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `1e3ccd4f0` —
-French list archive title and Arabic board restore label repaired.
-Four locale suites and Chromium (1 passed) verify archive title/cancel;
-board restore has source coverage. Native computing compounds remain
-under review. Ledger 18,850; pending 228 (zgh 121), restored 4 unchanged.
+Latest translation fix: **2026-09-14**, local commit `b54bc8935` —
+Full French temporary account-lockout message replaced with a Tamazight
+draft. Four locale suites preserve reason, period, retry and tokens.
+Full causal/temporal grammar remains low confidence. Ledger 18,851;
+pending 227 (zgh 120), restored 4 unchanged.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,850** exact before/after values, including unflagged
+records contain **18,851** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -42,7 +42,7 @@ restored values still await full native clause validation.
 
 | Pending locale | Findings |
 | --- | ---: |
-| zgh — Standard Moroccan Tamazight | 121 |
+| zgh — Standard Moroccan Tamazight | 120 |
 | iu — Inuktitut | 38 |
 | nah — Nahuatl | 17 |
 | tig — Tigre | 17 |
