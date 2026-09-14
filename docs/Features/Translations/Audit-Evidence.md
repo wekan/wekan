@@ -21526,3 +21526,16 @@ completion wording remains open. Direct
 now confirms tasko as assigned work; the komplet source was also fetched.
 This resolves the earlier retrieval failure, but individual completion and
 compound labels still need semantic review. Browser behavior was not tested.
+
+
+### Esperanto subtask and watch-title review — 2026-09-14
+
+Local commit `9ee9d2357` repairs the watch-settings title to observation
+terminology and retains 33 directly reviewed correct values. ReVo task.xml
+confirms tasko as assigned work; subordinate-task compounds and their
+plural/accusative forms are appropriate in the reviewed actions/settings.
+Completion remains open: earlier fetched komple.xml is the complex entry,
+not komplet/complete, and therefore supplies no completion evidence. The
+komplet.xml URL returned 404. This corrects the prior retrieval description;
+no completion values are accepted on that basis. Ledger tests pass; browser
+behavior remains unverified.
