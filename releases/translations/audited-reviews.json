@@ -2440,5 +2440,179 @@
     "key": "color-orange",
     "value": "orange",
     "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm lost-item absence, latest board structure, once-per-board conversion with normal continued use, all storage destinations, migrated/remaining/total attachment distinctions, batch range 1-100, background continuation despite browser closure and may-take-longer warning, resume/export/refresh failures, list show/hide on minicard, unmigrated boards, sign-in upload, temporary lock due to too many failed attempts plus later retry, required credentials and mismatch as applicable. Orange is a valid Danish color word despite English identity. Wording validates source correspondence, not underlying migration lifecycle behavior."
+  },
+  {
+    "locale": "da",
+    "key": "color-pink",
+    "value": "lyserød",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "color-sky",
+    "value": "himmelblå",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "show-activities",
+    "value": "Vis aktiviteter",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "trello-import-progress",
+    "value": "Importforløb",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "team",
+    "value": "Team",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "Database",
+    "value": "Database",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "cover-attachment-on-minicard",
+    "value": "Forsidebillede på minikort",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "card-sorting-by-number-on-minicard",
+    "value": "Sortering af kort efter nummer på minikort",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "custom-head-manifest-content",
+    "value": "Brugerdefineret webmanifest-indhold (JSON)",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "custom-assetlinks-content",
+    "value": "Brugerdefineret assetlinks.json-indhold (JSON)",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "layout",
+    "value": "Layout",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "oidc-button-text",
+    "value": "Tilpas teksten på OIDC-knappen",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "above-selected-card",
+    "value": "Over det valgte kort",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "above-selected-swimlane",
+    "value": "Over den valgte svømmebane",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "below-selected-card",
+    "value": "Under det valgte kort",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "below-selected-swimlane",
+    "value": "Under den valgte svømmebane",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "assignees",
+    "value": "Tildelte",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "show-on-minicard",
+    "value": "Vis på minikort",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "editTeamPopup-title",
+    "value": "Redigér team",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "newTeamPopup-title",
+    "value": "Nyt team",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "help",
+    "value": "Hjælp",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "mark-all-as-unread",
+    "value": "Markér alle som ulæste",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "hide-checked-items",
+    "value": "Skjul afkrydsede punkter",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "hide-finished-checklist",
+    "value": "Skjul færdige tjeklister",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "task",
+    "value": "Opgave",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "create-task",
+    "value": "Opret opgave",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "teams",
+    "value": "Teams",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "displayName",
+    "value": "Visningsnavn",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
+  },
+  {
+    "locale": "da",
+    "key": "shortName",
+    "value": "Kort navn",
+    "reason": "2026-09-14: Direct Danish complete-meaning review; retain unchanged. Confirm pink/sky color semantics, activity show, import progress, cover image and card-number sorting on minicard, custom JSON content, OIDC text customization, selected-card/swimlane above/below, assignees, show on minicard, new/edit team, help, mark ALL unread, checked-item and finished-checklist hiding, task creation and display/short name as applicable. Team, Teams, Database and Layout are established Danish shared/technical words, not wrong-language values merely because they match English. Ambiguous export-card-excel-free deliberately excluded."
   }
 ]
