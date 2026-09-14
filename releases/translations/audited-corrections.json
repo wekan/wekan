@@ -129687,5 +129687,110 @@
     "before": "Aucune carte trouvée",
     "after": "Kartenn ebet kavet",
     "reason": "Repair French-seeded Breton creation/movement and related entity labels. Reuse local kartenn, taolenn, bandenn, tikedenn, trevell/is-trevell, kont and no-card terminology; native Ofis computing glossary supports krouiñ, dilec’hiañ and eilañ, and native Kuzul ar Brezhoneg account creation uses Krouiñ ur gont. Preserve opposite top/bottom and copy/move actions and explicitly identify card-to-board creation. Adapted phrase/native browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "board-view-swimlanes",
+    "before": "Couloirs",
+    "after": "Bandennoù",
+    "reason": "Repair French-seeded Breton entity/view/archive/template/action and lockout labels, reusing existing nouns, action term Oberoù, status Stad and stanket/distankañ. Preserve %s and __board__ exactly. Native Ofis public-action material supports oberoù; full kanban compounds are adapted with native grammar and browser review still open."
+  },
+  {
+    "locale": "br",
+    "key": "swimlaneActionPopup-title",
+    "before": "Actions du couloir",
+    "after": "Oberoù ar vandenn",
+    "reason": "Repair French-seeded Breton entity/view/archive/template/action and lockout labels, reusing existing nouns, action term Oberoù, status Stad and stanket/distankañ. Preserve %s and __board__ exactly. Native Ofis public-action material supports oberoù; full kanban compounds are adapted with native grammar and browser review still open."
+  },
+  {
+    "locale": "br",
+    "key": "no-archived-swimlanes",
+    "before": "Aucun couloir archivé.",
+    "after": "Bandenn ebet en dielloù.",
+    "reason": "Repair French-seeded Breton entity/view/archive/template/action and lockout labels, reusing existing nouns, action term Oberoù, status Stad and stanket/distankañ. Preserve %s and __board__ exactly. Native Ofis public-action material supports oberoù; full kanban compounds are adapted with native grammar and browser review still open."
+  },
+  {
+    "locale": "br",
+    "key": "card-templates-swimlane",
+    "before": "Modèles de cartes",
+    "after": "Patromoù kartennoù",
+    "reason": "Repair French-seeded Breton entity/view/archive/template/action and lockout labels, reusing existing nouns, action term Oberoù, status Stad and stanket/distankañ. Preserve %s and __board__ exactly. Native Ofis public-action material supports oberoù; full kanban compounds are adapted with native grammar and browser review still open."
+  },
+  {
+    "locale": "br",
+    "key": "board-templates-swimlane",
+    "before": "Modèles de tableaux",
+    "after": "Patromoù taolennoù",
+    "reason": "Repair French-seeded Breton entity/view/archive/template/action and lockout labels, reusing existing nouns, action term Oberoù, status Stad and stanket/distankañ. Preserve %s and __board__ exactly. Native Ofis public-action material supports oberoù; full kanban compounds are adapted with native grammar and browser review still open."
+  },
+  {
+    "locale": "br",
+    "key": "subtaskActionsPopup-title",
+    "before": "Action de la sous-tâche",
+    "after": "Oberoù an is-trevell",
+    "reason": "Repair French-seeded Breton entity/view/archive/template/action and lockout labels, reusing existing nouns, action term Oberoù, status Stad and stanket/distankañ. Preserve %s and __board__ exactly. Native Ofis public-action material supports oberoù; full kanban compounds are adapted with native grammar and browser review still open."
+  },
+  {
+    "locale": "br",
+    "key": "has-swimlanes",
+    "before": "A des couloirs",
+    "after": "Bandennoù zo",
+    "reason": "Repair French-seeded Breton entity/view/archive/template/action and lockout labels, reusing existing nouns, action term Oberoù, status Stad and stanket/distankañ. Preserve %s and __board__ exactly. Native Ofis public-action material supports oberoù; full kanban compounds are adapted with native grammar and browser review still open."
+  },
+  {
+    "locale": "br",
+    "key": "swimlane-title-not-found",
+    "before": "Couloir '%s' non trouvé.",
+    "after": "Bandenn '%s' n’eo ket bet kavet.",
+    "reason": "Repair French-seeded Breton entity/view/archive/template/action and lockout labels, reusing existing nouns, action term Oberoù, status Stad and stanket/distankañ. Preserve %s and __board__ exactly. Native Ofis public-action material supports oberoù; full kanban compounds are adapted with native grammar and browser review still open."
+  },
+  {
+    "locale": "br",
+    "key": "default-subtasks-board",
+    "before": "Sous-tâches du tableau __board__",
+    "after": "Is-trevelloù evit taolenn __board__",
+    "reason": "Repair French-seeded Breton entity/view/archive/template/action and lockout labels, reusing existing nouns, action term Oberoù, status Stad and stanket/distankañ. Preserve %s and __board__ exactly. Native Ofis public-action material supports oberoù; full kanban compounds are adapted with native grammar and browser review still open."
+  },
+  {
+    "locale": "br",
+    "key": "accounts-lockout-locked-users",
+    "before": "Utilisateurs verrouillés",
+    "after": "Implijerien stanket",
+    "reason": "Repair French-seeded Breton entity/view/archive/template/action and lockout labels, reusing existing nouns, action term Oberoù, status Stad and stanket/distankañ. Preserve %s and __board__ exactly. Native Ofis public-action material supports oberoù; full kanban compounds are adapted with native grammar and browser review still open."
+  },
+  {
+    "locale": "br",
+    "key": "accounts-lockout-status",
+    "before": "Statut",
+    "after": "Stad",
+    "reason": "Repair French-seeded Breton entity/view/archive/template/action and lockout labels, reusing existing nouns, action term Oberoù, status Stad and stanket/distankañ. Preserve %s and __board__ exactly. Native Ofis public-action material supports oberoù; full kanban compounds are adapted with native grammar and browser review still open."
+  },
+  {
+    "locale": "br",
+    "key": "accounts-lockout-unlock-all",
+    "before": "Tout déverrouiller",
+    "after": "Distankañ an holl implijerien",
+    "reason": "Repair French-seeded Breton entity/view/archive/template/action and lockout labels, reusing existing nouns, action term Oberoù, status Stad and stanket/distankañ. Preserve %s and __board__ exactly. Native Ofis public-action material supports oberoù; full kanban compounds are adapted with native grammar and browser review still open."
+  },
+  {
+    "locale": "br",
+    "key": "no-archived-cards",
+    "before": "Aucune carte archivée.",
+    "after": "Kartenn ebet en dielloù.",
+    "reason": "Repair French-seeded Breton entity/view/archive/template/action and lockout labels, reusing existing nouns, action term Oberoù, status Stad and stanket/distankañ. Preserve %s and __board__ exactly. Native Ofis public-action material supports oberoù; full kanban compounds are adapted with native grammar and browser review still open."
+  },
+  {
+    "locale": "br",
+    "key": "no-archived-lists",
+    "before": "Aucune liste archivée.",
+    "after": "Roll ebet en dielloù.",
+    "reason": "Repair French-seeded Breton entity/view/archive/template/action and lockout labels, reusing existing nouns, action term Oberoù, status Stad and stanket/distankañ. Preserve %s and __board__ exactly. Native Ofis public-action material supports oberoù; full kanban compounds are adapted with native grammar and browser review still open."
+  },
+  {
+    "locale": "br",
+    "key": "listActionPopup-title",
+    "before": "Actions sur la liste",
+    "after": "Oberoù ar roll",
+    "reason": "Repair French-seeded Breton entity/view/archive/template/action and lockout labels, reusing existing nouns, action term Oberoù, status Stad and stanket/distankañ. Preserve %s and __board__ exactly. Native Ofis public-action material supports oberoù; full kanban compounds are adapted with native grammar and browser review still open."
   }
 ]

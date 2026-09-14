@@ -98,3 +98,18 @@ for (const key of ['label-create', 'linkCardToNewBoard',
   'add-existing-card-as-subtask-empty']) {
   assert.doesNotMatch(locales.br[key], /Créer|Déplacer|Tâche|Couloir|Comptes|Sous-tâches|Aucune carte/);
 }
+
+assert.equal(locales.br['board-view-swimlanes'], locales.br.swimlanes);
+assert.equal(locales.br['accounts-lockout-status'], locales.br.status);
+assert.equal(locales.br['accounts-lockout-locked-users'], 'Implijerien stanket');
+assert.equal(locales.br['accounts-lockout-unlock-all'], 'Distankañ an holl implijerien');
+assert.equal(locales.br['swimlane-title-not-found'], "Bandenn '%s' n’eo ket bet kavet.");
+assert.equal(locales.br['default-subtasks-board'], 'Is-trevelloù evit taolenn __board__');
+for (const key of ['board-view-swimlanes', 'swimlaneActionPopup-title',
+  'no-archived-swimlanes', 'card-templates-swimlane', 'board-templates-swimlane',
+  'subtaskActionsPopup-title', 'has-swimlanes', 'swimlane-title-not-found',
+  'default-subtasks-board', 'accounts-lockout-locked-users',
+  'accounts-lockout-status', 'accounts-lockout-unlock-all', 'no-archived-cards',
+  'no-archived-lists', 'listActionPopup-title']) {
+  assert.doesNotMatch(locales.br[key], /Couloir|couloir|Actions|Modèles|Sous-tâches|sous-tâche|Aucun|Aucune|Utilisateurs|Statut|déverrouiller/);
+}
