@@ -1,5 +1,19 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `a6647173f`: board-analysis follow-up supersedes the earlier
+legacy-font ambiguity. Directly inspected local rendered images of
+[CNAM Amawal](https://cedric.cnam.fr/~bouzefra/books/amawal.pdf) PDF pages
+19 and 134: Analysis Tasleṭ, Analyze sleḍ (MW modern lexicon), and Structure
+Tamṣukt (MAT mathematical lexicon). The images visibly confirm emphatic
+ḍ and ṣ; prior extracted `slev` and `Tamûukt` were substitutions.
+Repaired the French board-analysis command with Tifinagh candidates,
+preserving Analyze, Structure and Board. These are cross-variety sources,
+not normative Moroccan software evidence. Transliteration, bound board form
+and complete command remain LOW CONFIDENCE pending native review.
+All 18,105 correction checks pass; 314 original findings remain pending,
+including 179 Tamazight. Restored/unflagged values and earlier low-confidence
+wording remain open; no live browser or remote upload verification.
+
 2026-09-14 — board-structure analysis terminology review: directly read
 [CNAM Amawal](https://cedric.cnam.fr/~bouzefra/books/amawal.pdf) PDF text.
 PDF page 19 gives Analysis with MW marker and an Analyze root; PDF page 134

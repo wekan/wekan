@@ -4,22 +4,19 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,529 |
+| Corrected | 15,530 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 315 |
+| Pending review or repair | 314 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,104** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,105** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `c5092a51f` — replaced four French authentication labels, preserving Method versus Type and Default/Display modifiers. Three were original findings; Type is an additional repair. Inspected Authentication is cross-variety MC£, not normative Moroccan evidence; script rendering, bound form and full phrases remain **low confidence**. All **18,104** correction checks pass; **315** findings remain pending across **17** locales, including **180** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `a6647173f` — replaced the French Analyze Board Structure command using visually inspected dictionary letters. Cross-variety terminology, Tifinagh adaptation and full grammar remain **low confidence**. All **18,105** correction checks pass; **314** findings remain pending across **17** locales, including **179** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
-**Board-analysis review (2026-09-14):** directly read dictionary Analysis
-and Structure candidates, but legacy-font letters and cross-variety source
-limits remain unresolved. The full board-analysis label stays pending.
-[Evidence](Audit-Evidence.md) records pages and limits; values/counts unchanged.
+**Board-analysis follow-up (2026-09-14, `a6647173f`):** directly inspected local renders of dictionary PDF pages 19 and 134, confirming emphatic letters in Analyze and Structure. This resolves the earlier extraction ambiguity; the full command is repaired but remains low confidence for Moroccan usage and grammar. [Evidence](Audit-Evidence.md) retains the earlier limits and new visual findings.
 
 **Search-case review (2026-09-14):** preserve uppercase/lowercase matching,
 not font-size or accent equivalence. Indexed IRCAM discussions do not
