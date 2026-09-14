@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,571 corrected, 535 restored pre-pull values awaiting
-validation, 3,667 reviewed and retained, and 308 pending review or repair.
+findings: 15,571 corrected, 507 restored pre-pull values awaiting
+validation, 3,695 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,171 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
@@ -1255,6 +1255,18 @@ Thanks to xet7 !
 Retained 30 correct report, team/organization, invitation, storage and
 migration values. Deletion restrictions, outcome polarity and technical
 examples remain intact. Exact review checks pass; broader review remains open.
+
+Thanks to xet7 !
+
+</details>
+
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a076987c9">Validate Basque date activities and webhook labels.</a></summary>
+
+Retained 28 correct date, upload, navigation, URL-scheme and webhook values.
+Numeric ranges, outcomes and source tokens remain intact. Free and
+impersonation terminology remain pending. Exact review checks pass.
 
 Thanks to xet7 !
 

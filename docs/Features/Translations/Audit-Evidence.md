@@ -22439,3 +22439,11 @@ Team deletion remains blocked while a user belongs to it; migration all-scope
 and success/failure polarity are preserved. Literal endpoint examples,
 product identifiers and percent tokens remain unchanged.
 Exact reviews pass; full language/browser scope remains open.
+
+### 2026-09-14 — Basque dates, uploads and webhooks
+
+Local commit `a076987c9` retains 28 date/checklist activities, calendar/table
+navigation, upload outcome, URL scheme, milestone and webhook/database values.
+50-300%, one scheme per line, receipt-date meaning and source tokens remain.
+Free and impersonation wording are excluded pending contextual review.
+Exact unchanged reviews pass; full language/browser scope remains open.
