@@ -131045,5 +131045,12 @@
     "before": "Afficher sur la carte",
     "after": "ⵙⵙⴽⵏ ⴳ ⵜⴽⴰⵔⴹⴰ",
     "reason": "Replace French card control label; IRCAM 2019 p532 entry10003 change, p521 entry9816 show, p122 entry2198 father, p306 entry5962 in; existing card and software-parent vocabulary retained. LOW CONFIDENCE: full phrase grammar and parent metaphor need native/browser validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "almostdue",
+    "before": "La date d'échéance %s approche",
+    "after": "ⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⴰⴷ %s ⴰⵔ ⵉⵜⵜⴰⴷⵙ",
+    "reason": "Replace French approaching-current-due-time warning; IRCAM 2019 time p79, last p126 entry2274 and approach p59 entry845 with imperfect ttads. Reuse adapted due-time compound from pastdue, preserve %s and future-versus-overdue distinction. LOW CONFIDENCE: temporal metaphor, current/deadline compound and full ongoing conjugation need native/browser validation."
   }
 ]

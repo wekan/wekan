@@ -157,3 +157,8 @@ assert.equal(locales.zgh['step-analyze-board-structure'],
   'ⴰⵙⴼⵙⵉ ⵏ ⵜⵓⵚⴽⵉⵡⵜ ⵏ ⵜⴼⵍⵡⵉⵜ');
 assert.doesNotMatch(locales.zgh['step-analyze-board-structure'], /ⵙⵍⴹ|ⵜⴰⵎⵚⵓⴽⵜ|Analyser|Structure/);
 assert.notEqual(locales.zgh['step-analyze-board-structure'], locales.zgh['migration-progress-note']);
+
+assert.equal(locales.zgh.almostdue, 'ⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⴰⴷ %s ⴰⵔ ⵉⵜⵜⴰⴷⵙ');
+assert.deepEqual(locales.zgh.almostdue.match(/%s/g), ['%s']);
+assert.doesNotMatch(locales.zgh.almostdue, /échéance|approche|ⵉⵣⵔⵉ/);
+assert.notEqual(locales.zgh.almostdue, locales.zgh.pastdue);
