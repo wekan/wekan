@@ -1,5 +1,14 @@
 # Detailed translation audit evidence
 
+2026-09-14 (`084d44fab`): repaired Tamazight public/private board
+notices, retaining this board, future visibility and exact strong tags.
+Existing public/private adjectives were adapted to feminine board agreement.
+[HACA public-sector terminology](https://www.haca.ma/tf/%E2%B5%89%E2%B4%B3%E2%B5%94-%E2%B4%B0%E2%B4%B3%E2%B4%B7%E2%B5%93%E2%B4%B7%E2%B4%B0%E2%B5%8F)
+and indexed institutional feminine forms support vocabulary; they do not
+verify the entire future-tense sentence. Full grammar remains low confidence.
+One original finding and one additional wrong-language value were repaired.
+
+
 2026-09-14: repaired `zgh/error-notAuthorized`, replacing Arabic with
 `ⵓⵔ ⴷⴰⵔⴽ ⵜⵓⵔⴰⴳⵜ ⴰⴼⴰⴷ ⴰⴷ ⵜⵙⴽⵏⴷ ⵜⴰⵙⵏⴰ ⴰⴷ.`
 Native [MediaWiki wording](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json)

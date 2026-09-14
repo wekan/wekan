@@ -21,6 +21,11 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     assert.notEqual(row.before, row.after, identity);
     assert.equal(repairLocale(row.locale, { [row.key]: row.before }).data[row.key], row.after);
     assert.equal(repairLocale(row.locale, { [row.key]: 'NEW REVIEWED TRANSLATION' }).data[row.key], 'NEW REVIEWED TRANSLATION', 'preserve newer wording');
+    if (row.locale === 'zgh' && ['board-public-info', 'board-private-info'].includes(row.key)) {
+      assert.deepEqual(row.after.match(/<[^>]+>/g), english[row.key].match(/<[^>]+>/g), 'visibility notice retains source HTML emphasis');
+      assert.ok(!/[\u0600-\u06ff]/u.test(row.after), 'visibility notice no longer contains Arabic');
+      assert.ok(row.after.includes('ⵔⴰ ⴰⴷ ⵜⵉⵍⵉ'), 'visibility notice retains the future state');
+    }
     if (row.key === 'copyManyCardsPopup-format') {
       const example = JSON.parse(row.after);
       assert.ok(Array.isArray(example));

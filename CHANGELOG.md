@@ -3569,6 +3569,19 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/084d44fab">Repair Tamazight board visibility notices</a></summary>
+
+Replaced Arabic public/private notices, preserving future visibility and
+HTML emphasis. Full agreement and construction remain low confidence.
+On 2026-09-14, 18,125 records pass structural verification and 309 original
+findings remain pending, including 174 Tamazight. Restored and uncertain
+values still require review. Added assertions for HTML, script and future state.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b91b63c53">Translation repairs: Tamazight authentication labels.</a></summary>
 
 2026-09-14: Replace four French labels, preserving method/type, default and
