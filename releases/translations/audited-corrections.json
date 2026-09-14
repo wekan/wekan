@@ -131381,5 +131381,12 @@
     "before": "عملة",
     "after": "ⴰⴷⵔⵉⵎ ⴰⵏⵣⵎⴰⵔ",
     "reason": "2026-09-14: Replace Arabic Currency field type with explicit IRCAM Amazigh-English currency compound adrim anzmar, PDF page 58 entry 810. Entry includes both money/currency senses and explicitly glossed currency compound, not a guess from money alone. No currency settings or formatting logic changed; code-option label remains separate review."
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-field-currency-option",
+    "before": "Code devise",
+    "after": "ⵉⵏⵉⴳⵍ ⵏ ⵓⴷⵔⵉⵎ ⴰⵏⵣⵎⴰⵔ",
+    "reason": "2026-09-14: Replace French currency-code label. IRCAM Amazigh-English PDF 388 entry 7364 explicitly glosses inigl as code with postal/bank code compounds; PDF 58 entry 810 explicitly glosses adrim anzmar as currency and gives construct udrim. Low confidence: assembled currency-code genitive and adjective agreement require native review; both semantic components retained."
   }
 ]

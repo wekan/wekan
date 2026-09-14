@@ -313,3 +313,6 @@ assert.doesNotMatch(locales.zgh['deposit-subtasks-list'], /Liste|destination|dé
 
 assert.equal(locales.zgh['custom-field-currency'], 'ⴰⴷⵔⵉⵎ ⴰⵏⵣⵎⴰⵔ');
 assert.doesNotMatch(locales.zgh['custom-field-currency'], /[\u0600-\u06ff]/);
+
+assert.equal(locales.zgh['custom-field-currency-option'], 'ⵉⵏⵉⴳⵍ ⵏ ⵓⴷⵔⵉⵎ ⴰⵏⵣⵎⴰⵔ');
+assert.doesNotMatch(locales.zgh['custom-field-currency-option'], /Code|devise/);
