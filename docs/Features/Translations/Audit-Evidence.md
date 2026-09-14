@@ -26713,3 +26713,22 @@ All Boards menu routing. No new browser run is claimed; these checks do
 not alone prove full native grammar. Ledger 18,909, original corrected
 15,677, pending 225 (zgh 118), restored 4 unchanged. Other archive locales
 and all prior uncertain findings remain within the full audit scope.
+
+
+Archive guidance batch 3 **2026-09-14**, `801dcf1a8`:
+34 repaired files: ja, ja-HI, ja-JP; ko, ko-KR; zh, zh-CN, zh-GB,
+zh-Hans, zh_SG, zh-TW, zh-HK; ar, ar-DZ, ar-EG; he, he-IL; fa, fa-IR;
+id; ms, ms-MY; vi, vi-VN; th; ca, ca_ES; eu; gl, gl-ES; is; lv; lt; et-EE.
+Complete native guidance replaces obsolete locations, including Persian
+in Arabic and Malay in Indonesian. Catalan save, Galician archive action
+and Hebrew archive action place labels are corrected in base and matching
+regional files (six labels). Guidance matches the resulting UI labels.
+One stale Galician unchanged acceptance is superseded by a correction;
+its original value remains in historical evidence and correction ledger.
+Tests caught the stale acceptance and regional label/guidance mismatches;
+all were resolved, then focused locale suites passed. All Boards routing
+passed before the regional consistency corrections; no routing code changed.
+No new browser run is claimed. Structural checks do not certify all native
+phrases. Ledger 18,948; corrected original 15,678, reviewed unchanged 4,174;
+pending 225 (zgh 118), restored 4 unchanged. Other locales, wrong-language
+values elsewhere and all prior uncertain findings remain in scope.

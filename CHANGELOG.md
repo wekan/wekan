@@ -656,6 +656,17 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/801dcf1a8">Repair archive guidance in 34 more locale files</a>. Thanks to xet7.</summary>
+
+Archive location guidance and six place labels are corrected across Asian,
+RTL and European languages and regional variants. Persian text in Arabic
+and Malay text in Indonesian are replaced. Focused suites pass, including
+regional label consistency and superseded Galician acceptance. Other
+locales and full native/UI verification remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f8708e3d2">Repair archive guidance in 21 additional locale files</a>. Thanks to xet7.</summary>
 
 Slovak, Slovenian, Croatian, Bosnian, Hungarian, Romanian, Russian,
