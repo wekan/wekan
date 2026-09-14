@@ -4,32 +4,31 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,578 |
-| Restored pre-pull; awaiting validation | 216 |
-| Reviewed; retained unchanged | 3,979 |
+| Corrected | 15,579 |
+| Restored pre-pull; awaiting validation | 186 |
+| Reviewed; retained unchanged | 4,008 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
 Review is ongoing. The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,181** exact before/after values, including unflagged repairs.
+contain **18,182** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `e4a846162` —
-repaired six Valencian mixed-English/joined checklist prose values using
-the locale’s existing llista de verificació terminology. Line mapping,
-original order, all-item and finished-list scopes remain intact.
-All **18,181** correction and **3,979** review records pass.
-Search checklist tokens, Veps server terminology and shared trigger grammar
+Latest translation fix: **2026-09-14**, local commit `aa1006207` —
+repaired Valencian checked-item visibility prose and retained 29 display,
+date/upload and translation-management values. Checked-only scope, zoom
+range and no-undo warnings remain intact.
+All **18,182** correction and **4,008** review records pass.
+Color/search tokens, Veps server terminology and shared trigger grammar
 remain unresolved; browser validation remains open.
 Attachment/member rule participles still need context-specific agreement.
 Three Esperanto restored findings remain: lime color and two Complete labels.
 Broader language and browser verification remain open; nothing pushed.
-Latest unchanged review: **2026-09-14**, commit `25818620c` — retained
-32 Valencian lockout controls, scheduled maintenance and migration outcomes.
-Negation and all-user/all-migration scopes remain intact.
-Checklist search tokens, bucket/endpoint loans and regional wording remain open.
-Ticket, Complete, Idle, S3 bucket and compound trigger findings stay open.
+Latest unchanged review: **2026-09-14**, commit `aa1006207` — retained
+29 Valencian display, date/upload and translation-management values.
+Color names, search tokens, bucket/endpoint loans and regional wording stay open.
+Ticket, Complete, Idle and compound trigger findings remain unresolved.
 Nine Galician restored findings still need contextual review.
 Galician export free wording remains open pending context.
 Galician Complete and migration-complete wording remain open pending context.

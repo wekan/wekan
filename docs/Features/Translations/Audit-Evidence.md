@@ -22548,3 +22548,11 @@ joined llistadecontrol, using existing localized llista de verificació.
 Preserve each-line mapping, original order, all-item and finished-list scopes.
 Exact positive/negative regression and all 18,181 correction records pass.
 Search tokens excluded for separate parser review; broader verification open.
+
+**2026-09-14 — Valencian display and uploads (`aa1006207`).**
+
+Repaired mixed-English checked-item visibility prose with existing checklist
+terminology. Retained 29 display, date/upload, translation CRUD, PDF fallback,
+subtask/expand values. Checked-only scope, 50-300% range, failure/completion
+and no-undo warnings intact. All 18,182 corrections and 4,008 reviews pass.
+Color terminology and search tokens excluded pending separate investigation.
