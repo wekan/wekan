@@ -126313,5 +126313,12 @@
     "before": "كل",
     "after": "ⴰⴽⴽⵯ",
     "reason": "2026-09-14: Replace Arabic ALL search predicate with exact native MediaWiki searchall value: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Inspected client/components/main/globalSearch.js maps predicate_all through TAPi18n. Preserve single-token format (no whitespace or colon) for query parsing and ALL archived/unarchived meaning. Native standalone All evidence does not prove full pending date-boundary instructions."
+  },
+  {
+    "locale": "zgh",
+    "key": "watching-info",
+    "before": "Vous serez notifié de toute modification dans ce tableau",
+    "after": "ⵔⴰⴷ ⴰⴽ ⵜⵜⵓⵢⴰⵣⴰⵏⵏⵜ ⵜⵉⵏⵖⵎⵉⵙⵉⵏ ⵖⴼ ⴽⵓ ⴰⵙⵏⴼⵍ ⴳ ⵜⴼⵍⵡⵉⵜ ⴰⴷ.",
+    "reason": "2026-09-14: Replace French watcher explanation with Standard Moroccan Tamazight. Native Mastodon column.notifications directly supplies Notifications: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Native MediaWiki statistics-edits-average attests Each ku, resetpass-temp-emailed Sent To You component, and local board terms retained: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve future YOU notification for ANY change in THIS BOARD; no specific email channel added. Notify paraphrased as Notifications Sent To You; derived feminine plural passive, future/each construction and full grammar remain LOW CONFIDENCE."
   }
 ]
