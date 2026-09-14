@@ -125928,5 +125928,12 @@
     "before": "Informations du tableau (Tableau, Liste, Couloir)",
     "after": "ⵉⵏⵖⵎⵉⵙⵏ ⵏ ⵜⴼⵍⵡⵉⵜ (ⵜⴰⴼⵍⵡⵉⵜ, ⵜⴰⵍⴳⴰⵎⵜ, ⴰⴱⵔⵉⴷ)",
     "reason": "2026-09-14: Replace French/Arabic board duplicate/settings/info labels. Native MediaWiki viewsourcetext directly supplies second-person Copy tssnghld and pageinfo-title Info inghmisn: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Native Mastodon confirmations.delete.message supplies Are you sure you want frame: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Preserve Duplicate THIS board as Copy board, confirmation question, ALL boards settings and Board/List/Swimlane information tuple. Card/Board/Settings reuse local vocabulary; Swimlane provisionally Path, not independently validated swimlane terminology. LOW CONFIDENCE copy-to-duplicate adaptation, assembled confirmation, bound/plural nouns and full phrases need fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "act-a-dueAt",
+    "before": "Echéance modifiée à\nQuand: __timeValue__\nOù: __card__\n L'échéance précédente était __timeOldValue__",
+    "after": "ⵉⵙⵏⴼⵍ ⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⵖⵔ \nⵎⴰⵏⴰⴳⵓ: __timeValue__\nⵎⴰⵏⵉ: __card__\n ⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⴰⵇⴱⵓⵔ ⵉⵍⵍⴰ __timeOldValue__",
+    "reason": "2026-09-14: Replace French due-time activity. Native MediaWiki enterlockreason directly uses When managu for expiry; tooltip-n-portal uses Where mani; previousrevision attests feminine Previous taqburt, adapted masculine aqbur for Time; Edit snfl and Time akud components are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve changed due TIME TO new value, When/Where labels, PREVIOUS due value, all four source lines and exact __timeValue__/__card__/__timeOldValue__ inventories. Due Time provisionally adapts existing Due Date final/deadline adjective rather than treating value as already expired. LOW CONFIDENCE actor past isnfl, deadline time compound, derived masculine Previous, was clause and full grammar require native validation."
   }
 ]
