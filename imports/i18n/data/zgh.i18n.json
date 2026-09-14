@@ -1093,7 +1093,7 @@
   "error-invitation-code-not-exist": "رمز الدعوة غير موجود",
   "error-notAuthorized": "ⵓⵔ ⴷⴰⵔⴽ ⵜⵓⵔⴰⴳⵜ ⴰⴼⴰⴷ ⴰⴷ ⵜⵙⴽⵏⴷ ⵜⴰⵙⵏⴰ ⴰⴷ.",
   "webhook-title": "Nom du webhook",
-  "webhook-token": "Jeton (optionnel pour l'authentification)",
+  "webhook-token": "Token (ⴰⵔⵓⵛⵛⵉⵍ ⵉ ⵓⵙⵖⵣⵏ)",
   "outgoing-webhooks": "الويبهوك الصادرة",
   "bidirectional-webhooks": "Webhooks bidirectionnels",
   "outgoingWebhooksPopup-title": "الويبهوك الصادرة",

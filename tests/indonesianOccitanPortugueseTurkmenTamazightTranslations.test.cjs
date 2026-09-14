@@ -286,3 +286,6 @@ assert.doesNotMatch(locales.zgh['cron-errors-cleared'], /ⵉⵣⴳⴰⵍⵏ|ⵜ�
 
 assert.equal(locales.zgh.optional, 'ⴰⵔⵓⵛⵛⵉⵍ');
 assert.doesNotMatch(locales.zgh.optional, /[\u0600-\u06ff]/);
+
+assert.equal(locales.zgh['webhook-token'], 'Token (ⴰⵔⵓⵛⵛⵉⵍ ⵉ ⵓⵙⵖⵣⵏ)');
+assert.doesNotMatch(locales.zgh['webhook-token'], /Jeton|optionnel|authentification/);

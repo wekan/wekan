@@ -131346,5 +131346,12 @@
     "before": "اختياري",
     "after": "ⴰⵔⵓⵛⵛⵉⵍ",
     "reason": "2026-09-14: Replace Arabic Optional with explicitly attested Tamazight aruccil, IRCAM Amazigh-English dictionary PDF page 194 entry 3684. This is direct adjective attestation, not a guessed script conversion. Longer webhook authentication/token phrase requires separate complete native repair."
+  },
+  {
+    "locale": "zgh",
+    "key": "webhook-token",
+    "before": "Jeton (optionnel pour l'authentification)",
+    "after": "Token (ⴰⵔⵓⵛⵛⵉⵍ ⵉ ⵓⵙⵖⵣⵏ)",
+    "reason": "2026-09-14: Replace French webhook token prose with Tamazight optional/authentication qualifier. IRCAM PDF page 194 entry 3684 aruccil optional, page 249 entry 4801 asghzn authentication/construct usghzn. Retain Token as an explicit technical borrowing, not dictionary-attested native vocabulary. Low confidence: Token borrowing and full prepositional phrase require native/browser review. Actual outgoing notification adds X-Wekan-Token only when configured; no auth/network logic is changed."
   }
 ]
