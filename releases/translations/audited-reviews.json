@@ -12892,5 +12892,65 @@
     "key": "user-exists",
     "value": "Uzanto jam ekzistas",
     "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "account-created",
+    "value": "Konto kreita! Vi nun povas ensaluti.",
+    "reason": "2026-09-14: Direct semantic review confirms account creation success/failure, sign-in/sign-out, confirmation, error/file/log/status and number labels. Success versus failure and login versus logout remain distinct; correct existing Esperanto retained."
+  },
+  {
+    "locale": "eo",
+    "key": "account-creation-failed",
+    "value": "Malsukcesis krei konton",
+    "reason": "2026-09-14: Direct semantic review confirms account creation success/failure, sign-in/sign-out, confirmation, error/file/log/status and number labels. Success versus failure and login versus logout remain distinct; correct existing Esperanto retained."
+  },
+  {
+    "locale": "eo",
+    "key": "login",
+    "value": "Ensaluti",
+    "reason": "2026-09-14: Direct semantic review confirms account creation success/failure, sign-in/sign-out, confirmation, error/file/log/status and number labels. Success versus failure and login versus logout remain distinct; correct existing Esperanto retained."
+  },
+  {
+    "locale": "eo",
+    "key": "confirm",
+    "value": "Konfirmi",
+    "reason": "2026-09-14: Direct semantic review confirms account creation success/failure, sign-in/sign-out, confirmation, error/file/log/status and number labels. Success versus failure and login versus logout remain distinct; correct existing Esperanto retained."
+  },
+  {
+    "locale": "eo",
+    "key": "error",
+    "value": "Eraro",
+    "reason": "2026-09-14: Direct semantic review confirms account creation success/failure, sign-in/sign-out, confirmation, error/file/log/status and number labels. Success versus failure and login versus logout remain distinct; correct existing Esperanto retained."
+  },
+  {
+    "locale": "eo",
+    "key": "file",
+    "value": "Dosiero",
+    "reason": "2026-09-14: Direct semantic review confirms account creation success/failure, sign-in/sign-out, confirmation, error/file/log/status and number labels. Success versus failure and login versus logout remain distinct; correct existing Esperanto retained."
+  },
+  {
+    "locale": "eo",
+    "key": "log",
+    "value": "Protokolo",
+    "reason": "2026-09-14: Direct semantic review confirms account creation success/failure, sign-in/sign-out, confirmation, error/file/log/status and number labels. Success versus failure and login versus logout remain distinct; correct existing Esperanto retained."
+  },
+  {
+    "locale": "eo",
+    "key": "logout",
+    "value": "Elsaluti",
+    "reason": "2026-09-14: Direct semantic review confirms account creation success/failure, sign-in/sign-out, confirmation, error/file/log/status and number labels. Success versus failure and login versus logout remain distinct; correct existing Esperanto retained."
+  },
+  {
+    "locale": "eo",
+    "key": "problems-status-title",
+    "value": "Stato",
+    "reason": "2026-09-14: Direct semantic review confirms account creation success/failure, sign-in/sign-out, confirmation, error/file/log/status and number labels. Success versus failure and login versus logout remain distinct; correct existing Esperanto retained."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-number",
+    "value": "nombro",
+    "reason": "2026-09-14: Direct semantic review confirms account creation success/failure, sign-in/sign-out, confirmation, error/file/log/status and number labels. Success versus failure and login versus logout remain distinct; correct existing Esperanto retained."
   }
 ]
