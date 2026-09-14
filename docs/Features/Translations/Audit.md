@@ -16,6 +16,12 @@ Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calenda
 
 Latest translation fix: **2026-09-14**, local commit `6352fbd5e` — repaired two additional board/list selection instructions, preserving Only One Board versus All Cards In This List and restoring the omitted All. Derived commands, agreement and full wording remain **low confidence**. All **18,122** correction checks pass; **311** original findings remain pending across **17** locales, including **176** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
+**Heap terminology review (2026-09-14):** directly inspected the dictionary
+Heap entry; cross-variety spelling needs careful adaptation. Full diagnostics
+remain pending with total/used, available/limit, allocation/peak and context
+variants preserved. Values/counts unchanged.
+[Evidence](Audit-Evidence.md) records inspected and unverified entries.
+
 **Calendar evidence review (2026-09-14):** CLDR directly confirms existing
 Coptic/Ethiopic/Gregorian labels; Islamic wording is explicitly provisional.
 Updated that evidence record. Missing native display names and full Hijri

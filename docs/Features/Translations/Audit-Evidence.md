@@ -1,5 +1,18 @@
 # Detailed translation audit evidence
 
+2026-09-14 — Node heap terminology review: directly inspected rendered
+CNAM Amawal PDF139/printed135. Heap is Tirect KBL/MAT, plural tirac;
+its c is the Kabyle spelling convention, requiring careful Tifinagh adaptation
+rather than Latin c-to-k substitution. This cross-variety dictionary entry
+is not normative Moroccan evidence. PDF text also offers Context on page41
+and Allocation on page18; those entries have not been visually verified in
+this review. Heap diagnostics remain pending: preserve total versus used,
+available versus limit, malloced versus peak malloced, native versus detached
+contexts, and does_zap_garbage semantics. A bare Heap label cannot replace
+those full meanings. No values, correction records or counts changed;
+original pending remains 311, including 176 Tamazight.
+Reference: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf
+
 2026-09-14 — CLDR calendar source-status review: directly inspected
 current zgh.xml localeDisplayNames/calendar entries. Coptic, Ethiopic and
 Gregorian labels exactly match the existing local labels. Islamic has native
