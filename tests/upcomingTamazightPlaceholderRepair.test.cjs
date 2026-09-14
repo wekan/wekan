@@ -377,3 +377,9 @@ for (const key of ['keyboard-shortcuts', 'keyboard-shortcuts-enabled', 'keyboard
 const sidebarTemplate = fs.readFileSync(path.join(ROOT,
   'client/components/sidebar/sidebar.jade'), 'utf8');
 assert.match(sidebarTemplate, /isKeyboardShortcuts.*keyboard-shortcuts-enabled.*else.*keyboard-shortcuts-disabled/);
+
+const pdfWarning = translated['preview-pdf-not-supported'];
+assert.match(pdfWarning, /ⴰⵎⴰⵜⵜⵉⵡ ⵏⵏⴽ ⵓⵔ ⵉⵣⵎⵔ/);
+assert.ok(pdfWarning.includes(translated.preview + ' ⵏ PDF'));
+assert.match(pdfWarning, /ⴰⵔⵎ ⴰⴷ ⵜⴰⴳⵎⴷ ⴰⴼⴰⵢⵍⵓ ⴳ ⵓⴷⵖⴰⵔ ⵏ ⴰⵢⴰ/);
+assert.doesNotMatch(pdfWarning, /[\u0600-\u06ff]/u);

@@ -138815,5 +138815,12 @@
     "before": "اختصارات لوحة المفاتيح معطلة. انقر للتفعيل.",
     "after": "ⵉⵙⵓⵏⴰⴼ ⵏ ⵜⵏⴰⵙⵜ ⵜⵜⵓⵙⵙⵏⵙⵏ. ⴽⵍⵉⴽⵉ ⴰⴷ ⵜⵏ ⵜⵙⵙⵔⴼⵓⴷ.",
     "reason": "2026-09-15: Replace Arabic keyboard shortcut labels. IRCAM 4007 supplies plural isunaf; 11436 keyboard tanast/bound tnast; 10106 activate; 10015 switch off (not hospitality homograph 10014). Preserve current status and opposite click action. Software adaptation, derived passive and plural pronoun grammar remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "preview-pdf-not-supported",
+    "before": "جهازك لا يدعم معاينة ملفات PDF. حاول تنزيل الملف بدلاً من ذلك.",
+    "after": "ⴰⵎⴰⵜⵜⵉⵡ ⵏⵏⴽ ⵓⵔ ⵉⵣⵎⵔ ⴰⴷ ⵉⵙⵙⴽⵏ ⵜⴰⵎⵓⵖⵍⵉ ⵜⴰⵎⵣⵡⴰⵔⵓⵜ ⵏ PDF. ⴰⵔⵎ ⴰⴷ ⵜⴰⴳⵎⴷ ⴰⴼⴰⵢⵍⵓ ⴳ ⵓⴷⵖⴰⵔ ⵏ ⴰⵢⴰ.",
+    "reason": "2026-09-15: Replace Arabic PDF preview warning, retaining your device inability to preview and try downloading instead. IRCAM 501 gives computing download, 2233 equipment. Reuse preview/file/show/try vocabulary; capability paraphrase avoids physical support homographs. Full grammar and instead construction remain low confidence."
   }
 ]
