@@ -123457,5 +123457,12 @@
     "before": "Utilisation de la mémoire",
     "after": "ⴰⵙⵙⵎⵔⵙ ⵏ ⵜⴽⴰⵜⵓⵜ",
     "reason": "Replace French Memory Usage label. Native MediaWiki poolcounter-usage-error supplies bound ussmrs/usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . CNAM computing lexicon explicitly gives computer memory/storage Takatut MC and bound tkatut in memory cycle/block examples: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf PDF page 89/printed 85 and memory cycle PDF page 44/printed 40. LOW CONFIDENCE free usage noun assmrs from bound native form and MC-to-Standard-Moroccan full diagnostics label adaptation require fluent review. Do not imply disk usage or human recollection."
+  },
+  {
+    "locale": "zgh",
+    "key": "upload-completed",
+    "before": "Le chargement est terminé",
+    "after": "ⵉⵎⴷⴰ ⵓⵙⵙⴽⵜⵔ",
+    "reason": "Replace French upload-completed status. Native MediaWiki uploadlogpage attests bound upload noun ussktr; morenotlisted gives feminine negative completion ur tmdi. https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: positive masculine completion imda and complete status sentence are grammatical adaptations requiring fluent Standard Moroccan review; do not imply upload started, saved or merely successful without completion. Reviewed 2026-09-14."
   }
 ]
