@@ -811,6 +811,16 @@ findings.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7c1c4623d">Repair Tamazight custom web-manifest labels</a>. Thanks to xet7.</summary>
+
+Replace two French settings labels with Tamazight activate/content wording,
+preserving web-manifest identity and JSON format. Four focused translation
+suites pass. Borrowed compounds remain under native review. Dated audit
+records 171 pending findings.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

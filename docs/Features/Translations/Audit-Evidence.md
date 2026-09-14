@@ -28474,3 +28474,21 @@ French/Arabic prose. Four focused suites pass; no live UI test ran.
 Full software compound and agreement remain low confidence. Ledger
 19,841; original corrected 15,730, pending 173 (zgh 78), restored 4
 unchanged. Broader review remains open; no remote writes.
+
+
+## Custom web manifest — repair 2026-09-15
+
+Source commit `7c1c4623d` replaces French activation and content labels.
+IRCAM page 537 entry 10106 supplies activate `ssrfu`; page 83 entry
+1346 supplies content `akttur`. Existing custom assetlinks labels provide
+parallel custom-content wording. Borrowed `web manifest` preserves the
+technical concept rather than inventing an unattested native equivalent;
+JSON remains literal. Full borrowed compound and qualifier agreement
+remain low confidence.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+Settings template lines 568 and 571 renders the activation and content
+labels. Four focused suites pass for exact repairs, rejection of French,
+placeholder preservation and completeness. No live UI test ran. Ledger
+19,843; original corrected 15,732, pending 171 (zgh 76), restored 4
+unchanged. Broader review remains open; no remote writes.
