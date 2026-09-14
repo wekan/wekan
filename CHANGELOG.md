@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/61484d5df">Consolidate audit verification summary</a>. Thanks to xet7.</summary>
+
+Keep runtime progress concise while preserving dated evidence and native
+review limits. Queue totals reconcile; a fresh localhost probe confirms
+browser verification still lacks a running app. Audit regression passes.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/27f6c9d2a">Verify creation filtering and sorting labels</a>. Thanks to xet7.</summary>
 
 Exercise Tamazight creation filter and both sort directions through the
