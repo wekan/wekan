@@ -23001,3 +23001,12 @@ for questions/requests; full voting phrase adaptation remains unverified:
 https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/br.json
 All 18,395 correction checks pass. Native phrasing and live voting/browser
 review remain open; original pending/restored scope stays 300/27.
+
+Dated unflagged repair, 2026-09-14, local commit `3bddd8e14`: seven Breton
+date-rule fields/current date-time/activity labels replace French. Reuse
+existing kregiñ, termen, echuiñ, degemer, maezienn, deiziad and eur vocabulary.
+The legacy a-dueAt activity phrase follows existing a-receivedAt wording,
+retaining due-time meaning. Shared clause order and whole-phrase inflection
+still need native review; browser execution remains unverified. All 18,402
+correction and 4,158 unchanged checks pass. Original pending/restored scope
+remains 300/27, with broader unflagged repairs still required.
