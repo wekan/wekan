@@ -126978,5 +126978,12 @@
     "before": "Skribu la serĉatan tekston kaj premu Enen",
     "after": "Skribu la serĉatan tekston kaj premu la klavon Enter",
     "reason": "Name the Enter keyboard key explicitly; Enen is the unrelated direction inwards. Preserve typing the search text and pressing the key."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-field-stringtemplate-item-placeholder",
+    "before": "Premu Enen por aldoni pliajn erojn",
+    "after": "Premu la klavon Enter por aldoni pliajn erojn",
+    "reason": "Replace the unrelated direction Enen with the literal Enter keyboard key in Esperanto prose, preserving the addition of more items."
   }
 ]

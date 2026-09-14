@@ -6838,5 +6838,317 @@
     "key": "globalSearch-instructions-operator-comment",
     "value": "`__operator_comment__:<text>` - kartoj kun komento enhavanta *<text>*.",
     "reason": "Direct Esperanto review confirms rule check/uncheck and archive/restore polarity, empty-field wildcard instructions, comma-separated checklist items, duplicate/delete actions, personal/due-card views and global-search guidance. Search operator syntax, colon/quotation rules, title/text metavariables, literal examples, HTML body tags and interpolation tokens remain intact. Preserve correct wording without stylistic edits."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-operator-hash",
+    "value": "`__operator_label_abbrev__<name|color>` - mallongigo por `__operator_label__:<color>` aŭ `__operator_label__:<name>`",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-operator-at",
+    "value": "`__operator_user_abbrev__username` - mallongigo por `user:<username>`",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-operator-creator",
+    "value": "`__operator_creator__:<username>` - kartoj, kie *<username>* estas la kreinto de la karto",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-operator-team",
+    "value": "`__operator_team__:<display name|short name>` - kartoj apartenantaj al tabulo asignita al teamo *<name>*",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-operator-due",
+    "value": "`__operator_due__:<n>` - kartoj, kies limdato estas ĝis *<n>* tagoj de nun.  `__operator_due__:__predicate_overdue__ listigas ĉiujn kartojn, kies limdato pasis.",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-operator-status",
+    "value": "`__operator_status__:<status>` - kie *<status>* estas unu el la jenaj:",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-status-all",
+    "value": "`__predicate_all__` - ĉiuj arkivitaj kaj nearkivitaj kartoj",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-status-private",
+    "value": "`__predicate_private__` - kartoj nur en privataj tabuloj",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-operator-has",
+    "value": "`__operator_has__:<field>` - kie *<field>* estas unu el `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` aŭ `__predicate_member__`.  Metante `-` antaŭ *<field>* oni serĉas la foreston de valoro en tiu kampo (ekz. `has:-due` serĉas kartojn sen limdato).",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-operator-sort",
+    "value": "`__operator_sort__:<sort-name>` - kie *<sort-name>* estas unu el `__predicate_due__`, `__predicate_created__` aŭ `__predicate_modified__`.  Por malkreskanta ordigo, metu `-` antaŭ la nomon de la ordigo.",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-operator-limit",
+    "value": "`__operator_limit__:<n>` - kie *<n>* estas pozitiva entjero esprimanta la nombron de kartoj montrotaj per paĝo.",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-notes-2",
+    "value": "Similaj operatoroj estas kunigataj per *AŬ*.  Kartoj kongruaj kun iu ajn el la kondiĉoj estos redonitaj.\n`__operator_list__:Available __operator_list__:Blocked` redonus kartojn troviĝantajn en iu ajn listo nomata *Blocked* aŭ *Available*.",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-notes-3",
+    "value": "Malsamaj operatoroj estas kunigataj per *KAJ*.  Nur kartoj kongruaj kun ĉiuj malsamaj operatoroj estas redonitaj.  `__operator_list__:Available __operator_label__:red` redonas nur kartojn en la listo *Available* kun *ruĝa* etikedo.",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-notes-4",
+    "value": "Tekstaj serĉoj ne distingas usklecon.",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-notes-5",
+    "value": "Defaŭlte arkivitaj kartoj ne estas serĉataj.",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "label-colors",
+    "value": "Etikedaj koloroj",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "label-names",
+    "value": "Etikedaj nomoj",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "sort-cards",
+    "value": "Ordigi kartojn",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "cardsSortPopup-title",
+    "value": "Ordigi kartojn",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "server-error",
+    "value": "Servila eraro",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "server-error-troubleshooting",
+    "value": "Bonvolu sendi la eraron generitan de la servilo.\nPor snap-instalo, rulu: `sudo snap logs wekan.wekan`\nPor Docker-instalo, rulu: `sudo docker logs wekan-app`",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "now-activities-of-all-boards-are-hidden",
+    "value": "Nun ĉiuj aktivaĵoj de ĉiuj tabuloj estas kaŝitaj",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "creator-on-minicard",
+    "value": "Kreinto sur minikarto",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "filesReportTitle",
+    "value": "Raporto pri dosieroj",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "rulesReportTitle",
+    "value": "Raporto pri reguloj",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "boardsReportTitle",
+    "value": "Raporto pri tabuloj",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "cardsReportTitle",
+    "value": "Raporto pri kartoj",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "display-card-creator",
+    "value": "Montri kreinton de karto",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "maximize-card",
+    "value": "Maksimumigi karton",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "minimize-card",
+    "value": "Minimumigi karton",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "delete-team-warning-message",
+    "value": "Ne eblas forigi ĉi tiun teamon, almenaŭ unu uzanto apartenas al ĝi",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "cardDetailsPopup-title",
+    "value": "Detaloj de karto",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "add-teams",
+    "value": "Aldoni teamojn",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "add-teams-label",
+    "value": "Aldonitaj teamoj estas montrataj sube:",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "remove-team-from-table",
+    "value": "Ĉu vi certas, ke vi volas forigi ĉi tiun teamon el la tabulo?",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "filter-card-title-label",
+    "value": "Filtri laŭ karta titolo",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "invite-people-error",
+    "value": "Eraro dum sendado de invito por registriĝi",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "to-create-teams-contact-admin",
+    "value": "Por krei teamojn, bonvolu kontakti la administranton.",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "add-organizations",
+    "value": "Aldoni organizojn",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "remove-organization-from-board",
+    "value": "Ĉu vi certas, ke vi volas forigi ĉi tiun organizon el ĉi tiu tabulo?",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "to-create-organizations-contact-admin",
+    "value": "Por krei organizojn, bonvolu kontakti la administranton.",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "newlineBecomesNewChecklistItem",
+    "value": "Ĉiu linio de teksto fariĝas unu el la kontrollistaj eroj",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "newLineNewItem",
+    "value": "Unu linio de teksto = unu kontrollista ero",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "value": "Ĉiu linio de teksto fariĝas unu el la kontrollistaj eroj, origina ordo",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "card-show-lists",
+    "value": "Montri listojn sur karto",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "move-all-attachments-to-fs",
+    "value": "Movi ĉiujn alligitaĵojn al dosiersistemo",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "move-all-attachments-to-gridfs",
+    "value": "Movi ĉiujn alligitaĵojn al GridFS",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "move-all-attachments-of-board-to-fs",
+    "value": "Movi ĉiujn alligitaĵojn de tabulo al dosiersistemo",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "move-all-attachments-of-board-to-gridfs",
+    "value": "Movi ĉiujn alligitaĵojn de tabulo al GridFS",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "move-all-attachments-of-board-to-s3",
+    "value": "Movi ĉiujn alligitaĵojn de tabulo al S3",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "move-progress-cancel",
+    "value": "Nuligi",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "board-title",
+    "value": "Tabula titolo",
+    "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
   }
 ]

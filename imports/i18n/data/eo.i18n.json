@@ -1863,7 +1863,7 @@
   "custom-field-stringtemplate": "Ĉena ŝablono",
   "custom-field-stringtemplate-format": "Formato (uzu %{value} kiel lokokupilon)",
   "custom-field-stringtemplate-separator": "Apartigilo (uzu &#32; aŭ &nbsp; por spaco)",
-  "custom-field-stringtemplate-item-placeholder": "Premu Enen por aldoni pliajn erojn",
+  "custom-field-stringtemplate-item-placeholder": "Premu la klavon Enter por aldoni pliajn erojn",
   "creator": "Kreinto",
   "creator-on-minicard": "Kreinto sur minikarto",
   "filesReportTitle": "Raporto pri dosieroj",
