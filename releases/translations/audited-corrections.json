@@ -131465,5 +131465,19 @@
     "before": "Convertir les listes partagées",
     "after": "ⵙⵙⵏⴼⵍ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵍⵍⵉ ⵙⵙⵓⵔⵏⵜ",
     "reason": "2026-09-14: Replace French Convert Shared Lists with complete Tamazight draft. IRCAM Amazigh-English PDF 532 entry 10003 ssnfl change transitively/transform, PDF 589 entry 11039 talgamt list/plural tilgamin, PDF 535 entry 10073 ssur be common/be shared. Low confidence: software conversion metaphor and feminine plural ssurnt relative-clause morphology require native review. Preserve shared status, not general/public or partitioning lists. Stored migration step only; no obsolete migration implementation restored."
+  },
+  {
+    "locale": "zgh",
+    "key": "duration",
+    "before": "Durée",
+    "after": "ⴰⵣⵎⵣ",
+    "reason": "2026-09-14: Replace French time label. IRCAM Amazigh-English PDF 279 entry 5472 time/period explicitly used in billed duration and property-rights duration compounds. Standalone time-period noun adapted to elapsed operation duration. Browser context review remains open; timing logic unchanged."
+  },
+  {
+    "locale": "zgh",
+    "key": "estimated-time-remaining",
+    "before": "Temps restant estimé",
+    "after": "ⴰⵙⵓⵜⴳ ⵏ ⵓⵣⵎⵣ ⵍⵍⵉ ⵇⵇⵉⵎⵏ",
+    "reason": "2026-09-14: Replace French time label. IRCAM PDF 244 entry 4716 estimation/assessment asutg, PDF 279 entry 5472 time period azmz/construct uzmz, PDF 359 entry 6809 remain qqim. Complete estimate-of-remaining-time phrase, not duration alone. Low confidence: remaining-time relative participle qqimn and full genitive grammar require native review. Browser context review remains open; timing logic unchanged."
   }
 ]

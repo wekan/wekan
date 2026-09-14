@@ -349,3 +349,7 @@ assert.doesNotMatch(locales.zgh['comprehensive-board-migration'], /Migration|com
 
 assert.equal(locales.zgh['step-convert-shared-lists'], 'ⵙⵙⵏⴼⵍ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵍⵍⵉ ⵙⵙⵓⵔⵏⵜ');
 assert.doesNotMatch(locales.zgh['step-convert-shared-lists'], /Convertir|partagées|ⵙⵍⵎ|ⴱⴹⵓ/);
+
+assert.equal(locales.zgh.duration, 'ⴰⵣⵎⵣ');
+assert.equal(locales.zgh['estimated-time-remaining'], 'ⴰⵙⵓⵜⴳ ⵏ ⵓⵣⵎⵣ ⵍⵍⵉ ⵇⵇⵉⵎⵏ');
+assert.doesNotMatch(locales.zgh.duration + locales.zgh['estimated-time-remaining'], /Durée|Temps|restant|estimé/);
