@@ -628,6 +628,8 @@ This release includes the following translation repairs and build verification:
 
 This release fixes the following CRITICAL SECURITY ISSUES:
 
+**Security** - Board policies, role capabilities and object boundaries.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/962debc12">Enforce private-only board visibility in server methods</a></summary>
 
@@ -706,6 +708,34 @@ Role and boundary decisions, dispatcher inventory and existing rule suites
 pass. Browser regression is syntax-checked; live execution remains pending.
 
 Thanks to Wenhao Wu, Southeast University and xet7 !
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/055cf42d4">Protect server-issued board invitation fields</a></summary>
+
+InviteProfileBleed: removed members could forge client-writable invitation
+fields and reactivate membership (CWE-863). Profile invitation capabilities
+are now server-controlled, including array and rename operations and parent
+replacement. Modifier-path checks preserve ordinary preference updates.
+Blocked invitation changes appear in bounded Problems summaries. Guard and
+existing invitation suites pass; browser regression is syntax-checked with
+live execution pending.
+
+Thanks to Wenhao Wu, Southeast University and xet7 !
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/11d2fe037">Replace the activity test sanitizer stub with the real parser</a></summary>
+
+Code scanning alert 540 points to a regex substitute in a test, rather than
+an application sanitizer. The test now uses the existing sanitize-html
+parser and covers malformed script closing tags. Positive and negative
+checks pass. This test-only change has no runtime attack event to log and
+no new application vulnerability is claimed.
+
+Thanks to GitHub CodeQL and xet7 !
 
 </details>
 
