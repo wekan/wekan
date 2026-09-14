@@ -121343,5 +121343,19 @@
     "before": "تغيير الاعدادات",
     "after": "ⵙⵏⴼⵍ ⵜⵉⵙⵖⴰⵍ",
     "reason": "Replace unflagged Arabic settings label with Tamazight. Native Mastodon column_header.hide_settings/show_settings attest tisghal/settings; account.edit_profile attests snfl/edit-change. Settings uses the exact noun; Change Settings combines attested command and noun, with full command usage subject to fluent review. Preserve generic settings meaning without substituting user profile. Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "minicard-settings",
+    "before": "Paramètres de la minicarte",
+    "after": "ⵜⵉⵙⵖⴰⵍ ⵏ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵢⴰⵏⵜ",
+    "reason": "LOW CONFIDENCE composed Minicard Settings heading. Native Mastodon column_header.show_settings attests tisghal/settings. Reuse the locale card/small-card terminology with noun bound state after n/of, keeping the minicard distinction rather than general card settings. Moroccan government native pages attest takardha and feminine tamzzyant in other contexts, not the full kanban heading. Bound-state morphology, mini-card terminology and complete phrase need fluent review. Replace French consistently in both entry and popup title. Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://www.maroc.ma/amz/ⵜⵉⵙⵜⵕⴰⵜⵉⵊⵉⵢⵉⵏ-ⴷ-ⵜⵙⵔⵜⵉⵜⵉⵏ-ⵜⵉⴳⴷⵓⴷⴰⵏⵉⵏ"
+  },
+  {
+    "locale": "zgh",
+    "key": "boardMinicardSettingsPopup-title",
+    "before": "Paramètres de la minicarte",
+    "after": "ⵜⵉⵙⵖⴰⵍ ⵏ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵢⴰⵏⵜ",
+    "reason": "LOW CONFIDENCE composed Minicard Settings heading. Native Mastodon column_header.show_settings attests tisghal/settings. Reuse the locale card/small-card terminology with noun bound state after n/of, keeping the minicard distinction rather than general card settings. Moroccan government native pages attest takardha and feminine tamzzyant in other contexts, not the full kanban heading. Bound-state morphology, mini-card terminology and complete phrase need fluent review. Replace French consistently in both entry and popup title. Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://www.maroc.ma/amz/ⵜⵉⵙⵜⵕⴰⵜⵉⵊⵉⵢⵉⵏ-ⴷ-ⵜⵙⵔⵜⵉⵜⵉⵏ-ⵜⵉⴳⴷⵓⴷⴰⵏⵉⵏ"
   }
 ]
