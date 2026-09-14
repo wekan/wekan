@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,133 |
+| Corrected | 15,134 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 711 |
+| Pending review or repair | 710 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,332** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,333** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `52c833e18` — replaced the French Tamazight generic failure using an attested native existential-error clause, without adding an unknown/database cause. All **17,332** correction/rendering checks pass. **711** originals remain pending, including **568** Tamazight. Generic UI usage and earlier composed filter/deletion/activity/lockout terminology, restored/unflagged values and low-confidence morphology still need fluent validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `3d190b286` (reference clarified in `fe590a609`) — replaced French Tamazight Loading, please wait using historical Mastodon loading wording and an attested native MediaWiki wait clause. Current upstream Mastodon no longer has the loading key; the ledger pins the historical source accurately. All **17,333** correction/rendering checks pass. **710** originals remain pending, including **567** Tamazight. Combined UI usage and earlier composed terminology, restored/unflagged values and low-confidence morphology still need fluent validation. Live browser verification was not run; no translations were pushed.
 
 **Language validation (2026-09-14), local commit `e4e3aa590`:** Wiktionary’s Veps transitive inflection tables confirm `surenda` (make larger) and `penenda` (make smaller) as second-person singular commands. Their imperative morphology is now reference-supported; screen-zoom usage remains open. The original keyboard findings remain unresolved: searches and the cached dictionary did not establish reliable keyboard-shortcut terminology. Counts are unchanged. References and the remaining scope are recorded per key in the correction ledger.
 
