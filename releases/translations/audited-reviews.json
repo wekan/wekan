@@ -24940,5 +24940,11 @@
     "key": "no-assignee",
     "value": "Den ebet deverket",
     "reason": "Correct Breton Den ebet deverket means no assigned person. Preder JEDOII17.pdf p22/p46 lists deverkañ as attribuer; existing assigned-only labels use deverket consistently. Retain correct absence/person wording; lexical review does not verify live UI."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "shortcut-filter-my-assigned-cards",
+    "value": "Filtra les meves fitxes assignades",
+    "reason": "Correct shared Catalan Filter my assigned cards meaning, feminine plural possessive/participle agree with fitxes. IEC aoe.iec.cat/els-possessius/ recognizes meves and meues as dialect variants: meves predominates eastern, meues western; this is not wrong-language prose. Actual keyboard.js a action toggles Filter.assignees for current user. Retained correct-language translation under preservation policy; preferred Valencian regional style and browser review remain open."
   }
 ]
