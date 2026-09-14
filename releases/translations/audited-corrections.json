@@ -121266,5 +121266,26 @@
     "before": "Autoriser les utilisateurs à supprimer leur compte",
     "after": "ⴽⴽⵙ ⴰⵎⵉⴹⴰⵏ ⵏⵏⴽ",
     "reason": "LOW CONFIDENCE composed self-account-deletion setting label: native MediaWiki delete attests kks, createaccount attests amidann/account and userlogin-yourname-ph attests nnk/your. Translate the English self-delete-user-account label as delete your account, not permission to delete another user. Full setting-label usage requires fluent review. Replace French. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "admin-people-filter-show",
+    "before": "Afficher :",
+    "after": "ⵙⴽⵏ:",
+    "reason": "Replace French/Arabic filter control wording with Tamazight. Native MediaWiki tool-link-userrights-readonly attests skn/show; diff-multi-otherusers attests inssmrsn/users and protect-default attests all-users usage of akk; rcfilters-clear-all-filters attests ssfd/clear and rcfilters-invalid-filter attests singular timzizdgt/filter. Preserve Show colon and singular Clear filter meaning. Short all-users and clear-filter compositions reuse attested morphology; complete UI usage remains subject to fluent review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "admin-people-filter-all",
+    "before": "كل المستخدمين",
+    "after": "ⵉⵏⵙⵙⵎⵔⵙⵏ ⴰⴽⴽⵯ",
+    "reason": "Replace French/Arabic filter control wording with Tamazight. Native MediaWiki tool-link-userrights-readonly attests skn/show; diff-multi-otherusers attests inssmrsn/users and protect-default attests all-users usage of akk; rcfilters-clear-all-filters attests ssfd/clear and rcfilters-invalid-filter attests singular timzizdgt/filter. Preserve Show colon and singular Clear filter meaning. Short all-users and clear-filter compositions reuse attested morphology; complete UI usage remains subject to fluent review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "filter-clear",
+    "before": "مسح التصفية",
+    "after": "ⵚⵚⴼⴹ ⵜⵉⵎⵣⵉⵣⴷⴳⵜ",
+    "reason": "Replace French/Arabic filter control wording with Tamazight. Native MediaWiki tool-link-userrights-readonly attests skn/show; diff-multi-otherusers attests inssmrsn/users and protect-default attests all-users usage of akk; rcfilters-clear-all-filters attests ssfd/clear and rcfilters-invalid-filter attests singular timzizdgt/filter. Preserve Show colon and singular Clear filter meaning. Short all-users and clear-filter compositions reuse attested morphology; complete UI usage remains subject to fluent review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
