@@ -122,6 +122,11 @@ remain outstanding. The latest full Node run passes **1,010 suites, zero failure
 mirror-script and offline archive checks; no
 remote mirror or translation upload was executed.
 
+
+Field-sum terminology review (2026-09-14): the list sum display remains
+pending. Addition-operation and sum-of-money references do not establish
+the resulting numeric field sum; no count or operation was substituted.
+
 </details>
 
 <details>
