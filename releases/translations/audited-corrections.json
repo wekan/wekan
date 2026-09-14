@@ -121749,5 +121749,47 @@
     "before": "a supprimé le participant __member__ du tableau __board__",
     "after": "ⵉⴽⴽⵙ ⴰⴳⵎⴰⵎ __member__ ⵙⴳ ⵜⴼⵍⵡⵉⵜ __board__",
     "reason": "Replace French. Native MediaWiki logentry-delete-delete attests masculine completed ikks/deleted; nmembers attests bound ugmam/member, with free agmam derived. Preserve removed member and source-board placeholders exactly, distinct from deleting their account. LOW CONFIDENCE adapting deletion to membership removal, derived free member form, board genitive and full activity agreement; native components alone do not prove fluent full activity phrasing. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "add-card-to-top-of-list",
+    "before": "Ajouter la carte en haut de la liste",
+    "after": "ⵔⵏⵓ ⵜⴰⴽⴰⵕⴹⴰ ⴳ ⵓⴷⵖⴰⵔ ⴰⵎⵣⵡⴰⵔⵓ ⵏ ⵜⵍⴳⴰⵎⵜ",
+    "reason": "Replace French. Native MediaWiki apisandbox-add-multi/add and move/Move attest rnu and smutti; page_first/page_last attest first/last and tooltip-n-help attests adghar/place, with bound udghar in rcfilters-quickfilters-placeholder-description. Express top as first place in list order, verified against server/rulesHelper.js minOrder-1/maxOrder+1. Reuse native list noun from watchlist translations and existing card terminology. Keep selected-list/addition scope distinct from the generic its-list command. LOW CONFIDENCE full place/order genitive composition, list/card software sense, bound forms and possessive attachment; native components do not establish fluent full commands. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "r-d-move-to-top-gen",
+    "before": "Déplacer la carte en haut de sa liste",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⵜⴰⴽⴰⵕⴹⴰ ⴳ ⵓⴷⵖⴰⵔ ⴰⵎⵣⵡⴰⵔⵓ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏⵏⵙ",
+    "reason": "Replace French. Native MediaWiki apisandbox-add-multi/add and move/Move attest rnu and smutti; page_first/page_last attest first/last and tooltip-n-help attests adghar/place, with bound udghar in rcfilters-quickfilters-placeholder-description. Express top as first place in list order, verified against server/rulesHelper.js minOrder-1/maxOrder+1. Reuse native list noun from watchlist translations and existing card terminology. Retain its-list possessive nns for generic actions, distinct from a selected destination list. LOW CONFIDENCE full place/order genitive composition, list/card software sense, bound forms and possessive attachment; native components do not establish fluent full commands. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "r-d-move-to-top-spec",
+    "before": "Déplacer la carte en haut de la liste",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⵜⴰⴽⴰⵕⴹⴰ ⴳ ⵓⴷⵖⴰⵔ ⴰⵎⵣⵡⴰⵔⵓ ⵏ ⵜⵍⴳⴰⵎⵜ",
+    "reason": "Replace French. Native MediaWiki apisandbox-add-multi/add and move/Move attest rnu and smutti; page_first/page_last attest first/last and tooltip-n-help attests adghar/place, with bound udghar in rcfilters-quickfilters-placeholder-description. Express top as first place in list order, verified against server/rulesHelper.js minOrder-1/maxOrder+1. Reuse native list noun from watchlist translations and existing card terminology. Keep selected-list/addition scope distinct from the generic its-list command. LOW CONFIDENCE full place/order genitive composition, list/card software sense, bound forms and possessive attachment; native components do not establish fluent full commands. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "add-card-to-bottom-of-list",
+    "before": "Ajouter la carte en bas de la liste",
+    "after": "ⵔⵏⵓ ⵜⴰⴽⴰⵕⴹⴰ ⴳ ⵓⴷⵖⴰⵔ ⴰⵎⴳⴳⴰⵔⵓ ⵏ ⵜⵍⴳⴰⵎⵜ",
+    "reason": "Replace French. Native MediaWiki apisandbox-add-multi/add and move/Move attest rnu and smutti; page_first/page_last attest first/last and tooltip-n-help attests adghar/place, with bound udghar in rcfilters-quickfilters-placeholder-description. Express bottom as last place in list order, verified against server/rulesHelper.js minOrder-1/maxOrder+1. Reuse native list noun from watchlist translations and existing card terminology. Keep selected-list/addition scope distinct from the generic its-list command. LOW CONFIDENCE full place/order genitive composition, list/card software sense, bound forms and possessive attachment; native components do not establish fluent full commands. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "r-d-move-to-bottom-gen",
+    "before": "Déplacer la carte en bas de sa liste",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⵜⴰⴽⴰⵕⴹⴰ ⴳ ⵓⴷⵖⴰⵔ ⴰⵎⴳⴳⴰⵔⵓ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏⵏⵙ",
+    "reason": "Replace French. Native MediaWiki apisandbox-add-multi/add and move/Move attest rnu and smutti; page_first/page_last attest first/last and tooltip-n-help attests adghar/place, with bound udghar in rcfilters-quickfilters-placeholder-description. Express bottom as last place in list order, verified against server/rulesHelper.js minOrder-1/maxOrder+1. Reuse native list noun from watchlist translations and existing card terminology. Retain its-list possessive nns for generic actions, distinct from a selected destination list. LOW CONFIDENCE full place/order genitive composition, list/card software sense, bound forms and possessive attachment; native components do not establish fluent full commands. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "Déplacer la carte en bas de la liste",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⵜⴰⴽⴰⵕⴹⴰ ⴳ ⵓⴷⵖⴰⵔ ⴰⵎⴳⴳⴰⵔⵓ ⵏ ⵜⵍⴳⴰⵎⵜ",
+    "reason": "Replace French. Native MediaWiki apisandbox-add-multi/add and move/Move attest rnu and smutti; page_first/page_last attest first/last and tooltip-n-help attests adghar/place, with bound udghar in rcfilters-quickfilters-placeholder-description. Express bottom as last place in list order, verified against server/rulesHelper.js minOrder-1/maxOrder+1. Reuse native list noun from watchlist translations and existing card terminology. Keep selected-list/addition scope distinct from the generic its-list command. LOW CONFIDENCE full place/order genitive composition, list/card software sense, bound forms and possessive attachment; native components do not establish fluent full commands. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
