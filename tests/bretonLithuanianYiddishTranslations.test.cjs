@@ -266,3 +266,13 @@ assert.equal(locales.br.details, locales.br['migration-progress-details']);
 assert.equal(locales.br.file, locales.br['move-progress-file']);
 assert.equal(locales.br.confirm, locales.br['confirm-btn']);
 assert.notEqual(locales.br.text, locales.br['translation-text']);
+
+// OPLB color senses: shared French spelling does not invalidate Breton gris.
+assert.equal(locales.br['color-darkgreen'], 'gwer teñval');
+assert.equal(locales.br['color-gold'], 'aour');
+assert.equal(locales.br['color-silver'], "arc'hant");
+assert.equal(locales.br['color-gray'], 'gris');
+assert.doesNotMatch(locales.br['color-darkgreen'], /vert|sklaer/);
+assert.doesNotMatch(locales.br['color-gold'], /^or$/);
+assert.doesNotMatch(locales.br['color-silver'], /^argent$/);
+assert.equal(new Set(['darkgreen', 'gold', 'silver', 'gray'].map(color => locales.br['color-' + color])).size, 4);

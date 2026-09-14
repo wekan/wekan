@@ -130387,5 +130387,26 @@
     "before": "Ordinateur",
     "after": "Urzhiataer",
     "reason": "Replace unflagged French UI wording with native Breton software vocabulary. MediaWiki br messages attest details, file, text, translation, history, confirmation, subject, server and computer terms. Reuse the same term across equivalent fields; translated-text compound is a direct adaptation. Browser and broader native full-phrase review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "color-darkgreen",
+    "before": "vert foncé",
+    "after": "gwer teñval",
+    "reason": "Native OPLB Meurgorf explicitly attests this color meaning; replace French palette wording."
+  },
+  {
+    "locale": "br",
+    "key": "color-gold",
+    "before": "or",
+    "after": "aour",
+    "reason": "Native OPLB Meurgorf explicitly attests this color meaning; replace French palette wording."
+  },
+  {
+    "locale": "br",
+    "key": "color-silver",
+    "before": "argent",
+    "after": "arc'hant",
+    "reason": "Native OPLB Meurgorf explicitly attests this color meaning; replace French palette wording."
   }
 ]
