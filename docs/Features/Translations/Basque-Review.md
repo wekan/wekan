@@ -43,7 +43,7 @@ Directional add/remove clauses also remain open: their final **txartel bat**
 noun lacks the destination/source case expected by the corresponding action.
 Previously omitting a redundant copula did not repair the whole sentence.
 Label/member/attachment fragments cannot be accepted from correct nouns alone.
-S3 bucket terminology still needs a native technical-container reference.
+S3 bucket terminology is retained with the native reference below.
 
 Accepted generic movement and check/uncheck predicates are recorded in
 `aba731e82` and `1439c4c61`. Those focused reviews do not certify the other
@@ -69,3 +69,15 @@ negation alone is insufficient. Both generic and named trigger options use
 the same key, so any replacement must also compose with both noun contexts.
 No value is changed or accepted in this review. Runtime and browser checks
 remain separate requirements.
+
+## 2026-09-14 — S3 technical loan retained (5bf97e219)
+
+[Native ZIUR Basque technical specification](https://www.contratacion.euskadi.eus/webkpe00-kpeperfi/es/contenidos/anuncio_contratacion/expjaso33672/es_doc/adjuntos/pliego_bases_tecnicas2.pdf)
+uses AWS S3 Bucket in storage-service context on printed pages 6 and 7.
+The restored label `S3 bucket-a` is retained: the borrowed term is valid
+in native technical prose and the suffix supplies the Basque article.
+The source attests the technical term, not exact source hyphenation of the
+label. In the actual attachment form it identifies the bucket-name input,
+with a related description explaining the name used for file storage.
+Focused checks preserve the label, description and actual input association.
+Broader language and browser verification remain open.

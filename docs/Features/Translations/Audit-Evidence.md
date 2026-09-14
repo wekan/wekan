@@ -23939,3 +23939,14 @@ leaving work unfinished. The source does not attest an exact replacement
 predicate. No restored finding is accepted and no locale value changes.
 Generic and named options share this key; both require composition review.
 Pending/restored counts remain 288/12.
+
+### 2026-09-14 — Basque S3 technical loan retained (5bf97e219)
+
+The restored `s3-bucket` value `S3 bucket-a` is retained with native ZIUR
+Basque specifications using AWS S3 Bucket for storage (pages 6 and 7).
+[Source and confidence limits](Basque-Review.md) distinguish technical-term
+attestation from exact label hyphenation. Focused checks verify the existing
+label, related name description and bucket-name input association. All 4,170
+retained reviews and 234-locale structural completeness pass. One restored
+finding is resolved; pending/restored counts are now 288/11. Browser and
+broader review remain open. No locale values were overwritten.

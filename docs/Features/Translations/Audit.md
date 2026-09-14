@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,612 |
-| Restored pre-pull; awaiting validation | 12 |
-| Reviewed; retained unchanged | 4,169 |
+| Restored pre-pull; awaiting validation | 11 |
+| Reviewed; retained unchanged | 4,170 |
 | Pending review or repair | 288 |
 | Total tracked | 20,081 |
 
@@ -40,27 +40,27 @@ completion status. The incomplete predicate needs a full status-transition
 clause that works with both generic and named checklist nouns; unfinished
 wording alone is insufficient. No uncertain finding was accepted.
 [Inuktitut recurrence/reset review](Inuktitut-Recurrence-Review.md) remains
-open in `5400a0ce9`. Current pending/restored counts are 288/12.
+open in `5400a0ce9`. Current pending/restored counts are 288/11.
 
 Latest unflagged unchanged review: **2026-09-14**, `5bf34bc48` —
 Inuktitut `new` retains `ᓄᑖᖅ`, matching the native software guide's New
 command and actual admin creation labels. Focused checks pass; browser review
 remains open. Latin Inuktitut spelling is valid; original script warnings
 require vocabulary/context review rather than automatic replacement.
-Current pending/restored counts are 288/12.
+Current pending/restored counts are 288/11.
 
 Latest translation fix: **2026-09-14**, local commit `a123f9428` —
 Breton white replaces French blanc with dictionary-attested gwenn. Focused
 checks distinguish white from gray and silver and verify all 18,631 repairs.
 The previous three palette repairs and retained native gris are in
-`2a86c331f`. Pending/restored counts remain 288/12; broader native and
+`2a86c331f`. Pending/restored counts remain 288/11; broader native and
 browser review remain open. Earlier controls are in `092678576`.
-Latest unchanged review: **2026-09-14**, local commit `a0aacc7a9` —
-Silesian raw MongoDB 3 files retains native shared vocabulary, resolving its
-last flagged finding. All 4,169 unchanged reviews and focused translation
-checks pass. Sources support vocabulary, not an exact standardized compound;
-browser and broader language review remain open. Basque completion review is
-in `1e62fca35`. Current counts are 288 pending and 12 restored.
+Latest unchanged review: **2026-09-14**, local commit `5bf97e219` —
+Basque S3 bucket-a retains a technical loan used in native ZIUR storage
+specifications. Focused field-context checks and all 4,170 retained reviews
+pass. Exact source hyphenation and browser review are not established.
+Current counts are 288 pending and 11 restored. Earlier Silesian review is
+in `a0aacc7a9`; completion review is in `1e62fca35`.
 Earlier unchanged review: **2026-09-14**, Thai r-is —
 คือ retained after removing its incorrect insertion before action predicates.
 Danish Dage gammel remains validated in `824dd005e` with native age-construction
@@ -73,7 +73,7 @@ Additional unflagged unchanged review: **2026-09-14**, `39af6aae5` —
 Veps Server and Valencian Errors retained with native software evidence and
 protected per locale from filling. Zero unreviewed English placeholders remain;
 this does not establish correct language or fluency in all values. These two reviews are outside the original flagged ledger; current
-pending/restored counts are 288/12.
+pending/restored counts are 288/11.
 
 
 

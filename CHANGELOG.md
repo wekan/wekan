@@ -738,6 +738,15 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5bf97e219">Retain reviewed Basque S3 terminology</a>. Thanks to xet7.</summary>
+
+Native Basque storage specifications support the restored S3 bucket term.
+Focused field-context checks pass; the dated audit resolves one restored
+finding and keeps broader language and browser verification open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7998e6aff">Review Basque incomplete rule wording</a>. Thanks to xet7.</summary>
 
 Native software guidance distinguishes completion status from leaving work
