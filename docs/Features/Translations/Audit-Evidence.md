@@ -26914,3 +26914,30 @@ instructions need current-source review. Keep these in scope even though
 they are outside the original 225-key pending table. Other archive locales,
 restored values and all prior low-confidence findings remain unfinished.
 No external translation service or remote push.
+
+
+### 2026-09-14 — Latin Uzbek regional/loading repairs
+
+Source commit `11db75449`; 376 stored values changed (two base, 187 each
+uz-LA/uz-UZ). Base loading values revise existing ledger identities; regional
+repairs add 374. Ledger 19,756; original pending 225/restored four unchanged.
+
+models/lib/cardsLoading.js and server/models/settings.js confirm automatic
+per-board loading, strictly above-threshold lazy loading, complete smaller
+board loading, no admin toggle, and literal CARDS_LOADING (all/lazy/auto) plus
+CARDS_LOADING_LAZY_THRESHOLD operator variables. Performance Jade displays
+the description directly. Correct stale all/lazy prose to these behaviors;
+replace personal laziness wording with on-demand loading in the separate
+experimental note, preserving accurate counts, WIP, partial-view and reload
+qualifiers. The latter key has no active template reference found in the
+initial search; no claim that a hidden/dormant note was exercised in the UI.
+
+Regional board sentences matched the earlier reviewed base before-values;
+eight differing core/roadmap/card-creation/clone/notification values were
+read separately against English. Keep Version/Release literals and existing
+correct-language prose. Five suites pass: regional language regression,
+loading behavior (28 checks), ledger exact tokens/examples/order/newer human
+preservation, unchanged reviews and completeness. No new browser run.
+Arabic-script Uzbek loading prose still requires its own orthographic and
+current-source review. Full native technical phrasing and all other uncertain
+findings remain open. No translation service or remote push.

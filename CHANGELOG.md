@@ -661,6 +661,17 @@ The browser assertion accepts whitespace between the regional flag and name.
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/11db75449">Repair Latin Uzbek regional terms and loading instructions</a>. Thanks to xet7.</summary>
+
+Describe automatic loading, live counts, thresholds and exact operator
+variables. Correct board word forms in matching Latin regional translations
+and review independent roadmap, clone and notification values. Five suites
+pass, including 28 loading behavior checks. Arabic-script guidance and full
+native technical wording remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/51dd39523">Repair remaining Uzbek board terminology and word forms</a>. Thanks to xet7.</summary>
 
 Correct 179 council-term sentences to the established Kanban board noun.
