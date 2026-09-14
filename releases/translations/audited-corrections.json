@@ -128448,5 +128448,89 @@
     "before": "Ajouter un couloir",
     "after": "Ouzhpennañ ur vandenn",
     "reason": "Replace French automation control prose using existing reolenn, tarzher, ober, ezel, tikedenn and roll-gwiriañ vocabulary. Full phrase/initial mutation/browser validation remains open; shared trigger clauses are not certified by this repair."
+  },
+  {
+    "locale": "br",
+    "key": "r-d-remove-label",
+    "before": "Supprimer l'étiquette",
+    "after": "Lemel an dikedenn",
+    "reason": "Replace French removal/update prose using existing Lemel, Hizivaat, card/item vocabulary. Actual rule actions use removeMember/removeLabel rather than delete user accounts; preserve that distinction. Full adapted clause and browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "r-d-remove-member",
+    "before": "Supprimer un participant",
+    "after": "Lemel un ezel",
+    "reason": "Replace French removal/update prose using existing Lemel, Hizivaat, card/item vocabulary. Actual rule actions use removeMember/removeLabel rather than delete user accounts; preserve that distinction. Full adapted clause and browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "r-d-remove-checklist",
+    "before": "Supprimer la checklist",
+    "after": "Lemel ar roll-gwiriañ",
+    "reason": "Replace French removal/update prose using existing Lemel, Hizivaat, card/item vocabulary. Actual rule actions use removeMember/removeLabel rather than delete user accounts; preserve that distinction. Full adapted clause and browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "r-remove",
+    "before": "Supprimer",
+    "after": "Lemel",
+    "reason": "Replace French removal/update prose using existing Lemel, Hizivaat, card/item vocabulary. Actual rule actions use removeMember/removeLabel rather than delete user accounts; preserve that distinction. Full adapted clause and browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "r-remove-value-from",
+    "before": "Supprimer la valeur de",
+    "after": "Lemel an talvoud eus",
+    "reason": "Replace French removal/update prose using existing Lemel, Hizivaat, card/item vocabulary. Actual rule actions use removeMember/removeLabel rather than delete user accounts; preserve that distinction. Full adapted clause and browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "remove-btn",
+    "before": "Supprimer",
+    "after": "Lemel",
+    "reason": "Replace French removal/update prose using existing Lemel, Hizivaat, card/item vocabulary. Actual rule actions use removeMember/removeLabel rather than delete user accounts; preserve that distinction. Full adapted clause and browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "remove-member",
+    "before": "Supprimer le participant",
+    "after": "Lemel an ezel",
+    "reason": "Replace French removal/update prose using existing Lemel, Hizivaat, card/item vocabulary. Actual rule actions use removeMember/removeLabel rather than delete user accounts; preserve that distinction. Full adapted clause and browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "remove-member-from-card",
+    "before": "Supprimer de la carte",
+    "after": "Lemel eus ar gartenn",
+    "reason": "Replace French removal/update prose using existing Lemel, Hizivaat, card/item vocabulary. Actual rule actions use removeMember/removeLabel rather than delete user accounts; preserve that distinction. Full adapted clause and browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "r-update",
+    "before": "Mettre à jour",
+    "after": "Hizivaat",
+    "reason": "Replace French removal/update prose using existing Lemel, Hizivaat, card/item vocabulary. Actual rule actions use removeMember/removeLabel rather than delete user accounts; preserve that distinction. Full adapted clause and browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "step-update-cards",
+    "before": "Mettre à jour les cartes",
+    "after": "Hizivaat ar c’hartennoù",
+    "reason": "Replace French removal/update prose using existing Lemel, Hizivaat, card/item vocabulary. Actual rule actions use removeMember/removeLabel rather than delete user accounts; preserve that distinction. Full adapted clause and browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "all-boards",
+    "before": "Tous les tableaux",
+    "after": "An holl daolennoù",
+    "reason": "Replace French removal/update prose using existing Lemel, Hizivaat, card/item vocabulary. Actual rule actions use removeMember/removeLabel rather than delete user accounts; preserve that distinction. Full adapted clause and browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "r-of-checklist",
+    "before": "de la checklist",
+    "after": "eus ar roll-gwiriañ",
+    "reason": "Replace French removal/update prose using existing Lemel, Hizivaat, card/item vocabulary. Actual rule actions use removeMember/removeLabel rather than delete user accounts; preserve that distinction. Full adapted clause and browser review remains open."
   }
 ]
