@@ -23150,3 +23150,27 @@ Syntax check passes. Configured localhost:3000 returns connection failure,
 so live browser execution is unverified. Original counts now 15,597 corrected,
 4,158 retained, 27 restored and 299 pending; Greenlandic has four remaining
 calendar findings, including exact civil/astronomical epoch and sighting terms.
+
+Dated restored/unflagged repair, 2026-09-14, local commit `6aa5991de`:
+Acehnese twoFactorCode-cancel uses Pubateuë, directly matching native MediaWiki
+resetpass-submit-cancel; general cancel remains untouched pending its own review.
+text-note-text uses Naseukah, attested by native yourtext/defaultmessagetext.
+LDAP success uses Sambongan meuhasé: native loginsuccesstitle/pagemovedsub and
+success sentences establish meuhasé, and the actual settingBody callback only
+shows this on connection success. Full connection phrase is adapted.
+no-assignee and the Malay filter-no-assignee now use Hana nyang geubri buët,
+retaining absence and work-assignment relationship. Native dictionary examples
+attest buet as work; local assigned-card instructions already use geubri.
+Geutanyong is not proven a malformed pronoun: native folklore uses it for
+asking/questioning. The initial working hypothesis was corrected before commit.
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/ace.json
+https://kamusbbpa.kemendikdasmen.go.id/index.php/kamus/Aceh/P?page=4
+https://repositori.kemendikdasmen.go.id/8931/1/Cerita%20rakyat%20aceh.pdf
+Assignment phrase is adapted, not a directly attested software sentence;
+full native grammar/browser validation remains open. Primary sources do not
+certify every value in a catalogue: MediaWiki itself has mixed/untranslated
+entries, so only inspected meanings were used. No inference from absence of
+a search hit alone established that Batai or Teuks is impossible in all usage.
+All 18,474 correction and 4,158 retained-review checks pass. Original counts:
+15,601 corrected, 23 restored, 4,158 retained and 299 pending. Restored Acehnese
+Due today and broader wrong-language filter/role/search prose remain open.
