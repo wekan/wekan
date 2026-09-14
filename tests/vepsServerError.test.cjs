@@ -93,8 +93,8 @@ test('Veps card display drafts keep card and minicard targets distinct', () => {
 });
 
 
-test('Veps link action replaces Finnish with a relation-creation draft', () => {
+test('Veps link action uses the native relation-linking imperative', () => {
   const data = JSON.parse(fs.readFileSync('imports/i18n/data/ve-PP.i18n.json', 'utf8'));
-  assert.equal(data.link, 'Ližada tarkenduz');
-  assert.doesNotMatch(data.link, /linkitä|poista|heitä/i);
+  assert.equal(data.link, 'Ühtenzoita');
+  assert.doesNotMatch(data.link, /linkitä|poista|heitä|ližada tarkenduz/i);
 });

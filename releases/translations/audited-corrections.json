@@ -131820,7 +131820,7 @@
     "locale": "ve-PP",
     "key": "link",
     "before": "Linkitä",
-    "after": "Ližada tarkenduz",
-    "reason": "2026-09-14: Replace Finnish Link action with Veps draft. Native MediaWiki create-local Ližada and nlinks tarkenduz support components; actual listBody Link actions create linked cards/boards. Low confidence: assembled imperative/object grammar and software relation terminology require native review."
+    "after": "Ühtenzoita",
+    "reason": "2026-09-14: Replace Finnish Link action with Veps draft. Native MediaWiki create-local Ližada and nlinks tarkenduz support components; actual listBody Link actions create linked cards/boards. Low confidence: assembled imperative/object grammar and software relation terminology require native review. 2026-09-14 revision: Native MediaWiki linkaccounts-submit/linkaccounts supplies direct imperative Ühtenzoita for linking existing entities. Replace assembled Ližada tarkenduz draft; retain original Finnish before value and history. WeKan creates linked-card/board relations; software-specific usage still open to native review."
   }
 ]
