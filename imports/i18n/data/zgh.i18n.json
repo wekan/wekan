@@ -1973,7 +1973,7 @@
   "Node_heap_number_of_detached_contexts": "ⴰⴳⵓⴷⵉ ⵏ Node: ⵓⵟⵟⵓⵏ ⵏ ⵉⵎⵏⴰⴹⵏ (detached)",
   "Node_memory_usage_rss": "Utilisation mémoire de Node : taille de l'ensemble résident",
   "Node_memory_usage_heap_total": "Utilisation mémoire de Node : taille totale du tas alloué",
-  "Node_memory_usage_heap_used": "Utilisation mémoire de Node : mémoire réellement utilisée",
+  "Node_memory_usage_heap_used": "ⴰⵙⵎⵔⵙ ⵏ ⵜⵎⴽⵜⵉⵜ ⵏ Node: ⵜⵉⵎⴽⵜⵉⵜ ⵉⵜⵜⵓⵙⵙⵎⵔⵙⵏ ⵙ ⵜⵉⴷⵜ",
   "Node_memory_usage_external": "Node: ⴰⵙⵙⵎⵔⵙ ⵏ ⵜⴽⴰⵜⵓⵜ: ⵢⴼⴼⵖⵏ",
   "add-organizations": "ⵔⵏⵓ ⵜⵓⴷⴷⵙⵉⵡⵉⵏ",
   "add-organizations-label": "ⵜⵓⴷⴷⵙⵉⵡⵉⵏ ⵉⵜⵜⵡⴰⵔⵏⵉⵏ ⵜⵜⵡⴰⵙⴽⵏⴰⵏⵜ ⴳ ⴷⴷⴰⵡ ⴷⴰ:",

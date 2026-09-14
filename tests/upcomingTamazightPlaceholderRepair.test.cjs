@@ -639,3 +639,7 @@ assert.strictEqual(translated["act-newDue"], "__list__/__card__ ⴷⴰⵔⵙ ⴰ
 assert.doesNotMatch(translated["act-newDue"], /rappel|échéance|[\u0600-\u06ff]/u);
 assert.ok(translated["act-newDue"].includes("ⴰⵙⴽⵜⵉ ⴰⵎⵣⵡⴰⵔⵓ"));
 console.log("Tamazight first due reminder preserves named activity tokens");
+
+assert.strictEqual(translated.Node_memory_usage_heap_used, "ⴰⵙⵎⵔⵙ ⵏ ⵜⵎⴽⵜⵉⵜ ⵏ Node: ⵜⵉⵎⴽⵜⵉⵜ ⵉⵜⵜⵓⵙⵙⵎⵔⵙⵏ ⵙ ⵜⵉⴷⵜ");
+assert.doesNotMatch(translated.Node_memory_usage_heap_used, /Utilisation|mémoire|[\u0600-\u06ff]/u);
+assert.notStrictEqual(translated.Node_memory_usage_heap_used, translated.Node_memory_usage_rss);

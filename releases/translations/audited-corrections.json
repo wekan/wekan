@@ -139277,5 +139277,12 @@
     "before": "__list__/__card__ a un 1er rappel d'échéance [__board__]",
     "after": "__list__/__card__ ⴷⴰⵔⵙ ⴰⵙⴽⵜⵉ ⴰⵎⵣⵡⴰⵔⵓ ⵏ ⵓⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ [__board__]",
     "reason": "Replace French with Tamazight first due-reminder draft; IRCAM 4289 askti reminder, 3071 amzwaru first. Full deadline compound and possessive grammar remain low confidence; source selects this key on initial dueAt changes, not only reminder delivery."
+  },
+  {
+    "locale": "zgh",
+    "key": "Node_memory_usage_heap_used",
+    "before": "Utilisation mémoire de Node : mémoire réellement utilisée",
+    "after": "ⴰⵙⵎⵔⵙ ⵏ ⵜⵎⴽⵜⵉⵜ ⵏ Node: ⵜⵉⵎⴽⵜⵉⵜ ⵉⵜⵜⵓⵙⵙⵎⵔⵙⵏ ⵙ ⵜⵉⴷⵜ",
+    "reason": "Replace French actual used-memory label; IRCAM 12742 memory, 9981 use, 12572 truth/reality. Computing memory adaptation, passive and actual-use paraphrase remain low confidence; heapUsed is V8 usage, not RSS."
   }
 ]
