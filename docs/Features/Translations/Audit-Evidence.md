@@ -24036,3 +24036,18 @@ Focused checks preserve dropdown consistency and checkbox distinction.
 All 18,651 corrections, 4,170 retained reviews and 234-locale structural
 completeness pass. Counts remain 288 pending and 11 restored. Browser
 verification and wider language review remain open.
+
+### 2026-09-14 — Breton zoom controls (0aeac5744)
+
+Unflagged zoom-in Agrandir becomes Brasaat, zoom-out Réduire becomes
+Bihanaat, and zoom-level Niveau d'agrandissement becomes Live zoum.
+[TermBret computing glossary](https://www.brezhoneg.bzh/uploads/Document/20/798_536_an-urzhiataerezh.pdf)
+attests brasaat for enlarging (page 2). The native
+[bihanaat definition](https://niverel.brezhoneg.bzh/br/meurgorf/4257)
+explicitly includes making size smaller and contrasts brasaat. Live zoum
+follows the existing enter-zoom-level prompt; it is an adapted level phrase,
+not an exact glossary quotation. Actual opened-card zoom buttons use these
+opposing action titles. Checks preserve direction and level/prompt consistency.
+All 18,654 corrections, 4,170 retained reviews and 234-locale structural
+completeness pass. Counts remain 288 pending and 11 restored. Broader native
+phrase and browser verification remain open.

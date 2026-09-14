@@ -738,6 +738,15 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0aeac5744">Repair Breton zoom terminology</a>. Thanks to xet7.</summary>
+
+Zoom controls use opposing Breton size verbs and level wording consistent
+with the existing prompt. Focused checks pass; the dated audit keeps full
+phrase and browser verification open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3539edd8b">Repair Breton custom-field terminology</a>. Thanks to xet7.</summary>
 
 Checkbox, dropdown, options and custom-field headings use Breton vocabulary.
