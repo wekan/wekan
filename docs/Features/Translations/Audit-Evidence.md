@@ -21661,3 +21661,14 @@ states; Ne eblas malfari preserves the no-undo warning; legita/nelegita
 preserve read/unread states. Exact interpolation remains unchanged.
 1,749 review records pass. 2,471 restored values and 308 pending findings
 remain, alongside broader language and browser validation.
+
+
+### Esperanto due-card and search review — 2026-09-14
+
+Local commit `53044af0b` retains forty-five correct weekday, task/checklist,
+organization/person, due-card and search values. The all-incomplete-card
+permission qualifier and no-due-card negation remain explicit; markdown
+and interpolation inventories are unchanged. Search diagnostic names and
+operator labels remain localized. 1,794 review records pass; 2,426 restored
+values and 308 pending findings, broader language and browser validation
+remain open.
