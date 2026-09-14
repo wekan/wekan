@@ -128763,5 +128763,54 @@
     "before": "Ce tableau sera <strong>public</strong>.",
     "after": "Foran e vo an daolenn-mañ.",
     "reason": "Replace French voting/public-board prose with Breton. Preserve for/against and permanent deletion question; native complete-phrase review remains open. Public board meaning remains unchanged."
+  },
+  {
+    "locale": "br",
+    "key": "r-datefield",
+    "before": "champ date",
+    "after": "maezienn deiziad",
+    "reason": "Replace French date-rule/activity prose with existing Breton start/due/end/received nouns and date/hour vocabulary; a-dueAt follows existing a-receivedAt phrasing. Full assembled clause/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "r-df-start-at",
+    "before": "début",
+    "after": "kregiñ",
+    "reason": "Replace French date-rule/activity prose with existing Breton start/due/end/received nouns and date/hour vocabulary; a-dueAt follows existing a-receivedAt phrasing. Full assembled clause/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "r-df-due-at",
+    "before": "échéance",
+    "after": "termen",
+    "reason": "Replace French date-rule/activity prose with existing Breton start/due/end/received nouns and date/hour vocabulary; a-dueAt follows existing a-receivedAt phrasing. Full assembled clause/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "r-df-end-at",
+    "before": "fin",
+    "after": "echuiñ",
+    "reason": "Replace French date-rule/activity prose with existing Breton start/due/end/received nouns and date/hour vocabulary; a-dueAt follows existing a-receivedAt phrasing. Full assembled clause/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "r-df-received-at",
+    "before": "reçu",
+    "after": "degemer",
+    "reason": "Replace French date-rule/activity prose with existing Breton start/due/end/received nouns and date/hour vocabulary; a-dueAt follows existing a-receivedAt phrasing. Full assembled clause/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "r-to-current-datetime",
+    "before": "à la date/heure courante",
+    "after": "d’an deiziad/eur a-vremañ",
+    "reason": "Replace French date-rule/activity prose with existing Breton start/due/end/received nouns and date/hour vocabulary; a-dueAt follows existing a-receivedAt phrasing. Full assembled clause/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "a-dueAt",
+    "before": "Echéance modifiée à",
+    "after": "kemmet an eur termen da",
+    "reason": "Replace French date-rule/activity prose with existing Breton start/due/end/received nouns and date/hour vocabulary; a-dueAt follows existing a-receivedAt phrasing. Full assembled clause/browser validation remains open."
   }
 ]
