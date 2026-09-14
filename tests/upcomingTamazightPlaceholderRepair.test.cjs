@@ -185,3 +185,9 @@ assert.match(translated['notify-watch'], /ⵜⴼⵍⵡⵉⵏ, ⵜⵉⵍⴳⴰⵎ
 assert.match(translated['notify-watch'], /ⵜⵎⵎⵓⵜⵔⴷ/);
 assert.doesNotMatch(translated['notify-watch'], /ⴰⵎⵙⵏⴼⵍⵓⵍ|ⴰⴳⵎⴰⵎ|Recevoir/);
 assert.notEqual(translated['notify-watch'], translated['notify-participate']);
+
+const wipGuidance = translated['wipLimitErrorPopup-dialog-pt2'];
+assert.match(wipGuidance, /ⵙⵎⵓⵜⵜⵉ.*ⵙⴳ ⵜⵍⴳⴰⵎⵜ ⴰⴷ ⵏⵖ ⵙⵙⵉⵎⵖⵓⵔ ⴰⵡⵜⵜⵓ WIP/);
+assert.doesNotMatch(wipGuidance, /ⴽⴽⵙ|Veuillez|enlever/);
+assert.match(fs.readFileSync(path.join(ROOT, 'client/components/lists/listHeader.jade'), 'utf8'),
+  /template\(name="wipLimitErrorPopup"\)[\s\S]*?wipLimitErrorPopup-dialog-pt2/);
