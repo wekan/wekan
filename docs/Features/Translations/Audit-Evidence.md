@@ -1,5 +1,14 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `080225ac9`: French custom-format instruction repaired with
+“use %{value} in place of the value”. client/lib/customFields.js substitutes
+this token with each item value; retain its exact spelling. Indexed HACA
+entry 461 supports Format, native MediaWiki supports Use, Place and Value.
+Direct HACA PDF remains uninspected; bound forms and full software paraphrase
+remain low confidence. This supersedes pending status in the earlier Format
+review, not its evidence limits. All 18,095 correction checks pass; 323
+original findings remain pending, including 188 Tamazight.
+
 2026-09-14 — parent-card terminology review: models/boards.js documents
 `no-parent` as not showing the parent at all; it is a display option, not
 relationship removal. Keep this distinct from Change Card Parent and
