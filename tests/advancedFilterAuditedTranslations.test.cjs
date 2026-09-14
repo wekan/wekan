@@ -53,6 +53,12 @@ const examples = ['== != <= >= && || ( )', 'Field1 == Value1', "'Field 1' == 'Va
   assert.doesNotMatch(tamazightHelp, /ⵜⵉⵙⵇⵇⵍⵜⵉⵏ|ⵜⵓⵛⵛⵉⵍ/);
   assert.ok(tamazightHelp.includes("ⵜⴰⵙⴽⴰⵔⵉⵏ ⵙ ⵢⴰⵏ ⵓⵙⴽⴽⵉⵍ '"));
   assert.doesNotMatch(tamazightHelp, /ⵉⵎⵢⵉⵡⵏⵏ/);
+  const trelloHelp = read('zgh')['import-board-instruction-trello'];
+  assert.deepEqual(trelloHelp.match(/'[^']+'/g),
+    ["'Menu'", "'More'", "'Print and Export'", "'Export JSON'"]);
+  assert.doesNotMatch(trelloHelp, /In your Trello board|copy the resulting text/);
+  assert.match(trelloHelp, /ⵙⵙⵏⵖⵍ ⴰⴹⵕⵉⵚ/);
+
 
   assert.match(read('lt')['advanced-filter-description'], /Išplėstinis filtras/);
   assert.match(read('mn')['advanced-filter-description'], /Нарийвчилсан шүүлтүүр/);
