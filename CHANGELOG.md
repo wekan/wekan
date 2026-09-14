@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4941f33fd">Remove French conjunction from Tamazight sidebar title</a>. Thanks to xet7.</summary>
+
+Native alternative wording replaces French ou in the shared conjunction.
+The actual sidebar title and negative French-word check pass in Chromium.
+Translation checks preserve placeholders and newer human translations;
+full sidebar compounds remain under native review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/75fbb698c">Verify Tamazight numeric total tooltip in the browser</a>. Thanks to xet7.</summary>
 
 The browser fixture enables the actual badge-visibility setting and

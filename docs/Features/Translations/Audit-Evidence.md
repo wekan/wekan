@@ -26326,3 +26326,16 @@ Earlier registered-but-unrun notes are superseded. This verifies rendering
 and calculation scope, not native phrase fluency. Browser snapshots also
 show remaining mixed French/Arabic Tamazight values; those require repair.
 No locale values/counts changed: pending 232, restored 4, ledger 18,832.
+
+
+Conjunction repair **2026-09-14**, local commit `4941f33fd`:
+Unflagged zgh `or` changes French **ou** to **ⵏⵖ**. Native MediaWiki
+`category-empty` directly places ⵏⵖ between media and page alternatives.
+The actual main/header.jade sidebar toggle composes sidebar-open, or,
+sidebar-close. Source regression checks that composition and rejects ou;
+Chromium checks the rendered title and rejects French ou: **1 passed
+(4.1s)**. Four translation suites pass with exact placeholders, English
+key order and newer-translation preference. This repairs the conjunction
+only; full sidebar noun compounds and other French/Arabic values remain
+under review. Ledger 18,833; original pending 232/restored 4 unchanged.
+Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json

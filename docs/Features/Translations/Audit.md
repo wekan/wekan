@@ -16,13 +16,13 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `2dbc6ba3a` —
-Veps Link uses the native linking imperative instead of an assembled draft.
-Source action and WeKan relation-creation scope checked; software-specific
-native review remains open. Four suites pass; ledger 18,832, counts unchanged.
+Latest translation fix: **2026-09-14**, local commit `4941f33fd` —
+Tamazight or replaces French ou with native ⵏⵖ. Actual sidebar toggle
+composition verified in Chromium; four locale suites pass. Full sidebar
+compound wording remains open. Ledger 18,833; original counts unchanged.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,832** exact before/after values, including unflagged
+records contain **18,833** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
