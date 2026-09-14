@@ -139081,5 +139081,12 @@
     "before": "Le port des mails sortants du serveur SMTP.",
     "after": "Port ⵍⵍⵉ ⵉⵙⵙⵎⵔⵙ ⵓⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ SMTP ⵏⴽ ⵉ ⵓⵣⵏ ⵏ ⵜⵉⵎⵢⴰⵣⴰⵏⵉⵏ ⵜⵉⵍⵉⴽⵟⵕⵓⵏⵉⵜⵉⵏ.",
     "reason": "2026-09-15: Replace Arabic port label and French description. Borrow Port as technical networking term rather than IRCAM harbour aftas. Description preserves your SMTP server using this port to send email, reusing smtp-host-description electronic-message phrase. IRCAM azn send entry 5476 and ssmrs use entry 9981; full computing phrase grammar low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "show-desktop-drag-handles",
+    "before": "Voir les poignées de déplacement du bureau",
+    "after": "ⵙⵙⴽⵏ ⵜⵉⵇⴱⴱⵉⴹⵉⵏ ⵏ ⵓⴽⵔⵉⵔⵓ ⴳ Desktop",
+    "reason": "2026-09-15: Replace French drag-handle label using IRCAM sskn show 9816, taqbbidt handle plural tiqbbidin 10938 and kriru drag 6439. Desktop borrowed mode identifier matches toggle terminology. Derived action noun akriru/bound ukriru and full software compound low confidence."
   }
 ]

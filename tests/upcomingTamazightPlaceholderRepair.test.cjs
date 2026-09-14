@@ -512,3 +512,7 @@ assert.strictEqual(translated['smtp-port-description'], 'Port ⵍⵍⵉ ⵉⵙ�
 assert.doesNotMatch(translated['smtp-port-description'], /Le port|[\u0600-\u06ff]|ⴰⴼⵜⴰⵙ/u);
 assert.ok(translated['smtp-port-description'].includes('ⵉ ⵓⵣⵏ'));
 console.log('Tamazight SMTP port description preserves outgoing-mail purpose');
+
+assert.strictEqual(translated['show-desktop-drag-handles'], 'ⵙⵙⴽⵏ ⵜⵉⵇⴱⴱⵉⴹⵉⵏ ⵏ ⵓⴽⵔⵉⵔⵓ ⴳ Desktop');
+assert.doesNotMatch(translated['show-desktop-drag-handles'], /Voir les|bureau|[\u0600-\u06ff]/u);
+console.log('Tamazight drag-handle label distinguishes Desktop mode and drag purpose');
