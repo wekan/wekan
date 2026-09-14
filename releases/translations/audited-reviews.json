@@ -14866,5 +14866,209 @@
     "key": "duplicate-board-confirm",
     "value": "Estás seguro de que queres duplicar este taboleiro?",
     "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "swimlane-delete-pop",
+    "value": "Todas as accións eliminaranse do fío de actividade e non poderás recuperar o carril. Non se pode desfacer.",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "above-selected-card",
+    "value": "Enriba da tarxeta seleccionada",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "below-selected-card",
+    "value": "Debaixo da tarxeta seleccionada",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "act-atUserComment",
+    "value": "mencionoute na tarxeta __card__: __comment__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "delete-user-confirm-popup",
+    "value": "Estás seguro de que queres eliminar esta conta? Non se pode desfacer.",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "delete-team-confirm-popup",
+    "value": "Estás seguro de que queres eliminar este equipo? Non se pode desfacer.",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "delete-org-confirm-popup",
+    "value": "Estás seguro de que queres eliminar esta organización? Non se pode desfacer.",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "hide-minicard-label-text",
+    "value": "Agochar o texto das etiquetas na minitarxeta",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "addmore-detail",
+    "value": "Engadir unha descrición máis detallada",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "show-on-card",
+    "value": "Mostrar na tarxeta",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "show-on-minicard",
+    "value": "Mostrar na minitarxeta",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "filter-by-unread",
+    "value": "Filtrar por non lidas",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "mark-all-as-unread",
+    "value": "Marcar todas como non lidas",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "all-board-members",
+    "value": "Todos os membros do taboleiro",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "board-admin",
+    "value": "Administrador do taboleiro",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "delete-linked-card-before-this-card",
+    "value": "Non podes eliminar esta tarxeta sen eliminar antes a tarxeta ligada que ten",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "delete-linked-cards-before-this-list",
+    "value": "Non podes eliminar esta lista sen eliminar antes as tarxetas ligadas que apuntan a tarxetas desta lista",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "hide-finished-checklist",
+    "value": "Agochar as listas de verificación rematadas",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "autoAddUsersWithDomainName",
+    "value": "Engadir automaticamente os usuarios co nome de dominio",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "my-cards",
+    "value": "As miñas tarxetas",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "card",
+    "value": "Tarxeta",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "board",
+    "value": "Taboleiro",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "myCardsViewChange-title",
+    "value": "Vista das miñas tarxetas",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "myCardsViewChangePopup-title",
+    "value": "Vista das miñas tarxetas",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "myCardsSortChange-title",
+    "value": "Ordenación das miñas tarxetas",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "myCardsSortChangePopup-title",
+    "value": "Ordenación das miñas tarxetas",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "myCardsSortChange-choice-board",
+    "value": "Por taboleiro",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "dueCards-title",
+    "value": "Tarxetas con vencemento",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "dueCardsViewChange-title",
+    "value": "Vista de tarxetas con vencemento",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "dueCardsViewChangePopup-title",
+    "value": "Vista de tarxetas con vencemento",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "dueCardsViewChange-choice-all-description",
+    "value": "Mostra todas as tarxetas incompletas con data de *vencemento* dos taboleiros para os que o usuario ten permiso.",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearchViewChange-choice-me",
+    "value": "As miñas tarxetas",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearchViewChange-choice-all",
+    "value": "Todas as tarxetas",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "dueCards-noResults-title",
+    "value": "Non se atoparon tarxetas con vencemento",
+    "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
   }
 ]
