@@ -4,25 +4,24 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,556 |
-| Restored pre-pull; awaiting validation | 2,057 |
+| Corrected | 15,557 |
+| Restored pre-pull; awaiting validation | 2,056 |
 | Reviewed; retained unchanged | 2,160 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
 Review is ongoing. The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,152** exact before/after values, including unflagged repairs.
+contain **18,153** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `05217bbb9` —
-corrected Esperanto heap garbage-zapping to describe overwriting with a
-bit pattern, matching official Node documentation. All **18,152** correction
-records pass. Latest unchanged review: `41fb26dff` (2026-09-14) confirms scrollbar
-terminology with Komputeko and LibreOffice.
-Seven Esperanto restored findings remain uncertain: overtime variants,
-lime-color, advanced-filter and two Complete labels. Browser
-verification and broader language review remain open; no translations pushed.
+Latest translation fix: **2026-09-14**, local commit `5d94f1b92` —
+repaired Esperanto advanced-filter examples and literal-character escaping.
+All **18,153** correction records and focused filter checks pass. Latest
+unchanged review: `41fb26dff` (2026-09-14), scrollbar terminology confirmed.
+Six Esperanto restored findings remain: overtime variants, lime color and
+two Complete labels. Browser and broader language verification remain open;
+no translations pushed.
 
 
 Fixed categories include wrong-language prose, terminology, warnings,

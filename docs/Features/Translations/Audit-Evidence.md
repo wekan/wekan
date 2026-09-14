@@ -21839,3 +21839,15 @@ uses #51e898, so a single exact hue cannot be inferred from the token alone.
 2,160 review records pass; seven Esperanto restored findings remain.
 Globally 2,057 restored and 308 pending findings and wider language/browser
 validation remain open.
+
+
+### Esperanto advanced-filter repair — 2026-09-14
+
+Local commit `5d94f1b92` preserves canonical Field1/Value1 and quoted
+examples while retaining Esperanto prose. The tokenizer escapes punctuation
+as literal characters; help now says specialajn signojn ... literalajn
+signojn rather than skipping control characters. Operators, regex and
+backslash inventory remain exact. Focused positive examples and negative
+wording coverage pass; all 18,153 corrections pass. Six Esperanto restored
+findings remain. Globally 2,056 restored and 308 pending findings plus wider
+language/browser verification remain open.
