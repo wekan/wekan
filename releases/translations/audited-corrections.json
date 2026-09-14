@@ -123940,5 +123940,19 @@
     "before": "الساعات",
     "after": "ⵜⵉⵙⵔⴰⴳⵉⵏ",
     "reason": "2026-09-14: Replace Arabic date/time label with directly attested Standard Moroccan terminology. Native MediaWiki rcfilters-hours-title supplies the plural hours noun; preserve duration unit plural rather than singular hour. Keep full weekday names, not abbreviations. References: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "minutes",
+    "before": "الدقائق",
+    "after": "ⵜⵓⵙⴷⵉⴷⵉⵏ",
+    "reason": "2026-09-14: Replace Arabic duration-unit label, preserving minute versus second and plural scope. CLDR field minute displayName tusdidt supplies the singular; native Mastodon intervals.full.minutes explicitly supplies plural tusdidin. Use the exact plural unit, not singular or minute of the clock. Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json (intervals.full.minutes). Reference: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml (dates/fields)."
+  },
+  {
+    "locale": "zgh",
+    "key": "seconds",
+    "before": "الثواني",
+    "after": "ⵜⵉⵙⵉⵏⵉⵏ",
+    "reason": "2026-09-14: Replace Arabic duration-unit label, preserving minute versus second and plural scope. CLDR field second displayName tasint supplies the singular time-unit term. Derive feminine plural tisinin to retain English plural seconds. LOW CONFIDENCE plural morphology: no directly verified plural-seconds example was established; fluent grammar review remains required. Do not confuse seconds with ordinal second or minutes. Reference: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml (dates/fields)."
   }
 ]
