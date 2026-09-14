@@ -703,6 +703,18 @@ The browser assertion accepts whitespace between the regional flag and name.
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3a090333c">Repair Tamazight selection and label shortcut text</a></summary>
+
+Replace wrong-language wording while preserving add/remove versus
+selection-add behavior and both 1-9 ranges. Four focused suites pass.
+Dated audit: 19,821 corrections and 187 original findings pending; full
+contextual grammar remains under native review.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/636dae2df">Repair Tamazight quick-access star-board instruction</a></summary>
 
 Replace Arabic with Tamazight wording retaining star action and shortcut

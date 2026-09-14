@@ -27904,3 +27904,32 @@ do not attest the complete cybersecurity compound; literal violent-force
 wording would not establish exhaustive credential-guessing meaning. No
 change was made to these labels. Broader uncertain/restored/unflagged
 review remains open. No push.
+
+## Multi-selection and label shortcuts — 2026-09-15
+
+Local commit `3a090333c` replaces Arabic multi-selection and French
+toggle-labels using existing Tamazight terminology. Express toggle as add
+or remove labels 1-9 for a card; multi-selection adds labels 1-9. Both
+numeric ranges remain exact. Existing remove-labels-multiselect supplies
+the selection compound, while add/remove/labels/card terms are reused.
+keyboard.js lines 197/210 implement add for selection versus toggle for a
+card, and its shortcut list registers toggle-labels. This consistency
+repair adds no independent lexical attestation.
+
+**Low confidence:** computing selection compound and complete contextual
+grammar remain under native review. Four focused suites pass for both
+behaviors, exact ranges, negative wrong-language checks, placeholders,
+order and newer human translation preference. No live browser test ran.
+Ledger 19,821; original corrected 15,716, pending 187 (zgh 92), restored 4
+unchanged. multi-selection additionally repairs an unflagged value.
+Broader uncertain/restored/unflagged review remains open. No push.
+
+The supplied Transifex support response promises catalogue support for
+gv/lld/rup/tig/wal; it does not prove live availability or translation
+quality. The existing force-push regression verifies re-registration and
+upload after previously missing targets become supported, without network
+writes. Unicode CLDR validates Manx's four integer categories plus decimal
+many, and Ladin/Tigre integer rules. Aromanian/Wolaytta proposed two-form
+rules remain provisional, not native-translator approval. None of this
+closes the local native wording review.
+Reference: https://raw.githubusercontent.com/unicode-org/cldr/main/common/supplemental/plurals.xml
