@@ -21905,3 +21905,13 @@ board-info, member/assignee and privacy controls. All-card versus current-card
 scope, public/private distinction, HTML emphasis and archive-empty negation
 remain intact. All 2,260 review records pass; 1,953 restored values and
 308 pending findings plus wider language/browser verification remain open.
+
+
+### Galician deletion and archive guidance — 2026-09-14
+
+Local commit `4c585a2b8` retains twenty-five correct board-view,
+deletion/archive, membership and card-type values. Permanent deletion,
+activity loss and inability to undo/reopen remain explicit, distinct from
+reversible archival and restore guidance. All 2,285 review records pass;
+1,928 restored values and 308 pending findings plus broader language/browser
+verification remain open.
