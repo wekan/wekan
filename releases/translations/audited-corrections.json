@@ -124570,5 +124570,40 @@
     "before": "Migration en échec",
     "after": "ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⵓⵙⵎⵓⵜⵜⵢ",
     "reason": "2026-09-14: Replace French migration label using native move noun from MediaWiki movelogpage bound usmutty, adapted to data/schema Migration in keeping with existing local migration terminology. Preserve singular/plural, board versus database scope and failed versus success status. MediaWiki readonly directly attests tasila n isfk a Database and cannotlogin-text ur yallfus failure frame. LOW CONFIDENCE move-to-software-migration extension, derived free noun/plural, bound board noun and complete phrases need fluent Standard Moroccan review; the move log is not direct attestation of data-schema migration. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (movelogpage, readonly, cannotlogin-text). No success word is added to failed status."
+  },
+  {
+    "locale": "zgh",
+    "key": "select-migration",
+    "before": "Sélectionner une migration",
+    "after": "ⵙⵜⵉ ⴰⵙⵎⵓⵜⵜⵢ",
+    "reason": "2026-09-14: Replace French/Arabic selection or migration-required label with native components. Preserve Select action, migration versus board versus color, and required versus not required polarity. Select Color exactly follows MediaWiki rcfilters-highlightmenu-title; sti Select also appears in history-fieldset-title. Required iqqan is adapted from changeemail-no-info necessity frame; negative ur preserves No migration needed. LOW CONFIDENCE full required/not-required construction and software-migration extension of bound usmutty from movelogpage require fluent review. Board selection uses existing kanban noun with native Select imperative. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Do not equate not-needed with failed or completed."
+  },
+  {
+    "locale": "zgh",
+    "key": "select-board",
+    "before": "Sélectionner le tableau",
+    "after": "ⵙⵜⵉ ⵜⴰⴼⵍⵡⵉⵜ",
+    "reason": "2026-09-14: Replace French/Arabic selection or migration-required label with native components. Preserve Select action, migration versus board versus color, and required versus not required polarity. Select Color exactly follows MediaWiki rcfilters-highlightmenu-title; sti Select also appears in history-fieldset-title. Required iqqan is adapted from changeemail-no-info necessity frame; negative ur preserves No migration needed. LOW CONFIDENCE full required/not-required construction and software-migration extension of bound usmutty from movelogpage require fluent review. Board selection uses existing kanban noun with native Select imperative. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Do not equate not-needed with failed or completed."
+  },
+  {
+    "locale": "zgh",
+    "key": "select-color",
+    "before": "اختيار اللون",
+    "after": "ⵙⵜⵉ ⴽⵔⴰ ⵏ ⵓⴽⵍⵓ",
+    "reason": "2026-09-14: Replace French/Arabic selection or migration-required label with native components. Preserve Select action, migration versus board versus color, and required versus not required polarity. Select Color exactly follows MediaWiki rcfilters-highlightmenu-title; sti Select also appears in history-fieldset-title. Required iqqan is adapted from changeemail-no-info necessity frame; negative ur preserves No migration needed. LOW CONFIDENCE full required/not-required construction and software-migration extension of bound usmutty from movelogpage require fluent review. Board selection uses existing kanban noun with native Select imperative. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Do not equate not-needed with failed or completed."
+  },
+  {
+    "locale": "zgh",
+    "key": "migration-needed",
+    "before": "Migration requise",
+    "after": "ⵉⵇⵇⴰⵏ ⵓⵙⵎⵓⵜⵜⵢ",
+    "reason": "2026-09-14: Replace French/Arabic selection or migration-required label with native components. Preserve Select action, migration versus board versus color, and required versus not required polarity. Select Color exactly follows MediaWiki rcfilters-highlightmenu-title; sti Select also appears in history-fieldset-title. Required iqqan is adapted from changeemail-no-info necessity frame; negative ur preserves No migration needed. LOW CONFIDENCE full required/not-required construction and software-migration extension of bound usmutty from movelogpage require fluent review. Board selection uses existing kanban noun with native Select imperative. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Do not equate not-needed with failed or completed."
+  },
+  {
+    "locale": "zgh",
+    "key": "migration-not-needed",
+    "before": "Aucune migration nécessaire",
+    "after": "ⵓⵔ ⵉⵇⵇⴰⵏ ⵓⵙⵎⵓⵜⵜⵢ",
+    "reason": "2026-09-14: Replace French/Arabic selection or migration-required label with native components. Preserve Select action, migration versus board versus color, and required versus not required polarity. Select Color exactly follows MediaWiki rcfilters-highlightmenu-title; sti Select also appears in history-fieldset-title. Required iqqan is adapted from changeemail-no-info necessity frame; negative ur preserves No migration needed. LOW CONFIDENCE full required/not-required construction and software-migration extension of bound usmutty from movelogpage require fluent review. Board selection uses existing kanban noun with native Select imperative. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Do not equate not-needed with failed or completed."
   }
 ]
