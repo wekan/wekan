@@ -136,6 +136,11 @@ Silesian database follow-up 45d98c94f (2026-09-14) corroborates regional
 human usage of the shared database term. The raw-file qualifier and full
 label remain pending; translation counts are unchanged.
 
+Authentication reference review 9bcb5e162 (2026-09-14) directly verifies
+MC£ (Tuareg) in the dictionary where the search index renders MCF. Do not
+accept that candidate as Moroccan proof; authentication labels remain
+under review with unchanged counts.
+
 </details>
 
 <details>
@@ -1724,6 +1729,16 @@ a singular Card. Native title/details vocabulary is supported; complete
 kanban phrases and bound forms remain low confidence and require fluent
 review. All 17,721 correction/rendering checks pass; 488 original findings
 remain pending.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9bcb5e162">Verify Tamazight authentication reference provenance</a>. Thanks to xet7.</summary>
+
+Direct PDF extraction identifies the authentication candidate’s source as
+Tuareg (MC£), despite search-index MCF rendering. Keep full authentication
+labels pending; preserve method/type, display/default and authentication
+versus ordinary sign-in/authorization. No locale values or counts changed.
 
 </details>
 
