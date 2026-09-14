@@ -1,8 +1,10 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Template } from 'meteor/templating';
-import DOMPurify from 'dompurify';
-import { sanitizeHTML, sanitizeText } from '/imports/lib/secureDOMPurify';
+import { Blaze } from 'meteor/blaze';
+import { HTML } from 'meteor/htmljs';
+import { titleViewerHtml } from '/client/lib/titleViewer';
+import { sanitizeHTML } from '/imports/lib/secureDOMPurify';
 import { TAPi18n } from '/imports/i18n';
 import { Utils } from '/client/lib/utils';
 import { getSidebarInstance } from '/client/features/sidebar/service';
@@ -287,16 +289,9 @@ Template.activity.helpers({
       // Only render a link for an http(s) URL; otherwise show the plain (sanitized)
       // source name with no href.
       if (source.url && /^https?:\/\//i.test(String(source.url))) {
-        return Blaze.toHTML(
-          HTML.A(
-            {
-              href: source.url,
-            },
-            sanitizeHTML(source.system),
-          ),
-        );
+        return linkedActivityValue(source.system, source.url, 'action-source');
       }
-      return sanitizeHTML(source.system);
+      return titleViewerHtml(source.system);
     }
     return null;
   },
@@ -317,16 +312,9 @@ Template.activity.helpers({
       (attachment &&
         attachment.path &&
         attachmentUrl &&
-        Blaze.toHTML(
-          HTML.A(
-            {
-              href: `${attachmentUrl}?download=true`,
-              target: '_blank',
-            },
-            sanitizeText(attachment.name),
-          ),
-        )) ||
-      sanitizeText(this.activity.attachmentName)
+        linkedActivityValue(attachment.name,
+          `${attachmentUrl}?download=true`, 'action-attachment', '_blank')) ||
+      titleViewerHtml(this.activity.attachmentName)
     );
   },
 
@@ -338,8 +326,14 @@ Template.activity.helpers({
 });
 
 Template.activity.helpers({
-  sanitize(value) {
-    return sanitizeHTML(value);
+  activityValue(value) {
+    return titleViewerHtml(value == null ? '' : String(value));
+  },
+  activityMessage(key, ...values) {
+    const setting = ReactiveCache.getCurrentSetting();
+    return sanitizeHTML(TAPi18n.__(key, ...values), {
+      stripLinks: !!(setting && setting.renderLinksAsPlainText),
+    });
   },
 });
 
@@ -433,36 +427,30 @@ function createCardLink(activity, card, boardTitle) {
     // Nothing named the card - an old activity from before the titles were
     // recorded, on a card this client cannot see. Say "this card" rather than
     // leaving a gap in the middle of a sentence.
-    return sanitizeHTML(TAPi18n.__('this-card'));
+    return titleViewerHtml(TAPi18n.__('this-card'));
   }
   let text = link.title;
   if (link.archived) text = `${text} [${TAPi18n.__('archived')}]`;
   if (boardTitle) text = `${boardTitle} > ` + text;
-  if (!link.url) return sanitizeHTML(text);
-  return Blaze.toHTML(
-    HTML.A(
-      {
-        href: link.url,
-        class: 'action-card',
-      },
-      sanitizeHTML(text),
-    ),
-  );
+  return linkedActivityValue(text, link.url, 'action-card');
+}
+
+// Keep rich user links separate from application navigation: nested anchors
+// cause browsers to move title fragments outside the activity link.
+function linkedActivityValue(value, url, className, target) {
+  const rendered = sanitizeHTML(titleViewerHtml(value));
+  if (!url) return rendered;
+  const content = HTML.Raw(rendered);
+  const attributes = { href: url, class: className };
+  if (target) attributes.target = target;
+  return Blaze.toHTML(/<a\b/i.test(rendered)
+    ? HTML.SPAN(content, ' ', HTML.A(attributes, '↗'))
+    : HTML.A(attributes, content));
 }
 
 function createBoardLink(board, list) {
+  if (!board) return '';
   let text = board.title;
   if (list) text += `: ${list}`;
-  return (
-    board &&
-    Blaze.toHTML(
-      HTML.A(
-        {
-          href: board.originRelativeUrl(),
-          class: 'action-board',
-        },
-        sanitizeHTML(text),
-      ),
-    )
-  );
+  return linkedActivityValue(text, board.originRelativeUrl(), 'action-board');
 }
