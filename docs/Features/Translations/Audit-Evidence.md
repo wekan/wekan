@@ -23950,3 +23950,21 @@ label, related name description and bucket-name input association. All 4,170
 retained reviews and 234-locale structural completeness pass. One restored
 finding is resolved; pending/restored counts are now 288/11. Browser and
 broader review remain open. No locale values were overwritten.
+
+### 2026-09-14 — Breton navigation and templates (bb65bf79d)
+
+Six unflagged French values are repaired: back Retour becomes Distreiñ;
+home Accueil becomes Degemer; font-size-default Défaut becomes Dre ziouer;
+custom-field-text Texte becomes Testenn; templates and allboards.templates
+Modèles become Patromoù.
+[Native MediaWiki software messages](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/br.json)
+attest Distreiñ in return controls, Degemer for the main page, dre ziouer
+for defaults, Testenn for text and patromoù for template plural contexts.
+The return verb is extracted from a longer native return instruction; these
+are vocabulary/context adaptations, not six exact source label quotations.
+Actual rule controls return to the previous view, while template navigation
+and list selectors share the template noun. Tests preserve equivalent text
+and template labels and distinguish return from home. All 18,637 corrections,
+4,170 retained reviews and 234-locale structural completeness pass.
+Pending/restored counts remain 288/11. Full browser verification and wider
+native review remain open.

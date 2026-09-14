@@ -30,7 +30,7 @@ cross-checks calendar, user and click components in native Moroccan sources.
 Full phrases, warnings and invalidated Tuareg records remain open; no pending
 finding was accepted from component evidence.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,631** exact before/after values, including unflagged repairs.
+contain **18,637** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
@@ -49,12 +49,13 @@ remains open. Latin Inuktitut spelling is valid; original script warnings
 require vocabulary/context review rather than automatic replacement.
 Current pending/restored counts are 288/11.
 
-Latest translation fix: **2026-09-14**, local commit `a123f9428` —
-Breton white replaces French blanc with dictionary-attested gwenn. Focused
-checks distinguish white from gray and silver and verify all 18,631 repairs.
-The previous three palette repairs and retained native gris are in
-`2a86c331f`. Pending/restored counts remain 288/11; broader native and
-browser review remain open. Earlier controls are in `092678576`.
+Latest translation fix: **2026-09-14**, local commit `bb65bf79d` —
+Six French Breton labels become native return, home, default, text and
+template vocabulary. Equivalent template/text labels stay consistent;
+return and home remain distinct. All 18,637 corrections and focused checks
+pass. Pending/restored counts remain 288/11; broader native and browser
+review remain open. Earlier palette repairs are in `a123f9428` and
+`2a86c331f`; common-control repairs are in `092678576`.
 Latest unchanged review: **2026-09-14**, local commit `5bf97e219` —
 Basque S3 bucket-a retains a technical loan used in native ZIUR storage
 specifications. Focused field-context checks and all 4,170 retained reviews

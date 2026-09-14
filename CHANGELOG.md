@@ -738,6 +738,15 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bb65bf79d">Repair Breton navigation and templates</a>. Thanks to xet7.</summary>
+
+Six French labels become Breton using native software vocabulary. Template
+and text labels stay consistent; return and home remain distinct. Focused
+checks pass; the dated audit keeps broader and browser review open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5bf97e219">Retain reviewed Basque S3 terminology</a>. Thanks to xet7.</summary>
 
 Native Basque storage specifications support the restored S3 bucket term.
