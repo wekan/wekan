@@ -493,3 +493,25 @@ negative Finnish and exact instruction, full token inventories and key
 order. No live settings UI test ran. Ledger 19,900; corrected 15,777,
 pending 126 (Veps 8), restored 4 unchanged. Unflagged shortcut title and
 all prior low-confidence wording stay within the full review scope.
+
+
+2026-09-15 — `29bf7aa22`: unflagged rules = Säännöt replaced with
+Sändod. Primary native MediaWiki policy-url is Project:Sändod, read today:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+Existing r-rule = Sänd supplies consistent singular. Four focused files
+pass (17 checks), including exact native plural, negative Finnish and
+placeholder/key-order checks. No live rules UI test ran. Ledger 19,901;
+original tracked pending stays 126 (Veps 8), restored 4 unchanged.
+
+Additional live unflagged wrong-language findings require direct repairs:
+r-toggle-rule-enabled = Shumisani kana litshani mulayo hoyu;
+r-rule-disabled = A i shumiswi;
+twoFactorAuth-enable = Vulani u Ṱhogomela nga Zwibveledzwa Zwivhili;
+list-sync-enabled = U vhambadzanya ho vulwa.
+These Tshivenda values are not protected Veps human translations. Also
+review twoFactorAuth-enabled, which contains the same foreign wording.
+Do not infer completion from the eight-row Veps original queue. The rule
+button rulesList.jade:37 uses r-toggle-rule-enabled, so its tooltip must
+retain both enabling and disabling rather than become a rules heading.
+Scrollbar native terminology was not established by the checked MediaWiki
+key-name search; the original Finnish scrollbar label remains open.

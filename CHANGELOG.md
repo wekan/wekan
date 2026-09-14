@@ -1248,6 +1248,16 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/29bf7aa22">Fix unflagged Finnish rules heading in Veps translation</a></summary>
+
+Use the native Veps rules plural. Four focused test files pass. The dated
+audit records additional mixed-language rule and 2FA values for repair.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
