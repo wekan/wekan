@@ -125900,5 +125900,33 @@
     "before": "Copier la checklist - نموذج",
     "after": "ⵙⵙⵏⵖⵍ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ ⵙⴳ ⴰⵍⴱⵓⴹ",
     "reason": "2026-09-14: Replace French/mixed French-Arabic template controls. Source models/boards.js isTemplatesBoard and models/lib/unusedTemplateContainers.js identify a container holding template boards; preserve container distinction, not a single template. Native MediaWiki tooltip-invert directly attests Box tafniqt for checkbox, nstab-template attests Template albudh, viewsourcetext Copy ssnghl and transaction-duration-limit-exceeded several/multiple mn nawt: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Box-to-software-container is a LOW CONFIDENCE semantic adaptation, not an independently attested container label. Bound template plural ilbudhn and several-cards construction are derived. Checklist retains earlier LOW CONFIDENCE List of Verification proposal; ussidd noun is not independently attested here. Preserve Copy Template TO MANY Cards versus Copy Checklist FROM Template. Full phrases need fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "duplicate-board",
+    "before": "Dupliquer le tableau",
+    "after": "ⵙⵙⵏⵖⵍ ⵜⴰⴼⵍⵡⵉⵜ",
+    "reason": "2026-09-14: Replace French/Arabic board duplicate/settings/info labels. Native MediaWiki viewsourcetext directly supplies second-person Copy tssnghld and pageinfo-title Info inghmisn: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Native Mastodon confirmations.delete.message supplies Are you sure you want frame: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Preserve Duplicate THIS board as Copy board, confirmation question, ALL boards settings and Board/List/Swimlane information tuple. Card/Board/Settings reuse local vocabulary; Swimlane provisionally Path, not independently validated swimlane terminology. LOW CONFIDENCE copy-to-duplicate adaptation, assembled confirmation, bound/plural nouns and full phrases need fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "duplicate-board-confirm",
+    "before": "Êtes-vous sûr de vouloir dupliquer ce tableau ?",
+    "after": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⴷ ⵜⵙⵙⵏⵖⵍⴷ ⵜⴰⴼⵍⵡⵉⵜ ⴰⴷ?",
+    "reason": "2026-09-14: Replace French/Arabic board duplicate/settings/info labels. Native MediaWiki viewsourcetext directly supplies second-person Copy tssnghld and pageinfo-title Info inghmisn: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Native Mastodon confirmations.delete.message supplies Are you sure you want frame: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Preserve Duplicate THIS board as Copy board, confirmation question, ALL boards settings and Board/List/Swimlane information tuple. Card/Board/Settings reuse local vocabulary; Swimlane provisionally Path, not independently validated swimlane terminology. LOW CONFIDENCE copy-to-duplicate adaptation, assembled confirmation, bound/plural nouns and full phrases need fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "board-info-on-my-boards",
+    "before": "جميع إعدادات اللوحات",
+    "after": "ⵜⵉⵙⵖⴰⵍ ⵏ ⵜⴼⵍⵡⵉⵡⵉⵏ ⴰⴽⴽⵯ",
+    "reason": "2026-09-14: Replace French/Arabic board duplicate/settings/info labels. Native MediaWiki viewsourcetext directly supplies second-person Copy tssnghld and pageinfo-title Info inghmisn: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Native Mastodon confirmations.delete.message supplies Are you sure you want frame: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Preserve Duplicate THIS board as Copy board, confirmation question, ALL boards settings and Board/List/Swimlane information tuple. Card/Board/Settings reuse local vocabulary; Swimlane provisionally Path, not independently validated swimlane terminology. LOW CONFIDENCE copy-to-duplicate adaptation, assembled confirmation, bound/plural nouns and full phrases need fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "export-card-field-board-info",
+    "before": "Informations du tableau (Tableau, Liste, Couloir)",
+    "after": "ⵉⵏⵖⵎⵉⵙⵏ ⵏ ⵜⴼⵍⵡⵉⵜ (ⵜⴰⴼⵍⵡⵉⵜ, ⵜⴰⵍⴳⴰⵎⵜ, ⴰⴱⵔⵉⴷ)",
+    "reason": "2026-09-14: Replace French/Arabic board duplicate/settings/info labels. Native MediaWiki viewsourcetext directly supplies second-person Copy tssnghld and pageinfo-title Info inghmisn: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Native Mastodon confirmations.delete.message supplies Are you sure you want frame: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Preserve Duplicate THIS board as Copy board, confirmation question, ALL boards settings and Board/List/Swimlane information tuple. Card/Board/Settings reuse local vocabulary; Swimlane provisionally Path, not independently validated swimlane terminology. LOW CONFIDENCE copy-to-duplicate adaptation, assembled confirmation, bound/plural nouns and full phrases need fluent validation."
   }
 ]
