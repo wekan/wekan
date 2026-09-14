@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,359 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 485 pending review or repair.
-The correction inventory records 17,747 exact before/after values,
+The correction inventory records 17,750 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is f16fae64a (2026-09-14), replacing French
-Start Planning Poker. Complete command and indexed-only conjugation
-evidence remain low confidence for direct/fluent review.
+Latest translation fix is 45650996e (2026-09-14), replacing Arabic
+Text/Profile/Delete List? labels with native components. Restored values
+and earlier low-confidence wording still need validation.
 Start spelling follow-up 2219d5358 distinguishes plain Begin/Start from
 emphatic Share/Divide in indexed IRCAM entries; direct PDF and full command
 verification remain open. No values or counts changed.
@@ -637,7 +637,7 @@ remain open.
 Translation audit progress as of 2026-09-14: 15,359 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
 and 485 remain pending across 17 locales, including 350 Tamazight findings.
-The ledger contains 17,747 correction records, including unflagged repairs.
+The ledger contains 17,750 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -1856,6 +1856,16 @@ Current CLDR provides date units and Era, but no native Hijri variant
 names. Era alone does not validate reference-date Epoch. Preserve tabular
 calculation and civil versus astronomical epoch; both labels remain pending.
 No translation values or counts changed.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/45650996e">Translate Tamazight text profile and list deletion labels</a>. Thanks to xet7.</summary>
+
+Replace three Arabic Text/Profile/Delete List? labels with native wording
+supported by MediaWiki and Mastodon, preserving singular list and question
+punctuation. All 17,750 correction/rendering checks pass; 485 original
+findings remain pending.
 
 </details>
 
