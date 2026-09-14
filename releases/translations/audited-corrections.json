@@ -121448,5 +121448,26 @@
     "before": "Êtes-vous sûr de vouloir supprimer cet avatar ?",
     "after": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⵜⴰⵡⵍⴰⴼⵜ ⵏ ⵉⴼⵔⵙ ⴰ?",
     "reason": "LOW CONFIDENCE composed profile-picture control. Native MediaWiki metadata-fields/img-lang-info attest tawlaft/image; native Mastodon account.edit_profile attests snfl/change and ifrs/profile. Native Mastodon confirmations.delete.message supplies the exact sure/want/delete question frame; substitute this profile picture as object. Preserve avatar scope rather than generic file deletion and retain the confirmation question. Full profile-picture compound, genitive bound-state morphology and demonstrative attachment need fluent review. Replace Arabic change label and French confirmation. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "due-date",
+    "before": "Date d'échéance",
+    "after": "ⴰⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ",
+    "reason": "LOW CONFIDENCE due-date label and compact relative-date filter. Native MediaWiki pageinfo-lasttime attests asakud/date and amggaru/last; currentrevisionlink and page_last confirm amggaru. Reuse the existing locale final-date terminology with the attested Moroccan date noun, avoiding inherited schwa-heavy azemz spelling. CLDR zgh fields/day relative 0 and 1 attest assa/today and askka/tomorrow. Full final-date compound as kanban deadline/due-date terminology and relative filter usage require fluent review; native component evidence does not validate that complete semantic adaptation. Preserve due-date versus completion distinction and today versus tomorrow. Replace French. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml"
+  },
+  {
+    "locale": "zgh",
+    "key": "filter-due-today",
+    "before": "Arrive à échéance aujourd'hui",
+    "after": "ⴰⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ: ⴰⵙⵙⴰ",
+    "reason": "LOW CONFIDENCE due-date label and compact relative-date filter. Native MediaWiki pageinfo-lasttime attests asakud/date and amggaru/last; currentrevisionlink and page_last confirm amggaru. Reuse the existing locale final-date terminology with the attested Moroccan date noun, avoiding inherited schwa-heavy azemz spelling. CLDR zgh fields/day relative 0 and 1 attest assa/today and askka/tomorrow. Full final-date compound as kanban deadline/due-date terminology and relative filter usage require fluent review; native component evidence does not validate that complete semantic adaptation. Preserve due-date versus completion distinction and today versus tomorrow. Replace French. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml"
+  },
+  {
+    "locale": "zgh",
+    "key": "filter-due-tomorrow",
+    "before": "Arrive à échéance demain",
+    "after": "ⴰⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ: ⴰⵙⴽⴽⴰ",
+    "reason": "LOW CONFIDENCE due-date label and compact relative-date filter. Native MediaWiki pageinfo-lasttime attests asakud/date and amggaru/last; currentrevisionlink and page_last confirm amggaru. Reuse the existing locale final-date terminology with the attested Moroccan date noun, avoiding inherited schwa-heavy azemz spelling. CLDR zgh fields/day relative 0 and 1 attest assa/today and askka/tomorrow. Full final-date compound as kanban deadline/due-date terminology and relative filter usage require fluent review; native component evidence does not validate that complete semantic adaptation. Preserve due-date versus completion distinction and today versus tomorrow. Replace French. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml"
   }
 ]
