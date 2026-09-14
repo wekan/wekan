@@ -123646,5 +123646,26 @@
     "before": "استهلاك وحدة المعالجة المركزية لنظام التشغيل",
     "after": "OS: ⵓⵟⵟⵓⵏ ⵏ CPU",
     "reason": "Replace Arabic OS CPU consumption mistranslation with CPU COUNT from English. Primary native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json pageinfo-watchers and pageinfo-redirects-name directly give uṭṭun n count of. Retain conventional OS and CPU technical abbreviations, consistent with local OS memory labels. LOW CONFIDENCE mixed-script complete technical label requires fluent review. Do not render CPU usage, consumption or percentage. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "accounts",
+    "before": "الحسابات",
+    "after": "ⵉⵎⵉⴹⴰⵏⵏ",
+    "reason": "Replace Arabic account/card noun label with declared Tamazight, preserving plural accounts/cards versus singular card. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json createaccount directly supplies singular amidhan account; plural imidhann is derived, not directly attested in that file. Existing local takarḍa and tikarḍiwin card terminology reused without replacing protected correct-language values. LOW CONFIDENCE derived account plural and technical card sense require fluent review. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "cards-count",
+    "before": "بطاقات",
+    "after": "ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ",
+    "reason": "Replace Arabic account/card noun label with declared Tamazight, preserving plural accounts/cards versus singular card. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json createaccount directly supplies singular amidhan account; plural imidhann is derived, not directly attested in that file. Existing local takarḍa and tikarḍiwin card terminology reused without replacing protected correct-language values. LOW CONFIDENCE derived account plural and technical card sense require fluent review. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "cards-count-one",
+    "before": "بطاقة",
+    "after": "ⵜⴰⴽⴰⵕⴹⴰ",
+    "reason": "Replace Arabic account/card noun label with declared Tamazight, preserving plural accounts/cards versus singular card. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json createaccount directly supplies singular amidhan account; plural imidhann is derived, not directly attested in that file. Existing local takarḍa and tikarḍiwin card terminology reused without replacing protected correct-language values. LOW CONFIDENCE derived account plural and technical card sense require fluent review. Reviewed 2026-09-14."
   }
 ]
