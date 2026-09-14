@@ -2138,7 +2138,7 @@
   "accounts-lockout-unknown-users": "ⵉⵙⵎⵏⵢⵉⴼⵏ ⵏ ⵉⵏⵙⵙⵎⵔⵙⵏ ⵓⵔ ⵉⵍⵍⵉⵏ (ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ ⵓⵔ ⵉⵍⵍⵉ)",
   "accounts-lockout-failures-before": "ⵉⵣⴳⴰⵍⵏ ⴷⴰⵜ ⵏ ⵓⴳⴷⴰⵍ",
   "accounts-lockout-period": "ⵜⵉⵣⵉ ⵏ ⵓⴳⴷⴰⵍ (ⵜⵉⵙⵉⵏⵉⵏ)",
-  "accounts-lockout-failure-window": "Fenêtre des échecs (secondes)",
+  "accounts-lockout-failure-window": "ⵜⵉⵣⵉ ⵏ ⵉⵣⴳⴰⵍⵏ (ⵜⵉⵙⵉⵏⵉⵏ)",
   "accounts-lockout-settings-updated": "Les paramètres de protection contre la force brute ont été mis à jour",
   "accounts-lockout-locked-users": "Utilisateurs verrouillés",
   "accounts-lockout-locked-users-info": "Utilisateurs actuellement verrouillés pour trop de tentatives de connexion en échec",

@@ -126586,5 +126586,12 @@
     "before": "Échecs avant verrouillage",
     "after": "ⵉⵣⴳⴰⵍⵏ ⴷⴰⵜ ⵏ ⵓⴳⴷⴰⵍ",
     "reason": "2026-09-14: Replace French lockout failure threshold label. IRCAM school lexicon indexed printed page 103 attests dat Before/Before-front: https://www.ircam.ma/sites/default/files/2021-02/amz_fr_ar.pdf . Native CNDH Errors izgaln supports failure-as-error adaptation; local lockout noun reused. Preserve FAILURES BEFORE LOCKOUT, a count threshold distinct from seconds-based failure window or lockout period. Indexed lexicon evidence is not direct PDF inspection. Failure-as-error technical adaptation, temporal Before use, bound lockout noun and full threshold label remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "accounts-lockout-failure-window",
+    "before": "Fenêtre des échecs (secondes)",
+    "after": "ⵜⵉⵣⵉ ⵏ ⵉⵣⴳⴰⵍⵏ (ⵜⵉⵙⵉⵏⵉⵏ)",
+    "reason": "2026-09-14: Replace French login failure counting-window label. Actual known/unknown failureWindow setting is separate from lockoutPeriod/count threshold. Native MediaWiki Duration tizi/Second and CNDH Errors support components; local seconds plural retained. Window paraphrased time period of failures, preserving FAILURE WINDOW IN SECONDS rather than lockout duration. Failure-as-error and time-window-as-period adaptations, local seconds plural and full counting-window label remain LOW CONFIDENCE."
   }
 ]
