@@ -743,10 +743,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,204 original findings are
+Translation audit progress as of 2026-09-14: 15,206 original findings are
 corrected, 179 are reviewed and retained, 4,058 restored values await
-validation, and 640 original findings remain pending across 17 locales,
-including 497 Tamazight findings. The ledger contains 17,440 correction
+validation, and 638 original findings remain pending across 17 locales,
+including 495 Tamazight findings. The ledger contains 17,447 correction
 records, including repairs outside the original audit. Regression checks
 validate placeholders, rendering and merge behavior; fluency and wider
 language validation remain open. See the
@@ -810,6 +810,18 @@ abbreviated executable operator syntax. Three original findings and two
 unflagged values are repaired. Derived nouns, agreement and full search
 phrases remain low confidence. All 17,440 correction checks pass; wider
 language validation and live browser verification remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cddabeb0b">Repair Tamazight status help and validation labels</a>. Thanks to xet7.</summary>
+
+Replace French/Arabic status labels, status search help and invalid date/user
+messages. Preserve status choices and executable/format tokens. Seven
+values are repaired, including five unflagged problems. Derived nouns,
+plurals, agreement and full diagnostics remain low confidence. All 17,447
+correction checks pass; wider language validation and live browser
+verification remain open.
 
 </details>
 
