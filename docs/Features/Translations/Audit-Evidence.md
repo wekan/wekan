@@ -23983,3 +23983,18 @@ foreign-word checks preserve that distinction. All 18,640 corrections,
 4,170 retained reviews and 234-locale structural completeness pass.
 Pending/restored counts remain 288/11. Live browser and broader native
 verification remain open.
+
+### 2026-09-14 — Breton card and numeric nouns (6962b2cc4)
+
+Unflagged cards-count-one and cardType-card change from French Carte to
+Kartenn, matching existing WeKan Breton card wording. Custom-field-number
+changes from French Nombre to Niver. The native OPLB dictionary defines
+[kartenn](https://niverel.brezhoneg.bzh/br/meurgorf/17427) as a card as well
+as a map, and [niver](https://niverel.brezhoneg.bzh/br/meurgorf/22642)
+as a number including fractional values. These definitions support the
+chosen nouns; the kanban usage also follows existing local terminology.
+The actual list-header singular counter and normal-card type share Kartenn.
+Focused checks preserve that equivalence and distinguish numeric from text
+fields. All 18,643 corrections, 4,170 unchanged reviews and 234-locale
+structural completeness pass. Counts remain 288 pending and 11 restored.
+Live browser and broader native verification remain open.

@@ -30,7 +30,7 @@ cross-checks calendar, user and click components in native Moroccan sources.
 Full phrases, warnings and invalidated Tuareg records remain open; no pending
 finding was accepted from component evidence.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,640** exact before/after values, including unflagged repairs.
+contain **18,643** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
@@ -49,13 +49,13 @@ remains open. Latin Inuktitut spelling is valid; original script warnings
 require vocabulary/context review rather than automatic replacement.
 Current pending/restored counts are 288/11.
 
-Latest translation fix: **2026-09-14**, local commit `b0f7f924f` —
-Three French Breton empty-selection, unknown-value and color labels become
-native software vocabulary. No selection remains distinct from an unknown
-value. All 18,640 correction records and focused checks pass. Counts remain
-288 pending and 11 restored; broader native and browser review remain open.
-Earlier navigation/template repairs are in `bb65bf79d`; palette repairs
-are in `a123f9428` and `2a86c331f`.
+Latest translation fix: **2026-09-14**, local commit `6962b2cc4` —
+Three French Breton card-type, singular-card and numeric-field labels become
+Kartenn and Niver. Existing card vocabulary stays consistent; numeric fields
+remain distinct from text. All 18,643 corrections and focused checks pass.
+Counts remain 288 pending and 11 restored; broader native and browser review
+remain open. Earlier selection repairs are in `b0f7f924f`, navigation in
+`bb65bf79d` and palette repairs in `a123f9428` and `2a86c331f`.
 Latest unchanged review: **2026-09-14**, local commit `5bf97e219` —
 Basque S3 bucket-a retains a technical loan used in native ZIUR storage
 specifications. Focused field-context checks and all 4,170 retained reviews

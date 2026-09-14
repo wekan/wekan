@@ -738,6 +738,15 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6962b2cc4">Repair Breton card and number labels</a>. Thanks to xet7.</summary>
+
+Normal-card type and singular counters share Breton card terminology.
+Numeric fields use the native number noun and stay distinct from text.
+Focused checks pass; the dated audit keeps broader and browser review open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b0f7f924f">Repair Breton selection and color labels</a>. Thanks to xet7.</summary>
 
 Three French labels become Breton; empty selection stays distinct from an
