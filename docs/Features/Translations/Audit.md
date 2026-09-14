@@ -30,11 +30,10 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Tamazight tabular qualifier](Tamazight-Review.md) excludes furniture-table
-senses from arithmetic calendar wording. Keep both tabular variants and
-their Julian epoch distinction; general computed-calendar wording is too
-broad. Native fixed-rule terminology remains open; counts unchanged.
-Earlier reviews remain in detailed evidence.
+[Tamazight failed attempts](Tamazight-Review.md) gains native software
+`arm` (try) evidence and dictionary testing/trial noun distinctions.
+Court/attack/technical-malfunction senses are excluded; complete plural
+failure wording remains open. No locale edit or count change.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

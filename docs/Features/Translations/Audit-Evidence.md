@@ -29278,3 +29278,39 @@ Remaining failed-attempts label is still French. IRCAM entry 11918 tasiɣt
 means attack/assault/assassination attempt, not a software login attempt;
 it is excluded. A suitable attempt expression or contextual login-failure
 paraphrase is still required. Broad native fluency review remains open.
+
+
+## Failed-attempt noun and software verb review — 2026-09-15
+
+New IRCAM lexical evidence changes the next action for the still-French
+accounts-lockout-failed-attempts label. General English dictionary page 193
+entry 3653 arm means taste OR try/test/experiment; page 687 entry 12953
+ tisirimt (bound tsirimt, plural tisiram) means testing/trial. Court case
+amṣiriḍ (2960/7318) and assassination attempt tasiɣt (11918) are excluded.
+Failure azgal (5372) is distinct from technical rupture anngzi (3402) and
+tragic disappointment inidi (7366); an authentication rejection need not
+mean a broken server.
+
+Native MediaWiki zgh source confirms arm in software, not only tasting:
+userlogin-authpopup-retry is arm daɣ; wrongpassword uses the same retry;
+changepassword-throttled uses turmd ad tkčmd ... tikkal (tried logging in
+many times). This supports a verbal attempt paraphrase or an arm-derived
+noun, but does not attest a complete failed-attempt noun phrase.
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+Dictionary source/cache:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+Exact tisiram searches also retrieve Agadir municipal restaurant/shop
+lists and an IRCAM literary text about visiting cafes/restaurants. That
+spelling is therefore not by itself proof of the trial sense. Those hits
+must not be treated as login terminology or a native validation of a draft.
+The dictionary's testing/trial sense is usable lexical evidence, while
+full failure attribution and plural construction still need contextual
+review. Next action: compare an arm-based attempted-login paraphrase with
+trial/failure noun wording, preserving countable failed attempts. Do not
+substitute technical malfunction, attack or a singular retry instruction.
+
+No source caller of this exact key was found in targeted client settings
+searches; this does not prove absence in dynamic integrations. No live UI
+verification or locale edit was performed. Ledger 19,874 and tracked
+pending 149 remain unchanged; broader grammar review is open.
