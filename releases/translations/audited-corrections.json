@@ -121252,5 +121252,19 @@
     "before": "تعليق محذوف %s",
     "after": "ⵉⴽⴽⵙ ⴰⵖⴼⴰⵡⴰⵍ %s",
     "reason": "LOW CONFIDENCE composed comment deletion activity: native MediaWiki logentry-delete-delete attests active ikks/deleted, and filehist-comment attests aghfawal/comment. Preserve %s as the deleted comment value and retain active narration rather than an imperative. Complete clause and default masculine actor form require fluent review. Replace unflagged Arabic. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "comment-delete",
+    "before": "Êtes-vous sûr de vouloir supprimer le commentaire ?",
+    "after": "ⵉⵙ ⵜⵏⵥⵉⴷ ⵜⵔⵉⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⴰⵖⴼⴰⵡⴰⵍ?",
+    "reason": "LOW CONFIDENCE composed confirmation: native MediaWiki confirmable-confirm attests is tnzid/are you sure, delete attests kks/delete, and filehist-comment attests aghfawal/comment. Compose want-to-delete as trid ad tkksd, preserving confirmation and desired action rather than shortening to a generic question. Want/delete second-person morphology and complete subordinate phrase require fluent review. Replace French. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "accounts-allowUserDelete",
+    "before": "Autoriser les utilisateurs à supprimer leur compte",
+    "after": "ⴽⴽⵙ ⴰⵎⵉⴹⴰⵏ ⵏⵏⴽ",
+    "reason": "LOW CONFIDENCE composed self-account-deletion setting label: native MediaWiki delete attests kks, createaccount attests amidann/account and userlogin-yourname-ph attests nnk/your. Translate the English self-delete-user-account label as delete your account, not permission to delete another user. Full setting-label usage requires fluent review. Replace French. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
