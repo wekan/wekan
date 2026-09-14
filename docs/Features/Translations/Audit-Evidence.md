@@ -21185,3 +21185,15 @@ This is an all-values screening audit with inspected examples, not a native-spea
 | tpi.i18n.json | Tok Pisin (Tok Pisin) | calendar-system-gregorian | Gregorian | Not available — not queried | The existing fill-translations invariant-aware scan flags this exact English source value. A borrowed word may be valid; confirm language and meaning before calling it untranslated. |
 | tpi.i18n.json | Tok Pisin (Tok Pisin) | changeFontPopup-title | Font | Not available — not queried | The existing fill-translations invariant-aware scan flags this exact English source value. A borrowed word may be valid; confirm language and meaning before calling it untranslated. |
 | tpi.i18n.json | Tok Pisin (Tok Pisin) | theme-category-flat | Flat | Not available — not queried | The existing fill-translations invariant-aware scan flags this exact English source value. A borrowed word may be valid; confirm language and meaning before calling it untranslated. |
+
+
+### Restored Danish follow-up — 2026-09-14
+
+Local commit `cceae079c` corrects singular adjective agreement in the legal
+notice footer and restores the malloc allocation method in the heap metric.
+[Node V8 documentation](https://nodejs.org/api/v8.html#v8getheapstatistics)
+distinguishes this metric from general heap allocation. Reviewed 41 restored
+values directly and retained correct Danish wording unchanged. Ledger and
+placeholder/key-order tests pass. Ambiguous unused free wording and team
+terminology remain in the restored queue; no browser or remote verification
+was performed.
