@@ -1,5 +1,7 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `7525d9271`: imported-board relative agreement refined. Remove masculine actor prefix from relative modifying feminine Board, retaining the original French before-value in the correction record. No exact native import-passive phrase was independently attested; derived feminine passive and full mapping grammar remain low confidence. All 18,074 correction checks pass; original counts unchanged at 341 pending findings.
+
 2026-09-14 — `77a0023cc`: unmapped-member fallback note repaired. Native MediaWiki association relative, Given, Current (`filehist-current`) and User support components. Preserve UNMAPPED MEMBERS WILL BE ASSIGNED TO CURRENT USER. Unmapped-as-unassociated and assignment-as-Given adaptations, negated relative and future plural passive remain low confidence. All 18,074 correction checks pass; 341 original findings remain pending, including 206 Tamazight. Broader validation remains open.
 
 2026-09-14 — Member mapping provenance follow-up: MediaWiki association is directly attested in relative `izdin` (`namespace_association`, `nolinkshere`, `tooltip-t-whatlinkshere`), whereas the bare `zdi` in account-creation controls means Continue. Do not cite that homograph as association proof. Mapping imperative is derived from the association relative and remains low confidence. Record exact keys in the ledger; correct the earlier Copy source key to `filecopyerror`. Translation values/counts unchanged; 18,073 correction checks pass.

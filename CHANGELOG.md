@@ -102,9 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 77a0023cc (2026-09-14), repairing unmapped-member
-fallback. Future assignment to current user preserved; association/assignment
-paraphrases and full grammar remain low confidence. 341 findings remain pending.
+Latest translation fix is 7525d9271 (2026-09-14), refining imported-board
+relative agreement. Remove masculine actor prefix for feminine Board;
+derived passive and full mapping remain low confidence. Counts unchanged:
+341 findings remain pending, with 18,074 correction records.
 Archive provenance follow-up fbe388603 (2026-09-14) directly inspects the
 native Archives du Maroc logo in a university PDF, corroborating the noun
 beyond indexed evidence. Nine records updated; no values/counts changed.
@@ -3147,6 +3148,17 @@ Thanks to xet7 !
 
 2026-09-14: Preserve future assignment of unmapped members to current user.
 Native components recorded; full wording remains low confidence.
+All 18,074 correction checks pass; broader validation continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7525d9271">Translation refinement: Tamazight imported-board agreement.</a></summary>
+
+2026-09-14: Refine feminine Board relative agreement, preserving provenance
+and counts. Derived passive and full wording remain low confidence.
 All 18,074 correction checks pass; broader validation continues.
 
 Thanks to xet7 !
