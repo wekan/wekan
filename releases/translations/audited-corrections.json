@@ -123485,5 +123485,19 @@
     "before": "Utilisation mémoire de Node: externe",
     "after": "Node: ⴰⵙⵙⵎⵔⵙ ⵏ ⵜⴽⴰⵜⵓⵜ: ⵢⴼⴼⵖⵏ",
     "reason": "Replace French Node external memory usage label, preserving Node and external qualifier. CNAM computing lexicon https://cedric.cnam.fr/~bouzefra/books/amawal.pdf gives Takatut MC (PDF 89/printed85), bound tkatut examples, and external yeffghen MAT in memory, interrupt and reference examples (PDF90/printed86 and PDF77/printed73). Native MediaWiki poolcounter-usage-error supplies bound ussmrs usage: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE free usage noun, Tifinagh transcription of external and complete mixed-source Standard Moroccan adaptation require fluent review. External storage example supports adjective vocabulary only: this Node statistic must not be described as disk or external-device storage. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "admin-announcement",
+    "before": "إعلان",
+    "after": "ⴰⵍⵖⵓ",
+    "reason": "Replace Arabic/French announcement label. Native Moroccan ministry announcement https://www.mcrpsc.gov.ma/ (16 June 2026 civil-society award call, titled alghu n urzzum n tmnkadt) directly uses alghu announcement; IRCAM administrative correspondence explnum_id=990 indexed alghu s umsktam tender announcement corroborates vocabulary, but full PDF fetch timed out. MediaWiki revision-info supplies sg ghur from a person, and blockedtext-contact-blocker-admin amssugur administrator: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE full from-administrator syntax and technical announcement adaptation need fluent review. Active System-Wide qualifier remains a separate unresolved finding. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "admin-announcement-title",
+    "before": "Annonce de l'administrateur",
+    "after": "ⴰⵍⵖⵓ ⵙⴳ ⵖⵓⵔ ⵓⵎⵙⵙⵓⴳⵓⵔ",
+    "reason": "Replace Arabic/French announcement label. Native Moroccan ministry announcement https://www.mcrpsc.gov.ma/ (16 June 2026 civil-society award call, titled alghu n urzzum n tmnkadt) directly uses alghu announcement; IRCAM administrative correspondence explnum_id=990 indexed alghu s umsktam tender announcement corroborates vocabulary, but full PDF fetch timed out. MediaWiki revision-info supplies sg ghur from a person, and blockedtext-contact-blocker-admin amssugur administrator: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE full from-administrator syntax and technical announcement adaptation need fluent review. Active System-Wide qualifier remains a separate unresolved finding. Reviewed 2026-09-14."
   }
 ]
