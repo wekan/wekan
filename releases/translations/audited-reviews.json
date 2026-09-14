@@ -23404,5 +23404,101 @@
     "key": "problems-status-title",
     "value": "Egoera",
     "reason": "Inspected Basque password repetition, attachment path, scheduled-job confirmation, migration/status/detail labels, S3 access/connection and storage settings, durations/errors and recurrence intervals. Success/failure and access-key distinctions remain intact; each minute/hour/day interval preserves its exact frequency. Cron is the actual tool name, retained literally. Complete, Idle and S3 bucket loanword excluded pending context/reference; wider terminology and browser review remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "r-remove-value-from",
+    "value": "Kendu balioa hemendik:",
+    "reason": "Inspected Basque date-value removal, product customization, authentication errors and display/default method labels, swimlane deletion, restore/delete all, loading and old/new date activities. Actual settings distinguish display toggle from default method; rule action removes a date field value. Old/new time tokens and all-item scopes preserved. Ticket/Complete/Idle/bucket terminology excluded; wider trigger grammar remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "custom-product-name",
+    "value": "Produktu-izen pertsonalizatua",
+    "reason": "Inspected Basque date-value removal, product customization, authentication errors and display/default method labels, swimlane deletion, restore/delete all, loading and old/new date activities. Actual settings distinguish display toggle from default method; rule action removes a date field value. Old/new time tokens and all-item scopes preserved. Ticket/Complete/Idle/bucket terminology excluded; wider trigger grammar remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "error-undefined",
+    "value": "Zerbait gaizki joan da",
+    "reason": "Inspected Basque date-value removal, product customization, authentication errors and display/default method labels, swimlane deletion, restore/delete all, loading and old/new date activities. Actual settings distinguish display toggle from default method; rule action removes a date field value. Old/new time tokens and all-item scopes preserved. Ticket/Complete/Idle/bucket terminology excluded; wider trigger grammar remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "error-ldap-login",
+    "value": "Errore bat gertatu da saioa hasten saiatzean",
+    "reason": "Inspected Basque date-value removal, product customization, authentication errors and display/default method labels, swimlane deletion, restore/delete all, loading and old/new date activities. Actual settings distinguish display toggle from default method; rule action removes a date field value. Old/new time tokens and all-item scopes preserved. Ticket/Complete/Idle/bucket terminology excluded; wider trigger grammar remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "display-authentication-method",
+    "value": "Erakutsi autentifikazio-metodoa",
+    "reason": "Inspected Basque date-value removal, product customization, authentication errors and display/default method labels, swimlane deletion, restore/delete all, loading and old/new date activities. Actual settings distinguish display toggle from default method; rule action removes a date field value. Old/new time tokens and all-item scopes preserved. Ticket/Complete/Idle/bucket terminology excluded; wider trigger grammar remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "default-authentication-method",
+    "value": "Autentifikazio-metodo lehenetsia",
+    "reason": "Inspected Basque date-value removal, product customization, authentication errors and display/default method labels, swimlane deletion, restore/delete all, loading and old/new date activities. Actual settings distinguish display toggle from default method; rule action removes a date field value. Old/new time tokens and all-item scopes preserved. Ticket/Complete/Idle/bucket terminology excluded; wider trigger grammar remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "swimlaneDeletePopup-title",
+    "value": "Ezabatu erraila?",
+    "reason": "Inspected Basque date-value removal, product customization, authentication errors and display/default method labels, swimlane deletion, restore/delete all, loading and old/new date activities. Actual settings distinguish display toggle from default method; rule action removes a date field value. Old/new time tokens and all-item scopes preserved. Ticket/Complete/Idle/bucket terminology excluded; wider trigger grammar remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "restore-all",
+    "value": "Berreskuratu guztiak",
+    "reason": "Inspected Basque date-value removal, product customization, authentication errors and display/default method labels, swimlane deletion, restore/delete all, loading and old/new date activities. Actual settings distinguish display toggle from default method; rule action removes a date field value. Old/new time tokens and all-item scopes preserved. Ticket/Complete/Idle/bucket terminology excluded; wider trigger grammar remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "delete-all",
+    "value": "Ezabatu guztiak",
+    "reason": "Inspected Basque date-value removal, product customization, authentication errors and display/default method labels, swimlane deletion, restore/delete all, loading and old/new date activities. Actual settings distinguish display toggle from default method; rule action removes a date field value. Old/new time tokens and all-item scopes preserved. Ticket/Complete/Idle/bucket terminology excluded; wider trigger grammar remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "loading",
+    "value": "Kargatzen, itxaron mesedez.",
+    "reason": "Inspected Basque date-value removal, product customization, authentication errors and display/default method labels, swimlane deletion, restore/delete all, loading and old/new date activities. Actual settings distinguish display toggle from default method; rule action removes a date field value. Old/new time tokens and all-item scopes preserved. Ticket/Complete/Idle/bucket terminology excluded; wider trigger grammar remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "previous_as",
+    "value": "aurrekoa hau zen:",
+    "reason": "Inspected Basque date-value removal, product customization, authentication errors and display/default method labels, swimlane deletion, restore/delete all, loading and old/new date activities. Actual settings distinguish display toggle from default method; rule action removes a date field value. Old/new time tokens and all-item scopes preserved. Ticket/Complete/Idle/bucket terminology excluded; wider trigger grammar remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "act-a-dueAt",
+    "value": "epemuga aldatu du \nNoiz: __timeValue__\nNon: __card__\n aurreko epemuga __timeOldValue__ zen",
+    "reason": "Inspected Basque date-value removal, product customization, authentication errors and display/default method labels, swimlane deletion, restore/delete all, loading and old/new date activities. Actual settings distinguish display toggle from default method; rule action removes a date field value. Old/new time tokens and all-item scopes preserved. Ticket/Complete/Idle/bucket terminology excluded; wider trigger grammar remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "act-a-endAt",
+    "value": "amaiera-ordua __timeValue__(e)ra aldatu du, aurrekoa: (__timeOldValue__)",
+    "reason": "Inspected Basque date-value removal, product customization, authentication errors and display/default method labels, swimlane deletion, restore/delete all, loading and old/new date activities. Actual settings distinguish display toggle from default method; rule action removes a date field value. Old/new time tokens and all-item scopes preserved. Ticket/Complete/Idle/bucket terminology excluded; wider trigger grammar remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "act-a-startAt",
+    "value": "hasiera-ordua __timeValue__(e)ra aldatu du, aurrekoa: (__timeOldValue__)",
+    "reason": "Inspected Basque date-value removal, product customization, authentication errors and display/default method labels, swimlane deletion, restore/delete all, loading and old/new date activities. Actual settings distinguish display toggle from default method; rule action removes a date field value. Old/new time tokens and all-item scopes preserved. Ticket/Complete/Idle/bucket terminology excluded; wider trigger grammar remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "act-a-receivedAt",
+    "value": "jasotze-ordua __timeValue__(e)ra aldatu du, aurrekoa: (__timeOldValue__)",
+    "reason": "Inspected Basque date-value removal, product customization, authentication errors and display/default method labels, swimlane deletion, restore/delete all, loading and old/new date activities. Actual settings distinguish display toggle from default method; rule action removes a date field value. Old/new time tokens and all-item scopes preserved. Ticket/Complete/Idle/bucket terminology excluded; wider trigger grammar remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "a-dueAt",
+    "value": "epemuga honela aldatu du:",
+    "reason": "Inspected Basque date-value removal, product customization, authentication errors and display/default method labels, swimlane deletion, restore/delete all, loading and old/new date activities. Actual settings distinguish display toggle from default method; rule action removes a date field value. Old/new time tokens and all-item scopes preserved. Ticket/Complete/Idle/bucket terminology excluded; wider trigger grammar remains open."
   }
 ]
