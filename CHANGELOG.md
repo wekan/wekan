@@ -671,6 +671,16 @@ The empty wrongly placed Git directory was removed locally.
 **Languages updated:** Basque, Esperanto, Galician, Greenlandic, Manx, Swedish, Valencian
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c5c91129b">Fill Manx Coptic calendar label</a>. Thanks to xet7.</summary>
+
+Replace the English-only placeholder with Feaillere Coptagh. The calendar
+noun is dictionary-attested; the adjective is provisional and needs native
+terminology review. Calendar and correction tests pass. The audit retains
+this confidence limit and the full language/browser verification scope.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f52ab6adf">Repair Galician card completion action wording</a>. Thanks to xet7.</summary>
 
 Two unflagged actions replace Portuguese cartão with Galician tarxeta and

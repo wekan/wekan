@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,588 |
+| Corrected | 15,589 |
 | Restored pre-pull; awaiting validation | 36 |
 | Reviewed; retained unchanged | 4,152 |
-| Pending review or repair | 305 |
+| Pending review or repair | 304 |
 | Total tracked | 20,081 |
 
 Review is ongoing. Silesian raw-database terminology remains unverified
@@ -17,17 +17,18 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,201** exact before/after values, including unflagged repairs.
+contain **18,202** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `f52ab6adf` —
-two unflagged Galician card-completion actions replace Portuguese cartão
-with tarxeta and matching feminine adjectives. Actual action dropdown wiring,
-positive/negative labels and all **18,201** correction records pass.
-Live browser validation remains open. Original flagged counts are unchanged.
+Latest translation fix: **2026-09-14**, local commit `c5c91129b` —
+Manx Coptic calendar placeholder becomes Feaillere Coptagh. Feaillere is
+dictionary-attested; Coptagh is a provisional coinage with no dictionary
+attestation found. Native terminology review remains open despite the queue
+status. All **18,202** correction records and calendar checks pass.
+Galician completion actions were repaired in `f52ab6adf`.
 Latest unchanged review: **2026-09-14**, commit `287e99dd2` — Danish
-Tidsplan and Basque/Valencian idle-state labels retained. All **18,201**
+Tidsplan and Basque/Valencian idle-state labels retained. All **18,202**
 corrections and **4,152** reviews pass. No current consumers found for these
 historical labels; live browser and broader language review remain open.
 Esperanto restored queue is resolved; wider fluency review remains open.
@@ -55,7 +56,6 @@ Reviewed subtask actions/settings retain correct subordinate-task compounds.
 | ve-PP — Veps | 10 |
 | kl — Greenlandic | 6 |
 | dz — Dzongkha | 3 |
-| gv — Manx | 1 |
 | bm — Bambara | 2 |
 | ff — Fulah | 2 |
 | ks — Kashmiri | 2 |

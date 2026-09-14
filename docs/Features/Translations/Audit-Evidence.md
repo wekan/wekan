@@ -22731,3 +22731,12 @@ Actual cardActions.jade options and rulesWorkflow action labels establish
 context. Dedicated regression verifies wiring, agreement, absence of Portuguese
 noun and distinct actions. All 18,201 correction records pass. Browser not run;
 shared Galician member/attachment participle agreement remains unresolved.
+
+Dated provisional fill, 2026-09-14, local commit `c5c91129b`: Manx
+calendar-system-coptic replaces English-only Coptic with Feaillere Coptagh.
+https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/dict/C.html attests
+feaillere for calendar but has no Coptic entry. Coptagh is a low-confidence
+coinage following existing calendar adjectives, not an attested dictionary
+translation. Native terminology review is required. Calendar and all 18,202
+correction checks pass; 304 original pending and 36 restored values remain.
+Manx original placeholder queue is filled, not fully language-verified.
