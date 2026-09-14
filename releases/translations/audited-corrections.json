@@ -124745,5 +124745,19 @@
     "before": "Seuls les administrateurs du tableau peuvent exécuter les migrations",
     "after": "ⵖⴰⵙ ⵉⵎⵙⵙⵓⴳⵓⵔⵏ ⵏ ⵜⴼⵍⵡⵉⵜ ⴰⵢ ⵉⵣⵎⵔⵏ ⴰⴷ ⵙⴽⵔⵏ ⵉⵙⵎⵓⵜⵜⵢⵏ",
     "reason": "2026-09-14: Replace French Only board administrators can run migrations, preserving Only, board-qualified plural administrators and ability to execute plural migrations. Native MediaWiki protect-level-sysop directly supplies ghas imssugurn Only Administrators; viewsourcetext supplies second-person capability tz mrd ad, adapted here to plural relative izmrn ad skrn. Run skr and migration noun reuse reviewed software adaptations. LOW CONFIDENCE derived plural capability/relative construction, execution conjugation, migration plural and complete authorization sentence require fluent Standard Moroccan review; this is not an attested full sentence. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "migration-status",
+    "before": "ⴰⴷⴷⴰⴷ ⵏ ⵓⵙⵎⵓⵜⵜⵉ",
+    "after": "ⴰⴷⴷⴰⴷ ⵏ ⵓⵙⵎⵓⵜⵜⵢ",
+    "reason": "2026-09-14: Align Migration Status with reviewed bound usmutty software-migration adaptation instead of divergent asmutti spelling. Preserve status as state, not progress, success or completion. Native MediaWiki metadata-help supplies bound waddad State and movelogpage supplies usmutty Move; standalone addad and move-to-software-migration extension/full noun chain remain LOW CONFIDENCE for fluent Standard Moroccan review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "sandstorm-migration-status",
+    "before": "ⴰⴷⴷⴰⴷ ⵏ ⵓⵙⵎⵓⵜⵜⵉ",
+    "after": "ⴰⴷⴷⴰⴷ ⵏ ⵓⵙⵎⵓⵜⵜⵢ",
+    "reason": "2026-09-14: Align Migration Status with reviewed bound usmutty software-migration adaptation instead of divergent asmutti spelling. Preserve status as state, not progress, success or completion. Native MediaWiki metadata-help supplies bound waddad State and movelogpage supplies usmutty Move; standalone addad and move-to-software-migration extension/full noun chain remain LOW CONFIDENCE for fluent Standard Moroccan review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
