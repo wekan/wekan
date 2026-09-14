@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,319 |
+| Corrected | 15,321 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 525 |
+| Pending review or repair | 523 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,631** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,633** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `9bf817de7` — replaced Arabic Tamazight card-opening labels, including the unflagged Open action. Preserve many cards and one-operation qualifier. Native open/many/one-time components support vocabulary; imperative adaptation and full composition remain **low confidence** pending language review. All **17,631** correction/rendering checks pass. **525** originals remain pending across **17** locales, including **387** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `e675a7fe6` — replaced two French Tamazight board scan statuses, preserving checking process and distinct file-attachment/member-avatar scopes. Native verification/member components support vocabulary; derived action noun and full ownership phrasing remain **low confidence** pending language review. All **17,633** correction/rendering checks pass. **523** originals remain pending across **17** locales, including **385** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Tamazight open-command review (2026-09-14):** [IRCAM’s generative grammar](https://www.ircam.ma/sites/default/files/2024-12/grammaire-generative-de-amazighe.pdf), printed page 36, gives a transitive open-door example; the indexed [children’s poems](https://biblio.ircam.ma/pmb/uploads/publications/224.pdf), printed page 44, give imperative `ⵕⵥⵎ` in an open-your-heart expression. These strengthen verb evidence, but the poem spelling differs from MediaWiki’s `ⵔⵥⵎ` root and full PDF retrieval failed certificate verification. Keep native spelling, imperative-to-software adaptation and the complete bulk-opening phrase under review. No values or counts changed; indexed examples do not prove full language validation.
 
