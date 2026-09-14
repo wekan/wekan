@@ -23525,3 +23525,25 @@ does not imply completed or already overdue; countdown tokens are unchanged.
 Four offline suites pass. Ledger 18,578; original corrected 15,602, restored
 17, retained 4,163, pending 299. Native contextual/browser review and uncertain
 repairs remain open. No translation service, subagents or remote writes.
+
+### 2026-09-14 — Inuktitut daily/monthly frequencies (9a511101d)
+
+Four original pending findings repaired: card-recurrence-interval and
+checklist-reset-interval daily → ᖃᐅᑕᒫᑦ; monthly → ᑕᖅᑭᑕᒫᑦ.
+These agree with existing backup-frequency labels. This replaces Greenlandic
+Ullut tamaasa/Taqqiit tamaasa; converting those words to syllabics alone would
+not establish Inuktitut.
+[Nunavut Healthy Living native IU page](https://livehealthy.gov.nu.ca/iu/node/754)
+uses the daily term in an everyday repeated-eating instruction.
+[Nunavut bilingual IQ sessions document](https://www.gov.nu.ca/sites/default/files/documents/2022-01/2016-05-25-iq-tc_elizabeth_work-_colors-xwebsite-_finished_3.pdf)
+page 15 (zero-based page 14) pairs the monthly native term with English monthly
+IQ sessions. Text extraction was inspected; screenshot rendering was unavailable
+in this environment. This is lexical frequency evidence, not verification of
+calendar scheduler behavior or every complete Inuktitut phrase.
+cardDetails.jade/checklists.jade render these frequency keys in popup options.
+Focused coverage distinguishes daily/monthly, rejects seeded forms, preserves
+all English tokens and checks locale completeness. Four offline suites pass.
+Ledger 18,582; original corrected 15,606, restored 17, retained 4,163, pending
+295. Inuktitut pending 46; weekly terms and longer phrases remain open.
+Veps keyboard terminology search did not provide new native evidence; its ten
+original findings remain open. No translation service, subagents or remote push.

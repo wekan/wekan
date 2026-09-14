@@ -694,6 +694,18 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9a511101d">Repair Inuktitut daily and monthly frequencies</a>. Thanks to xet7.</summary>
+
+Card recurrence and checklist reset use native Inuktitut daily/monthly labels
+instead of Greenlandic-seeded wording. Existing backup labels agree; native
+Nunavut sources support the terms. Focused positive/negative label checks,
+placeholder inventories, correction/review ledgers and completeness pass.
+The dated audit records four resolved findings and keeps longer phrases and
+live browser verification open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e74dd20cc">Use consistent Acehnese deadline labels</a>. Thanks to xet7.</summary>
 
 Due-date and today labels replace Indonesian/Malay wording with consistent
