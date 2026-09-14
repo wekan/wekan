@@ -200,3 +200,10 @@ for (const example of JSON.parse(translated['copyManyCardsPopup-format'])) {
   assert.match(example.description, /^ⴰⴳⵍⴰⵎ/);
   assert.doesNotMatch(example.description, /ⴰⵙⴳⵣⵍ/);
 }
+
+assert.equal(translated['description-on-minicard'], 'ⴰⴳⵍⴰⵎ ⵖⴼ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵢⴰⵏⵜ');
+assert.equal(translated['addmore-detail'], 'ⵔⵏⵓ ⴰⴳⵍⴰⵎ ⵙ ⵓⴳⴳⴰⵔ ⵏ ⵉⴼⵔⵓⵔⵉⵜⵏ');
+assert.equal(translated.summary, 'ⴰⵙⴳⵣⵍ');
+for (const key of ['description', 'description-on-minicard', 'addmore-detail', 'copyManyCardsPopup-instructions', 'copyManyCardsPopup-format']) {
+  assert.doesNotMatch(translated[key], /ⴰⵙⴳⵣⵍ/, `${key}: description is distinct from summary`);
+}

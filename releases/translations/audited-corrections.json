@@ -121369,8 +121369,8 @@
     "locale": "zgh",
     "key": "description-on-minicard",
     "before": "Description sur la mini-carte",
-    "after": "ⴰⵙⴳⵣⵍ ⵖⴼ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵢⴰⵏⵜ",
-    "reason": "Replace Arabic/French description or minicard control with Tamazight. Native MediaWiki filedesc attests asgzl/description and tool-link-userrights-readonly attests skn/show. Reuse the minicard noun phrase consistently with the settings headings. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json LOW CONFIDENCE composed on-minicard phrase: ghf/on is native in searchprofile-images-tooltip, but full minicard usage and noun bound-state morphology require fluent review."
+    "after": "ⴰⴳⵍⴰⵎ ⵖⴼ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵢⴰⵏⵜ",
+    "reason": "Replace Arabic/French description or minicard control with Tamazight. Native MediaWiki filedesc attests asgzl/description and tool-link-userrights-readonly attests skn/show. Reuse the minicard noun phrase consistently with the settings headings. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json LOW CONFIDENCE composed on-minicard phrase: ghf/on is native in searchprofile-images-tooltip, but full minicard usage and noun bound-state morphology require fluent review. 2026-09-15: Distinguish dictionary-attested description aglam (IRCAM entry 486 p42) from summary noun in remaining description-labelled values. Preserve surrounding translation; full phrase/detail wording remains under review. See Tamazight-Review.md."
   },
   {
     "locale": "zgh",
@@ -121495,8 +121495,8 @@
     "locale": "zgh",
     "key": "addmore-detail",
     "before": "Ajouter une description plus détaillée",
-    "after": "ⵔⵏⵓ ⴰⵙⴳⵣⵍ ⵙ ⵓⴳⴳⴰⵔ ⵏ ⵉⴼⵔⵓⵔⵉⵜⵏ",
-    "reason": "LOW CONFIDENCE composed add-more-detailed-description prompt. Native MediaWiki skin-action-addsection attests rnu/add, filedesc attests asgzl/description, moredotdotdot and linkstoimage-more attest uggar/more, and blockedtext-include-details-queries attests ifruritn/details. Express the more-detailed requirement as description with more details; preserve addition rather than editing/removal. Full with-more-details phrase and inflection require fluent review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
+    "after": "ⵔⵏⵓ ⴰⴳⵍⴰⵎ ⵙ ⵓⴳⴳⴰⵔ ⵏ ⵉⴼⵔⵓⵔⵉⵜⵏ",
+    "reason": "LOW CONFIDENCE composed add-more-detailed-description prompt. Native MediaWiki skin-action-addsection attests rnu/add, filedesc attests asgzl/description, moredotdotdot and linkstoimage-more attest uggar/more, and blockedtext-include-details-queries attests ifruritn/details. Express the more-detailed requirement as description with more details; preserve addition rather than editing/removal. Full with-more-details phrase and inflection require fluent review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json 2026-09-15: Distinguish dictionary-attested description aglam (IRCAM entry 486 p42) from summary noun in remaining description-labelled values. Preserve surrounding translation; full phrase/detail wording remains under review. See Tamazight-Review.md."
   },
   {
     "locale": "zgh",
