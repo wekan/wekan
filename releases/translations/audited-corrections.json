@@ -124633,5 +124633,26 @@
     "before": "Migration terminée avec succès",
     "after": "ⵉⵙⵎⴷ ⵓⵙⵎⵓⵜⵜⵢ ⴷ ⵢⴰⵍⵍⴼⵓⵙ",
     "reason": "2026-09-14: Replace French completion status with Tamazight finish component ismd from MediaWiki enterlockreason, adapted from future end/finish to completed status. Migration completed successfully retains both completion and successful result using native yallfus component, unlike bare Complete/Completed labels which gain no success qualifier. LOW CONFIDENCE completed-tense adaptation, standalone status grammar, full success coordination and software-migration extension of bound usmutty need fluent review. Native component evidence does not independently attest these full status phrases. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (enterlockreason, cannotlogin-text, movelogpage); positive yallfus also follows existing invite-people-success local wording. Generic Complete action key is left for contextual review."
+  },
+  {
+    "locale": "zgh",
+    "key": "run-migration",
+    "before": "Lancer la migration",
+    "after": "ⵙⴽⵔ ⴰⵙⵎⵓⵜⵜⵢ",
+    "reason": "2026-09-14: Replace French migration control/status with native do/make skr, adapting to Run software Migration, and ongoing passive action wording for Running/In Progress. Preserve imperative Run versus ongoing status, ellipsis and Board Migration scope; do not turn running into completion or success. LOW CONFIDENCE ongoing passive derivation, software-run/migration extension, bound nouns and complete phrases require fluent review. MediaWiki anontalkpagetext directly uses skr imperative, wlnote supplies ittuwaskarn passive done, generic-pool-error ar ttarmn ongoing marker, movelogpage bound usmutty move noun. These components do not independently attest the complete software status. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "migration-running",
+    "before": "En cours ...",
+    "after": "ⴰⵔ ⵉⵜⵜⵓⵙⴽⴰⵔ...",
+    "reason": "2026-09-14: Replace French migration control/status with native do/make skr, adapting to Run software Migration, and ongoing passive action wording for Running/In Progress. Preserve imperative Run versus ongoing status, ellipsis and Board Migration scope; do not turn running into completion or success. LOW CONFIDENCE ongoing passive derivation, software-run/migration extension, bound nouns and complete phrases require fluent review. MediaWiki anontalkpagetext directly uses skr imperative, wlnote supplies ittuwaskarn passive done, generic-pool-error ar ttarmn ongoing marker, movelogpage bound usmutty move noun. These components do not independently attest the complete software status. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "migration-progress-title",
+    "before": "Migration du tableau en cours",
+    "after": "ⴰⵔ ⵉⵜⵜⵓⵙⴽⴰⵔ ⵓⵙⵎⵓⵜⵜⵢ ⵏ ⵜⴼⵍⵡⵉⵜ",
+    "reason": "2026-09-14: Replace French migration control/status with native do/make skr, adapting to Run software Migration, and ongoing passive action wording for Running/In Progress. Preserve imperative Run versus ongoing status, ellipsis and Board Migration scope; do not turn running into completion or success. LOW CONFIDENCE ongoing passive derivation, software-run/migration extension, bound nouns and complete phrases require fluent review. MediaWiki anontalkpagetext directly uses skr imperative, wlnote supplies ittuwaskarn passive done, generic-pool-error ar ttarmn ongoing marker, movelogpage bound usmutty move noun. These components do not independently attest the complete software status. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
