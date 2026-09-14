@@ -1071,6 +1071,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5211bf315">Repair Tamazight account-protection explanation</a></summary>
+
+Replace French text with a Tamazight paraphrase preserving login-attempt
+protection and brute-force attacks. Four focused suites pass; complete
+nominal grammar and software attempt terminology remain under review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

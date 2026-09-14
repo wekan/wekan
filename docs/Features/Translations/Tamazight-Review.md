@@ -3998,3 +3998,21 @@ Arabic and physical-force wording, and all token inventories. No live
 settings UI or update verification ran. Ledger 19,877; corrected 15,756,
 pending 147 (zgh 54), restored 4 unchanged. Brute-force explanatory prose
 remains French and pending; full contextual grammar review is open.
+
+
+2026-09-15 — `5211bf315`: accounts-lockout-info French explanation
+replaced with nominal paraphrase: these settings for controlling protection
+of login trials from brute-force attacks. IRCAM entry 4565 asnam means
+adjustment/control/management (bound usnam); 1065 afrag protection (ufrag),
+12953 tisirimt testing/trial plural tisiram, 5575 azzagh attack/raid plural
+azzaghn. Existing login noun ukččum retained. The attested attack plural
+starts a-, not an inferred i-. Brute force remains a technical loan.
+Control tower tanḍaft, sound-level reconciliation asmsasa and verification
+ timnẓit are not substituted for general settings control. No attack-blocked
+or universal-security-success claim added. Complete nominal chain, bound
+states and software attempt sense remain low confidence; lexical entries
+do not certify full native grammar. peopleBody.jade line 749 renders this
+paragraph below account-protection heading. Four focused suites pass for
+exact value, wrong-language/domain negatives and all token inventories.
+No live UI or authentication-security test ran. Ledger 19,878; corrected
+15,757, pending 146 (zgh 53), restored 4 unchanged. Broader review is open.

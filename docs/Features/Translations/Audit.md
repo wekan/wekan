@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-15**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,756 |
+| Corrected | 15,757 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,174 |
-| Pending review or repair | 147 |
+| Pending review or repair | 146 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,16 +16,16 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `7c58d6c3d` — replace French
-brute-force settings heading and update confirmation with Tamazight prose.
-Brute force remains a technical loan. Four focused suites pass. Ledger
-19,877; tracked pending 147 (Tamazight 54), restored 4 unchanged. Full
-protection compound and derived passive plural remain low confidence.
-Numeric due cutoff and list-popup source wording conflicts, plus broader
-grammar reviews, remain open.
+Latest translation fix: **2026-09-15**, `5211bf315` — replace French
+account-protection explanation with a Tamazight nominal paraphrase.
+Login-attempt scope and brute-force attacks remain explicit. Four focused
+suites pass. Ledger 19,878; tracked pending 146 (Tamazight 53), restored 4
+unchanged. Full nominal chain, bound states and attempt terminology remain
+low confidence. Numeric due cutoff and list-popup source wording conflicts,
+plus broader grammar reviews, remain open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,877** exact before/after values, including unflagged
+records contain **19,878** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -44,7 +44,7 @@ restored values still await full native clause validation.
 
 | Pending locale | Findings |
 | --- | ---: |
-| zgh — Standard Moroccan Tamazight | 54 |
+| zgh — Standard Moroccan Tamazight | 53 |
 | iu — Inuktitut | 38 |
 | nah — Nahuatl | 17 |
 | tig — Tigre | 17 |
