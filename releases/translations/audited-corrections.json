@@ -122918,5 +122918,19 @@
     "before": "Pour créer des organisations, veuillez contacter l'administrateur.",
     "after": "ⴰⴼⴰⴷ ⴰⴷ ⵜⵙⵏⵓⵍⴼⵓⴷ ⵜⵓⴷⴷⵙⵉⵡⵉⵏ, ⴰⵎⵓⵔ ⵏⵏⴽ ⵎⵢⴰⵡⴰⴹ ⴰⴽⴷ ⵓⵎⵙⵙⵓⴳⵓⵔ.",
     "reason": "Replace French board-group removal confirmation or group-creation guidance. Preserve removal FROM the board rather than deleting the group, organization/team scope, creation purpose and please-contact-administrator instruction. Reuse local confirmation and please frames. MediaWiki zgh blockedtext-contact-blocker-admin, createacct-submit, badaccess-groups and delete-confirm support contact/admin/create/team/remove components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Organization singular/plural is MW-adapted from https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: derived contact imperative and creation conjugation, bound nouns, free team plural, dialect adaptation and full guidance require fluent review; this is vocabulary-supported composition, not a verified native full sentence."
+  },
+  {
+    "locale": "zgh",
+    "key": "add-teams-label",
+    "before": "Les équipes ajoutées sont affichées ci-dessous :",
+    "after": "ⵜⵉⵔⵓⴱⴱⴰ ⵉⵜⵜⵡⴰⵔⵏⵉⵏ ⵜⵜⵡⴰⵙⴽⵏⴰⵏⵜ ⴳ ⴷⴷⴰⵡ ⴷⴰ:",
+    "reason": "Replace French added-group display labels. Preserve added qualifier, team versus organization plurals, displayed-below relation and colon. Native MediaWiki zgh recentchanges-page-added-to-category and metadata-help support addition; rcfilters-empty-filter supports displayed root, rcfilters-savedqueries-already-saved illustrates feminine-plural passive agreement, and sharedupload-desc-here supports below-here: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Its index-category means indexed and is NOT used as proof of displayed wording. Team component is supported by badaccess-groups; organization plural is MW-adapted from https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: added participle, derived feminine-plural display passive, free team plural, organization dialect adaptation and complete software phrase require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "add-organizations-label",
+    "before": "Les organisations ajoutées sont affichées ci-dessous :",
+    "after": "ⵜⵓⴷⴷⵙⵉⵡⵉⵏ ⵉⵜⵜⵡⴰⵔⵏⵉⵏ ⵜⵜⵡⴰⵙⴽⵏⴰⵏⵜ ⴳ ⴷⴷⴰⵡ ⴷⴰ:",
+    "reason": "Replace French added-group display labels. Preserve added qualifier, team versus organization plurals, displayed-below relation and colon. Native MediaWiki zgh recentchanges-page-added-to-category and metadata-help support addition; rcfilters-empty-filter supports displayed root, rcfilters-savedqueries-already-saved illustrates feminine-plural passive agreement, and sharedupload-desc-here supports below-here: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Its index-category means indexed and is NOT used as proof of displayed wording. Team component is supported by badaccess-groups; organization plural is MW-adapted from https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . LOW CONFIDENCE: added participle, derived feminine-plural display passive, free team plural, organization dialect adaptation and complete software phrase require fluent review."
   }
 ]
