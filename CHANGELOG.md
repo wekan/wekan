@@ -643,7 +643,8 @@ retain their destination and new-card meaning. Regression checks preserve
 placeholders and verify label wiring; complete contextual grammar remains
 under review. Planning Poker deletion text also preserves irreversible
 deletion and loss of associated actions. Label deletion text preserves
-removal from every card and destruction of label history.
+removal from every card and destruction of label history. Keyboard shortcut
+messages retain their enabled/disabled state and opposite click action.
 
 This release includes the following features and fixes:
 
@@ -689,6 +690,17 @@ cards and deletion of its history. Four focused suites pass for warning
 scope, negative Arabic checks, popup wiring and translation structure.
 Complete contextual grammar remains under native review. Dated audit
 records 184 original findings still pending.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/260258983">Repair Tamazight keyboard shortcut status labels</a>. Thanks to xet7.</summary>
+
+Replace Arabic shortcut heading and status messages, retaining current
+activation state and the opposite click action. Four focused suites pass
+for heading consistency, action direction, negative Arabic checks, template
+conditional wiring and translation structure. Full contextual grammar
+remains under native review. Dated audit records 182 pending findings.
 
 </details>
 

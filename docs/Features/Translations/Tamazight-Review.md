@@ -2868,3 +2868,28 @@ ledger, retained reviews and completeness. No live UI test ran. Ledger
 19,828; original corrected 15,719, pending 184 (zgh 89), restored 4
 unchanged. Broader uncertain/restored/unflagged review remains open.
 No remote writes.
+
+
+## Keyboard shortcut status — 2026-09-15
+
+Local commit `260258983` replaces Arabic keyboard-shortcuts (unflagged)
+and both flagged enabled/disabled messages. Retain current activation
+status and the opposite click action. sidebar.jade's isKeyboardShortcuts
+conditional selects enabled versus disabled messages.
+
+IRCAM cached lexical entries: page 210 entry 4007 asanf (shortcut), plural
+isunaf; page 611 entry 11436 tanast (keyboard), bound tnast; page 537 entry
+10106 ssrfu (activate); page 532 entry 10015 ssns (switch off/put out).
+Do not confuse ssns with hospitality homograph 10014. Existing interface
+click and activation constructions are reused. Source:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+**Low confidence:** computing shortcut compound, derived plural passive
+forms and pronoun/verb agreement in the click clauses remain under native
+review. Lexical components do not independently attest the complete
+software sentences. Four focused suites pass: heading consistency,
+status/opposite-action distinction, negative Arabic checks, actual template
+conditional wiring, placeholders, correction ledger, retained reviews and
+completeness. No live UI test ran. Ledger 19,831; original corrected 15,721,
+pending 182 (zgh 87), restored 4 unchanged. Broader review remains open.
+No remote writes.
