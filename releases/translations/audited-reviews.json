@@ -20254,5 +20254,185 @@
     "key": "migration-progress",
     "value": "Progreso da migración",
     "reason": "Inspected Galician meaning correctly distinguishes retrying failed migrations from resuming paused migrations; preserves absence/success/failure messages, idle state, filesystem storage, notifications, backup completion/scheduling/listing, GridFS identifiers and migration start/pause/stop/progress controls. Text-data migration completion remains distinct from file storage."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-start-failed",
+    "value": "Non se puideron iniciar as migracións",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-started",
+    "value": "Migracións iniciadas correctamente",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-not-needed",
+    "value": "Non se necesita ningunha migración",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-status",
+    "value": "Estado da migración",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-stop-confirm",
+    "value": "Está seguro de que quere deter todas as migracións?",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-stop-failed",
+    "value": "Non se puideron deter as migracións",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-stopped",
+    "value": "Migracións detidas correctamente",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "mongodb-gridfs-storage",
+    "value": "Almacenamento MongoDB GridFS",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "pause-all-migrations",
+    "value": "Pausar todas as migracións",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-access-key",
+    "value": "Chave de acceso de S3",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-access-key-description",
+    "value": "Chave de acceso de AWS S3 para a autenticación",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-access-key-placeholder",
+    "value": "Introduza a chave de acceso de S3",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-bucket",
+    "value": "Bucket de S3",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-bucket-description",
+    "value": "Nome do bucket de S3 para gardar os ficheiros",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-connection-failed",
+    "value": "Fallou a conexión con S3",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-connection-success",
+    "value": "Conexión con S3 correcta",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-enabled",
+    "value": "S3 activado",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-enabled-description",
+    "value": "Usar AWS S3 ou MinIO para o almacenamento de ficheiros",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-endpoint",
+    "value": "Punto de acceso de S3",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-endpoint-description",
+    "value": "URL do punto de acceso de S3 (p. ex., s3.amazonaws.com ou minio.example.com)",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-minio-storage",
+    "value": "Almacenamento S3/MinIO",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-port",
+    "value": "Porto de S3",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-port-description",
+    "value": "Número de porto do punto de acceso de S3",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-region",
+    "value": "Rexión de S3",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-region-description",
+    "value": "Rexión de AWS S3 (p. ex., us-east-1)",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-secret-key",
+    "value": "Chave secreta de S3",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-secret-key-description",
+    "value": "Chave secreta de AWS S3 para a autenticación",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-secret-key-placeholder",
+    "value": "Introduza a chave secreta de S3",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-secret-key-required",
+    "value": "Requírese a chave secreta de S3",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-settings-save-failed",
+    "value": "Non se puido gardar a configuración de S3",
+    "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
   }
 ]
