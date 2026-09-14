@@ -29638,3 +29638,25 @@ does not independently attest the complete compound. Four focused checks
 pass for exact replacement, negative French/Arabic and token inventories;
 no live activity UI test ran. Ledger 19,897, corrected 15,774, pending 129
 (zgh 36), restored 4 unchanged. Broader language review remains open.
+
+
+2026-09-15 — `06be23201`: Node_memory_usage_heap_used French replaced
+with a Tamazight actual-used-memory draft. IRCAM General Dictionary primary
+PDF https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339 : 12742
+memory timktit/bound tmktit, 9981 ssmrs use, 12572 tidt truth/reality.
+The phrase s tidt paraphrases actual; computing memory adaptation, passive
+agreement and the full usage compound remain low confidence. Existing
+memory-usage and external-memory labels use a different cognitive-memory
+term and need reconciliation during broader review; do not call this a
+completed terminology audit. Node primary documentation read 2026-09-15:
+https://nodejs.org/api/process.html#processmemoryusage states heapTotal and
+heapUsed refer to V8 usage, whereas RSS covers resident process memory,
+including C++/JavaScript objects and code. Source server/statistics.js:87
+calls process.memoryUsage; informationBody.jade:181 displays heapUsed.
+The English label is broader than that field; retain its wording without
+claiming whole-process memory. Four focused checks pass, including exact
+replacement, negative French/Arabic and unchanged placeholder inventories.
+No live diagnostic UI test ran. Ledger 19,898; corrected 15,775, pending
+128 (zgh 35), restored 4 unchanged. Reminder plural remains unflagged French:
+IRCAM 4289 gives no plural; 9120 sfggt and 9825 sskti attest remind verbs,
+not a complete plural reminder compound. That review remains open.

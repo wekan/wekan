@@ -1215,6 +1215,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/06be23201">Fix Tamazight actual used-memory diagnostic wording</a></summary>
+
+Replace French wording with a Tamazight draft. Four focused checks pass.
+The displayed field is V8 heapUsed; full terminology and grammar remain
+under review. Record dated evidence and remaining repairs in the audit.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
