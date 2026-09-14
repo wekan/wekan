@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight time-tracking labels — 2026-09-14
+
+Commit `9f60960f4` replaces five Arabic/French values: two original findings and three unflagged labels. Card details uses separate hours fields; boards-list tooltips distinguish Has overtime cards from Has spent-time cards. [CLDR native locale](https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml) directly attests singular Hour in `dates/fields/hour`, not the derived plural. Spent provisionally uses Used time; Overtime uses Additional time. These semantic adaptations, derived passive/plural forms, reused Additional vocabulary and Has constructions remain LOW CONFIDENCE, requiring native validation. Neither CLDR nor source-code scope checks attest the whole phrases. Spent/overtime and card-presence scopes and parentheses are preserved. 425 originals remain pending, including 290 Tamazight. 17,897 mechanical correction checks pass; no live browser verification or remote uploads.
+
 ## Tamazight account and starred item labels — 2026-09-14
 
 Commit `47758fc61` repairs three unflagged values. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) directly supplies the identical Create Account action (`pt-createaccount`), replacing Arabic without a new noun adaptation. [Native Mastodon](https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json) directly supplies plural Lists (`navigation_bar.lists`), correcting the different local noun. Starred Boards replaces Arabic with Boards with a Star; Starred Lists preserves that state using the corrected noun. Star and Board vocabulary reuse local usage, which is not independent validation. Full starred compounds remain LOW CONFIDENCE for native review. All three are outside the original findings: original counts remain 427 pending, including 292 Tamazight. 17,892 mechanical correction checks pass; no live browser verification or remote uploads.
