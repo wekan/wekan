@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,454 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 390 pending review or repair.
-The correction inventory records 17,973 exact before/after values,
+The correction inventory records 17,980 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,10 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 1f30de7d6 (2026-09-14), repairing two Arabic
-custom translation findings. Confirmation, THIS/custom scope, no-undo warning
-and count punctuation preserved. Derived Text plural and full grammar remain
-low confidence.
+Latest translation fix is 747e1d96e (2026-09-14), repairing seven unflagged
+template labels including Save as Template previously using Subject. Action
+and card/list/board scopes preserved. Plurals and full phrases remain low
+confidence. Original counts unchanged.
 Archive provenance follow-up fbe388603 (2026-09-14) directly inspects the
 native Archives du Maroc logo in a university PDF, corroborating the noun
 beyond indexed evidence. Nine records updated; no values/counts changed.
@@ -654,7 +654,7 @@ remain open.
 Translation audit progress as of 2026-09-14: 15,454 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
 and 390 remain pending across 17 locales, including 255 Tamazight findings.
-The ledger contains 17,973 correction records, including unflagged repairs.
+The ledger contains 17,980 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -2784,6 +2784,17 @@ no-undo warning and count punctuation. Two Arabic findings repaired; derived
 Text plural and full grammar remain low confidence. All 17,973 correction
 checks pass; 390 original findings remain pending, including 255 Tamazight.
 Browser verification was not run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/747e1d96e">Repair Tamazight template labels and save action</a>. Thanks to xet7.</summary>
+
+2026-09-14: Repair seven unflagged template labels using directly attested
+Template terminology, including Save as Template previously using Subject.
+Preserve Add/Create/Save AS and card/list/board scopes. Plurals and full
+phrases remain low confidence. All 17,980 correction checks pass; original
+counts unchanged. Browser verification was not run.
 
 </details>
 
