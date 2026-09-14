@@ -127300,5 +127300,19 @@
     "before": "Kalendar sistem (data görünüşü)",
     "after": "Ullorsiutit aaqqissuussaanerat (ullunik takutitsineq)",
     "reason": "Replace Azerbaijani Kalendar sistem/data görünüşü with Greenlandic calendar arrangement and date-display wording. Ullorsiutit is attested in Greenland government calendar usage https://socialstyrelsen.gl/6_kursuskatalog/aktivitetskalender?sc_lang=kl-gl ; arrangement/display vocabulary follows existing locale. Compound grammar is provisional and needs native review; no claim of full Greenlandic fluency."
+  },
+  {
+    "locale": "gv",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Feaillere Hijri (taablagh, dait toshee shivoil)",
+    "reason": "Replace English calendar placeholder with Manx calendar and tabular wording, retaining civil versus astronomical epoch distinction. taablagh, shivoil and rollageagh are dictionary-attested at archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/dict/T.html, C.html and A.html. Epoch rendered descriptively as starting date (dait toshee); technical phrase is provisional and requires native terminology review."
+  },
+  {
+    "locale": "gv",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Feaillere Hijri (taablagh, dait toshee rollageagh)",
+    "reason": "Replace English calendar placeholder with Manx calendar and tabular wording, retaining civil versus astronomical epoch distinction. taablagh, shivoil and rollageagh are dictionary-attested at archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/dict/T.html, C.html and A.html. Epoch rendered descriptively as starting date (dait toshee); technical phrase is provisional and requires native terminology review."
   }
 ]
