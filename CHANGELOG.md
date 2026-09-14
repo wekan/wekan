@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,338 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 506 pending review or repair.
-The correction inventory records 17,660 exact before/after values,
+The correction inventory records 17,661 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is d85bc40db (2026-09-14), replacing the French
-Tamazight support access notice. Support information remains restricted to
-logged-in users only; the full sentence needs fluent review.
+Latest translation fix is c509e6ae7 (2026-09-14), replacing the French
+Tamazight cron error-message label outside the original queue. Message and
+details remain distinct; the full software noun phrase needs fluent review.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -622,7 +622,7 @@ remain open.
 Translation audit progress as of 2026-09-14: 15,338 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
 and 506 remain pending across 17 locales, including 371 Tamazight findings.
-The ledger contains 17,660 correction records, including unflagged repairs.
+The ledger contains 17,661 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -1408,6 +1408,17 @@ Native components support provisional wording; derived login participle and
 complete sentence remain low confidence pending fluent review. All 17,660
 correction checks pass; 506 original findings remain pending. Broader language
 validation and the not-yet-added notices remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c509e6ae7">Translate Tamazight cron error message label</a>. Thanks to xet7.</summary>
+
+Replace French with native message and error vocabulary, preserving the
+message versus details distinction. Full software noun phrase remains low
+confidence pending fluent review. All 17,661 correction checks pass; this
+unflagged repair leaves 506 original findings pending. Broader language
+validation continues.
 
 </details>
 
