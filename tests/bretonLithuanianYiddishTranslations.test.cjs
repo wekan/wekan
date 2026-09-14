@@ -199,3 +199,14 @@ assert.notEqual(locales.br['last-modified'], locales.br['list-label-modifiedAt']
 for (const key of ['operator-modified', 'predicate-modified', 'last-modified', 'list-label-modifiedAt']) {
   assert.doesNotMatch(locales.br[key], /modifiée|Dernière|Dernier accès/);
 }
+
+for (const key of ['accessibility', 'accessibility-title', 'accessibility-content',
+  'accessibility-page-enabled', 'accessibility-info-not-added-yet']) {
+  assert.match(locales.br[key], /[Hh]aezadusted/, 'accessibility uses its noun, not the access verb');
+  assert.doesNotMatch(locales.br[key], /haeziñ|Accessibilité|Titre d'accessibilité|Contenu d'accessibilité/);
+}
+assert.match(locales.br['accessibility-title'], /^Titl /);
+assert.match(locales.br['accessibility-content'], /^Endalc’had /);
+assert.match(locales.br['accessibility-page-enabled'], /gweredekaet$/);
+assert.match(locales.br['accessibility-info-not-added-yet'], /^N’eo ket.*ouzhpennet.*c’hoazh$/);
+assert.notEqual(locales.br['accessibility-title'], locales.br['accessibility-content']);

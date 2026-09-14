@@ -65327,15 +65327,15 @@
     "locale": "br",
     "key": "accessibility-info-not-added-yet",
     "before": "L'information d'accessibilité n'a pas encore été ajoutée",
-    "after": "N’eo ket bet ouzhpennet titouroù haeziñ c’hoazh",
-    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+    "after": "N’eo ket bet ouzhpennet titouroù diwar-benn an haezadusted c’hoazh",
+    "reason": "Use accessibility noun haezadusted, explicitly distinguished from access/verb haeziñ in native An Drouizig Gerva ar Stlenneg 2017 page 13. Actual Admin Panel fields are the accessibility page title/body and enabled toggle. Ofis computing glossary supports titl/endalc’had/gweredekaat/ouzhpennañ. Preserve not-added-yet negation and enabled state. Full adapted page compounds and sentence grammar remain subject to native/browser review."
   },
   {
     "locale": "br",
     "key": "accessibility-page-enabled",
     "before": "Page d'accessibilité activée",
-    "after": "Pajenn haeziñ gweredekaet",
-    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+    "after": "Pajenn haezadusted: gweredekaet",
+    "reason": "Use accessibility noun haezadusted, explicitly distinguished from access/verb haeziñ in native An Drouizig Gerva ar Stlenneg 2017 page 13. Actual Admin Panel fields are the accessibility page title/body and enabled toggle. Ofis computing glossary supports titl/endalc’had/gweredekaat/ouzhpennañ. Preserve not-added-yet negation and enabled state. Full adapted page compounds and sentence grammar remain subject to native/browser review."
   },
   {
     "locale": "br",
@@ -130198,5 +130198,26 @@
     "before": "Dernier accès",
     "after": "Eur ar moned diwezhañ",
     "reason": "Replace French with Breton software terminology. Native MediaWiki updatedmarker attests kemmet and new-messages-diff-link-plural attests singular kemm diwezhañ; Ofis TermBret computing glossary attests accès = moned. Preserve last-access time as distinct from last modification, with the existing local Eur time label. The access-time compound is a grammatical adaptation, not exact native product-label attestation; browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "accessibility",
+    "before": "Accessibilité",
+    "after": "Haezadusted",
+    "reason": "Use accessibility noun haezadusted, explicitly distinguished from access/verb haeziñ in native An Drouizig Gerva ar Stlenneg 2017 page 13. Actual Admin Panel fields are the accessibility page title/body and enabled toggle. Ofis computing glossary supports titl/endalc’had/gweredekaat/ouzhpennañ. Preserve not-added-yet negation and enabled state. Full adapted page compounds and sentence grammar remain subject to native/browser review."
+  },
+  {
+    "locale": "br",
+    "key": "accessibility-title",
+    "before": "Titre d'accessibilité",
+    "after": "Titl ar bajenn haezadusted",
+    "reason": "Use accessibility noun haezadusted, explicitly distinguished from access/verb haeziñ in native An Drouizig Gerva ar Stlenneg 2017 page 13. Actual Admin Panel fields are the accessibility page title/body and enabled toggle. Ofis computing glossary supports titl/endalc’had/gweredekaat/ouzhpennañ. Preserve not-added-yet negation and enabled state. Full adapted page compounds and sentence grammar remain subject to native/browser review."
+  },
+  {
+    "locale": "br",
+    "key": "accessibility-content",
+    "before": "Contenu d'accessibilité",
+    "after": "Endalc’had ar bajenn haezadusted",
+    "reason": "Use accessibility noun haezadusted, explicitly distinguished from access/verb haeziñ in native An Drouizig Gerva ar Stlenneg 2017 page 13. Actual Admin Panel fields are the accessibility page title/body and enabled toggle. Ofis computing glossary supports titl/endalc’had/gweredekaat/ouzhpennañ. Preserve not-added-yet negation and enabled state. Full adapted page compounds and sentence grammar remain subject to native/browser review."
   }
 ]
