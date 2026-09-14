@@ -16,6 +16,11 @@ Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calenda
 
 Latest translation fix: **2026-09-14**, local commit `b579a024b` — refined format-help Value from derived uzal to indexed IRCAM wazal paradigm, preserving %{value}, substitution meaning and original French provenance. Direct PDF access failed; full instruction remains **low confidence**. All **18,096** correction checks pass; counts unchanged: **322** findings remain pending across **17** locales, including **187** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
+**Search-case review (2026-09-14):** preserve uppercase/lowercase matching,
+not font-size or accent equivalence. Indexed IRCAM discussions do not
+establish native case-insensitivity terms; the instruction remains pending.
+[Evidence](Audit-Evidence.md) records source limits; values/counts unchanged.
+
 **Parent-card review (2026-09-14):** code confirms No Parent is display-only,
 distinct from changing the relationship. Indexed cross-variety vocabulary
 does not establish a singular Moroccan parent term; earlier inheritance

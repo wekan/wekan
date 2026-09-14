@@ -1,5 +1,19 @@
 # Detailed translation audit evidence
 
+2026-09-14 — case-insensitive search terminology review: preserve the English
+instruction's uppercase/lowercase matching meaning; do not substitute font
+size, accents or universal equivalence. Indexed IRCAM typography material
+[Typo.pdf, printed page 226](https://www.ircam.ma/sites/default/files/2021-02/Typo.pdf)
+distinguishes lowercase/uppercase collation keys in French, while
+[alphabet discussion, printed page 54](https://biblio.ircam.ma/pmb/uploads/publications/47.pdf)
+discusses a proposed Tifinagh alphabet without uppercase. Neither excerpt
+establishes native Moroccan software case-insensitivity vocabulary. Directly
+searched the cached CNAM PDF text for uppercase/lowercase candidates;
+no entries found by those searches, which is not proof none exist.
+Keep `globalSearch-instructions-notes-4` pending, and preserve its applicability
+to board text in languages with letter case. No values, records or counts
+changed; full native terminology still needs review.
+
 2026-09-14 — `b579a024b`: format-help Value bound form refined from derived
 uzal to wazal. IRCAM grammatical vocabulary indexed printed page 80 gives
 Value azal – wazal – azalen, unlike daytime/hour uzal context found elsewhere.
