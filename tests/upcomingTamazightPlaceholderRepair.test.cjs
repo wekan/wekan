@@ -251,7 +251,7 @@ assert.match(translated['migrations-description'], /ⴽⵓ ⴰⵙⵎⵓⵜⵜⵢ
 assert.doesNotMatch(translated['migrations-description'], /Exécute|vérifications|individuellement/);
 assert.notEqual(translated['migrations-description'], translated['comprehensive-board-migration-description']);
 
-assert.equal(translated['r-items-check'], 'ⴰⴼⵔⴷⵉⵙ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ');
+assert.equal(translated['r-items-check'], 'ⴰⴼⵔⴷⵉⵙ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵜⵎⵏⵥⵉⵜ');
 assert.match(translated['r-checklist-note'], /^ⵜⴰⵎⴰⵡⵜ: ⴰⵔⵓ ⵉⴼⵔⴷⵉⵙⵏ.*ⵙ ⵜⵉⵙⴽⵔⵉⵏ ⴳⵔⴰⵙⵏ\.$/);
 assert.doesNotMatch(translated['r-checklist-note'] + translated['r-items-check'], /Note|virgules|Élément/);
 assert.match(fs.readFileSync(path.join(ROOT, 'client/components/rules/actions/checklistActions.jade'), 'utf8'), /{{_'r-checklist-note'}}/);
@@ -267,7 +267,7 @@ assert.equal(translated["r-in-list"], "ⴳ ⵜⵍⴳⴰⵎⵜ");
 assert.equal(translated["r-in-swimlane"], "ⴳ ⵓⴱⵔⵉⴷ");
 assert.equal(translated["r-d-add-member"], "ⵔⵏⵓ ⴰⴳⵎⴰⵎ");
 assert.equal(translated["r-d-remove-member"], "ⴽⴽⵙ ⴰⴳⵎⴰⵎ");
-assert.equal(translated["r-d-check-of-list"], "ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ");
+assert.equal(translated["r-d-check-of-list"], "ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵜⵎⵏⵥⵉⵜ");
 assert.equal(translated["r-with-items"], "ⵙ ⵉⴼⵔⴷⵉⵙⵏ");
 assert.equal(translated["r-swimlane-name"], "ⵉⵙⵎ ⵏ ⵓⴱⵔⵉⴷ");
 assert.notEqual(translated['r-in-list'], translated['r-in-swimlane']);
@@ -421,3 +421,9 @@ assert.doesNotMatch(fileWarning, /[\u0600-\u06ff]|ⴰⵏⴽⵔⵓⴼ/u);
 
 assert.strictEqual(translated['import-show-user-mapping'], 'ⵙⵙⵉⴷⴻⴷ ⴰⵣⴷⴰⵢ ⵏ ⵢⵉⴳⵎⴰⵎⵏ');
 assert.doesNotMatch(translated['import-show-user-mapping'], /Contrôler|ⵙⵙⵉⴷⴷ|[\u0600-\u06ff]/u);
+
+// Checklist compound uses the independently attested verification noun.
+for (const [key, value] of Object.entries(translated)) {
+  assert.ok(!value.includes('ⵏ ⵓⵙⵙⵉⴷⴷ'), key + ' retained unsupported checking noun');
+}
+assert.strictEqual(translated.checklist, 'ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵜⵎⵏⵥⵉⵜ');
