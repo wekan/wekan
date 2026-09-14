@@ -30042,3 +30042,23 @@ full token inventories/key order pass. No live authentication UI ran.
 Ledger 19,928; original pending 126/restored 4 unchanged. Remaining
 wrong-language two-factor explanation, QR/six-digit instructions, manual
 entry and confirm-and-enable require repair. Broader review stays open.
+
+
+2026-09-15 — `f9d9c454d`: seven unflagged Tshivenda setup/login values
+repaired: twoFactorAuth-explanation, scan-instructions, manual-entry,
+confirm, and twoFactorCode-prompt, submit, invalid. Preserve added account
+protection, enabled-state condition, code from authenticator at each login,
+QR scan with Google Authenticator/Authy examples, subsequent six-digit
+confirmation, manual-entry alternative, confirm-and-enable and error retry.
+Existing local account/login wording and native MediaWiki kirjuta käzil,
+vahvištoita, kod, kaikuččen kerdan, and programmas support basic vocabulary.
+Primary source rechecked today:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+Complete computing instructions are direct drafts, not attested whole
+native sentences. Ližakaičuz, scanner loan, six-digit compound, case forms
+and full grammar remain LOW CONFIDENCE and require further review.
+Four focused files pass (29 checks), including wrong-language rejection,
+all setup/login qualifiers, trailing manual-entry space and token inventories.
+No live authentication UI ran. Ledger 19,935; pending 126/restored 4.
+Previously found wrong-language two-factor block now has Veps drafts;
+that is not proof of complete native fluency. Broader review remains open.

@@ -1382,6 +1382,18 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f9d9c454d">Replace wrong-language Veps two-factor setup and login text.</a></summary>
+
+Preserve QR and manual setup alternatives, six-digit codes, the code
+requirement at every login and invalid-code retry. Complete draft grammar
+and computing compounds remain low confidence and under review.
+Four focused files pass (29 checks); no live authentication UI ran.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

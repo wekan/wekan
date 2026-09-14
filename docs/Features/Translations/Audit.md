@@ -16,15 +16,15 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `7deff5697` — replace four
-unflagged Tshivenda two-factor controls with Veps drafts, preserving title,
-enable/disable actions and account-specific enabled status. Four focused
-files pass (28 checks). Ledger 19,928; pending 126/restored 4 unchanged.
-Full two-factor compound and grammar remain low confidence. Setup
-instructions and the wider flagged/unflagged review remain open.
+Latest translation fix: **2026-09-15**, `f9d9c454d` — replace seven
+unflagged Tshivenda two-factor setup/login messages with Veps drafts.
+Preserve every-login codes, QR/manual alternatives, six digits and retry.
+Four focused files pass (29 checks). Ledger 19,935; original pending
+126/restored 4 unchanged. Computing compounds and complete grammar
+remain low confidence; broader flagged/unflagged review is still open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,928** exact before/after values, including unflagged
+records contain **19,935** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
