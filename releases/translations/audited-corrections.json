@@ -125515,5 +125515,54 @@
     "before": "attention : cette carte est dans une liste archivée",
     "after": "ⴰⵙⵎⵉⴳⵍ: ⵜⴰⴽⴰⵕⴹⴰ ⴰⴷ ⴳ ⵢⴰⵜ ⵜⴰⵍⴳⴰⵎⵜ ⴳ ⴰⵔⵛⵉⴼ",
     "reason": "2026-09-14: Replace Arabic/French archive-state labels. Preserve boards-in-archive, distinct No Boards/Lists/Cards negative states, THIS card/board MOVED to Archive (singular board, unlike old Arabic plural), and Warning THIS card is in a LIST in Archive rather than claiming the card itself archived. Archive noun directly corroborated by native institutional logo in University Mohammed V PDF: https://www.um5.ac.ma/um5/sites/default/files/2019-12/Communiqu%C3%A9%20JNA%202019.pdf . Native MediaWiki attests Move, No, Warning and list components; native Mastodon directly attests plural Lists. Card/Board reuse local vocabulary; plural feminine negative agreement, passive moved form, nested archive-location and full clauses remain LOW CONFIDENCE for native validation. Institutional noun evidence does not attest whole kanban status labels."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-archive",
+    "before": "نقل الى الارشيف",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⵖⵔ ⴰⵔⵛⵉⴼ",
+    "reason": "2026-09-14: Replace Arabic/French archive rule actions and states. Preserve Move TO Archive versus Restore FROM Archive, explicit Card action scope, completed Moved/Restored states and generic Archived state. Native MediaWiki thisisdeleted directly attests Restore ⵙⵡⵔⵔⵉ, tooltip-ca-move attests Move ⵙⵎⵓⵜⵜⵉ: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Restore deleted-page-to-archive-item adaptation, passive states, archive prepositional forms and whole clauses remain LOW CONFIDENCE for native review. Archive noun corroborated by inspected institutional logo in University Mohammed V 2019 Archives Day PDF; that does not attest kanban action grammar. Archived is provisionally In Archive, preserving state. Search predicate is separate and was not changed to a multiword phrase."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-unarchive",
+    "before": "Restaurer depuis les archives",
+    "after": "ⵙⵡⵔⵔⵉ ⵙⴳ ⴰⵔⵛⵉⴼ",
+    "reason": "2026-09-14: Replace Arabic/French archive rule actions and states. Preserve Move TO Archive versus Restore FROM Archive, explicit Card action scope, completed Moved/Restored states and generic Archived state. Native MediaWiki thisisdeleted directly attests Restore ⵙⵡⵔⵔⵉ, tooltip-ca-move attests Move ⵙⵎⵓⵜⵜⵉ: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Restore deleted-page-to-archive-item adaptation, passive states, archive prepositional forms and whole clauses remain LOW CONFIDENCE for native review. Archive noun corroborated by inspected institutional logo in University Mohammed V 2019 Archives Day PDF; that does not attest kanban action grammar. Archived is provisionally In Archive, preserving state. Search predicate is separate and was not changed to a multiword phrase."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-d-archive",
+    "before": "Archiver la carte",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⵜⴰⴽⴰⵕⴹⴰ ⵖⵔ ⴰⵔⵛⵉⴼ",
+    "reason": "2026-09-14: Replace Arabic/French archive rule actions and states. Preserve Move TO Archive versus Restore FROM Archive, explicit Card action scope, completed Moved/Restored states and generic Archived state. Native MediaWiki thisisdeleted directly attests Restore ⵙⵡⵔⵔⵉ, tooltip-ca-move attests Move ⵙⵎⵓⵜⵜⵉ: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Restore deleted-page-to-archive-item adaptation, passive states, archive prepositional forms and whole clauses remain LOW CONFIDENCE for native review. Archive noun corroborated by inspected institutional logo in University Mohammed V 2019 Archives Day PDF; that does not attest kanban action grammar. Archived is provisionally In Archive, preserving state. Search predicate is separate and was not changed to a multiword phrase."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-d-unarchive",
+    "before": "Restaurer la carte depuis les archives",
+    "after": "ⵙⵡⵔⵔⵉ ⵜⴰⴽⴰⵕⴹⴰ ⵙⴳ ⴰⵔⵛⵉⴼ",
+    "reason": "2026-09-14: Replace Arabic/French archive rule actions and states. Preserve Move TO Archive versus Restore FROM Archive, explicit Card action scope, completed Moved/Restored states and generic Archived state. Native MediaWiki thisisdeleted directly attests Restore ⵙⵡⵔⵔⵉ, tooltip-ca-move attests Move ⵙⵎⵓⵜⵜⵉ: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Restore deleted-page-to-archive-item adaptation, passive states, archive prepositional forms and whole clauses remain LOW CONFIDENCE for native review. Archive noun corroborated by inspected institutional logo in University Mohammed V 2019 Archives Day PDF; that does not attest kanban action grammar. Archived is provisionally In Archive, preserving state. Search predicate is separate and was not changed to a multiword phrase."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-archived",
+    "before": "Archivé",
+    "after": "ⵜⵜⵓⵙⵎⵓⵜⵜⵉ ⵖⵔ ⴰⵔⵛⵉⴼ",
+    "reason": "2026-09-14: Replace Arabic/French archive rule actions and states. Preserve Move TO Archive versus Restore FROM Archive, explicit Card action scope, completed Moved/Restored states and generic Archived state. Native MediaWiki thisisdeleted directly attests Restore ⵙⵡⵔⵔⵉ, tooltip-ca-move attests Move ⵙⵎⵓⵜⵜⵉ: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Restore deleted-page-to-archive-item adaptation, passive states, archive prepositional forms and whole clauses remain LOW CONFIDENCE for native review. Archive noun corroborated by inspected institutional logo in University Mohammed V 2019 Archives Day PDF; that does not attest kanban action grammar. Archived is provisionally In Archive, preserving state. Search predicate is separate and was not changed to a multiword phrase."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-unarchived",
+    "before": "Restauré depuis les archives",
+    "after": "ⵜⵜⵓⵙⵡⵔⵔⵉ ⵙⴳ ⴰⵔⵛⵉⴼ",
+    "reason": "2026-09-14: Replace Arabic/French archive rule actions and states. Preserve Move TO Archive versus Restore FROM Archive, explicit Card action scope, completed Moved/Restored states and generic Archived state. Native MediaWiki thisisdeleted directly attests Restore ⵙⵡⵔⵔⵉ, tooltip-ca-move attests Move ⵙⵎⵓⵜⵜⵉ: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Restore deleted-page-to-archive-item adaptation, passive states, archive prepositional forms and whole clauses remain LOW CONFIDENCE for native review. Archive noun corroborated by inspected institutional logo in University Mohammed V 2019 Archives Day PDF; that does not attest kanban action grammar. Archived is provisionally In Archive, preserving state. Search predicate is separate and was not changed to a multiword phrase."
+  },
+  {
+    "locale": "zgh",
+    "key": "archived",
+    "before": "Archivé",
+    "after": "ⴳ ⴰⵔⵛⵉⴼ",
+    "reason": "2026-09-14: Replace Arabic/French archive rule actions and states. Preserve Move TO Archive versus Restore FROM Archive, explicit Card action scope, completed Moved/Restored states and generic Archived state. Native MediaWiki thisisdeleted directly attests Restore ⵙⵡⵔⵔⵉ, tooltip-ca-move attests Move ⵙⵎⵓⵜⵜⵉ: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Restore deleted-page-to-archive-item adaptation, passive states, archive prepositional forms and whole clauses remain LOW CONFIDENCE for native review. Archive noun corroborated by inspected institutional logo in University Mohammed V 2019 Archives Day PDF; that does not attest kanban action grammar. Archived is provisionally In Archive, preserving state. Search predicate is separate and was not changed to a multiword phrase."
   }
 ]
