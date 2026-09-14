@@ -138766,5 +138766,19 @@
     "before": "Décoché",
     "after": "ⴱⵍⴰ ⵜⴰⵎⴰⵜⴰⵔⵜ",
     "reason": "2026-09-15: Replace French checkbox-state labels with with/without a mark, distinct from imperative actions. IRCAM entries 11152 (sign/mark), 5800 (without); existing with preposition. Computing adaptation and full trigger-fragment grammar remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-move-card-to",
+    "before": "Déplacer la carte vers",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⵜⴰⴽⴰⵕⴹⴰ ⵖⵔ",
+    "reason": "2026-09-15: Replace French board-rule action using existing card/move/create terms. Preserve destination preposition and new-card qualifier. IRCAM 9495 move, 9599 create, 2250 new; feminine adjective derived by the dictionary introduction rule. Full contextual grammar remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-create-card",
+    "before": "Créer une nouvelle carte",
+    "after": "ⵙⵏⵓⵍⴼⵓ ⵜⴰⴽⴰⵕⴹⴰ ⵜⴰⵎⴰⵢⵏⵓⵜ",
+    "reason": "2026-09-15: Replace French board-rule action using existing card/move/create terms. Preserve destination preposition and new-card qualifier. IRCAM 9495 move, 9599 create, 2250 new; feminine adjective derived by the dictionary introduction rule. Full contextual grammar remains low confidence."
   }
 ]

@@ -341,3 +341,11 @@ const checklistTriggers = fs.readFileSync(path.join(ROOT,
   'client/components/rules/triggers/checklistTriggers.jade'), 'utf8');
 assert.match(checklistTriggers, /option\(value="checked"\).*r-checked/);
 assert.match(checklistTriggers, /option\(value="unchecked"\).*r-unchecked/);
+
+assert.strictEqual(translated['r-move-card-to'], 'ⵙⵎⵓⵜⵜⵉ ⵜⴰⴽⴰⵕⴹⴰ ⵖⵔ');
+assert.strictEqual(translated['r-create-card'], 'ⵙⵏⵓⵍⴼⵓ ⵜⴰⴽⴰⵕⴹⴰ ⵜⴰⵎⴰⵢⵏⵓⵜ');
+assert.doesNotMatch(translated['r-move-card-to'] + translated['r-create-card'], /Déplacer|Créer|[\u0600-\u06ff]/u);
+const boardActionTemplate = fs.readFileSync(path.join(ROOT,
+  'client/components/rules/actions/boardActions.jade'), 'utf8');
+assert.match(boardActionTemplate, /r-move-card-to/);
+assert.match(boardActionTemplate, /r-create-card/);
