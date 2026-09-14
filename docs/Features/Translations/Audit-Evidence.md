@@ -25670,3 +25670,25 @@ is not explicit attestation of the mathematical noun integer, so it is
 not substituted into swimlane-height-error-message. Comprehensive-board
 migration likewise needs a full-scope modifier, not a completed-status
 verb that would suggest the operation already finished. Both stay open.
+
+Positive integer error repair — 2026-09-14, `597098ac1`.
+The Arabic swimlane-height-error-message is replaced with a complete
+Tamazight draft retaining height, swimlane, obligation, integer and positive.
+IRCAM Amazigh-English gives height ijgil (PDF 376, 7115), positive umnig
+(450, 8544) and have-to xss (356, 6770). Existing number and swimlane
+terms are reused. Source:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+New mathematics evidence: University Mouloud Mammeri 2015/2016 study,
+PDF page 59 table, explicitly maps Entier to ummid, referencing the
+1984 mathematics lexicon page 52. This establishes a mathematical
+meaning beyond the earlier integral adjective search. Source:
+https://dspace.ummto.dz/server/api/core/bitstreams/c93d3708-e773-47ec-af3b-1173a10436f5/content
+Low confidence: transferring Algerian pan-Amazigh technical terminology
+to Moroccan standard, genitive ubrid and the full modal/be sentence.
+Native/browser review remains open; this is a draft, not fluent certification.
+Four checks pass with independent positive/integer components and Arabic
+negatives. Corrected original findings 15,650; pending 252 (zgh 140);
+ledger 18,779. Earlier dated notes leaving this message Arabic are superseded.
+Catalogue PDF fetch failed certificate verification; no TLS checks were
+disabled. System pdftotext is unavailable; neither is evidence of lexical
+absence. Comprehensive-board-migration remains separately open.

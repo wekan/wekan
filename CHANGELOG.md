@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/597098ac1">Translate Tamazight positive-integer height error</a>. Thanks to xet7.</summary>
+
+Replace Arabic with a complete draft preserving positive and integer.
+Record mathematical evidence and low-confidence cross-variety wording.
+Four translation checks pass; native and browser review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8d48c0e3e">Repair Tamazight Planning Poker action labels</a>. Thanks to xet7.</summary>
 
 Replace French Finish and Replay with attested verbs matching the actual

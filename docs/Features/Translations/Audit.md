@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,649 |
+| Corrected | 15,650 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,175 |
-| Pending review or repair | 253 |
+| Pending review or repair | 252 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,13 +16,13 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `8d48c0e3e` —
-Tamazight Planning Poker Finish/Replay labels replace French with attested
-verbs; actual handlers confirm ending/restarting the round. Four checks
-pass. Native/browser review and 253 original findings remain open.
+Latest translation fix: **2026-09-14**, local commit `597098ac1` —
+Arabic swimlane-height error is replaced with a complete Tamazight draft
+preserving positive and integer. Four checks pass; cross-variety technical
+terminology and sentence grammar remain low confidence. Pending: 252.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,778** exact before/after values, including unflagged
+records contain **18,779** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -40,7 +40,7 @@ restored values still await full native/browser validation.
 
 | Pending locale | Findings |
 | --- | ---: |
-| zgh — Standard Moroccan Tamazight | 141 |
+| zgh — Standard Moroccan Tamazight | 140 |
 | iu — Inuktitut | 38 |
 | nah — Nahuatl | 17 |
 | tig — Tigre | 17 |
