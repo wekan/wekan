@@ -662,6 +662,18 @@ The browser assertion accepts whitespace between the regional flag and name.
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cb7df8bbc">Distinguish remaining Tamazight description labels from summary</a></summary>
+
+Use the description noun in minicard and more-detailed description labels.
+Keep Summary and search shorthand unchanged. Five focused suites pass;
+complete phrase grammar remains under review, with dated audit evidence.
+
+Thanks to xet7.
+
+</details>
+
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/df50d9f6e">Translate Tamazight bulk-card guidance and description terminology</a></summary>
 
 Translate destination-card JSON guidance and distinguish description from

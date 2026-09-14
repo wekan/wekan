@@ -27294,3 +27294,26 @@ ledger records are revised with their original before values retained; one
 new record brings total to 19,772. Original corrected 15,692, pending 211
 (zgh 108), restored 4 unchanged. Broader uncertain review remains open.
 No remote push.
+
+## Remaining description noun corrections — 2026-09-15
+
+Local commit `cb7df8bbc` corrects description-on-minicard and addmore-detail
+from summary noun to aglam (description). The full locale scan found only
+these two remaining description-labelled values containing that summary
+noun. Actual summary and search shorthand values remain unchanged; this
+is a selected terminology correction, not a global string replacement.
+
+[Primary IRCAM dictionary](https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339)
+page 42, entry 486, directly supports description aglam. Cached full PDF
+text was inspected again; browser retrieval rejects the oversized PDF.
+The compound surrounding this noun, especially more detailed wording,
+remains under native review. No active client references were found for
+these two catalogue keys. No UI activation or live browser verification
+is claimed. Existing Latin/Tifinagh terminology consistency also stays open.
+
+Five focused suites pass, including all description-labelled values staying
+distinct from summary and preservation of literal JSON properties and
+placeholders. Both existing ledger records retain their original before
+values with revised after/reasons. Ledger 19,772; original pending 211
+(zgh 108), restored 4 unchanged. Broader uncertain/unflagged review remains
+open. No remote push.
