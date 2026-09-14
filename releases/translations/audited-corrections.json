@@ -127160,5 +127160,33 @@
     "before": "Completado",
     "after": "Completada",
     "reason": "client/components/cards/subtasks.jade uses completed as the completed-subtask icon tooltip. Galician subtarefa is feminine, requiring Completada rather than masculine Completado."
+  },
+  {
+    "locale": "eu",
+    "key": "act-archivedBoard",
+    "before": "__board__ arbela biltegira eraman da",
+    "after": "__board__ arbela artxibora eraman da",
+    "reason": "Use artxibo (archive), documented in UPV/EHU Egungo Euskararen Hiztegia https://www.ehu.eus/eeh/cgi/bila?h=artxibo, to distinguish archived board/card/list/swimlane state from a generic storage repository. Preserve every activity token."
+  },
+  {
+    "locale": "eu",
+    "key": "act-archivedCard",
+    "before": "__card__ txartela biltegira eraman da, __list__ zerrendatik, __swimlane__ errailean, __board__ arbelean",
+    "after": "__card__ txartela artxibora eraman da, __list__ zerrendatik, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Use artxibo (archive), documented in UPV/EHU Egungo Euskararen Hiztegia https://www.ehu.eus/eeh/cgi/bila?h=artxibo, to distinguish archived board/card/list/swimlane state from a generic storage repository. Preserve every activity token."
+  },
+  {
+    "locale": "eu",
+    "key": "act-archivedList",
+    "before": "__list__ zerrenda biltegira eraman da, __swimlane__ errailean, __board__ arbelean",
+    "after": "__list__ zerrenda artxibora eraman da, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Use artxibo (archive), documented in UPV/EHU Egungo Euskararen Hiztegia https://www.ehu.eus/eeh/cgi/bila?h=artxibo, to distinguish archived board/card/list/swimlane state from a generic storage repository. Preserve every activity token."
+  },
+  {
+    "locale": "eu",
+    "key": "act-archivedSwimlane",
+    "before": "__swimlane__ erraila biltegira eraman da, __board__ arbelean",
+    "after": "__swimlane__ erraila artxibora eraman da, __board__ arbelean",
+    "reason": "Use artxibo (archive), documented in UPV/EHU Egungo Euskararen Hiztegia https://www.ehu.eus/eeh/cgi/bila?h=artxibo, to distinguish archived board/card/list/swimlane state from a generic storage repository. Preserve every activity token."
   }
 ]

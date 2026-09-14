@@ -21310,5 +21310,161 @@
     "key": "act-addBoardMember",
     "value": "__member__ kidea gehitu du __board__ arbelera",
     "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-joinMember",
+    "value": "__member__ kidea gehitu du __card__ txartelera, __list__ zerrendan, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "act-moveCard",
+    "value": "__card__ txartela lekuz aldatu du __board__ arbelean, __oldList__ zerrendatik (__oldSwimlane__ erraila) __list__ zerrendara (__swimlane__ erraila)",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "act-moveCardToOtherBoard",
+    "value": "__card__ txartela lekuz aldatu du __oldList__ zerrendatik (__oldSwimlane__ erraila, __oldBoard__ arbela) __list__ zerrendara (__swimlane__ erraila, __board__ arbela)",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "act-removeBoardMember",
+    "value": "__member__ kidea kendu du __board__ arbeletik",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "act-restoredCard",
+    "value": "__card__ txartela berreskuratu du __list__ zerrendara, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "act-unjoinMember",
+    "value": "__member__ kidea kendu du __card__ txarteletik, __list__ zerrendan, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "activity-checklist-item-removed",
+    "value": "kontrol-zerrendako elementu bat kendu da '%s'(e)tik %s(e)n",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "activity-checklist-completed-card",
+    "value": "__checklist__ kontrol-zerrenda osatu da __card__ txartelean, __list__ zerrendan, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "close-add-checklist-item",
+    "value": "Itxi kontrol-zerrendara elementua gehitzeko inprimakia",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "board-info-on-my-boards",
+    "value": "Arbel guztien ezarpenak",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "boardInfoOnMyBoardsPopup-title",
+    "value": "Arbel guztien ezarpenak",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "worker-desc",
+    "value": "Txartelak lekuz aldatu, bere burua txartelera esleitu eta iruzkinak egin baino ezin du.",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "copyManyCardsPopup-instructions",
+    "value": "Helburuko txartelen izenburuak eta deskripzioak JSON formatu honetan",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "copyManyCardsPopup-format",
+    "value": "[ {\"title\": \"Lehen txartelaren izenburua\", \"description\":\"Lehen txartelaren deskripzioa\"}, {\"title\":\"Bigarren txartelaren izenburua\",\"description\":\"Bigarren txartelaren deskripzioa\"},{\"title\":\"Azken txartelaren izenburua\",\"description\":\"Azken txartelaren deskripzioa\"} ]",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "import-members-map-note",
+    "value": "Oharra: mapatu gabeko kideak uneko erabiltzaileari esleituko zaizkio.",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "import-user-select",
+    "value": "Aukeratu kide honen ordez erabili nahi duzun lehendik dagoen erabiltzailea",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "swimlaneActionPopup-title",
+    "value": "Errailaren ekintzak",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "swimlaneAddPopup-title",
+    "value": "Gehitu erraila behean",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "multi-selection-label",
+    "value": "Ezarri etiketa hautapenari",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "multi-selection-member",
+    "value": "Ezarri kidea hautapenari",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "notify-participate",
+    "value": "Jaso sortzaile edo kide gisa parte hartzen duzun txartelen eguneraketak",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "rescue-card-description",
+    "value": "Erakutsi berreskuratze-elkarrizketa itxi aurretik gorde gabeko txartel-deskripzioetarako",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "rescue-card-description-dialogue",
+    "value": "Txartelaren uneko deskripzioa zure aldaketekin gainidatzi?",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "toggle-labels",
+    "value": "Txandakatu 1-9 etiketak txartelerako. Hautaketa anitzak 1-9 etiketak gehitzen ditu",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "remove-labels-multiselect",
+    "value": "Hautaketa anitzak 1-9 etiketak kentzen ditu",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "email-invite-register-text",
+    "value": "Kaixo __user__,\n\n__inviter__ erabiltzaileak kanban arbelera gonbidatzen zaitu elkarlanean aritzeko.\n\nJarraitu mesedez beheko esteka:\n__url__\n\nZure gonbidapen-kodea hau da: __icode__\n\nEskerrik asko.",
+    "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
   }
 ]

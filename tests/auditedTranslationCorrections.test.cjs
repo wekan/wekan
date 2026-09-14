@@ -2991,3 +2991,13 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(gl.completed, 'Completada');
   assert.notEqual(gl.completed, 'Completado');
 }
+
+// Basque archived activity states use archive terminology, not generic storage.
+{
+  const eu = JSON.parse(require('node:fs').readFileSync(require('node:path').join(__dirname, '../imports/i18n/data/eu.i18n.json'), 'utf8'));
+  const assert = require('node:assert/strict');
+  for (const kind of ['Board', 'Card', 'List', 'Swimlane']) {
+    assert.match(eu['act-archived' + kind], /artxibora eraman da/);
+    assert.doesNotMatch(eu['act-archived' + kind], /biltegira/);
+  }
+}
