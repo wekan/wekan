@@ -22168,5 +22168,11 @@
     "key": "card-received-on",
     "value": "Jasotze-data",
     "reason": "Inspected Basque checklist/date activities, zoom range, table/calendar navigation, assignment, manual order, upload outcomes, URL scheme help, milestone and webhook/database labels preserve meaning. Received caption explicitly names receipt date; numeric 50-300%, one scheme per line, disable/two-way/global distinctions and source tokens remain intact. Free and impersonation terminology excluded pending review."
+  },
+  {
+    "locale": "eu",
+    "key": "impersonate-user",
+    "value": "Erabiltzailea ordezkatu",
+    "reason": "Retain: Euskadi dictionary defines ordezkatu both replacing and acting in another person’s place (https://www.euskadi.eus/web01-a2lurhiz/es/contenidos/termino/_c04593/eu_o_1340/o1340.html). Actual settingsUserPopup handler calls impersonate and changes the connection user ID; the acting-in-place sense fits this administrator action. No placeholders."
   }
 ]
