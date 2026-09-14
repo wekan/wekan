@@ -8512,5 +8512,227 @@
     "key": "custom-field-dropdown-unknown",
     "value": "(nekonata)",
     "reason": "Direct Esperanto review confirms board/card controls, color labels, role and assigned-card restrictions, deletion confirmations and custom-field labels. Preserve no-comment visibility versus comment-only permissions, read-only versus assigned-read scope, checkbox/currency/dropdown distinctions and none/unknown states. Established subtask compounds and correct singular/accusative forms are retained; the uncertain lime color term is excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-fields",
+    "value": "Propraj kampoj",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "date-format",
+    "value": "Datformato",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "decline",
+    "value": "Malakcepti",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "default-avatar",
+    "value": "Defaŭlta avataro",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "delete",
+    "value": "Forigi",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "deleteCustomFieldPopup-title",
+    "value": "Ĉu forigi propran kampon?",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "deleteLabelPopup-title",
+    "value": "Ĉu forigi etikedon?",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "description",
+    "value": "Priskribo",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "disambiguateMultiLabelPopup-title",
+    "value": "Precizigi etikedan agon",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "disambiguateMultiMemberPopup-title",
+    "value": "Precizigi membran agon",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "discard",
+    "value": "Forĵeti",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "editCardDueDatePopup-title",
+    "value": "Ŝanĝi limdaton",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "editCustomFieldPopup-title",
+    "value": "Redakti kampon",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "editCardSpentTimePopup-title",
+    "value": "Ŝanĝi pasigitan tempon",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "email-address",
+    "value": "Retpoŝtadreso",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "email-enrollAccount-subject",
+    "value": "Konto kreita por vi ĉe __siteName__",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "email-fail-text",
+    "value": "Eraro dum provo sendi retpoŝton",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "email-resetPassword-subject",
+    "value": "Restarigi vian pasvorton ĉe __siteName__",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "email-verifyEmail-subject",
+    "value": "Konfirmi vian retpoŝtadreson ĉe __siteName__",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "error-csv-schema",
+    "value": "Via CSV (komo-apartigitaj valoroj)/TSV (tabo-apartigitaj valoroj) ne enhavas la ĝustajn informojn en la ĝusta formato ",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "error-user-notAllowSelf",
+    "value": "Vi ne povas inviti vin mem",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "error-orgname-taken",
+    "value": "Ĉi tiu organiza nomo jam estas uzata",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "error-teamname-taken",
+    "value": "Ĉi tiu teama nomo jam estas uzata",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "error-email-taken",
+    "value": "Retpoŝtadreso jam estas uzata",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "export-card-excel",
+    "value": "Eksporti karton al Excel",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "export-card-excel-fields",
+    "value": "Elektu kampojn por inkluzivi en la Excel-eksporto:",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "export-card-subtasks",
+    "value": "Subtaskoj",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "export-card-field-people",
+    "value": "Homoj (kreinto, posedanto, membroj, atribuitoj)",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "export-card-field-board-info",
+    "value": "Tabulaj informoj (tabulo, listo, naĝlinio)",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "export-card-field-dates",
+    "value": "Datoj (kreita, ricevita, komenco, limdato, fino)",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "export-card-attachment-filename",
+    "value": "Dosiernomo",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "export-card-attachment-size",
+    "value": "Grando",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "export-card-attachment-uploaded-by",
+    "value": "Alŝutita de",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "export-card-attachment-uploaded-at",
+    "value": "Alŝutita je",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "export-card-attachment-image-previews",
+    "value": "Bildaj antaŭrigardoj",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "export-card-excel-no-disk-space",
+    "value": "Ne eblas eksporti al Excel: ne sufiĉas libera diskospaco",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "export-card-excel-free",
+    "value": "libera",
+    "reason": "Direct Esperanto review confirms custom-field controls, date/time edits, email subjects, import errors and Excel export guidance. Preserve CSV/TSV delimiter distinctions, creator/owner/member/assignee roles, created/received/start/due/end dates, filename/size/uploader metadata, free disk-space failure and site-name placeholders. Product names and correct subordinate-task terminology remain unchanged."
   }
 ]

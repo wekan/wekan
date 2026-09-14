@@ -126992,5 +126992,26 @@
     "before": "Ŝanĝi rigardadon",
     "after": "Ŝanĝi observadon",
     "reason": "The popup configures ongoing watch/notification subscription, not merely viewing. Align observado with existing Esperanto observation terminology and repaired watch controls."
+  },
+  {
+    "locale": "eo",
+    "key": "date-format-yyyy-mm-dd",
+    "before": "JJJJ-MM-TT",
+    "after": "YYYY-MM-DD",
+    "reason": "Restore literal YYYY/MM/DD format notation from English. JJJJ/TT are foreign localized abbreviations and do not match the date formats selected by these controls."
+  },
+  {
+    "locale": "eo",
+    "key": "date-format-dd-mm-yyyy",
+    "before": "TT-MM-JJJJ",
+    "after": "DD-MM-YYYY",
+    "reason": "Restore literal YYYY/MM/DD format notation from English. JJJJ/TT are foreign localized abbreviations and do not match the date formats selected by these controls."
+  },
+  {
+    "locale": "eo",
+    "key": "date-format-mm-dd-yyyy",
+    "before": "MM-TT-JJJJ",
+    "after": "MM-DD-YYYY",
+    "reason": "Restore literal YYYY/MM/DD format notation from English. JJJJ/TT are foreign localized abbreviations and do not match the date formats selected by these controls."
   }
 ]
