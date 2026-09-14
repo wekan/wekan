@@ -122197,5 +122197,54 @@
     "before": "Date de réception modifiée à",
     "after": "ⵉⵙⵏⴼⵍ ⴰⴽⵓⴷ ⵏ ⵜⵔⵎⵙⵜ ⵖⵔ",
     "reason": "Replace French received-time activity with Tamazight time/change components and derived bound tarmest/reception. Preserve destination versus previous time, parentheses and exact placeholders; the short activity fragment leaves its destination for the viewer. LOW CONFIDENCE reception terminology adaptation from mixed-source lexicon MW (not MediaWiki), bound noun and full phrase composition. References: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf (PDF page 120 reception Tarmest MW, rmes receive; Central Morocco root take/catch on same page); https://www.unicode.org/cldr/charts/47/summary/zgh.html (time akud); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (change/edit snfl)."
+  },
+  {
+    "locale": "zgh",
+    "key": "act-a-startAt",
+    "before": "Modification de la date de début de __timeOldValue__ à __timeValue__",
+    "after": "ⵉⵙⵏⴼⵍ ⴰⴽⵓⴷ ⵏ ⵜⵓⴷⴷⵎⴰ ⵖⵔ __timeValue__ ⵙⴳ (__timeOldValue__)",
+    "reason": "Replace French/Arabic start or end time wording with native MediaWiki blockedtext-start-time tuddma and blockedtext-expiration-time tigira. Preserve start versus end, destination versus previous time, parentheses and all placeholders; short fragments leave the destination for the viewer. LOW CONFIDENCE generic card/calendar application of native block start/expiration terms and full composed activity phrases. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (blockedtext-start-time, blockedtext-expiration-time, tags-edit and logentry-move-move); https://www.unicode.org/cldr/charts/47/summary/zgh.html (time akud)."
+  },
+  {
+    "locale": "zgh",
+    "key": "act-a-endAt",
+    "before": "Modification de la date de fin de __timeOldValue__ à __timeValue__",
+    "after": "ⵉⵙⵏⴼⵍ ⴰⴽⵓⴷ ⵏ ⵜⵉⴳⵉⵔⴰ ⵖⵔ __timeValue__ ⵙⴳ (__timeOldValue__)",
+    "reason": "Replace French/Arabic start or end time wording with native MediaWiki blockedtext-start-time tuddma and blockedtext-expiration-time tigira. Preserve start versus end, destination versus previous time, parentheses and all placeholders; short fragments leave the destination for the viewer. LOW CONFIDENCE generic card/calendar application of native block start/expiration terms and full composed activity phrases. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (blockedtext-start-time, blockedtext-expiration-time, tags-edit and logentry-move-move); https://www.unicode.org/cldr/charts/47/summary/zgh.html (time akud)."
+  },
+  {
+    "locale": "zgh",
+    "key": "a-startAt",
+    "before": "Date de début modifiée à",
+    "after": "ⵉⵙⵏⴼⵍ ⴰⴽⵓⴷ ⵏ ⵜⵓⴷⴷⵎⴰ ⵖⵔ",
+    "reason": "Replace French/Arabic start or end time wording with native MediaWiki blockedtext-start-time tuddma and blockedtext-expiration-time tigira. Preserve start versus end, destination versus previous time, parentheses and all placeholders; short fragments leave the destination for the viewer. LOW CONFIDENCE generic card/calendar application of native block start/expiration terms and full composed activity phrases. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (blockedtext-start-time, blockedtext-expiration-time, tags-edit and logentry-move-move); https://www.unicode.org/cldr/charts/47/summary/zgh.html (time akud)."
+  },
+  {
+    "locale": "zgh",
+    "key": "a-endAt",
+    "before": "Date de fin modifiée à",
+    "after": "ⵉⵙⵏⴼⵍ ⴰⴽⵓⴷ ⵏ ⵜⵉⴳⵉⵔⴰ ⵖⵔ",
+    "reason": "Replace French/Arabic start or end time wording with native MediaWiki blockedtext-start-time tuddma and blockedtext-expiration-time tigira. Preserve start versus end, destination versus previous time, parentheses and all placeholders; short fragments leave the destination for the viewer. LOW CONFIDENCE generic card/calendar application of native block start/expiration terms and full composed activity phrases. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (blockedtext-start-time, blockedtext-expiration-time, tags-edit and logentry-move-move); https://www.unicode.org/cldr/charts/47/summary/zgh.html (time akud)."
+  },
+  {
+    "locale": "zgh",
+    "key": "card-start",
+    "before": "بداية",
+    "after": "ⵜⵓⴷⴷⵎⴰ",
+    "reason": "Replace French/Arabic start or end time wording with native MediaWiki blockedtext-start-time tuddma and blockedtext-expiration-time tigira. Preserve start versus end, destination versus previous time, parentheses and all placeholders; short fragments leave the destination for the viewer. LOW CONFIDENCE generic card/calendar application of native block start/expiration terms and full composed activity phrases. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (blockedtext-start-time, blockedtext-expiration-time, tags-edit and logentry-move-move); https://www.unicode.org/cldr/charts/47/summary/zgh.html (time akud)."
+  },
+  {
+    "locale": "zgh",
+    "key": "card-end",
+    "before": "Fin",
+    "after": "ⵜⵉⴳⵉⵔⴰ",
+    "reason": "Replace French/Arabic start or end time wording with native MediaWiki blockedtext-start-time tuddma and blockedtext-expiration-time tigira. Preserve start versus end, destination versus previous time, parentheses and all placeholders; short fragments leave the destination for the viewer. LOW CONFIDENCE generic card/calendar application of native block start/expiration terms and full composed activity phrases. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (blockedtext-start-time, blockedtext-expiration-time, tags-edit and logentry-move-move); https://www.unicode.org/cldr/charts/47/summary/zgh.html (time akud)."
+  },
+  {
+    "locale": "zgh",
+    "key": "start",
+    "before": "بداية",
+    "after": "ⵜⵓⴷⴷⵎⴰ",
+    "reason": "Replace French/Arabic start or end time wording with native MediaWiki blockedtext-start-time tuddma and blockedtext-expiration-time tigira. Preserve start versus end, destination versus previous time, parentheses and all placeholders; short fragments leave the destination for the viewer. LOW CONFIDENCE generic card/calendar application of native block start/expiration terms and full composed activity phrases. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (blockedtext-start-time, blockedtext-expiration-time, tags-edit and logentry-move-move); https://www.unicode.org/cldr/charts/47/summary/zgh.html (time akud)."
   }
 ]
