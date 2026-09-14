@@ -24760,5 +24760,23 @@
     "key": "twoFactorCode-cancel",
     "value": "Ýatyr",
     "reason": "Ýatyr is the cancellation imperative associated with ýatyrmak, attested for cancellation in Turkmen migration law https://www.mfa.gov.tm/articles/79 and licensing law https://mejlis.gov.tm/single-law/51?lang=tm . Its homography with a form of lie down does not invalidate the cancellation meaning in this button context."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "color-indigo",
+    "value": "indi",
+    "reason": "Indi is the dictionary-attested spectral color between blue and violet, https://www.diccionari.cat/GDLC/indi . The homonymous nationality adjective does not make this color label incorrect."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "color-mistyrose",
+    "value": "rosa boirós",
+    "reason": "Rosa boirós localizes misty rose: boirós means misty or fog-covered, https://www.diccionari.cat/GDLC/nebulos . A descriptive translated color name is valid; the CSS color identifier is not used as the translation value."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "accounts-lockout-unlock-all",
+    "value": "Desbloqueja-ho tot",
+    "reason": "Desbloqueja-ho tot correctly expresses Unlock All in its contextual people-panel action. peopleBody.js links the button to unlockAllUsers and an explicit confirmation for tots els usuaris bloquejats; lockedUsers.js removes only existing account lockouts. The short contextual label does not mean arbitrary board content is unlocked."
   }
 ]
