@@ -16,11 +16,14 @@ Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calenda
 
 Latest translation fix: **2026-09-14**, local commit `6352fbd5e` — repaired two additional board/list selection instructions, preserving Only One Board versus All Cards In This List and restoring the omitted All. Derived commands, agreement and full wording remain **low confidence**. All **18,122** correction checks pass; **311** original findings remain pending across **17** locales, including **176** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
-**Veps evidence review (2026-09-14):** registry confirms Veps despite its
-legacy ve code. Native software strings directly attest Show, Activate and
-Deactivate; full keyboard-shortcut terminology remains unresolved. Ten
-original findings stay pending, preserving exact operator-help examples.
-Values/counts unchanged. [Evidence](Audit-Evidence.md) records source keys.
+**Latest syntax repair (2026-09-14, `d0c247094`):** Veps filter help now
+preserves canonical comparison, escaping, quoted field/value and Boolean
+examples. Regression checks passed and assert its language queue stays open;
+Finnish prose still needs full Veps translation. No completed language
+correction was added; original counts remain unchanged. Native Show,
+Activate/Deactivate and field terminology are reviewed, while full shortcut
+wording is unresolved. [Veps review](Veps-Review.md) records detailed limits;
+[Evidence](Audit-Evidence.md) retains the earlier findings.
 
 **Diagnostic terminology review (2026-09-14):** directly inspected Heap,
 Allocation and Context entries, resolving extraction substitutions in emphatic

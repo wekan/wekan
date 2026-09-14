@@ -3517,6 +3517,17 @@ original pending counts remain 311. Live browser verification was not run.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d0c247094">Repair executable examples in Veps filter help</a>. Thanks to xet7.</summary>
+
+Restore comparison, escaping, quoted field/value and Boolean examples.
+Regression coverage checks canonical source examples, rejects the malformed
+comparison and confirms the Veps language queue remains open. Finnish prose
+still needs full translation; this syntax repair does not count as a completed
+language correction. Tests passed; live browser verification was not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b91b63c53">Translation repairs: Tamazight authentication labels.</a></summary>
 
 2026-09-14: Replace four French labels, preserving method/type, default and

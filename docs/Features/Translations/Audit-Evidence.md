@@ -1,5 +1,16 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `d0c247094`: partial Veps filter-help syntax repair.
+Direct decoded JSON showed a single equality sign and extra backslashes in
+the apostrophe example. Restored English executable comparison/escape,
+control-character, quoted field/value and parenthesized Boolean examples.
+Extended advancedFilterAuditedTranslations coverage to check every canonical
+example, reject the malformed comparison and assert Veps language review
+remains pending. These checks passed; they do not establish Veps fluency.
+Finnish prose remains unresolved; no completed-language ledger entry or
+original progress-count change. Separate Veps-Review.md records native field
+and control terminology and the complete remaining requirements.
+
 2026-09-14 — Veps follow-up: current language registry explicitly maps
 ve-PP to Vepsän kelʹ; do not reinterpret its legacy ve code as Venda.
 Directly read MediaWiki vep native translations: show/rcfilters-activefilters-show
