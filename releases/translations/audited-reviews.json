@@ -17212,5 +17212,179 @@
     "key": "email-enrollAccount-subject",
     "value": "Creouse unha conta para ti en __siteName__",
     "reason": "Direct Galician review preserves read-only versus assigned-only access, subtask deletion, clipboard copying, custom-field types and currency code, dropdown none/unknown alternatives, label/member action disambiguation and soft WIP limits. Account email preserves siteName token. Palette names pexego/marrón identify their actual peach/brown swatches; no competing brown/peach name requires an invented qualifier."
+  },
+  {
+    "locale": "gl",
+    "key": "email-enrollAccount-text",
+    "value": "Ola __user__,\n\nPara comezar a usar o servizo, simplemente fai clic na ligazón de abaixo.\n\n__url__\n\nGrazas.",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "email-fail",
+    "value": "Fallou o envío do correo electrónico",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "email-fail-text",
+    "value": "Erro ao tentar enviar o correo electrónico",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "email-invalid",
+    "value": "Correo electrónico non válido",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "email-invite",
+    "value": "Convidar por correo electrónico",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "email-invite-subject",
+    "value": "__inviter__ envioute unha invitación",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "push-invite-title",
+    "value": "__inviter__ envioute unha invitación",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "email-resetPassword-subject",
+    "value": "Restablece o teu contrasinal en __siteName__",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "email-resetPassword-text",
+    "value": "Ola __user__,\n\nPara restablecer o teu contrasinal, simplemente fai clic na ligazón de abaixo.\n\n__url__\n\nGrazas.",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "email-sent",
+    "value": "Correo electrónico enviado",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "email-verifyEmail-subject",
+    "value": "Verifica o teu enderezo de correo electrónico en __siteName__",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "email-verifyEmail-text",
+    "value": "Ola __user__,\n\nPara verificar o correo electrónico da túa conta, simplemente fai clic na ligazón de abaixo.\n\n__url__\n\nGrazas.",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "enable-vertical-scrollbars",
+    "value": "Activar as barras de desprazamento verticais",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "enable-wip-limit",
+    "value": "Activar o límite WIP",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "error-orgname-taken",
+    "value": "Este nome de organización xa está en uso",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "error-teamname-taken",
+    "value": "Este nome de equipo xa está en uso",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "error-email-taken",
+    "value": "O correo electrónico xa está en uso",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "export-card-excel-fields",
+    "value": "Selecciona os campos que se incluirán na exportación a Excel:",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "export-card-subtasks",
+    "value": "Subtarefas",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "export-card-field-people",
+    "value": "Persoas (creador, propietario, membros, responsables)",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "export-card-attachment-filename",
+    "value": "Nome do ficheiro",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "export-card-attachment-size",
+    "value": "Tamaño",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "export-card-attachment-uploaded-by",
+    "value": "Subido por",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "export-card-attachment-uploaded-at",
+    "value": "Subido o",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "export-card-attachment-image-previews",
+    "value": "Previsualizacións de imaxes",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "export-card-excel-needed",
+    "value": "necesario",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "sort-desc",
+    "value": "Fai clic para ordenar a lista",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "list-sort-by",
+    "value": "Ordenar a lista por:",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "list-label-modifiedAt",
+    "value": "Hora do último acceso",
+    "reason": "Direct Galician review retains enrollment/reset/verification email purpose, URL/user/site/inviter tokens and paragraph layout. Sent/failed/invalid states and already-taken names stay distinct. Excel fields retain creator/owner/member/assignee roles and attachment filename/size/uploader/time; scrolling and sort controls preserve direction and scope. Ambiguous free label remains open."
   }
 ]
