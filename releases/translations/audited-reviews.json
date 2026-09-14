@@ -12958,5 +12958,155 @@
     "key": "enable-vertical-scrollbars",
     "value": "Ŝalti vertikalajn rulumskalojn",
     "reason": "2026-09-14: Primary Esperanto computing sources confirm rulumskalo = scroll bar: Komputeko2012.pdf and LibreOffice Esperanto form-controls documentation. Ŝalti vertikalajn rulumskalojn has correct enabling meaning, orientation and accusative plural. Retain legitimate term rather than interpreting skalo as an erroneous ordinary scale."
+  },
+  {
+    "locale": "gl",
+    "key": "act-addAttachment",
+    "value": "engadiu o anexo __attachment__ á tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "act-deleteAttachment",
+    "value": "eliminou o anexo __attachment__ da tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "act-addSubtask",
+    "value": "engadiu a subtarefa __subtask__ á tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "act-addLabel",
+    "value": "Engadiu a etiqueta __label__ á tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "act-addedLabel",
+    "value": "Engadiu a etiqueta __label__ á tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "act-removeLabel",
+    "value": "Eliminou a etiqueta __label__ da tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "act-removedLabel",
+    "value": "Eliminou a etiqueta __label__ da tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "act-addChecklist",
+    "value": "engadiu a lista de verificación __checklist__ á tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "act-addChecklistItem",
+    "value": "engadiu o elemento __checklistItem__ á lista de verificación __checklist__ na tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "act-removeChecklist",
+    "value": "eliminou a lista de verificación __checklist__ da tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "act-removeChecklistItem",
+    "value": "eliminou o elemento __checklistItem__ da lista de verificación __checkList__ na tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "act-checkedItem",
+    "value": "marcou __checklistItem__ na lista de verificación __checklist__ na tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "act-uncheckedItem",
+    "value": "desmarcou __checklistItem__ na lista de verificación __checklist__ na tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "act-completeChecklist",
+    "value": "completou a lista de verificación __checklist__ na tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "act-uncompleteChecklist",
+    "value": "desmarcou como completada a lista de verificación __checklist__ na tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "act-addComment",
+    "value": "comentou na tarxeta __card__: __comment__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "act-editComment",
+    "value": "editou o comentario na tarxeta __card__: __comment__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "act-deleteComment",
+    "value": "eliminou o comentario na tarxeta __card__: __comment__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "act-createBoard",
+    "value": "creou o taboleiro __board__",
+    "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "act-createSwimlane",
+    "value": "creou o carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "act-createCard",
+    "value": "creou a tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "act-createCustomField",
+    "value": "creou o campo personalizado __customField__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "act-deleteCustomField",
+    "value": "eliminou o campo personalizado __customField__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "act-setCustomField",
+    "value": "editou o campo personalizado __customField__: __customFieldValue__ na tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "act-createList",
+    "value": "engadiu a lista __list__ ao taboleiro __board__",
+    "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
   }
 ]
