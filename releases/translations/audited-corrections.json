@@ -125067,5 +125067,12 @@
     "before": "يصبح كل سطر من النص أحد عناصر قائمة التحقق، الترتيب الأصلي",
     "after": "ⴽⵓ ⵉⵣⵔⵉⵔⵉ ⵏ ⵓⴹⵕⵉⵚ ⴰⵔ ⵉⵜⵜⵓⵖⴰⵍ ⵢⴰⵏ ⵙⴳ ⵉⴼⵔⴷⵉⵙⵏ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ, ⴰⵙⴷⵡⴰ ⴰⵙⴰⴽⵔⴰⵏ",
     "reason": "Replace Arabic while preserving Original Order and, for the longer hint, each line becoming one checklist item. Direct Asawaliw atrar (Oulhaj/Oudadess, 2013) PDF pages 160/161 (zero-based 159/160) lists Order asedwa and Original asakran: https://www.kas.de/documents/252038/253252/7_dokument_dok_pdf_33656_3.pdf/5a42a246-5814-4414-87e6-c4c0bc12a730?t=1539663277039&version=1.0 . LOW CONFIDENCE: the inspected preface explicitly adopts terms across Tarifit, Tasousit, Kabyle, Tuareg and Tamazight and proposes derivations; it is not normative Standard Moroccan/IRCAM evidence. Order-to-list-sequence sense, adjective agreement, derived Become ittughal and full checklist grammar require fluent review. Preserve ordering constraint rather than silently dropping it."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-by",
+    "before": "par",
+    "after": "ⵙ",
+    "reason": "Replace French par in rule actor qualifier with Tamazight agent/instrument preposition s. Preserve BY before the separately supplied user name in checklistTriggers.jade rather than FROM or TO. LOW CONFIDENCE: fragment grammar across assembled passive rule predicates requires fluent review. Current MediaWiki blockedtext-made-by rephrases agency as an active clause rather than independently attesting this isolated preposition; do not claim it proves the complete rule grammar. Reference for native agency contrast: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
