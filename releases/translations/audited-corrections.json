@@ -124276,5 +124276,33 @@
     "before": "And __count__ other بطاقات",
     "after": "ⴷ __count__ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵢⴰⴹⵏ",
     "reason": "2026-09-14: Replace mixed English/Arabic card-count prose with Tamazight. Preserve exact __count__ token, And conjunction, Other qualifier and singular versus plural Card nouns. Native MediaWiki and supplies d; createacct-another/help wording and noarticletext other pages supply yadn Other. Reuse existing takarda/tikardiwin card terminology. LOW CONFIDENCE complete numeral phrase, noun state, counted plural and kanban card terminology extension require fluent Standard Moroccan grammar review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "all-boards",
+    "before": "كل اللوحات",
+    "after": "ⴰⴽⴽⵯ ⵜⵉⴼⵍⵡⵉⵏ",
+    "reason": "2026-09-14: Replace Arabic board/card reference label. Preserve All qualifier and plural Boards. Native MediaWiki collapsible-collapse-all-text supplies akkw All and category-empty supplies noun + ad This; reuse existing taflwit/takarda kanban nouns and derive board plural tiflwin. LOW CONFIDENCE kanban terminology extension, board plural morphology and complete qualified noun phrases need fluent Standard Moroccan review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "myCardsViewChange-choice-boards",
+    "before": "لوحات",
+    "after": "ⵜⵉⴼⵍⵡⵉⵏ",
+    "reason": "2026-09-14: Replace Arabic board/card reference label. Preserve plural Boards view choice without adding All scope absent from source. Native MediaWiki collapsible-collapse-all-text supplies akkw All and category-empty supplies noun + ad This; reuse existing taflwit/takarda kanban nouns and derive board plural tiflwin. LOW CONFIDENCE kanban terminology extension, board plural morphology and complete qualified noun phrases need fluent Standard Moroccan review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "this-board",
+    "before": "هذه اللوحة",
+    "after": "ⵜⴰⴼⵍⵡⵉⵜ ⴰⴷ",
+    "reason": "2026-09-14: Replace Arabic board/card reference label. Preserve This demonstrative and singular Board. Native MediaWiki collapsible-collapse-all-text supplies akkw All and category-empty supplies noun + ad This; reuse existing taflwit/takarda kanban nouns and derive board plural tiflwin. LOW CONFIDENCE kanban terminology extension, board plural morphology and complete qualified noun phrases need fluent Standard Moroccan review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "this-card",
+    "before": "هذه البطاقة",
+    "after": "ⵜⴰⴽⴰⵕⴹⴰ ⴰⴷ",
+    "reason": "2026-09-14: Replace Arabic board/card reference label. Preserve This demonstrative and singular Card. Native MediaWiki collapsible-collapse-all-text supplies akkw All and category-empty supplies noun + ad This; reuse existing taflwit/takarda kanban nouns and derive board plural tiflwin. LOW CONFIDENCE kanban terminology extension, board plural morphology and complete qualified noun phrases need fluent Standard Moroccan review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
