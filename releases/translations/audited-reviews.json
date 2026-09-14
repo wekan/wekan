@@ -22582,5 +22582,371 @@
     "key": "monday",
     "value": "Astelehena",
     "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "tuesday",
+    "value": "Asteartea",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "wednesday",
+    "value": "Asteazkena",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "thursday",
+    "value": "Osteguna",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "friday",
+    "value": "Ostirala",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "saturday",
+    "value": "Larunbata",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "sunday",
+    "value": "Igandea",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "status",
+    "value": "Egoera",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "swimlane",
+    "value": "Erraila",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "owner",
+    "value": "Jabea",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "last-modified-at",
+    "value": "Azken aldaketa",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "last-activity",
+    "value": "Azken jarduera",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "voting",
+    "value": "Bozketa",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "hide-checked-items",
+    "value": "Ezkutatu markatutako elementuak",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "ok",
+    "value": "Ados",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "organizations",
+    "value": "Erakundeak",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "teams",
+    "value": "Taldeak",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "displayName",
+    "value": "Bistaratzeko izena",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "shortName",
+    "value": "Izen laburra",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "website",
+    "value": "Webgunea",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "person",
+    "value": "Pertsona",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "list",
+    "value": "Zerrenda",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "myCardsViewChange-choice-table",
+    "value": "Taula",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "myCardsSortChange-choice-dueat",
+    "value": "Epemugaren arabera",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "swimlane-title-not-found",
+    "value": "Ez da '%s' erraila aurkitu.",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "list-title-not-found",
+    "value": "Ez da '%s' zerrenda aurkitu.",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "label-not-found",
+    "value": "Ez da '%s' etiketa aurkitu.",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "org-name-not-found",
+    "value": "Ez da '%s' erakundea aurkitu.",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "operator-swimlane",
+    "value": "erraila",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "operator-list",
+    "value": "zerrenda",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "operator-label",
+    "value": "etiketa",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "operator-member",
+    "value": "kidea",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "operator-assignee",
+    "value": "esleitua",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "operator-creator",
+    "value": "sortzailea",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "operator-status",
+    "value": "egoera",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "operator-due",
+    "value": "epemuga",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "operator-created",
+    "value": "sortua",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "operator-modified",
+    "value": "aldatua",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "operator-sort",
+    "value": "ordenatu",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "operator-comment",
+    "value": "iruzkina",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "operator-has",
+    "value": "badu",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "operator-limit",
+    "value": "muga",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "operator-debug",
+    "value": "araztu",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "operator-team",
+    "value": "taldea",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "operator-description",
+    "value": "deskripzioa",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "operator-attachment-text",
+    "value": "eranskina",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "predicate-open",
+    "value": "irekia",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "predicate-ended",
+    "value": "amaitua",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "predicate-all",
+    "value": "guztiak",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "predicate-overdue",
+    "value": "atzeratua",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "predicate-week",
+    "value": "astea",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "predicate-quarter",
+    "value": "hiruhilekoa",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "predicate-due",
+    "value": "epemuga",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "predicate-modified",
+    "value": "aldatua",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "predicate-created",
+    "value": "sortua",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "predicate-attachment",
+    "value": "eranskina",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "predicate-description",
+    "value": "deskripzioa",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "predicate-start",
+    "value": "hasiera",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "predicate-end",
+    "value": "amaiera",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "predicate-assignee",
+    "value": "esleitua",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "predicate-member",
+    "value": "kidea",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
+  },
+  {
+    "locale": "eu",
+    "key": "predicate-public",
+    "value": "publikoa",
+    "reason": "Inspected Basque weekday/status/ownership and organization labels, checked-item visibility, due-date sorting, missing-object errors and search operators/predicates. Search UI supplies translated operator labels to its instructions; noun and state distinctions remain consistent with existing Basque terminology. Negative not-found meaning and all source sprintf placeholders remain exact. Quarter means a three-month period (hiruhilekoa), not a quarter-day mode. Browser/full grammar review remains open."
   }
 ]
