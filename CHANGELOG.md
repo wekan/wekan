@@ -694,6 +694,17 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a7e99aea5">Repair Breton WIP and webhook settings labels</a>. Thanks to xet7.</summary>
+
+WIP edit/enable/set/error/group labels and the webhook-disable label replace
+French wording with Breton. The group title describes grouping instead of an
+enable action; technical WIP/webhook names remain literal. Exact ledgers,
+positive/negative label checks and completeness pass. The dated audit records
+terminology evidence and remaining full-phrase/browser validation.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/06af4a4a8">Repair Inuktitut weekly frequency labels</a>. Thanks to xet7.</summary>
 
 Card recurrence and checklist reset replace Greenlandic weekly wording with

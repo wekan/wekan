@@ -23563,3 +23563,25 @@ locale-completeness checks pass. Ledger 18,584; original corrected 15,608,
 restored 17, retained 4,163, pending 293; Inuktitut pending 44.
 Broader native review and previous low-confidence compounds remain open.
 No translation service, subagents or remote writes.
+
+### 2026-09-14 — Breton WIP and webhook labels (a7e99aea5)
+
+Six unflagged French-seeded settings labels repaired: edit-wip-limit →
+Kemmañ ar vevenn WIP; enable-wip-limit → Gweredekaat ar vevenn WIP;
+setWipLimitPopup-title → Termeniñ ar vevenn WIP; wipLimitErrorPopup-title →
+Bevenn WIP didalvoudek; wip-limit-groups → Strolladoù bevennoù WIP;
+disable-webhook → Diweredekaat ar webhook-mañ. WIP and webhook stay literal.
+[Native MediaWiki Breton](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/br.json)
+attests activate/deactivate verbs in tags-activate/tags-deactivate and
+bevenn in media-limit-reached / transaction-duration-limit-exceeded. Existing
+local migration-batch-size supplies strollad and invalid-file/email-invalid
+supply invalid terminology. Compounds are adapted, not exact full-phrase
+attestation. Group title was incorrectly an enable action with Roll appended;
+sidebar.jade renders it as the group-management heading/menu label. That same
+file renders the group enable checkbox and webhook-disable checkbox;
+listHeader.jade renders enable WIP. Separate edit/enable/set/error/group
+meanings are protected by regression. Four offline suites pass, preserving
+18,590 corrections and 4,163 retained values, exact tokens and completeness.
+Original queue remains 15,608 corrected, 17 restored and 293 pending.
+Full contextual compounds, uncertain values and live browser review remain open.
+No translation service, subagents or remote writes.

@@ -20,18 +20,18 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,584** exact before/after values, including unflagged repairs.
+contain **18,590** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `06af4a4a8` —
-two Inuktitut weekly recurrence/reset labels replace Greenlandic-seeded prose
-with the native syllabic term. Qikiqtani Inuit Association bilingual field
-labels attest the term; existing backup wording agrees. Daily, weekly and
-monthly labels remain distinct. All **18,584** corrections and **4,163**
+Latest translation fix: **2026-09-14**, local commit `a7e99aea5` —
+six Breton WIP settings/error/group and webhook-disable labels replace French
+wording. The group heading restores its grouping meaning; edit/enable/set/error
+remain distinct. Native activate/deactivate/limit terms and existing local
+vocabulary support adapted compounds. All **18,590** corrections and **4,163**
 unchanged reviews pass, alongside focused locale and completeness checks.
-Original queue: 15,608 corrected, 17 restored and 293 pending. Longer phrases,
-previous low-confidence repairs and live browser verification remain open.
+These unflagged repairs leave the original 293 pending and 17 restored counts
+unchanged. Full compound-phrase, low-confidence and browser review remain open.
 Latest unchanged review: **2026-09-14**, Thai r-is —
 คือ retained after removing its incorrect insertion before action predicates.
 Danish Dage gammel remains validated in `824dd005e` with native age-construction
