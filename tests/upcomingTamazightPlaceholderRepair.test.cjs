@@ -148,3 +148,6 @@ console.log('Archive guidance names the current All Boards archive location in E
 const migrationDescription = JSON.parse(fs.readFileSync(path.join(ROOT, 'imports/i18n/data/zgh.i18n.json'), 'utf8'))['comprehensive-board-migration-description'];
 assert.doesNotMatch(migrationDescription, /Effectue|vérifications|tableau|[\u0600-\u06ff]/);
 for (const term of ['ⵉⵙⵙⵉⴷⴻⴷ','ⵉⵙⵙⵓⴽⵏ','ⵜⴰⵢⴰⵏⵜ ⵏ ⵜⵎⵓⵛⴰ','ⵜⵉⵍⴳⴰⵎⵉⵏ','ⵜⵉⵎⵔⵙⵉ','ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ','ⵜⵓⵚⴽⵉⵡⵜ','ⵉⴱⵔⴷⴰⵏ']) assert.ok(migrationDescription.includes(term), term);
+
+assert.ok(migrationDescription.includes("ⴰⵏⵎⴰⵍⴰ ⵏ ⵜⵉⵍⴳⴰⵎⵉⵏ"));
+assert.doesNotMatch(migrationDescription, /ⴰⵙⴰⵙⵜⵡⴰ/);

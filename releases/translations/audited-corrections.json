@@ -138295,7 +138295,7 @@
     "locale": "zgh",
     "key": "comprehensive-board-migration-description",
     "before": "Effectue des vérifications complètes et des corrections pour l'intégrité des données du tableau, y compris l'ordre des listes, les positions des cartes et la structure des couloirs.",
-    "after": "ⵉⵙⵙⵉⴷⴻⴷ ⴷ ⵉⵙⵙⵓⴽⵏ ⵜⴰⵢⴰⵏⵜ ⵏ ⵜⵎⵓⵛⴰ ⵏ ⵜⴰⴼⵍⵡⵉⵜ ⵙ ⵓⵎⴰⵜⴰ. ⵉⵙⵙⵉⴷⴻⴷ ⴰⵙⴰⵙⵜⵡⴰ ⵏ ⵜⵉⵍⴳⴰⵎⵉⵏ, ⵜⵉⵎⵔⵙⵉ ⵏ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴷ ⵜⵓⵚⴽⵉⵡⵜ ⵏ ⵉⴱⵔⴷⴰⵏ.",
-    "reason": "2026-09-14: Replace full French description with Tamazight draft using IRCAM data-integrity phrase (p678), check (9864 p523), restore/repair (10051 p534), put-in-order (9000 p476), positioning (12781 p678) and structure (13278 p703). Preserve board data-integrity checks/repairs and list/card/swimlane scope. General thoroughness expression, derived ordering noun, inflection and software compounds remain low-confidence pending native review."
+    "after": "ⵉⵙⵙⵉⴷⴻⴷ ⴷ ⵉⵙⵙⵓⴽⵏ ⵜⴰⵢⴰⵏⵜ ⵏ ⵜⵎⵓⵛⴰ ⵏ ⵜⴰⴼⵍⵡⵉⵜ ⵙ ⵓⵎⴰⵜⴰ. ⵉⵙⵙⵉⴷⴻⴷ ⴰⵏⵎⴰⵍⴰ ⵏ ⵜⵉⵍⴳⴰⵎⵉⵏ, ⵜⵉⵎⵔⵙⵉ ⵏ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴷ ⵜⵓⵚⴽⵉⵡⵜ ⵏ ⵉⴱⵔⴷⴰⵏ.",
+    "reason": "2026-09-14: Replace full French description with Tamazight draft using IRCAM data-integrity phrase (p678), check (9864 p523), restore/repair (10051 p534), put-in-order (9000 p476), positioning (12781 p678) and structure (13278 p703). Preserve board data-integrity checks/repairs and list/card/swimlane scope. General thoroughness expression, derived ordering noun, inflection and software compounds remain low-confidence pending native review. 2026-09-14: Supersede unattested derived asastwa noun with IRCAM entry 3360 p180 anmala (order, word order) and MediaWiki pageinfo-default-sort attested software sorting use. Preserve historical before; complete inflection and computing compounds still require review."
   }
 ]
