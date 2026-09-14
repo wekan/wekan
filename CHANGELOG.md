@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/555b6631d">Review Tamazight interface-button terminology</a>. Thanks to xet7.</summary>
+
+The audit rejects unrelated biological dictionary senses for the pending OIDC
+button label and identifies a computing reference for further native research.
+No uncertain value was accepted or replaced; progress counts are unchanged.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6e3663c83">Correct Quechua named calendar nouns</a>. Thanks to xet7.</summary>
 
 Dangi, Minguo and Hijri retain their names with the native generic calendar

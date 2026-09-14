@@ -24339,3 +24339,11 @@ Local fix `6e3663c83`: [dictionary distinction and confidence limits](Quechua-Re
 Dangi, Minguo and generic Hijri labels now use the generic calendar noun while
 preserving names. Adapted compounds remain low confidence pending native phrase
 and browser review. Four checks pass; ledger 18,699; pending/restored 283/4.
+
+## Tamazight interface-button sense review — 2026-09-14
+
+Local review `555b6631d`: [sense mismatch and next primary reference](Tamazight-Review.md).
+French bouton glosses with skin-bump Arabic definitions cannot establish the
+OIDC UI-control noun. The computing-reference body remains unread after timeout.
+No replacement or acceptance was made; original counts remain 283 pending/4
+restored and the correction ledger remains 18,699.

@@ -15,6 +15,11 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 evidence. Magenta remains pending; nearby color names do not establish a
 correct replacement. Counts are unchanged.
 
+Latest terminology research: **2026-09-14**, `555b6631d` —
+[Tamazight review](Tamazight-Review.md) rejects skin-bump dictionary senses
+for the pending OIDC interface-button label. A domain reference is identified
+but its full fetch timed out; no value was accepted. Counts are unchanged.
+
 Review is ongoing. [Tigre/Wolaytta calendar review](Tigre-Wolaytta-Calendar-Review.md)
 records review `5da10eee5` (2026-09-14): a Tigrinya provenance warning for the Tigre base noun and an additional
 untranslated Wolaytta calendar key. Both require native terminology evidence;
