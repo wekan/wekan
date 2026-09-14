@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,304 |
+| Corrected | 15,306 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 540 |
+| Pending review or repair | 538 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,610** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,612** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `dc91b2560` — replaced the French Tamazight Excel import popup title, preserving Excel CSV/TSV. Native entry imperative and cached import terminology support components; the full import wording remains **low confidence** pending fluent review. All **17,610** correction/rendering checks pass. **540** originals remain pending across **17** locales, including **402** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `3c92879fa` — replaced two French Tamazight avatar URL repair labels, preserving URL and existing avatar terminology. The documented correction verb supports components; avatar wording and full composition remain **low confidence** pending language review. All **17,612** correction/rendering checks pass. **538** originals remain pending across **17** locales, including **400** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Fulah terminology review (2026-09-14):** The [Senegal education ministry terminology guide](https://senprof.education.sn/PROGRAMME%20LECTURE%20POUR%20TOUS/documentation/Terminologies/Terminologie%20Pulaar%20fusion.pdf), printed pages 8, 17 and 34, gives calendar names `Lim-lebbi`, `arminaat`, `kalanndiriyee`, distinguishes `Haatumeere` as grid/table, and uses `Alluwal` for table/classroom board. This strengthens component evidence but does not establish technical tabular calendar usage or civil/astronomical epochs. The earlier native Hijri article supports calendar-context use of Haatumeere, so the guide alone does not justify replacing it; that composition remains under review. No locale values or counts changed. Both Fulah epoch findings remain pending.
 
