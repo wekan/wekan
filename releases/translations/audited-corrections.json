@@ -125662,5 +125662,54 @@
     "before": "Tout restaurer depuis les archives",
     "after": "ⵙⵡⵔⵔⵉ ⴰⴽⴽⵯ ⵙⴳ ⴰⵔⵛⵉⴼ",
     "reason": "2026-09-14: Replace French/Arabic archive or restore control. Native MediaWiki thisisdeleted directly attests Restore swrri and collapsible-collapse-all-text attests All akkw: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Archive noun corroborated by directly inspected native Archives du Maroc logo in https://www.um5.ac.ma/um5/sites/default/files/2019-12/Communiqu%C3%A9%20JNA%202019.pdf . Preserve move-to-archive versus restore-from-archive, All scope, and THIS list. Swimlane provisionally reuses local Path abrid, not independently validated swimlane terminology. Card/Board nouns reuse local vocabulary. LOW CONFIDENCE full phrases, possessive/list construction and kanban adaptations require native validation. Generic Restore record retains its alternate restoration verb; no unsupported claim that it was wrong."
+  },
+  {
+    "locale": "zgh",
+    "key": "card-archive-pop",
+    "before": "La carte ne sera plus visible dans cette liste après archivage.",
+    "after": "ⵜⴰⴽⴰⵕⴹⴰ ⵓⵔ ⵔⴰ ⵜⵜⵓⵙⴽⴰⵏ ⴳ ⵜⴰⵍⴳⴰⵎⵜ ⴰⴷ ⴷⴼⴼⵉⵔ ⵏ ⵓⵙⵎⵓⵜⵜⵉ ⵏ ⵜⴽⴰⵕⴹⴰ ⵖⵔ ⴰⵔⵛⵉⴼ.",
+    "reason": "2026-09-14: Replace French/Arabic archive guidance. Native MediaWiki rc-change-size-new directly uses dffir n for After a change and actionthrottledtext for retry after a little while; thisisdeleted attests Restore swrri: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve post-archive invisibility, THIS list versus board location, later recoverability and Board Settings archive location. Card deletion alternative preserves removing card from board and retaining activity, adapting reviewed list alternative. LOW CONFIDENCE negative future/passive visibility, temporal Later adaptation, nominalized Move, second-person Restore, settings construction and whole clauses. Swimlane provisionally reuses local Path, not independently validated swimlane term. Native components do not validate full clauses."
+  },
+  {
+    "locale": "zgh",
+    "key": "list-archive-pop",
+    "before": "La liste ne sera pas visible sur le tableau après archivage.",
+    "after": "ⵜⴰⵍⴳⴰⵎⵜ ⵓⵔ ⵔⴰ ⵜⵜⵓⵙⴽⴰⵏ ⴳ ⵜⴰⴼⵍⵡⵉⵜ ⴷⴼⴼⵉⵔ ⵏ ⵓⵙⵎⵓⵜⵜⵉ ⵖⵔ ⴰⵔⵛⵉⴼ.",
+    "reason": "2026-09-14: Replace French/Arabic archive guidance. Native MediaWiki rc-change-size-new directly uses dffir n for After a change and actionthrottledtext for retry after a little while; thisisdeleted attests Restore swrri: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve post-archive invisibility, THIS list versus board location, later recoverability and Board Settings archive location. Card deletion alternative preserves removing card from board and retaining activity, adapting reviewed list alternative. LOW CONFIDENCE negative future/passive visibility, temporal Later adaptation, nominalized Move, second-person Restore, settings construction and whole clauses. Swimlane provisionally reuses local Path, not independently validated swimlane term. Native components do not validate full clauses."
+  },
+  {
+    "locale": "zgh",
+    "key": "swimlane-archive-pop",
+    "before": "Le couloir ne sera pas visible sur le tableau après archivage.",
+    "after": "ⴰⴱⵔⵉⴷ ⵓⵔ ⵔⴰ ⵉⵜⵜⵓⵙⴽⴰⵏ ⴳ ⵜⴰⴼⵍⵡⵉⵜ ⴷⴼⴼⵉⵔ ⵏ ⵓⵙⵎⵓⵜⵜⵉ ⵖⵔ ⴰⵔⵛⵉⴼ.",
+    "reason": "2026-09-14: Replace French/Arabic archive guidance. Native MediaWiki rc-change-size-new directly uses dffir n for After a change and actionthrottledtext for retry after a little while; thisisdeleted attests Restore swrri: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve post-archive invisibility, THIS list versus board location, later recoverability and Board Settings archive location. Card deletion alternative preserves removing card from board and retaining activity, adapting reviewed list alternative. LOW CONFIDENCE negative future/passive visibility, temporal Later adaptation, nominalized Move, second-person Restore, settings construction and whole clauses. Swimlane provisionally reuses local Path, not independently validated swimlane term. Native components do not validate full clauses."
+  },
+  {
+    "locale": "zgh",
+    "key": "card-archive-suggest-cancel",
+    "before": "Vous pouvez, plus tard, restaurer une carte depuis les archives.",
+    "after": "ⵜⵥⴹⴰⵕⴷ ⴰⴷ ⵜⵙⵡⵔⵔⵉⴷ ⵜⴰⴽⴰⵕⴹⴰ ⵙⴳ ⴰⵔⵛⵉⴼ ⴷⴼⴼⵉⵔ.",
+    "reason": "2026-09-14: Replace French/Arabic archive guidance. Native MediaWiki rc-change-size-new directly uses dffir n for After a change and actionthrottledtext for retry after a little while; thisisdeleted attests Restore swrri: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve post-archive invisibility, THIS list versus board location, later recoverability and Board Settings archive location. Card deletion alternative preserves removing card from board and retaining activity, adapting reviewed list alternative. LOW CONFIDENCE negative future/passive visibility, temporal Later adaptation, nominalized Move, second-person Restore, settings construction and whole clauses. Swimlane provisionally reuses local Path, not independently validated swimlane term. Native components do not validate full clauses."
+  },
+  {
+    "locale": "zgh",
+    "key": "list-archive-suggest",
+    "before": "Vous pourrez plus tard restaurer la liste depuis les archives dans les paramètres du tableau.",
+    "after": "ⵜⵥⴹⴰⵕⴷ ⴰⴷ ⵜⵙⵡⵔⵔⵉⴷ ⵜⴰⵍⴳⴰⵎⵜ ⵙⴳ ⴰⵔⵛⵉⴼ ⴳ ⵜⵉⵙⵖⴰⵍ ⵏ ⵜⴼⵍⵡⵉⵜ ⴷⴼⴼⵉⵔ.",
+    "reason": "2026-09-14: Replace French/Arabic archive guidance. Native MediaWiki rc-change-size-new directly uses dffir n for After a change and actionthrottledtext for retry after a little while; thisisdeleted attests Restore swrri: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve post-archive invisibility, THIS list versus board location, later recoverability and Board Settings archive location. Card deletion alternative preserves removing card from board and retaining activity, adapting reviewed list alternative. LOW CONFIDENCE negative future/passive visibility, temporal Later adaptation, nominalized Move, second-person Restore, settings construction and whole clauses. Swimlane provisionally reuses local Path, not independently validated swimlane term. Native components do not validate full clauses."
+  },
+  {
+    "locale": "zgh",
+    "key": "swimlane-archive-suggest",
+    "before": "Vous pourrez plus tard restaurer le couloir depuis les archives dans les paramètres du tableau.",
+    "after": "ⵜⵥⴹⴰⵕⴷ ⴰⴷ ⵜⵙⵡⵔⵔⵉⴷ ⴰⴱⵔⵉⴷ ⵙⴳ ⴰⵔⵛⵉⴼ ⴳ ⵜⵉⵙⵖⴰⵍ ⵏ ⵜⴼⵍⵡⵉⵜ ⴷⴼⴼⵉⵔ.",
+    "reason": "2026-09-14: Replace French/Arabic archive guidance. Native MediaWiki rc-change-size-new directly uses dffir n for After a change and actionthrottledtext for retry after a little while; thisisdeleted attests Restore swrri: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve post-archive invisibility, THIS list versus board location, later recoverability and Board Settings archive location. Card deletion alternative preserves removing card from board and retaining activity, adapting reviewed list alternative. LOW CONFIDENCE negative future/passive visibility, temporal Later adaptation, nominalized Move, second-person Restore, settings construction and whole clauses. Swimlane provisionally reuses local Path, not independently validated swimlane term. Native components do not validate full clauses."
+  },
+  {
+    "locale": "zgh",
+    "key": "card-delete-suggest-archive",
+    "before": "يمكنك نقل بطاقة إلى الأرشيف لإزالتها من اللوحة والمحافظة على النشاط.",
+    "after": "ⵜⵥⴹⴰⵕⴷ ⴰⴷ ⵜⵙⵎⵓⵜⵜⵉⴷ ⵢⴰⵜ ⵜⴰⴽⴰⵕⴹⴰ ⵖⵔ ⴰⵔⵛⵉⴼ ⴰⴼⴰⴷ ⴰⴷ ⵜⵜ ⵜⴽⴽⵙⴷ ⵙⴳ ⵜⴼⵍⵡⵉⵜ ⴷ ⴰⴷ ⵜⵃⴹⵓⴷ ⵜⵉⴳⴰⵡⵜ.",
+    "reason": "2026-09-14: Replace French/Arabic archive guidance. Native MediaWiki rc-change-size-new directly uses dffir n for After a change and actionthrottledtext for retry after a little while; thisisdeleted attests Restore swrri: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve post-archive invisibility, THIS list versus board location, later recoverability and Board Settings archive location. Card deletion alternative preserves removing card from board and retaining activity, adapting reviewed list alternative. LOW CONFIDENCE negative future/passive visibility, temporal Later adaptation, nominalized Move, second-person Restore, settings construction and whole clauses. Swimlane provisionally reuses local Path, not independently validated swimlane term. Native components do not validate full clauses."
   }
 ]
