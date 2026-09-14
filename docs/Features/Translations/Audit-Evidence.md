@@ -22264,3 +22264,15 @@ remain distinct.
 Review checks pass: 15,562 corrected, 1,080 restored awaiting validation,
 3,131 reviewed unchanged and 308 pending. Broader language and browser
 validation remain open. Nothing pushed.
+
+
+### 2026-09-14 — Galician reminders and notification controls
+
+Local commit `92b911aa9` retains 30 directly reviewed values unchanged.
+First-reminder and approaching/past/now conditions preserve exact list/card,
+board/time tokens. Self-delete, drag handles and assignee singular/plural/
+absence retain meaning. Entity create/edit, all-read notification scope,
+rename permission, week-start setting and weekdays remain correct.
+Review checks pass: 15,562 corrected, 1,050 restored awaiting validation,
+3,161 reviewed unchanged and 308 pending. Broader language and browser
+validation remain open. Nothing pushed.
