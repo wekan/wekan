@@ -646,6 +646,18 @@ This release documents the following translation fixes:
 **Developer tooling** - Mirror Git progress.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7c98c00d9">Skip archive.org recovery for retired WeKan branch links</a>. Thanks to xet7.</summary>
+
+Missing or failed WeKan tree, blob and raw branch-content links skip Wayback
+fallback, avoiding repeated historical lookups during mirroring. Live links
+still download normally; full commit-hash links and other attachments retain
+historical recovery. Offline positive and negative tests pass, including
+network failures, attachment persistence and HTTP response handling.
+No live mirroring or remote writes were run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/567c770c8">Stream Git transfer output to mirror logs</a>. Thanks to xet7.</summary>
 
 Clone, fetch and push force progress output; these commands and merge stream
