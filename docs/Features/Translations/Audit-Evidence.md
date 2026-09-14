@@ -23654,3 +23654,17 @@ a descriptive palette label; no claim is made that the article specifies
 a guessed technical phrase. Exact review, distinct palette-label/swatch and
 completeness checks pass. Browser color-picker validation remains open.
 Restored findings decrease from 17 to 16; retained reviews increase to 4,164.
+
+Basque generic movement review — 2026-09-14, local commit `aba731e82`.
+
+Retain r-is-moved = lekuz aldatzen denean unchanged. The actual trigger-three
+row in boardTriggers.jade assembles Txartel bat lekuz aldatzen denean, with
+no separate copula or destination noun.
+[EHU EEH leku, section 16](https://www.ehu.eus/eeh/cgi/bila?h=leku)
+attests the movement collocation and its temporal construction.
+[Euskadi native grammar, section 13.1](https://www.euskadi.eus/web01-a2nekaza/eu/contenidos/articulo/c0301/eu_d0301007/0301007.html)
+explains the temporal -ENEAN construction with a singular intransitive example.
+The assembled kanban sentence is a contextual grammatical adaptation; the
+references do not attest that exact product sentence. The focused regression
+checks actual template order and absence of an extra linking verb. Other
+directional fragments and browser execution remain unverified.

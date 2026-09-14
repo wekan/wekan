@@ -728,6 +728,15 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/aba731e82">Validate Basque generic card movement wording</a>. Thanks to xet7.</summary>
+
+Retain the restored complete temporal predicate after checking native grammar
+and actual trigger order. Directional fragments and browser review remain open.
+The dated translation audit records progress and focused regression coverage.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9f7f94825">Validate Valencian peach color wording</a>. Thanks to xet7.</summary>
 
 The restored native peach color label is retained after checking color usage
