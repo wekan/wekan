@@ -1170,6 +1170,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8d9facf9a">Repair Tamazight logo height and navigation wording</a></summary>
+
+Replace French and Arabic logo labels, preserving hide, board-page return
+and default height 27. Four focused suites pass; spatial chain, default
+terminology and possessive grammar remain under contextual review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

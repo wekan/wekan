@@ -29537,3 +29537,19 @@ negative French/Arabic wording and all token inventories. No live logo
 settings UI test ran. Ledger 19,891; corrected 15,770, pending 133
 (zgh 40), restored 4 unchanged. Height/default label and unflagged hide-logo
 and header-logo-title still need repair; broader contextual review is open.
+
+
+2026-09-15 — `8d9facf9a`: logo height, unflagged hide-logo and
+header-logo-title French/Arabic values replaced. Height uses IRCAM 11797
+taghzi height/length and the repaired top-left spatial chain; exact default
+27 remains. Existing default s uwnul is reused, not independently certified
+computing default terminology. Hide uses IRCAM 6267 ffr hide/conceal and
+existing logo noun; return uses existing back aghul plus your boards page,
+not logout or return of an object. Full spatial chain, default vocabulary
+and page/board possessive phrase remain under contextual review. settingBody
+binds height separately and toggles hideLogo. Four focused suites pass for
+exact values, negative French/Arabic wording, default numeral and all token
+inventories. No live logo UI test ran. Ledger 19,894; corrected 15,771,
+pending 132 (zgh 39), restored 4 unchanged. Only height was originally
+flagged; nearby two repairs add ledger records without lowering queue count.
+Broader native phrase review remains open.
