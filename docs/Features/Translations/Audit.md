@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,586 |
-| Restored pre-pull; awaiting validation | 55 |
-| Reviewed; retained unchanged | 4,135 |
+| Restored pre-pull; awaiting validation | 54 |
+| Reviewed; retained unchanged | 4,136 |
 | Pending review or repair | 305 |
 | Total tracked | 20,081 |
 
@@ -29,12 +29,10 @@ Veps terminology, shared trigger grammar and browser validation remain open.
 Attachment/member rule participles still need context-specific agreement.
 Two Esperanto restored findings remain: Complete labels.
 Broader language and browser verification remain open; nothing pushed.
-Latest unchanged review: **2026-09-14**, commit `918d17c6b` — retained
-three Basque placement/list-ownership labels against the rule-action controls.
-Top and bottom directions and the card's own list remain distinct. Twenty
-restored Basque values remain, including shared-trigger composition and
-context-dependent completion/storage wording. Nine restored Valencian values,
-Uzbek Arabic-script and Breton wording and browser verification remain open.
+Latest unchanged review: **2026-09-14**, commit `c44dca170` — retained
+Acehnese Leubeh (More) against Balai Bahasa dictionary usage. Six restored
+Acehnese values remain uncertain. Twenty Basque and nine Valencian restored
+values, shared-trigger composition and browser verification remain open.
 Galician export free wording remains open pending context.
 Galician Complete and migration-complete wording remain open pending context.
 Card-show-lists context is verified against its settings row and toggle.

@@ -22669,3 +22669,8 @@ r-top-of Goialdera:, r-bottom-of Behealdera: and r-its-list bere zerrenda.
 Actual boardActions top/bottom options and following own-list label confirm
 placement/ownership context. All 4,135 exact review records pass. Twenty
 restored Basque values and complete trigger grammar remain unresolved.
+
+Dated review, 2026-09-14, local commit `c44dca170`: Acehnese Leubeh
+retained for More. Primary dictionary example at
+https://kamusbbpa.kemendikdasmen.go.id/kamus/Aceh/C supports the meaning.
+All 4,136 exact reviews pass; six Acehnese restored values remain open.

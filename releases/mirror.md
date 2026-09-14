@@ -540,3 +540,12 @@ linked-file failures are logged as skipped and preserve existing local bytes,
 so remaining content and target synchronization can continue. Repository/API
 inventory failures still stop incomplete synchronization. Private/local links
 remain blocked and no forge credentials are sent to archive.org or linked sites.
+
+### Git command progress
+
+Clone, fetch and push force `--progress`; these commands and merge inherit
+stdout/stderr so the menu streams output into the console, main mirror log
+and destination log. Start and completion messages include the operation and
+exit status. Git inventories retain captured stdout for parsing. Offline
+regression verifies stream settings, progress flags and failure propagation;
+no remote Git command is needed to run it.

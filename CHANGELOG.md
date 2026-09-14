@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,586 corrected, 55 restored pre-pull values awaiting
-validation, 4,135 reviewed and retained, and 305 pending review or repair.
+findings: 15,586 corrected, 54 restored pre-pull values awaiting
+validation, 4,136 reviewed and retained, and 305 pending review or repair.
 The correction inventory records 18,196 exact before/after values,
 including repairs outside the original findings.
 Global completeness verification also identifies Veps `server` (currently
@@ -113,10 +113,9 @@ Latest translation fix is 1b228a63f (2026-09-14): six Basque archive
 actions/descriptions use archive terminology instead of storage wording.
 Shared trigger grammar remains unresolved. Manx epoch terminology and
 Greenlandic compound grammar remain provisional and need native review.
-Latest unchanged-value review is 918d17c6b (2026-09-14): three Basque
-rule placement and own-list labels retained against actual action controls.
-Twenty restored Basque values, nine restored Valencian values and wider
-language/browser verification remain open.
+Latest unchanged-value review is c44dca170 (2026-09-14): Acehnese More
+retained against primary dictionary usage. Six restored Acehnese values and
+wider language/browser verification remain open.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
 Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
 retaining 156 correct Danish storage, migration and monitoring/account labels.
@@ -648,6 +647,18 @@ verification remain open.
 
 This release documents the following translation fixes:
 
+**Developer tooling** - Mirror Git progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/567c770c8">Stream Git transfer output to mirror logs</a>. Thanks to xet7.</summary>
+
+Clone, fetch and push force progress output; these commands and merge stream
+stdout/stderr into console and mirror logs. Inventory output remains captured.
+Offline regression checks streaming and error propagation; no remote commands
+were executed. The existing staged-menu tests pass.
+
+</details>
+
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 **Languages updated:** Basque, Esperanto, Greenlandic, Manx, Swedish, Valencian
@@ -823,6 +834,14 @@ shared trigger grammar and wider language/browser verification remain open.
 Retained three Basque rule labels against the top/bottom action controls and
 own-list destination. Exact review checks pass; twenty restored Basque values,
 shared trigger grammar and wider language/browser verification remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c44dca170">Validate Acehnese More wording</a>. Thanks to xet7.</summary>
+
+Retained Leubeh against primary dictionary usage. Exact review checks pass;
+six restored Acehnese values and broader language/browser review remain open.
 
 </details>
 
