@@ -22187,3 +22187,16 @@ meaning and label-default preserves interpolation.
 Review checks pass: 15,561 corrected, 1,254 restored awaiting validation,
 2,958 reviewed unchanged and 308 pending. Broader language and browser
 validation remain open. Nothing pushed.
+
+
+### 2026-09-14 — Galician shortcuts and custom branding labels
+
+Local commit `64a60f189` retains 30 directly reviewed values unchanged.
+WIP maximum tasks per list, hours units, labels 1-9 removal and shortcut
+sidebar/dialog actions retain scope. Upload/ongoing/failure states remain
+distinct. Custom logo image/link URLs, upper-left placement, default height
+27, text-below position and one clickable URL scheme per line retain meaning.
+Milestone example remains Fito 1.
+Review checks pass: 15,561 corrected, 1,224 restored awaiting validation,
+2,988 reviewed unchanged and 308 pending. Broader language and browser
+validation remain open. Nothing pushed.
