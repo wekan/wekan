@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,536 |
-| Restored pre-pull; awaiting validation | 4,058 |
-| Reviewed; retained unchanged | 179 |
+| Restored pre-pull; awaiting validation | 4,038 |
+| Reviewed; retained unchanged | 199 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -14,7 +14,7 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,131** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `edfed8176` — replaced three additional Arabic/French spent-time and sorting controls with Tamazight. Noun-only Spent Time remains distinct from Change actions. Full spent-time participle and agreement remain **low confidence**. All **18,131** correction records pass structural verification; **308** original findings remain pending across **17** locales, including **173** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `edfed8176` — replaced three additional Arabic/French spent-time and sorting controls with Tamazight. Noun-only Spent Time remains distinct from Change actions. Full spent-time participle and agreement remain **low confidence**. All **18,131** correction records pass structural verification; **308** original findings remain pending across **17** locales, including **173** Tamazight. The **4,038** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Latest syntax repair (2026-09-14, `d0c247094`, follow-up `cd563cce5`):** Veps filter help now
 preserves canonical comparison, escaping, quoted field/value and Boolean
@@ -183,3 +183,9 @@ Restored-value check (2026-09-14): all 4,058 restored values match the
 English underscore/percent placeholder inventory. Regression coverage now
 checks this separately and keeps these values awaiting language validation.
 No translation values or completion counts changed.
+
+Restored Danish wording review (2026-09-14, `159886821`): reviewed and
+retained 20 complete values unchanged, including selected-list directions,
+count labels, technical settings and duplication confirmation. Now 199
+original findings are reviewed/retained and 4,038 restored values await
+validation. Correction and pending counts are unchanged.

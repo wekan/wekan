@@ -1,5 +1,15 @@
 # Detailed translation audit evidence
 
+2026-09-14 (`159886821`): direct complete-meaning review retained twenty
+restored Danish values unchanged. Exact keys/values are in audited-reviews;
+these include Add Template, Move List, Currency Code, minicard description
+and attachment count, custom HTML/JSON settings, duplication confirmation,
+organization/team/people counts and selected-list left/right directions.
+Technical/shared Computer and Type are valid Danish; English identity alone
+is not an error. Reviewed/retained increases to 199; restored awaiting
+validation decreases to 4,038. All remaining wording review stays open.
+
+
 2026-09-14: inspected all 4,058 `restoredPrePull` rows against the English
 underscore-delimited and percent-format token inventories. Zero mismatches.
 Extended `translationAuditProgress.test.cjs` to verify every restored row
