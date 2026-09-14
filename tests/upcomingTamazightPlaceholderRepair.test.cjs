@@ -604,3 +604,12 @@ assert.strictEqual(translated.Node_heap_total_physical_size, "ⴰⴳⵓⴷⵉ �
 assert.doesNotMatch(translated.Node_heap_total_physical_size, /Tas de|taille totale|physique|[\u0600-\u06ff]|ⴰⴷⵡⴰⵙ/u);
 assert.notStrictEqual(translated.Node_heap_total_physical_size, translated.Node_heap_total_heap_size);
 console.log('Tamazight physical heap size stays distinct from total heap size');
+
+assert.strictEqual(translated["custom-top-left-corner-logo-image-url"], "URL ⵏ ⵜⵡⵍⴰⴼⵜ ⵏ ⵓⵍⵓⴳⵓ ⵉⵥⵍⵉⵏ ⴳ ⵜⵖⵎⵔⵜ ⵏ ⵓⴼⵍⵍⴰ ⵖⵔ ⵓⵥⵍⵎⴰⴹ");
+
+assert.strictEqual(translated["custom-top-left-corner-logo-link-url"], "URL ⵏ ⵓⵙⵖⵏ ⵏ ⵓⵍⵓⴳⵓ ⵉⵥⵍⵉⵏ ⴳ ⵜⵖⵎⵔⵜ ⵏ ⵓⴼⵍⵍⴰ ⵖⵔ ⵓⵥⵍⵎⴰⴹ");
+for (const q of ['image', 'link']) {
+ assert.doesNotMatch(translated['custom-top-left-corner-logo-' + q + '-url'], /supérieur gauche|personnalisé|[\u0600-\u06ff]/u);
+}
+assert.notStrictEqual(translated['custom-top-left-corner-logo-image-url'], translated['custom-top-left-corner-logo-link-url']);
+console.log('Tamazight top-left logo labels retain image and link distinction');

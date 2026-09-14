@@ -139221,5 +139221,19 @@
     "before": "Tas de Node : taille totale physique",
     "after": "ⴰⴳⵓⴷⵉ ⵏ Node: ⵜⴰⵎⵓⵜⵜⵔⵜ ⵏ ⵓⵇⵓⴷⴷⵉ ⴰⴽⵎⴰⵎ",
     "reason": "2026-09-15: Replace French physical-size heap label using existing heap/total/size compounds and IRCAM akmam concrete/tangible 1237, physical portrait feminine takmamt 10742. Computing physical-memory sense and adjective/nominal grammar remain low confidence; not total system RAM or physical force."
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-top-left-corner-logo-image-url",
+    "before": "URL de l'Image du logo personnalisé dans le coin supérieur gauche",
+    "after": "URL ⵏ ⵜⵡⵍⴰⴼⵜ ⵏ ⵓⵍⵓⴳⵓ ⵉⵥⵍⵉⵏ ⴳ ⵜⵖⵎⵔⵜ ⵏ ⵓⴼⵍⵍⴰ ⵖⵔ ⵓⵥⵍⵎⴰⴹ",
+    "reason": "2026-09-15: Replace French top-left logo URL label using existing custom-login-logo image/link phrases. IRCAM corner taghmrt 11729 bound tghmrt, top aflla 1008 bound uflla, left justification 4507 supports ghr uzlmad with emphatic z. Full spatial chain and computing logo phrase remain low confidence; preserve image vs destination link."
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-top-left-corner-logo-link-url",
+    "before": "Lien URL du logo personnalisé dans le coin supérieur gauche",
+    "after": "URL ⵏ ⵓⵙⵖⵏ ⵏ ⵓⵍⵓⴳⵓ ⵉⵥⵍⵉⵏ ⴳ ⵜⵖⵎⵔⵜ ⵏ ⵓⴼⵍⵍⴰ ⵖⵔ ⵓⵥⵍⵎⴰⴹ",
+    "reason": "2026-09-15: Replace French top-left logo URL label using existing custom-login-logo image/link phrases. IRCAM corner taghmrt 11729 bound tghmrt, top aflla 1008 bound uflla, left justification 4507 supports ghr uzlmad with emphatic z. Full spatial chain and computing logo phrase remain low confidence; preserve image vs destination link."
   }
 ]
