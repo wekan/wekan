@@ -383,3 +383,10 @@ assert.match(pdfWarning, /ⴰⵎⴰⵜⵜⵉⵡ ⵏⵏⴽ ⵓⵔ ⵉⵣⵎⵔ/);
 assert.ok(pdfWarning.includes(translated.preview + ' ⵏ PDF'));
 assert.match(pdfWarning, /ⴰⵔⵎ ⴰⴷ ⵜⴰⴳⵎⴷ ⴰⴼⴰⵢⵍⵓ ⴳ ⵓⴷⵖⴰⵔ ⵏ ⴰⵢⴰ/);
 assert.doesNotMatch(pdfWarning, /[\u0600-\u06ff]/u);
+
+const adminWarning = translated['last-admin-desc'];
+assert.match(adminWarning, /ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵙⵏⴼⵍⴷ/);
+assert.ok(adminWarning.includes(translated.roles));
+assert.match(adminWarning, /ⵢⴰⵏ ⵓⵎⵙⵙⵓⴳⵓⵔ ⵏⵖ ⵓⴳⴳⴰⵔ/);
+assert.doesNotMatch(adminWarning, /[\u0600-\u06ff]/u);
+assert.match(sidebarTemplate, /if isLastAdmin\s+hr\s+p.*last-admin-desc/);

@@ -138822,5 +138822,12 @@
     "before": "جهازك لا يدعم معاينة ملفات PDF. حاول تنزيل الملف بدلاً من ذلك.",
     "after": "ⴰⵎⴰⵜⵜⵉⵡ ⵏⵏⴽ ⵓⵔ ⵉⵣⵎⵔ ⴰⴷ ⵉⵙⵙⴽⵏ ⵜⴰⵎⵓⵖⵍⵉ ⵜⴰⵎⵣⵡⴰⵔⵓⵜ ⵏ PDF. ⴰⵔⵎ ⴰⴷ ⵜⴰⴳⵎⴷ ⴰⴼⴰⵢⵍⵓ ⴳ ⵓⴷⵖⴰⵔ ⵏ ⴰⵢⴰ.",
     "reason": "2026-09-15: Replace Arabic PDF preview warning, retaining your device inability to preview and try downloading instead. IRCAM 501 gives computing download, 2233 equipment. Reuse preview/file/show/try vocabulary; capability paraphrase avoids physical support homographs. Full grammar and instead construction remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "last-admin-desc",
+    "before": "لا يمكن تعديل الأدوار لأن ذلك يتطلب  صلاحيات المدير.",
+    "after": "ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵙⵏⴼⵍⴷ ⵜⵉⵎⵍⴻⵍⵍⴰⵢ ⴰⵛⴽⵓ ⵉⵅⵚⵚⴰ ⴰⴷ ⵉⵍⵍⵉ ⵢⴰⵏ ⵓⵎⵙⵙⵓⴳⵓⵔ ⵏⵖ ⵓⴳⴳⴰⵔ.",
+    "reason": "2026-09-15: Replace Arabic warning with actual reason: roles cannot change because one administrator or more must remain. Existing roles/admin terminology; IRCAM 4969 because. Minimum-count paraphrase and full grammar remain low confidence."
   }
 ]
