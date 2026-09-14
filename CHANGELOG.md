@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/16232ae09">Repair Tamazight parent-prefix options</a>. Thanks to xet7.</summary>
+
+Replace two French labels while retaining prefix/subtext placement and
+full-path/single-parent distinctions. Four checks pass; adapted prefix
+terminology and complete phrases still need native and browser review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7acd0f72c">Repair Tamazight full-path subtitle</a>. Thanks to xet7.</summary>
 
 Replace French with verified native components while preserving the full

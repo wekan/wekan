@@ -447,3 +447,23 @@ fullness term; no live browser validation ran.
 Counts now: 15,626 corrected, 276 pending (163 Tamazight), four restored
 and 4,175 retained; 18,712 correction-ledger records. Broader validation
 remains open after the original French finding is classified corrected.
+
+## Parent display-prefix repairs — 2026-09-14
+
+Local commit `16232ae09` replaces French `prefix-with-full-path` and
+`prefix-with-parent` with `ⴰⵣⵡⵉⵔ ⴰⴽⴷ ⵓⴱⵔⵉⴷ ⴰⴽⴽⵯ` and
+`ⴰⵣⵡⵉⵔ ⴰⴽⴷ ⵓⵎⴰⵔⴰⵡ`. Primary IRCAM General Dictionary PDF
+page 284, entry 5564, gives prefix, explicitly grammatical. Its extension
+to prepended display text is an adaptation, not an attested software
+term. Previously documented entries establish with, path, entirely and
+father; existing `parent-card` supplies the software parent convention.
+
+Minicard.jade lines 52–57 put either the joined ancestor path or single
+parent title in `.parent-prefix` before the card title. Lines 350–355
+put the corresponding subtext below it. The two new labels preserve
+both contrasts. Unlike the debug-predicate catalogue, this is prepended
+text; nevertheless the grammatical sense extension and full noun phrases
+remain **low confidence**, requiring native validation. Four translation
+checks pass, including French/subtitle negatives and distinct values.
+Browser rendering is unverified. Counts: 15,628 corrected, 274 pending
+(161 Tamazight), four restored, 4,175 retained; 18,714 ledger records.
