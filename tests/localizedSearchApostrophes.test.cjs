@@ -83,3 +83,14 @@ for (const value of ['0', '12']) {
   assert.equal(parsed.errors().length, 0);
   if (value === '12') assert.equal(parsed.getQueryParams().getPredicate('limit'), 12);
 }
+
+for (const [key, field] of [['predicate-start', 'startAt'], ['predicate-end', 'endAt']]) {
+  for (const absent of [false, true]) {
+    const parsed = query(`${labels['operator-has']}:${absent ? '-' : ''}${labels[key]}`);
+    assert.equal(parsed.hasErrors(), false, key);
+    assert.deepEqual(JSON.parse(JSON.stringify(parsed.getQueryParams().getPredicate('has'))),
+      { field, exists: !absent });
+  }
+  // These existence predicates must not become valid sort predicates.
+  assert.equal(query(`${labels['operator-sort']}:${labels[key]}`).hasErrors(), true);
+}
