@@ -27,10 +27,10 @@ repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
-Latest terminology review: **2026-09-14**, `002e14d69` — Kashmiri moon
-spelling lead is recorded; a dictionary URL redirected to gambling and
-the primary query returned no result. Two complete calendar labels remain
-pending in [Kashmiri review](Kashmiri-Review.md); no acceptance is recorded.
+Latest terminology review: **2026-09-14**, `3567bf197` — primary
+Kashmiri grammar confirms moon/seeing vocabulary and inflection rules.
+Complete sighting and astronomical-epoch labels still need repair; two
+findings remain pending in [Kashmiri review](Kashmiri-Review.md).
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

@@ -25359,3 +25359,10 @@ and astronomical-epoch wording still require native evidence and direct
 repair. Urdu-only Hijri pages from the search are not Kashmiri evidence.
 No translation or ledger acceptance was made. Original pending remains
 259, including two Kashmiri findings; full native/browser work stays open.
+
+
+Primary Kashmiri grammar review — 2026-09-14, local commit `3567bf197`.
+Modern Kashmiri Grammar supplies moon/seeing vocabulary, infinitive
+agreement and nominalization evidence. Full calendar compounds and script
+remain unverified. No values accepted; 259 original findings stay pending.
+See Kashmiri-Review.md for page references and source limitations.

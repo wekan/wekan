@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3567bf197">Review primary Kashmiri calendar vocabulary and grammar</a>. Thanks to xet7.</summary>
+
+Record primary moon/seeing vocabulary and infinitive agreement evidence.
+Complete sighting and astronomical-epoch labels remain under review; no
+translation acceptance or browser verification is claimed.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/002e14d69">Review Kashmiri lunar terminology source reliability</a>. Thanks to xet7.</summary>
 
 Record moon-spelling evidence and exclude a redirected dictionary URL.
