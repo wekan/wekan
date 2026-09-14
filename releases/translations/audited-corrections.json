@@ -121203,5 +121203,26 @@
     "before": "النوع",
     "after": "ⴰⵏⴰⵡ",
     "reason": "Replace unflagged Arabic attachment export metadata label with Standard Moroccan Tamazight. Native MediaWiki file-info-size uses tidddi for file size and anaw for MIME type; retain the corresponding standalone noun without adding MIME to the English generic Type label. Exact nouns, no new clause composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "accounts-lockout-user-locked",
+    "before": "L'utilisateur est verrouillé",
+    "after": "ⵉⵜⵜⵓⴳⴷⴰⵍ ⵓⵏⵙⵙⵎⵔⵙ",
+    "reason": "Replace French login-lockout text with Standard Moroccan Tamazight. Native MediaWiki login-userblocked directly attests ittugdal unssmrs (user is blocked); omit ad/this because the source is generic. Login blocked is the intended account-lockout sense, rather than page protection. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "admin-people-filter-locked",
+    "before": "Utilisateurs verrouillés seulement",
+    "after": "ⵖⴰⵙ ⵉⵏⵙⵙⵎⵔⵙⵏ ⵉⵜⵜⵓⴳⴷⴰⵍⵏⵉⵏ",
+    "reason": "Replace French login-lockout text with Standard Moroccan Tamazight. Native MediaWiki login-userblocked directly attests ittugdal unssmrs (user is blocked); omit ad/this because the source is generic. Login blocked is the intended account-lockout sense, rather than page protection. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json LOW CONFIDENCE composed plural filter: user plural inssmrsn from native diff-multi-otherusers; skn/show and ghas/only from tool-link-userrights-readonly and protect-level-sysop. Plural blocked participle ittugdalnin is derived, not directly attested in the source; its inflection and complete filter phrase need fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "accounts-lockout-show-locked-users",
+    "before": "Afficher les utilisateurs verrouillés seulement",
+    "after": "ⵙⴽⵏ ⵖⴰⵙ ⵉⵏⵙⵙⵎⵔⵙⵏ ⵉⵜⵜⵓⴳⴷⴰⵍⵏⵉⵏ",
+    "reason": "Replace French login-lockout text with Standard Moroccan Tamazight. Native MediaWiki login-userblocked directly attests ittugdal unssmrs (user is blocked); omit ad/this because the source is generic. Login blocked is the intended account-lockout sense, rather than page protection. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json LOW CONFIDENCE composed plural filter: user plural inssmrsn from native diff-multi-otherusers; skn/show and ghas/only from tool-link-userrights-readonly and protect-level-sysop. Plural blocked participle ittugdalnin is derived, not directly attested in the source; its inflection and complete filter phrase need fluent review."
   }
 ]
