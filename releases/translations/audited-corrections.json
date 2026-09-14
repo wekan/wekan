@@ -127601,5 +127601,33 @@
     "before": "Islamic tabular",
     "after": "Hijri kalandiriye (tabali fɛ jateli, dolo dɔnni damindon)",
     "reason": "English-only Hijri calendar placeholder replaced directly with provisional Bambara wording for table-based counting and distinct civil/astronomical starting dates. Uses existing kalandiriye/tabali/damindon, dictionary dolo (star), dɔnni (knowledge/science), sivili (civil loan). Full compounds, calendar-epoch use of sivili and astronomical terminology are low-confidence adaptations requiring native review, not dictionary-attested complete phrases; structural tests do not establish fluency."
+  },
+  {
+    "locale": "gl",
+    "key": "r-when-a-member",
+    "before": "Cando un membro é",
+    "after": "Cando unha persoa membro é",
+    "reason": "Galician member/assignee trigger subjects now use feminine persoa, agreeing with shared Engadida/Quitada dropdowns without changing runtime trigger semantics. Persoa membro attested in Xunta sede.xunta.gal Xuventude Crea procedure BS310Q; direct full phrase adaptation. Specific subjects leave copula to template r-is. Attachment subject agreement remains separate unresolved work; browser not run."
+  },
+  {
+    "locale": "gl",
+    "key": "r-when-the-member",
+    "before": "Cando o membro",
+    "after": "Cando a persoa membro",
+    "reason": "Galician member/assignee trigger subjects now use feminine persoa, agreeing with shared Engadida/Quitada dropdowns without changing runtime trigger semantics. Persoa membro attested in Xunta sede.xunta.gal Xuventude Crea procedure BS310Q; direct full phrase adaptation. Specific subjects leave copula to template r-is. Attachment subject agreement remains separate unresolved work; browser not run."
+  },
+  {
+    "locale": "gl",
+    "key": "r-when-a-assignee",
+    "before": "Cando un asignado é",
+    "after": "Cando unha persoa asignada é",
+    "reason": "Galician member/assignee trigger subjects now use feminine persoa, agreeing with shared Engadida/Quitada dropdowns without changing runtime trigger semantics. Persoa membro attested in Xunta sede.xunta.gal Xuventude Crea procedure BS310Q; direct full phrase adaptation. Specific subjects leave copula to template r-is. Attachment subject agreement remains separate unresolved work; browser not run."
+  },
+  {
+    "locale": "gl",
+    "key": "r-when-the-assignee",
+    "before": "Cando o asignado",
+    "after": "Cando a persoa asignada",
+    "reason": "Galician member/assignee trigger subjects now use feminine persoa, agreeing with shared Engadida/Quitada dropdowns without changing runtime trigger semantics. Persoa membro attested in Xunta sede.xunta.gal Xuventude Crea procedure BS310Q; direct full phrase adaptation. Specific subjects leave copula to template r-is. Attachment subject agreement remains separate unresolved work; browser not run."
   }
 ]
