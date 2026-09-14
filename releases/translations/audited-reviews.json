@@ -11002,5 +11002,185 @@
     "key": "previous-page",
     "value": "Antaŭa paĝo",
     "reason": "2026-09-14: Direct semantic review confirms localized search operator/predicate display labels, validation errors and pagination. Positive-integer requirement, negation and source interpolation preserved. globalSearch.js uses translated labels as display/instruction vocabulary; this review does not alter canonical query examples."
+  },
+  {
+    "locale": "eo",
+    "key": "heading-notes",
+    "value": "Notoj",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-heading",
+    "value": "Serĉaj instrukcioj",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-operators",
+    "value": "Disponeblaj operatoroj:",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-operator-list",
+    "value": "`__operator_list__:<title>` - kartoj en listoj kongruaj kun la indikita *<title>*",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-operator-swimlane",
+    "value": "`__operator_swimlane__:<title>` - kartoj en naĝlinioj kongruaj kun la indikita *<title>*",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-operator-label",
+    "value": "`__operator_label__:<color>` `__operator_label__:<name>` - kartoj, kiuj havas etikedon kongruan kun *<color>* aŭ *<name>",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-operator-user",
+    "value": "`__operator_user__:<username>` - kartoj, kie *<username>* estas *membro* aŭ *asignito*",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-operator-member",
+    "value": "`__operator_member__:<username>` - kartoj, kie *<username>* estas *membro*",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-operator-assignee",
+    "value": "`__operator_assignee__:<username>` - kartoj, kie *<username>* estas *asignito*",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-operator-org",
+    "value": "`__operator_org__:<display name|short name>` - kartoj apartenantaj al tabulo asignita al organizo *<name>*",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-operator-created",
+    "value": "`__operator_created__:<n>` - kartoj kreitaj antaŭ *<n>* tagoj aŭ malpli",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-operator-modified",
+    "value": "`__operator_modified__:<n>` - kartoj modifitaj antaŭ *<n>* tagoj aŭ malpli",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-status-archived",
+    "value": "`__predicate_archived__` - arkivitaj kartoj",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-status-ended",
+    "value": "`__predicate_ended__` - kartoj kun findato",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-status-public",
+    "value": "`__predicate_public__` - kartoj nur en publikaj tabuloj",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-notes-1",
+    "value": "Pluraj operatoroj povas esti indikataj.",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "globalSearch-instructions-notes-3-2",
+    "value": "Tagoj povas esti indikataj kiel pozitiva aŭ negativa entjero, aŭ per `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` aŭ `__predicate_year__` por la nuna periodo.",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "link-to-search",
+    "value": "Ligilo al ĉi tiu serĉo",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "archived-at",
+    "value": "arkivita je",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "sort-is-on",
+    "value": "Ordigo estas ŝaltita",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "due-date",
+    "value": "Limdato",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "dependency-color",
+    "value": "Koloro",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "title-alphabetically",
+    "value": "Titolo (alfabete)",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "created-at-newest-first",
+    "value": "Kreita je (plej novaj unue)",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "created-at-oldest-first",
+    "value": "Kreita je (plej malnovaj unue)",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "links-heading",
+    "value": "Ligiloj",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "move-swimlane",
+    "value": "Movi naĝlinion",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "moveSwimlanePopup-title",
+    "value": "Movi naĝlinion",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-field-stringtemplate",
+    "value": "Ĉena ŝablono",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-field-stringtemplate-format",
+    "value": "Formato (uzu %{value} kiel lokokupilon)",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto search instructions, current-period integer rules, sorting direction, swimlane movement and string-template formatting. Query placeholders, angle-bracket examples and %{value} remain literal; prose preserves membership/assignment, public-only scope and newest/oldest direction. Source markdown defect in label instruction is shared with English, not a wrong-language translation."
   }
 ]
