@@ -91,3 +91,10 @@ test('Veps card display drafts keep card and minicard targets distinct', () => {
     assert.doesNotMatch(data[key], /näytä|kortilla|peitä/i);
   }
 });
+
+
+test('Veps link action replaces Finnish with a relation-creation draft', () => {
+  const data = JSON.parse(fs.readFileSync('imports/i18n/data/ve-PP.i18n.json', 'utf8'));
+  assert.equal(data.link, 'Ližada tarkenduz');
+  assert.doesNotMatch(data.link, /linkitä|poista|heitä/i);
+});

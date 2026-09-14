@@ -131815,5 +131815,12 @@
     "before": "Esleitu hau",
     "after": "Esleitutako erabiltzaile hau",
     "reason": "2026-09-14: Replace imperative Assign this with noun phrase This assigned user for assignee subject. Existing assignee terminology Esleitua and Basque technical references support esleitutako/erabiltzaile. Source: https://learn.microsoft.com/eu-es/power-platform/admin/create-users. Named assignee row order and full add/remove composition remain open; no browser verification claimed."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "link",
+    "before": "Linkitä",
+    "after": "Ližada tarkenduz",
+    "reason": "2026-09-14: Replace Finnish Link action with Veps draft. Native MediaWiki create-local Ližada and nlinks tarkenduz support components; actual listBody Link actions create linked cards/boards. Low confidence: assembled imperative/object grammar and software relation terminology require native review."
   }
 ]

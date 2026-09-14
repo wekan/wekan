@@ -742,7 +742,7 @@
   "imported-member-no-account": "Todud ühtnik — völ ei ühtenmüišt akkauntad",
   "inactive-member": "Ei-aktivine ühtnik",
   "impersonate-user": "Esiinny käyttäjänä",
-  "link": "Linkitä",
+  "link": "Ližada tarkenduz",
   "import-board": "tuo taulu",
   "import-board-c": "Tuo taulu",
   "import-board-instruction-kanboard": "Ličta Kanboard-irdalevendan JSON: objekt \"columns\" (vai tehtabad, kudambil om column_name) i \"tasks\"-massiv (title, description, column_name, swimlane_name, date_due, owner, tags). Kolonkad tegesoiš listoiks i tehtabad kartoiks.",
