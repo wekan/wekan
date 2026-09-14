@@ -131948,5 +131948,12 @@
     "before": "استعادة اللوحة",
     "after": "ⵙⵙⵓⴽⵏ ⵜⴰⴼⵍⵡⵉⵜ",
     "reason": "2026-09-14: Replace French list archive title / Arabic board restore action. Preserve existing complete list-to-archive wording and question mark; use ssukn, native MediaWiki logentry-delete-restore and IRCAM page 534 entry 10051 restore/repair, with existing board noun. Actual list confirmation archives the list; board.restore reactivates archived board. Low confidence: board/list computing compounds remain under native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "account-locked",
+    "before": "Le compte est temporairement verrouillé en raison de trop de tentatives de connexion échouées. Veuillez réessayer plus tard.",
+    "after": "ⵉⵜⵜⵓⴳⴷⴰⵍ ⵓⵎⵉⴹⴰⵏ ⵉ ⵢⴰⵜ ⵜⵉⵣⵉ ⵎⵉⵏⵣⵉ ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⵓⴽⵛⵛⵓⵎ ⵙ ⵜⵓⴳⵜⵜ ⵏ ⵜⵉⴽⴽⴰⵍ. ⴰⵎⵓⵔ ⵏⵏⴽ, ⴰⵔⵎ ⴷⴰⵖ ⴷⴼⴼⵉⵔ.",
+    "reason": "2026-09-14: Replace complete French account-lockout message with Tamazight draft. Describe a block for a period, repeated failed logins and retry later. Native MediaWiki blockedtext, passwordreset-emailtitle, wrongpassword and userlogin-authpopup-retry support block/account/login/please/retry; existing lockout-period supports time-period. Low confidence: complete causal clause and temporal retry collocation remain under native review."
   }
 ]

@@ -107,3 +107,10 @@ const archiveSource = fs.readFileSync(path.join(ROOT,
   'client/components/boards/boardArchive.js'), 'utf8');
 assert.match(archiveSource, /click \.js-restore-board[\s\S]*?await board\.restore\(\)/);
 console.log('Tamazight archive question and board restoration remain distinct actions');
+
+const lockedMessage = translated['account-locked'];
+assert.match(lockedMessage, /ⵓⵎⵉⴹⴰⵏ.*ⵢⴰⵜ ⵜⵉⵣⵉ.*ⵓⴽⵛⵛⵓⵎ.*ⵜⵓⴳⵜⵜ ⵏ ⵜⵉⴽⴽⴰⵍ/);
+assert.match(lockedMessage, /ⴰⵔⵎ ⴷⴰⵖ ⴷⴼⴼⵉⵔ\.$/);
+assert.doesNotMatch(lockedMessage, /compte|verrouillé|connexion|échouées|[\u0600-\u06ff]/u);
+assert.notStrictEqual(lockedMessage, translated['accounts-lockout-user-locked']);
+console.log('Tamazight temporary lockout retains reason, time limit and retry instruction');

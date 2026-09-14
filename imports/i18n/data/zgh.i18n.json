@@ -2587,7 +2587,7 @@
   "upload-repository": "Téléverser/Mettre à jour le dépôt",
   "api-endpoints": "Points d'accès API",
   "sign-in-to-upload": "Connectez-vous pour téléverser des dépôts",
-  "account-locked": "Le compte est temporairement verrouillé en raison de trop de tentatives de connexion échouées. Veuillez réessayer plus tard.",
+  "account-locked": "ⵉⵜⵜⵓⴳⴷⴰⵍ ⵓⵎⵉⴹⴰⵏ ⵉ ⵢⴰⵜ ⵜⵉⵣⵉ ⵎⵉⵏⵣⵉ ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⵓⴽⵛⵛⵓⵎ ⵙ ⵜⵓⴳⵜⵜ ⵏ ⵜⵉⴽⴽⴰⵍ. ⴰⵎⵓⵔ ⵏⵏⴽ, ⴰⵔⵎ ⴷⴰⵖ ⴷⴼⴼⵉⵔ.",
   "otp-required": "Code OTP requis",
   "invalid-credentials": "ⵓⵔ ⵉⴱⵓⵏⵉ ⵢⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ ⵏⵖ ⴷ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⵏⵏⴰ ⵜⵙⴽⵛⵎⴷ.",
   "username-password-required": "ⵉⵍⵍⴰ ⴼⵍⵍⴰⴽ ⴰⴷ ⵜⴼⴽⴷ ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ ⴷ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ",
