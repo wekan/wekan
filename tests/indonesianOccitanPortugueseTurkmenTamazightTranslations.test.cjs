@@ -253,3 +253,7 @@ assert.equal(locales.zgh['r-top-of'], 'ⴰⴼⵍⵍⴰ ⵏ');
 assert.equal(locales.zgh['r-bottom-of'], 'ⴰⴱⵔⴰⵡ ⵏ');
 assert.notEqual(locales.zgh['r-top-of'], locales.zgh['r-bottom-of']);
 for (const key of ['r-top-of', 'r-bottom-of']) assert.doesNotMatch(locales.zgh[key], /En haut|En bas/);
+
+// Numeric-field sum tooltip retains the display selection and location.
+assert.match(locales.zgh['sum-of-number-fields'], /ⵜⴰⵎⵓⵜⵜⵔⵜ.*ⵢⵉⴳⵔⴰⵏ ⵉⵥⵍⵉⵏ.*ⵉⵎⴹⴰⵏⵏ.*ⵜⵜⵢⴰⵕⵛⵎⵏ.*ⵓⵙⴽⴰⵏ.*ⵓⴼⵍⵍⴰ.*ⵜⵍⴳⴰⵎⵜ/);
+assert.doesNotMatch(locales.zgh['sum-of-number-fields'], /ⴰⵥⴰⵢⵏ|ⵓⵙⴰⴽⴰ|ⴰⵙⴳⵣⵍ/);

@@ -131297,5 +131297,12 @@
     "before": "Champ personnalisé",
     "after": "ⵉⴳⵔⵉⵥⵍⵉⵏ",
     "reason": "2026-09-14: Replace French search operator with joined existing Tamazight igr izlin field/custom terminology; spaces are not recognized in operator syntax. Existing activity-set-customfield supplies the singular phrase. Native specific/exclusive modifier supported by IRCAM PDF page 404 entry 7686. Low confidence: joined technical operator and complete custom-field terminology remain subject to native review. Actual Query parser regression verifies customfield predicate for quoted/unquoted values."
+  },
+  {
+    "locale": "zgh",
+    "key": "sum-of-number-fields",
+    "before": "ⴰⵥⴰⵢⵏ ⵏ ⵉⴼⵔⴷⵉⵙⵏ ⵓⵎⵢⴰⵏⵉⵜⵏ ⵉⵎⵣⵣⵓⵖⴻⵏ ⵉⵜⵜⵡⴰⵙⴽⴰⵏⴻⵏ ⴳ ⵓⵙⴰⴽⴰ ⵏ ⵜⵍⵉⵙⵜ",
+    "after": "ⵜⴰⵎⵓⵜⵜⵔⵜ ⵏ ⵢⵉⴳⵔⴰⵏ ⵉⵥⵍⵉⵏ ⵏ ⵉⵎⴹⴰⵏⵏ ⵍⵍⵉ ⵜⵜⵢⴰⵕⵛⵎⵏ ⵉ ⵓⵙⴽⴰⵏ ⴳ ⵓⴼⵍⵍⴰ ⵏ ⵜⵍⴳⴰⵎⵜ",
+    "reason": "2026-09-14: Replace unsupported aggregate/field/top wording in numeric custom-field sum tooltip. IRCAM PDF page 602 entry 11282 total, page 67 entry 1008 top/construct uflla, page 467 entry 8828 mark. Reuse existing custom-field and number terms. Preserve numeric restriction, custom fields, marked-to-show qualifier and list-top location. Low confidence: plural number/genitive, passive marked construction and full relative clause need native/browser review. Runtime helper selects summarizableCustomFields(boardId, number)."
   }
 ]
