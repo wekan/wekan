@@ -31,3 +31,22 @@ for (const locale of Object.values(locales)) {
 assert.equal(locales['uz-AR']['twoFactorCode-cancel'], 'بیکار قیلیش');
 assert.notEqual(locales['uz-AR']['twoFactorCode-cancel'], 'بیکر قیلیش');
 assert.notEqual(locales['uz-AR']['twoFactorCode-cancel'], 'Bekor qilish');
+
+const sourceLocale = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json')));
+for (const code of ['uz','uz-LA','uz-UZ']) {
+ const d = JSON.parse(fs.readFileSync(path.join(root, `imports/i18n/data/${code}.i18n.json`)));
+ assert.match(d['cards-loading-description'], /avtomatik.*o‘lcham chegarasi.*jonli hisob/);
+ assert.match(d['cards-loading-description'], /Kichik taxtalarda.*barcha kartalar/);
+ assert.match(d['cards-loading-description'], /Hech narsani sozlash shart emas/);
+ assert.deepStrictEqual(d['cards-loading-description'].match(/CARDS_LOADING(?:_LAZY_THRESHOLD)?/g), sourceLocale['cards-loading-description'].match(/CARDS_LOADING(?:_LAZY_THRESHOLD)?/g));
+ assert.match(d['cards-loading-description'], /CARDS_LOADING \(all\/lazy\/auto\)/);
+ assert.doesNotMatch(d['cards-loading-description'] + d['cards-loading-lazy-note'], /Yalqov/);
+ assert.match(d['cards-loading-lazy-note'], /WIP.*Kalendar\/Jadval\/Gantt.*faqat hozirgacha.*qayta yuklang/);
+}
+for (const code of ['uz-LA','uz-UZ']) {
+ for (const [key,value] of Object.entries(locales[code]))
+  assert.doesNotMatch(value, /kengash|taxtai|taxtasingiz/i, `${code}:${key}`);
+ assert.strictEqual(locales[code].linkCardToNewBoard, 'Ushbu kartadan taxta yaratish');
+ assert.match(locales[code]['roadmap-empty-no-custom-fields'], /"Version".*"Release"/);
+}
+console.log('Latin Uzbek regional board forms and automatic card-loading guidance verified');
