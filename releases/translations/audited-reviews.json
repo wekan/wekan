@@ -1192,5 +1192,185 @@
     "key": "right-of-list",
     "value": "Til højre for den valgte liste",
     "reason": "2026-09-14: Direct Danish vocabulary and complete source-meaning review. Retain correct Danish wording unchanged; technical head/meta/link tags, webmanifest, assetlinks.json, Computer and Type are valid technical/shared terms. Confirm selected-list left/right directions, attachment count, duplication question, organization/team/people counts and Change/Add actions as applicable. Preserve source identifiers, HTML/JSON labels and trailing count spacing."
+  },
+  {
+    "locale": "da",
+    "key": "act-atUserComment",
+    "value": "nævnte dig på kortet __card__: __comment__ i listen __list__ i svømmebanen __swimlane__ på tavlen __board__",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "delete-team-confirm-popup",
+    "value": "Er du sikker på, at du vil slette dette team? Det kan ikke fortrydes.",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "delete-org-confirm-popup",
+    "value": "Er du sikker på, at du vil slette denne organisation? Det kan ikke fortrydes.",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "editOrgPopup-title",
+    "value": "Redigér organisation",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "autoAddUsersWithDomainName",
+    "value": "Tilføj automatisk brugere med domænenavnet",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "list",
+    "value": "Liste",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "board",
+    "value": "Tavle",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "myCardsSortChange-title",
+    "value": "Sortering af mine kort",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "myCardsSortChangePopup-title",
+    "value": "Sortering af mine kort",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "myCardsSortChange-choice-board",
+    "value": "Efter tavle",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "dueCards-title",
+    "value": "Kort med forfaldsdato",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "dueCardsViewChange-title",
+    "value": "Visning af kort med forfaldsdato",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "dueCardsViewChangePopup-title",
+    "value": "Visning af kort med forfaldsdato",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "dueCardsViewChange-choice-all",
+    "value": "Alle brugere",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "dueCardsViewChange-choice-all-description",
+    "value": "Viser alle ufærdige kort med en *forfaldsdato* fra tavler, som brugeren har adgang til.",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "board-title-not-found",
+    "value": "Tavlen '%s' blev ikke fundet.",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "swimlane-title-not-found",
+    "value": "Svømmebanen '%s' blev ikke fundet.",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "list-title-not-found",
+    "value": "Listen '%s' blev ikke fundet.",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "label-not-found",
+    "value": "Etiketten '%s' blev ikke fundet.",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "label-color-not-found",
+    "value": "Etiketfarven %s blev ikke fundet.",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "user-username-not-found",
+    "value": "Brugernavnet '%s' blev ikke fundet.",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "comment-not-found",
+    "value": "Kort med en kommentar, der indeholder teksten '%s', blev ikke fundet.",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-title",
+    "value": "Søg i alle tavler",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "operator-board",
+    "value": "tavle",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "operator-user",
+    "value": "bruger",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "operator-description",
+    "value": "beskrivelse",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "predicate-description",
+    "value": "beskrivelse",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "operator-unknown-error",
+    "value": "%s er ikke en operator",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "operator-sort-invalid",
+    "value": "sortering efter '%s' er ugyldig",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "operator-status-invalid",
+    "value": "'%s' er ikke en gyldig status",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
   }
 ]
