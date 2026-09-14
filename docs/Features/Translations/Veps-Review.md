@@ -669,3 +669,19 @@ gcs-project-id support Projektan, but door-key avadim does not independently
 attest a software project key. Do not mechanically replace key with ID
 without reviewing the accepted tracker identifier. Full native grammar
 and other additional wrong-language values remain within the audit scope.
+
+
+2026-09-15 — `b30fa05a9`: list-sync-source-none replaces Tshivenda with
+Sinhronirund ei ole päl. The empty source option in listHeader.jade selects
+no synchronization source, rather than reporting a failed or never-run job.
+This inactive-state paraphrase uses existing Veps enabled vocabulary päl
+and native MediaWiki ei ole negation, rechecked today:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+The synchronization noun was previously derived from local Sinhronirui;
+its derivation and complete sentence grammar remain low confidence. This
+is a direct draft, not an independently attested complete native phrase.
+Four focused files pass (25 checks), including negative wrong-language,
+distinct enabled/error/never states and the empty-option template binding.
+No live UI test ran. Ledger 19,922; original pending 126, restored 4.
+Project-key terminology, full background/immediate synchronization
+instructions and broader prior low-confidence review remain open.

@@ -1334,6 +1334,18 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b30fa05a9">Fix Veps inactive synchronization source label.</a></summary>
+
+Replace wrong-language text in the empty synchronization source option.
+Preserve its distinction from enabled, failed and never-synced states.
+Derived terminology and complete grammar remain low confidence.
+Four focused test files pass (25 checks); no live synchronization UI ran.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
