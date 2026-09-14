@@ -122043,5 +122043,40 @@
     "before": "`__operator_list__:<titre>` - cartes dont les listes correspondent à *<titre>*",
     "after": "`__operator_list__:<ⴰⵣⵡⵍ>` - ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴳ ⵜⵍⴳⴰⵎⵉⵏ ⵉⵎⵙⴰⵙⴰⵏ ⴷ *<ⴰⵣⵡⵍ>* ⵉⵥⵍⵉⵏ",
     "reason": "Replace French. Preserve executable list operator token and identical localized title example. MediaWiki search-nonefound attests matching components, pageinfo-display-title title, createaccountmail specified qualifier and recentchanges-notargetpage native list noun components. Preserve list-title matching rather than board/card title search. LOW CONFIDENCE derived list plural, card terminology, matching participle agreement and complete specified-title construction. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "text",
+    "before": "نص",
+    "after": "ⴰⴹⵕⵉⵙ",
+    "reason": "Replace Arabic Text with native MediaWiki yourtext noun after removing the possessive suffix; native UI text noun is directly attested. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "r-label",
+    "before": "étiquette",
+    "after": "ⴰⵔⵛⵓⵎ",
+    "reason": "Replace French label with native MediaWiki tag-list-wrapper singular noun, consistent with the existing native plural labels. LOW CONFIDENCE tag/label application to kanban. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-operator-comment",
+    "before": "`__operator_comment__:<texte>` - cartes dont le commentaire contient *<texte>*.",
+    "after": "`__operator_comment__:<ⴰⴹⵕⵉⵙ>` - ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵙ ⵓⵖⴼⴰⵡⴰⵍ ⵢⵓⵎⴰⵏ *<ⴰⴹⵕⵉⵙ>*.",
+    "reason": "Replace French. Native MediaWiki yourtext supplies text, metadata-help contains/yuma, filehist-comment comment noun; preserve search for cards having a comment containing the specified text, rather than searching the card title. Repeat the same localized descriptive example and preserve executable operator token. LOW CONFIDENCE bound comment form, containing participle and full card-relative construction. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-operator-label",
+    "before": "`__operator_label__:<couleur>` `__operator_label__:<nom>` - cartes qui ont une étiquette correspondant à *<couleur>* ou à *<nom>*.",
+    "after": "`__operator_label__:<ⴰⴽⵍⵓ>` `__operator_label__:<ⵉⵙⵎ>` - ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵙ ⵓⵔⵛⵓⵎ ⵉⵎⵙⴰⵙⴰⵏ ⴷ *<ⴰⴽⵍⵓ>* ⵏⵖ *<ⵉⵙⵎ>*.",
+    "reason": "Replace French. Native MediaWiki tag-list-wrapper supplies singular tag, rcfilters-highlightmenu-title color, saved-query name labels name and search-nonefound matching. Preserve color-or-name label matching and both executable operator examples; do not turn alternatives into a conjunction. LOW CONFIDENCE bound label noun, matching participle and full card/label construction. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-operator-hash",
+    "before": "`__operator_label_abbrev__<nom|couleur>` - raccourci pour `__operator_label__:<couleur>` ou `__operator_label__:<nom>`",
+    "after": "`__operator_label_abbrev__<ⵉⵙⵎ|ⴰⴽⵍⵓ>` - ⴰⵙⴳⵣⵍ ⵏ `__operator_label__:<ⴰⴽⵍⵓ>` ⵏⵖ `__operator_label__:<ⵉⵙⵎ>`",
+    "reason": "Replace French. Native MediaWiki rcfilters-legend-heading abbreviation plural supplies a derived singular short-form noun; native name/color terms are directly attested. Preserve abbreviated-operator syntax, its name|color alternatives and both expanded label examples. LOW CONFIDENCE abbreviation singular and search-syntax short-form application; literal operator tokens and separator remain unchanged. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
