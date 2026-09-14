@@ -122736,5 +122736,26 @@
     "before": "Kkes akk tibzimin seg tkarḍa",
     "after": "ⴽⴽⵙ ⵉⵔⵛⵓⵎⵏ ⴰⴽⴽ ⵙⴳ ⵜⴽⴰⵕⴹⴰ",
     "reason": "Replace French multi-selection action text or incorrect button-word tibzimin used for card labels. Preserve setting label versus member on selection, multiple-selection removal, literal 1-9 range, all-label/card removal scope. Native MediaWiki zgh histlegend, tag-list-wrapper, nmembers, filehist-deleteall support selection, label, member, remove/all: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . IRCAM native story command srs supports put/set root: https://biblio.ircam.ma/pmb/catalogue/doc_num.php?explnum_id=220 . Reuse local setting passive ittusrs. LOW CONFIDENCE: put/set software adaptation, derived multiple adjective aggut, bound selection noun, finite removal grammar and full phrases require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "comment-not-found",
+    "before": "Carte dont le commentaire contient '%s' non trouvée",
+    "after": "ⵓⵔ ⵜⵍⵍⵉ ⵜⴰⴽⴰⵕⴹⴰ ⵙ ⵓⵖⴼⴰⵡⴰⵍ ⵢⵓⵎⴰⵏ ⴰⴹⵕⵉⵙ '%s'.",
+    "reason": "Replace French/Arabic comment search/error/header wording with Tamazight. Preserve missing-card negation, comment containing the queried text rather than missing comment alone, card scope and exact %s placeholder. Native MediaWiki zgh filehist-comment supplies aghfawal; metadata-help supplies contains root yuma; red-link-title supplies feminine missing-page negation: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse local comment-search instruction vocabulary. LOW CONFIDENCE: comment plural ighfawaln, bound nouns, feminine card negation, containing relative and complete header/error phrases require fluent review; tests verify placeholders/rendering, not fluency."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-comment",
+    "before": "تعليق",
+    "after": "ⴰⵖⴼⴰⵡⴰⵍ",
+    "reason": "Replace French/Arabic comment search/error/header wording with Tamazight. Preserve missing-card negation, comment containing the queried text rather than missing comment alone, card scope and exact %s placeholder. Native MediaWiki zgh filehist-comment supplies aghfawal; metadata-help supplies contains root yuma; red-link-title supplies feminine missing-page negation: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse local comment-search instruction vocabulary. LOW CONFIDENCE: comment plural ighfawaln, bound nouns, feminine card negation, containing relative and complete header/error phrases require fluent review; tests verify placeholders/rendering, not fluency."
+  },
+  {
+    "locale": "zgh",
+    "key": "card-comments-title",
+    "before": "%s تعليقات لهذه البطاقة",
+    "after": "%s ⵉⵖⴼⴰⵡⴰⵍⵏ ⵉ ⵜⴽⴰⵕⴹⴰ ⴰⴷ",
+    "reason": "Replace French/Arabic comment search/error/header wording with Tamazight. Preserve missing-card negation, comment containing the queried text rather than missing comment alone, card scope and exact %s placeholder. Native MediaWiki zgh filehist-comment supplies aghfawal; metadata-help supplies contains root yuma; red-link-title supplies feminine missing-page negation: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse local comment-search instruction vocabulary. LOW CONFIDENCE: comment plural ighfawaln, bound nouns, feminine card negation, containing relative and complete header/error phrases require fluent review; tests verify placeholders/rendering, not fluency."
   }
 ]
