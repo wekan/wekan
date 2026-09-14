@@ -122260,5 +122260,75 @@
     "before": "Ajouter le HTML personnalisé avant la fin du </body>",
     "after": "ⵔⵏⵓ HTML ⵉⵥⵍⵉⵏ ⴷⴰⵜ ⵏ ⵜⵉⴳⵉⵔⴰ ⵏ </body>",
     "reason": "Replace French custom HTML insertion action with native Tamazight add, before/after and start/end components. Preserve HTML identifier, literal opening <body> versus closing </body> and insertion direction. LOW CONFIDENCE specified/custom izlin adaptation to HTML and full insertion phrase composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (tooltip-watch rnu, tooltip-preview dat n, rc-change-size-new dffir n, createaccountmail izlin, blockedtext-start-time tuddma, blockedtext-expiration-time tigira)."
+  },
+  {
+    "locale": "zgh",
+    "key": "rules",
+    "before": "قواعد",
+    "after": "ⵉⵍⵓⴳⵏⵏ",
+    "reason": "Repair French/Arabic rule labels or inconsistent existing terminology using IRCAM rule alugn, bound ulugn and plural ilugnn. Distinguish rule from alugan/regular and replace the mistaken view/opinion noun in required rule-title prompt. Preserve singular/plural, board ownership and action semantics. LOW CONFIDENCE grammatical-rule adaptation to software automation, full composed phrases, adjective agreement and negative plural construction. References: https://biblio.ircam.ma/pmb/uploads/publications/134.pdf (Vocabulaire grammatical 2009 printed p65, indexed native rule paradigm versus regular; direct fetch temporarily failed); https://biblio.ircam.ma/pmb/uploads/publications/136.pdf (French index Rule alugen versus Regular alugan); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (add tooltip-watch, show, delete, tags-edit, new, please mk tufid, input skchm)."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-rule",
+    "before": "Règle",
+    "after": "ⴰⵍⵓⴳⵏ",
+    "reason": "Repair French/Arabic rule labels or inconsistent existing terminology using IRCAM rule alugn, bound ulugn and plural ilugnn. Distinguish rule from alugan/regular and replace the mistaken view/opinion noun in required rule-title prompt. Preserve singular/plural, board ownership and action semantics. LOW CONFIDENCE grammatical-rule adaptation to software automation, full composed phrases, adjective agreement and negative plural construction. References: https://biblio.ircam.ma/pmb/uploads/publications/134.pdf (Vocabulaire grammatical 2009 printed p65, indexed native rule paradigm versus regular; direct fetch temporarily failed); https://biblio.ircam.ma/pmb/uploads/publications/136.pdf (French index Rule alugen versus Regular alugan); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (add tooltip-watch, show, delete, tags-edit, new, please mk tufid, input skchm)."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-board-rules",
+    "before": "Règles du tableau",
+    "after": "ⵉⵍⵓⴳⵏⵏ ⵏ ⵜⴼⵍⵡⵉⵜ",
+    "reason": "Repair French/Arabic rule labels or inconsistent existing terminology using IRCAM rule alugn, bound ulugn and plural ilugnn. Distinguish rule from alugan/regular and replace the mistaken view/opinion noun in required rule-title prompt. Preserve singular/plural, board ownership and action semantics. LOW CONFIDENCE grammatical-rule adaptation to software automation, full composed phrases, adjective agreement and negative plural construction. References: https://biblio.ircam.ma/pmb/uploads/publications/134.pdf (Vocabulaire grammatical 2009 printed p65, indexed native rule paradigm versus regular; direct fetch temporarily failed); https://biblio.ircam.ma/pmb/uploads/publications/136.pdf (French index Rule alugen versus Regular alugan); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (add tooltip-watch, show, delete, tags-edit, new, please mk tufid, input skchm)."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-add-rule",
+    "before": "Ajouter une règle",
+    "after": "ⵔⵏⵓ ⴰⵍⵓⴳⵏ",
+    "reason": "Repair French/Arabic rule labels or inconsistent existing terminology using IRCAM rule alugn, bound ulugn and plural ilugnn. Distinguish rule from alugan/regular and replace the mistaken view/opinion noun in required rule-title prompt. Preserve singular/plural, board ownership and action semantics. LOW CONFIDENCE grammatical-rule adaptation to software automation, full composed phrases, adjective agreement and negative plural construction. References: https://biblio.ircam.ma/pmb/uploads/publications/134.pdf (Vocabulaire grammatical 2009 printed p65, indexed native rule paradigm versus regular; direct fetch temporarily failed); https://biblio.ircam.ma/pmb/uploads/publications/136.pdf (French index Rule alugen versus Regular alugan); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (add tooltip-watch, show, delete, tags-edit, new, please mk tufid, input skchm)."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-view-rule",
+    "before": "Voir la règle",
+    "after": "ⵙⴽⵏ ⴰⵍⵓⴳⵏ",
+    "reason": "Repair French/Arabic rule labels or inconsistent existing terminology using IRCAM rule alugn, bound ulugn and plural ilugnn. Distinguish rule from alugan/regular and replace the mistaken view/opinion noun in required rule-title prompt. Preserve singular/plural, board ownership and action semantics. LOW CONFIDENCE grammatical-rule adaptation to software automation, full composed phrases, adjective agreement and negative plural construction. References: https://biblio.ircam.ma/pmb/uploads/publications/134.pdf (Vocabulaire grammatical 2009 printed p65, indexed native rule paradigm versus regular; direct fetch temporarily failed); https://biblio.ircam.ma/pmb/uploads/publications/136.pdf (French index Rule alugen versus Regular alugan); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (add tooltip-watch, show, delete, tags-edit, new, please mk tufid, input skchm)."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-delete-rule",
+    "before": "Supprimer la règle",
+    "after": "ⴽⴽⵙ ⴰⵍⵓⴳⵏ",
+    "reason": "Repair French/Arabic rule labels or inconsistent existing terminology using IRCAM rule alugn, bound ulugn and plural ilugnn. Distinguish rule from alugan/regular and replace the mistaken view/opinion noun in required rule-title prompt. Preserve singular/plural, board ownership and action semantics. LOW CONFIDENCE grammatical-rule adaptation to software automation, full composed phrases, adjective agreement and negative plural construction. References: https://biblio.ircam.ma/pmb/uploads/publications/134.pdf (Vocabulaire grammatical 2009 printed p65, indexed native rule paradigm versus regular; direct fetch temporarily failed); https://biblio.ircam.ma/pmb/uploads/publications/136.pdf (French index Rule alugen versus Regular alugan); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (add tooltip-watch, show, delete, tags-edit, new, please mk tufid, input skchm)."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-new-rule-name",
+    "before": "Titre de la nouvelle règle",
+    "after": "ⴰⵣⵡⵍ ⵏ ⵓⵍⵓⴳⵏ ⴰⵎⴰⵢⵏⵓ",
+    "reason": "Repair French/Arabic rule labels or inconsistent existing terminology using IRCAM rule alugn, bound ulugn and plural ilugnn. Distinguish rule from alugan/regular and replace the mistaken view/opinion noun in required rule-title prompt. Preserve singular/plural, board ownership and action semantics. LOW CONFIDENCE grammatical-rule adaptation to software automation, full composed phrases, adjective agreement and negative plural construction. References: https://biblio.ircam.ma/pmb/uploads/publications/134.pdf (Vocabulaire grammatical 2009 printed p65, indexed native rule paradigm versus regular; direct fetch temporarily failed); https://biblio.ircam.ma/pmb/uploads/publications/136.pdf (French index Rule alugen versus Regular alugan); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (add tooltip-watch, show, delete, tags-edit, new, please mk tufid, input skchm)."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-no-rules",
+    "before": "Pas de règles",
+    "after": "ⵓⵔ ⵍⵍⵉⵏ ⵉⵍⵓⴳⵏⵏ",
+    "reason": "Repair French/Arabic rule labels or inconsistent existing terminology using IRCAM rule alugn, bound ulugn and plural ilugnn. Distinguish rule from alugan/regular and replace the mistaken view/opinion noun in required rule-title prompt. Preserve singular/plural, board ownership and action semantics. LOW CONFIDENCE grammatical-rule adaptation to software automation, full composed phrases, adjective agreement and negative plural construction. References: https://biblio.ircam.ma/pmb/uploads/publications/134.pdf (Vocabulaire grammatical 2009 printed p65, indexed native rule paradigm versus regular; direct fetch temporarily failed); https://biblio.ircam.ma/pmb/uploads/publications/136.pdf (French index Rule alugen versus Regular alugan); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (add tooltip-watch, show, delete, tags-edit, new, please mk tufid, input skchm)."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-edit-rule",
+    "before": "ⵥⵔⴻⴳ ⴰⵍⵓⴳⴰⵏ",
+    "after": "ⵙⵏⴼⵍ ⴰⵍⵓⴳⵏ",
+    "reason": "Repair French/Arabic rule labels or inconsistent existing terminology using IRCAM rule alugn, bound ulugn and plural ilugnn. Distinguish rule from alugan/regular and replace the mistaken view/opinion noun in required rule-title prompt. Preserve singular/plural, board ownership and action semantics. LOW CONFIDENCE grammatical-rule adaptation to software automation, full composed phrases, adjective agreement and negative plural construction. References: https://biblio.ircam.ma/pmb/uploads/publications/134.pdf (Vocabulaire grammatical 2009 printed p65, indexed native rule paradigm versus regular; direct fetch temporarily failed); https://biblio.ircam.ma/pmb/uploads/publications/136.pdf (French index Rule alugen versus Regular alugan); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (add tooltip-watch, show, delete, tags-edit, new, please mk tufid, input skchm)."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-rule-title-required",
+    "before": "ⵎⴰⵕⵕⴰ ⵙⴽⵛⵎ ⴰⵣⵡⵍ ⵏ ⵜⴰⵏⵏⴰⵢⵜ",
+    "after": "ⵎⴽ ⵜⵓⴼⵉⴷ, ⵙⴽⵛⵎ ⴰⵣⵡⵍ ⵏ ⵓⵍⵓⴳⵏ",
+    "reason": "Repair French/Arabic rule labels or inconsistent existing terminology using IRCAM rule alugn, bound ulugn and plural ilugnn. Distinguish rule from alugan/regular and replace the mistaken view/opinion noun in required rule-title prompt. Preserve singular/plural, board ownership and action semantics. LOW CONFIDENCE grammatical-rule adaptation to software automation, full composed phrases, adjective agreement and negative plural construction. References: https://biblio.ircam.ma/pmb/uploads/publications/134.pdf (Vocabulaire grammatical 2009 printed p65, indexed native rule paradigm versus regular; direct fetch temporarily failed); https://biblio.ircam.ma/pmb/uploads/publications/136.pdf (French index Rule alugen versus Regular alugan); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (add tooltip-watch, show, delete, tags-edit, new, please mk tufid, input skchm)."
   }
 ]
