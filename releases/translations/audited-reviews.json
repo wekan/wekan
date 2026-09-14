@@ -16672,5 +16672,185 @@
     "key": "zoom-level",
     "value": "Nivel de zoom",
     "reason": "Direct Galician review retains positive-integer pixel height, checklist edit closure, active system-wide announcement, reconnect and archive-all/list/swimlane/selection distinctions. Avatar size token, background URL, visibility/watch settings, mobile/desktop switching and opposing zoom directions retain meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "enter-zoom-level",
+    "value": "Introduce o nivel de zoom (50-300%):",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "board-view-cal",
+    "value": "Calendario",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "board-view-swimlanes",
+    "value": "Carrís",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "board-view-collapse",
+    "value": "Contraer",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "board-view-table",
+    "value": "Táboa",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "board-view-time",
+    "value": "Tempo",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "bucket-example",
+    "value": "Como \"Lista de desexos\", por exemplo",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "calendar-previous-month-label",
+    "value": "Mes anterior",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "calendar-next-month-label",
+    "value": "Mes seguinte",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "listArchivePopup-title",
+    "value": "Arquivar a lista?",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "swimlaneArchivePopup-title",
+    "value": "Arquivar o carril?",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "card-due",
+    "value": "Data límite",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "card-due-on",
+    "value": "Data límite o",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "due-today",
+    "value": "Vence hoxe",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "card-spent",
+    "value": "Tempo empregado",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "card-start",
+    "value": "Inicio",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "card-start-on",
+    "value": "Comeza o",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "cardAttachmentsPopup-title",
+    "value": "Anexar desde",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "cardCustomField-datePopup-title",
+    "value": "Cambiar a data",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "cardStartVotingPopup-title",
+    "value": "Iniciar unha votación",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "positiveVoteMembersPopup-title",
+    "value": "A favor",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "negativeVoteMembersPopup-title",
+    "value": "En contra",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "card-edit-voting",
+    "value": "Editar a votación",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "editVoteEndDatePopup-title",
+    "value": "Cambiar a data de fin da votación",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "allowNonBoardMembers",
+    "value": "Permitir a todos os usuarios con sesión iniciada",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "vote-question",
+    "value": "Pregunta da votación",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "vote-public",
+    "value": "Mostrar quen votou que",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "vote-against",
+    "value": "en contra",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "deleteVotePopup-title",
+    "value": "Eliminar a votación?",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "vote-delete-pop",
+    "value": "A eliminación é permanente. Perderás todas as accións asociadas a esta votación.",
+    "reason": "Direct Galician review preserves zoom percentage range, calendar month directions, board-view names, deadline/start/spent-time distinctions and attachment origin. Voting preserves proponents/opponents, all logged-in eligibility, vote visibility, end-date editing and permanent loss of all associated actions. Bucket List example conveys the intended wish-list meaning."
   }
 ]
