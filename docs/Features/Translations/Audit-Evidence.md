@@ -24983,3 +24983,19 @@ the explicit product component. SettingBody.jade uses the label above the
 product-name input. Four focused translation checks pass; no live browser
 validation was run. Original pending count stays 268; correction records
 increase to 18,731. Broader native and runtime reviews remain open.
+
+## Show parent in minicard — 2026-09-14
+
+Local commit `89ebd29cc` repairs French show-parent-in-minicard. IRCAM
+2019 PDF page 521 entry 9816 attests show, page 122 entry 2198 father
+and page 575 entry 10775 card. Source:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+The small-card adjective is reused from existing minicard-settings and
+nearby card controls; this reuse does not independently validate agreement.
+**Low confidence** remains for the feminine small adjective, complete
+clause and software-parent metaphor. Sidebar.jade uses the label above
+prefix/subtext/full-path/parent choices; those choices remain distinct.
+Four focused translation checks pass; no browser validation was run.
+Recount: 15,635 corrected, 267 pending (154 Tamazight), four restored,
+4,175 retained and 18,732 correction records. Broader reviews remain open.

@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/89ebd29cc">Repair Tamazight minicard parent-display label</a>. Thanks to xet7.</summary>
+
+Replace French wording and preserve the small-card distinction. Four
+focused checks pass; parent metaphor and full native/browser validation
+remain open. Dated audit tracks 267 original pending findings.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c4a40896b">Repair Tamazight custom product-name wording</a>. Thanks to xet7.</summary>
 
 Replace an unflagged French label and restore its omitted product component.
