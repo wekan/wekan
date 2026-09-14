@@ -738,6 +738,16 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c4db1c19c">Document Basque completion review limits</a>. Thanks to xet7.</summary>
+
+Native references establish completion vocabulary and separate negation spelling.
+The audit records an existing completion/incompletion runtime predicate mismatch
+and keeps the full action phrases open for semantic review. No translations or
+queue counts changed during this evidence review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1439c4c61">Validate Basque checklist check actions</a>. Thanks to xet7.</summary>
 
 Retain checked and unchecked temporal phrases after native software terminology

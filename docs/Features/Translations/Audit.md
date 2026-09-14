@@ -11,7 +11,7 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Total tracked | 20,081 |
 
 Review is ongoing. [Basque rule review](Basque-Review.md) records native
-completion/negation evidence and a runtime completion/incompletion predicate
+completion/negation evidence (local commit `c4db1c19c`) and a runtime predicate
 mismatch. The two completion phrases remain open; no findings were accepted
 from spelling evidence alone.
 [Inuktitut calendar review](Inuktitut-Calendar-Review.md)
