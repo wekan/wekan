@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,187 |
+| Corrected | 15,189 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 657 |
+| Pending review or repair | 655 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,411** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,413** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `a92439c02` — replaced Arabic/French in ISO week-of-year display, first-day-of-week selection and All Boards page display. Preserve `ISO 8601` and the three distinct settings. CLDR directly supports week/year/weekday terms; MediaWiki supports first/choose/show/page components and the bound year form. Complete genitives, board bound plural and first-day selection phrases remain **low confidence** pending fluent review. All **17,411** correction/rendering checks pass. Three original findings are repaired: **657** originals remain pending across **17** locales, including **514** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `127bfb472` — replaced French custom-field Enter instructions, keeping options distinct from items and retaining the physical Enter key. Phrase the action as adding more options/items with Enter; no independently verified keyboard press verb was established. Native MediaWiki supports add/options/other components; complete keyboard instrumental/plural composition and inherited item terminology/dialect remain **low confidence** pending fluent review. All **17,413** correction/rendering checks pass. Two original findings are repaired: **655** originals remain pending across **17** locales, including **512** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Checklist reference review (2026-09-14):** the candidate [computing lexicon](https://www.fichier-pdf.fr/2014/08/31/lexique-informatique/) labels `asenqed` (check/control) **KBL**. Its indexed entry does not establish Standard Moroccan checklist usage; the full file could not be fetched. Existing schwa-heavy checklist strings and full confirmation wording remain pending terminology and dialect review. No blanket retention or replacement is justified by this reference.
 
