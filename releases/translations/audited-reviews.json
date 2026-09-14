@@ -15544,5 +15544,185 @@
     "key": "attachment-move-storage-fs",
     "value": "Mover o anexo ao sistema de ficheiros",
     "reason": "Direct Galician review preserves absence checks, positive per-page limit, OR/AND distinctions, case insensitivity, archive defaults and exact search examples. Board/team membership deletion warnings retain at-least-one scope. Checklist copy/move, one-line-per-item and original order remain distinct; legal acceptance noso agrees with aviso legal. Card-show-lists remains unaccepted pending field context."
+  },
+  {
+    "locale": "gl",
+    "key": "card-show-lists",
+    "value": "A tarxeta mostra as listas",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "attachment-move-storage-gridfs",
+    "value": "Mover o anexo a GridFS",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "attachment-move-storage-s3",
+    "value": "Mover o anexo a S3",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "attachment-move",
+    "value": "Mover anexo",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "move-all-attachments-to-fs",
+    "value": "Mover todos os anexos ao sistema de ficheiros",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "move-all-attachments-to-gridfs",
+    "value": "Mover todos os anexos a GridFS",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "move-all-attachments-to-s3",
+    "value": "Mover todos os anexos a S3",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "move-all-attachments-of-board-to-fs",
+    "value": "Mover todos os anexos do taboleiro ao sistema de ficheiros",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "move-all-attachments-of-board-to-gridfs",
+    "value": "Mover todos os anexos do taboleiro a GridFS",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "move-all-attachments-of-board-to-s3",
+    "value": "Mover todos os anexos do taboleiro a S3",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "card-id",
+    "value": "ID da tarxeta",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "board-id",
+    "value": "ID do taboleiro",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "board-title",
+    "value": "Título do taboleiro",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "board-status",
+    "value": "Estado do taboleiro",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "board-status-cards-with-time",
+    "value": "Tarxetas con tempo empregado",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "if-you-already-have-an-account",
+    "value": "Se xa ten unha conta",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "minicardDetailsActionsPopup-title",
+    "value": "Detalles da tarxeta",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "preview-pdf-not-supported",
+    "value": "O seu dispositivo non admite a previsualización de PDF. Probe a descargalo.",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "drag-board",
+    "value": "Arrastrar taboleiro",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "delete-translation-confirm-popup",
+    "value": "Está seguro de que quere eliminar esta cadea de tradución personalizada? Non se pode desfacer.",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "import-board-zip",
+    "value": "Engada un ficheiro .zip que conteña os ficheiros JSON do taboleiro e subcartafoles co nome do taboleiro cos anexos",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "hideCheckedChecklistItems",
+    "value": "Agochar os elementos marcados da lista de verificación",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "hideAllChecklistItems",
+    "value": "Agochar todos os elementos da lista de verificación",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "support-info-not-added-yet",
+    "value": "Aínda non se engadiu información de soporte",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "support-info-only-for-logged-in-users",
+    "value": "A información de soporte é só para usuarios con sesión iniciada.",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "accessibility-info-not-added-yet",
+    "value": "Aínda non se engadiu información de accesibilidade",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "accounts-lockout-known-users",
+    "value": "Configuración para usuarios coñecidos (nome de usuario correcto, contrasinal incorrecto)",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "accounts-lockout-unknown-users",
+    "value": "Configuración para usuarios descoñecidos (nome de usuario inexistente)",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "accounts-lockout-locked-users",
+    "value": "Usuarios bloqueados",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "accounts-lockout-locked-users-info",
+    "value": "Usuarios bloqueados actualmente por demasiados intentos de inicio de sesión fallidos",
+    "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
   }
 ]
