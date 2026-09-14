@@ -16102,5 +16102,185 @@
     "key": "step-ensure-lost-cards-swimlane",
     "value": "Garantir o carril de tarxetas perdidas",
     "reason": "Direct Galician review retains migration integrity, missing IDs and archive scopes. Duplicate-list deletion requires empty AND same-title populated counterpart, conversion precedes removal; lost-card restoration excludes archived items while restore-all includes all and warns about undo. Administrator-only and individual execution restrictions, URL storage references and progress steps retain meaning. Ambiguous completion label remains open."
+  },
+  {
+    "locale": "gl",
+    "key": "step-restore-cards",
+    "value": "Restaurar as tarxetas",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "step-scan-users",
+    "value": "Comprobando os avatares dos membros do taboleiro",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "step-scan-files",
+    "value": "Comprobando os ficheiros anexos do taboleiro",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "conversion-info-text",
+    "value": "Esta conversión realízase unha vez por taboleiro e mellora o rendemento. Pode seguir usando o taboleiro con normalidade.",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "converting-board",
+    "value": "Convertendo o taboleiro",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "converting-board-description",
+    "value": "Convertendo a estrutura do taboleiro para mellorar a funcionalidade. Pode tardar uns instantes.",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "filesystem-attachments",
+    "value": "Anexos no sistema de ficheiros",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "force-board-scan",
+    "value": "Forzar a análise do taboleiro",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "gridfs-attachments",
+    "value": "Anexos en GridFS",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "hide-list-on-minicard",
+    "value": "Agochar a lista na minitarxeta",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "migrated-attachments",
+    "value": "Anexos migrados",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-batch-size-description",
+    "value": "Número de anexos que se procesan en cada lote (1-100)",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-info-text",
+    "value": "As migracións da base de datos realízanse unha vez e melloran o rendemento do sistema. O proceso continúa en segundo plano aínda que peche o navegador.",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-warning-text",
+    "value": "Non peche o navegador durante a migración. O proceso continuará en segundo plano, pero pode tardar máis en completarse.",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "remaining-attachments",
+    "value": "Anexos restantes",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-attachments",
+    "value": "Anexos en S3",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "search-boards-or-operations",
+    "value": "Buscar taboleiros ou operacións...",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "show-list-on-minicard",
+    "value": "Mostrar a lista na minitarxeta",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "showChecklistAtMinicard",
+    "value": "Mostrar a lista de verificación na minitarxeta",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "total-attachments",
+    "value": "Total de anexos",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "unmigrated-boards",
+    "value": "Taboleiros sen migrar",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "invalid-credentials",
+    "value": "Nome de usuario ou contrasinal non válidos",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "username-password-required",
+    "value": "Requírense o nome de usuario e o contrasinal",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "password-mismatch",
+    "value": "Os contrasinais non coinciden",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "username-too-short",
+    "value": "O nome de usuario debe ter polo menos 3 caracteres",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "user-exists",
+    "value": "O usuario xa existe",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "account-created",
+    "value": "Conta creada! Xa pode iniciar sesión.",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "act-activity-notify",
+    "value": "Notificación de actividade",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-archived",
+    "value": "%s moveuse ao Arquivo",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-created",
+    "value": "creou %s",
+    "reason": "Direct Galician review preserves migration once-per-board scope, continuing background execution even after browser close, longer completion warning, 1-100 batch range and migrated/remaining/total distinctions. Authentication preserves invalid alternatives, both required credentials, password mismatch and minimum three-character username. Activity format tokens and list/checklist visibility remain correct."
   }
 ]
