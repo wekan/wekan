@@ -408,3 +408,20 @@ only the warning would leave this user-entered filter vocabulary unresolved.
 `predicate-projection` contains `askan`, whose computational sense also
 needs verification. Native computing terminology and the complete warning
 remain open; no values or counts changed in this review.
+
+## Parent-subtitle option repair — 2026-09-14
+
+Local commit `b93379067` replaces French `subtext-with-parent` with
+`ⴰⴷⵓⵣⵡⵍ ⴰⴽⴷ ⵓⵎⴰⵔⴰⵡ`. Primary IRCAM General Dictionary PDF page
+57, entry 795, supplies subtitle; page 122, entry 2198, supplies father
+and its construct form. The latter reuses the existing `parent-card`
+metaphor, not an independently attested computing term. The conjunction
+`ⴰⴽⴷ` follows existing locale usage.
+
+Sidebar options at sidebar.jade lines 355–357 display this label;
+minicard.jade lines 353–355 show `parentCardName` below the title. This
+differs from the full ancestor path option. Software parent terminology
+and complete phrase grammar remain **low confidence**. Four translation
+checks pass, preserving placeholders and unchanged reviewed translations;
+no live browser validation ran. Counts are 15,625 corrected, 277 pending
+(including 164 Tamazight), four restored and 4,175 retained.

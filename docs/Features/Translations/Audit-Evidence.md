@@ -24649,3 +24649,20 @@ grammatical predicate sense and the actual parser's debug-option catalogue.
 No translation was accepted from that mismatched sense. The warning, French
 selector value and projection terminology remain under native review.
 Counts remain 278 pending and four restored awaiting validation.
+
+## Parent-subtitle option repair — 2026-09-14
+
+Local commit `b93379067` replaces French `subtext-with-parent` with
+`ⴰⴷⵓⵣⵡⵍ ⴰⴽⴷ ⵓⵎⴰⵔⴰⵡ`. Primary IRCAM General Dictionary PDF page
+57, entry 795, supplies subtitle; page 122, entry 2198, supplies father
+and its construct form. The latter reuses the existing `parent-card`
+metaphor, not an independently attested computing term. The conjunction
+`ⴰⴽⴷ` follows existing locale usage.
+
+Sidebar options at sidebar.jade lines 355–357 display this label;
+minicard.jade lines 353–355 show `parentCardName` below the title. This
+differs from the full ancestor path option. Software parent terminology
+and complete phrase grammar remain **low confidence**. Four translation
+checks pass, preserving placeholders and unchanged reviewed translations;
+no live browser validation ran. Counts are 15,625 corrected, 277 pending
+(including 164 Tamazight), four restored and 4,175 retained.
