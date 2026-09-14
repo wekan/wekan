@@ -82,11 +82,11 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,582 corrected, 72 restored pre-pull values awaiting
 validation, 4,119 reviewed and retained, and 308 pending review or repair.
-The correction inventory records 18,173 exact before/after values,
+The correction inventory records 18,185 exact before/after values,
+including repairs outside the original findings.
 Global completeness verification also identifies Veps `server` (currently
 English-identical “Server”) for terminology review; it is not accepted yet.
 
-including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
 of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -109,11 +109,12 @@ performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have
 resumed.
-Latest translation fix/review is 29f1980b2 (2026-09-14): Galician field
-value clearing clarified; 25 correct rule/activity values retained.
-Latest unchanged-value review is 1adfb3bec (2026-09-14): 27 Galician
-format and request-state values retained. Shared attachment/member
-participles still need contextual agreement repair.
+Latest translation fix is 93f284c8a (2026-09-14): three Swedish Due Cards
+labels now describe cards with due dates, including future deadlines.
+Latest unchanged-value review is 4da4c40e4 (2026-09-14): seven Swedish and
+23 Arabic/Darija values retained after checking negation, intervals,
+assignee wording and administrator/no-undo warnings. Shared trigger grammar,
+regional terminology and live browser validation remain open.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
 Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
 retaining 156 correct Danish storage, migration and monitoring/account labels.
@@ -636,16 +637,16 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** **Valencian translation review** repairs the person agreement in
-Add yourself and validates existing board-setting, keyboard and import wording.
-Exact correction checks preserve placeholders and newer translations.
-The repair was captured during v11.79 preparation; this entry records its
-translation outcome. Checklist terminology and wider regional, language and
-browser verification remain under review.
+**In short:** **Swedish and Valencian translations** clarify Due Cards to
+include future deadlines and repair reflexive imperative and checklist wording.
+Reviews retain correct Valencian settings, Thai interface labels and Swedish
+and Arabic warnings. Exact correction and review checks preserve placeholders
+and newer translations; broader language, shared trigger grammar and browser
+verification remain open.
 
 This release documents the following translation fixes:
 
-**Translations** - Valencian imperative and board settings.
+**Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 **Languages updated:** Swedish, Valencian
 
