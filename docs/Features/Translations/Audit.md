@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,126 |
+| Corrected | 15,129 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 718 |
+| Pending review or repair | 715 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,315** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,318** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `fe2a8097e` — replaced two unflagged Arabic Tamazight attachment export labels, Size and Type, with native MediaWiki file-metadata nouns. All **17,315** correction/rendering checks pass. Original audit counts are unchanged: **718** pending, including **575** Tamazight. Earlier activity clauses, active-addition inflection and default actor form remain **low confidence**; restored/unflagged and other composed terminology still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `8fc453f50` — replaced three French Tamazight login-lockout status/filter labels. The singular status reuses native login-blocking wording. The plural blocked participle and complete filter phrases are composed and **low confidence**, requiring fluent review. All **17,318** correction/rendering checks pass. **715** originals remain pending, including **572** Tamazight. Earlier metadata nouns are reference-supported; activity inflection, restored/unflagged values and other composed terminology still need validation. Live browser verification was not run; no translations were pushed.
 
 **Language validation (2026-09-14), local commit `e4e3aa590`:** Wiktionary’s Veps transitive inflection tables confirm `surenda` (make larger) and `penenda` (make smaller) as second-person singular commands. Their imperative morphology is now reference-supported; screen-zoom usage remains open. The original keyboard findings remain unresolved: searches and the cached dictionary did not establish reliable keyboard-shortcut terminology. Counts are unchanged. References and the remaining scope are recorded per key in the correction ledger.
 
