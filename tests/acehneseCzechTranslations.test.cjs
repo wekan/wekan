@@ -12,6 +12,13 @@ for (const language of ['ace', 'cs-CZ', 'cs']) {
   locales[language] = JSON.parse(fs.readFileSync(path.join(root, `imports/i18n/data/${language}.i18n.json`), 'utf8'));
 }
 const cards = JSON.parse(locales.ace['copyManyCardsPopup-format']);
+assert.equal(locales.ace['card-due'], 'Bataih watèë');
+assert.equal(locales.ace['due-date'], 'Uroe bataih');
+assert.equal(locales.ace['due-today'], 'Bataih watèë uroe nyoe');
+assert.equal(locales.ace['filter-due-today'], locales.ace['due-today']);
+for (const key of ['card-due', 'due-date', 'due-today', 'filter-due-today']) {
+  assert.doesNotMatch(locales.ace[key], /Jatuh Tempo|Tamat Hari ini|Tarikh Akhir|Jitôh/);
+}
 assert.equal(cards.length, 3);
 assert.equal(cards[0].title, 'Nan kartu phon');
 for (const language of ['cs-CZ', 'cs']) {

@@ -130016,5 +130016,33 @@
     "before": "por",
     "after": "Nork:",
     "reason": "Replace Spanish por in Basque optional rule-actor field with native ergative question label Nork:. EHU grammar attests nork as the actor interrogative; actual templates place it before a username field, so it is a field label rather than an incorrectly concatenated preposition. Other restored trigger case/order grammar remains unresolved."
+  },
+  {
+    "locale": "ace",
+    "key": "card-due",
+    "before": "Jatuh Tempo",
+    "after": "Bataih watèë",
+    "reason": "Use consistent Acehnese deadline wording instead of Indonesian/Malay jatuh tempo, tamat hari ini or tarikh akhir and unclear restored jitôh. Native MediaWiki Acehnese supports bataih (limit), watèë (time), uroe (day); ANU thesaurus mirrored text attests uroe nyoe (today). Adapted deadline compounds are low-confidence pending native contextual/browser review; due-today means same calendar day, not already completed."
+  },
+  {
+    "locale": "ace",
+    "key": "due-date",
+    "before": "Tarikh Akhir",
+    "after": "Uroe bataih",
+    "reason": "Use consistent Acehnese deadline wording instead of Indonesian/Malay jatuh tempo, tamat hari ini or tarikh akhir and unclear restored jitôh. Native MediaWiki Acehnese supports bataih (limit), watèë (time), uroe (day); ANU thesaurus mirrored text attests uroe nyoe (today). Adapted deadline compounds are low-confidence pending native contextual/browser review; due-today means same calendar day, not already completed."
+  },
+  {
+    "locale": "ace",
+    "key": "due-today",
+    "before": "Jitôh uroe nyoe",
+    "after": "Bataih watèë uroe nyoe",
+    "reason": "Use consistent Acehnese deadline wording instead of Indonesian/Malay jatuh tempo, tamat hari ini or tarikh akhir and unclear restored jitôh. Native MediaWiki Acehnese supports bataih (limit), watèë (time), uroe (day); ANU thesaurus mirrored text attests uroe nyoe (today). Adapted deadline compounds are low-confidence pending native contextual/browser review; due-today means same calendar day, not already completed."
+  },
+  {
+    "locale": "ace",
+    "key": "filter-due-today",
+    "before": "Tamat Hari ini",
+    "after": "Bataih watèë uroe nyoe",
+    "reason": "Use consistent Acehnese deadline wording instead of Indonesian/Malay jatuh tempo, tamat hari ini or tarikh akhir and unclear restored jitôh. Native MediaWiki Acehnese supports bataih (limit), watèë (time), uroe (day); ANU thesaurus mirrored text attests uroe nyoe (today). Adapted deadline compounds are low-confidence pending native contextual/browser review; due-today means same calendar day, not already completed."
   }
 ]
