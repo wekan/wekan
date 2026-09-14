@@ -913,3 +913,26 @@ test('Tamazight numeric total tooltip describes only display-enabled fields', as
     db.deleteMany('customFields', { _id: { $in: [shownId, hiddenId] } });
   }
 });
+
+test('#6694 multi-selection adds labels and members to a mixed selection', async ({ boardPage, board, user }) => {
+  const labelId = db.uid('bulk-label');
+  db.updateOne('boards', { _id: board.boardId }, { $push: { labels: { _id: labelId, name: 'Bulk regression label', color: 'green' } } });
+  const bp = new BoardPage(boardPage);
+  await bp.openAddCardTop(board.listIds[0]);
+  await bp.submitNewCard(board.listIds[0], 'Bulk mixed second card');
+  const cards = db.find('cards', { boardId: board.boardId, listId: board.listIds[0] });
+  expect(cards.length).toBeGreaterThan(1);
+  db.updateOne('cards', { _id: cards[0]._id }, { $addToSet: { labelIds: labelId, members: user.id } });
+  for (const card of cards.slice(1)) db.updateOne('cards', { _id: card._id }, { $pull: { labelIds: labelId, members: user.id } });
+  await boardPage.locator('.js-multiselection-activate').click();
+  await bp.openListMenu(board.listIds[0]);
+  await bp.clickListMenuItem('.js-select-cards');
+  const labelRow = boardPage.locator('.board-sidebar .js-toggle-label-multiselection').filter({ hasText: 'Bulk regression label' });
+  await expect(labelRow).toContainText('⋯');
+  await labelRow.click();
+  await boardPage.locator('.pop-over .js-add-selection-label').click();
+  await expect.poll(() => cards.every(card => db.findOne('cards', { _id: card._id }).labelIds.includes(labelId))).toBe(true);
+  await boardPage.locator('.board-sidebar .js-toggle-member-multiselection').filter({ hasText: user.username }).click();
+  await boardPage.locator('.pop-over .js-assign-member').click();
+  await expect.poll(() => cards.every(card => db.findOne('cards', { _id: card._id }).members.includes(user.id))).toBe(true);
+});

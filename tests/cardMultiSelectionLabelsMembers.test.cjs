@@ -8,11 +8,11 @@ const source = fs.readFileSync(path.join(root, 'client/components/sidebar/sideba
 const handlers = {};
 const calls = [];
 const context = {
-  Template: new Proxy({ currentData: () => ({ _id: 'target' }) }, { get(target, key) {
+  Template: new Proxy({ currentData: () => ({ _id: 'surrounding-template' }) }, { get(target, key) {
     return target[key] || { events: events => { handlers[key] = events; } };
   } }),
   mutateSelectedCards: async (...args) => { calls.push(args); },
-  mapSelection: () => [false, false],
+  mapSelection: (kind, id) => { assert.equal(id, 'target'); return [false, false]; },
   Popup: { open: () => () => {}, back: () => calls.push(['back']) },
 };
 vm.runInNewContext(source.slice(source.indexOf('Template.multiselectionSidebar.events'), source.indexOf('// The four selects')), context);
@@ -32,9 +32,9 @@ const event = detail => ({ detail, preventDefault() { this.prevented = true; }, 
   }
   for (const selector of ['click .js-toggle-label-multiselection', 'click .js-toggle-member-multiselection']) {
     calls.length = 0;
-    await handlers.multiselectionSidebar[selector](event(2));
+    await handlers.multiselectionSidebar[selector].call({ _id: 'target' }, event(2));
     assert.deepEqual(calls, [], 'second click must not reverse the first');
-    await handlers.multiselectionSidebar[selector](event(1));
+    await handlers.multiselectionSidebar[selector].call({ _id: 'target' }, event(1));
     assert.equal(calls.length, 1);
   }
   const jade = fs.readFileSync(path.join(root, 'client/components/sidebar/sidebarFilters.jade'), 'utf8');

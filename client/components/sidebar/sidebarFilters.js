@@ -308,7 +308,7 @@ Template.multiselectionSidebar.events({
     evt.preventDefault();
     evt.stopPropagation();
     if (evt.detail > 1) return;
-    const labelId = Template.currentData()._id;
+    const labelId = this._id;
     const mappedSelection = mapSelection('label', labelId);
 
     if (mappedSelection.every(Boolean)) {
@@ -319,14 +319,14 @@ Template.multiselectionSidebar.events({
       const popup = Popup.open('disambiguateMultiLabel');
       // XXX We need to have a better integration between the popup and the
       // UI components systems.
-      popup.call(Template.currentData(), evt);
+      popup.call(this, evt);
     }
   },
   async 'click .js-toggle-member-multiselection'(evt) {
     evt.preventDefault();
     evt.stopPropagation();
     if (evt.detail > 1) return;
-    const memberId = Template.currentData()._id;
+    const memberId = this._id;
     const mappedSelection = mapSelection('member', memberId);
     if (mappedSelection.every(Boolean)) {
       await mutateSelectedCards('unassignMember', memberId);
@@ -336,7 +336,7 @@ Template.multiselectionSidebar.events({
       const popup = Popup.open('disambiguateMultiMember');
       // XXX We need to have a better integration between the popup and the
       // UI components systems.
-      popup.call(Template.currentData(), evt);
+      popup.call(this, evt);
     }
   },
   'click .js-move-selection': Popup.open('moveSelection'),
