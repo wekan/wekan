@@ -123639,5 +123639,12 @@
     "before": "`__predicate_ended__` - cartes ayant une date de fin.",
     "after": "`__predicate_ended__` - ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵏⵏⴰ ⵖⵓⵔⵙⵏⵜ ⵉⵍⵍⴰ ⴰⵙⴰⴽⵓⴷ ⵏ ⵜⵉⴳⵉⵔⴰ",
     "reason": "Replace French ended search predicate guidance, retaining exact __predicate_ended__ code and cards WITH an end date rather than implying completed cards or dates already past. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json blockedtext-expiration-time supplies tigira end/expiry, userlogin-noaccount possession ɣurk and existence illi; local audited date/card vocabulary reused. LOW CONFIDENCE feminine plural possession ɣursnt, full relative construction and expiry-to-card-end-date adaptation require fluent review. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "OS_Cpus",
+    "before": "استهلاك وحدة المعالجة المركزية لنظام التشغيل",
+    "after": "OS: ⵓⵟⵟⵓⵏ ⵏ CPU",
+    "reason": "Replace Arabic OS CPU consumption mistranslation with CPU COUNT from English. Primary native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json pageinfo-watchers and pageinfo-redirects-name directly give uṭṭun n count of. Retain conventional OS and CPU technical abbreviations, consistent with local OS memory labels. LOW CONFIDENCE mixed-script complete technical label requires fluent review. Do not render CPU usage, consumption or percentage. Reviewed 2026-09-14."
   }
 ]

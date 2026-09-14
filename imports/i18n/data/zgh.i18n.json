@@ -1121,7 +1121,7 @@
   "MongoDB_storage_engine": "Moteur de stockage MongoDB",
   "MongoDB_Oplog_enabled": "MongoDB Oplog activé",
   "OS_Arch": "معمارية نظام التشغيل",
-  "OS_Cpus": "استهلاك وحدة المعالجة المركزية لنظام التشغيل",
+  "OS_Cpus": "OS: ⵓⵟⵟⵓⵏ ⵏ CPU",
   "OS_Freemem": "الذاكرة الحرة لنظام التشغيل",
   "OS_Loadavg": "متوسط حمل نظام التشغيل",
   "OS_Platform": "منصة نظام التشغيل",
