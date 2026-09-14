@@ -738,6 +738,16 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ea1df33fa">Repair Inuktitut LDAP failure diagnostic</a>. Thanks to xet7.</summary>
+
+A syllabic connection-failure adaptation preserves the server-error placeholder.
+The native localization guide supports the failure term; network noun and full
+sentence grammar remain low confidence. Focused checks pass, and the dated
+audit records 289 pending findings with native/browser review still open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/45d232fda">Repair Inuktitut rule toggle tooltip</a>. Thanks to xet7.</summary>
 
 A syllabic adaptation preserves both enable and disable actions for this rule.

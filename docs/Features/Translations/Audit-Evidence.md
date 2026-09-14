@@ -23743,3 +23743,28 @@ the original queue has 15,611 corrected, 4,167 retained, 13 restored and 290
 pending findings. Inuktitut has 41 pending; broader low-confidence review stays
 open. MediaWiki's native files are ike-cans/ike-latn, not iu; they were inspected
 as possible references, without accepting any of their strings automatically.
+
+Inuktitut LDAP failure repair — 2026-09-14, local commit `ea1df33fa`.
+
+Replace ldap-test-connection-error with a direct syllabic adaptation preserving
+connection-failure meaning and the exact %s server-error details token.
+[Microsoft Inuktitut localization style guide](https://download.microsoft.com/download/0/b/6/0b65bcfe-5fac-4b20-86fe-f613200667c1/iku-can-styleguide.pdf)
+was downloaded from the primary publisher and text-extracted locally: 41 pages.
+Page 35 explicitly recommends Itigaqtuq for Failed to/Failure of. Its syllabic
+adaptation supports the failure term; it does not verify the entire network
+connection sentence. The connection/contact noun and noun/verb grammar remain
+low confidence and require native/browser review. The test action and success
+message remain open; they were not accepted from unrelated generic Done wording.
+The guide's native examples use Latin orthography, citing the 1976 writing-system
+proposal (page 7). Latin script alone therefore cannot prove a value is in the
+wrong language. Review vocabulary and dialect independently; the original
+wrong-script findings are review warnings, not blanket invalidations.
+
+Actual settingBody.js calls ldap_test_connection and interpolates err.reason
+or err.message into the failure message. testConnection.js connects and binds
+with the configured credentials, then disconnects. A successful method call
+is not proof that an individual user login succeeded. Four focused suites pass;
+there are 18,605 exact corrections, 15,612 corrected original findings,
+4,167 retained, 13 restored and 289 pending. Inuktitut has 40 pending. Full
+sentence and live LDAP/UI validation remain unverified. No external translation
+service was used and no remote translations were pushed.
