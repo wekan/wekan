@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,476 |
+| Corrected | 15,477 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 368 |
+| Pending review or repair | 367 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,030** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,031** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `7dcaf17cf` — repaired three French failed-migration retry messages. Preserve FAILED scope, Retry versus Resume, NO failed items and successful retry notification without guaranteeing migration success. Native Retry/Failed components support wording; migration adaptation and derived grammar remain **low confidence**. All **18,030** correction checks pass; **368** findings remain pending across **17** locales, including **233** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `7d1e0ef15` — repaired the French board-selection checkbox instruction. Preserve clicking CHECKBOXES to SELECT BOARDS. Native checkbox/selection components support wording; compound, derived plural and full grammar remain **low confidence**. All **18,031** correction checks pass; **367** findings remain pending across **17** locales, including **232** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Archive noun review (2026-09-14, `fbe388603`):** directly inspected a native Archives du Maroc logo in a university PDF, corroborating the archive noun beyond the earlier search-index excerpt. Updated nine provenance records; values/counts unchanged. Institutional-to-kanban adaptation and full labels remain low confidence. [Evidence](Audit-Evidence.md) records the exact source and scope.
 

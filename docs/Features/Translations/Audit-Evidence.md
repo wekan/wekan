@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight board selection checkboxes — 2026-09-14
+
+Commit `7d1e0ef15` repairs one original French instruction. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) tooltip-invert/tooltip-namespace_association directly attest checkbox Box and selected components. Preserve clicking CHECKBOXES to SELECT BOARDS, distinct from opening a board by clicking its icon. Selection Box compound, derived bound plural, locally reused click verb and whole purpose clause remain LOW CONFIDENCE. 367 original findings remain pending, including 232 Tamazight; all 18,031 mechanical correction checks pass. Restored, unflagged and earlier uncertain wording remain in scope. Browser verification and remote uploads were not performed.
+
 ## Tamazight failed migration retry — 2026-09-14
 
 Commit `7dcaf17cf` repairs three original French findings. [Native Mastodon](https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json) directly attests Retry in both bundle retry keys; [pinned Dialect](https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po) non-fuzzy Translation failed supplies Failed. Fuzzy provider messages were excluded. Again retains [MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) actionthrottledtext component. Preserve FAILED scope, Retry versus Resume, NO failed items to retry and successful retry notification without guaranteeing migration success. Migration movement adaptation, failed plural modifier, tried-again passive and no-items-purpose grammar remain LOW CONFIDENCE. 368 original findings remain pending, including 233 Tamazight; all 18,030 mechanical correction checks pass. Restored, unflagged and earlier low-confidence wording still need validation. Live browser verification and remote uploads were not performed.
