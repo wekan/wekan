@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,468 |
+| Corrected | 15,473 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 376 |
+| Pending review or repair | 371 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,015** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,022** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `34a98e0d1` — repaired four French cron findings. Preserve Resume PAUSED migrations, NO paused items to resume, completed successful resumption and ALL errors cleared. Native Resume/Paused/Clear components support wording; plural passives, migration adaptation and full phrases remain **low confidence**. All **18,015** correction checks pass; **376** original findings remain pending across **17** locales, including **241** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `7a49eb16b` — repaired seven French scheduled-job labels (five original findings and two unflagged values). Preserve Add, ACTIVE/plural scope, Resume versus Start and failure versus successful completion. Native Schedule/Work/Resume/Start components support wording; scheduled-job adaptation and derived grammar remain **low confidence**. All **18,022** correction checks pass; **371** original findings remain pending across **17** locales, including **236** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Archive noun review (2026-09-14, `fbe388603`):** directly inspected a native Archives du Maroc logo in a university PDF, corroborating the archive noun beyond the earlier search-index excerpt. Updated nine provenance records; values/counts unchanged. Institutional-to-kanban adaptation and full labels remain low confidence. [Evidence](Audit-Evidence.md) records the exact source and scope.
 
