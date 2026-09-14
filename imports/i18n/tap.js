@@ -242,6 +242,11 @@ export const TAPi18n = {
   },
   // Return translation by key
   __(key, options, language) {
+    // Legacy callers pass one positional format value directly (search errors).
+    // Named interpolation/options objects retain their existing meaning.
+    if (options !== null && options !== undefined && typeof options !== 'object') {
+      options = { sprintf: [options] };
+    }
     this.current.dep.depend();
     this.revision.get();
 
