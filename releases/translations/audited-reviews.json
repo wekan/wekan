@@ -22414,5 +22414,173 @@
     "key": "r-to-current-datetime",
     "value": "uneko data/ordura",
     "reason": "Inspected standalone Basque rule action labels and date-field selectors: mark/unmark and all-item scopes remain distinct; swimlane uses existing errail terminology; start, due, end and current date/time retain field distinctions. Compound conditional and top/bottom relational fragments deliberately excluded; shared r-is is Spanish es and needs a coordinated Basque phrase repair."
+  },
+  {
+    "locale": "eu",
+    "key": "a-endAt",
+    "value": "amaiera-ordua honela aldatu du:",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "a-startAt",
+    "value": "hasiera-ordua honela aldatu du:",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "a-receivedAt",
+    "value": "jasotze-ordua honela aldatu du:",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "almostdue",
+    "value": "uneko epemuga (%s) hurbiltzen ari da",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "pastdue",
+    "value": "uneko epemuga (%s) igaro da",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "duenow",
+    "value": "uneko epemuga (%s) gaur da",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "act-withDue",
+    "value": "__list__/__card__ txartelaren epemuga-oharrak [__board__]",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "act-almostdue",
+    "value": "gogorarazi du __card__ txartelaren uneko epemuga (__timeValue__) hurbiltzen ari dela",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "act-pastdue",
+    "value": "gogorarazi du __card__ txartelaren uneko epemuga (__timeValue__) igaro dela",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "act-duenow",
+    "value": "gogorarazi du __card__ txartelaren uneko epemuga (__timeValue__) oraintxe dela",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "delete-user-confirm-popup",
+    "value": "Ziur zaude kontu hau ezabatu nahi duzula? Ez dago desegiterik.",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "delete-team-confirm-popup",
+    "value": "Ziur zaude talde hau ezabatu nahi duzula? Ez dago desegiterik.",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "delete-org-confirm-popup",
+    "value": "Ziur zaude erakunde hau ezabatu nahi duzula? Ez dago desegiterik.",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "assignee",
+    "value": "Esleitua",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "cardAssigneesPopup-title",
+    "value": "Esleitua",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "new",
+    "value": "Berria",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "editOrgPopup-title",
+    "value": "Editatu erakundea",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "newOrgPopup-title",
+    "value": "Erakunde berria",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "editTeamPopup-title",
+    "value": "Editatu taldea",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "newTeamPopup-title",
+    "value": "Talde berria",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "notifications",
+    "value": "Jakinarazpenak",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "view-all",
+    "value": "Ikusi guztiak",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "filter-by-unread",
+    "value": "Iragazi irakurri gabeak",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "mark-all-as-read",
+    "value": "Markatu guztiak irakurritzat",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "allow-rename",
+    "value": "Baimendu izena aldatzea",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "allowRenamePopup-title",
+    "value": "Baimendu izena aldatzea",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "start-day-of-week",
+    "value": "Ezarri astearen lehen eguna",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "monday",
+    "value": "Astelehena",
+    "reason": "Inspected Basque time-change and deadline reminders, irreversible account/team/organization deletion warnings, assignee and organization/team editing, notifications/read-state actions, rename permission and week-start labels. Preserve approaching/past/today/now distinctions, negation and no-undo warnings; underscore and sprintf tokens remain exact."
   }
 ]
