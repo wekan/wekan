@@ -30080,3 +30080,23 @@ Retain accepted ID/owner/repo alternatives and original ledger before value.
 Four focused files pass (30 checks), including title wrong-language rejection,
 identifier alternatives and full token/key-order checks. No live sync UI ran.
 Ledger 19,936; pending 126/restored 4. Wider native review remains open.
+
+
+2026-09-15 — `4b2009229`: replace Tshivenda sort-by-votes with Sortirui
+äniden mödhe, Finnish voting with Änestamine, and Tshivenda event-detail
+with Ližatedod. Existing card voting keys attest änestamine; poker-result-votes
+has Äned. Native MediaWiki sort-descending/sort-ascending use Sortirui ...
+mödhe and block-details uses Saudatusen ližatedod for details information.
+Primary native source read today:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+The vote genitive and full sorting-context terminology remain low confidence;
+details uses an attested additional-information paraphrase. Do not conflate
+vote sorting with casting votes or event detail with severity.
+Four focused files pass (31 checks), including negative foreign-language
+checks, distinct sorting/detail meanings and all token/key-order inventories.
+No live voting/event UI ran. Ledger 19,939; pending 126/restored 4 unchanged.
+Inspection additionally finds wrong-language backup-scope-instance/description,
+problem-summary/progress prose, CPU-current, severity, sum/date-range fields
+and chart-forecast messages. Native voting supporters/opponents and for/against
+labels also need vocabulary review; existing Finnish text is not protected
+as Veps. These are within the full unflagged scope, not excluded by queue count.

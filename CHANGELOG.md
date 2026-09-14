@@ -1406,6 +1406,18 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4b2009229">Fix Veps voting and event detail labels.</a></summary>
+
+Replace wrong-language vote sorting, voting heading and event details.
+Preserve sorting and detail meanings. Complete terminology and case
+remain under review; four focused files pass (31 checks).
+No live voting or event UI ran.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
