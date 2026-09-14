@@ -123359,5 +123359,19 @@
     "before": "a déplacé la carte __card__ de la liste __oldList__ du couloir __oldSwimlane__ du tableau __oldBoard__ vers la liste __list__ du couloir __swimlane__ du tableau __board__",
     "after": "ⵉⵙⵎⵓⵜⵜⵉ ⵜⴰⴽⴰⵕⴹⴰ __card__ ⵙⴳ ⵜⵍⴳⴰⵎⵜ __oldList__ ⴳ ⵓⴱⵔⵉⴷ __oldSwimlane__ ⴳ ⵜⴼⵍⵡⵉⵜ __oldBoard__ ⵖⵔ ⵜⵍⴳⴰⵎⵜ __list__ ⴳ ⵓⴱⵔⵉⴷ __swimlane__ ⴳ ⵜⴼⵍⵡⵉⵜ __board__",
     "reason": "Replace French card activity; preserve restore destination and, for cross-board move, distinct old/new lists, swimlanes and boards with every original placeholder. Native MediaWiki logentry-delete-restore directly attests issukn (restored), logentry-move-move attests ism utt i (moved), sg/from and ghr/to: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse local card/list/board terminology and bound transcription ubrid of existing swimlane Abrid. LOW CONFIDENCE full nested location composition, generic actor gender and page-to-card restoration adaptation require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-when-a-card-is-moved",
+    "before": "Quand une carte est déplacée vers une autre liste",
+    "after": "ⴰⴷⴷⴰⵢ ⵜⵜⵓⵙⵎⵓⵜⵜⵉ ⵜⴰⴽⴰⵕⴹⴰ ⵖⵔ ⵜⵍⴳⴰⵎⵜ ⵢⴰⴹⵏ",
+    "reason": "Replace French card-move rule fragment/trigger. Preserve when-event, movement and another-list destination (not another board). Native MediaWiki logentry-move-move attests movement root smutti and destination ghr; noarticletext attests feminine plural pages yadhn/other: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse earlier when adday and local card/list names. LOW CONFIDENCE derived passive ttusmutti, singular feminine another-list agreement and full trigger composition require fluent review; native active movement alone does not verify the passive construction."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-is-moved",
+    "before": "est déplacée",
+    "after": "ⵜⵜⵓⵙⵎⵓⵜⵜⵉ",
+    "reason": "Replace French card-move rule fragment/trigger. Preserve when-event, movement and another-list destination (not another board). Native MediaWiki logentry-move-move attests movement root smutti and destination ghr; noarticletext attests feminine plural pages yadhn/other: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse earlier when adday and local card/list names. LOW CONFIDENCE derived passive ttusmutti, singular feminine another-list agreement and full trigger composition require fluent review; native active movement alone does not verify the passive construction."
   }
 ]
