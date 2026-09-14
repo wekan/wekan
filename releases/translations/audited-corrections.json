@@ -127916,5 +127916,103 @@
     "before": "Filtrer par étiquette",
     "after": "Silañ dre dikedenn",
     "reason": "Replace French-seeded prose using existing Breton date/time/filter vocabulary; retain field meaning. Full native phrasing and browser review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "card-due",
+    "before": "À échéance",
+    "after": "Termen",
+    "reason": "Replace French date-control prose using existing Breton date nouns, invalid-year direizh, and hour-duration eurvezhioù. Tomorrow wording is a direct Breton rendering; complete phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "card-due-on",
+    "before": "Échéance le",
+    "after": "Termen d’an",
+    "reason": "Replace French date-control prose using existing Breton date nouns, invalid-year direizh, and hour-duration eurvezhioù. Tomorrow wording is a direct Breton rendering; complete phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "card-start",
+    "before": "Début",
+    "after": "Kregiñ",
+    "reason": "Replace French date-control prose using existing Breton date nouns, invalid-year direizh, and hour-duration eurvezhioù. Tomorrow wording is a direct Breton rendering; complete phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "card-start-on",
+    "before": "Commence le",
+    "after": "Kregiñ d’an",
+    "reason": "Replace French date-control prose using existing Breton date nouns, invalid-year direizh, and hour-duration eurvezhioù. Tomorrow wording is a direct Breton rendering; complete phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "card-received",
+    "before": "Reçue",
+    "after": "Degemer",
+    "reason": "Replace French date-control prose using existing Breton date nouns, invalid-year direizh, and hour-duration eurvezhioù. Tomorrow wording is a direct Breton rendering; complete phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "card-received-on",
+    "before": "Reçue le",
+    "after": "Degemer d’an",
+    "reason": "Replace French date-control prose using existing Breton date nouns, invalid-year direizh, and hour-duration eurvezhioù. Tomorrow wording is a direct Breton rendering; complete phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "card-end",
+    "before": "Fin",
+    "after": "Echuiñ",
+    "reason": "Replace French date-control prose using existing Breton date nouns, invalid-year direizh, and hour-duration eurvezhioù. Tomorrow wording is a direct Breton rendering; complete phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "card-end-on",
+    "before": "Se termine le",
+    "after": "Echuiñ d’an",
+    "reason": "Replace French date-control prose using existing Breton date nouns, invalid-year direizh, and hour-duration eurvezhioù. Tomorrow wording is a direct Breton rendering; complete phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "due-date",
+    "before": "Date d'échéance",
+    "after": "Deiziad termen",
+    "reason": "Replace French date-control prose using existing Breton date nouns, invalid-year direizh, and hour-duration eurvezhioù. Tomorrow wording is a direct Breton rendering; complete phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "filter-no-due-date",
+    "before": "Pas de date d'échéance",
+    "after": "Deiziad termen ebet",
+    "reason": "Replace French date-control prose using existing Breton date nouns, invalid-year direizh, and hour-duration eurvezhioù. Tomorrow wording is a direct Breton rendering; complete phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "filter-due-tomorrow",
+    "before": "Arrive à échéance demain",
+    "after": "Termen warc’hoazh",
+    "reason": "Replace French date-control prose using existing Breton date nouns, invalid-year direizh, and hour-duration eurvezhioù. Tomorrow wording is a direct Breton rendering; complete phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "invalid-date",
+    "before": "Date invalide",
+    "after": "Deiziad direizh",
+    "reason": "Replace French date-control prose using existing Breton date nouns, invalid-year direizh, and hour-duration eurvezhioù. Tomorrow wording is a direct Breton rendering; complete phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "invalid-time",
+    "before": "Heure invalide",
+    "after": "Eur direizh",
+    "reason": "Replace French date-control prose using existing Breton date nouns, invalid-year direizh, and hour-duration eurvezhioù. Tomorrow wording is a direct Breton rendering; complete phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "hours",
+    "before": "heures",
+    "after": "eurvezhioù",
+    "reason": "Replace French date-control prose using existing Breton date nouns, invalid-year direizh, and hour-duration eurvezhioù. Tomorrow wording is a direct Breton rendering; complete phrase/browser review remains open."
   }
 ]
