@@ -1297,6 +1297,21 @@ Thanks to xet7 !
 </details>
 
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dad65fb6c">Verify the LDAP post-bind fix through actual user search methods.</a></summary>
+
+The latest 11.77 report predates the local fix. Exercise binding followed
+by user search with unset and configured filters, and verify failed binding
+stops search. The separate oplog observer error remains unproven as a login
+cause. Offline regression passes; live directory confirmation remains open.
+
+Thanks to Nissulya and xet7 !
+
+Fixes #6692,
+
+</details>
+
+
 and improves the following developer tooling:
 
 **Release workflow** - Changelog-only release notes.
@@ -1331,6 +1346,20 @@ the standard thanks line and More details at ChangeLog with the release
 anchor. Keep full entries in the changelog. Offline tests verify retained
 security details, omitted other entries, exact headings and version links.
 Script parity and shell syntax checks pass; no release was published.
+
+</details>
+
+**Language picker** - Full-width two-line entries.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c3ce54fa2">Show language and regional flags on separate lines.</a></summary>
+
+The popup fills the viewport width, with a language flag/name first and
+parenthesized country flag/name below. Wider responsive columns and wrapping
+prevent clipped names. All 245 locale/flag checks pass. Browser assertions
+cover full width, narrow windows and RTL order; syntax checked but not run live.
+
+Thanks to xet7 !
 
 </details>
 
