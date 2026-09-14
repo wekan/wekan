@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,582 corrected, 66 restored pre-pull values awaiting
-validation, 4,125 reviewed and retained, and 308 pending review or repair.
+findings: 15,582 corrected, 64 restored pre-pull values awaiting
+validation, 4,127 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,185 exact before/after values,
 including repairs outside the original findings.
 Global completeness verification also identifies Veps `server` (currently
@@ -111,10 +111,10 @@ changes are implemented in local commit 02383521a; translation repairs have
 resumed.
 Latest translation fix is 93f284c8a (2026-09-14): three Swedish Due Cards
 labels now describe cards with due dates, including future deadlines.
-Latest unchanged-value review is 69b8202ed (2026-09-14): six Asturian,
-Tamil, Telugu and Uyghur labels/examples retained. JSON identifiers remain
-literal code. Uncertain cancellation labels, shared trigger grammar,
-regional terminology and live browser validation remain open.
+Latest unchanged-value review is d3ad084e7 (2026-09-14): attested Asturian
+and Turkmen cancellation labels retained. Uzbek Arabic-script and Breton
+wording, shared trigger grammar, regional terminology and live browser
+validation remain open.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
 Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
 retaining 156 correct Danish storage, migration and monitoring/account labels.
@@ -734,6 +734,16 @@ Retained three Asturian labels, Tamil and Telugu Who headings and the Uyghur
 three-card JSON example. Literal property names remain unchanged while example
 values are localized. Exact review checks pass; uncertain cancellation and
 Breton wording and wider language/browser verification remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d3ad084e7">Validate cancellation wording against language references</a>. Thanks to xet7.</summary>
+
+Retained Asturian Encaboxar and Turkmen Ýatyr in two-factor cancellation.
+Published localized help and government usage support these meanings. Exact
+review checks pass; Uzbek Arabic-script spelling, Breton assignment wording
+and wider language/browser verification remain open. No locale values changed.
 
 </details>
 

@@ -22592,3 +22592,11 @@ parses as three JSON objects with literal title/description property names.
 No locale values changed. Cancellation and Breton wording remain uncertain;
 this acceptance does not establish broader fluency or browser validation.
 Exact review checks verify all 4,125 records.
+
+Dated review, 2026-09-14, local commit `d3ad084e7`: retained Asturian
+Encaboxar and Turkmen Ýatyr for two-factor cancellation. LibreOffice Asturian
+help https://help.libreoffice.org/latest/ast/text/scalc/02/06060000.html
+uses Encaboxar for cancelling edits. Turkmen government migration law
+https://www.mfa.gov.tm/articles/79 uses ýatyrmak for visa cancellation.
+No locale values changed. Exact review checks verify all 4,127 records;
+64 restored values and 308 original findings remain unresolved.
