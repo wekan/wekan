@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,561 corrected, 1,343 restored pre-pull values awaiting
-validation, 2,869 reviewed and retained, and 308 pending review or repair.
+findings: 15,561 corrected, 1,314 restored pre-pull values awaiting
+validation, 2,898 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,161 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
@@ -108,8 +108,8 @@ changes are implemented in local commit 02383521a; translation repairs have
 resumed.
 Latest translation fix/review is 54fdfd33c (2026-09-14): four Galician
 date-trigger meanings repaired; 39 correct values retained.
-Latest unchanged-value review is 98c90fd8a (2026-09-14): 30 Galician
-custom-field and access values retained. Shared attachment/member
+Latest unchanged-value review is ac0f8696f (2026-09-14): 29 Galician
+account emails and export fields retained. Shared attachment/member
 participles still need contextual agreement repair.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
 Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
@@ -957,6 +957,15 @@ Review checks pass; broader language and browser validation remain open.
 Retain 30 correct values. Preserve access restrictions, custom-field types,
 dropdown alternatives, WIP limits and account email interpolation. Review
 checks pass; broader language and browser validation remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ac0f8696f">Validate Galician account emails and export fields</a>. Thanks to xet7.</summary>
+
+Retain 29 correct values. Preserve email purposes and tokens, account states,
+export roles, attachment metadata and sorting scope. Review checks pass;
+export free wording and broader browser validation remain open.
 
 </details>
 

@@ -22149,3 +22149,16 @@ peach/brown names require speculative new qualifiers.
 Review checks pass: 15,561 corrected, 1,343 restored awaiting validation,
 2,869 reviewed unchanged and 308 pending. Broader language and browser
 validation remain open. Nothing pushed.
+
+
+### 2026-09-14 — Galician account emails and export fields
+
+Local commit `ac0f8696f` retains 29 directly reviewed values unchanged.
+Enrollment/reset/verification emails preserve purpose, exact user/URL/site
+and inviter tokens and paragraph layout. Sent/failed/invalid and taken-name
+states remain distinct. Excel fields preserve people roles and attachment
+filename/size/uploader/time. Scrollbars, WIP and sorting scope retain meaning.
+Export free remains unaccepted pending context.
+Review checks pass: 15,561 corrected, 1,314 restored awaiting validation,
+2,898 reviewed unchanged and 308 pending. Broader language and browser
+validation remain open. Nothing pushed.
