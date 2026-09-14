@@ -961,6 +961,17 @@ Dated audit records 155 pending original findings.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0f393c5c8f">Repair Tamazight list-deletion warning</a></summary>
+
+Replace French text with Tamazight wording preserving activity removal,
+list recovery and no-undo semantics. Four focused suites pass. Full grammar
+and the English warning's conflict with soft removal remain under review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

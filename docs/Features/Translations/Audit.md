@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-15**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,748 |
+| Corrected | 15,749 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,174 |
-| Pending review or repair | 155 |
+| Pending review or repair | 154 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,14 +16,15 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `3fd9413b3` — replace Arabic
-member-removal confirmation, preserving placeholders, all board cards
-and notification. Four focused suites pass. Ledger 19,863;
-pending 155 (Tamazight 62), restored 4 unchanged. Notification/passive
-and full contextual grammar remain low confidence; broader reviews open.
+Latest translation fix: **2026-09-15**, `0f393c5c8f` — replace French
+list-deletion warning with the existing Tamazight card-warning pattern,
+adapted to a list. Four focused suites pass. Ledger 19,864;
+pending 154 (Tamazight 61), restored 4 unchanged. Full grammar remains
+low confidence. The active popup's irreversible English warning conflicts
+with its `lists.softRemove` handler; source wording follow-up remains open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,863** exact before/after values, including unflagged
+records contain **19,864** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -43,7 +44,7 @@ restored values still await full native clause validation.
 
 | Pending locale | Findings |
 | --- | ---: |
-| zgh — Standard Moroccan Tamazight | 62 |
+| zgh — Standard Moroccan Tamazight | 61 |
 | iu — Inuktitut | 38 |
 | nah — Nahuatl | 17 |
 | tig — Tigre | 17 |

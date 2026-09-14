@@ -29155,3 +29155,21 @@ certify notification delivery at runtime. Four focused suites pass for
 exact wording and literal-token/translation invariants. No live removal UI
 test ran. Ledger 19,863; original corrected 15,748, pending 155 (zgh 62),
 restored 4 unchanged. Broader review remains open; no remote writes.
+
+
+2026-09-15 — `0f393c5c8f`: Tamazight `list-delete-pop` French text
+replaced using existing card-warning wording adapted to a list. Activity
+removal, inability to recover the list and no undo match current English.
+Full contextual grammar remains low confidence. Four focused suites pass;
+no live UI or undo test ran. `listHeader.jade` actively uses this key,
+while `listHeader.js` calls `lists.softRemove`: the English irreversibility
+warning conflicts with the handler and remains an open source/UI follow-up.
+Counts: corrected 15,749, pending 154, ledger 19,864; restored 4 unchanged.
+
+2026-09-15 — Transifex support correspondence supplied by maintainer:
+Antonis promises native catalogue support for gv, lld, rup, tig and wal.
+This is a promise, not verification that support is deployed. Existing
+upload code refreshes project languages every invocation and retries each
+missing language; no prior failure report suppresses a later attempt.
+Proposed Aromanian and Wolaytta plural defaults are not linguistic proof.
+No remote upload performed; local translation fluency review remains open.
