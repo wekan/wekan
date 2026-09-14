@@ -25641,3 +25641,16 @@ not an attested dictionary sentence: low confidence for native grammar
 and adjective agreement. Both currency and code meanings are retained.
 Four source checks pass; browser/native review remains open. This key was
 unflagged, so the original 253-finding queue is unchanged; ledger 18,770.
+
+Basic color repairs — 2026-09-14, `502c7e0cf`.
+Six unflagged French/Arabic color labels now use exact standalone IRCAM
+Amazigh-English entries: black abrkan (PDF 32, 276), blue anili (178,
+3332), green azgza (275, 5385), red azggʷaɣ (275, 5375), white amllal
+(138, 2526), yellow awraɣ (268, 5233). No inflections were invented.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+Green has green/blue polysemy in the primary entry; blue uses a distinct
+explicitly blue lemma, with regression coverage preventing conflation.
+Four source checks pass, including exact values, wrong-language negatives,
+tokens, ordering and human preference. Complex CSS shades remain separate
+review; browser rendering is not certified. Ledger: 18,776; original
+pending queue remains 253 because these six keys were unflagged.

@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/502c7e0cf">Repair six Tamazight basic color labels</a>. Thanks to xet7.</summary>
+
+Replace French and Arabic basic colors with exact primary dictionary entries.
+Keep distinct blue and green labels and add positive and negative coverage.
+Four translation checks pass; compound shades and browser review remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/356836c4f">Replace French currency-code label with Tamazight terms</a>. Thanks to xet7.</summary>
 
 Use dictionary-attested code and currency components. Preserve both meanings,
