@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight migration scheduling and resumption — 2026-09-14
+
+Commit `df6e03f46` repairs four unflagged French or inherited Kabyle-leaning values; script alone is not language proof. [Native Red Moon](https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml) attests Resume and Schedule; [pinned non-fuzzy Dialect](https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po) Automatic language detection/Auto attests Automatic. Preserve Scheduled PLURAL versus Automatic SINGULAR, Resume versus Complete, failed resume versus completed resumption. Migration movement adaptation, scheduled plural passive, Resume nominalization/past passive and whole grammar remain LOW CONFIDENCE. Original counts unchanged: 354 pending, including 219 Tamazight; all 18,051 mechanical correction checks pass. Restored, unflagged and earlier uncertain wording remain in scope. Browser verification and remote uploads were not performed.
+
 ## Tamazight worker role permissions — 2026-09-14
 
 Commit `cda2d947b` repairs one original French finding. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) supplies Can, Only, Move, Comment and Give components. [Mastodon](https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json) compose_form.placeholder supplies self/head component, not reflexive assignment proof. Preserve ONLY three permissions: MOVE cards, SELF-assignment to card, COMMENT; no permission to edit title/content/settings or assign others added. Give Card To Yourself paraphrase, whole coordination and grammar remain LOW CONFIDENCE. 354 original findings remain pending, including 219 Tamazight; all 18,047 mechanical correction checks pass. Restored, unflagged and earlier uncertain wording remain in scope. Browser verification and remote uploads were not performed.

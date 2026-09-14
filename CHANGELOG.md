@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,490 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 354 pending review or repair.
-The correction inventory records 18,047 exact before/after values,
+The correction inventory records 18,051 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,10 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is cda2d947b (2026-09-14), repairing worker-role
-permissions. ONLY movement, SELF-assignment and comment preserved;
-self-assignment adaptation and full grammar remain low confidence.
-354 original findings remain pending.
+Latest translation fix is df6e03f46 (2026-09-14), repairing four unflagged
+migration scheduling/resume values. Scheduled versus Automatic and Resume
+versus Complete preserved; migration grammar remains low confidence.
+Original audit counts unchanged.
 Archive provenance follow-up fbe388603 (2026-09-14) directly inspects the
 native Archives du Maroc logo in a university PDF, corroborating the noun
 beyond indexed evidence. Nine records updated; no values/counts changed.
@@ -654,7 +654,7 @@ remain open.
 Translation audit progress as of 2026-09-14: 15,490 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
 and 354 remain pending across 17 locales, including 219 Tamazight findings.
-The ledger contains 18,047 correction records, including unflagged repairs.
+The ledger contains 18,051 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -3026,6 +3026,17 @@ Native components support provisional wording; self-assignment adaptation and
 full grammar remain low confidence. All 18,047 correction checks pass;
 354 original findings remain pending, including 219 Tamazight. Live browser
 verification was not run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/df6e03f46">Repair Tamazight migration scheduling and resume wording</a>. Thanks to xet7.</summary>
+
+Repair four unflagged labels/statuses preserving Scheduled plural versus
+Automatic singular and Resume versus Complete. Native components support
+provisional wording; migration adaptation and derived grammar remain low
+confidence. All 18,051 correction checks pass; original counts unchanged.
+Live browser verification was not run.
 
 </details>
 
