@@ -3328,3 +3328,29 @@ possessive order around the separately rendered legal-notice anchor.
 Do not treat `qblġ` (first person) as the required second-person form.
 No translation or counts changed; 170 original findings remain pending.
 No live UI test ran and no remote writes were made.
+
+
+## Possessive placement in acceptance sentence — review 2026-09-15
+
+Peace Corps Morocco's Tamazight textbook, printed page 11 / PDF page 16
+(zero-based 15), explicitly teaches possession as an ending on the noun,
+combining a pronoun with the preposition n. Printed page 12 / PDF page 17
+examples include house followed by the our ending, rather than our before
+house. The browser-extracted transliteration renders the consonant as
+`nā`; the accompanying Arabic example contains gh. Do not normalize that
+extraction artifact into a confident Standard Tamazight spelling without
+checking the source convention. This review relied on extracted text;
+requested screenshots did not expose usable image content here.
+Source: https://www.livelingua.com/peace-corps/Tamazight/Tamazight%20Textbook%202007.pdf
+
+This confirms a composition constraint for the current separate acceptance
+span and legalNotice link: simply putting a possessive at the end of the
+prefix would leave it before the notice noun. Generic legalNotice appears
+elsewhere and must not be globally changed to our legal notice.
+Next action is to verify a grammatical complete acceptance clause that
+preserves ownership while retaining the distinct linked label, or an
+existing localized composition mechanism. Do not silently omit our or
+change every legal-notice label to a possessive form. The generic acceptance
+verb evidence remains valid; complete clause and continuation are open.
+No translation, runtime template or counts changed. Pending 170 original
+findings. No live UI test ran; no remote writes were made.
