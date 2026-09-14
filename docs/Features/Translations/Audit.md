@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,533 |
+| Corrected | 15,534 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 311 |
+| Pending review or repair | 310 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,122** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,123** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `6352fbd5e` — repaired two additional board/list selection instructions, preserving Only One Board versus All Cards In This List and restoring the omitted All. Derived commands, agreement and full wording remain **low confidence**. All **18,122** correction checks pass; **311** original findings remain pending across **17** locales, including **176** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `739495cf8` — replaced the Arabic page-view authorization error with native-source-derived Tamazight permission denial. Full combined grammar remains **low confidence**. All **18,123** correction checks pass; **310** original findings remain pending across **17** locales, including **175** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Latest syntax repair (2026-09-14, `d0c247094`, follow-up `cd563cce5`):** Veps filter help now
 preserves canonical comparison, escaping, quoted field/value and Boolean

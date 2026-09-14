@@ -3555,6 +3555,20 @@ Shell syntax and changelog regression checks passed. No push was run.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/739495cf8">Repair Tamazight page-view permission denial</a></summary>
+
+Replaced the Arabic authorization error with native-source-derived
+Tamazight. The complete sentence retains denial of permission to view
+this page; combined grammar remains low confidence pending fluent review.
+All 18,123 correction records pass verification. On 2026-09-14,
+310 original findings remain pending, including 175 Tamazight findings;
+restored values and earlier low-confidence wording still require review.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b91b63c53">Translation repairs: Tamazight authentication labels.</a></summary>
 
 2026-09-14: Replace four French labels, preserving method/type, default and
