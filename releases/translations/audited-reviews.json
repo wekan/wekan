@@ -20968,5 +20968,179 @@
     "key": "run-once",
     "value": "Executar unha vez",
     "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-size",
+    "value": "Tamaño de S3",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "scanning-status",
+    "value": "Estado da análise",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "start-test-operation",
+    "value": "Iniciar unha operación de proba",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "start-time",
+    "value": "Hora de inicio",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "step-progress",
+    "value": "Progreso do paso",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "stop-migration",
+    "value": "Deter a migración",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "storage-distribution",
+    "value": "Distribución do almacenamento",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "system-resources",
+    "value": "Recursos do sistema",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "total-operations",
+    "value": "Total de operacións",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "total-size",
+    "value": "Tamaño total",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "cron",
+    "value": "Cron",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "current-step",
+    "value": "Paso actual",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "create-account",
+    "value": "Crear unha conta",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "already-account",
+    "value": "Xa ten unha conta? Inicie sesión",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "available-repositories",
+    "value": "Repositorios dispoñibles",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "repositories",
+    "value": "Repositorios",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "repository",
+    "value": "Repositorio",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "repository-name",
+    "value": "Nome do repositorio",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "size-bytes",
+    "value": "Tamaño (bytes)",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "last-modified",
+    "value": "Última modificación",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "no-repositories",
+    "value": "Non se atoparon repositorios",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "create-repository",
+    "value": "Crear repositorio",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "upload-repository",
+    "value": "Enviar/actualizar repositorio",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "api-endpoints",
+    "value": "Puntos de acceso da API",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "sign-in-to-upload",
+    "value": "Inicie sesión para enviar repositorios",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "account-locked",
+    "value": "A conta está bloqueada temporalmente por demasiados intentos de inicio de sesión fallidos. Ténteo de novo máis tarde.",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "otp-required",
+    "value": "Requírese o código OTP",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "account-creation-failed",
+    "value": "Non se puido crear a conta",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "login",
+    "value": "Iniciar sesión",
+    "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
   }
 ]
