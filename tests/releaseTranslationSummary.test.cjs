@@ -26,6 +26,11 @@ try {
   assert.deepEqual(result.stdout.match(/^## .+$/gm), ['## In short', '## Security', '## Translations']);
   assert.match(result.stdout, /More details at ChangeLog/);
   assert.equal((result.stdout.match(/- Galician/g) || []).length, 1);
+  const proseHeading = run(intro.replace('Summary.',
+    'First summary line.\n**Translations** repair wording in several languages.') + translations + other);
+  assert.equal(proseHeading.status, 0, proseHeading.stderr);
+  assert.match(proseHeading.stdout, /## Translations\n\n- Esperanto\n- Galician/);
+  assert.doesNotMatch(proseHeading.stdout, /Private translation details/);
   const missing = run(intro + translations.replace('**Languages updated:** Galician, Esperanto, Galician\n', '') + other);
   assert.notEqual(missing.status, 0);
   assert.match(missing.stderr, /Translations group needs/);

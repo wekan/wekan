@@ -71,7 +71,7 @@ for pat in patterns:
         i = 0
         while i < len(lines):
             line = lines[i]
-            is_translation = bool(re.match(r"^\*\*Translations\*\*", line))
+            is_translation = bool(re.match(r"^\*\*Translations\*\* - ", line))
             is_security = bool(re.match(r"^\*\*Security(?: hardening)?\*\* - ", line, re.IGNORECASE))
             is_security_header = bool(re.match(r"^(?:This release |and ).*(?:CRITICAL SECURITY ISSUE|security hardening)", line, re.IGNORECASE))
             if not (is_translation or is_security or is_security_header):
