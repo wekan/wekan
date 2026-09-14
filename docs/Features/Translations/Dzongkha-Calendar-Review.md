@@ -76,3 +76,28 @@ PyMuPDF was installed only in the existing temporary PDF-review venv to
 render this source; no application dependency or package manifest changed.
 No translations or counts changed. Pending 159 original findings;
 Dzongkha 2. No live calendar UI test ran and no remote writes were made.
+
+
+## Epoch versus start wording — visual review 2026-09-15
+
+Rendered DCT.pdf page 69 (printed 65) was inspected visually at
+.tools/tmp/dz-epoch-page69.png. Epoch is `གལ་ཅན་དུས་ཚོད།`, an
+important time, resolving extracted vowel corruption but not establishing
+a calendar reference date. Do not promote the generic entry to a precise
+astronomical/civil epoch compound without context.
+
+Rendered page 190 (printed 186), .tools/tmp/dz-starting-page190.png,
+visually gives Start `འགོ་བཙུགས་ནི།`, Start-up
+`འགོ་བཙུགས།`, and Starting `འགོ་བཙུགས་དོ།`. These are legible
+native computing start forms, but the progressive starting form is not
+itself a noun phrase for starting date. Neither should be copied as a
+complete calendar epoch label. The source was rendered from the cached
+publisher PDF, not inferred from mixed-script extracted text.
+Source: https://www.cle.org.pk/research/rep/DCT.pdf
+
+Next action: verify a start/reference-date construction with the date noun,
+then distinguish the two Julian epochs using civil/astronomical terms or
+a precise native paraphrase. Shared tabular spelling is now visually
+verified; the full label remains unproven. No translation or counts changed.
+Pending 159 original findings; Dzongkha 2. No live calendar UI test ran
+and no remote writes were made.
