@@ -399,3 +399,12 @@ assert.doesNotMatch(importWarning, /Si une erreur|Tous les tableaux|[\u0600-\u06
 const importTemplate = fs.readFileSync(path.join(ROOT,
  'client/components/import/import.jade'), 'utf8');
 assert.match(importTemplate, /import-board-instruction-about-errors/);
+
+assert.strictEqual(translated.watching, 'ⴰⵎⴰⵜⵔ');
+const watchWarning = translated['error-watch-disabled'];
+assert.match(watchWarning, /ⵉⵙⵙⵏⵙⵉ ⵓⵎⵙⵙⵓⴳⵓⵔ/);
+assert.match(watchWarning, /ⴰⵎⴰⵜⵔ ⵏ ⵜⴼⵍⵡⵉⵏ ⴷ ⵜⴽⴰⵕⴹⵉⵡⵉⵏ/);
+assert.doesNotMatch(watchWarning + translated.watching, /Le suivi|[\u0600-\u06ff]/u);
+const watchMethod = fs.readFileSync(path.join(ROOT,
+ 'server/notifications/watch.js'), 'utf8');
+assert.match(watchMethod, /getFeatureFlags\(\).disableWatch[\s\S]*?throw new Meteor.Error\('error-watch-disabled'\)/);

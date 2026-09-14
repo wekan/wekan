@@ -138836,5 +138836,19 @@
     "before": "Si une erreur survient en important le tableau, il se peut que l'import ait fonctionné, et que le tableau se trouve sur la page \"Tous les tableaux\".",
     "after": "ⵉⵖ ⵍⵍⴰⵏⵜ ⵜⵉⵣⴳⴰⵍ ⴳ ⵓⵙⴽⵛⵓⵎ ⵏ ⵜⴼⵍⵡⵉⵜ, ⴰⵜⴰⴼ ⵉⵎⵓⵔⵙ ⵓⵙⴽⵛⵓⵎ, ⴷ ⵜⵍⵍⴰ ⵜⴰⴼⵍⵡⵉⵜ ⴳ ⵜⵙⵏⴰ «ⴰⴽⴽⵯ ⵜⵉⴼⵍⵡⵉⵏ».",
     "reason": "2026-09-15: Replace French import warning. Errors do not always mean failure; preserve possible successful import and All Boards location. IRCAM 5099 perhaps and 8034 succeed; reuse board/import/error/page vocabulary. Probability paraphrase and complete grammar remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "watching",
+    "before": "مشاهدة",
+    "after": "ⴰⵎⴰⵜⵔ",
+    "reason": "2026-09-15: Replace wrong-language watching label and disabled warning. IRCAM 2228 monitoring and 7893 watch support terminology; 10015 switch off. Warning preserves administrator as actor and boards AND cards. Complete tense/agreement and computing adaptation remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "error-watch-disabled",
+    "before": "Le suivi des tableaux et des cartes est désactivé par l'administrateur",
+    "after": "ⵉⵙⵙⵏⵙⵉ ⵓⵎⵙⵙⵓⴳⵓⵔ ⴰⵎⴰⵜⵔ ⵏ ⵜⴼⵍⵡⵉⵏ ⴷ ⵜⴽⴰⵕⴹⵉⵡⵉⵏ.",
+    "reason": "2026-09-15: Replace wrong-language watching label and disabled warning. IRCAM 2228 monitoring and 7893 watch support terminology; 10015 switch off. Warning preserves administrator as actor and boards AND cards. Complete tense/agreement and computing adaptation remain low confidence."
   }
 ]
