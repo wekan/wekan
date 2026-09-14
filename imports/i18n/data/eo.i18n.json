@@ -1966,7 +1966,7 @@
   "Node_heap_heap_size_limit": "Node-amaso: limo de amasa grando",
   "Node_heap_malloced_memory": "Node-amaso: memoro asignita per malloc",
   "Node_heap_peak_malloced_memory": "Node-amaso: pinta memoro asignita per malloc",
-  "Node_heap_does_zap_garbage": "Node-amaso: ĉu nuligas rubon",
+  "Node_heap_does_zap_garbage": "Node-amaso: ĉu superskribas rubon per bitŝablono",
   "Node_heap_number_of_native_contexts": "Node-amaso: nombro de indiĝenaj kuntekstoj",
   "Node_heap_number_of_detached_contexts": "Node-amaso: nombro de malligitaj kuntekstoj",
   "Node_memory_usage_rss": "Node-memoruzo: grando de la rezida aro (RSS)",

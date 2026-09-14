@@ -127055,5 +127055,12 @@
     "before": "Malsukcesa fenestro (sekundoj)",
     "after": "Tempofenestro por malsukcesoj (sekundoj)",
     "reason": "2026-09-14: Failure window is a time interval for counting failed attempts, not a failed window. Make the temporal and failure-counting relationship explicit; preserve seconds unit."
+  },
+  {
+    "locale": "eo",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Node-amaso: ĉu nuligas rubon",
+    "after": "Node-amaso: ĉu superskribas rubon per bitŝablono",
+    "reason": "2026-09-14: Official Node V8 docs specify heap garbage overwritten with a bit pattern; nuligas incorrectly suggests zeroing. Translate overwrite and bit-pattern explicitly. https://nodejs.org/api/v8.html#v8getheapstatistics"
   }
 ]
