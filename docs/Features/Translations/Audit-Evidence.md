@@ -23093,3 +23093,21 @@ local uncompletion wording is reused pending full native verification.
 All 18,460 correction and 4,158 unchanged checks pass. Shared trigger grammar,
 full native phrase and browser review remain open; tracked pending/restored
 scope remains 300/27. Generic completed label remains in obsolete-key scope.
+
+Dated unflagged repair, 2026-09-14, local commit `49bd242c9`: eight Breton
+rule-editor field/action labels replace French. Name fields preserve list/
+swimlane scope, mail action preserves sending and recipient, date-operation
+select preserves Set, and palette action preserves setting a color.
+Primary Ofis ar Brezhoneg TermBret computing glossary directly attests definir
+as termeniñ/spisaat, envoyer as kas, email as postel, and modifier la couleur
+as kemmañ al liv. It also supports previously reused software copy/move,
+connection, preview, field and upload vocabulary, without proving every compound.
+https://www.brezhoneg.bzh/uploads/Document/20/798_536_an-urzhiataerezh.pdf
+Glossary is dated March 2006; browser discovery dates do not make it new.
+Complete color/swimlane clauses remain adapted rather than directly attested.
+Actual card/board/checklist trigger templates show r-is separately inserted for
+named subjects and attachments but omitted after generic label/member/checklist
+prefixes. Current French r-is and prefixes require a coordinated repair; simply
+replacing all prefixes with Pa vez would duplicate the verb in named triggers.
+All 18,468 correction and 4,158 unchanged checks pass. Complete native phrase,
+shared grammar and browser review remain open; pending/restored scope is 300/27.

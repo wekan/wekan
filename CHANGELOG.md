@@ -671,6 +671,15 @@ The empty wrongly placed Git directory was removed locally.
 **Languages updated:** Acehnese, Bambara, Basque, Breton, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/49bd242c9">Repair Breton rule-editor field and action language</a>. Thanks to xet7.</summary>
+
+Replace eight French-seeded name, recipient, date-operation, color and swimlane
+labels with Breton. Structural translation checks pass; complete shared trigger
+grammar and browser rendering remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a9ea9d462">Repair Breton completion-state language</a>. Thanks to xet7.</summary>
 
 Replace three French-seeded completion labels using existing Breton activity
