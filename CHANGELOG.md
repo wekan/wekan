@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,385 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 459 pending review or repair.
-The correction inventory records 17,827 exact before/after values,
+The correction inventory records 17,829 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 79be9d37d (2026-09-14), repairing two French deletion
-headings and distinguishing one item from the whole checklist. Proposed
-verification noun and full paraphrase remain low confidence for fluent review.
+Latest translation fix is 0dd39bb6b (2026-09-14), repairing Arabic Add Checklist
+and French Checklist Actions while preserving whole-checklist scope and plural
+actions. Proposed noun and full paraphrase remain low confidence for fluent review.
 Start spelling follow-up 2219d5358 distinguishes plain Begin/Start from
 emphatic Share/Divide in indexed IRCAM entries; direct PDF and full command
 verification remain open. No values or counts changed.
@@ -640,7 +640,7 @@ remain open.
 Translation audit progress as of 2026-09-14: 15,385 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
 and 459 remain pending across 17 locales, including 324 Tamazight findings.
-The ledger contains 17,827 correction records, including unflagged repairs.
+The ledger contains 17,829 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -2201,6 +2201,16 @@ Repair two French headings, distinguishing one-item and whole-checklist
 deletion. Verification noun is not established by native-source checks;
 full paraphrase remains low confidence for fluent review. All 17,827
 correction checks pass; 459 original findings remain pending.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0dd39bb6b">Translate Tamazight checklist menu actions</a>. Thanks to xet7.</summary>
+
+Repair Arabic Add Checklist and French Checklist Actions, preserving whole
+checklist and plural actions. Proposed verification noun and full paraphrase
+remain low confidence for fluent review. All 17,829 correction checks pass;
+459 original findings remain pending.
 
 </details>
 
