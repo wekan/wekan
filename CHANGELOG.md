@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,561 corrected, 1,621 restored pre-pull values awaiting
-validation, 2,591 reviewed and retained, and 308 pending review or repair.
+findings: 15,561 corrected, 1,591 restored pre-pull values awaiting
+validation, 2,621 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,161 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
@@ -108,8 +108,8 @@ changes are implemented in local commit 02383521a; translation repairs have
 resumed.
 Latest translation fix/review is 54fdfd33c (2026-09-14): four Galician
 date-trigger meanings repaired; 39 correct values retained.
-Latest unchanged-value review is f22aeb7bc (2026-09-14): 39 Galician
-search predicates, checklist instructions and controls retained. Shared attachment/member
+Latest unchanged-value review is 2f141de75 (2026-09-14): 30 Galician
+storage, visibility and account-lockout values retained. Shared attachment/member
 participles still need contextual agreement repair.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
 Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
@@ -874,6 +874,15 @@ pass; broader language and browser verification remain open.
 Retain 39 correct values. Preserve boolean search logic, absence checks,
 positive limits, deletion constraints, checklist order and legal agreement.
 Review checks pass; field-context and browser validation remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2f141de75">Validate Galician storage and account-lockout labels</a>. Thanks to xet7.</summary>
+
+Retain 30 correct values. Preserve attachment/storage scope, account states
+and support visibility. Resolve card-show-lists wording against its settings
+row and toggle. Review checks pass; broader browser validation remains open.
 
 </details>
 

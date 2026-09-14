@@ -22033,3 +22033,17 @@ pending field-context inspection; attachment grammar remains open.
 Review checks pass: 15,561 corrected, 1,621 restored awaiting validation,
 2,591 reviewed unchanged and 308 pending. Broader language and browser
 validation remain open. Nothing pushed.
+
+
+### 2026-09-14 — Galician storage and account-lockout labels
+
+Local commit `2f141de75` retains 30 directly reviewed values unchanged.
+Storage help distinguishes all attachments from board-only scope and retains
+GridFS/S3/ZIP/JSON names. PDF fallback, irreversible custom-string deletion,
+support visibility and known/unknown/locked-account distinctions are intact.
+Card-show-lists context is resolved: cardSettingsRows.js showLists row and
+sidebar allowsShowLists toggle show that its declarative visibility wording
+is appropriate; retained unchanged. Attachment grammar remains open.
+Review checks pass: 15,561 corrected, 1,591 restored awaiting validation,
+2,621 reviewed unchanged and 308 pending. Broader language and browser
+validation remain open. Nothing pushed.
