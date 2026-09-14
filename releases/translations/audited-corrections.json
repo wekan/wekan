@@ -124654,5 +124654,26 @@
     "before": "Migration du tableau en cours",
     "after": "ⴰⵔ ⵉⵜⵜⵓⵙⴽⴰⵔ ⵓⵙⵎⵓⵜⵜⵢ ⵏ ⵜⴼⵍⵡⵉⵜ",
     "reason": "2026-09-14: Replace French migration control/status with native do/make skr, adapting to Run software Migration, and ongoing passive action wording for Running/In Progress. Preserve imperative Run versus ongoing status, ellipsis and Board Migration scope; do not turn running into completion or success. LOW CONFIDENCE ongoing passive derivation, software-run/migration extension, bound nouns and complete phrases require fluent review. MediaWiki anontalkpagetext directly uses skr imperative, wlnote supplies ittuwaskarn passive done, generic-pool-error ar ttarmn ongoing marker, movelogpage bound usmutty move noun. These components do not independently attest the complete software status. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "steps",
+    "before": "Étapes",
+    "after": "ⵉⵙⵓⵔⵉⴼⵏ",
+    "reason": "2026-09-14: Replace French Steps/Current Step with asurif/isurifn, matching existing step-progress bound usurif and preserving plural versus singular plus Current qualifier. AIDECA names its programme ASSURIF/ⴰⵙⵓⵔⵉⴼ A Step; Marchica Med native zgh site uses plural isurifn for spatial steps, not software phases. LOW CONFIDENCE spatial-step-to-software-phase extension and full noun/adjective agreement need fluent Standard Moroccan review; independent native plural usage is not complete workflow terminology attestation. Primary references: https://intilaka.org/fr/projects/assurif and https://marchicamed.ma/zgh/home-zgh/ . MediaWiki changeemail-oldemail directly supplies amiran Current (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Preserve current phase rather than all phases or progress amount."
+  },
+  {
+    "locale": "zgh",
+    "key": "current-step",
+    "before": "Étape courante",
+    "after": "ⴰⵙⵓⵔⵉⴼ ⴰⵎⵉⵔⴰⵏ",
+    "reason": "2026-09-14: Replace French Steps/Current Step with asurif/isurifn, matching existing step-progress bound usurif and preserving plural versus singular plus Current qualifier. AIDECA names its programme ASSURIF/ⴰⵙⵓⵔⵉⴼ A Step; Marchica Med native zgh site uses plural isurifn for spatial steps, not software phases. LOW CONFIDENCE spatial-step-to-software-phase extension and full noun/adjective agreement need fluent Standard Moroccan review; independent native plural usage is not complete workflow terminology attestation. Primary references: https://intilaka.org/fr/projects/assurif and https://marchicamed.ma/zgh/home-zgh/ . MediaWiki changeemail-oldemail directly supplies amiran Current (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Preserve current phase rather than all phases or progress amount."
+  },
+  {
+    "locale": "zgh",
+    "key": "migration-progress-current-step",
+    "before": "Étape courante",
+    "after": "ⴰⵙⵓⵔⵉⴼ ⴰⵎⵉⵔⴰⵏ",
+    "reason": "2026-09-14: Replace French Steps/Current Step with asurif/isurifn, matching existing step-progress bound usurif and preserving plural versus singular plus Current qualifier. AIDECA names its programme ASSURIF/ⴰⵙⵓⵔⵉⴼ A Step; Marchica Med native zgh site uses plural isurifn for spatial steps, not software phases. LOW CONFIDENCE spatial-step-to-software-phase extension and full noun/adjective agreement need fluent Standard Moroccan review; independent native plural usage is not complete workflow terminology attestation. Primary references: https://intilaka.org/fr/projects/assurif and https://marchicamed.ma/zgh/home-zgh/ . MediaWiki changeemail-oldemail directly supplies amiran Current (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Preserve current phase rather than all phases or progress amount."
   }
 ]
