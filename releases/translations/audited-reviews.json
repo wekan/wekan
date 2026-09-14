@@ -24964,5 +24964,11 @@
     "key": "r-removed-from",
     "value": "Quitada de",
     "reason": "Retain correct Galician noun/shared feminine action wording after attachment template receives separate masculine Engadido a/Quitado de labels. RAG defines anexo as a masculine computer attachment noun; shared feminine labels still agree with persoa membro, labels and cards. Complete live browser validation remains open."
+  },
+  {
+    "locale": "da",
+    "key": "days-old",
+    "value": "Dage gammel",
+    "reason": "Retain native Danish age wording. DSL Ordbog over det danske Sprog, gammel sense 4.2, gives flere dage gammel for the age of a thing. The source label means Days Old; current application-source search found no runtime use, so no live UI context is claimed. Swedish Dagar gammal from the pull is not the retained value. https://ordnet.dk/ods/ordbog/gammel"
   }
 ]

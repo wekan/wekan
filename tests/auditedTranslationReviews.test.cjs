@@ -20,6 +20,8 @@ const root = path.resolve(__dirname, '..');
     assert.equal(result.rows.find(row => `${row.locale}:${row.key}` === identity).status, 'reviewedUnchanged');
   }
   assert.equal(result.pendingByLocale.da, undefined, 'all Danish findings are corrected or individually accepted');
+  assert.equal(reviews.find(row => row.locale === 'da' && row.key === 'days-old').value, 'Dage gammel', 'native Danish age label is preserved');
+  assert.notEqual(reviews.find(row => row.locale === 'da' && row.key === 'days-old').value, 'Dagar gammal', 'Swedish pulled replacement is not accepted');
   assert.equal(reviews.find(row => row.locale === 'da' && row.key === 'DDP_transport').value, 'DDP-transport (DDP_TRANSPORT)', 'valid Danish technical vocabulary remains untouched');
   assert.equal(reviews.find(row => row.locale === 'gl-ES' && row.key === 'r-items-list').value, 'elemento1,elemento2,elemento3', 'correct Galician example remains unchanged');
   const placeholderTemplate = fs.readFileSync(path.join(root, 'client/components/rules/actions/checklistActions.jade'), 'utf8');
