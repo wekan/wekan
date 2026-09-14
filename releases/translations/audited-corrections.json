@@ -124325,5 +124325,19 @@
     "before": "Tout déverrouiller",
     "after": "ⴽⴽⵙ ⴰⴳⴷⴰⵍ ⵏ ⴰⴽⴽⵯ ⵉⵏⵙⵙⵎⵔⵙⵏ",
     "reason": "2026-09-14: Replace French account Unlock wording by explicitly expressing removal of login blocking, consistent with existing native login-userblocked-based lockout translation. Preserve Click instruction versus confirmation question versus Unlock All action; this-user singular demonstrative and All users scope remain distinct. Native MediaWiki remove kks, blocking agdal, user nouns, kliki Click and akkw All support components; Mastodon confirmations.delete.message supports confirmation question pattern. LOW CONFIDENCE unblock terminology compound, noun states and full subordinate/confirmation phrases need fluent Standard Moroccan review. No exact Unblock phrase is supplied in current reviewed MediaWiki/Mastodon zgh files. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "before": "Êtes-vous sûr de vouloir déverrouiller tous les utilisateurs verrouillés ?",
+    "after": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⴰⴳⴷⴰⵍ ⵏ ⴰⴽⴽⵯ ⵉⵏⵙⵙⵎⵔⵙⵏ ⵜⵜⵓⴳⴷⵍⵏⵉⵏ?",
+    "reason": "2026-09-14: Replace French all-locked-user Unlock confirmation/result by expressing removal of login blocking. Preserve All and Locked Users qualifier, and distinguish confirmation question from completed result; do not add success qualifier absent from these sources. Exact native Mastodon column.blocks supplies inssmrsn ttugdl nin blocked users, and confirmations.delete.message supplies question pattern. Reuse native MediaWiki remove/block/All components and existing ittukks Removed passive form. LOW CONFIDENCE unblock compound, passive result adaptation, noun states and complete confirmation/quantified phrase require fluent Standard Moroccan review. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "accounts-lockout-all-users-unlocked",
+    "before": "Tous les utilisateurs bloqués ont été déverrouillés",
+    "after": "ⵉⵜⵜⵓⴽⴽⵙ ⴰⴳⴷⴰⵍ ⵏ ⴰⴽⴽⵯ ⵉⵏⵙⵙⵎⵔⵙⵏ ⵜⵜⵓⴳⴷⵍⵏⵉⵏ",
+    "reason": "2026-09-14: Replace French all-locked-user Unlock confirmation/result by expressing removal of login blocking. Preserve All and Locked Users qualifier, and distinguish confirmation question from completed result; do not add success qualifier absent from these sources. Exact native Mastodon column.blocks supplies inssmrsn ttugdl nin blocked users, and confirmations.delete.message supplies question pattern. Reuse native MediaWiki remove/block/All components and existing ittukks Removed passive form. LOW CONFIDENCE unblock compound, passive result adaptation, noun states and complete confirmation/quantified phrase require fluent Standard Moroccan review. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
