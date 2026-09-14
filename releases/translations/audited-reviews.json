@@ -13558,5 +13558,155 @@
     "key": "boardMenuPopup-title",
     "value": "Configuración do taboleiro",
     "reason": "2026-09-14: Direct semantic review confirms Galician archive, background, all-board settings, member/assignee scopes and board privacy/drag controls. All-cards versus current-card and public versus private remain distinct; HTML emphasis and no-archived-board negation retained."
+  },
+  {
+    "locale": "gl",
+    "key": "boardChangeViewPopup-title",
+    "value": "Vista do taboleiro",
+    "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
+  },
+  {
+    "locale": "gl",
+    "key": "board-view",
+    "value": "Vista do taboleiro",
+    "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
+  },
+  {
+    "locale": "gl",
+    "key": "card-archived",
+    "value": "Esta tarxeta moveuse ao Arquivo.",
+    "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
+  },
+  {
+    "locale": "gl",
+    "key": "board-archived",
+    "value": "Este taboleiro moveuse ao Arquivo.",
+    "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
+  },
+  {
+    "locale": "gl",
+    "key": "card-comments-title",
+    "value": "Esta tarxeta ten %s comentario.",
+    "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
+  },
+  {
+    "locale": "gl",
+    "key": "card-delete-notice",
+    "value": "A eliminación é permanente. Perderás todas as accións asociadas a esta tarxeta.",
+    "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
+  },
+  {
+    "locale": "gl",
+    "key": "card-delete-pop",
+    "value": "Todas as accións eliminaranse do fluxo de actividade e non poderás reabrir a tarxeta. Non se pode desfacer.",
+    "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
+  },
+  {
+    "locale": "gl",
+    "key": "card-delete-suggest-archive",
+    "value": "Podes mover unha tarxeta ao Arquivo para eliminala do taboleiro e conservar a actividade.",
+    "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
+  },
+  {
+    "locale": "gl",
+    "key": "card-archive-pop",
+    "value": "A tarxeta non será visible nesta lista despois de arquivala.",
+    "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
+  },
+  {
+    "locale": "gl",
+    "key": "card-archive-suggest-cancel",
+    "value": "Podes restaurar a tarxeta desde o Arquivo máis tarde.",
+    "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
+  },
+  {
+    "locale": "gl",
+    "key": "list-archive-pop",
+    "value": "A lista non será visible no taboleiro despois de arquivala.",
+    "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
+  },
+  {
+    "locale": "gl",
+    "key": "list-archive-suggest",
+    "value": "Podes restaurar a lista máis tarde desde o Arquivo na configuración do taboleiro.",
+    "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
+  },
+  {
+    "locale": "gl",
+    "key": "swimlane-archive-pop",
+    "value": "O carril non será visible no taboleiro despois de arquivalo.",
+    "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
+  },
+  {
+    "locale": "gl",
+    "key": "swimlane-archive-suggest",
+    "value": "Podes restaurar o carril máis tarde desde o Arquivo na configuración do taboleiro.",
+    "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
+  },
+  {
+    "locale": "gl",
+    "key": "card-members-title",
+    "value": "Engadir ou eliminar membros do taboleiro na tarxeta.",
+    "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
+  },
+  {
+    "locale": "gl",
+    "key": "poker-delete-pop",
+    "value": "A eliminación é permanente. Perderás todas as accións asociadas a este planning poker.",
+    "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
+  },
+  {
+    "locale": "gl",
+    "key": "cardDeletePopup-title",
+    "value": "Eliminar a tarxeta?",
+    "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
+  },
+  {
+    "locale": "gl",
+    "key": "cardArchivePopup-title",
+    "value": "Arquivar a tarxeta?",
+    "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
+  },
+  {
+    "locale": "gl",
+    "key": "cardDetailsActionsPopup-title",
+    "value": "Accións da tarxeta",
+    "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
+  },
+  {
+    "locale": "gl",
+    "key": "bookmarksPopup-title",
+    "value": "Taboleiros favoritos",
+    "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
+  },
+  {
+    "locale": "gl",
+    "key": "cards-count-one",
+    "value": "Tarxeta",
+    "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
+  },
+  {
+    "locale": "gl",
+    "key": "cardType-card",
+    "value": "Tarxeta",
+    "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
+  },
+  {
+    "locale": "gl",
+    "key": "cardType-linkedCard",
+    "value": "Tarxeta ligada",
+    "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
+  },
+  {
+    "locale": "gl",
+    "key": "cardType-linkedBoard",
+    "value": "Taboleiro ligado",
+    "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
+  },
+  {
+    "locale": "gl",
+    "key": "checklists",
+    "value": "Listas de verificación",
+    "reason": "2026-09-14: Direct semantic review confirms board views, card deletion permanence, activity loss and no-undo warnings versus reversible archive behavior. Card/list/lane visibility and restore location, board-member scope, linked types and checklist labels retained accurately; planning poker remains the feature name."
   }
 ]
