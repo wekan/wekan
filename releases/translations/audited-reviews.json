@@ -18784,5 +18784,185 @@
     "key": "duenow",
     "value": "a data de vencemento actual %s é hoxe",
     "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "act-newDue",
+    "value": "__list__/__card__ ten o 1º recordatorio de vencemento [__board__]",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "act-withDue",
+    "value": "__list__/__card__ recordatorios de vencemento [__board__]",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "act-almostdue",
+    "value": "estaba a lembrar que o vencemento actual (__timeValue__) de __card__ está a achegarse",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "act-pastdue",
+    "value": "estaba a lembrar que o vencemento actual (__timeValue__) de __card__ xa pasou",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "act-duenow",
+    "value": "estaba a lembrar que o vencemento actual (__timeValue__) de __card__ é agora",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "accounts-allowUserDelete",
+    "value": "Permitir aos usuarios eliminar a súa propia conta",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "show-desktop-drag-handles",
+    "value": "Mostrar os tiradores de arrastre de escritorio",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "assignee",
+    "value": "Asignado",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "assignees",
+    "value": "Asignados",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "no-assignee",
+    "value": "Sen asignado",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "cardAssigneesPopup-title",
+    "value": "Asignado",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "editOrgPopup-title",
+    "value": "Editar organización",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "newOrgPopup-title",
+    "value": "Nova organización",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "editTeamPopup-title",
+    "value": "Editar equipo",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "newTeamPopup-title",
+    "value": "Novo equipo",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "editUserPopup-title",
+    "value": "Editar usuario",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "newUserPopup-title",
+    "value": "Novo usuario",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "notifications",
+    "value": "Notificacións",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "help",
+    "value": "Axuda",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "view-all",
+    "value": "Ver todo",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "mark-all-as-read",
+    "value": "Marcar todas como lidas",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "remove-all-read",
+    "value": "Eliminar todas as lidas",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "allow-rename",
+    "value": "Permitir renomear",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "allowRenamePopup-title",
+    "value": "Permitir renomear",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "start-day-of-week",
+    "value": "Establecer o día de inicio da semana",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "monday",
+    "value": "Luns",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "tuesday",
+    "value": "Martes",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "wednesday",
+    "value": "Mércores",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "thursday",
+    "value": "Xoves",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "friday",
+    "value": "Venres",
+    "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
   }
 ]
