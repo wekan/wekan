@@ -601,7 +601,7 @@ complete translation wording still needs fluent review.
 This release fixes the following activity rendering:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/02f233649">Use the shared viewer for card and sidebar activities</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e5937d531">Use the shared viewer for card and sidebar activities</a>. Thanks to xet7.</summary>
 
 Render activity values as Markdown, emojis and permitted HTML using the
 existing viewer. Preserve plain-source behavior; sanitize completed activity
@@ -616,7 +616,7 @@ live. No sanitizer permissions or URL schemes were broadened.
 This release adds the following translation improvements:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/4ceda3332">Repair Tamazight text-editing label</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0b8895ab8">Repair Tamazight text-editing label</a>. Thanks to xet7.</summary>
 
 Remove the extra first qualifier from Edit as text using native edit/text
 components. Complete phrasing and bound spelling remain low confidence.
@@ -627,7 +627,7 @@ checklist wording still needs reference and dialect review.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/9722e1615">Translate Tamazight description and all-users choices</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/4dd56bc53">Translate Tamazight description and all-users choices</a>. Thanks to xet7.</summary>
 
 Replace French and Arabic using native component terms. The full
 more-detailed-description phrase remains low confidence; combined all-users
