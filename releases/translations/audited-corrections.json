@@ -124801,5 +124801,19 @@
     "before": "Actions sur la checklist",
     "after": "ⵜⵉⴳⴰⵡⵉⵏ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
     "reason": "2026-09-14: Replace Arabic Add Checklist or French Checklist Actions with native action components, preserving whole checklist rather than individual item and plural Actions. Native MediaWiki actions directly supplies tigawin and create-local rnu Add; watchlist supplies talgamt List. Reuse proposed List of Verification paraphrase for consistency. LOW CONFIDENCE derived verification noun/bound form ussidd and full checklist paraphrase/grammar remain unresolved for fluent Standard Moroccan review; the noun is not directly attested in current source. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "confirm-checklist-delete-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer la checklist ?",
+    "after": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ?",
+    "reason": "2026-09-14: Replace French checklist deletion confirmation preserving the Are you sure question and whole-checklist versus single-item distinction. Native Mastodon confirmations.delete.message directly supplies complete question/deletion frame; load_pending attests bound singular ufrdis Item, supporting adapted free afrdis. LOW CONFIDENCE free/bound adaptation, derived verification noun ussidd and full checklist paraphrase/noun-chain grammar require fluent Standard Moroccan review. Native question frame does not attest full checklist phrase. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "confirm-checklist-item-delete-popup",
+    "before": "Êtes-vous sûr de vouloir supprimer l'élément de la check-list ?",
+    "after": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⴰⴼⵔⴷⵉⵙ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ?",
+    "reason": "2026-09-14: Replace French checklist deletion confirmation preserving the Are you sure question and whole-checklist versus single-item distinction. Native Mastodon confirmations.delete.message directly supplies complete question/deletion frame; load_pending attests bound singular ufrdis Item, supporting adapted free afrdis. LOW CONFIDENCE free/bound adaptation, derived verification noun ussidd and full checklist paraphrase/noun-chain grammar require fluent Standard Moroccan review. Native question frame does not attest full checklist phrase. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
