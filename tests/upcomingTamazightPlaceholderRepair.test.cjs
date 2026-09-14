@@ -440,3 +440,8 @@ assert.strictEqual(translated["custom-manifest-enabled"], "ⵙⵙⵔⴼⵓ web m
 
 assert.strictEqual(translated["custom-head-manifest-content"], "ⴰⴽⵜⵜⵓⵔ ⵏ web manifest ⵉⵥⵍⵉⵏ (JSON)");
 assert.doesNotMatch(translated['custom-head-manifest-content'], /Contenu|personnalisé|[\u0600-\u06ff]/u);
+
+assert.strictEqual(translated["legalNotice"], "ⵜⵓⵙⵎⵉⵔⵜ ⵜⴰⵣⵔⴼⴰⵏⵜ");
+
+assert.strictEqual(translated["custom-legal-notice-link-url"], "URL ⵏ ⵜⴰⵙⵏⴰ ⵏ ⵜⵓⵙⵎⵉⵔⵜ ⵜⴰⵣⵔⴼⴰⵏⵜ ⵜⵉⵥⵍⵉⵏ");
+assert.doesNotMatch(translated.legalNotice + translated['custom-legal-notice-link-url'], /mentions|légales|[\u0600-\u06ff]/u);

@@ -138899,5 +138899,19 @@
     "before": "Contenu du manifeste web personnalisé (JSON)",
     "after": "ⴰⴽⵜⵜⵓⵔ ⵏ web manifest ⵉⵥⵍⵉⵏ (JSON)",
     "reason": "2026-09-15: Replace French with attested activate/content words and existing custom qualifier. Borrowed web manifest preserves technical identity; full compound low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "legalNotice",
+    "before": "إشعار قانوني",
+    "after": "ⵜⵓⵙⵎⵉⵔⵜ ⵜⴰⵣⵔⴼⴰⵏⵜ",
+    "reason": "2026-09-15: Replace wrong-language legal-notice wording using IRCAM notice and legal components; derived feminine adjective and full compound low confidence. Preserve URL and custom-page scope."
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-legal-notice-link-url",
+    "before": "URL de la page des mentions légales personnalisées",
+    "after": "URL ⵏ ⵜⴰⵙⵏⴰ ⵏ ⵜⵓⵙⵎⵉⵔⵜ ⵜⴰⵣⵔⴼⴰⵏⵜ ⵜⵉⵥⵍⵉⵏ",
+    "reason": "2026-09-15: Replace wrong-language legal-notice wording using IRCAM notice and legal components; derived feminine adjective and full compound low confidence. Preserve URL and custom-page scope."
   }
 ]
