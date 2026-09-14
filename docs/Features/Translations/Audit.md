@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,332 |
+| Corrected | 15,333 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 512 |
+| Pending review or repair | 511 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,646** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,647** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `1f90298b2` — replaced the French Tamazight due-today status, restoring the source current qualifier and preserving `%s`. Native today/current/copula vocabulary supports components. Deadline-specific meaning of existing due-date terminology and full status syntax remain **low confidence** pending fluent review. All **17,646** correction/rendering checks pass. **512** originals remain pending across **17** locales, including **376** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `cfa7b6ed0` — replaced the French Tamazight search-instructions heading. Indexed native education-council directives vocabulary supports a component, but direct page retrieval returned 403. Institutional directives to software guidance adaptation and full heading remain **low confidence** pending fluent review. All **17,647** correction/rendering checks pass. **511** originals remain pending across **17** locales, including **375** Tamazight. Restored/unflagged values, the 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Memory reference follow-up (2026-09-14):** [Moroccan hardware site](https://pcpicker.ma/prebuilts?lang=zgh) directly uses `ⵜⴰⴽⴰⵜⵓⵜ (RAM)`. This independently corroborates computer-memory usage after correcting the CNAM dialect attribution; it does not establish canonical Standard Moroccan terminology. Translation authorship/review is unknown and CPU labels vary on the page. Added evidence to three memory correction records, retaining low-confidence and renewed-review requirements. No locale values or counts changed. Further review must validate full diagnostics, free/allocated memory distinctions and grammatical adaptation.
 
