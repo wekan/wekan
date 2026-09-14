@@ -22347,3 +22347,10 @@ Recibida and Recibida o. cardDetails.jade/cardDate.js describe the feminine
 tarxeta and its date. Thirty lockout/scheduler values retain correct meanings.
 Exact positive/negative corrections and unchanged-review checks pass.
 Browser rendering, shared rule agreement and full language review remain open.
+
+### 2026-09-14 — Galician migration retries and backups
+
+Local commit `4e3802901` retains 30 correct migration retry/resume messages,
+backup completion/scheduling/listing, storage and migration control labels.
+Success/failure/absence polarity and GridFS identifiers are preserved.
+Exact unchanged-review checks pass; full language/browser scope remains open.

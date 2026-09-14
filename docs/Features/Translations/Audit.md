@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,565 |
-| Restored pre-pull; awaiting validation | 862 |
-| Reviewed; retained unchanged | 3,346 |
+| Restored pre-pull; awaiting validation | 832 |
+| Reviewed; retained unchanged | 3,376 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -18,12 +18,12 @@ source references, confidence limits and archived progress notes.
 Latest translation fix: **2026-09-14**, local commit `cfc2480e5` —
 corrected feminine card agreement in two Galician Received captions.
 Retained 30 correct lockout and scheduled-job values.
-All **18,165** correction and **3,346** review records pass.
+All **18,165** correction and **3,376** review records pass.
 Attachment/member rule participles still need context-specific agreement.
 Three Esperanto restored findings remain: lime color and two Complete labels.
 Broader language and browser verification remain open; nothing pushed.
-Latest unchanged review: **2026-09-14**, commit `cfc2480e5` — retained
-30 Galician lockout and scheduled-job labels.
+Latest unchanged review: **2026-09-14**, commit `4e3802901` — retained
+30 Galician migration retry/resume, backup and storage labels.
 Galician export free wording remains open pending context.
 Galician Complete and migration-complete wording remain open pending context.
 Card-show-lists context is verified against its settings row and toggle.

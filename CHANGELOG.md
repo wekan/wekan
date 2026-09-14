@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,562 corrected, 862 restored pre-pull values awaiting
-validation, 3,346 reviewed and retained, and 308 pending review or repair.
+findings: 15,562 corrected, 832 restored pre-pull values awaiting
+validation, 3,376 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,165 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
@@ -1121,6 +1121,17 @@ Thanks to xet7 !
 Two Received captions now agree with the feminine card noun. Retained
 30 correct lockout, scheduler and diagnostic values. Exact correction,
 placeholder and unchanged-review checks pass; browser review remains open.
+
+Thanks to xet7 !
+
+</details>
+
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4e3802901">Validate Galician migration retry and backup labels.</a></summary>
+
+Retained 30 correct retry/resume, completion, backup, storage and migration
+control values. Exact review checks pass; broader language review remains open.
 
 Thanks to xet7 !
 
