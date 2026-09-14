@@ -162,3 +162,15 @@ assert.equal(locales.zgh.almostdue, 'ⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⴰⴷ %
 assert.deepEqual(locales.zgh.almostdue.match(/%s/g), ['%s']);
 assert.doesNotMatch(locales.zgh.almostdue, /échéance|approche|ⵉⵣⵔⵉ/);
 assert.notEqual(locales.zgh.almostdue, locales.zgh.pastdue);
+
+const swimlaneHeightLabels = {
+  "set-swimlane-height": "ⵙⵔⵙ ⵜⵉⵖⵣⵉ ⵏ ⵓⴱⵔⵉⴷ",
+  "setSwimlaneHeightPopup-title": "ⵙⵔⵙ ⵜⵉⵖⵣⵉ ⵏ ⵓⴱⵔⵉⴷ",
+  "set-swimlane-height-value": "ⵜⵉⵖⵣⵉ ⵏ ⵓⴱⵔⵉⴷ (px)"
+};
+for (const [key, value] of Object.entries(swimlaneHeightLabels)) {
+  assert.equal(locales.zgh[key], value);
+  assert.doesNotMatch(locales.zgh[key], /[\u0600-\u06ff]/);
+}
+assert.equal(locales.zgh['set-swimlane-height'], locales.zgh['setSwimlaneHeightPopup-title']);
+assert.match(locales.zgh['set-swimlane-height-value'], /\(px\)$/);
