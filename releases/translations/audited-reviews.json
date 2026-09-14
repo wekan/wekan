@@ -6172,5 +6172,353 @@
     "key": "webhook-token",
     "value": "Ĵetono (laŭvola por aŭtentigo)",
     "reason": "Direct Esperanto review confirms role restrictions, public/private visibility, participation notifications, shortcut actions, WIP warnings, logo settings and SMTP instructions. Preserve creator/member distinctions, numeric shortcut ranges, unsaved-description warnings, URLs, default logo height and invitation tokens. Correct source meaning and grammar are retained without stylistic replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "boardCardTitlePopup-title",
+    "value": "Filtrilo de kartaj titoloj",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "OS_Arch",
+    "value": "Arkitekturo de OS",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "OS_Cpus",
+    "value": "Nombro de CPU-oj de OS",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "OS_Freemem",
+    "value": "Libera memoro de OS",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "OS_Loadavg",
+    "value": "Meza ŝarĝo de OS",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "OS_Platform",
+    "value": "Platformo de OS",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "OS_Release",
+    "value": "Eldono de OS",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "OS_Totalmem",
+    "value": "Tuta memoro de OS",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "OS_Uptime",
+    "value": "Funkcidaŭro de OS",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "show-field-on-card",
+    "value": "Montri ĉi tiun kampon sur karto",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "automatically-field-on-card",
+    "value": "Aldoni kampon al novaj kartoj",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "always-field-on-card",
+    "value": "Aldoni kampon al ĉiuj kartoj",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "showLabel-field-on-card",
+    "value": "Montri kampan etikedon sur minikarto",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts-allowUserNameChange",
+    "value": "Ŝanĝo de uzantnomo",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "card-sorting-by-number",
+    "value": "Ordigo de kartoj laŭ numero",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "board-delete-notice",
+    "value": "Forigo estas definitiva. Vi perdos ĉiujn listojn, kartojn kaj agojn ligitajn al ĉi tiu tabulo.",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "delete-board-confirm-popup",
+    "value": "Ĉiuj listoj, kartoj, etikedoj kaj aktivaĵoj estos forigitaj kaj vi ne povos restarigi la enhavon de la tabulo. Ne eblas malfari.",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "boardDeletePopup-title",
+    "value": "Ĉu forigi tabulon?",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "delete-board",
+    "value": "Forigi tabulon",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "card-settings",
+    "value": "Agordoj de karto",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "minicard-settings",
+    "value": "Agordoj de minikarto",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "boardCardSettingsPopup-title",
+    "value": "Agordoj de karto",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "boardMinicardSettingsPopup-title",
+    "value": "Agordoj de minikarto",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "show-parent-in-minicard",
+    "value": "Montri patron en minikarto:",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "cover-attachment-on-minicard",
+    "value": "Kovrilbildo sur minikarto",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "badge-attachment-on-minicard",
+    "value": "Nombro de aldonaĵoj sur minikarto",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "card-sorting-by-number-on-minicard",
+    "value": "Ordigo de kartoj laŭ numero sur minikarto",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "change-card-parent",
+    "value": "Ŝanĝi patron de karto",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "parent-card",
+    "value": "Patra karto",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "source-board",
+    "value": "Fonta tabulo",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "no-parent",
+    "value": "Ne montri patron",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-added-label",
+    "value": "aldonis etikedon '%s' al %s",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-removed-label",
+    "value": "forigis etikedon '%s' el %s",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-delete-attach",
+    "value": "forigis aldonaĵon el %s",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-added-label-card",
+    "value": "aldonis etikedon '%s'",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-removed-label-card",
+    "value": "forigis etikedon '%s'",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-delete-attach-card",
+    "value": "forigis aldonaĵon",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "r-add-trigger",
+    "value": "Aldoni ekigilon",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "r-add-action",
+    "value": "Aldoni agon",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "r-board-rules",
+    "value": "Tabulaj reguloj",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "r-board",
+    "value": "Tabulo",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "r-when-a-card",
+    "value": "Kiam karto",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "r-added-to",
+    "value": "Aldonita al",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "r-removed-from",
+    "value": "Forigita el",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "r-the-board",
+    "value": "la tabulo",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "r-unarchived",
+    "value": "Restarigita el Arkivo",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "r-a-card",
+    "value": "karto",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "r-when-a-label-is",
+    "value": "Kiam etikedo estas",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "r-when-a-checklist",
+    "value": "Kiam kontrollisto estas",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "r-move-card-to",
+    "value": "Movi karton al",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "r-unarchive",
+    "value": "Restarigi el Arkivo",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "r-card",
+    "value": "karto",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "r-remove-all",
+    "value": "Forigi ĉiujn membrojn de la karto",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "r-d-move-to-top-gen",
+    "value": "Movi karton al la supro de ĝia listo",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "r-d-move-to-top-spec",
+    "value": "Movi karton al la supro de listo",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "r-d-move-to-bottom-gen",
+    "value": "Movi karton al la malsupro de ĝia listo",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "r-d-move-to-bottom-spec",
+    "value": "Movi karton al la malsupro de listo",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
+  },
+  {
+    "locale": "eo",
+    "key": "r-d-archive",
+    "value": "Movi karton al Arkivo",
+    "reason": "Direct Esperanto review confirms OS metric distinctions, custom-field application scope, card/board settings, parent/source relationships, label/attachment activities and rule action directions. Preserve new versus all cards, free versus total memory, top versus bottom and own versus specified list. Permanent board deletion and no-recovery warnings remain explicit; placeholders retain exact spelling and count."
   }
 ]
