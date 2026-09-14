@@ -1372,5 +1372,185 @@
     "key": "operator-status-invalid",
     "value": "'%s' er ikke en gyldig status",
     "reason": "2026-09-14: Direct complete Danish wording review; retain correct translation unchanged. Confirm source meaning, including no-undo team/organization deletion, automatic domain-based users, my-card sorting, all users and incomplete due-date cards only from permitted boards, not-found subjects, activity location chain and search/operator errors as applicable. Preserve underscore/percent placeholders, quoting and Markdown emphasis. Shared kanban svømmebane terminology is understandable and does not justify replacing valid Danish."
+  },
+  {
+    "locale": "da",
+    "key": "operator-has-invalid",
+    "value": "%s er ikke en gyldig eksistenskontrol",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "operator-limit-invalid",
+    "value": "%s er ikke en gyldig grænse. Grænsen skal være et positivt heltal.",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "operator-debug-invalid",
+    "value": "%s er ikke et gyldigt fejlsøgningsprædikat",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-description",
+    "value": "Søgninger kan indeholde operatorer for at forfine søgningen. Operatorer angives ved at skrive operatorens navn og værdi adskilt af et kolon. For eksempel vil operatorangivelsen `list:Blocked` begrænse søgningen til kort, der ligger i en liste med navnet *Blocked*. Hvis værdien indeholder mellemrum eller specialtegn, skal den omsluttes af anførselstegn (f.eks. `__operator_list__:\"To Review\"`).",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-operator-board",
+    "value": "`__operator_board__:<title>` - kort i tavler, der matcher den angivne *<title>*",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-operator-hash",
+    "value": "`__operator_label_abbrev__<name|color>` - forkortelse for `__operator_label__:<color>` eller `__operator_label__:<name>`",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-operator-user",
+    "value": "`__operator_user__:<username>` - kort, hvor *<username>* er *medlem* eller *tildelt*",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-operator-at",
+    "value": "`__operator_user_abbrev__username` - forkortelse for `user:<username>`",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-operator-member",
+    "value": "`__operator_member__:<username>` - kort, hvor *<username>* er *medlem*",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-operator-assignee",
+    "value": "`__operator_assignee__:<username>` - kort, hvor *<username>* er *tildelt*",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-operator-org",
+    "value": "`__operator_org__:<display name|short name>` - kort, der hører til en tavle tilknyttet organisationen *<name>*",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-operator-team",
+    "value": "`__operator_team__:<display name|short name>` - kort, der hører til en tavle tilknyttet teamet *<name>*",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-operator-due",
+    "value": "`__operator_due__:<n>` - kort, der forfalder inden for *<n>* dage fra nu. `__operator_due__:__predicate_overdue__ viser alle kort, der har overskredet deres forfaldsdato.",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-operator-created",
+    "value": "`__operator_created__:<n>` - kort, der blev oprettet for *<n>* dage siden eller mindre",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-operator-modified",
+    "value": "`__operator_modified__:<n>` - kort, der blev ændret for *<n>* dage siden eller mindre",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-operator-status",
+    "value": "`__operator_status__:<status>` - hvor *<status>* er en af følgende:",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-status-all",
+    "value": "`__predicate_all__` - alle arkiverede og ikke-arkiverede kort",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-status-public",
+    "value": "`__predicate_public__` - kun kort i offentlige tavler",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-status-private",
+    "value": "`__predicate_private__` - kun kort i private tavler",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-operator-has",
+    "value": "`__operator_has__:<field>` - hvor *<field>* er en af `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` eller `__predicate_member__`. Et `-` foran *<field>* søger efter kort, hvor feltet ikke har nogen værdi (f.eks. søger `has:-due` efter kort uden forfaldsdato).",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-operator-sort",
+    "value": "`__operator_sort__:<sort-name>` - hvor *<sort-name>* er en af `__predicate_due__`, `__predicate_created__` eller `__predicate_modified__`. Sæt et `-` foran sorteringsnavnet for faldende sortering.",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-operator-limit",
+    "value": "`__operator_limit__:<n>` - hvor *<n>* er et positivt heltal, der angiver antallet af kort, som vises pr. side.",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-notes-3-2",
+    "value": "Dage kan angives som et positivt eller negativt heltal eller med `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` eller `__predicate_year__` for den aktuelle periode.",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-notes-4",
+    "value": "Tekstsøgninger skelner ikke mellem store og små bogstaver.",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "globalSearch-instructions-notes-5",
+    "value": "Som standard søges der ikke i arkiverede kort.",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "link-to-search",
+    "value": "Link til denne søgning",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "server-error-troubleshooting",
+    "value": "Indsend venligst den fejl, serveren har genereret.\nFor en snap-installation, kør: `sudo snap logs wekan.wekan`\nFor en Docker-installation, kør: `sudo docker logs wekan-app`",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "now-activities-of-all-boards-are-hidden",
+    "value": "Nu er alle aktiviteter på alle tavler skjult",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "move-swimlane",
+    "value": "Flyt svømmebane",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
+  },
+  {
+    "locale": "da",
+    "key": "moveSwimlanePopup-title",
+    "value": "Flyt svømmebane",
+    "reason": "2026-09-14: Direct complete Danish source-meaning review; retain unchanged. Confirm existence/limit/debug errors, operator syntax and examples, member or assignee scope, organization/team assignment, due from now and all overdue, inclusive created/modified age, archive/public/private status, missing-value minus, descending-sort minus, positive per-page limit, signed day/current period, case-insensitivity, archive default, exact troubleshooting commands, all-board activity hiding and swimlane move as applicable. Preserve source tokens, literal examples and Markdown. This validates Danish source correspondence, not independent correctness of parser behavior or source Markdown."
   }
 ]
