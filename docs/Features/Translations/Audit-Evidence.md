@@ -22984,3 +22984,11 @@ wording urzh dre zorn is a direct adaptation, not an attested complete UI
 phrase. All 18,378 correction and 4,158 unchanged checks pass. Native
 mutation/phrase and browser checks remain open. Original pending/restored
 scope stays 300/27, with broader unflagged review still required.
+
+Dated unflagged repair, 2026-09-14, local commit `14cb8393b`: 11 Breton
+organization, watch and read labels replace French. Reuse existing aozadurioù,
+disable-watch's evezhiañ, storage-read's Lenn and mark-all-as-unread pattern.
+Preserve watch/unwatch, read/unread and organization create/edit distinctions.
+All 18,389 correction and 4,158 unchanged checks pass. Complete phrase
+inflection and rendered interaction remain unverified; original pending and
+restored scope stays 300/27. Broader unflagged/native review remains open.
