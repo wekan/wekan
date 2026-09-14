@@ -138983,5 +138983,12 @@
     "before": "حذف المرق هو حذف نهائي . لا يمكن التراجع إذا حذف.",
     "after": "ⵔⴰⴷ ⵉⵜⵜⵓⴽⴽⵙ ⵓⴼⴰⵢⵍⵓ ⵢⵔⵏⴰⵏ ⵙ ⵓⵎⵖⵍⴰⵍ. ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⴰⵔⴷ ⴷ ⴰⵢⴰ.",
     "reason": "2026-09-15: Replace Arabic legacy permanent attachment warning. Added-file paraphrase avoids ambiguous emotional attachment noun; attested permanent bound noun and existing no-undo clause used. Full adverbial/passive grammar low confidence; active soft-delete message unchanged."
+  },
+  {
+    "locale": "zgh",
+    "key": "delete-linked-card-before-this-card",
+    "before": "Vous ne pouvez pas supprimer cette carte avant d'avoir d'abord supprimé la carte liée qui a",
+    "after": "ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⵜⴰⴽⴰⵕⴹⴰ ⴰⴷ ⴷⴰⵜ ⴰⴷ ⵜⴽⴽⵙⴷ ⵜⴰⴽⴰⵕⴹⴰ ⵉⵣⴷⵉⵏ ⵏⵏⴰ ⴷⴰⵔⵙ",
+    "reason": "2026-09-15: Replace French deletion-dependency fragment using existing cannot-delete pattern, before and attested attach/link verb. Retain has continuation before linkedId. Linked participle and full subordinate grammar low confidence."
   }
 ]
