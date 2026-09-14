@@ -28,10 +28,9 @@ repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
-Latest terminology review: **2026-09-14**, `3eaad375b` — retained
-Tamazight email warning gains email-specific native software evidence.
-Full agreement/browser review remains open; invitation acceptance wording
-is unresolved. Values/counts are unchanged. See [Tamazight review](Tamazight-Review.md).
+Latest terminology review: **2026-09-14**, `e1ab5e4fa` — a primary
+2007 Veps dictionary page visibly confirms the inheritance verb. The complete
+parent-card instruction still needs grammar/context review; no counts changed.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

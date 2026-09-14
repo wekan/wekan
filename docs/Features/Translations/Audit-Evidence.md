@@ -26184,3 +26184,9 @@ reversed Finnish Show wording replaced with a complete Veps Hide draft.
 and low-confidence agreement/spelling. Ten tests across five files pass
 for labels, filter source wiring, placeholders and translation preference.
 Ledger 18,823; original pending 233 unchanged. Native/browser review is open.
+
+Veps primary inheritance evidence **2026-09-14**, local commit `e1ab5e4fa`:
+visually verified page 253 of Zaiceva/Mullonen's 2007 Russian–Veps dictionary
+for the inheritance verb. [Veps review](Veps-Review.md) records sources,
+extraction/rendering limits and the unresolved complete parent-card phrase.
+No locale values or counts changed; original pending remains 233.

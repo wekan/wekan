@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e1ab5e4fa">Verify Veps inheritance terminology from a primary dictionary</a>. Thanks to xet7.</summary>
+
+The dated audit records a visually verified inheritance verb from the 2007
+Russian–Veps dictionary. Complete parent-card instruction grammar remains
+under review. No locale values or completion counts changed.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3a10fb927">Correct reversed Veps Hide Empty Lists wording</a>. Thanks to xet7.</summary>
 
 The label now describes hiding empty lists instead of showing them. The
