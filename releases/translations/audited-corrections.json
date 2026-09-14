@@ -127272,5 +127272,26 @@
     "before": "Amaga els elements marcats de la checklist",
     "after": "Amaga els elements marcats de la llista de verificació",
     "reason": "Replace mixed English checklist in ordinary visibility label with existing llista de verificació; preserve checked-item-only scope, not all items or completed lists."
+  },
+  {
+    "locale": "sv",
+    "key": "dueCards-title",
+    "before": "Förfallna kort",
+    "after": "Kort med förfallodatum",
+    "reason": "Due Cards includes cards with any dueAt, including future deadlines; förfallna incorrectly restricts meaning to overdue. Use kort med förfallodatum, matching actual dueCards.js selector and dueCardsLogic.js sort without a past-date restriction."
+  },
+  {
+    "locale": "sv",
+    "key": "dueCardsViewChange-title",
+    "before": "Vy för förfallna kort",
+    "after": "Vy för kort med förfallodatum",
+    "reason": "Due Cards includes cards with any dueAt, including future deadlines; förfallna incorrectly restricts meaning to overdue. Use kort med förfallodatum, matching actual dueCards.js selector and dueCardsLogic.js sort without a past-date restriction."
+  },
+  {
+    "locale": "sv",
+    "key": "dueCardsViewChangePopup-title",
+    "before": "Vy för förfallna kort",
+    "after": "Vy för kort med förfallodatum",
+    "reason": "Due Cards includes cards with any dueAt, including future deadlines; förfallna incorrectly restricts meaning to overdue. Use kort med förfallodatum, matching actual dueCards.js selector and dueCardsLogic.js sort without a past-date restriction."
   }
 ]
