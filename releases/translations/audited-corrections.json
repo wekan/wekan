@@ -131507,5 +131507,19 @@
     "before": "Islamic tabular",
     "after": "Qaammatisiutit Hijri (tabelit tunngavigalugit, ulloriarsiornerup aallartiffia: sisamanngorneq)",
     "reason": "2026-09-14: Replace abbreviated English tabular Hijri label with complete Greenlandic explanatory draft. Official Secretariat glossary calendar qaammatisiutit/astronomy ulloriarsiorneq; 2023-8 committee approves mathematical tables tabelit; 2025-8 approves start date aallartiffik. ICU explicitly defines civil Friday versus astronomical Thursday epochs, retained as native weekday epoch descriptions. Low confidence: table-based phrase, astronomy possessive and epoch paraphrase need native review. Civil reference is explained by its defining Friday epoch, not mistranslated as civilian people. Algorithms unchanged."
+  },
+  {
+    "locale": "zgh",
+    "key": "admin-people-user-active",
+    "before": "L'utilisateur est activé - Cliquer pour le désactiver",
+    "after": "ⴰⵏⵙⵙⵎⵔⵙ: ⵉⵥⵡⵕ – ⴽⵍⵉⴽⵉ ⴰⴼⴰⴷ ⴰⴷ ⵜ ⵜⵙⵙⵏⵙⴷ",
+    "reason": "2026-09-14: Replace French account-state/click-action tooltip with complete Tamazight draft matching loginDisabled boolean branches. IRCAM Amazigh-English user anssmrs PDF 186 entry 3493, click kliki PDF 333 entry 6391, activate ssrfu PDF 537 entry 10106, be active zwr PDF 727 entry 13652, switch off ssns PDF 532 entry 10015. Low confidence: state verb finite/negative morphology, second-person purpose clause and switch-off software deactivation metaphor require native/browser review. Preserve user state and opposite click action; not permanent-user terminology."
+  },
+  {
+    "locale": "zgh",
+    "key": "admin-people-user-inactive",
+    "before": "L'utilisateur est désactivé - Cliquer pour l'activer",
+    "after": "ⴰⵏⵙⵙⵎⵔⵙ: ⵓⵔ ⵉⵥⵡⵉⵕ – ⴽⵍⵉⴽⵉ ⴰⴼⴰⴷ ⴰⴷ ⵜ ⵜⵙⵙⵔⴼⵓⴷ",
+    "reason": "2026-09-14: Replace French account-state/click-action tooltip with complete Tamazight draft matching loginDisabled boolean branches. IRCAM Amazigh-English user anssmrs PDF 186 entry 3493, click kliki PDF 333 entry 6391, activate ssrfu PDF 537 entry 10106, be active zwr PDF 727 entry 13652, switch off ssns PDF 532 entry 10015. Low confidence: state verb finite/negative morphology, second-person purpose clause and switch-off software deactivation metaphor require native/browser review. Preserve user state and opposite click action; not permanent-user terminology."
   }
 ]

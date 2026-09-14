@@ -353,3 +353,12 @@ assert.doesNotMatch(locales.zgh['step-convert-shared-lists'], /Convertir|partag�
 assert.equal(locales.zgh.duration, 'ⴰⵣⵎⵣ');
 assert.equal(locales.zgh['estimated-time-remaining'], 'ⴰⵙⵓⵜⴳ ⵏ ⵓⵣⵎⵣ ⵍⵍⵉ ⵇⵇⵉⵎⵏ');
 assert.doesNotMatch(locales.zgh.duration + locales.zgh['estimated-time-remaining'], /Durée|Temps|restant|estimé/);
+
+assert.equal(locales.zgh['admin-people-user-active'], 'ⴰⵏⵙⵙⵎⵔⵙ: ⵉⵥⵡⵕ – ⴽⵍⵉⴽⵉ ⴰⴼⴰⴷ ⴰⴷ ⵜ ⵜⵙⵙⵏⵙⴷ');
+assert.doesNotMatch(locales.zgh['admin-people-user-active'], /utilisateur|Cliquer|ⴰⵎⵖⵍⴰⵍ/);
+
+assert.equal(locales.zgh['admin-people-user-inactive'], 'ⴰⵏⵙⵙⵎⵔⵙ: ⵓⵔ ⵉⵥⵡⵉⵕ – ⴽⵍⵉⴽⵉ ⴰⴼⴰⴷ ⴰⴷ ⵜ ⵜⵙⵙⵔⴼⵓⴷ');
+assert.doesNotMatch(locales.zgh['admin-people-user-inactive'], /utilisateur|Cliquer|ⴰⵎⵖⵍⴰⵍ/);
+
+assert.doesNotMatch(locales.zgh['admin-people-user-active'], /ⵜⵙⵙⵔⴼⵓⴷ/);
+assert.doesNotMatch(locales.zgh['admin-people-user-inactive'], /ⵜⵙⵙⵏⵙⴷ/);
