@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,329 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 515 pending review or repair.
-The correction inventory records 17,643 exact before/after values,
+findings: 15,330 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 514 pending review or repair.
+The correction inventory records 17,644 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is eb7efa06f (2026-09-14), replacing Arabic/French
-Tamazight announcement labels. Full administrator attribution and the
-separate active system-wide qualifier still need language review.
+Latest translation fix is e0ffa0088 (2026-09-14), replacing the English-only
+Dzongkha Coptic calendar label using native dictionary vocabulary. Full
+compound spelling and three Hijri variants still need language review.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -588,7 +588,7 @@ need language review.
 
 This release includes the following translation repairs and build verification:
 
-**Translations** - Tamazight interface and maintenance labels; Bambara and Fulah calendars.
+**Translations** - Tamazight interface and maintenance labels; Bambara, Fulah and Dzongkha calendars.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fd6ae82a5">Repair Tamazight rule report and popup wording</a>. Thanks to xet7.</summary>
@@ -614,10 +614,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,329 original findings are
+Translation audit progress as of 2026-09-14: 15,330 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 515 remain pending across 17 locales, including 377 Tamazight findings.
-The ledger contains 17,643 correction records, including unflagged repairs.
+and 514 remain pending across 17 locales, including 377 Tamazight findings.
+The ledger contains 17,644 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -1257,6 +1257,17 @@ native Moroccan announcement vocabulary, including one unflagged repair.
 Full administrator attribution remains low confidence; the separate active
 system-wide qualifier remains unresolved. All 17,643 correction/rendering
 checks pass; 515 originals remain pending. Broader language review continues.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e0ffa0088">Translate Dzongkha Coptic calendar label</a>. Thanks to xet7.</summary>
+
+Replace English-only Coptic text with native dictionary vocabulary and the
+existing calendar compound pattern. Coptic identity is preserved; complete
+compound spelling remains low confidence pending fluent review. All 17,644
+correction/rendering checks pass; 514 originals remain pending, including
+three Dzongkha Hijri variants. Broader language validation continues.
 
 </details>
 
