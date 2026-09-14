@@ -1,5 +1,19 @@
 # Detailed translation audit evidence
 
+2026-09-14 — allocation/context visual follow-up: directly inspected
+CNAM PDF18 and PDF41 local renders, superseding the previous text-only
+status for these entries. Allocation is Aḥeṛṛi (KBL root ḥeṛṛ), visibly
+confirming emphatic ḥ and doubled ṛ; the extracted Aêeôôi is not the native
+spelling. Context is Tawennaṭ (plural tiwennaḍin, environment MW), visibly
+confirming final emphatic ṭ and plural ḍ rather than extraction substitutions.
+MW is modern lexicon, not MediaWiki. These are cross-variety candidates,
+not independent Moroccan diagnostic phrases. Allocation does not by itself
+establish malloced memory or peak malloced memory; Context does not by itself
+establish native or detached V8 contexts. Preserve those modifiers and exact
+Node identifiers during repairs. No translation values, correction records
+or counts changed; original pending remains 311, including 176 Tamazight.
+Reference: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf
+
 2026-09-14 — Node heap terminology review: directly inspected rendered
 CNAM Amawal PDF139/printed135. Heap is Tirect KBL/MAT, plural tirac;
 its c is the Kabyle spelling convention, requiring careful Tifinagh adaptation
