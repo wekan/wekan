@@ -126075,5 +126075,33 @@
     "before": "ⵉⵛⴰⵔⴻⵏ S3 ⵜⵜⵡⴰⵃⴻⵔⵣⴻⵏ ⴰⴽⴽⴻⵏ ⵉⵡⴰⵜⴰ",
     "after": "ⵜⵉⵙⵖⴰⵍ ⵏ S3 ⵜⵜⵓⵃⴹⴰⵏⵜ!",
     "reason": "2026-09-14: Replace French or inherited Kabyle-leaning settings labels. Latin script alone is not error. Native MediaWiki returnto attests Return aghul ghr; rcfilters-quickfilters-placeholder-description/rcfilters-savedqueries-already-saved directly attest Settings tisghal/bound tsghal and Saved passive; filedeleteerror supplies did-not-succeed frame: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve Team versus generic Settings, Return versus Save, S3 identifier, failure versus completed successful save. Team tarabbut reuses local vocabulary, not independently validated here. Success is expressed as completed Saved!, matching native changepassword-success completed-change notification rather than inventing a success adverb. LOW CONFIDENCE Save nominalization tuhda, passive agreement, bound Team and whole phrases require fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "cron-resume-paused",
+    "before": "Reprendre les migrations en pause",
+    "after": "ⴰⵍⵙ ⵉⵙⵎⵓⵜⵜⵢⵏ ⵉⵜⵜⵓⵙⴱⴷⴷⵏ",
+    "reason": "2026-09-14: Replace French cron migration resume/error statuses. Native Red Moon notification_action_resume attests Resume als and notification_status_paused Paused ittusbdd: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Native Mastodon notifications.clear directly attests Clear sfdh: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Native CNDH izgaln Errors evidenced in https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf . Preserve Resume PAUSED migrations, NO paused migrations to resume, completed successful resumption and ALL errors cleared. Success uses completed notification rather than inventing an adverb. Migration ismutt yn reuses prior low-confidence Move-to-Migration adaptation. LOW CONFIDENCE plural paused/resumed/cleared passives, no-items-purpose clause and full phrases require native validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "cron-migrations-resumed",
+    "before": "Migrations reprises avec succès",
+    "after": "ⵉⵙⵎⵓⵜⵜⵢⵏ ⵜⵜⵓⵢⴰⵍⵙⵏ!",
+    "reason": "2026-09-14: Replace French cron migration resume/error statuses. Native Red Moon notification_action_resume attests Resume als and notification_status_paused Paused ittusbdd: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Native Mastodon notifications.clear directly attests Clear sfdh: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Native CNDH izgaln Errors evidenced in https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf . Preserve Resume PAUSED migrations, NO paused migrations to resume, completed successful resumption and ALL errors cleared. Success uses completed notification rather than inventing an adverb. Migration ismutt yn reuses prior low-confidence Move-to-Migration adaptation. LOW CONFIDENCE plural paused/resumed/cleared passives, no-items-purpose clause and full phrases require native validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "cron-no-paused-migrations",
+    "before": "Aucune migration en pause à reprendre",
+    "after": "ⵓⵔ ⵍⵍⵉⵏ ⵉⵙⵎⵓⵜⵜⵢⵏ ⵉⵜⵜⵓⵙⴱⴷⴷⵏ ⴰⴼⴰⴷ ⴰⴷ ⵜⵏ ⵜⴰⵍⵙⴷ.",
+    "reason": "2026-09-14: Replace French cron migration resume/error statuses. Native Red Moon notification_action_resume attests Resume als and notification_status_paused Paused ittusbdd: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Native Mastodon notifications.clear directly attests Clear sfdh: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Native CNDH izgaln Errors evidenced in https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf . Preserve Resume PAUSED migrations, NO paused migrations to resume, completed successful resumption and ALL errors cleared. Success uses completed notification rather than inventing an adverb. Migration ismutt yn reuses prior low-confidence Move-to-Migration adaptation. LOW CONFIDENCE plural paused/resumed/cleared passives, no-items-purpose clause and full phrases require native validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "cron-errors-cleared",
+    "before": "Toutes les erreurs ont été effacées avec succès",
+    "after": "ⵉⵣⴳⴰⵍⵏ ⴰⴽⴽⵯ ⵜⵜⵓⵙⴼⴹⵏ!",
+    "reason": "2026-09-14: Replace French cron migration resume/error statuses. Native Red Moon notification_action_resume attests Resume als and notification_status_paused Paused ittusbdd: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Native Mastodon notifications.clear directly attests Clear sfdh: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Native CNDH izgaln Errors evidenced in https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf . Preserve Resume PAUSED migrations, NO paused migrations to resume, completed successful resumption and ALL errors cleared. Success uses completed notification rather than inventing an adverb. Migration ismutt yn reuses prior low-confidence Move-to-Migration adaptation. LOW CONFIDENCE plural paused/resumed/cleared passives, no-items-purpose clause and full phrases require native validation."
   }
 ]
