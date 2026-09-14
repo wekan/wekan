@@ -28,5 +28,13 @@ const run = new AsyncFunction('payload', 'check', 'Match', 'Meteor', 'TableVisib
   }
   assert.ok(!/permission:\s*sourceBoard\.permission/.test(cards), 'negative: conversion no longer copies visibility without policy');
   assert.ok(source.indexOf("'tableVisibilityMode-allowPrivateOnly'", start) < end, 'negative: method policy runs before insert');
+  const hookAt = source.indexOf('Boards.before.insert(async (userId, doc) => {');
+  const hookEnd = source.indexOf('\n});', hookAt);
+  const hook = new AsyncFunction('userId', 'doc', 'TableVisibilityModeSettings', 'ReactiveCache', 'require', source.slice(source.indexOf('\n', hookAt) + 1, hookEnd));
+  for (const enabled of [false, true]) {
+    const doc = { permission: 'public' };
+    await hook('u', doc, { findOneAsync: async () => ({ booleanValue: enabled }) }, { getBoard: async () => null }, () => ({ record() { throw Error('logger unavailable'); } }));
+    assert.equal(doc.permission, enabled ? 'private' : 'public', 'shared copy/import/helper insert policy survives logger failure');
+  }
   console.log('boardPrivateOnlyMethod: server decision preserves private-only policy');
 })().catch(error => { console.error(error); process.exitCode = 1; });

@@ -699,6 +699,20 @@ Meteor.methods({
 });
 
 Boards.before.insert(async (userId, doc) => {
+  // Trusted copies, imports and lazy helper creation bypass collection allow
+  // rules too. Enforce the instance policy at the shared insertion boundary.
+  if (doc.permission === 'public') {
+    const privateOnly = await TableVisibilityModeSettings.findOneAsync('tableVisibilityMode-allowPrivateOnly');
+    if (privateOnly?.booleanValue) {
+      doc.permission = 'private';
+      try {
+        require('/server/lib/securityLog').record({
+          key: 'authz.board-visibility', action: 'blocked', source: 'board:insert-policy',
+          detail: 'Public board insertion overridden by private-only policy.',
+        });
+      } catch (e) { /* logging must never break the guard */ }
+    }
+  }
   const lastBoard = await ReactiveCache.getBoard(
     { sort: { $exists: true } },
     { sort: { sort: -1 } },
