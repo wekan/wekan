@@ -3394,5 +3394,383 @@
     "key": "progress",
     "value": "Fremskridt",
     "reason": "Direct Danish review: correct vocabulary, inflection and source meaning. Retain established technical terms in Node heap/context/resident-set diagnostics and preserve total, available, used, native and detached distinctions; checklist instructions preserve line-to-item mapping and original order where specified."
+  },
+  {
+    "locale": "da",
+    "key": "add-teams-label",
+    "value": "Tilføjede grupper vises nedenfor:",
+    "reason": "Correct Danish added-group display instruction, consistent with existing add-teams Tilføj grupper. Grupper is legitimate team/group wording; preserve it rather than impose a stylistic loanword replacement."
+  },
+  {
+    "locale": "da",
+    "key": "password-again",
+    "value": "Kodeord (igen)",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "if-you-already-have-an-account",
+    "value": "Hvis du allerede har en konto",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "register",
+    "value": "Registrér",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "forgot-password",
+    "value": "Glemt kodeord",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "minicardDetailsActionsPopup-title",
+    "value": "Kortdetaljer",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "Mongo_sessions_count",
+    "value": "Antal Mongo-sessioner",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "max-upload-filesize",
+    "value": "Maksimal filstørrelse for overførsel i bytes:",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "max-avatar-filesize",
+    "value": "Maksimal filstørrelse for avatar i bytes:",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "newTranslationPopup-title",
+    "value": "Ny brugerdefineret oversættelsesstreng",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "settingsTranslationPopup-title",
+    "value": "Slet denne brugerdefinerede oversættelsesstreng?",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "show-week-of-year",
+    "value": "Vis ugenummer (ISO 8601)",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "uncollapse",
+    "value": "Fold ud",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "hideCheckedChecklistItems",
+    "value": "Skjul afkrydsede tjeklisteelementer",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "hideAllChecklistItems",
+    "value": "Skjul alle tjeklisteelementer",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "support",
+    "value": "Support",
+    "reason": "These are valid Danish words as well as English words. Exact English equality does not imply an untranslated placeholder; retain the appropriate Danish control/support label."
+  },
+  {
+    "locale": "da",
+    "key": "supportPopup-title",
+    "value": "Support",
+    "reason": "These are valid Danish words as well as English words. Exact English equality does not imply an untranslated placeholder; retain the appropriate Danish control/support label."
+  },
+  {
+    "locale": "da",
+    "key": "support-page-enabled",
+    "value": "Supportside aktiveret",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "support-content",
+    "value": "Supportindhold",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "accessibility",
+    "value": "Tilgængelighed",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "accessibility-page-enabled",
+    "value": "Tilgængelighedsside aktiveret",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "accessibility-title",
+    "value": "Tilgængelighedstitel",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "accessibility-content",
+    "value": "Tilgængelighedsindhold",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "accounts-lockout-info",
+    "value": "Disse indstillinger styrer, hvordan loginforsøg beskyttes mod brute force-angreb.",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "accounts-lockout-period",
+    "value": "Låseperiode (sekunder)",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "accounts-lockout-failed-attempts",
+    "value": "Mislykkede forsøg",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "accounts-lockout-remaining-time",
+    "value": "Resterende tid",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "accounts-lockout-user-unlocked",
+    "value": "Brugeren er blevet låst op",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "admin-people-filter-show",
+    "value": "Vis:",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "accounts-lockout-unlock-all",
+    "value": "Lås alle op",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "active-cron-jobs",
+    "value": "Aktive planlagte job",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "attachment-storage-configuration",
+    "value": "Konfiguration af lagring af vedhæftninger",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "attachments-path-description",
+    "value": "Sti, hvor vedhæftede filer gemmes",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "avatars-path-description",
+    "value": "Sti, hvor avatarfiler gemmes",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "board-archive-scheduled",
+    "value": "Arkivering af tavle er planlagt",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "board-operations",
+    "value": "Tavlehandlinger",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "cron-jobs",
+    "value": "Planlagte job",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "cron-migrations",
+    "value": "Planlagte migreringer",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "cron-job-deleted",
+    "value": "Planlagt job slettet",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "cron-job-paused",
+    "value": "Planlagt job sat på pause",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "cron-job-resume-failed",
+    "value": "Kunne ikke genoptage planlagt job",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "cron-job-resumed",
+    "value": "Planlagt job genoptaget",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "cron-job-start-failed",
+    "value": "Kunne ikke starte planlagt job",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "cron-job-started",
+    "value": "Planlagt job startet",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "cron-migration-errors",
+    "value": "Migreringsfejl",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "cron-migration-warnings",
+    "value": "Migreringsadvarsler",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "cron-error-severity",
+    "value": "Alvorlighed",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "cron-error-message",
+    "value": "Fejlmeddelelse",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "cron-clear-errors",
+    "value": "Ryd alle fejl",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "cron-retry-failed",
+    "value": "Prøv mislykkede migreringer igen",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "cron-resume-paused",
+    "value": "Genoptag migreringer på pause",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "cron-errors-cleared",
+    "value": "Alle fejl er ryddet",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "cron-migrations-resumed",
+    "value": "Migreringer genoptaget",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "cron-migrations-retried",
+    "value": "Mislykkede migreringer er prøvet igen",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "database-migrate-to-ferretdb",
+    "value": "Migrér tekstdata til FerretDB v1 (SQLite)",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "database-migrate-to-mongodb",
+    "value": "Migrér tekstdata til MongoDB",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "cards-loading-all",
+    "value": "Alle kort",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "disable-activities",
+    "value": "Deaktivér alle aktiviteter",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "gridfs-enabled",
+    "value": "GridFS aktiveret",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "all-migrations",
+    "value": "Alle migreringer",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "select-migration",
+    "value": "Vælg migrering",
+    "reason": "Direct Danish review confirms source meaning, natural vocabulary and inflection. Preserve file-size byte units, ISO 8601 week numbering, accessibility terminology, lock/unlock directions, scheduled-job failure/success distinctions and literal product names where present."
+  },
+  {
+    "locale": "da",
+    "key": "start",
+    "value": "Start",
+    "reason": "These are valid Danish words as well as English words. Exact English equality does not imply an untranslated placeholder; retain the appropriate Danish control/support label."
+  },
+  {
+    "locale": "da",
+    "key": "stop",
+    "value": "Stop",
+    "reason": "These are valid Danish words as well as English words. Exact English equality does not imply an untranslated placeholder; retain the appropriate Danish control/support label."
   }
 ]
