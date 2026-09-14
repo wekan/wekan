@@ -123667,5 +123667,12 @@
     "before": "بطاقة",
     "after": "ⵜⴰⴽⴰⵕⴹⴰ",
     "reason": "Replace Arabic account/card noun label with declared Tamazight, preserving plural accounts/cards versus singular card. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json createaccount directly supplies singular amidhan account; plural imidhann is derived, not directly attested in that file. Existing local takarḍa and tikarḍiwin card terminology reused without replacing protected correct-language values. LOW CONFIDENCE derived account plural and technical card sense require fluent review. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "support-info-not-added-yet",
+    "before": "Les informations d'assistance n'ont pas encore été ajoutées",
+    "after": "ⵉⵏⵖⵎⵉⵙⵏ ⵏ ⵜⵡⵉⵙⵉ ⵓⵔⵜⴰ ⵜⵜⵡⴰⵔⵏⵉⵏ.",
+    "reason": "Replace French support information not-yet-added notice without losing NOT YET or added action. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json pageinfo-title inɣmisn information, userlogin-helplink2 tiwisi help, rcfilters-quickfilters-placeholder-title urta not yet, metadata-help tt warnin information added supply components. LOW CONFIDENCE negative passive morphology/order, bound twisi and help-to-support adaptation in complete sentence require fluent review. Do not reduce to no support information, which omits not-yet-added meaning. Reviewed 2026-09-14."
   }
 ]
