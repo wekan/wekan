@@ -26139,3 +26139,14 @@ old-term negatives and complete previous/new time token inventories.
 Genitive form, finite activity clause and software reception remain low
 confidence. Native/browser review remains open. No extra repair record is
 added; ledger remains 18,812 and original pending 233 (zgh 125).
+
+All-locale positional formatting — 2026-09-14, `55562f666`.
+The actual TAPi18n translation method with installed i18next/sprintf is
+executed against operator-limit-invalid in all 246 existing locale files,
+including English variants. Each value has one %s and substitutes the
+exact argument including its literal percent character. The full label
+is compared against expected substitution, preserving surrounding prose.
+The regression passes. This covers runtime scalar formatting across the
+files, not language loading, normalization, native quality or browser
+rendering. No locale values or pending counts change; remaining 233
+original findings and prior uncertain wording remain open.

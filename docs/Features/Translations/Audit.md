@@ -81,7 +81,8 @@ authentication, commands and other uncertain phrases remain under review.
 Verification summary — **2026-09-14**:
 
 - Runtime formatter `c74009b21` verifies scalar arguments, zero, named
-  options and English fallback. Parser coverage `8715c094e`, `bc9860dff`
+  options and English fallback. `55562f666` verifies exact limit-error
+  substitution in all 246 locale files. Parser coverage `8715c094e`, `bc9860dff`
   and `27f6c9d2a` verifies limit errors and date filtering/sorting.
 - Browser spec 03 (`c8bcfb258`) is registered but unrun. A fresh localhost
   probe found no app at port 3000; browser verification remains incomplete.

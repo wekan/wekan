@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/55562f666">Verify limit-error formatting in every locale</a>. Thanks to xet7.</summary>
+
+Check exact scalar argument formatting against all 246 locale files using
+the actual translation method and installed formatter. Regression passes;
+native quality, language loading and browser rendering remain unverified.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e3ae37bc5">Revise received-time activity terminology</a>. Thanks to xet7.</summary>
 
 Use a primary reception noun in two earlier Tamazight activity drafts.
