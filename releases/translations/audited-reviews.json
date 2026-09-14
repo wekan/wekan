@@ -24982,5 +24982,11 @@
     "key": "color-peachpuff",
     "value": "préssec",
     "reason": "Retain native Valencian peach color label: actual palette is pale peach #ffdab9, with no separate competing peach key. Native Valencian color usage attests préssec; this is a descriptive UI color label, not a claim that native sources standardize the CSS keyword."
+  },
+  {
+    "locale": "eu",
+    "key": "r-is-moved",
+    "value": "lekuz aldatzen denean",
+    "reason": "Retained after checking the actual generic board movement trigger: Txartel bat lekuz aldatzen denean. EHU EEH leku entry section 16 attests lekuz aldatu and temporal lekuz aldatzen garenean; Euskadi native grammar section 13.1 explains -ENEAN and singular gelditzen denean. Singular card changes location is the complete generic temporal predicate; this row inserts no separate copula or destination noun. Other directional fragments and live browser review remain open."
   }
 ]

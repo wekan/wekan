@@ -67,3 +67,12 @@ for (const action of ['r-added-to', 'r-removed-from', 'r-checked',
   assert.ok(sentence.includes(read('th')[action]));
 }
 console.log('Basque rule grammar: actual trigger wiring, linking-verb omission and other-locale preservation checked; full fluency/browser execution remain open');
+
+// The generic movement trigger is a complete singular temporal clause.
+// This does not certify the separate added/removed/directional fragments.
+const boardTriggers = fs.readFileSync(path.join(root, 'client/components/rules/triggers/boardTriggers.jade'), 'utf8');
+const genericMove = boardTriggers.split('div.trigger-item#trigger-three')[1].split('div.trigger-item#trigger-four')[0];
+assert.match(genericMove, /r-when-a-card[\s\S]*?r-is-moved/);
+assert.doesNotMatch(genericMove, /ruleTriggerCopula|r-a-card|r-moved-to|r-moved-from/);
+assert.equal([eu['r-when-a-card'], eu['r-is-moved']].join(' '), 'Txartel bat lekuz aldatzen denean');
+assert.doesNotMatch(eu['r-is-moved'], /\bes\b|\bis\b/, 'retain native temporal predicate rather than Spanish or English');
