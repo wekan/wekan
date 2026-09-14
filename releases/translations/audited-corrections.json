@@ -126726,5 +126726,12 @@
     "before": "Afficher la méthode d'authentification",
     "after": "ⵙⴽⵏ ⵜⴰⵔⵔⴰⵢⵜ ⵏ ⵓⵙⵙⵜⴱ",
     "reason": "2026-09-14: Replace French authentication label, preserving Method versus Type and Default/Display modifiers. Directly inspected CNAM PDF page 23 Authentication Asesteb MC£, page 91 Method Tarrayt MW (https://cedric.cnam.fr/~bouzefra/books/amawal.pdf). MC£ is cross-variety authentication evidence, not normative Moroccan; MW denotes modern lexicon, not MediaWiki. Native MediaWiki img-lang-default directly attests Default s uwnul, rcfilters-show-new-changes Show skn and file-info-size Type anaw (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Standard-script rendering of cross-variety Authentication, bound usstb and full phrases remain low confidence and require Standard Moroccan validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "step-analyze-board-structure",
+    "before": "Analyser la structure du tableau",
+    "after": "ⵙⵍⴹ ⵜⴰⵎⵚⵓⴽⵜ ⵏ ⵜⴼⵍⵡⵉⵜ",
+    "reason": "2026-09-14: replaced French Analyze Board Structure. Directly inspected rendered CNAM Amawal PDF pages 19 and 134: Analyze sleḍ (MW modern lexicon) and Structure Tamṣukt (MAT mathematical lexicon). Rendered letters resolve legacy extraction substitutions; neither source is normative Moroccan software usage. Tifinagh transliteration, bound board form and complete command remain LOW CONFIDENCE and require native review."
   }
 ]
