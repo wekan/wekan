@@ -122708,5 +122708,33 @@
     "before": "Ajouter un couloir en dessous",
     "after": "ⵔⵏⵓ ⴰⴱⵔⵉⴷ ⴳ ⴷⴷⴰⵡ",
     "reason": "Replace French above/below placement or add-swimlane popup wording. Preserve opposite vertical positions, selected qualification, card versus swimlane scope and add action. Native MediaWiki zgh recentchanges-notargetpage supports above (g uflla), sharedupload-desc-here below (g ddaw), compareselectedversions selected and export-addcat add: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse existing local Abrid swimlane and Tifinagh card terminology. LOW CONFIDENCE: Abrid software-swimlane adaptation, bound ubrid, relational above/below noun chains and selected participle agreement/full phrasing require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "multi-selection-label",
+    "before": "Définir l'étiquette pour la sélection",
+    "after": "ⵙⵔⵙ ⴰⵔⵛⵓⵎ ⵉ ⵓⵙⵜⴰⵢ",
+    "reason": "Replace French multi-selection action text or incorrect button-word tibzimin used for card labels. Preserve setting label versus member on selection, multiple-selection removal, literal 1-9 range, all-label/card removal scope. Native MediaWiki zgh histlegend, tag-list-wrapper, nmembers, filehist-deleteall support selection, label, member, remove/all: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . IRCAM native story command srs supports put/set root: https://biblio.ircam.ma/pmb/catalogue/doc_num.php?explnum_id=220 . Reuse local setting passive ittusrs. LOW CONFIDENCE: put/set software adaptation, derived multiple adjective aggut, bound selection noun, finite removal grammar and full phrases require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "multi-selection-member",
+    "before": "Définir le participant pour la sélection",
+    "after": "ⵙⵔⵙ ⴰⴳⵎⴰⵎ ⵉ ⵓⵙⵜⴰⵢ",
+    "reason": "Replace French multi-selection action text or incorrect button-word tibzimin used for card labels. Preserve setting label versus member on selection, multiple-selection removal, literal 1-9 range, all-label/card removal scope. Native MediaWiki zgh histlegend, tag-list-wrapper, nmembers, filehist-deleteall support selection, label, member, remove/all: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . IRCAM native story command srs supports put/set root: https://biblio.ircam.ma/pmb/catalogue/doc_num.php?explnum_id=220 . Reuse local setting passive ittusrs. LOW CONFIDENCE: put/set software adaptation, derived multiple adjective aggut, bound selection noun, finite removal grammar and full phrases require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "remove-labels-multiselect",
+    "before": "La multi-sélection supprime les étiquettes 1-9",
+    "after": "ⴰⵙⵜⴰⵢ ⴰⴳⴳⵓⵜ ⴰⵔ ⵉⴽⴽⵙ ⵉⵔⵛⵓⵎⵏ 1-9",
+    "reason": "Replace French multi-selection action text or incorrect button-word tibzimin used for card labels. Preserve setting label versus member on selection, multiple-selection removal, literal 1-9 range, all-label/card removal scope. Native MediaWiki zgh histlegend, tag-list-wrapper, nmembers, filehist-deleteall support selection, label, member, remove/all: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . IRCAM native story command srs supports put/set root: https://biblio.ircam.ma/pmb/catalogue/doc_num.php?explnum_id=220 . Reuse local setting passive ittusrs. LOW CONFIDENCE: put/set software adaptation, derived multiple adjective aggut, bound selection noun, finite removal grammar and full phrases require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-remove-all-labels",
+    "before": "Kkes akk tibzimin seg tkarḍa",
+    "after": "ⴽⴽⵙ ⵉⵔⵛⵓⵎⵏ ⴰⴽⴽ ⵙⴳ ⵜⴽⴰⵕⴹⴰ",
+    "reason": "Replace French multi-selection action text or incorrect button-word tibzimin used for card labels. Preserve setting label versus member on selection, multiple-selection removal, literal 1-9 range, all-label/card removal scope. Native MediaWiki zgh histlegend, tag-list-wrapper, nmembers, filehist-deleteall support selection, label, member, remove/all: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . IRCAM native story command srs supports put/set root: https://biblio.ircam.ma/pmb/catalogue/doc_num.php?explnum_id=220 . Reuse local setting passive ittusrs. LOW CONFIDENCE: put/set software adaptation, derived multiple adjective aggut, bound selection noun, finite removal grammar and full phrases require fluent review."
   }
 ]
