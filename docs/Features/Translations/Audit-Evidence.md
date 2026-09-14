@@ -21752,3 +21752,14 @@ clear-all-errors scope are preserved. Isolated Complete remains ambiguous
 between an action and state and is not accepted merely by vocabulary match.
 2,010 review records pass; 2,208 restored values and 308 pending findings
 plus broader language/browser verification remain open.
+
+
+### Esperanto storage and migration settings — 2026-09-14
+
+Local commit `460df4ada` retains thirty correct migration actions/progress,
+S3 storage/connection labels and integrity descriptions. Empty duplicate
+list deletion requires no cards AND a same-title counterpart with cards;
+Esperanto KAJ preserves both conditions. Start/pause/stop and connection
+success/failure remain distinct. All 2,040 review records pass; 2,178
+restored values and 308 pending findings plus wider language/browser
+verification remain open.
