@@ -903,7 +903,7 @@
   "notify-watch": "ⵔⴰⴷ ⴰⴽ ⵜⵜⵓⵢⴰⵣⴰⵏⵏⵜ ⵜⵉⵏⵖⵎⵉⵙⵉⵏ ⵖⴼ ⴽⵓ ⴰⵙⵏⴼⵍ ⴳ ⵜⴼⵍⵡⵉⵏ, ⵜⵉⵍⴳⴰⵎⵉⵏ ⵏⵖ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵍⵍⵉ ⵜⵎⵎⵓⵜⵔⴷ.",
   "optional": "ⴰⵔⵓⵛⵛⵉⵍ",
   "or": "ⵏⵖ",
-  "page-maybe-private": "قدتكون هذه الصفحة خاصة . قد تستطيع مشاهدتها ب  <a href='%s'>تسجيل الدخول</a>.",
+  "page-maybe-private": "ⴰⵜⴰⴼ ⵜⴰⵙⵏⴰ ⴰⴷ ⵜⴳⴰ ⵜⵓⵙⵍⵉⴳⵜ. ⴰⵜⴰⴼ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵜ ⵜⵥⵕⴷ ⵉⵖ <a href='%s'>ⵜⴽⵛⵎⴷ</a>.",
   "page-not-found": "صفحة غير موجودة",
   "password": "ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ",
   "paste-or-dragdrop": "pour coller, ou glissez-déposez une image ici (seulement une image)",

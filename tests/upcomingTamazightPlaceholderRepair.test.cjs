@@ -477,3 +477,6 @@ assert.doesNotMatch(translated['delete-linked-card-before-this-card'], /Vous|sup
 
 assert.strictEqual(translated["delete-linked-cards-before-this-list"], "ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⵜⴰⵍⴳⴰⵎⵜ ⴰⴷ ⴷⴰⵜ ⴰⴷ ⵜⴽⴽⵙⴷ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵉⵣⴷⵉⵏ ⵏⵏⴰ ⵣⴷⵉⵏⵜ ⴰⴽⴷ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴳ ⵜⴰⵍⴳⴰⵎⵜ ⴰⴷ.");
 assert.doesNotMatch(translated['delete-linked-cards-before-this-list'], /Vous|supprimer|pointent|[\u0600-\u06ff]/u);
+
+assert.strictEqual(translated["page-maybe-private"], "ⴰⵜⴰⴼ ⵜⴰⵙⵏⴰ ⴰⴷ ⵜⴳⴰ ⵜⵓⵙⵍⵉⴳⵜ. ⴰⵜⴰⴼ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵜ ⵜⵥⵕⴷ ⵉⵖ <a href='%s'>ⵜⴽⵛⵎⴷ</a>.");
+assert.doesNotMatch(translated['page-maybe-private'], /[\u0600-\u06ff]/u);
