@@ -126523,5 +126523,19 @@
     "before": "Déposer des sous-tâches dans ce tableau :",
     "after": "ⵙⵙⵔⵙ ⵜⵉⵡⵓⵔⵉⵡⵉⵏ ⴷⴷⴰⵡ ⵏ ⵜⵡⵓⵔⵉ ⴳ ⵜⴼⵍⵡⵉⵜ ⴰⴷ:",
     "reason": "2026-09-14: Replace French subtask deposit destination label. IRCAM-hosted Asinag 9 morphosyntactic article indexed printed page 173 directly glosses ssrs it da as Place it here, imperative: https://tal.ircam.ma/talam/Articles/Ataa%20Allah-etiq-Asinag9.pdf . This is SEARCH-INDEX evidence only; direct PDF fetch failed 502. Reuse local hierarchical Tasks Below Task, native Ministry Work root and Below component. Preserve SUBTASKS placed IN THIS BOARD and colon, not generic unrelated tasks or parent relocation. Deposit-as-Place software adaptation, hierarchy and full destination grammar remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-checked-item",
+    "before": "تحقق %s في قائمة التحقق %s من %s",
+    "after": "ⵉⵙⵎⴰⵜⵔ %s ⴳ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ %s ⵏ %s",
+    "reason": "2026-09-14: Replace Arabic/French checked-item activities. Native MediaWiki tooltip-invert and tooltip-namespace_association attest Check smatr in checkbox context: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve active actor checking ITEM IN CHECKLIST and card relation where present, with exact percent placeholder count/order. Derived past actor ismatr, local verification noun and full checklist relation remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-checked-item-card",
+    "before": "a coché %s dans la checklist %s",
+    "after": "ⵉⵙⵎⴰⵜⵔ %s ⴳ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ %s",
+    "reason": "2026-09-14: Replace Arabic/French checked-item activities. Native MediaWiki tooltip-invert and tooltip-namespace_association attest Check smatr in checkbox context: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve active actor checking ITEM IN CHECKLIST and card relation where present, with exact percent placeholder count/order. Derived past actor ismatr, local verification noun and full checklist relation remain LOW CONFIDENCE."
   }
 ]
