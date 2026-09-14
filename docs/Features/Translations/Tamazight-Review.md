@@ -1687,3 +1687,17 @@ The focused parser regression passes. This validates metadata dispatch,
 not date-library internals, native fluency or browser rendering. Export
 field metadata still maps dates to export-card-field-dates. Original
 pending remains 233; no locale values or audit counts change.
+
+Received/due field drafts — 2026-09-14, `822d6dfb5`.
+French card-received/r-df-received-at and Arabic card-due are repaired
+using the export reception noun and existing due-date terminology.
+IRCAM PDF 382 entry 7245 imiẓ reception; related expiry vocabulary
+PDF 279 entry 5472:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+Actual cardDate.jade badges distinguish received-date and due-date;
+rule options retain receivedAt. Low confidence: software reception noun
+and due-versus-expiry semantic adaptation. Native deadline terminology
+and browser output remain unverified. Four translation checks pass for
+consistency, field distinctions, wrong-language negatives, tokens and
+protected newer values. Three unflagged repairs; original pending stays
+233 (zgh 125), ledger 18,812. No date calculation or query mapping changes.

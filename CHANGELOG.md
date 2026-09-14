@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/822d6dfb5">Draft consistent received and due labels</a>. Thanks to xet7.</summary>
+
+Replace three French/Arabic Tamazight date labels while preserving field
+distinctions. Four translation checks pass; software reception and deadline
+wording remain under review in the audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/61484d5df">Consolidate audit verification summary</a>. Thanks to xet7.</summary>
 
 Keep runtime progress concise while preserving dated evidence and native

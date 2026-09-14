@@ -26111,3 +26111,17 @@ Formatter/parser source commits and outstanding browser/native review
 remain explicit; dated individual notes are preserved above. A fresh
 localhost:3000 probe failed to connect. No translation is changed or
 classified as repaired by shortening the summary.
+
+Received/due field drafts — 2026-09-14, `822d6dfb5`.
+French card-received/r-df-received-at and Arabic card-due are repaired
+using the export reception noun and existing due-date terminology.
+IRCAM PDF 382 entry 7245 imiẓ reception; related expiry vocabulary
+PDF 279 entry 5472:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+Actual cardDate.jade badges distinguish received-date and due-date;
+rule options retain receivedAt. Low confidence: software reception noun
+and due-versus-expiry semantic adaptation. Native deadline terminology
+and browser output remain unverified. Four translation checks pass for
+consistency, field distinctions, wrong-language negatives, tokens and
+protected newer values. Three unflagged repairs; original pending stays
+233 (zgh 125), ledger 18,812. No date calculation or query mapping changes.
