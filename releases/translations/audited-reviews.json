@@ -18964,5 +18964,185 @@
     "key": "friday",
     "value": "Venres",
     "reason": "Direct Galician review preserves first-reminder and approaching/past/now due conditions with exact list/card/board/time tokens. Self-delete permission, desktop drag handles and assignee singular/plural/absence retain meaning. Entity create/edit controls, all-read mark/remove scope, rename permission, week-start setting and weekday names are correct."
+  },
+  {
+    "locale": "gl",
+    "key": "swimlane",
+    "value": "Carril",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "owner",
+    "value": "Propietario",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "last-modified-at",
+    "value": "Última modificación o",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "voting",
+    "value": "Votación",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "hide-checked-items",
+    "value": "Agochar os elementos marcados",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "create-task",
+    "value": "Crear tarefa",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "ok",
+    "value": "Aceptar",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "organizations",
+    "value": "Organizacións",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "teams",
+    "value": "Equipos",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "displayName",
+    "value": "Nome para mostrar",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "shortName",
+    "value": "Nome curto",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "person",
+    "value": "Persoa",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "today",
+    "value": "Hoxe",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "myCardsViewChange-choice-table",
+    "value": "Táboa",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "myCardsSortChange-choice-dueat",
+    "value": "Por data de vencemento",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "dueCardsViewChange-choice-all",
+    "value": "Todos os usuarios",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "operator-swimlane",
+    "value": "carril",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "operator-user",
+    "value": "usuario",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "operator-assignee",
+    "value": "asignado",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "operator-creator",
+    "value": "creador",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "operator-due",
+    "value": "vencemento",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "operator-created",
+    "value": "creado",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "operator-comment",
+    "value": "comentario",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "operator-limit",
+    "value": "límite",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "operator-team",
+    "value": "equipo",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "operator-description",
+    "value": "descrición",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "operator-customfield",
+    "value": "campo personalizado",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "predicate-ended",
+    "value": "rematado",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "predicate-overdue",
+    "value": "vencido",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "predicate-due",
+    "value": "vencemento",
+    "reason": "Direct Galician review retains owner/person/team/organization and display/short-name distinctions, last-modified metadata, checked-item hiding, task creation and confirmation. Table view, due-date sorting and all-user scope stay correct. Search operator and predicate names retain swimlane/user/assignee/creator/comment/custom-field roles and ended/overdue/due distinctions."
   }
 ]
