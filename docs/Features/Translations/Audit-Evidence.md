@@ -24666,3 +24666,25 @@ and complete phrase grammar remain **low confidence**. Four translation
 checks pass, preserving placeholders and unchanged reviewed translations;
 no live browser validation ran. Counts are 15,625 corrected, 277 pending
 (including 164 Tamazight), four restored and 4,175 retained.
+
+## Full-path subtitle repair — 2026-09-14
+
+Local commit `7acd0f72c` replaces French `subtext-with-full-path` with
+`ⴰⴷⵓⵣⵡⵍ ⴰⴽⴷ ⵓⴱⵔⵉⴷ ⴰⴽⴽⵯ`. Primary IRCAM General Dictionary
+PDF page 57, entry 795, gives subtitle; page 76, entry 1196, gives with;
+page 33, entry 287, gives path and its construct form; page 77, entry
+1214, gives all/entirely. This also strengthens the preceding parent
+label's conjunction evidence beyond existing locale usage.
+
+The sidebar displays this option, and minicard.jade calls
+`parentString(' > ')`; models/cards.js maps parent-list card titles and
+joins them. The translation preserves the full ancestor-path distinction
+from the single parent. **Low confidence** remains for the software path
+metaphor, noun/adverb construction and full native phrase. Component
+entries are not a complete attested software label. Four focused checks
+pass, including exact wording, French negatives and preservation of the
+fullness term; no live browser validation ran.
+
+Counts now: 15,626 corrected, 276 pending (163 Tamazight), four restored
+and 4,175 retained; 18,712 correction-ledger records. Broader validation
+remains open after the original French finding is classified corrected.

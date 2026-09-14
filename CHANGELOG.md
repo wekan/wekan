@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7acd0f72c">Repair Tamazight full-path subtitle</a>. Thanks to xet7.</summary>
+
+Replace French with verified native components while preserving the full
+ancestor-path distinction. Four checks pass; full phrase grammar and
+software metaphor still require native and browser review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b93379067">Repair Tamazight parent-subtitle option</a>. Thanks to xet7.</summary>
 
 Replace French with verified native subtitle and existing parent terms.
