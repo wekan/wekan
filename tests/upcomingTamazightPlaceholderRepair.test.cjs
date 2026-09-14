@@ -169,3 +169,12 @@ for (const [key, ending] of Object.entries(dueReminderEndings)) {
  assert.deepStrictEqual(value.match(/__[A-Za-z]+__/g).sort(), ['__card__','__timeValue__']);
 }
 assert.strictEqual(new Set(Object.keys(dueReminderEndings).map(k => translated[k])).size, 3);
+
+assert.match(translated['muted-info'], /^ⵓⵔ ⵙⴰⵔ/);
+assert.match(translated['muted-info'], /ⵜⴼⵍⵡⵉⵜ ⴰⴷ/);
+assert.match(translated['tracking-info'], /ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ.*ⴰⵎⵙⵏⴼⵍⵓⵍ ⵏⵖ ⴰⴳⵎⴰⵎ/);
+for (const key of ['muted-info','tracking-info']) assert.doesNotMatch(translated[key], /Vous|notifié|modification|[\u0600-\u06ff]/);
+assert.notStrictEqual(translated['muted-info'], translated['watching-info']);
+assert.notStrictEqual(translated['tracking-info'], translated['watching-info']);
+const watchMenuSource = fs.readFileSync(path.join(ROOT, 'client/components/boards/boardHeader.jade'), 'utf8');
+for (const key of ['muted-info','tracking-info']) assert.ok(watchMenuSource.includes("{{_ '" + key + "'}}"));

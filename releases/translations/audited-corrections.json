@@ -138325,5 +138325,19 @@
     "before": "rappelle que l'échéance (__timeValue__) de __card__  est passée",
     "after": "ⵉⵙⵙⴽⵯⵜⵉ ⵎⴰⵙ ⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ (__timeValue__) ⵏ __card__ ⵉⵣⵔⵉ",
     "reason": "2026-09-14: Replace complete French due-reminder clause, retaining exact __timeValue__/__card__ inventory and approaching/now/past distinction. IRCAM reminder sskwti entry 9825 p521 differs from fire-kindling sskti 9826; ads/uds approaching entry 845 p59 and zri passing 13549 p721. Existing deadline term reused; full relative/aspect grammar and computing deadline adaptation remain low-confidence under native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "muted-info",
+    "before": "Vous ne serez jamais averti des modifications effectuées dans ce tableau",
+    "after": "ⵓⵔ ⵙⴰⵔ ⴰⴽ ⵜⵜⵓⵢⴰⵣⴰⵏⵏⵜ ⵜⵉⵏⵖⵎⵉⵙⵉⵏ ⵖⴼ ⴽⵓ ⴰⵙⵏⴼⵍ ⴳ ⵜⴼⵍⵡⵉⵜ ⴰⴷ.",
+    "reason": "2026-09-14: Replace full French watch-mode guidance with Tamazight draft. Preserve never-for-this-board vs involved-card creator/member scope, reusing existing notification wording. IRCAM ur sar future never entry 8585 p452, creator amsnflul 2866 p155, member agmam 502 p43. Notification passive, negation placement and relative clause remain low-confidence under native review; dictionary evidence alone is not full grammar proof."
+  },
+  {
+    "locale": "zgh",
+    "key": "tracking-info",
+    "before": "Vous serez notifié de toute modification concernant les cartes pour lesquelles vous êtes impliqué en tant que créateur ou participant.",
+    "after": "ⵔⴰⴷ ⴰⴽ ⵜⵜⵓⵢⴰⵣⴰⵏⵏⵜ ⵜⵉⵏⵖⵎⵉⵙⵉⵏ ⵖⴼ ⴽⵓ ⴰⵙⵏⴼⵍ ⴳ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵍⵍⵉ ⵜⴳⵉⴷ ⴳⵉⵙⵏⵜ ⴰⵎⵙⵏⴼⵍⵓⵍ ⵏⵖ ⴰⴳⵎⴰⵎ.",
+    "reason": "2026-09-14: Replace full French watch-mode guidance with Tamazight draft. Preserve never-for-this-board vs involved-card creator/member scope, reusing existing notification wording. IRCAM ur sar future never entry 8585 p452, creator amsnflul 2866 p155, member agmam 502 p43. Notification passive, negation placement and relative clause remain low-confidence under native review; dictionary evidence alone is not full grammar proof."
   }
 ]
