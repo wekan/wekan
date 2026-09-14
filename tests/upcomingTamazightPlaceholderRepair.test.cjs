@@ -538,3 +538,10 @@ assert.strictEqual(translated['accounts-lockout-failed-attempts'], 'ⵜⵉⵙⵉ
 assert.doesNotMatch(translated['accounts-lockout-failed-attempts'], /Tentatives|échec|[\u0600-\u06ff]|ⵜⴰⵙⵉⵖⵜ|ⴰⵎⵚⵉⵕⵉⴹ|ⴰⵏⵏⴳⵣⵉ/u);
 assert.ok(translated['accounts-lockout-failures-before'].startsWith('ⵉⵣⴳⴰⵍⵏ'));
 console.log('Tamazight failed-attempt label uses plural trials and existing failure terminology');
+
+assert.strictEqual(translated['accounts-lockout-settings'], 'ⵜⵉⵙⵖⴰⵍ ⵏ ⵓⴼⵔⴰⴳ ⵙⴳ brute force');
+assert.strictEqual(translated['accounts-lockout-settings-updated'], 'ⵜⵜⵓⵙⴷⵖⵉⵏⵜ ' + translated['accounts-lockout-settings']);
+for (const key of ['accounts-lockout-settings', 'accounts-lockout-settings-updated']) {
+ assert.doesNotMatch(translated[key], /Paramètres|paramètres|mis à jour|[\u0600-\u06ff]|ⴰⴷⵡⴰⵙ/u);
+}
+console.log('Tamazight brute-force heading and update confirmation retain distinct meanings');

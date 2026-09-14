@@ -139123,5 +139123,19 @@
     "before": "Tentatives en échec",
     "after": "ⵜⵉⵙⵉⵔⴰⵎ ⵙ ⵉⵣⴳⴰⵍⵏ",
     "reason": "2026-09-15: Replace French failed-attempt label with trials with failures paraphrase. IRCAM testing/trial tisirimt plural tisiram 12953 and failure azgal 5372; existing failures-before uses izgaln. Software attempt adaptation and full attributive phrase low confidence. Exclude court/assassination attempts and technical server rupture; no live UI claim."
+  },
+  {
+    "locale": "zgh",
+    "key": "accounts-lockout-settings",
+    "before": "Paramètres de protection contre la force brute",
+    "after": "ⵜⵉⵙⵖⴰⵍ ⵏ ⵓⴼⵔⴰⴳ ⵙⴳ brute force",
+    "reason": "2026-09-15: Replace French brute-force settings wording using existing settings tisghal, IRCAM protection afrag 1065 bound ufrag, and native software update root sdghi. Brute force remains borrowed technical phrase rather than physical force. Update confirmation preserves completed settings update. Full compound and derived passive plural remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "accounts-lockout-settings-updated",
+    "before": "Les paramètres de protection contre la force brute ont été mis à jour",
+    "after": "ⵜⵜⵓⵙⴷⵖⵉⵏⵜ ⵜⵉⵙⵖⴰⵍ ⵏ ⵓⴼⵔⴰⴳ ⵙⴳ brute force",
+    "reason": "2026-09-15: Replace French brute-force settings wording using existing settings tisghal, IRCAM protection afrag 1065 bound ufrag, and native software update root sdghi. Brute force remains borrowed technical phrase rather than physical force. Update confirmation preserves completed settings update. Full compound and derived passive plural remain low confidence."
   }
 ]
