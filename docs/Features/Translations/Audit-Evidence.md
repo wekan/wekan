@@ -21590,3 +21590,13 @@ assigned-only visibility, invitation state, image-only drop restrictions
 and private-page login links. Emoji autocomplete wording is correct and
 distinct from checklist task completion. Placeholders remain verbatim.
 Unchanged-value tests pass; browser validation and uncertain terms remain open.
+
+
+### Esperanto Unwatch and mail review — 2026-09-14
+
+Local commit `5ef075987` repairs Unwatch to mean stopping observation.
+Retained 37 directly reviewed correct shortcut, upload, invitation and SMTP
+values, preserving action polarity, hour units, upload outcome distinctions,
+one custom URL scheme per line, test-email recipient and authorization
+denial. Overtime wording remains open. Correction and unchanged-value checks
+pass; browser behavior was not verified.

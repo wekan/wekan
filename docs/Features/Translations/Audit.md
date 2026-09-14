@@ -4,25 +4,23 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,550 |
-| Restored pre-pull; awaiting validation | 2,693 |
-| Reviewed; retained unchanged | 1,530 |
+| Corrected | 15,551 |
+| Restored pre-pull; awaiting validation | 2,655 |
+| Reviewed; retained unchanged | 1,567 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
 Review is ongoing. The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,145** exact before/after values, including unflagged repairs.
+contain **18,146** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix/review: **2026-09-14**, local commit `1b2232534` —
-restored three Esperanto date-format labels to canonical YYYY/MM/DD notation
-and retained 37 correct field, email and export values. All **18,145**
-correction records and unchanged-value/progress checks pass. Latest review:
-**2026-09-14**, local commit `ba7f76e53` — retained 40 correct member-mapping,
-selection and preview labels; long advanced-filter syntax remains open. Browser
-verification was not run; no translations were pushed. Completion, pronoun,
-overtime, lime-color and scrollbar terminology remain under review.
+Latest translation fix/review: **2026-09-14**, local commit `5ef075987` —
+repaired Esperanto Unwatch subscription wording and retained 37 correct
+shortcut, upload, invitation and SMTP values. All **18,146** correction
+records and unchanged-value/progress checks pass. Browser verification was
+not run; no translations were pushed. Completion, pronoun, overtime,
+lime-color, scrollbar and advanced-filter wording remains under review.
 
 
 Fixed categories include wrong-language prose, terminology, warnings,
