@@ -121728,5 +121728,26 @@
     "before": "Tous les participants de la carte actuelle dans ce tableau",
     "after": "ⵉⴳⵎⴰⵎⵏ ⴰⴽⴽⵯ ⵏ ⵜⴽⴰⵕⴹⴰ ⴰⴷ ⴳ ⵜⴼⵍⵡⵉⵜ ⴰⴷ",
     "reason": "Replace French with declared Standard Moroccan Tamazight. Native MediaWiki member-group messages attest igmamn/member plural and searchall attests akkw/all. Follow existing board_members and card terminology, adding this-card/this-board scope with ad and g. Preserve all members of the current card, distinct from all board members. LOW CONFIDENCE complete card/board genitives, demonstrative scope and kanban terminology; native member/all components do not establish fluent full phrasing. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "delete",
+    "before": "Kkes",
+    "after": "ⴽⴽⵙ",
+    "reason": "Normalize Latin-script Kkes to the directly attested Tifinagh Delete command in native MediaWiki delete/filedelete-submit. Same meaning, consistent with the declared locale script. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "deleteCustomFieldPopup-title",
+    "before": "Supprimer le champ personnalisé ?",
+    "after": "ⴽⴽⵙ ⵉⴳⵔ ⵉⵥⵍⵉⵏ?",
+    "reason": "Replace French. Use native MediaWiki delete command kks and existing IRCAM-supported field noun igr, with existing customized/specific qualifier izlin. Retain the confirmation question. LOW CONFIDENCE software-field sense, custom qualifier and full phrase; field noun is general grammatical terminology. Field reference: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=130. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "act-removeBoardMember",
+    "before": "a supprimé le participant __member__ du tableau __board__",
+    "after": "ⵉⴽⴽⵙ ⴰⴳⵎⴰⵎ __member__ ⵙⴳ ⵜⴼⵍⵡⵉⵜ __board__",
+    "reason": "Replace French. Native MediaWiki logentry-delete-delete attests masculine completed ikks/deleted; nmembers attests bound ugmam/member, with free agmam derived. Preserve removed member and source-board placeholders exactly, distinct from deleting their account. LOW CONFIDENCE adapting deletion to membership removal, derived free member form, board genitive and full activity agreement; native components alone do not prove fluent full activity phrasing. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
