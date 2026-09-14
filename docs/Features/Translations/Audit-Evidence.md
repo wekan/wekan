@@ -1,5 +1,14 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `bf6faabb7`: Uploading, Uploading Files and Upload Failed repaired
+from French. MediaWiki uploadlogpage supports Upload; category-file-count
+explicitly supplies plural Files `ⵉⴼⵓⵢⵍⴰ`, replacing derived `ⵉⴼⴰⵢⵍⵓ`
+in both previous file-type repairs. Non-fuzzy pinned Dialect Suggestion
+Failed and Translation Failed support `ⵉⵜⵜⵡⴰⵣⴳⵍ`. Full status adaptation
+and permission constructions remain low confidence. Preserve progress versus
+failure and upload versus avatar scope. All 18,092 correction checks pass;
+323 original findings remain pending, including 188 Tamazight.
+
 2026-09-14 — `9685a1107`: two permitted-file-type labels repaired from Arabic.
 MediaWiki file-info-size supplies Type and File, permissionserrorstext-withaction
 supplies Permission, and uploadlogpage supplies Upload. Allowed is adapted

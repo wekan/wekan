@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,518 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 326 pending review or repair.
-The correction inventory records 18,089 exact before/after values,
+findings: 15,521 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 323 pending review or repair.
+The correction inventory records 18,092 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (191) and
+The largest original queues are Standard Moroccan Tamazight (188) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,11 +102,11 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 9685a1107 (2026-09-14), replacing two Arabic
-permitted-file-type labels. Upload versus avatar scope and colons preserved.
-Native Type, File, Permission and Upload support components; plural and full
-permission constructions remain low confidence. All 18,089 correction
-checks pass; 326 pending findings remain, including 191 Tamazight.
+Latest translation fix is bf6faabb7 (2026-09-14), replacing three French
+upload statuses and refining two earlier file-type labels with native Files
+plural. Preserve progress versus failure and upload versus avatar scope.
+Full adaptations remain low confidence. All 18,092 correction checks pass;
+323 pending findings remain, including 188 Tamazight.
 Archive provenance follow-up fbe388603 (2026-09-14) directly inspects the
 native Archives du Maroc logo in a university PDF, corroborating the noun
 beyond indexed evidence. Nine records updated; no values/counts changed.
@@ -652,10 +652,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,518 original findings are
+Translation audit progress as of 2026-09-14: 15,521 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 326 remain pending across 17 locales, including 191 Tamazight findings.
-The ledger contains 18,089 correction records, including unflagged repairs.
+and 323 remain pending across 17 locales, including 188 Tamazight findings.
+The ledger contains 18,092 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -3317,6 +3317,18 @@ Thanks to xet7 !
 and colons. Native vocabulary supports components; plural forms and full
 permission constructions remain low confidence. All 18,089 correction
 checks pass; 326 original findings remain pending.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bf6faabb7">Translation repairs: Tamazight upload statuses and file plurals.</a></summary>
+
+2026-09-14: Replace three French upload statuses and refine two earlier
+file-type labels using directly attested Files plural. Preserve progress
+versus failure and upload versus avatar scope; full adaptations remain low
+confidence. All 18,092 correction checks pass; 323 findings remain pending.
 
 Thanks to xet7 !
 
