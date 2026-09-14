@@ -247,3 +247,9 @@ assert.doesNotMatch(locales.zgh['show-cards-minimum-count'], /[\u0600-\u06ff]/);
 // Field totals must remain aggregates, not field counts or prose summaries.
 assert.match(locales.zgh['showSum-field-on-list'], /ⵜⴰⵎⵓⵜⵜⵔⵜ.*ⵢⵉⴳⵔⴰⵏ.*ⵓⴼⵍⵍⴰ.*ⵜⵍⴳⴰⵎⵜ/);
 assert.doesNotMatch(locales.zgh['showSum-field-on-list'], /Afficher|total des champs|ⴰⵎⴹⴰⵏ|ⴰⵙⴳⵣⵍ/);
+
+// Rule destinations retain opposite positions and the following genitive.
+assert.equal(locales.zgh['r-top-of'], 'ⴰⴼⵍⵍⴰ ⵏ');
+assert.equal(locales.zgh['r-bottom-of'], 'ⴰⴱⵔⴰⵡ ⵏ');
+assert.notEqual(locales.zgh['r-top-of'], locales.zgh['r-bottom-of']);
+for (const key of ['r-top-of', 'r-bottom-of']) assert.doesNotMatch(locales.zgh[key], /En haut|En bas/);

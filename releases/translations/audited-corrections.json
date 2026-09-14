@@ -131276,5 +131276,19 @@
     "before": "Afficher le total des champs en haut de liste",
     "after": "ⵙⵙⴽⵏ ⵜⴰⵎⵓⵜⵜⵔⵜ ⵏ ⵢⵉⴳⵔⴰⵏ ⴳ ⵓⴼⵍⵍⴰ ⵏ ⵜⵍⴳⴰⵎⵜ",
     "reason": "2026-09-14: Replace French field-total checkbox with Tamazight. IRCAM Amazigh-English dictionary PDF page 602 entry 11282 attests tamuttrt total, page 67 entry 1008 aflla top/over and construct uflla. Reuse existing field/list vocabulary and show verb. Sum is an aggregate, not the number of fields. Low confidence: genitive plural yigran and complete software compound require native/browser review."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-top-of",
+    "before": "En haut de",
+    "after": "ⴰⴼⵍⵍⴰ ⵏ",
+    "reason": "2026-09-14: Replace French rule-position fragments with Tamazight. IRCAM Amazigh-English dictionary PDF page 67 entry 1008 aflla top/over and PDF page 32 entry 262 abraw bottom; latter also demonstrates noun plus n construction. Preserve of for following list/board fragment, and keep top/bottom distinct. Low confidence: physical-position vocabulary adapted to ordered software lists and complete assembled rule grammar require native/browser review."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-bottom-of",
+    "before": "En bas de",
+    "after": "ⴰⴱⵔⴰⵡ ⵏ",
+    "reason": "2026-09-14: Replace French rule-position fragments with Tamazight. IRCAM Amazigh-English dictionary PDF page 67 entry 1008 aflla top/over and PDF page 32 entry 262 abraw bottom; latter also demonstrates noun plus n construction. Preserve of for following list/board fragment, and keep top/bottom distinct. Low confidence: physical-position vocabulary adapted to ordered software lists and complete assembled rule grammar require native/browser review."
   }
 ]
