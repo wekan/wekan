@@ -138290,5 +138290,12 @@
     "before": "Qaysi bildirishnomalarni olishingizni boshqaring. Ustuvorlik tartibi: Administrator paneli sozlamasi, keyin Kengash ustunligi, keyin sizning shaxsiy Aʼzo sozlamangiz ustunligi.",
     "after": "Qaysi bildirishnomalarni olishingizni boshqaring. Ustuvorlik tartibi: Administrator paneli sozlamasi, keyin Taxta ustunligi, keyin sizning shaxsiy Aʼzo sozlamangiz ustunligi.",
     "reason": "2026-09-14: Regional Latin Uzbek values match reviewed base sentences; apply attested board noun/case corrections and current automatic card-loading guidance. Independently review eight core/roadmap/clone/card-creation/notification values against English; preserve Version/Release and configuration literals. Native full technical collocations stay under review."
+  },
+  {
+    "locale": "zgh",
+    "key": "comprehensive-board-migration-description",
+    "before": "Effectue des vérifications complètes et des corrections pour l'intégrité des données du tableau, y compris l'ordre des listes, les positions des cartes et la structure des couloirs.",
+    "after": "ⵉⵙⵙⵉⴷⴻⴷ ⴷ ⵉⵙⵙⵓⴽⵏ ⵜⴰⵢⴰⵏⵜ ⵏ ⵜⵎⵓⵛⴰ ⵏ ⵜⴰⴼⵍⵡⵉⵜ ⵙ ⵓⵎⴰⵜⴰ. ⵉⵙⵙⵉⴷⴻⴷ ⴰⵙⴰⵙⵜⵡⴰ ⵏ ⵜⵉⵍⴳⴰⵎⵉⵏ, ⵜⵉⵎⵔⵙⵉ ⵏ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴷ ⵜⵓⵚⴽⵉⵡⵜ ⵏ ⵉⴱⵔⴷⴰⵏ.",
+    "reason": "2026-09-14: Replace full French description with Tamazight draft using IRCAM data-integrity phrase (p678), check (9864 p523), restore/repair (10051 p534), put-in-order (9000 p476), positioning (12781 p678) and structure (13278 p703). Preserve board data-integrity checks/repairs and list/card/swimlane scope. General thoroughness expression, derived ordering noun, inflection and software compounds remain low-confidence pending native review."
   }
 ]
