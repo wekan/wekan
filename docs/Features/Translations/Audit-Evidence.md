@@ -24309,3 +24309,10 @@ wildcards, dates/times and user details. Five relevant source suites pass.
 Playwright successfully lists browser spec 88; it is still unrun.
 No translation classifications change: 283 pending and 4 restored remain.
 Native full-phrase and browser verification are required before acceptance.
+
+## Aromanian color evidence — 2026-09-14
+
+Local review commit `4f63929ee`: [primary sources and limits](Aromanian-Review.md).
+The inspected dictionary sequence lacks a magenta entry; modern loanword usage
+is not ruled out. Field-study color families do not justify a nearby-color
+replacement. No finding was accepted; counts remain unchanged.

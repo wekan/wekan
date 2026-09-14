@@ -10,6 +10,11 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Pending review or repair | 283 |
 | Total tracked | 20,081 |
 
+[Aromanian color review](Aromanian-Review.md), local commit `4f63929ee`
+(2026-09-14), records primary dictionary page inspection and field-study
+evidence. Magenta remains pending; nearby color names do not establish a
+correct replacement. Counts are unchanged.
+
 Review is ongoing. [Tigre/Wolaytta calendar review](Tigre-Wolaytta-Calendar-Review.md)
 records review `5da10eee5` (2026-09-14): a Tigrinya provenance warning for the Tigre base noun and an additional
 untranslated Wolaytta calendar key. Both require native terminology evidence;

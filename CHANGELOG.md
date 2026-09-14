@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4f63929ee">Review Aromanian color terminology</a>. Thanks to xet7.</summary>
+
+Primary dictionary pages and a color field study narrow the pending magenta
+review. Nearby color names are not accepted as interchangeable. No translation
+was changed; the dated audit records the remaining native evidence requirement.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5da10eee5">Review Tigre and Wolaytta calendar provenance</a>. Thanks to xet7.</summary>
 
 An explicitly Tigrinya reference cannot validate the local Tigre calendar noun.
