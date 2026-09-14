@@ -121224,5 +121224,33 @@
     "before": "Afficher les utilisateurs verrouillés seulement",
     "after": "ⵙⴽⵏ ⵖⴰⵙ ⵉⵏⵙⵙⵎⵔⵙⵏ ⵉⵜⵜⵓⴳⴷⴰⵍⵏⵉⵏ",
     "reason": "Replace French login-lockout text with Standard Moroccan Tamazight. Native MediaWiki login-userblocked directly attests ittugdal unssmrs (user is blocked); omit ad/this because the source is generic. Login blocked is the intended account-lockout sense, rather than page protection. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json LOW CONFIDENCE composed plural filter: user plural inssmrsn from native diff-multi-otherusers; skn/show and ghas/only from tool-link-userrights-readonly and protect-level-sysop. Plural blocked participle ittugdalnin is derived, not directly attested in the source; its inflection and complete filter phrase need fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "remove-label",
+    "before": "إزالة التصنيف",
+    "after": "ⴽⴽⵙ ⴰⵔⵛⵓⵎ",
+    "reason": "Replace French/Arabic text with Tamazight. Native MediaWiki delete attests kks/delete and tag-list-wrapper attests arshum/tag; reuse the existing label noun consistently in label removal actions. Preserve the question marker in the deletion popup. Kanban label usage of the native tag noun still needs fluent terminology review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "r-d-remove-label",
+    "before": "Supprimer l'étiquette",
+    "after": "ⴽⴽⵙ ⴰⵔⵛⵓⵎ",
+    "reason": "Replace French/Arabic text with Tamazight. Native MediaWiki delete attests kks/delete and tag-list-wrapper attests arshum/tag; reuse the existing label noun consistently in label removal actions. Preserve the question marker in the deletion popup. Kanban label usage of the native tag noun still needs fluent terminology review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "deleteLabelPopup-title",
+    "before": "حذف العلامة ?",
+    "after": "ⴽⴽⵙ ⴰⵔⵛⵓⵎ?",
+    "reason": "Replace French/Arabic text with Tamazight. Native MediaWiki delete attests kks/delete and tag-list-wrapper attests arshum/tag; reuse the existing label noun consistently in label removal actions. Preserve the question marker in the deletion popup. Kanban label usage of the native tag noun still needs fluent terminology review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-deleteComment",
+    "before": "تعليق محذوف %s",
+    "after": "ⵉⴽⴽⵙ ⴰⵖⴼⴰⵡⴰⵍ %s",
+    "reason": "LOW CONFIDENCE composed comment deletion activity: native MediaWiki logentry-delete-delete attests active ikks/deleted, and filehist-comment attests aghfawal/comment. Preserve %s as the deleted comment value and retain active narration rather than an imperative. Complete clause and default masculine actor form require fluent review. Replace unflagged Arabic. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
