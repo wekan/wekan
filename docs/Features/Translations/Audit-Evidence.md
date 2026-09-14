@@ -1,5 +1,15 @@
 # Detailed translation audit evidence
 
+2026-09-14 (`2250b6716`): retained thirty correct Danish restored values.
+Confirm conversion once per board with normal continued use, migration
+background continuation even after browser closure, slower-completion
+warning, 1-100 batch range, migrated/remaining/total attachment counters,
+minicard list show/hide, unmigrated boards, temporary account lock due to
+too many failed logins plus retry later, credential requirements/mismatch.
+Danish orange is valid; English identity alone is not an error. Danish
+reviewed total 230; overall retained 407, restored awaiting validation 3,828.
+
+
 2026-09-14 (`12d02f4dc`): retained thirty correct restored Danish migration
 and S3 values. Confirm duplicate empty-list deletion requires no cards AND
 a same-title list containing cards; shared-list conversion occurs first.
