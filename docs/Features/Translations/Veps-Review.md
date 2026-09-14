@@ -116,3 +116,16 @@ resetpass-submit-cancel, as well as upload and feedback cancellation.
 This agrees with WeKan's existing general cancel. All correction checks
 pass. This lexical repair does not validate the Finnish-seeded prose or
 live authentication flow. Server terminology and full review remain open.
+
+Server-label review resolved **2026-09-14**, local commit `39af6aae5`:
+current native MediaWiki vep.json provides more than inflected serveral.
+view-pool-error uses the nominative server in a complete native sentence;
+api-clientside-error-http starts with Server and describes an HTTP error.
+Therefore local server = Server is a valid technical noun, retained unchanged.
+Protect only ve-PP:server from placeholder filling; do not apply that conclusion
+to Venda or every locale. Regression fixtures prove other locales, unrelated
+keys and prose containing server remain translatable, and --apply preserves
+this reviewed noun while filling ordinary prose. The completeness gate now
+reports no unreviewed English placeholders; this does not resolve the ten
+Finnish-prose findings or the broader unflagged/dialect/browser review.
+Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json

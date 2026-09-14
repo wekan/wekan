@@ -37,6 +37,11 @@ is established. Preferred Valencian regional style remains under review.
 All **4,158** reviews pass. Shared trigger grammar, provisional calendar
 compounds and broader language/browser review remain open.
 Card-show-lists context is verified against its settings row and toggle.
+Additional unflagged unchanged review: **2026-09-14**, `39af6aae5` —
+Veps Server and Valencian Errors retained with native software evidence and
+protected per locale from filling. Zero unreviewed English placeholders remain;
+this does not establish correct language or fluency in all values. The original
+4,158-row unchanged ledger and 300/27 pending/restored counts are unchanged.
 
 
 

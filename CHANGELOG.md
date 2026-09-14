@@ -671,6 +671,17 @@ The empty wrongly placed Git directory was removed locally.
 **Languages updated:** Acehnese, Bambara, Basque, Breton, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/39af6aae5">Preserve native Veps and Valencian words during translation filling</a>. Thanks to xet7.</summary>
+
+Retain reviewed Veps Server and Valencian Errors even though their spelling
+matches English. Protect only the matching locale/key pairs from filling.
+Positive and negative CLI fixtures verify preserved nouns, translated prose
+and other locales. Completeness and human-preference checks pass; broader
+wrong-language and fluency review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/49bd242c9">Repair Breton rule-editor field and action language</a>. Thanks to xet7.</summary>
 
 Replace eight French-seeded name, recipient, date-operation, color and swimlane

@@ -23111,3 +23111,21 @@ prefixes. Current French r-is and prefixes require a coordinated repair; simply
 replacing all prefixes with Pa vez would duplicate the verb in named triggers.
 All 18,468 correction and 4,158 unchanged checks pass. Complete native phrase,
 shared grammar and browser review remain open; pending/restored scope is 300/27.
+
+Dated unflagged unchanged review, 2026-09-14, local commit `39af6aae5`:
+Veps server = Server retained after native MediaWiki view-pool-error and
+api-clientside-error-http establish the nominative noun in software context.
+Valencian errors = Errors retained: Generalitat Valenciana's native technical
+help uses errors for software incidents, and IEC records error as a noun.
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+https://sede.gva.es/va/formulari-problemes-tecnics-malo
+https://dlc.iec.cat/results.asp?operEntrada=0&txtEntrada=error
+These unflagged values are protected with exact locale/key invariants, outside
+the original-row unchanged ledger. Do not invent alternate spellings solely
+to differ from English. Fixture tests exercise actual CLI list/apply paths:
+other locales and sentences remain translatable; the reviewed noun survives
+fill. Updated global completeness guard requires zero unreviewed placeholders
+rather than the obsolete Sardinian magenta exception (repaired in 04711b646).
+Three focused node suites and 20 human-preference checks pass. No locale
+values changed. Original 300 pending and 27 restored findings remain open;
+English-placeholder completeness is not wrong-language or fluency completion.
