@@ -21763,3 +21763,15 @@ Esperanto KAJ preserves both conditions. Start/pause/stop and connection
 success/failure remain distinct. All 2,040 review records pass; 2,178
 restored values and 308 pending findings plus wider language/browser
 verification remain open.
+
+
+### Esperanto migration repair descriptions — 2026-09-14
+
+Local commit `036cbff31` retains nineteen correct restoration, URL-repair,
+data-integrity and migration outcome/permission values. Field names
+swimlaneId/listId stay literal; all archived object types, this-board scope,
+individual execution and board-admin-only restriction remain accurate.
+Complete and migration-complete remain unvalidated: no current literal
+consumer was found for the latter, so its state/action meaning is uncertain.
+All 2,059 reviews pass. 2,159 restored values and 308 pending findings plus
+broader language/browser verification remain open.
