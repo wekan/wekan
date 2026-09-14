@@ -121434,5 +121434,19 @@
     "before": "Filtrer les cartes ou listes",
     "after": "ⵣⵉⵣⴷⵉⴳ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵏⵖ ⵜⵉⵍⴳⴰⵎⵉⵏ",
     "reason": "LOW CONFIDENCE composed cards-or-lists filter command. Native MediaWiki rcfilters-search-placeholder attests zizdig/filter and contains ngh/or. Native Mastodon column.lists attests tilgamin/lists. Render inherited locale cards/Tikardhiwin in Tifinagh, retaining its lexical form. Preserve the OR relationship and both plural object scopes. Full kanban card plural and complete command usage require fluent review. Replace French. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "change-avatar",
+    "before": "تعديل الصورة الشخصية",
+    "after": "ⵙⵏⴼⵍ ⵜⴰⵡⵍⴰⴼⵜ ⵏ ⵉⴼⵔⵙ",
+    "reason": "LOW CONFIDENCE composed profile-picture control. Native MediaWiki metadata-fields/img-lang-info attest tawlaft/image; native Mastodon account.edit_profile attests snfl/change and ifrs/profile. Native Mastodon confirmations.delete.message supplies the exact sure/want/delete question frame; substitute this profile picture as object. Preserve avatar scope rather than generic file deletion and retain the confirmation question. Full profile-picture compound, genitive bound-state morphology and demonstrative attachment need fluent review. Replace Arabic change label and French confirmation. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "delete-avatar-confirm",
+    "before": "Êtes-vous sûr de vouloir supprimer cet avatar ?",
+    "after": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⵜⴰⵡⵍⴰⴼⵜ ⵏ ⵉⴼⵔⵙ ⴰ?",
+    "reason": "LOW CONFIDENCE composed profile-picture control. Native MediaWiki metadata-fields/img-lang-info attest tawlaft/image; native Mastodon account.edit_profile attests snfl/change and ifrs/profile. Native Mastodon confirmations.delete.message supplies the exact sure/want/delete question frame; substitute this profile picture as object. Preserve avatar scope rather than generic file deletion and retain the confirmation question. Full profile-picture compound, genitive bound-state morphology and demonstrative attachment need fluent review. Replace Arabic change label and French confirmation. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
   }
 ]
