@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight assigned-only permissions — 2026-09-14
+
+Commit `13f8fbd14` replaces six original French labels/descriptions. Sidebar role choices pair each label with its capability description. Preserve Only assigned cards visible for all three, Normal-user editing, Read cannot edit and Comment can only comment. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) supplies Only, User, Read, Edit, Show and ability components. Responsibility assignment provisionally uses Given cards; this is a semantic adaptation, not an attested permission phrase. Derived passive/plural forms, Read noun, Normal adjective, Comment wording and full role/capability clauses remain LOW CONFIDENCE for native review. Component attestations and source-code checks do not validate complete grammar. Six originals repaired; 417 remain pending, including 282 Tamazight. 17,910 mechanical correction checks pass; no live browser verification or remote uploads.
+
 ## Tamazight filter labels and status — 2026-09-14
 
 Commit `5da9a2084` replaces seven Arabic/French values, two original findings and five unflagged values. Preserve membership versus responsibility assignment, No member/No assignee negation, Other filters, active-filter status and You filtering this board plus Click here to edit. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) supplies No, Given, Edit and Here components. Assignee provisionally uses Person given the card; membership uses the separate member noun. Local Filter/Card/Member reuse is not independent validation. Derived member bound forms, assignment adaptation, active/working and second-person forms, Other plural adjective and complete clauses remain LOW CONFIDENCE for native review. Two originals repaired; 423 remain pending, including 288 Tamazight. 17,904 mechanical correction checks pass; no live browser verification or remote uploads.
