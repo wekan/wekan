@@ -3001,3 +3001,11 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     assert.doesNotMatch(eu['act-archived' + kind], /biltegira/);
   }
 }
+
+// Basque all-status search distinguishes archiving from generic storage.
+{
+  const eu = JSON.parse(require('node:fs').readFileSync(require('node:path').join(__dirname, '../imports/i18n/data/eu.i18n.json'), 'utf8'));
+  const assert = require('node:assert/strict');
+  assert.equal(eu['globalSearch-instructions-status-all'], '`__predicate_all__` - artxibatutako eta artxibatu gabeko txartel guztiak');
+  assert.doesNotMatch(eu['globalSearch-instructions-status-all'], /biltegiratu/);
+}

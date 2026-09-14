@@ -21646,5 +21646,179 @@
     "key": "addmore-detail",
     "value": "Gehitu deskripzio zehatzagoa",
     "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "editUserPopup-title",
+    "value": "Editatu erabiltzailea",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "newUserPopup-title",
+    "value": "Erabiltzaile berria",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "remove-all-read",
+    "value": "Kendu irakurritako guztiak",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "myCardsViewChange-title",
+    "value": "Nire txartelen ikuspegia",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "myCardsViewChangePopup-title",
+    "value": "Nire txartelen ikuspegia",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "dueCardsViewChange-choice-all",
+    "value": "Erabiltzaile guztiak",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "user-username-not-found",
+    "value": "Ez da '%s' erabiltzaile-izena aurkitu.",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "operator-user",
+    "value": "erabiltzailea",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "operator-has-invalid",
+    "value": "%s ez da baliozko existentzia-egiaztapena",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "globalSearch-instructions-description",
+    "value": "Bilaketek eragileak izan ditzakete bilaketa zehazteko.  Eragileak zehazteko, idatzi eragilearen izena eta balioa bi puntuz bereizita.  Adibidez, `list:Blocked` eragile-zehaztapenak bilaketa *Blocked* izeneko zerrenda batean dauden txarteletara mugatuko luke.  Balioak zuriuneak edo karaktere bereziak baditu, komatxo artean idatzi behar da (adib. `__operator_list__:\"To Review\"`).",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "globalSearch-instructions-operator-board",
+    "value": "`__operator_board__:<title>` - zehaztutako *<title>* izenburuarekin bat datozen arbeletako txartelak",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "globalSearch-instructions-operator-comment",
+    "value": "`__operator_comment__:<text>` - *<text>* duen iruzkina duten txartelak.",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "globalSearch-instructions-operator-hash",
+    "value": "`__operator_label_abbrev__<name|color>` - `__operator_label__:<color>` edo `__operator_label__:<name>` eragileen laburdura",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "globalSearch-instructions-operator-at",
+    "value": "`__operator_user_abbrev__username` - `user:<username>` eragilearen laburdura",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "globalSearch-instructions-operator-creator",
+    "value": "`__operator_creator__:<username>` - *<username>* txartelaren sortzailea den txartelak",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "globalSearch-instructions-operator-team",
+    "value": "`__operator_team__:<display name|short name>` - *<name>* taldeari esleitutako arbel bateko txartelak",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "globalSearch-instructions-operator-due",
+    "value": "`__operator_due__:<n>` - hemendik *<n>* egunera arte epemuga duten txartelak.  `__operator_due__:__predicate_overdue__ eragileak epemuga igarota duten txartel guztiak zerrendatzen ditu.",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "globalSearch-instructions-operator-status",
+    "value": "`__operator_status__:<status>` - non *<status>* hauetako bat den:",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "globalSearch-instructions-status-private",
+    "value": "`__predicate_private__` - arbel pribatuetako txartelak soilik",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "globalSearch-instructions-operator-has",
+    "value": "`__operator_has__:<field>` - non *<field>* hauetako bat den: `__predicate_attachment__`, `__predicate_checklist__`, `__predicate_description__`, `__predicate_start__`, `__predicate_due__`, `__predicate_end__`, `__predicate_assignee__` edo `__predicate_member__`.  *<field>* aurrean `-` jarrita, eremu horretan baliorik ez dutenak bilatzen dira (adib. `has:-due` eragileak epemugarik gabeko txartelak bilatzen ditu).",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "globalSearch-instructions-operator-sort",
+    "value": "`__operator_sort__:<sort-name>` - non *<sort-name>* hauetako bat den: `__predicate_due__`, `__predicate_created__` edo `__predicate_modified__`.  Beheranzko ordenarako, jarri `-` ordena-izenaren aurrean.",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "globalSearch-instructions-operator-limit",
+    "value": "`__operator_limit__:<n>` - non *<n>* orriko erakutsi beharreko txartel kopurua adierazten duen zenbaki oso positiboa den.",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "globalSearch-instructions-notes-2",
+    "value": "Eragile berdinak *OR* bidez konbinatzen dira.  Baldintzetako edozein betetzen duten txartelak itzuliko dira.\n`__operator_list__:Available __operator_list__:Blocked` eragileak *Blocked* edo *Available* izeneko edozein zerrendatako txartelak itzuliko lituzke.",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "globalSearch-instructions-notes-3",
+    "value": "Eragile desberdinak *AND* bidez konbinatzen dira.  Eragile desberdin guztiak betetzen dituzten txartelak soilik itzultzen dira.  `__operator_list__:Available __operator_label__:red` eragileak *Available* zerrendako eta *red* etiketa duten txartelak soilik itzultzen ditu.",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "globalSearch-instructions-notes-4",
+    "value": "Testu-bilaketek ez dituzte maiuskulak eta minuskulak bereizten.",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "label-colors",
+    "value": "Etiketen koloreak",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "label-names",
+    "value": "Etiketen izenak",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "server-error",
+    "value": "Zerbitzariaren errorea",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
+  },
+  {
+    "locale": "eu",
+    "key": "server-error-troubleshooting",
+    "value": "Mesedez, bidali zerbitzariak sortutako errorea.\nSnap instalazio baterako, exekutatu: `sudo snap logs wekan.wekan`\nDocker instalazio baterako, exekutatu: `sudo docker logs wekan-app`",
+    "reason": "Inspected Basque user/account, label and search instructions preserve operator syntax, quoted examples, creator/team membership, due/overdue, absence checks, descending order, positive page limits, OR/AND distinctions and case-insensitive search. Troubleshooting retains exact snap/docker commands, and all source interpolation tokens remain unchanged."
   }
 ]

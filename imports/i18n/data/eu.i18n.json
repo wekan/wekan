@@ -1773,7 +1773,7 @@
   "globalSearch-instructions-operator-modified": "`__operator_modified__:<n>` - fitxes que es van modificar *<n>* fa dies o menys",
   "globalSearch-instructions-operator-status": "`__operator_status__:<status>` - non *<status>* hauetako bat den:",
   "globalSearch-instructions-status-archived": "`__predicate_archived__` - fitxes arxivades",
-  "globalSearch-instructions-status-all": "`__predicate_all__` - biltegiratutako eta biltegiratu gabeko txartel guztiak",
+  "globalSearch-instructions-status-all": "`__predicate_all__` - artxibatutako eta artxibatu gabeko txartel guztiak",
   "globalSearch-instructions-status-ended": "`__predicate_ended__`: fitxes amb una data de finalització",
   "globalSearch-instructions-status-public": "`__predicate_public__` - fitxes només als taulers públics",
   "globalSearch-instructions-status-private": "`__predicate_private__` - arbel pribatuetako txartelak soilik",
