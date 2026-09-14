@@ -21936,3 +21936,13 @@ retained. JSON title/description properties, placeholders, permanent
 custom-field deletion and free-disk-space warning remain exact. All 18,157
 corrections and 2,339 reviews pass. 1,873 restored values and 308 pending
 findings plus wider language/browser verification remain open.
+
+
+### Galician import mapping and privacy — 2026-09-14
+
+Local commit `7f7db419c` retains twenty-five correct import/member,
+list-action, notification and privacy values. Unmapped members map to the
+current user; at least one administrator remains required. Assigned-only
+visibility, creator/member participation and public-view/member-only-edit
+qualifiers remain exact. All 2,364 reviews pass; 1,848 restored values and
+308 pending findings plus wider language/browser verification remain open.
