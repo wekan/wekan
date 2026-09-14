@@ -739,6 +739,21 @@ Thanks to GitHub CodeQL and xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/af9362126">Authorize each board in registration invitations</a></summary>
+
+InvitationBoardBleed: domain-approved registration inviters could include
+arbitrary private boards in invitation grants (CWE-639). Every board now
+requires the configured inviter role or site-admin access, and must exist.
+The complete grant is checked before code mutations or outgoing mail.
+Blocked grants appear in bounded Problems summaries. Role/grant inventory
+and email suites pass; browser regression is syntax-checked. Live mail and
+redemption were not executed.
+
+Thanks to Wenhao Wu, Southeast University and xet7 !
+
+</details>
+
 **Translations** - Tamazight interface and maintenance labels; Bambara, Fulah, Dzongkha and Ewe calendars.
 
 <details>
