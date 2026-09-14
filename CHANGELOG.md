@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,586 corrected, 58 restored pre-pull values awaiting
-validation, 4,132 reviewed and retained, and 305 pending review or repair.
+findings: 15,586 corrected, 55 restored pre-pull values awaiting
+validation, 4,135 reviewed and retained, and 305 pending review or repair.
 The correction inventory records 18,196 exact before/after values,
 including repairs outside the original findings.
 Global completeness verification also identifies Veps `server` (currently
@@ -113,10 +113,10 @@ Latest translation fix is 1b228a63f (2026-09-14): six Basque archive
 actions/descriptions use archive terminology instead of storage wording.
 Shared trigger grammar remains unresolved. Manx epoch terminology and
 Greenlandic compound grammar remain provisional and need native review.
-Latest unchanged-value review is be334a5bf (2026-09-14): two Valencian
-checklist search tokens retained after exercising the actual localized parser.
-Nine restored Valencian values, Uzbek Arabic-script and Breton wording,
-shared trigger grammar and live browser validation remain open.
+Latest unchanged-value review is 918d17c6b (2026-09-14): three Basque
+rule placement and own-list labels retained against actual action controls.
+Twenty restored Basque values, nine restored Valencian values and wider
+language/browser verification remain open.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
 Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
 retaining 156 correct Danish storage, migration and monitoring/account labels.
@@ -813,6 +813,15 @@ including the Spanish is fragment, and browser validation remain open.
 Six Basque rule actions/descriptions use archive terminology instead of
 storage wording. Regression preserves archive/restore directions and when
 clauses and checks actual action options. Exact correction checks pass;
+shared trigger grammar and wider language/browser verification remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/918d17c6b">Validate placement and own-list labels</a>. Thanks to xet7.</summary>
+
+Retained three Basque rule labels against the top/bottom action controls and
+own-list destination. Exact review checks pass; twenty restored Basque values,
 shared trigger grammar and wider language/browser verification remain open.
 
 </details>

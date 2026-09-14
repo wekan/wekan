@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,586 |
-| Restored pre-pull; awaiting validation | 58 |
-| Reviewed; retained unchanged | 4,132 |
+| Restored pre-pull; awaiting validation | 55 |
+| Reviewed; retained unchanged | 4,135 |
 | Pending review or repair | 305 |
 | Total tracked | 20,081 |
 
@@ -29,13 +29,12 @@ Veps terminology, shared trigger grammar and browser validation remain open.
 Attachment/member rule participles still need context-specific agreement.
 Two Esperanto restored findings remain: Complete labels.
 Broader language and browser verification remain open; nothing pushed.
-Latest unchanged review: **2026-09-14**, commit `be334a5bf` — retained
-two Valencian joined checklist search tokens. Regression executes the real
-parser with localized checklist-text and positive/negative presence searches;
-unknown fields are rejected. Nine restored Valencian values remain.
-Technical loanwords and completion-state context still need review. Uzbek
-Arabic-script and Breton wording, previous Thai and compound-trigger findings
-stay unresolved. Browser verification remains open.
+Latest unchanged review: **2026-09-14**, commit `918d17c6b` — retained
+three Basque placement/list-ownership labels against the rule-action controls.
+Top and bottom directions and the card's own list remain distinct. Twenty
+restored Basque values remain, including shared-trigger composition and
+context-dependent completion/storage wording. Nine restored Valencian values,
+Uzbek Arabic-script and Breton wording and browser verification remain open.
 Galician export free wording remains open pending context.
 Galician Complete and migration-complete wording remain open pending context.
 Card-show-lists context is verified against its settings row and toggle.

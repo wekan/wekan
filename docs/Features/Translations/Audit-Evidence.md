@@ -22663,3 +22663,9 @@ consistent with corrected r-archived/r-unarchived. Regression verifies
 archive/restore directions, when clauses, absence of storage wording and
 actual boardActions options. All 18,196 correction records pass. Original
 queue counts unchanged; shared trigger grammar and browser review stay open.
+
+Dated review, 2026-09-14, local commit `918d17c6b`: retained Basque
+r-top-of Goialdera:, r-bottom-of Behealdera: and r-its-list bere zerrenda.
+Actual boardActions top/bottom options and following own-list label confirm
+placement/ownership context. All 4,135 exact review records pass. Twenty
+restored Basque values and complete trigger grammar remain unresolved.
