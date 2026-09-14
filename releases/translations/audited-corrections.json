@@ -126612,14 +126612,35 @@
     "locale": "zgh",
     "key": "allowed-upload-filetypes",
     "before": "أنواع الملفات المسموح بتحميلها:",
-    "after": "ⵉⵏⴰⵡⵏ ⵏ ⵉⴼⴰⵢⵍⵓ ⵙ ⵜⵓⵔⴰⴳⵜ ⵏ ⵓⵙⵙⴽⵜⵔ:",
-    "reason": "2026-09-14: Replace Arabic file restriction label with Tamazight. MediaWiki file-info-size directly attests MIME Type anaw and bound File ufaylu; permissionserrorstext-withaction directly attests Permission turagt, uploadlogpage attests Upload ussktr (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Adapt Allowed as with Permission, distinguishing upload permission from avatar-file scope using the local profile-image paraphrase. Preserve colon. Plural Types inawn, Files ifaylu, permission construction and full labels are derived, low confidence; require language validation."
+    "after": "ⵉⵏⴰⵡⵏ ⵏ ⵉⴼⵓⵢⵍⴰ ⵙ ⵜⵓⵔⴰⴳⵜ ⵏ ⵓⵙⵙⴽⵜⵔ:",
+    "reason": "2026-09-14: Replace Arabic file restriction label with Tamazight. MediaWiki file-info-size directly attests MIME Type anaw and bound File ufaylu; permissionserrorstext-withaction directly attests Permission turagt, uploadlogpage attests Upload ussktr (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Adapt Allowed as with Permission, distinguishing upload permission from avatar-file scope using the local profile-image paraphrase. Preserve colon. Plural Types inawn, Files ifaylu, permission construction and full labels are derived, low confidence; require language validation. Follow-up 2026-09-14: Replace derived Files ifaylu with directly attested plural ifuyla from MediaWiki category-file-count/category-file-count-limited. Original Arabic before-value preserved; Types plural and full permission constructions remain low confidence."
   },
   {
     "locale": "zgh",
     "key": "allowed-avatar-filetypes",
     "before": "أنواع ملفات الصورة الرمزية المسموح بها:",
-    "after": "ⵉⵏⴰⵡⵏ ⵏ ⵉⴼⴰⵢⵍⵓ ⵏ ⵜⵡⵍⴰⴼⵜ ⵏ ⵉⴼⵔⵙ ⵙ ⵜⵓⵔⴰⴳⵜ:",
-    "reason": "2026-09-14: Replace Arabic file restriction label with Tamazight. MediaWiki file-info-size directly attests MIME Type anaw and bound File ufaylu; permissionserrorstext-withaction directly attests Permission turagt, uploadlogpage attests Upload ussktr (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Adapt Allowed as with Permission, distinguishing upload permission from avatar-file scope using the local profile-image paraphrase. Preserve colon. Plural Types inawn, Files ifaylu, permission construction and full labels are derived, low confidence; require language validation."
+    "after": "ⵉⵏⴰⵡⵏ ⵏ ⵉⴼⵓⵢⵍⴰ ⵏ ⵜⵡⵍⴰⴼⵜ ⵏ ⵉⴼⵔⵙ ⵙ ⵜⵓⵔⴰⴳⵜ:",
+    "reason": "2026-09-14: Replace Arabic file restriction label with Tamazight. MediaWiki file-info-size directly attests MIME Type anaw and bound File ufaylu; permissionserrorstext-withaction directly attests Permission turagt, uploadlogpage attests Upload ussktr (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Adapt Allowed as with Permission, distinguishing upload permission from avatar-file scope using the local profile-image paraphrase. Preserve colon. Plural Types inawn, Files ifaylu, permission construction and full labels are derived, low confidence; require language validation. Follow-up 2026-09-14: Replace derived Files ifaylu with directly attested plural ifuyla from MediaWiki category-file-count/category-file-count-limited. Original Arabic before-value preserved; Types plural and full permission constructions remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "uploading",
+    "before": "Chargement",
+    "after": "ⴰⵙⵙⴽⵜⵔ",
+    "reason": "2026-09-14: Replace French upload status. MediaWiki uploadlogpage attests bound Upload ussktr; category-file-count explicitly supplies plural Files ifuyla (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Non-fuzzy Dialect Suggestion failed and Translation failed directly attest Failed ittwazgl (https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po). Use action noun for Uploading status, distinct from Failed Upload and completed status. Free-form as sktr derivation, failure-subject substitution and full status adaptation remain low confidence; require language validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "uploading-files",
+    "before": "Chargement des fichiers",
+    "after": "ⴰⵙⵙⴽⵜⵔ ⵏ ⵉⴼⵓⵢⵍⴰ",
+    "reason": "2026-09-14: Replace French upload status. MediaWiki uploadlogpage attests bound Upload ussktr; category-file-count explicitly supplies plural Files ifuyla (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Non-fuzzy Dialect Suggestion failed and Translation failed directly attest Failed ittwazgl (https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po). Use action noun for Uploading status, distinct from Failed Upload and completed status. Free-form as sktr derivation, failure-subject substitution and full status adaptation remain low confidence; require language validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "upload-failed",
+    "before": "Le chargement a échoué",
+    "after": "ⵉⵜⵜⵡⴰⵣⴳⵍ ⵓⵙⵙⴽⵜⵔ",
+    "reason": "2026-09-14: Replace French upload status. MediaWiki uploadlogpage attests bound Upload ussktr; category-file-count explicitly supplies plural Files ifuyla (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Non-fuzzy Dialect Suggestion failed and Translation failed directly attest Failed ittwazgl (https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po). Use action noun for Uploading status, distinct from Failed Upload and completed status. Free-form as sktr derivation, failure-subject substitution and full status adaptation remain low confidence; require language validation."
   }
 ]
