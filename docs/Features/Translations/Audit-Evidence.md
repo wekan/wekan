@@ -22692,3 +22692,10 @@ https://aoe.iec.cat/els-possessius/ distinguishes regional meves/meues;
 regional variation alone is not evidence of another language. The assigned
 filter shortcut remains under regional review. All 18,197 exact corrections
 pass. Original queue counts and broader verification scope are unchanged.
+
+Dated review, 2026-09-14, local commit `37a664a5c`: retained Basque
+ticket-number Tiket-zenbakia. Government bulletin
+https://www.euskadi.eus/bopv2/datos/2014/12/1405234e.pdf attests
+tiket- edo albaran-zenbakia. This validates lexical meaning; no current
+UI consumer was found. All 4,137 exact review records pass. Nineteen
+restored Basque values and wider language/browser verification remain open.

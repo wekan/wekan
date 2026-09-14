@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,586 corrected, 54 restored pre-pull values awaiting
-validation, 4,136 reviewed and retained, and 305 pending review or repair.
+findings: 15,586 corrected, 53 restored pre-pull values awaiting
+validation, 4,137 reviewed and retained, and 305 pending review or repair.
 The correction inventory records 18,197 exact before/after values,
 including repairs outside the original findings.
 Global completeness verification also identifies Veps `server` (currently
@@ -112,9 +112,9 @@ resumed.
 Latest translation fix is c4e6aa1c0 (2026-09-14): Valencian My Attachments
 uses matching masculine plural modifiers. Regional possessive wording,
 shared trigger grammar and provisional calendar phrasing remain under review.
-Latest unchanged-value review is c44dca170 (2026-09-14): Acehnese More
-retained against primary dictionary usage. Six restored Acehnese values and
-wider language/browser verification remain open.
+Latest unchanged-value review is 37a664a5c (2026-09-14): Basque ticket
+number wording retained against government usage. Nineteen restored Basque
+values and wider language/browser verification remain open.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
 Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
 retaining 156 correct Danish storage, migration and monitoring/account labels.
@@ -831,7 +831,7 @@ shared trigger grammar and wider language/browser verification remain open.
 <summary><a href="https://github.com/wekan/wekan/commit/918d17c6b">Validate placement and own-list labels</a>. Thanks to xet7.</summary>
 
 Retained three Basque rule labels against the top/bottom action controls and
-own-list destination. Exact review checks pass; twenty restored Basque values,
+own-list destination. Exact review checks pass; nineteen restored Basque values,
 shared trigger grammar and wider language/browser verification remain open.
 
 </details>
@@ -850,6 +850,15 @@ six restored Acehnese values and broader language/browser review remain open.
 Valencian My Attachments uses Els meus adjunts, matching the masculine plural
 noun and preserving first-person ownership. Exact correction checks pass;
 regional wording and wider language/browser verification remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/37a664a5c">Validate ticket-number vocabulary</a>. Thanks to xet7.</summary>
+
+Retained Basque Tiket-zenbakia against published government usage. Exact
+review checks pass. No current UI consumer was found; lexical acceptance
+does not verify an unobserved workflow. Wider translation review remains open.
 
 </details>
 
