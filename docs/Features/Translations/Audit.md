@@ -5,206 +5,69 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,545 |
-| Restored pre-pull; awaiting validation | 3,199 |
-| Reviewed; retained unchanged | 1,029 |
+| Restored pre-pull; awaiting validation | 3,141 |
+| Reviewed; retained unchanged | 1,087 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
-**Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
+Review is ongoing. The [correction ledger](../../../releases/translations/audited-corrections.json)
+contain **18,140** exact before/after values, including unflagged repairs.
+[Detailed evidence](Audit-Evidence.md) retains categorized findings,
+source references, confidence limits and archived progress notes.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,140** exact before/after values, including unflagged repairs.
+Latest translation fix: **2026-09-14**, local commit `ab4da5ab2` — repaired
+Esperanto watch-notification semantics and search Enter-key wording.
+Latest unchanged-value review: **2026-09-14**, local commit `b999becb4` —
+retained 58 correct Esperanto settings and rule-action values. Correction,
+unchanged-value and progress checks pass. Browser verification was not run;
+no translations were pushed.
 
-Latest translation fix: **2026-09-14**, local commit `ab4da5ab2` — repaired Esperanto watch-notification semantics and search Enter-key wording. Retained 61 correct role, shortcut, warning and configuration values unchanged. All **18,140** correction records pass structural verification; **308** original findings remain pending across **17** locales. The **3,199** restored values, unflagged values, provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Fixed categories include wrong-language prose, terminology, warnings,
+placeholders and JSON/calendar/search formatting. All 361 originally flagged
+Klingon findings and the broader 829 German-identical values were repaired;
+the cron label retains the actual tool name Cron. Danish restored review
+validated 611 values: 606 retained unchanged and five meanings repaired.
+Four Danish context-dependent labels remain: free, Complete, Schedule and Days Old.
+Esperanto completion, subtask, member-pronoun and overtime wording remains open.
 
-**Latest syntax repair (2026-09-14, `d0c247094`, follow-up `cd563cce5`):** Veps filter help now
-preserves canonical comparison, escaping, quoted field/value and Boolean
-examples; the follow-up also fixes the standalone escape marker and checks
-all backslash runs. Regression checks passed and assert its language queue stays open;
-Finnish prose still needs full Veps translation. No completed language
-correction was added; original counts remain unchanged. Native Show,
-Activate/Deactivate and field terminology are reviewed, while full shortcut
-wording is unresolved. [Veps review](Veps-Review.md) records detailed limits;
-[Evidence](Audit-Evidence.md) retains the earlier findings.
+| Pending locale | Findings |
+| --- | ---: |
+| zgh — Standard Moroccan Tamazight | 173 |
+| iu — Inuktitut | 50 |
+| nah — Nahuatl | 17 |
+| tig — Tigre | 17 |
+| wal — Wolaytta | 17 |
+| ve-PP — Veps | 10 |
+| kl — Greenlandic | 7 |
+| dz — Dzongkha | 3 |
+| gv — Manx | 3 |
+| bm — Bambara | 2 |
+| ff — Fulah | 2 |
+| ks — Kashmiri | 2 |
+| ee — Ewe | 1 |
+| qu — Quechua | 1 |
+| rup — Aromanian | 1 |
+| sc — Sardinian | 1 |
+| szl — Silesian | 1 |
 
-**Diagnostic terminology review (2026-09-14):** directly inspected Heap,
-Allocation and Context entries, resolving extraction substitutions in emphatic
-letters. Cross-variety candidates need adaptation; full diagnostics retain
-total/used, available/limit, allocation/peak and native/detached distinctions.
-Values/counts unchanged. [Evidence](Audit-Evidence.md) records exact spellings
-and limits; lexical inspection alone does not verify complete labels.
+Completion also requires reviewing all restored and unflagged values and
+previous low-confidence repairs. In particular, 98 Tamazight correction
+records have invalidated Moroccan provenance: CNAM MCΓ denotes Tuareg,
+not Moroccan. Corrected source notes are not full dialect/grammar validation.
+Calendar civil/astronomical epochs and moon-sighting distinctions, memory
+and authentication diagnostics, migration labels, archive/logo terminology,
+search-case instructions and full command grammar retain the evidence's
+recorded limits. Obsolete migration strings remain in translation scope.
+Veps filter syntax repairs preserve literal examples; Finnish prose still
+needs full Veps translation. [Veps review](Veps-Review.md) records limits.
 
-**Calendar evidence review (2026-09-14):** CLDR directly confirms existing
-Coptic/Ethiopic/Gregorian labels; Islamic wording is explicitly provisional.
-Updated that evidence record. Missing native display names and full Hijri
-variants remain under review; English fallbacks are not verification.
-Values/counts unchanged. [Evidence](Audit-Evidence.md) records source limits.
+Placeholder, JSON and key-order checks verify structure, not fluency.
+Preserve every English interpolation/format token exactly and retain correct
+translations unchanged. No external translation service is used.
 
-**Migration scope review (2026-09-14):** current source removed the
-comprehensive/missing-list migrations in #6521, but their locale strings
-remain. Keep them in repair scope without claiming the obsolete feature is
-active. Dictionary Integrity is distinct from Integration; full Moroccan
-migration wording remains unverified. Values/counts unchanged.
-[Evidence](Audit-Evidence.md) records the inspected source and limits.
-
-**Zoom control follow-up (2026-09-14, `35eb7e7ab`):** applied visually
-inspected Level and Zoom In/Out candidates to four French controls,
-preserving the 50-300% input range. One original finding and three additional
-repairs; cross-variety adaptation and full grammar remain low confidence.
-[Evidence](Audit-Evidence.md) records exact pages and source limits.
-
-**Source typography review (2026-09-14):** rendered dictionary pages confirm
-Tuareg marker MCΓ, previously extracted as MC£, and Authentication/Method
-spellings. Corrected 105 record explanations; values/counts unchanged.
-Moroccan suitability, transliteration and full grammar remain unverified.
-[Evidence](Audit-Evidence.md) records the visual findings.
-
-**Board-analysis follow-up (2026-09-14, `a6647173f`):** directly inspected local renders of dictionary PDF pages 19 and 134, confirming emphatic letters in Analyze and Structure. This resolves the earlier extraction ambiguity; the full command is repaired but remains low confidence for Moroccan usage and grammar. [Evidence](Audit-Evidence.md) retains the earlier limits and new visual findings.
-
-**Search-case review (2026-09-14):** preserve uppercase/lowercase matching,
-not font-size or accent equivalence. Indexed IRCAM discussions do not
-establish native case-insensitivity terms; the instruction remains pending.
-[Evidence](Audit-Evidence.md) records source limits; values/counts unchanged.
-
-**Parent-card review (2026-09-14):** code confirms No Parent is display-only,
-distinct from changing the relationship. Indexed cross-variety vocabulary
-does not establish a singular Moroccan parent term; earlier inheritance
-wording and pending French controls still need review.
-[Evidence](Audit-Evidence.md) records the limits; values/counts unchanged.
-
-**Format review (2026-09-14, follow-up `080225ac9`):** indexed HACA terminology
-supports Format; help is now repaired with an in-place-of-value paraphrase.
-Direct PDF retrieval failed; full grammar remains low confidence.
-Separator help is repaired in `0968a9dc6`, retaining literal HTML space
-entities; cross-variety terms and full grammar remain low confidence.
-[Evidence](Audit-Evidence.md) records the limits.
-
-**Archive noun review (2026-09-14, `fbe388603`):** directly inspected a native Archives du Maroc logo in a university PDF, corroborating the archive noun beyond the earlier search-index excerpt. Updated nine provenance records; values/counts unchanged. Institutional-to-kanban adaptation and full labels remain low confidence. [Evidence](Audit-Evidence.md) records the exact source and scope.
-
-**Logo provenance review (2026-09-14, `89f36d41f`):** applied the inspected dictionary’s cross-variety preface to two earlier logo URL records. Separate native caption usage remains; full labels stay low confidence. No values/counts changed. [Evidence](Audit-Evidence.md) records the authority limits.
-
-**Conversion evidence review (2026-09-14, `ecae7d919`):** native Ministry usage supports Return/date-back, not the proposed Become verb. Preserve low confidence; follow-up `996cc65c7` repairs the Arabic original-order variant using low-confidence cross-variety dictionary candidates. The evidence-only review changed no values/counts. [Evidence](Audit-Evidence.md) records the morphological and semantic limits.
-
-**Checklist completion review (2026-09-14, `9de9f2c15`, follow-up `4139001a3`):** native MediaWiki now directly supports transitive Complete Login, stronger than legal supplementation. Past actor form and full checklist grammar remain low confidence; active uncompletion is repaired with distinct Undo Completion wording in `bc0e7f13a`; derived morphology remains low confidence. Login noun is attested. Follow-up `800934571` repairs the custom-logo labels using a native community caption; full wording remains low confidence. The completion evidence review itself changed no values/counts. [Evidence](Audit-Evidence.md) records source context.
-
-**Subtask review (2026-09-14):** finding `92f69f58d` is repaired in `23c82a5c1`: existing-card action now uses As and hierarchical Task wording. Nine noun/settings/delete/action labels are repaired across `f13775594` and `23c82a5c1`; full paraphrases remain low confidence. Added-subtask activity is repaired in `b26d1ddc1` with low-confidence grammar; Linked Subtask is repaired in `af33f6640`; full phrases and other related wording still need review. [Evidence](Audit-Evidence.md) retains source limits.
-
-**Bambara calendar review (2026-09-14, `5610dff52`):** current CLDR supplies date units and Era `tile`, but no native Hijri variant names. Era does not establish reference-date Epoch. Both tabular calendar findings remain pending; preserve civil versus astronomical epoch and seek full native terminology. [Evidence](Audit-Evidence.md) records limits; no values or counts changed.
-
-**Start spelling review (2026-09-14, `2219d5358`):** expanded indexed IRCAM entries distinguish plain `ⴱⴷⵓ` Begin/Start from emphatic `ⴱⴹⵓ` Share/Divide. Preserve the corrected spelling; direct PDF access redirects to HTML, so full command validation remains open. Subworkspace wording was subsequently repaired in `8dc2224c7`; the new compound and full phrases remain low confidence for validation. [Evidence](Audit-Evidence.md) records limits; no values or counts changed.
-
-**Authentication reference review (2026-09-14, `9bcb5e162`):** direct [dictionary](https://cedric.cnam.fr/~bouzefra/books/amawal.pdf) extraction marks `Asesteb`/`Sesteb` **MC£** (Tuareg); search-index **MCF** is a rendering discrepancy, not Moroccan proof. Keep authentication method/display/default findings and unflagged type wording under review, preserving authentication versus sign-in/authorization and all qualifiers. [Evidence](Audit-Evidence.md) records pages and limits; no values or counts changed.
-
-**Troubleshooting review (2026-09-14, `ccd2ff8b0`):** [Evidence](Audit-Evidence.md) separates native server/error vocabulary from indexed cross-dialect execution/installation terms. Complete Moroccan instructions remain unresolved; retain both literal commands and their snap/Docker installation conditions. No locale values or counts changed.
-
-**Memory reference follow-up (2026-09-14):** [Moroccan hardware site](https://pcpicker.ma/prebuilts?lang=zgh) directly uses `ⵜⴰⴽⴰⵜⵓⵜ (RAM)`. This independently corroborates computer-memory usage after correcting the CNAM dialect attribution; it does not establish canonical Standard Moroccan terminology. Translation authorship/review is unknown and CPU labels vary on the page. Added evidence to three memory correction records, retaining low-confidence and renewed-review requirements. No locale values or counts changed. Further review must validate full diagnostics, free/allocated memory distinctions and grammatical adaptation.
-
-**Reference provenance correction (2026-09-14):** CNAM bibliography (PDF 12/printed 8) defines `MC£` as Tuareg sources and `MC` as Mokrane Chemim’s lexicon, not Central Moroccan dialect abbreviations. Corrected source notes in **98** Tamazight correction records. Earlier claims of Moroccan attestation inferred from these codes are invalid; affected terminology and full wording require renewed dialect review. The memory entry is marked `MC£`. No locale values or counts changed. This expands the explicit validation work beyond the pending queue; mechanical passing checks cannot resolve it.
-
-**Dzongkha variant reference review (2026-09-14):** downloaded both [GNU-hosted](https://download.savannah.gnu.org/releases/dzongkha-gnome/dzongkha_computer_terms.pdf) and [publisher-hosted](https://www.cle.org.pk/research/rep/DCT.pdf) computing dictionaries. Both directly extracted copies confirm Coptic `ཀོཔ་ཊིཀ` (PDF 47). Tabular (PDF 196) and Saudi Arabia (PDF 175) provide candidate components, but extracted glyphs are corrupt and indexed wording differs. The epoch entry (PDF 69) describes an important time; it does not establish a calendar reference date. No astronomical or moon-sighting term was found in this extraction, which does not prove absence. Keep all three Hijri variants pending; obtain legible native terms and preserve civil/astronomical reference-date and sighting distinctions. No translation values or counts changed.
-
-**Tamazight open-command review (2026-09-14):** [IRCAM’s generative grammar](https://www.ircam.ma/sites/default/files/2024-12/grammaire-generative-de-amazighe.pdf), printed page 36, gives a transitive open-door example; the indexed [children’s poems](https://biblio.ircam.ma/pmb/uploads/publications/224.pdf), printed page 44, give imperative `ⵕⵥⵎ` in an open-your-heart expression. These strengthen verb evidence, but the poem spelling differs from MediaWiki’s `ⵔⵥⵎ` root and full PDF retrieval failed certificate verification. Keep native spelling, imperative-to-software adaptation and the complete bulk-opening phrase under review. No values or counts changed; indexed examples do not prove full language validation.
-
-**Tamazight field-sum review (2026-09-14):** `showSum-field-on-list` remains pending. Native MediaWiki supports show and top placement, but the [comparative mathematics terminology study](https://asjp.cerist.dz/en/downArticle/244/9/1/33058) discusses `timernit`/`timerna` as the addition operation, not proof of the resulting sum. Its full PDF could not be fetched (502). CNAM’s indexed sum-of-money example also does not establish a field sum; Kabyle lexicon reproductions do not establish Standard Moroccan usage. Do not substitute count, addition operation or a financial amount. No values or counts changed; further research must establish the resulting numeric sum and complete display phrase.
-
-**Fulah terminology review (2026-09-14):** The [Senegal education ministry terminology guide](https://senprof.education.sn/PROGRAMME%20LECTURE%20POUR%20TOUS/documentation/Terminologies/Terminologie%20Pulaar%20fusion.pdf), printed pages 8, 17 and 34, gives calendar names `Lim-lebbi`, `arminaat`, `kalanndiriyee`, distinguishes `Haatumeere` as grid/table, and uses `Alluwal` for table/classroom board. This strengthens component evidence but does not establish technical tabular calendar usage or civil/astronomical epochs. The earlier native Hijri article supports calendar-context use of Haatumeere, so the guide alone does not justify replacing it; that composition remains under review. No locale values or counts changed. Both Fulah epoch findings remain pending.
-
-**Build interruption follow-up (2026-09-14):** `.tools/wekan22` contains the old v11.75 missing-Moment failure, already repaired in `43adfe1a7`. A fresh Meteor 3.6-beta.0 bundle build passes on Linux arm64, and six assignee/calendar/release-preflight Node test entries pass. Log: `.tools/log/build-dev-bundle/2026-09-14/04-25-58/dev.txt`. Native amd64 and live browser checks were not run. Translation counts and the remaining validation scope above are unchanged.
-
-**Color-name reference review (2026-09-14):** Sardinian and Aromanian `color-magenta` remain pending. Searches did not establish native usage; Italian publications and English WordPress changelogs are insufficient. The [Vrabie English–Aromanian dictionary](https://s3.wasabisys.com/fars-media/wp-content/uploads/2020/07/An-English-Aromanian-Macedo-Romanian-Dictionary-%C2%A9Society-Farsharotu-1.pdf) has poor OCR and no searchable magenta/fuchsia entry, which does not prove absence. Further review needs a legible dictionary entry or native usage; neither color value was changed or accepted as verified.
-
-**Checklist reference review (2026-09-14):** the candidate [computing lexicon](https://www.fichier-pdf.fr/2014/08/31/lexique-informatique/) labels `asenqed` (check/control) **KBL**. Its indexed entry does not establish Standard Moroccan checklist usage; the original hosting could not be fetched. A [readable CNAM-hosted edition](https://cedric.cnam.fr/~bouzefra/books/amawal.pdf) was subsequently found; it distinguishes mixed source dialects and proposed neologisms, so it does not justify blanket Standard Moroccan acceptance. Existing schwa-heavy checklist strings and full confirmation wording remain pending terminology and dialect review. No blanket retention or replacement is justified by this reference.
-
-**Language validation (2026-09-14), local commit `e4e3aa590`:** Wiktionary’s Veps transitive inflection tables confirm `surenda` (make larger) and `penenda` (make smaller) as second-person singular commands. Their imperative morphology is now reference-supported; screen-zoom usage remains open. The original keyboard findings remain unresolved: searches and the cached dictionary did not establish reliable keyboard-shortcut terminology. Counts are unchanged. References and the remaining scope are recorded per key in the correction ledger.
-
-**Kashmiri reference review (2026-09-14), local commit `0db69cf6c`:** CLDR marks Islamic/civil names provisional and has no Saudi-sighting or astronomical-tabular names. Existing civil wording also lacks explicit tabular/civil-epoch qualifiers. Keep these technical terms pending further research; no values changed and counts are unchanged. All 17,236 correction checks pass.
-
-**Tamazight calendar reference review (2026-09-14), local commit `dd2aaa19a`:** Current CLDR marks the Islamic name provisional and supplies no Buddhist or Hijri variant display names. Calendar terms and full variant qualifiers require additional research. No values changed; counts remain unchanged and all 17,273 correction checks pass.
-
-**Manx calendar reference review (2026-09-14), local commit `669be8895`:** Current CLDR supplies no calendar display names. Coptic terminology was not established by dictionary searches; full tabular/civil/astronomical-epoch qualifiers and the composed sighting phrase remain open. No values changed; three Manx originals remain pending. All 17,276 correction checks pass.
-
-**Silesian reference review (2026-09-14, `45d98c94f`):** [Native MediaWiki messages](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/szl.json) use shared database/file terms. The [dictionary creator’s attributed speech](https://tuudi.net/dykcjonorz-czyli-slownik-slaski/) independently uses `baza danych` for an Excel database; the article wrapper is Polish and the quotation describes regional usage. Preserve this terminology. The raw-file qualifier and full `sandstorm-raw-mongodb` label remain pending; [evidence](Audit-Evidence.md) records retrieval limits. No values or counts changed.
-
-**Language popup follow-up, 2026-09-14:** local commit `c8d17877e` places
-language flags beside language names and country flags inside regional
-parentheses, reversing visual placement for RTL. All 245 registry/helper
-checks and Jade compilation pass; LTR/RTL browser regressions are added and
-syntax-checked but not run live. Translation repair counts are unchanged.
-
-**Board View Settings follow-up, 2026-09-14:** local commit `3b74d2c3c`
-keeps the wide popup visible and enables title dragging and bottom-right
-resizing. Geometry, pointer and Jade checks pass; browser coverage is added
-and syntax-checked, with live execution pending. Translation counts are
-unchanged; the translation audit remains active.
-
-**Activity viewer follow-up (2026-09-14):** local commit `02f233649`
-renders activity values in card and sidebar feeds through the shared
-Markdown/emoji/permitted-HTML viewer, respecting security display modes.
-Focused viewer, navigation, source-URL and Jade checks pass; browser coverage
-is syntax-checked, not run live. Translation counts are unchanged; repairs
-and wording validation remain active.
-
-**Current research limits (2026-09-14):** invitation and migration Wait wording remain unverified after failed primary PDF retrieval; Welcome/Hope do not establish Invited/Wait. Mapping imperative is derived from association `izdin`, distinct from Continue `zdi`. Search positive-integer terminology remains open; the parser accepts zero as no limit despite English help. WIP counts list cards and requires moving some out OR raising the limit; unrelated comparative examples are insufficient. Preserve all qualifiers/placeholders and low-confidence status. [Detailed evidence](Audit-Evidence.md) retains source keys, regional limits, access failures and next references. Latest TODO Later text now matches its linked repair.
-
-**Remaining validation:** all restored/unflagged values and low-confidence replacements remain open. Detailed per-key caveats are retained in the correction ledger and source commits. These include Veps composed UI, card, notification, calendar, timing, file/archive, metric and legal terminology/inflection; Neapolitan technical checklist usage; Fulah/Bambara calendar composition; and CLDR-provisional Ewe civil-calendar and Tongan tabular-calendar/astronomical-epoch phrase composition, and Sakha civil/astronomical-calendar/era-to-epoch and sighting-phrase composition. Field sums, parent-card terminology, keyboard shortcuts, remaining migration/search messages and other calendar variants need further language research. Wrong-language/script and fluent-speaker checks remain unfinished.
-
-**Security interruption (2026-09-14):** `c1246d720` reviews both saved `.tools/wekansec20` alerts and hardens exact archive-host checks and shell-free mirror dispatch, including direct Windows Node execution. All 25 focused mirror test entries pass; native Windows and remote CodeQL rescanning remain unverified. Translation counts and remaining validation are unchanged.
-
-**Time view interruption (2026-09-14):** local commit `dc0855711` renders card titles through the shared Markdown/emoji viewer, respecting Admin Panel plain-text security mode. The report regression passes; both browser modes are added and syntax-checked, not run live. The shared viewer also obeys Admin Panel plain-link mode; `a7b333dad` adds both clickable/non-clickable browser regressions, syntax-checked but not run live. Timeline, DHTMLX Gantt and shared report viewers are also repaired (`457614a2a`, `5ca16f32e`); Control chart coverage is explicit (`ca8d59978`). Combined focused verification passes 33 Node entries; browser tests remain syntax-checked only. Authenticated legacy avatar prefix fallback is repaired (`c2a390928`); the production attachment 404 remains undiagnosed. Translation counts remain unchanged.
-
-**Calendar interruption (2026-09-14):** local commit `ef12548a9` replaces the rejected FullCalendar 5 `isRTL` option with `direction` in both board calendars. Four focused calendar test entries pass, including RTL/LTR and negative legacy-option checks. Browser regressions are added and syntax-checked, not run live. Translation counts and remaining language validation are unchanged.
-
-**Build logging update (2026-09-14):** `5f8f22f8c` unifies build.sh/build.bat logger directories; `3fedee2b9` prints completion log paths and fixes read-only server manifests in local release preparation. Linux arm64 development and release builds and release startup smoke check pass; 13 targeted test entries pass. Native Windows execution was unavailable. Translation counts and remaining review work are unchanged; translation repairs remain unfinished.
-
-**Build interruption (2026-09-13):** local commit `6cd193879` repairs the Meteor 3.6/Rspack 2 build's undeclared body-parser import using Meteor's existing Express parsers. Seven HTTP/build regressions pass. Meteor 3.6-beta.0/Rspack 2.2 and matching Docker metadata are committed locally (`35082f7d7`), and both previously failing version checks pass. All **1,015** Node suites pass. The actual Meteor bundle build remains under verification: the local beta tool is still starting before compilation. Translation counts and the latest translation commit remain unchanged.
-
-**Mirror interruption completed (2026-09-13):** local commit `02383540a` adds organization management, destination namespaces, host/organization/repository archives, linked comment attachments/webpage HTML, static HTML/CSV indexes and rate limits for all forges with tokenless public GitHub reads. Full Node verification: **1,014 suites, zero failures**; final targeted checks and Chromium/Firefox static checks pass. WebKit is unavailable locally (ICU 74/Docker). Translation repairs subsequently resumed; current counts and latest fix are above.
-
-**Language workflow (2026-09-13):** all 245 popup locales are wired and country-then-language flags are checked (`8549b6c4c`). Browser preference ordering, legacy/script aliases, delayed saved profiles and no automatic profile writes pass runtime checks (`1666a2012`, `37ae64fa8`); actual browser execution remains pending. Uzbek Arabic (`uz-AR`) still contains Latin core labels and needs repair.
-
-**Upload workflow (2026-09-13):** Colombian/French/Khmer/Guarani/Portuguese/Russian mappings are repaired, with 241 distinct targets and reported local aliases. All nine Colombian differences were reviewed (`6db460891`), retaining seven valid alternatives. Timestamped terminal/error logs and failure exit codes pass offline checks (`196c0addc`). Chinese script mapping now uses supported `zh-Hans` (`c2a9168c4`). Manx, Ladin, Aromanian, Tigre and Wolaytta remain unsupported catalogue failures; no substitution by different languages or remote uploads was performed.
-
-**Maintainer-run upload (2026-09-13):** inspected local report `translations-push-2026-09-13T19-02-29-845Z/report.json`: **237 successful uploads**, including English source, and **five failures** (`gv`, `lld`, `rup`, `tig`, `wal`). All eight formerly failing mappings succeeded; the latest saved run confirms the same outcome. The trailing catalogue list, including `wuu-Hant`, `xcl`, `yue`, `zh_MO`, `zh_TW.Big5` and `zza`, lists supported codes without local upload targets, not failed uploads. Catalogue discovery completed: zero supported-but-failed targets, five unsupported local codes and 500 supported catalogue codes without local upload targets. Those 500 codes need suitable local translations/mappings before upload. This verifies the saved report, not current remote contents; no uploads were run here. The outcome/support summary (`637dbebd6`) passes offline regressions. Retry regression (`ad294f707`) verifies all five missing codes are added and fully uploaded on a later run once supported; prior reports never suppress retries.
-
-**Verification (2026-09-13):** **1,014 Node suites, zero failures** after the latest Veps list/storage and mirror changes; final targeted mirror regressions pass; the final mirror retry adjustment also passes its targeted regression. Correction and audit-progress regressions pass. The original 19 failures are resolved. The first complete EVERYTHING run passes all four stages: Meteor (**527**), import (**10**), Node E2E (**10**), three browsers, **103** conformance cases on each of SQLite/PostgreSQL/MySQL/MariaDB and FerretDB unit/vet/integration. Separate URL-prefix preference/logout/invalid-cookie checks pass in all browsers. Two WebKit retries exposed refresh readiness and competing template autofocus; both are repaired, and the refresh check passes ten repetitions without retries. #6691 partial-profile/impersonation regression passes in all three browsers without retries. The second EVERYTHING run finished with failures in the now-fixed Fossil menu registration check and Chromium board-export popup readiness; database conformance, FerretDB and the other two browsers passed. Board-export verification remains outstanding. Static mirror browser checks pass in Chromium and Firefox; WebKit cannot launch locally because ICU 74 is missing and Docker is unavailable. Fluent-speaker checks remain outstanding; translation repairs resume next.
-
-**Unresolved reviews:** Member popup click handlers in sidebarFilters.js appear to invoke opposite assignment operations; this requires separate runtime review. Apostrophe support for Klingon search operators is implemented in local commit `0026390bb`; actual Query runtime and card-number regressions pass. All 37 remaining search keywords are replaced and actual-locale parser regressions pass; localized browser verification remains pending. Silesian database terminology and 17 Tigre calendar findings need language-specific validation.
-
-**Origin:** not all errors came from Transifex. The audit covers 4,061 pulled changes and 16,020 additional local findings; Bosnian errors predate the pull (`bdb3b15886a749b725b5290ba0109fcba955f983`). Other origins remain unverified.
-
-[Detailed evidence](Audit-Evidence.md) retains categorized tables. Refresh counts after each repair batch with `node releases/translations/audit-progress.mjs --update-summary`, then record the fix commit and verification. No remote uploads performed.
-
-Expanded Veps review (2026-09-14): ten additional local keys remain
-wrong-language, including a Venda label-inheritance instruction and Finnish
-accessibility/parent-card controls. See [Veps review](Veps-Review.md) for
-exact values and semantic requirements. Original-finding counts are unchanged;
-these additional values remain within the repair scope.
-
-Restored-value check (2026-09-14): all 4,058 restored values match the
-English underscore/percent placeholder inventory. Regression coverage now
-checks this separately and keeps these values awaiting language validation.
-No translation values or completion counts changed.
-
-Restored Danish wording review (2026-09-14, latest `cceae079c`): reviewed
-611 values: 606 retained unchanged and five meanings repaired. Latest review
-preserves sort directions, creator roles, string-template tokens, spinner
-shapes and ticket states. Ambiguous export free remains open. Now 1,029 original
-findings are reviewed/retained and 3,199 restored values await validation.
-Translation work remains open while the requested wekansec21 security
-repairs are prioritized.
-
-Latest restored-value review: **2026-09-14**, local commit `3eeef4905`.
-Retained 63 correct Danish controls and administrator labels, including valid
-shared Start/Stop/Support vocabulary, byte units and ISO week numbering.
-Uncertain free/Complete meanings remain open. Ledger checks pass.
-
-Restored Danish review follow-up: **2026-09-14**, local commits
-`944243917` and `ed9be5431`. Retained 156 correct storage, migration,
-monitoring, repository and account values. Danish restored validation now
-has four context-dependent labels left: free, Complete, Schedule and Days Old.
-Ledger tests pass; original pending queues and wider validation remain open.
-
-Latest restored-value review: **2026-09-14**, local commit `2092f7860`.
-Retained 60 correct Esperanto activity and card-control values, preserving
-past tense, accusative objects, movement directions and placeholders.
-Completion/subtask terminology remains under review. Ledger checks pass.
-Translation work remains open while requested issue #6692 is investigated.
+Not all wrong values came from Transifex: the audit tracks 4,061 pulled
+changes and 16,020 additional local findings; some Bosnian errors predate
+the pull. Correct-language human translations remain preferred. Keep the
+full review scope open until language and browser validation is supported
+by evidence. Requested issue #6692 awaits actionable LDAP bind diagnostics;
+translation work continues independently.
