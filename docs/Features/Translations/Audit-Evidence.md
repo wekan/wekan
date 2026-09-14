@@ -27261,3 +27261,36 @@ correction provenance/newer translation preference and the active template
 reference. No live WIP popup browser test was run. Ledger 19,771;
 original corrected 15,691, pending 212 (zgh 109), restored 4 unchanged.
 All broader uncertain/restored/unflagged findings remain open. No push.
+
+## Bulk-card instructions and description — 2026-09-15
+
+Local commit `df50d9f6e` translates French bulk-card instructions and
+repairs description terminology in the generic label and three example
+objects. Description uses aglam, not the existing summary noun asgzl.
+The instruction identifies titles/descriptions of the cards the user will
+create in the displayed JSON format. The title and description JSON
+property names remain literal code; only sample prose changes.
+
+[Primary IRCAM English dictionary](https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339)
+PDF page 42, entry 486, explicitly attests aglam (description) with plural
+iglamn. Cached full dictionary text was inspected. The dictionary marks
+this noun as a neologism. This is component evidence, not an attested
+complete bulk-card instruction. Existing MediaWiki title/create components
+and WeKan's card-example terminology provide consistent vocabulary.
+
+Active cardDetails.jade renders the instruction above the JSON textarea
+and destination picker. cardDetails.js parses each object and uses its
+literal properties for the resulting cards. No JSON schema or application
+behavior is changed by this translation repair.
+
+**Low confidence:** complete future-relative grammar, destination-as-created
+card interpretation, plural title morphology and the JSON-format compound
+remain under native review. The description noun is supported directly;
+that does not establish full fluency of every field/example sentence.
+Five focused suites pass, including summary remaining distinct, exact JSON
+properties, placeholders/tags/key order, original correction provenance
+and newer translations. No live bulk-copy browser test was run. Two existing
+ledger records are revised with their original before values retained; one
+new record brings total to 19,772. Original corrected 15,692, pending 211
+(zgh 108), restored 4 unchanged. Broader uncertain review remains open.
+No remote push.

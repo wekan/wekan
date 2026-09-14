@@ -662,6 +662,19 @@ The browser assertion accepts whitespace between the regional flag and name.
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/df50d9f6e">Translate Tamazight bulk-card guidance and description terminology</a></summary>
+
+Translate destination-card JSON guidance and distinguish description from
+summary in the field label and examples. Literal JSON properties stay
+unchanged. Five focused suites pass; full instruction grammar remains
+under native review. Dated audit evidence and counts are updated.
+
+Thanks to xet7.
+
+</details>
+
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/414beceef">Translate Tamazight WIP error recovery guidance</a></summary>
 
 Replace French wording with a draft retaining moving tasks out of the list

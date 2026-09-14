@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-15**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,691 |
+| Corrected | 15,692 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,174 |
-| Pending review or repair | 212 |
+| Pending review or repair | 211 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,14 +16,14 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `414beceef` — Tamazight WIP
-recovery guidance preserves moving tasks out of the list OR increasing
-the limit, avoiding deletion wording. Four focused suites pass. Ledger
-19,771; original pending 212 (zgh 109), restored 4 unchanged. Numerical
-limit adaptation, full grammar and all uncertain/restored findings remain open.
+Latest translation fix: **2026-09-15**, `df50d9f6e` — Tamazight bulk-card
+instructions translated; description label/examples use the dictionary noun
+distinct from summary. Literal JSON properties remain unchanged. Five
+focused suites pass. Ledger 19,772; original pending 211 (zgh 108), restored
+4 unchanged. Full instruction grammar and all uncertain findings stay open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,771** exact before/after values, including unflagged
+records contain **19,772** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -42,7 +42,7 @@ restored values still await full native clause validation.
 
 | Pending locale | Findings |
 | --- | ---: |
-| zgh — Standard Moroccan Tamazight | 109 |
+| zgh — Standard Moroccan Tamazight | 108 |
 | iu — Inuktitut | 38 |
 | nah — Nahuatl | 17 |
 | tig — Tigre | 17 |
