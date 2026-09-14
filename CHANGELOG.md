@@ -1183,6 +1183,23 @@ Script parity and shell syntax checks pass; no release was published.
 
 </details>
 
+**Mirroring** - Staged synchronization and parallel target progress.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/103e4dfac">Synchronize Git, archive locally, then mirror content concurrently.</a></summary>
+
+Option 1 synchronizes Git with every active target before source content
+collection. After the local archive succeeds, target content processes run
+concurrently with combined start-time and issue/release counters. Separate
+mirror-named text logs retain each target's output. Restart checkpoints skip
+completed content targets. Offline concurrency, failure, restart, archive,
+attachment and rate-limit tests pass. No remote synchronization was run.
+
+Thanks to xet7 !
+
+</details>
+
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.77 2026-09-14 WeKan ® release
