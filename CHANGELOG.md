@@ -633,8 +633,9 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** **Release notes** now contain only changelog content, keeping
-binary provenance in build artifacts. **Translations** preserve correct
+**In short:** **Release notes** now show a compact summary, security changes,
+updated translation languages and a link to the full changelog. Binary
+provenance stays in build artifacts. **Translations** preserve correct
 Esperanto and Galician wording while repairing automation date meanings
 and literal navigation help. Broader language and browser validation remains
 under review.
@@ -1028,6 +1029,17 @@ full translation entries in the changelog and audit; preserve other release
 sections. Explicit language metadata prevents guessed names. Offline tests
 verify nested detail removal, non-translation preservation, missing metadata
 and exact release-heading selection. No release was published.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f7def463b">Restrict release notes to summary, security and language updates</a>. Thanks to xet7.</summary>
+
+Release notes contain only In short, Security, updated translation languages,
+the standard thanks line and More details at ChangeLog with the release
+anchor. Keep full entries in the changelog. Offline tests verify retained
+security details, omitted other entries, exact headings and version links.
+Script parity and shell syntax checks pass; no release was published.
 
 </details>
 
