@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,348 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 496 pending review or repair.
-The correction inventory records 17,684 exact before/after values,
+The correction inventory records 17,685 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is d62f9c0ac (2026-09-14), aligning the standalone
-Tamazight Page noun with native software terminology. This validates the
-single label only; full page-related wording remains under review.
+Latest translation fix is 830c3ed03 (2026-09-14), replacing the Arabic
+Tamazight Confirm button with native software confirmation wording.
+Invitation acceptance and full confirmation questions remain separate review items.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -626,7 +626,7 @@ remain open.
 Translation audit progress as of 2026-09-14: 15,348 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
 and 496 remain pending across 17 locales, including 361 Tamazight findings.
-The ledger contains 17,684 correction records, including unflagged repairs.
+The ledger contains 17,685 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -1598,6 +1598,16 @@ Use the exact native MediaWiki singular Page noun. Supporting evidence is
 limited to this label; other regional synonyms and complete page phrases
 are not classified by this repair. All 17,684 correction/rendering checks
 pass; the original pending queue remains 496.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/830c3ed03">Translate Tamazight confirmation button</a>. Thanks to xet7.</summary>
+
+Replace the Arabic Confirm label with the exact native software
+confirmation-button wording. Preserve its distinction from invitation
+acceptance and the confirmation question. All 17,685 correction/rendering
+checks pass; 496 original findings remain pending.
 
 </details>
 
