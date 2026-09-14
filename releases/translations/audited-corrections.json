@@ -124605,5 +124605,33 @@
     "before": "Aucune migration nécessaire",
     "after": "ⵓⵔ ⵉⵇⵇⴰⵏ ⵓⵙⵎⵓⵜⵜⵢ",
     "reason": "2026-09-14: Replace French/Arabic selection or migration-required label with native components. Preserve Select action, migration versus board versus color, and required versus not required polarity. Select Color exactly follows MediaWiki rcfilters-highlightmenu-title; sti Select also appears in history-fieldset-title. Required iqqan is adapted from changeemail-no-info necessity frame; negative ur preserves No migration needed. LOW CONFIDENCE full required/not-required construction and software-migration extension of bound usmutty from movelogpage require fluent review. Board selection uses existing kanban noun with native Select imperative. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Do not equate not-needed with failed or completed."
+  },
+  {
+    "locale": "zgh",
+    "key": "migration-complete",
+    "before": "Terminé",
+    "after": "ⵉⵙⵎⴷ",
+    "reason": "2026-09-14: Replace French completion status with Tamazight finish component ismd from MediaWiki enterlockreason, adapted from future end/finish to completed status. Migration completed successfully retains both completion and successful result using native yallfus component, unlike bare Complete/Completed labels which gain no success qualifier. LOW CONFIDENCE completed-tense adaptation, standalone status grammar, full success coordination and software-migration extension of bound usmutty need fluent review. Native component evidence does not independently attest these full status phrases. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (enterlockreason, cannotlogin-text, movelogpage); positive yallfus also follows existing invite-people-success local wording. Generic Complete action key is left for contextual review."
+  },
+  {
+    "locale": "zgh",
+    "key": "completed",
+    "before": "Terminé",
+    "after": "ⵉⵙⵎⴷ",
+    "reason": "2026-09-14: Replace French completion status with Tamazight finish component ismd from MediaWiki enterlockreason, adapted from future end/finish to completed status. Migration completed successfully retains both completion and successful result using native yallfus component, unlike bare Complete/Completed labels which gain no success qualifier. LOW CONFIDENCE completed-tense adaptation, standalone status grammar, full success coordination and software-migration extension of bound usmutty need fluent review. Native component evidence does not independently attest these full status phrases. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (enterlockreason, cannotlogin-text, movelogpage); positive yallfus also follows existing invite-people-success local wording. Generic Complete action key is left for contextual review."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-completed",
+    "before": "Terminé",
+    "after": "ⵉⵙⵎⴷ",
+    "reason": "2026-09-14: Replace French completion status with Tamazight finish component ismd from MediaWiki enterlockreason, adapted from future end/finish to completed status. Migration completed successfully retains both completion and successful result using native yallfus component, unlike bare Complete/Completed labels which gain no success qualifier. LOW CONFIDENCE completed-tense adaptation, standalone status grammar, full success coordination and software-migration extension of bound usmutty need fluent review. Native component evidence does not independently attest these full status phrases. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (enterlockreason, cannotlogin-text, movelogpage); positive yallfus also follows existing invite-people-success local wording. Generic Complete action key is left for contextual review."
+  },
+  {
+    "locale": "zgh",
+    "key": "migration-successful",
+    "before": "Migration terminée avec succès",
+    "after": "ⵉⵙⵎⴷ ⵓⵙⵎⵓⵜⵜⵢ ⴷ ⵢⴰⵍⵍⴼⵓⵙ",
+    "reason": "2026-09-14: Replace French completion status with Tamazight finish component ismd from MediaWiki enterlockreason, adapted from future end/finish to completed status. Migration completed successfully retains both completion and successful result using native yallfus component, unlike bare Complete/Completed labels which gain no success qualifier. LOW CONFIDENCE completed-tense adaptation, standalone status grammar, full success coordination and software-migration extension of bound usmutty need fluent review. Native component evidence does not independently attest these full status phrases. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (enterlockreason, cannotlogin-text, movelogpage); positive yallfus also follows existing invite-people-success local wording. Generic Complete action key is left for contextual review."
   }
 ]
