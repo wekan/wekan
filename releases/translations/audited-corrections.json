@@ -123905,5 +123905,40 @@
     "before": "الإعدادات",
     "after": "ⵜⵉⵙⵖⴰⵍ",
     "reason": "2026-09-14: Replace Arabic interface label with directly attested Standard Moroccan software wording. Native Mastodon column_header.show_settings/hide_settings attest tisghal/settings. Match local Settings for identical English heading; do not rename it Boards Settings or personal preferences. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "tuesday",
+    "before": "الثلاثاء",
+    "after": "ⴰⵙⵉⵏⴰⵙ",
+    "reason": "2026-09-14: Replace Arabic date/time label with directly attested Standard Moroccan terminology. CLDR Gregorian dayContext format/dayWidth wide/day tue. Keep full weekday names, not abbreviations. References: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "thursday",
+    "before": "الخميس",
+    "after": "ⴰⴽⵡⴰⵙ",
+    "reason": "2026-09-14: Replace Arabic date/time label with directly attested Standard Moroccan terminology. CLDR Gregorian dayContext format/dayWidth wide/day thu. Keep full weekday names, not abbreviations. References: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "saturday",
+    "before": "السبت",
+    "after": "ⴰⵙⵉⴹⵢⴰⵙ",
+    "reason": "2026-09-14: Replace Arabic date/time label with directly attested Standard Moroccan terminology. CLDR Gregorian dayContext format/dayWidth wide/day sat. Keep full weekday names, not abbreviations. References: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "days",
+    "before": "أيام",
+    "after": "ⵓⵙⵙⴰⵏ",
+    "reason": "2026-09-14: Replace Arabic date/time label with directly attested Standard Moroccan terminology. Native MediaWiki rcfilters-days-title supplies the plural days noun; preserve duration unit plural, not a weekday or today. Keep full weekday names, not abbreviations. References: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "hours",
+    "before": "الساعات",
+    "after": "ⵜⵉⵙⵔⴰⴳⵉⵏ",
+    "reason": "2026-09-14: Replace Arabic date/time label with directly attested Standard Moroccan terminology. Native MediaWiki rcfilters-hours-title supplies the plural hours noun; preserve duration unit plural rather than singular hour. Keep full weekday names, not abbreviations. References: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
