@@ -123527,5 +123527,12 @@
     "before": "Instructions de recherche",
     "after": "ⵜⵉⵏⴰⴹⵉⵏ ⵏ ⵓⵔⵣⵣⵓ",
     "reason": "Replace French search instructions heading. Native Moroccan education council page https://www.csefrs.ma/ titled ⵜⵉⵏⴰⴹⵉⵏ ⵏ ⵜⵎⵔⵙⵍⵜ uses tinadin institutional directives; Native MediaWiki search supplies arzz u and searchresults supplies bound urzzu: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE institutional directives to software usage instructions sense and full heading compound require fluent review; CNAM machine instruction statement is not an equivalent of usage guidance and was not used. Reviewed 2026-09-14. Source limitation: education council wording was inspected in indexed primary-page text; direct full-page retrieval returned HTTP 403. Do not claim complete page verification."
+  },
+  {
+    "locale": "zgh",
+    "key": "editVoteEndDatePopup-title",
+    "before": "Modifier la date de fin de vote",
+    "after": "ⵙⵏⴼⵍ ⴰⵙⴰⴽⵓⴷ ⵏ ⵜⵉⴳⵉⵔⴰ ⵏ ⵡⴰⵙⵜⴰⵢ",
+    "reason": "Replace French Change vote end date popup title. Native MediaWiki edit supplies snfl, upload-form-label-infoform-date asakud, blockedtext-expiration-time tigira: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . IRCAM dictionary https://ircam.biblio.ma/uploads/publications/177.pdf indexed printed88 attests astay choix/election; native CNDH election-observer announcement https://observationelections2021.cndh.ma/am/ dated12 May2021 independently attests bound wastayn election plural. LOW CONFIDENCE singular bound wastay and election-to-card-voting adaptation plus full nested date title require fluent review. Preserve change END DATE of vote rather than terminate vote now. Reviewed 2026-09-14."
   }
 ]
