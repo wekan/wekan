@@ -123737,5 +123737,26 @@
     "before": "تم رفع الصورة الشخصية",
     "after": "ⵜⵜⵡⴰⵙⴽⵜⵔ ⵜⴰⵡⵍⴰⴼⵜ ⵏ ⵉⴼⵔⵙ",
     "reason": "Replace Arabic avatar upload label, preserving imperative upload versus completed uploaded state. Primary native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json uploadbtn sktr upload, logentry-upload-upload isktr/tsktr past active and changepassword-success ttwasnfl passive supply action/morphology components. Reuse local change-avatar profile-picture terminology. LOW CONFIDENCE derived feminine passive tt wasktr, local ifrs profile sense and full avatar upload phrases require fluent review. Do not render both keys as an upload command. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "add-cover",
+    "before": "إضافة صورة الغلاف إلى البطاقة الصغيرة",
+    "after": "ⵔⵏⵓ ⵜⵓⴳⵏⴰ ⵏ ⵜⴷⵓⵍⵉ ⴳ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵥⵢⴰⵏⵜ",
+    "reason": "Replace Arabic minicard cover label while retaining add, remove FROM or cover ON minicard meaning. Reuse local cover-image tugna n tduli and takarḍa card terminology. Primary native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json create-local rnu add, delete kks remove, logentry-move-move sg from and tooltip-summary mẓẓiyn small support components. LOW CONFIDENCE local tduli cover sense, derived feminine small adjective tamẓẓiyant and full coordinated/prepositional software phrase require fluent review; do not reduce cover image to arbitrary image or minicard to full card. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "remove-cover",
+    "before": "إزالة صورة الغلاف من البطاقة الصغيرة",
+    "after": "ⴽⴽⵙ ⵜⵓⴳⵏⴰ ⵏ ⵜⴷⵓⵍⵉ ⵙⴳ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵥⵢⴰⵏⵜ",
+    "reason": "Replace Arabic minicard cover label while retaining add, remove FROM or cover ON minicard meaning. Reuse local cover-image tugna n tduli and takarḍa card terminology. Primary native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json create-local rnu add, delete kks remove, logentry-move-move sg from and tooltip-summary mẓẓiyn small support components. LOW CONFIDENCE local tduli cover sense, derived feminine small adjective tamẓẓiyant and full coordinated/prepositional software phrase require fluent review; do not reduce cover image to arbitrary image or minicard to full card. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "cover-attachment-on-minicard",
+    "before": "صورة الغلاف على البطاقة الصغيرة",
+    "after": "ⵜⵓⴳⵏⴰ ⵏ ⵜⴷⵓⵍⵉ ⵖⴼ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵥⵢⴰⵏⵜ",
+    "reason": "Replace Arabic minicard cover label while retaining add, remove FROM or cover ON minicard meaning. Reuse local cover-image tugna n tduli and takarḍa card terminology. Primary native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json create-local rnu add, delete kks remove, logentry-move-move sg from and tooltip-summary mẓẓiyn small support components. LOW CONFIDENCE local tduli cover sense, derived feminine small adjective tamẓẓiyant and full coordinated/prepositional software phrase require fluent review; do not reduce cover image to arbitrary image or minicard to full card. Reviewed 2026-09-14."
   }
 ]
