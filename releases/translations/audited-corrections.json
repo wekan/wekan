@@ -124948,5 +124948,12 @@
     "before": "إخفاء قائمة التحقق النهائية",
     "after": "ⵙⵏⵜⵍ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ ⵍⵍⵉ ⵉⵙⵎⴷⵏ",
     "reason": "2026-09-14: Replace Arabic Hide finished checklist preserving hide action and finished restriction, not all checklist items or final checklist. Used by checklists.jade visibility toggle. Native Mastodon column_header.hide_settings directly supplies sntl Hide; completed-relative ismdn is derived from MediaWiki enterlockreason Finish/End ismd, not directly attested complete checklist adjective. LOW CONFIDENCE finished-relative derivation/agreement, proposed verification noun ussidd and full checklist phrase require fluent Standard Moroccan review. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "showChecklistAtMinicard",
+    "before": "Afficher la check-list dans la minicarte",
+    "after": "ⵙⴽⵏ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ ⵅⴼ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵣⵢⴰⵏⵜ",
+    "reason": "2026-09-14: Replace wrong-language Show Checklist at Minicard preserving display action, checklist and minicard scope rather than card count or main-card visibility. Native MediaWiki view supplies skn Show; reuse reviewed List of Verification and Small Card paraphrases. LOW CONFIDENCE verification noun ussidd, derived small-card adjective/bound card and full checklist/minicard wording require fluent Standard Moroccan review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
