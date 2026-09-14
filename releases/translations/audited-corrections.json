@@ -121791,5 +121791,12 @@
     "before": "Déplacer la carte en bas de la liste",
     "after": "ⵙⵎⵓⵜⵜⵉ ⵜⴰⴽⴰⵕⴹⴰ ⴳ ⵓⴷⵖⴰⵔ ⴰⵎⴳⴳⴰⵔⵓ ⵏ ⵜⵍⴳⴰⵎⵜ",
     "reason": "Replace French. Native MediaWiki apisandbox-add-multi/add and move/Move attest rnu and smutti; page_first/page_last attest first/last and tooltip-n-help attests adghar/place, with bound udghar in rcfilters-quickfilters-placeholder-description. Express bottom as last place in list order, verified against server/rulesHelper.js minOrder-1/maxOrder+1. Reuse native list noun from watchlist translations and existing card terminology. Keep selected-list/addition scope distinct from the generic its-list command. LOW CONFIDENCE full place/order genitive composition, list/card software sense, bound forms and possessive attachment; native components do not establish fluent full commands. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"Titre de la première carte\", \"description\":\"Description de la première carte\"}, {\"title\":\"Titre de la seconde carte\",\"description\":\"Description de la seconde carte\"},{\"title\":\"Titre de la dernière carte\",\"description\":\"Description de la dernière carte\"} ]",
+    "after": "[{\"title\":\"ⴰⵣⵡⵍ ⵏ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵣⵡⴰⵔⵓⵜ\",\"description\":\"ⴰⵙⴳⵣⵍ ⵏ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵣⵡⴰⵔⵓⵜ\"},{\"title\":\"ⴰⵣⵡⵍ ⵏ ⵜⴽⴰⵕⴹⴰ 2\",\"description\":\"ⴰⵙⴳⵣⵍ ⵏ ⵜⴽⴰⵕⴹⴰ 2\"},{\"title\":\"ⴰⵣⵡⵍ ⵏ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⴳⴳⴰⵔⵓⵜ\",\"description\":\"ⴰⵙⴳⵣⵍ ⵏ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⴳⴳⴰⵔⵓⵜ\"}]",
+    "reason": "Replace French sample prose in the bulk-card JSON example while preserving title/description property names, object order and three-card structure exactly. Use existing native title and description terms; MediaWiki badtitle attests azwl/title and filedesc attests asgzl/file description. page_first/page_last and lastmodifiedat support first/last components, deriving feminine card qualifiers; identify the second example as card 2 rather than inventing an unattested ordinal. LOW CONFIDENCE full card genitive and first-card feminine agreement/kanban sense; description term is preserved from the existing reviewed local value. JSON parsing and property-name regressions validate structure, not fluency. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]

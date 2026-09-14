@@ -571,7 +571,7 @@
   "copyListPopup-title": "Copier la liste",
   "copyManyCardsPopup-title": "Copier le modèle vers plusieurs cartes",
   "copyManyCardsPopup-instructions": "Titres et descriptions des cartes de destination dans ce format JSON",
-  "copyManyCardsPopup-format": "[ {\"title\": \"Titre de la première carte\", \"description\":\"Description de la première carte\"}, {\"title\":\"Titre de la seconde carte\",\"description\":\"Description de la seconde carte\"},{\"title\":\"Titre de la dernière carte\",\"description\":\"Description de la dernière carte\"} ]",
+  "copyManyCardsPopup-format": "[{\"title\":\"ⴰⵣⵡⵍ ⵏ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵣⵡⴰⵔⵓⵜ\",\"description\":\"ⴰⵙⴳⵣⵍ ⵏ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵣⵡⴰⵔⵓⵜ\"},{\"title\":\"ⴰⵣⵡⵍ ⵏ ⵜⴽⴰⵕⴹⴰ 2\",\"description\":\"ⴰⵙⴳⵣⵍ ⵏ ⵜⴽⴰⵕⴹⴰ 2\"},{\"title\":\"ⴰⵣⵡⵍ ⵏ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⴳⴳⴰⵔⵓⵜ\",\"description\":\"ⴰⵙⴳⵣⵍ ⵏ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⴳⴳⴰⵔⵓⵜ\"}]",
   "create": "ⵙⵏⵓⵍⴼⵓ",
   "createBoardPopup-title": "إنشاء لوحة",
   "createTemplateContainerPopup-title": "Ajouter un conteneur de modèles",
