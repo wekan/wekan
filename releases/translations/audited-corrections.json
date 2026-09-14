@@ -122589,5 +122589,40 @@
     "before": "Noms d'étiquette",
     "after": "ⵉⵙⵎⴰⵡⵏ ⵏ ⵓⵔⵛⵓⵎ",
     "reason": "Replace wrong-language Arabic/French label wording with Tamazight. Preserve add versus edit/change, card scope, colors versus names, and hide only label text rather than the label itself. Native MediaWiki zgh hidetoc, edit/tags-edit, skin-view-create-local, tag-list-wrapper and namespaces support hide/edit/add/tag/name components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse existing local text, color and minicard vocabulary. LOW CONFIDENCE: software-label adaptation, color plural, bound nouns and full composed minicard/card phrasing still require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "card-sorting-by-number-on-minicard",
+    "before": "رز البطاقات حسب الرقم على البطاقة الصغيرة",
+    "after": "ⴰⴼⵔⴰⵏ ⵏ ⵜⴽⴰⵕⴹⵉⵡⵉⵏ ⵙ ⵓⵎⴹⴰⵏ ⵖⴼ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵢⴰⵏⵜ",
+    "reason": "Replace Arabic/French card/list/label display text; preserve numeric card sorting on minicard, missing-label negation, list name rather than title, and card-details popup scope. Native MediaWiki zgh sort-descending/ascending, statistics-edits-average, tag-list-wrapper, diff-empty, mywatchlist and namespaces support sorting/number/tag/negation/list/name components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse existing local minicard/card/details vocabulary. LOW CONFIDENCE: numeric-sort software adaptation, bound noun chains and complete card/list popup phrasing require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-label",
+    "before": "étiquette",
+    "after": "ⴰⵔⵛⵓⵎ",
+    "reason": "Replace Arabic/French card/list/label display text; preserve numeric card sorting on minicard, missing-label negation, list name rather than title, and card-details popup scope. Native MediaWiki zgh sort-descending/ascending, statistics-edits-average, tag-list-wrapper, diff-empty, mywatchlist and namespaces support sorting/number/tag/negation/list/name components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse existing local minicard/card/details vocabulary. LOW CONFIDENCE: numeric-sort software adaptation, bound noun chains and complete card/list popup phrasing require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "no-label",
+    "before": "لا يوجد ملصق",
+    "after": "ⵓⵔ ⵉⵍⵍⵉ ⵓⵔⵛⵓⵎ",
+    "reason": "Replace Arabic/French card/list/label display text; preserve numeric card sorting on minicard, missing-label negation, list name rather than title, and card-details popup scope. Native MediaWiki zgh sort-descending/ascending, statistics-edits-average, tag-list-wrapper, diff-empty, mywatchlist and namespaces support sorting/number/tag/negation/list/name components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse existing local minicard/card/details vocabulary. LOW CONFIDENCE: numeric-sort software adaptation, bound noun chains and complete card/list popup phrasing require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "list-label-title",
+    "before": "Nom de liste",
+    "after": "ⵉⵙⵎ ⵏ ⵜⵍⴳⴰⵎⵜ",
+    "reason": "Replace Arabic/French card/list/label display text; preserve numeric card sorting on minicard, missing-label negation, list name rather than title, and card-details popup scope. Native MediaWiki zgh sort-descending/ascending, statistics-edits-average, tag-list-wrapper, diff-empty, mywatchlist and namespaces support sorting/number/tag/negation/list/name components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse existing local minicard/card/details vocabulary. LOW CONFIDENCE: numeric-sort software adaptation, bound noun chains and complete card/list popup phrasing require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "minicardDetailsActionsPopup-title",
+    "before": "نقاصيل البطاقة",
+    "after": "ⵉⴼⵔⵓⵔⵉⵜⵏ ⵏ ⵜⴽⴰⵕⴹⴰ",
+    "reason": "Replace Arabic/French card/list/label display text; preserve numeric card sorting on minicard, missing-label negation, list name rather than title, and card-details popup scope. Native MediaWiki zgh sort-descending/ascending, statistics-edits-average, tag-list-wrapper, diff-empty, mywatchlist and namespaces support sorting/number/tag/negation/list/name components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse existing local minicard/card/details vocabulary. LOW CONFIDENCE: numeric-sort software adaptation, bound noun chains and complete card/list popup phrasing require fluent review."
   }
 ]
