@@ -22,6 +22,15 @@ function sanitizeForLogging(value) {
 
     if (value && typeof value === 'object') {
         const sanitized = {};
+        // Error.name/message are non-enumerable. Object.keys alone turned
+        // bind, connection and certificate failures into an unhelpful {}.
+        if (value instanceof Error) {
+            ['name', 'message', 'code', 'reason'].forEach((key) => {
+                if (value[key] !== undefined) {
+                    sanitized[key] = sanitizeForLogging(value[key]);
+                }
+            });
+        }
         Object.keys(value).forEach((key) => {
             if (isSensitiveKey(key)) {
                 sanitized[key] = '[REDACTED]';
