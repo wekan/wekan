@@ -125935,5 +125935,68 @@
     "before": "Echéance modifiée à\nQuand: __timeValue__\nOù: __card__\n L'échéance précédente était __timeOldValue__",
     "after": "ⵉⵙⵏⴼⵍ ⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⵖⵔ \nⵎⴰⵏⴰⴳⵓ: __timeValue__\nⵎⴰⵏⵉ: __card__\n ⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⴰⵇⴱⵓⵔ ⵉⵍⵍⴰ __timeOldValue__",
     "reason": "2026-09-14: Replace French due-time activity. Native MediaWiki enterlockreason directly uses When managu for expiry; tooltip-n-portal uses Where mani; previousrevision attests feminine Previous taqburt, adapted masculine aqbur for Time; Edit snfl and Time akud components are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve changed due TIME TO new value, When/Where labels, PREVIOUS due value, all four source lines and exact __timeValue__/__card__/__timeOldValue__ inventories. Due Time provisionally adapts existing Due Date final/deadline adjective rather than treating value as already expired. LOW CONFIDENCE actor past isnfl, deadline time compound, derived masculine Previous, was clause and full grammar require native validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "allboards.starred",
+    "before": "Favoris",
+    "after": "ⵙ ⵢⵉⵜⵔⵉ",
+    "reason": "2026-09-14: Replace French/Arabic or inherited Kabyle-leaning starred board/page labels; Latin script alone is not error. Native MediaWiki wlnote/recentchanges-notargetpage directly attest Above/Top g uflla in software UI, tooltip-watch supplies Add Page to YOUR list grammar, and Page tasna/plural tisniwin are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve click-to-star versus unstar, THIS board versus THIS page, YOUR board-list top location and exact %s star count. Star itri/plural itran reuse existing local vocabulary, not independently validated here. LOW CONFIDENCE star-to-favorite software adaptation, click purpose clauses, passive/future visibility and full phrases require fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "board-nb-stars",
+    "before": "%s نجوم",
+    "after": "%s ⵉⵜⵔⴰⵏ",
+    "reason": "2026-09-14: Replace French/Arabic or inherited Kabyle-leaning starred board/page labels; Latin script alone is not error. Native MediaWiki wlnote/recentchanges-notargetpage directly attest Above/Top g uflla in software UI, tooltip-watch supplies Add Page to YOUR list grammar, and Page tasna/plural tisniwin are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve click-to-star versus unstar, THIS board versus THIS page, YOUR board-list top location and exact %s star count. Star itri/plural itran reuse existing local vocabulary, not independently validated here. LOW CONFIDENCE star-to-favorite software adaptation, click purpose clauses, passive/future visibility and full phrases require fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "click-to-star",
+    "before": "اضغط لإضافة اللوحة للمفضلة.",
+    "after": "ⵙⵙⵉⵜ ⴷⴰ ⴰⴼⴰⴷ ⴰⴷ ⵜⵔⵏⵓⴷ ⵉⵜⵔⵉ ⵉ ⵜⴰⴼⵍⵡⵉⵜ ⴰⴷ.",
+    "reason": "2026-09-14: Replace French/Arabic or inherited Kabyle-leaning starred board/page labels; Latin script alone is not error. Native MediaWiki wlnote/recentchanges-notargetpage directly attest Above/Top g uflla in software UI, tooltip-watch supplies Add Page to YOUR list grammar, and Page tasna/plural tisniwin are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve click-to-star versus unstar, THIS board versus THIS page, YOUR board-list top location and exact %s star count. Star itri/plural itran reuse existing local vocabulary, not independently validated here. LOW CONFIDENCE star-to-favorite software adaptation, click purpose clauses, passive/future visibility and full phrases require fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "click-to-unstar",
+    "before": "اضغط لحذف اللوحة من المفضلة.",
+    "after": "ⵙⵙⵉⵜ ⴷⴰ ⴰⴼⴰⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⵉⵜⵔⵉ ⵙⴳ ⵜⴰⴼⵍⵡⵉⵜ ⴰⴷ.",
+    "reason": "2026-09-14: Replace French/Arabic or inherited Kabyle-leaning starred board/page labels; Latin script alone is not error. Native MediaWiki wlnote/recentchanges-notargetpage directly attest Above/Top g uflla in software UI, tooltip-watch supplies Add Page to YOUR list grammar, and Page tasna/plural tisniwin are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve click-to-star versus unstar, THIS board versus THIS page, YOUR board-list top location and exact %s star count. Star itri/plural itran reuse existing local vocabulary, not independently validated here. LOW CONFIDENCE star-to-favorite software adaptation, click purpose clauses, passive/future visibility and full phrases require fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "click-to-star-page",
+    "before": "Sit akken ad ternuḍ itri i usebter-a.",
+    "after": "ⵙⵙⵉⵜ ⴷⴰ ⴰⴼⴰⴷ ⴰⴷ ⵜⵔⵏⵓⴷ ⵉⵜⵔⵉ ⵉ ⵜⴰⵙⵏⴰ ⴰⴷ.",
+    "reason": "2026-09-14: Replace French/Arabic or inherited Kabyle-leaning starred board/page labels; Latin script alone is not error. Native MediaWiki wlnote/recentchanges-notargetpage directly attest Above/Top g uflla in software UI, tooltip-watch supplies Add Page to YOUR list grammar, and Page tasna/plural tisniwin are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve click-to-star versus unstar, THIS board versus THIS page, YOUR board-list top location and exact %s star count. Star itri/plural itran reuse existing local vocabulary, not independently validated here. LOW CONFIDENCE star-to-favorite software adaptation, click purpose clauses, passive/future visibility and full phrases require fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "click-to-unstar-page",
+    "before": "Sit akken ad tekkseḍ itri seg usebter-a.",
+    "after": "ⵙⵙⵉⵜ ⴷⴰ ⴰⴼⴰⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⵉⵜⵔⵉ ⵙⴳ ⵜⴰⵙⵏⴰ ⴰⴷ.",
+    "reason": "2026-09-14: Replace French/Arabic or inherited Kabyle-leaning starred board/page labels; Latin script alone is not error. Native MediaWiki wlnote/recentchanges-notargetpage directly attest Above/Top g uflla in software UI, tooltip-watch supplies Add Page to YOUR list grammar, and Page tasna/plural tisniwin are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve click-to-star versus unstar, THIS board versus THIS page, YOUR board-list top location and exact %s star count. Star itri/plural itran reuse existing local vocabulary, not independently validated here. LOW CONFIDENCE star-to-favorite software adaptation, click purpose clauses, passive/future visibility and full phrases require fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "starred-pages",
+    "before": "Isebtar s yitri",
+    "after": "ⵜⵉⵙⵏⵉⵡⵉⵏ ⵙ ⵢⵉⵜⵔⵉ",
+    "reason": "2026-09-14: Replace French/Arabic or inherited Kabyle-leaning starred board/page labels; Latin script alone is not error. Native MediaWiki wlnote/recentchanges-notargetpage directly attest Above/Top g uflla in software UI, tooltip-watch supplies Add Page to YOUR list grammar, and Page tasna/plural tisniwin are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve click-to-star versus unstar, THIS board versus THIS page, YOUR board-list top location and exact %s star count. Star itri/plural itran reuse existing local vocabulary, not independently validated here. LOW CONFIDENCE star-to-favorite software adaptation, click purpose clauses, passive/future visibility and full phrases require fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "starred-boards-description",
+    "before": "تعرض اللوحات المفضلة على رأس بقية اللوحات.",
+    "after": "ⵜⵉⴼⵍⵡⵉⵡⵉⵏ ⵙ ⵢⵉⵜⵔⵉ ⴰⵔ ⵜⵜⵓⵙⴽⴰⵏⵏⵜ ⴳ ⵓⴼⵍⵍⴰ ⵏ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵜⴼⵍⵡⵉⵡⵉⵏ ⵏⵏⴽ.",
+    "reason": "2026-09-14: Replace French/Arabic or inherited Kabyle-leaning starred board/page labels; Latin script alone is not error. Native MediaWiki wlnote/recentchanges-notargetpage directly attest Above/Top g uflla in software UI, tooltip-watch supplies Add Page to YOUR list grammar, and Page tasna/plural tisniwin are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve click-to-star versus unstar, THIS board versus THIS page, YOUR board-list top location and exact %s star count. Star itri/plural itran reuse existing local vocabulary, not independently validated here. LOW CONFIDENCE star-to-favorite software adaptation, click purpose clauses, passive/future visibility and full phrases require fluent validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "star-board-title",
+    "before": "اضغط لإضافة هذه اللوحة إلى المفضلة . سوف يتم إظهارها على رأس بقية اللوحات.",
+    "after": "ⵙⵙⵉⵜ ⴷⴰ ⴰⴼⴰⴷ ⴰⴷ ⵜⵔⵏⵓⴷ ⵉⵜⵔⵉ ⵉ ⵜⴰⴼⵍⵡⵉⵜ ⴰⴷ. ⵔⴰ ⵜⵜⵓⵙⴽⴰⵏ ⴳ ⵓⴼⵍⵍⴰ ⵏ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵜⴼⵍⵡⵉⵡⵉⵏ ⵏⵏⴽ.",
+    "reason": "2026-09-14: Replace French/Arabic or inherited Kabyle-leaning starred board/page labels; Latin script alone is not error. Native MediaWiki wlnote/recentchanges-notargetpage directly attest Above/Top g uflla in software UI, tooltip-watch supplies Add Page to YOUR list grammar, and Page tasna/plural tisniwin are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve click-to-star versus unstar, THIS board versus THIS page, YOUR board-list top location and exact %s star count. Star itri/plural itran reuse existing local vocabulary, not independently validated here. LOW CONFIDENCE star-to-favorite software adaptation, click purpose clauses, passive/future visibility and full phrases require fluent validation."
   }
 ]
