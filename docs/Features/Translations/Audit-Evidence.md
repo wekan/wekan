@@ -22162,3 +22162,15 @@ Export free remains unaccepted pending context.
 Review checks pass: 15,561 corrected, 1,314 restored awaiting validation,
 2,898 reviewed unchanged and 308 pending. Broader language and browser
 validation remain open. Nothing pushed.
+
+
+### 2026-09-14 — Galician filters and import mapping labels
+
+Local commit `c45e99b02` retains 30 directly reviewed values unchanged.
+Filters preserve manual order, absent/overdue and relative-date distinctions,
+assignee absence, archived/empty-list visibility and activity show/hide.
+Import help preserves CSV/TSV separators, valid JSON, ZIP size failure,
+cancellation and member mapping to an existing user.
+Review checks pass: 15,561 corrected, 1,284 restored awaiting validation,
+2,928 reviewed unchanged and 308 pending. Broader language and browser
+validation remain open. Nothing pushed.
