@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight due-time activity — 2026-09-14
+
+Commit `9af74b9d0` repairs one original French finding. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) uses When `managu` for expiry in `enterlockreason`, Where `mani` in `tooltip-n-portal`, feminine Previous `taqburt` in `previousrevision`, plus Edit/Time components. Adapt Previous to masculine Time and existing Due Date deadline adjective to Due TIME; do not imply the value has already expired. Preserve modified due time TO new value, When/Where labels, PREVIOUS value, all four lines and exact `__timeValue__`, `__card__`, `__timeOldValue__` inventories. Actor past, deadline compound, derived masculine Previous, was clause and whole grammar remain LOW CONFIDENCE. 384 original findings remain pending, including 249 Tamazight; all 17,991 mechanical checks pass. Browser verification and remote uploads were not performed.
+
 ## Tamazight board duplicate and information labels — 2026-09-14
 
 Commit `2557151f0` repairs two original findings and two unflagged French/Arabic labels. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) supplies second-person Copy in `viewsourcetext` and Info in `pageinfo-title`; [Mastodon](https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json) supplies the confirmation frame. Preserve Duplicate THIS board as Copy board, confirmation question, ALL boards settings and Board/List/Swimlane information tuple. Board/Settings reuse local vocabulary; Swimlane provisionally Path. Copy-to-Duplicate semantic adaptation, assembled confirmation, bound/plural nouns and whole phrases remain LOW CONFIDENCE. 385 original findings remain pending, including 250 Tamazight; all 17,990 mechanical checks pass. Browser verification and remote uploads were not performed.
