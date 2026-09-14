@@ -2239,9 +2239,24 @@ Thanks to xet7 !"
 
 # git pull: fast-forward when that is all it takes, rebase when the branch has
 # diverged, and never end half-way through either.
+function git_operation_ready(){
+ local state
+ for state in rebase-merge rebase-apply MERGE_HEAD CHERRY_PICK_HEAD REVERT_HEAD index.lock; do
+  if [ -e "$(git rev-parse --git-path "$state")" ]; then
+   echo "ERROR: existing Git operation or lock: $state. Resolve it before pulling or pushing."
+   echo "       Run git status; do not delete a lock while another Git process is running."
+   return 1
+  fi
+ done
+ [ "$(git rev-parse --abbrev-ref HEAD)" != HEAD ] || {
+  echo "ERROR: detached HEAD; select a branch first."; return 1;
+ }
+}
+
 function git_pull(){
 	git rev-parse --git-dir >/dev/null 2>&1 || { echo "Not a git repository."; return 1; }
 	local branch upstream before ahead behind
+	git_operation_ready || return 1
 	branch="$(git rev-parse --abbrev-ref HEAD)"
 	upstream="origin/$branch"
 	echo "== git pull - branch $branch =="
@@ -2269,14 +2284,16 @@ function git_pull(){
 		# Nothing of ours to replay: a fast-forward moves the branch pointer and
 		# rewrites no commit, so no link can go stale.
 		echo "--- fast-forward (no local commits to replay) ---"
-		git merge --ff-only "$upstream" || { echo "ERROR: fast-forward failed. Nothing changed."; return 1; }
+		git -c merge.autoStash=true merge --ff-only "$upstream" || { echo "ERROR: fast-forward failed. Nothing changed."; return 1; }
 	else
 		echo "--- rebase: replaying $ahead local commit(s) onto $upstream ---"
 		echo "    This gives them NEW hashes, which is why the CHANGELOG links are"
 		echo "    repaired straight after."
 		if ! git -c rebase.autoStash=true rebase "$upstream"; then
-			git rebase --abort 2>/dev/null
-			git stash list >/dev/null 2>&1
+			if ! git rebase --abort; then
+                echo "ERROR: rebase failed and cleanup did not finish. Run git status and recover the existing operation."
+                return 1
+            fi
 			echo
 			echo "ERROR: the rebase hit a conflict, so it was ABORTED - this repo is"
 			echo "       exactly as it was before ($(git rev-parse --short "$before"))."
@@ -2299,6 +2316,7 @@ function git_pull(){
 function git_push(){
 	git rev-parse --git-dir >/dev/null 2>&1 || { echo "Not a git repository."; return 1; }
 	local branch ahead
+	git_operation_ready || return 1
 	branch="$(git rev-parse --abbrev-ref HEAD)"
 	echo "== git push - branch $branch =="
 
@@ -2311,7 +2329,11 @@ function git_push(){
 	# everyone who reads the release notes.
 	git_fix_changelog_links || return 1
 
-	git fetch origin "$branch" >/dev/null 2>&1 || true
+	git fetch origin "$branch" || { echo "ERROR: fetch failed; nothing pushed."; return 1; }
+    if git rev-parse --verify --quiet "origin/$branch" >/dev/null &&
+       [ "$(git rev-list --count HEAD.."origin/$branch")" -gt 0 ]; then
+        git_pull || { echo "ERROR: pull failed; nothing pushed."; return 1; }
+    fi
 	if git rev-parse --verify --quiet "origin/$branch" >/dev/null; then
 		ahead="$(git rev-list --count "origin/$branch"..HEAD)"
 		[ "$ahead" -eq 0 ] && { echo "==> Nothing to push; origin/$branch is already at this commit."; return 0; }
