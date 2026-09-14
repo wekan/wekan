@@ -22915,3 +22915,15 @@ Tomorrow wording is directly translated, not attested in that source.
 All 18,288 correction and 4,158 unchanged records pass structural checks;
 full phrase/date-prefix inflection and browser behavior remain unverified.
 Original pending/restored counts remain 300/27; wider scope stays open.
+
+Dated unflagged repair, 2026-09-14, local commit `7223612e7`: 16 Breton
+settings, permissions and team labels replace French. Existing workspace,
+user, organization and storage labels support Arventennoù; team-name and
+membership warnings support skipailh/skipailhoù. Native MediaWiki
+backend-fail-usable uses an aotreoù,
+customjsonprotected uses arventennoù, and returnto uses Distreiñ:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/br.json
+Profil remains unchanged pending native loan-word review; French verbs
+around it still need repair. All 18,304 correction and 4,158 unchanged checks
+pass. Adapted phrase inflection and browser review remain open. Original
+300 pending and 27 restored findings remain in scope.

@@ -20,13 +20,13 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,288** exact before/after values, including unflagged repairs.
+contain **18,304** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `98947b824` —
-14 French-seeded Breton date headings, date filters, validation messages
-and hour-duration labels repaired using existing terminology. All **18,288**
+Latest translation fix: **2026-09-14**, local commit `7223612e7` —
+16 French-seeded Breton settings, permissions and team controls repaired
+using existing vocabulary and native software terminology. All **18,304**
 corrections and 4,158 unchanged reviews pass structural checks. Native
 complete-phrase and browser review remain open, alongside other wrong-language
 values, Galician attachment agreement and provisional calendar terminology.
