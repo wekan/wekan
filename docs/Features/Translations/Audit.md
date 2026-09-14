@@ -29,10 +29,11 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Veps numerical sum evidence](Veps-Review.md) distinguishes attested
-numerical addition from a resulting-total noun and excludes a prose
-summary candidate with a language-header warning. The Finnish sum label
-remains open; no locale values or counts changed.
+[Wolaytta full-source verification](Tigre-Wolaytta-Calendar-Review.md)
+confirms the showing-word component from the actual native article and
+matching English publication. Previous fetch limitation is superseded;
+software-display adaptation and full clause grammar remain open. No counts
+or locale values changed.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

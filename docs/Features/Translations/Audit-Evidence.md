@@ -27665,3 +27665,23 @@ Azerbaijani checks, source registration, placeholders, provenance and newer
 translations; no live selector UI run. Ledger 19,792; original corrected
 15,707, pending 196 (Wolaytta 10), restored 4 unchanged. All broader
 uncertain/restored/unflagged review remains open. No push.
+
+## Full-source showing-word verification — 2026-09-15
+
+The previously timed-out Wolaytta source was fetched successfully with a
+bounded curl request into .tools/tmp/wolaytta-display-review/showing-love.html
+(about 359 KiB). Its HTML declares lang=wal; the actual title, h1 and
+bodyTxt text were inspected rather than relying on search snippets.
+[Native article](https://www.jw.org/wal/laybreriyaa/jw-xanna%EA%9E%8Ciyo-xuufiya/laappune-2019-mwb/shiiquwaa-prograamiyaa-laa4-10/kiristtaane-siiquwaa-bessiyoogaa/)
+uses bessiyoogaa in the showing-love title and bessiyo with kindness in
+its body. The
+[matching English article](https://www.jw.org/en/library/jw-meeting-workbook/march-2019-mwb/meeting-schedule-mar4-10/show-christian-love/)
+has the same publication identifier 202019083 and confirms the show sense.
+This supersedes the previous full-source-unread limitation for this page.
+
+The native showing component in calendar-system is retained. **Still
+open:** adapting showing to a software date display, date/day wording and
+the complete calendar-method/qualifier construction. Reading this source
+does not certify that full UI phrase. No locale value or acceptance
+changes; original pending 196 (Wolaytta 10), restored 4, ledger 19,792.
+Broader native, uncertain and unflagged reviews remain open. No push.
