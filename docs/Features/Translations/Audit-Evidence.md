@@ -24189,3 +24189,14 @@ LOW CONFIDENCE full naming and browser review remain open. Focused exact-name,
 English-negative and Buddhist distinction checks pass, as do all 18,684
 corrections, 4,171 retained reviews and 234-locale completeness checks.
 Original counts: 15,615 corrected, 9 restored, 4,171 retained, 286 pending.
+
+## Tamazight Indian National Calendar, 2026-09-14
+
+Local commit `7ba02a179` replaces English Indian national with an adapted
+native label preserving the national qualifier. [Tamazight review](Tamazight-Review.md)
+records CLDR/dictionary component sources and unavailable IRCAM full sources.
+LOW CONFIDENCE full naming and browser review remain open. All 18,685
+corrections, 4,171 unchanged reviews, 234-locale completeness and focused
+name/qualifier/distinction checks pass. Original counts: 15,616 corrected,
+9 restored, 4,171 retained, 285 pending. Components alone do not prove the
+complete calendar phrase is fluent or standard.

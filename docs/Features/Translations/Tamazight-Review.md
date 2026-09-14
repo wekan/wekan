@@ -108,3 +108,22 @@ calendar for the Hebrew system. Exact-value, English-negative and Buddhist
 calendar distinction checks pass. Browser execution remains open.
 One further original finding is corrected; 171 Tamazight findings remain.
 Earlier 172/173 counts describe earlier stages, not the current queue.
+
+## Indian National Calendar adaptation, 2026-09-14 (7ba02a179)
+
+[CLDR Moroccan locale source](https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml)
+supplies the calendar noun and territory IN = ⵍⵀⵉⵏⴷ.
+[Moroccan Amazigh dictionary entry](https://en.wiktionary.org/w/index.php?title=ⴰⵏⴰⵎⵓⵔ&oldid=92669424)
+defines ⴰⵏⴰⵎⵓⵔ as the national adjective. IRCAM's indexed native news
+also uses it for the national translators' association, but the direct page
+and lexicon PDF could not be read in this run; do not treat their indexed
+snippets as full independently inspected evidence.
+
+The English Indian national label now combines calendar, national and of
+India. LOW CONFIDENCE complete compound: the sources support components,
+not the exact calendar name. The national qualifier is retained; this does
+not claim any calendar used in India is the Indian National Calendar.
+Focused exact-name, qualifier-preservation, English-negative and Chinese
+calendar distinction checks pass. Broader native naming and browser review
+remain open. One further original finding is corrected; 170 Tamazight
+findings remain pending. Earlier counts describe earlier review stages.
