@@ -23019,3 +23019,12 @@ versus sign-out and repeated versus forgotten password meanings:
 https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/br.json
 All 18,409 correction checks pass. Full phrase and account/browser validation
 remain open; original pending/restored scope stays 300/27.
+
+Dated unflagged repair, 2026-09-14, local commit `e7f8f5a13`: 10 Breton
+board privacy/title/filter controls repaired. Reuse private-desc's Prevez,
+existing Titl, rolloù goullo and sil terminology. Excluded label previously
+used liñvel instead of tikedenn; restore the actual label noun. Preserve
+strong emphasis in the private-board message and opposite filter states.
+All 18,419 correction and 4,158 unchanged checks pass. Native complete
+phrasing/browser validation remain open; original pending/restored remains
+300/27 and broader unflagged review remains required.

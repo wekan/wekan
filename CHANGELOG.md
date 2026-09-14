@@ -671,6 +671,15 @@ The empty wrongly placed Git directory was removed locally.
 **Languages updated:** Acehnese, Bambara, Basque, Breton, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e7f8f5a13">Repair Breton board and filter control language</a>. Thanks to xet7.</summary>
+
+Ten board privacy/title/filter controls replace French or incorrect item
+terminology with Breton. Preserve visibility and filter meanings. Structural
+checks pass; native phrasing and browser review remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6af6d3ac3">Repair Breton account control language</a>. Thanks to xet7.</summary>
 
 Seven French-seeded login, logout, username and password controls use Breton
