@@ -95,3 +95,23 @@ heading and civil/sighting/astronomical labels remain open. Four focused
 checks pass; no browser validation was run. Original ledger before values
 are preserved on revisions; two new records bring total to 18,753.
 Original pending findings remain 259; broader native/runtime review stays open.
+
+## Calendar-system heading — 2026-09-14
+
+Local commit `06f88d5ed` replaces clock-only calendar-system with a
+calendar/system/date-display heading. Peru Ministry of Education Central
+Quechua vocabulary PDF page 85 (printed 84) attests llika system/network
+with a respiratory-system example; PDF page 141 (printed 140) repeats the
+Spanish-to-Quechua system/network entry. This is primary evidence, not
+sole reliance on crowdsourced system candidates. Source:
+https://formacionenservicio.minedu.gob.pe/sifods/centro-recurso/2022/Material-educativo/726.ITEM-56-VOCABULARIO-QUECHUA-CENTRAL-PDFWEB.pdf
+
+**Low confidence** remains for borrowing this component across Central
+Quechua and the locale's Cusco Collao base, day-to-date interpretation,
+existing display rikuchiy and full compound grammar. The complete calendar
+system phrase is adapted, not quoted from either dictionary. UserHeader.jade
+uses the heading above the calendar-system selector. No live browser
+verification was run. Four focused translation checks pass; original ledger
+before is preserved on revision. Original pending remains 259; records stay
+18,753. Specific civil/sighting/astronomical qualifiers and broader native
+verification remain open.

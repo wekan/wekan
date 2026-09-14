@@ -16,10 +16,10 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `2307b8332` —
-Quechua Jalali name and ISO Gregorian/week meanings are restored; week
-uses attested Simana. Four checks pass. Retained naming/plural compounds
-and full native/browser review remain open. Original pending: 259.
+Latest translation fix: **2026-09-14**, local commit `06f88d5ed` —
+Quechua calendar-system heading restores system/date-display wording,
+using primary llika evidence. Four checks pass; cross-variety reuse and
+full native/browser grammar remain low confidence. Pending: 259.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
 records contain **18,753** exact before/after values, including unflagged

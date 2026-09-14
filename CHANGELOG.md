@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/06f88d5ed">Restore Quechua calendar-system heading meaning</a>. Thanks to xet7.</summary>
+
+Replace clock-only wording with calendar/system/date-display components.
+Four focused checks pass. Cross-variety reuse and full native/browser
+validation remain low confidence and open in the dated audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2307b8332">Restore Quechua Jalali and ISO-week meanings</a>. Thanks to xet7.</summary>
 
 Restore omitted calendar names and Gregorian/week identification; use
