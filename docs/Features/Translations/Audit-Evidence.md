@@ -25628,3 +25628,16 @@ Integer research: PDF 450 entry 8544 supplies positive; PDF 162 entry
 mathematical fractions. Neither those nor positive alone completes the
 positive-integer error. That full message remains Arabic and pending.
 No partial acceptance made; pending 253, ledger grows to 18,769.
+
+Currency-code repair — 2026-09-14, `356836c4f`.
+French custom-field-currency-option is replaced with inigl n udrim anzmar.
+IRCAM Amazigh-English PDF page 388 entry 7364 explicitly glosses inigl
+as code, with postal and bank code examples; page 58 entry 810 explicitly
+glosses adrim anzmar as currency and gives construct udrim.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+The locally cached primary PDF was inspected; web retrieval rejected its
+63 MB length. The full currency-code phrase is an assembled genitive,
+not an attested dictionary sentence: low confidence for native grammar
+and adjective agreement. Both currency and code meanings are retained.
+Four source checks pass; browser/native review remains open. This key was
+unflagged, so the original 253-finding queue is unchanged; ledger 18,770.

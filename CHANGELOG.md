@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/356836c4f">Replace French currency-code label with Tamazight terms</a>. Thanks to xet7.</summary>
+
+Use dictionary-attested code and currency components. Preserve both meanings,
+record the assembled phrase as low confidence, and add regression coverage.
+Four translation checks pass; native and browser review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/551e1ec04">Replace Arabic currency-field type with native Tamazight</a>. Thanks to xet7.</summary>
 
 Use an explicitly attested currency compound. Four suites pass; currency

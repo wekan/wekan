@@ -16,13 +16,13 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `551e1ec04` —
-Tamazight currency-field type replaces Arabic with an explicitly attested
-native currency compound. Four checks pass; mathematical integer wording,
-currency-code label and browser review remain open. Pending: 253.
+Latest translation fix: **2026-09-14**, local commit `356836c4f` —
+Tamazight currency-code label replaces French using attested code and
+currency terms. Four checks pass. Assembled genitive wording remains
+low confidence; native/browser review and 253 original findings remain open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,769** exact before/after values, including unflagged
+records contain **18,770** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
