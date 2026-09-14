@@ -1,5 +1,17 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `afca796a0`: MongoDB storage engine repaired. Directly
+inspected CNAM renders PDF96 Engine Amsadday MC and PDF134 Storage Aḥraz
+KBL; visibly confirmed emphatic ḥ. MC is Mokrane Chemim, not a Moroccan
+dialect marker. Preserve Engine, Storage and exact MongoDB product name.
+Cross-variety terms, Tifinagh adaptation, bound form and full compound remain
+LOW CONFIDENCE. PDF75 also supplies Integrity Timmad MAT with a database
+compound; this is evidence for further migration review, not yet a verified
+Moroccan full warning. All 18,116 correction checks pass; 311 original
+findings remain pending, including 176 Tamazight. Wider validation remains
+open; live browser verification was not run.
+Reference: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf
+
 2026-09-14 — `35eb7e7ab`: four zoom controls repaired using the
 previously visually inspected Level/Zoom candidates. Keep the dictionary's
 Zoom loan, distinguish In versus Out, and preserve Level and input command
