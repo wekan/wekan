@@ -123534,5 +123534,33 @@
     "before": "Modifier la date de fin de vote",
     "after": "ⵙⵏⴼⵍ ⴰⵙⴰⴽⵓⴷ ⵏ ⵜⵉⴳⵉⵔⴰ ⵏ ⵡⴰⵙⵜⴰⵢ",
     "reason": "Replace French Change vote end date popup title. Native MediaWiki edit supplies snfl, upload-form-label-infoform-date asakud, blockedtext-expiration-time tigira: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . IRCAM dictionary https://ircam.biblio.ma/uploads/publications/177.pdf indexed printed88 attests astay choix/election; native CNDH election-observer announcement https://observationelections2021.cndh.ma/am/ dated12 May2021 independently attests bound wastayn election plural. LOW CONFIDENCE singular bound wastay and election-to-card-voting adaptation plus full nested date title require fluent review. Preserve change END DATE of vote rather than terminate vote now. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "voting",
+    "before": "التصويت",
+    "after": "ⴰⵙⵜⴰⵢ",
+    "reason": "Replace Arabic/French card voting interface labels consistently with the repaired vote end-date title. IRCAM dictionary https://ircam.biblio.ma/uploads/publications/177.pdf indexed printed88 gives astay choice/election; CNDH native election-observer announcement https://observationelections2021.cndh.ma/am/ independently gives bound wastayn election plural. Native MediaWiki edit/delete/faq supply snfl, kks, plural isqqsin: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE election-to-card-voting sense, singular question asqqsi, bound singular wastay and full software label composition require fluent review. Preserve question, edit and deletion distinctions. Proponents/opponents require people nouns and were not reduced to for/against. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "vote-question",
+    "before": "Question du vote",
+    "after": "ⴰⵙⵇⵇⵙⵉ ⵏ ⵡⴰⵙⵜⴰⵢ",
+    "reason": "Replace Arabic/French card voting interface labels consistently with the repaired vote end-date title. IRCAM dictionary https://ircam.biblio.ma/uploads/publications/177.pdf indexed printed88 gives astay choice/election; CNDH native election-observer announcement https://observationelections2021.cndh.ma/am/ independently gives bound wastayn election plural. Native MediaWiki edit/delete/faq supply snfl, kks, plural isqqsin: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE election-to-card-voting sense, singular question asqqsi, bound singular wastay and full software label composition require fluent review. Preserve question, edit and deletion distinctions. Proponents/opponents require people nouns and were not reduced to for/against. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "card-edit-voting",
+    "before": "Éditer le vote",
+    "after": "ⵙⵏⴼⵍ ⴰⵙⵜⴰⵢ",
+    "reason": "Replace Arabic/French card voting interface labels consistently with the repaired vote end-date title. IRCAM dictionary https://ircam.biblio.ma/uploads/publications/177.pdf indexed printed88 gives astay choice/election; CNDH native election-observer announcement https://observationelections2021.cndh.ma/am/ independently gives bound wastayn election plural. Native MediaWiki edit/delete/faq supply snfl, kks, plural isqqsin: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE election-to-card-voting sense, singular question asqqsi, bound singular wastay and full software label composition require fluent review. Preserve question, edit and deletion distinctions. Proponents/opponents require people nouns and were not reduced to for/against. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "deleteVotePopup-title",
+    "before": "حذف التصويت؟",
+    "after": "ⴽⴽⵙ ⴰⵙⵜⴰⵢ?",
+    "reason": "Replace Arabic/French card voting interface labels consistently with the repaired vote end-date title. IRCAM dictionary https://ircam.biblio.ma/uploads/publications/177.pdf indexed printed88 gives astay choice/election; CNDH native election-observer announcement https://observationelections2021.cndh.ma/am/ independently gives bound wastayn election plural. Native MediaWiki edit/delete/faq supply snfl, kks, plural isqqsin: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE election-to-card-voting sense, singular question asqqsi, bound singular wastay and full software label composition require fluent review. Preserve question, edit and deletion distinctions. Proponents/opponents require people nouns and were not reduced to for/against. Reviewed 2026-09-14."
   }
 ]
