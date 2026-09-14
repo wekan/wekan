@@ -138857,5 +138857,12 @@
     "before": "Les recherches textuelles ne sont pas sensibles à la casse.",
     "after": "ⴰⵔⵣⵣⵓ ⵏ ⵓⴹⵕⵉⵚ ⵓⵔ ⵉⵙⵏⴰⵃⵢⴰ ⴳⵔ ⵉⵙⴽⴽⵉⵍⵏ ⵉⵎⵇⵇⵔⴰⵏⵏ ⴷ ⵉⵎⵥⵥⵢⴰⵏⵏ (A/a).",
     "reason": "2026-09-15: Replace French case-insensitive search help. IRCAM 9534 distinguish, 4259 letters, 2460/3112 big/small plural adjectives; A/a clarifies computing letter case, not font size. Complete case terminology and grammar remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "invalid-file",
+    "before": "إذا كان اسم الملف غير صالح، فسيتم إلغاء عملية التحميل أو إعادة التسمية.",
+    "after": "ⵉⵖ ⵓⵔ ⵉⴽⵏⵉ ⵉⵙⵎ ⵏ ⵓⴼⴰⵢⵍⵓ, ⴰⵔ ⵉⵜⵜⵓⵙⵙⵔ ⵓⵙⴽⵜⵔ ⵏⵖ ⵓⵙⵏⴼⵍ ⵏ ⵉⵙⵎ.",
+    "reason": "2026-09-15: Replace Arabic invalid filename warning. Preserve conditional incorrect name and cancellation of upload OR name change. IRCAM 6406 correct, 10095 cancel, 4582 change; native MediaWiki upload/cancel terms support computing context. Derived action nouns and complete grammar remain low confidence."
   }
 ]

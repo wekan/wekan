@@ -413,3 +413,8 @@ const caseHint = translated['globalSearch-instructions-notes-4'];
 assert.match(caseHint, /ⴰⵔⵣⵣⵓ ⵏ ⵓⴹⵕⵉⵚ ⵓⵔ ⵉⵙⵏⴰⵃⵢⴰ/);
 assert.match(caseHint, /ⵉⵙⴽⴽⵉⵍⵏ ⵉⵎⵇⵇⵔⴰⵏⵏ ⴷ ⵉⵎⵥⵥⵢⴰⵏⵏ \(A\/a\)/);
 assert.doesNotMatch(caseHint, /Les recherches|[\u0600-\u06ff]/u);
+
+const fileWarning = translated['invalid-file'];
+assert.match(fileWarning, /ⵉⵖ ⵓⵔ ⵉⴽⵏⵉ ⵉⵙⵎ ⵏ ⵓⴼⴰⵢⵍⵓ/);
+assert.match(fileWarning, /ⵉⵜⵜⵓⵙⵙⵔ ⵓⵙⴽⵜⵔ ⵏⵖ ⵓⵙⵏⴼⵍ ⵏ ⵉⵙⵎ/);
+assert.doesNotMatch(fileWarning, /[\u0600-\u06ff]|ⴰⵏⴽⵔⵓⴼ/u);
