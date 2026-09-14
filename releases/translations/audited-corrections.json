@@ -121061,8 +121061,8 @@
     "locale": "zgh",
     "key": "export-card-excel",
     "before": "Exporter la carte vers Excel",
-    "after": "ⵙⵙⵓⴼⵖ Takarḍa ⵖⵔ Excel",
-    "reason": "Replace French with a direct Standard Moroccan Tamazight composition. Native MediaWiki export attests ssufgh (export) and filecopyerror attests ghr (to); preserve the existing local card noun Takarḍa and Excel product name. LOW CONFIDENCE: complete export-card phrase and mixed-script presentation require fluent technical review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+    "after": "ⵙⵙⵓⴼⵖ ⵜⴰⴽⴰⵕⴹⴰ ⵖⵔ Excel",
+    "reason": "Replace French with a direct Standard Moroccan Tamazight composition. Native MediaWiki export attests ssufgh (export) and filecopyerror attests ghr (to); preserve the existing local card noun Takarḍa and Excel product name. LOW CONFIDENCE: complete export-card phrase and mixed-script presentation require fluent technical review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Follow-up 2026-09-14: Replace French or mixed Latin/Tifinagh wording. Native MediaWiki export directly attests ssufgh/export; reuse local board/card nouns in Tifinagh and preserve literal PDF/Excel destinations where present. LOW CONFIDENCE kanban nouns and full format-destination composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   },
   {
     "locale": "zgh",
@@ -121903,5 +121903,68 @@
     "before": "Vous avez déjà un compte ? Se connecter",
     "after": "ⵉⵙ ⵖⵓⵔⴽ ⵉⵍⵍⴰ ⵓⵎⵉⴹⴰⵏ ⵢⴰⴷ? ⴽⵛⵎ",
     "reason": "Replace French. Adapt native MediaWiki userlogin-noaccount possession question to positive already-have-an-account scope; userexists attests yad/already and login directly attests the sign-in command. Retain the question and subsequent sign-in action. LOW CONFIDENCE positive question inflection, bound account noun and already modifier composition; the complete question is not directly attested. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "created-at-newest-first",
+    "before": "Date de création (Plus récentes en premier)",
+    "after": "ⴰⵙⴰⴽⵓⴷ ⵏ ⵓⵙⵏⴼⵍⵓⵍ (ⴰⵎⴰⵢⵏⵓ ⴰⵎⵣⵡⴰⵔⵓ)",
+    "reason": "Replace French. Native MediaWiki pageinfo-firsttime supplies creation-date components, histlast/histfirst newest/oldest, and page_first first. boardHeader handlers confirm createdAt -1 newest-first and +1 oldest-first. Preserve opposite chronological ordering. LOW CONFIDENCE nominal label and newest/oldest-first composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "created-at-oldest-first",
+    "before": "Date de création (Plus anciennes en premier)",
+    "after": "ⴰⵙⴰⴽⵓⴷ ⵏ ⵓⵙⵏⴼⵍⵓⵍ (ⴰⵇⴱⵓⵔ ⴰⵎⵣⵡⴰⵔⵓ)",
+    "reason": "Replace French. Native MediaWiki pageinfo-firsttime supplies creation-date components, histlast/histfirst newest/oldest, and page_first first. boardHeader handlers confirm createdAt -1 newest-first and +1 oldest-first. Preserve opposite chronological ordering. LOW CONFIDENCE nominal label and newest/oldest-first composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "export-card",
+    "before": "Exporter la carte",
+    "after": "ⵙⵙⵓⴼⵖ ⵜⴰⴽⴰⵕⴹⴰ",
+    "reason": "Replace French or mixed Latin/Tifinagh wording. Native MediaWiki export directly attests ssufgh/export; reuse local board/card nouns in Tifinagh and preserve literal PDF/Excel destinations where present. LOW CONFIDENCE kanban nouns and full format-destination composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "exportCardPopup-title",
+    "before": "Exporter la carte",
+    "after": "ⵙⵙⵓⴼⵖ ⵜⴰⴽⴰⵕⴹⴰ",
+    "reason": "Replace French or mixed Latin/Tifinagh wording. Native MediaWiki export directly attests ssufgh/export; reuse local board/card nouns in Tifinagh and preserve literal PDF/Excel destinations where present. LOW CONFIDENCE kanban nouns and full format-destination composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "export-card-pdf",
+    "before": "Exporter la carte en PDF",
+    "after": "ⵙⵙⵓⴼⵖ ⵜⴰⴽⴰⵕⴹⴰ ⵖⵔ PDF",
+    "reason": "Replace French or mixed Latin/Tifinagh wording. Native MediaWiki export directly attests ssufgh/export; reuse local board/card nouns in Tifinagh and preserve literal PDF/Excel destinations where present. LOW CONFIDENCE kanban nouns and full format-destination composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "exportBoardPopup-title",
+    "before": "Exporter le tableau",
+    "after": "ⵙⵙⵓⴼⵖ ⵜⴰⴼⵍⵡⵉⵜ",
+    "reason": "Replace French or mixed Latin/Tifinagh wording. Native MediaWiki export directly attests ssufgh/export; reuse local board/card nouns in Tifinagh and preserve literal PDF/Excel destinations where present. LOW CONFIDENCE kanban nouns and full format-destination composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "user-can-not-export-excel",
+    "before": "L'utilisateur ne peut pas exporter vers Excel",
+    "after": "ⴰⵏⵙⵙⵎⵔⵙ ⵓⵔ ⵉⵥⴹⴰⵕ ⴰ ⵉⵙⵙⵓⴼⵖ ⵖⵔ Excel",
+    "reason": "Replace French. Native MediaWiki userexists supplies bound user terminology, createaccountmail-help third-person capability, resetpass_forbidden negative capability and export the export verb. Preserve explicit export inability, card-specific versus general scope and literal Excel/PDF names. LOW CONFIDENCE derived free user noun, negative capability/verb conjugation, kanban card terminology and full destination phrase. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "user-can-not-export-card-to-excel",
+    "before": "L'utilisateur ne peut pas exporter la carte vers Excel",
+    "after": "ⴰⵏⵙⵙⵎⵔⵙ ⵓⵔ ⵉⵥⴹⴰⵕ ⴰ ⵉⵙⵙⵓⴼⵖ ⵜⴰⴽⴰⵕⴹⴰ ⵖⵔ Excel",
+    "reason": "Replace French. Native MediaWiki userexists supplies bound user terminology, createaccountmail-help third-person capability, resetpass_forbidden negative capability and export the export verb. Preserve explicit export inability, card-specific versus general scope and literal Excel/PDF names. LOW CONFIDENCE derived free user noun, negative capability/verb conjugation, kanban card terminology and full destination phrase. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "user-can-not-export-card-to-pdf",
+    "before": "L'utilisateur ne peut pas exporter de carte en PDF",
+    "after": "ⴰⵏⵙⵙⵎⵔⵙ ⵓⵔ ⵉⵥⴹⴰⵕ ⴰ ⵉⵙⵙⵓⴼⵖ ⵜⴰⴽⴰⵕⴹⴰ ⵖⵔ PDF",
+    "reason": "Replace French. Native MediaWiki userexists supplies bound user terminology, createaccountmail-help third-person capability, resetpass_forbidden negative capability and export the export verb. Preserve explicit export inability, card-specific versus general scope and literal Excel/PDF names. LOW CONFIDENCE derived free user noun, negative capability/verb conjugation, kanban card terminology and full destination phrase. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
