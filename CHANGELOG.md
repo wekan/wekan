@@ -694,6 +694,17 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e74dd20cc">Use consistent Acehnese deadline labels</a>. Thanks to xet7.</summary>
+
+Due-date and today labels replace Indonesian/Malay wording with consistent
+Acehnese vocabulary. Countdown placeholders stay intact. Adapted deadline
+compounds have low confidence and still require native contextual review.
+Exact correction/review checks, focused locale tests and completeness pass;
+the dated audit records evidence and remaining browser/language validation.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9e34218c7">Fix Thai rule action linking-word composition</a>. Thanks to xet7.</summary>
 
 Thai action predicates omit the redundant equative word through the shared

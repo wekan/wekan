@@ -23505,3 +23505,23 @@ No local application is listening on port 3000; live execution remains open.
 Correction records remain 18,574; retained reviews become 4,163, restored
 findings 18; pending remains 299. Other uncertain and complete phrase reviews
 remain open. No translation service, subagents or remote writes were used.
+
+### 2026-09-14 — Acehnese deadline labels (e74dd20cc)
+
+card-due → Bataih watèë; due-date → Uroe bataih; due-today and
+filter-due-today → Bataih watèë uroe nyoe. Indonesian/Malay labels
+Jatuh Tempo, Tamat Hari ini and Tarikh Akhir are replaced; unclear Jitôh
+is avoided. Deadline compounds are adapted with low confidence; full native
+phrase validation remains open, despite passing structural checks.
+[Native MediaWiki Acehnese](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/ace.json)
+attests bataih in request limits, watèë in time contexts and uroe as day.
+[ANU thesaurus record](https://openresearch-repository.anu.edu.au/items/10cde6fc-da4d-4868-a7f1-600413b5e07c)
+identifies the reference book; its publisher download returned 403.
+[Mirrored book text](https://dokumen.pub/kamus-basa-aceh-kamus-bahasa-aceh-acehneseindonesianenglish-thesaurus-0858835061.html)
+attests uroe nyoe as today (section 10e); OCR is secondary access, not complete
+primary-page or compound-grammar verification. dueCountdown compares local
+calendar days; cardDate and sidebarFilters use matching today labels. Today
+does not imply completed or already overdue; countdown tokens are unchanged.
+Four offline suites pass. Ledger 18,578; original corrected 15,602, restored
+17, retained 4,163, pending 299. Native contextual/browser review and uncertain
+repairs remain open. No translation service, subagents or remote writes.

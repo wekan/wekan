@@ -4,8 +4,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,601 |
-| Restored pre-pull; awaiting validation | 18 |
+| Corrected | 15,602 |
+| Restored pre-pull; awaiting validation | 17 |
 | Reviewed; retained unchanged | 4,163 |
 | Pending review or repair | 299 |
 | Total tracked | 20,081 |
@@ -20,18 +20,19 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,574** exact before/after values, including unflagged repairs.
+contain **18,578** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `9e34218c7` —
-Thai rule action phrases omit the redundant equative linking word through
-shared reactive helper wiring; correct คือ remains unchanged in the locale.
-The restored Thai word is validated in its corrected context. All **18,574**
-corrections and **4,163** unchanged reviews pass; focused helper/completeness
-checks pass. Thai browser rule-creation coverage is added and syntax-checked;
-no local application is listening on port 3000, so it was not executed.
-Restored Basque noun cases/ordering and broader language review remain open.
+Latest translation fix: **2026-09-14**, local commit `e74dd20cc` —
+four Acehnese deadline/date/today labels use consistent native vocabulary,
+replacing Indonesian/Malay prose and the unclear restored today wording.
+Deadline compounds are adapted with **low confidence**: full native contextual
+and browser validation remains open. All **18,578** corrections and **4,163**
+unchanged reviews pass, alongside focused locale and completeness checks.
+One restored finding is now repaired; original counts are 15,602 corrected,
+17 restored awaiting validation and 299 pending. Corrected does not mean all
+compound phrases are fluent; broader review remains required.
 Latest unchanged review: **2026-09-14**, Thai r-is —
 คือ retained after removing its incorrect insertion before action predicates.
 Danish Dage gammel remains validated in `824dd005e` with native age-construction
@@ -44,7 +45,7 @@ Additional unflagged unchanged review: **2026-09-14**, `39af6aae5` —
 Veps Server and Valencian Errors retained with native software evidence and
 protected per locale from filling. Zero unreviewed English placeholders remain;
 this does not establish correct language or fluency in all values. These two reviews are outside the original flagged ledger; current
-pending/restored counts are 299/18.
+pending/restored counts are 299/17.
 
 
 
