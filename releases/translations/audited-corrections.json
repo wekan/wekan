@@ -121672,5 +121672,26 @@
     "before": "تغير التاريخ",
     "after": "ⵙⵏⴼⵍ ⴰⵙⴰⴽⵓⴷ",
     "reason": "Replace Arabic. Native MediaWiki edit attests snfl/edit/change and upload-form-label-infoform-date directly attests asakud/date. Preserve date editing rather than calendar-system selection. LOW CONFIDENCE complete change-date phrase; component terms are attested but their combined popup usage needs fluent review. References: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=130 ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-field-dropdown-options",
+    "before": "Options de liste",
+    "after": "ⵜⵉⴷⵖⵔⵉⵏ ⵏ ⵜⵍⴳⴰⵎⵜ",
+    "reason": "Replace French. Native MediaWiki watchlist-options directly attests tidghrin n tlgamt/options of list before its watch qualifier. Retain that list-options phrase without the watch qualifier. Actual field editor lists selectable option names. LOW CONFIDENCE adapting general/watchlist options to dropdown choice values and complete field-editor usage. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-field-dropdown-unknown",
+    "before": "(inconnu)",
+    "after": "(ⴰⵔⵓⵙⵙⵉⵏ)",
+    "reason": "Replace French unknown sentinel. MediaWiki pool-errorunknown attests feminine tarussint/unknown; derive masculine arussin by removing feminine boundary t letters for an unspecified value. Preserve parentheses and distinguish unknown (selected item ID cannot be found) from none (no selected value). LOW CONFIDENCE derived masculine form, implicit value agreement and standalone unknown sentinel; native source attests the feminine modifier, not this full value. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "setSelectionColorPopup-title",
+    "before": "Définir la couleur de sélection",
+    "after": "ⵙⵜⵉ ⴰⴽⵍⵓ ⵏ ⵓⵙⵜⵉ",
+    "reason": "Replace French. Native MediaWiki rcfilters-highlightmenu-title attests sti/select and uklu/bound color; derive free aklu after the command. Invert attests asti/selection, using derived bound usti after n/of. Preserve color of current selection, not label creation or a card background color. LOW CONFIDENCE complete selection-color genitive phrase and derived noun forms; component references do not validate full wording. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
