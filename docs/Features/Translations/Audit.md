@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,314 |
+| Corrected | 15,315 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 530 |
+| Pending review or repair | 529 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,623** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,625** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `082eed1cc` — replaced two French Tamazight card move/restore activities. Preserve restore destination and distinct old/new list, swimlane and board placeholders. Native move/restore components are supported; full locations and actor morphology remain **low confidence** pending language review. All **17,623** correction/rendering checks pass. **530** originals remain pending across **17** locales, including **392** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `b63e5ebe1` — replaced French Tamazight card-move rule trigger/fragments, including one unflagged fragment. Preserve when-event and another-list destination. Native movement components are supported; derived passive, agreement and full trigger remain **low confidence** pending language review. All **17,625** correction/rendering checks pass. **529** originals remain pending across **17** locales, including **391** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Fulah terminology review (2026-09-14):** The [Senegal education ministry terminology guide](https://senprof.education.sn/PROGRAMME%20LECTURE%20POUR%20TOUS/documentation/Terminologies/Terminologie%20Pulaar%20fusion.pdf), printed pages 8, 17 and 34, gives calendar names `Lim-lebbi`, `arminaat`, `kalanndiriyee`, distinguishes `Haatumeere` as grid/table, and uses `Alluwal` for table/classroom board. This strengthens component evidence but does not establish technical tabular calendar usage or civil/astronomical epochs. The earlier native Hijri article supports calendar-context use of Haatumeere, so the guide alone does not justify replacing it; that composition remains under review. No locale values or counts changed. Both Fulah epoch findings remain pending.
 
