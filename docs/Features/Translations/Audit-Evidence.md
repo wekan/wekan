@@ -27520,3 +27520,23 @@ No active key reference or live browser run; removed migrations remain
 removed. Ledger 19,780; original corrected 15,699, pending 204 (zgh 101),
 restored 4 unchanged. All broader uncertain/restored findings remain open.
 No push.
+
+## Numerical sum evidence boundary — 2026-09-15
+
+The remaining Finnish showSum-field-on-list value was rechecked against
+the full cached Zaiceva/Mullonen 2007 Russian–Veps dictionary. Page 419
+explicitly gives numerical addition as luguiden ližaduz and the imperative
+add the numbers as ližada lugud. This is direct numerical-operation
+evidence, but does not establish a noun meaning the resulting total.
+The separate Wiktionary candidate ühthevedota is glossed summarize/sum up,
+not expressly arithmetic, and its cached entry carries an incorrect-
+language-header category. Its generated imperative must not be treated
+as primary evidence for this UI label.
+
+Source context: sidebarCustomFields.jade lines 56 and 61 render the
+setting; listHeader.js computes number-field statistics and a numeric sum
+badge, while date fields use a range rather than summing dates. A prose
+summary verb would blur that distinction. The next repair therefore needs
+a numerical-total noun or a complete explicitly numerical formulation.
+No translation or acceptance changed. Pending 204, including nine Veps
+findings; broader prior drafts and native grammar remain open.

@@ -29,10 +29,10 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Tamazight SMTP evidence](Tamazight-Review.md) confirms the existing
-computer-server compound and excludes harbour terminology as proof of a
-networking port. SMTP port strings and complete host grammar remain open.
-No locale values or counts changed.
+[Veps numerical sum evidence](Veps-Review.md) distinguishes attested
+numerical addition from a resulting-total noun and excludes a prose
+summary candidate with a language-header warning. The Finnish sum label
+remains open; no locale values or counts changed.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

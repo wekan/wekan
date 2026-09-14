@@ -381,3 +381,23 @@ verb evidence; software-specific card/board terminology still merits review.
 Four affected suites pass; ledger 18,832 and original pending 232/restored 4
 unchanged. No new human translation provenance is claimed.
 Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+
+## Numerical sum evidence boundary — 2026-09-15
+
+The remaining Finnish showSum-field-on-list value was rechecked against
+the full cached Zaiceva/Mullonen 2007 Russian–Veps dictionary. Page 419
+explicitly gives numerical addition as luguiden ližaduz and the imperative
+add the numbers as ližada lugud. This is direct numerical-operation
+evidence, but does not establish a noun meaning the resulting total.
+The separate Wiktionary candidate ühthevedota is glossed summarize/sum up,
+not expressly arithmetic, and its cached entry carries an incorrect-
+language-header category. Its generated imperative must not be treated
+as primary evidence for this UI label.
+
+Source context: sidebarCustomFields.jade lines 56 and 61 render the
+setting; listHeader.js computes number-field statistics and a numeric sum
+badge, while date fields use a range rather than summing dates. A prose
+summary verb would blur that distinction. The next repair therefore needs
+a numerical-total noun or a complete explicitly numerical formulation.
+No translation or acceptance changed. Pending 204, including nine Veps
+findings; broader prior drafts and native grammar remain open.
