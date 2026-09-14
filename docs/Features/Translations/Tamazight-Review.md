@@ -1660,3 +1660,20 @@ focused parser suite passes; no query implementation or locale changes.
 This verifies runtime metadata mapping rather than merely comparing JSON
 labels. Native UI usage and live browser rendering remain unverified;
 original pending 234 and correction counts do not change.
+
+Export dates and creation — 2026-09-14, `49aec4fa9`.
+French export-card-field-dates becomes a complete five-field draft:
+Created, Received, Start, Due, End in unchanged order. French
+operator-created/predicate-created become creation noun labels.
+IRCAM PDF 209 entry 3982 date plural isakudn, 238 entry 4583 creation
+asnflul, 382 entry 7245 reception imiẓ, 696 entry 13146 start and
+666 entry 12533 end:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+Due reuses the existing due-date label. PDF 279 entry 5472 expiry-date
+compound supports related vocabulary, not exact deadline equivalence.
+Low confidence: software reception and creation noun adaptation plus
+software due-date semantics; no native/browser acceptance. Earlier
+French-pending export notes are superseded by this draft, not approval.
+Four source checks pass for complete ordered types, French negatives,
+tokens and protected newer values. One original and two unflagged repairs:
+original corrected 15,669; pending 233 (zgh 125); ledger 18,809.

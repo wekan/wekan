@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/49aec4fa9">Draft export dates and creation labels</a>. Thanks to xet7.</summary>
+
+Replace French Tamazight export/date labels while preserving all five
+field types and their order. Four translation checks pass; reception,
+creation and due-date software usage remain under review in the audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/bc9860dff">Verify start and end existence predicates</a>. Thanks to xet7.</summary>
 
 Exercise Tamazight present/absent date queries through the actual parser
