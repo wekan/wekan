@@ -1273,6 +1273,18 @@ Thanks to xet7 !
 </details>
 
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fda197bb0">Full-width board report views</a></summary>
+
+Timeline, Time, Statistics, grouping and chart views use the full available
+board width instead of centered 900px or 1100px content caps. Content padding
+stays inside the available width. Regression tests cover the shared shells;
+a browser test checks Timeline, Time and Statistics at desktop and mobile widths.
+
+Thanks to xet7 !
+
+</details>
+
 and fixes the following bugs:
 
 **LDAP login** - Optional user search filter.
