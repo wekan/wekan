@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3a10fb927">Correct reversed Veps Hide Empty Lists wording</a>. Thanks to xet7.</summary>
+
+The label now describes hiding empty lists instead of showing them. The
+complete native wording draft remains low confidence for grammar and noun
+spelling. Locale, placeholder, preference and filter source wiring checks
+pass; the dated audit keeps native/browser verification open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a60cf42ad">Replace Finnish Veps filter headings with native terminology drafts</a>. Thanks to xet7.</summary>
 
 Two filter headings now use native-source terms, preserving singular and

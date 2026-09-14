@@ -26177,3 +26177,10 @@ Both full headings remain low confidence; [Veps review](Veps-Review.md)
 records source keys and adaptation limits. Eight tests across four files
 pass; ledger 18,822, original pending 233 unchanged. Longer prose and
 native/browser review remain open.
+
+Veps hide-empty action repair **2026-09-14**, local commit `3a10fb927`:
+reversed Finnish Show wording replaced with a complete Veps Hide draft.
+[Veps review](Veps-Review.md) documents primary terms, existing plural noun
+and low-confidence agreement/spelling. Ten tests across five files pass
+for labels, filter source wiring, placeholders and translation preference.
+Ledger 18,823; original pending 233 unchanged. Native/browser review is open.

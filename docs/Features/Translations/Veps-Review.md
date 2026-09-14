@@ -224,3 +224,18 @@ from actions alone: `actions` = Tegendad does not by itself establish the
 full activity-history heading. Watchlist activity uses Rad kacundlugetišes
 and describes changes; activity phrasing still needs context review.
 Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+
+Hide-empty action repair **2026-09-14**, local commit `3a10fb927`:
+`filter-hide-empty` changes Finnish Näytä tyhjät listat (Show empty lists)
+to **Peitä tühjad lugetišed** (Hide empty lists draft). Actual
+`sidebarFilters.jade` uses this label for `js-toggle-hideEmpty-filter`;
+its handler toggles `Filter.hideEmpty`, which the swimlane renderer consults.
+Native MediaWiki `rcfilters-activefilters-hide` attests Peitä and
+`invalid-langconvert-attrs` uses tühjad for plural empty. Existing local
+`lists` = Lugetišed supplies the plural list noun.
+The complete assembled phrase remains **low confidence** for object
+agreement and noun spelling. Regression checks preserve hiding, emptiness
+and plural lists and reject showing. All ten registered tests across five
+files pass; source wiring is verified, live browser behavior is not.
+This unflagged repair leaves the ten original Veps findings pending.
+Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
