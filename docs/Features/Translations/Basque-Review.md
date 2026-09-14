@@ -152,3 +152,25 @@ acceptance is limited to these directional fragments, not other named subjects.
 
 All 4,173 unchanged reviews and 234-locale completeness pass. Two restored
 findings are retained; 7 restored and 283 pending findings remain overall.
+
+## 2026-09-14 — Generic member and attachment subjects retained
+
+Restored `r-when-a-member` = Kide bat and `r-when-a-attach` = Eranskin bat
+are retained. The generic rows use an indefinite singular subject followed
+by add/remove temporal predicates and a colon introducing the card field.
+Bat follows the noun and preserves one unspecified member/attachment.
+The resulting control labels were reviewed for both actions; they do not
+insert an extra copula. Named subjects have a different construction and
+are not accepted by this review.
+
+[EHU kide](https://www.ehu.eus/eeh/cgi/bila?h=kide) defines membership in a
+group; [EHU eranskin](https://www.ehu.eus/eeh/cgi/bila?h=eranskin) defines
+something attached to something else. Both were directly fetched and decoded
+as declared ISO-8859-1. [Official council description](https://www.osakidetza.euskadi.eus/zibersegurtasunaren-euskal-agentziaren-administrazio-kontseilua/webosk00-oskcon/eu/)
+uses kide bat for an individual member. [GNOME Evolution documentation](https://help.gnome.org/evolution/mail-attachments-sending.html.eu)
+uses eranskinak for file attachments and explains the attached file copy.
+Its untranslated English instructions are not native terminology evidence.
+
+Exact subjects, both assembled action labels, copula negatives and actual
+row wiring checks pass. Browser and broader style review remain open.
+No translations change; two restored findings are retained.

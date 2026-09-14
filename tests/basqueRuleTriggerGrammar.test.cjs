@@ -137,3 +137,18 @@ assert.match(moveTemplate, /option\(value="moved-from"\) \{\{_'r-moved-from'\}\}
 const moveHandler = fs.readFileSync(path.join(root, 'client/components/rules/triggers/boardTriggers.js'), 'utf8');
 assert.match(moveHandler, /actionSelected === 'moved-to'[\s\S]*?oldListName: '\*'/);
 assert.match(moveHandler, /actionSelected === 'moved-from'[\s\S]*?oldListName: listName/);
+
+for (const [subject, noun, added, removed] of [
+ ['r-when-a-member', 'Kide bat', 'r-added-to', 'r-removed-from'],
+ ['r-when-a-attach', 'Eranskin bat', 'r-attachment-added-to', 'r-attachment-removed-from'],
+]) {
+ assert.equal(eu[subject], noun);
+ for (const [action, direction] of [[added, 'Gehitzen denean hona:'], [removed, 'Kentzen denean hemendik:']]) {
+  const text = [eu[subject], eu[action], eu['r-a-card']].join(' ');
+  assert.equal(text, `${noun} ${direction} txartel bat`);
+  assert.doesNotMatch(text, /\bda\b|\bis\b|\bes\b/);
+ }
+}
+const cardTriggerTemplate = fs.readFileSync(path.join(root, 'client/components/rules/triggers/cardTriggers.jade'), 'utf8');
+assert.match(cardTriggerTemplate, /r-when-a-member[\s\S]*?gen-member-action[\s\S]*?r-added-to[\s\S]*?r-removed-from/);
+assert.match(cardTriggerTemplate, /r-when-a-attach[\s\S]*?attach-action[\s\S]*?r-attachment-added-to[\s\S]*?r-attachment-removed-from/);

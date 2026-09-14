@@ -25036,5 +25036,17 @@
     "key": "r-moved-from",
     "value": "Eramaten denean hemendik:",
     "reason": "Retain restored Basque movement condition: eramaten denean is the temporal passive clause, hona/hemendik distinguish destination/origin, and the colon introduces the separate list field. EHU native direction terminology and GNOME source-field usage support this actual UI construction; broader/browser review is not claimed."
+  },
+  {
+    "locale": "eu",
+    "key": "r-when-a-member",
+    "value": "Kide bat",
+    "reason": "Retain restored indefinite singular Basque subject after EHU noun definitions, native member/software-attachment usage and actual generic add/remove row composition review. Named-subject and browser review are not inferred."
+  },
+  {
+    "locale": "eu",
+    "key": "r-when-a-attach",
+    "value": "Eranskin bat",
+    "reason": "Retain restored indefinite singular Basque subject after EHU noun definitions, native member/software-attachment usage and actual generic add/remove row composition review. Named-subject and browser review are not inferred."
   }
 ]
