@@ -138850,5 +138850,12 @@
     "before": "Le suivi des tableaux et des cartes est désactivé par l'administrateur",
     "after": "ⵉⵙⵙⵏⵙⵉ ⵓⵎⵙⵙⵓⴳⵓⵔ ⴰⵎⴰⵜⵔ ⵏ ⵜⴼⵍⵡⵉⵏ ⴷ ⵜⴽⴰⵕⴹⵉⵡⵉⵏ.",
     "reason": "2026-09-15: Replace wrong-language watching label and disabled warning. IRCAM 2228 monitoring and 7893 watch support terminology; 10015 switch off. Warning preserves administrator as actor and boards AND cards. Complete tense/agreement and computing adaptation remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-notes-4",
+    "before": "Les recherches textuelles ne sont pas sensibles à la casse.",
+    "after": "ⴰⵔⵣⵣⵓ ⵏ ⵓⴹⵕⵉⵚ ⵓⵔ ⵉⵙⵏⴰⵃⵢⴰ ⴳⵔ ⵉⵙⴽⴽⵉⵍⵏ ⵉⵎⵇⵇⵔⴰⵏⵏ ⴷ ⵉⵎⵥⵥⵢⴰⵏⵏ (A/a).",
+    "reason": "2026-09-15: Replace French case-insensitive search help. IRCAM 9534 distinguish, 4259 letters, 2460/3112 big/small plural adjectives; A/a clarifies computing letter case, not font size. Complete case terminology and grammar remain low confidence."
   }
 ]

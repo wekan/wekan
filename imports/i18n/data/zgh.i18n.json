@@ -1786,7 +1786,7 @@
   "globalSearch-instructions-notes-2": "ⵉⵎⴰⵀⴰⵍⵏ ⵉⵎⵙⴰⵙⴰⵏ ⵇⵇⵏⵏ ⵙ *OR* (ⵏⵖ). ⴰⵔ ⵜⵜⵢⴰⵔⴰⵔⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵉⵎⵙⴰⵙⴰⵏ ⴷ ⴽⵔⴰ ⵏ ⵜⵡⵜⵉⵍⵜ.\n`__operator_list__:Available __operator_list__:Blocked` ⴰⵔ ⵉⵜⵜⴰⵔⴰⵔ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴳ ⴽⵔⴰ ⵏ ⵜⵍⴳⴰⵎⵜ ⵉⵙⵎ ⵏⵏⵙ *Blocked* ⵏⵖ *Available*.",
   "globalSearch-instructions-notes-3": "ⵉⵎⴰⵀⴰⵍⵏ ⵉⵎⵣⴰⵔⴰⵢⵏ ⵇⵇⵏⵏ ⵙ *AND* (ⴷ). ⴰⵔ ⵜⵜⵢⴰⵔⴰⵔⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵉⵎⵙⴰⵙⴰⵏ ⴷ ⴰⴽⴽⵯ ⵉⵎⴰⵀⴰⵍⵏ ⵉⵎⵣⴰⵔⴰⵢⵏ ⵖⴰⵙ. `__operator_list__:Available __operator_label__:red` ⴰⵔ ⵉⵜⵜⴰⵔⴰⵔ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴳ ⵜⵍⴳⴰⵎⵜ *Available* ⵙ ⵓⵔⵛⵓⵎ *red* ⵖⴰⵙ.",
   "globalSearch-instructions-notes-3-2": "Les durées en jours peuvent être précisées soit par un entier positif ou négatif soit en utilisant `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` ou `__predicate_year__` pour la période courante.",
-  "globalSearch-instructions-notes-4": "Les recherches textuelles ne sont pas sensibles à la casse.",
+  "globalSearch-instructions-notes-4": "ⴰⵔⵣⵣⵓ ⵏ ⵓⴹⵕⵉⵚ ⵓⵔ ⵉⵙⵏⴰⵃⵢⴰ ⴳⵔ ⵉⵙⴽⴽⵉⵍⵏ ⵉⵎⵇⵇⵔⴰⵏⵏ ⴷ ⵉⵎⵥⵥⵢⴰⵏⵏ (A/a).",
   "globalSearch-instructions-notes-5": "ⵙ ⵓⵡⵏⵓⵍ, ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⴳ ⴰⵔⵛⵉⴼ ⵓⵔ ⵜⵜⵓⵔⵣⵓⵏⵜ.",
   "link-to-search": "ⴰⵙⵖⵏ ⵖⵔ ⵓⵔⵣⵣⵓ ⴰⴷ",
   "excel-font": "Arial",

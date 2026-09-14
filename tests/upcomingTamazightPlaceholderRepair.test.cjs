@@ -408,3 +408,8 @@ assert.doesNotMatch(watchWarning + translated.watching, /Le suivi|[\u0600-\u06ff
 const watchMethod = fs.readFileSync(path.join(ROOT,
  'server/notifications/watch.js'), 'utf8');
 assert.match(watchMethod, /getFeatureFlags\(\).disableWatch[\s\S]*?throw new Meteor.Error\('error-watch-disabled'\)/);
+
+const caseHint = translated['globalSearch-instructions-notes-4'];
+assert.match(caseHint, /ⴰⵔⵣⵣⵓ ⵏ ⵓⴹⵕⵉⵚ ⵓⵔ ⵉⵙⵏⴰⵃⵢⴰ/);
+assert.match(caseHint, /ⵉⵙⴽⴽⵉⵍⵏ ⵉⵎⵇⵇⵔⴰⵏⵏ ⴷ ⵉⵎⵥⵥⵢⴰⵏⵏ \(A\/a\)/);
+assert.doesNotMatch(caseHint, /Les recherches|[\u0600-\u06ff]/u);
