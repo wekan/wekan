@@ -126775,5 +126775,33 @@
     "before": "ⵉⵍⵖⴰ",
     "after": "ⵜⵉⵏⵖⵎⵉⵙⵉⵏ",
     "reason": "2026-09-14: native Mastodon zgh account.muted and column.notifications/notifications.clear directly attest Muted and Notifications. Replace Arabic muted or inconsistent ilgha notification terminology with the native software labels, matching existing WeKan delete-all-notifications. Direct lexical evidence; board-specific semantic adaptation for Muted still requires review. Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "zoom-in",
+    "before": "Agrandir",
+    "after": "Zoom ⵖⵔ ⵣⴷⴰⵜ",
+    "reason": "2026-09-14: replaced French zoom control. Direct rendered CNAM Amawal PDF98 gives Level Aswir MW (modern lexicon, not MediaWiki); PDF154 retains Zoom loan and gives Zoom ɣer zdat/In and ɣer deffir/Out KBL. Preserve zoom direction, level, input command and exact 50-300% range. Existing native software input command skchm reused. Cross-variety terms, Tifinagh adaptation and full level/input phrases remain LOW CONFIDENCE pending Moroccan native review. Reference: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf"
+  },
+  {
+    "locale": "zgh",
+    "key": "zoom-out",
+    "before": "Réduire",
+    "after": "Zoom ⵖⵔ ⴷⴼⴼⵉⵔ",
+    "reason": "2026-09-14: replaced French zoom control. Direct rendered CNAM Amawal PDF98 gives Level Aswir MW (modern lexicon, not MediaWiki); PDF154 retains Zoom loan and gives Zoom ɣer zdat/In and ɣer deffir/Out KBL. Preserve zoom direction, level, input command and exact 50-300% range. Existing native software input command skchm reused. Cross-variety terms, Tifinagh adaptation and full level/input phrases remain LOW CONFIDENCE pending Moroccan native review. Reference: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf"
+  },
+  {
+    "locale": "zgh",
+    "key": "zoom-level",
+    "before": "Niveau d'agrandissement",
+    "after": "ⴰⵙⵡⵉⵔ ⵏ Zoom",
+    "reason": "2026-09-14: replaced French zoom control. Direct rendered CNAM Amawal PDF98 gives Level Aswir MW (modern lexicon, not MediaWiki); PDF154 retains Zoom loan and gives Zoom ɣer zdat/In and ɣer deffir/Out KBL. Preserve zoom direction, level, input command and exact 50-300% range. Existing native software input command skchm reused. Cross-variety terms, Tifinagh adaptation and full level/input phrases remain LOW CONFIDENCE pending Moroccan native review. Reference: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf"
+  },
+  {
+    "locale": "zgh",
+    "key": "enter-zoom-level",
+    "before": "Entrer le niveau d'agrandissement (50-300%) :",
+    "after": "ⵙⴽⵛⵎ ⴰⵙⵡⵉⵔ ⵏ Zoom (50-300%):",
+    "reason": "2026-09-14: replaced French zoom control. Direct rendered CNAM Amawal PDF98 gives Level Aswir MW (modern lexicon, not MediaWiki); PDF154 retains Zoom loan and gives Zoom ɣer zdat/In and ɣer deffir/Out KBL. Preserve zoom direction, level, input command and exact 50-300% range. Existing native software input command skchm reused. Cross-variety terms, Tifinagh adaptation and full level/input phrases remain LOW CONFIDENCE pending Moroccan native review. Reference: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf"
   }
 ]
