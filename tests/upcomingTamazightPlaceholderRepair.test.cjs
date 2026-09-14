@@ -151,3 +151,11 @@ for (const term of ['ⵉⵙⵙⵉⴷⴻⴷ','ⵉⵙⵙⵓⴽⵏ','ⵜⴰⵢⴰ�
 
 assert.ok(migrationDescription.includes("ⴰⵏⵎⴰⵍⴰ ⵏ ⵜⵉⵍⴳⴰⵎⵉⵏ"));
 assert.doesNotMatch(migrationDescription, /ⴰⵙⴰⵙⵜⵡⴰ/);
+
+const osUptimeLabel = translated.OS_Uptime;
+assert.doesNotMatch(osUptimeLabel, /[\u0600-\u06ff]|ⵓⵙⴽⴽⵉ/);
+assert.match(osUptimeLabel, /ⴰⴽⵓⴷ.*ⵙⴳ ⵓⵙⵏⵜⵉ ⵏ ⵜⵉⵙⵏⵙⵉ/);
+const uptimeStatisticsSource = fs.readFileSync(path.join(ROOT, 'server/statistics.js'), 'utf8');
+assert.match(uptimeStatisticsSource, /uptime: os\.uptime\(\)/);
+const uptimeInfoTemplate = fs.readFileSync(path.join(ROOT, 'client/components/settings/informationBody.jade'), 'utf8');
+assert.match(uptimeInfoTemplate, /th {{_ 'OS_Uptime'}}\n\s+td {{humanReadableTime statistics\.os\.uptime}}/);
