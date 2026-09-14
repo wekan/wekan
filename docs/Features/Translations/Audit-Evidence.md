@@ -27417,3 +27417,30 @@ code and placeholders, original provenance and newer human translations.
 No live browser test was run. Ledger 19,776; original corrected 15,696,
 pending 207 (zgh 104), restored 4 unchanged. Broader uncertain review stays
 open. No remote push.
+
+## Ordered empty-duplicate-list confirmation — 2026-09-15
+
+Local commit `38c76afb7` replaces the French confirmation with a Tamazight
+draft using explicit ordered steps. Shared lists become lists for each
+swimlane before deletion. Only empty duplicates with another same-title
+list containing cards are described as removed, followed by a continuation
+question. The source's redundant-empty-list assurance is expressed through
+these deletion restrictions, rather than inventing a new redundancy noun.
+
+[Primary IRCAM dictionary](https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339)
+PDF page 535 attests ssur common/shared (also mix/mixed). Cached full text
+was inspected; the mixed sense does not prove software shared-list usage.
+Religious convert terminology was excluded as inappropriate. The draft
+adapts the existing change verb to the representation transformation.
+Earlier list/card/swimlane, deletion and continuation evidence remains
+recorded, with its limitations.
+
+**Low confidence:** sharing inflection, change-to-convert interpretation,
+same-title grammar, relative agreement and expressing redundancy through
+conditions need native review. Ordered numeric steps make the sequence
+explicit without translating a new unverified temporal adverb. Four
+focused suites pass for order, both restrictions, continuation, exact
+placeholders, provenance and newer translations. No active migration
+references or live browser test; removed code remains removed. Ledger
+19,777; original corrected 15,697, pending 206 (zgh 103), restored 4 unchanged.
+All broader uncertain/restored/unflagged review remains open. No push.
