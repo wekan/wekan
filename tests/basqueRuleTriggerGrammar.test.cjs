@@ -164,3 +164,9 @@ for (const key of ['r-when-the-label', 'r-when-the-member', 'r-when-the-checklis
  assert.ok(template.includes(`unless ruleNameBeforeSubject\n        div.trigger-text\n          | {{_'${key}'}}`));
  assert.ok(template.includes(`if ruleNameBeforeSubject\n        div.trigger-text\n          | {{_'${key}'}}`));
 }
+// An assignee subject must be a noun phrase, not the imperative "Assign this".
+{
+  const assigneeData = JSON.parse(require('node:fs').readFileSync('imports/i18n/data/eu.i18n.json', 'utf8'));
+  require('node:assert/strict').equal(assigneeData['r-when-the-assignee'], 'Esleitutako erabiltzaile hau');
+  require('node:assert/strict').notEqual(assigneeData['r-when-the-assignee'], 'Esleitu hau');
+}

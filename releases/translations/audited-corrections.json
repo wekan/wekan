@@ -131808,5 +131808,12 @@
     "before": "Näytä minikortilla",
     "after": "Ozuta minikartal",
     "reason": "2026-09-14: Replace Finnish with complete Veps card display draft. Native MediaWiki show attests Ozuta; existing local card = Kart supplies the noun, with derived adessive location form. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. LOW CONFIDENCE: kartal/minikartal inflection and software phrase need native review. Card and minicard targets remain distinct; no browser execution claimed."
+  },
+  {
+    "locale": "eu",
+    "key": "r-when-the-assignee",
+    "before": "Esleitu hau",
+    "after": "Esleitutako erabiltzaile hau",
+    "reason": "2026-09-14: Replace imperative Assign this with noun phrase This assigned user for assignee subject. Existing assignee terminology Esleitua and Basque technical references support esleitutako/erabiltzaile. Source: https://learn.microsoft.com/eu-es/power-platform/admin/create-users. Named assignee row order and full add/remove composition remain open; no browser verification claimed."
   }
 ]
