@@ -1017,7 +1017,7 @@
   "custom-login-logo-link-url": "Kävutajan märitud sistemaha tulendan logon linkan URL",
   "custom-help-link-url": "Kävutajan märitud abun linkan URL",
   "text-below-custom-login-logo": "Tekst kävutajan märitud sistemaha tulendan logon al",
-  "automatic-linked-url-schemes": "Mukautetut URL-mallit, joiden pitäisi olla automaattisesti klikattavissa. Yksi URL-malli riviä kohden",
+  "automatic-linked-url-schemes": "Kävutajan märitud URL shemad, miččid voib avtomatižesti paina. Üks' URL shem rives.",
   "external-link-pattern": "Vhuthihi ha u ḓidzudzanya na muṱoli wa thaidzo dza nnḓa",
   "external-link-pattern-description": "I ṱanganyisa nga hu ḓidzudzanyaho zwiga zwo fanaho na \"#1234\" zwi wanalaho kha maṅwalo a khadi na muṱoli wa thaidzo dza nnḓa. Siyani muvhundu muthihi u si na tshithu u itela u dzhia.",
   "external-link-pattern-prefix": "Themendulo ya tshiga",

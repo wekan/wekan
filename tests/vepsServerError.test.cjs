@@ -98,3 +98,11 @@ test('Veps link action uses the native relation-linking imperative', () => {
   assert.equal(data.link, 'Ühtenzoita');
   assert.doesNotMatch(data.link, /linkitä|poista|heitä|ližada tarkenduz/i);
 });
+
+test("Veps URL schemes retain automatic click and one-per-line scope", () => {
+ const data = JSON.parse(fs.readFileSync("imports/i18n/data/ve-PP.i18n.json", "utf8"));
+ assert.equal(data["automatic-linked-url-schemes"], "Kävutajan märitud URL shemad, miččid voib avtomatižesti paina. Üks' URL shem rives.");
+ assert.doesNotMatch(data["automatic-linked-url-schemes"], /Mukautetut|klikattavissa|riviä/i);
+ assert.match(data["automatic-linked-url-schemes"], /avtomatižesti paina/);
+ assert.match(data["automatic-linked-url-schemes"], /URL shem rives/);
+});

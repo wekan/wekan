@@ -139291,5 +139291,12 @@
     "before": "Utilisation mémoire de Node : taille de l'ensemble résident",
     "after": "ⴰⵙⵎⵔⵙ ⵏ ⵜⵎⴽⵜⵉⵜ ⵏ Node: ⴰⵇⵓⴷⴷⵉ ⵏ RSS",
     "reason": "Replace French resident-set size with Tamazight memory-usage and size nouns plus the precise technical acronym RSS. IRCAM 12742 memory, 1779 size, 9981 use. Full computing compound remains low confidence; native expansion of resident set remains open."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "automatic-linked-url-schemes",
+    "before": "Mukautetut URL-mallit, joiden pitäisi olla automaattisesti klikattavissa. Yksi URL-malli riviä kohden",
+    "after": "Kävutajan märitud URL shemad, miččid voib avtomatižesti paina. Üks' URL shem rives.",
+    "reason": "Replace Finnish with direct Veps URL scheme draft. Native MediaWiki http-invalid-scheme, querypage-updates-periodical, filehist-help and watchlistedit-raw-explain provide scheme, automatic, click and one-item-per-line wording. Existing custom-fields provides user-defined wording. Full assembled grammar and singular scheme form remain low confidence."
   }
 ]
