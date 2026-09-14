@@ -597,7 +597,7 @@ email diagnostics/templates replace French and inconsistent terminology.
 Actions, success/failure distinctions and placeholders are preserved.
 Complete software phrasing still needs fluent review.
 
-This release fixes the following translations:
+This release includes the following translation repairs and build verification:
 
 **Translations** - Tamazight rules, search, account scopes and email.
 
@@ -739,6 +739,22 @@ warning and username import direction. Native UI components support
 vocabulary; predicate agreement, derived plurals and import imperative
 remain low confidence. All 17,507 correction checks pass; wider language
 validation and live browser checks remain open.
+
+</details>
+
+
+**Developer documentation** - Verify the reported build failure.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/707dbe66e">Verify the wekan22 build failure is repaired</a>. Thanks to xet7.</summary>
+
+The supplied logs are stored at `.tools/wekan22` and report the missing
+Moment import from v11.75. The assignee view already uses the existing native
+date formatter, preserving the selected calendar. Six focused Node test
+entries pass, and a fresh Meteor 3.6-beta.0 development bundle builds
+successfully on Linux arm64. The completed build log is
+`.tools/log/build-dev-bundle/2026-09-14/04-25-58/dev.txt`. Native amd64 and
+live browser verification remain untested locally.
 
 </details>
 
