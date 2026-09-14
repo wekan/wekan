@@ -124227,5 +124227,26 @@
     "before": "Démarrer un planning poker",
     "after": "ⴱⴷⵓ Planning Poker",
     "reason": "2026-09-14: Replace French Start a Planning Poker heading with bdu Begin/Start and preserve Planning Poker proper feature name. Distinguish imperative action from the existing tuddma Start noun/date field; do not substitute Edit or omit initiation. LOW CONFIDENCE full adapted command and morphology: search-index excerpt of IRCAM conjugation manual lists bda (bdu), commencer/entamer; direct web and curl download currently redirect to HTML, so the PDF entry was not directly verified. Independent word-list usage also lists bdu Begin. Fluent Standard Moroccan review remains required. References: https://www.temehu.com/imazighen/dictionaries/Amawals/manuel-de-conjugaison-Tamazight-Tifinagh-IRCAM.pdf ; https://learnamazigh.com/words . Follow-up 2026-09-14: expanded search-index excerpt ending printed page 94 lists bda (bdu), class 4, and bdu (bda), class 12, for commencer/entamer. It separately lists emphatic bdu (Tifinagh ⴱⴹⵓ), class 12, for partager/diviser/decouper/separer. Preserve plain ⴷ in ⴱⴷⵓ Begin; do not replace it with emphatic ⴹ Share/Divide. This is still indexed evidence, not a directly verified PDF page or full command."
+  },
+  {
+    "locale": "zgh",
+    "key": "text-note-text",
+    "before": "نص",
+    "after": "ⴰⴹⵕⵉⵙ",
+    "reason": "2026-09-14: Replace Arabic Tamazight UI label. Native MediaWiki yourtext gives adris Text followed by possessive; retain only generic Text for this field. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "profile",
+    "before": "ملف شخصي",
+    "after": "ⵉⴼⵔⵙ",
+    "reason": "2026-09-14: Replace Arabic Tamazight UI label. Native Mastodon account.edit_profile and account.share supply ifrs Profile; preserve profile noun rather than file or edit action. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "listDeletePopup-title",
+    "before": "حذف القائمة ؟",
+    "after": "ⴽⴽⵙ ⵜⴰⵍⴳⴰⵎⵜ?",
+    "reason": "2026-09-14: Replace Arabic Tamazight UI label. Exact native Mastodon lists.delete phrase with question punctuation retained from WeKan source; preserve singular List and delete rather than archive. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
   }
 ]
