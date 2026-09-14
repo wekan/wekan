@@ -30062,3 +30062,21 @@ all setup/login qualifiers, trailing manual-entry space and token inventories.
 No live authentication UI ran. Ledger 19,935; pending 126/restored 4.
 Previously found wrong-language two-factor block now has Veps drafts;
 that is not proof of complete native fluency. Broader review remains open.
+
+
+2026-09-15 — `e722a6c17`: overlooked listSyncPopup-title Tshivenda
+replaced with Lugetižen sinhronirund (derived noun/case LOW CONFIDENCE).
+Project label improved to Projektan avadim / ID / owner/repo. IMPORTANT
+new primary evidence corrects the previous incomplete lexical review:
+MediaWiki pageinfo-default-sort = Sanumata sortiruin avadim, and
+ duplicate-defaultsort uses avadim for a sort key. Thus avadim has actual
+software-key usage independent of the visually reviewed door-key entry.
+Source read and searched today:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+The door-key dictionary alone still does not prove computing usage, but
+this native software translation supplies the missing analogy. Project-key
+compound is not independently attested; full terminology stays low confidence.
+Retain accepted ID/owner/repo alternatives and original ledger before value.
+Four focused files pass (30 checks), including title wrong-language rejection,
+identifier alternatives and full token/key-order checks. No live sync UI ran.
+Ledger 19,936; pending 126/restored 4. Wider native review remains open.

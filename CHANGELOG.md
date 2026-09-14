@@ -1394,6 +1394,18 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e722a6c17">Improve Veps synchronization title and software-key wording.</a></summary>
+
+Replace the overlooked wrong-language popup title and use native software
+sort-key evidence for project-key wording. Retain ID/path alternatives.
+Complete compound grammar remains low confidence and under review.
+Four focused files pass (30 checks); no live synchronization UI ran.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
