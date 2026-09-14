@@ -130842,5 +130842,12 @@
     "before": "Toutes les minutes",
     "after": "ⴽⵓ ⵜⵓⵙⴷⵉⴷⵜ",
     "reason": "Replace French one-unit recurrence prose; native grammar attests every day and CLDR supplies hour/minute nouns. Hour/minute combinations are adapted, with broader native fluency review open."
+  },
+  {
+    "locale": "uz-AR",
+    "key": "twoFactorCode-cancel",
+    "before": "بیکر قیلیش",
+    "after": "بیکار قیلیش",
+    "reason": "Restore missing alif in Afghan Uzbek bekor qilish cancellation spelling. Indexed native Afghan government usage supports بیکار قیلیش, but full pages failed to fetch; low-confidence orthographic review remains open."
   }
 ]

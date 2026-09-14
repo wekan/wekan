@@ -27,3 +27,7 @@ for (const locale of Object.values(locales)) {
   assert.match(locale['office-report-desc'], /IPv4.*IPv6/);
   assert.match(locale['api-no-calls'], /REST API.*WITH_API=true/);
 }
+
+assert.equal(locales['uz-AR']['twoFactorCode-cancel'], 'بیکار قیلیش');
+assert.notEqual(locales['uz-AR']['twoFactorCode-cancel'], 'بیکر قیلیش');
+assert.notEqual(locales['uz-AR']['twoFactorCode-cancel'], 'Bekor qilish');
