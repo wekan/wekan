@@ -50,7 +50,7 @@ cross-checks calendar, user and click components in native Moroccan sources.
 Full phrases, warnings and invalidated Tuareg records remain open; no pending
 finding was accepted from component evidence.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,703** exact before/after values, including unflagged repairs.
+contain **18,704** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
@@ -68,7 +68,13 @@ remains open. Latin Inuktitut spelling is valid; original script warnings
 require vocabulary/context review rather than automatic replacement.
 Current pending/restored counts are 283/4.
 
-Latest translation fix: **2026-09-14**, local commit `23583a790` —
+Latest translation fix: **2026-09-14**, local commit `947366780` —
+[Tamazight review](Tamazight-Review.md) aligns the active daily trigger clause
+with native references, preserving its time placeholder. Four checks pass.
+The adapted clause remains low confidence pending native grammar and browser
+validation; original pending/restored counts remain 283/4.
+
+Previous interval fix: **2026-09-14**, local commit `23583a790` —
 [Tamazight review](Tamazight-Review.md) records four numeric interval repairs.
 Exact numbers and hour/minute distinctions are preserved; four checks pass.
 Adapted phrases remain low confidence pending native grammar and browser review.

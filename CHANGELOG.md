@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/947366780">Align Tamazight daily schedule wording</a>. Thanks to xet7.</summary>
+
+The daily workflow label follows native lexical references and preserves the
+time placeholder. Four checks pass. The adapted clause remains low confidence
+pending native grammar and browser validation.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/23583a790">Replace French Tamazight numeric intervals</a>. Thanks to xet7.</summary>
 
 Four interval labels preserve exact numbers and hour/minute distinctions with

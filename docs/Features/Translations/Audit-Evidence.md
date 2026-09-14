@@ -24362,3 +24362,10 @@ Local fix `23583a790`: [native plurals and adapted phrase limits](Tamazight-Revi
 Four French interval labels are replaced, preserving 5/10/30 minutes and 6
 hours. Full phrases remain low confidence; four checks pass. No browser test
 ran. Ledger: 18,703; original pending/restored counts remain 283/4.
+
+## Tamazight daily workflow clause — 2026-09-14
+
+Local fix `947366780`: [primary forms and confidence limits](Tamazight-Review.md).
+Active daily trigger wording follows native references and preserves __time__.
+Four checks pass; adapted full clause remains low confidence. No browser
+validation ran. Ledger: 18,704; original pending/restored remain 283/4.
