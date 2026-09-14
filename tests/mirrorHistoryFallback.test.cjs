@@ -17,7 +17,7 @@ test('missing and network-failed links recover closest creation-date capture wit
    if(calls.length===2){assert.equal(new URL(url).searchParams.get('timestamp'),'20200203040506');const file=path.join(directory,'lookup.json');fs.writeFileSync(file,JSON.stringify({archived_snapshots:{closest:{available:true,status:'200',timestamp:'20200203040600',url:'http://web.archive.org/web/20200203040600/https://example.com/lost'}}}));return {file};}
    return {file:recovered,originalName:'lost.html'};
   },(status,detail)=>events.push(status));
-  assert.equal(result.file,recovered);assert.match(result.recoveredFrom,/^https:\/\/web.archive.org/);assert.equal(result.captureTimestamp,'20200203040600');assert.deepEqual(events,['checking','recovered']);assert.equal(calls.length,3);
+  assert.equal(result.file,recovered);assert.match(result.recoveredFrom,/^https:\/\/web\.archive\.org/);assert.equal(result.captureTimestamp,'20200203040600');assert.deepEqual(events,['checking','recovered']);assert.equal(calls.length,3);
  }}finally{fs.rmSync(directory,{recursive:true,force:true});}
 });
 test('live links bypass history and unsafe links never reach archive.org',async()=>{
