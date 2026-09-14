@@ -12952,5 +12952,11 @@
     "key": "operator-number",
     "value": "nombro",
     "reason": "2026-09-14: Direct semantic review confirms account creation success/failure, sign-in/sign-out, confirmation, error/file/log/status and number labels. Success versus failure and login versus logout remain distinct; correct existing Esperanto retained."
+  },
+  {
+    "locale": "eo",
+    "key": "enable-vertical-scrollbars",
+    "value": "Ŝalti vertikalajn rulumskalojn",
+    "reason": "2026-09-14: Primary Esperanto computing sources confirm rulumskalo = scroll bar: Komputeko2012.pdf and LibreOffice Esperanto form-controls documentation. Ŝalti vertikalajn rulumskalojn has correct enabling meaning, orientation and accusative plural. Retain legitimate term rather than interpreting skalo as an erroneous ordinary scale."
   }
 ]
