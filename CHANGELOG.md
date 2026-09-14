@@ -105,9 +105,9 @@ changes are implemented in local commit 02383521a; translation repairs have resu
 Latest translation fix is a536b274a (2026-09-14), repairing two French custom
 HTML tag labels while preserving plural, Custom and technical identifiers.
 Terminology adaptations and full phrases remain low confidence for fluent review.
-Checklist completion evidence follow-up 9de9f2c15 records native legal
-supplementation without equating it to past transitive workflow completion.
-Values/counts unchanged; low-confidence wording still needs validation.
+Checklist completion evidence follow-ups 9de9f2c15 and 4139001a3 distinguish
+legal supplementation from directly attested software Complete Login. Past
+actor form and full checklist grammar remain low confidence. Values/counts unchanged.
 Start spelling follow-up 2219d5358 distinguishes plain Begin/Start from
 emphatic Share/Divide in indexed IRCAM entries; direct PDF and full command
 verification remain open. No values or counts changed.
@@ -2329,6 +2329,15 @@ Repair two French labels preserving plural tags, Custom, HTML and link/meta
 element identifiers. Terminology adaptations and full phrases remain low
 confidence for fluent review. All 17,853 correction checks pass; 448 original
 findings remain pending, including 313 Tamazight.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4139001a3">Record native transitive software completion evidence</a>. Thanks to xet7.</summary>
+
+Native Complete Login supplies stronger software completion evidence. Past
+actor form and full checklist grammar remain low confidence; custom-logo
+terminology remains unresolved. No values/counts changed; correction checks pass.
 
 </details>
 
