@@ -3,12 +3,15 @@
 All 245 registered locales are listed by their native language names. Each
 translation file must be reachable through its registered loader or alias.
 
-Single-part language tags show the language's existing flag. Two-part locales
-show the country flag on the left and the language flag on the right, for
-example Colombian Spanish: 🇨🇴 🇪🇸. Flag order remains left-to-right in RTL
-interfaces. Constructed languages use 🌐. Script and encoding tags do not
+Single-part language tags show the language's existing flag. Regional labels
+place the language flag beside the language name and the country flag inside
+its parentheses: **🇺🇸 English (🇧🇷 Brazil)**. RTL interfaces reverse the visual
+placement. Each flag remains isolated, and native names retain their text
+direction. Constructed languages use 🌐. Script and encoding tags do not
 identify countries; legacy Veps, Venetian, Flemish and Waray tags are handled
-explicitly. Latin American Spanish has no single country and uses 🌐 on the left.
+explicitly. Names without a regional descriptor are preserved in full, with
+the regional flag in separate parentheses. Latin American Spanish uses 🌐
+for its region.
 
 The existing responsive popup lists languages in columns. Checks evaluate its
 actual helpers against every registry entry and verify file/loader coverage.

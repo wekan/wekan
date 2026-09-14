@@ -620,6 +620,20 @@ unverified. Details are in docs/Security/WeKanSec20.md.
 
 </details>
 
+**Bug fixes** - Language and country flag placement.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c8d17877e">Place country flags inside regional language labels</a>. Thanks to xet7.</summary>
+
+Show the language flag beside its name and the country flag inside regional
+parentheses, for example 🇺🇸 English (🇧🇷 Brazil). Reverse visual placement
+for RTL interfaces while isolating flags and native names. Preserve all 245
+registered locales and existing profile/browser language selection. Registry
+and helper checks, lazy-loading checks and all Jade compilation pass. LTR/RTL
+browser regressions are syntax-checked; live execution remains pending.
+
+</details>
+
 This release fixes the following board-view problems:
 
 **Bug fixes** - Consistent title viewers and assignee dependencies.
