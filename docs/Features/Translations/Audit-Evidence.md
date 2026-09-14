@@ -22874,3 +22874,15 @@ all-target/selection scope and absent archived-board meaning remain intact.
 All 18,248 correction records pass. Original counts remain 27 restored and
 300 pending. Whole phrases are direct adaptations; native inflection and
 live archive/browser verification are not established by these checks.
+
+Dated unflagged repair, 2026-09-14, local commit `625436b63`: 14 Breton
+copy/move/template/checklist/account controls no longer contain French or
+English placeholders. Reuse existing patrom, roll-gwiriañ and diuzad.
+Direct native software source inspection:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/br.json
+createaccount uses Krouiñ ur gont nevez; move-page uses Dilec'hiañ;
+import-interwiki-history uses Eilañ. Do not confuse generic MediaWiki move
+(Adenvel, rename) with physically moving board objects. Target noun and
+copy/move/delete distinctions remain intact. All 18,262 correction records
+pass; original counts remain 27 restored and 300 pending. Whole-phrase
+inflection, other French-seeded Breton prose and browser review remain open.

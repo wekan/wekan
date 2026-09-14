@@ -671,6 +671,16 @@ The empty wrongly placed Git directory was removed locally.
 **Languages updated:** Acehnese, Bambara, Basque, Breton, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/625436b63">Translate Breton copy and move control language</a>. Thanks to xet7.</summary>
+
+Fourteen French/English copy, move, template, checklist and account labels
+become Breton using existing nouns and native software action verbs.
+Preserve copying/moving/deleting distinctions and confirmation semantics.
+Correction and placeholder checks pass; full phrase/browser review stays open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b1170bc33">Repair Breton archive interface language</a>. Thanks to xet7.</summary>
 
 Fifteen French-seeded archive actions, titles and states become Breton.
