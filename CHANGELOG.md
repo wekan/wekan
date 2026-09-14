@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,241 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 603 pending review or repair.
-The correction inventory records 17,505 exact before/after values,
+findings: 15,243 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 601 pending review or repair.
+The correction inventory records 17,507 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (460) and
+The largest original queues are Standard Moroccan Tamazight (458) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,10 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 6293ca7a5 (2026-09-14), replacing French left/right
-selected-list position labels. Preserve opposite directions and selected
-list scope; emphatic spelling, bound forms and full phrase agreement remain
-low confidence pending fluent review.
+Latest translation fix is dc90fc0f7 (2026-09-14), replacing the Arabic
+used-email warning and French username import action. Preserve address
+scope and import direction; predicate agreement, plural forms and import
+imperative remain low confidence pending fluent review.
 Greenlandic CLDR-unconfirmed wording and twelve Quechua color wrappers
 still need review, alongside the wider restored and unflagged values.
 Tamazight calendar review dd2aaa19a (2026-09-14) records provisional
@@ -115,7 +115,7 @@ names and unresolved Coptic/tabular/epoch terminology; no values changed. Previo
 Cherokee Hijri labels with exact native-script CLDR variant names. Cherokee’s
 original queue is empty. Compact tabular epoch wording still needs fluent
 technical review. Quechua palette compounds and remaining color wrappers
-remain open. There are 460 Tamazight findings remaining.
+remain open. There are 458 Tamazight findings remaining.
 Silesian reference review (2026-09-14) confirms shared database/file terms
 in native MediaWiki messages; the full raw-file label remains pending.
 No translation value or finding count changed in that review.
@@ -625,10 +625,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,241 original findings are
+Translation audit progress as of 2026-09-14: 15,243 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 603 remain pending across 17 locales, including 460 Tamazight findings.
-The ledger contains 17,505 correction records, including unflagged repairs.
+and 601 remain pending across 17 locales, including 458 Tamazight findings.
+The ledger contains 17,507 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -728,6 +728,17 @@ selected-list scope. IRCAM and native UI components support vocabulary;
 emphatic spelling, bound forms and full phrase agreement remain low
 confidence. All 17,505 correction checks pass; wider language validation and
 live browser checks remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dc90fc0f7">Translate Tamazight used-email warning and username import</a>. Thanks to xet7.</summary>
+
+Replace Arabic and French values, preserving an already-used email-address
+warning and username import direction. Native UI components support
+vocabulary; predicate agreement, derived plurals and import imperative
+remain low confidence. All 17,507 correction checks pass; wider language
+validation and live browser checks remain open.
 
 </details>
 
