@@ -4,6 +4,8 @@ Historical snapshot retained for reproducible repair tracking. See [Audit.md](Au
 
 ## Tamazight checklist completion review — 2026-09-14
 
+Login-label review found stronger software evidence: current [MediaWiki zgh](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) `resetpass_announce` directly uses `ad tsmdt akchchum` (to complete login). This supports transitive software completion beyond temporal ending/legal supplementation. Past actor form `ismd` and full checklist phrase are still adaptations requiring review; no values/counts changed. The current file supplies Login noun `akchchum` in `pt-login-continue-button`; it does not attest proposed Logo loan `alugu`, so custom-logo labels need further terminology review rather than an unmarked invented loan.
+
 Native [CNDH penal-code memorandum](https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf), PDF page 56 (zero-based 55), recommendation passage, has `ad ismd usnti` and `ad smdnt` in amendment/supplement context. This adds root evidence beyond MediaWiki temporal Finish/End, but does not establish past transitive checklist completion. Preserve LOW CONFIDENCE on `activity-checklist-completed` (`2544843d6`); no value or count changes. Uncompleted activities require active reversal, not mere negative state. Next review must distinguish legal supplementation, finishing a process, completing an item and undoing its completion.
 
 ## Tamazight subtask wording review — 2026-09-14
