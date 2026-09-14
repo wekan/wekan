@@ -2447,7 +2447,7 @@
   "run-delete-duplicate-empty-lists-migration-confirm": "Cette opération convertira d'abord les listes partagées en listes par couloir, puis supprimera les listes vides qui ont une liste en double avec le même titre contenant des cartes. Seules les listes vides vraiment redondantes seront supprimées. Continuer ?",
   "run-restore-lost-cards-migration-confirm": "Cette opération créera un couloir « Cartes perdues » et restaurera toutes les cartes et listes avec un swimlaneId ou listId manquant. Cela n'affecte que les éléments non archivés. Continuer ?",
   "run-restore-all-archived-migration-confirm": "Cette opération restaurera TOUS les couloirs, listes et cartes archivés, les rendant à nouveau visibles. Les éléments avec des identifiants manquants seront automatiquement corrigés. Cette action ne peut pas être facilement annulée. Continuer ?",
-  "run-fix-missing-lists-migration-confirm": "Cette opération détectera et réparera les listes manquantes ou corrompues dans la structure du tableau. Continuer ?",
+  "run-fix-missing-lists-migration-confirm": "ⵔⴰⴷ ⵉⵚⵓⵕ ⴷ ⵉⵙⵙⵓⴽⵏ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵓⵔ ⵍⵍⵉⵏⵜ ⵏⵖ ⵉⵜⵜⵓⵙⵙⵅⵙⵔⵏ ⴳ ⵜⵓⵚⴽⵉⵡⵜ ⵏ ⵜⴼⵍⵡⵉⵜ. ⵉⵙ ⵜⵅⵙⴷ ⴰⴷ ⵜⴹⴼⵔⴷ?",
   "run-fix-avatar-urls-migration-confirm": "Cette opération mettra à jour les URL des avatars des participants du tableau pour utiliser le bon backend de stockage. Continuer ?",
   "run-fix-all-file-urls-migration-confirm": "Cette opération mettra à jour toutes les URL des pièces jointes de ce tableau pour utiliser le bon backend de stockage. Continuer ?",
   "restore-lost-cards-nothing-to-restore": "Aucun couloir, liste ou carte perdu à restaurer",

@@ -138409,5 +138409,12 @@
     "before": "Détecte et répare les listes manquantes ou corrompues dans la structure du tableau.",
     "after": "ⵉⵚⵓⵕ ⴷ ⵉⵙⵙⵓⴽⵏ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵓⵔ ⵍⵍⵉⵏⵜ ⵏⵖ ⵉⵜⵜⵓⵙⵙⵅⵙⵔⵏ ⴳ ⵜⵓⵚⴽⵉⵡⵜ ⵏ ⵜⴼⵍⵡⵉⵜ.",
     "reason": "2026-09-15: Replace French missing/corrupted-list description with component-based Tamazight draft retaining discovering AND repairing, missing OR damaged lists and board structure. IRCAM entry 10232 discover; 9847 damage. Full passive, object agreement and data-corruption adaptation remain low confidence; see Tamazight-Review.md."
+  },
+  {
+    "locale": "zgh",
+    "key": "run-fix-missing-lists-migration-confirm",
+    "before": "Cette opération détectera et réparera les listes manquantes ou corrompues dans la structure du tableau. Continuer ?",
+    "after": "ⵔⴰⴷ ⵉⵚⵓⵕ ⴷ ⵉⵙⵙⵓⴽⵏ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵓⵔ ⵍⵍⵉⵏⵜ ⵏⵖ ⵉⵜⵜⵓⵙⵙⵅⵙⵔⵏ ⴳ ⵜⵓⵚⴽⵉⵡⵜ ⵏ ⵜⴼⵍⵡⵉⵜ. ⵉⵙ ⵜⵅⵙⴷ ⴰⴷ ⵜⴹⴼⵔⴷ?",
+    "reason": "2026-09-15: Replace French confirmation with future repair statement and continue question, retaining missing/corrupted lists and board structure. MediaWiki pt-login-continue-button supports continuation verb component; full question, agreement and technical compounds remain low confidence. See Tamazight-Review.md."
   }
 ]

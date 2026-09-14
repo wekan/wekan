@@ -211,3 +211,8 @@ for (const key of ['description', 'description-on-minicard', 'addmore-detail', '
 assert.match(translated['fix-missing-lists-migration-description'],
   /^ⵉⵚⵓⵕ ⴷ ⵉⵙⵙⵓⴽⵏ.*ⵓⵔ ⵍⵍⵉⵏⵜ ⵏⵖ.*ⵜⵓⵚⴽⵉⵡⵜ ⵏ ⵜⴼⵍⵡⵉⵜ/);
 assert.doesNotMatch(translated['fix-missing-lists-migration-description'], /Détecte|répare|corrompues/);
+
+const missingListConfirmation = translated['run-fix-missing-lists-migration-confirm'];
+assert.equal(missingListConfirmation, `ⵔⴰⴷ ${translated['fix-missing-lists-migration-description']} ⵉⵙ ⵜⵅⵙⴷ ⴰⴷ ⵜⴹⴼⵔⴷ?`);
+assert.doesNotMatch(missingListConfirmation, /Cette|opération|Continuer/);
+assert.notEqual(missingListConfirmation, translated['fix-missing-lists-migration-description']);
