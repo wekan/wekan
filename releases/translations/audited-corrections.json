@@ -125081,5 +125081,19 @@
     "before": "Démarrage des migrations...",
     "after": "ⴰⵔ ⵜⵜⵓⵙⵙⵏⵜⵉⵏ ⵉⵙⵎⵓⵜⵜⵢⵏ...",
     "reason": "Replace French Starting migrations progress with Standard Moroccan Tamazight. Native MediaWiki view-missing-pages/newarticletext attest ssnti Start/Begin: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve plural migrations and ongoing starting status, with literal ... rather than completed or imperative Start. LOW CONFIDENCE: derived ongoing plural passive ttussntin from attested imperative, derived software Migration plural from Move and complete clause require fluent review; native source does not attest full migration progress phrase."
+  },
+  {
+    "locale": "zgh",
+    "key": "migration-pausing",
+    "before": "Mise en pause des migrations...",
+    "after": "ⴰⵔ ⵜⵜⵓⵙⴱⴷⴷⵏ ⵉⵙⵎⵓⵜⵜⵢⵏ...",
+    "reason": "Repair Tamazight migration pause status. Direct Red Moon zgh source notification_status_paused attests ittusbdd and notification_action_pause sbdd: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Compose own plural migration phrase, preserving ongoing Pausing with ... versus completed Paused state. LOW CONFIDENCE: plural passive morphology, software Migration term and full grammar. Upstream also uses sbdd for Stop, so it supports pause usage but does not independently prove a lexical pause/stop distinction. Existing paused value has Kabyle-like akken iwata surplus absent from source; script alone is not reason for replacement."
+  },
+  {
+    "locale": "zgh",
+    "key": "migration-paused",
+    "before": "ⵉⵙⴻⵎⵓⵜⵜⵉⵢⴻⵏ ⵃⴻⴱⵙⴻⵏ ⴰⴽⴽⴻⵏ ⵉⵡⴰⵜⴰ",
+    "after": "ⵉⵙⵎⵓⵜⵜⵢⵏ ⵜⵜⵓⵙⴱⴷⴷⵏ",
+    "reason": "Repair Tamazight migration pause status. Direct Red Moon zgh source notification_status_paused attests ittusbdd and notification_action_pause sbdd: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Compose own plural migration phrase, preserving ongoing Pausing with ... versus completed Paused state. LOW CONFIDENCE: plural passive morphology, software Migration term and full grammar. Upstream also uses sbdd for Stop, so it supports pause usage but does not independently prove a lexical pause/stop distinction. Existing paused value has Kabyle-like akken iwata surplus absent from source; script alone is not reason for replacement."
   }
 ]
