@@ -124787,5 +124787,19 @@
     "before": "Supprimer la checklist ?",
     "after": "ⴽⴽⵙ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ?",
     "reason": "2026-09-14: Replace French deletion popup heading, preserving Delete and distinction between one checklist item and the whole checklist, plus question punctuation. Use native MediaWiki skin-action-delete kks, watchlist talgamt and previously reviewed derived singular afrdis from native plural ifrdisn. Proposed List of Verification wording remains LOW CONFIDENCE: noun/bound form ussidd is derived from login-security imperative ssided, not directly attested in current MediaWiki; targeted IRCAM search did not establish it and does not prove absence. Full checklist term, singular morphology and noun-chain grammar require fluent Standard Moroccan review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "add-checklist",
+    "before": "إضافة قائمة تدقيق",
+    "after": "ⵔⵏⵓ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
+    "reason": "2026-09-14: Replace Arabic Add Checklist or French Checklist Actions with native action components, preserving whole checklist rather than individual item and plural Actions. Native MediaWiki actions directly supplies tigawin and create-local rnu Add; watchlist supplies talgamt List. Reuse proposed List of Verification paraphrase for consistency. LOW CONFIDENCE derived verification noun/bound form ussidd and full checklist paraphrase/grammar remain unresolved for fluent Standard Moroccan review; the noun is not directly attested in current source. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "checklistActionsPopup-title",
+    "before": "Actions sur la checklist",
+    "after": "ⵜⵉⴳⴰⵡⵉⵏ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
+    "reason": "2026-09-14: Replace Arabic Add Checklist or French Checklist Actions with native action components, preserving whole checklist rather than individual item and plural Actions. Native MediaWiki actions directly supplies tigawin and create-local rnu Add; watchlist supplies talgamt List. Reuse proposed List of Verification paraphrase for consistency. LOW CONFIDENCE derived verification noun/bound form ussidd and full checklist paraphrase/grammar remain unresolved for fluent Standard Moroccan review; the noun is not directly attested in current source. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
