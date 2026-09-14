@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,536 corrected, 3,978 restored pre-pull values awaiting
-validation, 259 reviewed and retained, and 308 pending review or repair.
-The correction inventory records 18,131 exact before/after values,
+findings: 15,538 corrected, 3,948 restored pre-pull values awaiting
+validation, 287 reviewed and retained, and 308 pending review or repair.
+The correction inventory records 18,133 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,14 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is edfed8176 (2026-09-14), repairing three additional
-spent-time and sorting controls. Noun-only time remains distinct from Change
-actions. Full participle and agreement remain low confidence.
-All 18,131 correction records pass structural verification; 308 original
-findings remain pending, including 173 Tamazight findings.
-Restored Danish review eb1f433e2 (2026-09-14) retained 30 more complete
-values unchanged, principally search operators, ranges, missing values and
-sort syntax. Eighty Danish values are reviewed; parser behavior is separate.
+Latest translation fix is e5d7da30e (2026-09-14), repairing Danish peak
+malloc allocation and bit-pattern garbage overwriting. Retained 28 correct
+values unchanged. Of 110 Danish restored values reviewed, 108 are retained
+and two repaired. Wider language review remains open.
 Archive provenance follow-up fbe388603 (2026-09-14) directly inspects the
 native Archives du Maroc logo in a university PDF, corroborating the noun
 beyond indexed evidence. Nine records updated; no values/counts changed.
@@ -655,10 +651,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,536 original findings are
-corrected, 259 reviewed and retained, 3,978 restored values await validation,
+Translation audit progress as of 2026-09-14: 15,538 original findings are
+corrected, 287 reviewed and retained, 3,948 restored values await validation,
 and 308 remain pending across 17 locales, including 173 Tamazight findings.
-The ledger contains 18,131 correction records, including unflagged repairs.
+The ledger contains 18,133 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/193b22520">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -3617,6 +3613,18 @@ versus Change actions. Native Change and Sorting terms combine with existing
 Spent Time wording. Full participle and agreement remain low confidence.
 All 18,131 correction records pass structural verification; original pending
 counts remain unchanged. Restored and uncertain wording still needs review.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e5d7da30e">Repair Danish heap diagnostic meanings</a></summary>
+
+Preserve peak malloc allocation and bit-pattern overwriting of heap garbage,
+using Node documentation. Retained 28 correct restored values unchanged.
+All 18,133 correction records pass structural verification; restored and
+uncertain wording review remains open.
 
 Thanks to xet7 !
 

@@ -1,5 +1,16 @@
 # Detailed translation audit evidence
 
+2026-09-14 (`e5d7da30e`): thirty more restored Danish values reviewed.
+Repair peak malloc allocation and zap-garbage bit-pattern overwriting;
+[Node V8 documentation](https://nodejs.org/api/v8.html#v8getheapstatistics)
+confirms these are distinct from generic allocation and ordinary cleanup.
+Retain 28 correct values, including membership deletion constraints, literal
+space entities, Enter action, legal continuation, checklist and attachment
+movement with All and storage destinations preserved. Overall corrected
+15,538; retained 287; restored awaiting validation 3,948; pending 308.
+Correction inventory is 18,133. Wording review remains incomplete.
+
+
 2026-09-14 (`eb1f433e2`): retained thirty more Danish restored values
 after full source-meaning review, principally search instructions/errors.
 Confirmed operator examples, member/assignee and organization/team scopes,
