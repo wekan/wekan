@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 0f26dbc16 (2026-09-14), replacing the French
-Tamazight memory-usage label with computer-memory terminology. The free
-usage noun and full Standard Moroccan adaptation still need language review.
+Latest translation fix is e5b5e199e (2026-09-14), refining click commands
+in three Tamazight emails using a native imperative. Original queue counts
+are unchanged; complete email wording still needs language review.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -1191,6 +1191,17 @@ by native usage vocabulary and the CNAM computing lexicon. The free usage
 noun and full Standard Moroccan adaptation remain low confidence and need
 language review. All 17,637 correction/rendering checks pass; 520 original
 findings remain pending. Restored and unflagged values still need validation.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e5b5e199e">Refine Tamazight email click commands</a>. Thanks to xet7.</summary>
+
+Use the native MediaWiki click imperative in password-reset, enrollment
+and email-verification messages. Refine existing correction records while
+preserving placeholders and other prose. All 17,637 correction/rendering
+checks pass; original queue counts are unchanged. Complete email wording
+remains low confidence pending language review.
 
 </details>
 
