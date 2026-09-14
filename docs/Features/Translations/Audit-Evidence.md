@@ -21886,3 +21886,13 @@ Old/new lists, lanes and boards retain source/destination direction;
 checked/unchecked and complete/reopened states remain distinct. Exact
 interpolation retained. All 2,210 reviews pass; 2,003 restored values and
 308 pending findings plus wider language/browser verification remain open.
+
+
+### Galician creation controls and warnings — 2026-09-14
+
+Local commit `f1add7ab2` retains twenty-five correct creation, placement,
+member-setting/privilege, count and archive values. Offline warning
+preserves refresh-causes-data-loss and server-not-stopped checks. Counts
+retain singular/plural agreement and interpolation. All 2,235 review records
+pass; 1,978 restored values and 308 pending findings plus broader language
+and browser verification remain open.
