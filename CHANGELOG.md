@@ -668,7 +668,16 @@ The empty wrongly placed Git directory was removed locally.
 
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
-**Languages updated:** Acehnese, Basque, Esperanto, Galician, Greenlandic, Manx, Swedish, Valencian
+**Languages updated:** Acehnese, Basque, Esperanto, Galician, Greenlandic, Manx, Swedish, Valencian, Veps
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/780f51f5d">Repair Veps authentication cancel label</a>. Thanks to xet7.</summary>
+
+Use Heitä for 2FA cancellation, consistent with the existing general label
+and native MediaWiki login/password-reset controls. Exact correction and
+placeholder checks pass. Broader Veps and browser verification remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/66a3da76c">Repair Acehnese no-label filter language</a>. Thanks to xet7.</summary>

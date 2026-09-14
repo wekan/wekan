@@ -4,8 +4,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,589 |
-| Restored pre-pull; awaiting validation | 32 |
+| Corrected | 15,590 |
+| Restored pre-pull; awaiting validation | 31 |
 | Reviewed; retained unchanged | 4,156 |
 | Pending review or repair | 304 |
 | Total tracked | 20,081 |
@@ -20,14 +20,17 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,203** exact before/after values, including unflagged repairs.
+contain **18,204** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `66a3da76c` —
-unflagged Acehnese no-label filter replaces Indonesian Tidak ada label with
-existing Hana label. Latest unchanged review: **2026-09-14**, same commit —
-Acehnese no-label retained for absence semantics. All **18,203** correction
+Latest translation fix: **2026-09-14**, local commit `780f51f5d` —
+Veps 2FA cancel uses Heitä, attested in MediaWiki login/password-reset cancel
+controls and matching WeKan's general cancel. All **18,204** corrections
+pass; full Veps language and live authentication browser review remain open.
+Acehnese filter-no-label was repaired in `66a3da76c`.
+Latest unchanged review: **2026-09-14**, same commit —
+Acehnese no-label retained for absence semantics. All **18,204** correction
 and **4,156** review records pass. Native technical terminology and live
 browser validation remain open. Connection-success and assignee wording
 still need stronger evidence; mixed-language filters need wider review.

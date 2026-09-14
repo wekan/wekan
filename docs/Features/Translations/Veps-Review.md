@@ -108,3 +108,11 @@ Direct MediaWiki inspection also confirms `pageinfo-title` uses `Tedod`
 for information and `pageinfo-robot-index` / `pageinfo-robot-noindex` use
 `Lasktud` / `Kel'tüd` for enabled and disabled indexing. These support
 terminology, but do not validate the Finnish accessibility noun.
+
+Authentication label repair **2026-09-14**, local commit `780f51f5d`:
+twoFactorCode-cancel changes Hül'gäta to Heitä. Direct current MediaWiki
+vep.json inspection shows Heitä in cancel, userlogin-authpopup-cancel and
+resetpass-submit-cancel, as well as upload and feedback cancellation.
+This agrees with WeKan's existing general cancel. All correction checks
+pass. This lexical repair does not validate the Finnish-seeded prose or
+live authentication flow. Server terminology and full review remain open.

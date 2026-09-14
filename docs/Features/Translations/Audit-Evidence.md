@@ -22767,3 +22767,10 @@ modern-calendar meaning is established for tonalpohualli; tlamantli alone
 does not attest a software compound. All 17 Nahuatl findings stay pending;
 no locale changes or unchanged acceptances were made. Modern/dialect wording
 and full Hijri variant distinctions still require translation and validation.
+
+Dated Veps authentication-label repair, 2026-09-14, local commit
+`780f51f5d`: twoFactorCode-cancel Hül'gäta → Heitä. Direct source
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+uses Heitä in login-popup/password-reset cancellation. Existing general
+WeKan cancel agrees. All 18,204 correction records pass; 31 restored and
+304 pending findings remain. No live browser or full Veps fluency claim.
