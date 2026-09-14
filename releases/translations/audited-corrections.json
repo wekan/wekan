@@ -130968,5 +130968,12 @@
     "before": "%s n'est pas un test valide d'existence",
     "after": "ⵜⵉⵎⵏⵥⵉⵜ ⵏ ⵉⵍⵉ %s ⵓⵔ ⵜⴽⵏⵉ",
     "reason": "Replace French existence-check validation error with primary IRCAM verification/existence/correctness vocabulary. Preserve %s and the existence-check distinction. Adapted full clause and negative agreement, low confidence pending native grammar and browser validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "subtext-with-parent",
+    "before": "Sous-titre avec le parent",
+    "after": "ⴰⴷⵓⵣⵡⵍ ⴰⴽⴷ ⵓⵎⴰⵔⴰⵡ",
+    "reason": "Replace French parent-subtitle option; IRCAM 2019 p57 entry795 subtitle and p122 entry2198 father, reusing existing parent-card metaphor. LOW CONFIDENCE: software parent metaphor and full phrase grammar need native/browser review."
   }
 ]

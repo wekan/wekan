@@ -99,3 +99,7 @@ assert.equal(locales.zgh['operator-has-invalid'], 'ⵜⵉⵎⵏⵥⵉⵜ ⵏ ⵉ
 assert.deepEqual(locales.zgh['operator-has-invalid'].match(/%[a-z]/g), ['%s']);
 assert.doesNotMatch(locales.zgh['operator-has-invalid'], /n'est pas|existence valide|ⴰⵏⴽⵔⵓⴼ/);
 assert.notEqual(locales.zgh['operator-has-invalid'], locales.zgh['operator-debug-invalid']);
+
+assert.equal(locales.zgh['subtext-with-parent'], 'ⴰⴷⵓⵣⵡⵍ ⴰⴽⴷ ⵓⵎⴰⵔⴰⵡ');
+assert.doesNotMatch(locales.zgh['subtext-with-parent'], /Sous-titre|parent|chemin/);
+assert.notEqual(locales.zgh['subtext-with-parent'], locales.zgh['subtext-with-full-path']);
