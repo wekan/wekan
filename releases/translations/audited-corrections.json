@@ -139464,8 +139464,8 @@
     "locale": "ve-PP",
     "key": "list-sync-project-key",
     "before": "Khonwe ya phurodzheke",
-    "after": "Projektan kod / ID / owner/repo",
-    "reason": "Replace Tshivenda project-key label with Veps project-code paraphrase and literal ID/owner/repo alternatives matching Jira, GitLab and GitHub/Gitea fetchers. Native MediaWiki Projektan and kod; complete multi-tracker terminology remains low confidence, not door-key vocabulary."
+    "after": "Projektan avadim / ID / owner/repo",
+    "reason": "Native MediaWiki attests avadim for default sort key, independently of door key; apply software-key analogy to project identifier, retaining ID/path alternatives. Sync popup title replaces Tshivenda using local list and derived synchronization noun. Full compounds and case grammar remain low confidence."
   },
   {
     "locale": "ve-PP",
@@ -139543,5 +139543,12 @@
     "before": "Khodo ya u khwaṱhisedza a yo teisi. Ni ṱoḓea u lingedza hafhu.",
     "after": "Autentifikacijan kod om vär. Ole hüvä, ladi völ kerdan.",
     "reason": "Replace Tshivenda two-factor setup/login prose with direct Veps draft. Preserve account protection, every-login code, QR/app examples, six digits, manual alternative, confirm-and-enable and invalid-code retry. Native basic verbs and code vocabulary; compounds, inflections and full grammar remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "listSyncPopup-title",
+    "before": "U Vhambadzanya Bammbi",
+    "after": "Lugetižen sinhronirund",
+    "reason": "Native MediaWiki attests avadim for default sort key, independently of door key; apply software-key analogy to project identifier, retaining ID/path alternatives. Sync popup title replaces Tshivenda using local list and derived synchronization noun. Full compounds and case grammar remain low confidence."
   }
 ]

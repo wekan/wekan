@@ -193,8 +193,8 @@ test("Veps sync instructions retain periodic and immediate checks", () => {
 
 test("Veps project label covers code, ID and repository path", () => {
  const data=JSON.parse(fs.readFileSync("imports/i18n/data/ve-PP.i18n.json","utf8"));
- assert.equal(data["list-sync-project-key"],"Projektan kod / ID / owner/repo");
- assert.doesNotMatch(data["list-sync-project-key"],/Khonwe|phurodzheke|avadim/i);
+ assert.equal(data["list-sync-project-key"],"Projektan avadim / ID / owner/repo");
+ assert.doesNotMatch(data["list-sync-project-key"],/Khonwe|phurodzheke/i);
  assert.notEqual(data["list-sync-project-key"],data["gcs-project-id"]);
  assert.match(data["list-sync-project-key-placeholder"],/PROJECT.*owner\/repo/);
  const code=fs.readFileSync("server/lib/listSyncFetch.js","utf8");
@@ -229,4 +229,11 @@ test("Veps two-factor instructions preserve setup and login requirements", () =>
  assert.equal(data["twoFactorAuth-confirm"],"Vahvištoita da pane päle");
  assert.match(data["twoFactorCode-invalid"],/kod om vär.*völ kerdan/);
  assert.notEqual(data["twoFactorCode-invalid"],data["twoFactorAuth-enabled"]);
+});
+
+test("Veps list synchronization popup has a localized list title", () => {
+ const data=JSON.parse(fs.readFileSync("imports/i18n/data/ve-PP.i18n.json","utf8"));
+ assert.equal(data["listSyncPopup-title"],"Lugetižen sinhronirund");
+ assert.doesNotMatch(data["listSyncPopup-title"],/Vhambadzanya|Bammbi/i);
+ assert.notEqual(data["listSyncPopup-title"],data["list-sync-menu"]);
 });
