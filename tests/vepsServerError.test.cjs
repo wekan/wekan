@@ -122,3 +122,10 @@ test("Veps rule toggle replaces Tshivenda and preserves both actions", () => {
  assert.notEqual(data["r-rule-disabled"], data["r-rule-enabled"]);
  for (const key of ["r-rule-disabled", "r-toggle-rule-enabled"]) assert.doesNotMatch(data[key], /shumiswi|Shumisani|mulayo|litshani/i);
 });
+
+test("Veps synchronization labels preserve immediate action and literal credentials", () => {
+ const data = JSON.parse(fs.readFileSync("imports/i18n/data/ve-PP.i18n.json", "utf8"));
+ const expected = {"list-sync-menu": "Sinhronirui", "list-sync-now": "Sinhronirui nügüd'", "list-sync-last-error": "Jäl'gmäine viga", "list-sync-project-key-placeholder": "PROJECT libo owner/repo", "list-sync-credential-placeholder": "API token / peitsana"};
+ for (const [key,value] of Object.entries(expected)) { assert.equal(data[key],value); assert.doesNotMatch(data[key], /vhambadzanya|Vhambadzanyani|phasiwede|Phoxo|kana/i); }
+ assert.notEqual(data["list-sync-menu"],data["list-sync-now"]);
+});
