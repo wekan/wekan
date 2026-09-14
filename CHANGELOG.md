@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,368 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 476 pending review or repair.
-The correction inventory records 17,771 exact before/after values,
+findings: 15,371 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 473 pending review or repair.
+The correction inventory records 17,776 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (341) and
+The largest original queues are Standard Moroccan Tamazight (338) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is ef6318121 (2026-09-14), replacing French
-Custom Help Link URL wording. Full noun-chain grammar and specified/custom
-adaptation remain low confidence for fluent review.
+Latest translation fix is f13775594 (2026-09-14), replacing five
+Arabic/French subtask labels with explicit hierarchical paraphrases. Full
+phrases and noun morphology remain low confidence for fluent review.
 Start spelling follow-up 2219d5358 distinguishes plain Begin/Start from
 emphatic Share/Divide in indexed IRCAM entries; direct PDF and full command
 verification remain open. No values or counts changed.
@@ -637,10 +637,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,368 original findings are
+Translation audit progress as of 2026-09-14: 15,371 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 476 remain pending across 17 locales, including 341 Tamazight findings.
-The ledger contains 17,771 correction records, including unflagged repairs.
+and 473 remain pending across 17 locales, including 338 Tamazight findings.
+The ledger contains 17,776 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -1994,6 +1994,17 @@ Identify the unflagged use of Language in Add Existing Card as Subtask.
 Record indexed primary references and their limits; preserve the hierarchical
 relation when repairing the complete action. No translation values or counts
 changed. This finding remains part of the broader translation review.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f13775594">Translate Tamazight hierarchical subtask labels</a>. Thanks to xet7.</summary>
+
+Replace five Arabic/French labels with explicit Task(s) under a Task wording.
+Preserve hierarchy, singular/plural, settings and deletion question. Full
+paraphrases and bound noun morphology remain low confidence for fluent
+review. All 17,776 correction checks pass; 473 original findings remain
+pending, including 338 Tamazight. Existing-card action repair remains open.
 
 </details>
 

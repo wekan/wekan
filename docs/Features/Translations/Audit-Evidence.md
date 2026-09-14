@@ -4,6 +4,8 @@ Historical snapshot retained for reproducible repair tracking. See [Audit.md](Au
 
 ## Tamazight subtask wording review — 2026-09-14
 
+Follow-up local repair `f13775594`: five noun/settings/delete labels now explicitly paraphrase Task(s) under a Task, using ministry task nouns and indexed IRCAM Under wording. Complete hierarchy phrasing, noun state and kanban adaptation remain LOW CONFIDENCE, not a canonical attested Subtask term. Three original findings and two unflagged labels were changed; the existing-card action still requires repair. The initial no-values-changed observation below describes the earlier review.
+
 Current `add-existing-card-as-subtask` contains `ⵜⵓⵜⵍⴰⵢⵜ ⵜⴰⵎⵥⵢⴰⵏⵜ`, meaning a small language rather than a subtask. The indexed [IRCAM children’s vocabulary portal](https://tal2.ircam.ma/tamawalt/) uses `ⵜⵓⵜⵍⴰⵢⵜ ⵜⴰⵎⴰⵣⵉⵖⵜ` for Amazigh language; direct fetching timed out. [IRCAM’s conjugator](https://tal.ircam.ma/conjugueur/) likewise identifies language with this noun. Script alone cannot validate a Tifinagh value.
 
 Indexed [Moroccan administration ministry text](https://www.mmsp.gov.ma/amz/nos-metiers/absence-non-justifi%C3%A9e) uses `ⵜⴰⵡⵓⵔⵉ` for work and bound `ⵜⵡⵓⵔⵉ`; it does not attest the complete kanban Subtask term. The indexed [computer lexicon](https://www.temehu.com/imazighen/dictionaries/Amawals/Computer_dictionary_Berber_English_French.pdf) gives Task `Tawuri`, plural `tiwura`, citing MW/MCG. MW is a modern Amazighe lexicon, not MediaWiki or proof of Standard Moroccan usage. Do not infer canonical Moroccan Subtask terminology from that entry.
