@@ -123849,5 +123849,19 @@
     "before": "غلق",
     "after": "ⵔⴳⵍ",
     "reason": "2026-09-14: Replace Arabic Close with the exact native Standard Moroccan software action. Mastodon lightbox.close and bundle_modal_error.close both use ⵔⴳⵍ. Preserve the Close action, distinct from Cancel, Accept and account locking. Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json (lightbox.close, bundle_modal_error.close)."
+  },
+  {
+    "locale": "zgh",
+    "key": "allboards.delete-workspace-confirm",
+    "before": "Êtes-vous sûr de vouloir supprimer cet espace de travail ?",
+    "after": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⴰⵙⴰⵢⵔⴰⵔ ⴰ?",
+    "reason": "2026-09-14: Replace French Are you sure you want to delete this workspace question. Adapt native Mastodon confirmations.delete.message, preserving certainty/want/delete, singular object and this demonstrative. Reuse existing workspace asayrar, corroborated as institutional content-space vocabulary by INPPLC. Do not add board deletion or return-to-Remaining behavior absent from English source. LOW CONFIDENCE full question and organizational-workspace terminology extension require fluent review. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json (confirmations.delete.message); https://www.inpplc.ma/index.php/amz (information space)."
+  },
+  {
+    "locale": "zgh",
+    "key": "delete-board",
+    "before": "Supprimer le tableau",
+    "after": "ⴽⴽⵙ ⵜⴰⴼⵍⵡⵉⵜ",
+    "reason": "2026-09-14: Replace French Delete Board action using native software delete imperative kks and existing WeKan board noun taflwit. Preserve action and board object, not archive, card deletion or the irreversible warning. LOW CONFIDENCE complete kanban action: native delete verb is supported but board terminology extension and full noun phrase still require fluent review. Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json (confirmations.delete.confirm)."
   }
 ]
