@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight Home and archive restoration review — 2026-09-14
+
+Commit `f903af89d` repairs unflagged Arabic Home using [native Mastodon](https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json) column.home directly; [MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) mainpage/tooltip-n-mainpage corroborate bound Home component. Exact standalone UI label evidence is stronger than a derived compound. Inspected WeKan userHeader.jade: Archive action is present in the header menu. `close-board-pop` still needs full ability/restore/click/button/home-header wording; do not drop qualifiers or treat Home as proof of Header. 367 original findings remain pending, including 232 Tamazight; all 18,032 mechanical correction checks pass. Restored, unflagged and earlier uncertain wording remain in scope. Browser verification and remote uploads were not performed.
+
 ## Tamazight board selection checkboxes — 2026-09-14
 
 Commit `7d1e0ef15` repairs one original French instruction. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) tooltip-invert/tooltip-namespace_association directly attest checkbox Box and selected components. Preserve clicking CHECKBOXES to SELECT BOARDS, distinct from opening a board by clicking its icon. Selection Box compound, derived bound plural, locally reused click verb and whole purpose clause remain LOW CONFIDENCE. 367 original findings remain pending, including 232 Tamazight; all 18,031 mechanical correction checks pass. Restored, unflagged and earlier uncertain wording remain in scope. Browser verification and remote uploads were not performed.
