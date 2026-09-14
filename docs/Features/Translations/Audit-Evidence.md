@@ -21896,3 +21896,12 @@ preserves refresh-causes-data-loss and server-not-stopped checks. Counts
 retain singular/plural agreement and interpolation. All 2,235 review records
 pass; 1,978 restored values and 308 pending findings plus broader language
 and browser verification remain open.
+
+
+### Galician board settings and archive controls — 2026-09-14
+
+Local commit `68277a708` retains twenty-five correct archive, background,
+board-info, member/assignee and privacy controls. All-card versus current-card
+scope, public/private distinction, HTML emphasis and archive-empty negation
+remain intact. All 2,260 review records pass; 1,953 restored values and
+308 pending findings plus wider language/browser verification remain open.

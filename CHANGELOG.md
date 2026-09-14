@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,560 corrected, 1,978 restored pre-pull values awaiting
-validation, 2,235 reviewed and retained, and 308 pending review or repair.
+findings: 15,560 corrected, 1,953 restored pre-pull values awaiting
+validation, 2,260 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,156 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
@@ -108,8 +108,8 @@ changes are implemented in local commit 02383521a; translation repairs have
 resumed.
 Latest translation fix/review is 9b6b1ffe6 (2026-09-14): three Esperanto
 overtime-work labels clarified.
-Latest unchanged-value review is f1add7ab2 (2026-09-14): 25 Galician
-creation controls, privilege descriptions and offline warnings retained.
+Latest unchanged-value review is 68277a708 (2026-09-14): 25 Galician
+board settings and archive controls retained.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
 Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
 retaining 156 correct Danish storage, migration and monitoring/account labels.
@@ -762,6 +762,15 @@ broader language and browser verification remains open.
 
 Retain 25 correct translations. Preserve placement, privilege scope,
 singular/plural counts and data-loss conditions. Review checks pass;
+broader language and browser verification remains open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/68277a708">Validate Galician board settings and archive controls</a>. Thanks to xet7.</summary>
+
+Retain 25 correct translations. Preserve member/assignee scopes,
+public/private distinctions and HTML emphasis. Review checks pass;
 broader language and browser verification remains open.
 
 </details>
