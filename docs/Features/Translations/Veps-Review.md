@@ -239,3 +239,30 @@ and plural lists and reject showing. All ten registered tests across five
 files pass; source wiring is verified, live browser behavior is not.
 This unflagged repair leaves the ten original Veps findings pending.
 Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+
+Primary inheritance-verb evidence **2026-09-14**:
+Noid's dictionary links a publicly downloadable 2007 Russian–Veps
+dictionary, **Uz’ venä-vepsläine vajehnik**, Nina Zaiceva and Maria
+Mullonen, Periodika, Petroskoi, published by the language/literature/history
+institute of the Karelian Research Centre. Downloaded 520 pages to the
+ignored temporary directory and inspected the title page and **page 253**.
+A rendered page visibly confirms Russian наследовать (inherit) maps to
+**jäl’gest|ada (-ab, -i)**, with the example **jäl’gestada mad**
+(inherit land). The adjacent inheritance/heir entries are separate nouns.
+This changes the next repair step: the inheritance verb is now supported
+by a primary dictionary, rather than unresolved from English gloss searches.
+
+The PDF's extracted Cyrillic and some Veps punctuation are corrupted.
+The page was therefore rendered and viewed before accepting the lemma.
+The rendering wrote the image successfully, then an unsupported cleanup
+method failed; this does not invalidate the viewed page or imply a passed
+rendering command. No converted dictionary text or binary is bundled.
+Noid's English dictionary itself has no inheritance/keyboard/sum matches;
+that bounded result is not evidence that the terms are absent from Veps.
+Its vanhemb entry includes older/elder/senior/adult/parent, but does not
+attest a software parent-card compound. The imperative, compound genitive,
+label object and complete inheritance instruction remain under review; no
+locale replacement or completed-language classification is claimed yet.
+
+Sources: [Noid dictionary and preface](https://vepsnoid.blogspot.com/p/dictionary.html),
+[linked primary dictionary](https://drive.google.com/file/d/0B92CAKqSx8Ped29wTmhIQ0NZSTg/view).
