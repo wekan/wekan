@@ -22805,3 +22805,14 @@ values become Den ebet deverket / Den deverket, preserving absence versus
 assigned-person meaning. All 18,209 correction and 4,157 review records
 pass; 30 restored and 302 pending findings remain. No live browser claim;
 assign-member and broader French-seeded Breton prose remain review work.
+
+Dated unflagged repair, 2026-09-14, local commit `b72b9d1fd`: Breton
+assign-member, card-edit-members, filter-member-label, filter-no-member,
+labels and cardLabelsPopup-title no longer contain French. Use existing
+Ezel/Izili and Silañ, Preder deverkañ, and native MediaWiki Merañ/tikedennoù:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/br.json .
+Direct source inspection shows Merañ tikedennoù in watchlist/tag controls.
+sidebarFilters.jade provides member filter, no-member option and assignment
+button. card-edit-members consumer is commented out, but remains translation
+scope. All 18,215 corrections pass; 30 restored and 302 pending original
+findings remain. Other French-seeded Breton prose and browser remain open.
