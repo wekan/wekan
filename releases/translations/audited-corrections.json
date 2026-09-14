@@ -130576,5 +130576,19 @@
     "before": "Niveau d'agrandissement",
     "after": "Live zoum",
     "reason": "Replace French zoom labels with native enlarge/reduce verbs and existing local zoom-level wording; level phrase adapted."
+  },
+  {
+    "locale": "br",
+    "key": "custom-field-currency",
+    "before": "Devise",
+    "after": "Moneiz",
+    "reason": "Replace French currency labels with native moneiz currency sense and adapted code phrase. Preserve currency/code distinction."
+  },
+  {
+    "locale": "br",
+    "key": "custom-field-currency-option",
+    "before": "Code devise",
+    "after": "Kod moneiz",
+    "reason": "Replace French currency labels with native moneiz currency sense and adapted code phrase. Preserve currency/code distinction."
   }
 ]

@@ -324,3 +324,9 @@ for (const [key, value] of Object.entries({"zoom-in":"Brasaat","zoom-out":"Bihan
 }
 assert.notEqual(locales.br['zoom-in'], locales.br['zoom-out']);
 assert.ok(locales.br['enter-zoom-level'].includes(locales.br['zoom-level'].toLowerCase()));
+
+assert.equal(locales.br['custom-field-currency'], 'Moneiz');
+assert.equal(locales.br['custom-field-currency-option'], 'Kod moneiz');
+assert.doesNotMatch(locales.br['custom-field-currency-option'], /Code|devise/);
+assert.doesNotMatch(locales.br['custom-field-currency'], /Devise/);
+assert.notEqual(locales.br['custom-field-currency'], locales.br['custom-field-currency-option']);
