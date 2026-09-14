@@ -122953,5 +122953,19 @@
     "before": "Importer une carte Trello",
     "after": "ⵙⴽⵛⵎ ⵜⴰⴽⴰⵕⴹⴰ ⵏ Trello",
     "reason": "Replace French Import a Trello card popup. Preserve import direction, singular card and exact Trello product name. MediaWiki zgh importlogpage supports import root: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse locally established card component. LOW CONFIDENCE: derived import imperative and Trello-card relation require fluent review; this is not export."
+  },
+  {
+    "locale": "zgh",
+    "key": "showLabel-field-on-card",
+    "before": "Indiquer l'étiquette du champ sur la mini-carte",
+    "after": "ⵙⴽⵏ ⴰⵔⵛⵓⵎ ⵏ ⵢⵉⴳⵔ ⵖⴼ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵢⴰⵏⵜ",
+    "reason": "Repair French field-label instruction or unclear unflagged admin-only visibility phrase. Preserve show FIELD LABEL on MINICARD, or VISIBLE ONLY TO BOARD ADMINS, respectively. MediaWiki zgh view, tag-list-wrapper, metadata-fields, rcfilters-empty-filter and protect-level-sysop support show/label/field/display/only/admins components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse established card/board vocabulary. LOW CONFIDENCE: bound field form, derived singular display passive, minicard composition and full visibility restriction require fluent review. This changes wording only, not field authorization."
+  },
+  {
+    "locale": "zgh",
+    "key": "admin-only-field",
+    "before": "ⵉⵜⵜⵡⴰⵍⵉ ⵖⵔ ⵉⵎⵙⵙⵓⴳⴰⵔⵏ ⵏ ⵜⵎⵍⵍⴰ ⵎⴰⵛ ⵉⴹⵏⵉⵏ",
+    "after": "ⵉⵜⵜⵡⴰⵙⴽⵏ ⵖⴰⵙ ⵉ ⵉⵎⵙⵙⵓⴳⵓⵔⵏ ⵏ ⵜⴼⵍⵡⵉⵜ",
+    "reason": "Repair French field-label instruction or unclear unflagged admin-only visibility phrase. Preserve show FIELD LABEL on MINICARD, or VISIBLE ONLY TO BOARD ADMINS, respectively. MediaWiki zgh view, tag-list-wrapper, metadata-fields, rcfilters-empty-filter and protect-level-sysop support show/label/field/display/only/admins components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse established card/board vocabulary. LOW CONFIDENCE: bound field form, derived singular display passive, minicard composition and full visibility restriction require fluent review. This changes wording only, not field authorization."
   }
 ]
