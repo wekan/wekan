@@ -650,7 +650,7 @@
   "error-watch-disabled": "ⵉⵙⵙⵏⵙⵉ ⵓⵎⵙⵙⵓⴳⵓⵔ ⴰⵎⴰⵜⵔ ⵏ ⵜⴼⵍⵡⵉⵏ ⴷ ⵜⴽⴰⵕⴹⵉⵡⵉⵏ.",
   "error-notAllowed": "ⵜⴰⵡⵓⵔⵉ-ⵏⵏⴻⴽ ⴷⴻⴳ ⵜⴼⴻⵍⵡⵉⵜ ⵓⵔ ⵜⵓⵔⵉⴳ ⴰⵔⴰ ⴰⴷ ⵜⴻⴳⴳ ⴰⵢⴰⴳⵉ",
   "error-json-malformed": "ⴰⴹⵕⵉⵙ ⵏⵏⴽ ⵓⵔ ⵉⵙⵖⵣⵏ ⴰⵎ JSON",
-  "error-json-schema": "Vos données JSON ne contiennent pas l'information appropriée dans un format correct",
+  "error-json-schema": "ⵉⵙⴼⴽⴰ JSON ⵏⴽ ⵓⵔ ⴷⴰⵔⵙⵏ ⵉⵏⵖⵎⵉⵙⵏ ⵉⴽⵏⴰⵏ ⴳ format ⵉⴽⵏⴰⵏ.",
   "error-csv-schema": "لا يتضمن ملف CSV (القيم المفصولة بفواصل)/TSV (القيم المفصولة بعلامات التبويب) الخاص بك المعلومات الصحيحة بالتنسيق الصحيح",
   "error-import-empty-board": "ⴰⵙⵉⴼⴻⴹ-ⴰ ⵓⵔ ⵖⵓⵔ-ⵙ ⵓⵍⴰ ⴷ ⴰⴳⴱⵓⵔ ⵏ ⵜⴼⴻⵍⵡⵉⵜ (ⵡⴰⵔ ⵜⵉⵙⴳⴰ, ⵉⵎⵓⵖⴻⵏ ⵏⴻⵖ ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ). ⵉⵇⵇⴻⵏ ⴱⴻⵍⵍⵉ ⵢⴻⵜⵜⵡⴰⵅⵍⴻⵇ ⵙ ⵢⵉⵡⴻⵜ ⵏ ⵜⵍⴰⵜⴰ ⵜⴰⵇⴱⵓⵔⵜ ⵏ WeKan ⵙ ⵜⵓⵛⵛⴹⴰ ⵏ ⵓⵙⵉⴼⴻⴹ ⵜⴻⵜⵜⵡⴰⵙⵙⵏⴻⵏ. ⵜⵜⵅⵉⵍ-ⴽ ⴰⵍⴻⵙ ⴰⵙⵉⴼⴻⴹ ⵏ ⵜⴼⴻⵍⵡⵉⵜ ⵙ ⵜⵍⴰⵜⴰ ⵜⴰⵎⵉⵔⴰⵏⵜ ⵙⵢⴻⵏ ⴽⵜⴻⵔ ⴰⴼⴰⵢⵍⵓ ⴰⵎⴰⵢⵏⵓⵜ.",
   "error-list-doesNotExist": "Cette liste n'existe pas",

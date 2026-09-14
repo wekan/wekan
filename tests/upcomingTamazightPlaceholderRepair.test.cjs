@@ -624,3 +624,8 @@ for (const key of ['hide-logo', 'header-logo-title', 'custom-top-left-corner-log
 }
 assert.ok(translated['custom-top-left-corner-logo-height'].endsWith(': 27'));
 console.log('Tamazight logo labels preserve hide, board-page return and default height');
+
+assert.strictEqual(translated["error-json-schema"], "ⵉⵙⴼⴽⴰ JSON ⵏⴽ ⵓⵔ ⴷⴰⵔⵙⵏ ⵉⵏⵖⵎⵉⵙⵏ ⵉⴽⵏⴰⵏ ⴳ format ⵉⴽⵏⴰⵏ.");
+assert.doesNotMatch(translated['error-json-schema'], /Vos données|contiennent|appropriée|[\u0600-\u06ff]/u);
+assert.ok(translated['error-json-schema'].includes('JSON'));
+console.log('Tamazight JSON schema warning retains data and information/format scope');
