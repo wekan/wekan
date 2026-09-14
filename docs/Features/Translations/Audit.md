@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,546 |
-| Restored pre-pull; awaiting validation | 3,035 |
-| Reviewed; retained unchanged | 1,192 |
+| Restored pre-pull; awaiting validation | 2,987 |
+| Reviewed; retained unchanged | 1,240 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -15,9 +15,11 @@ contain **18,141** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix and review: **2026-09-14**, local commit `b92bbca3e` —
+Latest translation fix: **2026-09-14**, local commit `b92bbca3e` —
 repaired Esperanto string-template Enter-key guidance and retained 52 correct
-search, report, organization and storage values. All **18,141** correction
+search, report, organization and storage values. Latest unchanged-value
+review: **2026-09-14**, local commit `e88feb32a` — retained 48 correct
+Esperanto lockout, upload and storage values. All **18,141** correction
 records and unchanged-value/progress checks pass. Browser verification was
 not run; no translations were pushed. Completion dictionary retrieval failed;
 that terminology remains unvalidated.

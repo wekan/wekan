@@ -21503,3 +21503,13 @@ literal. Correction and unchanged-value checks pass; browser behavior remains
 unverified. Direct ReVo task/complete article retrieval timed out; search
 results supply component candidates only. Completion/subtask wording remains
 open, without claiming failed retrieval validates or disproves it.
+
+
+### Esperanto lockout and storage review — 2026-09-14
+
+Local commit `e88feb32a` retains 48 directly reviewed correct values.
+Preserve upload byte units, ZIP import layout, known/unknown-user lockout
+conditions, activation and lock/unlock polarity, scheduled operation failures,
+S3 endpoint examples and authentication wording. Activity placeholders remain
+verbatim. Unchanged-value tests pass; uncertain terminology and browser
+validation remain open.
