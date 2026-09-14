@@ -255,3 +255,9 @@ assert.equal(translated['r-items-check'], 'ⴰⴼⵔⴷⵉⵙ ⵏ ⵜⵍⴳⴰ�
 assert.match(translated['r-checklist-note'], /^ⵜⴰⵎⴰⵡⵜ: ⴰⵔⵓ ⵉⴼⵔⴷⵉⵙⵏ.*ⵙ ⵜⵉⵙⴽⵔⵉⵏ ⴳⵔⴰⵙⵏ\.$/);
 assert.doesNotMatch(translated['r-checklist-note'] + translated['r-items-check'], /Note|virgules|Élément/);
 assert.match(fs.readFileSync(path.join(ROOT, 'client/components/rules/actions/checklistActions.jade'), 'utf8'), /{{_'r-checklist-note'}}/);
+
+assert.equal(translated['r-card'], 'ⵜⴰⴽⴰⵕⴹⴰ');
+assert.equal(translated['r-item'], 'ⴰⴼⵔⴷⵉⵙ');
+assert.equal(translated['r-d-add-label'], translated['r-add'] + ' ' + translated['r-label']);
+assert.notEqual(translated['r-d-add-label'], translated['r-d-remove-label']);
+assert.doesNotMatch(translated['r-card'] + translated['r-item'] + translated['r-d-add-label'], /carte|élément|Ajouter/);

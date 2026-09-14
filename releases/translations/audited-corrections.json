@@ -138556,5 +138556,26 @@
     "before": "Élément de checklist",
     "after": "ⴰⴼⵔⴷⵉⵙ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
     "reason": "2026-09-15: replace French checklist-rule text with Tamazight draft. Preserve checklist/item identity and the mandatory comma-separated input instruction. IRCAM entry 12946 explicitly attests punctuation comma/plural and entry 3669 write; native MediaWiki attests item plural. Complete checklist compound, note noun and between-them agreement remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-card",
+    "before": "carte",
+    "after": "ⵜⴰⴽⴰⵕⴹⴰ",
+    "reason": "2026-09-15: replace French rule wording using existing Tamazight card/item/label nouns and add imperative. Full contextual rule phrasing remains low confidence; preserve separate object and action meanings."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-item",
+    "before": "élément",
+    "after": "ⴰⴼⵔⴷⵉⵙ",
+    "reason": "2026-09-15: replace French rule wording using existing Tamazight card/item/label nouns and add imperative. Full contextual rule phrasing remains low confidence; preserve separate object and action meanings."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-d-add-label",
+    "before": "Ajouter une étiquette",
+    "after": "ⵔⵏⵓ ⴰⵔⵛⵓⵎ",
+    "reason": "2026-09-15: replace French rule wording using existing Tamazight card/item/label nouns and add imperative. Full contextual rule phrasing remains low confidence; preserve separate object and action meanings."
   }
 ]
