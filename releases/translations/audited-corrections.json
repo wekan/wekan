@@ -121525,5 +121525,19 @@
     "before": "Tous les participants du tableau",
     "after": "ⵉⴳⵎⴰⵎⵏ ⴰⴽⴽⵯ ⵏ ⵜⴼⵍⵡⵉⵜ",
     "reason": "Native MediaWiki nmembers attests plural igmamn/members. Replace Arabic generic member label and French board-members label. For board-members combine native Mastodon notifications.filter.all all form with inherited board/Tafelwit, using bound tflwit attested in MediaWiki metadata-fields table wording. LOW CONFIDENCE full all-board-members phrase and table-to-kanban-board lexical adaptation; generic plural members noun is directly attested. Preserve board membership rather than substituting all users or card assignees. Full compound needs fluent review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "link-to-search",
+    "before": "Lien vers cette recherche",
+    "after": "ⴰⵙⵖⵏ ⵖⵔ ⵓⵔⵣⵣⵓ ⴰⴷ",
+    "reason": "Replace French with native MediaWiki permalink/link noun asghn and tooltip-t-permalink directional phrasing ghr ... ad; search and searchresults attest arzzu and bound urzzu. This is a link label, not an instruction to execute a search. LOW CONFIDENCE complete link-to-this-search phrase and demonstrative attachment; component attestation does not validate full wording. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "rename-board",
+    "before": "إعادة تسمية اللوحة",
+    "after": "ⴰⵍⵙ ⵉ ⵉⵙⵎ ⵏ ⵜⴼⵍⵡⵉⵜ",
+    "reason": "Replace Arabic board-renaming label. Native MediaWiki rcfilters-savedqueries-rename directly attests als i ism/Rename; combine with inherited board/Tafelwit and bound tflwit attested in native metadata-fields table wording. LOW CONFIDENCE full rename-board genitive phrasing and table-to-kanban-board lexical adaptation. Do not substitute generic edit or remove the board target. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
