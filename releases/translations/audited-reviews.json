@@ -7918,5 +7918,305 @@
     "key": "mobile-desktop-toggle",
     "value": "Ŝalti inter poŝtelefona kaj labortabla reĝimo",
     "reason": "Direct Esperanto review confirms archive actions, template containers, attachment deletion warnings, upload size limits, background controls, member/assignee scope and mobile/desktop modes. Preserve permanent deletion versus archive recovery, current versus all-card scope, exact size placeholders and mode switching."
+  },
+  {
+    "locale": "eo",
+    "key": "zoom-in",
+    "value": "Pligrandigi",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "zoom-out",
+    "value": "Malpligrandigi",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "zoom-level",
+    "value": "Zomnivelo",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "enter-zoom-level",
+    "value": "Enigu zomnivelon (50-300%):",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "board-view-cal",
+    "value": "Kalendaro",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "board-view-swimlanes",
+    "value": "Naĝlinioj",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "board-view-collapse",
+    "value": "Faldi",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "board-view-table",
+    "value": "Tabelo",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "bucket-example",
+    "value": "Ekzemple \"Listo de deziroj\"",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "calendar-previous-month-label",
+    "value": "Antaŭa monato",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "calendar-next-month-label",
+    "value": "Sekva monato",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "list-archive-pop",
+    "value": "La listo ne estos videbla en la tabulo post arkivado.",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "list-archive-suggest",
+    "value": "Vi povas poste restarigi la liston el la Arkivo en Agordoj de tabulo.",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "listArchivePopup-title",
+    "value": "Ĉu arkivi liston?",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "swimlane-archive-pop",
+    "value": "La naĝlinio ne estos videbla en la tabulo post arkivado.",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "swimlane-archive-suggest",
+    "value": "Vi povas poste restarigi la naĝlinion el la Arkivo en Agordoj de tabulo.",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "swimlaneArchivePopup-title",
+    "value": "Ĉu arkivi naĝlinion?",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "card-due",
+    "value": "Limdato",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "card-due-on",
+    "value": "Limdato je",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "due-today",
+    "value": "Limdato hodiaŭ",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "card-spent",
+    "value": "Pasigita tempo",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "cardAttachmentsPopup-title",
+    "value": "Aldoni el",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "cardCustomField-datePopup-title",
+    "value": "Ŝanĝi daton",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "cardStartVotingPopup-title",
+    "value": "Komenci voĉdonon",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "positiveVoteMembersPopup-title",
+    "value": "Subtenantoj",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "negativeVoteMembersPopup-title",
+    "value": "Kontraŭuloj",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "card-edit-voting",
+    "value": "Redakti voĉdonon",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "vote-question",
+    "value": "Voĉdona demando",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "vote-public",
+    "value": "Montri, kiu voĉdonis kion",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "vote-for-it",
+    "value": "por",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "vote-against",
+    "value": "kontraŭ",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "deleteVotePopup-title",
+    "value": "Ĉu forigi voĉdonon?",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "cardStartPlanningPokerPopup-title",
+    "value": "Komenci Planning Poker",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "card-edit-planning-poker",
+    "value": "Redakti Planning Poker",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "poker-question",
+    "value": "Planning Poker",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "poker-unsure",
+    "value": "?",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "poker-finish",
+    "value": "Fini",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "poker-result-votes",
+    "value": "Voĉoj",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "poker-result-who",
+    "value": "Kiu",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "poker-replay",
+    "value": "Ripeti",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "set-estimation",
+    "value": "Agordi takson",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "deletePokerPopup-title",
+    "value": "Ĉu forigi Planning Poker?",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "adminChangeAvatarPopup-title",
+    "value": "Ŝanĝi avataron",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "deleteDuplicateListsPopup-title",
+    "value": "Forigi duoblajn listojn",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "cardAssigneePopup-title",
+    "value": "Atribuito",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "cardTemplatePopup-title",
+    "value": "Krei ŝablonon",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "casSignIn",
+    "value": "Ensaluti per CAS",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "change-avatar",
+    "value": "Ŝanĝi avataron",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "changeAvatarPopup-title",
+    "value": "Ŝanĝi avataron",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "delete-avatar-confirm",
+    "value": "Ĉu vi certas, ke vi volas forigi ĉi tiun avataron?",
+    "reason": "Direct Esperanto review confirms zoom directions/range, board-view labels, archive restoration, due/spent-time distinctions, voting for/against, planning-poker controls, assignee/template and avatar actions. Preserve previous/next months, 50-300% bounds, reversible archive warnings and voting identity visibility. Planning Poker/CAS names and question-mark notation are intentional; correct wording and placeholders remain unchanged."
   }
 ]
