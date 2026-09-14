@@ -740,10 +740,10 @@ The empty wrongly placed Git directory was removed locally.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c4db1c19c">Document Basque completion review limits</a>. Thanks to xet7.</summary>
 
-Native references establish completion vocabulary and separate negation spelling.
-The audit records an existing completion/incompletion runtime predicate mismatch
-and keeps the full action phrases open for semantic review. No translations or
-queue counts changed during this evidence review.
+Native references establish completion vocabulary and negation spelling.
+The audit records an existing runtime predicate mismatch between completion
+and incompletion. Full action phrases remain open for semantic review. No
+translations or queue counts changed during this evidence review.
 
 </details>
 
