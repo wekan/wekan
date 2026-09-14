@@ -455,3 +455,6 @@ assert.doesNotMatch(translated['dueCards-noResults-description'], /Vous|échéan
 
 assert.strictEqual(translated["auto-watch"], "ⵎⴰⵜⵔ ⵜⵉⴼⵍⵡⵉⵏ ⵙ ⵓⵡⵔⵎⴰⵏ ⵉⵖ ⵜⵜⵓⵙⵏⵓⵍⴼⴰⵏⵜ.");
 assert.doesNotMatch(translated['auto-watch'], /[\u0600-\u06ff]/u);
+
+assert.strictEqual(translated["export-card-field-people"], "ⵎⵉⴷⴷⵏ (ⴰⵎⵙⵏⴼⵍⵓⵍ, ⴱⴰⴱ ⵏ ⵜⴽⴰⵕⴹⴰ, ⵉⴳⵎⴰⵎⵏ, ⵉⴼⴳⴰⵏⵏ ⵉ ⵎⵉ ⵜⵜⵓⴼⴽⴰⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ)");
+assert.doesNotMatch(translated['export-card-field-people'], /Personnes|Propriétaire|Intervenants|[\u0600-\u06ff]/u);

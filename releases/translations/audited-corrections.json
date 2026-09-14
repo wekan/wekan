@@ -138941,5 +138941,12 @@
     "before": "مراقبة لوحات تلقائيا عندما يتم إنشاؤها",
     "after": "ⵎⴰⵜⵔ ⵜⵉⴼⵍⵡⵉⵏ ⵙ ⵓⵡⵔⵎⴰⵏ ⵉⵖ ⵜⵜⵓⵙⵏⵓⵍⴼⴰⵏⵜ.",
     "reason": "2026-09-15: Replace Arabic auto-watch instruction with attested monitoring/create verbs and native MediaWiki automatic phrase. Full conditional/passive agreement low confidence; no active source caller found."
+  },
+  {
+    "locale": "zgh",
+    "key": "export-card-field-people",
+    "before": "Personnes (Créateur, Propriétaire, Participants, Intervenants)",
+    "after": "ⵎⵉⴷⴷⵏ (ⴰⵎⵙⵏⴼⵍⵓⵍ, ⴱⴰⴱ ⵏ ⵜⴽⴰⵕⴹⴰ, ⵉⴳⵎⴰⵎⵏ, ⵉⴼⴳⴰⵏⵏ ⵉ ⵎⵉ ⵜⵜⵓⴼⴽⴰⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ)",
+    "reason": "2026-09-15: Replace French people export label, preserving Creator, Owner, Members and Assignees in order. IRCAM creator/owner components and existing locale roles used; computing owner compound and assignee grammar low confidence."
   }
 ]
