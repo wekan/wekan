@@ -126474,5 +126474,12 @@
     "before": "Cela supprimera du tableau toutes les cartes de cette liste. Pour voir les cartes archivées et les renvoyer vers le tableau, cliquez sur « Menu » puis « Archives ».",
     "after": "ⴰⵢⴰ ⵔⴰⴷ ⵉⴽⴽⵙ ⴰⴽⴽⵯ ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⵏ ⵜⵍⴳⴰⵎⵜ ⴰⴷ ⵙⴳ ⵜⴼⵍⵡⵉⵜ. ⴰⴼⴰⴷ ⴰⴷ ⵜⵥⵕⴷ ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⴳ ⴰⵔⵛⵉⴼ ⴷ ⴰⴷ ⵜⵔⴰⵔⴷ ⵜⵏⵜ ⵖⵔ ⵜⴼⵍⵡⵉⵜ, ⵙⵙⵉⵜ ⵖⴼ « ⴰⵎⵓⵖ » > « ⴰⵔⵛⵉⴼ ».",
     "reason": "2026-09-14: Replace French list-card archive instructions. Native MediaWiki Remove kks, View zr and Restore/Return rar d support components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Archive noun institutional evidence retained, Menu matches actual local control. Preserve removal of ALL CARDS OF THIS LIST FROM BOARD, viewing cards IN ARCHIVE and bringing THEM BACK TO BOARD via Menu > Archive; this is reversible archiving rather than permanent card deletion. Future actor, feminine plural object, full purpose/return coordination and click wording remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "import-user-select",
+    "before": "Sélectionnez l'utilisateur existant que vous voulez associer à ce participant",
+    "after": "ⵙⵜⵉ ⴰⵏⵙⵙⵎⵔⵙ ⵏⵏⴽ ⵉⵍⵍⴰⵏ ⵏⵏⴰ ⵜⵅⵙⴷ ⴰⴷ ⵜⵙⵎⵔⵙⴷ ⴰⵎ ⵓⴳⵎⴰⵎ ⴰⴷ.",
+    "reason": "2026-09-14: Replace French imported-member user selection instruction. Native MediaWiki User anssmrs, Select sti, Use smr s (rcfilters-search-placeholder), As am (export-download) and existence relative in newarticletext support components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve YOUR EXISTING USER you WANT TO USE AS THIS MEMBER, not creating a new account or selecting any unrelated person. Positive existence relative derived from native negative, local Member noun, bound state and full use-as clause remain LOW CONFIDENCE."
   }
 ]
