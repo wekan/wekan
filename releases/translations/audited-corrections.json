@@ -127223,5 +127223,47 @@
     "before": "Afegeix-vos a la fitxa actual",
     "after": "Afegiu-vos a la fitxa actual",
     "reason": "Repair imperative/reflexive person mismatch: Afegeix-vos mixes singular imperative with plural vos; Afegiu-vos agrees and matches existing formal Feu clic instructions. Imperative reference https://ca.wiktionary.org/wiki/afegir and CPNL pronoun guidance https://www.cpnl.cat/gramatica/66/37-els-pronoms-febles/nivell/basic-3 . Broader Valencian regional vocabulary review remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "r-checklist",
+    "before": "llistadecontrol",
+    "after": "llista de verificació",
+    "reason": "Replace mixed English checklist/checklists and joined prose llistadecontrol with existing locale terminology llista de verificació. Preserve each-line mapping, original order, all-item and finished-list scope. These are ordinary rule/display prose; search operator and predicate tokens are excluded for separate parser review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "newlineBecomesNewChecklistItem",
+    "before": "Cada línia de text esdevé un dels elements de la checklist",
+    "after": "Cada línia de text esdevé un dels elements de la llista de verificació",
+    "reason": "Replace mixed English checklist/checklists and joined prose llistadecontrol with existing locale terminology llista de verificació. Preserve each-line mapping, original order, all-item and finished-list scope. These are ordinary rule/display prose; search operator and predicate tokens are excluded for separate parser review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "newLineNewItem",
+    "before": "Una línia de text = un element de la checklist",
+    "after": "Una línia de text = un element de la llista de verificació",
+    "reason": "Replace mixed English checklist/checklists and joined prose llistadecontrol with existing locale terminology llista de verificació. Preserve each-line mapping, original order, all-item and finished-list scope. These are ordinary rule/display prose; search operator and predicate tokens are excluded for separate parser review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "newlineBecomesNewChecklistItemOriginOrder",
+    "before": "Cada línia de text esdevé un dels elements de la checklist, en l'ordre original",
+    "after": "Cada línia de text esdevé un dels elements de la llista de verificació, en l'ordre original",
+    "reason": "Replace mixed English checklist/checklists and joined prose llistadecontrol with existing locale terminology llista de verificació. Preserve each-line mapping, original order, all-item and finished-list scope. These are ordinary rule/display prose; search operator and predicate tokens are excluded for separate parser review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "hideAllChecklistItems",
+    "before": "Amaga tots els elements de la checklist",
+    "after": "Amaga tots els elements de la llista de verificació",
+    "reason": "Replace mixed English checklist/checklists and joined prose llistadecontrol with existing locale terminology llista de verificació. Preserve each-line mapping, original order, all-item and finished-list scope. These are ordinary rule/display prose; search operator and predicate tokens are excluded for separate parser review."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "hide-finished-checklist",
+    "before": "Amaga les checklists acabades",
+    "after": "Amaga les llistes de verificació acabades",
+    "reason": "Replace mixed English checklist/checklists and joined prose llistadecontrol with existing locale terminology llista de verificació. Preserve each-line mapping, original order, all-item and finished-list scope. These are ordinary rule/display prose; search operator and predicate tokens are excluded for separate parser review."
   }
 ]
