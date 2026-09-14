@@ -671,6 +671,16 @@ The empty wrongly placed Git directory was removed locally.
 **Languages updated:** Acehnese, Basque, Esperanto, Galician, Greenlandic, Manx, Swedish, Valencian, Veps
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e4860ab8e">Localize Greenlandic Buddhist calendar label</a>. Thanks to xet7.</summary>
+
+Replace the English-only placeholder with a Greenlandic phrase using
+published terminology and the existing Hebrew-calendar naming pattern.
+Correction and calendar checks pass. The adapted phrase still requires
+native inflection review; browser and wider language verification stay open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/780f51f5d">Repair Veps authentication cancel label</a>. Thanks to xet7.</summary>
 
 Use Heitä for 2FA cancellation, consistent with the existing general label

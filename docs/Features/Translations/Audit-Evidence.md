@@ -22774,3 +22774,13 @@ https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.
 uses Heitä in login-popup/password-reset cancellation. Existing general
 WeKan cancel agrees. All 18,204 correction records pass; 31 restored and
 304 pending findings remain. No live browser or full Veps fluency claim.
+
+Dated calendar fill, 2026-09-14, local commit `e4860ab8e`: Greenlandic
+calendar-system-buddhist changes Buddhist to Buddhasiortut ullorsiutaat.
+Direct HTTPS retrieval of Kalaallit Meerartaat article
+https://km.gl/nutaarsiassat/kalaallit-meeqqat-inuusuttullu-vejle-kaajallallugu-sikkilerput
+confirms Buddhasiortut in native prose. The complete phrase is adapted from
+existing Juutit ullorsiutaat, not attested as a calendar phrase. Native
+inflection/terminology review remains open. All 18,205 corrections and
+calendar checks pass; 303 pending and 31 restored values remain. Browser
+validation and the five remaining Greenlandic original findings remain open.
