@@ -657,7 +657,24 @@ access. Denied writes produce bounded Problems summaries; logger failures
 cannot bypass the guard.
 Role-matrix, method-attack and sibling inventory tests pass. Browser
 regression is added and syntax-checked; live execution remains pending.
-Eight other wekansec21 reports remain under review.
+The remaining wekansec21 review is tracked in the remediation report.
+
+Thanks to Wenhao Wu, Southeast University and xet7 !
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d7ac619d6">Bind comments to the authorized card board</a></summary>
+
+CommentBoundaryBleed: REST and DDP inserts accepted a foreign card ID on
+an authorized board, injecting comments onto private cards (CWE-639).
+Both now require the card to belong to the requested board. DDP cannot
+rebind existing comment identities to bypass insertion checks. Legacy
+comment listing remains card-authoritative after board validation.
+Denied attempts appear in bounded Problems summaries. Attack decisions,
+negative server insert inventory and existing REST ACL suites pass.
+Browser regression is syntax-checked; live execution remains pending.
+Seven other wekansec21 reports remain under review.
 
 Thanks to Wenhao Wu, Southeast University and xet7 !
 

@@ -14,7 +14,7 @@ Reporter credit in the advisories: Wenhao Wu, Southeast University.
 | REST board title writes by normal members | Pending full source and reproduction review. |
 | moveList clone/archive by comment-only members | Confirmed and repaired in `9b1fb5214`, including moveSwimlane, moveChecklist, importScoped, renameAttachment and changeHistory write siblings. Canonical role decisions, reported method attack and sibling guard inventory pass; browser regression syntax-check passes, live execution pending. Bounded Problems key `authz.mutation`; Hall of Fame and critical changelog updated. |
 | Button-rule cross-board writes | Pending full source and reproduction review. |
-| Cross-board comment creation | Pending full source and reproduction review. |
+| Cross-board comment creation | Confirmed REST and DDP insert boundary bypass; repaired in `d7ac619d6`, including DDP identity rebinding. Actual REST-prefix and DDP-deny decisions, foreign-card tests and server insert inventory pass; live browser execution pending. Problems key `authz.comment-card`, Hall of Fame and critical changelog added. |
 | Unvalidated subtask deposit-board disclosure | Pending full source and reproduction review. |
 | Code scanning alert 540, HTML-filter regexp | Pending exact source-location and parser review. |
 
