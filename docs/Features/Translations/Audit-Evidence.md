@@ -22816,3 +22816,13 @@ sidebarFilters.jade provides member filter, no-member option and assignment
 button. card-edit-members consumer is commented out, but remains translation
 scope. All 18,215 corrections pass; 30 restored and 302 pending original
 findings remain. Other French-seeded Breton prose and browser remain open.
+
+Dated unflagged popup repair, 2026-09-14, local commit `6db6c7b16`:
+12 Breton board/list/label/date/language controls no longer contain French.
+Use existing action verbs and nouns, with direct article/initial-mutation
+adaptation. Preserve delete confirmation questions and creation/edit/delete
+meaning; archive actions were deliberately not conflated with deletion.
+All 18,227 correction records pass, including token inventories, order and
+newer-human preference. Original counts remain 30 restored and 302 pending.
+Native inflection and live browser review remain open; a structurally passing
+ledger is not evidence that broader French-seeded Breton prose is repaired.

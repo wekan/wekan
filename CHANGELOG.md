@@ -671,6 +671,16 @@ The empty wrongly placed Git directory was removed locally.
 **Languages updated:** Acehnese, Basque, Breton, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6db6c7b16">Translate Breton board and control popup titles</a>. Thanks to xet7.</summary>
+
+Twelve French-seeded titles become Breton for board/list/label actions and
+date/language changes. Preserve creation/edit/delete distinctions and
+confirmation questions. Exact correction and placeholder checks pass;
+native inflection and browser review remain open in the audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b72b9d1fd">Repair Breton member and label interface language</a>. Thanks to xet7.</summary>
 
 Six unflagged French labels become Breton for member assignment/management,
