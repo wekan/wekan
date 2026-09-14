@@ -234,3 +234,8 @@ assert.match(locales.zgh['support-page-enabled'], /ⵜⵡⵉⵙⵉ/);
 assert.equal(locales.zgh['now-activities-of-all-boards-are-hidden'], 'ⵖⵉⵍⴰⴷ ⴼⴼⵔⵏⵜ ⵜⵉⴳⴰⵡⵉⵏ ⴰⴽⴽⵯ ⵏ ⵜⴼⵍⵡⵉⵏ ⴰⴽⴽⵯ');
 assert.deepEqual(locales.zgh['now-activities-of-all-boards-are-hidden'].match(/ⴰⴽⴽⵯ/g), ['ⴰⴽⴽⵯ', 'ⴰⴽⴽⵯ']);
 assert.doesNotMatch(locales.zgh['now-activities-of-all-boards-are-hidden'], /[\u0600-\u06ff]/);
+
+assert.equal(locales.zgh.tableVisibilityMode, 'ⵜⴰⵏⵏⴰⵢⵜ ⵏ ⵜⴼⵍⵡⵉⵏ');
+assert.ok(locales.zgh['tableVisibilityMode-allowPrivateOnly'].startsWith(locales.zgh.tableVisibilityMode + ': '));
+assert.match(locales.zgh['tableVisibilityMode-allowPrivateOnly'], /ⵙⴱⴰⵔⵅ ⵖⴰⵙ.*ⵜⵓⵙⵍⵉⴳⵉⵏ/);
+assert.doesNotMatch(locales.zgh['tableVisibilityMode-allowPrivateOnly'], /Visibilité|autoriser|privés/);

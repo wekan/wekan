@@ -131178,5 +131178,19 @@
     "before": "الآن تم إخفاء جميع أنشطة جميع المجالس",
     "after": "ⵖⵉⵍⴰⴷ ⴼⴼⵔⵏⵜ ⵜⵉⴳⴰⵡⵉⵏ ⴰⴽⴽⵯ ⵏ ⵜⴼⵍⵡⵉⵏ ⴰⴽⴽⵯ",
     "reason": "Replace Arabic hidden-activities notification with Tamazight. IRCAM 2019 entry 6267 hide/be hidden, existing activities/boards terminology, native now and all twice. Preserve both all-activities and all-boards scopes. Low confidence: feminine plural verb, genitive and complete notification grammar require native/browser review."
+  },
+  {
+    "locale": "zgh",
+    "key": "tableVisibilityMode",
+    "before": "Visibilité des tableaux",
+    "after": "ⵜⴰⵏⵏⴰⵢⵜ ⵏ ⵜⴼⵍⵡⵉⵏ",
+    "reason": "Replace French board visibility wording with Tamazight; reuse existing visibility/boards. Restriction preserves allow plus only plus private. IRCAM 2019 entry 9012 allow/authorize, 8633 private, 8843 only. Low confidence: feminine plural private adjective, visibility genitive and complete restriction grammar require native/browser review. No permissions logic is changed."
+  },
+  {
+    "locale": "zgh",
+    "key": "tableVisibilityMode-allowPrivateOnly",
+    "before": "Visibilité des tableaux: N'autoriser que des tableaux privés",
+    "after": "ⵜⴰⵏⵏⴰⵢⵜ ⵏ ⵜⴼⵍⵡⵉⵏ: ⵙⴱⴰⵔⵅ ⵖⴰⵙ ⵜⵉⴼⵍⵡⵉⵏ ⵜⵓⵙⵍⵉⴳⵉⵏ",
+    "reason": "Replace French board visibility wording with Tamazight; reuse existing visibility/boards. Restriction preserves allow plus only plus private. IRCAM 2019 entry 9012 allow/authorize, 8633 private, 8843 only. Low confidence: feminine plural private adjective, visibility genitive and complete restriction grammar require native/browser review. No permissions logic is changed."
   }
 ]
