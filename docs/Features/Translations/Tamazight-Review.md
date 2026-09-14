@@ -828,3 +828,25 @@ syntax, change punctuation to evade detection or weaken the gate. Translate
 the full prose while retaining exact operators/examples to resolve it.
 Original pending count stays 266 and ledger records stay 18,734. No live
 browser validation was run; broader native/runtime work remains open.
+
+## Full advanced-filter help repair — 2026-09-14
+
+Local commit `04aba67e0` directly translates the full advanced-filter help
+and its unflagged French label. IRCAM 2019 PDF page 165 entry 3053 attests
+filter and page 570 entry 10673 attests condition; existing locale custom
+field wording is reused. Every operator, comparison, quoted-field example,
+escape marker, Boolean combination, grouped expression and regex example
+is preserved exactly. The label and help opening use the same filter name.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+**Low confidence** remains for the advanced modifier, computational operator
+and value adaptations, spaces/quotes/brackets, interpretation order and full
+technical grammar. These component sources are not a native attestation of
+the complete prose. Direct fill is recorded for future correct-language
+human replacement, without external translation services or remote writes.
+Four checks pass; completeness again reports zero placeholders across 234
+locales. The earlier one-placeholder failure is resolved by translation,
+not by weakening the gate or reintroducing malformed escapes. Native/browser
+validation was not run. Recount: 15,637 corrected, 265 pending (152 Tamazight),
+four restored, 4,175 retained and 18,736 correction records. Full uncertain
+and broader runtime/native review remains open.

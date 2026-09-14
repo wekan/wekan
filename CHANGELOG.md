@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/04aba67e0">Translate Tamazight advanced-filter help and label</a>. Thanks to xet7.</summary>
+
+Translate full prose while preserving exact examples and escaping. Four
+focused checks pass; completeness again reports zero placeholders.
+Technical wording remains low confidence; dated audit tracks 265 original
+pending findings and broader native/browser verification.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/72b212a5d">Repair Tamazight filter-help escape syntax</a>. Thanks to xet7.</summary>
 
 Restore exact executable examples. English prose remains pending; three
