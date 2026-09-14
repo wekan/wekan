@@ -1,5 +1,11 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `93d592c07`: Hide Checked Checklist Items repaired from Arabic.
+MediaWiki native Hide and checkbox Check support components. Preserve only
+checked items, distinct from Hide All Checklist Items. Passive plural and
+full noun phrase are derived and remain low confidence. All 18,087 correction
+checks pass; 328 original findings remain pending, including 193 Tamazight.
+
 2026-09-14 — custom-format terminology review: the search-index excerpt of
 [HACA Lexique, entry 461, printed page 72](https://biblio.ircam.ma/pmb/uploads/publications/197.pdf)
 aligns native `ⵜⴰⵍⵖⴰ` with French and English Format. Direct PDF access

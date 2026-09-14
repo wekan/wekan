@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,515 |
+| Corrected | 15,516 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 329 |
+| Pending review or repair | 328 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,086** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,087** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `ee5f6301f` — clarified field-history deletion scope by repeating the future Delete predicate before ITS HISTORY. Preserve NO UNDO and field removal FROM ALL CARDS. Original counts and **18,086** correction records unchanged; full grammar remains **low confidence**. Correction checks pass; **329** findings remain pending across **17** locales, including **194** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `93d592c07` — replaced Arabic Hide Checked Checklist Items with Tamazight, preserving checked-only scope. Native Hide and Check support components; passive plural and full grammar remain **low confidence**. All **18,087** correction checks pass; **328** findings remain pending across **17** locales, including **193** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Format review (2026-09-14):** indexed HACA terminology supports a native
 Format noun candidate; direct PDF retrieval failed. Full placeholder wording
