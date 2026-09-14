@@ -139445,5 +139445,12 @@
     "before": "A si na tshifhinga",
     "after": "Nikonz",
     "reason": "Replace unflagged Tshivenda never state with native Veps Nikonz. ELDIA Veps case-specific report p89 directly pairs standalone nikonz with Never; preserve never as distinct from failed sync."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-sync-source-none",
+    "before": "A yo ngo vhambadzanywa",
+    "after": "Sinhronirund ei ole päl",
+    "reason": "Replace Tshivenda with Veps no-active-sync paraphrase for the empty source option. Native ei ole negation and existing päl enabled vocabulary; derived synchronization noun and complete grammar remain low confidence."
   }
 ]

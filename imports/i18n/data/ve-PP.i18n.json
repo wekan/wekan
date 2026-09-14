@@ -2677,7 +2677,7 @@
   "listSyncPopup-title": "U Vhambadzanya Bammbi",
   "list-sync-description": "Vhambadzanani bammbi ḽi tshi bva kha tshiṱaraka tsha nnḓa. Mushumo wa murahu u i sedzulusa nga miniti dza 15 nṱhesi; shumisani \"Vhambadzanya zwino\" u itela u sedzulusa nga u ṱavhanya.",
   "list-sync-source-type": "Lähte",
-  "list-sync-source-none": "A yo ngo vhambadzanywa",
+  "list-sync-source-none": "Sinhronirund ei ole päl",
   "list-sync-url": "URL",
   "list-sync-url-placeholder": "https://example.atlassian.net",
   "list-sync-project-key": "Khonwe ya phurodzheke",

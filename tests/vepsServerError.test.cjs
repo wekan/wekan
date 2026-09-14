@@ -168,3 +168,14 @@ test("Veps never-synced state uses native never adverb", () => {
  assert.doesNotMatch(data["list-sync-last-synced-never"],/tshifhinga/i);
  assert.notEqual(data["list-sync-last-synced-never"],data["list-sync-now-error"]);
 });
+
+test("Veps empty sync source preserves the inactive state", () => {
+ const data=JSON.parse(fs.readFileSync("imports/i18n/data/ve-PP.i18n.json","utf8"));
+ assert.equal(data["list-sync-source-none"],"Sinhronirund ei ole päl");
+ assert.doesNotMatch(data["list-sync-source-none"],/vhambadzanywa/i);
+ assert.notEqual(data["list-sync-source-none"],data["list-sync-enabled"]);
+ assert.notEqual(data["list-sync-source-none"],data["list-sync-now-error"]);
+ assert.notEqual(data["list-sync-source-none"],data["list-sync-last-synced-never"]);
+ const template=fs.readFileSync("client/components/lists/listHeader.jade","utf8");
+ assert.match(template,/option\(value=""\) \{\{_ 'list-sync-source-none'\}\}/);
+});
