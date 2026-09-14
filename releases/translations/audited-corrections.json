@@ -122365,5 +122365,26 @@
     "before": "Les opérateurs différents sont *combinés*. Seules les cartes correspondant à tous les critères sont retournées.  `__operator_list__:Disponible __operator_label__:rouge` ne retourne que les cartes dans la liste *Disponible* avec une étiquette *rouge*.",
     "after": "ⵉⵎⴰⵀⴰⵍⵏ ⵉⵎⵣⴰⵔⴰⵢⵏ ⵇⵇⵏⵏ ⵙ *AND* (ⴷ). ⴰⵔ ⵜⵜⵢⴰⵔⴰⵔⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵉⵎⵙⴰⵙⴰⵏ ⴷ ⴰⴽⴽⵯ ⵉⵎⴰⵀⴰⵍⵏ ⵉⵎⵣⴰⵔⴰⵢⵏ ⵖⴰⵙ. `__operator_list__:Available __operator_label__:red` ⴰⵔ ⵉⵜⵜⴰⵔⴰⵔ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴳ ⵜⵍⴳⴰⵎⵜ *Available* ⵙ ⵓⵔⵛⵓⵎ *red* ⵖⴰⵙ.",
     "reason": "Replace French search explanation and repair erroneous optional OR interpretation. Preserve similar operators OR/any condition versus differing operators AND/all conditions, both examples, literal example names Available/Blocked/red consistently in command and prose, markdown and exact operator tokens. LOW CONFIDENCE full logical explanation, passive/active return conjugation, similarity/difference adjective forms and feminine agreement. Native MediaWiki search-nonefound matching, recentchangeslinked linked, and/or, searchall all support components; mixed lexicon condition Tawtilt MW and operator Amahal MAT are software adaptations. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json; https://cedric.cnam.fr/~bouzefra/books/amawal.pdf (PDF p40 Condition and p102 Operator)."
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-notes-1",
+    "before": "Il est possible d'utiliser plusieurs opérateurs.",
+    "after": "ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵙⵙⵎⵔⵙⴷ ⵉⵎⴰⵀⴰⵍⵏ ⵉⴳⴳⵓⵜⵏ.",
+    "reason": "Replace French with Tamazight multiple-operator capability or distinct lockout settings for existing and nonexistent accounts. Preserve correct username/wrong password versus nonexistent username and plural operators. Native MediaWiki preferences, username/password, wrongpassword negative correct predicate, existence/nonexistence and capability components support wording; iggutn/many from transaction-duration-limit-exceeded is adapted to operator plural. LOW CONFIDENCE positive correct predicate and feminine negative agreement, account-existence relative forms and full settings/capability composition; existing/nonexistent expresses the known/unknown account distinction in source parentheses. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (mypreferences, userexists, wrongpassword, nosuchaction, transaction-duration-limit-exceeded, blockedtext-contact-blocker-admin); https://cedric.cnam.fr/~bouzefra/books/amawal.pdf (mathematical operator Amahal)."
+  },
+  {
+    "locale": "zgh",
+    "key": "accounts-lockout-known-users",
+    "before": "Paramètres pour les utilisateurs connus (utilisateur existant, mot de passe incorrect)",
+    "after": "ⵉⵙⵎⵏⵢⵉⴼⵏ ⵏ ⵉⵏⵙⵙⵎⵔⵙⵏ ⵉⵍⵍⴰⵏ (ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ ⵉⴱⵓⵏⵉ, ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⵓⵔ ⵜⴱⵓⵏⵉ)",
+    "reason": "Replace French with Tamazight multiple-operator capability or distinct lockout settings for existing and nonexistent accounts. Preserve correct username/wrong password versus nonexistent username and plural operators. Native MediaWiki preferences, username/password, wrongpassword negative correct predicate, existence/nonexistence and capability components support wording; iggutn/many from transaction-duration-limit-exceeded is adapted to operator plural. LOW CONFIDENCE positive correct predicate and feminine negative agreement, account-existence relative forms and full settings/capability composition; existing/nonexistent expresses the known/unknown account distinction in source parentheses. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (mypreferences, userexists, wrongpassword, nosuchaction, transaction-duration-limit-exceeded, blockedtext-contact-blocker-admin); https://cedric.cnam.fr/~bouzefra/books/amawal.pdf (mathematical operator Amahal)."
+  },
+  {
+    "locale": "zgh",
+    "key": "accounts-lockout-unknown-users",
+    "before": "Paramètres pour les utilisateurs inconnus (utilisateur inexistant)",
+    "after": "ⵉⵙⵎⵏⵢⵉⴼⵏ ⵏ ⵉⵏⵙⵙⵎⵔⵙⵏ ⵓⵔ ⵉⵍⵍⵉⵏ (ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ ⵓⵔ ⵉⵍⵍⵉ)",
+    "reason": "Replace French with Tamazight multiple-operator capability or distinct lockout settings for existing and nonexistent accounts. Preserve correct username/wrong password versus nonexistent username and plural operators. Native MediaWiki preferences, username/password, wrongpassword negative correct predicate, existence/nonexistence and capability components support wording; iggutn/many from transaction-duration-limit-exceeded is adapted to operator plural. LOW CONFIDENCE positive correct predicate and feminine negative agreement, account-existence relative forms and full settings/capability composition; existing/nonexistent expresses the known/unknown account distinction in source parentheses. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (mypreferences, userexists, wrongpassword, nosuchaction, transaction-duration-limit-exceeded, blockedtext-contact-blocker-admin); https://cedric.cnam.fr/~bouzefra/books/amawal.pdf (mathematical operator Amahal)."
   }
 ]
