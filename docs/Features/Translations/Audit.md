@@ -30,11 +30,11 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Tamazight date-operator bounds](Tamazight-Review.md) confirms inclusive
-created/modified lower date bounds with no upper bound at today. Keep
-literal operator tokens and examples; comparative wording remains open.
-No translations or counts changed. Earlier Aromanian dictionary results
-remain in detailed evidence.
+[Tamazight attachment warning](Tamazight-Review.md) finds an attested
+permanent adjective, but an ambiguous attachment noun is insufficient for
+file terminology. Active popup uses a separate soft-delete message; do not
+replace it with permanent-delete wording. Legacy warning remains pending.
+No translations or counts changed. Earlier reviews remain in detailed evidence.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

@@ -3170,3 +3170,27 @@ Four focused suites pass: Tamazight wording, correction ledger, retained
 reviews and completeness. No live UI or runtime import test ran. Ledger
 19,840; original corrected 15,729, pending 174 (zgh 79), restored 4
 unchanged. Broader review remains open. No remote writes.
+
+
+## Permanent attachment warning — terminology review 2026-09-15
+
+`attachment-delete-pop` still contains Arabic and remains pending. IRCAM
+page 150 entry 2766 attests `amɣlal` / `ⴰⵎⵖⵍⴰⵍ` as permanent,
+with bound form `umɣlal`. This supplies a lexical candidate for permanence;
+it does not establish adjective agreement or a complete warning sentence.
+
+The dictionary's page 591 entry 11085 `taluft` gives grief, sorrow and
+attachment together. Do not treat this ambiguous entry as proof of a
+computer-file attachment noun. Page 247 entry 4766 `asɣ` supports attach/join;
+page 717 entry 13467 `zdi` includes attach/join/tie and a distinct computer
+log-on phrase. Neither establishes the full file-attachment expression.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+Current `client/components/cards/attachments.jade:32` renders
+`attachment-soft-delete-pop`, not the legacy permanent-delete warning.
+Keep that distinction: repairing the unused translation must not change
+soft deletion into a permanent-delete UI message. Next action is to verify
+a file-attachment expression and agreement for permanent deletion, then
+retain the explicit no-undo sentence. This review changes no translation
+or classification; 174 findings remain pending. No live UI test ran and
+no remote writes were made.
