@@ -121579,8 +121579,8 @@
     "locale": "zgh",
     "key": "errors",
     "before": "Erreurs",
-    "after": "ⵉⵣⴳⴰⵍⵏ",
-    "reason": "Replace French. Native MediaWiki databaseerror and loginerror attest masculine azgal/error. CNDH native Amazigh penal-code memorandum directly attests plural izgaln in PDF pages 79 and 99 (zero-based 78 and 98). Replace French plural without retaining a singular error label. LOW CONFIDENCE standalone software-error usage of this attested plural; legal-source context alone does not establish complete technical terminology. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf"
+    "after": "ⵜⵉⵣⴳⵍⵉⵏ",
+    "reason": "Replace French. Native MediaWiki databaseerror and loginerror attest masculine azgal/error. CNDH native Amazigh penal-code memorandum directly attests plural izgaln in PDF pages 79 and 99 (zero-based 78 and 98). Replace French plural without retaining a singular error label. LOW CONFIDENCE standalone software-error usage of this attested plural; legal-source context alone does not establish complete technical terminology. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf Follow-up: 2026-09-14: IRCAM Amazigh-English PDF page 658 entry 12346 explicitly gives tazglt error and tizglin plural. Align Errors with existing singular Error rather than unsupported izgaln. This is directly attested plural, not an inferred script-only repair."
   },
   {
     "locale": "zgh",

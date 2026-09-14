@@ -270,3 +270,8 @@ assert.doesNotMatch(locales.zgh['wipLimitErrorPopup-dialog-pt1'], /Le nombre|sup
 // WIP value setting is an imperative maximum, not the exceedance warning.
 assert.match(locales.zgh['set-wip-limit-value'], /^ⵙⵏⵎⵍ ⴰⵡⵜⵜⵓ.*ⵡⵓⵣⵣⵓⵔ.*ⵓⵎⴹⴰⵏ.*ⵜⵡⵓⵔⵉⵡⵉⵏ.*ⵜⵍⴳⴰⵎⵜ ⴰⴷ$/);
 assert.doesNotMatch(locales.zgh['set-wip-limit-value'], /Définit|maximale|ⵓⴳⴳⴰⵔ/);
+
+// Primary entry 12346 supplies both singular and plural error forms.
+assert.equal(locales.zgh.error, 'ⵜⴰⵣⴳⵍⵜ');
+assert.equal(locales.zgh.errors, 'ⵜⵉⵣⴳⵍⵉⵏ');
+assert.doesNotMatch(locales.zgh.errors, /ⵉⵣⴳⴰⵍⵏ/);
