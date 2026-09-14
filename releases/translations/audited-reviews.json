@@ -7150,5 +7150,293 @@
     "key": "board-title",
     "value": "Tabula titolo",
     "reason": "Direct Esperanto review confirms advanced search instructions, diagnostic/report labels, organization/team controls, checklist line mapping and attachment-storage moves. Preserve OR versus AND, negative existence checks, descending sort, positive integer page limits, case sensitivity and default archive exclusion. Product names, operator syntax, command examples and interpolation tokens remain literal."
+  },
+  {
+    "locale": "eo",
+    "key": "minicardDetailsActionsPopup-title",
+    "value": "Detaloj de karto",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "max-upload-filesize",
+    "value": "Maksimuma alŝuta dosiergrando en bajtoj:",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "allowed-upload-filetypes",
+    "value": "Permesitaj alŝutaj dosiertipoj:",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "allowed-avatar-filetypes",
+    "value": "Permesitaj avataraj dosiertipoj:",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "drag-board",
+    "value": "Treni tabulon",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "translation-text",
+    "value": "Traduka teksto",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "show-week-of-year",
+    "value": "Montri semajnon de la jaro (ISO 8601)",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "import-board-zip",
+    "value": "Aldonu .zip-dosieron, kiu enhavas tabulajn JSON-dosierojn kaj subdosierujojn kun tabulnomoj enhavantajn alligitaĵojn",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "hideAllChecklistItems",
+    "value": "Kaŝi ĉiujn kontrollistajn erojn",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts-lockout-settings",
+    "value": "Agordoj de protekto kontraŭ krudforta atako",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts-lockout-info",
+    "value": "Ĉi tiuj agordoj regas, kiel ensalutprovoj estas protektataj kontraŭ krudfortaj atakoj.",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts-lockout-known-users",
+    "value": "Agordoj por konataj uzantoj (ĝusta uzantnomo, malĝusta pasvorto)",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts-lockout-unknown-users",
+    "value": "Agordoj por nekonataj uzantoj (neekzistanta uzantnomo)",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts-lockout-settings-updated",
+    "value": "Agordoj de protekto kontraŭ krudforta atako estas ĝisdatigitaj",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts-lockout-locked-users-info",
+    "value": "Uzantoj nun ŝlositaj pro tro multaj malsukcesaj ensalutprovoj",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts-lockout-confirm-unlock",
+    "value": "Ĉu vi certas, ke vi volas malŝlosi ĉi tiun uzanton?",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "value": "Ĉu vi certas, ke vi volas malŝlosi ĉiujn ŝlositajn uzantojn?",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts-lockout-user-locked",
+    "value": "Uzanto estas ŝlosita",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts-lockout-click-to-unlock",
+    "value": "Alklaku por malŝlosi ĉi tiun uzanton",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "admin-people-filter-all",
+    "value": "Ĉiuj uzantoj",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "admin-people-filter-locked",
+    "value": "Nur ŝlositaj uzantoj",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "admin-people-user-active",
+    "value": "Uzanto estas aktiva - alklaku por malaktivigi",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "admin-people-user-inactive",
+    "value": "Uzanto estas neaktiva - alklaku por aktivigi",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "attachment-storage-configuration",
+    "value": "Agordo de konservejo de alligitaĵoj",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "board-archive-failed",
+    "value": "Malsukcesis plani arkivadon de tabulo",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "board-backup-failed",
+    "value": "Malsukcesis plani sekurkopion de tabulo",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "board-cleanup-failed",
+    "value": "Malsukcesis plani purigadon de tabulo",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "anonymized-user",
+    "value": "uzanto",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "migration-pause-failed",
+    "value": "Malsukcesis paŭzigi migradojn",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "migration-start-failed",
+    "value": "Malsukcesis startigi migradojn",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "migration-started",
+    "value": "Migradoj sukcese startigitaj",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "migration-stop-confirm",
+    "value": "Ĉu vi certas, ke vi volas haltigi ĉiujn migradojn?",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "migration-stop-failed",
+    "value": "Malsukcesis haltigi migradojn",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "migration-stopped",
+    "value": "Migradoj sukcese haltigitaj",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "pause-all-migrations",
+    "value": "Paŭzigi ĉiujn migradojn",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "s3-access-key-description",
+    "value": "AWS S3-alirŝlosilo por aŭtentigo",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "s3-bucket-description",
+    "value": "Nomo de S3-sitelo por konservi dosierojn",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "s3-enabled-description",
+    "value": "Uzi AWS S3 aŭ MinIO por dosierkonservado",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "s3-endpoint-description",
+    "value": "URL de S3-finpunkto (ekz. s3.amazonaws.com aŭ minio.example.com)",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "s3-port-description",
+    "value": "Pordnumero de S3-finpunkto",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "s3-settings-save-failed",
+    "value": "Malsukcesis konservi S3-agordojn",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "s3-settings-saved",
+    "value": "S3-agordoj sukcese konservitaj",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "save-s3-settings",
+    "value": "Konservi S3-agordojn",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "server",
+    "value": "Servilo",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "protocol",
+    "value": "Protokolo",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "twoFactorCode-cancel",
+    "value": "Nuligi",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-archived",
+    "value": "%s movita al Arkivo",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-changedListTitle",
+    "value": "renomis liston al %s",
+    "reason": "Direct Esperanto review confirms upload constraints, ZIP import structure, lockout known/unknown-user distinctions, activate/deactivate and lock/unlock polarity, scheduled-operation failures and S3 settings. Preserve byte units, ISO reference, endpoint examples, access-key authentication, successful versus failed outcomes and exact activity placeholders. Correct language and source meaning are retained unchanged."
   }
 ]
