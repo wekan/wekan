@@ -22404,3 +22404,12 @@ prose preserves source action meanings and all underscore tokens, including
 checkList casing. Archive terminology is excluded pending verification.
 Nine Galician restored findings remain. Exact unchanged reviews pass;
 full language/browser scope remains open.
+
+### 2026-09-14 — Basque archive activity terminology
+
+Local commit `629577951` replaces biltegira with artxibora in four archived
+board/card/list/swimlane activities, distinguishing archive state from storage.
+Dictionary source: https://www.ehu.eus/eeh/cgi/bila?h=artxibo
+Twenty-six activity, permission, JSON-copy, mapping and invitation values retain
+correct meanings and canonical keys/tokens. Exact positive/negative correction
+and unchanged-review checks pass; full grammar/browser scope remains open.

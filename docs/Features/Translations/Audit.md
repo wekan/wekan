@@ -4,28 +4,27 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,566 |
-| Restored pre-pull; awaiting validation | 655 |
-| Reviewed; retained unchanged | 3,552 |
+| Corrected | 15,570 |
+| Restored pre-pull; awaiting validation | 625 |
+| Reviewed; retained unchanged | 3,578 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
 Review is ongoing. The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,166** exact before/after values, including unflagged repairs.
+contain **18,170** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `01fa30d1c` —
-corrected feminine agreement in the Galician completed-subtask tooltip.
-Retained 29 correct migration-step, interval and monitoring values.
-All **18,166** correction and **3,552** review records pass.
+Latest translation fix: **2026-09-14**, local commit `629577951` —
+clarified archive terminology in four Basque activity messages.
+Retained 26 correct activity, JSON-copy, permission and invitation values.
+All **18,170** correction and **3,578** review records pass.
 Attachment/member rule participles still need context-specific agreement.
 Three Esperanto restored findings remain: lime color and two Complete labels.
 Broader language and browser verification remain open; nothing pushed.
-Latest unchanged review: **2026-09-14**, commit `641062f8c` — retained
-26 Basque activity messages and two Galician file/session labels.
-Nine Galician restored findings remain context-dependent. Basque archive
-terminology remains pending verification.
+Latest unchanged review: **2026-09-14**, commit `629577951` — retained
+26 Basque activity and instruction values. Nine Galician restored findings
+remain context-dependent.
 Galician export free wording remains open pending context.
 Galician Complete and migration-complete wording remain open pending context.
 Card-show-lists context is verified against its settings row and toggle.

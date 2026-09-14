@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,566 corrected, 655 restored pre-pull values awaiting
-validation, 3,552 reviewed and retained, and 308 pending review or repair.
-The correction inventory records 18,166 exact before/after values,
+findings: 15,570 corrected, 625 restored pre-pull values awaiting
+validation, 3,578 reviewed and retained, and 308 pending review or repair.
+The correction inventory records 18,170 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
 of 829
@@ -644,7 +644,7 @@ This release includes the following translation review:
 
 **Translations** - Terminology, instructions and activity validation.
 
-**Languages updated:** Esperanto, Galician
+**Languages updated:** Basque, Esperanto, Galician
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/316232f69">Preserve Trello navigation labels in Galician import help</a>. Thanks to xet7.</summary>
@@ -1205,6 +1205,18 @@ Retained 26 correct Basque activity messages and two Galician labels.
 Action polarity and underscore placeholders remain intact. Basque archive
 wording and nine Galician context-dependent findings remain pending.
 Exact review checks pass; broader language/browser review remains open.
+
+Thanks to xet7 !
+
+</details>
+
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/629577951">Clarify Basque archive activity terminology.</a></summary>
+
+Four messages distinguish archive state from generic storage. Retained
+26 correct activity, permission, JSON-copy and invitation values. Exact
+correction, token and review checks pass; browser validation remains open.
 
 Thanks to xet7 !
 
