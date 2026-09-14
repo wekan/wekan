@@ -24355,3 +24355,10 @@ The full 2019 primary dictionary was downloaded and relevant entries read.
 Subtitle and activation components are independently verified; complete phrases
 are not accepted from components. Computing-PDF certificate verification failed.
 Counts remain unchanged: 283 pending/4 restored; 18,699 correction records.
+
+## Tamazight numeric intervals — 2026-09-14
+
+Local fix `23583a790`: [native plurals and adapted phrase limits](Tamazight-Review.md).
+Four French interval labels are replaced, preserving 5/10/30 minutes and 6
+hours. Full phrases remain low confidence; four checks pass. No browser test
+ran. Ledger: 18,703; original pending/restored counts remain 283/4.

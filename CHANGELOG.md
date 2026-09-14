@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/23583a790">Replace French Tamazight numeric intervals</a>. Thanks to xet7.</summary>
+
+Four interval labels preserve exact numbers and hour/minute distinctions with
+native plural nouns. Four checks pass. Adapted phrases remain low confidence
+pending native grammar and browser validation.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d1d06c706">Read primary IRCAM terminology for pending repairs</a>. Thanks to xet7.</summary>
 
 The audit records primary dictionary entries, grammatical forms and limits
