@@ -1271,6 +1271,17 @@ three Dzongkha Hijri variants. Broader language validation continues.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f707f95bc">Review Dzongkha calendar variant reference limits</a>. Thanks to xet7.</summary>
+
+Compare directly downloaded publisher and GNU computing dictionaries.
+Both confirm Coptic spelling, but corrupted extraction and differing indexed
+terms do not establish full Hijri variants. The epoch example does not prove
+calendar reference-date terminology. Keep three variants pending further
+native review; no translation values or audit counts changed.
+
+</details>
+
 **Developer documentation** - Verify the reported build failure.
 
 <details>
