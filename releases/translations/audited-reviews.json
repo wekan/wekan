@@ -19324,5 +19324,167 @@
     "key": "links-heading",
     "value": "Ligazóns",
     "reason": "Direct Galician review preserves predicate names, number-expected and invalid-sort tokens, next/previous pagination and literal shorthand query syntax. Descending minus sign, positive/negative day integers and current-period predicates retain meaning. Server troubleshooting preserves exact snap/docker commands; newest/oldest ordering and alphabetic sorting remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "move-swimlane",
+    "value": "Mover carril",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "moveSwimlanePopup-title",
+    "value": "Mover carril",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "custom-field-stringtemplate",
+    "value": "Modelo de texto",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "custom-field-stringtemplate-format",
+    "value": "Formato (use %{value} como marcador)",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "custom-field-stringtemplate-separator",
+    "value": "Separador (use &#32; ou &nbsp; para un espazo)",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "creator",
+    "value": "Creador",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "filesReportTitle",
+    "value": "Informe de ficheiros",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "reports",
+    "value": "Informes",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "rulesReportTitle",
+    "value": "Informe de regras",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "copy-swimlane",
+    "value": "Copiar carril",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "copySwimlanePopup-title",
+    "value": "Copiar carril",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "wait-spinner",
+    "value": "Indicador de espera",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "Bounce",
+    "value": "Rebote",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "Dot",
+    "value": "Puntos",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "Double-Bounce",
+    "value": "Rebote dobre",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "Rotateplane",
+    "value": "Rotación plana",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "Scaleout",
+    "value": "Escalado",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "subject",
+    "value": "Asunto",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "details",
+    "value": "Detalles",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "carbon-copy",
+    "value": "Con copia (Cc:)",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "closed",
+    "value": "Pechado",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "resolved",
+    "value": "Resolto",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "history",
+    "value": "Historial",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "request",
+    "value": "Solicitude",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "requests",
+    "value": "Solicitudes",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "help-request",
+    "value": "Solicitude de axuda",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "editCardSortOrderPopup-title",
+    "value": "Cambiar a ordenación",
+    "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
   }
 ]
