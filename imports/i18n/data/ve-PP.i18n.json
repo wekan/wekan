@@ -1850,7 +1850,7 @@
   "map-region-europe": "Evrop",
   "map-region-asia": "Azii",
   "map-provider-saved": "Alolane mapa-služb kaitud.",
-  "server-error": "Palvelin virhe",
+  "server-error": "Serveran viga",
   "server-error-troubleshooting": "Oigenda serveran sündutadud viga.\nSnap-panendal kävuta: `sudo snap logs wekan.wekan`\nDocker-panendal kävuta: `sudo docker logs wekan-app`",
   "title-alphabetically": "Nimi (kirjamišt)",
   "created-at-newest-first": "Luotu (Uusin ensin)",

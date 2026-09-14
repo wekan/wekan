@@ -127209,5 +127209,12 @@
     "before": "Biltegitik berreskuratu da",
     "after": "Artxibotik berreskuratu da",
     "reason": "Replace generic storage biltegi with archive artxibo, consistent with reviewed Basque activity/search archive terminology and EHU archive dictionary https://www.ehu.eus/eeh/cgi/bila?h=artxibo. Retain archive versus restore direction. Shared r-is Spanish auxiliary and full conditional phrase composition remain unresolved; this lexical correction does not certify trigger grammar."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "server-error",
+    "before": "Palvelin virhe",
+    "after": "Serveran viga",
+    "reason": "Replace Finnish Palvelin virhe with Veps serveran viga, consistent with existing serveran terminology in server-error-troubleshooting and dictionary viga (error/fault), https://kaikki.org/dictionary/Veps/meaning/v/vi/viga.html . Borrowed server stem and its exact normative form remain low confidence pending terminology reference; standalone English-identical Server is not accepted by this repair."
   }
 ]
