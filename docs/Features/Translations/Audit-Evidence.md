@@ -1,5 +1,17 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `f8a1255dd`: permanent board deletion notice repaired.
+Reuse the previously reviewed no-undo and future-deletion constructions;
+native MediaWiki dellogpage supports deletion, actions supports activities,
+and tooltip-t-whatlinkshere/nolinkshere support association. Preserve
+irreversibility plus ALL lists, cards and actions associated with THIS board
+WILL be lost through deletion. This is not reversible archiving or loss of
+unrelated boards. Relative agreement, future passive plural and complete
+warning remain LOW CONFIDENCE. All 18,108 correction checks pass; 313
+original findings remain pending, including 178 Tamazight. Restored/unflagged
+and earlier low-confidence values still need validation; no live browser run.
+Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+
 2026-09-14 — `a56e507e9`: broader unflagged review repairs generic
 Import (`Kter`) and Import Board (Arabic). Native MediaWiki zgh
 `importlogpage` supplies the import root; existing WeKan Import Usernames
