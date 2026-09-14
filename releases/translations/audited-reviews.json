@@ -24790,5 +24790,23 @@
     "key": "predicate-checklist",
     "value": "llistadecontrol",
     "reason": "Joined llistadecontrol is an intentional localized search token, not ordinary prose. Regression executes actual search-const/query-classes with Valencian translations: checklist-text searches and positive/negative has:checklist presence predicates parse correctly; an unknown field is rejected. Preserve working syntax and existing translation."
+  },
+  {
+    "locale": "eu",
+    "key": "r-top-of",
+    "value": "Goialdera:",
+    "reason": "Goialdera correctly expresses movement to the top; colon introduces the destination list. Actual boardActions select option value top retains the placement semantics."
+  },
+  {
+    "locale": "eu",
+    "key": "r-bottom-of",
+    "value": "Behealdera:",
+    "reason": "Behealdera correctly expresses movement to the bottom; colon introduces the destination list. Actual boardActions select option value bottom retains the opposite placement semantics."
+  },
+  {
+    "locale": "eu",
+    "key": "r-its-list",
+    "value": "bere zerrenda",
+    "reason": "Bere zerrenda correctly names its own list in the move-card action. boardActions composes this after the top/bottom position selector; no other list ownership is implied."
   }
 ]
