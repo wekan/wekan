@@ -24233,3 +24233,14 @@ compounds are not validated from this noun alone. Focused exact-value and
 wrong-language negative checks, all 18,689 correction records, 4,171 unchanged
 reviews and 234-locale completeness pass. Browser validation remains open.
 Original counts remain 15,618 corrected, 9 restored, 4,171 retained, 283 pending.
+
+## Tamazight one-unit recurrence labels, 2026-09-14
+
+Local commit `5b3ca809d` repairs three additional French recurrence labels.
+[Tamazight review](Tamazight-Review.md) records native daily phrase evidence,
+CLDR time nouns and low-confidence adapted hourly/minute constructions.
+Numeric plural intervals are not accepted from these components. No current
+UI use of these legacy keys was found; browser execution is not claimed.
+Focused values/negative/distinction checks, all 18,692 corrections, 4,171
+retained reviews and 234-locale completeness pass. Original counts remain
+15,618 corrected, 9 restored, 4,171 retained and 283 pending.

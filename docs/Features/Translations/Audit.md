@@ -35,7 +35,7 @@ cross-checks calendar, user and click components in native Moroccan sources.
 Full phrases, warnings and invalidated Tuareg records remain open; no pending
 finding was accepted from component evidence.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,689** exact before/after values, including unflagged repairs.
+contain **18,692** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
@@ -54,12 +54,13 @@ remains open. Latin Inuktitut spelling is valid; original script warnings
 require vocabulary/context review rather than automatic replacement.
 Current pending/restored counts are 283/9.
 
-Latest translation fix: **2026-09-14**, local commit `7f3a0d7db` —
-Tamazight generic rule name labels replace French with native name-field
-terminology. Focused checks, all 18,689 corrections, retained reviews and
-234-locale completeness pass. Browser validation remains open.
-These two additional repairs leave original counts at 283 pending/9 restored.
-Earlier Inuktitut named-calendar repair is in `da6762a48`.
+Latest translation fix: **2026-09-14**, local commit `5b3ca809d` —
+Tamazight everyday/hour/minute labels replace French. Daily wording has native
+phrase evidence; hourly/minute combinations are adapted and low confidence
+pending broader fluency review. No current UI use of these legacy keys was
+found. Focused and all 18,692 correction/token/completeness checks pass.
+Three additional repairs leave original counts at 283 pending/9 restored.
+Earlier generic rule name repairs are in `7f3a0d7db`.
 Latest unchanged review: **2026-09-14**, local commit `d36499d43` —
 Basque generic checklist-item subject is retained after reviewing both
 assembled check/uncheck clauses and actual row wiring. All 4,171 unchanged

@@ -142,7 +142,7 @@ single noun. Exact-value and French/English-negative checks are added.
 Running-browser validation remains open. Both are unflagged additional
 repairs; original pending/restored counts remain 283/9.
 
-## One-unit recurrence labels, 2026-09-14
+## One-unit recurrence labels, 2026-09-14 (5b3ca809d)
 
 [Native grammar lesson by Aznzar Abudrar](https://tamazight.abudrar.com/2018/02/addad-amaruz-almmud-n-tamazight-learning.html)
 uses `ⴽⵓ ⴰⵙⵙ` in the daily wolf example (body line 45). The opened

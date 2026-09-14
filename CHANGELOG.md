@@ -673,6 +673,17 @@ browser validation and the broader translation audit remain open.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5b3ca809d">Repair Tamazight one-unit recurrence labels</a>. Thanks to xet7.</summary>
+
+Legacy daily/hour/minute labels use Tamazight instead of French.
+Native daily phrase and time-noun evidence is recorded; hourly/minute labels
+are adaptations needing broader native fluency review. Focused interval and
+wrong-language checks plus correction/token/completeness checks pass.
+No current UI use was found, so browser execution is not claimed.
+
+</details>
+
 **Developer tooling** - Mirror Git progress.
 
 <details>
