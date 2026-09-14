@@ -33,6 +33,7 @@ for (const policy of ['formatted', 'plain-links', 'plain-source']) {
       for (const root of [boardPage.locator('.board-sidebar'), cp.root]) {
         const activity = root.locator(`.activity[data-id="${activityId}"]`);
         await expect(activity).toBeVisible();
+        await expect(activity.locator('.activity-desc')).not.toContainText('%s');
         await expect(activity.locator('[onerror], script')).toHaveCount(0);
         expect(await boardPage.evaluate(() => window.activityViewerAttack)).toBeUndefined();
         if (policy === 'plain-source') {

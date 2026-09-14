@@ -331,7 +331,10 @@ Template.activity.helpers({
   },
   activityMessage(key, ...values) {
     const setting = ReactiveCache.getCurrentSetting();
-    return sanitizeHTML(TAPi18n.__(key, ...values), {
+    // Spacebars appends helper options; only rendered values belong in sprintf.
+    const lastValue = values[values.length - 1];
+    if (lastValue && typeof lastValue === 'object' && 'hash' in lastValue) values.pop();
+    return sanitizeHTML(TAPi18n.__(key, { sprintf: values }), {
       stripLinks: !!(setting && setting.renderLinksAsPlainText),
     });
   },
