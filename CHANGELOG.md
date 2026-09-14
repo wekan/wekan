@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,257 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 587 pending review or repair.
-The correction inventory records 17,541 exact before/after values,
+findings: 15,258 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 586 pending review or repair.
+The correction inventory records 17,544 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (444) and
+The largest original queues are Standard Moroccan Tamazight (443) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,11 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 2921a4e3d (2026-09-14), repairing four
-organization labels/error values. Preserve plural add/list, singular
-settings, missing named organization and exact %s placeholder. The lexicon
-marks organization vocabulary MW (Mammeri); dialect adaptation, spelling,
-feminine negation and full phrases remain low confidence.
+Latest translation fix is 305503e7e (2026-09-14), repairing three
+email-test/template values. Preserve test qualifier, sending to oneself,
+plural templates and email scope. Math-to-email-test adaptation, bound nouns,
+reflexive recipient and full phrases remain low confidence.
 Wider language review remains open.
 Greenlandic CLDR-unconfirmed wording and twelve Quechua color wrappers
 still need review, alongside the wider restored and unflagged values.
@@ -117,7 +116,7 @@ names and unresolved Coptic/tabular/epoch terminology; no values changed. Previo
 Cherokee Hijri labels with exact native-script CLDR variant names. Cherokee’s
 original queue is empty. Compact tabular epoch wording still needs fluent
 technical review. Quechua palette compounds and remaining color wrappers
-remain open. There are 444 Tamazight findings remaining.
+remain open. There are 443 Tamazight findings remaining.
 Silesian reference review (2026-09-14) confirms shared database/file terms
 in native MediaWiki messages; the full raw-file label remains pending.
 No translation value or finding count changed in that review.
@@ -627,10 +626,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,257 original findings are
+Translation audit progress as of 2026-09-14: 15,258 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 587 remain pending across 17 locales, including 444 Tamazight findings.
-The ledger contains 17,541 correction records, including unflagged repairs.
+and 586 remain pending across 17 locales, including 443 Tamazight findings.
+The ledger contains 17,544 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -837,6 +836,18 @@ add/list, singular settings, missing named organization and exact %s token.
 All 17,541 correction/rendering checks pass; 587 original findings remain.
 The computing lexicon marks vocabulary MW (Mammeri); dialect adaptation,
 spelling, feminine negation and full phrases remain low confidence. Wider
+language and live browser validation remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/305503e7e">Repair Tamazight email test recipient and template labels</a>. Thanks to xet7.</summary>
+
+Replace three French/Arabic values, including two unflagged strings.
+Preserve test qualifier, sending to oneself, plural templates and email scope.
+All 17,544 correction/rendering checks pass; 586 original findings remain.
+Native components support vocabulary; math-to-email-test adaptation, bound
+nouns, reflexive recipient and full phrases remain low confidence. Wider
 language and live browser validation remain open.
 
 </details>
