@@ -1148,6 +1148,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0b259c2d3">Repair Tamazight physical heap-size label</a></summary>
+
+Replace the final French heap diagnostic label with Tamazight wording.
+Four focused suites pass; computing physical-memory sense and complete
+phrase grammar remain low confidence and under review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

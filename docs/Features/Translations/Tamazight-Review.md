@@ -4150,3 +4150,24 @@ Ledger 19,888; corrected 15,767, pending 136 (zgh 43), restored 4 unchanged.
 Physical size is the last still-French heap label; earlier full-phrase
 reviews and technical loan localization remain open.
 https://nodejs.org/api/v8.html#v8getheapstatistics
+
+
+2026-09-15 — `0b259c2d3`: French physical heap-size label replaced using
+existing heap/total/size compounds and akmam. IRCAM entry 1237 akmam is
+concrete/tangible; entry 10742 has physical portrait tafrist takmamt.
+Neither independently attests a computing physical-memory phrase, so that
+sense and adjective/nominal grammar remain low confidence. Physical force
+adwas, bodily exhaustion anzaf and material wealth are excluded. V8 metric
+means actual physical memory used/committed by heap, not total system RAM
+or merely reserved address space. informationBody.jade binds totalPhysicalSize
+separately from totalHeapSize. No metric behavior changed. Four focused
+suites pass for exact value, negative French/Arabic/physical-force wording
+and all placeholder inventories. No live information UI test ran.
+
+Ledger 19,889; corrected 15,768, pending 135 (zgh 42), restored 4 unchanged.
+All eleven previously French heap labels have now been replaced; this is
+wrong-language repair progress, not full native computing-language proof.
+Earlier heap, memory, capability, temporal and nominal grammar reviews and
+native/detached technical loan localization remain open. Full goal remains
+incomplete alongside the remaining locale queue and unflagged reviews.
+https://nodejs.org/api/v8.html#v8getheapstatistics
