@@ -330,3 +330,8 @@ assert.equal(locales.br['custom-field-currency-option'], 'Kod moneiz');
 assert.doesNotMatch(locales.br['custom-field-currency-option'], /Code|devise/);
 assert.doesNotMatch(locales.br['custom-field-currency'], /Devise/);
 assert.notEqual(locales.br['custom-field-currency'], locales.br['custom-field-currency-option']);
+
+// The string formatter is distinct from an ordinary text field.
+assert.equal(locales.br['custom-field-stringtemplate'], 'Patrom chadenn');
+assert.doesNotMatch(locales.br['custom-field-stringtemplate'], /Modèle|chaîne/);
+assert.notEqual(locales.br['custom-field-stringtemplate'], locales.br['custom-field-text']);

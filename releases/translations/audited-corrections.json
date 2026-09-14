@@ -130590,5 +130590,12 @@
     "before": "Code devise",
     "after": "Kod moneiz",
     "reason": "Replace French currency labels with native moneiz currency sense and adapted code phrase. Preserve currency/code distinction."
+  },
+  {
+    "locale": "br",
+    "key": "custom-field-stringtemplate",
+    "before": "Modèle de chaîne",
+    "after": "Patrom chadenn",
+    "reason": "Replace French string-template label with native software string/template nouns; full compound adapted, broader native/browser review open."
   }
 ]
