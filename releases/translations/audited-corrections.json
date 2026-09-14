@@ -122652,5 +122652,26 @@
     "before": "تفاصيل",
     "after": "ⵉⴼⵔⵓⵔⵉⵜⵏ",
     "reason": "Replace Arabic Details with Tamazight details, preserving generic, Cron error or migration diagnostic scope of the existing key. Native MediaWiki zgh blockedtext-include-details-queries and passwordreset-emailtitle use ifruritn: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . IRCAM native news listings corroborate the Details link: https://www.ircam.ma/amz/tous-les-actualites . Vocabulary is native-UI-supported; wider diagnostic context still requires language validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "calendar-previous-month-label",
+    "before": "Mois précédent",
+    "after": "ⴰⵢⵢⵓⵔ ⵓⵣⵡⵉⵔ",
+    "reason": "Replace French calendar/navigation text with Tamazight, preserving previous versus next and explicit month scope. CLDR zgh month field displayName supplies ayyour: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml . Native MediaWiki zgh prevn and nextn supply singular previous/next components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: composed month-navigation phrase and generic standalone previous usage still require fluent/context review; CLDR provides the month component, not the complete navigation phrase."
+  },
+  {
+    "locale": "zgh",
+    "key": "calendar-next-month-label",
+    "before": "Mois suivant",
+    "after": "ⴰⵢⵢⵓⵔ ⵓⴹⴼⵉⵕ",
+    "reason": "Replace French calendar/navigation text with Tamazight, preserving previous versus next and explicit month scope. CLDR zgh month field displayName supplies ayyour: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml . Native MediaWiki zgh prevn and nextn supply singular previous/next components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: composed month-navigation phrase and generic standalone previous usage still require fluent/context review; CLDR provides the month component, not the complete navigation phrase."
+  },
+  {
+    "locale": "zgh",
+    "key": "previous",
+    "before": "Précédent",
+    "after": "ⵓⵣⵡⵉⵔ",
+    "reason": "Replace French calendar/navigation text with Tamazight, preserving previous versus next and explicit month scope. CLDR zgh month field displayName supplies ayyour: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml . Native MediaWiki zgh prevn and nextn supply singular previous/next components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: composed month-navigation phrase and generic standalone previous usage still require fluent/context review; CLDR provides the month component, not the complete navigation phrase."
   }
 ]
