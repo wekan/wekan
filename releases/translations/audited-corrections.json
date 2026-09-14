@@ -125151,5 +125151,47 @@
     "before": "الإكمال التلقائي لأسماء الأعضاء",
     "after": "ⴰⵙⵎⴷ ⴰⵡⵓⵔⵎⴰⵏ ⵏ ⵉⴳⵎⴰⵎⵏ",
     "reason": "2026-09-14: Replace Arabic while preserving automatic completion and the emoji/member target. Native MediaWiki resetpass_announce attests the transitive Complete root smd in Complete Login; completion noun ⴰⵙⵎⴷ is derived, not directly attested autocomplete terminology. Pinned non-fuzzy Dialect ui/zgh.po at 366f2ad81ddfc5af1f75075436a3da6cadf4ca08 attests Automatic ⴰⵡⵓⵔⵎⴰⵏ (Automatic language detection/Auto); adjective agreement and full autocomplete compound remain LOW CONFIDENCE. Native Mastodon emoji_button.not_found attests ⵉⵎⵓⵊⵉ; Members reuses existing WeKan ⵉⴳⵎⴰⵎⵏ without treating local reuse as independent validation. Sources: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Complete compounds and member terminology need native validation; lexical evidence does not prove fluency."
+  },
+  {
+    "locale": "zgh",
+    "key": "shortcut-close-dialog",
+    "before": "غلق النافذة",
+    "after": "ⵔⴳⵍ ⴰⵙⴽⵙⵍ ⵏ ⵓⵎⵙⴰⵡⴰⵍ",
+    "reason": "2026-09-14: Replace Arabic/French with provisional Standard Moroccan Tamazight. Preserve separate Close Dialog, Open/Close Sidebar, and toggle Show/Hide for distinct Filter/Search/Board sidebar scopes. keyboard.js confirms ESC/w/f/slash mappings. Native Mastodon lightbox.close/video.close attests ⵔⴳⵍ Close and video.hide ⴼⴼⵔ Hide; native MediaWiki view attests ⵙⴽⵏ Show, search ⴰⵔⵣⵣⵓ Search, and mytalk ⴰⵎⵙⴰⵡⴰⵍ discussion. Native pinned Dialect Open Preferences attests ⵕⵥⵎ Open. Sidebar paraphrase reuses local drag-to-resize-sidebar Side Panel, which is not independent validation; filter/board terminology and bound forms follow local usage. Dialog is provisionally Discussion Window, with Window adapted from MediaWiki newwindow; not a directly attested software Dialog noun. Full compounds, bound forms and noun paraphrases remain LOW CONFIDENCE for native review. Sources: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po ."
+  },
+  {
+    "locale": "zgh",
+    "key": "shortcut-toggle-filterbar",
+    "before": "Afficher/Masquer la barre latérale des filtres",
+    "after": "ⵙⴽⵏ/ⴼⴼⵔ ⴰⴼⴳⴳⵓ ⵏ ⵜⴰⵎⴰ ⵏ ⵜⵎⵣⵉⵣⴷⴳⵉⵜⵉⵏ",
+    "reason": "2026-09-14: Replace Arabic/French with provisional Standard Moroccan Tamazight. Preserve separate Close Dialog, Open/Close Sidebar, and toggle Show/Hide for distinct Filter/Search/Board sidebar scopes. keyboard.js confirms ESC/w/f/slash mappings. Native Mastodon lightbox.close/video.close attests ⵔⴳⵍ Close and video.hide ⴼⴼⵔ Hide; native MediaWiki view attests ⵙⴽⵏ Show, search ⴰⵔⵣⵣⵓ Search, and mytalk ⴰⵎⵙⴰⵡⴰⵍ discussion. Native pinned Dialect Open Preferences attests ⵕⵥⵎ Open. Sidebar paraphrase reuses local drag-to-resize-sidebar Side Panel, which is not independent validation; filter/board terminology and bound forms follow local usage. Dialog is provisionally Discussion Window, with Window adapted from MediaWiki newwindow; not a directly attested software Dialog noun. Full compounds, bound forms and noun paraphrases remain LOW CONFIDENCE for native review. Sources: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po ."
+  },
+  {
+    "locale": "zgh",
+    "key": "shortcut-toggle-searchbar",
+    "before": "Afficher/Masquer la barre latérale de recherche",
+    "after": "ⵙⴽⵏ/ⴼⴼⵔ ⴰⴼⴳⴳⵓ ⵏ ⵜⴰⵎⴰ ⵏ ⵓⵔⵣⵣⵓ",
+    "reason": "2026-09-14: Replace Arabic/French with provisional Standard Moroccan Tamazight. Preserve separate Close Dialog, Open/Close Sidebar, and toggle Show/Hide for distinct Filter/Search/Board sidebar scopes. keyboard.js confirms ESC/w/f/slash mappings. Native Mastodon lightbox.close/video.close attests ⵔⴳⵍ Close and video.hide ⴼⴼⵔ Hide; native MediaWiki view attests ⵙⴽⵏ Show, search ⴰⵔⵣⵣⵓ Search, and mytalk ⴰⵎⵙⴰⵡⴰⵍ discussion. Native pinned Dialect Open Preferences attests ⵕⵥⵎ Open. Sidebar paraphrase reuses local drag-to-resize-sidebar Side Panel, which is not independent validation; filter/board terminology and bound forms follow local usage. Dialog is provisionally Discussion Window, with Window adapted from MediaWiki newwindow; not a directly attested software Dialog noun. Full compounds, bound forms and noun paraphrases remain LOW CONFIDENCE for native review. Sources: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po ."
+  },
+  {
+    "locale": "zgh",
+    "key": "shortcut-toggle-sidebar",
+    "before": "إظهار-إخفاء الشريط الجانبي للوحة",
+    "after": "ⵙⴽⵏ/ⴼⴼⵔ ⴰⴼⴳⴳⵓ ⵏ ⵜⴰⵎⴰ ⵏ ⵜⴼⵍⵡⵉⵜ",
+    "reason": "2026-09-14: Replace Arabic/French with provisional Standard Moroccan Tamazight. Preserve separate Close Dialog, Open/Close Sidebar, and toggle Show/Hide for distinct Filter/Search/Board sidebar scopes. keyboard.js confirms ESC/w/f/slash mappings. Native Mastodon lightbox.close/video.close attests ⵔⴳⵍ Close and video.hide ⴼⴼⵔ Hide; native MediaWiki view attests ⵙⴽⵏ Show, search ⴰⵔⵣⵣⵓ Search, and mytalk ⴰⵎⵙⴰⵡⴰⵍ discussion. Native pinned Dialect Open Preferences attests ⵕⵥⵎ Open. Sidebar paraphrase reuses local drag-to-resize-sidebar Side Panel, which is not independent validation; filter/board terminology and bound forms follow local usage. Dialog is provisionally Discussion Window, with Window adapted from MediaWiki newwindow; not a directly attested software Dialog noun. Full compounds, bound forms and noun paraphrases remain LOW CONFIDENCE for native review. Sources: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po ."
+  },
+  {
+    "locale": "zgh",
+    "key": "sidebar-open",
+    "before": "فتح الشريط الجانبي",
+    "after": "ⵕⵥⵎ ⴰⴼⴳⴳⵓ ⵏ ⵜⴰⵎⴰ",
+    "reason": "2026-09-14: Replace Arabic/French with provisional Standard Moroccan Tamazight. Preserve separate Close Dialog, Open/Close Sidebar, and toggle Show/Hide for distinct Filter/Search/Board sidebar scopes. keyboard.js confirms ESC/w/f/slash mappings. Native Mastodon lightbox.close/video.close attests ⵔⴳⵍ Close and video.hide ⴼⴼⵔ Hide; native MediaWiki view attests ⵙⴽⵏ Show, search ⴰⵔⵣⵣⵓ Search, and mytalk ⴰⵎⵙⴰⵡⴰⵍ discussion. Native pinned Dialect Open Preferences attests ⵕⵥⵎ Open. Sidebar paraphrase reuses local drag-to-resize-sidebar Side Panel, which is not independent validation; filter/board terminology and bound forms follow local usage. Dialog is provisionally Discussion Window, with Window adapted from MediaWiki newwindow; not a directly attested software Dialog noun. Full compounds, bound forms and noun paraphrases remain LOW CONFIDENCE for native review. Sources: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po ."
+  },
+  {
+    "locale": "zgh",
+    "key": "sidebar-close",
+    "before": "إغلاق الشريط الجانبي",
+    "after": "ⵔⴳⵍ ⴰⴼⴳⴳⵓ ⵏ ⵜⴰⵎⴰ",
+    "reason": "2026-09-14: Replace Arabic/French with provisional Standard Moroccan Tamazight. Preserve separate Close Dialog, Open/Close Sidebar, and toggle Show/Hide for distinct Filter/Search/Board sidebar scopes. keyboard.js confirms ESC/w/f/slash mappings. Native Mastodon lightbox.close/video.close attests ⵔⴳⵍ Close and video.hide ⴼⴼⵔ Hide; native MediaWiki view attests ⵙⴽⵏ Show, search ⴰⵔⵣⵣⵓ Search, and mytalk ⴰⵎⵙⴰⵡⴰⵍ discussion. Native pinned Dialect Open Preferences attests ⵕⵥⵎ Open. Sidebar paraphrase reuses local drag-to-resize-sidebar Side Panel, which is not independent validation; filter/board terminology and bound forms follow local usage. Dialog is provisionally Discussion Window, with Window adapted from MediaWiki newwindow; not a directly attested software Dialog noun. Full compounds, bound forms and noun paraphrases remain LOW CONFIDENCE for native review. Sources: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po ."
   }
 ]
