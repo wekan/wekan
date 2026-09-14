@@ -124675,5 +124675,12 @@
     "before": "Étape courante",
     "after": "ⴰⵙⵓⵔⵉⴼ ⴰⵎⵉⵔⴰⵏ",
     "reason": "2026-09-14: Replace French Steps/Current Step with asurif/isurifn, matching existing step-progress bound usurif and preserving plural versus singular plus Current qualifier. AIDECA names its programme ASSURIF/ⴰⵙⵓⵔⵉⴼ A Step; Marchica Med native zgh site uses plural isurifn for spatial steps, not software phases. LOW CONFIDENCE spatial-step-to-software-phase extension and full noun/adjective agreement need fluent Standard Moroccan review; independent native plural usage is not complete workflow terminology attestation. Primary references: https://intilaka.org/fr/projects/assurif and https://marchicamed.ma/zgh/home-zgh/ . MediaWiki changeemail-oldemail directly supplies amiran Current (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Preserve current phase rather than all phases or progress amount."
+  },
+  {
+    "locale": "zgh",
+    "key": "step-validate-migration",
+    "before": "Valider la migration",
+    "after": "ⵙⵙⵉⴷⴻⴷ ⴰⵙⵎⵓⵜⵜⵢ",
+    "reason": "2026-09-14: Replace French Validate Migration with native verify/validate imperative ssided from MediaWiki login-security, preserving a validation action rather than selecting, running or declaring completion. Use the previously reviewed software-migration adaptation asmutty of movelogpage bound usmutty. LOW CONFIDENCE identity-verification-to-migration-validation extension and complete action phrase require fluent Standard Moroccan review; native imperative component is directly attested, full data-migration command is not. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (login-security, movelogpage)."
   }
 ]
