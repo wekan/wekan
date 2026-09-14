@@ -24967,3 +24967,19 @@ No limit logic is changed. Four focused translation checks pass; browser
 validation was not run. This key was outside the original flagged queue:
 268 original findings remain pending; the correction ledger now has 18,730
 records. Prior low-confidence and broader runtime/native reviews remain open.
+
+## Custom product name — 2026-09-14
+
+Local commit `c4a40896b` repairs unflagged French custom-product-name,
+restoring product, which was absent from the French seed. IRCAM 2019
+PDF page 397 entry 7541 attests name; page 271 entry 5286 attests product
+and construct uyafu; page 404 entry 7686 attests specific/exclusive.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+**Low confidence** remains for custom branding, complete grammar and final
+modifier scope. The dictionary's ism izlin proper-noun compound does not
+prove custom product-name software wording. This adaptation instead retains
+the explicit product component. SettingBody.jade uses the label above the
+product-name input. Four focused translation checks pass; no live browser
+validation was run. Original pending count stays 268; correction records
+increase to 18,731. Broader native and runtime reviews remain open.

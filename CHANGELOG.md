@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c4a40896b">Repair Tamazight custom product-name wording</a>. Thanks to xet7.</summary>
+
+Replace an unflagged French label and restore its omitted product component.
+Four focused checks pass. Custom-branding wording and modifier scope remain
+low confidence; dated audit records 268 original pending findings.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a5edc6d3c">Repair Tamazight WIP activation label</a>. Thanks to xet7.</summary>
 
 Replace an unflagged French label with Tamazight activation/limit components,
