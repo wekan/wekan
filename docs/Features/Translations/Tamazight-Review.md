@@ -607,3 +607,31 @@ Broader native and runtime verification remains open.
 These counts are reconstructed from the original tables and current
 ledgers. Earlier narrative totals are historical reported snapshots; the
 current summary uses the live reconstruction, not arithmetic increments.
+
+## Integer-constraint source follow-up — 2026-09-14
+
+The new primary PDF at
+<https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=131>
+downloaded successfully with certificate verification. All 144 pages
+were extracted; page 4 was rendered and inspected. The title identifies
+IRCAM's general Amazigh dictionary, volume 1, expanded/revised edition,
+Rabat 2009, not a mathematical lexicon. Arabic text extraction uses broken
+legacy encoding and some pages have no extracted text, so a zero search
+result cannot establish that a term is absent from the book.
+
+The cached secondary DGLAi leads for French entier concern whole/complete
+or completion (entries 136613, 151543 and 147684), not an attested
+mathematical integer. The positive-number search likewise does not
+establish integer: positive real numbers include fractions. The IRCAM
+catalogue's mathematics lexicons encountered in this search include
+French/Arabic works and a Tizi-Ouzou French/Berber work; catalogue hosting
+alone does not establish Standard Moroccan vocabulary.
+
+The primary school-lexicon publication lead is
+<https://www.ircam.ma/fr/edition/lexique-scolaire-2025>; its contents were
+not fetched successfully in this pass. A listing or publication title is
+not a verified mathematical entry. `swimlane-height-error-message` and
+`operator-limit-invalid` retain their exact constraints and remain pending
+until full native numeric terminology is established. No translation or
+classification changed. Live counts remain 272 pending/four restored;
+this follow-up strengthens source boundaries, not a fluency claim.
