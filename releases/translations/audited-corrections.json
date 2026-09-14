@@ -131316,15 +131316,15 @@
     "locale": "zgh",
     "key": "wipLimitErrorPopup-dialog-pt1",
     "before": "Le nombre de cartes de cette liste est supérieur à la limite WIP que vous avez définie.",
-    "after": "ⴰⵎⴹⴰⵏ ⵏ ⵜⵡⵓⵔⵉⵡⵉⵏ ⴳ ⵜⵍⴳⴰⵎⵜ ⴰⴷ ⵉⴳⴰ ⵓⴳⴳⴰⵔ ⵏ ⵓⵡⵜⵜⵓ WIP ⵍⵍⵉ ⵜⵙⵏⵎⵍⴷ.",
-    "reason": "2026-09-14: Replace French WIP exceedance warning with Tamazight, retaining tasks in this list, greater-than comparison, WIP limit and user-defined qualifier. IRCAM PDF page 270 entry 5271 awttu limit/construct uwttu, page 444 entry 8404 uggar more than, page 508 entry 9575 snml define. Reuse existing count/task/list vocabulary. Low confidence: second-person defined morphology and complete comparative relative clause need native/browser review. listHeader.js exceededWipLimit uses strict value < count; reached threshold separately uses <=."
+    "after": "ⴰⵎⴹⴰⵏ ⵏ ⵜⵎⵙⴽⵉⵔⵉⵏ ⴳ ⵜⵍⴳⴰⵎⵜ ⴰⴷ ⵉⴳⴰ ⵓⴳⴳⴰⵔ ⵏ ⵓⵡⵜⵜⵓ WIP ⵍⵍⵉ ⵜⵙⵏⵎⵍⴷ.",
+    "reason": "2026-09-14: Replace French WIP exceedance warning with Tamazight, retaining tasks in this list, greater-than comparison, WIP limit and user-defined qualifier. IRCAM PDF page 270 entry 5271 awttu limit/construct uwttu, page 444 entry 8404 uggar more than, page 508 entry 9575 snml define. Reuse existing count/task/list vocabulary. Low confidence: second-person defined morphology and complete comparative relative clause need native/browser review. listHeader.js exceededWipLimit uses strict value < count; reached threshold separately uses <=. Follow-up 2026-09-14: IRCAM PDF page 605 entry 11328 explicitly attests tamskirt task/plural timskirin, distinct from general work vocabulary. Adapt plural in genitive tmskirin for WIP tasks. Low confidence: genitive construction and complete comparative/maximum-count clauses remain open; free plural alone does not prove full grammar."
   },
   {
     "locale": "zgh",
     "key": "set-wip-limit-value",
     "before": "Définit une limite maximale au nombre de cartes de cette liste",
-    "after": "ⵙⵏⵎⵍ ⴰⵡⵜⵜⵓ ⵉ ⵡⵓⵣⵣⵓⵔ ⵏ ⵓⵎⴹⴰⵏ ⵏ ⵜⵡⵓⵔⵉⵡⵉⵏ ⴳ ⵜⵍⴳⴰⵎⵜ ⴰⴷ",
-    "reason": "2026-09-14: Replace French WIP value setting with Tamazight, preserving imperative set/define, limit, maximum task count and this list. IRCAM PDF page 508 entry 9575 define snml, page 270 entry 5271 limit awttu, page 457 entry 8699 maximum uzzur/construct wuzzur; reuse count/task/list vocabulary. Low confidence: maximum-of-count compound, construct forms and full software phrase require native/browser review. Actual listHeader.jade numeric WIP value label remains unchanged structurally."
+    "after": "ⵙⵏⵎⵍ ⴰⵡⵜⵜⵓ ⵉ ⵡⵓⵣⵣⵓⵔ ⵏ ⵓⵎⴹⴰⵏ ⵏ ⵜⵎⵙⴽⵉⵔⵉⵏ ⴳ ⵜⵍⴳⴰⵎⵜ ⴰⴷ",
+    "reason": "2026-09-14: Replace French WIP value setting with Tamazight, preserving imperative set/define, limit, maximum task count and this list. IRCAM PDF page 508 entry 9575 define snml, page 270 entry 5271 limit awttu, page 457 entry 8699 maximum uzzur/construct wuzzur; reuse count/task/list vocabulary. Low confidence: maximum-of-count compound, construct forms and full software phrase require native/browser review. Actual listHeader.jade numeric WIP value label remains unchanged structurally. Follow-up 2026-09-14: IRCAM PDF page 605 entry 11328 explicitly attests tamskirt task/plural timskirin, distinct from general work vocabulary. Adapt plural in genitive tmskirin for WIP tasks. Low confidence: genitive construction and complete comparative/maximum-count clauses remain open; free plural alone does not prove full grammar."
   },
   {
     "locale": "dz",

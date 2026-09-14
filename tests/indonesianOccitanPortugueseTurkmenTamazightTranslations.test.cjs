@@ -264,11 +264,11 @@ assert.doesNotMatch(locales.zgh['activity-customfield-created'], /[\u0600-\u06ff
 assert.equal((locales.zgh['activity-customfield-created'].match(/%s/g) || []).length, 1);
 
 // Exceeded WIP is greater than the user-defined limit, not equal to it.
-assert.match(locales.zgh['wipLimitErrorPopup-dialog-pt1'], /ⴰⵎⴹⴰⵏ.*ⵜⵡⵓⵔⵉⵡⵉⵏ.*ⵜⵍⴳⴰⵎⵜ ⴰⴷ.*ⵓⴳⴳⴰⵔ ⵏ ⵓⵡⵜⵜⵓ WIP.*ⵜⵙⵏⵎⵍⴷ/);
+assert.match(locales.zgh['wipLimitErrorPopup-dialog-pt1'], /ⴰⵎⴹⴰⵏ.*ⵜⵎⵙⴽⵉⵔⵉⵏ.*ⵜⵍⴳⴰⵎⵜ ⴰⴷ.*ⵓⴳⴳⴰⵔ ⵏ ⵓⵡⵜⵜⵓ WIP.*ⵜⵙⵏⵎⵍⴷ/);
 assert.doesNotMatch(locales.zgh['wipLimitErrorPopup-dialog-pt1'], /Le nombre|supérieur|définie/);
 
 // WIP value setting is an imperative maximum, not the exceedance warning.
-assert.match(locales.zgh['set-wip-limit-value'], /^ⵙⵏⵎⵍ ⴰⵡⵜⵜⵓ.*ⵡⵓⵣⵣⵓⵔ.*ⵓⵎⴹⴰⵏ.*ⵜⵡⵓⵔⵉⵡⵉⵏ.*ⵜⵍⴳⴰⵎⵜ ⴰⴷ$/);
+assert.match(locales.zgh['set-wip-limit-value'], /^ⵙⵏⵎⵍ ⴰⵡⵜⵜⵓ.*ⵡⵓⵣⵣⵓⵔ.*ⵓⵎⴹⴰⵏ.*ⵜⵎⵙⴽⵉⵔⵉⵏ.*ⵜⵍⴳⴰⵎⵜ ⴰⴷ$/);
 assert.doesNotMatch(locales.zgh['set-wip-limit-value'], /Définit|maximale|ⵓⴳⴳⴰⵔ/);
 
 // Primary entry 12346 supplies both singular and plural error forms.
@@ -289,3 +289,8 @@ assert.doesNotMatch(locales.zgh.optional, /[\u0600-\u06ff]/);
 
 assert.equal(locales.zgh['webhook-token'], 'Token (ⴰⵔⵓⵛⵛⵉⵍ ⵉ ⵓⵙⵖⵣⵏ)');
 assert.doesNotMatch(locales.zgh['webhook-token'], /Jeton|optionnel|authentification/);
+
+for (const key of ['set-wip-limit-value', 'wipLimitErrorPopup-dialog-pt1']) {
+ assert.match(locales.zgh[key], /ⵜⵎⵙⴽⵉⵔⵉⵏ/);
+ assert.doesNotMatch(locales.zgh[key], /ⵜⵡⵓⵔⵉⵡⵉⵏ|ⵜⵎⵙⴽⴰⵔ/);
+}
