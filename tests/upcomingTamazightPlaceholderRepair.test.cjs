@@ -122,3 +122,10 @@ assert.doesNotMatch(lockedUsersInfo, /Utilisateurs|verrouillés|tentatives|conne
 assert.notStrictEqual(lockedUsersInfo, translated['accounts-lockout-no-locked-users']);
 assert.notStrictEqual(lockedUsersInfo, translated['account-locked']);
 console.log('Tamazight locked-users description retains plural subject, current state and login-failure reason');
+
+assert.strictEqual(translated['accounts-lockout-remaining-time'], 'ⴰⴽⵓⴷ ⵍⵍⵉ ⵉⵇⵇⵉⵎⵏ');
+assert.doesNotMatch(translated['accounts-lockout-remaining-time'], /Temps|restant|[\u0600-\u06ff]/u);
+for (const key of ['accounts-lockout-period', 'accounts-lockout-failure-window']) {
+  assert.notStrictEqual(translated['accounts-lockout-remaining-time'], translated[key]);
+}
+console.log('Tamazight remaining time stays distinct from lockout period and failure window');

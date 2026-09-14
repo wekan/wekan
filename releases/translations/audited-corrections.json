@@ -131962,5 +131962,12 @@
     "before": "Utilisateurs actuellement verrouillés pour trop de tentatives de connexion en échec",
     "after": "ⵉⵏⵙⵙⵎⵔⵙⵏ ⵜⵜⵓⴳⴷⵍⵏⵉⵏ ⵖⵉⵍⴰ ⵎⵉⵏⵣⵉ ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⵓⴽⵛⵛⵓⵎ ⵙ ⵜⵓⴳⵜⵜ ⵏ ⵜⵉⴽⴽⴰⵍ",
     "reason": "2026-09-14: Replace complete French locked-users description. Preserve existing localized plural blocked-users subject, currently/ghila and repeated unsuccessful logins, consistent with account-locked. Native MediaWiki blockedtext supports blocking and login vocabulary; newer correct-language translations are retained. Low confidence: full causal phrasing and per-user reading require native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "accounts-lockout-remaining-time",
+    "before": "Temps restant",
+    "after": "ⴰⴽⵓⴷ ⵍⵍⵉ ⵉⵇⵇⵉⵎⵏ",
+    "reason": "2026-09-14: Replace French remaining-time label with full Tamazight draft, time that remains. IRCAM dictionary page 79 entry 1260 akud/time, page 359 entry 6809 qqim/stay-remain. Keep remaining duration distinct from configured lockout period and failure window. Low confidence: derived relative verb form and countdown collocation need native review."
   }
 ]
