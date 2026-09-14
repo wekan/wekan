@@ -125039,5 +125039,12 @@
     "before": "Fin: ⴰⵣⵎⵣ ⵢⵜⵜⵡⴰⵙⵏⴼⵍ",
     "after": "ⴰⴷⴷⴰⵢ ⵉⵜⵜⵓⴼⴽⴰ ⵓⵙⴰⴽⵓⴷ ⵏ ⵜⴳⵉⵔⴰ ⵏⵖ ⵉⵜⵜⵓⵙⵏⴼⵍ",
     "reason": "Replace mixed Arabic/French and nonstandard date wording with Standard Moroccan Tamazight. MediaWiki zgh metadata-fields attests temporal When adday, metadata-help passive Changed ittusnfl, redirect-summary passive Given ittufka. https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Existing reviewed Date/Start/End terminology is preserved. Restore omitted WHEN and SET OR CHANGED alternatives, distinguishing start from end in cardTriggers.jade. LOW CONFIDENCE: Given-to-assigned/Set UI adaptation, noun bound forms and full clause grammar; source does not independently attest the complete rule condition."
+  },
+  {
+    "locale": "zgh",
+    "key": "editChecklistItemsAsTextPopup-title",
+    "before": "Ẓreg iferdisen n tebdart n usenqed amzwaru n uḍris",
+    "after": "ⵙⵏⴼⵍ ⵉⴼⵔⴷⵉⵙⵏ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ ⵙ ⵓⴹⵕⵉⵚ",
+    "reason": "Repair unflagged semantic and terminology errors, not Latin script alone. Inherited amzwaru/first qualifier is absent from English and obscures Edit AS TEXT; replace Edit with native MediaWiki snfl and plural Items with transaction-duration-limit-exceeded ifrdisn. https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Match reviewed textual editing mode; replace inherited checklist wording whose asenqed evidence was Kabyle, not verified Moroccan. LOW CONFIDENCE: proposed List of Verification checklist paraphrase and derived ussidd, as-text preposition, bound Text spelling and full phrase. Native components do not independently attest the full checklist term."
   }
 ]
