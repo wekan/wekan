@@ -634,6 +634,32 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **Veps translations** replace Finnish server-error prose with
+Veps error terminology, consistent with existing troubleshooting wording.
+Exact regression checks preserve placeholders and protect newer translations.
+Borrowed server terminology and the standalone English-identical label still
+need review; broader translation repairs and browser verification remain open.
+
+This release fixes the following translations:
+
+**Translations** - Veps server-error terminology.
+
+**Languages updated:** Veps
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9f0f038cd">Repair Veps server-error prose</a>. Thanks to xet7.</summary>
+
+Replaced Finnish prose with Veps error terminology. Exact regression and
+correction checks pass. Borrowed server terminology remains low confidence;
+standalone Server and wider translation validation still require review.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+
 # v11.78 2026-09-14 WeKan ® release
 
 **In short:** **Board views** use the full available width, and Frappe Gantt

@@ -11,13 +11,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Total tracked | 20,081 |
 
 Review is ongoing. The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,173** exact before/after values, including unflagged repairs.
+contain **18,174** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `2a22a42a9` —
-corrected Basque rule archive/restore terminology, preserving direction.
-All **18,173** correction and **3,736** review records pass.
+Latest translation fix: **2026-09-14**, local commit `9f0f038cd` —
+replaced Finnish server-error prose with Veps wording. Borrowed server
+terminology remains low confidence; standalone English-identical `Server`
+still needs review and fails the global completeness gate.
+Full node regression run: 1,043 suites, nine failures; translation-related
+failures require inspection alongside the remaining language work.
+All **18,174** correction and **3,736** review records pass.
 Shared Spanish `r-is` and composed trigger grammar remain unresolved.
 Attachment/member rule participles still need context-specific agreement.
 Three Esperanto restored findings remain: lime color and two Complete labels.

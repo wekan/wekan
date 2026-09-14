@@ -22476,3 +22476,13 @@ Corrected `r-archived` and `r-unarchived` from generic storage to archive
 terminology, preserving into/from directions. Exact archive regression and
 all 18,173 correction records pass, including token preservation and newer
 translation protection. Spanish `r-is` and composed grammar remain open.
+
+**2026-09-14 — Veps server-error repair (`9f0f038cd`).**
+
+Replaced Finnish `Palvelin virhe` with `Serveran viga`; Veps dictionary attests
+error/fault `viga`: https://kaikki.org/dictionary/Veps/meaning/v/vi/viga.html .
+Existing troubleshooting prose uses `serveran`. Normative borrowed server
+terminology remains low confidence, and standalone `Server` is not accepted.
+Exact regression and all 18,174 correction records pass. Global completeness
+gate failure remains recorded. Full node run finished: 1,043 suites, nine
+failures; log is `.tools/tmp/upcoming-node-suites.txt`.
