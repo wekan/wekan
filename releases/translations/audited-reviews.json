@@ -10492,5 +10492,275 @@
     "key": "tuesday",
     "value": "Mardo",
     "reason": "2026-09-14: Direct semantic review confirms Esperanto relative card/list positioning, due reminders, irreversible deletion warnings, assignees, organization/team editing, notification read states and week-start labels. proksimiĝas/pasis distinguish approaching/past deadlines; Ne eblas malfari preserves irreversibility. All interpolation retained."
+  },
+  {
+    "locale": "eo",
+    "key": "wednesday",
+    "value": "Merkredo",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "thursday",
+    "value": "Ĵaŭdo",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "friday",
+    "value": "Vendredo",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "saturday",
+    "value": "Sabato",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "sunday",
+    "value": "Dimanĉo",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "status",
+    "value": "Stato",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "swimlane",
+    "value": "Naĝlinio",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "last-modified-at",
+    "value": "Laste modifita je",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "last-activity",
+    "value": "Lasta aktivaĵo",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "voting",
+    "value": "Voĉdonado",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "archived",
+    "value": "Arkivita",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "hide-checked-items",
+    "value": "Kaŝi markitajn erojn",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "hide-finished-checklist",
+    "value": "Kaŝi finitan kontrolliston",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "task",
+    "value": "Tasko",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "create-task",
+    "value": "Krei taskon",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "ok",
+    "value": "Bone",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "organizations",
+    "value": "Organizoj",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "teams",
+    "value": "Teamoj",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "displayName",
+    "value": "Montrata nomo",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "shortName",
+    "value": "Mallonga nomo",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "website",
+    "value": "Retejo",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "person",
+    "value": "Persono",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "today",
+    "value": "Hodiaŭ",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "day",
+    "value": "Tago",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "week",
+    "value": "Semajno",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "list",
+    "value": "Listo",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "myCardsViewChange-choice-table",
+    "value": "Tabelo",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "myCardsSortChange-choice-dueat",
+    "value": "Laŭ limdato",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "dueCardsViewChange-choice-all-description",
+    "value": "Montras ĉiujn neplenumitajn kartojn kun *limdato* el tabuloj, por kiuj la uzanto havas permeson.",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "dueCards-noResults-title",
+    "value": "Neniu karto kun limdato trovita",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "dueCards-noResults-description",
+    "value": "Vi nun havas neniun karton kun limdato.",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "swimlane-title-not-found",
+    "value": "Naĝlinio '%s' ne trovita.",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "list-title-not-found",
+    "value": "Listo '%s' ne trovita.",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "label-not-found",
+    "value": "Etikedo '%s' ne trovita.",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "label-color-not-found",
+    "value": "Etikeda koloro %s ne trovita.",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "comment-not-found",
+    "value": "Karto kun komento enhavanta la tekston '%s' ne trovita.",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "org-name-not-found",
+    "value": "Organizo '%s' ne trovita.",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "team-name-not-found",
+    "value": "Teamo '%s' ne trovita.",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "n-n-of-n-cards-found",
+    "value": "__start__-__end__ el __total__ kartoj trovitaj",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-swimlane",
+    "value": "naĝlinio",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-label",
+    "value": "etikedo",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-assignee",
+    "value": "asignito",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-creator",
+    "value": "kreinto",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-status",
+    "value": "stato",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
+  },
+  {
+    "locale": "eo",
+    "key": "operator-due",
+    "value": "limdato",
+    "reason": "2026-09-14: Direct semantic review confirms Esperanto weekdays, task/checklist states, organization/person labels, due-card permission/no-result descriptions and search diagnostics/operators. Negation, permission qualifier, markdown emphasis and exact interpolation remain correct."
   }
 ]
