@@ -50,3 +50,8 @@ for (const key of ['calendar','board-view-cal']) assert.equal(repairedCalendarLo
 assert.equal(repairedCalendarLocale['board-view-multiboard-cal'], 'Wodiyaa qoodaa (Ubba bookkiyata)');
 assert.equal(repairedCalendarLocale['export-ical-feed'], 'Wodiyaa qoodaa (iCal)');
 for (const key of ['calendar','board-view-cal','board-view-multiboard-cal','export-ical-feed']) assert.doesNotMatch(repairedCalendarLocale[key], /Wolayttatto: Calendar/);
+
+assert.equal(wolaytta['calendar-system-ethiopic'], 'Toophphiya wodiyaa qoodaa');
+assert.equal(wolaytta['calendar-system-ethioaa'], 'Toophphiya wodiyaa qoodaa (Amete Alem)');
+assert.notEqual(wolaytta['calendar-system-ethioaa'], wolaytta['calendar-system-ethiopic']);
+assert.doesNotMatch(wolaytta['calendar-system-ethioaa'] + wolaytta['calendar-system-ethiopic'], /Ethiopic/);

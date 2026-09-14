@@ -138493,5 +138493,19 @@
     "before": "Wolayttatto: Calendar (iCal)",
     "after": "Wodiyaa qoodaa (iCal)",
     "reason": "2026-09-15: replace language-prefixed English calendar noun with native Wolaytta wodiyaa qoodaa, explicitly glossed calendar in the Wolaytta Gifaataa article (oldid 5971248) and used in Wolaytta kawotettaa. Preserve existing all-boards and iCal qualifiers; full software phrase and qualifier grammar remain under review."
+  },
+  {
+    "locale": "wal",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Toophphiya wodiyaa qoodaa",
+    "reason": "2026-09-15: replace English Ethiopian calendar seed with a Wolaytta draft using native Toophphiya country component and wodiyaa qoodaa calendar term from native Wolaytta prose. Preserve Amete Alem proper era name separately; complete country-calendar construction remains low confidence."
+  },
+  {
+    "locale": "wal",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Toophphiya wodiyaa qoodaa (Amete Alem)",
+    "reason": "2026-09-15: replace English Ethiopian calendar seed with a Wolaytta draft using native Toophphiya country component and wodiyaa qoodaa calendar term from native Wolaytta prose. Preserve Amete Alem proper era name separately; complete country-calendar construction remains low confidence."
   }
 ]
