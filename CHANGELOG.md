@@ -661,6 +661,19 @@ The browser assertion accepts whitespace between the regional flag and name.
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/35dcd699a">Repair Tamazight checklist item and comma instructions</a></summary>
+
+Replace French checklist rule text with Tamazight drafts using IRCAM's
+explicit punctuation-comma sense. Preserve required comma-separated input.
+Four focused suites pass; full compound and clause grammar remain low
+confidence. Audit updated 2026-09-15: 195 original findings pending,
+19,794 correction records, four restored values awaiting validation.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c5738aa53">Wolaytta calendar-system selection label</a></summary>
 
 Replace Azerbaijani with a Wolaytta draft retaining the date-display

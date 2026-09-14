@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-15**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,707 |
+| Corrected | 15,708 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,174 |
-| Pending review or repair | 196 |
+| Pending review or repair | 195 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,14 +16,14 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `c5738aa53` — Wolaytta calendar-
-system draft replaces Azerbaijani, retaining the date-display qualifier.
-Four focused suites pass. Ledger 19,792; original pending 196 (Wolaytta 10),
-restored 4 unchanged. Full display terminology, compound grammar and all
-broader uncertain reviews remain open.
+Latest translation fix: **2026-09-15**, `35dcd699a` — Tamazight checklist
+item and mandatory comma-separated input instructions replace French.
+Four focused suites pass. Ledger 19,794; original pending 195 (Tamazight
+100), restored 4 unchanged. Full checklist compound, note wording and
+between-items agreement remain low confidence; broader reviews stay open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,792** exact before/after values, including unflagged
+records contain **19,794** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -42,7 +42,7 @@ restored values still await full native clause validation.
 
 | Pending locale | Findings |
 | --- | ---: |
-| zgh — Standard Moroccan Tamazight | 101 |
+| zgh — Standard Moroccan Tamazight | 100 |
 | iu — Inuktitut | 38 |
 | nah — Nahuatl | 17 |
 | tig — Tigre | 17 |

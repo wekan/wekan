@@ -2518,3 +2518,27 @@ No active key reference or live browser run; removed migrations remain
 removed. Ledger 19,780; original corrected 15,699, pending 204 (zgh 101),
 restored 4 unchanged. All broader uncertain/restored findings remain open.
 No push.
+
+## Checklist item and comma instructions — 2026-09-15
+
+Local commit `35dcd699a` replaces French r-items-check and
+r-checklist-note with Tamazight drafts. The instruction remains mandatory:
+write checklist items with commas between them. The existing checklist
+compound and item noun are reused.
+
+The [IRCAM dictionary](https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339)
+page 686 entry 12946 explicitly attests tiskrt, plural tiskrin, as a
+punctuation comma, alongside garlic and small-fingernail senses. Page 194
+entry 3669 attests aru write; the separate childbirth homograph is excluded.
+[Native MediaWiki messages](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json)
+attest the item plural in transaction-duration-limit-exceeded.
+
+**Low confidence:** full checklist compound, note noun and between-them
+agreement remain under native review. These components do not prove the
+complete clause. checklistActions.jade registers the instruction beside
+its input; no live browser test ran. Four focused suites verify exact
+values, mandatory input wording, negative French checks, registration,
+placeholders, key order and newer human translation preference. Ledger
+19,794; original corrected 15,708, pending 195 (zgh 100), restored 4.
+The item label additionally repairs an unflagged value. Broader uncertain,
+restored and unflagged review remains open. No push.
