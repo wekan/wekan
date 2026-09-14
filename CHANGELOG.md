@@ -743,14 +743,26 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,189 original findings are
+Translation audit progress as of 2026-09-14: 15,191 original findings are
 corrected, 179 are reviewed and retained, 4,058 restored values await
-validation, and 655 original findings remain pending across 17 locales,
-including 512 Tamazight findings. The ledger contains 17,413 correction
+validation, and 653 original findings remain pending across 17 locales,
+including 510 Tamazight findings. The ledger contains 17,415 correction
 records, including repairs outside the original audit. Regression checks
 validate placeholders, rendering and merge behavior; fluency and wider
 language validation remain open. See the
 <a href="docs/Features/Translations/Audit.md">translation audit</a>.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aca5d1e24">Translate Tamazight account creation and existing-account prompts</a>. Thanks to xet7.</summary>
+
+Replace two French values, preserving account creation followed by the
+availability of sign-in and the existing-account question with sign-in.
+Native MediaWiki supports the components; full capability and affirmative
+possession phrasing remains low confidence. All 17,415 correction checks
+pass. Restored values and wider language validation remain open; live
+browser verification was not run.
+
+</details>
 
 Thanks to above GitHub users for their contributions and xet7 for maintaining WeKan !
 
