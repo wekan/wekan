@@ -29217,3 +29217,19 @@ No live UI or SMTP delivery verification ran. Software compound and full
 contextual grammar remain low confidence. Ledger 19,869, corrected 15,750,
 pending 153 (zgh 60), restored 4 unchanged. Previous note's pending SMTP
 port wording is now repaired; native terminology review remains open.
+
+
+2026-09-15 — `b0ad9320f`: show-desktop-drag-handles French replaced
+using IRCAM general English dictionary entry 9816 sskn show/indicate,
+10938 taqbbidt handle with attested plural tiqbbidin, and 6439 kriru drag.
+Derived action noun akriru/bound ukriru is not independently attested;
+complete software compound remains low confidence. Desktop is a borrowed
+mode identifier consistent with repaired Mobile/Desktop toggle terminology.
+Bucket handle akaram (1179), mill handle igum (6967) and pickaxe handle
+ tirjxt (12867) were excluded as specialized physical objects. userHeader.jade
+and header.jade use this label for the desktop drag-handle visibility
+control; userHeader.js/header.js toggle showDesktopDragHandles. This is
+showing handles, not enabling a Desktop application or moving a desk.
+Four focused suites pass for exact wording, negative French/Arabic checks
+and translation/token invariants. No live drag or UI verification ran.
+Ledger 19,870, corrected 15,751, pending 152 (zgh 59), restored 4 unchanged.

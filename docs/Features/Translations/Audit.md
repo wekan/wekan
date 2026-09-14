@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-15**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,750 |
+| Corrected | 15,751 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,174 |
-| Pending review or repair | 153 |
+| Pending review or repair | 152 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,16 +16,16 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `e1c372071` — replace Arabic SMTP
-port label and French description. Port remains a borrowed network term;
-Tamazight prose preserves use by your SMTP server for sending email.
-Four focused suites pass. Ledger 19,869; tracked pending 153 (Tamazight 60),
-restored 4 unchanged. Full computing phrase grammar remains under review.
-The list popup's irreversible warning/soft-removal conflict remains open,
-as do broader native grammar reviews.
+Latest translation fix: **2026-09-15**, `b0ad9320f` — replace French
+Desktop drag-handle label with Tamazight show/handle/drag terminology.
+Desktop remains a borrowed mode identifier. Four focused suites pass.
+Ledger 19,870; tracked pending 152 (Tamazight 59), restored 4 unchanged.
+Derived drag action noun and full software compound remain low confidence.
+The list popup warning/soft-removal conflict and broader grammar reviews
+remain open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,869** exact before/after values, including unflagged
+records contain **19,870** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -45,7 +45,7 @@ restored values still await full native clause validation.
 
 | Pending locale | Findings |
 | --- | ---: |
-| zgh — Standard Moroccan Tamazight | 60 |
+| zgh — Standard Moroccan Tamazight | 59 |
 | iu — Inuktitut | 38 |
 | nah — Nahuatl | 17 |
 | tig — Tigre | 17 |

@@ -1005,6 +1005,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b0ad9320f">Repair Tamazight desktop drag-handle label</a></summary>
+
+Replace French text with Tamazight show, handle and drag wording, retaining
+Desktop as a borrowed mode identifier. Four focused suites pass; derived
+action noun and full contextual compound remain under review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
