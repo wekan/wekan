@@ -2234,3 +2234,28 @@ provenance and newer translation preference, plus distinct message scopes.
 No live notification UI/browser test was run. Ledger 19,770; original
 corrected 15,690, pending 213 (zgh 110), restored 4 unchanged. Other
 uncertain/restored/unflagged findings remain open. No remote push.
+
+## WIP recovery guidance — 2026-09-15
+
+Local commit `414beceef` replaces the French WIP-limit recovery sentence
+with a Tamazight draft. English source says move some tasks out of the
+list OR set a higher WIP limit. The French seed's remove-card wording
+must not be turned into a delete instruction. The replacement names
+moving tasks from this list and increasing the WIP limit. Active
+listHeader.jade renders this sentence below the limit-exceeded message.
+
+[Primary MediaWiki Tamazight source](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json)
+provides the move action (tooltip-ca-move) and enlarge action
+(thumbnail-more). Enlarging a thumbnail supports the verb, not an attested
+complete phrase for increasing a numerical WIP limit. Existing first
+WIP-error paragraph supplies task/list/limit components for consistency.
+
+**Low confidence:** adapting enlargement to a numerical threshold, full
+imperative/object grammar, indefinite-task quantity and the existing
+politeness/dialect form remain under native review. Reusing existing
+components does not independently validate their complete wording.
+Four focused suites pass, including exact placeholders, key order,
+correction provenance/newer translation preference and the active template
+reference. No live WIP popup browser test was run. Ledger 19,771;
+original corrected 15,691, pending 212 (zgh 109), restored 4 unchanged.
+All broader uncertain/restored/unflagged findings remain open. No push.

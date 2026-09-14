@@ -662,6 +662,19 @@ The browser assertion accepts whitespace between the regional flag and name.
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/414beceef">Translate Tamazight WIP error recovery guidance</a></summary>
+
+Replace French wording with a draft retaining moving tasks out of the list
+or increasing the WIP limit. Avoid a deletion instruction. Four focused
+suites pass; complete grammar remains under native review. Dated audit
+and correction provenance are updated.
+
+Thanks to xet7.
+
+</details>
+
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3eb7ae103">Translate Tamazight participation and watch notification messages</a></summary>
 
 Replace French catalogue values while preserving creator/member card scope
