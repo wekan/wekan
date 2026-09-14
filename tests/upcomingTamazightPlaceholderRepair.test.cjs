@@ -613,3 +613,14 @@ for (const q of ['image', 'link']) {
 }
 assert.notStrictEqual(translated['custom-top-left-corner-logo-image-url'], translated['custom-top-left-corner-logo-link-url']);
 console.log('Tamazight top-left logo labels retain image and link distinction');
+
+assert.strictEqual(translated["hide-logo"], "ⴼⴼⵔ ⵍⵓⴳⵓ");
+
+assert.strictEqual(translated["header-logo-title"], "ⴰⵖⵓⵍ ⵖⵔ ⵜⴰⵙⵏⴰ ⵏ ⵜⴼⵍⵡⵉⵏ ⵏⴽ.");
+
+assert.strictEqual(translated["custom-top-left-corner-logo-height"], "ⵜⴰⵖⵣⵉ ⵏ ⵓⵍⵓⴳⵓ ⵉⵥⵍⵉⵏ ⴳ ⵜⵖⵎⵔⵜ ⵏ ⵓⴼⵍⵍⴰ ⵖⵔ ⵓⵥⵍⵎⴰⴹ. ⵙ ⵓⵡⵏⵓⵍ: 27");
+for (const key of ['hide-logo', 'header-logo-title', 'custom-top-left-corner-logo-height']) {
+ assert.doesNotMatch(translated[key], /Cacher|Hauteur|Défaut|[\u0600-\u06ff]/u);
+}
+assert.ok(translated['custom-top-left-corner-logo-height'].endsWith(': 27'));
+console.log('Tamazight logo labels preserve hide, board-page return and default height');

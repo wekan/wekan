@@ -139235,5 +139235,26 @@
     "before": "Lien URL du logo personnalisé dans le coin supérieur gauche",
     "after": "URL ⵏ ⵓⵙⵖⵏ ⵏ ⵓⵍⵓⴳⵓ ⵉⵥⵍⵉⵏ ⴳ ⵜⵖⵎⵔⵜ ⵏ ⵓⴼⵍⵍⴰ ⵖⵔ ⵓⵥⵍⵎⴰⴹ",
     "reason": "2026-09-15: Replace French top-left logo URL label using existing custom-login-logo image/link phrases. IRCAM corner taghmrt 11729 bound tghmrt, top aflla 1008 bound uflla, left justification 4507 supports ghr uzlmad with emphatic z. Full spatial chain and computing logo phrase remain low confidence; preserve image vs destination link."
+  },
+  {
+    "locale": "zgh",
+    "key": "hide-logo",
+    "before": "Cacher le logo",
+    "after": "ⴼⴼⵔ ⵍⵓⴳⵓ",
+    "reason": "2026-09-15: Replace French/Arabic logo wording using existing logo/back/default/page/board terms and repaired top-left spatial chain. IRCAM ffr hide 6267, taghzi height 11797. Preserve hide vs return and literal default height 27. Full spatial chain, default terminology and possessive grammar remain under low-confidence review."
+  },
+  {
+    "locale": "zgh",
+    "key": "header-logo-title",
+    "before": "الرجوع إلى صفحة اللوحات",
+    "after": "ⴰⵖⵓⵍ ⵖⵔ ⵜⴰⵙⵏⴰ ⵏ ⵜⴼⵍⵡⵉⵏ ⵏⴽ.",
+    "reason": "2026-09-15: Replace French/Arabic logo wording using existing logo/back/default/page/board terms and repaired top-left spatial chain. IRCAM ffr hide 6267, taghzi height 11797. Preserve hide vs return and literal default height 27. Full spatial chain, default terminology and possessive grammar remain under low-confidence review."
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-top-left-corner-logo-height",
+    "before": "Hauteur du logo personnalisé dans le coin supérieur gauche. Défaut : 27",
+    "after": "ⵜⴰⵖⵣⵉ ⵏ ⵓⵍⵓⴳⵓ ⵉⵥⵍⵉⵏ ⴳ ⵜⵖⵎⵔⵜ ⵏ ⵓⴼⵍⵍⴰ ⵖⵔ ⵓⵥⵍⵎⴰⴹ. ⵙ ⵓⵡⵏⵓⵍ: 27",
+    "reason": "2026-09-15: Replace French/Arabic logo wording using existing logo/back/default/page/board terms and repaired top-left spatial chain. IRCAM ffr hide 6267, taghzi height 11797. Preserve hide vs return and literal default height 27. Full spatial chain, default terminology and possessive grammar remain under low-confidence review."
   }
 ]
