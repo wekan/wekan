@@ -139109,5 +139109,12 @@
     "before": "`__operator_due__:<n>` - cartes qui arrive à échéance dans moins de *<n>* jours à partir d'aujourd'hui.\n`__operator_due__:__predicate_overdue__` liste toutes les cartes ayant passé la date d'échéance.",
     "after": "`__operator_due__:<n>` - ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵙ ⵓⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⴰⵔ *<n>* ⵏ ⵡⵓⵙⵙⴰⵏ ⵙⴳ ⴷⵖⵉ.\n`__operator_due__:__predicate_overdue__` ⵉⵙⵙⴽⵏ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴰⴽⴽⵯ ⵙ ⵓⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⴷⴰⵜ ⵏ ⴷⵖⵉ.",
     "reason": "2026-09-15: Replace French due-date search prose. Preserve numeric cutoff from now and separate all-overdue example with literal tokens and balanced existing backticks. IRCAM ar until 3563, dghi now 6184; existing due-date compound retained. Full temporal grammar low confidence; actual numeric parser adds n+2 days, source wording discrepancy remains open."
+  },
+  {
+    "locale": "zgh",
+    "key": "accounts-lockout-locked-users",
+    "before": "Utilisateurs verrouillés",
+    "after": "ⵉⵏⵙⵙⵎⵔⵙⵏ ⵜⵜⵓⴳⴷⵍⵏⵉⵏ",
+    "reason": "2026-09-15: Replace unflagged French Locked Users navigation label using exact user/locked-user wording already present in locked-users-info and no-locked-users. Preserve plural and current account-lockout meaning, not deleted users. Existing passive participle grammar remains under contextual review."
   }
 ]

@@ -528,3 +528,8 @@ assert.strictEqual(translated["globalSearch-instructions-operator-due"], "`__ope
 assert.doesNotMatch(translated['globalSearch-instructions-operator-due'], /cartes|jours|[\u0600-\u06ff]/u);
 assert.strictEqual((translated['globalSearch-instructions-operator-due'].match(/`/g) || []).length, 4);
 console.log('Tamazight due hint preserves numeric and overdue examples separately');
+
+assert.strictEqual(translated['accounts-lockout-locked-users'], 'ⵉⵏⵙⵙⵎⵔⵙⵏ ⵜⵜⵓⴳⴷⵍⵏⵉⵏ');
+assert.ok(translated['accounts-lockout-locked-users-info'].startsWith(translated['accounts-lockout-locked-users']));
+assert.doesNotMatch(translated['accounts-lockout-locked-users'], /Utilisateurs|verrouillés|[\u0600-\u06ff]/u);
+console.log('Tamazight locked-users navigation label matches its plural description');
