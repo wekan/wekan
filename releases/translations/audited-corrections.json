@@ -121469,5 +121469,26 @@
     "before": "Arrive à échéance demain",
     "after": "ⴰⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ: ⴰⵙⴽⴽⴰ",
     "reason": "LOW CONFIDENCE due-date label and compact relative-date filter. Native MediaWiki pageinfo-lasttime attests asakud/date and amggaru/last; currentrevisionlink and page_last confirm amggaru. Reuse the existing locale final-date terminology with the attested Moroccan date noun, avoiding inherited schwa-heavy azemz spelling. CLDR zgh fields/day relative 0 and 1 attest assa/today and askka/tomorrow. Full final-date compound as kanban deadline/due-date terminology and relative filter usage require fluent review; native component evidence does not validate that complete semantic adaptation. Preserve due-date versus completion distinction and today versus tomorrow. Replace French. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml"
+  },
+  {
+    "locale": "zgh",
+    "key": "filter-no-due-date",
+    "before": "Pas de date d'échéance",
+    "after": "ⵓⵔ ⵉⵍⵍⵉ ⵓⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ",
+    "reason": "LOW CONFIDENCE composed missing/weekly due-date filter. Reuse the documented final-date adaptation; complete kanban deadline semantics remain open. CLDR fields/week attests imalass/week. Native MediaWiki next attests indhfr/next, category-empty attests ad/this, and diff-empty attests ur illi/no singular object. Derive bound date form usakud for the negative clause. Preserve no-date versus due-date and current-week versus following-week scopes; client/lib/filter.js relativeWeek confirms calendar weeks rather than a rolling seven days. Full next-week agreement, bound state and complete filter phrasing require fluent review. Replace French and Arabic. References: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "filter-due-this-week",
+    "before": "Arrive à échéance cette semaine",
+    "after": "ⴰⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ: ⵉⵎⴰⵍⴰⵙⵙ ⴰⴷ",
+    "reason": "LOW CONFIDENCE composed missing/weekly due-date filter. Reuse the documented final-date adaptation; complete kanban deadline semantics remain open. CLDR fields/week attests imalass/week. Native MediaWiki next attests indhfr/next, category-empty attests ad/this, and diff-empty attests ur illi/no singular object. Derive bound date form usakud for the negative clause. Preserve no-date versus due-date and current-week versus following-week scopes; client/lib/filter.js relativeWeek confirms calendar weeks rather than a rolling seven days. Full next-week agreement, bound state and complete filter phrasing require fluent review. Replace French and Arabic. References: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "filter-due-next-week",
+    "before": "المقرر الاسبوع المقبل",
+    "after": "ⴰⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ: ⵉⵎⴰⵍⴰⵙⵙ ⵉⵏⴹⴼⵔ",
+    "reason": "LOW CONFIDENCE composed missing/weekly due-date filter. Reuse the documented final-date adaptation; complete kanban deadline semantics remain open. CLDR fields/week attests imalass/week. Native MediaWiki next attests indhfr/next, category-empty attests ad/this, and diff-empty attests ur illi/no singular object. Derive bound date form usakud for the negative clause. Preserve no-date versus due-date and current-week versus following-week scopes; client/lib/filter.js relativeWeek confirms calendar weeks rather than a rolling seven days. Full next-week agreement, bound state and complete filter phrasing require fluent review. Replace French and Arabic. References: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
