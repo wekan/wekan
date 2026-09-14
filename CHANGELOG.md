@@ -994,6 +994,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e1c372071">Repair Tamazight SMTP port wording</a></summary>
+
+Replace Arabic and French port strings with a borrowed network term and
+Tamazight outgoing-email description. Preserve your SMTP server's use of
+this port. Four focused suites pass; contextual grammar review remains open.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

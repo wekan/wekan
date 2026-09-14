@@ -29200,3 +29200,20 @@ terms and complete phrase grammar remain open to contextual review. Ledger
 19,867; tracked pending remains 154 because both findings were unflagged.
 The French smtp-port-description and Arabic smtp-port remain pending work;
 network port must not be confused with a harbour or physical connector.
+
+
+2026-09-15 — `e1c372071`: smtp-port-description French replaced with
+Tamazight outgoing-email wording; nearby unflagged Arabic smtp-port label
+changed to borrowed technical Port SMTP. Port is explicitly a loan, not a
+new attested Tamazight networking term. IRCAM entry 1154 aftas is harbour,
+so it was excluded; 5476 azn means send/dispatch and 9981 ssmrs means use.
+Existing smtp-host-description supplies server and electronic-message
+phrases. Description retains your server and sending purpose rather than
+incoming delivery, protocol or credential settings. settingBody.jade binds
+mailConfiguration.port and suggests 587; server/models/settings.js inserts
+that setting in MAIL_URL. Four focused suites pass for exact values,
+negative wrong-language/harbour wording and literal-token invariants.
+No live UI or SMTP delivery verification ran. Software compound and full
+contextual grammar remain low confidence. Ledger 19,869, corrected 15,750,
+pending 153 (zgh 60), restored 4 unchanged. Previous note's pending SMTP
+port wording is now repaired; native terminology review remains open.
