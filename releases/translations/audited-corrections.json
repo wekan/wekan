@@ -123569,5 +123569,19 @@
     "before": "Islamic (Saudi Arabia)",
     "after": "Hijri Intiwatana (Arabia Saudita rikusqa)",
     "reason": "Replace incomplete English Saudi Hijri label with Quechua. Primary Unicode CLDR https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/qu.xml directly supplies scope=core islamic-rgsa Hijri, Arabia Saudita rikusqa and full islamic Hijri Intiwatana. Compose the full label from those entries, retaining sighting rather than dropping it. LOW CONFIDENCE complete parenthesized composition requires fluent review. CLDR tbla Enfoque Astronómico means astronomical approach rather than explicitly astronomical epoch; do not use it to erase that distinction. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "deletePokerPopup-title",
+    "before": "Supprimer ce planning poker ?",
+    "after": "ⴽⴽⵙ Planning Poker ⴰⴷ?",
+    "reason": "Replace French planning poker popup label, retaining the named estimation technique Planning Poker rather than treating it as generic voting. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json edit snfl, delete kks and demonstrative ad; reuse the explicitly provisional audited vote end-date title for edit. Preserve this deletion question and change vote end-date action. LOW CONFIDENCE full mixed-script named-technique composition, election-to-card-voting adaptation and bound singular wastay require fluent review. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "editPokerEndDatePopup-title",
+    "before": "Changer la date de fin de vote du planning poker",
+    "after": "ⵙⵏⴼⵍ ⴰⵙⴰⴽⵓⴷ ⵏ ⵜⵉⴳⵉⵔⴰ ⵏ ⵡⴰⵙⵜⴰⵢ ⵏ Planning Poker",
+    "reason": "Replace French planning poker popup label, retaining the named estimation technique Planning Poker rather than treating it as generic voting. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json edit snfl, delete kks and demonstrative ad; reuse the explicitly provisional audited vote end-date title for edit. Preserve this deletion question and change vote end-date action. LOW CONFIDENCE full mixed-script named-technique composition, election-to-card-voting adaptation and bound singular wastay require fluent review. Reviewed 2026-09-14."
   }
 ]
