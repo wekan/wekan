@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,347 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 497 pending review or repair.
-The correction inventory records 17,682 exact before/after values,
+findings: 15,348 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 496 pending review or repair.
+The correction inventory records 17,683 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (362) and
+The largest original queues are Standard Moroccan Tamazight (361) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,10 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 666680f12 (2026-09-14), replacing the French
-email-invitation button while preserving the invitation action and email
-channel. The invitation verb and complete phrase remain low confidence
-and need renewed Moroccan dialect review.
+Latest translation fix is f559efd42 (2026-09-14), using the CLDR native
+Ethiopic base while preserving the Amete Alem calendar variant name.
+The composed mixed-script label remains low confidence and needs fluent review.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -624,10 +623,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,347 original findings are
+Translation audit progress as of 2026-09-14: 15,348 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 497 remain pending across 17 locales, including 362 Tamazight findings.
-The ledger contains 17,682 correction records, including unflagged repairs.
+and 496 remain pending across 17 locales, including 361 Tamazight findings.
+The ledger contains 17,683 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -1579,6 +1578,16 @@ Replace the French button with the existing Invite action and native email
 term, retaining the email channel. The invitation verb and full phrase
 remain low confidence and require renewed Moroccan dialect review. All
 17,682 correction/rendering checks pass; 497 originals remain pending.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f559efd42">Translate Tamazight Ethiopic Amete Alem calendar label</a>. Thanks to xet7.</summary>
+
+Use the CLDR native Ethiopic calendar base and retain Amete Alem to identify
+the era variant. The complete mixed-script label remains low confidence and
+needs fluent review. All 17,683 correction/rendering checks pass; 496 original
+findings remain pending, including 361 Tamazight findings.
 
 </details>
 

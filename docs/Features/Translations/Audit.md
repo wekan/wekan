@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,347 |
+| Corrected | 15,348 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 497 |
+| Pending review or repair | 496 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,682** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,683** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `666680f12` — replaced the French Tamazight email-invitation button, preserving the Invite action and email channel. Native email vocabulary is supported; the existing invitation verb and full phrase remain **low confidence** and need renewed Moroccan dialect review. All **17,682** correction/rendering checks pass. This unflagged repair leaves **497** originals pending across **17** locales, including **362** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `f559efd42` — replaced the English Ethiopic component of the Tamazight Amete Alem calendar label with the CLDR native base, preserving its era variant name. The composed mixed-script label remains **low confidence** and needs fluent review. All **17,683** correction/rendering checks pass. **496** originals remain pending across **17** locales, including **361** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Troubleshooting review (2026-09-14, `ccd2ff8b0`):** [Evidence](Audit-Evidence.md) separates native server/error vocabulary from indexed cross-dialect execution/installation terms. Complete Moroccan instructions remain unresolved; retain both literal commands and their snap/Docker installation conditions. No locale values or counts changed.
 
