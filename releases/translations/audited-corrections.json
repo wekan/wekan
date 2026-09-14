@@ -139046,5 +139046,12 @@
     "before": "Toutes les actions seront supprimées du fil d'activité et il ne sera plus possible de les récupérer. Cela est irréversible.",
     "after": "ⵔⴰⴷ ⵜⵜⵓⴽⴽⵙⵏⵜ ⵜⵉⴳⴰⵡⵉⵏ ⴰⴽⴽⵯ ⵙⴳ ⵜⵍⴳⴰⵎⵜ ⵏ ⵜⵉⴳⴰⵡⵉⵏ. ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⵥⵎⴷ ⵜⴰⵍⴳⴰⵎⵜ ⴷⴰⵖ. ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⴰⵔⴷ ⴷ ⴰⵢⴰ.",
     "reason": "2026-09-15: Replace French list warning with existing card-warning pattern adapted to list. Preserve source activity removal, no recovery of list, no undo. Full grammar low confidence; active softRemove/source warning contradiction remains open."
+  },
+  {
+    "locale": "zgh",
+    "key": "owner",
+    "before": "Propriétaire",
+    "after": "ⴱⴰⴱ ⵏ ⵜⴽⴰⵕⴹⴰ",
+    "reason": "2026-09-15: Replace unflagged French owner export heading with existing card-owner compound. IRCAM entry 5710 bab owner of, possessor of; exporters use this heading for card owner. Software compound and gender-neutral usage remain low confidence."
   }
 ]

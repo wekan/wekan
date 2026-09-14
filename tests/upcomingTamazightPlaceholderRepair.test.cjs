@@ -492,3 +492,8 @@ assert.doesNotMatch(translated['remove-member-pop'], /[\u0600-\u06ff]/u);
 
 assert.strictEqual(translated["list-delete-pop"], "ⵔⴰⴷ ⵜⵜⵓⴽⴽⵙⵏⵜ ⵜⵉⴳⴰⵡⵉⵏ ⴰⴽⴽⵯ ⵙⴳ ⵜⵍⴳⴰⵎⵜ ⵏ ⵜⵉⴳⴰⵡⵉⵏ. ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⵥⵎⴷ ⵜⴰⵍⴳⴰⵎⵜ ⴷⴰⵖ. ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⴰⵔⴷ ⴷ ⴰⵢⴰ.");
 assert.doesNotMatch(translated['list-delete-pop'], /Toutes|récupérer|[\u0600-\u06ff]/u);
+
+assert.strictEqual(translated.owner, 'ⴱⴰⴱ ⵏ ⵜⴽⴰⵕⴹⴰ');
+assert.doesNotMatch(translated.owner, /Propriétaire|[\u0600-\u06ff]/u);
+assert.ok(translated['export-card-field-people'].includes(translated.owner));
+console.log('Tamazight owner heading agrees with the card-owner export field');
