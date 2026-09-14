@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,565 corrected, 772 restored pre-pull values awaiting
-validation, 3,436 reviewed and retained, and 308 pending review or repair.
-The correction inventory records 18,165 exact before/after values,
+findings: 15,566 corrected, 742 restored pre-pull values awaiting
+validation, 3,465 reviewed and retained, and 308 pending review or repair.
+The correction inventory records 18,166 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
 of 829
@@ -1156,6 +1156,18 @@ Thanks to xet7 !
 Retained 30 correct storage, permission, restore/repair migration and
 progress labels. Scope qualifiers and technical identifiers remain intact.
 Exact review checks pass; broader language/browser review remains open.
+
+Thanks to xet7 !
+
+</details>
+
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/01fa30d1c">Fix Galician completed-subtask agreement and validate migration steps.</a></summary>
+
+The completed tooltip now agrees with the feminine subtask noun. Retained
+29 correct migration-step, scheduling interval and monitoring labels.
+Exact correction, placeholder and review checks pass; browser review remains open.
 
 Thanks to xet7 !
 

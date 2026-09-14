@@ -22370,3 +22370,12 @@ restoration/repair and step-progress labels. Duplicate/empty/all qualifiers
 and technical SSL/TLS, S3 and URL identifiers preserve the English meaning.
 The progress component displays overall/current-step labels and step counts.
 Exact unchanged-review checks pass; full language/browser scope remains open.
+
+### 2026-09-14 — Galician completed subtask and migration steps
+
+Local commit `01fa30d1c` corrects completed to Completada, matching feminine
+subtarefa in client/components/cards/subtasks.jade's completed icon tooltip.
+Twenty-nine migration-step, interval and monitoring labels retain correct
+meaning, numeric intervals, missing/duplicate/empty scope and technical IDs.
+Exact positive/negative correction and unchanged-review checks pass.
+Full language/browser scope remains open.
