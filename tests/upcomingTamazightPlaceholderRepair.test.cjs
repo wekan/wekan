@@ -550,3 +550,12 @@ assert.strictEqual(translated["accounts-lockout-info"], "ⵜⵉⵙⵖⴰⵍ ⴰ�
 assert.doesNotMatch(translated['accounts-lockout-info'], /Ces paramètres|tentatives|protégés|[\u0600-\u06ff]|ⵜⴰⵏⴹⴰⴼⵜ|ⴰⴷⵡⴰⵙ/u);
 assert.ok(translated['accounts-lockout-info'].includes('ⵜⵉⵙⵉⵔⴰⵎ ⵏ ⵓⴽⵛⵛⵓⵎ'));
 console.log('Tamazight lockout explanation retains login-attempt scope and brute-force attacks');
+
+assert.strictEqual(translated["Node_heap_total_heap_size"], "ⴰⴳⵓⴷⵉ ⵏ Node: ⵜⴰⵎⵓⵜⵜⵔⵜ ⵏ ⵓⵇⵓⴷⴷⵉ ⵏ ⵓⴳⵓⴷⵉ");
+
+assert.strictEqual(translated["Node_heap_used_heap_size"], "ⴰⴳⵓⴷⵉ ⵏ Node: ⴰⵇⵓⴷⴷⵉ ⵏ ⵓⴳⵓⴷⵉ ⵉⵜⵜⵓⵙⵙⵎⵔⵙⵏ");
+for (const key of ['Node_heap_total_heap_size', 'Node_heap_used_heap_size']) {
+ assert.doesNotMatch(translated[key], /Tas de|taille|[\u0600-\u06ff]/u);
+}
+assert.notStrictEqual(translated.Node_heap_total_heap_size, translated.Node_heap_used_heap_size);
+console.log('Tamazight total and used heap labels remain distinct');

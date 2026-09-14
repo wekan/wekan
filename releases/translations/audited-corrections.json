@@ -139144,5 +139144,19 @@
     "before": "Ces paramètres contrôlent comment les tentatives de connexion sont protégés des attaques par force brute.",
     "after": "ⵜⵉⵙⵖⴰⵍ ⴰⴷ ⵉ ⵓⵙⵏⴰⵎ ⵏ ⵓⴼⵔⴰⴳ ⵏ ⵜⵉⵙⵉⵔⴰⵎ ⵏ ⵓⴽⵛⵛⵓⵎ ⵙⴳ ⴰⵣⵣⴰⵖⵏ ⵏ brute force.",
     "reason": "2026-09-15: Replace French account-protection explanation with nominal settings-for-control-of-protection-of-login-trials-from-brute-force-attacks paraphrase. IRCAM control asnam 4565, protection afrag 1065, trial tisirimt/tisiram 12953, attack azzagh plural azzaghn 5575. Brute force borrowed technical term. Full nominal chain, bound states and trial-to-login-attempt adaptation low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "Node_heap_total_heap_size",
+    "before": "Tas de Node : taille totale du tas",
+    "after": "ⴰⴳⵓⴷⵉ ⵏ Node: ⵜⴰⵎⵓⵜⵜⵔⵜ ⵏ ⵓⵇⵓⴷⴷⵉ ⵏ ⵓⴳⵓⴷⵉ",
+    "reason": "2026-09-15: Replace French heap size diagnostic. IRCAM agudi heap 528, aquddi size 1779, tamuttrt total 11282, ssmrs use 9981. Preserve total vs used distinction per Node V8 documentation. Heap metaphor, technical size compound and passive participle remain low confidence; no native full-phrase validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "Node_heap_used_heap_size",
+    "before": "Tas de Node : taille du tas utilisé",
+    "after": "ⴰⴳⵓⴷⵉ ⵏ Node: ⴰⵇⵓⴷⴷⵉ ⵏ ⵓⴳⵓⴷⵉ ⵉⵜⵜⵓⵙⵙⵎⵔⵙⵏ",
+    "reason": "2026-09-15: Replace French heap size diagnostic. IRCAM agudi heap 528, aquddi size 1779, tamuttrt total 11282, ssmrs use 9981. Preserve total vs used distinction per Node V8 documentation. Heap metaphor, technical size compound and passive participle remain low confidence; no native full-phrase validation."
   }
 ]
