@@ -28,7 +28,7 @@ repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
-Latest terminology review: **2026-09-14** — board archive guidance
+Latest terminology review: **2026-09-14**, `1444c8f94` — archive guidance
 still open. Native MediaWiki supports the existing home-page term;
 IRCAM plug/clothing-button senses do not prove UI button terminology.
 No locale/count change. Actual home Archive location and full phrasing

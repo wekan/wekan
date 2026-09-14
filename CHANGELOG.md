@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1444c8f94">Review Tamazight archive guidance terminology</a>. Thanks to xet7.</summary>
+
+Native software evidence supports the existing home-page term. Dictionary
+plug and clothing-button senses do not prove UI controls, so the full
+archive guidance remains unresolved. Dated evidence records the remaining
+terminology and location checks; no locale or browser changes are claimed.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/852861ce0">Repair Tamazight remaining-time lockout label</a>. Thanks to xet7.</summary>
 
 IRCAM time/remain terminology replaces an additional French label.
