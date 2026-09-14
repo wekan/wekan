@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,232 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 612 pending review or repair.
-The correction inventory records 17,494 exact before/after values,
+findings: 15,234 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 610 pending review or repair.
+The correction inventory records 17,497 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (469) and
+The largest original queues are Standard Moroccan Tamazight (467) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,10 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 7fbf0632b (2026-09-14), replacing three Arabic
-activity/email template labels and restoring omitted notification meaning.
-Activity adaptation, bound forms and full label phrases remain low
-confidence pending fluent review.
+Latest translation fix is 58f8b6e5c (2026-09-14), replacing three Arabic
+invitation/email labels. Preserve invitation versus reception/prompt and
+body versus subject; dialect adaptation, imperative spelling and complete
+label chains remain low confidence pending fluent review.
 Greenlandic CLDR-unconfirmed wording and twelve Quechua color wrappers
 still need review, alongside the wider restored and unflagged values.
 Tamazight calendar review dd2aaa19a (2026-09-14) records provisional
@@ -115,7 +115,7 @@ names and unresolved Coptic/tabular/epoch terminology; no values changed. Previo
 Cherokee Hijri labels with exact native-script CLDR variant names. Cherokee’s
 original queue is empty. Compact tabular epoch wording still needs fluent
 technical review. Quechua palette compounds and remaining color wrappers
-remain open. There are 469 Tamazight findings remaining.
+remain open. There are 467 Tamazight findings remaining.
 Silesian reference review (2026-09-14) confirms shared database/file terms
 in native MediaWiki messages; the full raw-file label remains pending.
 No translation value or finding count changed in that review.
@@ -625,10 +625,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,232 original findings are
+Translation audit progress as of 2026-09-14: 15,234 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 612 remain pending across 17 locales, including 469 Tamazight findings.
-The ledger contains 17,494 correction records, including unflagged repairs.
+and 610 remain pending across 17 locales, including 467 Tamazight findings.
+The ledger contains 17,497 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -683,6 +683,17 @@ Restore omitted notification meaning and preserve email body versus subject.
 Activity terminology adaptation, bound forms, notification plurality and
 full label chains remain low confidence. All 17,494 correction checks pass;
 wider language validation and live browser checks remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/58f8b6e5c">Translate Tamazight invitation email template labels</a>. Thanks to xet7.</summary>
+
+Replace three Arabic labels: two original findings and one unflagged value.
+Preserve invitation versus reception/computer prompt, body text versus
+subject and Invite action. Dialect adaptation, imperative spelling and full
+label chains remain low confidence. All 17,497 correction checks pass; wider
+language validation and live browser checks remain open.
 
 </details>
 
