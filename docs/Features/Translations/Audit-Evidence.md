@@ -28031,3 +28031,28 @@ wording from the current attachmentDeletePopup, which renders
 attachment-soft-delete-pop and calls attachments.softDelete. Do not insert
 permanent/no-undo text into that active soft-delete popup. The legacy key's
 wrong-language translation remains in the pending queue. No remote writes.
+
+
+## Label deletion warning — 2026-09-15
+
+Local commit `4f07f43d8` replaces Arabic label-delete-pop. Retain no undo,
+this label's removal from all cards, and deletion of its history. A separate
+history clause avoids implying merely removal of a label from history.
+The active deleteLabelPopup in labels.jade renders this warning.
+
+IRCAM cached dictionary page 166 entry 3066 gives amzruy (history), bound
+form umzruy. MediaWiki's native zgh history_short/history_small and
+history labels independently support the noun in an interface context:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+Dictionary: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+Existing warning/future, removal and plural-card terminology are reused.
+These support components, not the entire newly composed warning.
+
+**Low confidence:** future passive agreement, label demonstrative and
+history ownership construction remain under native contextual review.
+Four focused suites pass: no undo, all-card scope, independent history
+removal clause, negative Arabic checks, actual popup wiring, placeholders,
+ledger, retained reviews and completeness. No live UI test ran. Ledger
+19,828; original corrected 15,719, pending 184 (zgh 89), restored 4
+unchanged. Broader uncertain/restored/unflagged review remains open.
+No remote writes.

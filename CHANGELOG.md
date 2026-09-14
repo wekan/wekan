@@ -642,7 +642,8 @@ rule behavior stays the same; card movement and new-card creation labels
 retain their destination and new-card meaning. Regression checks preserve
 placeholders and verify label wiring; complete contextual grammar remains
 under review. Planning Poker deletion text also preserves irreversible
-deletion and loss of associated actions.
+deletion and loss of associated actions. Label deletion text preserves
+removal from every card and destruction of label history.
 
 This release includes the following features and fixes:
 
@@ -677,6 +678,17 @@ of all associated actions. Reuse related Tamazight warning constructions.
 Four focused suites pass for warning scope, negative wrong-language checks,
 template wiring and translation structure. Complete contextual grammar
 remains under native review. Dated audit records the remaining 185 findings.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4f07f43d8">Repair Tamazight label deletion warning</a>. Thanks to xet7.</summary>
+
+Replace Arabic warning while preserving no undo, label removal from all
+cards and deletion of its history. Four focused suites pass for warning
+scope, negative Arabic checks, popup wiring and translation structure.
+Complete contextual grammar remains under native review. Dated audit
+records 184 original findings still pending.
 
 </details>
 
