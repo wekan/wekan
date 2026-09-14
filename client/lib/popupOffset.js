@@ -52,6 +52,13 @@ function computePopupOffset(params) {
     return { left: 0, top: 0 };
   }
 
+  // This draggable settings panel uses fixed viewport coordinates.
+  if (popupName === 'boardViewSettingsPopup') {
+    const width = Math.min(900, viewportWidth * 0.9);
+    return { left: (viewportWidth - width) / 2, top: 12,
+      maxHeight: Math.max(0, viewportHeight - 24) };
+  }
+
   // Actual popup width from CSS: min(380px, 55vw)...
   //
   // ...except for the popups that lay their content out in COLUMNS, which are

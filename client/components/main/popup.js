@@ -17,7 +17,7 @@ function resizeDatePopup(element, width, height) {
 Popup.template.events({
   'pointerdown .header'(evt, tpl) {
     const element = evt.currentTarget.closest('.pop-over');
-    if (evt.button !== 0 || !element.querySelector('.edit-date') ||
+    if (evt.button !== 0 || (!element.querySelector('.edit-date') && element.dataset.popup !== 'boardViewSettingsPopup') ||
         evt.target.closest('a, button, input, select')) return;
     evt.preventDefault(); evt.stopPropagation();
     const bounds = element.getBoundingClientRect();

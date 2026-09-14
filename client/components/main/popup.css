@@ -492,6 +492,7 @@
   width: 100%;
   margin: 0;
 }
+.pop-over[data-popup='boardViewSettingsPopup'] > .header,
 .pop-over:has(.edit-date) > .header {
   cursor: move;
   touch-action: none;
@@ -513,6 +514,7 @@
 .pop-over .js-date-popup-resize {
   display: none;
 }
+.pop-over[data-popup='boardViewSettingsPopup'] > .js-date-popup-resize,
 .pop-over:has(.edit-date) > .js-date-popup-resize {
   display: block;
   position: absolute;
@@ -531,10 +533,12 @@
   touch-action: none;
 }
 /* The requested resize grip stays at the physical bottom-right in RTL too. */
+html[dir='rtl'] .pop-over[data-popup='boardViewSettingsPopup'] > .js-date-popup-resize,
 html[dir='rtl'] .pop-over:has(.edit-date) > .js-date-popup-resize {
   inset-inline-start: 0;
   inset-inline-end: auto;
 }
+.pop-over[data-popup='boardViewSettingsPopup'] > .js-date-popup-resize:focus-visible,
 .pop-over:has(.edit-date) > .js-date-popup-resize:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: -2px;
@@ -1297,4 +1301,22 @@ body.mobile-mode .pop-over .content-wrapper {
 }
 .pop-over[data-popup='changeLanguagePopup'] .language-region {
   unicode-bidi: isolate;
+}
+
+/* Board View Settings can move and resize independently of the sidebar. */
+.pop-over[data-popup='boardViewSettingsPopup'] {
+  position: fixed;
+  box-sizing: border-box;
+  width: min(900px, 90vw) !important;
+  min-width: min(320px, calc(100vw - 24px));
+  max-width: calc(100vw - 24px) !important;
+  max-height: calc(100dvh - 24px) !important;
+  margin-top: 0;
+  overflow: hidden;
+}
+.pop-over[data-popup='boardViewSettingsPopup'] .content-wrapper {
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow: auto;
+  padding-bottom: 20px;
 }

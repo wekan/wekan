@@ -74,3 +74,22 @@ element.querySelector = () => null;
 events['pointerdown .header'](moveEvent, tpl);
 assert.equal(tpl._dateMove, null, 'other popups retain their original behavior');
 console.log('Date popup title dragging, viewport limits and interactive header exclusions passed');
+
+element.dataset.popup = 'boardViewSettingsPopup';
+events['pointerdown .header'](moveEvent, tpl);
+assert.ok(tpl._dateMove, 'Board View Settings can drag without a date editor');
+events['pointermove .header']({ ...moveEvent, clientX: -10000 }, tpl);
+assert.equal(element.style.left, '12px', 'settings dragging stays visible');
+events['pointerup .header, pointercancel .header, lostpointercapture .header'](moveEvent, tpl);
+events['pointerdown .header']({ ...moveEvent, button: 2 }, tpl);
+assert.equal(tpl._dateMove, null, 'secondary click does not drag settings');
+const geometry = fs.readFileSync(path.join(__dirname, '../client/lib/popupOffset.js'), 'utf8');
+const offsetContext = {};
+vm.runInNewContext(geometry.replace(/export \{[^}]+\};/, ''), offsetContext);
+const offset = offsetContext.computePopupOffset({ viewportWidth: 1280,
+  viewportHeight: 720, scrollLeft: 100, scrollTop: 900,
+  popupName: 'boardViewSettingsPopup', opener: { left: 1250, top: 1500, height: 20 } });
+assert.equal(offset.left, 190, 'fixed wide settings ignores sidebar/document scroll');
+assert.equal(offset.top, 12);
+assert.equal(offset.maxHeight, 696);
+console.log('Board View Settings dragging and fixed viewport geometry passed');
