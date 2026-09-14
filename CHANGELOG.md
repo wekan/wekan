@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/94c8857fd">Trace migration progress translation gaps</a>. Thanks to xet7.</summary>
+
+The audit distinguishes active raw stage IDs from unreachable legacy labels.
+Active stages require translation keys and reactive integration; obsolete
+board migrations must stay removed. No runtime change is claimed.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2c38b996b">Replace French Tamazight orphaned-card label</a>. Thanks to xet7.</summary>
 
 The repair label uses adapted native vocabulary for orphaned cards. Four

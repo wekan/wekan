@@ -15,7 +15,13 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 evidence. Magenta remains pending; nearby color names do not establish a
 correct replacement. Counts are unchanged.
 
-Latest primary-source review: **2026-09-14**, `d1d06c706` —
+Latest integration review: **2026-09-14**, `94c8857fd` —
+[Tamazight review](Tamazight-Review.md) traces raw active migration stage IDs
+that bypass translations, plus an unreachable legacy step key. New stage labels
+and locale coverage are required; removed migrations must stay removed.
+No translation changed and counts remain 281 pending/4 restored.
+
+Previous primary-source review: **2026-09-14**, `d1d06c706` —
 [Tamazight review](Tamazight-Review.md) records independently read IRCAM
 dictionary entries and grammatical forms. Subtitle and activation components
 are confirmed; complete software phrases remain open. Counts are unchanged.

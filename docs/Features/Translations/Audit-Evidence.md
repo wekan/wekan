@@ -24385,3 +24385,10 @@ French repair wording is replaced; source confirms missing swimlane references.
 Four checks pass; adapted metaphor/agreement and rendering remain open.
 Ledger: 18,706; original counts: 15,621 corrected, 281 pending, 4 restored,
 4,175 retained. No browser validation ran.
+
+## Active migration translation gap — 2026-09-14
+
+Local source review `94c8857fd`: [actual reactive helper and caller trace](Tamazight-Review.md).
+Raw repair_board_data/copy_collections labels lack translation keys; the popup
+capitalizes raw IDs rather than reading step translations. Legacy migrations
+must stay removed. No runtime or translation change; 281 pending/4 restored.
