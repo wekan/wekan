@@ -26579,3 +26579,26 @@ zgh 120 → 119; restored 4 unchanged. All remaining full phrases and
 prior low-confidence values remain within the audit scope.
 Source:
 https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+
+
+Remaining-time repair **2026-09-14**, local commit `852861ce0`:
+accounts-lockout-remaining-time replaces French Temps restant with
+**ⴰⴽⵓⴷ ⵍⵍⵉ ⵉⵇⵇⵉⵎⵏ**, a draft meaning time that remains. Primary
+IRCAM General Dictionary page 79 entry 1260 attests akud/time; page 359
+entry 6809 attests qqim/stay-remain. Low confidence: the derived relative
+verb and countdown collocation require native review; the dictionary
+attests the component roots, not this full computing phrase. Four locale
+suites pass with exact wording, French/Arabic rejection and distinction
+from configured lockout period/failure window. Tokens, English key order
+and newer correct-language translation preference remain protected.
+No active Jade/JS reference to this key was found in the bounded client
+search. No UI was added to expose a dormant key, and no browser execution
+is claimed. lockedUsersBody.js formats remainingLockTime separately;
+that source does not prove this label is rendered. Additional unflagged
+repair: ledger 18,853; original corrected 15,676, pending 226 (zgh 119),
+restored 4 unchanged. Full phrases and prior uncertainties stay in scope.
+Attempt terminology follow-up: the tirmit hits concern experience/travel
+or geological experimentation, not unsuccessful authentication attempts.
+No acceptance of failed-attempts is inferred from those different senses.
+Source:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339

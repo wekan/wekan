@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/852861ce0">Repair Tamazight remaining-time lockout label</a>. Thanks to xet7.</summary>
+
+IRCAM time/remain terminology replaces an additional French label.
+Four locale suites pass, keeping remaining time distinct from configured
+lockout periods and protecting placeholders. Relative-verb form and
+countdown collocation remain low confidence; no browser claim is made.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8d3dca66a">Repair Tamazight locked-users description</a>. Thanks to xet7.</summary>
 
 The full French description becomes a Tamazight draft retaining plural

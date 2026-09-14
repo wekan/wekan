@@ -16,14 +16,14 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `8d3dca66a` —
-Full French locked-users description replaced with a Tamazight draft.
-Four locale suites preserve plural subject, current state and failed-login
-reason. Native causal phrasing remains low confidence; no browser claim.
-Ledger 18,852; pending 226 (zgh 119), restored 4 unchanged.
+Latest translation fix: **2026-09-14**, local commit `852861ce0` —
+French remaining-time label replaced with a Tamazight draft based on
+IRCAM time/remain terms. Four locale suites pass; relative-verb form and
+countdown collocation remain low confidence. Ledger 18,853; original
+pending 226 (zgh 119), restored 4 unchanged.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,852** exact before/after values, including unflagged
+records contain **18,853** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
