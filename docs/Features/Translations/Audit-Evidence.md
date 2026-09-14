@@ -23345,3 +23345,31 @@ Correction ledger: 18,527. Original queue remains 15,601 corrected,
 These fourteen repairs are outside the original flagged queue. Remaining
 restored, uncertain, unflagged and low-confidence reviews remain open.
 No external service, dependency, subagent or push was used.
+
+### 2026-09-14 — Breton entity views, archives and lockout controls
+
+Local commit `9ccd4b8ce` repairs fifteen French-seeded labels:
+board-view-swimlanes, swimlaneActionPopup-title, no-archived-swimlanes,
+card-templates-swimlane, board-templates-swimlane, subtaskActionsPopup-title,
+has-swimlanes, swimlane-title-not-found, default-subtasks-board,
+accounts-lockout-locked-users, accounts-lockout-status,
+accounts-lockout-unlock-all, no-archived-cards, no-archived-lists and
+listActionPopup-title. Existing local entity nouns, patromoù, dielloù,
+Oberoù, Stad and stanket/distankañ terminology are reused. Native
+[Ofis public-action material](https://www.fr.brezhoneg.bzh/uploads/Document/9d/641_246_Panellerezh-hent.pdf)
+uses oberoù for actions. This is lexical evidence, not independent native
+attestation of every complete kanban compound.
+
+sidebarArchives.jade exposes the empty swimlane archive label; boardBody.jade
+uses the has-swimlanes diagnostic, and boards.js uses the default-subtasks
+board title. Exact %s and __board__ tokens are preserved. Regression coverage
+checks consistency with existing swimlane/status labels, lockout actions,
+placeholders and rejection of French seeds. Four focused suites pass,
+including exact ledgers, tokens and all-locale completeness. Full phrase
+and live browser validation remain open.
+
+Correction ledger: 18,542; original queue remains 15,601 corrected,
+19 restored awaiting validation, 4,162 retained and 299 pending (20,081 total).
+These fifteen repairs are outside the original flagged queue. Remaining
+restored, uncertain, unflagged and low-confidence reviews remain open.
+No external service, dependency, subagent or push was used.
