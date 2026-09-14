@@ -121511,5 +121511,19 @@
     "before": "Ẓreg amzwaru n uḍris",
     "after": "ⵙⵏⴼⵍ ⵙ ⵓⴹⵕⵉⵙ",
     "reason": "LOW CONFIDENCE composed Edit as text control. Native MediaWiki edit/skin-view-edit attest snfl/edit; yourtext attests adhris/text and tooltip-search-fulltext attests its bound udhrich variant. Derive bound udhris with consistent noun spelling. Remove the inherited amzwaru/first qualifier absent from English; preserve textual editing mode rather than checklist reordering. Complete as-text phrasing and bound spelling require fluent review. This unflagged wording repair does not reduce original pending counts. Checklist noun research remains separate: candidate lexicon explicitly labels asenqed/check KBL, not verified Standard Moroccan terminology. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "members",
+    "before": "أعضاء",
+    "after": "ⵉⴳⵎⴰⵎⵏ",
+    "reason": "Native MediaWiki nmembers attests plural igmamn/members. Replace Arabic generic member label and French board-members label. For board-members combine native Mastodon notifications.filter.all all form with inherited board/Tafelwit, using bound tflwit attested in MediaWiki metadata-fields table wording. LOW CONFIDENCE full all-board-members phrase and table-to-kanban-board lexical adaptation; generic plural members noun is directly attested. Preserve board membership rather than substituting all users or card assignees. Full compound needs fluent review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "board_members",
+    "before": "Tous les participants du tableau",
+    "after": "ⵉⴳⵎⴰⵎⵏ ⴰⴽⴽⵯ ⵏ ⵜⴼⵍⵡⵉⵜ",
+    "reason": "Native MediaWiki nmembers attests plural igmamn/members. Replace Arabic generic member label and French board-members label. For board-members combine native Mastodon notifications.filter.all all form with inherited board/Tafelwit, using bound tflwit attested in MediaWiki metadata-fields table wording. LOW CONFIDENCE full all-board-members phrase and table-to-kanban-board lexical adaptation; generic plural members noun is directly attested. Preserve board membership rather than substituting all users or card assignees. Full compound needs fluent review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
   }
 ]
