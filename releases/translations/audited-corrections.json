@@ -125193,5 +125193,33 @@
     "before": "إغلاق الشريط الجانبي",
     "after": "ⵔⴳⵍ ⴰⴼⴳⴳⵓ ⵏ ⵜⴰⵎⴰ",
     "reason": "2026-09-14: Replace Arabic/French with provisional Standard Moroccan Tamazight. Preserve separate Close Dialog, Open/Close Sidebar, and toggle Show/Hide for distinct Filter/Search/Board sidebar scopes. keyboard.js confirms ESC/w/f/slash mappings. Native Mastodon lightbox.close/video.close attests ⵔⴳⵍ Close and video.hide ⴼⴼⵔ Hide; native MediaWiki view attests ⵙⴽⵏ Show, search ⴰⵔⵣⵣⵓ Search, and mytalk ⴰⵎⵙⴰⵡⴰⵍ discussion. Native pinned Dialect Open Preferences attests ⵕⵥⵎ Open. Sidebar paraphrase reuses local drag-to-resize-sidebar Side Panel, which is not independent validation; filter/board terminology and bound forms follow local usage. Dialog is provisionally Discussion Window, with Window adapted from MediaWiki newwindow; not a directly attested software Dialog noun. Full compounds, bound forms and noun paraphrases remain LOW CONFIDENCE for native review. Sources: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po ."
+  },
+  {
+    "locale": "zgh",
+    "key": "shortcut-add-self",
+    "before": "S'ajouter à la carte courante",
+    "after": "ⵔⵏⵓ ⵉⵎⴰⵏ ⵏⵏⴽ ⵉ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵉⵔⴰⵏⵜ",
+    "reason": "2026-09-14: Replace Arabic/French shortcut text. Preserve membership Add self versus responsibility Assign self, both current-card scopes, and My cards versus My assigned cards. keyboard.js uses Filter.members for q and Filter.assignees for a. Native MediaWiki filehist-current attests Current ⴰⵎⵉⵔⴰⵏ; feminine form is derived. Native MediaWiki metadata-help attests Given ⵉⵜⵜⵓⴼⴽⴰ, supporting provisional Give-to-self/Assigned-to-me wording; this is not a directly attested responsibility-assignment label. Add and Filter/Card reuse existing local terminology. Reflexive/possessive forms, plural passive Given, assignment semantic adaptation and all assembled clauses remain LOW CONFIDENCE requiring native validation; no claim that local reuse or script checks prove fluency. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "shortcut-assign-self",
+    "before": "Affecter cette carte à vous-même",
+    "after": "ⴼⴽ ⵜⴰⴽⴰⵕⴹⴰ ⵜⴰⵎⵉⵔⴰⵏⵜ ⵉ ⵉⵎⴰⵏ ⵏⵏⴽ",
+    "reason": "2026-09-14: Replace Arabic/French shortcut text. Preserve membership Add self versus responsibility Assign self, both current-card scopes, and My cards versus My assigned cards. keyboard.js uses Filter.members for q and Filter.assignees for a. Native MediaWiki filehist-current attests Current ⴰⵎⵉⵔⴰⵏ; feminine form is derived. Native MediaWiki metadata-help attests Given ⵉⵜⵜⵓⴼⴽⴰ, supporting provisional Give-to-self/Assigned-to-me wording; this is not a directly attested responsibility-assignment label. Add and Filter/Card reuse existing local terminology. Reflexive/possessive forms, plural passive Given, assignment semantic adaptation and all assembled clauses remain LOW CONFIDENCE requiring native validation; no claim that local reuse or script checks prove fluency. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "shortcut-filter-my-cards",
+    "before": "تصفية بطاقاتي",
+    "after": "ⵣⵉⵣⴷⵉⴳ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵉⵏⵓ",
+    "reason": "2026-09-14: Replace Arabic/French shortcut text. Preserve membership Add self versus responsibility Assign self, both current-card scopes, and My cards versus My assigned cards. keyboard.js uses Filter.members for q and Filter.assignees for a. Native MediaWiki filehist-current attests Current ⴰⵎⵉⵔⴰⵏ; feminine form is derived. Native MediaWiki metadata-help attests Given ⵉⵜⵜⵓⴼⴽⴰ, supporting provisional Give-to-self/Assigned-to-me wording; this is not a directly attested responsibility-assignment label. Add and Filter/Card reuse existing local terminology. Reflexive/possessive forms, plural passive Given, assignment semantic adaptation and all assembled clauses remain LOW CONFIDENCE requiring native validation; no claim that local reuse or script checks prove fluency. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "shortcut-filter-my-assigned-cards",
+    "before": "تصفية البطاقات المخصصة لي",
+    "after": "ⵣⵉⵣⴷⵉⴳ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵜⵜⵓⴼⴽⴰⵏⵉⵏ ⵉⵢⵉ",
+    "reason": "2026-09-14: Replace Arabic/French shortcut text. Preserve membership Add self versus responsibility Assign self, both current-card scopes, and My cards versus My assigned cards. keyboard.js uses Filter.members for q and Filter.assignees for a. Native MediaWiki filehist-current attests Current ⴰⵎⵉⵔⴰⵏ; feminine form is derived. Native MediaWiki metadata-help attests Given ⵉⵜⵜⵓⴼⴽⴰ, supporting provisional Give-to-self/Assigned-to-me wording; this is not a directly attested responsibility-assignment label. Add and Filter/Card reuse existing local terminology. Reflexive/possessive forms, plural passive Given, assignment semantic adaptation and all assembled clauses remain LOW CONFIDENCE requiring native validation; no claim that local reuse or script checks prove fluency. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
