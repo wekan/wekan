@@ -15070,5 +15070,245 @@
     "key": "dueCards-noResults-title",
     "value": "Non se atoparon tarxetas con vencemento",
     "reason": "Direct semantic review retains Galician irreversible swimlane/account/team/organization deletion warnings, exact mention placeholders, linked-card deletion order, unread/card visibility and personal/due-card view controls. Due-card help preserves incomplete-card and user-permission restrictions and markdown emphasis. Attachment grammar remains separately unaccepted."
+  },
+  {
+    "locale": "gl",
+    "key": "dueCards-noResults-description",
+    "value": "Neste momento non tes ningunha tarxeta con data de vencemento.",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "broken-cards",
+    "value": "Tarxetas danadas",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "board-title-not-found",
+    "value": "Non se atopou o taboleiro '%s'.",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "swimlane-title-not-found",
+    "value": "Non se atopou o carril '%s'.",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "list-title-not-found",
+    "value": "Non se atopou a lista '%s'.",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "label-not-found",
+    "value": "Non se atopou a etiqueta '%s'.",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "label-color-not-found",
+    "value": "Non se atopou a cor de etiqueta %s.",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "user-username-not-found",
+    "value": "Non se atopou o nome de usuario '%s'.",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "comment-not-found",
+    "value": "Non se atopou ningunha tarxeta cun comentario que conteña o texto '%s'.",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "org-name-not-found",
+    "value": "Non se atopou a organización '%s'.",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "team-name-not-found",
+    "value": "Non se atopou o equipo '%s'.",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-title",
+    "value": "Procurar en todos os taboleiros",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "no-cards-found",
+    "value": "Non se atoparon tarxetas",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "one-card-found",
+    "value": "Atopouse unha tarxeta",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "n-cards-found",
+    "value": "Atopáronse %s tarxetas",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "n-n-of-n-cards-found",
+    "value": "__start__-__end__ de __total__ tarxetas atopadas",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "operator-board",
+    "value": "taboleiro",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "operator-checklist-text",
+    "value": "lista de verificación",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "predicate-checklist",
+    "value": "lista de verificación",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "operator-unknown-error",
+    "value": "%s non é un operador",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "operator-status-invalid",
+    "value": "'%s' non é un estado válido",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "operator-has-invalid",
+    "value": "%s non é unha comprobación de existencia válida",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "operator-limit-invalid",
+    "value": "%s non é un límite válido. O límite debe ser un número enteiro positivo.",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "operator-debug-invalid",
+    "value": "%s non é un predicado de depuración válido",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-description",
+    "value": "As procuras poden incluír operadores para afinar a procura. Os operadores indícanse escribindo o nome do operador e o valor separados por dous puntos. Por exemplo, unha especificación de operador `list:Blocked` limitaría a procura ás tarxetas contidas nunha lista chamada *Blocked*. Se o valor contén espazos ou caracteres especiais, debe ir entre comiñas (p. ex. `__operator_list__:\"To Review\"`).",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-operator-board",
+    "value": "`__operator_board__:<title>` - tarxetas en taboleiros que coinciden co *<title>* indicado",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-operator-list",
+    "value": "`__operator_list__:<title>` - tarxetas en listas que coinciden co *<title>* indicado",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-operator-swimlane",
+    "value": "`__operator_swimlane__:<title>` - tarxetas en carrís que coinciden co *<title>* indicado",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-operator-comment",
+    "value": "`__operator_comment__:<text>` - tarxetas cun comentario que contén *<text>*.",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-operator-user",
+    "value": "`__operator_user__:<username>` - tarxetas nas que *<username>* é *membro* ou *asignado*",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-operator-member",
+    "value": "`__operator_member__:<username>` - tarxetas nas que *<username>* é *membro*",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-operator-assignee",
+    "value": "`__operator_assignee__:<username>` - tarxetas nas que *<username>* é *asignado*",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-operator-creator",
+    "value": "`__operator_creator__:<username>` - tarxetas nas que *<username>* é o creador da tarxeta",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-operator-org",
+    "value": "`__operator_org__:<display name|short name>` - tarxetas que pertencen a un taboleiro asignado á organización *<name>*",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-operator-team",
+    "value": "`__operator_team__:<display name|short name>` - tarxetas que pertencen a un taboleiro asignado ao equipo *<name>*",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-operator-created",
+    "value": "`__operator_created__:<n>` - tarxetas creadas hai *<n>* días ou menos",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-operator-modified",
+    "value": "`__operator_modified__:<n>` - tarxetas modificadas hai *<n>* días ou menos",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-status-archived",
+    "value": "`__predicate_archived__` - tarxetas arquivadas",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-status-all",
+    "value": "`__predicate_all__` - todas as tarxetas arquivadas e non arquivadas",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
+  },
+  {
+    "locale": "gl",
+    "key": "globalSearch-instructions-status-ended",
+    "value": "`__predicate_ended__` - tarxetas cunha data de fin",
+    "reason": "Direct semantic review retains Galician search results and operator help. Not-found errors preserve their objects and format tokens; counts preserve start/end/total. Instructions retain literal syntax, quoting, role alternatives, organization/team association, created/modified day thresholds and archived/end-date distinctions."
   }
 ]
