@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,610 |
-| Restored pre-pull; awaiting validation | 17 |
-| Reviewed; retained unchanged | 4,163 |
+| Restored pre-pull; awaiting validation | 16 |
+| Reviewed; retained unchanged | 4,164 |
 | Pending review or repair | 291 |
 | Total tracked | 20,081 |
 
@@ -32,9 +32,14 @@ Latest translation fix: **2026-09-14**, local commit `7c2e8f891` —
 three Breton repository labels replace French name/create/not-found wording.
 Native Synaptic software terminology supports the repository noun; full
 adapted phrases and browser review remain open. All **18,596** corrections,
-**4,163** unchanged reviews, focused locale and completeness checks pass.
-These unflagged repairs leave 291 pending and 17 restored findings unchanged.
-Latest unchanged review: **2026-09-14**, Thai r-is —
+**4,164** unchanged reviews, focused locale and completeness checks pass.
+These unflagged repairs leave 291 pending and 16 restored findings unchanged.
+Latest unchanged review: **2026-09-14**, local commit `9f7f94825` —
+Valencian color-peachpuff retains préssec, attested as a native color name.
+The actual pale-peach swatch is #ffdab9; no separate peach key competes with it.
+The review validates a descriptive palette label, not a standardized native
+translation of a CSS keyword. One restored finding is resolved; 16 remain.
+Earlier unchanged review: **2026-09-14**, Thai r-is —
 คือ retained after removing its incorrect insertion before action predicates.
 Danish Dage gammel remains validated in `824dd005e` with native age-construction
 evidence; no current application use was found for that Danish key.
@@ -46,7 +51,7 @@ Additional unflagged unchanged review: **2026-09-14**, `39af6aae5` —
 Veps Server and Valencian Errors retained with native software evidence and
 protected per locale from filling. Zero unreviewed English placeholders remain;
 this does not establish correct language or fluency in all values. These two reviews are outside the original flagged ledger; current
-pending/restored counts are 291/17.
+pending/restored counts are 291/16.
 
 
 

@@ -23636,3 +23636,21 @@ client, imports and tools; dormant strings remain in audit scope. Existing
 upload-repository already uses the same repository noun. Exact corrections,
 positive/negative distinct label checks and completeness pass. Original pending
 and restored counts remain 291/17; the correction ledger now has 18,596 entries.
+
+
+Valencian restored peach-color review — 2026-09-14, local commit `9f7f94825`.
+
+Retain color-peachpuff = préssec unchanged. The cardDetails stylesheet defines
+its swatch as #ffdab9, and exports use the same RGB color. The palette has no
+separate peach key; plum and lime remain different labels.
+[Valencian reporting of Borriana textile colors](https://www.elperiodic.com/val/burriana/colors-portaran-reines-falleres-burriana-2019-blau-ultramar-pressec_591965)
+explicitly describes préssec as a textile color (article body, 2018-11-04),
+with native seua/sigut/lluirà constructions in surrounding prose.
+[IEC Catalan-Valencian-Balear dictionary](https://dcvb.iec.cat/results.asp?word=pressec)
+supports the noun and its regional usage. The reporting supports the color
+sense rather than a specific standardized CSS shade. This is sufficient for
+a descriptive palette label; no claim is made that the article specifies
+#ffdab9. Preserve the correct native translation instead of replacing it with
+a guessed technical phrase. Exact review, distinct palette-label/swatch and
+completeness checks pass. Browser color-picker validation remains open.
+Restored findings decrease from 17 to 16; retained reviews increase to 4,164.

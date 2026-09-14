@@ -717,6 +717,16 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9f7f94825">Validate Valencian peach color wording</a>. Thanks to xet7.</summary>
+
+The restored native peach color label is retained after checking color usage
+and the actual pale-peach palette swatch. Exact review and distinct-color
+checks pass; the dated audit resolves one restored finding without replacing
+correct wording. Browser color-picker validation remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7c2e8f891">Repair Breton repository labels</a>. Thanks to xet7.</summary>
 
 Repository name, creation and not-found labels replace French wording using
