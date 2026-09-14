@@ -21142,5 +21142,173 @@
     "key": "login",
     "value": "Iniciar sesión",
     "reason": "Inspected Galician storage/resource counters, migration actions and progress, account creation/sign-in, repository upload/update, API endpoints and login/OTP failures preserve meanings. Temporary lockout retains excessive failed-login cause and try-later instruction; byte units and Cron/API/OTP names remain literal."
+  },
+  {
+    "locale": "gl",
+    "key": "file",
+    "value": "Ficheiro",
+    "reason": "Galician Ficheiro correctly names a file, and Pechar sesión correctly names logging out; neither requires replacing."
+  },
+  {
+    "locale": "gl",
+    "key": "logout",
+    "value": "Pechar sesión",
+    "reason": "Galician Ficheiro correctly names a file, and Pechar sesión correctly names logging out; neither requires replacing."
+  },
+  {
+    "locale": "eu",
+    "key": "act-addAttachment",
+    "value": "__attachment__ eranskina gehitu du __card__ txartelera, __list__ zerrendan, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-deleteAttachment",
+    "value": "__attachment__ eranskina ezabatu du __card__ txarteletik, __list__ zerrendan, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-addSubtask",
+    "value": "__subtask__ azpiataza gehitu du __card__ txartelera, __list__ zerrendan, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-addLabel",
+    "value": "__label__ etiketa gehitu du __card__ txartelera, __list__ zerrendan, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-addedLabel",
+    "value": "__label__ etiketa gehitu du __card__ txartelera, __list__ zerrendan, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-removeLabel",
+    "value": "__label__ etiketa kendu du __card__ txarteletik, __list__ zerrendan, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-removedLabel",
+    "value": "__label__ etiketa kendu du __card__ txarteletik, __list__ zerrendan, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-addChecklist",
+    "value": "__checklist__ kontrol-zerrenda gehitu du __card__ txartelera, __list__ zerrendan, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-addChecklistItem",
+    "value": "__checklistItem__ elementua gehitu du __checklist__ kontrol-zerrendara, __card__ txartelean, __list__ zerrendan, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-removeChecklist",
+    "value": "__checklist__ kontrol-zerrenda kendu du __card__ txarteletik, __list__ zerrendan, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-removeChecklistItem",
+    "value": "__checklistItem__ elementua kendu du __checkList__ kontrol-zerrendatik, __card__ txartelean, __list__ zerrendan, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-checkedItem",
+    "value": "__checklistItem__ markatu du __checklist__ kontrol-zerrendan, __card__ txartelean, __list__ zerrendan, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-uncheckedItem",
+    "value": "__checklistItem__ desmarkatu du __checklist__ kontrol-zerrendan, __card__ txartelean, __list__ zerrendan, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-completeChecklist",
+    "value": "__checklist__ kontrol-zerrenda osatu du __card__ txartelean, __list__ zerrendan, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-uncompleteChecklist",
+    "value": "__checklist__ kontrol-zerrenda osatu gabe utzi du __card__ txartelean, __list__ zerrendan, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-addComment",
+    "value": "iruzkina egin du __card__ txartelean: __comment__, __list__ zerrendan, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-editComment",
+    "value": "iruzkina editatu du __card__ txartelean: __comment__, __list__ zerrendan, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-deleteComment",
+    "value": "iruzkina ezabatu du __card__ txartelean: __comment__, __list__ zerrendan, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-createBoard",
+    "value": "__board__ arbela sortu du",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-createSwimlane",
+    "value": "__swimlane__ erraila sortu du __board__ arbelean",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-createCard",
+    "value": "__card__ txartela sortu du __list__ zerrendan, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-createCustomField",
+    "value": "__customField__ eremu pertsonalizatua sortu du __board__ arbelean",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-deleteCustomField",
+    "value": "__customField__ eremu pertsonalizatua ezabatu du __board__ arbelean",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-setCustomField",
+    "value": "__customField__ eremu pertsonalizatua editatu du: __customFieldValue__, __card__ txartelean, __list__ zerrendan, __swimlane__ errailean, __board__ arbelean",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-createList",
+    "value": "__list__ zerrenda gehitu du __board__ arbelera",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
+  },
+  {
+    "locale": "eu",
+    "key": "act-addBoardMember",
+    "value": "__member__ kidea gehitu du __board__ arbelera",
+    "reason": "Inspected Basque activity prose preserves add/remove/delete, checked/unchecked and complete/uncomplete distinctions, creation/editing, board/card/list/swimlane context and custom-field values. Every underscore token, including source checkList casing, remains exact. Archive terminology is excluded from this acceptance batch."
   }
 ]
