@@ -121315,5 +121315,12 @@
     "before": "Nom d'utilisateur ou mot de passe invalide",
     "after": "ⵓⵔ ⵉⴱⵓⵏⵉ ⵢⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ ⵏⵖ ⴷ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⵏⵏⴰ ⵜⵙⴽⵛⵎⴷ.",
     "reason": "Replace French invalid username/password error with the exact first sentence of native MediaWiki wrongpassword. The matching native English message is Incorrect username or password entered; omit its separate Please try again sentence because this WeKan source contains no retry instruction. Preserve the username-or-password ambiguity so the error does not identify which credential was wrong. No new grammatical composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "error-undefined",
+    "before": "Une erreur inconnue s'est produite",
+    "after": "ⵉⵍⵍⴰ ⴽⵔⴰ ⵏ ⵓⵣⴳⴰⵍ",
+    "reason": "Replace French generic failure with Tamazight there is some error, using the exact initial clause of native MediaWiki externaldberror before its database/authentication-specific qualifiers. English Something went wrong is generic; do not copy Unknown error or add a database cause. Native error noun and existential construction are attested together; generic UI usage remains subject to fluent review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
