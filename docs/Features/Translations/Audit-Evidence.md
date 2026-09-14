@@ -1,5 +1,14 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `15fc620cb`: Text Copy and Card Link Copy clipboard actions
+repaired from French/Arabic. Direct CNAM PDF page 112 gives Clipboard ghef
+ufus, at hand, KBL; quoted technical borrowing is not normative Moroccan
+software evidence. Native MediaWiki supports Copy, Link and Text components.
+Preserve distinct objects and clipboard destination. Copy imperative,
+borrowing, bound card form and full phrases remain low confidence. All
+18,098 correction checks pass; 320 original findings remain pending,
+including 185 Tamazight. Clipboard-or-drag/drop label is still pending.
+
 2026-09-14 — case-insensitive search terminology review: preserve the English
 instruction's uppercase/lowercase matching meaning; do not substitute font
 size, accents or universal equivalence. Indexed IRCAM typography material
