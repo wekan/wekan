@@ -15,7 +15,12 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 evidence. Magenta remains pending; nearby color names do not establish a
 correct replacement. Counts are unchanged.
 
-Latest terminology research: **2026-09-14**, `555b6631d` —
+Latest primary-source review: **2026-09-14**, `d1d06c706` —
+[Tamazight review](Tamazight-Review.md) records independently read IRCAM
+dictionary entries and grammatical forms. Subtitle and activation components
+are confirmed; complete software phrases remain open. Counts are unchanged.
+
+Previous terminology research: **2026-09-14**, `555b6631d` —
 [Tamazight review](Tamazight-Review.md) rejects skin-bump dictionary senses
 for the pending OIDC interface-button label. A domain reference is identified
 but its full fetch timed out; no value was accepted. Counts are unchanged.

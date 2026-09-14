@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d1d06c706">Read primary IRCAM terminology for pending repairs</a>. Thanks to xet7.</summary>
+
+The audit records primary dictionary entries, grammatical forms and limits
+for pending software phrases. Component evidence does not close full-phrase
+findings. No translation changed; pending counts remain unchanged.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/555b6631d">Review Tamazight interface-button terminology</a>. Thanks to xet7.</summary>
 
 The audit rejects unrelated biological dictionary senses for the pending OIDC

@@ -24347,3 +24347,11 @@ French bouton glosses with skin-bump Arabic definitions cannot establish the
 OIDC UI-control noun. The computing-reference body remains unread after timeout.
 No replacement or acceptance was made; original counts remain 283 pending/4
 restored and the correction ledger remains 18,699.
+
+## Primary IRCAM dictionary review — 2026-09-14
+
+Local review `d1d06c706`: [page references and software-sense limits](Tamazight-Review.md).
+The full 2019 primary dictionary was downloaded and relevant entries read.
+Subtitle and activation components are independently verified; complete phrases
+are not accepted from components. Computing-PDF certificate verification failed.
+Counts remain unchanged: 283 pending/4 restored; 18,699 correction records.
