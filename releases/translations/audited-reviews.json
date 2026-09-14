@@ -1720,5 +1720,185 @@
     "key": "move-all-attachments-to-gridfs",
     "value": "Flyt alle vedhæftninger til GridFS",
     "reason": "2026-09-14: Direct complete Danish wording review; retain unchanged. Confirm literal separator entities, Enter action, deletion blocked by at least one member, team/group terminology, invitation success/error, executable heap subset and heap limit, allocated heap total, organization removal, legal continuation, checklist movement and attachment movement to filesystem/GridFS/S3 including All as applicable. Team translated gruppe is understandable Danish and not wrong language. Node diagnostic semantics checked against official v8.getHeapStatistics documentation."
+  },
+  {
+    "locale": "da",
+    "key": "move-all-attachments-to-s3",
+    "value": "Flyt alle vedhæftninger til S3",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "move-all-attachments-of-board-to-fs",
+    "value": "Flyt alle tavlens vedhæftninger til filsystemet",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "move-all-attachments-of-board-to-gridfs",
+    "value": "Flyt alle tavlens vedhæftninger til GridFS",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "move-all-attachments-of-board-to-s3",
+    "value": "Flyt alle tavlens vedhæftninger til S3",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "stats-scope",
+    "value": "Type",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "allowed-upload-filetypes",
+    "value": "Tilladte filtyper til overførsel:",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "allowed-avatar-filetypes",
+    "value": "Tilladte filtyper til avatar:",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "invalid-file",
+    "value": "Hvis filnavnet er ugyldigt, annulleres overførslen eller omdøbningen.",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "preview-pdf-not-supported",
+    "value": "Din enhed understøtter ikke forhåndsvisning af PDF. Prøv at hente filen i stedet.",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "drag-board",
+    "value": "Træk tavle",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "translation-number",
+    "value": "Antallet af brugerdefinerede oversættelsesstrenge er:",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "delete-translation-confirm-popup",
+    "value": "Er du sikker på, at du vil slette denne brugerdefinerede oversættelsesstreng? Dette kan ikke fortrydes.",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "editTranslationPopup-title",
+    "value": "Redigér brugerdefineret oversættelsesstreng",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "import-board-zip",
+    "value": "Tilføj .zip-fil, der indeholder tavlens JSON-filer og undermapper med tavlenavne med vedhæftninger",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "support-info-not-added-yet",
+    "value": "Supportinformation er endnu ikke tilføjet",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "support-info-only-for-logged-in-users",
+    "value": "Supportinformation er kun for brugere, der er logget ind.",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "accessibility-info-not-added-yet",
+    "value": "Tilgængelighedsinformation er endnu ikke tilføjet",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "accounts-lockout-settings",
+    "value": "Indstillinger for beskyttelse mod brute force",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "accounts-lockout-known-users",
+    "value": "Indstillinger for kendte brugere (korrekt brugernavn, forkert kodeord)",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "accounts-lockout-unknown-users",
+    "value": "Indstillinger for ukendte brugere (ikke-eksisterende brugernavn)",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "accounts-lockout-failure-window",
+    "value": "Tidsvindue for fejl (sekunder)",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "accounts-lockout-settings-updated",
+    "value": "Indstillinger for beskyttelse mod brute force er opdateret",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "accounts-lockout-locked-users",
+    "value": "Låste brugere",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "accounts-lockout-locked-users-info",
+    "value": "Brugere, der i øjeblikket er låst ude på grund af for mange mislykkede loginforsøg",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "accounts-lockout-no-locked-users",
+    "value": "Der er i øjeblikket ingen låste brugere",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "accounts-lockout-confirm-unlock",
+    "value": "Er du sikker på, at du vil låse denne bruger op?",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "value": "Er du sikker på, at du vil låse alle låste brugere op?",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "accounts-lockout-show-locked-users",
+    "value": "Vis kun låste brugere",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "accounts-lockout-user-locked",
+    "value": "Brugeren er låst",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
+  },
+  {
+    "locale": "da",
+    "key": "accounts-lockout-click-to-unlock",
+    "value": "Klik for at låse denne bruger op",
+    "reason": "2026-09-14: Direct complete Danish wording review; retain correct translations. Preserve all attachments versus board attachments and filesystem/GridFS/S3 destinations; invalid filename cancels upload or rename; unsupported PDF suggests download; custom translation no-undo deletion and count; ZIP JSON plus named attachment subdirectories; not-yet and logged-in-only support; accessibility not-yet; known/unknown-user lockout distinctions, failed attempts, seconds, unlock one/all, Only filter and current state as applicable. Technical brute force, ZIP, JSON and Type are valid contextual terms. No placeholders or technical identifiers changed."
   }
 ]
