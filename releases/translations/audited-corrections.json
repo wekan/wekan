@@ -123443,5 +123443,12 @@
     "before": "استعادة",
     "after": "ⵙⵙⵓⴽⵏ",
     "reason": "Replace unflagged Arabic Restore control. Native MediaWiki logentry-delete-restore uses issukn/tssukn restoration forms: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Adapt base ssukn to a command; preserve restore action rather than show deleted content or rollback edits. LOW CONFIDENCE imperative adaptation and generic WeKan restoration context require fluent review. Archive-specific rule phrases remain pending: indexed IRCAM searches did not establish an Archive noun and do not prove absence; do not substitute storage or deletion."
+  },
+  {
+    "locale": "zgh",
+    "key": "if-you-already-have-an-account",
+    "before": "Si vous avez déjà un compte",
+    "after": "ⵎⴽ ⵖⵓⵔⴽ ⵉⵍⵍⴰ ⵢⴰⴷ ⵓⵎⵉⴹⴰⵏ",
+    "reason": "Replace French If you already have an account prompt; preserve conditional and already-existing account, not creation or username availability. Native MediaWiki userlogin-noaccount uses ghurk ... umidhan account possession; userlogin-loggedin/userexists attest yad/already and view-pool-error supplies mk/if: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE positive possession adaptation from negative native question, clause order and generic masculine address require fluent review."
   }
 ]
