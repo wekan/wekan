@@ -124773,5 +124773,19 @@
     "before": "إضافة عنصر إلى قائمة التحقق",
     "after": "ⵔⵏⵓ ⴰⴼⵔⴷⵉⵙ ⵉ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
     "reason": "2026-09-14: Replace wrong-language checklist-item action. Use native MediaWiki transaction-duration-limit-exceeded plural ifrdisn Elements, derived singular afrdis, native list talgamt and proposed List of Verification checklist paraphrase from login-security verify ssided. Add rnu, Hide ntl and All akk preserve the distinct action, singular/plural and all scope. LOW CONFIDENCE derived singular, verification noun/bound form ussidd, checklist paraphrase and full action grammar require fluent Standard Moroccan review; no exact native checklist control phrase is established. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (transaction-duration-limit-exceeded, watchlist, login-security, pageinfo-hidden-categories, protect-default)."
+  },
+  {
+    "locale": "zgh",
+    "key": "checklistItemDeletePopup-title",
+    "before": "Supprimer l'élément de la check-list ?",
+    "after": "ⴽⴽⵙ ⴰⴼⵔⴷⵉⵙ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ?",
+    "reason": "2026-09-14: Replace French deletion popup heading, preserving Delete and distinction between one checklist item and the whole checklist, plus question punctuation. Use native MediaWiki skin-action-delete kks, watchlist talgamt and previously reviewed derived singular afrdis from native plural ifrdisn. Proposed List of Verification wording remains LOW CONFIDENCE: noun/bound form ussidd is derived from login-security imperative ssided, not directly attested in current MediaWiki; targeted IRCAM search did not establish it and does not prove absence. Full checklist term, singular morphology and noun-chain grammar require fluent Standard Moroccan review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "checklistDeletePopup-title",
+    "before": "Supprimer la checklist ?",
+    "after": "ⴽⴽⵙ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ?",
+    "reason": "2026-09-14: Replace French deletion popup heading, preserving Delete and distinction between one checklist item and the whole checklist, plus question punctuation. Use native MediaWiki skin-action-delete kks, watchlist talgamt and previously reviewed derived singular afrdis from native plural ifrdisn. Proposed List of Verification wording remains LOW CONFIDENCE: noun/bound form ussidd is derived from login-security imperative ssided, not directly attested in current MediaWiki; targeted IRCAM search did not establish it and does not prove absence. Full checklist term, singular morphology and noun-chain grammar require fluent Standard Moroccan review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
