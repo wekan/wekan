@@ -105,6 +105,9 @@ changes are implemented in local commit 02383521a; translation repairs have resu
 Latest translation fix is 996cc65c7 (2026-09-14), replacing two Arabic
 original-order labels/hints. Cross-variety dictionary candidates preserve
 the constraint; terminology and full wording remain low confidence.
+Logo provenance follow-up 89f36d41f (2026-09-14) applies the dictionary's
+cross-variety preface to two earlier URL records. Native caption evidence
+remains separate; full labels stay low confidence. No values/counts changed.
 Conversion review ecae7d919 (2026-09-14) distinguishes native Return/date-back
 from the proposed checklist Become verb; confidence remains low and the
 original-order variant is repaired in 996cc65c7 with low-confidence candidates. No values/counts changed.
@@ -2434,6 +2437,17 @@ Replace two Arabic values, including an unflagged label. Preserve original
 ordering and one item per text line. Inspected dictionary preface confirms
 cross-variety proposals; terminology and full grammar remain low confidence.
 All 17,867 correction checks pass; 440 original findings remain pending.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/89f36d41f">Clarify Tamazight logo dictionary provenance</a>. Thanks to xet7.</summary>
+
+Apply the inspected cross-variety preface to two earlier logo URL correction
+records. Retain separate native community-caption evidence and low confidence
+on full labels; dictionary corroboration does not establish normative Moroccan
+terminology. No values/counts changed. All 17,867 correction checks pass.
+440 original findings and broader validation remain open.
 
 </details>
 
