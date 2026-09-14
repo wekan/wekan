@@ -124969,5 +124969,19 @@
     "before": "Balises meta personnalisées (HTML)",
     "after": "ⵉⵔⵛⵓⵎⵏ ⵉⵥⵍⵉⵏ ⵏ meta (HTML)",
     "reason": "2026-09-14: Replace French custom HTML tag label preserving plural tags, Custom and literal HTML, link/meta element identifiers. Native MediaWiki tag-list-wrapper supplies irchumn Tags, referring to change tags rather than markup; redirect-summary supplies izlin Specified, adapted to Custom. LOW CONFIDENCE change-tag-to-HTML-element and Specified-to-Custom semantic extensions and full phrase require fluent Standard Moroccan review. Literal link/meta identify HTML element names rather than untranslated prose. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-login-logo-image-url",
+    "before": "URL de l'image du logo de connexion personnalisé",
+    "after": "URL ⵏ ⵜⵡⵍⴰⴼⵜ ⵏ ⵓⵍⵓⴳⵓ ⵉⵥⵍⵉⵏ ⵏ ⵓⴽⵛⵛⵓⵎ",
+    "reason": "2026-09-14: Replace French Custom Login Logo Image/Link URL preserving URL, custom login-logo scope and image versus destination-link distinction. Native MediaWiki pt-login-continue-button supplies akchchum Login, reviewed image/link nouns supply bound twlaft/usghn. Logo alugu is directly used in explicitly Standard Moroccan Tamazight Wikimedia Commons own-work caption, not inferred from an English image description; dictionary hosted by KAS also lists Logo alugu/tamitart. LOW CONFIDENCE community-caption lexical authority, derived bound logo/login forms, Specified-to-Custom adaptation and complete noun chain require fluent Standard Moroccan review; no IRCAM normative logo term is claimed. References: https://commons.wikimedia.org/wiki/File:Wikipedia-logo-v5-zgh.png and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-login-logo-link-url",
+    "before": "Lien URL du logo de connexion personnalisé",
+    "after": "URL ⵏ ⵓⵙⵖⵏ ⵏ ⵓⵍⵓⴳⵓ ⵉⵥⵍⵉⵏ ⵏ ⵓⴽⵛⵛⵓⵎ",
+    "reason": "2026-09-14: Replace French Custom Login Logo Image/Link URL preserving URL, custom login-logo scope and image versus destination-link distinction. Native MediaWiki pt-login-continue-button supplies akchchum Login, reviewed image/link nouns supply bound twlaft/usghn. Logo alugu is directly used in explicitly Standard Moroccan Tamazight Wikimedia Commons own-work caption, not inferred from an English image description; dictionary hosted by KAS also lists Logo alugu/tamitart. LOW CONFIDENCE community-caption lexical authority, derived bound logo/login forms, Specified-to-Custom adaptation and complete noun chain require fluent Standard Moroccan review; no IRCAM normative logo term is claimed. References: https://commons.wikimedia.org/wiki/File:Wikipedia-logo-v5-zgh.png and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
