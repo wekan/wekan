@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3a6936cce">Translate Greenlandic tabular Hijri epoch labels</a>. Thanks to xet7.</summary>
+
+Retain the table-based method and distinct Friday and Thursday epochs.
+Record primary evidence and low-confidence explanatory wording.
+Four translation checks pass; native and browser review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8ba8134b9">Document Greenlandic calendar epoch terminology evidence</a>. Thanks to xet7.</summary>
 
 Record approved table and start-date terms and the distinct ICU epochs.

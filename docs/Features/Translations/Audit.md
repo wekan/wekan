@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,654 |
+| Corrected | 15,656 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,175 |
-| Pending review or repair | 248 |
+| Pending review or repair | 246 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,21 +16,21 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `602ea4090` —
-Greenlandic Saudi Hijri label now retains calendar, country and moon
-sighting in a complete draft. Four checks pass; derived nominalization
-and native/browser terminology remain low confidence. Pending: 248.
+Latest translation fix: **2026-09-14**, local commit `3a6936cce` —
+two Greenlandic tabular Hijri labels retain the method and distinct
+Friday/Thursday epochs in complete drafts. Four checks pass; paraphrase
+and native/browser grammar remain low confidence. Pending: 246.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,785** exact before/after values, including unflagged
+records contain **18,787** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-14**, `8ba8134b9` — official
 Greenlandic table/start-date terms and ICU epoch definitions are recorded
-in [calendar review](Greenlandic-Calendar-Review.md). Both tabular Hijri
-labels remain pending; complete native phrases are not yet accepted.
+in [calendar review](Greenlandic-Calendar-Review.md). Subsequent drafts are recorded below; native grammar and epoch
+paraphrases still need review.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:
@@ -48,7 +48,6 @@ restored values still await full native/browser validation.
 | ve-PP — Veps | 10 |
 | dz — Dzongkha | 2 |
 | ff — Fulah | 2 |
-| kl — Greenlandic | 2 |
 | ks — Kashmiri | 2 |
 | ee — Ewe | 1 |
 | qu — Quechua | 1 |
