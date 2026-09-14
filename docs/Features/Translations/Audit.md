@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,545 |
-| Restored pre-pull; awaiting validation | 3,141 |
-| Reviewed; retained unchanged | 1,087 |
+| Restored pre-pull; awaiting validation | 3,088 |
+| Reviewed; retained unchanged | 1,140 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -17,8 +17,8 @@ source references, confidence limits and archived progress notes.
 
 Latest translation fix: **2026-09-14**, local commit `ab4da5ab2` — repaired
 Esperanto watch-notification semantics and search Enter-key wording.
-Latest unchanged-value review: **2026-09-14**, local commit `b999becb4` —
-retained 58 correct Esperanto settings and rule-action values. Correction,
+Latest unchanged-value review: **2026-09-14**, local commit `e2ef875c8` —
+retained 53 correct Esperanto rule, card-view and search values. Correction,
 unchanged-value and progress checks pass. Browser verification was not run;
 no translations were pushed.
 

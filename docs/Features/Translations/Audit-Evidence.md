@@ -21481,3 +21481,13 @@ Preserve free/total memory distinctions, custom-field application scope,
 parent/source relationships and rule movement directions. Completion,
 subtask, member-pronoun and overtime terminology remain open. Ledger tests
 pass; browser behavior was not verified.
+
+
+### Esperanto rule and search review — 2026-09-14
+
+Local commit `e2ef875c8` retains 53 directly reviewed correct values.
+Preserve rule action polarity, wildcard and comma-separated-value guidance,
+card-view labels and search operators. Literal body tags, metavariables,
+colon/quotation syntax and interpolation tokens remain intact.
+Unchanged-value checks pass; uncertain terminology and browser validation
+remain open.
