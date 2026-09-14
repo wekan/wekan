@@ -26671,3 +26671,23 @@ though it is not represented by the original pending table. Ledger
 restored 4 unchanged. Prior low-confidence full phrases remain open.
 Source:
 https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+
+
+Archive guidance batch **2026-09-14**, `f1c15bd0e`:
+Repaired close-board-pop in 27 locale files: fi; de, de-AT, de-CH, de_DE;
+fr, fr-BE, fr-CA, fr-CH, fr-FR; es, es-CL, es-CO, es-LA, es-MX, es-PY,
+es_CO; it; pt, pt-PT, pt_PT; nl, nl-NL; da; nb; pl, pl-PL.
+Each full sentence keeps board restoration and names the locale's actual
+Archive and All Boards place labels, replacing obsolete header locations.
+Polish previously named the Archive action rather than the Archive place;
+this is corrected to Archiwum. Correct Swedish main-menu guidance remains
+unchanged. Regional copies were updated only where their entire old value
+matched the reviewed base language; independently worded variants remain
+for review. No bulk English fallback or translation service was used.
+Five suites pass: batch place-label and obsolete-location checks, exact
+correction ledger, explicit unchanged reviews, all-locale completeness and
+All Boards menu routing. Tokens, key order and newer correct-language
+human preference remain protected. No new browser execution is claimed.
+These checks do not alone prove all native grammar. Ledger 18,888;
+original corrected 15,677, pending 225 (zgh 118), restored 4 unchanged.
+Other locale archive guidance and all prior uncertain findings remain open.

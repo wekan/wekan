@@ -656,6 +656,17 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f1c15bd0e">Repair archive guidance in 27 locale files</a>. Thanks to xet7.</summary>
+
+Finnish, German, French, Spanish, Italian, Portuguese, Dutch, Danish,
+Norwegian Bokmål and Polish guidance now names the current Archive location,
+including identical regional copies. Existing place labels and correct
+Swedish wording are preserved. Five suites pass; other locales and full
+native/browser verification remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/143965460">Correct archive restoration guidance location</a>. Thanks to xet7.</summary>
 
 English, six English variants and Tamazight now name Archive on All Boards

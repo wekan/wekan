@@ -16,14 +16,15 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `143965460` —
-Archive guidance corrected to the active All Boards location in English,
-six English variants and a full Tamazight draft. Five suites pass;
-Tamazight navigation grammar and other locale locations remain open.
-Ledger 18,861; pending 225 (zgh 118), restored 4 unchanged.
+Latest translation fix: **2026-09-14**, local commit `f1c15bd0e` —
+Archive guidance location repaired in 27 locale files across ten base
+languages and identical regional copies. Existing UI labels preserved;
+correct Swedish menu wording retained. Five suites pass. Ledger 18,888;
+original pending 225 (zgh 118), restored 4 unchanged. Other locale locations
+and full native/browser review remain open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,861** exact before/after values, including unflagged
+records contain **18,888** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
