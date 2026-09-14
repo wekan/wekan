@@ -122246,5 +122246,19 @@
     "before": "بداية",
     "after": "ⵜⵓⴷⴷⵎⴰ",
     "reason": "Replace French/Arabic start or end time wording with native MediaWiki blockedtext-start-time tuddma and blockedtext-expiration-time tigira. Preserve start versus end, destination versus previous time, parentheses and all placeholders; short fragments leave the destination for the viewer. LOW CONFIDENCE generic card/calendar application of native block start/expiration terms and full composed activity phrases. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (blockedtext-start-time, blockedtext-expiration-time, tags-edit and logentry-move-move); https://www.unicode.org/cldr/charts/47/summary/zgh.html (time akud)."
+  },
+  {
+    "locale": "zgh",
+    "key": "add-custom-html-after-body-start",
+    "before": "Ajouter le HTML personnalisé après le début du <body>",
+    "after": "ⵔⵏⵓ HTML ⵉⵥⵍⵉⵏ ⴷⴼⴼⵉⵔ ⵏ ⵜⵓⴷⴷⵎⴰ ⵏ <body>",
+    "reason": "Replace French custom HTML insertion action with native Tamazight add, before/after and start/end components. Preserve HTML identifier, literal opening <body> versus closing </body> and insertion direction. LOW CONFIDENCE specified/custom izlin adaptation to HTML and full insertion phrase composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (tooltip-watch rnu, tooltip-preview dat n, rc-change-size-new dffir n, createaccountmail izlin, blockedtext-start-time tuddma, blockedtext-expiration-time tigira)."
+  },
+  {
+    "locale": "zgh",
+    "key": "add-custom-html-before-body-end",
+    "before": "Ajouter le HTML personnalisé avant la fin du </body>",
+    "after": "ⵔⵏⵓ HTML ⵉⵥⵍⵉⵏ ⴷⴰⵜ ⵏ ⵜⵉⴳⵉⵔⴰ ⵏ </body>",
+    "reason": "Replace French custom HTML insertion action with native Tamazight add, before/after and start/end components. Preserve HTML identifier, literal opening <body> versus closing </body> and insertion direction. LOW CONFIDENCE specified/custom izlin adaptation to HTML and full insertion phrase composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (tooltip-watch rnu, tooltip-preview dat n, rc-change-size-new dffir n, createaccountmail izlin, blockedtext-start-time tuddma, blockedtext-expiration-time tigira)."
   }
 ]
