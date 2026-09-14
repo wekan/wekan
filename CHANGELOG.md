@@ -597,7 +597,9 @@ the Markdown commit as the template.
 date formatter while preserving the selected calendar. The release script
 now requires actual **Upcoming release notes** before installing tools or
 changing release files, preventing an existing release from being reused
-when there is nothing upcoming to publish.
+when there is nothing upcoming to publish. **Tamazight translations** repair
+email, member, deletion and card-order labels; complete composed phrases
+still need fluent review.
 
 This release fixes the following build and release behavior:
 
@@ -616,6 +618,8 @@ require notes and rename the Upcoming heading. Focused positive and negative
 regressions, calendar display checks and shell syntax checks pass.
 
 </details>
+
+**Translations** - Tamazight labels and command consistency.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/92ce2c89f">Translate Tamazight email-change permission</a>. Thanks to xet7.</summary>
