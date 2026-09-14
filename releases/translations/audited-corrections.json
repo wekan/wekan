@@ -121966,5 +121966,47 @@
     "before": "L'utilisateur ne peut pas exporter de carte en PDF",
     "after": "ⴰⵏⵙⵙⵎⵔⵙ ⵓⵔ ⵉⵥⴹⴰⵕ ⴰ ⵉⵙⵙⵓⴼⵖ ⵜⴰⴽⴰⵕⴹⴰ ⵖⵔ PDF",
     "reason": "Replace French. Native MediaWiki userexists supplies bound user terminology, createaccountmail-help third-person capability, resetpass_forbidden negative capability and export the export verb. Preserve explicit export inability, card-specific versus general scope and literal Excel/PDF names. LOW CONFIDENCE derived free user noun, negative capability/verb conjugation, kanban card terminology and full destination phrase. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "board-view-time",
+    "before": "الوقت",
+    "after": "ⴰⴽⵓⴷ",
+    "reason": "Replace Arabic Time label with native akud/time, already reference-supported in the existing time correction. Unicode CLDR zgh time-zone labels attest akud. Reference: https://www.unicode.org/cldr/charts/47/summary/zgh.html"
+  },
+  {
+    "locale": "zgh",
+    "key": "cron-error-time",
+    "before": "الوقت",
+    "after": "ⴰⴽⵓⴷ",
+    "reason": "Replace Arabic Time label consistently with existing native akud/time. Reference: https://www.unicode.org/cldr/charts/47/summary/zgh.html"
+  },
+  {
+    "locale": "zgh",
+    "key": "board-view-timeline-now",
+    "before": "ⴰⵙⵙⴰ",
+    "after": "ⴷⵖⵉⴽⴽ",
+    "reason": "Correct today/assa to now/dghikk; native MediaWiki loginsuccess and cannotloginnow-title attest the current instant qualifier. Preserve timeline current-instant meaning rather than calendar today. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "invalid-time",
+    "before": "Heure invalide",
+    "after": "ⴰⴽⵓⴷ ⴰⵔⵓⵖⵣⵉⵏ",
+    "reason": "Replace French. Native CLDR supports time/akud and MediaWiki passwordreset-invalidemail supplies arughzin/invalid as a masculine qualifier. LOW CONFIDENCE composed time-validation label and qualifier agreement; complete label is not independently attested. References: https://www.unicode.org/cldr/charts/47/summary/zgh.html ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-dueDate",
+    "before": "date d'échéance éditée de %s à %s",
+    "after": "ⵉⵙⵏⴼⵍ ⴰⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⵖⵔ %s ⵏ %s",
+    "reason": "Replace French; also restore date-destination then card-owner scope, rather than implying from/to dates. Preserve two positional %s tokens in source order. Native MediaWiki change components and existing local due-date term supply the vocabulary. LOW CONFIDENCE past-tense transitive conjugation, inherited final-date terminology for due date and complete destination/card genitive composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "a-dueAt",
+    "before": "Echéance modifiée à",
+    "after": "ⵉⵙⵏⴼⵍ ⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⵖⵔ",
+    "reason": "Replace French due-time modification fragment, preserving the trailing destination preposition for the appended value. Native time and change components plus existing local final/due qualifier supply vocabulary. LOW CONFIDENCE past-tense verb conjugation, inherited due terminology and full fragment composition. References: https://www.unicode.org/cldr/charts/47/summary/zgh.html ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
