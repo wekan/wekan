@@ -22577,3 +22577,11 @@ Repaired three labels using förfallna (overdue), because actual dueCards.js
 selects every card with a dueAt and its helper includes future dates. Wording
 now says cards with due dates. Regression drives the real sorting helper with
 past and future cards; all 18,185 corrections pass. Browser review remains open.
+
+**2026-09-14 — Swedish and Arabic restored review (`4da4c40e4`).**
+
+Retained seven Swedish and 23 generic/Algerian/Egyptian Arabic and Moroccan
+Darija values. Role exception, no-undo, due-today/assignee absence and
+recurrence frequencies remain intact. Standard Arabic is valid in country
+locales; identical spelling is not evidence of wrong language. All 4,119
+reviews pass. Broader grammar/browser verification remains open.

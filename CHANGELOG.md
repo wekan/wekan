@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,582 corrected, 102 restored pre-pull values awaiting
-validation, 4,089 reviewed and retained, and 308 pending review or repair.
+findings: 15,582 corrected, 72 restored pre-pull values awaiting
+validation, 4,119 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,173 exact before/after values,
 Global completeness verification also identifies Veps `server` (currently
 English-identical “Server”) for terminology review; it is not accepted yet.
@@ -714,6 +714,15 @@ Three labels now describe cards with due dates rather than only overdue cards.
 Actual selection and sorting include future deadlines. A regression drives the
 real helper with past and future dates; correction checks pass. Browser
 verification and the wider translation audit remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4da4c40e4">Validate Swedish and Arabic restored wording</a>. Thanks to xet7.</summary>
+
+Retained seven Swedish and 23 Arabic/Darija values. Negation, recurrence
+frequencies, global-admin exception and no-undo warnings remain intact.
+Exact review checks pass; wider language/browser verification remains open.
 
 </details>
 
