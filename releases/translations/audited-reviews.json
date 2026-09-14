@@ -18274,5 +18274,155 @@
     "key": "subtext-with-full-path",
     "value": "Subtexto coa ruta completa",
     "reason": "Direct Galician review retains account email/username change permissions, created/modified metadata and active team/organization/person states. End/received date editing, selection color, assigned/requested roles and all-notification removal retain meaning. Subtask destination, full-path/parent prefixes and full-path subtext preserve relationship scope. Received participle labels remain unaccepted pending gender/context inspection."
+  },
+  {
+    "locale": "gl",
+    "key": "subtext-with-parent",
+    "value": "Subtexto co pai",
+    "reason": "Direct Galician review retains label removal and custom-field set tokens, parent subtext, rule action/filter/email controls, card movement directions and archive/restore distinctions. Checklist made-incomplete and list top/bottom/own-list retain grammar and scope. Shared added/removed and member fragments are excluded pending contextual agreement repair."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-removed-label",
+    "value": "quitou a etiqueta '%s' de %s",
+    "reason": "Direct Galician review retains label removal and custom-field set tokens, parent subtext, rule action/filter/email controls, card movement directions and archive/restore distinctions. Checklist made-incomplete and list top/bottom/own-list retain grammar and scope. Shared added/removed and member fragments are excluded pending contextual agreement repair."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-removed-label-card",
+    "value": "quitou a etiqueta '%s'",
+    "reason": "Direct Galician review retains label removal and custom-field set tokens, parent subtext, rule action/filter/email controls, card movement directions and archive/restore distinctions. Checklist made-incomplete and list top/bottom/own-list retain grammar and scope. Shared added/removed and member fragments are excluded pending contextual agreement repair."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-set-customfield",
+    "value": "estableceu o campo personalizado '%s' a '%s' en %s",
+    "reason": "Direct Galician review retains label removal and custom-field set tokens, parent subtext, rule action/filter/email controls, card movement directions and archive/restore distinctions. Checklist made-incomplete and list top/bottom/own-list retain grammar and scope. Shared added/removed and member fragments are excluded pending contextual agreement repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-delete-rule",
+    "value": "Eliminar regra",
+    "reason": "Direct Galician review retains label removal and custom-field set tokens, parent subtext, rule action/filter/email controls, card movement directions and archive/restore distinctions. Checklist made-incomplete and list top/bottom/own-list retain grammar and scope. Shared added/removed and member fragments are excluded pending contextual agreement repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-no-rules",
+    "value": "Sen regras",
+    "reason": "Direct Galician review retains label removal and custom-field set tokens, parent subtext, rule action/filter/email controls, card movement directions and archive/restore distinctions. Checklist made-incomplete and list top/bottom/own-list retain grammar and scope. Shared added/removed and member fragments are excluded pending contextual agreement repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-due-is-set",
+    "value": "está definida",
+    "reason": "Direct Galician review retains label removal and custom-field set tokens, parent subtext, rule action/filter/email controls, card movement directions and archive/restore distinctions. Checklist made-incomplete and list top/bottom/own-list retain grammar and scope. Shared added/removed and member fragments are excluded pending contextual agreement repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-trigger",
+    "value": "Disparador",
+    "reason": "Direct Galician review retains label removal and custom-field set tokens, parent subtext, rule action/filter/email controls, card movement directions and archive/restore distinctions. Checklist made-incomplete and list top/bottom/own-list retain grammar and scope. Shared added/removed and member fragments are excluded pending contextual agreement repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-action",
+    "value": "Acción",
+    "reason": "Direct Galician review retains label removal and custom-field set tokens, parent subtext, rule action/filter/email controls, card movement directions and archive/restore distinctions. Checklist made-incomplete and list top/bottom/own-list retain grammar and scope. Shared added/removed and member fragments are excluded pending contextual agreement repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-is-moved",
+    "value": "é movida",
+    "reason": "Direct Galician review retains label removal and custom-field set tokens, parent subtext, rule action/filter/email controls, card movement directions and archive/restore distinctions. Checklist made-incomplete and list top/bottom/own-list retain grammar and scope. Shared added/removed and member fragments are excluded pending contextual agreement repair."
+  },
+  {
+    "locale": "gl",
+    "key": "set-filter",
+    "value": "Establecer filtro",
+    "reason": "Direct Galician review retains label removal and custom-field set tokens, parent subtext, rule action/filter/email controls, card movement directions and archive/restore distinctions. Checklist made-incomplete and list top/bottom/own-list retain grammar and scope. Shared added/removed and member fragments are excluded pending contextual agreement repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-moved-to",
+    "value": "Movida a",
+    "reason": "Direct Galician review retains label removal and custom-field set tokens, parent subtext, rule action/filter/email controls, card movement directions and archive/restore distinctions. Checklist made-incomplete and list top/bottom/own-list retain grammar and scope. Shared added/removed and member fragments are excluded pending contextual agreement repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-moved-from",
+    "value": "Movida desde",
+    "reason": "Direct Galician review retains label removal and custom-field set tokens, parent subtext, rule action/filter/email controls, card movement directions and archive/restore distinctions. Checklist made-incomplete and list top/bottom/own-list retain grammar and scope. Shared added/removed and member fragments are excluded pending contextual agreement repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-archived",
+    "value": "Movida ao Arquivo",
+    "reason": "Direct Galician review retains label removal and custom-field set tokens, parent subtext, rule action/filter/email controls, card movement directions and archive/restore distinctions. Checklist made-incomplete and list top/bottom/own-list retain grammar and scope. Shared added/removed and member fragments are excluded pending contextual agreement repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-unarchived",
+    "value": "Restaurada do Arquivo",
+    "reason": "Direct Galician review retains label removal and custom-field set tokens, parent subtext, rule action/filter/email controls, card movement directions and archive/restore distinctions. Checklist made-incomplete and list top/bottom/own-list retain grammar and scope. Shared added/removed and member fragments are excluded pending contextual agreement repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-when-a-label-is",
+    "value": "Cando unha etiqueta é",
+    "reason": "Direct Galician review retains label removal and custom-field set tokens, parent subtext, rule action/filter/email controls, card movement directions and archive/restore distinctions. Checklist made-incomplete and list top/bottom/own-list retain grammar and scope. Shared added/removed and member fragments are excluded pending contextual agreement repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-when-the-label",
+    "value": "Cando a etiqueta",
+    "reason": "Direct Galician review retains label removal and custom-field set tokens, parent subtext, rule action/filter/email controls, card movement directions and archive/restore distinctions. Checklist made-incomplete and list top/bottom/own-list retain grammar and scope. Shared added/removed and member fragments are excluded pending contextual agreement repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-list-name",
+    "value": "nome da lista",
+    "reason": "Direct Galician review retains label removal and custom-field set tokens, parent subtext, rule action/filter/email controls, card movement directions and archive/restore distinctions. Checklist made-incomplete and list top/bottom/own-list retain grammar and scope. Shared added/removed and member fragments are excluded pending contextual agreement repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-made-incomplete",
+    "value": "Marcada como incompleta",
+    "reason": "Direct Galician review retains label removal and custom-field set tokens, parent subtext, rule action/filter/email controls, card movement directions and archive/restore distinctions. Checklist made-incomplete and list top/bottom/own-list retain grammar and scope. Shared added/removed and member fragments are excluded pending contextual agreement repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-top-of",
+    "value": "Principio de",
+    "reason": "Direct Galician review retains label removal and custom-field set tokens, parent subtext, rule action/filter/email controls, card movement directions and archive/restore distinctions. Checklist made-incomplete and list top/bottom/own-list retain grammar and scope. Shared added/removed and member fragments are excluded pending contextual agreement repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-bottom-of",
+    "value": "Final de",
+    "reason": "Direct Galician review retains label removal and custom-field set tokens, parent subtext, rule action/filter/email controls, card movement directions and archive/restore distinctions. Checklist made-incomplete and list top/bottom/own-list retain grammar and scope. Shared added/removed and member fragments are excluded pending contextual agreement repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-its-list",
+    "value": "a súa lista",
+    "reason": "Direct Galician review retains label removal and custom-field set tokens, parent subtext, rule action/filter/email controls, card movement directions and archive/restore distinctions. Checklist made-incomplete and list top/bottom/own-list retain grammar and scope. Shared added/removed and member fragments are excluded pending contextual agreement repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-archive",
+    "value": "Mover ao Arquivo",
+    "reason": "Direct Galician review retains label removal and custom-field set tokens, parent subtext, rule action/filter/email controls, card movement directions and archive/restore distinctions. Checklist made-incomplete and list top/bottom/own-list retain grammar and scope. Shared added/removed and member fragments are excluded pending contextual agreement repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-set-color",
+    "value": "Establecer a cor a",
+    "reason": "Direct Galician review retains label removal and custom-field set tokens, parent subtext, rule action/filter/email controls, card movement directions and archive/restore distinctions. Checklist made-incomplete and list top/bottom/own-list retain grammar and scope. Shared added/removed and member fragments are excluded pending contextual agreement repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-send-email",
+    "value": "Enviar un correo electrónico",
+    "reason": "Direct Galician review retains label removal and custom-field set tokens, parent subtext, rule action/filter/email controls, card movement directions and archive/restore distinctions. Checklist made-incomplete and list top/bottom/own-list retain grammar and scope. Shared added/removed and member fragments are excluded pending contextual agreement repair."
   }
 ]

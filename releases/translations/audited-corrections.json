@@ -127125,5 +127125,12 @@
     "before": "Recebido: a data cambiou",
     "after": "Cando se establece ou cambia a data de recepción",
     "reason": "Replace Portuguese wording and restore the English distinction between setting and changing the date in the Galician automation trigger."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-unset-customfield",
+    "before": "quitou o campo personalizado '%s' en %s",
+    "after": "quitou o valor do campo personalizado '%s' en %s",
+    "reason": "The models/cards.js unsetCustomField activity clears an individual card custom-field value, not the custom-field definition. Preserve both percent tokens and state value removal explicitly."
   }
 ]

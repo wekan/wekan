@@ -1228,7 +1228,7 @@
   "activity-removed-label-card": "quitou a etiqueta '%s'",
   "activity-delete-attach-card": "eliminou un anexo",
   "activity-set-customfield": "estableceu o campo personalizado '%s' a '%s' en %s",
-  "activity-unset-customfield": "quitou o campo personalizado '%s' en %s",
+  "activity-unset-customfield": "quitou o valor do campo personalizado '%s' en %s",
   "r-rule": "Regra",
   "r-add-trigger": "Engadir disparador",
   "r-add-action": "Engadir acción",
