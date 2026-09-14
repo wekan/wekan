@@ -125809,5 +125809,54 @@
     "before": "عدد سلاسل الترجمة المخصصة هو:",
     "after": "ⵓⵟⵟⵓⵏ ⵏ ⵉⴹⵕⵉⵚⵏ ⵏ ⵓⵙⵓⵖⵍ ⵉⵥⵍⵉⵏ:",
     "reason": "2026-09-14: Replace Arabic custom translation deletion warning/count. Native Mastodon confirmations.delete.message supplies Are you sure you want frame: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Native MediaWiki undo-failure supplies this-change-cannot-be-undone clause; remove only its conflict reason, preserving absolute no-undo meaning here; pageinfo-watchers attests Count uttun: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Pinned non-fuzzy Dialect attests Translation usughl and Text adhrich: https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po . Preserve Delete THIS custom string, confirmation question, irreversible warning and trailing count colon. String-as-Text plural idhrichn is derived, not independently attested here. LOW CONFIDENCE assembled confirmation, text plural, custom modifier attachment and whole clauses require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "allboards.templates",
+    "before": "نماذج",
+    "after": "ⴰⵍⴱⵓⴹⵏ",
+    "reason": "2026-09-14: Replace Arabic/French template labels or incorrect Subject noun in Save as Template. Native MediaWiki nstab-template/tooltip-ca-nstab-template directly attest Template albudh, and Add/Create/Save components are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve templates versus cards/lists/boards, Add versus Create and Save AS Template. Plural albudhn reuses existing local templates entry rather than independent plural attestation. Card/Board vocabulary reuses local terminology; List plural has native Mastodon evidence: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . LOW CONFIDENCE plural template, bound plural nouns, software-template adaptation and full phrases require native validation; singular Template component is directly attested."
+  },
+  {
+    "locale": "zgh",
+    "key": "add-template",
+    "before": "Ajouter un modèle",
+    "after": "ⵔⵏⵓ ⴰⵍⴱⵓⴹ",
+    "reason": "2026-09-14: Replace Arabic/French template labels or incorrect Subject noun in Save as Template. Native MediaWiki nstab-template/tooltip-ca-nstab-template directly attest Template albudh, and Add/Create/Save components are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve templates versus cards/lists/boards, Add versus Create and Save AS Template. Plural albudhn reuses existing local templates entry rather than independent plural attestation. Card/Board vocabulary reuses local terminology; List plural has native Mastodon evidence: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . LOW CONFIDENCE plural template, bound plural nouns, software-template adaptation and full phrases require native validation; singular Template component is directly attested."
+  },
+  {
+    "locale": "zgh",
+    "key": "cardTemplatePopup-title",
+    "before": "Créer un modèle",
+    "after": "ⵙⵏⵓⵍⴼⵓ ⴰⵍⴱⵓⴹ",
+    "reason": "2026-09-14: Replace Arabic/French template labels or incorrect Subject noun in Save as Template. Native MediaWiki nstab-template/tooltip-ca-nstab-template directly attest Template albudh, and Add/Create/Save components are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve templates versus cards/lists/boards, Add versus Create and Save AS Template. Plural albudhn reuses existing local templates entry rather than independent plural attestation. Card/Board vocabulary reuses local terminology; List plural has native Mastodon evidence: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . LOW CONFIDENCE plural template, bound plural nouns, software-template adaptation and full phrases require native validation; singular Template component is directly attested."
+  },
+  {
+    "locale": "zgh",
+    "key": "card-templates-swimlane",
+    "before": "Modèles de cartes",
+    "after": "ⴰⵍⴱⵓⴹⵏ ⵏ ⵜⴽⴰⵕⴹⵉⵡⵉⵏ",
+    "reason": "2026-09-14: Replace Arabic/French template labels or incorrect Subject noun in Save as Template. Native MediaWiki nstab-template/tooltip-ca-nstab-template directly attest Template albudh, and Add/Create/Save components are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve templates versus cards/lists/boards, Add versus Create and Save AS Template. Plural albudhn reuses existing local templates entry rather than independent plural attestation. Card/Board vocabulary reuses local terminology; List plural has native Mastodon evidence: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . LOW CONFIDENCE plural template, bound plural nouns, software-template adaptation and full phrases require native validation; singular Template component is directly attested."
+  },
+  {
+    "locale": "zgh",
+    "key": "list-templates-swimlane",
+    "before": "Modèles de listes",
+    "after": "ⴰⵍⴱⵓⴹⵏ ⵏ ⵜⵍⴳⴰⵎⵉⵏ",
+    "reason": "2026-09-14: Replace Arabic/French template labels or incorrect Subject noun in Save as Template. Native MediaWiki nstab-template/tooltip-ca-nstab-template directly attest Template albudh, and Add/Create/Save components are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve templates versus cards/lists/boards, Add versus Create and Save AS Template. Plural albudhn reuses existing local templates entry rather than independent plural attestation. Card/Board vocabulary reuses local terminology; List plural has native Mastodon evidence: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . LOW CONFIDENCE plural template, bound plural nouns, software-template adaptation and full phrases require native validation; singular Template component is directly attested."
+  },
+  {
+    "locale": "zgh",
+    "key": "board-templates-swimlane",
+    "before": "Modèles de tableaux",
+    "after": "ⴰⵍⴱⵓⴹⵏ ⵏ ⵜⴼⵍⵡⵉⵡⵉⵏ",
+    "reason": "2026-09-14: Replace Arabic/French template labels or incorrect Subject noun in Save as Template. Native MediaWiki nstab-template/tooltip-ca-nstab-template directly attest Template albudh, and Add/Create/Save components are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve templates versus cards/lists/boards, Add versus Create and Save AS Template. Plural albudhn reuses existing local templates entry rather than independent plural attestation. Card/Board vocabulary reuses local terminology; List plural has native Mastodon evidence: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . LOW CONFIDENCE plural template, bound plural nouns, software-template adaptation and full phrases require native validation; singular Template component is directly attested."
+  },
+  {
+    "locale": "zgh",
+    "key": "save-card-as-template",
+    "before": "ⵃⴹⵓ ⴰⵎ ⴰⵙⵏⵜⵍ",
+    "after": "ⵃⴹⵓ ⴰⵎ ⴰⵍⴱⵓⴹ",
+    "reason": "2026-09-14: Replace Arabic/French template labels or incorrect Subject noun in Save as Template. Native MediaWiki nstab-template/tooltip-ca-nstab-template directly attest Template albudh, and Add/Create/Save components are native: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve templates versus cards/lists/boards, Add versus Create and Save AS Template. Plural albudhn reuses existing local templates entry rather than independent plural attestation. Card/Board vocabulary reuses local terminology; List plural has native Mastodon evidence: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . LOW CONFIDENCE plural template, bound plural nouns, software-template adaptation and full phrases require native validation; singular Template component is directly attested."
   }
 ]
