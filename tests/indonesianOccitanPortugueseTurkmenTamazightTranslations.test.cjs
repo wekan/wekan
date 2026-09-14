@@ -243,3 +243,7 @@ assert.doesNotMatch(locales.zgh['tableVisibilityMode-allowPrivateOnly'], /Visibi
 assert.equal(locales.zgh['show-cards-minimum-count'], 'ⵙⵙⴽⵏ ⴰⵎⴹⴰⵏ ⵏ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵉⵖ ⴳ ⵜⵍⴳⴰⵎⵜ ⵉⵍⵍⴰ ⵓⴳⴳⴰⵔ ⵏ');
 assert.match(locales.zgh['show-cards-minimum-count'], /ⵉⵖ.*ⵓⴳⴳⴰⵔ ⵏ$/);
 assert.doesNotMatch(locales.zgh['show-cards-minimum-count'], /[\u0600-\u06ff]/);
+
+// Field totals must remain aggregates, not field counts or prose summaries.
+assert.match(locales.zgh['showSum-field-on-list'], /ⵜⴰⵎⵓⵜⵜⵔⵜ.*ⵢⵉⴳⵔⴰⵏ.*ⵓⴼⵍⵍⴰ.*ⵜⵍⴳⴰⵎⵜ/);
+assert.doesNotMatch(locales.zgh['showSum-field-on-list'], /Afficher|total des champs|ⴰⵎⴹⴰⵏ|ⴰⵙⴳⵣⵍ/);

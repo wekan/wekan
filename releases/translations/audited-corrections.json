@@ -131269,5 +131269,12 @@
     "before": "Kay willaymi: Simana",
     "after": "Simana",
     "reason": "Follow-up Quechua calendar/clock and week repairs. Chilean Ministry of Education 2019 dictionary PDF pages 45, 83 and 159 explicitly attest Simana as Quechuized week; calendar Watanqillqa is attested separately. Restore Jalali name and ISO Gregorian/weeks components omitted by seed. Low confidence: retained Persa/Gregoriano naming, plural simanakuna and full compounds require native/browser review."
+  },
+  {
+    "locale": "zgh",
+    "key": "showSum-field-on-list",
+    "before": "Afficher le total des champs en haut de liste",
+    "after": "ⵙⵙⴽⵏ ⵜⴰⵎⵓⵜⵜⵔⵜ ⵏ ⵢⵉⴳⵔⴰⵏ ⴳ ⵓⴼⵍⵍⴰ ⵏ ⵜⵍⴳⴰⵎⵜ",
+    "reason": "2026-09-14: Replace French field-total checkbox with Tamazight. IRCAM Amazigh-English dictionary PDF page 602 entry 11282 attests tamuttrt total, page 67 entry 1008 aflla top/over and construct uflla. Reuse existing field/list vocabulary and show verb. Sum is an aggregate, not the number of fields. Low confidence: genitive plural yigran and complete software compound require native/browser review."
   }
 ]
