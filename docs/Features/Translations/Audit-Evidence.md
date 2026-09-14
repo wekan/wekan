@@ -21915,3 +21915,13 @@ activity loss and inability to undo/reopen remain explicit, distinct from
 reversible archival and restore guidance. All 2,285 review records pass;
 1,928 restored values and 308 pending findings plus broader language/browser
 verification remain open.
+
+
+### Galician role descriptions and card controls — 2026-09-14
+
+Local commit `96367d213` retains twenty-five correct favorite, close,
+comment/role, deletion and link/copy values. Assigned-only visibility,
+no-edit and no-comment-visibility restrictions, worker self-assignment and
+favorite/unfavorite opposites remain explicit. All 2,310 reviews pass;
+1,903 restored values and 308 pending findings plus broader language/browser
+verification remain open.
