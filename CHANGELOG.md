@@ -674,7 +674,21 @@ comment listing remains card-authoritative after board validation.
 Denied attempts appear in bounded Problems summaries. Attack decisions,
 negative server insert inventory and existing REST ACL suites pass.
 Browser regression is syntax-checked; live execution remains pending.
-Seven other wekansec21 reports remain under review.
+Remaining reports are tracked in the security remediation report.
+
+Thanks to Wenhao Wu, Southeast University and xet7 !
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c33e9c3bf">Require administrators for REST board management</a></summary>
+
+ManageBoardBleed: normal members could rename boards, change card
+settings and configure trusted automation over REST (CWE-863). These
+management endpoints now use the existing board-administrator guard,
+including site-admin access. Denials produce bounded Problems summaries.
+Actual guard decisions, endpoint inventory, card-settings and rule suites
+pass. Browser regression is syntax-checked; live execution remains pending.
 
 Thanks to Wenhao Wu, Southeast University and xet7 !
 
