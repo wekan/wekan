@@ -590,7 +590,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.75 2026-09-14 WeKan ® release
 
 **In short:** Card and sidebar activity values render Markdown, emojis and
 permitted HTML through the shared security-aware viewer. Plain-source and
