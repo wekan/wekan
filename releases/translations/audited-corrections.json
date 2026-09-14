@@ -129792,5 +129792,103 @@
     "before": "Actions sur la liste",
     "after": "Oberoù ar roll",
     "reason": "Repair French-seeded Breton entity/view/archive/template/action and lockout labels, reusing existing nouns, action term Oberoù, status Stad and stanket/distankañ. Preserve %s and __board__ exactly. Native Ofis public-action material supports oberoù; full kanban compounds are adapted with native grammar and browser review still open."
+  },
+  {
+    "locale": "br",
+    "key": "accounts-lockout-failed-attempts",
+    "before": "Tentatives en échec",
+    "after": "Taolioù kennaskañ c’hwitet",
+    "reason": "Repair French-seeded Breton diagnostics and status values. Reuse local kennaskañ, treuzkas roadennoù, Stad, Echu, no-card/problem and waiting terminology. Native Ofis dictionary attests fazi/fazioù; native Kelennomp grammar reference gives c’hwitet eo for failure; Ofis computing glossary attests war ober for in-progress and diskwel. Preserve pending/running/complete/failed distinctions. Full adapted phrases and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "cron-migration-errors",
+    "before": "Erreurs de migration",
+    "after": "Fazioù treuzkas roadennoù",
+    "reason": "Repair French-seeded Breton diagnostics and status values. Reuse local kennaskañ, treuzkas roadennoù, Stad, Echu, no-card/problem and waiting terminology. Native Ofis dictionary attests fazi/fazioù; native Kelennomp grammar reference gives c’hwitet eo for failure; Ofis computing glossary attests war ober for in-progress and diskwel. Preserve pending/running/complete/failed distinctions. Full adapted phrases and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "migration-failed",
+    "before": "Migration en échec",
+    "after": "C’hwitet eo an treuzkas roadennoù",
+    "reason": "Repair French-seeded Breton diagnostics and status values. Reuse local kennaskañ, treuzkas roadennoù, Stad, Echu, no-card/problem and waiting terminology. Native Ofis dictionary attests fazi/fazioù; native Kelennomp grammar reference gives c’hwitet eo for failure; Ofis computing glossary attests war ober for in-progress and diskwel. Preserve pending/running/complete/failed distinctions. Full adapted phrases and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "migration-progress-status",
+    "before": "Statut",
+    "after": "Stad",
+    "reason": "Repair French-seeded Breton diagnostics and status values. Reuse local kennaskañ, treuzkas roadennoù, Stad, Echu, no-card/problem and waiting terminology. Native Ofis dictionary attests fazi/fazioù; native Kelennomp grammar reference gives c’hwitet eo for failure; Ofis computing glossary attests war ober for in-progress and diskwel. Preserve pending/running/complete/failed distinctions. Full adapted phrases and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "errors",
+    "before": "Erreurs",
+    "after": "Fazioù",
+    "reason": "Repair French-seeded Breton diagnostics and status values. Reuse local kennaskañ, treuzkas roadennoù, Stad, Echu, no-card/problem and waiting terminology. Native Ofis dictionary attests fazi/fazioù; native Kelennomp grammar reference gives c’hwitet eo for failure; Ofis computing glossary attests war ober for in-progress and diskwel. Preserve pending/running/complete/failed distinctions. Full adapted phrases and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "error",
+    "before": "Erreur",
+    "after": "Fazi",
+    "reason": "Repair French-seeded Breton diagnostics and status values. Reuse local kennaskañ, treuzkas roadennoù, Stad, Echu, no-card/problem and waiting terminology. Native Ofis dictionary attests fazi/fazioù; native Kelennomp grammar reference gives c’hwitet eo for failure; Ofis computing glossary attests war ober for in-progress and diskwel. Preserve pending/running/complete/failed distinctions. Full adapted phrases and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "problems-status-title",
+    "before": "Statut",
+    "after": "Stad",
+    "reason": "Repair French-seeded Breton diagnostics and status values. Reuse local kennaskañ, treuzkas roadennoù, Stad, Echu, no-card/problem and waiting terminology. Native Ofis dictionary attests fazi/fazioù; native Kelennomp grammar reference gives c’hwitet eo for failure; Ofis computing glossary attests war ober for in-progress and diskwel. Preserve pending/running/complete/failed distinctions. Full adapted phrases and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "cron-no-errors",
+    "before": "Aucune erreur à afficher",
+    "after": "Fazi ebet da ziskwel",
+    "reason": "Repair French-seeded Breton diagnostics and status values. Reuse local kennaskañ, treuzkas roadennoù, Stad, Echu, no-card/problem and waiting terminology. Native Ofis dictionary attests fazi/fazioù; native Kelennomp grammar reference gives c’hwitet eo for failure; Ofis computing glossary attests war ober for in-progress and diskwel. Preserve pending/running/complete/failed distinctions. Full adapted phrases and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "migration-complete",
+    "before": "Terminé",
+    "after": "Echu",
+    "reason": "Repair French-seeded Breton diagnostics and status values. Reuse local kennaskañ, treuzkas roadennoù, Stad, Echu, no-card/problem and waiting terminology. Native Ofis dictionary attests fazi/fazioù; native Kelennomp grammar reference gives c’hwitet eo for failure; Ofis computing glossary attests war ober for in-progress and diskwel. Preserve pending/running/complete/failed distinctions. Full adapted phrases and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "migration-running",
+    "before": "En cours ...",
+    "after": "War ober...",
+    "reason": "Repair French-seeded Breton diagnostics and status values. Reuse local kennaskañ, treuzkas roadennoù, Stad, Echu, no-card/problem and waiting terminology. Native Ofis dictionary attests fazi/fazioù; native Kelennomp grammar reference gives c’hwitet eo for failure; Ofis computing glossary attests war ober for in-progress and diskwel. Preserve pending/running/complete/failed distinctions. Full adapted phrases and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "pending",
+    "before": "En cours",
+    "after": "War c’hortoz",
+    "reason": "Repair French in-progress wording that mistranslated Pending. Native Ofis gortoz entry attests War c’hortoz for waiting. Preserve the distinction from running War ober and complete Echu. Live browser validation remains open. https://niverel.brezhoneg.bzh/fr/meurgorf/14798"
+  },
+  {
+    "locale": "br",
+    "key": "complete",
+    "before": "Terminé",
+    "after": "Echu",
+    "reason": "Repair French-seeded Breton diagnostics and status values. Reuse local kennaskañ, treuzkas roadennoù, Stad, Echu, no-card/problem and waiting terminology. Native Ofis dictionary attests fazi/fazioù; native Kelennomp grammar reference gives c’hwitet eo for failure; Ofis computing glossary attests war ober for in-progress and diskwel. Preserve pending/running/complete/failed distinctions. Full adapted phrases and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "no-cards-found",
+    "before": "Aucune carte trouvée",
+    "after": "Kartenn ebet kavet",
+    "reason": "Repair French-seeded Breton diagnostics and status values. Reuse local kennaskañ, treuzkas roadennoù, Stad, Echu, no-card/problem and waiting terminology. Native Ofis dictionary attests fazi/fazioù; native Kelennomp grammar reference gives c’hwitet eo for failure; Ofis computing glossary attests war ober for in-progress and diskwel. Preserve pending/running/complete/failed distinctions. Full adapted phrases and live browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "no-issues-found",
+    "before": "Aucun problème détecté",
+    "after": "Kudenn ebet kavet",
+    "reason": "Repair French-seeded Breton diagnostics and status values. Reuse local kennaskañ, treuzkas roadennoù, Stad, Echu, no-card/problem and waiting terminology. Native Ofis dictionary attests fazi/fazioù; native Kelennomp grammar reference gives c’hwitet eo for failure; Ofis computing glossary attests war ober for in-progress and diskwel. Preserve pending/running/complete/failed distinctions. Full adapted phrases and live browser validation remain open."
   }
 ]

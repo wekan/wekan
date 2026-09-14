@@ -113,3 +113,20 @@ for (const key of ['board-view-swimlanes', 'swimlaneActionPopup-title',
   'no-archived-lists', 'listActionPopup-title']) {
   assert.doesNotMatch(locales.br[key], /Couloir|couloir|Actions|Modèles|Sous-tâches|sous-tâche|Aucun|Aucune|Utilisateurs|Statut|déverrouiller/);
 }
+
+assert.equal(locales.br.error, 'Fazi');
+assert.equal(locales.br.errors, 'Fazioù');
+assert.equal(locales.br['migration-progress-status'], locales.br.status);
+assert.equal(locales.br['problems-status-title'], locales.br.status);
+assert.equal(locales.br['migration-complete'], locales.br.completed);
+assert.equal(locales.br.complete, locales.br.completed);
+assert.equal(new Set(['pending', 'migration-running', 'migration-complete',
+  'migration-failed'].map(key => locales.br[key])).size, 4,
+  'waiting, running, completed and failed remain distinct');
+assert.equal(locales.br['accounts-lockout-failed-attempts'], 'Taolioù kennaskañ c’hwitet');
+for (const key of ['accounts-lockout-failed-attempts', 'cron-migration-errors',
+  'migration-failed', 'migration-progress-status', 'errors', 'error',
+  'problems-status-title', 'cron-no-errors', 'migration-complete',
+  'migration-running', 'pending', 'complete', 'no-cards-found', 'no-issues-found']) {
+  assert.doesNotMatch(locales.br[key], /Tentatives|Erreurs|Erreur|échec|Statut|Aucune|Aucun|Terminé|En cours/);
+}
