@@ -1,5 +1,19 @@
 # Detailed translation audit evidence
 
+2026-09-14 — Veps follow-up: current language registry explicitly maps
+ve-PP to Vepsän kelʹ; do not reinterpret its legacy ve code as Venda.
+Directly read MediaWiki vep native translations: show/rcfilters-activefilters-show
+use Ozuta, tags-activate uses pane radho, tags-deactivate uses kel'dä,
+and default-skin-not-found-row-enabled/disabled distinguish om lasktud
+from om kel'tüd. These attest native software components beyond the Finnish
+seed values. The inspected file has no keyboard or shortcut keys, so it does
+not independently establish a full keyboard-shortcut label. Ten original
+Veps findings remain pending, including long operator help whose exact
+examples and escaping must survive repair. Related-language cognates alone
+cannot prove the complete Finnish-seeded sentences are valid Veps. Values,
+correction records and counts unchanged: 311 original findings pending.
+Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+
 2026-09-14 — allocation/context visual follow-up: directly inspected
 CNAM PDF18 and PDF41 local renders, superseding the previous text-only
 status for these entries. Allocation is Aḥeṛṛi (KBL root ḥeṛṛ), visibly
