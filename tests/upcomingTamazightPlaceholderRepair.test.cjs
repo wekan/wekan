@@ -50,3 +50,11 @@ console.log('Tamazight Default values replace French without changing to First')
 assert.strictEqual(translated['export-card-excel-fields'], 'ⵙⵜⵉ ⵉⴳⵔⴰⵏ ⵍⵍⵉ ⵔⴰ ⵜⵙⵙⵓⴼⵖⴷ ⵖⵔ Excel:');
 assert.doesNotMatch(translated['export-card-excel-fields'], /Sélectionnez|champs|inclure|export Excel/);
 console.log('Tamazight Excel prompt retains choosing fields, export destination and colon');
+
+assert.strictEqual(translated['operator-debug-invalid'], '%s: ⴰⵣⴰⵍ ⵏ debug ⵓⵔ ⵉⵣⵔⵉ');
+assert.deepStrictEqual(inventory(translated['operator-debug-invalid']), ['%s']);
+assert.doesNotMatch(translated['operator-debug-invalid'], /prédicat|valide|ⵉⵎⵏⵏⵉ/);
+assert.notStrictEqual(translated['operator-debug-invalid'], translated['operator-has-invalid']);
+const querySource = fs.readFileSync(path.join(ROOT, 'config/query-classes.js'), 'utf8');
+assert.match(querySource, /operator === OPERATOR_DEBUG[\s\S]*?predicateTranslations\[OPERATOR_DEBUG\]\[value\][\s\S]*?operator-debug-invalid/);
+console.log('Tamazight debug error preserves catalogue-value meaning and positional token');

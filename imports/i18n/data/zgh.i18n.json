@@ -1750,7 +1750,7 @@
   "operator-status-invalid": "ⴰⴷⴷⴰⴷ ⵏ '%s' ⵓⵔ ⵉⵙⵖⵣⵏ.",
   "operator-has-invalid": "ⵜⵉⵎⵏⵥⵉⵜ ⵏ ⵉⵍⵉ %s ⵓⵔ ⵜⴽⵏⵉ",
   "operator-limit-invalid": "%s: ⴰⵡⵜⵜⵓ ⵓⵔ ⵉⵙⵖⵣⵏ. ⵉⵅⵚⵚⴰ ⴰⴷ ⵉⴳ ⵓⵡⵜⵜⵓ ⴰⵎⴹⴰⵏ ⵓⵎⵎⵉⴷ ⵓⵎⵏⵉⴳ.",
-  "operator-debug-invalid": "%s n'est pas un prédicat de debug valide",
+  "operator-debug-invalid": "%s: ⴰⵣⴰⵍ ⵏ debug ⵓⵔ ⵉⵣⵔⵉ",
   "next-page": "ⵜⴰⵙⵏⴰ ⵜⵓⴹⴼⵉⵕⵜ",
   "previous-page": "ⵜⴰⵙⵏⴰ ⵜⵓⵣⵡⵉⵔⵜ",
   "heading-notes": "ملاحظات",

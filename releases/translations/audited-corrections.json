@@ -131885,5 +131885,12 @@
     "before": "Sélectionnez les champs à inclure dans l'export Excel :",
     "after": "ⵙⵜⵉ ⵉⴳⵔⴰⵏ ⵍⵍⵉ ⵔⴰ ⵜⵙⵙⵓⴼⵖⴷ ⵖⵔ Excel:",
     "reason": "2026-09-14: Replace French Excel field-selection prompt with full Tamazight draft: choose fields that you will export to Excel. Native MediaWiki history-fieldset-title supports choose, metadata-fields supports fields, export supports export verb; retain Excel and trailing colon. Low confidence: relative/future conjugation and full software phrase need native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-debug-invalid",
+    "before": "%s n'est pas un prédicat de debug valide",
+    "after": "%s: ⴰⵣⴰⵍ ⵏ debug ⵓⵔ ⵉⵣⵔⵉ",
+    "reason": "2026-09-14: Replace French debug error with complete Tamazight draft saying invalid debug value. Actual query-classes catalogue rejects unsupported debug mode values, not Boolean predicates. Native MediaWiki unexpected supplies value ⴰⵣⴰⵍ and title-invalid supplies invalid ⵓⵔ ⵉⵣⵔⵉ. Preserve %s exactly and technical debug identifier. Low confidence: full catalogue diagnostic grammar needs native review; selector/projection vocabulary remains separately unresolved."
   }
 ]
