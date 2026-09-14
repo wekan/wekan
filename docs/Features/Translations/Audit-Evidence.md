@@ -1,5 +1,15 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `35eb7e7ab`: four zoom controls repaired using the
+previously visually inspected Level/Zoom candidates. Keep the dictionary's
+Zoom loan, distinguish In versus Out, and preserve Level and input command
+with literal 50-300% range. One original finding and three additional repairs;
+progress now 15,532 corrected, 312 pending, including 177 Tamazight.
+All 18,115 correction checks pass. KBL/modern-lexicon terms, Tifinagh
+adaptation and complete level/input phrases remain LOW CONFIDENCE for
+Moroccan usage. Restored/unflagged and earlier low-confidence review remain
+open; no live browser verification or remote upload.
+
 2026-09-14 — zoom control terminology review: directly inspected local
 renders of CNAM Amawal PDF pages 98 and 154. Level is Aswir MW (modern
 lexicon, not MediaWiki); Zoom is retained as a loan, with Zoom ɣer deffir
