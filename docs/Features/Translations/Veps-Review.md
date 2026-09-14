@@ -401,3 +401,31 @@ summary verb would blur that distinction. The next repair therefore needs
 a numerical-total noun or a complete explicitly numerical formulation.
 No translation or acceptance changed. Pending 204, including nine Veps
 findings; broader prior drafts and native grammar remain open.
+
+
+## Keyboard-shortcut repair scope — 2026-09-15
+
+Live queue still has nine Veps findings, including both keyboard toggle
+messages and shortcut-show-shortcuts. An additional unflagged Finnish value,
+keyboard-shortcuts = Pikanäppäimet, appears in sidebar.jade:16-18 and
+main/keyboardShortcuts.jade:4. Review all four together; fixing only the
+flagged action leaves the actual popup title in Finnish. The action is
+bound to literal ? in client/lib/keyboard.js:384-385; do not translate or
+replace that key binding. Sidebar.js:364-369 distinguishes opening the
+shortcuts route from toggling the user's keyboard-shortcut setting.
+The two tooltip messages describe the current state followed by the
+opposite click action. Keep enabled/disable and disabled/enable pairs
+correct, rather than translating both as the same action.
+
+Primary native software source read 2026-09-15:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+provides Ozuta for show and peitä for hide. Its checked key names matching
+keyboard/shortcut/accesskey supply no dedicated keyboard-shortcut phrase.
+The cached Russian–Veps dictionary text search for клавиатур, клавиш and
+комбинац also produced no entry. These limited searches do not prove the
+term is absent from Veps or from the dictionary's rendered pages. Seek
+native keyboard/key-combination terminology and complete object grammar
+before writing the four coordinated drafts. General list vocabulary alone
+does not resolve what this specific list contains. No locale edit, ledger
+or original queue classification change; all nine and broader review remain
+open. This extends the repair scope to the unflagged Finnish popup title.

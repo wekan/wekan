@@ -29,12 +29,11 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Tamazight memory terms](Tamazight-Review.md): retain the existing memory
-and external-memory labels. Their ledger includes Moroccan RAM usage;
-IRCAM's general memory noun alone does not invalidate that alternative.
-Correct the earlier cognitive-only characterization. External memory is
-V8-bound C++ object memory; full terminology and grammar remain open.
-No locale edit or count change. Accessibility source conflict remains open.
+[Veps keyboard shortcuts](Veps-Review.md): add the unflagged Finnish
+popup title to the repair scope alongside three flagged messages. Preserve
+literal key bindings and opposite current-state/click-action pairs. Checked
+native sources do not yet supply the full term; further lookup remains open.
+No locale edit or count change. Earlier source conflicts remain open.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:
