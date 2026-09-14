@@ -743,10 +743,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,196 original findings are
+Translation audit progress as of 2026-09-14: 15,197 original findings are
 corrected, 179 are reviewed and retained, 4,058 restored values await
-validation, and 648 original findings remain pending across 17 locales,
-including 505 Tamazight findings. The ledger contains 17,424 correction
+validation, and 647 original findings remain pending across 17 locales,
+including 504 Tamazight findings. The ledger contains 17,430 correction
 records, including repairs outside the original audit. Regression checks
 validate placeholders, rendering and merge behavior; fluency and wider
 language validation remain open. See the
@@ -774,6 +774,18 @@ existing mixed-script correction is refined. Native reference components
 support the wording; full noun, ordering and negative capability phrases
 remain low confidence. All 17,424 correction checks pass. Wider language
 validation and live browser verification remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a8415fbf6">Repair Tamazight Time, Now and due-date activity values</a>. Thanks to xet7.</summary>
+
+Replace Arabic/French time labels, distinguish Now from today and preserve
+updated due-date destination/card placeholder order. Six values are repaired,
+including five unflagged problems. Full diagnostics, verb conjugation and
+inherited due-date terminology remain low confidence. All 17,430 correction
+checks pass; wider language validation and live browser execution remain
+open.
 
 </details>
 

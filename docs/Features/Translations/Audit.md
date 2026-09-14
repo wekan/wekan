@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,196 |
+| Corrected | 15,197 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 648 |
+| Pending review or repair | 647 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,424** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,430** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `4191e56e4` — repaired ten creation-date sorting and export values: five original findings, four unflagged French labels and one mixed-script refinement of an existing correction. Preserve newest/oldest-first ordering, card versus board export, export restrictions and literal Excel/PDF names. Native MediaWiki supports component terms; complete noun, ordering and negative capability phrasing remains **low confidence** pending fluent review. All **17,424** correction/rendering checks pass. **648** originals remain pending across **17** locales, including **505** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `a8415fbf6` — repaired six time/due-date values: one original finding and five unflagged problems. Replace Arabic/French Time and invalid-time labels, correct timeline Now from today to the current instant, and preserve due-date destination/card placeholder order. Native references support time/now/change components; diagnostic composition, verb conjugation and inherited due-date terminology remain **low confidence** pending review. All **17,430** correction/rendering checks pass. **647** originals remain pending across **17** locales, including **504** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Color-name reference review (2026-09-14):** Sardinian and Aromanian `color-magenta` remain pending. Searches did not establish native usage; Italian publications and English WordPress changelogs are insufficient. The [Vrabie English–Aromanian dictionary](https://s3.wasabisys.com/fars-media/wp-content/uploads/2020/07/An-English-Aromanian-Macedo-Romanian-Dictionary-%C2%A9Society-Farsharotu-1.pdf) has poor OCR and no searchable magenta/fuchsia entry, which does not prove absence. Further review needs a legible dictionary entry or native usage; neither color value was changed or accepted as verified.
 
