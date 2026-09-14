@@ -661,6 +661,16 @@ The browser assertion accepts whitespace between the regional flag and name.
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ca9bf7a97">Distinguish Uzbek and Khmer Kanban boards from councils</a>. Thanks to xet7.</summary>
+
+Correct core board labels, restoration actions and complete Archive/All Boards
+instructions. Preserve Khmer locale aliases and historical correction values.
+Five focused suites pass after fixing alias bookkeeping. Further council-term
+sentences and native computing collocations remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2070173c0">Correct archive instructions in eight additional languages</a>. Thanks to xet7.</summary>
 
 Use Archive on All Boards in Malayalam, Marathi, Gujarati, Punjabi, Nepali,

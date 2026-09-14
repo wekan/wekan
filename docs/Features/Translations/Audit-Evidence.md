@@ -26811,3 +26811,36 @@ so its place label must be reviewed with the instruction rather than copied
 as though correct. Khmer's board-of-directors wording needs the same review.
 These unflagged issues and all prior low-confidence findings stay in scope.
 No external translation service and no remote push.
+
+
+### 2026-09-14 — Uzbek/Khmer board-sense repairs
+
+Source commit `ca9bf7a97`: 11 stored values, 14 locale/key identities including
+km-KH alias coverage. Uzbek board/boards/all-boards/restore-board and full
+archive guidance corrected. Khmer base and regional All Boards, restore
+board and complete archive instructions corrected; km-KH remains a symlink
+to km_KH. Ledger 18,996; original pending 225, four restored values unchanged.
+
+[Izoh.uz: taxta](https://izoh.uz/word/taxta) attests physical boards and
+notice/chess-board uses; [kengash](https://izoh.uz/word/kengash) is consultation
+in the accessed dictionary entry, not a Kanban work surface. Uzbek uses
+Taxta/Taxtalar and the accusative Taxtani in the restoration action.
+[Wiktionary: ក្តារ](https://en.wiktionary.org/wiki/ក្តារ) supports the Khmer
+board/plank noun already established in this locale. The substituted noun
+repairs the governing-body ambiguity without certifying every computing
+collocation. Khmer dictionary endpoint access failed; no claim that it
+independently validated the complete instruction.
+
+Five focused suites pass. Correction ledger initially rejected km_KH rows
+whose before-values were read after the alias had already updated its target;
+restored actual pre-change values from HEAD, then ledger and unchanged-review
+suites passed. Other archive, completeness and route suites had passed.
+Tokens, examples, key order and newer human values remain protected.
+No new browser run. Full computing phrase review remains open.
+
+A wider search found 182 Uzbek and 71 each Khmer council-term values before
+this batch. Remaining: 179 Uzbek and 69 each km/km_KH (km-KH shares the latter).
+Each surrounding sentence needs review, including Uzbek possessive forms:
+kengashi cannot be replaced mechanically with taxtai; taxtasi is required.
+Do not mistake absence from the original 225-key queue for completion.
+No external translation service or remote push.
