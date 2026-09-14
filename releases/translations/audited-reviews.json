@@ -12058,5 +12058,185 @@
     "key": "sandstorm-storage-item",
     "value": "Konservejo",
     "reason": "2026-09-14: Direct semantic review confirms account-unlock outcomes, scheduled jobs/migrations, error severity/clearing, failed-versus-paused retries and idle/storage labels. Success/failure and no-failed/no-paused conditions remain distinct; no valid wording replaced."
+  },
+  {
+    "locale": "eo",
+    "key": "features-notifications",
+    "value": "Sciigoj",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "all-migrations",
+    "value": "Ĉiuj migradoj",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "select-migration",
+    "value": "Elekti migradon",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "stop",
+    "value": "Haltigi",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "migration-starting",
+    "value": "Startigas migradojn...",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "migration-pausing",
+    "value": "Paŭzigas migradojn...",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "migration-stopping",
+    "value": "Haltigas migradojn...",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "migration-progress",
+    "value": "Progreso de migrado",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "migration-not-needed",
+    "value": "Neniu migrado bezonata",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "migration-status",
+    "value": "Stato de migrado",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "mongodb-gridfs-storage",
+    "value": "Konservejo MongoDB GridFS",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "s3-access-key",
+    "value": "S3-alirŝlosilo",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "s3-access-key-placeholder",
+    "value": "Enigu S3-alirŝlosilon",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "s3-bucket",
+    "value": "S3-sitelo",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "s3-connection-failed",
+    "value": "S3-konekto malsukcesis",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "s3-connection-success",
+    "value": "S3-konekto sukcesis",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "s3-enabled",
+    "value": "S3 ŝaltita",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "s3-endpoint",
+    "value": "S3-finpunkto",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "s3-minio-storage",
+    "value": "Konservejo S3/MinIO",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "s3-port",
+    "value": "S3-pordo",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "s3-region",
+    "value": "S3-regiono",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "automatic-migration",
+    "value": "Aŭtomata migrado",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "back-to-settings",
+    "value": "Reen al agordoj",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "board-migration",
+    "value": "Tabula migrado",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "board-migrations",
+    "value": "Tabulaj migradoj",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "card-show-lists-on-minicard",
+    "value": "Montri listojn sur minikarto",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "comprehensive-board-migration",
+    "value": "Ampleksa tabula migrado",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "comprehensive-board-migration-description",
+    "value": "Faras ampleksajn kontrolojn kaj riparojn de la integreco de tabulaj datumoj, inkluzive de ordigo de listoj, pozicioj de kartoj kaj strukturo de naĝlinioj.",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "delete-duplicate-empty-lists-migration",
+    "value": "Forigi duoblajn malplenajn listojn",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
+  },
+  {
+    "locale": "eo",
+    "key": "delete-duplicate-empty-lists-migration-description",
+    "value": "Sekure forigas malplenajn duoblajn listojn. Forigas nur listojn, kiuj havas neniun karton KAJ havas alian liston kun la sama titolo enhavantan kartojn.",
+    "reason": "2026-09-14: Direct semantic review confirms migration progress/actions, S3 storage fields and connection outcomes, data-integrity scope and duplicate-empty-list removal conditions. The empty AND same-title nonempty counterpart condition stays conjunctive; start/pause/stop and success/failure remain distinct."
   }
 ]
