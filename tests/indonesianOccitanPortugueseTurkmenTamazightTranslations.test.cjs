@@ -139,3 +139,16 @@ assert.equal(locales.zgh['show-on-card'], 'ⵙⵙⴽⵏ ⴳ ⵜⴽⴰⵔⴹⴰ')
 assert.doesNotMatch(locales.zgh['change-card-parent'], /Changer|parent|carte/);
 assert.doesNotMatch(locales.zgh['show-on-card'], /Afficher|sur|Card/);
 assert.notEqual(locales.zgh['change-card-parent'], locales.zgh['parent-card']);
+
+const authenticationLabels = {
+  "authentication-method": "ⵜⴰⵔⵔⴰⵢⵜ ⵏ ⵓⵙⵖⵣⵏ",
+  "authentication-type": "ⴰⵏⴰⵡ ⵏ ⵓⵙⵖⵣⵏ",
+  "default-authentication-method": "ⵜⴰⵔⵔⴰⵢⵜ ⵏ ⵓⵙⵖⵣⵏ ⵙ ⵓⵡⵏⵓⵍ",
+  "display-authentication-method": "ⵙⴽⵏ ⵜⴰⵔⵔⴰⵢⵜ ⵏ ⵓⵙⵖⵣⵏ"
+};
+for (const [key, value] of Object.entries(authenticationLabels)) {
+  assert.equal(locales.zgh[key], value);
+  assert.doesNotMatch(locales.zgh[key], /ⵓⵙⵙⵜⴱ|Authentification/);
+  assert.equal((locales.zgh[key].match(/ⵓⵙⵖⵣⵏ/g) || []).length, 1);
+}
+assert.equal(new Set(Object.values(authenticationLabels)).size, 4);
