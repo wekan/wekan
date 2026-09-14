@@ -20614,5 +20614,179 @@
     "key": "step-convert-shared-lists",
     "value": "Converter as listas compartidas",
     "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "step-ensure-per-swimlane-lists",
+    "value": "Garantir listas por carril",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "step-validate-migration",
+    "value": "Validar a migración",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "step-fix-avatar-urls",
+    "value": "Corrixir os URL dos avatares",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "step-analyze-lists",
+    "value": "Analizar as listas",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "step-create-missing-lists",
+    "value": "Crear as listas que faltan",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "step-delete-duplicate-empty-lists",
+    "value": "Eliminar as listas baleiras duplicadas",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "step-restore-lists",
+    "value": "Restaurar as listas",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "step-restore-swimlanes",
+    "value": "Restaurar os carrís",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "step-fix-missing-ids",
+    "value": "Corrixir os ID que faltan",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "step-fix-file-urls",
+    "value": "Corrixindo os URL dos ficheiros",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "cleanup-old-jobs",
+    "value": "Limpar os traballos antigos",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "current-action",
+    "value": "Acción actual",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "database-migrations",
+    "value": "Migracións da base de datos",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "days-old",
+    "value": "Días de antigüidade",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "duration",
+    "value": "Duración",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "every-1-day",
+    "value": "Cada 1 día",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "every-1-hour",
+    "value": "Cada 1 hora",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "every-1-minute",
+    "value": "Cada 1 minuto",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "every-10-minutes",
+    "value": "Cada 10 minutos",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "every-30-minutes",
+    "value": "Cada 30 minutos",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "every-5-minutes",
+    "value": "Cada 5 minutos",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "every-6-hours",
+    "value": "Cada 6 horas",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "export-monitoring",
+    "value": "Exportar a monitorización",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "filesystem-size",
+    "value": "Tamaño do sistema de ficheiros",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "filesystem-storage",
+    "value": "Almacenamento no sistema de ficheiros",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "gridfs-size",
+    "value": "Tamaño de GridFS",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "idle-migration",
+    "value": "Migración inactiva",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "job-description",
+    "value": "Descrición do traballo",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "job-details",
+    "value": "Detalles do traballo",
+    "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
   }
 ]

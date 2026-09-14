@@ -127153,5 +127153,12 @@
     "before": "Recibido o",
     "after": "Recibida o",
     "reason": "Received date headings and tooltips describe the card (Galician tarxeta, feminine), not a masculine received object. cardDetails.jade and cardDate.js establish the card/date context; retain the date-introducing o."
+  },
+  {
+    "locale": "gl",
+    "key": "completed",
+    "before": "Completado",
+    "after": "Completada",
+    "reason": "client/components/cards/subtasks.jade uses completed as the completed-subtask icon tooltip. Galician subtarefa is feminine, requiring Completada rather than masculine Completado."
   }
 ]

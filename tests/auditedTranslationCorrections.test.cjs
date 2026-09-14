@@ -2983,3 +2983,11 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.notEqual(gl['card-received'], 'Recibido');
   assert.notEqual(gl['card-received-on'], 'Recibido o');
 }
+
+// Completed subtask tooltip agrees with feminine Galician subtarefa.
+{
+  const gl = JSON.parse(require('node:fs').readFileSync(require('node:path').join(__dirname, '../imports/i18n/data/gl.i18n.json'), 'utf8'));
+  const assert = require('node:assert/strict');
+  assert.equal(gl.completed, 'Completada');
+  assert.notEqual(gl.completed, 'Completado');
+}

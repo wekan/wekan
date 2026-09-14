@@ -2480,7 +2480,7 @@
   "step-fix-file-urls": "Corrixindo os URL dos ficheiros",
   "cleanup": "Limpeza",
   "cleanup-old-jobs": "Limpar os traballos antigos",
-  "completed": "Completado",
+  "completed": "Completada",
   "conversion-info-text": "Esta conversión realízase unha vez por taboleiro e mellora o rendemento. Pode seguir usando o taboleiro con normalidade.",
   "converting-board": "Convertendo o taboleiro",
   "converting-board-description": "Convertendo a estrutura do taboleiro para mellorar a funcionalidade. Pode tardar uns instantes.",
