@@ -130499,5 +130499,33 @@
     "before": "Nombre",
     "after": "Niver",
     "reason": "Replace French with native card/number nouns; align with existing Breton WeKan card vocabulary and OPLB definitions."
+  },
+  {
+    "locale": "br",
+    "key": "preview",
+    "before": "Prévisualiser",
+    "after": "Rakwelet",
+    "reason": "Replace French action label with native software vocabulary; comment phrase adapted from local Breton comment noun and native add verb."
+  },
+  {
+    "locale": "br",
+    "key": "discard",
+    "before": "Mettre à la corbeille",
+    "after": "Nullañ",
+    "reason": "Replace French action label with native software vocabulary; comment phrase adapted from local Breton comment noun and native add verb."
+  },
+  {
+    "locale": "br",
+    "key": "unset-color",
+    "before": "Enlever",
+    "after": "Dilemel",
+    "reason": "Replace French action label with native software vocabulary; comment phrase adapted from local Breton comment noun and native add verb."
+  },
+  {
+    "locale": "br",
+    "key": "comment",
+    "before": "Commenter",
+    "after": "Ouzhpennañ un evezhiadenn",
+    "reason": "Replace French action label with native software vocabulary; comment phrase adapted from local Breton comment noun and native add verb."
   }
 ]

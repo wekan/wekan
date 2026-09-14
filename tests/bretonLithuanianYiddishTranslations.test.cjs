@@ -303,3 +303,10 @@ for (const [key, value] of Object.entries({"cards-count-one":"Kartenn","cardType
 }
 assert.equal(locales.br['cards-count-one'], locales.br['cardType-card']);
 assert.notEqual(locales.br['custom-field-number'], locales.br['custom-field-text']);
+
+for (const [key, value] of Object.entries({"preview":"Rakwelet","discard":"Nullañ","unset-color":"Dilemel","comment":"Ouzhpennañ un evezhiadenn"})) {
+ assert.equal(locales.br[key], value);
+ assert.doesNotMatch(locales.br[key], /Prévisualiser|corbeille|Enlever|Commenter/);
+}
+assert.notEqual(locales.br.comment, locales.br.comments);
+assert.notEqual(locales.br.preview, locales.br.discard);
