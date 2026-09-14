@@ -29,10 +29,10 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Tamazight possessive placement](Tamazight-Review.md) confirms noun-following
-ownership in the Peace Corps Morocco textbook. The split acceptance span
-and legal-notice link must preserve “our” without changing generic labels
-or copying English prefix order. Complete clause remains open.
+[Tamazight mapping empty state](Tamazight-Review.md) confirms the distinction
+between no initial board targets and no search matches. Attested not-yet
+and above terms are available; actual-account wording remains open.
+Keep board scope and the instruction to search for any user.
 No translations or counts changed. Earlier reviews remain in detailed evidence.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,

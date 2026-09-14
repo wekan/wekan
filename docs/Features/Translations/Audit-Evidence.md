@@ -28613,3 +28613,30 @@ suites pass for exact wording and translation invariants. No live UI test
 ran. Ledger 19,848; original corrected 15,735, pending 168 (zgh 73),
 restored 4 unchanged. Unflagged repair is outside original queue totals.
 Broader review remains open; no remote writes.
+
+
+## Imported-member empty state — review 2026-09-15
+
+Flagged French `map-to-existing-user-none` remains pending. IRCAM page
+452 entry 8585 explicitly gives `ur ta` not yet; page 435 entry 8259
+`nnig` above/on/over supplies a location candidate for the search control.
+Page 440 entry 8361 `ntu` means be genuine, but does not establish a
+software actual-account adjective. Do not substitute real-estate entry
+13277 or believe-true entry 2562 for real user/member.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+Actual `client/components/sidebar/sidebar.js:976` distinguishes why the
+mapping target list is empty. `searchResults === null` selects this
+no-other-real-members-yet message; after a search it instead selects
+`map-to-existing-user-no-results`. Its neighboring helpers use
+`importedMapTargets(this.userId)` before a search, and returned search
+results afterward. Thus no search match and no initial board targets are
+different states. Do not replace this instruction with a generic no-results
+label or imply that all WeKan users are absent.
+
+Next action: verify actual-account/virtual-member contrast in Tamazight,
+then preserve other members, on this board, not yet, search above and
+any user in the complete two-sentence instruction. Not-yet wording must
+not become never. This evidence narrows meaning without certifying full
+grammar. No translation or counts changed. Pending 168 original findings.
+No live mapping UI test ran and no remote writes were made.
