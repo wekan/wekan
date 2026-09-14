@@ -27367,3 +27367,30 @@ preference. No active references to this removed migration were found and
 no live browser test was run. No removed code is reactivated. Ledger
 19,774; original corrected 15,694, pending 209 (zgh 106), restored 4 unchanged.
 All broader uncertain/restored/unflagged findings remain open. No push.
+
+## Duplicate-list deletion confirmation — 2026-09-15
+
+Local commit `8b44ebd33` replaces the French confirmation with a Tamazight
+draft. It retains the certainty question, future deletion, all duplicate
+lists, a shared name AND absence of cards. This is distinct from the more
+specific empty-list migration messages, whose extra conditions and
+shared-list conversion remain pending. Their conditions are not silently
+substituted into this different source string.
+
+Active sidebar.jade deleteDuplicateListsPopup renders this confirmation
+above the delete button. Only translation data changed; deletion behavior
+is not modified. [Primary MediaWiki Tamazight source](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json)
+attests deletion and a no-matching-action negative existential formulation
+(delete-confirm and logempty). Those support components, not the full
+adapted no-card/shared-name compound. Existing duplicate-list label and
+workspace confirmation provide consistent local vocabulary.
+
+**Low confidence:** full passive and plural/feminine agreement, repeated-
+list terminology, shared-name construction and adapting the negative
+existential to cards still need native review. Existing compound reuse is
+not independent attestation. Four focused suites pass, preserving exact
+placeholder/tag inventories, key order, provenance and newer translations,
+with regressions for all deletion conditions and question structure. No
+live deletion-popup browser test was run. Ledger 19,775; original corrected
+15,695, pending 208 (zgh 105), restored 4 unchanged. Full uncertain,
+restored and unflagged review remains open. No remote push.

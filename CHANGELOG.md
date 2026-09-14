@@ -662,6 +662,18 @@ The browser assertion accepts whitespace between the regional flag and name.
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8b44ebd33">Translate Tamazight duplicate-list deletion confirmation</a></summary>
+
+Preserve the confirmation question and restriction to same-name duplicate
+lists containing no cards. Four focused suites pass; full grammar remains
+under native review. Deletion behavior is unchanged. Dated audit updated.
+
+Thanks to xet7.
+
+</details>
+
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8e7006cde">Translate Tamazight missing-list repair confirmation</a></summary>
 
 Preserve the future repair statement and a separate continuation question.
