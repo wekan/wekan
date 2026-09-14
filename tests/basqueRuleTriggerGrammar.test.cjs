@@ -108,3 +108,10 @@ assert.match(eu['s3-bucket-description'], /S3 bucket-aren izena/);
 assert.doesNotMatch(eu['s3-bucket'], /eskualde|gako|fitxategi/i);
 const attachmentForm = fs.readFileSync(path.join(root, 'client/components/settings/attachments.jade'), 'utf8');
 assert.match(attachmentForm, /cloud-input-label-tr.*'s3-bucket'[\s\S]*?input\.wekan-form-control#s3-bucket/);
+
+// Incomplete is a status change, rather than leaving work unfinished.
+assert.equal(eu['r-made-incomplete'], 'Osatu gabe markatzen denean');
+assert.doesNotMatch(eu['r-made-incomplete'], /uzten|Osatzen denean/);
+assert.equal([eu['r-when-a-checklist'], eu['r-made-incomplete']].join(' '),
+  'Kontrol-zerrenda bat Osatu gabe markatzen denean');
+assert.match(completionRow, /option\(value="uncompleted"\) \{\{_'r-made-incomplete'\}\}/);

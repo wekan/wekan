@@ -130604,5 +130604,12 @@
     "before": "Modifier",
     "after": "ⵙⵏⴼⵍ",
     "reason": "Replace French change imperative with independently attested native Moroccan edit verb, matching the layout-change control."
+  },
+  {
+    "locale": "eu",
+    "key": "r-made-incomplete",
+    "before": "Osatu gabe uzten denean",
+    "after": "Osatu gabe markatzen denean",
+    "reason": "Replace ambiguous leaving unfinished with an adapted incomplete-status marking clause based on native Moodle completion terminology. Full named-noun/browser review remains open."
   }
 ]
