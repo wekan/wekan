@@ -2680,7 +2680,7 @@
   "list-sync-source-none": "Sinhronirund ei ole päl",
   "list-sync-url": "URL",
   "list-sync-url-placeholder": "https://example.atlassian.net",
-  "list-sync-project-key": "Khonwe ya phurodzheke",
+  "list-sync-project-key": "Projektan kod / ID / owner/repo",
   "list-sync-project-key-placeholder": "PROJECT libo owner/repo",
   "list-sync-credential": "API token / peitsana",
   "list-sync-credential-placeholder": "API token / peitsana",

@@ -190,3 +190,15 @@ test("Veps sync instructions retain periodic and immediate checks", () => {
  assert.doesNotMatch(value,/Vhambadzanani|Mushumo|sedzulusa/i);
  assert.match(fs.readFileSync("server/listSync.js","utf8"),/every 15 minutes/);
 });
+
+test("Veps project label covers code, ID and repository path", () => {
+ const data=JSON.parse(fs.readFileSync("imports/i18n/data/ve-PP.i18n.json","utf8"));
+ assert.equal(data["list-sync-project-key"],"Projektan kod / ID / owner/repo");
+ assert.doesNotMatch(data["list-sync-project-key"],/Khonwe|phurodzheke|avadim/i);
+ assert.notEqual(data["list-sync-project-key"],data["gcs-project-id"]);
+ assert.match(data["list-sync-project-key-placeholder"],/PROJECT.*owner\/repo/);
+ const code=fs.readFileSync("server/lib/listSyncFetch.js","utf8");
+ assert.ok(code.includes("project=${syncSource.projectKey}"));
+ assert.ok(code.includes("/repos/${syncSource.projectKey}/issues"));
+ assert.ok(code.includes("encodeURIComponent(syncSource.projectKey)"));
+});
