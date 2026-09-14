@@ -121287,5 +121287,26 @@
     "before": "مسح التصفية",
     "after": "ⵚⵚⴼⴹ ⵜⵉⵎⵣⵉⵣⴷⴳⵜ",
     "reason": "Replace French/Arabic filter control wording with Tamazight. Native MediaWiki tool-link-userrights-readonly attests skn/show; diff-multi-otherusers attests inssmrsn/users and protect-default attests all-users usage of akk; rcfilters-clear-all-filters attests ssfd/clear and rcfilters-invalid-filter attests singular timzizdgt/filter. Preserve Show colon and singular Clear filter meaning. Short all-users and clear-filter compositions reuse attested morphology; complete UI usage remains subject to fluent review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "filter-labels-label",
+    "before": "Filtrer par étiquette",
+    "after": "ⵣⵉⵣⴷⵉⴳ ⵙ ⵓⵔⵛⵓⵎ",
+    "reason": "LOW CONFIDENCE composed filter label: native MediaWiki rcfilters-search-placeholder attests zizdig/filter; tag-list-wrapper attests arshum/tag, upload-form-label-infoform-date attests asakud/date, and userlogin-noaccount attests ur ... illi/does not exist. Compose by-tag/by-date with s and bound nouns urshum/usakud; no-label uses negative existence with a bound tag noun. Preserve the selection criteria and absence meaning. Full filter phrases, bound-state morphology and kanban tag usage need fluent review. Replace French/Arabic text. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "filter-dates-label",
+    "before": "Filtrer par date",
+    "after": "ⵣⵉⵣⴷⵉⴳ ⵙ ⵓⵙⴰⴽⵓⴷ",
+    "reason": "LOW CONFIDENCE composed filter label: native MediaWiki rcfilters-search-placeholder attests zizdig/filter; tag-list-wrapper attests arshum/tag, upload-form-label-infoform-date attests asakud/date, and userlogin-noaccount attests ur ... illi/does not exist. Compose by-tag/by-date with s and bound nouns urshum/usakud; no-label uses negative existence with a bound tag noun. Preserve the selection criteria and absence meaning. Full filter phrases, bound-state morphology and kanban tag usage need fluent review. Replace French/Arabic text. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "filter-no-label",
+    "before": "لا يوجد ملصق",
+    "after": "ⵓⵔ ⵉⵍⵍⵉ ⵓⵔⵛⵓⵎ",
+    "reason": "LOW CONFIDENCE composed filter label: native MediaWiki rcfilters-search-placeholder attests zizdig/filter; tag-list-wrapper attests arshum/tag, upload-form-label-infoform-date attests asakud/date, and userlogin-noaccount attests ur ... illi/does not exist. Compose by-tag/by-date with s and bound nouns urshum/usakud; no-label uses negative existence with a bound tag noun. Preserve the selection criteria and absence meaning. Full filter phrases, bound-state morphology and kanban tag usage need fluent review. Replace French/Arabic text. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
