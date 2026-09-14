@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight search scope and archive defaults — 2026-09-14
+
+Commit `3f2d9c726` repairs three original French findings. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) img-lang-default/pageinfo-default-sort attest By Default, searchbutton Search, pageinfo-display-title Title and native All component. Archive noun retains directly inspected institutional evidence below; description/custom fields reuse local vocabulary. Preserve default EXCLUSION of archived cards, ALL archived AND unarchived cards with exact predicate token, and card/list TITLES, DESCRIPTIONS and CUSTOM FIELDS on THIS board. Derived negative search passive, description plural, kanban archive adaptation and full scope grammar remain LOW CONFIDENCE. 357 original findings remain pending, including 222 Tamazight; all 18,043 mechanical correction checks pass. Restored, unflagged and earlier uncertain wording remain in scope. Browser verification and remote uploads were not performed.
+
 ## Tamazight organization/team search — 2026-09-14
 
 Commit `e0f16c497` repairs two original French descriptions. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) redirect-summary supports Given component. Local Organization/Team vocabulary reused; reuse is not independent whole-language validation. Preserve exact source query metasyntax, display-name/short-name pipe alternatives and emphasized name parameter. Cards belong to a BOARD assigned TO organization/team; do not reverse assignment or describe direct card assignment. Relative feminine passive, Given-to-Assigned adaptation and whole clause remain LOW CONFIDENCE. 360 original findings remain pending, including 225 Tamazight; all 18,040 mechanical correction checks pass. Restored, unflagged and earlier uncertain wording remain in scope. Browser verification and remote uploads were not performed.
