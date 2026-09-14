@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight archive confirmation and activity — 2026-09-14
+
+Commit `66c5df4fe` replaces three French/Arabic values: one original finding and two unflagged labels. [Native Mastodon](https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json) directly supplies the Are you sure you want ...? frame in `confirmations.delete.message`. Adapt Delete post to Move THIS board TO Archive, preserving the question. Popup title also retains its source question mark absent from old Arabic. Activity retains exactly one `%s` and completed moved-to-archive meaning. Second-person Move, generic passive/gender agreement, institutional archive adaptation and whole clauses remain LOW CONFIDENCE for native validation. One original repaired; 406 remain pending, including 271 Tamazight. 17,941 mechanical checks pass; no live browser verification or remote uploads.
+
 ## Tamazight archive rule actions and states — 2026-09-14
 
 Commit `cbc2bf400` replaces seven Arabic/French values, three original findings and four unflagged labels. Rule choices preserve Move TO Archive versus Restore FROM Archive, explicit Card scope and completed Moved/Restored states. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) directly attests Restore in `thisisdeleted` and Move in `tooltip-ca-move`. Restore deleted-page-to-archived-item adaptation, derived passive states, prepositional archive form and whole clauses remain LOW CONFIDENCE for native validation. Generic Archived is provisionally In Archive; the separate search predicate was not substituted with a multiword phrase. Institutional archive noun evidence does not validate the full action grammar. Three originals repaired; 407 remain pending, including 272 Tamazight. 17,938 mechanical checks pass; no live browser verification or remote uploads.
