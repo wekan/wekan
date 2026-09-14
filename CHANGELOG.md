@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/262f23764">Repair another 21 archive guidance locale files</a>. Thanks to xet7.</summary>
+
+Archive location guidance is repaired across additional languages and
+regional variants. Wrong-language Macedonian, Urdu and Maltese prose is
+replaced, and Zulu Archive place labels are corrected. Five suites pass;
+Maltese/Zulu computing phrases and remaining locales stay under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/801dcf1a8">Repair archive guidance in 34 more locale files</a>. Thanks to xet7.</summary>
 
 Archive location guidance and six place labels are corrected across Asian,

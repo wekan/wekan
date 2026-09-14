@@ -16,14 +16,14 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, `801dcf1a8` — archive guidance
-repaired in 34 more files; Persian-in-Arabic and Malay-in-Indonesian fixed.
-Six Archive place labels corrected; Galician stale acceptance superseded.
-Focused suites pass. Ledger 18,948; original pending 225 (zgh 118),
-restored 4 unchanged. Other locales and full native/UI review remain open.
+Latest translation fix: **2026-09-14**, `262f23764` — archive guidance
+repaired in another 21 files. Bulgarian-in-Macedonian, phonetic English
+in Urdu and mixed English in Maltese replaced; Zulu place labels fixed.
+Five suites pass. Ledger 18,971; original pending 225 (zgh 118), restored
+4 unchanged. Maltese/Zulu computing phrases and remaining locales stay open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,948** exact before/after values, including unflagged
+records contain **18,971** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

@@ -26732,3 +26732,29 @@ No new browser run is claimed. Structural checks do not certify all native
 phrases. Ledger 18,948; corrected original 15,678, reviewed unchanged 4,174;
 pending 225 (zgh 118), restored 4 unchanged. Other locales, wrong-language
 values elsewhere and all prior uncertain findings remain in scope.
+
+
+Archive guidance batch 4 **2026-09-14**, `262f23764`:
+21 files repaired: af, af_ZA; sq; az, az-AZ, az-LA; be; bn; hi, hi-IN;
+ta; ur; mk; ka; hy; sw; zu, zu-ZA; cy, cy-GB; mt. Full restoration
+meaning and exact existing All Boards/Archive labels are preserved while
+obsolete locations are removed. Macedonian guidance had Bulgarian prose;
+Urdu was English rendered phonetically in Arabic script; Maltese mixed
+English and Maltese. Those values are replaced directly in their declared
+languages. Zulu Archive action label becomes Ingobo yomlando in both base
+and matching regional file. Five locale/menu suites pass with wrong-language
+and location regressions, exact placeholders/order and human preference.
+No new browser execution is claimed. Low confidence: complete Maltese and
+Zulu computing collocations still need native review; structural checks
+cannot certify fluency. Welsh adfer is supported by Learn Welsh's native
+course materials. Irish restore research distinguishes text renovation
+from reinstatement; Irish/Scottish/Faroese guidance and Serbian terminology
+were not changed and remain open. No acceptance is inferred from Maltese
+Kaikki's entry carrying an incorrect-language-header warning.
+Ledger 18,971; original corrected 15,678, reviewed unchanged 4,174,
+pending 225 (zgh 118), restored 4 unchanged. All remaining native and
+other locale repairs remain within scope.
+Sources:
+https://learnwelsh.cymru/media/7687/uwch-2.pdf
+https://www.focloir.ie/en/dictionary/ei/restore
+https://www.focloir.ie/en/dictionary/ei/restoration
