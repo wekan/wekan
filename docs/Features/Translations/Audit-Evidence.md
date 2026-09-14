@@ -1,5 +1,12 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `c863bb1a2`: earlier Hide All Checklist Items repair refined.
+MediaWiki rcfilters-activefilters-hide directly attests command `ⵙⵙⵏⵜⵍ`,
+replacing the earlier derived `ⵏⵜⵍ`. Retain ALL, distinct from checked-only
+visibility, and original Arabic before-value. Checklist compound and full
+noun phrase remain low confidence. All 18,087 correction checks pass;
+original progress counts unchanged: 328 pending, including 193 Tamazight.
+
 2026-09-14 — `93d592c07`: Hide Checked Checklist Items repaired from Arabic.
 MediaWiki native Hide and checkbox Check support components. Preserve only
 checked items, distinct from Hide All Checklist Items. Passive plural and

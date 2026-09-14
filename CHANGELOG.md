@@ -102,10 +102,11 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 93d592c07 (2026-09-14), replacing Arabic Hide
-Checked Checklist Items. Checked-only scope preserved; passive plural and
-full grammar remain low confidence. All 18,087 correction checks pass;
-328 original findings remain pending, including 193 Tamazight.
+Latest translation fix is c863bb1a2 (2026-09-14), refining the earlier Hide
+All Checklist Items command with directly attested native Hide. ALL scope
+and original Arabic provenance preserved; distinct from checked-only repair
+93d592c07. Full noun phrase remains low confidence. All 18,087 correction
+checks pass; counts unchanged: 328 pending, including 193 Tamazight.
 Archive provenance follow-up fbe388603 (2026-09-14) directly inspects the
 native Archives du Maroc logo in a university PDF, corroborating the noun
 beyond indexed evidence. Nine records updated; no values/counts changed.
@@ -3293,6 +3294,17 @@ Thanks to xet7 !
 items only. Native Hide and Check support components; derived passive plural
 and full grammar remain low confidence. All 18,087 correction checks pass.
 328 original findings remain pending; broader validation continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c863bb1a2">Translation refinement: Tamazight Hide All command.</a></summary>
+
+2026-09-14: Replace derived Hide with directly attested native command.
+Preserve ALL scope and original provenance; checklist phrase remains low
+confidence. All 18,087 correction checks pass; progress counts unchanged.
 
 Thanks to xet7 !
 

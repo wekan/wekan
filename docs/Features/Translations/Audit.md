@@ -14,7 +14,7 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,087** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `93d592c07` — replaced Arabic Hide Checked Checklist Items with Tamazight, preserving checked-only scope. Native Hide and Check support components; passive plural and full grammar remain **low confidence**. All **18,087** correction checks pass; **328** findings remain pending across **17** locales, including **193** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `c863bb1a2` — refined the earlier Hide All Checklist Items repair with the directly attested native Hide command. Preserve ALL scope, distinct from checked-only visibility repaired in `93d592c07`, and original Arabic provenance. Checklist compound and full grammar remain **low confidence**. All **18,087** correction checks pass; counts unchanged: **328** findings remain pending across **17** locales, including **193** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Format review (2026-09-14):** indexed HACA terminology supports a native
 Format noun candidate; direct PDF retrieval failed. Full placeholder wording
