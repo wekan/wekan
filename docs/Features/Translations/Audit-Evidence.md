@@ -21775,3 +21775,13 @@ Complete and migration-complete remain unvalidated: no current literal
 consumer was found for the latter, so its state/action meaning is uncertain.
 All 2,059 reviews pass. 2,159 restored values and 308 pending findings plus
 broader language/browser verification remain open.
+
+
+### Esperanto migration confirmations and steps — 2026-09-14
+
+Local commit `07756eecd` retains thirty correct confirmations and progress
+steps. Shared-list conversion precedes empty duplicate deletion; lost-card
+restoration affects nonarchived items, whereas archive restoration affects
+all archived types. Difficult-undo warning, field identifiers and this-board
+URL scope remain explicit. All 2,089 reviews pass; 2,129 restored values and
+308 pending findings plus broader language/browser verification remain open.
