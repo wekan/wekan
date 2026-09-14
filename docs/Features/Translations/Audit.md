@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,402 |
+| Corrected | 15,403 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 442 |
+| Pending review or repair | 441 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,863** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,865** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `45603b3e1` — repaired the unflagged checklist text editor title, removing an inherited First qualifier and preserving Edit as Text. Latin script alone was not treated as an error. Full wording and checklist terminology remain **low confidence** for fluent review. All **17,864** correction checks pass. **442** originals remain pending across **17** locales, including **307** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `9c290966f` — replaced Arabic each-line checklist guidance, preserving each line becoming one of the items. Derived Become and full wording remain **low confidence**; the original-order variant still needs review. All **17,865** correction checks pass. **441** originals remain pending across **17** locales, including **306** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Checklist completion review (2026-09-14, `9de9f2c15`, follow-up `4139001a3`):** native MediaWiki now directly supports transitive Complete Login, stronger than legal supplementation. Past actor form and full checklist grammar remain low confidence; active uncompletion still needs distinct reversal wording. Login noun is attested. Follow-up `800934571` repairs the custom-logo labels using a native community caption; full wording remains low confidence. The completion evidence review itself changed no values/counts. [Evidence](Audit-Evidence.md) records source context.
 

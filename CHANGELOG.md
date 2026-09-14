@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,402 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 442 pending review or repair.
-The correction inventory records 17,864 exact before/after values,
+findings: 15,403 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 441 pending review or repair.
+The correction inventory records 17,865 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 45603b3e1 (2026-09-14), repairing the unflagged
-checklist text editor title and removing an inherited First qualifier.
-Preserve Edit as Text; full wording remains low confidence for fluent review.
+Latest translation fix is 9c290966f (2026-09-14), replacing Arabic each-line
+checklist guidance. Derived Become and full grammar remain low confidence;
+the original-order variant needs separate review.
 Checklist completion evidence follow-ups 9de9f2c15 and 4139001a3 distinguish
 legal supplementation from directly attested software Complete Login. Past
 actor form and full checklist grammar remain low confidence. Values/counts unchanged.
@@ -640,10 +640,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,402 original findings are
+Translation audit progress as of 2026-09-14: 15,403 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 442 remain pending across 17 locales, including 307 Tamazight findings.
-The ledger contains 17,864 correction records, including unflagged repairs.
+and 441 remain pending across 17 locales, including 306 Tamazight findings.
+The ledger contains 17,865 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -2400,6 +2400,17 @@ checklist items as Text. This unflagged wording repair does not treat Latin
 script alone as an error. Native component evidence supports Edit and Items;
 full wording remains low confidence. All 17,864 correction checks pass.
 442 original findings remain pending; live browser verification was not run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9c290966f">Translate Tamazight each-line checklist guidance</a>. Thanks to xet7.</summary>
+
+Replace Arabic guidance while preserving each text line becoming one of
+the checklist items. Native component evidence supports Each, Line and
+Items; derived Become and full wording remain low confidence. The separate
+original-order variant remains pending. All 17,865 correction checks pass;
+441 original findings remain pending across 17 locales.
 
 </details>
 
