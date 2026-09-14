@@ -21795,3 +21795,13 @@ and plural day/hour/minute quantities. CPU percentage, run-once scope and
 previous/next order remain intact. All 2,119 reviews pass; 2,099 restored
 values and 308 pending findings plus broader language/browser verification
 remain open.
+
+
+### Esperanto repository and authentication review — 2026-09-14
+
+Local commit `9ba7cfcb8` retains thirty correct repository, storage/minicard
+and authentication values. Temporary lockout from excessive failed logins,
+username AND password requirements, minimum three characters and byte units
+remain explicit. Cron/OTP/API/S3 names stay literal. All 2,149 reviews pass;
+2,069 restored values and 308 pending findings plus wider language/browser
+verification remain open.

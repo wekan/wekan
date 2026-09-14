@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,555 corrected, 2,099 restored pre-pull values awaiting
-validation, 2,119 reviewed and retained, and 308 pending review or repair.
+findings: 15,555 corrected, 2,069 restored pre-pull values awaiting
+validation, 2,149 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,151 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
@@ -108,8 +108,8 @@ changes are implemented in local commit 02383521a; translation repairs have
 resumed.
 Latest translation fix/review is 6eaabcaea (2026-09-14): Esperanto failure
 time window clarified; 29 correct support and account labels retained.
-Latest unchanged-value review is 5a398d5ac (2026-09-14): 30 Esperanto
-scheduling, restoration and resource labels retained.
+Latest unchanged-value review is 9ba7cfcb8 (2026-09-14): 30 Esperanto
+repository, storage and authentication labels retained.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
 Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
 retaining 156 correct Danish storage, migration and monitoring/account labels.
@@ -683,6 +683,15 @@ Review checks pass; broader language and browser verification stays open.
 Retain 30 correct restoration, scheduling and resource labels. Preserve
 interval quantities, singular/plural agreement, run-once scope and percent
 units. Review checks pass; broader validation remains open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9ba7cfcb8">Validate Esperanto repository and authentication labels</a>. Thanks to xet7.</summary>
+
+Retain 30 correct labels and warnings. Preserve temporary lockout from
+failed logins, required credentials, minimum username length and byte units.
+Review checks pass; wider language and browser verification remains open.
 
 </details>
 
