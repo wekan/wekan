@@ -26052,3 +26052,19 @@ acceptance. Textile spinning senses are excluded. Four focused checks
 pass for exact style distinctions, wrong-language and wrong-sense negatives,
 tokens and protected newer translations. Original corrected 15,668;
 pending 234 (zgh 126); correction ledger 18,802.
+
+Start/end field consistency — 2026-09-14, `b0f447c57`.
+Four unflagged Arabic labels r-df-start-at/r-df-end-at and predicate-start/
+predicate-end now match card-start/card-end native vocabulary. Exact
+IRCAM PDF 696 entry 13146 tuddma beginning/start and 666 entry 12533
+tigira end: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+Rule cardActions.jade option values remain startAt/endAt; Query maps
+predicates to the existing date fields. No derived word or full sentence
+is introduced. Four translation checks pass for consistency, distinction,
+tokens and newer-value preservation. Browser context remains unverified.
+Original pending stays 234 (zgh 126); four additional corrections bring
+ledger to 18,806. Export-card-field-dates is still French and actually
+contains five types including Created. Received and due semantics must
+be preserved independently; dictionary “receive” used for hosting guests
+is not alone evidence for software reception. No export label repair is
+counted by this batch.

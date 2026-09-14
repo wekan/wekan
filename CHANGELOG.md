@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b0f447c57">Repair start and end field labels</a>. Thanks to xet7.</summary>
+
+Replace four Arabic Tamazight rule/search labels with existing native
+start/end terms, preserving field distinctions. Four translation checks
+pass; actual browser context remains unverified in the audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/aebb361d2">Draft wait-spinner descriptions</a>. Thanks to xet7.</summary>
 
 Replace four French Tamazight spinner descriptions while preserving exact
