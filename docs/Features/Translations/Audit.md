@@ -13,12 +13,12 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
 now reconcile with the live queue; historical notes remain in detailed evidence.
 
-Latest translation fix: **2026-09-14**, local commit `16232ae09` —
-Two French parent-prefix options are replaced, preserving placement and
-full-path distinctions. Four checks pass; native/browser validation is open.
+Latest translation fix: **2026-09-14**, local commit `027bdc446` —
+Five additional French multi-selection labels are repaired; action/popup
+wording agrees. Four checks pass; native/browser validation remains open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,714** exact before/after values, including unflagged
+records contain **18,719** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

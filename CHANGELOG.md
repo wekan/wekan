@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/027bdc446">Repair Tamazight multi-selection labels</a>. Thanks to xet7.</summary>
+
+Replace five additional French move/copy, popup-title and color labels with
+verified native components. Action and popup titles agree; move and copy
+remain distinct. Four checks pass; complete native/browser review is open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/16232ae09">Repair Tamazight parent-prefix options</a>. Thanks to xet7.</summary>
 
 Replace two French labels while retaining prefix/subtext placement and

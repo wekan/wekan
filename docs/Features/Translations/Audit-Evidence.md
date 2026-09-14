@@ -24708,3 +24708,25 @@ remain **low confidence**, requiring native validation. Four translation
 checks pass, including French/subtitle negatives and distinct values.
 Browser rendering is unverified. Counts: 15,628 corrected, 274 pending
 (161 Tamazight), four restored, 4,175 retained; 18,714 ledger records.
+
+## Multi-selection label repairs — 2026-09-14
+
+Local commit `027bdc446` repairs five additional, previously unflagged
+French values: move/copy selection, both popup titles, and selection color.
+Primary IRCAM General Dictionary PDF page 70, entry 1069, gives selection
+`ⴰⴼⵔⴰⵏ` and construct `ⵓⴼⵔⴰⵏ`; page 503, entry 9495, gives move
+`ⵙⵎⵓⵜⵜⵉ`; page 532, entry 10013, gives copy `ⵙⵙⵏⵖⵍ`; page 77,
+entry 1233, gives color `ⴰⴽⵍⵓ`. The adjacent poison homonym is entry
+1232, not the cited color sense. The dictionary's `ⵉⵏⵉ` entry inspected
+at page 388 means say; it does not establish the color noun by spelling.
+
+SidebarFilters.jade displays the three action labels; sidebarFilters.js
+opens their popups. The move handler calls card.move and the copy handler
+calls copyCard for selected cards. Both action/popup titles now agree;
+move and copy remain distinct. Selection-color uses a color-of-selection
+construction. **Low confidence** remains for treating selection as the
+selected-card collection and for complete grammar; component entries do
+not attest the full software phrases. Four focused checks pass, preserving
+all English placeholders and reviewed unchanged values. Browser validation
+was not run. Original counts remain 15,628 corrected, 274 pending, four
+restored and 4,175 retained; the ledger grows to 18,719 records.
