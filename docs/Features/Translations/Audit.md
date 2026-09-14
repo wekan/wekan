@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,131 |
+| Corrected | 15,132 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 713 |
+| Pending review or repair | 712 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,330** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,331** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `448d33abb` — replaced three unflagged French/Arabic Tamazight date/label filter criteria, preserving by-date, by-label and no-label distinctions. Native filter/date/tag and negative-existence wording supports the components; full phrases and bound-state morphology remain **low confidence** pending fluent review. All **17,330** correction/rendering checks pass. Original counts remain **713** pending, including **570** Tamazight. Earlier composed UI/activity/lockout terminology and restored/unflagged values still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `13dc65f61` — replaced the French Tamazight invalid-credentials error with the exact native MediaWiki username-or-password error sentence, preserving ambiguity and omitting its separate retry instruction. All **17,331** correction/rendering checks pass. **712** originals remain pending, including **569** Tamazight. Earlier composed filter/deletion/activity/lockout terminology and restored/unflagged values still need fluent validation. Live browser verification was not run; no translations were pushed.
 
 **Language validation (2026-09-14), local commit `e4e3aa590`:** Wiktionary’s Veps transitive inflection tables confirm `surenda` (make larger) and `penenda` (make smaller) as second-person singular commands. Their imperative morphology is now reference-supported; screen-zoom usage remains open. The original keyboard findings remain unresolved: searches and the cached dictionary did not establish reliable keyboard-shortcut terminology. Counts are unchanged. References and the remaining scope are recorded per key in the correction ledger.
 
