@@ -3774,6 +3774,21 @@ Thanks to xet7 !
 **Developer documentation** - Verify the reported build failure.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0d6be3198">Use readable datetime directories for build and release logs</a></summary>
+
+Build.sh, build.bat and release tools use operation-specific log directories
+with YYYY-MM-DD_HH-MM-SS in local time. Build, mirror, translation-upload,
+database conformance and speed-diagnostic paths follow the same format.
+Same-second reservations preserve earlier logs. Output and docs reference
+the paths written to disk. Record timestamps keep their existing format.
+Path, collision, progress, parity, mirror and translation tests pass.
+Shell syntax checks pass; native Windows execution remains unverified.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a6f136a8d">Verify the wekan22 build failure is repaired</a>. Thanks to xet7.</summary>
 
 The supplied logs are stored at `.tools/wekan22` and report the missing
