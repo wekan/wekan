@@ -13108,5 +13108,155 @@
     "key": "act-createList",
     "value": "engadiu a lista __list__ ao taboleiro __board__",
     "reason": "2026-09-14: Direct Galician/English semantic review confirms attachment, label, checklist, comment and creation/custom-field activity actions. engadiu/eliminou/creou/editou and marcou/desmarcou distinguish add/delete/create/edit/check/uncheck; card/list/lane/board relationships and exact interpolation preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "act-addBoardMember",
+    "value": "engadiu o membro __member__ ao taboleiro __board__",
+    "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
+  },
+  {
+    "locale": "gl",
+    "key": "act-archivedBoard",
+    "value": "O taboleiro __board__ moveuse ao Arquivo",
+    "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
+  },
+  {
+    "locale": "gl",
+    "key": "act-archivedCard",
+    "value": "A tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__ moveuse ao Arquivo",
+    "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
+  },
+  {
+    "locale": "gl",
+    "key": "act-archivedList",
+    "value": "A lista __list__ no carril __swimlane__ no taboleiro __board__ moveuse ao Arquivo",
+    "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
+  },
+  {
+    "locale": "gl",
+    "key": "act-archivedSwimlane",
+    "value": "O carril __swimlane__ no taboleiro __board__ moveuse ao Arquivo",
+    "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
+  },
+  {
+    "locale": "gl",
+    "key": "act-importBoard",
+    "value": "importou o taboleiro __board__",
+    "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
+  },
+  {
+    "locale": "gl",
+    "key": "act-importCard",
+    "value": "importou a tarxeta  __card__ á lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
+  },
+  {
+    "locale": "gl",
+    "key": "act-importList",
+    "value": "importou a lista __list__ ao carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
+  },
+  {
+    "locale": "gl",
+    "key": "act-joinMember",
+    "value": "engadiu o membro __member__ á tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
+  },
+  {
+    "locale": "gl",
+    "key": "act-moveCard",
+    "value": "moveu a tarxeta __card__ no taboleiro __board__ da lista __oldList__ no carril __oldSwimlane__ á lista __list__ no carril __swimlane__",
+    "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
+  },
+  {
+    "locale": "gl",
+    "key": "act-moveCardToOtherBoard",
+    "value": "moveu a tarxeta __card__ da lista __oldList__ no carril __oldSwimlane__ no taboleiro __oldBoard__ á lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
+  },
+  {
+    "locale": "gl",
+    "key": "act-removeBoardMember",
+    "value": "eliminou o membro __member__ do taboleiro __board__",
+    "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
+  },
+  {
+    "locale": "gl",
+    "key": "act-restoredCard",
+    "value": "restaurou a tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
+  },
+  {
+    "locale": "gl",
+    "key": "act-unjoinMember",
+    "value": "eliminou o membro __member__ da tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-checked-item",
+    "value": "marcou %s na lista de verificación %s de %s",
+    "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-unchecked-item",
+    "value": "desmarcou %s na lista de verificación %s de %s",
+    "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-checklist-added",
+    "value": "engadiu unha lista de verificación a %s",
+    "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-checklist-removed",
+    "value": "eliminou unha lista de verificación de %s",
+    "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-checklist-completed",
+    "value": "completou a lista de verificación %s de %s",
+    "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-checklist-uncompleted",
+    "value": "desmarcou como completada a lista de verificación %s de %s",
+    "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-checklist-item-added",
+    "value": "engadiu un elemento á lista de verificación '%s' en %s",
+    "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-checked-item-card",
+    "value": "marcou %s na lista de verificación %s",
+    "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-unchecked-item-card",
+    "value": "desmarcou %s na lista de verificación %s",
+    "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-checklist-completed-card",
+    "value": "completou a lista de verificación __checklist__ na tarxeta __card__ na lista __list__ no carril __swimlane__ no taboleiro __board__",
+    "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-checklist-uncompleted-card",
+    "value": "desmarcou como completada a lista de verificación %s",
+    "reason": "2026-09-14: Direct semantic review confirms Galician membership, archive/import/restore, card movement and checklist state actions. Old versus new lists/lanes/boards retain directional references; marcou/desmarcou and completed/reopened states remain distinct. All interpolation is exact."
   }
 ]
