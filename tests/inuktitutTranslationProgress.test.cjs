@@ -221,3 +221,7 @@ assert.notEqual(inuktitut['r-rule-enabled'], inuktitut['r-rule-disabled']);
 for (const key of ['r-rule-enabled', 'r-rule-disabled']) {
   assert.doesNotMatch(inuktitut[key], /Atur|lauqtuq/);
 }
+
+assert.equal(inuktitut['r-toggle-rule-enabled'], 'ᒪᓕᒐᖅ ᐅᓇ ᐊᑐᓕᖅᑎᓪᓗᒍ ᐅᕝᕙᓘᓐᓃᑦ ᖃᒥᓪᓗᒍ');
+assert.match(inuktitut['r-toggle-rule-enabled'], /ᐊᑐᓕᖅᑎᓪᓗᒍ.*ᐅᕝᕙᓘᓐᓃᑦ.*ᖃᒥᓪᓗᒍ/, 'retain both enable and disable alternatives');
+assert.doesNotMatch(inuktitut['r-toggle-rule-enabled'], /Una maligaq|aturtitigit|uvvaluunniit|aturunnaitittigit/);
