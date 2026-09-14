@@ -25986,3 +25986,22 @@ reuse the upload message's file noun as repository or silently drop update.
 No locale changes or corrected-count increase result from this review.
 Terminology, assembled purpose grammar and native runtime wording remain
 open; existing correct-language values and placeholders are preserved.
+
+Additional native software corpus — 2026-09-14.
+Read-only GitHub tree inspection located current Common Voice zgh Fluent
+resources under web/locales/common-voice/zgh/, not web/locales/zgh/ or
+locales/zgh/. The complete tree response was not truncated; locales/
+contains generated/test metadata, not the requested translation bundles.
+The failed old paths are not evidence of absent language support.
+Inspected primary resources:
+https://raw.githubusercontent.com/common-voice/common-voice/main/web/locales/common-voice/zgh/pages/common.ftl
+https://raw.githubusercontent.com/common-voice/common-voice/main/web/locales/common-voice/zgh/pages/about.ftl
+Neither inspected resource contains a repo key. Repository labels remain
+unresolved; project-info “Repository” metadata and machine-translation
+sites are not native terminology evidence. The corpus also includes
+profile, contribution, guidelines and request-language resources suitable
+for subsequent contextual review. Read translations against source keys
+and full meanings before adopting terms; do not convert Fluent variables
+to WeKan placeholders without comparing the exact English token inventory.
+No locale values or counts change. This records a usable primary corpus
+location and avoids repeatedly treating obsolete URLs as lexical proof.
