@@ -310,3 +310,10 @@ for (const [key, value] of Object.entries({"preview":"Rakwelet","discard":"Nulla
 }
 assert.notEqual(locales.br.comment, locales.br.comments);
 assert.notEqual(locales.br.preview, locales.br.discard);
+
+for (const [key, value] of Object.entries({"custom-field-checkbox":"Log askañ","custom-field-dropdown":"Roll diskenn","custom-field-dropdown-options":"Dibarzhioù ar roll","custom-fields":"Maeziennoù personelaet"})) {
+ assert.equal(locales.br[key], value);
+ assert.doesNotMatch(locales.br[key], /Case à cocher|Liste de choix|Options de liste|Champs personnalisés/);
+}
+assert.ok(locales.br['custom-field-dropdownMultiSelect'].startsWith(locales.br['custom-field-dropdown']));
+assert.notEqual(locales.br['custom-field-dropdown'], locales.br['custom-field-checkbox']);

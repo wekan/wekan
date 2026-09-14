@@ -130527,5 +130527,33 @@
     "before": "Commenter",
     "after": "Ouzhpennañ un evezhiadenn",
     "reason": "Replace French action label with native software vocabulary; comment phrase adapted from local Breton comment noun and native add verb."
+  },
+  {
+    "locale": "br",
+    "key": "custom-field-checkbox",
+    "before": "Case à cocher",
+    "after": "Log askañ",
+    "reason": "Replace French field labels with native TermBret checkbox/field/option terms and existing local dropdown/custom-field vocabulary; compounds adapted."
+  },
+  {
+    "locale": "br",
+    "key": "custom-field-dropdown",
+    "before": "Liste de choix",
+    "after": "Roll diskenn",
+    "reason": "Replace French field labels with native TermBret checkbox/field/option terms and existing local dropdown/custom-field vocabulary; compounds adapted."
+  },
+  {
+    "locale": "br",
+    "key": "custom-field-dropdown-options",
+    "before": "Options de liste",
+    "after": "Dibarzhioù ar roll",
+    "reason": "Replace French field labels with native TermBret checkbox/field/option terms and existing local dropdown/custom-field vocabulary; compounds adapted."
+  },
+  {
+    "locale": "br",
+    "key": "custom-fields",
+    "before": "Champs personnalisés",
+    "after": "Maeziennoù personelaet",
+    "reason": "Replace French field labels with native TermBret checkbox/field/option terms and existing local dropdown/custom-field vocabulary; compounds adapted."
   }
 ]
