@@ -310,3 +310,6 @@ assert.equal(locales.zgh['deposit-subtasks-board'], 'ⵙⵙⵔⵙ ' + locales.zg
 
 assert.match(locales.zgh['deposit-subtasks-list'], /^ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵡⴰⵡⴰⴹ.*ⵜⵎⵙⴽⵉⵔⵉⵏ.*ⴷⴷⴰⵡ.*ⵔⵙⴰⵏⵜ ⵖⵉ:$/);
 assert.doesNotMatch(locales.zgh['deposit-subtasks-list'], /Liste|destination|déposées/);
+
+assert.equal(locales.zgh['custom-field-currency'], 'ⴰⴷⵔⵉⵎ ⴰⵏⵣⵎⴰⵔ');
+assert.doesNotMatch(locales.zgh['custom-field-currency'], /[\u0600-\u06ff]/);

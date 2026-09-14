@@ -131374,5 +131374,12 @@
     "before": "Liste de destination pour les sous-tâches déposées ici :",
     "after": "ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵡⴰⵡⴰⴹ ⵉ ⵜⵎⵙⴽⵉⵔⵉⵏ ⴷⴷⴰⵡ ⵏ ⵜⵎⵙⴽⵉⵔⵜ ⵍⵍⵉ ⵔⵙⴰⵏⵜ ⵖⵉ:",
     "reason": "2026-09-14: Replace French landing-list instruction with complete Tamazight components: landing/arrival list, subtasks and deposited here. IRCAM PDF 265 entry 5164 arrival awad/construct wawad, PDF 469 entry 8866 here ghi, PDF 464 set-down verb rs, PDF 605 entry 11328 task and PDF 315 entry 6099 below. Low confidence: landing-list metaphor, relative clause/plural rsant and genitive subtask compounds require native/browser review. Actual sidebar selection chooses target list for deposited subtasks, not a generic list label."
+  },
+  {
+    "locale": "zgh",
+    "key": "custom-field-currency",
+    "before": "عملة",
+    "after": "ⴰⴷⵔⵉⵎ ⴰⵏⵣⵎⴰⵔ",
+    "reason": "2026-09-14: Replace Arabic Currency field type with explicit IRCAM Amazigh-English currency compound adrim anzmar, PDF page 58 entry 810. Entry includes both money/currency senses and explicitly glossed currency compound, not a guess from money alone. No currency settings or formatting logic changed; code-option label remains separate review."
   }
 ]
