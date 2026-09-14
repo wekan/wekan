@@ -1520,3 +1520,19 @@ Arabic-pending notes are superseded by this draft, not native approval.
 Four source checks pass for complete condition, wrong-language negatives,
 tokens, key order and protected newer translations. Original corrected
 15,663; pending 239 (zgh 131); correction ledger 18,796.
+
+Possession grammar review — 2026-09-14.
+New primary source: Faits de syntaxe amazighe, Miloud Taifi,
+“De la prédication seconde en berbère”, PDF 286–288 (printed 285–287).
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=216
+PDF 287 explains that a prepositional construction can express possession,
+not physical location, and equate to French avoir. PDF 288 identifies
+preposition + noun/pronoun + noun as the minimal structure. Singular
+examples use ġur-s. This supports a possessive construction for users
+with a domain name in draft 94205ae5f; it does not attest ghursn, the
+plural relative clause, its standard orthography or the complete label.
+Those uncertainties stay open. The primary PDF was downloaded and
+page text inspected locally after the web viewer rejected its size.
+Social-media search snippets were not used as grammar proof. No locale
+value or pending count changes; this review strengthens specific evidence
+without claiming native acceptance.
