@@ -22826,3 +22826,16 @@ All 18,227 correction records pass, including token inventories, order and
 newer-human preference. Original counts remain 30 restored and 302 pending.
 Native inflection and live browser review remain open; a structurally passing
 ledger is not evidence that broader French-seeded Breton prose is repaired.
+
+Dated provisional fill, 2026-09-14, local commit `a06bf0cca`: Bambara
+Hijri civil and astronomical epoch placeholders become full labels using
+Hijri kalandiriye, tabali fɛ jateli and distinct sivili damindon / dolo dɔnni
+damindon. Existing locale supplies calendar/table/starting-day terms.
+https://www.mali-pense.net/bm/lexicon/s.htm attests sivili (civil loan) and
+science synonyms including dɔnni. Its civil entry is a noun, not evidence
+of calendar-epoch usage. Star vocabulary search also consulted
+https://kemelang.com/bambara/d%C3%B2lo/ . Full epoch compounds and astronomy
+phrase are low-confidence direct adaptations, not attested complete labels.
+Native terminology and grammar remain review requirements. All 18,229
+correction checks pass; 300 pending and 30 restored original findings remain.
+Filled Bambara placeholder queue does not establish full language completion.

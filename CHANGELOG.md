@@ -668,7 +668,17 @@ The empty wrongly placed Git directory was removed locally.
 
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
-**Languages updated:** Acehnese, Basque, Breton, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
+**Languages updated:** Acehnese, Bambara, Basque, Breton, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a06bf0cca">Fill Bambara Hijri calendar epoch labels</a>. Thanks to xet7.</summary>
+
+Two English placeholders become provisional full Bambara labels, retaining
+table-based calculation and distinct civil/astronomical starting epochs.
+Correction and placeholder checks pass. Epoch compounds and astronomy
+terminology remain low confidence and require native review; browser not run.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6db6c7b16">Translate Breton board and control popup titles</a>. Thanks to xet7.</summary>

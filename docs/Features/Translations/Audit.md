@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,592 |
+| Corrected | 15,594 |
 | Restored pre-pull; awaiting validation | 30 |
 | Reviewed; retained unchanged | 4,157 |
-| Pending review or repair | 302 |
+| Pending review or repair | 300 |
 | Total tracked | 20,081 |
 
 Review is ongoing. [Nahuatl terminology review](Nahuatl-Review.md)
@@ -20,19 +20,20 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,227** exact before/after values, including unflagged repairs.
+contain **18,229** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `6db6c7b16` —
-12 unflagged French board/list/label/date/language popup and control titles
-become Breton. Creation, editing and deletion questions remain distinct;
-archive wording is untouched. All **18,227** correction records pass.
-Native article/inflection and live browser review remain open. Six member/
-label controls were repaired earlier in `b72b9d1fd`.
+Latest translation fix: **2026-09-14**, local commit `a06bf0cca` —
+two Bambara Hijri placeholders now have full provisional labels for table-
+based calculation and distinct civil/astronomical starting epochs. Compounds
+and calendar use of sivili/dolo dɔnni require native terminology review;
+filled status does not mean language validation is complete. All **18,229**
+correction checks pass; browser verification remains open. Breton popup
+repairs were recorded in `6db6c7b16`.
 Latest unchanged review: **2026-09-14**, commit `87e2ed6fa` — Den ebet deverket retained against
 Preder's assignment verb and existing assigned-only wording. Assigned-person
-and no-assignee meanings remain distinct. All **18,227** corrections and
+and no-assignee meanings remain distinct. All **18,229** corrections and
 **4,157** reviews pass; wider Breton and browser validation remain open.
 Sardinian colour wording was repaired in `04711b646`. Greenlandic Buddhist
 calendar phrase remains an adaptation requiring native inflection review;
@@ -60,7 +61,6 @@ Reviewed subtask actions/settings retain correct subordinate-task compounds.
 | ve-PP — Veps | 10 |
 | kl — Greenlandic | 5 |
 | dz — Dzongkha | 3 |
-| bm — Bambara | 2 |
 | ff — Fulah | 2 |
 | ks — Kashmiri | 2 |
 | ee — Ewe | 1 |
