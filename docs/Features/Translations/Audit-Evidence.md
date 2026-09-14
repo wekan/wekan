@@ -22007,3 +22007,15 @@ Review checks pass: 15,561 corrected, 1,700 restored awaiting validation,
 2,512 reviewed unchanged and 308 pending. Attachment/member participle
 agreement, broader language review and browser validation remain open.
 Nothing pushed; no external translation service used.
+
+
+### 2026-09-14 — Galician search results and operator instructions
+
+Local commit `cf1e89bb9` retains 40 directly reviewed values unchanged.
+Search errors retain object names and format tokens; result counts preserve
+start/end/total. Help retains literal query syntax and quotation examples,
+member-or-assignee alternatives, creator and organization/team scopes,
+created/modified day thresholds and archived/end-date distinctions.
+Review checks pass: 15,561 corrected, 1,660 restored awaiting validation,
+2,552 reviewed unchanged and 308 pending. Contextual rule agreement,
+broader language review and browser validation remain open; nothing pushed.

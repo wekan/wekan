@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,561 corrected, 1,700 restored pre-pull values awaiting
-validation, 2,512 reviewed and retained, and 308 pending review or repair.
+findings: 15,561 corrected, 1,660 restored pre-pull values awaiting
+validation, 2,552 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,161 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
@@ -108,8 +108,8 @@ changes are implemented in local commit 02383521a; translation repairs have
 resumed.
 Latest translation fix/review is 54fdfd33c (2026-09-14): four Galician
 date-trigger meanings repaired; 39 correct values retained.
-Latest unchanged-value review is 2cb3f6b13 (2026-09-14): 34 Galician
-deletion warnings and personal/due-card view values retained. Shared attachment/member
+Latest unchanged-value review is cf1e89bb9 (2026-09-14): 40 Galician
+search result and operator instructions retained. Shared attachment/member
 participles still need contextual agreement repair.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
 Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
@@ -854,6 +854,15 @@ shared attachment/member participle agreement and browser validation remain open
 
 Retain 34 correct values. Preserve irreversible deletion, linked-card removal
 order, mention tokens and due-card permission restrictions. Review checks
+pass; broader language and browser verification remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cf1e89bb9">Validate Galician search results and operator instructions</a>. Thanks to xet7.</summary>
+
+Retain 40 correct values. Preserve query syntax, quoted examples, result
+tokens, role alternatives and created/modified day thresholds. Review checks
 pass; broader language and browser verification remain open.
 
 </details>
