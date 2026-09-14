@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,508 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 336 pending review or repair.
-The correction inventory records 18,079 exact before/after values,
+findings: 15,509 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 335 pending review or repair.
+The correction inventory records 18,080 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (201) and
+The largest original queues are Standard Moroccan Tamazight (200) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,10 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 28c88263f (2026-09-14), repairing unchecked-item
-activities. Active checkmark removal and exact percent placeholders preserved;
-mark noun and full relations remain low confidence.
-336 original findings remain pending, with 18,079 correction records.
+Latest translation fix is e2cdae25d (2026-09-14), repairing import activity.
+Object, destination and source direction and exact percent placeholders
+preserved; derived actor and full grammar remain low confidence.
+335 original findings remain pending, with 18,080 correction records.
 Archive provenance follow-up fbe388603 (2026-09-14) directly inspects the
 native Archives du Maroc logo in a university PDF, corroborating the noun
 beyond indexed evidence. Nine records updated; no values/counts changed.
@@ -651,10 +651,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,508 original findings are
+Translation audit progress as of 2026-09-14: 15,509 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 336 remain pending across 17 locales, including 201 Tamazight findings.
-The ledger contains 18,079 correction records, including unflagged repairs.
+and 335 remain pending across 17 locales, including 200 Tamazight findings.
+The ledger contains 18,080 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -3193,6 +3193,17 @@ Thanks to xet7 !
 2026-09-14: Preserve active checkmark removal and exact percent placeholders.
 Native components recorded; mark noun and full wording remain low confidence.
 All 18,079 correction checks pass; broader validation continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e2cdae25d">Translation repair: Tamazight import activity.</a></summary>
+
+2026-09-14: Preserve import object, destination, source and placeholders.
+Native import noun recorded; full wording remains low confidence.
+All 18,080 correction checks pass; broader validation continues.
 
 Thanks to xet7 !
 

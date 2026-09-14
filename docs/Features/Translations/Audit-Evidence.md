@@ -1,5 +1,7 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `e2cdae25d`: import activity repaired. Native MediaWiki `importlogpage` Imports supports root; local native Into/From components preserve object, destination and source direction with three exact percent placeholders. Derived past actor and full location grammar remain low confidence. All 18,080 correction checks pass; 335 original findings remain pending, including 200 Tamazight.
+
 2026-09-14 — `28c88263f`: two unchecked-item activities repaired. Native MediaWiki Removed actor (`logentry-delete-delete`) and Check checkbox tooltips support components. Preserve active removal of CHECKMARK, not mere unchecked state or item deletion, with checklist/card relations and exact percent placeholders. Derived mark noun and full local relations remain low confidence. All 18,079 correction checks pass; 336 original findings remain pending, including 201 Tamazight.
 
 2026-09-14 — `dccca19d4`: two checked-item activities repaired. Native MediaWiki checkbox tooltips directly attest Check `smatr`. Preserve active checking of item IN CHECKLIST and card relation where present, plus all exact percent placeholders. Derived past actor and full local verification/checklist relations remain low confidence. All 18,077 correction checks pass; 338 original findings remain pending, including 203 Tamazight.
