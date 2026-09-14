@@ -131290,5 +131290,12 @@
     "before": "En bas de",
     "after": "ⴰⴱⵔⴰⵡ ⵏ",
     "reason": "2026-09-14: Replace French rule-position fragments with Tamazight. IRCAM Amazigh-English dictionary PDF page 67 entry 1008 aflla top/over and PDF page 32 entry 262 abraw bottom; latter also demonstrates noun plus n construction. Preserve of for following list/board fragment, and keep top/bottom distinct. Low confidence: physical-position vocabulary adapted to ordered software lists and complete assembled rule grammar require native/browser review."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-customfield",
+    "before": "Champ personnalisé",
+    "after": "ⵉⴳⵔⵉⵥⵍⵉⵏ",
+    "reason": "2026-09-14: Replace French search operator with joined existing Tamazight igr izlin field/custom terminology; spaces are not recognized in operator syntax. Existing activity-set-customfield supplies the singular phrase. Native specific/exclusive modifier supported by IRCAM PDF page 404 entry 7686. Low confidence: joined technical operator and complete custom-field terminology remain subject to native review. Actual Query parser regression verifies customfield predicate for quoted/unquoted values."
   }
 ]

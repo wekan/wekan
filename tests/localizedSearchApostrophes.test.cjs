@@ -58,3 +58,12 @@ assert.equal(query(`${labels['operator-due']}:overdue`).hasErrors(), false);
 assert.equal(query(`${labels['operator-due']}:unknown-predicate`).hasErrors(), true);
 assert.equal(query(`${labels['operator-created']}:${labels['predicate-overdue']}`).hasErrors(), true);
 console.log('localizedSearchApostrophes: localized operators, quoted values, ordinary operators and unknown names verified');
+
+labels = JSON.parse(read('imports/i18n/data/zgh.i18n.json'));
+assert.equal(labels['operator-customfield'], 'ⵉⴳⵔⵉⵥⵍⵉⵏ');
+assert.doesNotMatch(labels['operator-customfield'], /\s|Champ/);
+for (const value of ['Priority', '"two words"']) {
+  const parsed = query(`${labels['operator-customfield']}:${value}`);
+  assert.equal(parsed.hasErrors(), false);
+  assert.equal(parsed.getQueryParams().getPredicate('customfield'), value.replaceAll('"', ''));
+}
