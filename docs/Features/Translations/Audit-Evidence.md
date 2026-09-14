@@ -23806,3 +23806,11 @@ proof of a wrong language. Review vocabulary and meaning independently of
 script. Greenlandic-looking phrases, network sense and complete calendar
 qualifiers still require their own evidence. No pending finding is accepted
 from the New entry or from a script-only test. No locale value changed.
+
+### 2026-09-14 — Inuktitut recurrence/reset semantic constraints
+
+[Recurrence and reset review](Inuktitut-Recurrence-Review.md) records actual
+new-card insertion versus in-place unchecking and native repeat/again affix
+evidence. Six heading/off values remain open. A generic return verb or
+secondary reset translation does not establish the complete native product
+labels. Existing frequency repairs are preserved. No values or counts change.
