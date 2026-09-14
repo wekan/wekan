@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,337 |
+| Corrected | 15,338 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 507 |
+| Pending review or repair | 506 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,659** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,660** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `158ae52ca` — replaced four Arabic/French Tamazight support-page labels, preserving title and content distinctions using [native help vocabulary](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Help-to-support adaptation, bound forms and full noun phrases remain **low confidence** pending fluent review. Longer not-yet-added and logged-in-only notices remain open. All **17,659** correction/rendering checks pass. These repairs were outside the original queue: **507** originals remain pending across **17** locales, including **372** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `d85bc40db` — replaced the French Tamazight support access notice, preserving support information for logged-in users **only**. [Native component vocabulary](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) supports provisional wording; derived login participle, bound forms and full sentence remain **low confidence** pending fluent review. Not-yet-added notices remain open. All **17,660** correction/rendering checks pass. **506** originals remain pending across **17** locales, including **371** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Memory reference follow-up (2026-09-14):** [Moroccan hardware site](https://pcpicker.ma/prebuilts?lang=zgh) directly uses `ⵜⴰⴽⴰⵜⵓⵜ (RAM)`. This independently corroborates computer-memory usage after correcting the CNAM dialect attribution; it does not establish canonical Standard Moroccan terminology. Translation authorship/review is unknown and CPU labels vary on the page. Added evidence to three memory correction records, retaining low-confidence and renewed-review requirements. No locale values or counts changed. Further review must validate full diagnostics, free/allocated memory distinctions and grammatical adaptation.
 

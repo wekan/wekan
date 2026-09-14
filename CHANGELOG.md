@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,337 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 507 pending review or repair.
-The correction inventory records 17,659 exact before/after values,
+findings: 15,338 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 506 pending review or repair.
+The correction inventory records 17,660 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (372) and
+The largest original queues are Standard Moroccan Tamazight (371) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 158ae52ca (2026-09-14), replacing four Arabic/French
-Tamazight support-page labels outside the original queue. Title and content
-scope are preserved; full assistance wording needs fluent review.
+Latest translation fix is d85bc40db (2026-09-14), replacing the French
+Tamazight support access notice. Support information remains restricted to
+logged-in users only; the full sentence needs fluent review.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -619,10 +619,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,337 original findings are
+Translation audit progress as of 2026-09-14: 15,338 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 507 remain pending across 17 locales, including 372 Tamazight findings.
-The ledger contains 17,659 correction records, including unflagged repairs.
+and 506 remain pending across 17 locales, including 371 Tamazight findings.
+The ledger contains 17,660 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -1397,6 +1397,17 @@ forms and full phrases remain low confidence pending fluent review. Longer
 not-yet-added and logged-in-only notices remain open. All 17,659 correction
 checks pass; these unflagged repairs leave 507 original findings pending.
 Broader language validation continues.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d85bc40db">Translate Tamazight support authenticated user notice</a>. Thanks to xet7.</summary>
+
+Replace French while preserving support information for logged-in users only.
+Native components support provisional wording; derived login participle and
+complete sentence remain low confidence pending fluent review. All 17,660
+correction checks pass; 506 original findings remain pending. Broader language
+validation and the not-yet-added notices remain open.
 
 </details>
 
