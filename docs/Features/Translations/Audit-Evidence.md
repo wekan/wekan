@@ -21491,3 +21491,15 @@ card-view labels and search operators. Literal body tags, metavariables,
 colon/quotation syntax and interpolation tokens remain intact.
 Unchanged-value checks pass; uncertain terminology and browser validation
 remain open.
+
+
+### Esperanto string-template and advanced-search review — 2026-09-14
+
+Local commit `b92bbca3e` explicitly names Enter in string-template item
+guidance and retains 52 directly reviewed correct values. Preserve OR/AND,
+negative existence checks, descending sort, positive integer limits, case
+insensitivity and archive exclusion. Commands, syntax and placeholders remain
+literal. Correction and unchanged-value checks pass; browser behavior remains
+unverified. Direct ReVo task/complete article retrieval timed out; search
+results supply component candidates only. Completion/subtask wording remains
+open, without claiming failed retrieval validates or disproves it.

@@ -4,23 +4,24 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,545 |
-| Restored pre-pull; awaiting validation | 3,088 |
-| Reviewed; retained unchanged | 1,140 |
+| Corrected | 15,546 |
+| Restored pre-pull; awaiting validation | 3,035 |
+| Reviewed; retained unchanged | 1,192 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
 Review is ongoing. The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,140** exact before/after values, including unflagged repairs.
+contain **18,141** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `ab4da5ab2` — repaired
-Esperanto watch-notification semantics and search Enter-key wording.
-Latest unchanged-value review: **2026-09-14**, local commit `e2ef875c8` —
-retained 53 correct Esperanto rule, card-view and search values. Correction,
-unchanged-value and progress checks pass. Browser verification was not run;
-no translations were pushed.
+Latest translation fix and review: **2026-09-14**, local commit `b92bbca3e` —
+repaired Esperanto string-template Enter-key guidance and retained 52 correct
+search, report, organization and storage values. All **18,141** correction
+records and unchanged-value/progress checks pass. Browser verification was
+not run; no translations were pushed. Completion dictionary retrieval failed;
+that terminology remains unvalidated.
+
 
 Fixed categories include wrong-language prose, terminology, warnings,
 placeholders and JSON/calendar/search formatting. All 361 originally flagged
