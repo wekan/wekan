@@ -1070,7 +1070,7 @@
   "email-addresses": "عناوين البريد الإلكتروني",
   "smtp-host-description": "L'adresse du serveur SMTP qui gère vos mails.",
   "smtp-port-description": "Le port des mails sortants du serveur SMTP.",
-  "smtp-tls-description": "تفعيل دعم TLS من اجل خادم SMTP",
+  "smtp-tls-description": "ⵙⵙⵔⴼⵓ ⴰⵙⵎⵔⵙ ⵏ TLS ⵉ ⵓⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ SMTP",
   "smtp-host": "مضيف SMTP",
   "smtp-port": "منفذ SMTP",
   "smtp-username": "ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ",

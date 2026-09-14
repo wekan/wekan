@@ -174,3 +174,9 @@ for (const [key, value] of Object.entries(swimlaneHeightLabels)) {
 }
 assert.equal(locales.zgh['set-swimlane-height'], locales.zgh['setSwimlaneHeightPopup-title']);
 assert.match(locales.zgh['set-swimlane-height-value'], /\(px\)$/);
+
+assert.equal(locales.zgh['smtp-tls-description'],
+  'ⵙⵙⵔⴼⵓ ⴰⵙⵎⵔⵙ ⵏ TLS ⵉ ⵓⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ SMTP');
+assert.doesNotMatch(locales.zgh['smtp-tls-description'], /[\u0600-\u06ff]/);
+assert.deepEqual(locales.zgh['smtp-tls-description'].match(/TLS|SMTP/g), ['TLS', 'SMTP']);
+assert.ok(locales.zgh['smtp-tls-description'].startsWith('ⵙⵙⵔⴼⵓ '));

@@ -131073,5 +131073,12 @@
     "before": "ارتفاع مسار السباحة (بكسل)",
     "after": "ⵜⵉⵖⵣⵉ ⵏ ⵓⴱⵔⵉⴷ (px)",
     "reason": "Replace Arabic swimlane-height labels with IRCAM 2019 PDF686 entry12929 height, PDF513 entry9675 put/set and existing swimlane path convention; preserve pixel unit as px. LOW CONFIDENCE: setting a dimension, software swimlane metaphor and full phrase need native/browser validation. Positive-integer error remains separately pending."
+  },
+  {
+    "locale": "zgh",
+    "key": "smtp-tls-description",
+    "before": "تفعيل دعم TLS من اجل خادم SMTP",
+    "after": "ⵙⵙⵔⴼⵓ ⴰⵙⵎⵔⵙ ⵏ TLS ⵉ ⵓⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ SMTP",
+    "reason": "Replace Arabic SMTP TLS option with enable TLS use for SMTP computer server; IRCAM 2019 activate PDF537 entry10106, use PDF236 entry4544, computer-server PDF120 entry2157 including construct form. Exact TLS/SMTP retained; checkbox maps to mailServer.enableTLS/secure. LOW CONFIDENCE: complete technical clause and genitive/preposition agreement need native/browser review."
   }
 ]
