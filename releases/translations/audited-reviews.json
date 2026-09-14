@@ -22174,5 +22174,143 @@
     "key": "impersonate-user",
     "value": "Erabiltzailea ordezkatu",
     "reason": "Retain: Euskadi dictionary defines ordezkatu both replacing and acting in another person’s place (https://www.euskadi.eus/web01-a2lurhiz/es/contenidos/termino/_c04593/eu_o_1340/o1340.html). Actual settingsUserPopup handler calls impersonate and changes the connection user ID; the acting-in-place sense fits this administrator action. No placeholders."
+  },
+  {
+    "locale": "eu",
+    "key": "card-end",
+    "value": "Amaiera",
+    "reason": "Inspected Basque end/receipt dates, requester/assigner nouns, parent-card prefix/subtext presentation, custom-field set/clear activities and standalone rule labels. Parent refers to parentCardName in minicard.jade; unset activity clears the value, not the field definition. Full-path distinctions, negation and all source sprintf tokens preserved. Compound when/moved trigger fragments excluded pending full phrase review."
+  },
+  {
+    "locale": "eu",
+    "key": "card-end-on",
+    "value": "Amaiera-data",
+    "reason": "Inspected Basque end/receipt dates, requester/assigner nouns, parent-card prefix/subtext presentation, custom-field set/clear activities and standalone rule labels. Parent refers to parentCardName in minicard.jade; unset activity clears the value, not the field definition. Full-path distinctions, negation and all source sprintf tokens preserved. Compound when/moved trigger fragments excluded pending full phrase review."
+  },
+  {
+    "locale": "eu",
+    "key": "editCardReceivedDatePopup-title",
+    "value": "Aldatu jasotze-data",
+    "reason": "Inspected Basque end/receipt dates, requester/assigner nouns, parent-card prefix/subtext presentation, custom-field set/clear activities and standalone rule labels. Parent refers to parentCardName in minicard.jade; unset activity clears the value, not the field definition. Full-path distinctions, negation and all source sprintf tokens preserved. Compound when/moved trigger fragments excluded pending full phrase review."
+  },
+  {
+    "locale": "eu",
+    "key": "assigned-by",
+    "value": "Esleitzailea",
+    "reason": "Inspected Basque end/receipt dates, requester/assigner nouns, parent-card prefix/subtext presentation, custom-field set/clear activities and standalone rule labels. Parent refers to parentCardName in minicard.jade; unset activity clears the value, not the field definition. Full-path distinctions, negation and all source sprintf tokens preserved. Compound when/moved trigger fragments excluded pending full phrase review."
+  },
+  {
+    "locale": "eu",
+    "key": "requested-by",
+    "value": "Eskatzailea",
+    "reason": "Inspected Basque end/receipt dates, requester/assigner nouns, parent-card prefix/subtext presentation, custom-field set/clear activities and standalone rule labels. Parent refers to parentCardName in minicard.jade; unset activity clears the value, not the field definition. Full-path distinctions, negation and all source sprintf tokens preserved. Compound when/moved trigger fragments excluded pending full phrase review."
+  },
+  {
+    "locale": "eu",
+    "key": "prefix-with-full-path",
+    "value": "Aurrizkia bide-izen osoarekin",
+    "reason": "Inspected Basque end/receipt dates, requester/assigner nouns, parent-card prefix/subtext presentation, custom-field set/clear activities and standalone rule labels. Parent refers to parentCardName in minicard.jade; unset activity clears the value, not the field definition. Full-path distinctions, negation and all source sprintf tokens preserved. Compound when/moved trigger fragments excluded pending full phrase review."
+  },
+  {
+    "locale": "eu",
+    "key": "prefix-with-parent",
+    "value": "Aurrizkia gurasoarekin",
+    "reason": "Inspected Basque end/receipt dates, requester/assigner nouns, parent-card prefix/subtext presentation, custom-field set/clear activities and standalone rule labels. Parent refers to parentCardName in minicard.jade; unset activity clears the value, not the field definition. Full-path distinctions, negation and all source sprintf tokens preserved. Compound when/moved trigger fragments excluded pending full phrase review."
+  },
+  {
+    "locale": "eu",
+    "key": "subtext-with-full-path",
+    "value": "Azpitestua bide-izen osoarekin",
+    "reason": "Inspected Basque end/receipt dates, requester/assigner nouns, parent-card prefix/subtext presentation, custom-field set/clear activities and standalone rule labels. Parent refers to parentCardName in minicard.jade; unset activity clears the value, not the field definition. Full-path distinctions, negation and all source sprintf tokens preserved. Compound when/moved trigger fragments excluded pending full phrase review."
+  },
+  {
+    "locale": "eu",
+    "key": "subtext-with-parent",
+    "value": "Azpitestua gurasoarekin",
+    "reason": "Inspected Basque end/receipt dates, requester/assigner nouns, parent-card prefix/subtext presentation, custom-field set/clear activities and standalone rule labels. Parent refers to parentCardName in minicard.jade; unset activity clears the value, not the field definition. Full-path distinctions, negation and all source sprintf tokens preserved. Compound when/moved trigger fragments excluded pending full phrase review."
+  },
+  {
+    "locale": "eu",
+    "key": "activity-set-customfield",
+    "value": "'%s' eremu pertsonalizatua '%s' baliora ezarri da %s(e)n",
+    "reason": "Inspected Basque end/receipt dates, requester/assigner nouns, parent-card prefix/subtext presentation, custom-field set/clear activities and standalone rule labels. Parent refers to parentCardName in minicard.jade; unset activity clears the value, not the field definition. Full-path distinctions, negation and all source sprintf tokens preserved. Compound when/moved trigger fragments excluded pending full phrase review."
+  },
+  {
+    "locale": "eu",
+    "key": "activity-unset-customfield",
+    "value": "'%s' eremu pertsonalizatua garbitu da %s(e)n",
+    "reason": "Inspected Basque end/receipt dates, requester/assigner nouns, parent-card prefix/subtext presentation, custom-field set/clear activities and standalone rule labels. Parent refers to parentCardName in minicard.jade; unset activity clears the value, not the field definition. Full-path distinctions, negation and all source sprintf tokens preserved. Compound when/moved trigger fragments excluded pending full phrase review."
+  },
+  {
+    "locale": "eu",
+    "key": "r-rule",
+    "value": "Araua",
+    "reason": "Inspected Basque end/receipt dates, requester/assigner nouns, parent-card prefix/subtext presentation, custom-field set/clear activities and standalone rule labels. Parent refers to parentCardName in minicard.jade; unset activity clears the value, not the field definition. Full-path distinctions, negation and all source sprintf tokens preserved. Compound when/moved trigger fragments excluded pending full phrase review."
+  },
+  {
+    "locale": "eu",
+    "key": "r-view-rule",
+    "value": "Ikusi araua",
+    "reason": "Inspected Basque end/receipt dates, requester/assigner nouns, parent-card prefix/subtext presentation, custom-field set/clear activities and standalone rule labels. Parent refers to parentCardName in minicard.jade; unset activity clears the value, not the field definition. Full-path distinctions, negation and all source sprintf tokens preserved. Compound when/moved trigger fragments excluded pending full phrase review."
+  },
+  {
+    "locale": "eu",
+    "key": "r-delete-rule",
+    "value": "Ezabatu araua",
+    "reason": "Inspected Basque end/receipt dates, requester/assigner nouns, parent-card prefix/subtext presentation, custom-field set/clear activities and standalone rule labels. Parent refers to parentCardName in minicard.jade; unset activity clears the value, not the field definition. Full-path distinctions, negation and all source sprintf tokens preserved. Compound when/moved trigger fragments excluded pending full phrase review."
+  },
+  {
+    "locale": "eu",
+    "key": "r-new-rule-name",
+    "value": "Arau berriaren izenburua",
+    "reason": "Inspected Basque end/receipt dates, requester/assigner nouns, parent-card prefix/subtext presentation, custom-field set/clear activities and standalone rule labels. Parent refers to parentCardName in minicard.jade; unset activity clears the value, not the field definition. Full-path distinctions, negation and all source sprintf tokens preserved. Compound when/moved trigger fragments excluded pending full phrase review."
+  },
+  {
+    "locale": "eu",
+    "key": "r-no-rules",
+    "value": "Araurik ez",
+    "reason": "Inspected Basque end/receipt dates, requester/assigner nouns, parent-card prefix/subtext presentation, custom-field set/clear activities and standalone rule labels. Parent refers to parentCardName in minicard.jade; unset activity clears the value, not the field definition. Full-path distinctions, negation and all source sprintf tokens preserved. Compound when/moved trigger fragments excluded pending full phrase review."
+  },
+  {
+    "locale": "eu",
+    "key": "r-sort-name",
+    "value": "izena",
+    "reason": "Inspected Basque end/receipt dates, requester/assigner nouns, parent-card prefix/subtext presentation, custom-field set/clear activities and standalone rule labels. Parent refers to parentCardName in minicard.jade; unset activity clears the value, not the field definition. Full-path distinctions, negation and all source sprintf tokens preserved. Compound when/moved trigger fragments excluded pending full phrase review."
+  },
+  {
+    "locale": "eu",
+    "key": "r-trigger",
+    "value": "Abiarazlea",
+    "reason": "Inspected Basque end/receipt dates, requester/assigner nouns, parent-card prefix/subtext presentation, custom-field set/clear activities and standalone rule labels. Parent refers to parentCardName in minicard.jade; unset activity clears the value, not the field definition. Full-path distinctions, negation and all source sprintf tokens preserved. Compound when/moved trigger fragments excluded pending full phrase review."
+  },
+  {
+    "locale": "eu",
+    "key": "r-action",
+    "value": "Ekintza",
+    "reason": "Inspected Basque end/receipt dates, requester/assigner nouns, parent-card prefix/subtext presentation, custom-field set/clear activities and standalone rule labels. Parent refers to parentCardName in minicard.jade; unset activity clears the value, not the field definition. Full-path distinctions, negation and all source sprintf tokens preserved. Compound when/moved trigger fragments excluded pending full phrase review."
+  },
+  {
+    "locale": "eu",
+    "key": "r-list",
+    "value": "zerrenda",
+    "reason": "Inspected Basque end/receipt dates, requester/assigner nouns, parent-card prefix/subtext presentation, custom-field set/clear activities and standalone rule labels. Parent refers to parentCardName in minicard.jade; unset activity clears the value, not the field definition. Full-path distinctions, negation and all source sprintf tokens preserved. Compound when/moved trigger fragments excluded pending full phrase review."
+  },
+  {
+    "locale": "eu",
+    "key": "set-filter",
+    "value": "Ezarri iragazkia",
+    "reason": "Inspected Basque end/receipt dates, requester/assigner nouns, parent-card prefix/subtext presentation, custom-field set/clear activities and standalone rule labels. Parent refers to parentCardName in minicard.jade; unset activity clears the value, not the field definition. Full-path distinctions, negation and all source sprintf tokens preserved. Compound when/moved trigger fragments excluded pending full phrase review."
+  },
+  {
+    "locale": "eu",
+    "key": "r-list-name",
+    "value": "zerrendaren izena",
+    "reason": "Inspected Basque end/receipt dates, requester/assigner nouns, parent-card prefix/subtext presentation, custom-field set/clear activities and standalone rule labels. Parent refers to parentCardName in minicard.jade; unset activity clears the value, not the field definition. Full-path distinctions, negation and all source sprintf tokens preserved. Compound when/moved trigger fragments excluded pending full phrase review."
+  },
+  {
+    "locale": "eu",
+    "key": "r-name",
+    "value": "izena",
+    "reason": "Inspected Basque end/receipt dates, requester/assigner nouns, parent-card prefix/subtext presentation, custom-field set/clear activities and standalone rule labels. Parent refers to parentCardName in minicard.jade; unset activity clears the value, not the field definition. Full-path distinctions, negation and all source sprintf tokens preserved. Compound when/moved trigger fragments excluded pending full phrase review."
   }
 ]
