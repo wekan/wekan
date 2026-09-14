@@ -68,3 +68,8 @@
   font-size: 0.8em;
   color: #999;
 }
+
+/* The label chip uses the same card-label palette/contrast and radius as cards.
+   Keep rich label content compact inside activity prose. */
+.activity .activity-label .viewer { display: inline; min-height: 0; }
+.activity .activity-label p { display: inline; margin: 0; }

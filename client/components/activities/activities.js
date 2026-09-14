@@ -8,6 +8,7 @@ import { sanitizeHTML } from '/imports/lib/secureDOMPurify';
 import { TAPi18n } from '/imports/i18n';
 import { Utils } from '/client/lib/utils';
 import { getSidebarInstance } from '/client/features/sidebar/service';
+import { isHexColor, contrastText } from '/models/lib/contrastColor';
 import { activityCardLinkData } from '/models/lib/activityCardLink';
 
 // #6480/#6481: 500 was far more than the sidebar/card activity feed ever shows
@@ -235,7 +236,8 @@ Template.activity.helpers({
     if (!lastLabelId) return null;
     const lastLabel = ReactiveCache.getBoard(
       this.activity.boardId,
-    ).getLabelById(lastLabelId);
+    )?.getLabelById(lastLabelId);
+    if (!lastLabel) return null;
     if (lastLabel && (lastLabel.name === undefined || lastLabel.name === '')) {
       return lastLabel.color;
     } else if (lastLabel.name !== undefined && lastLabel.name !== '') {
@@ -328,6 +330,25 @@ Template.activity.helpers({
 Template.activity.helpers({
   activityValue(value) {
     return titleViewerHtml(value == null ? '' : String(value));
+  },
+  labelActivityMessage(key, cardLink) {
+    const label = ReactiveCache.getBoard(this.activity.boardId)?.getLabelById(this.activity.labelId);
+    const setting = ReactiveCache.getCurrentSetting();
+    const options = { stripLinks: !!(setting && setting.renderLinksAsPlainText) };
+    const marker = 'WEKAN_ACTIVITY_LABEL_BADGE';
+    const message = sanitizeHTML(TAPi18n.__(key, { sprintf: [marker, cardLink] }), options);
+    const color = String(label?.color || 'white');
+    const hex = isHexColor(color);
+    const attrs = {
+      class: 'card-label activity-label' + (!hex && /^[a-z]+$/.test(color) ? ` card-label-${color}` : ''),
+      ...(hex ? { style: `background-color:${color};color:${contrastText(color)};` } : {}),
+    };
+    // Sanitize prose and viewer content first. Only the application-created
+    // badge wrapper retains trusted classes and validated color styles;
+    // the global sanitizer must keep forbidding user CSS/classes.
+    const content = sanitizeHTML(titleViewerHtml(label?.name || label?.color || ''), options);
+    const badge = Blaze.toHTML(HTML.SPAN(attrs, HTML.Raw(content)));
+    return message.split(marker).join(badge);
   },
   activityMessage(key, ...values) {
     const setting = ReactiveCache.getCurrentSetting();

@@ -71,3 +71,34 @@ test('activity messages substitute all values and discard Spacebars options', as
   plainLinks = true;
   assert.equal(helper('comment', link, { hash: {} }), 'on Demo 👍');
 });
+
+test('activity label badges preserve trusted palette styling while sanitizing user content', () => {
+  let label = { name: '<b>Feature 👍</b><script>bad()</script>', color: 'green' };
+  let plainLinks = false;
+  const body = source.split('  labelActivityMessage(key, cardLink) {')[1].split('\n  },')[0];
+  const helper = new Function('ReactiveCache', 'TAPi18n', 'sanitizeHTML', 'titleViewerHtml', 'isHexColor', 'contrastText', 'Blaze', 'HTML', `return function(key, cardLink) {${body}}`)(
+    { getBoard: () => ({ getLabelById: () => label }), getCurrentSetting: () => ({ renderLinksAsPlainText: plainLinks }) },
+    { __: (_, { sprintf }) => `added ${sprintf[0]} to ${sprintf[1]}` },
+    (value, opts) => sanitizeHTML(value, { allowedTags: opts.stripLinks ? ['b', 'span'] : ['b', 'span', 'a'], allowedAttributes: { a: ['href'] } }),
+    value => value, value => /^#[0-9a-f]{6}$/i.test(value), () => '#000000',
+    { toHTML: value => value },
+    { Raw: value => value, SPAN: (attrs, value) => `<span class="${attrs.class}"${attrs.style ? ` style="${attrs.style}"` : ''}>${value}</span>` },
+  );
+  const ctx = { activity: { boardId: 'b', labelId: 'l' } };
+  let result = helper.call(ctx, 'added', '<a href="/card">Card</a>');
+  assert.match(result, /class="card-label activity-label card-label-green"/);
+  assert.match(result, /<b>Feature 👍<\/b>/);
+  assert.doesNotMatch(result, /script|bad\(\)/);
+  label = { name: '<span style="color:red" class="evil">Label</span>', color: '#ffdab9' };
+  result = helper.call(ctx, 'added', 'Card');
+  assert.match(result, /style="background-color:#ffdab9;color:#000000;"/);
+  assert.doesNotMatch(result, /evil|color:red/);
+  label = { name: 'Label', color: 'green" onclick="bad()' };
+  assert.doesNotMatch(helper.call(ctx, 'added', 'Card'), /onclick|bad\(\)/);
+  label = null;
+  assert.doesNotThrow(() => helper.call(ctx, 'removed', 'Card'));
+  plainLinks = true;
+  assert.doesNotMatch(helper.call(ctx, 'added', '<a href="/card">Card</a>'), /<a /);
+  assert.match(jade, /labelActivityMessage 'activity-added-label' cardLink/);
+  assert.match(jade, /labelActivityMessage 'activity-removed-label' cardLink/);
+});

@@ -148,10 +148,10 @@ template(name="activity")
 
       //- label activity ------------------------------------------------------
       if($eq activity.activityType 'addedLabel')
-        | {{{activityMessage 'activity-added-label' (activityValue lastLabel) cardLink}}}.
+        | {{{labelActivityMessage 'activity-added-label' cardLink}}}.
 
       if($eq activity.activityType 'removedLabel')
-        | {{{activityMessage 'activity-removed-label' (activityValue lastLabel) cardLink}}}.
+        | {{{labelActivityMessage 'activity-removed-label' cardLink}}}.
 
       //- list activity -------------------------------------------------------
       if($neq mode 'card')
