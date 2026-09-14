@@ -131080,5 +131080,12 @@
     "before": "تفعيل دعم TLS من اجل خادم SMTP",
     "after": "ⵙⵙⵔⴼⵓ ⴰⵙⵎⵔⵙ ⵏ TLS ⵉ ⵓⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ SMTP",
     "reason": "Replace Arabic SMTP TLS option with enable TLS use for SMTP computer server; IRCAM 2019 activate PDF537 entry10106, use PDF236 entry4544, computer-server PDF120 entry2157 including construct form. Exact TLS/SMTP retained; checkbox maps to mailServer.enableTLS/secure. LOW CONFIDENCE: complete technical clause and genitive/preposition agreement need native/browser review."
+  },
+  {
+    "locale": "zgh",
+    "key": "private-desc",
+    "before": "هذه اللوحة خاصة . لا يسمح إلا للأعضاء .",
+    "after": "ⵜⴰⴼⵍⵡⵉⵜ ⴰⴷ ⵜⴳⴰ ⵜⵓⵙⵍⵉⴳⵜ. ⵉⴳⵎⴰⵎⵏ ⵏ ⵜⴼⵍⵡⵉⵜ ⵖⴰⵙ ⴰⴷ ⵉⵣⵎⵔⵏ ⴰⴷ ⵜⵜ ⵥⵕⵏ ⴷ ⴰⴷ ⵜⵜ ⵙⵏⴼⵍⵏ.",
+    "reason": "Replace Arabic private-board description and restore both view/edit actions from current English. IRCAM 2019 private PDF454 entry8633, member PDF43 entry502, only PDF468 entry8843, able PDF719 entry13518, see PDF727 entry13642; native MediaWiki edit snfl and existing board vocabulary. LOW CONFIDENCE: feminine private agreement, focus/plural/object-pronoun grammar and complete software clause require native/browser review."
   }
 ]

@@ -180,3 +180,9 @@ assert.equal(locales.zgh['smtp-tls-description'],
 assert.doesNotMatch(locales.zgh['smtp-tls-description'], /[\u0600-\u06ff]/);
 assert.deepEqual(locales.zgh['smtp-tls-description'].match(/TLS|SMTP/g), ['TLS', 'SMTP']);
 assert.ok(locales.zgh['smtp-tls-description'].startsWith('ⵙⵙⵔⴼⵓ '));
+
+assert.equal(locales.zgh['private-desc'], "ⵜⴰⴼⵍⵡⵉⵜ ⴰⴷ ⵜⴳⴰ ⵜⵓⵙⵍⵉⴳⵜ. ⵉⴳⵎⴰⵎⵏ ⵏ ⵜⴼⵍⵡⵉⵜ ⵖⴰⵙ ⴰⴷ ⵉⵣⵎⵔⵏ ⴰⴷ ⵜⵜ ⵥⵕⵏ ⴷ ⴰⴷ ⵜⵜ ⵙⵏⴼⵍⵏ.");
+assert.doesNotMatch(locales.zgh['private-desc'], /[\u0600-\u06ff]/);
+assert.match(locales.zgh['private-desc'], /ⵜⵓⵙⵍⵉⴳⵜ/);
+assert.match(locales.zgh['private-desc'], /ⵉⴳⵎⴰⵎⵏ.*ⵖⴰⵙ/);
+assert.match(locales.zgh['private-desc'], /ⵥⵕⵏ.*ⴷ.*ⵙⵏⴼⵍⵏ/);
