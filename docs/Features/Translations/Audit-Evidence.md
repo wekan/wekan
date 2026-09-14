@@ -1,5 +1,7 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `7caee4baa`: notification deletion confirmation repaired; related notification label refined. Native [Mastodon Notifications](https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json) and [MediaWiki Delete/All/undo-failure](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) support components. Preserve ALL notifications, explicit confirmation and unconditional inability to undo; omit the source edit-conflict reason only. Local confirmation wording reused; Change-to-Action singular adaptation, agreement and full confirmation remain low confidence. All 18,061 correction checks pass; 350 original findings remain pending, including 215 Tamazight. Restored/unflagged and low-confidence validation remains open.
+
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
 ## Tamazight checklist checkbox controls — 2026-09-14
