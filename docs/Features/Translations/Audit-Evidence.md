@@ -21826,3 +21826,16 @@ specifies overwrite with a bit pattern, not necessarily zeroing. This
 resolves the earlier diagnostic uncertainty. All 18,152 correction records
 pass. Eight Esperanto restored findings remain; globally 2,058 restored
 and 308 pending findings plus broader language/browser review stay open.
+
+
+### Esperanto scrollbar terminology — 2026-09-14
+
+Local commit `41fb26dff` retains Ŝalti vertikalajn rulumskalojn. Primary
+references https://komputeko.net/Komputeko2012.pdf and
+https://help.libreoffice.org/latest/eo/text/shared/02/01170000.html confirm
+rulumskalo as scrollbar, resolving the earlier terminology suspicion.
+Lime remains uncertain: document renderers use #00ff00 while contrastColor
+uses #51e898, so a single exact hue cannot be inferred from the token alone.
+2,160 review records pass; seven Esperanto restored findings remain.
+Globally 2,057 restored and 308 pending findings and wider language/browser
+validation remain open.

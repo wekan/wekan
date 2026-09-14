@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,556 corrected, 2,058 restored pre-pull values awaiting
-validation, 2,159 reviewed and retained, and 308 pending review or repair.
+findings: 15,556 corrected, 2,057 restored pre-pull values awaiting
+validation, 2,160 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,152 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
@@ -108,8 +108,8 @@ changes are implemented in local commit 02383521a; translation repairs have
 resumed.
 Latest translation fix/review is 05217bbb9 (2026-09-14): Esperanto heap
 garbage-zapping describes overwriting with a bit pattern.
-Latest unchanged-value review is f523001c3 (2026-09-14): ten Esperanto
-account outcome and basic labels retained; eight uncertain findings remain.
+Latest unchanged-value review is 41fb26dff (2026-09-14): Esperanto
+scrollbar terminology validated; seven uncertain findings remain.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
 Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
 retaining 156 correct Danish storage, migration and monitoring/account labels.
@@ -710,6 +710,14 @@ Review checks pass; wider language and browser verification remains open.
 Retain ten correct labels, preserving account creation success/failure and
 login/logout distinctions. Review checks pass; nine uncertain Esperanto
 findings and broader language/browser verification remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/41fb26dff">Validate Esperanto scrollbar terminology</a>. Thanks to xet7.</summary>
+
+Retain the correct vertical-scrollbar translation, supported by Komputeko
+and LibreOffice terminology. Review checks pass; broader review stays open.
 
 </details>
 

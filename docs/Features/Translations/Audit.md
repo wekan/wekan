@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,556 |
-| Restored pre-pull; awaiting validation | 2,058 |
-| Reviewed; retained unchanged | 2,159 |
+| Restored pre-pull; awaiting validation | 2,057 |
+| Reviewed; retained unchanged | 2,160 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -18,9 +18,10 @@ source references, confidence limits and archived progress notes.
 Latest translation fix: **2026-09-14**, local commit `05217bbb9` —
 corrected Esperanto heap garbage-zapping to describe overwriting with a
 bit pattern, matching official Node documentation. All **18,152** correction
-records pass. Latest unchanged review: `f523001c3` (2026-09-14).
-Eight Esperanto restored findings remain uncertain: overtime variants,
-lime-color, scrollbar, advanced-filter and two Complete labels. Browser
+records pass. Latest unchanged review: `41fb26dff` (2026-09-14) confirms scrollbar
+terminology with Komputeko and LibreOffice.
+Seven Esperanto restored findings remain uncertain: overtime variants,
+lime-color, advanced-filter and two Complete labels. Browser
 verification and broader language review remain open; no translations pushed.
 
 
