@@ -22461,3 +22461,11 @@ Retained 23 inspected date, requester/assigner, parent-card presentation,
 custom-field activity and standalone rule labels. Actual minicard parentCardName
 confirms the parent relationship; unset activities clear a value, not a definition.
 All 3,719 exact reviews pass. Compound conditional trigger phrases remain open.
+
+**2026-09-14 — Basque rule actions (`ffde8e84e`).**
+
+Retained 17 inspected action and date-field labels; 3,736 exact reviews pass.
+Found unflagged Spanish `es` in shared `r-is`. Actual board/card/checklist
+triggers combine it with Basque conditional verbs already ending in `denean`.
+A literal copula replacement alone would leave redundant composed grammar;
+coordinated phrase repair is required before accepting these trigger values.

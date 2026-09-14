@@ -1321,6 +1321,29 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f23a18515">Automate interrupted pull recovery and merge integration</a></summary>
+
+The Git menu preserves an orphaned autostash and removes only the verified
+incomplete rebase setup. Diverged branches merge origin with automatic merge
+commits, preserving existing changelog commit hashes. Existing changelog link
+repair still commits repairs before a human-run push. Actual content conflicts
+remain visible for resolution, and active operations or locks stop recovery.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ffde8e84e">Validate Basque rule actions and date-field labels</a></summary>
+
+Retained 17 correct action and date-field labels. Shared conditional trigger
+composition still requires repair; the audit records its Spanish auxiliary.
+
+Thanks to xet7 !
+
+</details>
+
 and fixes the following bugs:
 
 **LDAP login** - Optional user search filter.

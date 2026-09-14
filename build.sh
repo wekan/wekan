@@ -2237,8 +2237,8 @@ Thanks to xet7 !"
 	return 0
 }
 
-# git pull: fast-forward when that is all it takes, rebase when the branch has
-# diverged, and never end half-way through either.
+# git pull: fast-forward or merge origin without rewriting local commit hashes.
+# Preserve actual content conflicts for explicit resolution.
 # Recover only Git's incomplete autostash-only setup, never an active rebase.
 function git_recover_orphan_autostash(){
  local directory stash
