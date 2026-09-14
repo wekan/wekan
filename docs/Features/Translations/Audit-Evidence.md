@@ -28706,3 +28706,28 @@ Four focused suites pass for exact role inventory, French rejection and
 translation invariants. No live export UI test ran. Ledger 19,850;
 original corrected 15,737, pending 166 (zgh 71), restored 4 unchanged.
 Broader review remains open; no remote writes were made.
+
+
+## Blank rule-field matching — review 2026-09-15
+
+Arabic `r-board-note` remains pending. IRCAM page 147 entry 2709
+`amrdu` includes possible/potential; page 189 entry 3565 `ar` includes
+empty/unoccupied, while page 356 entry 6773 `xwu` means be empty.
+Empty-handed hunting or fishing (473/2276/10493) does not attest an empty
+software input. Note-down verb 13515 is recording, not proof of a noun
+for an explanatory note.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+Board triggers template line 103 renders this instruction. Actual
+`models/lib/ruleCardTitleFilter.js` function `cardTitleFilterOrWildcard`
+trims a string and returns `*` when the result is empty. Non-string inputs
+also return `*`. The trigger code imports and uses this helper. This
+supports wildcard matching for the card-title filter; it does not prove
+every unrelated field in the app has the same conversion.
+
+Next action: verify explanatory-note, field-empty and software-match
+phrases, preserving leave empty to match every possible value. Do not
+translate this as deleting stored card data or matching only blank values.
+Trimmed whitespace also means no title filter in the inspected helper.
+No translation or counts changed. Pending 166 original findings; broader
+contextual reviews remain open. No live rule UI test ran; no remote writes.

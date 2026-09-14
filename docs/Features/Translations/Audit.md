@@ -29,11 +29,11 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Tamazight disk-space error](Tamazight-Review.md) identifies space and
-sufficiency candidates plus a hard-disk term. Keep general free storage
-capacity; avoid physical-space homographs and narrowing to hard disks.
-Complete error wording remains open. No translations or counts changed.
-Earlier reviews remain in detailed evidence.
+[Tamazight blank rule fields](Tamazight-Review.md) confirms that the
+card-title helper turns blank/trimmed whitespace into a wildcard.
+Keep matching every value, rather than erasing data or matching blanks.
+Explanatory-note and full matching phrases remain open.
+No translations or counts changed. Earlier reviews remain in detailed evidence.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:
