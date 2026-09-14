@@ -36,6 +36,9 @@ for (const [key, value] of Object.entries(quechua)) {
 
 assert.equal(quechua.accept, 'Kay willaymi: Chaskiy');
 assert.equal(quechua.settings, 'Allichaykuna');
+// Chilean Ministry of Education, native Cusco Collao dictionary (2019), p. 18.
+assert.equal(quechua.calendar, 'Watanqillqa');
+assert.doesNotMatch(quechua.calendar, /Calendart|Kay willaymi|Intiwatana/);
 assert.match(quechua['act-deleteCard'], /Qullusqa Tarjeta/);
 assert.deepEqual(tokens(quechua['act-deleteCard']),
   ['__board__', '__card__', '__list__', '__swimlane__']);

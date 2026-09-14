@@ -130849,5 +130849,12 @@
     "before": "بیکر قیلیش",
     "after": "بیکار قیلیش",
     "reason": "Restore missing alif in Afghan Uzbek bekor qilish cancellation spelling. Indexed native Afghan government usage supports بیکار قیلیش, but full pages failed to fetch; low-confidence orthographic review remains open."
+  },
+  {
+    "locale": "qu",
+    "key": "calendar",
+    "before": "Kay willaymi: Calendarta",
+    "after": "Watanqillqa",
+    "reason": "Replace untranslated generic calendar label with native Cusco Collao dictionary term; Ministry of Education Chile, 2019, printed page 18. Specific calendar-system compounds remain under review."
   }
 ]
