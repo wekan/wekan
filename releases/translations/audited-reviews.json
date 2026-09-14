@@ -24820,5 +24820,23 @@
     "key": "ticket-number",
     "value": "Tiket-zenbakia",
     "reason": "Tiket-zenbakia is valid Basque ticket-number wording. Basque government bulletin https://www.euskadi.eus/bopv2/datos/2014/12/1405234e.pdf uses tiket- edo albaran-zenbakia; loanword tiket is native usage, not untranslated English. No current UI consumer was found; this accepts lexical meaning only, not an unobserved workflow."
+  },
+  {
+    "locale": "da",
+    "key": "export-card-excel-free",
+    "value": "ledig",
+    "reason": "Correct available/free wording for disk capacity. Actual historical export code in 7de1b04eb and 5c5ed102c pairs this label with mbFree MB and mbNeeded, establishing available disk space rather than no-cost licensing. No current consumer found; preserve correct existing language value."
+  },
+  {
+    "locale": "eu",
+    "key": "export-card-excel-free",
+    "value": "librea",
+    "reason": "Correct available/free wording for disk capacity. Actual historical export code in 7de1b04eb and 5c5ed102c pairs this label with mbFree MB and mbNeeded, establishing available disk space rather than no-cost licensing. No current consumer found; preserve correct existing language value."
+  },
+  {
+    "locale": "gl",
+    "key": "export-card-excel-free",
+    "value": "libre",
+    "reason": "Correct available/free wording for disk capacity. Actual historical export code in 7de1b04eb and 5c5ed102c pairs this label with mbFree MB and mbNeeded, establishing available disk space rather than no-cost licensing. No current consumer found; preserve correct existing language value."
   }
 ]
