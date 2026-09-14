@@ -125221,5 +125221,26 @@
     "before": "تصفية البطاقات المخصصة لي",
     "after": "ⵣⵉⵣⴷⵉⴳ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵜⵜⵓⴼⴽⴰⵏⵉⵏ ⵉⵢⵉ",
     "reason": "2026-09-14: Replace Arabic/French shortcut text. Preserve membership Add self versus responsibility Assign self, both current-card scopes, and My cards versus My assigned cards. keyboard.js uses Filter.members for q and Filter.assignees for a. Native MediaWiki filehist-current attests Current ⴰⵎⵉⵔⴰⵏ; feminine form is derived. Native MediaWiki metadata-help attests Given ⵉⵜⵜⵓⴼⴽⴰ, supporting provisional Give-to-self/Assigned-to-me wording; this is not a directly attested responsibility-assignment label. Add and Filter/Card reuse existing local terminology. Reflexive/possessive forms, plural passive Given, assignment semantic adaptation and all assembled clauses remain LOW CONFIDENCE requiring native validation; no claim that local reuse or script checks prove fluency. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "signupPopup-title",
+    "before": "إنشاء حساب",
+    "after": "ⵙⵏⵓⵍⴼⵓ ⴰⵎⵉⴹⴰⵏ",
+    "reason": "2026-09-14: Replace Arabic Create an Account with the identical action directly attested by native MediaWiki pt-createaccount; no new compound or account meaning introduced. Sources: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "starred-boards",
+    "before": "اللوحات المفضلة",
+    "after": "ⵜⵉⴼⵍⵡⵉⵡⵉⵏ ⵙ ⵢⵉⵜⵔⵉ",
+    "reason": "2026-09-14: Replace Arabic with Boards with a Star, preserving the starred state rather than generic preferences. Board plural follows local usage, and Star follows the existing star-item action. Full nominal wording remains LOW CONFIDENCE; local consistency is not independent language validation. Sources: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "starred-lists",
+    "before": "ⵜⵉⵍⴰⵍ ⵢⵜⵜⵢⴰⵔⴰⵏ ⵙ ⵢⵉⵜⵔⵉ",
+    "after": "ⵜⵉⵍⴳⴰⵎⵉⵏ ⵙ ⵢⵉⵜⵔⵉ",
+    "reason": "2026-09-14: Correct local Lists noun ⵜⵉⵍⴰⵍ to directly attested native Mastodon navigation_bar.lists ⵜⵉⵍⴳⴰⵎⵉⵏ. Preserve starred state with the existing Star wording. Full nominal wording remains LOW CONFIDENCE; noun attestation does not validate the full label. Sources: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
   }
 ]
