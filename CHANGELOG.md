@@ -3825,6 +3825,20 @@ Thanks to xet7 !
 **Developer documentation** - Verify the reported build failure.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5f5822f7d">Preserve actionable redacted LDAP bind errors</a></summary>
+
+LDAP login failures retain non-enumerable error names and messages, plus
+codes and reasons, through the existing secret sanitizer. This fixes the
+empty error diagnostic reported in #6692; the bind failure itself still
+needs the actual directory error. Certificate, credential and disabled-log
+checks pass, along with encryption, connection-release and REST login tests.
+No external directory or live browser login was verified.
+
+Thanks to Nissulya and xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0d6be3198">Use readable datetime directories for build and release logs</a></summary>
 
 Build.sh, build.bat and release tools use operation-specific log directories
