@@ -123380,5 +123380,12 @@
     "before": "Supprimé de",
     "after": "ⵉⵜⵜⵡⴰⴽⵙ ⵙⴳ",
     "reason": "Replace French Removed from rule fragment, preserving passive removal and source relation; do not substitute an imperative or remove destination. Native MediaWiki restorelink uses itt wak sn singular removed relative form and logentry-move-move uses sg/from: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE finite passive adaptation itt waks from attested relative form and generic agreement need fluent review. Assignee fragments remain unresolved until assignment-specific terminology is established; member is not substituted for assignee."
+  },
+  {
+    "locale": "zgh",
+    "key": "username-too-short",
+    "before": "Le nom d'utilisateur doit comporter au moins 3 caractères",
+    "after": "ⵉⵇⵇⴰⵏ ⴷ ⴰⴷ ⵉⵍⵉⵏ 3 ⵏ ⵢⵉⵙⴽⴽⵉⵍⵏ ⵏⵖ ⵓⴳⴳⴰⵔ ⴳ ⵢⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ",
+    "reason": "Replace French minimum username-length warning; explicitly preserve requirement, 3 characters or more and username scope, not exactly three or three words. Native MediaWiki badtitletext supplies yiskkiln/characters; userlogin-yourname supplies username and passwordreset-emailtext-ip supplies iqqan ... d ad requirement construction; moredotdotdot supplies uggar/more: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE composed plural existence/requirement and bound name form need fluent review."
   }
 ]

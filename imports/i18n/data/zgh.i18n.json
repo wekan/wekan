@@ -2590,7 +2590,7 @@
   "invalid-credentials": "ⵓⵔ ⵉⴱⵓⵏⵉ ⵢⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ ⵏⵖ ⴷ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⵏⵏⴰ ⵜⵙⴽⵛⵎⴷ.",
   "username-password-required": "ⵉⵍⵍⴰ ⴼⵍⵍⴰⴽ ⴰⴷ ⵜⴼⴽⴷ ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ ⴷ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ",
   "password-mismatch": "ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⵏⵏⴰ ⵜⵙⴽⵛⵎⴷ ⵓⵔ ⵜⵎⵙⴰⵙⴰ",
-  "username-too-short": "Le nom d'utilisateur doit comporter au moins 3 caractères",
+  "username-too-short": "ⵉⵇⵇⴰⵏ ⴷ ⴰⴷ ⵉⵍⵉⵏ 3 ⵏ ⵢⵉⵙⴽⴽⵉⵍⵏ ⵏⵖ ⵓⴳⴳⴰⵔ ⴳ ⵢⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ",
   "user-exists": "ⴰⵏⵙⵙⵎⵔⵙ ⵉⵍⵍⴰ ⵢⴰⴷ",
   "account-created": "ⵉⵜⵜⵓⵙⵏⵓⵍⴼⴰ ⵓⵎⵉⴹⴰⵏ! ⵜⵥⴹⴰⵕⴷ ⴰ ⵜⴽⵛⵎⴷ ⴷⵖⵉⴽⴽ.",
   "account-creation-failed": "ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⵓⵙⴽⴽⵉⵔ ⵏ ⵓⵎⵉⴹⴰⵏ",
