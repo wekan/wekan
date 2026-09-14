@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,365 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 479 pending review or repair.
-The correction inventory records 17,763 exact before/after values,
+findings: 15,366 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 478 pending review or repair.
+The correction inventory records 17,764 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (344) and
+The largest original queues are Standard Moroccan Tamazight (343) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is d0791c6c4 (2026-09-14), replacing French
-all-locked-user Unlock confirmation/result. Full quantified unblock
-phrases and passive adaptation remain low confidence for fluent review.
+Latest translation fix is 4ba8d17d4 (2026-09-14), replacing French
+successful User Unlock result. Positive success construction, removal
+nominalization and full phrase remain low confidence for fluent review.
 Start spelling follow-up 2219d5358 distinguishes plain Begin/Start from
 emphatic Share/Divide in indexed IRCAM entries; direct PDF and full command
 verification remain open. No values or counts changed.
@@ -634,10 +634,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,365 original findings are
+Translation audit progress as of 2026-09-14: 15,366 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 479 remain pending across 17 locales, including 344 Tamazight findings.
-The ledger contains 17,763 correction records, including unflagged repairs.
+and 478 remain pending across 17 locales, including 343 Tamazight findings.
+The ledger contains 17,764 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -1754,7 +1754,7 @@ versus ordinary sign-in/authorization. No locale values or counts changed.
 Use native Calendar vocabulary and retain Minguo from the English source,
 avoiding generic Chinese language/calendar substitution. The full mixed-script
 name remains low confidence and needs fluent review. All 17,722 correction/rendering
-checks pass; 487 original findings remain pending, including 344 Tamazight findings.
+checks pass; 487 original findings remain pending, including 343 Tamazight findings.
 
 </details>
 
@@ -1824,7 +1824,7 @@ findings remain pending.
 Replace French Workspace menu with native Menu/content-space components.
 Organizational workspace extension and the full bound phrase remain low
 confidence for fluent review. All 17,746 correction/rendering checks pass;
-486 original findings remain pending, including 344 Tamazight findings.
+486 original findings remain pending, including 343 Tamazight findings.
 
 </details>
 
@@ -1835,7 +1835,7 @@ Replace French initiation wording, preserving Planning Poker and Start
 action rather than the date noun. Full command remains low confidence;
 IRCAM manual evidence is indexed only and direct fetch redirects to HTML.
 All 17,747 correction/rendering checks pass; 485 original findings remain
-pending, including 344 Tamazight findings.
+pending, including 343 Tamazight findings.
 
 </details>
 
@@ -1876,7 +1876,7 @@ Replace two French headings with an explicitly derived subworkspace compound,
 preserving hierarchy and Add versus Name. New compound, bound form and
 workspace extension remain low confidence for fluent review; indexed prefix
 evidence does not attest the complete term. All 17,752 correction/rendering
-checks pass; 483 original findings remain pending, including 344 Tamazight.
+checks pass; 483 original findings remain pending, including 343 Tamazight.
 
 </details>
 
@@ -1907,7 +1907,7 @@ Replace three French click/confirmation/all-user labels by expressing
 removal of login blocking, preserving this-user versus all-users scope.
 Full unblock compounds and grammar remain low confidence for fluent review.
 All 17,761 correction/rendering checks pass; 481 original findings remain
-pending, including 344 Tamazight.
+pending, including 343 Tamazight.
 
 </details>
 
@@ -1918,7 +1918,18 @@ Replace two French messages preserving All Locked Users and confirmation
 question versus completed result. Full quantified unblock phrases and
 passive adaptation remain low confidence for fluent review. All 17,763
 correction/rendering checks pass; 479 original findings remain pending,
-including 344 Tamazight.
+including 343 Tamazight.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4ba8d17d4">Translate Tamazight successful user unlock result</a>. Thanks to xet7.</summary>
+
+Replace French result preserving success, singular user and removal of
+login blocking. Positive success construction, removal nominalization and
+full bound phrase remain low confidence for fluent review. All 17,764
+correction/rendering checks pass; 478 original findings remain pending,
+including 343 Tamazight.
 
 </details>
 
