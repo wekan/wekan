@@ -1091,7 +1091,7 @@
   "email-smtp-test-subject": "E-mail de test SMTP",
   "email-smtp-test-text": "ⵢⴰⵍⵍⴼⵓⵙ ⵓⵣⵏ ⵏⴽ ⵏ ⵢⴰⵏ ⵉⵎⴰⵢⵍ.",
   "error-invitation-code-not-exist": "رمز الدعوة غير موجود",
-  "error-notAuthorized": "أنتَ لا تملك الصلاحيات لرؤية هذه الصفحة.",
+  "error-notAuthorized": "ⵓⵔ ⴷⴰⵔⴽ ⵜⵓⵔⴰⴳⵜ ⴰⴼⴰⴷ ⴰⴷ ⵜⵙⴽⵏⴷ ⵜⴰⵙⵏⴰ ⴰⴷ.",
   "webhook-title": "Nom du webhook",
   "webhook-token": "Jeton (optionnel pour l'authentification)",
   "outgoing-webhooks": "الويبهوك الصادرة",

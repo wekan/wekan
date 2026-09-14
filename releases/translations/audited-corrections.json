@@ -126852,5 +126852,12 @@
     "before": "تحديد بطاقات هذه القائمة",
     "after": "ⵙⵜⴰⵢ ⴰⴽⴽⵯ ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⴳ ⵜⴰⵍⴳⴰⵎⵜ ⴰⴷ",
     "reason": "2026-09-14: replace Kabyle or Arabic selection instruction with Moroccan native software components. Reuse reviewed stay selection root; MediaWiki tooltip-pt-watchlist attests yat feminine one and Mastodon community.column_settings.local_only attests ghas Only, column.lists attests List plural. Preserve ONLY ONE BOARD versus ALL CARDS IN THIS LIST; latter Arabic omitted All. Imperative derivation, feminine agreement and full instruction remain LOW CONFIDENCE pending native review. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "error-notAuthorized",
+    "before": "أنتَ لا تملك الصلاحيات لرؤية هذه الصفحة.",
+    "after": "ⵓⵔ ⴷⴰⵔⴽ ⵜⵓⵔⴰⴳⵜ ⴰⴼⴰⴷ ⴰⴷ ⵜⵙⴽⵏⴷ ⵜⴰⵙⵏⴰ ⴰⴷ.",
+    "reason": "2026-09-14: Replace Arabic authorization error with Standard Moroccan Tamazight. Native MediaWiki zgh permissionserrorstext-withaction supplies ur dark turagt afad ad; viewsourcetext supplies conjugated tsknd and tasna a, while pageinfo supplies tasna ad. Preserves denial of permission to view this page. Combined sentence and demonstrative adaptation remain low confidence pending fluent review. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]

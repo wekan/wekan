@@ -1,5 +1,14 @@
 # Detailed translation audit evidence
 
+2026-09-14: repaired `zgh/error-notAuthorized`, replacing Arabic with
+`ⵓⵔ ⴷⴰⵔⴽ ⵜⵓⵔⴰⴳⵜ ⴰⴼⴰⴷ ⴰⴷ ⵜⵙⴽⵏⴷ ⵜⴰⵙⵏⴰ ⴰⴷ.`
+Native [MediaWiki wording](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json)
+provides permission denial (`permissionserrorstext-withaction`), conjugated
+view (`viewsourcetext`) and this-page terminology (`pageinfo`). This is
+a derived complete sentence, not a verbatim source translation; full grammar
+remains low confidence. No placeholders were present or added.
+
+
 2026-09-14 — `cd563cce5`: Veps escape-marker follow-up to d0c247094.
 Direct decoded JSON showed one remaining doubled backslash in the standalone
 escape instruction, despite the restored examples. English has three single
