@@ -3525,6 +3525,11 @@ comparison and confirms the Veps language queue remains open. Finnish prose
 still needs full translation; this syntax repair does not count as a completed
 language correction. Tests passed; live browser verification was not run.
 
+Follow-up <a href="https://github.com/wekan/wekan/commit/cd563cce5">escape-marker verification</a>
+fixes the remaining doubled standalone escape marker and compares all
+backslash runs against English. Exact examples and open-language-queue
+checks pass; full Veps prose remains pending.
+
 </details>
 
 <details>

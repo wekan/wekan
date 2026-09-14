@@ -1,5 +1,15 @@
 # Detailed translation audit evidence
 
+2026-09-14 — `cd563cce5`: Veps escape-marker follow-up to d0c247094.
+Direct decoded JSON showed one remaining doubled backslash in the standalone
+escape instruction, despite the restored examples. English has three single
+backslash runs; the locale had single/double/single. Corrected the middle
+run and extended regression coverage to compare every backslash run against
+English. All canonical examples still pass, malformed comparison remains
+rejected and the Veps language queue stays open. This fixes code syntax only,
+not the Finnish prose; no completed-language ledger entry or count change.
+Dictionary metadata/access results remain separately documented in Veps-Review.md.
+
 2026-09-14 — `d0c247094`: partial Veps filter-help syntax repair.
 Direct decoded JSON showed a single equality sign and extra backslashes in
 the apostrophe example. Restored English executable comparison/escape,
