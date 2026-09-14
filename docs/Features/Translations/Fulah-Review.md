@@ -1,6 +1,6 @@
 # Fulah calendar terminology review
 
-Reviewed **2026-09-14**. Both original epoch findings remain pending.
+Reviewed **2026-09-14**, local evidence commit `ee94227ea`. Both original epoch findings remain pending.
 
 The current civil and astronomical labels are English-only. They need
 complete tabular-calendar wording and distinct epoch identification, not

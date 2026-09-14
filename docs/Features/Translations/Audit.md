@@ -28,7 +28,7 @@ repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
-Latest terminology review: **2026-09-14** —
+Latest terminology review: **2026-09-14**, `ee94227ea` —
 [Fulah calendar evidence](Fulah-Review.md) separates structured grid/table
 usage from furniture and adds primary beginning-word evidence. Complete
 calculation compounds and dialect/epoch grammar remain unverified; both

@@ -662,6 +662,18 @@ The browser assertion accepts whitespace between the regional flag and name.
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ee94227ea">Document Fulah calendar component evidence</a></summary>
+
+Record primary structured-table and beginning-word evidence, distinguishing
+attested components from complete technical phrases. Both epoch findings
+remain pending; correct existing translations and audit counts are preserved.
+
+Thanks to xet7.
+
+</details>
+
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3edd8d499">Clarify Quechua Saudi moon-sighting calendar label</a></summary>
 
 Use a calendar noun and explicitly identify moon sighting in Saudi Arabia.
