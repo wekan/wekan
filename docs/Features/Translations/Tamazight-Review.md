@@ -1047,3 +1047,16 @@ full assembled rule grammar. Browser verification remains unexecuted.
 Both keys are outside the original queue: pending stays 258, Tamazight
 145. Correction ledger grows from 18,754 to 18,756.
 Primary source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+
+Tamazight custom-field operator — 2026-09-14, local commit `d0175d46a`.
+Unflagged operator-customfield French is replaced with joined igr izlin
+from the existing singular custom-field activity phrase. IRCAM dictionary
+PDF page 404 entry 7686 supports specific/exclusive modifier terminology.
+Query.buildParams maps localized operators but its operator expression
+does not accept spaces: translating this as a spaced label would fail.
+Regression invokes the actual Query implementation with both quoted and
+unquoted values and verifies the customfield predicate. Four suites pass;
+placeholders and newer human translations remain preserved. Low confidence:
+joined technical operator and native software compound; browser not run.
+Original pending remains 258; correction ledger grows to 18,757.

@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d0175d46a">Repair Tamazight custom-field search operator</a>. Thanks to xet7.</summary>
+
+Replace French with joined native field/custom terminology that the search
+parser recognizes. Actual parser regressions verify quoted and unquoted
+values. Four suites pass; native compound and browser review remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a4439d400">Repair Tamazight top and bottom rule destinations</a>. Thanks to xet7.</summary>
 
 Replace two additional French position fragments using primary native
