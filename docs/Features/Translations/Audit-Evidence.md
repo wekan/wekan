@@ -22625,3 +22625,11 @@ usage https://socialstyrelsen.gl/6_kursuskatalog/aktivitetskalender?sc_lang=kl-g
 supports ullorsiutit. Compound grammar remains provisional; native review and
 six calendar variants remain open. Regression rejects the wrong-language seed;
 18,186 exact corrections pass placeholder, JSON and key-order checks.
+
+Dated repair, 2026-09-14, local commit `cc3e80e8b`: Manx Hijri civil
+and astronomical tabular labels replace English placeholders. Dictionary
+https://archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/dict/T.html supports
+taablagh; C.html supports shivoil and A.html supports rollageagh. Epoch is
+described as dait toshee, starting date; this technical phrase is provisional
+and needs native review. Coptic naming remains pending. Distinct-variant
+regression and all 18,188 exact correction checks pass; no browser claim.
