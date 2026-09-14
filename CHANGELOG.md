@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,168 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 676 pending review or repair.
+findings: 15,170 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 674 pending review or repair.
 The correction inventory records 17,387 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (533) and
+The largest original queues are Standard Moroccan Tamazight (531) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -116,7 +116,7 @@ names and unresolved Coptic/tabular/epoch terminology; no values changed. Previo
 Cherokee Hijri labels with exact native-script CLDR variant names. Cherokee’s
 original queue is empty. Compact tabular epoch wording still needs fluent
 technical review. Quechua palette compounds and remaining color wrappers
-remain open. There are 533 Tamazight findings remaining.
+remain open. There are 531 Tamazight findings remaining.
 Silesian reference review (2026-09-14) confirms shared database/file terms
 in native MediaWiki messages; the full raw-file label remains pending.
 No translation value or finding count changed in that review.
@@ -637,6 +637,19 @@ members of this card at this board. Full genitives and card/board wording
 remain low confidence. All 17,390 correction checks pass. One original and
 one unflagged value are repaired; 676 originals remain pending, including
 533 Tamazight. Restored and wider wording validation remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/89c72db7a">Repair Tamazight deletion and member-removal wording</a>. Thanks to xet7.</summary>
+
+Normalize the generic Delete command to native Tifinagh and replace French
+in custom-field confirmation and board-member removal activity. Preserve
+member/board placeholders and membership removal rather than account
+deletion. Full software-field and activity composition remain low confidence.
+All 17,393 correction checks pass. Two original and one unflagged value are
+repaired; 674 originals remain pending, including 531 Tamazight. Restored
+and wider language validation remain open.
 
 </details>
 
