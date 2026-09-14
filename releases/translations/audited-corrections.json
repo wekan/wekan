@@ -125130,5 +125130,12 @@
     "before": "Collez ici les données JSON valides",
     "after": "ⵙⵍⵖ ⴷⴰ ⵉⵙⴼⴽⴰ ⵏⵏⴽ ⵉⵣⵔⵢⵏ ⵙ JSON",
     "reason": "Replace French import hint with Tamazight, preserving Paste YOUR VALID data HERE and literal format CSV/TSV or JSON. Native MediaWiki newarticletext/whatlinkshere supply da Here; database wording supplies isfk a/Data and blockedtext uses izryn for a valid email address. https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: directly composed Paste sntdh is not independently attested by this reference; general validity-to-structured-data adaptation, possessive and full grammar require review. Do not claim the reference attests Paste or full import phrase. Follow-up 2026-09-14 replaces tentative sntdh with directly attested Paste slgh from Dialect native ui/zgh.po, msgid Paste, non-fuzzy entry: https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po . This supersedes the earlier unsupported Paste candidate; full import phrase and structured-data validity adaptation remain LOW CONFIDENCE. Original French before value is retained for provenance."
+  },
+  {
+    "locale": "zgh",
+    "key": "shortcut-show-shortcuts",
+    "before": "عرض قائمة الإختصارات ،تلك",
+    "after": "ⵙⴽⵏ ⵜⴰⵍⴳⴰⵎⵜ ⴰⴷ ⵏ ⵉⵙⵓⵏⴰⴼ",
+    "reason": "2026-09-14: Replace Arabic with Standard Moroccan Tamazight, preserving Show this list of shortcuts (keyboard.js binds ? to this action). Non-fuzzy native Dialect ui/zgh.po at 366f2ad81ddfc5af1f75075436a3da6cadf4ca08 directly supplies Shortcuts ⵉⵙⵓⵏⴰⴼ in a shortcut-window context; https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po . Native Mastodon lists.delete/edit supplies list ⵜⴰⵍⴳⴰⵎⵜ; Show ⵙⴽⵏ follows existing native MediaWiki usage. Complete assembled phrase, demonstrative placement and Bring up-to-Show adaptation remain LOW CONFIDENCE, requiring language validation; component attestations do not verify the whole clause."
   }
 ]
