@@ -27394,3 +27394,26 @@ with regressions for all deletion conditions and question structure. No
 live deletion-popup browser test was run. Ledger 19,775; original corrected
 15,695, pending 208 (zgh 105), restored 4 unchanged. Full uncertain,
 restored and unflagged review remains open. No remote push.
+
+## Empty-duplicate-list restriction — 2026-09-15
+
+Local commit `8378f9f39` translates the French migration description.
+It retains safely, only, no cards AND another same-title list containing
+cards. The counterpart's populated state is essential; generic duplicate-
+list wording alone would omit a deletion restriction.
+
+[Primary IRCAM dictionary](https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339)
+PDF page 613, entry 11473, attests tanfrut safety/guarantee. Cached full
+text was inspected. Adapting safety to data deletion is not attestation of
+the complete software phrase. Existing deletion, list/card and title
+components provide consistent vocabulary, not independent grammar proof.
+
+**Low confidence:** full restriction and relative grammar, same-title
+construction, plural/feminine agreement and duplicate terminology remain
+under native review. No active references to this removed migration key
+were found. The separate conversion/confirmation message remains pending;
+no migration is reactivated. Four focused suites pass, preserving literal
+code and placeholders, original provenance and newer human translations.
+No live browser test was run. Ledger 19,776; original corrected 15,696,
+pending 207 (zgh 104), restored 4 unchanged. Broader uncertain review stays
+open. No remote push.
