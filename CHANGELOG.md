@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,496 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 348 pending review or repair.
-The correction inventory records 18,064 exact before/after values,
+findings: 15,497 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 347 pending review or repair.
+The correction inventory records 18,067 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (213) and
+The largest original queues are Standard Moroccan Tamazight (212) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,11 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 8a9719417 (2026-09-14), repairing the Leave Board
-label and membership confirmation. Board-title placeholder and future removal
-of YOU FROM ALL CARDS ON THIS BOARD preserved; membership adaptation,
-second-person passive and full confirmation remain low confidence.
-348 original findings remain pending.
+Latest translation fix is 6800bb1ec (2026-09-14), repairing board import
+instructions and matching Menu/Export Board controls. Your board, ordered
+navigation and copying downloaded-file text preserved; derived morphology
+and full sequence remain low confidence. 347 original findings remain pending.
 Archive provenance follow-up fbe388603 (2026-09-14) directly inspects the
 native Archives du Maroc logo in a university PDF, corroborating the noun
 beyond indexed evidence. Nine records updated; no values/counts changed.
@@ -652,10 +651,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,496 original findings are
+Translation audit progress as of 2026-09-14: 15,497 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 348 remain pending across 17 locales, including 213 Tamazight findings.
-The ledger contains 18,064 correction records, including unflagged repairs.
+and 347 remain pending across 17 locales, including 212 Tamazight findings.
+The ledger contains 18,067 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -3085,6 +3084,15 @@ Thanks to xet7 !
 <summary><a href="https://github.com/wekan/wekan/commit/8a9719417">Translation repair: Tamazight leave-board membership warning.</a></summary>
 
 2026-09-14: Replace Arabic label and French confirmation. Preserve board-title placeholder and future removal of the current user from all cards on this board. Native components are recorded; membership adaptation and full grammar remain low confidence. All 18,064 correction checks pass; broader language validation continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6800bb1ec">Translation repair: Tamazight board import instructions.</a></summary>
+
+2026-09-14: Repair import instructions and matching Menu/Export Board labels. Preserve ordered navigation and copying text from the downloaded file. Native component evidence is recorded; derived morphology and full wording remain low confidence. All 18,067 correction checks pass; broader validation continues.
 
 Thanks to xet7 !
 
