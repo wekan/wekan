@@ -203,3 +203,24 @@ exist. The Veps Wikipedia mathematics page opens but is not a primary
 terminology authority; the inspected computer-page endpoint failed.
 Further phrase, grammar and native technical-source review remains necessary.
 Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+
+Filter-heading drafts **2026-09-14**, local commit `a60cf42ad`:
+`advanced-filter-label` becomes **Levenzoittud puhtastim** and
+`other-filters-label` **Toižed puhtastimed**. Native MediaWiki
+`rcfilters-advancedfilters` attests the plural advanced-filter heading;
+WeKan's existing `filter` supplies the singular noun.
+`rcfilters-other-review-tools` attests toižed (other), while
+`rcfilters-filterlist-title` attests puhtastimed (filters).
+Both assembled/adapted full headings remain **low confidence** for native
+UI grammar. Eight registered tests across four files pass for exact values,
+number distinction, placeholders and preference protection; these do not
+prove fluency. The original ten Veps findings and the complete advanced-filter
+instructions remain pending.
+
+The native source also supplies `rcfilters-clear-all-filters` =
+Heitä kaik puhtastimed, already matching local `shortcut-clear-filters`;
+that existing complete label is retained. No activity noun was inferred
+from actions alone: `actions` = Tegendad does not by itself establish the
+full activity-history heading. Watchlist activity uses Rad kacundlugetišes
+and describes changes; activity phrasing still needs context review.
+Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json

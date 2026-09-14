@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a60cf42ad">Replace Finnish Veps filter headings with native terminology drafts</a>. Thanks to xet7.</summary>
+
+Two filter headings now use native-source terms, preserving singular and
+plural meanings. Locale, placeholder and translation-preference checks
+pass. Full heading grammar remains low confidence; the dated audit keeps
+full instructions and native/browser review open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/84bffe61a">Correct Veps card and list More popup titles</a>. Thanks to xet7.</summary>
 
 Both popup titles now use the same native Veps wording. Locale, token and

@@ -26170,3 +26170,10 @@ two additional Finnish values replaced with native Enamba. Source and
 remaining phrase-research limits are recorded in [Veps review](Veps-Review.md).
 Seven tests across four files pass; correction ledger 18,820, original
 pending 233 unchanged. Broader phrase and browser review remains open.
+
+Veps filter-heading drafts **2026-09-14**, local commit `a60cf42ad`:
+two additional Finnish values replaced with native-source terminology.
+Both full headings remain low confidence; [Veps review](Veps-Review.md)
+records source keys and adaptation limits. Eight tests across four files
+pass; ledger 18,822, original pending 233 unchanged. Longer prose and
+native/browser review remain open.
