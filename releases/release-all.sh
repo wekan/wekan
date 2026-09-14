@@ -24,8 +24,8 @@ if [ -n "${ZSH_VERSION:-}" ]; then exec /bin/bash "$0" "$@"; fi
 #      amend or squash between writing an entry and releasing it changes the hashes,
 #      and the links would 404 once pushed. Each is remapped by commit subject.
 #   2. Determines PREVIOUS and NEW version automatically: renames the "# Upcoming
-#      WeKan ® release" heading to the next version, or (if already renamed) uses the
-#      newest release heading. An explicit "PREVIOUS NEW" pair overrides this.
+#      WeKan ® release" heading to the next version. Missing or empty Upcoming notes
+#      stop the script. An explicit "PREVIOUS NEW" pair overrides the versions.
 #   3. Commits and pushes pending changes (your CHANGELOG.md edit) to main so the
 #      workflow can read them.
 #   4. Triggers .github/workflows/release-all.yml.
@@ -48,13 +48,16 @@ if [ -n "${ZSH_VERSION:-}" ]; then exec /bin/bash "$0" "$@"; fi
 
 set -e
 
-# Install the tools this trigger needs (Ubuntu apt / macOS brew) if missing.
-. "$(cd "$(dirname "$0")" && pwd)/ensure-tools.sh"
-ensure_tools git gh
-
-# Resolve repo root from script location so this works regardless of CWD.
+# Check release notes before installing tools, changing files or contacting forges.
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO_DIR"
+bash "$REPO_DIR/releases/check-upcoming-release.sh" "$REPO_DIR/CHANGELOG.md"
+mkdir -p "$REPO_DIR/.tools/tmp"
+export TMPDIR="$REPO_DIR/.tools/tmp"
+
+# Install the tools this trigger needs if missing.
+. "$REPO_DIR/releases/ensure-tools.sh"
+ensure_tools git gh
 
 # ── Version helpers ─────────────────────────────────────────────────────────
 # WeKan versions are NN.MM with a 2-digit minor. Encode NN.MM as the integer
@@ -81,69 +84,24 @@ while IFS= read -r line; do RELEASED+=("$line"); done < <(grep -oE '^# v[0-9]+\.
 bash "$(dirname "$0")/fix-changelog-hashes.sh" || true
 
 # ── Determine PREVIOUS (OLD) and NEW version — no version argument needed ────
-# Explicit args still win. Otherwise:
-#   * if there is a "# Upcoming WeKan ® release" section, RENAME it to the next
-#     version (always +1 minor) dated today; OLD = newest release, NEW = that
-#     next version.
-#   * if there is NO Upcoming section, the newest heading is already the prepared
-#     release, so use it as NEW (checked to be the expected increment of OLD, and
-#     referenced by a recent commit, so an old entry is never re-released).
+# An Upcoming section with real entries is mandatory, including explicit versions.
 if [ -n "${1:-}" ] && [ -n "${2:-}" ]; then
   OLD="${1#v}"
   NEW="${2#v}"
-elif grep -qE '^# Upcoming WeKan' CHANGELOG.md; then
+else
   OLD="${RELEASED[0]:-}"
   if [ -z "$OLD" ]; then
     echo "Error: no released '# vNN.MM <date>' heading found in CHANGELOG.md." >&2
     exit 1
   fi
-  # Always +1, never "whatever the last gap between two headings happened to
-  # be": that used to be measured from RELEASED[0] vs RELEASED[1], so ONE
-  # missing or deleted heading (a release number that was prepared, then
-  # never published, then its CHANGELOG section removed instead of renamed
-  # back to Upcoming) made the gap look like the new normal cadence and
-  # every following release re-applied and widened it - v11.56 -> v11.58 ->
-  # v11.60 -> v11.62 skipped v11.57/59/61 this way, compounding a single
-  # incident into a permanent, ever-growing habit of skipping a number.
   NEW="$(wekan_dec $(( $(wekan_enc "$OLD") + 1 )) )"
-  DATE="$(date +%F)"
-  echo "--- Renaming '# Upcoming WeKan ® release' -> '# v$NEW $DATE WeKan ® release' ---"
-  _tmp="$(mktemp)"
-  sed "s|^# Upcoming WeKan ® release.*|# v$NEW $DATE WeKan ® release|" CHANGELOG.md > "$_tmp" && mv "$_tmp" CHANGELOG.md
-
-  # NO NEW EMPTY "# Upcoming" IS OPENED HERE ON PURPOSE. It used to be, with an
-  # "**In short:** nothing here yet." placeholder, so the file always had
-  # somewhere for the next entry to go and never carried a section saying
-  # nothing. Add "# Upcoming WeKan ® release" yourself, by hand, the moment
-  # there is a real entry for it - see
-  # docs/DeveloperDocs/Changelog-Upcoming-Template.md for the skeleton and why
-  # this is safe: tests/changelogEntriesBelongToTheirRelease.test.cjs is what
-  # actually catches an entry landing in the wrong (already-published)
-  # section, by asking git which commits a release contains, and it does that
-  # regardless of whether an empty Upcoming section existed first.
-else
-  NEW="${RELEASED[0]:-}"
-  OLD="${RELEASED[1]:-}"
-  if [ -z "$NEW" ] || [ -z "$OLD" ]; then
-    echo "Error: could not detect NEW and PREVIOUS version from CHANGELOG.md" >&2
-    echo "(no '# Upcoming WeKan ® release' section, and fewer than two '# vNN.MM' releases)." >&2
-    echo "Add an Upcoming section (preferred) or pass versions: $0 9.35 9.36" >&2
-    exit 1
-  fi
-  EXPECTED="$(wekan_dec $(( $(wekan_enc "$OLD") + 1 )) )"
-  if [ "$NEW" != "$EXPECTED" ]; then
-    echo "Error: newest CHANGELOG version v$NEW is not the +1 increment (v$EXPECTED) of the previous v$OLD." >&2
-    echo "Releases always advance by exactly one minor version. A gap here means a version" >&2
-    echo "number was prepared and never published, and its CHANGELOG section was deleted" >&2
-    echo "instead of renamed back to '# Upcoming WeKan ® release' (see this script's header" >&2
-    echo "comment on a failed-vs-broken release). Fix CHANGELOG.md, or if v$NEW is really" >&2
-    echo "the intended next release, say so explicitly: $0 $OLD $NEW" >&2
-    exit 1
-  fi
-  if git log -15 --format='%s' 2>/dev/null | grep -qF "$NEW"; then
-    echo "    (v$NEW is referenced in a recent commit — treating it as the prepared release.)"
-  fi
 fi
+DATE="$(date +%F)"
+echo "--- Renaming '# Upcoming WeKan ® release' -> '# v$NEW $DATE WeKan ® release' ---"
+_tmp="$(mktemp)"
+sed "s|^# Upcoming WeKan ® release.*|# v$NEW $DATE WeKan ® release|" CHANGELOG.md > "$_tmp" && mv "$_tmp" CHANGELOG.md
+
+# Do not open an empty Upcoming section. Add real notes before the next release.
 
 echo "=== WeKan remote release: v$OLD -> v$NEW ==="
 echo "    Previous version (from CHANGELOG.md): v$OLD"

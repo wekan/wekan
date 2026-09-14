@@ -1,5 +1,5 @@
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
-import moment from 'moment';
+import { format } from '/imports/lib/dateUtils';
 import { Template } from 'meteor/templating';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
@@ -63,7 +63,7 @@ Template.groupByAssigneeView.helpers({
     return translateGroupLabel(label, key => TAPi18n.__(key));
   },
   formatDueAt(dueAt) {
-    return dueAt ? formatDateForDisplay(dueAt, true, date => moment(date).format('llll')) : '';
+    return dueAt ? formatDateForDisplay(dueAt, true, date => format(date, 'llll')) : '';
   },
   cardUrl(cardId) {
     const boardId = Session.get('currentBoard');

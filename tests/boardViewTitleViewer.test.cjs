@@ -57,17 +57,18 @@ test('chart title adapter delegates HTML, escapes SVG markup and observes settin
   }
 });
 
-test('assignee helpers run without implicit FlowRouter or moment globals', () => {
+test('assignee helpers use native dates without undeclared Moment dependency', () => {
   const source = read('client/components/boards/groupByAssigneeView.js');
   assert.match(source, /import \{ FlowRouter \} from 'meteor\/ostrio:flow-router-extra'/);
-  assert.match(source, /import moment from 'moment'/);
+  assert.match(source, /import \{ format \} from '\/imports\/lib\/dateUtils'/);
+  assert.doesNotMatch(source, /(?:from|require\()\s*['"]moment['"]/);
   let helpers;
   const context = {
     Template: { groupByAssigneeView: { onCreated() {}, events() {}, helpers(value) { helpers = value; } } },
     Session: { get() { return 'board'; } },
     ReactiveCache: { getBoard() { return { _id: 'board', slug: 'demo' }; } },
     FlowRouter: { path(route, params) { return `/${route}/${params.boardId}/${params.cardId}`; } },
-    moment: date => ({ format: pattern => `${date}:${pattern}` }),
+    format: (date, pattern) => `${date}:${pattern}`,
     formatDateForDisplay: (date, includeTime, fallback) => fallback(date),
     require: () => ({ translateGroupLabel() {} }),
   };

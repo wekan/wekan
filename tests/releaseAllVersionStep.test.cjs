@@ -17,10 +17,8 @@
 // missing heading compounded into a permanent, ever-repeating habit of
 // skipping a number.
 //
-// The fix is a fixed +1 step with no history lookup, plus turning the other
-// branch's "not the expected increment" case from a printed Note (which let
-// the script proceed anyway) into a hard failure that requires an explicit
-// override.
+// The fix is a fixed +1 step with no history lookup. Releases now also
+// require real Upcoming notes before any tool installation or forge contact.
 
 const assert = require('assert');
 const fs = require('fs');
@@ -36,7 +34,7 @@ console.log('releaseAllVersionStep:');
 
 test('the Upcoming-rename branch computes NEW as a fixed +1, not a measured/re-applied STEP', () => {
   const renameBlock = sh.slice(
-    sh.indexOf("elif grep -qE '^# Upcoming WeKan'"),
+    sh.indexOf('# An Upcoming section with real entries'),
     sh.indexOf('Opening the next'),
   );
   assert.ok(/NEW="\$\(wekan_dec \$\(\( \$\(wekan_enc "\$OLD"\) \+ 1 \)\) \)"/.test(renameBlock),
@@ -47,13 +45,13 @@ test('the Upcoming-rename branch computes NEW as a fixed +1, not a measured/re-a
     'STEP must not be computed by subtracting two encoded historical versions');
 });
 
-test('a version gap in the no-Upcoming branch is a hard failure, not a printed Note', () => {
-  const elseBlock = sh.slice(sh.indexOf('\nelse\n'), sh.indexOf('fi\n\necho "=== WeKan remote release'));
-  assert.ok(/echo "Error: newest CHANGELOG version v\$NEW is not the \+1 increment/.test(elseBlock),
-    'the mismatch message must be an Error');
-  assert.ok(/exit 1/.test(elseBlock.slice(elseBlock.indexOf('is not the +1 increment'))),
-    'a version gap must exit 1, not just warn and continue ("proceeding anyway" is the bug)');
-  assert.ok(!/proceeding anyway/.test(sh), 'the old "proceeding anyway" wording must be gone entirely');
+test('missing Upcoming notes cannot fall back to an already released heading', () => {
+  const guard = sh.indexOf('bash "$REPO_DIR/releases/check-upcoming-release.sh"');
+  assert.ok(guard > -1 && guard < sh.indexOf('ensure_tools git gh'));
+  assert.ok(guard < sh.indexOf('bash "$(dirname "$0")/fix-changelog-hashes.sh"'));
+  assert.ok(!sh.includes('NEW="${RELEASED[0]:-}"'),
+    'a published section must never be reused when Upcoming notes are missing');
+  assert.ok(!sh.includes('treating it as the prepared release'));
 });
 
 test('wekan_enc/wekan_dec are unchanged (the encoding itself was never the bug)', () => {
