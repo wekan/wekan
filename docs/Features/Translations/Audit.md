@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-15**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,760 |
+| Corrected | 15,762 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,174 |
-| Pending review or repair | 143 |
+| Pending review or repair | 141 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,15 +16,16 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `88add3006` — replace French
-heap-size-limit label with Tamazight abstract-limit wording, preserving its
-distinction from total and used size. Four focused suites pass. Ledger
-19,881; tracked pending 143 (Tamazight 50), restored 4 unchanged. Computing
-metaphor and full nominal chain remain low confidence. Other diagnostics,
-source wording conflicts and broader grammar reviews remain open.
+Latest translation fix: **2026-09-15**, `6481e8bbd` — replace French
+malloc-memory and peak labels with concise Tamazight memory-through-malloc
+wording. Four focused suites pass. Ledger 19,883; tracked pending 141
+(Tamazight 48), restored 4 unchanged. Allocation remains implicit in literal
+malloc; computing memory sense, peak interpretation and full phrases remain
+low confidence. Other diagnostics, source conflicts and grammar reviews
+remain open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,881** exact before/after values, including unflagged
+records contain **19,883** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -43,7 +44,7 @@ restored values still await full native clause validation.
 
 | Pending locale | Findings |
 | --- | ---: |
-| zgh — Standard Moroccan Tamazight | 50 |
+| zgh — Standard Moroccan Tamazight | 48 |
 | iu — Inuktitut | 38 |
 | nah — Nahuatl | 17 |
 | tig — Tigre | 17 |

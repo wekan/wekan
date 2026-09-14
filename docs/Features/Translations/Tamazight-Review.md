@@ -4066,3 +4066,26 @@ but also fat; mountain summit words are excluded for peak_malloced_memory.
 The Node metric is process-lifetime peak allocation through malloc, not
 current used heap or the heap limit. A memory/allocation computing noun
 phrase still needs review. No allocation labels were changed this batch.
+
+
+2026-09-15 — `6481e8bbd`: malloced_memory and peak_malloced_memory
+French labels replaced with concise memory-through-malloc phrasing.
+IRCAM entry 12742 timktit memory (bound tmktit) and entry 2691 amuzzur
+maximum provide lexical components, not independently validated software
+phrases. Literal malloc identifies allocation; allocation verb remains
+implicit. Peak retains maximum, but complete process-lifetime peak
+interpretation and computing memory sense remain low confidence. Do not
+claim native fluency or use the fat sense of amuzzur. Dictionary reserve
+entries for shyness/discretion (219/440/4086/5168/12517) were excluded;
+stock asatim (4030) does not attest virtual-memory allocation.
+
+Node V8 documentation defines malloced_memory as bytes allocated through
+malloc and peak_malloced_memory as their process-lifetime peak. The labels
+remain separate from used heap and heap limit; informationBody.jade binds
+separate mallocedMemory/peakMallocedMemory values. No data behavior changed.
+Four focused suites pass for distinct exact values, literal malloc,
+negative French/Arabic/mountain wording and placeholder inventories.
+No live information UI test ran. Ledger 19,883; corrected 15,762,
+pending 141 (zgh 48), restored 4 unchanged. Six heap labels still need work;
+previous full-label and native grammar reviews remain open.
+https://nodejs.org/api/v8.html#v8getheapstatistics

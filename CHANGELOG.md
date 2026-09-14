@@ -1104,6 +1104,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6481e8bbd">Repair Tamazight malloc-memory diagnostic labels</a></summary>
+
+Replace French memory and peak labels with concise Tamazight wording,
+preserving malloc and maximum distinctions. Four focused suites pass;
+allocation paraphrase and complete computing phrases remain under review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
