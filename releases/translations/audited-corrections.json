@@ -130961,5 +130961,12 @@
     "before": "La date d'échéance %s est passée",
     "after": "ⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⴰⴷ %s ⵉⵣⵔⵉ",
     "reason": "Replace French overdue warning using primary IRCAM time/last/pass vocabulary and existing deadline concept. Preserve %s exactly. Adapted deadline-time phrase and grammar, low confidence pending native and browser validation; not a completion-date message."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-has-invalid",
+    "before": "%s n'est pas un test valide d'existence",
+    "after": "ⵜⵉⵎⵏⵥⵉⵜ ⵏ ⵉⵍⵉ %s ⵓⵔ ⵜⴽⵏⵉ",
+    "reason": "Replace French existence-check validation error with primary IRCAM verification/existence/correctness vocabulary. Preserve %s and the existence-check distinction. Adapted full clause and negative agreement, low confidence pending native grammar and browser validation."
   }
 ]

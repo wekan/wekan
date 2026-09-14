@@ -373,3 +373,19 @@ technical clauses only after checking predicate, numeric-limit and positive-
 integer meanings; do not drop those distinctions to produce a short generic
 error. No value was changed or accepted. Counts remain 279 pending/4 restored;
 native phrase and browser validation remain open.
+
+## Existence-check error repair — 2026-09-14
+
+`operator-has-invalid` now uses an adapted verification-of-existence/not-
+correct clause, replacing French and preserving `%s`. The preceding parser
+review identifies the primary dictionary entries for all three concepts.
+`config/query-classes.js` emits this tag when an `OPERATOR_HAS` value does
+not match a supported predicate; the clause retains that specific check
+rather than becoming a generic debug or numeric-limit error.
+
+Negative conjugation, agreement and full technical phrasing remain **low
+confidence**, pending native grammar review. Component evidence is not an
+attested complete warning. Exact wording, placeholder, French/physical-sense
+negatives and distinction from debug errors are tested. No live browser
+validation ran. The original French key is corrected; full native validation
+remains in scope after its pending classification changes.

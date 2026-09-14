@@ -95,3 +95,7 @@ assert.equal(locales.zgh['oidc-button-text'].match(/OIDC/g).length, 1);
 assert.equal(locales.zgh.pastdue, 'ⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⴰⴷ %s ⵉⵣⵔⵉ');
 assert.deepEqual(locales.zgh.pastdue.match(/%[a-z]/g), ['%s']);
 assert.doesNotMatch(locales.zgh.pastdue, /La date|échéance|est passée|%d/);
+assert.equal(locales.zgh['operator-has-invalid'], 'ⵜⵉⵎⵏⵥⵉⵜ ⵏ ⵉⵍⵉ %s ⵓⵔ ⵜⴽⵏⵉ');
+assert.deepEqual(locales.zgh['operator-has-invalid'].match(/%[a-z]/g), ['%s']);
+assert.doesNotMatch(locales.zgh['operator-has-invalid'], /n'est pas|existence valide|ⴰⵏⴽⵔⵓⴼ/);
+assert.notEqual(locales.zgh['operator-has-invalid'], locales.zgh['operator-debug-invalid']);

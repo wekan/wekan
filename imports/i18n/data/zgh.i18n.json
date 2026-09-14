@@ -1748,7 +1748,7 @@
   "operator-number-expected": "ⵉⵇⵇⴰⵏ ⴷ ⴰⵎⴹⴰⵏ ⵉ ⵓⵎⴰⵀⴰⵍ __operator__, ⵉⵔⵎⵙ '__value__'",
   "operator-sort-invalid": "ⴰⴼⵔⴰⵏ ⵏ '%s' ⵓⵔ ⵉⵙⵖⵣⵏ.",
   "operator-status-invalid": "ⴰⴷⴷⴰⴷ ⵏ '%s' ⵓⵔ ⵉⵙⵖⵣⵏ.",
-  "operator-has-invalid": "%s n'est pas un test valide d'existence",
+  "operator-has-invalid": "ⵜⵉⵎⵏⵥⵉⵜ ⵏ ⵉⵍⵉ %s ⵓⵔ ⵜⴽⵏⵉ",
   "operator-limit-invalid": "%s n'est pas une limite valide. La limite doit être un entier positif.",
   "operator-debug-invalid": "%s n'est pas un prédicat de debug valide",
   "next-page": "ⵜⴰⵙⵏⴰ ⵜⵓⴹⴼⵉⵕⵜ",
