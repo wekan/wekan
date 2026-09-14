@@ -122624,5 +122624,33 @@
     "before": "نقاصيل البطاقة",
     "after": "ⵉⴼⵔⵓⵔⵉⵜⵏ ⵏ ⵜⴽⴰⵕⴹⴰ",
     "reason": "Replace Arabic/French card/list/label display text; preserve numeric card sorting on minicard, missing-label negation, list name rather than title, and card-details popup scope. Native MediaWiki zgh sort-descending/ascending, statistics-edits-average, tag-list-wrapper, diff-empty, mywatchlist and namespaces support sorting/number/tag/negation/list/name components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse existing local minicard/card/details vocabulary. LOW CONFIDENCE: numeric-sort software adaptation, bound noun chains and complete card/list popup phrasing require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "selected-label",
+    "before": "ⵢⴻⵜⵜⵡⴰⴼⵔⴻⵏ:",
+    "after": "ⵉⵜⵜⵓⵙⵜⴰⵢⵏ:",
+    "reason": "Replace inconsistent schwa-bearing selected wording with native MediaWiki zgh selected participle, preserving colon. compareselectedversions and tooltip-compareselectedversions: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: standalone generic selected label and number/gender agreement still require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "details",
+    "before": "تفاصيل",
+    "after": "ⵉⴼⵔⵓⵔⵉⵜⵏ",
+    "reason": "Replace Arabic Details with Tamazight details, preserving generic, Cron error or migration diagnostic scope of the existing key. Native MediaWiki zgh blockedtext-include-details-queries and passwordreset-emailtitle use ifruritn: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . IRCAM native news listings corroborate the Details link: https://www.ircam.ma/amz/tous-les-actualites . Vocabulary is native-UI-supported; wider diagnostic context still requires language validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "cron-error-details",
+    "before": "تفاصيل",
+    "after": "ⵉⴼⵔⵓⵔⵉⵜⵏ",
+    "reason": "Replace Arabic Details with Tamazight details, preserving generic, Cron error or migration diagnostic scope of the existing key. Native MediaWiki zgh blockedtext-include-details-queries and passwordreset-emailtitle use ifruritn: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . IRCAM native news listings corroborate the Details link: https://www.ircam.ma/amz/tous-les-actualites . Vocabulary is native-UI-supported; wider diagnostic context still requires language validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "migration-progress-details",
+    "before": "تفاصيل",
+    "after": "ⵉⴼⵔⵓⵔⵉⵜⵏ",
+    "reason": "Replace Arabic Details with Tamazight details, preserving generic, Cron error or migration diagnostic scope of the existing key. Native MediaWiki zgh blockedtext-include-details-queries and passwordreset-emailtitle use ifruritn: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . IRCAM native news listings corroborate the Details link: https://www.ircam.ma/amz/tous-les-actualites . Vocabulary is native-UI-supported; wider diagnostic context still requires language validation."
   }
 ]
