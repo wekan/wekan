@@ -3519,3 +3519,23 @@ sport or amount-equality vocabulary based on English homographs. This
 review changes the candidate selection, not the translation or counts.
 Pending 166 original findings; full contextual reviews remain open.
 No live UI test ran and no remote writes were made.
+
+
+## Mobile/desktop mode labels — repair 2026-09-15
+
+Source commit `5f41f83ca` replaces flagged mobile-desktop-toggle and two
+unflagged French mode labels. Reuse existing `snfl` change and `talɣa`
+form/format terminology; IRCAM page 309 entry 6034 gives `gr` between.
+Mobile and Desktop are borrowed technical identifiers, not claimed native
+translations. Form-to-layout-mode adaptation and the complete compounds
+remain low confidence and require native review.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+`client/components/main/header.jade:74` and cardDetails.jade line 61
+render the toggle tooltip. The text retains switching between both modes,
+not simply enabling mobile mode or powering a device on/off. Exact checks
+cover all three values and reject French toggle prose. Four focused
+translation suites pass; no live UI toggle test ran. Ledger 19,853;
+original corrected 15,738, pending 165 (zgh 70), restored 4 unchanged.
+Two unflagged repairs do not alter original finding totals. Broader review
+remains open; no remote writes were made.

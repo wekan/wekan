@@ -861,6 +861,16 @@ pending original findings.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5f41f83ca">Repair Tamazight mobile and desktop mode labels</a>. Thanks to xet7.</summary>
+
+Replace three French labels, keeping both modes and switching between
+them explicit. Four focused translation suites pass. Borrowed identifiers
+and mode adaptation remain under native review. Dated audit records 165
+pending original findings.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
