@@ -26068,3 +26068,12 @@ contains five types including Created. Received and due semantics must
 be preserved independently; dictionary “receive” used for hosting guests
 is not alone evidence for software reception. No export label repair is
 counted by this batch.
+
+Start/end runtime verification — 2026-09-14, `bc9860dff`.
+Actual Query parsing with Tamazight has operator and repaired start/end
+predicate names preserves startAt/endAt for present and negated-absent
+queries. Using those existence predicates for sorting is rejected. The
+focused parser suite passes; no query implementation or locale changes.
+This verifies runtime metadata mapping rather than merely comparing JSON
+labels. Native UI usage and live browser rendering remain unverified;
+original pending 234 and correction counts do not change.

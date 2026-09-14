@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bc9860dff">Verify start and end existence predicates</a>. Thanks to xet7.</summary>
+
+Exercise Tamazight present/absent date queries through the actual parser
+and reject unsupported sort predicates. The focused regression passes;
+native UI and browser review remain open in the translation audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b0f447c57">Repair start and end field labels</a>. Thanks to xet7.</summary>
 
 Replace four Arabic Tamazight rule/search labels with existing native

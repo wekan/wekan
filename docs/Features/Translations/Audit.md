@@ -89,4 +89,7 @@ Formatting fixed **2026-09-14**, `c74009b21`: direct scalar TAPi18n
 arguments now populate sprintf. Actual runtime-method/formatter checks
 pass for Tamazight errors, zero, named options and English fallback.
 Browser rendering and native fluency remain unverified.
+Start/end runtime checked **2026-09-14**, `bc9860dff`: real localized
+existence queries preserve present/absent date fields and reject unsupported
+sorting. Native/browser usage remains unverified.
 Translation work continues.
