@@ -661,6 +661,16 @@ The browser assertion accepts whitespace between the regional flag and name.
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ef2b560fc">Replace French migration description with a Tamazight draft</a>. Thanks to xet7.</summary>
+
+Retain data-integrity checks and repairs, list ordering, card positions and
+swimlane structure using IRCAM lexical evidence. Four focused suites pass.
+Derived grammar and technical collocations remain under native review;
+removed migration code stays removed and no browser execution is claimed.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/11db75449">Repair Latin Uzbek regional terms and loading instructions</a>. Thanks to xet7.</summary>
 
 Describe automatic loading, live counts, thresholds and exact operator

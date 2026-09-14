@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,678 |
+| Corrected | 15,679 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,174 |
-| Pending review or repair | 225 |
+| Pending review or repair | 224 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,16 +16,15 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, `11db75449` — current automatic
-card-loading guidance repaired in Latin Uzbek base and regional locales.
-Reviewed board/case corrections applied to matching regional prose; eight
-independent regional values reviewed separately. Five suites pass, including
-28 loading behavior checks. Ledger 19,756; original pending 225 (zgh 118),
-restored 4 unchanged. Arabic-script loading guidance, remaining archive
-locales, full technical collocations and all prior uncertain reviews stay open.
+Latest translation fix: **2026-09-14**, `ef2b560fc` — French migration
+description replaced with a Tamazight draft retaining data-integrity checks,
+repairs and list/card/swimlane scope. Four focused suites pass after fixing
+a test constant. Ledger 19,757; original pending 224 (zgh 117), restored
+4 unchanged. Derived ordering noun, comprehensive/general phrasing,
+inflection and software collocations remain low-confidence and in scope.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,756** exact before/after values, including unflagged
+records contain **19,757** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -44,7 +43,7 @@ restored values still await full native clause validation.
 
 | Pending locale | Findings |
 | --- | ---: |
-| zgh — Standard Moroccan Tamazight | 118 |
+| zgh — Standard Moroccan Tamazight | 117 |
 | iu — Inuktitut | 38 |
 | nah — Nahuatl | 17 |
 | tig — Tigre | 17 |

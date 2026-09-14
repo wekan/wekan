@@ -26941,3 +26941,29 @@ preservation, unchanged reviews and completeness. No new browser run.
 Arabic-script Uzbek loading prose still requires its own orthographic and
 current-source review. Full native technical phrasing and all other uncertain
 findings remain open. No translation service or remote push.
+
+
+### 2026-09-14 — Full migration-description draft
+
+Local source commit `ef2b560fc`. French comprehensive-board-migration-description
+replaced with a Tamazight draft, preserving data-integrity checks and repairs
+and list ordering, card positioning and swimlane structure. Original corrected
+15,679; pending 224 (zgh 117); restored four unchanged. Ledger 19,757.
+
+[IRCAM General Dictionary](https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339),
+previously downloaded and extracted under .tools/tmp/tamazight-reference:
+p523 entry 9864 ssided check; p534 entry 10051 ssukn restore/repair;
+p476 entry 9000 sastwa put in order; p678 data-integrity phrase
+ⵜⴰⵢⴰⵏⵜ ⵏ ⵜⵎⵓⵛⴰ and entry 12781 timrsi positioning;
+p703 entry 13278 tuṣkiwt structure. Current web reader reports the
+63,806,653-byte PDF too large; cached primary text remains readable.
+
+Derived asastwa ordering noun (written ⴰⵙⴰⵙⵜⵡⴰ), inflections, technical
+list/card/swimlane compounds and general/comprehensive phrasing require
+further native review. The draft removes French but does not close these
+uncertain findings. Do not use the script/lexical checks as fluency proof.
+No active client/server reference found for this description in the source
+search; no browser execution claimed, and removed migrations stay removed.
+Four focused suites pass (locale meaning/token checks, full correction ledger,
+unchanged reviews and completeness), after correcting ROOT in the test.
+No external translation service and no remote push.
