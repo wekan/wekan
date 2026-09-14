@@ -139039,5 +139039,12 @@
     "before": "حذف __name__ (__username__) من __boardTitle__ ? سيتم حذف هذا العضو من جميع بطاقة اللوحة مع إرسال إشعار له بذاك.",
     "after": "ⴽⴽⵙ __name__ (__username__) ⵙⴳ __boardTitle__? ⵔⴰⴷ ⵉⵜⵜⵓⴽⴽⵙ ⵓⴳⵎⴰⵎ ⵙⴳ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴰⴽⴽⵯ ⴳ ⵜⴼⵍⵡⵉⵜ ⴰⴷ. ⵔⴰⴷ ⵜⵜⵓⵙⵉⴼⴹ ⵜⴰⵏⵖⵎⵉⵙⵜ ⵉ ⵓⴳⵎⴰⵎ.",
     "reason": "2026-09-15: Replace Arabic member-removal confirmation preserving all literal placeholders, all cards on this board and notification to member. Receive notification paraphrased as sent to member; passive/full grammar low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "list-delete-pop",
+    "before": "Toutes les actions seront supprimées du fil d'activité et il ne sera plus possible de les récupérer. Cela est irréversible.",
+    "after": "ⵔⴰⴷ ⵜⵜⵓⴽⴽⵙⵏⵜ ⵜⵉⴳⴰⵡⵉⵏ ⴰⴽⴽⵯ ⵙⴳ ⵜⵍⴳⴰⵎⵜ ⵏ ⵜⵉⴳⴰⵡⵉⵏ. ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⵥⵎⴷ ⵜⴰⵍⴳⴰⵎⵜ ⴷⴰⵖ. ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⴰⵔⴷ ⴷ ⴰⵢⴰ.",
+    "reason": "2026-09-15: Replace French list warning with existing card-warning pattern adapted to list. Preserve source activity removal, no recovery of list, no undo. Full grammar low confidence; active softRemove/source warning contradiction remains open."
   }
 ]

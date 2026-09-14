@@ -489,3 +489,6 @@ assert.doesNotMatch(translated['calendar-system-islamic-rgsa'], /^Islamic \(Saud
 
 assert.strictEqual(translated["remove-member-pop"], "ⴽⴽⵙ __name__ (__username__) ⵙⴳ __boardTitle__? ⵔⴰⴷ ⵉⵜⵜⵓⴽⴽⵙ ⵓⴳⵎⴰⵎ ⵙⴳ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴰⴽⴽⵯ ⴳ ⵜⴼⵍⵡⵉⵜ ⴰⴷ. ⵔⴰⴷ ⵜⵜⵓⵙⵉⴼⴹ ⵜⴰⵏⵖⵎⵉⵙⵜ ⵉ ⵓⴳⵎⴰⵎ.");
 assert.doesNotMatch(translated['remove-member-pop'], /[\u0600-\u06ff]/u);
+
+assert.strictEqual(translated["list-delete-pop"], "ⵔⴰⴷ ⵜⵜⵓⴽⴽⵙⵏⵜ ⵜⵉⴳⴰⵡⵉⵏ ⴰⴽⴽⵯ ⵙⴳ ⵜⵍⴳⴰⵎⵜ ⵏ ⵜⵉⴳⴰⵡⵉⵏ. ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⵥⵎⴷ ⵜⴰⵍⴳⴰⵎⵜ ⴷⴰⵖ. ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵔⴰⵔⴷ ⴷ ⴰⵢⴰ.");
+assert.doesNotMatch(translated['list-delete-pop'], /Toutes|récupérer|[\u0600-\u06ff]/u);
