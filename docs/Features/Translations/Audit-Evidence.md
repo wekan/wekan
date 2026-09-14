@@ -22648,3 +22648,11 @@ All 18,189 exact correction checks pass. Two Esperanto Complete labels
 remain unresolved. IRCAM primary dictionary cross-check still failed: web
 fetch returned 502 and verified Python HTTPS reported a certificate-chain
 error. Tamazight scraped entries were not accepted as verified.
+
+Dated repair, 2026-09-14, local commit `e9d46cb11`: unflagged Basque
+r-when-a-end-date-changed replaces Spanish Finalizado with Amaiera.
+Existing card-end/card-end-on establish localized end-date vocabulary.
+All 18,190 exact corrections pass token, key-order and newer-translation
+checks. Shared r-is remains Spanish; it cannot be replaced with a copula
+without reviewing ten composed trigger contexts containing denean verbs.
+No full grammar or browser completion is claimed.
