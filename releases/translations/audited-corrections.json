@@ -131542,5 +131542,12 @@
     "before": "تم تعطيل عرض القائمة التلقائي. انقر للتفعيل.",
     "after": "ⴰⴼⵍⵜⴰⵙ ⴰⵡⵓⵔⵎⴰⵏ ⵏ ⵜⵍⴳⴰⵎⵜ: ⵓⵔ ⵉⵥⵡⵉⵕ – ⴽⵍⵉⴽⵉ ⴰⴼⴰⴷ ⴰⴷ ⵜ ⵜⵙⵙⵔⴼⵓⴷ",
     "reason": "2026-09-14: Replace Arabic automatic list width label/tooltip with complete Tamazight draft. IRCAM Amazigh-English PDF 68 entry 1016 afltas width and PDF 589 entry 11039 talgamt list. CNAM Bouzefrane computer lexicon PDF 24 explicitly awurman automatic adjective, marked coined rather than Tuareg MC alternative; native MediaWiki zgh auto messages corroborate use. State/action terms follow reviewed account tooltips. Low confidence: coined cross-variety automatic adjective, compound grammar and finite/negative/purpose clause require native/browser review. Width, automatic behavior and opposite click action retained; no layout logic changed."
+  },
+  {
+    "locale": "zgh",
+    "key": "domain",
+    "before": "ⵜⴰⵎⵏⴰⴹⵜ",
+    "after": "ⵜⴰⵖⵓⵍⵜ",
+    "reason": "2026-09-14: Replace geographic region with computing domain taɣult, Bouzefrane computer lexicon PDF 52 (MW/CLH), domain identifiers PDF 71 and DNS PDF 132: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . Existing consumers list email domains and domain board sharing. Cross-variety software usage remains subject to native review; no whole automatic-addition sentence is inferred from this noun."
   }
 ]

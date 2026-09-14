@@ -374,3 +374,6 @@ assert.doesNotMatch(locales.zgh['click-to-enable-auto-width'], /[\u0600-\u06ff]/
 
 assert.doesNotMatch(locales.zgh['click-to-disable-auto-width'], /ⵜⵙⵙⵔⴼⵓⴷ/);
 assert.doesNotMatch(locales.zgh['click-to-enable-auto-width'], /ⵜⵙⵙⵏⵙⴷ/);
+
+assert.equal(locales.zgh.domain, 'ⵜⴰⵖⵓⵍⵜ');
+assert.doesNotMatch(locales.zgh.domain, /ⵜⴰⵎⵏⴰⴹⵜ/);
