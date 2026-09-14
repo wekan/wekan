@@ -4,15 +4,15 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,148 |
+| Corrected | 15,149 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 696 |
+| Pending review or repair | 695 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,353** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,356** exact before/after values, including unflagged repairs.
 
 Latest translation fix: **2026-09-14**, local commit `47796391a` — replaced three French Tamazight due-date labels, preserving due-date versus completion and today versus tomorrow distinctions. CLDR attests the relative-day names; native date/last components support the existing final-date adaptation. Full deadline terminology and relative-filter usage remain **low confidence** pending fluent review. All **17,353** correction/rendering checks pass. One originally flagged and two unflagged values are repaired: **696** originals remain pending, including **553** Tamazight. Earlier composed wording and restored/unflagged values still need validation. Live browser verification was not run; no translations were pushed.
 

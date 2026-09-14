@@ -590,7 +590,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.74 2026-09-14 WeKan ® release
 
 **In short:** Veps board-view labels replace Finnish and Venda values, while
 Neapolitan rule-item labels and examples use dictionary-attested terminology.
