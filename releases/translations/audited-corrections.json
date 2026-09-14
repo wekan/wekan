@@ -124759,5 +124759,19 @@
     "before": "ⴰⴷⴷⴰⴷ ⵏ ⵓⵙⵎⵓⵜⵜⵉ",
     "after": "ⴰⴷⴷⴰⴷ ⵏ ⵓⵙⵎⵓⵜⵜⵢ",
     "reason": "2026-09-14: Align Migration Status with reviewed bound usmutty software-migration adaptation instead of divergent asmutti spelling. Preserve status as state, not progress, success or completion. Native MediaWiki metadata-help supplies bound waddad State and movelogpage supplies usmutty Move; standalone addad and move-to-software-migration extension/full noun chain remain LOW CONFIDENCE for fluent Standard Moroccan review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "hideAllChecklistItems",
+    "before": "إخفاء جميع عناصر قائمة التحقق",
+    "after": "ⵏⵜⵍ ⵉⴼⵔⴷⵉⵙⵏ ⴰⴽⴽⵯ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
+    "reason": "2026-09-14: Replace wrong-language checklist-item action. Use native MediaWiki transaction-duration-limit-exceeded plural ifrdisn Elements, derived singular afrdis, native list talgamt and proposed List of Verification checklist paraphrase from login-security verify ssided. Add rnu, Hide ntl and All akk preserve the distinct action, singular/plural and all scope. LOW CONFIDENCE derived singular, verification noun/bound form ussidd, checklist paraphrase and full action grammar require fluent Standard Moroccan review; no exact native checklist control phrase is established. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (transaction-duration-limit-exceeded, watchlist, login-security, pageinfo-hidden-categories, protect-default)."
+  },
+  {
+    "locale": "zgh",
+    "key": "add-checklist-item",
+    "before": "إضافة عنصر إلى قائمة التحقق",
+    "after": "ⵔⵏⵓ ⴰⴼⵔⴷⵉⵙ ⵉ ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
+    "reason": "2026-09-14: Replace wrong-language checklist-item action. Use native MediaWiki transaction-duration-limit-exceeded plural ifrdisn Elements, derived singular afrdis, native list talgamt and proposed List of Verification checklist paraphrase from login-security verify ssided. Add rnu, Hide ntl and All akk preserve the distinct action, singular/plural and all scope. LOW CONFIDENCE derived singular, verification noun/bound form ussidd, checklist paraphrase and full action grammar require fluent Standard Moroccan review; no exact native checklist control phrase is established. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (transaction-duration-limit-exceeded, watchlist, login-security, pageinfo-hidden-categories, protect-default)."
   }
 ]
