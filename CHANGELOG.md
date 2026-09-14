@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,357 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 487 pending review or repair.
-The correction inventory records 17,722 exact before/after values,
+The correction inventory records 17,723 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 67dbacc28 (2026-09-14), using native Calendar
-vocabulary while preserving the Minguo system name. Complete mixed-script
-calendar naming remains low confidence and needs fluent review.
+Latest translation fix is cf0a2f19b (2026-09-14), replacing the Arabic
+Tamazight People label with a documented native equivalent. Restored values
+and earlier low-confidence phrases still need validation.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -631,7 +631,7 @@ remain open.
 Translation audit progress as of 2026-09-14: 15,357 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
 and 487 remain pending across 17 locales, including 352 Tamazight findings.
-The ledger contains 17,722 correction records, including unflagged repairs.
+The ledger contains 17,723 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -1749,6 +1749,15 @@ Use native Calendar vocabulary and retain Minguo from the English source,
 avoiding generic Chinese language/calendar substitution. The full mixed-script
 name remains low confidence and needs fluent review. All 17,722 correction/rendering
 checks pass; 487 original findings remain pending, including 352 Tamazight findings.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cf0a2f19b">Translate Tamazight People label</a>. Thanks to xet7.</summary>
+
+Replace Arabic with the native People label documented in Mastodon zgh,
+preserving people scope rather than users or board members. All 17,723
+correction/rendering checks pass; 487 original findings remain pending.
 
 </details>
 
