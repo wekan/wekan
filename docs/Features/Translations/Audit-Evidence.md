@@ -27565,3 +27565,24 @@ regression expectation for the superseded civil wording was updated.
 No live calendar-popup browser test ran. Ledger 19,781; original corrected
 15,700, pending 203, restored 4. Kashmiri has no original pending flags,
 but these drafts and earlier sighting agreement remain open. No push.
+
+## Wolaytta calendar noun repair — 2026-09-15
+
+Local commit `12dfa02ae` repairs four unflagged English calendar nouns:
+calendar, single-board and multiboard calendar views, and iCal export.
+[Native Wolaytta Gifaataa article](https://incubator.wikimedia.org/w/index.php?title=Wp/wal/Gifaataa_(baalaa)&oldid=5971248)
+explicitly pairs wodiyaa qoodaa with calendar in its native prose.
+[Wolaytta kawotettaa](https://incubator.wikimedia.org/wiki/Wp/wal/Wolaytta_kawotettaa)
+independently uses Wodiyaa Qoodaa in dating its historical period. The
+general noun now replaces Wolayttatto: Calendar, whose prefix did not
+translate English. Existing multiboard and iCal qualifiers are preserved.
+
+The earlier unflagged-calendar pending note is superseded for this noun.
+**Still open:** complete software-label grammar, the existing all-boards
+qualifier and every specific calendar-system compound/epoch/sighting label.
+Tigre terminology is not inferred from Wolaytta or Tigrinya. Four focused
+suites pass for all four replacements, preserved qualifiers, placeholders,
+key order, original provenance and newer human translations. No live
+calendar-view browser test ran. Ledger 19,785; original pending 203,
+including all 17 Wolaytta calendar-system findings; restored 4 unchanged.
+Broader uncertain/unflagged reviews remain open. No remote push.

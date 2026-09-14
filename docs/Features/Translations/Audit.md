@@ -16,14 +16,14 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `59541a5ae` — Kashmiri tabular
-Hijri drafts replace English and inappropriate social wording, distinguishing
-the two Julian epochs. Four focused suites pass. Ledger 19,781; original
-pending 203, restored 4 unchanged. Kashmiri flags resolved; complete calendar
-compounds, sighting agreement and all broader uncertain reviews remain open.
+Latest translation fix: **2026-09-15**, `12dfa02ae` — four Wolaytta calendar
+labels replace prefixed English with a noun explicitly used in native prose.
+View/iCal qualifiers are preserved. Four focused suites pass. Ledger 19,785;
+original pending 203, restored 4 unchanged. Specific calendar-system phrases
+and all broader uncertain reviews remain open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,781** exact before/after values, including unflagged
+records contain **19,785** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

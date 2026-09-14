@@ -661,6 +661,17 @@ The browser assertion accepts whitespace between the regional flag and name.
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/12dfa02ae">Wolaytta calendar labels</a></summary>
+
+Replace English calendar nouns in four labels with native Wolaytta
+terminology, preserving view and iCal qualifiers. Four focused suites
+pass; specific calendar-system phrases remain under review.
+
+Thanks to xet7.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/59541a5ae">Kashmiri tabular Hijri calendar labels</a></summary>
 
 Replace English tabular and inappropriate social wording with Kashmiri
