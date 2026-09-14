@@ -121560,5 +121560,33 @@
     "before": "Afficher le nombre de cartes par liste",
     "after": "ⵙⴽⵏ ⵓⵟⵟⵓⵏ ⵏ ⵜⴽⴰⵕⴹⵉⵡⵉⵏ ⴳ ⴽⵓ ⴷ ⵜⴰⵍⴳⴰⵎⵜ",
     "reason": "Replace French. Native MediaWiki view attests skn/show; pageinfo-watchers attests uttun n/number of and statistics-edits-average attests g ku d/per-page phrasing. Adapt per-list with native Mastodon talgamt/list and inherited card plural Tikarḍiwin, removing initial i for a derived bound form. Preserve a count for each list rather than one total board count or showing list names. LOW CONFIDENCE full card-count/per-list clause, bound card plural and kanban card terminology. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "r-d-remove-all-member",
+    "before": "Supprimer tous les participants",
+    "after": "ⴽⴽⵙ ⵉⴳⵎⴰⵎⵏ ⴰⴽⴽⵯ",
+    "reason": "Replace French. Native MediaWiki rcfilters-tag-remove attests kks/remove and nmembers directly attests plural igmamn/members; native Mastodon notifications.filter.all attests all form akkʷ. Preserve removal of every member rather than deleting user accounts. LOW CONFIDENCE full all-members command word order. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf"
+  },
+  {
+    "locale": "zgh",
+    "key": "r-remove-all",
+    "before": "Supprimer tous les membres de la carte",
+    "after": "ⴽⴽⵙ ⵉⴳⵎⴰⵎⵏ ⴰⴽⴽⵯ ⵙⴳ ⵜⴽⴰⵕⴹⴰ",
+    "reason": "Replace French. Use the same native remove/all/member components as r-d-remove-all-member, with sg/from attested in MediaWiki tooltip-ca-unwatch and inherited bound card wording. Actual rulesWorkflow action removes card members, not board membership or accounts. LOW CONFIDENCE full from-card compound, word order and kanban card usage. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf"
+  },
+  {
+    "locale": "zgh",
+    "key": "errors",
+    "before": "Erreurs",
+    "after": "ⵉⵣⴳⴰⵍⵏ",
+    "reason": "Replace French. Native MediaWiki databaseerror and loginerror attest masculine azgal/error. CNDH native Amazigh penal-code memorandum directly attests plural izgaln in PDF pages 79 and 99 (zero-based 78 and 98). Replace French plural without retaining a singular error label. LOW CONFIDENCE standalone software-error usage of this attested plural; legal-source context alone does not establish complete technical terminology. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf"
+  },
+  {
+    "locale": "zgh",
+    "key": "cron-clear-errors",
+    "before": "Effacer toutes les erreurs",
+    "after": "ⵚⵚⴼⴹ ⴰⴽⴽⵯ ⵉⵣⴳⴰⵍⵏ",
+    "reason": "Replace French. Native MediaWiki rcfilters-clear-all-filters attests ssfd akkʷ/Clear all; substitute attested plural izgaln (see errors) for filters. Preserve clearing error records rather than fixing software failures or deleting migrations. LOW CONFIDENCE full clear-all-errors command and software-error usage. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf"
   }
 ]
