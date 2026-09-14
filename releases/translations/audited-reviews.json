@@ -12712,5 +12712,185 @@
     "key": "run-once",
     "value": "Ruli unufoje",
     "reason": "2026-09-14: Direct semantic review confirms restoration/scanning steps, completion state, CPU/memory diagnostics, elapsed-age/duration, recurring intervals, run-once and previous/next labels. Minute/hour/day quantities and percent unit preserved; Ĉiujn versus Ĉiun agrees with plural versus singular intervals."
+  },
+  {
+    "locale": "eo",
+    "key": "s3-attachments",
+    "value": "S3-alligitaĵoj",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "s3-size",
+    "value": "S3-grando",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "show-list-on-minicard",
+    "value": "Montri liston sur minikarto",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "showChecklistAtMinicard",
+    "value": "Montri kontrolliston sur minikarto",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "total-size",
+    "value": "Tuta grando",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "unmigrated-boards",
+    "value": "Nemigritaj tabuloj",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "weight",
+    "value": "Pezo",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "cron",
+    "value": "Cron",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "current-step",
+    "value": "Nuna paŝo",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "otp",
+    "value": "OTP-kodo",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "create-account",
+    "value": "Krei konton",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "already-account",
+    "value": "Ĉu vi jam havas konton? Ensalutu",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "available-repositories",
+    "value": "Disponeblaj deponejoj",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "repositories",
+    "value": "Deponejoj",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "repository",
+    "value": "Deponejo",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "repository-name",
+    "value": "Nomo de deponejo",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "size-bytes",
+    "value": "Grando (bajtoj)",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "last-modified",
+    "value": "Laste modifita",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "no-repositories",
+    "value": "Neniu deponejo trovita",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "create-repository",
+    "value": "Krei deponejon",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "upload-repository",
+    "value": "Alŝuti/ĝisdatigi deponejon",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "api-endpoints",
+    "value": "API-finpunktoj",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "sign-in-to-upload",
+    "value": "Ensalutu por alŝuti deponejojn",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "account-locked",
+    "value": "La konto estas provizore ŝlosita pro tro multaj malsukcesaj ensalutprovoj. Bonvolu reprovi poste.",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "otp-required",
+    "value": "OTP-kodo bezonata",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "invalid-credentials",
+    "value": "Nevalida uzantnomo aŭ pasvorto",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "username-password-required",
+    "value": "Uzantnomo kaj pasvorto estas devigaj",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "password-mismatch",
+    "value": "La pasvortoj ne kongruas",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "username-too-short",
+    "value": "Uzantnomo devas havi almenaŭ 3 signojn",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
+  },
+  {
+    "locale": "eo",
+    "key": "user-exists",
+    "value": "Uzanto jam ekzistas",
+    "reason": "2026-09-14: Direct semantic review confirms storage sizes, minicard options, repository actions and account/OTP validation. Cron/OTP/API/S3 remain technical names; bytes, temporary lockout from excessive failed logins, required username AND password and minimum-three-character requirement remain exact."
   }
 ]
