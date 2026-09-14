@@ -5,24 +5,27 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,561 |
-| Restored pre-pull; awaiting validation | 1,773 |
-| Reviewed; retained unchanged | 2,439 |
+| Restored pre-pull; awaiting validation | 1,734 |
+| Reviewed; retained unchanged | 2,478 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
 Review is ongoing. The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,157** exact before/after values, including unflagged repairs.
+contain **18,161** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `316232f69` —
-preserved literal Trello navigation labels in Galician import help and
-retained 29 correct template, invitation, export and filter values. All
-**18,157** correction and **2,439** review records pass. Three Esperanto
-restored findings remain: lime color and two Complete labels. Broader
-language and browser verification remain open; nothing pushed.
-Latest unchanged review: **2026-09-14**, commit `edea4b20e` — retained
-25 correct Galician card settings, parent relationships and automation values.
+Latest translation fix: **2026-09-14**, local commit `54fdfd33c` —
+repaired four Galician automation date triggers, replacing Portuguese wording
+and restoring both setting and changing dates. Retained 39 correct automation
+and HTML-placement values. All **18,161** correction and **2,478** review
+records pass. Attachment/member rule participles need context-specific
+agreement: shared feminine labels currently follow masculine subjects.
+Three Esperanto restored findings remain: lime color and two Complete labels.
+Broader language and browser verification remain open; nothing pushed.
+Latest unchanged review: **2026-09-14**, commit `54fdfd33c` — retained
+39 correct Galician automation and HTML-placement values.
+
 
 
 Fixed categories include wrong-language prose, terminology, warnings,

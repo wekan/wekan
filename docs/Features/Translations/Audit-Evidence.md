@@ -21978,3 +21978,19 @@ and move-all scope. Review ledger checks pass.
 Tracked status: 15,561 corrected, 1,773 restored awaiting validation,
 2,439 reviewed unchanged and 308 pending. Broader language, uncertain
 terminology and browser verification remain open; nothing pushed.
+
+
+### 2026-09-14 — Galician automation date triggers and assembled grammar
+
+Local commit `54fdfd33c` repairs four unflagged date-trigger values:
+due/start/end/received conditions now cover both setting and changing dates,
+replacing Portuguese início/Fim/Recebido wording and incomplete meanings.
+Retained 39 directly inspected automation, HTML-placement and duplicate-board
+values unchanged. Positive/negative date tests and all ledger checks pass.
+Actual cardTriggers.jade attachment control combines masculine anexo with
+shared feminine r-added-to/r-removed-from labels; member/assignee controls
+share these labels too. Leave r-when-a-attach unaccepted pending contextual
+agreement repair rather than certify the assembled sentence as correct.
+Tracked: 15,561 corrected, 1,734 restored awaiting validation, 2,478 reviewed
+unchanged and 308 pending; correction ledger 18,161. Broader grammar and
+browser verification remain open. No external translation service or push.

@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,561 corrected, 1,773 restored pre-pull values awaiting
-validation, 2,439 reviewed and retained, and 308 pending review or repair.
-The correction inventory records 18,157 exact before/after values,
+findings: 15,561 corrected, 1,734 restored pre-pull values awaiting
+validation, 2,478 reviewed and retained, and 308 pending review or repair.
+The correction inventory records 18,161 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
 of 829
@@ -106,10 +106,11 @@ performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have
 resumed.
-Latest translation fix/review is 316232f69 (2026-09-14): Galician Trello
-navigation labels preserved; 29 correct values retained.
-Latest unchanged-value review is edea4b20e (2026-09-14): 25 Galician
-card settings, parent relationships and automation values retained.
+Latest translation fix/review is 54fdfd33c (2026-09-14): four Galician
+date-trigger meanings repaired; 39 correct values retained.
+Latest unchanged-value review is 54fdfd33c (2026-09-14): 39 Galician
+automation and HTML-placement values retained. Shared attachment/member
+participles still need contextual agreement repair.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
 Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
 retaining 156 correct Danish storage, migration and monitoring/account labels.
@@ -835,6 +836,16 @@ checks pass; broader language and browser verification remains open.
 Retain 25 correct values. Preserve parent relationships, subtask destinations,
 attachment counts, activity tokens and automation action scope. Review checks
 pass; broader language and browser verification remains open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/54fdfd33c">Repair Galician automation date-trigger meanings</a>. Thanks to xet7.</summary>
+
+Four date-trigger conditions now preserve both setting and changing dates
+in Galician, replacing Portuguese wording. Retain 39 correct automation and
+HTML-placement values. Positive/negative regression and ledger checks pass;
+shared attachment/member participle agreement and browser validation remain open.
 
 </details>
 
