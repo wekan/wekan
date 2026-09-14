@@ -3019,3 +3019,28 @@ board AND card scope, negative wrong-language checks, actual feature-flag
 throw wiring, placeholders, ledger, retained reviews and completeness.
 No live UI test ran. Ledger 19,836; original corrected 15,725, pending 178
 (zgh 83), restored 4 unchanged. Broader review remains open. No remote writes.
+
+
+## Case-insensitive search hint — 2026-09-15
+
+Local commit `35f74fd04` replaces French globalSearch-instructions-notes-4.
+Preserve text search not distinguishing upper/lowercase letters. A/a
+clarifies the letter-case adaptation rather than font size. globalSearch.js
+includes this key in the generated instruction notes. Search behavior was
+not changed or independently retested for this translation batch.
+
+IRCAM cached lexical entries: page 506 entry 9534 snaḥya (distinguish);
+page 222 entry 4259 askkil/iskkiln (letters); page 135 entry 2460 plural
+imqqrann (big) and page 168 entry 3112 plural imẓẓyann (small).
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+Native MediaWiki zgh search supplies arzzu. Its current file does not supply a case-insensitive term found by
+this review; absence in that file does not prove absence elsewhere.
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+
+**Low confidence:** big/small letters adapted to upper/lowercase, negative
+verb construction and full contextual grammar remain under native review.
+Four focused suites pass for text-search negation, both letter forms,
+exact A/a example, negative French checks, placeholders, ledger, retained
+reviews and completeness. No live UI test ran. Ledger 19,837; original
+corrected 15,726, pending 177 (zgh 82), restored 4 unchanged. Broader
+review remains open. No remote writes.

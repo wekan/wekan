@@ -640,7 +640,8 @@ the Markdown commit as the template.
 values. Rule labels retain state and action distinctions; deletion warnings
 retain irreversibility and affected content. Import, PDF and administrator
 messages preserve their conditions and alternatives. Watch text covers boards
-and cards. Regression checks preserve placeholders and verify source wiring;
+and cards. Search help clarifies case-insensitive matching. Regression checks
+preserve placeholders and verify source wiring;
 full contextual grammar remains under native review.
 
 This release includes the following features and fixes:
@@ -741,6 +742,17 @@ administrator action and both board and card scope. Four focused suites
 pass for wording, negative wrong-language checks, source error wiring and
 translation structure. Full contextual grammar remains under native review.
 Dated audit records 178 pending findings.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/35f74fd04">Repair Tamazight case-insensitive search guidance</a>. Thanks to xet7.</summary>
+
+Replace French search help, retaining case-insensitive text matching and
+using A/a to clarify letter case. Four focused suites pass for negation,
+letter forms, negative French checks and translation structure. Complete
+computing terminology and contextual grammar remain under native review.
+Dated audit records 177 pending findings.
 
 </details>
 

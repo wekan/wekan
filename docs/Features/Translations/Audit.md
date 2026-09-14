@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-15**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,725 |
+| Corrected | 15,726 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,174 |
-| Pending review or repair | 178 |
+| Pending review or repair | 177 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,15 +16,15 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `45d2b2b2e` — Tamazight watching
-label and watch-disabled warning replace Arabic/French. Preserve the
-administrator as actor and boards AND cards. Four focused suites pass.
-Ledger 19,836; original pending 178 (Tamazight 83), restored 4 unchanged.
-Watching label was unflagged. Full tense/agreement and computing adaptation
-remain low confidence; broader reviews remain open.
+Latest translation fix: **2026-09-15**, `35f74fd04` — Tamazight search
+help replaces French and preserves case-insensitive matching. A/a clarifies
+letter case rather than font size. Four focused suites pass. Ledger
+19,837; original pending 177 (Tamazight 82), restored 4 unchanged.
+Complete case terminology and grammar remain low confidence;
+broader reviews remain open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,836** exact before/after values, including unflagged
+records contain **19,837** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -44,7 +44,7 @@ restored values still await full native clause validation.
 
 | Pending locale | Findings |
 | --- | ---: |
-| zgh — Standard Moroccan Tamazight | 83 |
+| zgh — Standard Moroccan Tamazight | 82 |
 | iu — Inuktitut | 38 |
 | nah — Nahuatl | 17 |
 | tig — Tigre | 17 |
