@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight card mention activity — 2026-09-14
+
+Commit `1493cc244` repairs one original French finding. Search-indexed [IRCAM conjugation manual](https://www.temehu.com/imazighen/dictionaries/Amawals/manuel-de-conjugaison-Tamazight-Tifinagh-IRCAM.pdf) supplies bdr Mention; direct access redirects to dictionary HTML, not inspected PDF. [Native Mastodon](https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json) notification.follow supports object k only, not mention verb. Actor/object grammar, Swimlane-as-Path adaptation and full phrase remain LOW CONFIDENCE. Preserve YOU, card/comment/list/swimlane/board and five exact placeholders. 364 original findings remain pending, including 229 Tamazight; all 18,036 mechanical correction checks pass. Restored, unflagged and earlier uncertain wording remain in scope. Browser verification and remote uploads were not performed.
+
 ## Tamazight board role permissions — 2026-09-14
 
 Commit `381d18eb3` repairs two original findings and unflagged Arabic Activities. [Native MediaWiki](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) supplies Actions, Edit, View in skin-view-history, Settings in quickfilters and Delete/Remove; search-ignored-headings supplies Can construction. Preserve administrator card VIEW/EDIT, MEMBER removal, BOARD settings and separate activity VIEW. Normal members can view/edit cards but CANNOT change settings. Activities adapts Actions to activity log; card/member vocabulary reuses local terms. Derived negative/personal forms, coordinated permission grammar and full phrases remain LOW CONFIDENCE. 365 original findings remain pending, including 230 Tamazight; all 18,035 mechanical correction checks pass. Restored, unflagged and earlier uncertain wording remain in scope. Browser verification and remote uploads were not performed.

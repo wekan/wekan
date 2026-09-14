@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,479 |
+| Corrected | 15,480 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 365 |
+| Pending review or repair | 364 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,035** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,036** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `381d18eb3` — repaired administrator/normal-member permission descriptions and Activities label (two original findings, one unflagged repair). Preserve card VIEW/EDIT, MEMBER removal, BOARD settings changes and activity VIEW; normal members CANNOT change settings. Native components support wording; whole permission grammar and activity-log adaptation remain **low confidence**. All **18,035** correction checks pass; **365** findings remain pending across **17** locales, including **230** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `1493cc244` — repaired French card mention activity, preserving YOU and all five card/comment/list/swimlane/board placeholders. Mention verb has indexed IRCAM evidence only; PDF access redirects to HTML. Full wording remains **low confidence**. All **18,036** correction checks pass; **364** findings remain pending across **17** locales, including **229** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Archive noun review (2026-09-14, `fbe388603`):** directly inspected a native Archives du Maroc logo in a university PDF, corroborating the archive noun beyond the earlier search-index excerpt. Updated nine provenance records; values/counts unchanged. Institutional-to-kanban adaptation and full labels remain low confidence. [Evidence](Audit-Evidence.md) records the exact source and scope.
 
