@@ -1137,6 +1137,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0f4fc5d22">Repair Tamazight V8 context-count labels</a></summary>
+
+Replace French count/context prose with Tamazight, retaining native and
+detached as distinct technical qualifiers. Four focused suites pass;
+complete computing compounds and loan localization remain under review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

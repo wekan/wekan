@@ -4129,3 +4129,24 @@ corrected 15,765, pending 138 (zgh 45), restored 4 unchanged. Physical size
 and native/detached context labels still need repair; previous heap grammar
 reviews remain open.
 https://nodejs.org/api/v8.html#v8getheapstatistics
+
+
+2026-09-15 — `0f4fc5d22`: French native/detached context counts replaced
+using IRCAM entry 8679 uttun number and 2563 amnad environment/context,
+attested plural imnadn. Native and detached remain exact technical loans
+in parentheses, not claimed fully localized qualifiers. Indigenous/native
+arṣli (3760), Saharan origin (4903), son/daughter origin (8393/8528), and
+physical coming-undone/untie terms (8277/8286/10322) are excluded. This
+avoids translating native context as a person's origin. Computing context
+noun and complete qualifier localization remain under review.
+
+Node docs distinguish active top-level native contexts from detached
+contexts not yet garbage-collected. server/statistics.js reads separate
+number_of_native_contexts/number_of_detached_contexts; informationBody.jade
+displays each count separately. No metric behavior changed. Four focused
+suites pass for exact distinct qualifiers, negative French/Arabic/origin
+wording and all token inventories. No live information UI test ran.
+Ledger 19,888; corrected 15,767, pending 136 (zgh 43), restored 4 unchanged.
+Physical size is the last still-French heap label; earlier full-phrase
+reviews and technical loan localization remain open.
+https://nodejs.org/api/v8.html#v8getheapstatistics
