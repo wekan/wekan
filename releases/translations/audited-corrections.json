@@ -139088,5 +139088,19 @@
     "before": "Voir les poignées de déplacement du bureau",
     "after": "ⵙⵙⴽⵏ ⵜⵉⵇⴱⴱⵉⴹⵉⵏ ⵏ ⵓⴽⵔⵉⵔⵓ ⴳ Desktop",
     "reason": "2026-09-15: Replace French drag-handle label using IRCAM sskn show 9816, taqbbidt handle plural tiqbbidin 10938 and kriru drag 6439. Desktop borrowed mode identifier matches toggle terminology. Derived action noun akriru/bound ukriru and full software compound low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-operator-created",
+    "before": "`__operator_created__:<n>` - cartes qui ont été créées il y a *<n>* jours ou moins",
+    "after": "`__operator_created__:<n>` - ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵍⵍⵉ ⵜⵜⵓⵙⵏⵓⵍⴼⴰⵏⵜ ⴳ *<n>* ⵏ ⵡⵓⵙⵙⴰⵏ ⵉⵎⴳⴳⵓⵔⴰ",
+    "reason": "2026-09-15: Replace French date-filter instruction with cards created/modified during last n days, paraphrasing n days ago or less. Literal operator and n formatting preserved. IRCAM last amggaru plural imggura 2274 and ssnfl change 10003; creation wording follows existing snulfu. Full passive plural and temporal phrase grammar remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-operator-modified",
+    "before": "`__operator_modified__:<n>` - cartes qui ont été modifiées il y a *<n>* jours ou moins",
+    "after": "`__operator_modified__:<n>` - ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵍⵍⵉ ⵜⵜⵓⵙⵙⵏⴼⵍⵏⵜ ⴳ *<n>* ⵏ ⵡⵓⵙⵙⴰⵏ ⵉⵎⴳⴳⵓⵔⴰ",
+    "reason": "2026-09-15: Replace French date-filter instruction with cards created/modified during last n days, paraphrasing n days ago or less. Literal operator and n formatting preserved. IRCAM last amggaru plural imggura 2274 and ssnfl change 10003; creation wording follows existing snulfu. Full passive plural and temporal phrase grammar remain low confidence."
   }
 ]

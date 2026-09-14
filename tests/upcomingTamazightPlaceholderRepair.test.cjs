@@ -516,3 +516,10 @@ console.log('Tamazight SMTP port description preserves outgoing-mail purpose');
 assert.strictEqual(translated['show-desktop-drag-handles'], 'ⵙⵙⴽⵏ ⵜⵉⵇⴱⴱⵉⴹⵉⵏ ⵏ ⵓⴽⵔⵉⵔⵓ ⴳ Desktop');
 assert.doesNotMatch(translated['show-desktop-drag-handles'], /Voir les|bureau|[\u0600-\u06ff]/u);
 console.log('Tamazight drag-handle label distinguishes Desktop mode and drag purpose');
+
+for (const [suffix, verb] of [['created', 'ⵜⵜⵓⵙⵏⵓⵍⴼⴰⵏⵜ'], ['modified', 'ⵜⵜⵓⵙⵙⵏⴼⵍⵏⵜ']]) {
+  const key = 'globalSearch-instructions-operator-' + suffix;
+  assert.strictEqual(translated[key], '`__operator_' + suffix + '__:<n>` - ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵍⵍⵉ ' + verb + ' ⴳ *<n>* ⵏ ⵡⵓⵙⵙⴰⵏ ⵉⵎⴳⴳⵓⵔⴰ');
+  assert.doesNotMatch(translated[key], /cartes|jours|[\u0600-\u06ff]/u);
+}
+console.log('Tamazight creation and modification hints preserve distinct operators and recent-day bounds');
