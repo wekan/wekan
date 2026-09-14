@@ -127,6 +127,11 @@ Field-sum terminology review (2026-09-14): the list sum display remains
 pending. Addition-operation and sum-of-money references do not establish
 the resulting numeric field sum; no count or operation was substituted.
 
+
+Reference review 7b9e343b6 (2026-09-14) corrects source attribution in 98
+Tamazight records: CNAM MC£ is Tuareg and MC is Mokrane Chemim, not
+Central Moroccan dialect labels. Affected terminology needs renewed review.
+
 </details>
 
 <details>
@@ -1301,6 +1306,18 @@ placeholder. Native today/current vocabulary supports components; existing
 deadline terminology and full status syntax remain low confidence pending
 fluent review. All 17,646 correction/rendering checks pass; 512 original
 findings remain pending. Broader language validation continues.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7b9e343b6">Correct Tamazight reference provenance assumptions</a>. Thanks to xet7.</summary>
+
+Correct source notes in 98 Tamazight translation records after checking the
+CNAM bibliography. MC£ denotes Tuareg sources and MC denotes Mokrane
+Chemim’s lexicon; neither establishes Central Moroccan dialect attestation.
+Earlier attribution assumptions are invalid. Affected terminology and full
+wording require renewed review; locale values and pending counts are unchanged.
+All 17,646 correction/rendering checks pass structurally, without proving fluency.
 
 </details>
 
