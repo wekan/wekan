@@ -123870,5 +123870,40 @@
     "before": "Refuser",
     "after": "ⴰⴳⵢ",
     "reason": "2026-09-14: Replace French Decline invitation button with exact native Standard Moroccan request-rejection action. Mastodon follow_request.reject supplies ⴰⴳⵢ. WeKan sidebar.js js-member-invite-decline and boardsList.js js-decline-invite confirm invitation rejection context; do not substitute Close or merely cancel popup without declining. Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json (follow_request.reject)."
+  },
+  {
+    "locale": "zgh",
+    "key": "back",
+    "before": "رجوع",
+    "after": "ⴰⵖⵓⵍ",
+    "reason": "2026-09-14: Replace Arabic interface label with directly attested Standard Moroccan software wording. Native Mastodon column_back_button.label supplies the exact Back action. Preserve navigation back, not previous-page adjacency. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "next-page",
+    "before": "الصفحة اللاحقة",
+    "after": "ⵜⴰⵙⵏⴰ ⵜⵓⴹⴼⵉⵕⵜ",
+    "reason": "2026-09-14: Replace Arabic interface label with directly attested Standard Moroccan software wording. Native MediaWiki imgmultipagenext supplies Next Page; omit the decorative arrow, preserving the exact native noun/adjective. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "previous-page",
+    "before": "الصفحة السابقة",
+    "after": "ⵜⴰⵙⵏⴰ ⵜⵓⵣⵡⵉⵔⵜ",
+    "reason": "2026-09-14: Replace Arabic interface label with directly attested Standard Moroccan software wording. Native MediaWiki imgmultipageprev supplies Previous Page; omit the decorative arrow, preserving the exact native noun/adjective and distinguishing previous from next. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "confirm-btn",
+    "before": "تأكيد",
+    "after": "ⵡⴰⵅⵅⴰ",
+    "reason": "2026-09-14: Replace Arabic interface label with directly attested Standard Moroccan software wording. Native MediaWiki confirm_purge_button and confirm-watch-button supply the exact confirmation acknowledgment. Match local confirm for identical English Confirm button, distinct from invitation acceptance. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "allBoardsMenuPopup-title",
+    "before": "الإعدادات",
+    "after": "ⵜⵉⵙⵖⴰⵍ",
+    "reason": "2026-09-14: Replace Arabic interface label with directly attested Standard Moroccan software wording. Native Mastodon column_header.show_settings/hide_settings attest tisghal/settings. Match local Settings for identical English heading; do not rename it Boards Settings or personal preferences. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
