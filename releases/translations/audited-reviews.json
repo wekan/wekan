@@ -3772,5 +3772,413 @@
     "key": "stop",
     "value": "Stop",
     "reason": "These are valid Danish words as well as English words. Exact English equality does not imply an untranslated placeholder; retain the appropriate Danish control/support label."
+  },
+  {
+    "locale": "da",
+    "key": "migration-starting",
+    "value": "Starter migreringer...",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "migration-pausing",
+    "value": "Sætter migreringer på pause...",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "migration-stopping",
+    "value": "Stopper migreringer...",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "migration-paused",
+    "value": "Migreringer er sat på pause",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "migration-progress",
+    "value": "Migreringsfremskridt",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "migration-started",
+    "value": "Migreringer er startet",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "migration-not-needed",
+    "value": "Ingen migrering nødvendig",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "migration-stopped",
+    "value": "Migreringer er stoppet",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "pause-all-migrations",
+    "value": "Sæt alle migreringer på pause",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "s3-access-key",
+    "value": "S3-adgangsnøgle",
+    "reason": "Direct Danish review: S3 configuration wording is correct. Preserve literal endpoint examples, region identifiers, S3/SSL names and access versus secret-key distinctions. Existing bucket and endpoint loanwords are appropriate technical terminology."
+  },
+  {
+    "locale": "da",
+    "key": "s3-access-key-placeholder",
+    "value": "Indtast S3-adgangsnøgle",
+    "reason": "Direct Danish review: S3 configuration wording is correct. Preserve literal endpoint examples, region identifiers, S3/SSL names and access versus secret-key distinctions. Existing bucket and endpoint loanwords are appropriate technical terminology."
+  },
+  {
+    "locale": "da",
+    "key": "s3-bucket",
+    "value": "S3-bucket",
+    "reason": "Direct Danish review: S3 configuration wording is correct. Preserve literal endpoint examples, region identifiers, S3/SSL names and access versus secret-key distinctions. Existing bucket and endpoint loanwords are appropriate technical terminology."
+  },
+  {
+    "locale": "da",
+    "key": "s3-connection-failed",
+    "value": "S3-forbindelse mislykkedes",
+    "reason": "Direct Danish review: S3 configuration wording is correct. Preserve literal endpoint examples, region identifiers, S3/SSL names and access versus secret-key distinctions. Existing bucket and endpoint loanwords are appropriate technical terminology."
+  },
+  {
+    "locale": "da",
+    "key": "s3-connection-success",
+    "value": "S3-forbindelse lykkedes",
+    "reason": "Direct Danish review: S3 configuration wording is correct. Preserve literal endpoint examples, region identifiers, S3/SSL names and access versus secret-key distinctions. Existing bucket and endpoint loanwords are appropriate technical terminology."
+  },
+  {
+    "locale": "da",
+    "key": "s3-enabled",
+    "value": "S3 aktiveret",
+    "reason": "Direct Danish review: S3 configuration wording is correct. Preserve literal endpoint examples, region identifiers, S3/SSL names and access versus secret-key distinctions. Existing bucket and endpoint loanwords are appropriate technical terminology."
+  },
+  {
+    "locale": "da",
+    "key": "s3-endpoint",
+    "value": "S3-endpoint",
+    "reason": "Direct Danish review: S3 configuration wording is correct. Preserve literal endpoint examples, region identifiers, S3/SSL names and access versus secret-key distinctions. Existing bucket and endpoint loanwords are appropriate technical terminology."
+  },
+  {
+    "locale": "da",
+    "key": "s3-endpoint-description",
+    "value": "S3-endpoint-URL (f.eks. s3.amazonaws.com eller minio.example.com)",
+    "reason": "Direct Danish review: S3 configuration wording is correct. Preserve literal endpoint examples, region identifiers, S3/SSL names and access versus secret-key distinctions. Existing bucket and endpoint loanwords are appropriate technical terminology."
+  },
+  {
+    "locale": "da",
+    "key": "s3-region-description",
+    "value": "AWS S3-region (f.eks. us-east-1)",
+    "reason": "Direct Danish review: S3 configuration wording is correct. Preserve literal endpoint examples, region identifiers, S3/SSL names and access versus secret-key distinctions. Existing bucket and endpoint loanwords are appropriate technical terminology."
+  },
+  {
+    "locale": "da",
+    "key": "s3-secret-key",
+    "value": "S3 hemmelig nøgle",
+    "reason": "Direct Danish review: S3 configuration wording is correct. Preserve literal endpoint examples, region identifiers, S3/SSL names and access versus secret-key distinctions. Existing bucket and endpoint loanwords are appropriate technical terminology."
+  },
+  {
+    "locale": "da",
+    "key": "s3-secret-key-placeholder",
+    "value": "Indtast S3 hemmelig nøgle",
+    "reason": "Direct Danish review: S3 configuration wording is correct. Preserve literal endpoint examples, region identifiers, S3/SSL names and access versus secret-key distinctions. Existing bucket and endpoint loanwords are appropriate technical terminology."
+  },
+  {
+    "locale": "da",
+    "key": "s3-secret-key-required",
+    "value": "S3 hemmelig nøgle er påkrævet",
+    "reason": "Direct Danish review: S3 configuration wording is correct. Preserve literal endpoint examples, region identifiers, S3/SSL names and access versus secret-key distinctions. Existing bucket and endpoint loanwords are appropriate technical terminology."
+  },
+  {
+    "locale": "da",
+    "key": "s3-settings-saved",
+    "value": "S3-indstillinger er gemt",
+    "reason": "Direct Danish review: S3 configuration wording is correct. Preserve literal endpoint examples, region identifiers, S3/SSL names and access versus secret-key distinctions. Existing bucket and endpoint loanwords are appropriate technical terminology."
+  },
+  {
+    "locale": "da",
+    "key": "s3-ssl-enabled",
+    "value": "S3 SSL aktiveret",
+    "reason": "Direct Danish review: S3 configuration wording is correct. Preserve literal endpoint examples, region identifiers, S3/SSL names and access versus secret-key distinctions. Existing bucket and endpoint loanwords are appropriate technical terminology."
+  },
+  {
+    "locale": "da",
+    "key": "save-s3-settings",
+    "value": "Gem S3-indstillinger",
+    "reason": "Direct Danish review: S3 configuration wording is correct. Preserve literal endpoint examples, region identifiers, S3/SSL names and access versus secret-key distinctions. Existing bucket and endpoint loanwords are appropriate technical terminology."
+  },
+  {
+    "locale": "da",
+    "key": "schedule-board-archive",
+    "value": "Planlæg arkivering af tavle",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "scheduled-board-operations",
+    "value": "Planlagte tavlehandlinger",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "start-all-migrations",
+    "value": "Start alle migreringer",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "stop-all-migrations",
+    "value": "Stop alle migreringer",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "test-s3-connection",
+    "value": "Test S3-forbindelse",
+    "reason": "Direct Danish review: S3 configuration wording is correct. Preserve literal endpoint examples, region identifiers, S3/SSL names and access versus secret-key distinctions. Existing bucket and endpoint loanwords are appropriate technical terminology."
+  },
+  {
+    "locale": "da",
+    "key": "writable-path",
+    "value": "Skrivbar sti",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "attachment-settings",
+    "value": "Indstillinger for vedhæftninger",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "attachment-storage-settings",
+    "value": "Lagringsindstillinger",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "board-migration",
+    "value": "Tavlemigrering",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "card-show-lists-on-minicard",
+    "value": "Vis lister på minikort",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "delete-duplicate-empty-lists-migration",
+    "value": "Slet duplikerede tomme lister",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "lost-cards",
+    "value": "Mistede kort",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "lost-cards-list",
+    "value": "Genskabte elementer",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "restore-lost-cards-migration",
+    "value": "Genskab mistede kort",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "fix-missing-lists-migration",
+    "value": "Ret manglende lister",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "fix-avatar-urls-migration",
+    "value": "Ret avatar-URL'er",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "fix-all-file-urls-migration",
+    "value": "Ret alle fil-URL'er",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "migration-needed",
+    "value": "Migrering påkrævet",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "migration-complete",
+    "value": "Fuldført",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "migration-running",
+    "value": "Kører...",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "migration-successful",
+    "value": "Migrering fuldført",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "migration-failed",
+    "value": "Migrering mislykkedes",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "migrations",
+    "value": "Migreringer",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "migrations-admin-only",
+    "value": "Kun tavleadministratorer kan køre migreringer",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "no-issues-found",
+    "value": "Ingen problemer fundet",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "run-migration",
+    "value": "Kør migrering",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "migration-progress-title",
+    "value": "Tavlemigrering i gang",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "migration-progress-overall",
+    "value": "Samlet fremskridt",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "migration-progress-current-step",
+    "value": "Nuværende trin",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "steps",
+    "value": "trin",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "view",
+    "value": "Vis",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "step-analyze-board-structure",
+    "value": "Analysér tavlens struktur",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "step-fix-orphaned-cards",
+    "value": "Ret forældreløse kort",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "step-convert-shared-lists",
+    "value": "Konvertér delte lister",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "step-ensure-per-swimlane-lists",
+    "value": "Sikr lister pr. svømmebane",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "step-validate-migration",
+    "value": "Validér migrering",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "step-fix-avatar-urls",
+    "value": "Ret avatar-URL'er",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "step-fix-attachment-urls",
+    "value": "Ret URL'er for vedhæftninger",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "step-analyze-lists",
+    "value": "Analysér lister",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "step-update-cards",
+    "value": "Opdatér kort",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "step-finalize",
+    "value": "Afslut",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "step-delete-duplicate-empty-lists",
+    "value": "Slet duplikerede tomme lister",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "step-restore-lists",
+    "value": "Genskab lister",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
+  },
+  {
+    "locale": "da",
+    "key": "step-restore-cards",
+    "value": "Genskab kort",
+    "reason": "Direct Danish review confirms migration/action/state meaning and inflection, including start/pause/stop, lost versus restored items, missing versus duplicate empty lists, orphaned cards and original technical URL/product names. Obsolete migration labels remain translations in scope; accepting wording does not claim those migrations are currently active."
   }
 ]
