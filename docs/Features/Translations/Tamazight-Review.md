@@ -3302,3 +3302,29 @@ continuing, acceptance and our, then check the full rendered composition.
 No translation or original queue classification changed. Pending 170;
 unflagged and earlier low-confidence reviews remain in scope. No live UI
 test ran; no remote writes were made.
+
+
+## Generic acceptance verb — source review 2026-09-15
+
+The Friends of Morocco Tamazight verb dictionary directly lists `qbl`
+with English accept and agree, habitual `tqbal`, first-person `qblġ`.
+It also lists an accept variant `qvl` and agree `tafq`. The actual HTML
+was fetched and cached at
+`.tools/tmp/tamazight-acceptance-reference/verbs.html`; this is inspected
+source text, not only a search-result claim. Browser-tool fetch failed,
+but direct HTTPS retrieval succeeded, so the source was available.
+Source: https://friendsofmorocco.org/Docs/Dict/Tamazizght%20verbs.htm
+
+This supports the existing locale `accept` verb `ⵇⴱⵍ` as a generic
+acceptance candidate, improving on IRCAM's narrow destiny/intercession
+entries. A regional Moroccan Tamazight dictionary is evidence for the
+verb, not certification of every Standard Moroccan Tamazight inflection.
+
+The cached MediaWiki zgh strings contained no exact `ⵇⴱⵍ` or `ⵏⵏⵖ`
+occurrence in the limited search; broad q-prefix matches were mostly
+unrelated old/password wording and cannot serve as acceptance evidence.
+Next action narrows to continuation, second-person inflection and the
+possessive order around the separately rendered legal-notice anchor.
+Do not treat `qblġ` (first person) as the required second-person form.
+No translation or counts changed; 170 original findings remain pending.
+No live UI test ran and no remote writes were made.
