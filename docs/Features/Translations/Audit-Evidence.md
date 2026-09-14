@@ -26150,3 +26150,11 @@ The regression passes. This covers runtime scalar formatting across the
 files, not language loading, normalization, native quality or browser
 rendering. No locale values or pending counts change; remaining 233
 original findings and prior uncertain wording remain open.
+
+Veps action-label repairs, **2026-09-14**, local commit `6c30c4cfc`:
+three additional Finnish values (`view-all`, `delete-all`, `remove-btn`)
+replaced with complete native MediaWiki Veps action labels. See
+[Veps review](Veps-Review.md) for source keys and verification limits.
+Five registered assertions/suites pass across four test files; correction
+ledger now contains 18,815 records. Original pending remains 233.
+Native review of longer phrases and browser rendering remains unfinished.

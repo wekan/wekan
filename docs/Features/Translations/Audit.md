@@ -16,13 +16,13 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `e3ae37bc5` —
-two prior received-time activity drafts now use primary reception terminology.
-Four checks pass; full clause/genitive grammar remains low confidence.
-Original pending and ledger counts are unchanged: 233 and 18,812.
+Latest translation fix: **2026-09-14**, local commit `6c30c4cfc` —
+three additional Finnish Veps action labels replaced with native wording.
+Locale, token and preference checks pass. Original pending count remains 233;
+the ledger now contains 18,815 corrections. Longer Veps phrases remain open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,812** exact before/after values, including unflagged
+records contain **18,815** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

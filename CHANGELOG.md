@@ -656,6 +656,17 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6c30c4cfc">Replace Finnish Veps view and removal labels with native wording</a>. Thanks to xet7.</summary>
+
+Three complete action labels now use native Veps software wording, preserving
+“All” and distinguishing removal from disabling. Locale and placeholder
+regression checks pass; longer Veps phrases and browser review remain open.
+The dated [translation audit](docs/Features/Translations/Audit.md) records
+18,815 corrections and 233 original findings still pending.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/55562f666">Verify limit-error formatting in every locale</a>. Thanks to xet7.</summary>
 
 Check exact scalar argument formatting against all 246 locale files using

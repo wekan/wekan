@@ -156,3 +156,16 @@ Dictionary/source expansion **2026-09-14**:
   accessibility, keyboard shortcuts, inheritance and arithmetic remains
   unresolved. No locale values or classifications changed; all ten
   original Veps findings and broader unflagged repairs remain open.
+
+Complete action-label repairs **2026-09-14**, local commit `6c30c4cfc`:
+`view-all` now uses **Ozuta kaik**, `delete-all` **Heitä kaik**, and
+`remove-btn` **Heitä**. Current native MediaWiki keys
+`collapsible-expand-all-text`, `filehist-deleteall` and
+`rcfilters-savedqueries-remove` attest these complete software labels;
+initial capitalization follows the WeKan label presentation.
+The notification drawer consumes View All and sidebar archive controls
+consume Delete All. No active client consumer was found for Remove's stored
+label. Removal remains distinct from disabling, and All remains explicit.
+Focused tests plus correction, retained-review and completeness checks pass.
+These three unflagged repairs do not resolve the ten original Veps findings,
+unflagged longer phrases or live browser verification.
