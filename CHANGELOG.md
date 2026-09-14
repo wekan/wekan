@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,396 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 448 pending review or repair.
-The correction inventory records 17,853 exact before/after values,
+findings: 15,398 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 446 pending review or repair.
+The correction inventory records 17,855 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is a536b274a (2026-09-14), repairing two French custom
-HTML tag labels while preserving plural, Custom and technical identifiers.
-Terminology adaptations and full phrases remain low confidence for fluent review.
+Latest translation fix is 800934571 (2026-09-14), repairing two French custom
+login logo URL labels, distinguishing image and destination link. Native
+community usage supports Logo; full wording remains low confidence.
 Checklist completion evidence follow-ups 9de9f2c15 and 4139001a3 distinguish
 legal supplementation from directly attested software Complete Login. Past
 actor form and full checklist grammar remain low confidence. Values/counts unchanged.
@@ -640,10 +640,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,396 original findings are
+Translation audit progress as of 2026-09-14: 15,398 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 448 remain pending across 17 locales, including 313 Tamazight findings.
-The ledger contains 17,853 correction records, including unflagged repairs.
+and 446 remain pending across 17 locales, including 311 Tamazight findings.
+The ledger contains 17,855 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -2338,6 +2338,16 @@ findings remain pending, including 313 Tamazight.
 Native Complete Login supplies stronger software completion evidence. Past
 actor form and full checklist grammar remain low confidence; custom-logo
 terminology remains unresolved. No values/counts changed; correction checks pass.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/800934571">Translate Tamazight custom login logo URLs</a>. Thanks to xet7.</summary>
+
+Repair two French labels while preserving URL and distinguishing the logo
+image from its destination link. Native community usage supports Logo;
+bound forms and complete phrases remain low confidence for fluent review.
+All 17,855 correction checks pass; 446 original findings remain pending.
 
 </details>
 

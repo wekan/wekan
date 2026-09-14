@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight custom login logo labels — 2026-09-14
+
+Local commit `800934571` repairs the image and destination-link URL labels. The explicitly Standard Moroccan Tamazight caption on [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Wikipedia-logo-v5-zgh.png) uses `ⴰⵍⵓⴳⵓ` for Logo. This is native community usage, not normative IRCAM terminology. MediaWiki supplies the Login noun `akchchum`. Bound noun forms, Specified-to-Custom adaptation and complete label grammar remain LOW CONFIDENCE. This follow-up supersedes the unresolved-logo finding below without claiming that MediaWiki attests Logo.
+
 ## Tamazight checklist completion review — 2026-09-14
 
 Login-label review found stronger software evidence: current [MediaWiki zgh](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json) `resetpass_announce` directly uses `ad tsmdt akchchum` (to complete login). This supports transitive software completion beyond temporal ending/legal supplementation. Past actor form `ismd` and full checklist phrase are still adaptations requiring review; no values/counts changed. The current file supplies Login noun `akchchum` in `pt-login-continue-button`; it does not attest proposed Logo loan `alugu`, so custom-logo labels need further terminology review rather than an unmarked invented loan.
