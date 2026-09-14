@@ -1757,7 +1757,7 @@
   "globalSearch-instructions-operators": "Opérateurs disponibles :",
   "globalSearch-instructions-operator-board": "`__operator_board__:<ⴰⵣⵡⵍ>` - ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴳ ⵜⴼⵍⵡⵉⵏ ⵉⵎⵙⴰⵙⴰⵏ ⴷ *<ⴰⵣⵡⵍ>* ⵉⵥⵍⵉⵏ",
   "globalSearch-instructions-operator-list": "`__operator_list__:<ⴰⵣⵡⵍ>` - ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴳ ⵜⵍⴳⴰⵎⵉⵏ ⵉⵎⵙⴰⵙⴰⵏ ⴷ *<ⴰⵣⵡⵍ>* ⵉⵥⵍⵉⵏ",
-  "globalSearch-instructions-operator-swimlane": "`__operator_swimlane__:<titre>` - cartes dans les couloirs correspondant au *<titre>* spécifié",
+  "globalSearch-instructions-operator-swimlane": "`__operator_swimlane__:<title>` - ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⴳ ⵉⴱⵔⵉⴷⵏ ⵉⵎⵙⴰⵙⴰⵏ ⴷ ⵓⵣⵡⵍ ⵉⵜⵜⵓⴼⴽⴰⵏ *<title>*",
   "globalSearch-instructions-operator-comment": "`__operator_comment__:<ⴰⴹⵕⵉⵙ>` - ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵙ ⵓⵖⴼⴰⵡⴰⵍ ⵢⵓⵎⴰⵏ *<ⴰⴹⵕⵉⵙ>*.",
   "globalSearch-instructions-operator-label": "`__operator_label__:<ⴰⴽⵍⵓ>` `__operator_label__:<ⵉⵙⵎ>` - ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵙ ⵓⵔⵛⵓⵎ ⵉⵎⵙⴰⵙⴰⵏ ⴷ *<ⴰⴽⵍⵓ>* ⵏⵖ *<ⵉⵙⵎ>*.",
   "globalSearch-instructions-operator-hash": "`__operator_label_abbrev__<ⵉⵙⵎ|ⴰⴽⵍⵓ>` - ⴰⵙⴳⵣⵍ ⵏ `__operator_label__:<ⴰⴽⵍⵓ>` ⵏⵖ `__operator_label__:<ⵉⵙⵎ>`",

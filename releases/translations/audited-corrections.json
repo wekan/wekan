@@ -126299,5 +126299,12 @@
     "before": "Rechercher parmi les titres, descriptions et champs personnalisés des cartes/listes de ce tableau",
     "after": "ⵔⵣⵓ ⴳ ⵉⵣⵡⵉⵍⵏ ⵏ ⵜⴽⴰⵔⴹⵉⵡⵉⵏ/ⵜⵍⴳⴰⵎⵉⵏ, ⵉⵙⴳⵣⵍⵏ ⴷ ⵉⴳⵔⴰⵏ ⵉⵥⵍⵉⵏ ⴳ ⵜⴼⵍⵡⵉⵜ ⴰⴷ",
     "reason": "2026-09-14: Replace French search guidance with Standard Moroccan Tamazight. Native MediaWiki img-lang-default/pageinfo-default-sort attest By Default s uwnul, searchbutton Search rzu, pageinfo-display-title Title and native all component: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Archive noun retains separately inspected Archives du Maroc evidence; custom fields/description reuse local terms. Preserve default EXCLUSION of archived cards, ALL archived AND unarchived cards predicate, exact __predicate_all__, and search scope card/list TITLES, DESCRIPTIONS, CUSTOM FIELDS on THIS BOARD. Derived negative search passive, plural descriptions, full scope grammar and Archive-to-kanban adaptation remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-operator-swimlane",
+    "before": "`__operator_swimlane__:<titre>` - cartes dans les couloirs correspondant au *<titre>* spécifié",
+    "after": "`__operator_swimlane__:<title>` - ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⴳ ⵉⴱⵔⵉⴷⵏ ⵉⵎⵙⴰⵙⴰⵏ ⴷ ⵓⵣⵡⵍ ⵉⵜⵜⵓⴼⴽⴰⵏ *<title>*",
+    "reason": "2026-09-14: Replace French swimlane title search guidance. Native MediaWiki search-nonefound directly attests matching-with imsasan d; pageinfo-display-title supplies Title, recentchanges-noresult Given component: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve exact __operator_swimlane__ token, colon/code ticks, repeated <title> query metaparameter and emphasis. Cards are IN swimlanes matching SPECIFIED TITLE, not direct card-title matches. Swimlane-as-Path adaptation, specified-as-given and whole grammar remain LOW CONFIDENCE. Created/modified n-days-ago-or-less findings remain pending; CLDR zgh has no relativeTimePattern in inspected current source and MediaWiki no ago key, so neither proves full boundary wording."
   }
 ]
