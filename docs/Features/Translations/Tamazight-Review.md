@@ -2145,3 +2145,34 @@ locale meaning checks and actual source/template binding, exact ledger
 values/tokens/examples/order/newer-human preservation, unchanged reviews and
 completeness. No admin browser run claimed. Structural/script checks do not
 certify native fluency. No translation service or remote push.
+
+
+### 2026-09-14 — Distinct due reminder drafts
+
+Source commit `6171a92af`: act-almostdue, act-duenow and act-pastdue French
+replaced with Tamazight drafts retaining exact __timeValue__/__card__ tokens.
+Ledger 19,761; original corrected 15,682; pending 221 (zgh 114), restored four
+unchanged. models/cards.js routes positive, zero and negative day windows to
+almostdue, duenow and pastdue respectively; retain all three distinctions.
+
+Cached IRCAM General Dictionary p521 entry 9825 attests sskti with marked
+variant sskwti for reminding/helping remember. Entry 9826 shares unmarked
+sskti for fanning/kindling fire. Use the explicit marked reminder variant;
+do not incorrectly reject unmarked sskti, which is valid for reminding too.
+P59 entry 845 ads/uds approach; p721 entry 13549 zri pass. Existing deadline
+term reused. Relative clause, imperfect aspect and computing deadline
+collocation remain low-confidence; lexical/script tests do not certify them.
+
+Four suites pass: meaning-state distinction/token inventory checks, ledger
+exact values/order/examples/idempotency/newer-human preservation, unchanged
+reviews and completeness. A stricter negative check was removed because it
+incorrectly rejected a valid unmarked variant; marked-form check retained.
+No new browser run. Original queue reduction removes French findings, not
+all grammar uncertainties. No external service translation or remote push.
+
+Additional terminology searches: IRCAM p208 entry 3966 asadf is entrance/
+access, not itself proof of disability/software accessibility. Easy/ease
+entries and inaccessible shelter likewise do not attest that full concept;
+accessibility French/Arabic values remain open. Aromanian magenta searches
+returned Romanian-context pages, not Aromanian attestations; do not count
+those as proof or mark that pending finding resolved.

@@ -661,6 +661,16 @@ The browser assertion accepts whitespace between the regional flag and name.
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6171a92af">Replace French due reminders with Tamazight drafts</a>. Thanks to xet7.</summary>
+
+Preserve approaching, current and past deadline states and exact activity
+placeholders. Use IRCAM reminder and temporal roots. Four focused suites
+pass; complete aspect grammar and deadline compounds stay under native
+review. The full translation audit remains unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2ad05d681">Replace Arabic OS uptime label with a Tamazight draft</a>. Thanks to xet7.</summary>
 
 Describe elapsed time since operating-system start using IRCAM lexical
