@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,541 |
-| Restored pre-pull; awaiting validation | 3,603 |
-| Reviewed; retained unchanged | 629 |
+| Restored pre-pull; awaiting validation | 3,447 |
+| Reviewed; retained unchanged | 785 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -14,7 +14,7 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **18,136** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `cceae079c` — repaired Danish legal-notice adjective agreement and preserved the malloc allocation method in the heap diagnostic. Reviewed and retained 41 correct restored values unchanged. All **18,136** correction records pass structural verification; **308** original findings remain pending across **17** locales, including **173** Tamazight. The **3,603** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `cceae079c` — repaired Danish legal-notice adjective agreement and preserved the malloc allocation method in the heap diagnostic. Reviewed and retained 41 correct restored values unchanged. All **18,136** correction records pass structural verification; **308** original findings remain pending across **17** locales, including **173** Tamazight. The **3,447** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Latest syntax repair (2026-09-14, `d0c247094`, follow-up `cd563cce5`):** Veps filter help now
 preserves canonical comparison, escaping, quoted field/value and Boolean
@@ -185,10 +185,10 @@ checks this separately and keeps these values awaiting language validation.
 No translation values or completion counts changed.
 
 Restored Danish wording review (2026-09-14, latest `cceae079c`): reviewed
-455 values: 450 retained unchanged and five meanings repaired. Latest review
+611 values: 606 retained unchanged and five meanings repaired. Latest review
 preserves sort directions, creator roles, string-template tokens, spinner
-shapes and ticket states. Ambiguous export free remains open. Now 629 original
-findings are reviewed/retained and 3,603 restored values await validation.
+shapes and ticket states. Ambiguous export free remains open. Now 785 original
+findings are reviewed/retained and 3,447 restored values await validation.
 Translation work remains open while the requested wekansec21 security
 repairs are prioritized.
 
@@ -196,3 +196,9 @@ Latest restored-value review: **2026-09-14**, local commit `3eeef4905`.
 Retained 63 correct Danish controls and administrator labels, including valid
 shared Start/Stop/Support vocabulary, byte units and ISO week numbering.
 Uncertain free/Complete meanings remain open. Ledger checks pass.
+
+Restored Danish review follow-up: **2026-09-14**, local commits
+`944243917` and `ed9be5431`. Retained 156 correct storage, migration,
+monitoring, repository and account values. Danish restored validation now
+has four context-dependent labels left: free, Complete, Schedule and Days Old.
+Ledger tests pass; original pending queues and wider validation remain open.

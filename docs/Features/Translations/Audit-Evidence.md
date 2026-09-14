@@ -21207,3 +21207,14 @@ Added groups wording follows the existing add-teams terminology. Byte-size
 units, ISO week numbering, accessibility, lockout and job outcome distinctions
 are preserved. Free and Complete remain open pending source-context review.
 Unchanged-value ledger tests pass; browser rendering was not tested.
+
+
+### Restored Danish storage and monitoring review — 2026-09-14
+
+Local commits `944243917` and `ed9be5431` retain 156 values after direct
+review. Literal S3 endpoint/region examples, resource threshold units and
+bounds, interval frequencies and account identifier requirements remain
+unchanged. Correct obsolete migration strings remain in scope without
+claiming those migrations are active. Four context-dependent Danish labels
+remain: free, Complete, Schedule and Days Old. Unchanged-value ledger tests
+pass; browser rendering remains unverified.
