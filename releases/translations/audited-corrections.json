@@ -127048,5 +127048,12 @@
     "before": "Node-memoruzo: rezida aro (RSS)",
     "after": "Node-memoruzo: grando de la rezida aro (RSS)",
     "reason": "2026-09-14: Restore omitted size meaning in resident set size; the diagnostic measures the size, not just the resident set. Preserve RSS acronym."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts-lockout-failure-window",
+    "before": "Malsukcesa fenestro (sekundoj)",
+    "after": "Tempofenestro por malsukcesoj (sekundoj)",
+    "reason": "2026-09-14: Failure window is a time interval for counting failed attempts, not a failed window. Make the temporal and failure-counting relationship explicit; preserve seconds unit."
   }
 ]

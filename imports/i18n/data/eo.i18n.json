@@ -2138,7 +2138,7 @@
   "accounts-lockout-unknown-users": "Agordoj por nekonataj uzantoj (neekzistanta uzantnomo)",
   "accounts-lockout-failures-before": "Malsukcesoj antaŭ ŝloso",
   "accounts-lockout-period": "Ŝlosa periodo (sekundoj)",
-  "accounts-lockout-failure-window": "Malsukcesa fenestro (sekundoj)",
+  "accounts-lockout-failure-window": "Tempofenestro por malsukcesoj (sekundoj)",
   "accounts-lockout-settings-updated": "Agordoj de protekto kontraŭ krudforta atako estas ĝisdatigitaj",
   "accounts-lockout-locked-users": "Ŝlositaj uzantoj",
   "accounts-lockout-locked-users-info": "Uzantoj nun ŝlositaj pro tro multaj malsukcesaj ensalutprovoj",

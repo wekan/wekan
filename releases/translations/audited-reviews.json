@@ -11710,5 +11710,179 @@
     "key": "settingsTranslationPopup-title",
     "value": "Ĉu forigi ĉi tiun propran tradukĉenon?",
     "reason": "2026-09-14: Direct semantic review confirms attachment storage moves, upload progress, authentication prompts, byte filesize limits, invalid-filename cancellation, PDF download fallback and custom-translation deletion warnings. GridFS/S3/PDF identifiers, byte units, cancellation condition and no-undo meaning preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "show-subtasks-field",
+    "value": "Montri kampon de subtaskoj",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "convert-to-markdown",
+    "value": "Konverti al markdown",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "collapse",
+    "value": "Faldi",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "uncollapse",
+    "value": "Malfaldi",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "hideCheckedChecklistItems",
+    "value": "Kaŝi markitajn kontrollistajn erojn",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "support",
+    "value": "Subteno",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "supportPopup-title",
+    "value": "Subteno",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "support-page-enabled",
+    "value": "Subtena paĝo ŝaltita",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "support-info-not-added-yet",
+    "value": "Subtenaj informoj ankoraŭ ne estas aldonitaj",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "support-info-only-for-logged-in-users",
+    "value": "Subtenaj informoj estas nur por ensalutintaj uzantoj.",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "support-title",
+    "value": "Subtena titolo",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "support-content",
+    "value": "Subtena enhavo",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "accessibility",
+    "value": "Alirebleco",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "accessibility-page-enabled",
+    "value": "Alirebleca paĝo ŝaltita",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "accessibility-info-not-added-yet",
+    "value": "Alireblecaj informoj ankoraŭ ne estas aldonitaj",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "accessibility-title",
+    "value": "Alirebleca titolo",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "accessibility-content",
+    "value": "Alirebleca enhavo",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts-lockout-failures-before",
+    "value": "Malsukcesoj antaŭ ŝloso",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts-lockout-period",
+    "value": "Ŝlosa periodo (sekundoj)",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts-lockout-locked-users",
+    "value": "Ŝlositaj uzantoj",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts-lockout-no-locked-users",
+    "value": "Nun estas neniu ŝlosita uzanto",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts-lockout-failed-attempts",
+    "value": "Malsukcesaj provoj",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts-lockout-remaining-time",
+    "value": "Restanta tempo",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts-lockout-user-unlocked",
+    "value": "Uzanto estas sukcese malŝlosita",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts-lockout-show-locked-users",
+    "value": "Montri nur ŝlositajn uzantojn",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "accounts-lockout-status",
+    "value": "Stato",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "admin-people-filter-show",
+    "value": "Montri:",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "admin-people-filter-active",
+    "value": "Aktiva",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "admin-people-filter-inactive",
+    "value": "Neaktiva",
+    "reason": "2026-09-14: Direct semantic review confirms subtask/collapse controls, support/accessibility pages and account-lockout/active-user labels. Login-only restriction, not-yet-added negation, only-locked filter and seconds units preserved."
   }
 ]
