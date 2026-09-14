@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,177 |
+| Corrected | 15,180 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 667 |
+| Pending review or repair | 664 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,400** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,403** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `497f58c89` — replaced French prose in all six bulk-card JSON sample values. Preserve `title` and `description` property names, three-card ordering and first/second/last identification. Native MediaWiki supports title/description and first/last components; complete card genitives and derived feminine first-card agreement remain **low confidence** pending fluent review. All **17,400** correction/rendering checks pass, including JSON parsing and property-name checks. One original finding is repaired: **667** originals remain pending across **17** locales, including **524** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `aeb66024d` — replaced French in signed-in-user permission and required board-member/board-admin errors. Preserve logged-in versus anonymous access and member versus board-administrator roles. Native MediaWiki supports permission, requirement, action and role components; complete relative/conjugated clauses, singular role derivations and board genitives remain **low confidence** pending fluent review. All **17,403** correction/rendering checks pass. Three original findings are repaired: **664** originals remain pending across **17** locales, including **521** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Checklist reference review (2026-09-14):** the candidate [computing lexicon](https://www.fichier-pdf.fr/2014/08/31/lexique-informatique/) labels `asenqed` (check/control) **KBL**. Its indexed entry does not establish Standard Moroccan checklist usage; the full file could not be fetched. Existing schwa-heavy checklist strings and full confirmation wording remain pending terminology and dialect review. No blanket retention or replacement is justified by this reference.
 
