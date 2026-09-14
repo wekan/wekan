@@ -127097,5 +127097,33 @@
     "before": "No teu taboleiro de Trello, vai a 'Menú', despois a 'Máis', 'Imprimir e exportar', 'Exportar JSON', e copia o texto resultante.",
     "after": "No teu taboleiro de Trello, vai a 'Menu', despois a 'More', 'Print and Export', 'Export JSON', e copia o texto resultante.",
     "reason": "2026-09-14: Restore literal source Trello navigation labels Menu/More/Print and Export/Export JSON, matching the existing audited import-instruction policy. Retain Galician instruction prose."
+  },
+  {
+    "locale": "gl",
+    "key": "r-when-a-due-date-changed",
+    "before": "Data limite: a data cambiou",
+    "after": "Cando se establece ou cambia a data de vencemento",
+    "reason": "Replace Portuguese wording and restore the English distinction between setting and changing the date in the Galician automation trigger."
+  },
+  {
+    "locale": "gl",
+    "key": "r-when-a-start-date-changed",
+    "before": "Data de início: a data cambiou",
+    "after": "Cando se establece ou cambia a data de inicio",
+    "reason": "Replace Portuguese wording and restore the English distinction between setting and changing the date in the Galician automation trigger."
+  },
+  {
+    "locale": "gl",
+    "key": "r-when-a-end-date-changed",
+    "before": "Fim: a data cambiou",
+    "after": "Cando se establece ou cambia a data de fin",
+    "reason": "Replace Portuguese wording and restore the English distinction between setting and changing the date in the Galician automation trigger."
+  },
+  {
+    "locale": "gl",
+    "key": "r-when-a-received-date-changed",
+    "before": "Recebido: a data cambiou",
+    "after": "Cando se establece ou cambia a data de recepción",
+    "reason": "Replace Portuguese wording and restore the English distinction between setting and changing the date in the Galician automation trigger."
   }
 ]

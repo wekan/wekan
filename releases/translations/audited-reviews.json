@@ -14632,5 +14632,239 @@
     "key": "r-move-all-cards",
     "value": "Mover todas as tarxetas da lista",
     "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
+  },
+  {
+    "locale": "gl",
+    "key": "r-when-a-card",
+    "value": "Cando unha tarxeta",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-the-board",
+    "value": "o taboleiro",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-a-card",
+    "value": "unha tarxeta",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-when-a-checklist",
+    "value": "Cando unha lista de verificación é",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-when-the-checklist",
+    "value": "Cando a lista de verificación",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-when-a-item",
+    "value": "Cando un elemento da lista de verificación é",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-when-the-item",
+    "value": "Cando o elemento da lista de verificación",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-move-card-to",
+    "value": "Mover a tarxeta a",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-card",
+    "value": "tarxeta",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-remove",
+    "value": "Quitar",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-remove-all",
+    "value": "Quitar todos os membros da tarxeta",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-checklist",
+    "value": "lista de verificación",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-items-check",
+    "value": "elementos da lista de verificación",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-of-checklist",
+    "value": "da lista de verificación",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-d-move-to-top-gen",
+    "value": "Mover a tarxeta ao principio da súa lista",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-d-move-to-top-spec",
+    "value": "Mover a tarxeta ao principio da lista",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-d-move-to-bottom-gen",
+    "value": "Mover a tarxeta ao final da súa lista",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-d-move-to-bottom-spec",
+    "value": "Mover a tarxeta ao final da lista",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-d-archive",
+    "value": "Mover a tarxeta ao Arquivo",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-d-unarchive",
+    "value": "Restaurar a tarxeta do Arquivo",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-d-add-label",
+    "value": "Engadir etiqueta",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-d-remove-label",
+    "value": "Quitar etiqueta",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-create-card",
+    "value": "Crear nova tarxeta",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-d-add-member",
+    "value": "Engadir membro",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-d-remove-member",
+    "value": "Quitar membro",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-d-remove-all-member",
+    "value": "Quitar todos os membros",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-d-check-of-list",
+    "value": "da lista de verificación",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-d-add-checklist",
+    "value": "Engadir lista de verificación",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-d-remove-checklist",
+    "value": "Quitar lista de verificación",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-add-checklist",
+    "value": "Engadir lista de verificación",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-add-swimlane",
+    "value": "Engadir carril",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-checklist-note",
+    "value": "Nota: os elementos da lista de verificación teñen que escribirse como valores separados por comas.",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-when-a-card-is-moved",
+    "value": "Cando unha tarxeta se move a outra lista",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-remove-value-from",
+    "value": "Quitar o valor de",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "r-link-card",
+    "value": "Ligar a tarxeta a",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "add-custom-html-after-body-start",
+    "value": "Engadir HTML personalizado despois do inicio de <body>",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "add-custom-html-before-body-end",
+    "value": "Engadir HTML personalizado antes do fin de </body>",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "duplicate-board",
+    "value": "Duplicar taboleiro",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
+  },
+  {
+    "locale": "gl",
+    "key": "duplicate-board-confirm",
+    "value": "Estás seguro de que queres duplicar este taboleiro?",
+    "reason": "Direct review of Galician automation conditions and actions preserves checklist/item grammar, every-member removal, own-list versus named-list positioning, archive/restore distinction, comma-separated checklist input and literal HTML body tags. Attachment condition is excluded because shared feminine participles require context-specific grammar repair."
   }
 ]

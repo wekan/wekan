@@ -2946,3 +2946,15 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   require('node:assert/strict').match(da.Node_heap_malloced_memory, /hukommelse allokeret med malloc$/);
   require('node:assert/strict').notEqual(da.Node_heap_malloced_memory, 'Node heap: allokeret hukommelse');
 }
+
+// Galician automation date triggers must cover both first setting and changes.
+{
+  const gl = JSON.parse(require('node:fs').readFileSync(require('node:path').join(__dirname, '../imports/i18n/data/gl.i18n.json'), 'utf8'));
+  const assert = require('node:assert/strict');
+  const kinds = { due: 'vencemento', start: 'inicio', end: 'fin', received: 'recepción' };
+  for (const [kind, noun] of Object.entries(kinds)) {
+    const value = gl[`r-when-a-${kind}-date-changed`];
+    assert.equal(value, `Cando se establece ou cambia a data de ${noun}`);
+    assert.doesNotMatch(value, /início|Fim|Recebido|limite/);
+  }
+}
