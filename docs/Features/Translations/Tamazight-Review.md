@@ -2920,3 +2920,26 @@ suitable direct entry in the inspected cached lexical pages; this is not
 proof that no native computing term exists. Both accessibility findings
 remain open rather than being replaced with a physical access/permission
 term. No remote writes.
+
+
+## Last administrator warning — 2026-09-15
+
+Local commit `14af25915` replaces Arabic last-admin-desc, which incorrectly
+explained the refusal as requiring administrator permissions. English
+requires at least one administrator to remain. Preserve inability to change
+roles and the minimum as one administrator or more. sidebar.jade displays
+the warning under isLastAdmin, alongside disabled role-change controls.
+
+Existing roles/admin vocabulary is reused. IRCAM cached dictionary page
+257 entry 4969 gives acku (because); the similar-looking next entry is a
+sharp object, not the conjunction. Source:
+https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+**Low confidence:** role terminology, obligation construction, bound admin
+form and minimum-count paraphrase remain under native contextual review.
+Component vocabulary does not attest the complete warning.
+
+Four focused suites pass: role-change negation, one-or-more administrator
+scope, negative Arabic checks, actual last-admin template wiring,
+placeholders, ledger, retained reviews and completeness. No live UI test
+ran. Ledger 19,833; original corrected 15,723, pending 180 (zgh 85),
+restored 4 unchanged. Broader review remains open. No remote writes.

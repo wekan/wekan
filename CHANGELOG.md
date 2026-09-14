@@ -646,6 +646,7 @@ deletion and loss of associated actions. Label deletion text preserves
 removal from every card and destruction of label history. Keyboard shortcut
 messages retain their enabled/disabled state and opposite click action.
 PDF preview text retains the download alternative when preview is unavailable.
+The last-admin warning explains the need to retain an administrator.
 
 This release includes the following features and fixes:
 
@@ -712,6 +713,17 @@ Replace Arabic warning, preserving device inability to preview PDF and
 trying a download instead. Four focused suites pass for warning meaning,
 negative Arabic checks and translation structure. Full contextual grammar
 remains under native review. Dated audit records 181 pending findings.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/14af25915">Repair Tamazight last administrator warning</a>. Thanks to xet7.</summary>
+
+Replace Arabic's incorrect permission explanation with the requirement to
+retain at least one administrator. Four focused suites pass for role-change
+negation, minimum administrator count, negative Arabic checks, template
+wiring and translation structure. Full contextual grammar remains under
+native review. Dated audit records 180 pending findings.
 
 </details>
 
