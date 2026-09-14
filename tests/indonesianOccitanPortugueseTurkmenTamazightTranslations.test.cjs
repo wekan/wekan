@@ -266,3 +266,7 @@ assert.equal((locales.zgh['activity-customfield-created'].match(/%s/g) || []).le
 // Exceeded WIP is greater than the user-defined limit, not equal to it.
 assert.match(locales.zgh['wipLimitErrorPopup-dialog-pt1'], /ⴰⵎⴹⴰⵏ.*ⵜⵡⵓⵔⵉⵡⵉⵏ.*ⵜⵍⴳⴰⵎⵜ ⴰⴷ.*ⵓⴳⴳⴰⵔ ⵏ ⵓⵡⵜⵜⵓ WIP.*ⵜⵙⵏⵎⵍⴷ/);
 assert.doesNotMatch(locales.zgh['wipLimitErrorPopup-dialog-pt1'], /Le nombre|supérieur|définie/);
+
+// WIP value setting is an imperative maximum, not the exceedance warning.
+assert.match(locales.zgh['set-wip-limit-value'], /^ⵙⵏⵎⵍ ⴰⵡⵜⵜⵓ.*ⵡⵓⵣⵣⵓⵔ.*ⵓⵎⴹⴰⵏ.*ⵜⵡⵓⵔⵉⵡⵉⵏ.*ⵜⵍⴳⴰⵎⵜ ⴰⴷ$/);
+assert.doesNotMatch(locales.zgh['set-wip-limit-value'], /Définit|maximale|ⵓⴳⴳⴰⵔ/);
