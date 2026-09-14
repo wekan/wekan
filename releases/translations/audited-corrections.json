@@ -126467,5 +126467,12 @@
     "before": "Dans votre tableau, allez dans 'Menu', puis 'Exporter un tableau', et copier le texte du fichier téléchargé.",
     "after": "ⴳ ⵜⴼⵍⵡⵉⵜ ⵏⵏⴽ, ⴷⴷⵓ ⵖⵔ 'ⴰⵎⵓⵖ', ⵉⵍⵎⵎⴰ 'ⵙⵙⵓⴼⵖ ⵜⴰⴼⵍⵡⵉⵜ', ⴷ ⵙⵙⵏⵖⵍ ⴰⴹⵕⵉⵚ ⵏ ⵓⴼⴰⵢⵍⵓ ⵉⵜⵜⵓⵢⴰⴳⵎⵏ.",
     "reason": "2026-09-14: Repair Arabic Menu, Latin-script export label and French WeKan import instruction consistently. Native MediaWiki rcfilters-search-placeholder Menu bound umugh, export Export ssufgh, filecopy-error Copy noun uss nghl, download agm and Go ddu support components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Retain native local File/Text and Board terms. Preserve YOUR BOARD, Menu THEN Export Board and COPY TEXT OF DOWNLOADED FILE; quoted labels match actual locale controls. Free-state Menu, Copy imperative derived from noun, downloaded relative passive and full sequence remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "list-archive-cards-pop",
+    "before": "Cela supprimera du tableau toutes les cartes de cette liste. Pour voir les cartes archivées et les renvoyer vers le tableau, cliquez sur « Menu » puis « Archives ».",
+    "after": "ⴰⵢⴰ ⵔⴰⴷ ⵉⴽⴽⵙ ⴰⴽⴽⵯ ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⵏ ⵜⵍⴳⴰⵎⵜ ⴰⴷ ⵙⴳ ⵜⴼⵍⵡⵉⵜ. ⴰⴼⴰⴷ ⴰⴷ ⵜⵥⵕⴷ ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⴳ ⴰⵔⵛⵉⴼ ⴷ ⴰⴷ ⵜⵔⴰⵔⴷ ⵜⵏⵜ ⵖⵔ ⵜⴼⵍⵡⵉⵜ, ⵙⵙⵉⵜ ⵖⴼ « ⴰⵎⵓⵖ » > « ⴰⵔⵛⵉⴼ ».",
+    "reason": "2026-09-14: Replace French list-card archive instructions. Native MediaWiki Remove kks, View zr and Restore/Return rar d support components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Archive noun institutional evidence retained, Menu matches actual local control. Preserve removal of ALL CARDS OF THIS LIST FROM BOARD, viewing cards IN ARCHIVE and bringing THEM BACK TO BOARD via Menu > Archive; this is reversible archiving rather than permanent card deletion. Future actor, feminine plural object, full purpose/return coordination and click wording remain LOW CONFIDENCE."
   }
 ]
