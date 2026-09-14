@@ -129197,5 +129197,26 @@
     "before": "Reçue: kemmet eo bet an deiziad",
     "after": "Pa vez lakaet pe kemmet an deiziad degemer",
     "reason": "Replace mixed French/Breton trigger with complete Breton when/set-or-changed wording; retain exact date-field distinction. Full native clause/browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "completed",
+    "before": "Terminé",
+    "after": "Echu",
+    "reason": "Replace French completion-state prose with existing Breton pomodoro/checklist activity terminology; preserve completed versus made-incomplete state. Shared trigger clause grammar and browser rendering remain open."
+  },
+  {
+    "locale": "br",
+    "key": "r-completed",
+    "before": "Terminé",
+    "after": "Echu",
+    "reason": "Replace French completion-state prose with existing Breton pomodoro/checklist activity terminology; preserve completed versus made-incomplete state. Shared trigger clause grammar and browser rendering remain open."
+  },
+  {
+    "locale": "br",
+    "key": "r-made-incomplete",
+    "before": "Rendu incomplet",
+    "after": "Lakaet da vezañ diechu",
+    "reason": "Replace French completion-state prose with existing Breton pomodoro/checklist activity terminology; preserve completed versus made-incomplete state. Shared trigger clause grammar and browser rendering remain open."
   }
 ]
