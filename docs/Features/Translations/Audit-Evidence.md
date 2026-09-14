@@ -23432,3 +23432,19 @@ Correction ledger: 18,565. Original queue remains 15,601 corrected,
 These nine repairs are outside the original flagged queue. Remaining
 restored, uncertain, unflagged and low-confidence reviews remain open.
 No external service, dependency, subagent or push was used.
+
+### 2026-09-14 — Breton settings and diagnostic labels (619eeb1c7)
+
+Three remaining French values were replaced: email-address → Chomlec’h postel,
+webhook-title → Anv ar webhook, server-error → Fazi ar servijer.
+[Native MediaWiki Breton source](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/br.json)
+uses chomlec'h postel in email preferences and servijerioù for overloaded
+servers; existing local Fazi and Anv supply error/name. These compound labels
+are adapted; exact full-phrase attestation is not claimed. Webhook stays a
+literal technical term. sidebar.jade renders email member-search and webhook
+name placeholders; globalSearch.jade and client error handlers use server-error.
+Four offline suites pass: correction and unchanged-review ledgers, focused
+Breton coverage and all-locale completeness. Ledger: 18,568; original counts
+remain 15,601 corrected, 19 restored, 4,162 retained and 299 pending.
+Full-name/display-name grammar, other uncertain findings and live browser
+validation remain open. No external translation service or remote push.

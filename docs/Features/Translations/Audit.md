@@ -20,17 +20,17 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,565** exact before/after values, including unflagged repairs.
+contain **18,568** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `059d1fe4a` —
-nine French-seeded Breton board/calendar/list/table, collapse/expand and
-comment labels repaired. Existing nouns and native calendar/folding terms
-are reused; opposite actions and proper Gantt/vendor names are preserved.
-All **18,565** corrections and **4,162** unchanged reviews pass; focused
-label regression and locale completeness pass. Full contextual phrase and
-live browser execution remain open. Previous repairs remain verified.
+Latest translation fix: **2026-09-14**, local commit `619eeb1c7` —
+three French-seeded Breton email-address, webhook-name and server-error
+labels repaired. Native software evidence supports email/server nouns;
+webhook stays literal technical terminology. All **18,568** corrections and
+**4,162** unchanged reviews pass, alongside focused locale and completeness
+checks. These unflagged repairs do not reduce the original pending queue.
+Full contextual phrase and live browser verification remain open.
 Latest unchanged review: **2026-09-14**, commit `824dd005e` —
 Danish Dage gammel retained with native dictionary age-construction evidence;
 the Swedish pulled replacement remains rejected. No current application use

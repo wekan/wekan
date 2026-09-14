@@ -680,6 +680,16 @@ The empty wrongly placed Git directory was removed locally.
 
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/619eeb1c7">Repair Breton email, webhook and server labels</a>. Thanks to xet7.</summary>
+
+French-seeded email-address, webhook-name and server-error labels now use
+Breton wording with native software terminology. Exact correction and
+unchanged-value checks, placeholder preservation and locale completeness
+pass. The dated audit records evidence and remaining contextual/browser work.
+
+</details>
+
 **Languages updated:** Acehnese, Afrikaans, Akan, Albanian, Amharic, Arabic, Aragonese, Armenian, Aromanian, Assamese, Asturian, Aymara, Azerbaijani, Bambara, Bangla, Bashkir, Basque, Belarusian, Bhojpuri, Bislama, Bosnian, Breton, Bulgarian, Buriat, Burmese, Cantonese, Catalan, Central Kurdish, Cherokee, Chinese, Chuvash, Cornish, Corsican, Croatian, Czech, Danish, Dutch, Dzongkha, English, Esperanto, Estonian, Ewe, Faroese, Fijian, Filipino, Finnish, Flemish, French, Friulian, Fula, Galician, Ganda, Georgian, German, Greek, Guarani, Gujarati, Haitian Creole, Hausa, Hawaiian, Hebrew, Hindi, Hungarian, Icelandic, Igbo, Indonesian, Inuktitut, Irish, Italian, Japanese, Javanese, Kalaallisut, Kannada, Kashmiri, Kashubian, Kazakh, Khmer, Kinyarwanda, Klingon, Konkani, Korean, Kurdish, Kyrgyz, Ladin, Latin, Latvian, Lithuanian, Luxembourgish, Macedonian, Maithili, Malagasy, Malay, Malayalam, Maltese, Manx, Marathi, Mongolian, Moroccan Arabic, Māori, Nahuatl, Neapolitan, Nepali, North Ndebele, Northern Sami, Northern Sotho, Norwegian Bokmål, Nyanja, Occitan, Odia, Oromo, Papiamento, Pashto, Persian, Polish, Portuguese, Punjabi, Quechua, Romanian, Romansh, Rundi, Russian, Samoan, Sardinian, Scottish Gaelic, Serbian, Shona, Sicilian, Silesian, Sindhi, Sinhala, Slovak, Slovenian, Somali, Southern Sotho, Spanish, Standard Moroccan Tamazight, Swahili, Swati, Swedish, Tajik, Tamil, Tatar, Telugu, Thai, Tibetan, Tigre, Tigrinya, Tok Pisin, Tongan, Tsonga, Tswana, Turkish, Turkmen, Ukrainian, Upper Sorbian, Urdu, Uyghur, Uzbek, Valencian, Venda, Veps, Vietnamese, Volapük, Walloon, Waray, Welsh, Western Frisian, Wolaytta, Wolof, Wu Chinese, Xhosa, Yakut, Yiddish, Yoruba, Zulu
 
 <details>
