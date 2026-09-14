@@ -24934,5 +24934,11 @@
     "key": "no-label",
     "value": "Hana label",
     "reason": "Correct Acehnese absence negation Hana with UI technical loan label. Primary Balai Bahasa Aceh dictionary T page 2 uses hana in a negated example. Native terminology and browser review remain open."
+  },
+  {
+    "locale": "br",
+    "key": "no-assignee",
+    "value": "Den ebet deverket",
+    "reason": "Correct Breton Den ebet deverket means no assigned person. Preder JEDOII17.pdf p22/p46 lists deverkañ as attribuer; existing assigned-only labels use deverket consistently. Retain correct absence/person wording; lexical review does not verify live UI."
   }
 ]

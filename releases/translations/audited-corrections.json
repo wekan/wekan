@@ -127440,5 +127440,26 @@
     "before": "magenta",
     "after": "fùcsia",
     "reason": "Reviewed English-identical magenta label replaced with Sardinian-attested fùcsia from La Nuova Sardegna native-language colour article 2018-11-11. WeKan contrastColor maps magenta to #ff00ff, and W3C CSS Color 3 maps both fuchsia and magenta to #ff00ff, preserving the UI colour identity. Does not claim magenta is impossible as a Sardinian loan; uses an evidenced native label. Browser rendering not verified."
+  },
+  {
+    "locale": "br",
+    "key": "filter-no-assignee",
+    "before": "Pas de personne assignée",
+    "after": "Den ebet deverket",
+    "reason": "Unflagged French assigned-person label replaced with Breton den/deverket, consistent with validated no-assignee and existing assigned-only vocabulary; preserve absent-person distinction for filter."
+  },
+  {
+    "locale": "br",
+    "key": "assignee",
+    "before": "Personne assignée",
+    "after": "Den deverket",
+    "reason": "Unflagged French assigned-person label replaced with Breton den/deverket, consistent with validated no-assignee and existing assigned-only vocabulary; preserve absent-person distinction for filter."
+  },
+  {
+    "locale": "br",
+    "key": "cardAssigneePopup-title",
+    "before": "Personne assignée",
+    "after": "Den deverket",
+    "reason": "Unflagged French assigned-person label replaced with Breton den/deverket, consistent with validated no-assignee and existing assigned-only vocabulary; preserve absent-person distinction for filter."
   }
 ]
