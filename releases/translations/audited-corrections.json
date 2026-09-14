@@ -127020,5 +127020,19 @@
     "before": "Ĉesi rigardi",
     "after": "Ĉesi observi",
     "reason": "Unwatch stops ongoing observation/subscription, not merely looking. Align with existing observado and repaired watch controls."
+  },
+  {
+    "locale": "eo",
+    "key": "remove-member-pop",
+    "before": "Ĉu forigi __name__ (__username__) el __boardTitle__? La membro estos forigita el ĉiuj kartoj en ĉi tiu tabulo. Ili ricevos sciigon.",
+    "after": "Ĉu forigi __name__ (__username__) el __boardTitle__? La membro estos forigita el ĉiuj kartoj en ĉi tiu tabulo. La membro ricevos sciigon.",
+    "reason": "2026-09-14: English singular they refers to the removed member; repeat La membro instead of plural Ili, preserving all placeholders."
+  },
+  {
+    "locale": "eo",
+    "key": "act-addSubtask",
+    "before": "aldonita subtaskon __subtask__ al karto __card__ en la listo __list__ en la naĝotubo __swimlane__ en la tabulo __board__",
+    "after": "aldonis subtaskon __subtask__ al karto __card__ en la listo __list__ en la naĝlinio __swimlane__ en la tabulo __board__",
+    "reason": "2026-09-14: Activity requires finite past aldonis, not passive participle aldonita; replace erroneous naĝotubo with established locale swimlane term naĝlinio."
   }
 ]

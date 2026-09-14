@@ -9640,5 +9640,89 @@
     "key": "delete-all-notifications-confirm",
     "value": "Ĉu vi certas, ke vi volas forigi ĉiujn sciigojn? Ĉi tiu ago ne estas malfarebla.",
     "reason": "Direct Esperanto review confirms webhook direction/disable controls, runtime version/storage labels, time units, field sums, private-only board policy, date endpoints, assignment/request attribution and notification deletion. Preserve sum rather than count, top-of-list placement, only-private restriction, received versus end dates and explicit cannot-undo warning. Product/Webhook/Oplog names are intentional technical terms."
+  },
+  {
+    "locale": "eo",
+    "key": "delete-duplicate-lists",
+    "value": "Forigi duoblajn listojn",
+    "reason": "2026-09-14: Direct semantic review against English: correct Esperanto deletion, queue, description, custom-field assignment or rule/filter action label; interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "delete-duplicate-lists-confirm",
+    "value": "Ĉu vi certas? Ĉi tio forigos ĉiujn duoblajn listojn, kiuj havas la saman nomon kaj enhavas neniujn kartojn.",
+    "reason": "2026-09-14: Direct semantic review against English: correct Esperanto deletion, queue, description, custom-field assignment or rule/filter action label; interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "queue",
+    "value": "Vico",
+    "reason": "2026-09-14: Direct semantic review against English: correct Esperanto deletion, queue, description, custom-field assignment or rule/filter action label; interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "description-on-minicard",
+    "value": "Priskribo sur minikarto",
+    "reason": "2026-09-14: Direct semantic review against English: correct Esperanto deletion, queue, description, custom-field assignment or rule/filter action label; interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "activity-set-customfield",
+    "value": "agordis propran kampon '%s' al '%s' en %s",
+    "reason": "2026-09-14: Direct semantic review against English: correct Esperanto deletion, queue, description, custom-field assignment or rule/filter action label; interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "r-view-rule",
+    "value": "Vidi regulon",
+    "reason": "2026-09-14: Direct semantic review against English: correct Esperanto deletion, queue, description, custom-field assignment or rule/filter action label; interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "r-new-rule-name",
+    "value": "Titolo de nova regulo",
+    "reason": "2026-09-14: Direct semantic review against English: correct Esperanto deletion, queue, description, custom-field assignment or rule/filter action label; interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "r-no-rules",
+    "value": "Neniuj reguloj",
+    "reason": "2026-09-14: Direct semantic review against English: correct Esperanto deletion, queue, description, custom-field assignment or rule/filter action label; interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "r-trigger",
+    "value": "Ekigilo",
+    "reason": "2026-09-14: Direct semantic review against English: correct Esperanto deletion, queue, description, custom-field assignment or rule/filter action label; interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "r-action",
+    "value": "Ago",
+    "reason": "2026-09-14: Direct semantic review against English: correct Esperanto deletion, queue, description, custom-field assignment or rule/filter action label; interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "r-is-moved",
+    "value": "estas movita",
+    "reason": "2026-09-14: Direct semantic review against English: correct Esperanto deletion, queue, description, custom-field assignment or rule/filter action label; interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "set-filter",
+    "value": "Agordi filtrilon",
+    "reason": "2026-09-14: Direct semantic review against English: correct Esperanto deletion, queue, description, custom-field assignment or rule/filter action label; interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "r-moved-to",
+    "value": "Movita al",
+    "reason": "2026-09-14: Direct semantic review against English: correct Esperanto deletion, queue, description, custom-field assignment or rule/filter action label; interpolation preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "r-moved-from",
+    "value": "Movita el",
+    "reason": "2026-09-14: Direct semantic review against English: correct Esperanto deletion, queue, description, custom-field assignment or rule/filter action label; interpolation preserved."
   }
 ]
