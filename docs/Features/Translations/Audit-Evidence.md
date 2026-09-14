@@ -22563,3 +22563,10 @@ Retained 31 background, support/accessibility, failure/confirmation, attachment,
 migration status, S3, duration/estimated-time and recurrence labels. Connection
 outcomes and interval frequencies remain intact. All 4,039 reviews pass.
 Fourteen Valencian restored values remain excluded for deeper contextual review.
+
+**2026-09-14 — Thai restored review (`9111dcfbe`).**
+
+Retained 50 interface/unit/search/product values; quarter retains three-month
+meaning, removal differs from deletion, and Azure/Google descriptions are
+product names. Shared r-is identity copula excluded for passive phrase review.
+All 4,089 review records pass. Broader Thai grammar/browser review remains open.

@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,579 corrected, 155 restored pre-pull values awaiting
-validation, 4,039 reviewed and retained, and 308 pending review or repair.
+findings: 15,579 corrected, 105 restored pre-pull values awaiting
+validation, 4,089 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,173 exact before/after values,
 Global completeness verification also identifies Veps `server` (currently
 English-identical “Server”) for terminology review; it is not accepted yet.
@@ -695,6 +695,15 @@ color/search terminology and wider language/browser review remain open.
 Retained 31 correct accessibility/storage, connection and scheduled-interval
 labels. Connection outcomes and interval frequencies remain intact. Exact
 review checks pass; fourteen restored Valencian findings still need review.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9111dcfbe">Validate Thai interface and search wording</a>. Thanks to xet7.</summary>
+
+Retained 50 correct labels, time units, search vocabulary and storage product
+names. Exact review checks pass. Shared passive trigger composition and broader
+Thai grammar/browser validation remain open; no translation values changed.
 
 </details>
 
