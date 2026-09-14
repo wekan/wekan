@@ -18604,5 +18604,185 @@
     "key": "custom-assetlinks-content",
     "value": "Contido personalizado de assetlinks.json (JSON)",
     "reason": "Direct Galician review preserves rule email recipient/subject/message, all-versus-one checklist check/uncheck, swimlane scope and empty-field wildcard meaning. Start/due/received and current date/time stay distinct. Authentication method/type and custom HTML head/meta/link tags, web manifest JSON and literal assetlinks.json names retain technical meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "layout",
+    "value": "Deseño",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "hide-logo",
+    "value": "Agochar o logotipo",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "error-undefined",
+    "value": "Algo saíu mal",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "error-ldap-login",
+    "value": "Produciuse un erro ao tentar iniciar sesión",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "display-authentication-method",
+    "value": "Mostrar o método de autenticación",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "oidc-button-text",
+    "value": "Personalizar o texto do botón OIDC",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "default-authentication-method",
+    "value": "Método de autenticación predeterminado",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "org-number",
+    "value": "O número de organizacións é: ",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "team-number",
+    "value": "O número de equipos é: ",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "people-number",
+    "value": "O número de persoas é: ",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "swimlaneDeletePopup-title",
+    "value": "Eliminar o carril?",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "restore-all",
+    "value": "Restaurar todo",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "delete-all",
+    "value": "Eliminar todo",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "loading",
+    "value": "Cargando, agarda por favor.",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "previous_as",
+    "value": "a última vez foi",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "act-a-dueAt",
+    "value": "modificou a data de vencemento a \nCando: __timeValue__\nOnde: __card__\n o vencemento anterior era __timeOldValue__",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "act-a-endAt",
+    "value": "modificou a data de fin a __timeValue__ desde (__timeOldValue__)",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "act-a-startAt",
+    "value": "modificou a data de inicio a __timeValue__ desde (__timeOldValue__)",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "act-a-receivedAt",
+    "value": "modificou a data de recepción a __timeValue__ desde (__timeOldValue__)",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "a-dueAt",
+    "value": "modificou a data de vencemento a",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "a-endAt",
+    "value": "modificou a data de fin a",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "a-startAt",
+    "value": "modificou a data de inicio a",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "a-receivedAt",
+    "value": "modificou a data de recepción a",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "above-selected-swimlane",
+    "value": "Enriba do carril seleccionado",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "below-selected-swimlane",
+    "value": "Debaixo do carril seleccionado",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "left-of-list",
+    "value": "Á esquerda da lista seleccionada",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "right-of-list",
+    "value": "Á dereita da lista seleccionada",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "almostdue",
+    "value": "a data de vencemento actual %s está a achegarse",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "pastdue",
+    "value": "a data de vencemento actual %s xa pasou",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
+  },
+  {
+    "locale": "gl",
+    "key": "duenow",
+    "value": "a data de vencemento actual %s é hoxe",
+    "reason": "Direct Galician review retains authentication display/default and OIDC button settings, login failure, counts, all-item restore/delete and loading. Date activity messages preserve new/old values and received/start/end/due distinctions with exact tokens and line breaks. Above/below swimlane and left/right list placement are correct; approaching/past/today deadlines remain distinct."
   }
 ]
