@@ -14182,5 +14182,155 @@
     "key": "public-desc",
     "value": "Este taboleiro é público. É visible para calquera que teña a ligazón e aparecerá en buscadores como Google. Só as persoas engadidas ao taboleiro poden editalo.",
     "reason": "2026-09-14: Direct semantic review confirms import/member mapping, last-admin constraint, leave-board effects, bulk-list actions, deletion/archive guidance and notification/privacy scopes. Unmapped-current-user fallback, at-least-one-admin condition, assigned-only visibility and public-view/member-only-edit distinctions preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "quick-access-description",
+    "value": "Marca un taboleiro como favorito para engadir un atallo nesta barra.",
+    "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
+  },
+  {
+    "locale": "gl",
+    "key": "remove-cover",
+    "value": "Eliminar a imaxe de portada da minitarxeta",
+    "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
+  },
+  {
+    "locale": "gl",
+    "key": "remove-from-board",
+    "value": "Eliminar do taboleiro",
+    "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
+  },
+  {
+    "locale": "gl",
+    "key": "remove-label",
+    "value": "Eliminar a etiqueta",
+    "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
+  },
+  {
+    "locale": "gl",
+    "key": "remove-member",
+    "value": "Eliminar o membro",
+    "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
+  },
+  {
+    "locale": "gl",
+    "key": "remove-member-from-card",
+    "value": "Eliminar da tarxeta",
+    "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
+  },
+  {
+    "locale": "gl",
+    "key": "remove-member-pop",
+    "value": "Eliminar a __name__ (__username__) de __boardTitle__? O membro será eliminado de todas as tarxetas deste taboleiro. Recibirá unha notificación.",
+    "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
+  },
+  {
+    "locale": "gl",
+    "key": "removeMemberPopup-title",
+    "value": "Eliminar o membro?",
+    "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
+  },
+  {
+    "locale": "gl",
+    "key": "rename-board",
+    "value": "Renomear o taboleiro",
+    "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
+  },
+  {
+    "locale": "gl",
+    "key": "rescue-card-description",
+    "value": "Mostrar un diálogo de rescate antes de pechar cando a descrición da tarxeta non está gardada",
+    "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
+  },
+  {
+    "locale": "gl",
+    "key": "rescue-card-description-dialogue",
+    "value": "Sobrescribir a descrición actual da tarxeta cos teus cambios?",
+    "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
+  },
+  {
+    "locale": "gl",
+    "key": "search-cards",
+    "value": "Procurar nos títulos, descricións e campos personalizados de tarxetas/listas neste taboleiro",
+    "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
+  },
+  {
+    "locale": "gl",
+    "key": "select-board",
+    "value": "Seleccionar taboleiro",
+    "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
+  },
+  {
+    "locale": "gl",
+    "key": "shortcut-add-self",
+    "value": "Engadirte á tarxeta actual",
+    "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
+  },
+  {
+    "locale": "gl",
+    "key": "shortcut-assign-self",
+    "value": "Asignarte á tarxeta actual",
+    "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
+  },
+  {
+    "locale": "gl",
+    "key": "shortcut-filter-my-cards",
+    "value": "Filtrar as miñas tarxetas",
+    "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
+  },
+  {
+    "locale": "gl",
+    "key": "shortcut-filter-my-assigned-cards",
+    "value": "Filtrar as tarxetas asignadas a min",
+    "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
+  },
+  {
+    "locale": "gl",
+    "key": "shortcut-toggle-sidebar",
+    "value": "Alternar a barra lateral do taboleiro",
+    "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
+  },
+  {
+    "locale": "gl",
+    "key": "show-cards-minimum-count",
+    "value": "Mostrar o reconto de tarxetas se a lista contén máis de",
+    "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
+  },
+  {
+    "locale": "gl",
+    "key": "star-board-title",
+    "value": "Fai clic para destacar este taboleiro. Aparecerá na parte superior da túa lista de taboleiros.",
+    "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
+  },
+  {
+    "locale": "gl",
+    "key": "starred-boards",
+    "value": "Taboleiros destacados",
+    "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
+  },
+  {
+    "locale": "gl",
+    "key": "starred-boards-description",
+    "value": "Os taboleiros destacados aparecen na parte superior da túa lista de taboleiros.",
+    "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
+  },
+  {
+    "locale": "gl",
+    "key": "has-overtime-cards",
+    "value": "Ten tarxetas con horas extra",
+    "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
+  },
+  {
+    "locale": "gl",
+    "key": "has-spenttime-cards",
+    "value": "Ten tarxetas con tempo empregado",
+    "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
+  },
+  {
+    "locale": "gl",
+    "key": "toggle-assignees",
+    "value": "Alternar os asignados 1-9 da tarxeta (por orde de engadido ao taboleiro).",
+    "reason": "2026-09-14: Direct semantic review confirms removal effects/notification, unsaved-description rescue and overwrite, board-scoped search, self-membership versus assignment, favorites and time indicators. All-card removal scope, singular member notification, more-than threshold, 1-9 ordering and exact placeholders retained."
   }
 ]
