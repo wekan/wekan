@@ -23917,3 +23917,14 @@ and 234-locale structural completeness. Browser verification remains open;
 these checks do not establish fluency across the remaining audit.
 Original pending/restored counts remain 288/12. Other palette candidates and
 the wider unflagged review still need individual evidence.
+
+### 2026-09-14 — Breton white palette repair (a123f9428)
+
+Unflagged `color-white` changes from French `blanc` to Breton `gwenn`.
+[OPLB native Meurgorf entry](https://niverel.brezhoneg.bzh/br/meurgorf/15481)
+defines the snow color and provides explicit `liv gwenn` usage. This
+establishes the palette meaning, rather than the word's other figurative
+senses. Focused checks distinguish white from retained gray `gris` and
+silver `arc'hant`; all 18,631 correction records, 4,169 unchanged reviews
+and 234-locale structural completeness pass. Browser verification and the
+wider native-context review remain open. Pending/restored counts stay 288/12.

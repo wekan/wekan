@@ -30,7 +30,7 @@ cross-checks calendar, user and click components in native Moroccan sources.
 Full phrases, warnings and invalidated Tuareg records remain open; no pending
 finding was accepted from component evidence.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,630** exact before/after values, including unflagged repairs.
+contain **18,631** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
@@ -47,12 +47,12 @@ remains open. Latin Inuktitut spelling is valid; original script warnings
 require vocabulary/context review rather than automatic replacement.
 Current pending/restored counts are 288/12.
 
-Latest translation fix: **2026-09-14**, local commit `2a86c331f` —
-Three French Breton palette labels become native dark green, gold and silver.
-Dictionary color senses support the replacements; valid shared Breton `gris`
-is retained. All 18,630 corrections and focused translation checks pass.
-Pending/restored counts remain 288/12; broader native and browser review
-remain open. Earlier common-control repairs are in `092678576`.
+Latest translation fix: **2026-09-14**, local commit `a123f9428` —
+Breton white replaces French blanc with dictionary-attested gwenn. Focused
+checks distinguish white from gray and silver and verify all 18,631 repairs.
+The previous three palette repairs and retained native gris are in
+`2a86c331f`. Pending/restored counts remain 288/12; broader native and
+browser review remain open. Earlier controls are in `092678576`.
 Latest unchanged review: **2026-09-14**, local commit `a0aacc7a9` —
 Silesian raw MongoDB 3 files retains native shared vocabulary, resolving its
 last flagged finding. All 4,169 unchanged reviews and focused translation

@@ -738,6 +738,15 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a123f9428">Repair Breton white color label</a>. Thanks to xet7.</summary>
+
+White uses native gwenn, with focused checks distinguishing gray and silver.
+The dated audit records dictionary evidence and passing translation checks;
+broader language and browser verification remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2a86c331f">Repair Breton palette color names</a>. Thanks to xet7.</summary>
 
 Dark green, gold and silver use dictionary-attested Breton color meanings.
