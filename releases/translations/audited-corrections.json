@@ -126215,5 +126215,12 @@
     "before": "Cliquez sur les cases à cocher pour sélectionner les tableaux",
     "after": "ⵙⵙⵉⵜ ⵖⴼ ⵜⴼⵏⵉⵇⵉⵏ ⵏ ⵓⵙⵜⵉ ⴰⴼⴰⴷ ⴰⴷ ⵜⵙⵜⵉⴷ ⵜⵉⴼⵍⵡⵉⵡⵉⵏ.",
     "reason": "2026-09-14: Replace French checkbox instruction with Standard Moroccan Tamazight. Native MediaWiki tooltip-invert/tooltip-namespace_association directly attest checkbox Box tafniqt and selected tstid: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve clicking CHECKBOXES to SELECT BOARDS, not merely clicking board icons to open them. Checkbox Selection Box compound, derived plural/bound form, click verb reused locally, purpose clause and full sentence remain LOW CONFIDENCE; components are not independent proof of the whole phrase."
+  },
+  {
+    "locale": "zgh",
+    "key": "home",
+    "before": "الرئيسية",
+    "after": "ⴰⵙⵏⵓⴱⴳ",
+    "reason": "2026-09-14: Replace Arabic Home with directly attested Standard Moroccan Tamazight Home. Native Mastodon column.home: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . MediaWiki mainpage/tooltip-n-mainpage corroborate the bound Home component: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . This is an exact standalone native UI label, not proof of full home-header restore instruction; close-board-pop remains pending."
   }
 ]
