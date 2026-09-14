@@ -633,10 +633,11 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** Esperanto scheduled-job and migration labels retain their
-correct meanings. Resume, retry and unlock messages distinguish successful
-operations from failures and paused work. Remaining ambiguous terminology
-and broader language and browser verification stay under review.
+**In short:** **Release notes** now contain only changelog content, keeping
+binary provenance in build artifacts. **Translations** preserve correct
+Esperanto and Galician wording while repairing automation date meanings
+and literal navigation help. Broader language and browser validation remains
+under review.
 
 This release includes the following translation review:
 
@@ -873,6 +874,21 @@ pass; broader language and browser verification remain open.
 Retain 39 correct values. Preserve boolean search logic, absence checks,
 positive limits, deletion constraints, checklist order and legal agreement.
 Review checks pass; field-context and browser validation remain open.
+
+</details>
+
+and improves the following developer tooling:
+
+**Release workflow** - Changelog-only release notes.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ccfceb7b7">Exclude binary provenance tables from release notes</a>. Thanks to xet7.</summary>
+
+Initial and refreshed release notes contain only the selected changelog
+section. Keep checksum verification and provenance build artifacts separately.
+Update build.sh, build.bat, release-all.sh and repository instructions.
+Release-note, binary-source, menu-parity and shell syntax checks pass.
+No release was published; native Windows execution was not tested.
 
 </details>
 
