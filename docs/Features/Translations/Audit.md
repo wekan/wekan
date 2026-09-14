@@ -16,6 +16,12 @@ Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calenda
 
 Latest translation fix: **2026-09-14**, local commit `ee5f6301f` — clarified field-history deletion scope by repeating the future Delete predicate before ITS HISTORY. Preserve NO UNDO and field removal FROM ALL CARDS. Original counts and **18,086** correction records unchanged; full grammar remains **low confidence**. Correction checks pass; **329** findings remain pending across **17** locales, including **194** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
+**Format review (2026-09-14):** indexed HACA terminology supports a native
+Format noun candidate; direct PDF retrieval failed. Full placeholder wording
+remains pending, with `%{value}` unchanged. Separator HTML space entities
+must also remain literal. [Evidence](Audit-Evidence.md) records the limits;
+values and counts are unchanged.
+
 **Archive noun review (2026-09-14, `fbe388603`):** directly inspected a native Archives du Maroc logo in a university PDF, corroborating the archive noun beyond the earlier search-index excerpt. Updated nine provenance records; values/counts unchanged. Institutional-to-kanban adaptation and full labels remain low confidence. [Evidence](Audit-Evidence.md) records the exact source and scope.
 
 **Logo provenance review (2026-09-14, `89f36d41f`):** applied the inspected dictionary’s cross-variety preface to two earlier logo URL records. Separate native caption usage remains; full labels stay low confidence. No values/counts changed. [Evidence](Audit-Evidence.md) records the authority limits.

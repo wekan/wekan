@@ -1,5 +1,16 @@
 # Detailed translation audit evidence
 
+2026-09-14 — custom-format terminology review: the search-index excerpt of
+[HACA Lexique, entry 461, printed page 72](https://biblio.ircam.ma/pmb/uploads/publications/197.pdf)
+aligns native `ⵜⴰⵍⵖⴰ` with French and English Format. Direct PDF access
+returned HTTP 502; the document was not visually inspected. This establishes
+an indexed noun candidate only, not the full software instruction “use
+%{value} as placeholder”. Keep `custom-field-stringtemplate-format` pending
+until the entire instruction is repaired, preserving `%{value}` exactly.
+The separator instruction must separately retain `&#32;` and `&nbsp;` as
+literal HTML space syntax; a Tifinagh word separator is not a replacement.
+No locale values, correction records or progress counts changed.
+
 2026-09-14 — `ee5f6301f`: field deletion warning scope refined. Repeat future Delete predicate before ITS HISTORY to prevent attachment to FROM ALL CARDS phrase. Preserve no undo and original French before-value. All 18,086 correction checks pass; original counts unchanged. Full coordination still requires language validation.
 
 2026-09-14 — `1b8797450`: custom-field definition deletion warning repaired. Native MediaWiki no-undo, Removed, All and History support components. Preserve no undo, this field removed from all cards and its history destroyed (paraphrased Delete History), distinct from unsetting one card value. Future actor, coordination and full warning remain low confidence. All 18,086 correction checks pass; 329 original findings remain pending, including 194 Tamazight.
