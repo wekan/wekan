@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,560 corrected, 2,028 restored pre-pull values awaiting
-validation, 2,185 reviewed and retained, and 308 pending review or repair.
+findings: 15,560 corrected, 2,003 restored pre-pull values awaiting
+validation, 2,210 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,156 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
@@ -108,8 +108,8 @@ changes are implemented in local commit 02383521a; translation repairs have
 resumed.
 Latest translation fix/review is 9b6b1ffe6 (2026-09-14): three Esperanto
 overtime-work labels clarified.
-Latest unchanged-value review is 0d2e977d9 (2026-09-14): 25 Galician
-activity values retained; three uncertain Esperanto findings remain.
+Latest unchanged-value review is b82f539a4 (2026-09-14): 25 Galician
+membership/movement and checklist activity values retained.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
 Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
 retaining 156 correct Danish storage, migration and monitoring/account labels.
@@ -745,6 +745,15 @@ and LibreOffice terminology. Review checks pass; broader review stays open.
 Retain 25 correct activity translations. Preserve action distinctions,
 object relationships and exact placeholders. Review checks pass; broader
 language and browser verification remains open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b82f539a4">Validate Galician membership and card-movement activities</a>. Thanks to xet7.</summary>
+
+Retain 25 correct activity translations. Preserve movement direction,
+old/new object references and checklist states. Review checks pass;
+broader language and browser verification remains open.
 
 </details>
 

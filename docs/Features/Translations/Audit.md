@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,560 |
-| Restored pre-pull; awaiting validation | 2,028 |
-| Reviewed; retained unchanged | 2,185 |
+| Restored pre-pull; awaiting validation | 2,003 |
+| Reviewed; retained unchanged | 2,210 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
@@ -18,7 +18,8 @@ source references, confidence limits and archived progress notes.
 Latest translation fix: **2026-09-14**, local commit `9b6b1ffe6` —
 clarified three Esperanto overtime-work labels for manually classified work
 hours. All **18,156** correction records pass. Latest unchanged review:
-`0d2e977d9` (2026-09-14), 25 Galician activities retained. Three Esperanto
+`b82f539a4` (2026-09-14), 25 Galician membership/movement and checklist
+activities retained. Three Esperanto
 restored findings remain: lime color and two Complete labels. Broader
 terminology/fluency and browser verification remain open; nothing pushed.
 

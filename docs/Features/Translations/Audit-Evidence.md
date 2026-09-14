@@ -21876,3 +21876,13 @@ and marcado/desmarcado distinctions preserve their actions; object
 relationships and placeholders remain intact. All 2,185 reviews pass;
 2,028 restored values and 308 pending findings plus broader language and
 browser verification remain open. Three uncertain Esperanto findings remain.
+
+
+### Galician membership and movement activities — 2026-09-14
+
+Local commit `b82f539a4` retains twenty-five correct membership,
+archive/import/restore, card-movement and checklist activity values.
+Old/new lists, lanes and boards retain source/destination direction;
+checked/unchecked and complete/reopened states remain distinct. Exact
+interpolation retained. All 2,210 reviews pass; 2,003 restored values and
+308 pending findings plus wider language/browser verification remain open.
