@@ -22019,3 +22019,17 @@ created/modified day thresholds and archived/end-date distinctions.
 Review checks pass: 15,561 corrected, 1,660 restored awaiting validation,
 2,552 reviewed unchanged and 308 pending. Contextual rule agreement,
 broader language review and browser validation remain open; nothing pushed.
+
+
+### 2026-09-14 — Galician search predicates and checklist instructions
+
+Local commit `f22aeb7bc` retains 39 directly reviewed values unchanged.
+Search help preserves absence, positive per-page limits, OR/AND logic,
+case insensitivity, archive defaults and literal examples. Deletion warnings
+retain at-least-one membership constraints. Checklist copy/move and
+one-line-per-item original order remain distinct. Legal acceptance noso
+agrees with aviso legal in layouts.jade. Card-show-lists remains unaccepted
+pending field-context inspection; attachment grammar remains open.
+Review checks pass: 15,561 corrected, 1,621 restored awaiting validation,
+2,591 reviewed unchanged and 308 pending. Broader language and browser
+validation remain open. Nothing pushed.
