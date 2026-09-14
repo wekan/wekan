@@ -276,3 +276,8 @@ assert.doesNotMatch(locales.br['color-darkgreen'], /vert|sklaer/);
 assert.doesNotMatch(locales.br['color-gold'], /^or$/);
 assert.doesNotMatch(locales.br['color-silver'], /^argent$/);
 assert.equal(new Set(['darkgreen', 'gold', 'silver', 'gray'].map(color => locales.br['color-' + color])).size, 4);
+
+assert.equal(locales.br['color-white'], 'gwenn');
+assert.doesNotMatch(locales.br['color-white'], /blanc|gris|arc'hant/);
+assert.notEqual(locales.br['color-white'], locales.br['color-gray']);
+assert.notEqual(locales.br['color-white'], locales.br['color-silver']);

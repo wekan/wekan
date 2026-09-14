@@ -130408,5 +130408,12 @@
     "before": "argent",
     "after": "arc'hant",
     "reason": "Native OPLB Meurgorf explicitly attests this color meaning; replace French palette wording."
+  },
+  {
+    "locale": "br",
+    "key": "color-white",
+    "before": "blanc",
+    "after": "gwenn",
+    "reason": "Replace French with OPLB Meurgorf native white color definition and explicit liv gwenn usage."
   }
 ]
