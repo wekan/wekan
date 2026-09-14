@@ -28,16 +28,17 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,596** exact before/after values, including unflagged repairs.
+contain **18,600** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `7c2e8f891` —
-three Breton repository labels replace French name/create/not-found wording.
-Native Synaptic software terminology supports the repository noun; full
-adapted phrases and browser review remain open. All **18,596** corrections,
-**4,167** unchanged reviews, focused locale and completeness checks pass.
-These unflagged repairs leave 291 pending and 13 restored findings unchanged.
+Latest translation fix: **2026-09-14**, local commit `e3d6a1ace` —
+four Breton modification/access labels replace French prose. Native software
+sources support the modification terms and access noun; the full access-time
+compound remains adapted and needs native wording/browser review. All
+**18,600** corrections, **4,167** unchanged reviews, focused locale and
+completeness checks pass. Unflagged repairs leave 291 pending and 13 restored
+findings unchanged.
 Latest unchanged review: **2026-09-14**, local commit `1439c4c61` —
 Basque checked/unchecked actions retain distinct native temporal phrases,
 with software uncheck terminology and actual generic-item trigger coverage.

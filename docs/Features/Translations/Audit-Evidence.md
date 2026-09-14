@@ -23683,3 +23683,22 @@ This is contextual grammatical review, not exact product-sentence attestation.
 Specific named-item noun/name order remains open; these action reviews do not
 validate that separate fragment or directional add/remove clauses. Four focused
 translation suites pass; browser execution remains unverified.
+
+Breton modification/access repairs — 2026-09-14, local commit `e3d6a1ace`.
+
+Four unflagged French values were replaced: operator-modified and
+predicate-modified become kemmet; last-modified becomes Kemm diwezhañ;
+list-label-modifiedAt becomes Eur ar moned diwezhañ. Its English source is
+Last Access Time despite its legacy modifiedAt key, so it must not become
+a last-modification label.
+[Native MediaWiki Breton software strings](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/br.json)
+attest kemmet in updatedmarker and singular kemm diwezhañ in
+new-messages-diff-link-plural.
+[Ofis computing glossary](https://www.brezhoneg.bzh/uploads/Document/20/798_536_an-urzhiataerezh.pdf)
+attests accès = moned (printed page 2). The existing local Eur supplies the
+clock-time noun; the full access-time compound is adapted, not exactly
+attested as a native software label. Keep that confidence limit open for
+native wording/browser review. Four focused suites pass, including exact
+placeholder and key-order coverage and distinct access/modification meanings.
+No live browser validation was performed. Original pending/restored counts
+remain 291/13; the broader correction ledger now contains 18,600 entries.

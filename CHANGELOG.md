@@ -738,6 +738,16 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e3d6a1ace">Repair Breton modification and access labels</a>. Thanks to xet7.</summary>
+
+Four French values become Breton software labels. Last access time remains
+separate from last modification despite its legacy key name. Focused locale,
+placeholder and completeness checks pass; adapted access wording and browser
+review remain open in the dated translation audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c4db1c19c">Document Basque completion review limits</a>. Thanks to xet7.</summary>
 
 Native references establish completion vocabulary and negation spelling.
