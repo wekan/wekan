@@ -10,7 +10,11 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Pending review or repair | 291 |
 | Total tracked | 20,081 |
 
-Review is ongoing. [Inuktitut calendar review](Inuktitut-Calendar-Review.md)
+Review is ongoing. [Basque rule review](Basque-Review.md) records native
+completion/negation evidence and a runtime completion/incompletion predicate
+mismatch. The two completion phrases remain open; no findings were accepted
+from spelling evidence alone.
+[Inuktitut calendar review](Inuktitut-Calendar-Review.md)
 records primary evidence for the calendar noun, the actual settings context,
 and why a complete calendar-system/date-display phrase is still unverified.
 No calendar findings were accepted from incomplete component-word evidence.
