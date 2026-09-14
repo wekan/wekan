@@ -130786,5 +130786,12 @@
     "before": "Hebrew",
     "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ⴰⵄⵉⴱⵔⵉ",
     "reason": "Replace English Hebrew calendar label with native calendar noun and Hebrew adjective attested in native Moroccan Safi article revision 156843. Full calendar compound adapted, low confidence pending broader native/browser review."
+  },
+  {
+    "locale": "zgh",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ⴰⵏⴰⵎⵓⵔ ⵏ ⵍⵀⵉⵏⴷ",
+    "reason": "Replace English Indian national calendar with adapted Moroccan calendar/national/of India wording. CLDR supports calendar and India, Moroccan dictionary supports national adjective. Low confidence full calendar naming remains under broader native/browser review."
   }
 ]
