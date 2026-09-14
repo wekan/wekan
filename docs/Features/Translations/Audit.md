@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,326 |
+| Corrected | 15,327 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 518 |
+| Pending review or repair | 517 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,639** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,640** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `5c05043e0` — replaced the Arabic Tamazight OS total-memory diagnostic label. Preserve the OS acronym and total computer memory scope. Native total vocabulary and Moroccan computing memory terminology support components; complete diagnostic wording and Standard Moroccan adaptation remain **low confidence** pending fluent review. All **17,639** correction/rendering checks pass. **518** originals remain pending across **17** locales, including **380** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `688b99c26` — replaced the French Tamazight card-creator display setting. Native MediaWiki supports display and creator-of-page terminology; creator ownership and existing terminology are preserved. Full card-label adaptation remains **low confidence** pending fluent review. All **17,640** correction/rendering checks pass. **517** originals remain pending across **17** locales, including **379** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Tamazight open-command review (2026-09-14):** [IRCAM’s generative grammar](https://www.ircam.ma/sites/default/files/2024-12/grammaire-generative-de-amazighe.pdf), printed page 36, gives a transitive open-door example; the indexed [children’s poems](https://biblio.ircam.ma/pmb/uploads/publications/224.pdf), printed page 44, give imperative `ⵕⵥⵎ` in an open-your-heart expression. These strengthen verb evidence, but the poem spelling differs from MediaWiki’s `ⵔⵥⵎ` root and full PDF retrieval failed certificate verification. Keep native spelling, imperative-to-software adaptation and the complete bulk-opening phrase under review. No values or counts changed; indexed examples do not prove full language validation.
 
