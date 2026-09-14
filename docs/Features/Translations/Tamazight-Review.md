@@ -2578,3 +2578,23 @@ French checks, placeholders, JSON examples, order and human preference.
 No live browser test ran. Ledger 19,805; original pending 195 (zgh 100),
 restored 4 unchanged. All eight repairs were unflagged; broader uncertain,
 restored and unflagged review remains open. No push.
+
+## Unsaved-description rescue setting — 2026-09-15
+
+Local commit `c9f033fe3` replaces French rescue-card-description with a
+Tamazight draft retaining rescue dialogue before closing an unsaved card
+description. The cached full IRCAM dictionary, page 152 entry 2806,
+attests amsawal dialogue. Existing show, restore, close, card-description
+and not-yet-saved terms are reused. A fresh browser fetch of the dictionary
+failed because the PDF exceeds the tool's size limit; the cached full
+source supplied the entry, rather than relying on the index.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+**Low confidence:** the software-dialogue metaphor, before-closing temporal
+construction and agreement remain under native review. userHeader.jade
+registers the setting label; cardDetails.js uses its separate rescue prompt.
+Four focused suites pass for scope, timing, negative French checks,
+registration, placeholders, key order and human preference. No live browser
+test ran. Ledger 19,806; original corrected 15,709, pending 194 (zgh 99),
+restored 4 unchanged. Broader uncertain/restored/unflagged review remains
+open. No push.

@@ -661,6 +661,18 @@ The browser assertion accepts whitespace between the regional flag and name.
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c9f033fe3">Repair Tamazight unsaved-description rescue setting</a></summary>
+
+Replace French setting text, retaining rescue dialogue before closing and
+unsaved card-description scope. Four focused suites pass. Dated audit:
+19,806 corrections, 194 original findings pending; complete contextual
+grammar remains under native review.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d9bcfcd2f">Repair Tamazight rule destinations and member fragments</a></summary>
 
 Replace eight French fragments using existing Tamazight terms. Preserve
