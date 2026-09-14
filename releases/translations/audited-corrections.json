@@ -126320,5 +126320,12 @@
     "before": "Vous serez notifié de toute modification dans ce tableau",
     "after": "ⵔⴰⴷ ⴰⴽ ⵜⵜⵓⵢⴰⵣⴰⵏⵏⵜ ⵜⵉⵏⵖⵎⵉⵙⵉⵏ ⵖⴼ ⴽⵓ ⴰⵙⵏⴼⵍ ⴳ ⵜⴼⵍⵡⵉⵜ ⴰⴷ.",
     "reason": "2026-09-14: Replace French watcher explanation with Standard Moroccan Tamazight. Native Mastodon column.notifications directly supplies Notifications: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Native MediaWiki statistics-edits-average attests Each ku, resetpass-temp-emailed Sent To You component, and local board terms retained: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve future YOU notification for ANY change in THIS BOARD; no specific email channel added. Notify paraphrased as Notifications Sent To You; derived feminine plural passive, future/each construction and full grammar remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "worker-desc",
+    "before": "Peut seulement déplacer des cartes, s'assigner à une carte et la commenter.",
+    "after": "ⵜⵥⴹⴰⵕⴷ ⵖⴰⵙ ⴰⴷ ⵜⵙⵎⵓⵜⵜⵉⴷ ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ, ⴰⴷ ⵜⴼⴽⴷ ⵜⴰⴽⴰⵔⴹⴰ ⵉ ⵉⵅⴼ ⵏⵏⴽ ⴷ ⴰⴷ ⵜⵔⵏⵓⴷ ⴰⵖⴼⴰⵡⴰⵍ.",
+    "reason": "2026-09-14: Replace French worker-role description. Native MediaWiki search-ignored-headings supports Can, linkstoimage-more Only ghas, move Move, filehist-comment Comment and resetpass-temp-emailed Give tfkd: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Native Mastodon compose_form.placeholder supports your self/head component ikhf nnk: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Preserve ONLY three permissions: MOVE cards, SELF-assignment to card, COMMENT; do not introduce title/content editing, settings or assignment to others. Give Card To Yourself is assignment paraphrase, not independently attested reflexive assignment. Full coordinated grammar and self-assignment adaptation remain LOW CONFIDENCE."
   }
 ]
