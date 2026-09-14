@@ -121692,6 +121692,6 @@
     "key": "setSelectionColorPopup-title",
     "before": "Définir la couleur de sélection",
     "after": "ⵙⵜⵉ ⴰⴽⵍⵓ ⵏ ⵓⵙⵜⵉ",
-    "reason": "Replace French. Native MediaWiki rcfilters-highlightmenu-title attests sti/select and uklu/bound color; derive free aklu after the command. Invert attests asti/selection, using derived bound usti after n/of. Preserve color of current selection, not label creation or a card background color. LOW CONFIDENCE complete selection-color genitive phrase and derived noun forms; component references do not validate full wording. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+    "reason": "Replace French. Native MediaWiki rcfilters-highlightmenu-title attests sti/select and uklu/bound color; derive free aklu after the command. Invert attests asti/selection, using derived bound usti after n/of. Actual setSelectionColorPopup applies card.setColor to every selected card. Preserve color of the selected cards, not label creation or a text-selection highlight. LOW CONFIDENCE complete selection-color genitive phrase and derived noun forms; component references do not validate full wording. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]

@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,163 |
+| Corrected | 15,164 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 681 |
+| Pending review or repair | 680 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,382** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,385** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `b26874b0c` — replaced three French Tamazight field-display/new-card/all-card settings and the Arabic custom-field date popup title. New-card and all-card scopes remain distinct. Native components are reference-supported; software-field usage, complete phrases and derived card forms remain **low confidence** pending fluent review. All **17,382** correction/rendering checks pass. Three original and one unflagged value are repaired: **681** originals remain pending across **17** locales, including **538** Tamazight. Earlier composed wording and restored/unflagged values still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `fc83a72dc` — replaced French Tamazight dropdown-options, unknown-value and selected-card-color labels. Unknown remains distinct from no selection; the color popup applies to selected cards. Native components are reference-supported; full phrases, derived noun forms and dropdown-choice sense remain **low confidence** pending fluent review. All **17,385** correction/rendering checks pass. One original and two unflagged values are repaired: **680** originals remain pending across **17** locales, including **537** Tamazight. Earlier composed wording and restored/unflagged values still need validation. Live browser verification was not run; no translations were pushed.
 
 **Checklist reference review (2026-09-14):** the candidate [computing lexicon](https://www.fichier-pdf.fr/2014/08/31/lexique-informatique/) labels `asenqed` (check/control) **KBL**. Its indexed entry does not establish Standard Moroccan checklist usage; the full file could not be fetched. Existing schwa-heavy checklist strings and full confirmation wording remain pending terminology and dialect review. No blanket retention or replacement is justified by this reference.
 
